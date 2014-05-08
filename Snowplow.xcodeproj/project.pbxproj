@@ -16,6 +16,8 @@
 		AB0C27D5191B408200018557 /* libSnowplow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27BD191B408200018557 /* libSnowplow.a */; };
 		AB0C27DB191B408200018557 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0C27D9191B408200018557 /* InfoPlist.strings */; };
 		AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27DC191B408200018557 /* SnowplowTests.m */; };
+		AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SnowplowRequest.m */; };
+		AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SnowplowRequest.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */,
 				AB0C27C6191B408200018557 /* Snowplow.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -53,6 +56,8 @@
 		AB0C27D8191B408200018557 /* SnowplowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SnowplowTests-Info.plist"; sourceTree = "<group>"; };
 		AB0C27DA191B408200018557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AB0C27DC191B408200018557 /* SnowplowTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnowplowTests.m; sourceTree = "<group>"; };
+		AB0C27E9191B43D600018557 /* SnowplowRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowRequest.h; sourceTree = "<group>"; };
+		AB0C27EA191B43D600018557 /* SnowplowRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +118,8 @@
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				AB0C27C7191B408200018557 /* Snowplow.m */,
 				AB0C27C3191B408200018557 /* Supporting Files */,
+				AB0C27E9191B43D600018557 /* SnowplowRequest.h */,
+				AB0C27EA191B43D600018557 /* SnowplowRequest.m */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -224,6 +231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */,
 				AB0C27C8191B408200018557 /* Snowplow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
