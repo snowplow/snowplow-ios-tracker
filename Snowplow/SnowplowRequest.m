@@ -21,6 +21,8 @@
 }
 
 - (void)dealloc {
+    [self.connection cancel];
+    
     self.url = nil;
     self.connection = nil;
     self.response = nil;
@@ -40,9 +42,6 @@
     [self.urlRequest setValue:@"application/json" forHTTPHeaderField:@"content-type"];
 
     self.connection = [[NSURLConnection alloc] initWithRequest:self.urlRequest delegate:self];
-    
-    [self.connection cancel];
-
 }
 
 @end
