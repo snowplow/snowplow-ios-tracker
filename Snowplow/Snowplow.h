@@ -11,4 +11,10 @@
 
 @interface Snowplow : NSObject
 
+@property (nonatomic, strong) SnowplowRequest *requestHandler;
+
+- (id) initWithURLString:(NSString *) url;
+
+- (void) sendEvent:(NSDictionary *) data;
+
 @end

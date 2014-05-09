@@ -10,4 +10,18 @@
 
 @implementation Snowplow
 
+- (id) initWithURLString:(NSString *) url {
+    self = [super init];
+    if(self) {
+        self.requestHandler = [[SnowplowRequest alloc] initWithURLRequest:[[NSURL alloc] initWithString:url] withHTTPMethod:@"POST"];
+    }
+    
+    return self;
+}
+
+// TODO: Remove
+- (void) sendEvent:(NSDictionary *) data {
+    [self.requestHandler sendRequest:data];
+}
+
 @end

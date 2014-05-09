@@ -16,5 +16,10 @@
 @property (nonatomic) id responseJSON;
 @property (nonatomic) NSMutableURLRequest *urlRequest;
 @property (nonatomic) NSError *error;
+@property (nonatomic) NSString *httpMethod;
+
+- (id) initWithURLRequest:(NSURL *) url withHTTPMethod:(NSString* ) method;
+
+- (void) sendRequest:(NSDictionary *) data;
 
 @end

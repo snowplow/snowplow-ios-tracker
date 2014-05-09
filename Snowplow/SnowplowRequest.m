@@ -10,10 +10,12 @@
 
 @implementation SnowplowRequest
 
-- (id)initWithURLRequest:(NSURL *) url {
+- (id)initWithURLRequest:(NSURL *)url withHTTPMethod:(NSString* )method {
     self = [super init];
     if(self) {
+        self.urlRequest = [[NSMutableURLRequest alloc] init];
         self.url = url;
+        self.httpMethod = method;
     }
     return self;
 }
@@ -26,12 +28,14 @@
     self.error = nil;
 }
 
-- (void)sendRequest:(NSDictionary *) data {
+- (void)sendRequest:(NSDictionary *)data {
     NSError *error = nil;
     NSData *postData = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
 
+    NSLog(@"postData: %@", @[[[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]]);
+    NSLog(@"url: %@", self.url);
     [self.urlRequest setURL:self.url];
-    [self.urlRequest setHTTPMethod:@"POST"];
+    [self.urlRequest setHTTPMethod:self.httpMethod];
     [self.urlRequest setHTTPBody:postData];
     [self.urlRequest setValue:@"application/json" forHTTPHeaderField:@"content-type"];
 
