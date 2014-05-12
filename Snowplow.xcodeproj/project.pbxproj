@@ -20,6 +20,7 @@
 		AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SnowplowRequest.h */; };
 		AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
 		AB0C27FB191D394F00018557 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27FA191D394F00018557 /* Base64.m */; };
+		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		AB0C27F4191C67CD00018557 /* SnowplowPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowPayload.m; sourceTree = "<group>"; };
 		AB0C27F9191D394F00018557 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
 		AB0C27FA191D394F00018557 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				AB0C27DC191B408200018557 /* SnowplowTests.m */,
 				AB0C27D7191B408200018557 /* Supporting Files */,
+				ABFCC36D1921016200FAE8FE /* TestPayload.m */,
 			);
 			path = SnowplowTests;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */,
 				AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -354,6 +358,7 @@
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.1;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -366,6 +371,7 @@
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos7.1;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
