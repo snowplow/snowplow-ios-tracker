@@ -13,7 +13,7 @@
 - (id) init {
     self = [super init];
     if(self) {
-        self.payload = nil;
+        self.payload = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -26,7 +26,7 @@
     return self;
 }
 
-- (void) addToPayload:(NSString *)value :(NSString *)key {
+- (void) addValueToPayload:(NSString *)value withKey:(NSString *)key {
     [self.payload setObject:value forKey:key];
 }
 
@@ -63,9 +63,9 @@
                 
                 NSLog(@"Using 3PD encoding: %@", encodedString);
             }
-            [self addToPayload:encodedString :typeEncoded];
+            [self addValueToPayload:encodedString withKey:typeEncoded];
         } else {
-            [self addToPayload:result :typeNotEncoded];
+            [self addValueToPayload:result withKey:typeNotEncoded];
         }
     } // else handle a bad name-value pair even though it passes JSONSerialization?
     

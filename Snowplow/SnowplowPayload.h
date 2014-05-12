@@ -17,7 +17,7 @@
 
 - (id) initWithNSDictionary:(NSDictionary *)dict;
 
-- (void) addToPayload:(NSString *)value :(NSString *)key;
+- (void) addValueToPayload:(NSString *)value withKey:(NSString *)key;
 
 - (void) addDictionaryToPayload:(NSDictionary *)dict;
 
