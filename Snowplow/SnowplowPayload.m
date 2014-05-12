@@ -34,7 +34,7 @@
     [self.payload addEntriesFromDictionary:dict];
 }
 
-- (NSError *) addJsonToPayload:(NSData *)json
+- (void) addJsonToPayload:(NSData *)json
                  base64Encoded:(Boolean)encode
                typeWhenEncoded:(NSString *)typeEncoded
             typeWhenNotEncoded:(NSString *)typeNotEncoded {
@@ -43,7 +43,8 @@
     id object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     
     if (error) {
-        return error;
+        NSLog(@"addJsonToPayload: error: %@", error.localizedDescription);
+        return;
     }
     
     if([object isKindOfClass:[NSDictionary class]]) {
@@ -68,8 +69,6 @@
             [self addValueToPayload:result withKey:typeNotEncoded];
         }
     } // else handle a bad name-value pair even though it passes JSONSerialization?
-    
-    return nil;
 }
 
 - (NSDictionary *) getPayload {

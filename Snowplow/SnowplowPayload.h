@@ -21,7 +21,7 @@
 
 - (void) addDictionaryToPayload:(NSDictionary *)dict;
 
-- (NSError *) addJsonToPayload: (NSData *)json
+- (void) addJsonToPayload: (NSData *)json
                  base64Encoded: (Boolean)encode
                typeWhenEncoded: (NSString *)typeEncoded
             typeWhenNotEncoded: (NSString *)typeNotEncoded;
