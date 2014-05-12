@@ -114,4 +114,52 @@
                           @"Payload should have the same data as sample_dict_final");
 }
 
+- (void)testAddDictToPayload
+{
+    NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"Value1", @"Key1", nil];
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    [sample_payload addDictionaryToPayload:sample_dic];
+    
+    XCTAssertEqualObjects(sample_payload.payload,
+                          sample_dic,
+                          @"Payload should contain the exact same contents added from sample_dic");
+}
+
+- (void)testAddDictToPayload2
+{
+    NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"Value1", @"Key1", nil];
+    NSDictionary *sample_dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"Value2", @"Key2", nil];
+    NSDictionary *sample_dict_final = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                       @"Value1", @"Key1",
+                                       @"Value2", @"Key2", nil];
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dic];
+    [sample_payload addDictionaryToPayload:sample_dic2];
+    
+    XCTAssertEqualObjects(sample_payload.payload,
+                          sample_dict_final,
+                          @"Payload should contain the exact same contents added from sample_dic_final");
+}
+
+- (void)testGetPayload
+{
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    
+    XCTAssertEqualObjects(sample_payload.getPayload,
+                          [[NSDictionary alloc] init],
+                          @"Payload should be initialized to an empty dictionary");
+}
+
+- (void)testGetPayload2
+{
+    NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:@"Value1", @"Key1", nil];
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:@{@"Key1": @"Value1"}];
+    
+    XCTAssertEqualObjects(sample_payload.getPayload,
+                          sample_dict,
+                          @"Payload should be initialized to an empty dictionary");
+}
+
 @end
