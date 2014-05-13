@@ -137,10 +137,86 @@
                                        @"Value2", @"Key2", nil];
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dic];
     [sample_payload addDictionaryToPayload:sample_dic2];
-    
+
     XCTAssertEqualObjects(sample_payload.payload,
                           sample_dict_final,
                           @"Payload should contain the exact same contents added from sample_dic_final");
+}
+
+- (void)testJsonToPayload
+{
+    // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
+
+    NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"Value1", @"Key1", nil];
+    NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"eyJLZXkxIjoiVmFsdWUxIn0=", @"type_enc", nil];
+    // NSDictionary conversion to JSON string
+    NSData *somedata = [NSJSONSerialization dataWithJSONObject:sample_dic options:0 error:0];
+    
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    [sample_payload addJsonToPayload:somedata base64Encoded:true
+                     typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
+    
+    XCTAssertEqualObjects(sample_payload.payload,
+                          sample_enc,
+                          @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
+}
+
+- (void)testJsonToPayload2
+{
+    // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
+
+    NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"Value1", @"Key1", nil];
+    NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"{\"Key1\":\"Value1\"}", @"type_notenc", nil];
+    // NSDictionary conversion to JSON string
+    NSData *somedata = [NSJSONSerialization dataWithJSONObject:sample_dic options:0 error:0];
+    
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    [sample_payload addJsonToPayload:somedata base64Encoded:false
+                     typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
+    
+    XCTAssertEqualObjects(sample_payload.payload,
+                          sample_enc,
+                          @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
+}
+
+- (void)testJsonStringToPayload
+{
+    // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
+
+    NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"{\"Key1\":\"Value1\"}", @"type_notenc", nil];
+    NSString *json_str = @"{\"Key1\":\"Value1\"}";
+    
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    [sample_payload addJsonStringToPayload:json_str base64Encoded:false
+                           typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
+    
+    
+    XCTAssertEqualObjects(sample_payload.payload,
+                          sample_enc,
+                          @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
+}
+
+- (void)testJsonStringToPayload2
+{
+    // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
+
+    NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"eyJLZXkxIjoiVmFsdWUxIn0=", @"type_enc", nil];
+    NSString *json_str = @"{\"Key1\":\"Value1\"}";
+    
+    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    [sample_payload addJsonStringToPayload:json_str base64Encoded:true
+                           typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
+    
+    
+    XCTAssertEqualObjects(sample_payload.payload,
+                          sample_enc,
+                          @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
 
 - (void)testGetPayload
