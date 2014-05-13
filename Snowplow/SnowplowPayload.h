@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Base64.h"
 
 @interface SnowplowPayload : NSObject
 
@@ -22,9 +21,14 @@
 - (void) addDictionaryToPayload:(NSDictionary *)dict;
 
 - (void) addJsonToPayload: (NSData *)json
-                 base64Encoded: (Boolean)encode
-               typeWhenEncoded: (NSString *)typeEncoded
-            typeWhenNotEncoded: (NSString *)typeNotEncoded;
+            base64Encoded: (Boolean)encode
+          typeWhenEncoded: (NSString *)typeEncoded
+       typeWhenNotEncoded: (NSString *)typeNotEncoded;
+
+- (void) addJsonStringToPayload: (NSString *)json
+                  base64Encoded: (Boolean)encode
+                typeWhenEncoded: (NSString *)typeEncoded
+             typeWhenNotEncoded: (NSString *)typeNotEncoded;
 
 - (NSDictionary *) getPayload;
 
