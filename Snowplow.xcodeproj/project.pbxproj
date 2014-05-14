@@ -20,6 +20,9 @@
 		AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SnowplowRequest.h */; };
 		AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
+		ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
+		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
+		ABFCC37A19233F2F00FAE8FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFCC37919233F2F00FAE8FE /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,10 @@
 		AB0C27F3191C67CD00018557 /* SnowplowPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowPayload.h; sourceTree = "<group>"; };
 		AB0C27F4191C67CD00018557 /* SnowplowPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowPayload.m; sourceTree = "<group>"; };
 		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
+		ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowUtils.h; sourceTree = "<group>"; };
+		ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowUtils.m; sourceTree = "<group>"; };
+		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
+		ABFCC37919233F2F00FAE8FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABFCC37A19233F2F00FAE8FE /* UIKit.framework in Frameworks */,
 				AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,6 +118,7 @@
 		AB0C27BF191B408200018557 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				ABFCC37919233F2F00FAE8FE /* UIKit.framework */,
 				AB0C27C0191B408200018557 /* Foundation.framework */,
 				AB0C27CE191B408200018557 /* XCTest.framework */,
 				AB0C27D1191B408200018557 /* UIKit.framework */,
@@ -127,6 +136,8 @@
 				AB0C27EA191B43D600018557 /* SnowplowRequest.m */,
 				AB0C27F3191C67CD00018557 /* SnowplowPayload.h */,
 				AB0C27F4191C67CD00018557 /* SnowplowPayload.m */,
+				ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */,
+				ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -145,6 +156,7 @@
 				AB0C27DC191B408200018557 /* SnowplowTests.m */,
 				AB0C27D7191B408200018557 /* Supporting Files */,
 				ABFCC36D1921016200FAE8FE /* TestPayload.m */,
+				ABFCC377192325FB00FAE8FE /* TestUtils.m */,
 			);
 			path = SnowplowTests;
 			sourceTree = "<group>";
@@ -239,6 +251,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */,
 				AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
 				AB0C27C8191B408200018557 /* Snowplow.m in Sources */,
@@ -251,6 +264,7 @@
 			files = (
 				ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */,
 				AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */,
+				ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
