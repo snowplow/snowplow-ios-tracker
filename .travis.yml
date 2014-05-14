@@ -1,7 +1,15 @@
 language: objective-c
-xcode_scheme: SnowplowTests
+
+install:
+    # - `xctool`, required to build the unit test and documentation targets
+    #   Workaround for https://github.com/travis-ci/travis-ci/issues/2051#issuecomment-40817341
+    - brew update
+    - brew upgrade xctool
+
+xcode_project: Snowplow.xcodeproj
+xcode_scheme: Snowplow
 xcode_sdk:
     - iphonesimulator7.1
-    - iphoneos7.1
-    - iphonesimulator6.1
-    - iphoneos6.1
+    # - iphoneos7.1
+    # - iphonesimulator6.1
+    # - iphoneos6.1
