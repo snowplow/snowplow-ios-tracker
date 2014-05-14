@@ -7,7 +7,7 @@ install:
     - brew upgrade xctool
 
 xcode_project: Snowplow.xcodeproj
-xcode_scheme: Snowplow
+xcode_scheme: SnowplowTests
 xcode_sdk:
     - iphonesimulator7.1
     # - iphoneos7.1
