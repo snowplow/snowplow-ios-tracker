@@ -10,6 +10,6 @@ xcode_project: Snowplow.xcodeproj
 xcode_scheme: SnowplowTests
 xcode_sdk:
     - iphonesimulator7.1
+    - iphonesimulator6.1
     # - iphoneos7.1
-    # - iphonesimulator6.1
     # - iphoneos6.1

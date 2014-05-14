@@ -44,7 +44,7 @@
 {
     SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
     XCTAssertEqualObjects([sample_utils getTimezone],
-                          @"America/Toronto",
+                          [[NSTimeZone systemTimeZone] name],
                           @"Incorrect timezone expected");
 }
 
