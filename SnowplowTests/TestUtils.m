@@ -48,14 +48,16 @@
                           @"Incorrect timezone expected");
 }
 
-- (void)testGetLanguage {
+- (void)testGetLanguage
+{
     SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
     XCTAssertEqualObjects([sample_utils getLanguage],
                           @"en",
                           @"Language retrieved is not the same as 'en'");
 }
 
-- (void)testGetPlatform {
+- (void)testGetPlatform
+{
     // This test is a reminder to add a unit test,
     // if we add some different logic to get the platform
     SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
@@ -64,7 +66,8 @@
                           @"How could this fail?");
 }
 
-- (void)testGetResolution {
+- (void)testGetResolution
+{
     SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
     NSDictionary *sample_res = [sample_utils getResolution];
     NSMutableDictionary *expected_resp = [[NSMutableDictionary alloc] init];
@@ -82,11 +85,23 @@
                           @"Screen size isn't correct. Maybe tested on an iPhone 5?");
 }
 
-- (void)testGetEventId {
+- (void)testGetEventId
+{
+    // Probably an unneccessary test, but this verifies for a proper UUID
     SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    XCTAssertEqual([[sample_utils getEventId] length],
-                   36, // 32 + 4 hypens
-                   @"UUID generated isn't of expected length");
+    NSString *sample_uuid = [sample_utils getEventId];
+
+    // For regex pattern matching to verify if it's of UUID type 4
+    NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
+    NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
+    
+    //NSLog(@"UUID generated: %@", sample_uuid);
+    
+    XCTAssertEqual([matches count], (NSUInteger)1,
+                   @"UUID generated doesn't match the type 4 UUID RFC");
 }
 
 @end
