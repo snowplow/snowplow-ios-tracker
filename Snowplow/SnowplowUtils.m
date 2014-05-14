@@ -34,8 +34,8 @@
     CGFloat screenWidth = mainScreen.size.width;
     CGFloat screenHeight = mainScreen.size.height;
     NSDictionary *res = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"width", [NSString stringWithFormat:@"%.0f", screenWidth],
-                         @"height", [NSString stringWithFormat:@"%.0f", screenHeight],nil];
+                         [NSString stringWithFormat:@"%.0f", screenWidth], @"width",
+                         [NSString stringWithFormat:@"%.0f", screenHeight], @"height", nil];
     return res;
 }
 
