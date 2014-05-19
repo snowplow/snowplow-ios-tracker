@@ -24,16 +24,26 @@
 
 @interface SnowplowRequest : NSObject
 
-@property (nonatomic) NSURL *url;
+@property (nonatomic) NSURL *urlEndpoint;
 @property (nonatomic) NSURLConnection *connection;
 @property (nonatomic) NSHTTPURLResponse *response;
 @property (nonatomic) id responseJSON;
 @property (nonatomic) NSMutableURLRequest *urlRequest;
 @property (nonatomic) NSError *error;
 @property (nonatomic) NSString *httpMethod;
+@property (nonatomic) int bufferTime;
+@property (atomic) NSMutableArray *buffer;
 
-- (id) initWithURLRequest:(NSURL *) url withHTTPMethod:(NSString* ) method;
+//def __init__(self, endpoint, protocol="http", port=None, method="get", buffer_size=None, on_success=None, on_failure=None):
 
-- (void) sendRequest:(NSDictionary *) data;
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method;
+
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time;
+
+- (void) addToBuffer:(NSDictionary *)payload;
+
+- (void) sendPostData:(NSData *)data;
+
+- (void) flushBuffer;
 
 @end

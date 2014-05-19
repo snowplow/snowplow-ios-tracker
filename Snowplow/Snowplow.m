@@ -27,7 +27,7 @@
 - (id) initWithURLString:(NSString *) url {
     self = [super init];
     if(self) {
-        self.requestHandler = [[SnowplowRequest alloc] initWithURLRequest:[[NSURL alloc] initWithString:url] withHTTPMethod:@"POST"];
+        self.requestHandler = [[SnowplowRequest alloc] initWithURLRequest:[[NSURL alloc] initWithString:url] httpMethod:@"POST"];
     }
     
     return self;
@@ -35,7 +35,8 @@
 
 // TODO: Remove
 - (void) sendEvent:(NSDictionary *) data {
-    [self.requestHandler sendRequest:data];
+    NSData *somedata = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
+    [self.requestHandler sendPostData:somedata];
 }
 
 @end

@@ -24,37 +24,79 @@
 
 @implementation SnowplowRequest
 
-- (id)initWithURLRequest:(NSURL *)url withHTTPMethod:(NSString* )method {
+static int const kDefaultBufferTimeout = 60;
+static int const kDefaultBufferSize = 10;
+static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data/jsonschema/1-0-0";
+
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
     self = [super init];
     if(self) {
         self.urlRequest = [[NSMutableURLRequest alloc] init];
-        self.url = url;
+        self.urlEndpoint = url;
         self.httpMethod = method;
+        self.buffer = [[NSMutableArray alloc] init];
+        self.bufferTime = kDefaultBufferTimeout;
     }
     return self;
 }
 
-- (void)dealloc {
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time {
+    self = [super init];
+    if(self) {
+        self.urlRequest = [[NSMutableURLRequest alloc] init];
+        self.urlEndpoint = url;
+        self.bufferTime = buffer_time;
+        self.buffer = [[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
+- (void) dealloc {
     [self.connection cancel];
     
-    self.url = nil;
+    self.urlEndpoint = nil;
     self.connection = nil;
     self.response = nil;
     self.urlRequest = nil;
     self.error = nil;
+    self.buffer = nil;
 }
 
-- (void)sendRequest:(NSDictionary *)data {
-    NSError *error = nil;
-    NSData *postData = [NSJSONSerialization dataWithJSONObject:data options:0 error:&error];
+- (void) addToBuffer:(NSDictionary *)payload {
+    if([self.buffer count] == kDefaultBufferSize)
+        [self flushBuffer];
+    [self.buffer addObject:payload];
+}
 
-    NSLog(@"postData: %@", @[[[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]]);
-    NSLog(@"url: %@", self.url);
-    [self.urlRequest setURL:self.url];
+- (void) flushBuffer {
+    //Empties the buffer and sends the contents to the collector
+    if([self.httpMethod isEqual:@"POST"]) {
+        NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
+        [payload setObject:kPayloadDataSchema forKey:@"schema"];
+        [payload setObject:self.buffer forKey:@"data"];
+        
+        // TESTING ONLY
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
+        NSString *somejson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"Our JSON data:\n%@", somejson);
+        // END OF TESTING
+        
+        [self sendPostData:jsonData];
+    } else if ([self.httpMethod isEqual:@"GET"]) {
+        
+    } else {
+        NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
+    }
+}
+
+- (void) sendPostData:(NSData *)data {
+    NSLog(@"postData: %@", @[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]]);
+    NSLog(@"url: %@", self.urlEndpoint);
+    [self.urlRequest setURL:self.urlEndpoint];
     [self.urlRequest setHTTPMethod:self.httpMethod];
-    [self.urlRequest setHTTPBody:postData];
+    [self.urlRequest setHTTPBody:data];
     [self.urlRequest setValue:@"application/json" forHTTPHeaderField:@"content-type"];
-
+    
     self.connection = [[NSURLConnection alloc] initWithRequest:self.urlRequest delegate:self];
 }
 
