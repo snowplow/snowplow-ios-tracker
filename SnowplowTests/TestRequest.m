@@ -17,7 +17,7 @@ extern NSString * const TEST_SERVER;
 @implementation TestRequest
 
 //NSString *const TEST_SERVER = @"http://localhost:3000/events";
-NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
+NSString *const TEST_SERVER = @"http://segfault.ngrok.com/event";
 
 - (void)setUp
 {
@@ -39,7 +39,7 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
     [sample_event addValueToPayload:@"something" withKey:@"nv"];
     [sample_event addValueToPayload:@"newstuff" withKey:@"pv"];
     
-    [sample_req.buffer addObject:sample_event.payload];
+    [sample_req addPayloadToBuffer:sample_event];
     
     [sample_req flushBuffer];
     sleep(2); //Tests fail to send the message if you don't give it sufficient time

@@ -31,7 +31,7 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
     self = [super init];
     if(self) {
-        self.urlRequest = [[NSMutableURLRequest alloc] init];
+        self.urlRequest = [NSMutableURLRequest requestWithURL:url];
         self.urlEndpoint = url;
         self.httpMethod = method;
         self.buffer = [[NSMutableArray alloc] init];
@@ -43,7 +43,7 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time {
     self = [super init];
     if(self) {
-        self.urlRequest = [[NSMutableURLRequest alloc] init];
+        self.urlRequest = [NSMutableURLRequest requestWithURL:url];
         self.urlEndpoint = url;
         self.bufferTime = buffer_time;
         self.buffer = [[NSMutableArray alloc] init];
@@ -56,9 +56,7 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
     
     self.urlEndpoint = nil;
     self.connection = nil;
-    self.response = nil;
     self.urlRequest = nil;
-    self.error = nil;
     self.buffer = nil;
 }
 
@@ -66,6 +64,13 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
     if([self.buffer count] == kDefaultBufferSize)
         [self flushBuffer];
     [self.buffer addObject:payload];
+}
+
+- (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
+    if([self.buffer count] == kDefaultBufferSize)
+        [self flushBuffer];
+    [self.buffer addObject:spPayload.payload];
+
 }
 
 - (void) flushBuffer {
@@ -81,7 +86,8 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
         NSLog(@"Our JSON data:\n%@", somejson);
         // END OF TESTING
         
-        [self sendPostData:jsonData];
+        NSHTTPURLResponse *resp = [self sendPostData:jsonData];
+        //Handle error response
     } else if ([self.httpMethod isEqual:@"GET"]) {
         
     } else {
@@ -89,15 +95,27 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
     }
 }
 
-- (void) sendPostData:(NSData *)data {
+- (NSHTTPURLResponse *) sendPostData:(NSData *)data {
+    NSError *error;
+    NSHTTPURLResponse *response;
+
+    // TESTING ONLY
     NSLog(@"postData: %@", @[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]]);
     NSLog(@"url: %@", self.urlEndpoint);
+    // END OF TESTING
+    
     [self.urlRequest setURL:self.urlEndpoint];
     [self.urlRequest setHTTPMethod:self.httpMethod];
     [self.urlRequest setHTTPBody:data];
-    [self.urlRequest setValue:@"application/json" forHTTPHeaderField:@"content-type"];
+    [self.urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
-    self.connection = [[NSURLConnection alloc] initWithRequest:self.urlRequest delegate:self];
+//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//    self.connection = [NSURLConnection sendAsynchronousRequest:self.urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//    
+//    }]
+    
+    [NSURLConnection sendSynchronousRequest:self.urlRequest returningResponse:&response error:&error];
+    return response;
 }
 
 @end

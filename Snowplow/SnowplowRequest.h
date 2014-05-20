@@ -21,15 +21,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SnowplowPayload.h"
 
 @interface SnowplowRequest : NSObject
 
 @property (nonatomic) NSURL *urlEndpoint;
 @property (nonatomic) NSURLConnection *connection;
-@property (nonatomic) NSHTTPURLResponse *response;
 @property (nonatomic) id responseJSON;
 @property (nonatomic) NSMutableURLRequest *urlRequest;
-@property (nonatomic) NSError *error;
 @property (nonatomic) NSString *httpMethod;
 @property (nonatomic) int bufferTime;
 @property (atomic) NSMutableArray *buffer;
@@ -42,7 +41,9 @@
 
 - (void) addToBuffer:(NSDictionary *)payload;
 
-- (void) sendPostData:(NSData *)data;
+- (void) addPayloadToBuffer:(SnowplowPayload *)spPayload;
+
+- (NSHTTPURLResponse *) sendPostData:(NSData *)data;
 
 - (void) flushBuffer;
 
