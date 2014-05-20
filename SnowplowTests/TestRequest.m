@@ -2,8 +2,22 @@
 //  TestRequest.m
 //  Snowplow
 //
-//  Created by Jonathan Almeida on 2014-05-18.
-//  Copyright (c) 2014 Snowplow Analytics. All rights reserved.
+//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Jonathan Almeida
+//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  License: Apache License Version 2.0
 //
 
 #import <XCTest/XCTest.h>
@@ -17,7 +31,7 @@ extern NSString * const TEST_SERVER;
 @implementation TestRequest
 
 //NSString *const TEST_SERVER = @"http://localhost:3000/events";
-NSString *const TEST_SERVER = @"http://segfault.ngrok.com/event";
+NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
 
 - (void)setUp
 {
@@ -42,7 +56,6 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com/event";
     [sample_req addPayloadToBuffer:sample_event];
     
     [sample_req flushBuffer];
-    sleep(2); //Tests fail to send the message if you don't give it sufficient time
 }
 
 @end
