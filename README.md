@@ -11,20 +11,22 @@ WORK IN PROGRESS - do not use yet
 [travis]: http://travis-ci.org/snowplow/snowplow-ios-tracker
 
 ## Overview
-
+TBD
 
 ## Developers
+TBD
 
 ### Getting Started
-
+TBD
 
 ## Testing
+TBD
 
 ## Copyright and license
 
 The Snowplow iOS Tracker is copyright 2013-2014 Snowplow Analytics Ltd.
 
-Licensed under the `Apache License, Version 2.0`_ (the "License");
+Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0) (the "License");
 you may not use this software except in compliance with the License.
 
 Unless required by applicable law or agreed to in writing, software
