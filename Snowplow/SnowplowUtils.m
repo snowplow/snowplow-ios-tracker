@@ -52,6 +52,15 @@
     return [carrier carrierName];
 }
 
+- (int) getTransactionId {
+    return arc4random() % (999999 - 100000+1) + 100000;
+}
+
+- (double) getTimestamp {
+    NSDate *time = [[NSDate alloc] init];
+    return (double)[time timeIntervalSince1970];
+}
+
 - (NSDictionary *) getResolution {
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = mainScreen.size.width;

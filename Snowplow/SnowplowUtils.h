@@ -34,6 +34,10 @@
 
 - (NSString *) getCarrierName;
 
+- (int) getTransactionId;
+
+- (double) getTimestamp;
+
 // Returns an NSDictionary with 'width' and 'height'
 - (NSDictionary *) getResolution;
 
