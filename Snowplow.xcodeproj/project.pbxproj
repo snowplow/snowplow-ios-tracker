@@ -21,10 +21,11 @@
 		AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
 		ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB2565019286C8C0014FE0C /* TestRequest.m */; };
 		ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27F3191C67CD00018557 /* SnowplowPayload.h */; };
+		ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
 		ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
 		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
-		ABFCC37A19233F2F00FAE8FE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABFCC37919233F2F00FAE8FE /* UIKit.framework */; };
+		C1F150E28435457F9DF242F0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260A4F15D64B4FE28C393962 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		260A4F15D64B4FE28C393962 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0C27BD191B408200018557 /* libSnowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSnowplow.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0C27C0191B408200018557 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Prefix.pch"; sourceTree = "<group>"; };
@@ -69,11 +71,12 @@
 		AB0C27F3191C67CD00018557 /* SnowplowPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowPayload.h; sourceTree = "<group>"; };
 		AB0C27F4191C67CD00018557 /* SnowplowPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowPayload.m; sourceTree = "<group>"; };
 		ABB2565019286C8C0014FE0C /* TestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequest.m; sourceTree = "<group>"; };
+		ABB67D8C192D9552009A1ECE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
 		ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowUtils.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowUtils.m; sourceTree = "<group>"; };
 		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
-		ABFCC37919233F2F00FAE8FE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		DC0A1F28E0164666A57680BF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,8 +84,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ABFCC37A19233F2F00FAE8FE /* UIKit.framework in Frameworks */,
+				ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */,
 				AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */,
+				C1F150E28435457F9DF242F0 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +111,7 @@
 				AB0C27D6191B408200018557 /* SnowplowTests */,
 				AB0C27BF191B408200018557 /* Frameworks */,
 				AB0C27BE191B408200018557 /* Products */,
+				DC0A1F28E0164666A57680BF /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -122,10 +127,11 @@
 		AB0C27BF191B408200018557 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ABFCC37919233F2F00FAE8FE /* UIKit.framework */,
+				ABB67D8C192D9552009A1ECE /* UIKit.framework */,
 				AB0C27C0191B408200018557 /* Foundation.framework */,
 				AB0C27CE191B408200018557 /* XCTest.framework */,
 				AB0C27D1191B408200018557 /* UIKit.framework */,
+				260A4F15D64B4FE28C393962 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -182,9 +188,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB0C27E0191B408200018557 /* Build configuration list for PBXNativeTarget "Snowplow" */;
 			buildPhases = (
+				F5819988FE9F41FDB17FCC93 /* Check Pods Manifest.lock */,
 				AB0C27B9191B408200018557 /* Sources */,
 				AB0C27BA191B408200018557 /* Frameworks */,
 				AB0C27BB191B408200018557 /* CopyFiles */,
+				0F20EA752A384DC984F2A5CE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -199,9 +207,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB0C27E3191B408200018557 /* Build configuration list for PBXNativeTarget "SnowplowTests" */;
 			buildPhases = (
+				D9CFCFFB3464429D870730FC /* Check Pods Manifest.lock */,
 				AB0C27C9191B408200018557 /* Sources */,
 				AB0C27CA191B408200018557 /* Frameworks */,
 				AB0C27CB191B408200018557 /* Resources */,
+				C1620BA946E545B4AE806198 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -250,6 +260,69 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F20EA752A384DC984F2A5CE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1620BA946E545B4AE806198 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9CFCFFB3464429D870730FC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F5819988FE9F41FDB17FCC93 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		AB0C27B9191B408200018557 /* Sources */ = {
@@ -366,10 +439,16 @@
 		};
 		AB0C27E1191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/Snowplow.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos7.1;
@@ -379,10 +458,16 @@
 		};
 		AB0C27E2191B408200018557 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/Snowplow.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos7.1;
@@ -392,6 +477,7 @@
 		};
 		AB0C27E4191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -412,6 +498,7 @@
 		};
 		AB0C27E5191B408200018557 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",

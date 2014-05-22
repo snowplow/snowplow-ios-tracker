@@ -21,6 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <AFNetworking/AFNetworking.h>
 #import "SnowplowPayload.h"
 
 @interface SnowplowRequest : NSObject
@@ -43,7 +44,7 @@
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload;
 
-- (NSHTTPURLResponse *) sendPostData:(NSData *)data;
+- (void) sendPostData:(NSDictionary *)data;
 
 - (void) flushBuffer;
 

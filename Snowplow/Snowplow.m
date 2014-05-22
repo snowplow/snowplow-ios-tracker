@@ -35,8 +35,7 @@
 
 // TODO: Remove
 - (void) sendEvent:(NSDictionary *) data {
-    NSData *somedata = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
-    [self.requestHandler sendPostData:somedata];
+    [self.requestHandler sendPostData:data];
 }
 
 @end

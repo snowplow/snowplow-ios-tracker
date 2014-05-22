@@ -80,42 +80,38 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
         [payload setObject:kPayloadDataSchema forKey:@"schema"];
         [payload setObject:self.buffer forKey:@"data"];
         
-        // TESTING ONLY
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:payload options:0 error:nil];
-        NSString *somejson = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSLog(@"Our JSON data:\n%@", somejson);
-        // END OF TESTING
-        
-        NSHTTPURLResponse *resp = [self sendPostData:jsonData];
-        //Handle error response
+        [self sendPostData:payload];
     } else if ([self.httpMethod isEqual:@"GET"]) {
-        
+        for (NSDictionary* event in self.buffer) {
+            [self sendGetData:event];
+        }
+        [self.buffer removeAllObjects];
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
 }
 
-- (NSHTTPURLResponse *) sendPostData:(NSData *)data {
-    NSError *error;
-    NSHTTPURLResponse *response;
+- (void) sendPostData:(NSDictionary *)data {
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    [manager POST:[self.urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        //Handle POST error response
+    }];
+}
 
-    // TESTING ONLY
-    NSLog(@"postData: %@", @[[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]]);
-    NSLog(@"url: %@", self.urlEndpoint);
-    // END OF TESTING
+- (void) sendGetData:(NSDictionary *)data {
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
-    [self.urlRequest setURL:self.urlEndpoint];
-    [self.urlRequest setHTTPMethod:self.httpMethod];
-    [self.urlRequest setHTTPBody:data];
-    [self.urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    
-//    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    self.connection = [NSURLConnection sendAsynchronousRequest:self.urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//    
-//    }]
-    
-    [NSURLConnection sendSynchronousRequest:self.urlRequest returningResponse:&response error:&error];
-    return response;
+    [manager GET:[self.urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"JSON: %@", responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        //Handle GET error response
+    }];
 }
 
 @end
