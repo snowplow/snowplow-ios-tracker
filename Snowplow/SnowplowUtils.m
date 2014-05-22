@@ -21,6 +21,9 @@
 //
 
 #import "SnowplowUtils.h"
+#import <UIKit/UIScreen.h>
+#import <CoreTelephony/CTCarrier.h>
+#import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
 @implementation SnowplowUtils
 
@@ -41,6 +44,12 @@
 - (NSString *) getEventId {
     // Generates type 4 UUID
     return [[NSUUID UUID] UUIDString];
+}
+
+- (NSString *) getCarrierName {
+    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+    CTCarrier *carrier = [netinfo subscriberCellularProvider];
+    return [carrier carrierName];
 }
 
 - (NSDictionary *) getResolution {

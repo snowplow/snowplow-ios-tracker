@@ -21,7 +21,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIScreen.h>
 
 @interface SnowplowUtils : NSObject
 
@@ -32,6 +31,8 @@
 - (NSString *) getPlatform;
 
 - (NSString *) getEventId;
+
+- (NSString *) getCarrierName;
 
 // Returns an NSDictionary with 'width' and 'height'
 - (NSDictionary *) getResolution;
