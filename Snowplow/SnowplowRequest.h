@@ -20,7 +20,6 @@
 //  License: Apache License Version 2.0
 //
 
-#import "NSDictionary+UrlEncoding.h"
 #import <Foundation/Foundation.h>
 #import "SnowplowPayload.h"
 
@@ -45,8 +44,6 @@
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload;
 
 - (NSHTTPURLResponse *) sendPostData:(NSData *)data;
-
-- (NSHTTPURLResponse *) sendGetRequest:(NSDictionary *)payload;
 
 - (void) flushBuffer;
 

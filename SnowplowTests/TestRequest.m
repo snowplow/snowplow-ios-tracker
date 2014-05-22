@@ -58,18 +58,4 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
     [sample_req flushBuffer];
 }
 
-- (void)testSendGetRequest
-{
-    NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER];
-    SnowplowRequest *sample_req = [[SnowplowRequest alloc] initWithURLRequest:url httpMethod:@"POST"];
-    
-    NSDictionary *foo = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         @"value1", @"key1",
-                         @"value2", @"key2", nil];
-    
-    [sample_req sendGetRequest:foo];
-
-    
-}
-
 @end
