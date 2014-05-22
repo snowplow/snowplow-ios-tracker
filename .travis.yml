@@ -1,10 +1,12 @@
 language: objective-c
 
-install:
+before_install:
     # - `xctool`, required to build the unit test and documentation targets
     #   Workaround for https://github.com/travis-ci/travis-ci/issues/2051#issuecomment-40817341
     - brew update
     - brew upgrade xctool
+    - gem install cocoapods
+    - pod install
 
 xcode_project: Snowplow.xcodeproj
 xcode_scheme: SnowplowTests
