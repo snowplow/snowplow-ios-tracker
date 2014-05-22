@@ -2,6 +2,8 @@ iOS Analytics for Snowplow
 ==========================
 *Snowplow event tracker for iOS 6+. Add analytics to your iOS apps and games.*
 [ ![Build Status] [travis-image] ] [travis]
+*Button for Version on CocoaPods*
+*Button for Platform on CocoaPods*
 
 WORK IN PROGRESS - do not use yet
 
