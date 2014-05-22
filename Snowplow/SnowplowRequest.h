@@ -57,24 +57,6 @@
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time;
 
 /**
- * Setter for urlEndpoint.
- * @param urlEndpoint URL of the collector.
- */
-- (void) setUrlEndpoint:(NSURL *)urlEndpoint;
-
-/**
- * Setter for connection.
- * @param connection Connection made to the collector.
- */
-- (void) setConnection:(NSURLConnection *)connection;
-
-/**
- * Setter for urlRequest.
- * @param urlRequest Request made to the collector.
- */
-- (void) setUrlRequest:(NSMutableURLRequest *)urlRequest;
-
-/**
  * Inserts a dictionary of data into the buffer for the class.
  * @param payload A dictionary of data to make up an event that will be sent via the buffer.
  */

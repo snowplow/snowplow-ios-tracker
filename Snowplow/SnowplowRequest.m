@@ -61,18 +61,6 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
     return self;
 }
 
-- (void) setUrlEndpoint:(NSURL *)urlEndpoint {
-    self.urlEndpoint = urlEndpoint;
-}
-
-- (void) setConnection:(NSURLConnection *)connection {
-    self.connection = connection;
-}
-
-- (void) setUrlRequest:(NSMutableURLRequest *)urlRequest {
-    self.urlRequest = urlRequest;
-}
-
 - (void) dealloc {
     [self.connection cancel];
     
