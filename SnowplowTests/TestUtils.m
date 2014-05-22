@@ -104,4 +104,35 @@
                    @"UUID generated doesn't match the type 4 UUID RFC");
 }
 
+- (void)testGetCarrierName
+{
+    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
+    NSLog(@"Carrier: %@", [sample_utils getCarrierName]);
+    // No way to fake carrier in Travis simulator
+}
+
+- (void)testGetTransactionId
+{
+    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
+    double sample_rand = [sample_utils getTransactionId];
+    XCTAssertTrue((100000 < sample_rand < 999999), @"Transaction ID doesn't exist between our range of 999,999 and 100,000.");
+}
+
+- (void)testGetTimestamp
+{
+    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
+    NSString *sample_rand = [NSString stringWithFormat:@"%f", [sample_utils getTimestamp]];
+    
+    // For regex pattern matching to verify if it's of UUID type 4
+    NSString *pattern = @"[0-9]+.[0-9]+";
+    NSRange searchRange = NSMakeRange(0, [sample_rand length]);
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    NSArray *matches = [regex matchesInString:sample_rand options:0 range:searchRange];
+    
+    XCTAssertEqual([matches count], (NSUInteger)1,
+                   @"Timestamp generated doesn't match the correct format 1234.567");
+
+}
+
 @end
