@@ -9,7 +9,7 @@ before_install:
     - pod install
 
 xcode_project: Snowplow.xcodeproj
-xcode_scheme: SnowplowTests
+xcode_scheme: Snowplow
 xcode_sdk:
     - iphonesimulator7.1
     - iphonesimulator7.0
