@@ -24,24 +24,58 @@
 
 @interface SnowplowUtils : NSObject
 
+/**
+ * Returns the system timezone region.
+ * @return A string of the timezone region (e.g. 'Toronto/Canada')
+ */
 - (NSString *) getTimezone;
 
+/**
+ * Returns the system language currently used on the device.
+ * @return A string of the current language.
+ */
 - (NSString *) getLanguage;
 
+/**
+ * Returns the platform type of the device. This is always going to be "mob".
+ * @return A string of the platform type.
+ */
 - (NSString *) getPlatform;
 
+/**
+ * Returns a randomly generated UUID (type 4).
+ * @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
+ */
 - (NSString *) getEventId;
 
+/**
+ * Returns the carrier of the SIM inserted in the device.
+ * @return A string containing the carrier name of the service provider.
+ */
 - (NSString *) getCarrierName;
 
+/**
+ * Generates a randomly generated 6-digit integer.
+ * @return A random 6-digit int.
+ */
 - (int) getTransactionId;
 
+/**
+ * Returns the timestamp generated at the point it was called.
+ * @return A double of the timestamp from when the method was called.
+ */
 - (double) getTimestamp;
 
-// Returns an NSDictionary with 'width' and 'height'
+/**
+ * Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.
+ * @return An NSDictionary with 'width' and 'height'
+ */
 - (NSDictionary *) getResolution;
 
-// Returns an NSDictionary with 'width' and 'height'
+/**
+ * Calculates the viewport of the app as it is on the screen. Currently, returns the same value as getResolution.
+ * Returns an NSDictionary with 'width' and 'height'
+ */
 - (NSDictionary *) getViewPort;
 
 @end
