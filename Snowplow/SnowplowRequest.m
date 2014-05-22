@@ -74,7 +74,7 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
 }
 
 - (void) flushBuffer {
-    //Empties the buffer and sends the contents to the collector
+    // Empties the buffer and sends the contents to the collector
     if([self.httpMethod isEqual:@"POST"]) {
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         [payload setObject:kPayloadDataSchema forKey:@"schema"];
@@ -87,7 +87,7 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
         // END OF TESTING
         
         NSHTTPURLResponse *resp = [self sendPostData:jsonData];
-        //Handle error response
+        // Handle error response
     } else if ([self.httpMethod isEqual:@"GET"]) {
         
     } else {
@@ -110,11 +110,31 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
     [self.urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
 //    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-//    self.connection = [NSURLConnection sendAsynchronousRequest:self.urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//    [NSURLConnection sendAsynchronousRequest:self.urlRequest queue:queue completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
 //    
 //    }]
     
     [NSURLConnection sendSynchronousRequest:self.urlRequest returningResponse:&response error:&error];
+    return response;
+}
+
+- (NSHTTPURLResponse *) sendGetRequest:(NSDictionary *)payload {
+    NSError *error;
+    NSHTTPURLResponse *response;
+    
+    NSString *foo = [payload urlEncodedString];
+    
+    NSMutableString *url = (NSMutableString *)[self.urlEndpoint absoluteString];
+    
+    [url appendString:foo];
+    NSLog(@"Final URL:: %@", url);
+//    
+//    [self.urlRequest setURL:self.urlEndpoint];
+//    [self.urlRequest setHTTPMethod:self.httpMethod];
+//    [self.urlRequest setValue:@"Foo" forKey:@"Bar"];
+//    
+//    [NSURLConnection sendSynchronousRequest:self.urlRequest returningResponse:&response error:&error];
+    
     return response;
 }
 

@@ -19,6 +19,7 @@
 		AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SnowplowRequest.m */; };
 		AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SnowplowRequest.h */; };
 		AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
+		AB3DA64E192CEC2100B4CDEB /* NSDictionary+UrlEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = AB3DA64D192CEC2100B4CDEB /* NSDictionary+UrlEncoding.m */; };
 		ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB2565019286C8C0014FE0C /* TestRequest.m */; };
 		ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27F3191C67CD00018557 /* SnowplowPayload.h */; };
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
@@ -68,6 +69,8 @@
 		AB0C27EA191B43D600018557 /* SnowplowRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowRequest.m; sourceTree = "<group>"; };
 		AB0C27F3191C67CD00018557 /* SnowplowPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowPayload.h; sourceTree = "<group>"; };
 		AB0C27F4191C67CD00018557 /* SnowplowPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowPayload.m; sourceTree = "<group>"; };
+		AB3DA64C192CEC2100B4CDEB /* NSDictionary+UrlEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+UrlEncoding.h"; sourceTree = "<group>"; };
+		AB3DA64D192CEC2100B4CDEB /* NSDictionary+UrlEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+UrlEncoding.m"; sourceTree = "<group>"; };
 		ABB2565019286C8C0014FE0C /* TestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequest.m; sourceTree = "<group>"; };
 		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
 		ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowUtils.h; sourceTree = "<group>"; };
@@ -142,6 +145,8 @@
 				AB0C27F4191C67CD00018557 /* SnowplowPayload.m */,
 				ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */,
 				ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */,
+				AB3DA64C192CEC2100B4CDEB /* NSDictionary+UrlEncoding.h */,
+				AB3DA64D192CEC2100B4CDEB /* NSDictionary+UrlEncoding.m */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 				AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
 				AB0C27C8191B408200018557 /* Snowplow.m in Sources */,
+				AB3DA64E192CEC2100B4CDEB /* NSDictionary+UrlEncoding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
