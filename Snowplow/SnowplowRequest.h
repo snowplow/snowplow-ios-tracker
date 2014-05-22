@@ -34,24 +34,67 @@
 @property (nonatomic) int bufferTime;
 @property (atomic) NSMutableArray *buffer;
 
+/**
+ *  Initializes a newly allocated SnowplowRequest
+ *  @return A SnowplowRequest.
+ */
 - (id) init;
 
+/**
+ *  Initializes a newly allocated SnowplowRequest with a url and HTTP data transfer method.
+ *  @param url A url of the collector that events should be sent to.
+ *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
+ *  @return A SnowplowRequest
+ */
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method;
 
+/**
+ *  Initializes a newly allocated SnowplowRequest with a url and HTTP data transfer method including the buffer time interval between every POST request is sent.
+ *  @param url A url of the collector that events should be sent to.
+ *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
+ *  @param bufferTime The time interval to wait until the next POST should be sent.
+ */
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time;
 
+/**
+ * Setter for urlEndpoint.
+ * @param urlEndpoint URL of the collector.
+ */
 - (void) setUrlEndpoint:(NSURL *)urlEndpoint;
 
+/**
+ * Setter for connection.
+ * @param connection Connection made to the collector.
+ */
 - (void) setConnection:(NSURLConnection *)connection;
 
-- (void) setUrlRequest:(NSURL *)urlRequest;
+/**
+ * Setter for urlRequest.
+ * @param urlRequest Request made to the collector.
+ */
+- (void) setUrlRequest:(NSMutableURLRequest *)urlRequest;
 
+/**
+ * Inserts a dictionary of data into the buffer for the class.
+ * @param payload A dictionary of data to make up an event that will be sent via the buffer.
+ */
 - (void) addToBuffer:(NSDictionary *)payload;
 
+/**
+ * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests.
+ * @param spPayload A SnowployPayload containing a completed event to be added into the buffer.
+ */
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload;
 
+/**
+ * Sends a dictionary of data to the urlEndpoint via a JSON POST request.
+ * @param A dictionary of event data.
+ */
 - (void) sendPostData:(NSDictionary *)data;
 
+/**
+ * Empties the buffer of events using the respective HTTP request method in httpMethod.
+ */
 - (void) flushBuffer;
 
 @end

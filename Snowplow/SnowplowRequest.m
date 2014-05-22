@@ -69,8 +69,8 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
     self.connection = connection;
 }
 
-- (void) setUrlRequest:(NSURL *)urlRequest {
-    self.urlRequest = [NSMutableURLRequest requestWithURL:urlRequest];
+- (void) setUrlRequest:(NSMutableURLRequest *)urlRequest {
+    self.urlRequest = urlRequest;
 }
 
 - (void) dealloc {
