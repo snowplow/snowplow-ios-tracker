@@ -34,8 +34,6 @@
 @property (nonatomic) int bufferTime;
 @property (atomic) NSMutableArray *buffer;
 
-//def __init__(self, endpoint, protocol="http", port=None, method="get", buffer_size=None, on_success=None, on_failure=None):
-
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method;
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time;
