@@ -8,7 +8,7 @@ before_install:
     - gem install cocoapods
     - pod install
 
-xcode_project: Snowplow.xcodeproj
+xcode_workspace: Snowplow.xcworkspace
 xcode_scheme: Snowplow
 xcode_sdk:
     - iphonesimulator7.1
