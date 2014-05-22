@@ -34,9 +34,17 @@
 @property (nonatomic) int bufferTime;
 @property (atomic) NSMutableArray *buffer;
 
+- (id) init;
+
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method;
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time;
+
+- (void) setUrlEndpoint:(NSURL *)urlEndpoint;
+
+- (void) setConnection:(NSURLConnection *)connection;
+
+- (void) setUrlRequest:(NSURL *)urlRequest;
 
 - (void) addToBuffer:(NSDictionary *)payload;
 

@@ -28,6 +28,16 @@ static int const kDefaultBufferTimeout = 60;
 static int const kDefaultBufferSize = 10;
 static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data/jsonschema/1-0-0";
 
+- (id) init {
+    self = [super init];
+    if (self) {
+        self.urlEndpoint = nil;
+        self.urlRequest = nil;
+        self.bufferTime = kDefaultBufferTimeout;
+    }
+    return self;
+}
+
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
     self = [super init];
     if(self) {
@@ -49,6 +59,18 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data
         self.buffer = [[NSMutableArray alloc] init];
     }
     return self;
+}
+
+- (void) setUrlEndpoint:(NSURL *)urlEndpoint {
+    self.urlEndpoint = urlEndpoint;
+}
+
+- (void) setConnection:(NSURLConnection *)connection {
+    self.connection = connection;
+}
+
+- (void) setUrlRequest:(NSURL *)urlRequest {
+    self.urlRequest = [NSMutableURLRequest requestWithURL:urlRequest];
 }
 
 - (void) dealloc {
