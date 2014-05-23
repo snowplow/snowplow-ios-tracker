@@ -60,7 +60,7 @@
 - (void) addToBuffer:(NSDictionary *)payload;
 
 /**
- * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests.
+ * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests. Use this in favour over addToBuffer:
  * @param spPayload A SnowployPayload containing a completed event to be added into the buffer.
  */
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload;
