@@ -61,17 +61,15 @@
     return (double)[time timeIntervalSince1970];
 }
 
-- (NSDictionary *) getResolution {
+- (NSString *) getResolution {
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = mainScreen.size.width;
     CGFloat screenHeight = mainScreen.size.height;
-    NSDictionary *res = [[NSDictionary alloc] initWithObjectsAndKeys:
-                         [NSString stringWithFormat:@"%.0f", screenWidth], @"width",
-                         [NSString stringWithFormat:@"%.0f", screenHeight], @"height", nil];
+    NSString *res = [NSString stringWithFormat:@"%.0fx%.0f", screenWidth, screenHeight];
     return res;
 }
 
-- (NSDictionary *) getViewPort {
+- (NSString *) getViewPort {
     // This probably doesn't change as well
     return [self getResolution];
 }

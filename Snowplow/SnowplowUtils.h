@@ -70,12 +70,12 @@
  * Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.
  * @return An NSDictionary with 'width' and 'height'
  */
-- (NSDictionary *) getResolution;
+- (NSString *) getResolution;
 
 /**
  * Calculates the viewport of the app as it is on the screen. Currently, returns the same value as getResolution.
  * Returns an NSDictionary with 'width' and 'height'
  */
-- (NSDictionary *) getViewPort;
+- (NSString *) getViewPort;
 
 @end

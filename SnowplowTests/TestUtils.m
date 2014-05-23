@@ -69,15 +69,13 @@
 - (void)testGetResolution
 {
     SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    NSDictionary *sample_res = [sample_utils getResolution];
-    NSMutableDictionary *expected_resp = [[NSMutableDictionary alloc] init];
+    NSString *sample_res = [sample_utils getResolution];
+    NSString *expected_resp;
 
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        [expected_resp setObject:@"320" forKey:@"width"];
-        [expected_resp setObject:@"480" forKey:@"height"];
+        expected_resp = @"320x480";
     } else { //iPad
-        [expected_resp setObject:@"768" forKey:@"width"];
-        [expected_resp setObject:@"1024" forKey:@"height"];
+        expected_resp = @"768x1024";
     }
     
     XCTAssertEqualObjects(sample_res,
