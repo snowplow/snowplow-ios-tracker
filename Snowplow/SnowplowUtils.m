@@ -27,41 +27,41 @@
 
 @implementation SnowplowUtils
 
-- (NSString *) getTimezone {
++ (NSString *) getTimezone {
     NSTimeZone *timeZone = [NSTimeZone systemTimeZone];
     return [timeZone name];
 }
 
-- (NSString *) getLanguage {
++ (NSString *) getLanguage {
     return [[NSLocale preferredLanguages] objectAtIndex:0];
 }
 
-- (NSString *) getPlatform {
++ (NSString *) getPlatform {
     // There doesn't seem to be any reason to set any other value
     return @"mob";
 }
 
-- (NSString *) getEventId {
++ (NSString *) getEventId {
     // Generates type 4 UUID
     return [[NSUUID UUID] UUIDString];
 }
 
-- (NSString *) getCarrierName {
++ (NSString *) getCarrierName {
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     return [carrier carrierName];
 }
 
-- (int) getTransactionId {
++ (int) getTransactionId {
     return arc4random() % (999999 - 100000+1) + 100000;
 }
 
-- (double) getTimestamp {
++ (double) getTimestamp {
     NSDate *time = [[NSDate alloc] init];
     return (double)[time timeIntervalSince1970];
 }
 
-- (NSString *) getResolution {
++ (NSString *) getResolution {
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     CGFloat screenWidth = mainScreen.size.width;
     CGFloat screenHeight = mainScreen.size.height;
@@ -69,7 +69,7 @@
     return res;
 }
 
-- (NSString *) getViewPort {
++ (NSString *) getViewPort {
     // This probably doesn't change as well
     return [self getResolution];
 }

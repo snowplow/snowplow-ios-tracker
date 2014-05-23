@@ -42,16 +42,14 @@
 
 - (void)testGetTimeZone
 {
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    XCTAssertEqualObjects([sample_utils getTimezone],
+    XCTAssertEqualObjects([SnowplowUtils getTimezone],
                           [[NSTimeZone systemTimeZone] name],
                           @"Incorrect timezone expected");
 }
 
 - (void)testGetLanguage
 {
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    XCTAssertEqualObjects([sample_utils getLanguage],
+    XCTAssertEqualObjects([SnowplowUtils getLanguage],
                           @"en",
                           @"Language retrieved is not the same as 'en'");
 }
@@ -60,16 +58,15 @@
 {
     // This test is a reminder to add a unit test,
     // if we add some different logic to get the platform
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    XCTAssertEqualObjects([sample_utils getPlatform],
+
+    XCTAssertEqualObjects([SnowplowUtils getPlatform],
                           @"mob",
                           @"How could this fail?");
 }
 
 - (void)testGetResolution
 {
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    NSString *sample_res = [sample_utils getResolution];
+    NSString *sample_res = [SnowplowUtils getResolution];
     NSString *expected_resp;
 
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -86,8 +83,8 @@
 - (void)testGetEventId
 {
     // Probably an unneccessary test, but this verifies for a proper UUID
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    NSString *sample_uuid = [sample_utils getEventId];
+
+    NSString *sample_uuid = [SnowplowUtils getEventId];
 
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
@@ -104,22 +101,19 @@
 
 - (void)testGetCarrierName
 {
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    NSLog(@"Carrier: %@", [sample_utils getCarrierName]);
+    NSLog(@"Carrier: %@", [SnowplowUtils getCarrierName]);
     // No way to fake carrier in Travis simulator
 }
 
 - (void)testGetTransactionId
 {
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    int sample_rand = [sample_utils getTransactionId];
+    int sample_rand = [SnowplowUtils getTransactionId];
     XCTAssertTrue((100000 < sample_rand < 999999), @"Transaction ID doesn't exist between our range of 999,999 and 100,000.");
 }
 
 - (void)testGetTimestamp
 {
-    SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    NSString *sample_rand = [NSString stringWithFormat:@"%f", [sample_utils getTimestamp]];
+    NSString *sample_rand = [NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]];
     
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9]+.[0-9]+";
