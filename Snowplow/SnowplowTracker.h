@@ -27,21 +27,26 @@
 
 extern NSString * const kSnowplowVendor;
 extern Boolean const kDefaultEncodeBase64;
+extern NSString * const kVersion;
 
 @property (nonatomic) Boolean base64Encoded;
-
 @property (nonatomic) NSString *trackerNamespace;
-
 @property (nonatomic) SnowplowRequest *collector;
-
-@property (nonatomic) NSString *appId;
+@property (nonatomic) NSMutableDictionary *standardData;
 
 - (id) init;
+
+- (id) initUsingNamespace:(NSString *)namespace
+                    appId:(NSString *)appId
+            base64Encoded:(Boolean)encoded
+                collector:(SnowplowRequest *)collector;
 
 - (void) setCollector:(SnowplowRequest *)collector;
 
 - (void) setNamespace:(NSString *)trackerNamespace;
 
 - (void) setAppId:(NSString *)appId;
+
+- (void) setUserId:(NSString *)userId;
 
 @end

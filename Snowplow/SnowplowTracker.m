@@ -21,11 +21,14 @@
 //
 
 #import "SnowplowTracker.h"
+#import "SnowplowPayload.h"
+#import "SnowplowUtils.h"
 
 @implementation SnowplowTracker
 
 NSString * const kSnowplowVendor = @"com.snowplowanalytics.snowplow";
 Boolean const kDefaultEncodeBase64 = true;
+NSString * const kVersion = @"ios-0.1";
 
 - (id) init {
     self = [super init];
@@ -33,7 +36,8 @@ Boolean const kDefaultEncodeBase64 = true;
         self.trackerNamespace = nil;
         self.base64Encoded = true;
         self.collector = nil;
-        self.appId = nil;
+        self.standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                             kVersion, @"tv", nil];
     }
     return self;
 }
@@ -47,7 +51,10 @@ Boolean const kDefaultEncodeBase64 = true;
         self.trackerNamespace = namespace;
         self.base64Encoded = encoded;
         self.collector = collector;
-        self.appId = appId;
+        self.standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                             kVersion, @"tv",
+                             namespace, @"tna",
+                             appId, @"aid", nil];
     }
     return self;
 }
@@ -62,6 +69,27 @@ Boolean const kDefaultEncodeBase64 = true;
 
 - (void) setAppId:(NSString *)appId {
     self.appId = appId;
+}
+
+- (void) setUserId:(NSString *)userId {
+    [self.standardData setObject:userId forKey:@"uid"];
+}
+
+- (void) setSubject:(SnowplowPayload *)payload {
+    NSString *timestampStr = [NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]];
+    
+    [payload addValueToPayload:[SnowplowUtils getPlatform] withKey:@"p"];
+    [payload addValueToPayload:[SnowplowUtils getResolution] withKey:@"res"];
+    [payload addValueToPayload:[SnowplowUtils getViewPort] withKey:@"vp"];
+    [payload addValueToPayload:[SnowplowUtils getEventId] withKey:@"eid"];
+    [payload addValueToPayload:[SnowplowUtils getLanguage] withKey:@"lang"];
+    [payload addValueToPayload:timestampStr withKey:@"dtm"];
+    // Commented out, until issue #25 is resolved
+    // [payload addValueToPayload:[util getTransactionId] withKey:@"tid"];
+}
+
+- (void) addTracker:(SnowplowPayload *)event {
+    
 }
 
 @end
