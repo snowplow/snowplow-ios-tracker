@@ -112,7 +112,7 @@
 - (void)testGetTransactionId
 {
     SnowplowUtils *sample_utils = [[SnowplowUtils alloc] init];
-    double sample_rand = [sample_utils getTransactionId];
+    int sample_rand = [sample_utils getTransactionId];
     XCTAssertTrue((100000 < sample_rand < 999999), @"Transaction ID doesn't exist between our range of 999,999 and 100,000.");
 }
 
