@@ -24,7 +24,7 @@
 
 @implementation SnowplowTracker
 
-NSString * const kSnowplowVendor = @"com.snowplowanalytics";
+NSString * const kSnowplowVendor = @"com.snowplowanalytics.snowplow";
 Boolean const kDefaultEncodeBase64 = true;
 
 - (id) init {

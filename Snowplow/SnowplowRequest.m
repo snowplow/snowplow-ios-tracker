@@ -26,7 +26,7 @@
 
 static int const kDefaultBufferTimeout = 60;
 static int const kDefaultBufferSize = 10;
-static NSString *const kPayloadDataSchema = @"com.snowplowanalytics/payload_data/jsonschema/1-0-0";
+static NSString *const kPayloadDataSchema = @"com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
 
 - (id) init {
     self = [super init];
