@@ -76,20 +76,87 @@ NSString * const kVersion = @"ios-0.1";
 }
 
 - (void) setSubject:(SnowplowPayload *)payload {
-    NSString *timestampStr = [NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]];
-    
     [payload addValueToPayload:[SnowplowUtils getPlatform] withKey:@"p"];
     [payload addValueToPayload:[SnowplowUtils getResolution] withKey:@"res"];
     [payload addValueToPayload:[SnowplowUtils getViewPort] withKey:@"vp"];
     [payload addValueToPayload:[SnowplowUtils getEventId] withKey:@"eid"];
     [payload addValueToPayload:[SnowplowUtils getLanguage] withKey:@"lang"];
-    [payload addValueToPayload:timestampStr withKey:@"dtm"];
+    [payload addValueToPayload:[NSNumber numberWithDouble:[SnowplowUtils getTimestamp]] withKey:@"dtm"];
     // Commented out, until issue #25 is resolved
     // [payload addValueToPayload:[util getTransactionId] withKey:@"tid"];
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
+    [self.collector addPayloadToBuffer:event];
+}
+
+- (void) trackPageView:(NSString *)page_url
+                 title:(NSString *)page_title
+              referrer:(NSString *)referrer
+               context:(NSDictionary *)schema
+             timestamp:(double)timestamp {
+    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    [self setSubject:pb];
+    [pb addValueToPayload:@"pv"      withKey:@"e"];
+    [pb addValueToPayload:page_url   withKey:@"url"];
+    [pb addValueToPayload:page_title withKey:@"page"];
+    [pb addValueToPayload:referrer   withKey:@"refr"];
+
+    [pb addDictionaryToPayload:schema
+                 base64Encoded:self.base64Encoded
+               typeWhenEncoded:@"cx"
+            typeWhenNotEncoded:@"co"];
+
+    if(timestamp != 0)
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
     
+    [self addTracker:pb];
+}
+
+- (void) trackEcommerceTransactionItem:(NSString *)order_id
+                                   sku:(NSString *)sku
+                                  name:(NSString *)name
+                              category:(NSString *)category
+                                 price:(float)price
+                              quantity:(int)quantity
+                              currency:(NSString *)currency
+                               context:(NSDictionary *)schema
+                             timestamp:(double)timestamp {
+    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    [self setSubject:pb];
+
+    [pb addValueToPayload:@"ti" withKey:@"e"];
+    [pb addValueToPayload:order_id withKey:@"ti_id"];
+    [pb addValueToPayload:sku withKey:@"ti_sk"];
+    [pb addValueToPayload:name withKey:@"ti_nm"];
+    [pb addValueToPayload:category withKey:@"ti_ca"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:price] withKey:@"ti_pr"];
+    [pb addValueToPayload:[NSNumber numberWithInt:quantity] withKey:@"ti_qu"];
+    [pb addValueToPayload:currency withKey:@"ti_cu"];
+    
+    [pb addDictionaryToPayload:schema
+                 base64Encoded:self.base64Encoded
+               typeWhenEncoded:@"cx"
+            typeWhenNotEncoded:@"co"];
+
+    if(timestamp != 0)
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
+    
+    [self addTracker:pb];
+}
+
+- (void) trackEcommerceTransaction:(NSString *)order_id
+                        totalValue:(float)totalValue
+                       affiliation:(NSString *)affiliation
+                          taxValue:(float)taxValue
+                          shipping:(float)shipping
+                              city:(NSString *)city
+                             state:(NSString *)state
+                           country:(NSString *)country
+                          currency:(NSString *)currency
+                             items:(NSDictionary *)items
+                           context:(NSDictionary *)context {
+    //TODO
 }
 
 @end
