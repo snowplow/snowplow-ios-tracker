@@ -40,7 +40,7 @@
     return self;
 }
 
-- (void) addValueToPayload:(NSString *)value withKey:(NSString *)key {
+- (void) addValueToPayload:(id)value withKey:(NSString *)key {
     [self.payload setObject:value forKey:key];
 }
 
@@ -98,6 +98,18 @@
            typeWhenEncoded:typeEncoded
         typeWhenNotEncoded:typeNotEncoded];
     
+}
+
+- (void) addDictionaryToPayload:(NSDictionary *)json
+                      base64Encoded:(Boolean)encode
+                    typeWhenEncoded:(NSString *)typeEncoded
+                 typeWhenNotEncoded:(NSString *)typeNotEncoded {
+    NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+    
+    [self addJsonToPayload:data
+             base64Encoded:encode
+           typeWhenEncoded:typeEncoded
+        typeWhenNotEncoded:typeNotEncoded];
 }
 
 - (NSDictionary *) getPayload {
