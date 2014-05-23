@@ -27,9 +27,6 @@
 @interface SnowplowRequest : NSObject
 
 @property (nonatomic) NSURL *urlEndpoint;
-@property (nonatomic) NSURLConnection *connection;
-@property (nonatomic) id responseJSON;
-@property (nonatomic) NSMutableURLRequest *urlRequest;
 @property (nonatomic) NSString *httpMethod;
 @property (nonatomic) int bufferTime;
 @property (atomic) NSMutableArray *buffer;
