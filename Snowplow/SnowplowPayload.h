@@ -41,7 +41,7 @@
 
 /**
  *  Adds a simple name-value pair into the SnowplowPayload intance.
- *  @param value A JSON accepted value
+ *  @param value A JSON-compatible value
  *  @param value A key of type (NSString *)
  */
 - (void) addValueToPayload:(id)value withKey:(NSString *)key;
@@ -54,7 +54,7 @@
 
 /**
  *  Adds a dictionary of attributes to be appended into the SnowplowPayload instance. Gives you the option to Base64 encode the data before adding it into the object.
- *  @param json NSData of JSON styled data to be added.
+ *  @param json NSData of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
  *  @param typeWhenNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
@@ -66,7 +66,7 @@
 
 /**
  *  Adds a JSON string of attributes to be appended into the SnowplowPayload instance. Gives you the option to Base64 encode the data before adding it into the object. This method converts the string to NSData and uses the data with addJsonStringToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:
- *  @param json NSData of JSON styled data to be added.
+ *  @param json NSData of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
  *  @param typeWhenNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
@@ -78,7 +78,7 @@
 
 /**
  *  Adds a dictionary of attributes to be appended into the SnowplowPayload instance. Gives you the option to Base64 encode the data before adding it into the object. This method converts the dictionary to NSData and uses the data with addJsonStringToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:
- *  @param json NSDictionary of JSON styled data to be added.
+ *  @param json NSDictionary of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
  *  @param typeWhenNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
