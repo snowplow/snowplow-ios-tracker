@@ -90,6 +90,29 @@ NSString * const kVersion = @"ios-0.1";
     [self.collector addPayloadToBuffer:event];
 }
 
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value
+                      context:(NSDictionary *)context
+                    timestamp:(double)timestamp {
+    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    [self setSubject:pb];
+    
+    [pb addValueToPayload:@"se" withKey:@"e"];
+    [pb addValueToPayload:category withKey:@"se_ca"];
+    [pb addValueToPayload:action withKey:@"se_ac"];
+    [pb addValueToPayload:label withKey:@"se_la"];
+    [pb addValueToPayload:property withKey:@"se_pr"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:value] withKey:@"se_va"];
+    
+    if (timestamp != 0)
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
+
+    [self addTracker:pb];
+}
+
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
               referrer:(NSString *)referrer

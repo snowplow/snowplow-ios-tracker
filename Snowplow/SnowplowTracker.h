@@ -55,6 +55,18 @@ extern NSString * const kVersion;
                context:(NSDictionary *)schema
              timestamp:(double)timestamp;
 
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value
+                      context:(NSDictionary *)context
+                    timestamp:(double)timestamp;
+
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
+                        context:(NSDictionary *)context
+                      timestamp:(double)timestamp;
+
 - (void) trackEcommerceTransactionItem:(NSString *)orderId
                                    sku:(NSString *)sku
                                   name:(NSString *)name
