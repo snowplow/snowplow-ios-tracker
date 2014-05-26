@@ -233,4 +233,20 @@ NSString * const kVersion = @"ios-0.1";
     [self addTracker:pb];
 }
 
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_
+                 context:(NSDictionary *)context
+               timestamp:(double)timestamp {
+    NSString *snowplowSchema = [NSString stringWithFormat:@"%@/screen_view/%@/1-0-0", kSnowplowVendor, self.schemaTag];
+    NSMutableDictionary *screenViewProperties = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                                 name, @"name", nil];
+    if(id_ != 0)
+        [screenViewProperties setObject:id_ forKey:@"id"];
+    
+    NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
+                               snowplowSchema, @"schema",
+                               screenViewProperties, @"data", nil];
+    [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
+}
+
 @end

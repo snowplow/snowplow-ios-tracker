@@ -95,4 +95,9 @@ extern NSString * const kVersion;
                            context:(NSDictionary *)context
                          timestamp:(double)timestamp;
 
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_
+                 context:(NSDictionary *)context
+               timestamp:(double)timestamp;
+
 @end
