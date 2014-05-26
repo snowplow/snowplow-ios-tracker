@@ -83,6 +83,17 @@ NSString * const kVersion = @"ios-0.1";
     self.unstructedEventSchema = [NSString stringWithFormat:@"iglu://com.snowplowanalytics/unstruct_event/%@/1-0-0", schema];
 }
 
+- (void) setContext:(SnowplowPayload *)pb
+            context:(NSDictionary *)context {
+    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
+                              self.contextSchema, @"schema",
+                              context, @"data", nil];
+    [pb addDictionaryToPayload:envelope
+                 base64Encoded:self.base64Encoded
+               typeWhenEncoded:@"cx"
+            typeWhenNotEncoded:@"co"];
+}
+
 - (void) setSubject:(SnowplowPayload *)payload {
     [payload addValueToPayload:[SnowplowUtils getPlatform] withKey:@"p"];
     [payload addValueToPayload:[SnowplowUtils getResolution] withKey:@"res"];
@@ -128,26 +139,32 @@ NSString * const kVersion = @"ios-0.1";
     [self setSubject:pb];
     
     [pb addValueToPayload:@"ue" withKey:@"e"];
-    //TODO finish
 
+    // Creates similar envelop as in setContext with but different encoding keys
+    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
+                          self.contextSchema, @"schema",
+                          context, @"data", nil];
+    [pb addDictionaryToPayload:envelope
+                 base64Encoded:self.base64Encoded
+               typeWhenEncoded:@"ue_px"
+            typeWhenNotEncoded:@"ue_pr"];
+    
+    [self addTracker:pb];
 }
 
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
               referrer:(NSString *)referrer
-               context:(NSDictionary *)schema
+               context:(NSDictionary *)context
              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self setSubject:pb];
+    [self setContext:pb context:context];
+    
     [pb addValueToPayload:@"pv"      withKey:@"e"];
     [pb addValueToPayload:pageUrl   withKey:@"url"];
     [pb addValueToPayload:pageTitle withKey:@"page"];
     [pb addValueToPayload:referrer   withKey:@"refr"];
-
-    [pb addDictionaryToPayload:schema
-                 base64Encoded:self.base64Encoded
-               typeWhenEncoded:@"cx"
-            typeWhenNotEncoded:@"co"];
 
     if(timestamp != 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
@@ -166,6 +183,7 @@ NSString * const kVersion = @"ios-0.1";
                              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self setSubject:pb];
+    [self setContext:pb context:context];
 
     [pb addValueToPayload:@"ti" withKey:@"e"];
     [pb addValueToPayload:orderId withKey:@"ti_id"];
@@ -175,11 +193,6 @@ NSString * const kVersion = @"ios-0.1";
     [pb addValueToPayload:[NSNumber numberWithFloat:price] withKey:@"ti_pr"];
     [pb addValueToPayload:[NSNumber numberWithInt:quantity] withKey:@"ti_qu"];
     [pb addValueToPayload:currency withKey:@"ti_cu"];
-    
-    [pb addDictionaryToPayload:context
-                 base64Encoded:self.base64Encoded
-               typeWhenEncoded:@"cx"
-            typeWhenNotEncoded:@"co"];
 
     if(timestamp != 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
@@ -201,6 +214,7 @@ NSString * const kVersion = @"ios-0.1";
                          timestamp:(double)timestamp {
     SnowplowPayload *pb =  [[SnowplowPayload alloc] init];
     [self setSubject:pb];
+    [self setContext:pb context:context];
 
     [pb addValueToPayload:@"tr" withKey:@"e"];
     [pb addValueToPayload:orderId withKey:@"tr_id"];
@@ -213,10 +227,6 @@ NSString * const kVersion = @"ios-0.1";
     [pb addValueToPayload:country withKey:@"tr_co"];
     [pb addValueToPayload:currency withKey:@"tr_cu"];
     
-    [pb addDictionaryToPayload:context
-                 base64Encoded:self.base64Encoded
-               typeWhenEncoded:@"cx"
-            typeWhenNotEncoded:@"co"];
     if(timestamp != 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
     

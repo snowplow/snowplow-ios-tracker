@@ -57,7 +57,7 @@ extern NSString * const kVersion;
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
               referrer:(NSString *)referrer
-               context:(NSDictionary *)schema
+               context:(NSDictionary *)context
              timestamp:(double)timestamp;
 
 - (void) trackStructuredEvent:(NSString *)category
