@@ -33,6 +33,7 @@ NSString * const kVersion = @"ios-0.1";
 - (id) init {
     self = [super init];
     if(self) {
+        [self setSchemaTag:@"jsonschema"];
         self.trackerNamespace = nil;
         self.base64Encoded = true;
         self.collector = nil;
@@ -48,6 +49,7 @@ NSString * const kVersion = @"ios-0.1";
                 collector:(SnowplowRequest *)collector {
     self = [super init];
     if(self) {
+        [self setSchemaTag:@"jsonschema"];
         self.trackerNamespace = namespace;
         self.base64Encoded = encoded;
         self.collector = collector;
@@ -73,6 +75,12 @@ NSString * const kVersion = @"ios-0.1";
 
 - (void) setUserId:(NSString *)userId {
     [self.standardData setObject:userId forKey:@"uid"];
+}
+
+- (void) setSchemaTag:(NSString *)schema {
+    self.schemaTag = schema;
+    self.contextSchema = [NSString stringWithFormat:@"iglu://com.snowplowanalytics/contexts/%@/1-0-0", schema];
+    self.unstructedEventSchema = [NSString stringWithFormat:@"iglu://com.snowplowanalytics/unstruct_event/%@/1-0-0", schema];
 }
 
 - (void) setSubject:(SnowplowPayload *)payload {
@@ -111,6 +119,17 @@ NSString * const kVersion = @"ios-0.1";
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
 
     [self addTracker:pb];
+}
+
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
+                        context:(NSDictionary *)context
+                      timestamp:(double)timestamp {
+    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    [self setSubject:pb];
+    
+    [pb addValueToPayload:@"ue" withKey:@"e"];
+    //TODO finish
+
 }
 
 - (void) trackPageView:(NSString *)pageUrl

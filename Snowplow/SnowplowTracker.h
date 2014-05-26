@@ -33,6 +33,9 @@ extern NSString * const kVersion;
 @property (nonatomic) NSString *trackerNamespace;
 @property (nonatomic) SnowplowRequest *collector;
 @property (nonatomic) NSMutableDictionary *standardData;
+@property (nonatomic) NSString *schemaTag;
+@property (nonatomic) NSString *contextSchema;
+@property (nonatomic) NSString *unstructedEventSchema;
 
 - (id) init;
 
@@ -48,6 +51,8 @@ extern NSString * const kVersion;
 - (void) setAppId:(NSString *)appId;
 
 - (void) setUserId:(NSString *)userId;
+
+- (void) setSchemaTag:(NSString *)schema;
 
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
