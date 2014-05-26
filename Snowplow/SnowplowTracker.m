@@ -90,16 +90,16 @@ NSString * const kVersion = @"ios-0.1";
     [self.collector addPayloadToBuffer:event];
 }
 
-- (void) trackPageView:(NSString *)page_url
-                 title:(NSString *)page_title
+- (void) trackPageView:(NSString *)pageUrl
+                 title:(NSString *)pageTitle
               referrer:(NSString *)referrer
                context:(NSDictionary *)schema
              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self setSubject:pb];
     [pb addValueToPayload:@"pv"      withKey:@"e"];
-    [pb addValueToPayload:page_url   withKey:@"url"];
-    [pb addValueToPayload:page_title withKey:@"page"];
+    [pb addValueToPayload:pageUrl   withKey:@"url"];
+    [pb addValueToPayload:pageTitle withKey:@"page"];
     [pb addValueToPayload:referrer   withKey:@"refr"];
 
     [pb addDictionaryToPayload:schema
@@ -113,20 +113,20 @@ NSString * const kVersion = @"ios-0.1";
     [self addTracker:pb];
 }
 
-- (void) trackEcommerceTransactionItem:(NSString *)order_id
+- (void) trackEcommerceTransactionItem:(NSString *)orderId
                                    sku:(NSString *)sku
                                   name:(NSString *)name
                               category:(NSString *)category
                                  price:(float)price
                               quantity:(int)quantity
                               currency:(NSString *)currency
-                               context:(NSDictionary *)schema
+                               context:(NSDictionary *)context
                              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self setSubject:pb];
 
     [pb addValueToPayload:@"ti" withKey:@"e"];
-    [pb addValueToPayload:order_id withKey:@"ti_id"];
+    [pb addValueToPayload:orderId withKey:@"ti_id"];
     [pb addValueToPayload:sku withKey:@"ti_sk"];
     [pb addValueToPayload:name withKey:@"ti_nm"];
     [pb addValueToPayload:category withKey:@"ti_ca"];
@@ -134,7 +134,7 @@ NSString * const kVersion = @"ios-0.1";
     [pb addValueToPayload:[NSNumber numberWithInt:quantity] withKey:@"ti_qu"];
     [pb addValueToPayload:currency withKey:@"ti_cu"];
     
-    [pb addDictionaryToPayload:schema
+    [pb addDictionaryToPayload:context
                  base64Encoded:self.base64Encoded
                typeWhenEncoded:@"cx"
             typeWhenNotEncoded:@"co"];
@@ -145,7 +145,7 @@ NSString * const kVersion = @"ios-0.1";
     [self addTracker:pb];
 }
 
-- (void) trackEcommerceTransaction:(NSString *)order_id
+- (void) trackEcommerceTransaction:(NSString *)orderId
                         totalValue:(float)totalValue
                        affiliation:(NSString *)affiliation
                           taxValue:(float)taxValue
@@ -155,8 +155,30 @@ NSString * const kVersion = @"ios-0.1";
                            country:(NSString *)country
                           currency:(NSString *)currency
                              items:(NSDictionary *)items
-                           context:(NSDictionary *)context {
-    //TODO
+                           context:(NSDictionary *)context
+                         timestamp:(double)timestamp {
+    SnowplowPayload *pb =  [[SnowplowPayload alloc] init];
+    [self setSubject:pb];
+
+    [pb addValueToPayload:@"tr" withKey:@"e"];
+    [pb addValueToPayload:orderId withKey:@"tr_id"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:totalValue] withKey:@"tr_tt"];
+    [pb addValueToPayload:affiliation withKey:@"tr_af"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:taxValue] withKey:@"tr_tx"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:shipping] withKey:@"tr_sh"];
+    [pb addValueToPayload:city withKey:@"tr_ci"];
+    [pb addValueToPayload:state withKey:@"tr_st"];
+    [pb addValueToPayload:country withKey:@"tr_co"];
+    [pb addValueToPayload:currency withKey:@"tr_cu"];
+    
+    [pb addDictionaryToPayload:context
+                 base64Encoded:self.base64Encoded
+               typeWhenEncoded:@"cx"
+            typeWhenNotEncoded:@"co"];
+    if(timestamp != 0)
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
+    
+    [self addTracker:pb];
 }
 
 @end

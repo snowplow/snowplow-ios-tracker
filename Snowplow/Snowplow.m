@@ -27,7 +27,7 @@
 - (id) initWithURLString:(NSString *) url {
     self = [super init];
     if(self) {
-        self.requestHandler = [[SnowplowRequest alloc] initWithURLRequest:[[NSURL alloc] initWithString:url] httpMethod:@"POST"];
+        self.requestHandler = [[SnowplowRequest alloc] initWithURLRequest:[NSURL URLWithString:url] httpMethod:@"POST"];
     }
     
     return self;
