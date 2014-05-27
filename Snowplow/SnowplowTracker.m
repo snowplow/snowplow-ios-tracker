@@ -94,15 +94,14 @@ NSString * const kVersion = @"ios-0.1";
             typeWhenNotEncoded:@"co"];
 }
 
-- (void) setSubject:(SnowplowPayload *)payload {
+- (void) addStandardValuesToPayload:(SnowplowPayload *)payload {
+    [payload addDictionaryToPayload:self.standardData];
     [payload addValueToPayload:[SnowplowUtils getPlatform] withKey:@"p"];
     [payload addValueToPayload:[SnowplowUtils getResolution] withKey:@"res"];
     [payload addValueToPayload:[SnowplowUtils getViewPort] withKey:@"vp"];
     [payload addValueToPayload:[SnowplowUtils getEventId] withKey:@"eid"];
     [payload addValueToPayload:[SnowplowUtils getLanguage] withKey:@"lang"];
     [payload addValueToPayload:[NSNumber numberWithDouble:[SnowplowUtils getTimestamp]] withKey:@"dtm"];
-    // Commented out, until issue #25 is resolved
-    // [payload addValueToPayload:[util getTransactionId] withKey:@"tid"];
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
@@ -117,7 +116,7 @@ NSString * const kVersion = @"ios-0.1";
                       context:(NSDictionary *)context
                     timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
-    [self setSubject:pb];
+    [self addStandardValuesToPayload:pb];
     
     [pb addValueToPayload:@"se" withKey:@"e"];
     [pb addValueToPayload:category withKey:@"se_ca"];
@@ -136,7 +135,7 @@ NSString * const kVersion = @"ios-0.1";
                         context:(NSDictionary *)context
                       timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
-    [self setSubject:pb];
+    [self addStandardValuesToPayload:pb];
     
     [pb addValueToPayload:@"ue" withKey:@"e"];
 
@@ -158,7 +157,7 @@ NSString * const kVersion = @"ios-0.1";
                context:(NSDictionary *)context
              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
-    [self setSubject:pb];
+    [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
     
     [pb addValueToPayload:@"pv"      withKey:@"e"];
@@ -182,7 +181,7 @@ NSString * const kVersion = @"ios-0.1";
                                context:(NSDictionary *)context
                              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
-    [self setSubject:pb];
+    [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
 
     [pb addValueToPayload:@"ti" withKey:@"e"];
@@ -213,7 +212,7 @@ NSString * const kVersion = @"ios-0.1";
                            context:(NSDictionary *)context
                          timestamp:(double)timestamp {
     SnowplowPayload *pb =  [[SnowplowPayload alloc] init];
-    [self setSubject:pb];
+    [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
 
     [pb addValueToPayload:@"tr" withKey:@"e"];
