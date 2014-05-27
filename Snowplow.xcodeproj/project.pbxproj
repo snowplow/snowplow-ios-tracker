@@ -23,6 +23,7 @@
 		AB9E8214192DEC38006744C9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB2565019286C8C0014FE0C /* TestRequest.m */; };
 		ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27F3191C67CD00018557 /* SnowplowPayload.h */; };
+		ABB2C44D1933E6610039A675 /* SnowplowTracker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB9E8210192DD336006744C9 /* SnowplowTracker.h */; };
 		ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
 		ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
@@ -47,6 +48,7 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				ABB2C44D1933E6610039A675 /* SnowplowTracker.h in CopyFiles */,
 				ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */,
 				AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */,
 				AB0C27C6191B408200018557 /* Snowplow.h in CopyFiles */,
