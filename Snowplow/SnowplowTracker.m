@@ -50,12 +50,12 @@ NSString * const kVersion = @"ios-0.1";
     self = [super init];
     if(self) {
         [self setSchemaTag:@"jsonschema"];
-        self.trackerNamespace = namespace;
+        self.trackerNamespace = namespace_;
         self.base64Encoded = encoded;
         self.collector = collector;
         self.standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              kVersion, @"tv",
-                             namespace, @"tna",
+                             namespace_, @"tna",
                              appId, @"aid", nil];
     }
     return self;
