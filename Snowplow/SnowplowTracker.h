@@ -37,21 +37,53 @@ extern NSString * const kVersion;
 @property (nonatomic) NSString *contextSchema;
 @property (nonatomic) NSString *unstructedEventSchema;
 
+/**
+ *  Initializes a newly allocated SnowplowTracker. All class properties default to nil, and require you to use setCollector, setNamespace, setAppId, setUserId. Using initUsingCollector:appId:base64Encoded:namespace is recommended.
+ *  @return A SnowplowTracker instance.
+ */
 - (id) init;
 
+/**
+ *  Initializes a newly allocated SnowplowTracker with all the required properties to send events to it.
+ *  @param collector A SnowplowRequest object that is initialized to send the events created by the SnowplowTracker.
+ *  @param appId Your app ID
+ *  @param base64encoded If true, all context data will be Base64 encoded before being added to the event.
+ *  @param namespace Identifier for the tracker instance.
+ *  @return A SnowplowTracker instance.
+ */
 - (id) initUsingCollector:(SnowplowRequest *)collector
                     appId:(NSString *)appId
             base64Encoded:(Boolean)encoded
                 namespace:(NSString *)namespace_;
 
+/**
+ *  Sets the collector to the new SnowplowRequest passed to it.
+ *  @param A correctly defined SnowplowRequest instance. Overrides original if set.
+ */
 - (void) setCollector:(SnowplowRequest *)collector;
 
+/**
+ *  Sets the namespace to the new string passed to it.
+ *  @param A string of the new namespace to use. Overrides original if set.
+ */
 - (void) setNamespace:(NSString *)trackerNamespace;
 
+/**
+ *  Sets the app ID to the new string passed to it.
+ *  @param A string of the new app ID to use. Overrides original if set.
+ */
 - (void) setAppId:(NSString *)appId;
 
+/**
+ *  Sets the user ID to the new string passed to it.
+ *  @param A string of the new user ID to use. Overrides original if set.
+ */
 - (void) setUserId:(NSString *)userId;
 
+/**
+ *  Sets the schema tag to the new string passed to it. This is used to set the context schema in the event for self describing JSON.
+ *  @param A string of the new namespace to be use.
+ */
 - (void) setSchemaTag:(NSString *)schema;
 
 - (void) trackPageView:(NSString *)pageUrl
