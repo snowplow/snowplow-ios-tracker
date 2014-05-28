@@ -39,10 +39,10 @@ extern NSString * const kVersion;
 
 - (id) init;
 
-- (id) initUsingNamespace:(NSString *)namespace_
+- (id) initUsingCollector:(SnowplowRequest *)collector
                     appId:(NSString *)appId
             base64Encoded:(Boolean)encoded
-                collector:(SnowplowRequest *)collector;
+                namespace:(NSString *)namespace_;
 
 - (void) setCollector:(SnowplowRequest *)collector;
 
