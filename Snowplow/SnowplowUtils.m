@@ -22,6 +22,8 @@
 
 #import "SnowplowUtils.h"
 #import <UIKit/UIScreen.h>
+#import <OpenIDFA/OpenIDFA.h>
+#import <AdSupport/AdSupport.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
@@ -44,6 +46,14 @@
 + (NSString *) getEventId {
     // Generates type 4 UUID
     return [[NSUUID UUID] UUIDString];
+}
+
++ (NSString *) getOpenIdfa {
+    return [OpenIDFA sameDayOpenIDFA];
+}
+
++ (NSString *) getAppleIdfa {
+    return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 }
 
 + (NSString *) getCarrierName {

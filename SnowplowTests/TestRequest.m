@@ -43,6 +43,16 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
     [super tearDown];
 }
 
+- (void)waitForAsynchronousTask
+{
+    CFRunLoopRun();
+}
+
+- (void)completeAsynchronousTask
+{
+    CFRunLoopStop(CFRunLoopGetCurrent());
+}
+
 - (void)testFlushBuffer
 {
 
