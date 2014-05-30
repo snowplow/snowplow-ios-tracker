@@ -21,6 +21,7 @@
 //
 
 #import "SnowplowRequest.h"
+#import <AFNetworking/AFNetworking.h>
 
 @implementation SnowplowRequest
 

@@ -21,7 +21,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <AFNetworking/AFNetworking.h>
 #import "SnowplowPayload.h"
 
 @interface SnowplowRequest : NSObject
