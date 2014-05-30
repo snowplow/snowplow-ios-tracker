@@ -25,6 +25,7 @@
 		ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27F3191C67CD00018557 /* SnowplowPayload.h */; };
 		ABB2C44D1933E6610039A675 /* SnowplowTracker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB9E8210192DD336006744C9 /* SnowplowTracker.h */; };
 		ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
+		ABB790CC1936F2500084B964 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB790CB1936F2500084B964 /* TestTracker.m */; };
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
 		ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
 		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
@@ -79,6 +80,7 @@
 		AB9E8213192DEC38006744C9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		ABB2565019286C8C0014FE0C /* TestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequest.m; sourceTree = "<group>"; };
 		ABB67D8C192D9552009A1ECE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		ABB790CB1936F2500084B964 /* TestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTracker.m; sourceTree = "<group>"; };
 		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
 		ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowUtils.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowUtils.m; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 				ABFCC36D1921016200FAE8FE /* TestPayload.m */,
 				ABFCC377192325FB00FAE8FE /* TestUtils.m */,
 				ABB2565019286C8C0014FE0C /* TestRequest.m */,
+				ABB790CB1936F2500084B964 /* TestTracker.m */,
 			);
 			path = SnowplowTests;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 			files = (
 				ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */,
 				ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */,
+				ABB790CC1936F2500084B964 /* TestTracker.m in Sources */,
 				AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */,
 				ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */,
 			);
