@@ -208,7 +208,7 @@ NSString * const kVersion = @"ios-0.1";
                              state:(NSString *)state
                            country:(NSString *)country
                           currency:(NSString *)currency
-                             items:(NSDictionary *)items
+                             items:(NSArray *)items
                            context:(NSDictionary *)context
                          timestamp:(double)timestamp {
     SnowplowPayload *pb =  [[SnowplowPayload alloc] init];
@@ -226,10 +226,23 @@ NSString * const kVersion = @"ios-0.1";
     [pb addValueToPayload:country withKey:@"tr_co"];
     [pb addValueToPayload:currency withKey:@"tr_cu"];
     
+    NSMutableArray *itemResults;
+    
+    for (NSMutableDictionary *item in items) {
+        [item setObject:[NSNumber numberWithDouble:timestamp] forKey:@"tstamp"];
+        [item setObject:orderId forKey:@"order_id"];
+        [item setObject:currency forKey:@"currency"];
+        [itemResults addObject:item];
+    }
+    
     if(timestamp != 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
     
-    [self addTracker:pb];
+    SnowplowPayload *transactionPb = [[SnowplowPayload alloc] init];
+    [transactionPb addValueToPayload:pb withKey:@"transaction_result"];
+    [transactionPb addValueToPayload:itemResults withKey:@"item_results"];
+    
+    [self addTracker:transactionPb];
 }
 
 - (void) trackScreenView:(NSString *)name
