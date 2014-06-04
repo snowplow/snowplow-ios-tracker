@@ -31,6 +31,7 @@ extern NSString * const kVersion;
 
 @property (nonatomic) Boolean base64Encoded;
 @property (nonatomic) NSString *trackerNamespace;
+@property (nonatomic) NSString *appId;
 @property (nonatomic) SnowplowRequest *collector;
 @property (nonatomic) NSMutableDictionary *standardData;
 @property (nonatomic) NSString *schemaTag;

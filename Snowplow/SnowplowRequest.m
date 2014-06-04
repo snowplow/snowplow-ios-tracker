@@ -32,8 +32,8 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics.snowplow/pay
 - (id) init {
     self = [super init];
     if (self) {
-        self.urlEndpoint = nil;
-        self.bufferTime = kDefaultBufferTimeout;
+        _urlEndpoint = nil;
+        _bufferTime = kDefaultBufferTimeout;
     }
     return self;
 }
@@ -41,10 +41,10 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics.snowplow/pay
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
     self = [super init];
     if(self) {
-        self.urlEndpoint = url;
-        self.httpMethod = method;
-        self.buffer = [[NSMutableArray alloc] init];
-        self.bufferTime = kDefaultBufferTimeout;
+        _urlEndpoint = url;
+        _httpMethod = method;
+        _buffer = [[NSMutableArray alloc] init];
+        _bufferTime = kDefaultBufferTimeout;
     }
     return self;
 }
@@ -52,9 +52,9 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics.snowplow/pay
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time {
     self = [super init];
     if(self) {
-        self.urlEndpoint = url;
-        self.bufferTime = buffer_time;
-        self.buffer = [[NSMutableArray alloc] init];
+        _urlEndpoint = url;
+        _bufferTime = buffer_time;
+        _buffer = [[NSMutableArray alloc] init];
     }
     return self;
 }

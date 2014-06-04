@@ -34,10 +34,10 @@ NSString * const kVersion = @"ios-0.1";
     self = [super init];
     if(self) {
         [self setSchemaTag:@"jsonschema"];
-        self.trackerNamespace = nil;
-        self.base64Encoded = true;
-        self.collector = nil;
-        self.standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        _trackerNamespace = nil;
+        _base64Encoded = true;
+        _collector = nil;
+        _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              kVersion, @"tv", nil];
     }
     return self;
@@ -50,10 +50,10 @@ NSString * const kVersion = @"ios-0.1";
     self = [super init];
     if(self) {
         [self setSchemaTag:@"jsonschema"];
-        self.trackerNamespace = namespace_;
-        self.base64Encoded = encoded;
-        self.collector = collector;
-        self.standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+        _trackerNamespace = namespace_;
+        _base64Encoded = encoded;
+        _collector = collector;
+        _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              kVersion, @"tv",
                              namespace_, @"tna",
                              appId, @"aid", nil];
@@ -62,15 +62,15 @@ NSString * const kVersion = @"ios-0.1";
 }
 
 - (void) setCollector:(SnowplowRequest *)collector {
-    self.collector = collector;
+    _collector = collector;
 }
 
 - (void) setNamespace:(NSString *)trackerNamespace {
-    self.trackerNamespace = trackerNamespace;
+    _trackerNamespace = trackerNamespace;
 }
 
 - (void) setAppId:(NSString *)appId {
-    self.appId = appId;
+    _appId = appId;
 }
 
 - (void) setUserId:(NSString *)userId {
@@ -78,9 +78,9 @@ NSString * const kVersion = @"ios-0.1";
 }
 
 - (void) setSchemaTag:(NSString *)schema {
-    self.schemaTag = schema;
-    self.contextSchema = [NSString stringWithFormat:@"iglu://com.snowplowanalytics/contexts/%@/1-0-0", schema];
-    self.unstructedEventSchema = [NSString stringWithFormat:@"iglu://com.snowplowanalytics/unstruct_event/%@/1-0-0", schema];
+    _schemaTag = schema;
+    _contextSchema = [NSString stringWithFormat:@"iglu://com.snowplowanalytics/contexts/%@/1-0-0", schema];
+    _unstructedEventSchema = [NSString stringWithFormat:@"iglu://com.snowplowanalytics/unstruct_event/%@/1-0-0", schema];
 }
 
 - (void) setContext:(SnowplowPayload *)pb

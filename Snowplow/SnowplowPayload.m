@@ -27,7 +27,7 @@
 - (id) init {
     self = [super init];
     if(self) {
-        self.payload = [[NSMutableDictionary alloc] init];
+        _payload = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -35,7 +35,7 @@
 - (id) initWithNSDictionary:(NSDictionary *) dict {
     self = [super init];
     if(self) {
-        self.payload = [NSMutableDictionary dictionaryWithDictionary:dict];
+        _payload = [NSMutableDictionary dictionaryWithDictionary:dict];
     }
     return self;
 }
