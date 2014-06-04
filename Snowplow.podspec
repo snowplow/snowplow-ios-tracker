@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "Snowplow"
-  s.version          = File.read('VERSION')
+  #s.version          = File.read('VERSION')
   s.summary          = "Snowplow event tracker for iOS 6+. Add analytics to your iOS apps and games."
   s.description      = <<-DESC
                        An optional longer description of Snowplow
