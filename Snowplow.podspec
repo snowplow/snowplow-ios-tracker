@@ -12,7 +12,7 @@ Pod::Spec.new do |s|
   s.screenshots      = "https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-logo-large.png"
   s.license          = 'Apache License, Version 2.0'
   s.author           = { "Jonathan Almeida" => "jonathan@snowplowanalytics.com" }
-  s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git", :branch => "topic_cocoapod" } #:tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git" :tag => "0.0.1" }
   s.social_media_url = 'https://twitter.com/SnowPlowData'
 
   s.platform     = :ios, '7.0'
