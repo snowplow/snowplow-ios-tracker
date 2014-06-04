@@ -237,12 +237,13 @@ NSString * const kVersion = @"ios-0.1";
     
     if(timestamp != 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
-    
+
+    // This bit is wrong and needs to be changed, see Fred's comments
     SnowplowPayload *transactionPb = [[SnowplowPayload alloc] init];
     [transactionPb addValueToPayload:pb withKey:@"transaction_result"];
     [transactionPb addValueToPayload:itemResults withKey:@"item_results"];
     
-    [self addTracker:transactionPb];
+    [self addTracker:pb];
 }
 
 - (void) trackScreenView:(NSString *)name
