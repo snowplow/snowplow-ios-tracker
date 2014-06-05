@@ -79,8 +79,8 @@ NSString * const kVersion = @"ios-0.1";
 
 - (void) setSchemaTag:(NSString *)schema {
     _schemaTag = schema;
-    _contextSchema = [NSString stringWithFormat:@"iglu:com.snowplowanalytics/contexts/%@/1-0-0", schema];
-    _unstructedEventSchema = [NSString stringWithFormat:@"iglu:com.snowplowanalytics/unstruct_event/%@/1-0-0", schema];
+    _contextSchema = [NSString stringWithFormat:@"iglu:com.snowplowanalytics.snowplow/contexts/%@/1-0-0", schema];
+    _unstructedEventSchema = [NSString stringWithFormat:@"iglu:com.snowplowanalytics.snowplow/unstruct_event/%@/1-0-0", schema];
 }
 
 - (void) setContext:(SnowplowPayload *)pb
