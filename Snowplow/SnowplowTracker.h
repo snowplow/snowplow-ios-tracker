@@ -93,6 +93,7 @@ extern NSString * const kVersion;
  *  @param title The title of page we're tracking
  *  @param referrer Referrerr of the page
  *  @param context Custom context for the event
+ *  @param timestamp Optional user-provided timestamp. Else, use 0.
  */
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle

@@ -27,7 +27,7 @@
 
 static int const kDefaultBufferTimeout = 60;
 static int const kDefaultBufferSize = 10;
-static NSString *const kPayloadDataSchema = @"com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
+static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
 
 - (id) init {
     self = [super init];
@@ -81,7 +81,7 @@ static NSString *const kPayloadDataSchema = @"com.snowplowanalytics.snowplow/pay
     //Empties the buffer and sends the contents to the collector
     if([self.httpMethod isEqual:@"POST"]) {
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-        [payload setObject:kPayloadDataSchema forKey:@"schema"];
+        [payload setObject:kPayloadDataSchema forKey:@"$schema"];
         [payload setObject:self.buffer forKey:@"data"];
         
         [self sendPostData:payload];

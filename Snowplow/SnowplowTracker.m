@@ -141,7 +141,7 @@ NSString * const kVersion = @"ios-0.1";
 
     // Creates similar envelop as in setContext with but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                          self.contextSchema, @"schema",
+                          self.contextSchema, @"$schema",
                           context, @"data", nil];
     [pb addDictionaryToPayload:envelope
                  base64Encoded:self.base64Encoded
@@ -257,7 +257,7 @@ NSString * const kVersion = @"ios-0.1";
         [screenViewProperties setObject:id_ forKey:@"id"];
     
     NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
-                               snowplowSchema, @"schema",
+                               snowplowSchema, @"$schema",
                                screenViewProperties, @"data", nil];
     [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
 }
