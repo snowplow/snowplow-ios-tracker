@@ -22,6 +22,7 @@
 
 #import "SnowplowUtils.h"
 #import <UIKit/UIScreen.h>
+#import <UIKit/UIDevice.h>
 #import <AdSupport/AdSupport.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
@@ -77,6 +78,24 @@
 + (NSString *) getViewPort {
     // This probably doesn't change as well
     return [self getResolution];
+}
+
++ (NSString *) getDeviceVendor {
+    return @"Apple Inc.";
+}
+
++ (NSString *) getDeviceModel {
+    UIDevice *device = [UIDevice currentDevice];
+    return [device model];
+}
+
++ (NSString *) getOSVersion {
+    UIDevice *device = [UIDevice currentDevice];
+    return [device systemVersion];
+}
+
++ (NSString *) getOSType {
+    return @"ios";
 }
 
 @end
