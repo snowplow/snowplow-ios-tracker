@@ -49,6 +49,12 @@
 + (NSString *) getEventId;
 
 /**
+ *  Returns a generated string unique to each device, used only for serving advertisements. This is similar to the native advertisingIdentifier supplied by Apple.
+ *  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
+ */
++ (NSString *) getOpenIdfa;
+
+/**
  *  Returns a generated string unique to each device, used only for serving advertisements.
  *  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */

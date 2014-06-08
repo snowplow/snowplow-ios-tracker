@@ -48,6 +48,12 @@
     return [[NSUUID UUID] UUIDString];
 }
 
++ (NSString *) getOpenIdfa {
+    // TBD when OpenIDFA is ready
+    // See: https://github.com/ylechelle/OpenIDFA
+    return @"";
+}
+
 + (NSString *) getAppleIdfa {
     return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 }
