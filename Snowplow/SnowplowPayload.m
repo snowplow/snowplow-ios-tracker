@@ -40,6 +40,10 @@
     return self;
 }
 
++ (instancetype) payloadWithDictionary:(NSDictionary *) dict {
+    return [[self alloc] initWithDictionary:dict];
+}
+
 - (void) addValueToPayload:(id)value withKey:(NSString *)key {
     [self.payload setObject:value forKey:key];
 }
