@@ -92,7 +92,7 @@
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  @"Value1", @"Key1", nil];
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
-    [sample_payload addValueToPayload:@"Value1" withKey:@"Key1"];
+    [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
     XCTAssertEqualObjects(sample_payload.payload,
@@ -105,7 +105,7 @@
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  @"Value2", @"Key2", nil];
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
-    [sample_payload addValueToPayload:@"Value1" withKey:@"Key1"];
+    [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
     XCTAssertNotEqualObjects(sample_payload.payload,
@@ -121,7 +121,7 @@
                                  @"Value1", @"Key1",
                                  @"Value2", @"Key2", nil];
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict_init];
-    [sample_payload addValueToPayload:@"Value2" withKey:@"Key2"];
+    [sample_payload addValueToPayload:@"Value2" forKey:@"Key2"];
     
     XCTAssertEqualObjects(sample_payload.payload,
                           sample_dict_final,

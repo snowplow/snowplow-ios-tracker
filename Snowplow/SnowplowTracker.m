@@ -105,14 +105,14 @@ NSString * const kVersion = @"ios-0.1";
     NSString *schema = [NSString stringWithFormat:@"%@%@/mobile_context/jsonschema/1-0-0",
                         kIglu, kSnowplowVendor];
     
-    [mobContext addValueToPayload:[SnowplowUtils getOSType] withKey:@"osType"];
-    [mobContext addValueToPayload:[SnowplowUtils getOSVersion] withKey:@"osVersion"];
-    [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] withKey:@"deviceVendor"];
-    [mobContext addValueToPayload:[SnowplowUtils getDeviceModel] withKey:@"deviceModel"];
+    [mobContext addValueToPayload:[SnowplowUtils getOSType] forKey:@"osType"];
+    [mobContext addValueToPayload:[SnowplowUtils getOSVersion] forKey:@"osVersion"];
+    [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceVendor"];
+    [mobContext addValueToPayload:[SnowplowUtils getDeviceModel] forKey:@"deviceModel"];
     // Can't fake carrier in simulator so this causes runtime errors
-    [mobContext addValueToPayload:[SnowplowUtils getCarrierName] withKey:@"carrier"];
-    [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] withKey:@"openIdfa"];
-    [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] withKey:@"appleIdfa"];
+    [mobContext addValueToPayload:[SnowplowUtils getCarrierName] forKey:@"carrier"];
+    [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
+    [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] forKey:@"appleIdfa"];
     
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                               schema, @"$schema",
@@ -122,12 +122,12 @@ NSString * const kVersion = @"ios-0.1";
 
 - (void) addStandardValuesToPayload:(SnowplowPayload *)payload {
     [payload addDictionaryToPayload:self.standardData];
-    [payload addValueToPayload:[SnowplowUtils getPlatform] withKey:@"p"];
-    [payload addValueToPayload:[SnowplowUtils getResolution] withKey:@"res"];
-    [payload addValueToPayload:[SnowplowUtils getViewPort] withKey:@"vp"];
-    [payload addValueToPayload:[SnowplowUtils getEventId] withKey:@"eid"];
-    [payload addValueToPayload:[SnowplowUtils getLanguage] withKey:@"lang"];
-    [payload addValueToPayload:[NSNumber numberWithDouble:[SnowplowUtils getTimestamp]] withKey:@"dtm"];
+    [payload addValueToPayload:[SnowplowUtils getPlatform] forKey:@"p"];
+    [payload addValueToPayload:[SnowplowUtils getResolution] forKey:@"res"];
+    [payload addValueToPayload:[SnowplowUtils getViewPort] forKey:@"vp"];
+    [payload addValueToPayload:[SnowplowUtils getEventId] forKey:@"eid"];
+    [payload addValueToPayload:[SnowplowUtils getLanguage] forKey:@"lang"];
+    [payload addValueToPayload:[NSNumber numberWithDouble:[SnowplowUtils getTimestamp]] forKey:@"dtm"];
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
@@ -144,15 +144,15 @@ NSString * const kVersion = @"ios-0.1";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     
-    [pb addValueToPayload:@"se" withKey:@"e"];
-    [pb addValueToPayload:category withKey:@"se_ca"];
-    [pb addValueToPayload:action withKey:@"se_ac"];
-    [pb addValueToPayload:label withKey:@"se_la"];
-    [pb addValueToPayload:property withKey:@"se_pr"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:value] withKey:@"se_va"];
+    [pb addValueToPayload:@"se" forKey:@"e"];
+    [pb addValueToPayload:category forKey:@"se_ca"];
+    [pb addValueToPayload:action forKey:@"se_ac"];
+    [pb addValueToPayload:label forKey:@"se_la"];
+    [pb addValueToPayload:property forKey:@"se_pr"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:value] forKey:@"se_va"];
     
     if (timestamp != 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
 
     [self addTracker:pb];
 }
@@ -163,7 +163,7 @@ NSString * const kVersion = @"ios-0.1";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     
-    [pb addValueToPayload:@"ue" withKey:@"e"];
+    [pb addValueToPayload:@"ue" forKey:@"e"];
 
     // Creates similar envelop as in setContext with but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -185,13 +185,13 @@ NSString * const kVersion = @"ios-0.1";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
-    [pb addValueToPayload:@"pv"      withKey:@"e"];
-    [pb addValueToPayload:pageUrl   withKey:@"url"];
-    [pb addValueToPayload:pageTitle withKey:@"page"];
-    [pb addValueToPayload:referrer   withKey:@"refr"];
+    [pb addValueToPayload:@"pv"      forKey:@"e"];
+    [pb addValueToPayload:pageUrl   forKey:@"url"];
+    [pb addValueToPayload:pageTitle forKey:@"page"];
+    [pb addValueToPayload:referrer   forKey:@"refr"];
 
     if(timestamp != 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
@@ -209,17 +209,17 @@ NSString * const kVersion = @"ios-0.1";
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
 
-    [pb addValueToPayload:@"ti" withKey:@"e"];
-    [pb addValueToPayload:orderId withKey:@"ti_id"];
-    [pb addValueToPayload:sku withKey:@"ti_sk"];
-    [pb addValueToPayload:name withKey:@"ti_nm"];
-    [pb addValueToPayload:category withKey:@"ti_ca"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:price] withKey:@"ti_pr"];
-    [pb addValueToPayload:[NSNumber numberWithInt:quantity] withKey:@"ti_qu"];
-    [pb addValueToPayload:currency withKey:@"ti_cu"];
+    [pb addValueToPayload:@"ti" forKey:@"e"];
+    [pb addValueToPayload:orderId forKey:@"ti_id"];
+    [pb addValueToPayload:sku forKey:@"ti_sk"];
+    [pb addValueToPayload:name forKey:@"ti_nm"];
+    [pb addValueToPayload:category forKey:@"ti_ca"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:price] forKey:@"ti_pr"];
+    [pb addValueToPayload:[NSNumber numberWithInt:quantity] forKey:@"ti_qu"];
+    [pb addValueToPayload:currency forKey:@"ti_cu"];
 
     if(timestamp != 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
@@ -240,16 +240,16 @@ NSString * const kVersion = @"ios-0.1";
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
 
-    [pb addValueToPayload:@"tr" withKey:@"e"];
-    [pb addValueToPayload:orderId withKey:@"tr_id"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:totalValue] withKey:@"tr_tt"];
-    [pb addValueToPayload:affiliation withKey:@"tr_af"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:taxValue] withKey:@"tr_tx"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:shipping] withKey:@"tr_sh"];
-    [pb addValueToPayload:city withKey:@"tr_ci"];
-    [pb addValueToPayload:state withKey:@"tr_st"];
-    [pb addValueToPayload:country withKey:@"tr_co"];
-    [pb addValueToPayload:currency withKey:@"tr_cu"];
+    [pb addValueToPayload:@"tr" forKey:@"e"];
+    [pb addValueToPayload:orderId forKey:@"tr_id"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:totalValue] forKey:@"tr_tt"];
+    [pb addValueToPayload:affiliation forKey:@"tr_af"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:taxValue] forKey:@"tr_tx"];
+    [pb addValueToPayload:[NSNumber numberWithFloat:shipping] forKey:@"tr_sh"];
+    [pb addValueToPayload:city forKey:@"tr_ci"];
+    [pb addValueToPayload:state forKey:@"tr_st"];
+    [pb addValueToPayload:country forKey:@"tr_co"];
+    [pb addValueToPayload:currency forKey:@"tr_cu"];
     
     NSMutableArray *itemResults;
     
@@ -261,12 +261,12 @@ NSString * const kVersion = @"ios-0.1";
     }
     
     if(timestamp != 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] withKey:@"dtm"];
+        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
 
     // This bit is wrong and needs to be changed, see Fred's comments
     SnowplowPayload *transactionPb = [[SnowplowPayload alloc] init];
-    [transactionPb addValueToPayload:pb withKey:@"transaction_result"];
-    [transactionPb addValueToPayload:itemResults withKey:@"item_results"];
+    [transactionPb addValueToPayload:pb forKey:@"transaction_result"];
+    [transactionPb addValueToPayload:itemResults forKey:@"item_results"];
     
     [self addTracker:pb];
 }

@@ -44,7 +44,7 @@
     return [[self alloc] initWithDictionary:dict];
 }
 
-- (void) addValueToPayload:(id)value withKey:(NSString *)key {
+- (void) addValueToPayload:(id)value forKey:(NSString *)key {
     if (value == nil) {
         return;
     }
@@ -86,9 +86,9 @@
                 encodedString = [json base64Encoding];
                 NSLog(@"Using 3PD encoding: %@", encodedString);
             }
-            [self addValueToPayload:encodedString withKey:typeEncoded];
+            [self addValueToPayload:encodedString forKey:typeEncoded];
         } else {
-            [self addValueToPayload:object withKey:typeNotEncoded];
+            [self addValueToPayload:object forKey:typeNotEncoded];
         }
     } // else handle a bad name-value pair even though it passes JSONSerialization?
 }
