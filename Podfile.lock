@@ -18,14 +18,11 @@ PODS:
   - AFNetworking/UIKit (2.2.4):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
-  - OpenIDFA (0.0.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.0)
-  - OpenIDFA (~> 0.0)
 
 SPEC CHECKSUMS:
   AFNetworking: ab63e259fe91eef4519b371ef0a4955af0e73e64
-  OpenIDFA: 1b97fdf8ae362b1b0c556797949b8f6c9e418657
 
 COCOAPODS: 0.33.1
