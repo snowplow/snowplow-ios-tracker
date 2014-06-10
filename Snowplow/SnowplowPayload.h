@@ -42,7 +42,7 @@
 /**
  *  Adds a simple name-value pair into the SnowplowPayload intance.
  *  @param value A JSON-compatible value
- *  @param value A key of type (NSString *)
+ *  @param key A key of type NSString
  */
 - (void) addValueToPayload:(id)value withKey:(NSString *)key;
 
