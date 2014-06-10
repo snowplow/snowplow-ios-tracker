@@ -45,10 +45,16 @@
 }
 
 - (void) addValueToPayload:(id)value withKey:(NSString *)key {
+    if (value == nil) {
+        return;
+    }
     [self.payload setObject:value forKey:key];
 }
 
 - (void) addDictionaryToPayload:(NSDictionary *)dict {
+    if (dict == nil) {
+        return;
+    }
     [self.payload addEntriesFromDictionary:dict];
 }
 

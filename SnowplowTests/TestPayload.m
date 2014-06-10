@@ -202,7 +202,7 @@
     // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
 
     NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                @"{\"Key1\":\"Value1\"}", @"type_notenc", nil];
+                                @{@"Key1": @"Value1"}, @"type_notenc", nil];
     NSString *json_str = @"{\"Key1\":\"Value1\"}";
     
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
