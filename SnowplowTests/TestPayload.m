@@ -184,7 +184,7 @@
     NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"Value1", @"Key1", nil];
     NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                @"{\"Key1\":\"Value1\"}", @"type_notenc", nil];
+                                sample_dic, @"type_notenc", nil];
     // NSDictionary conversion to JSON string
     NSData *somedata = [NSJSONSerialization dataWithJSONObject:sample_dic options:0 error:0];
     
