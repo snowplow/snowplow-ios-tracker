@@ -52,9 +52,64 @@
     
     [tracker trackPageView:@"foo2.com" title:@"This is my foo2" referrer:@"myreferrer2" context:context timestamp:124];
     
-//    [collector flushBuffer];
-    
     sleep(2);
 }
+
+- (void)testInit
+{
+    // Basic test to see if init values are set
+}
+
+- (void)testInitPropertySet
+{
+    // Force setting of init values that were not set if using initUsingCollector:appId:base64Encoded:namespace:
+}
+
+- (void)testInitUsingCollector
+{
+    // Basic test to see if initUsingCollector are set
+}
+
+- (void)testSetCollector
+{
+    // Self-explanatory
+}
+
+- (void)testSetNamespace
+{
+    // Self-explanatory
+}
+
+- (void)testSetAppId
+{
+    // Self-explanatory
+}
+
+- (void)testSetUserId
+{
+    // Self-explanatory
+}
+
+- (void)testSetSchemaTag
+{
+    // Self-explanatory
+}
+
+- (void)testTrackPageViewWithoutContext {
+    // Test page view tracker WITHOUT a context set
+}
+
+- (void)testTrackPageViewWithContext {
+    // Test page view tracker WITH a context set
+}
+
+- (void)testTrackPageViewWithTimestamp {
+    // Test page view tracker WITH a timestamp set
+}
+
+- (void)testTrackPageViewWithoutTimestamp {
+    // Test page view tracker WITHOUT a timestamp set
+}
+
 
 @end

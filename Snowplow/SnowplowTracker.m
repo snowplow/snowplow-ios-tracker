@@ -80,8 +80,10 @@ NSString * const kVersion = @"ios-0.1";
 
 - (void) setSchemaTag:(NSString *)schema {
     _schemaTag = schema;
-    _contextSchema = [NSString stringWithFormat:@"%@%@/contexts/%@/1-0-0", kIglu, kSnowplowVendor, schema];
-    _unstructedEventSchema = [NSString stringWithFormat:@"%@%@/unstruct_event/%@/1-0-0", kIglu, kSnowplowVendor, schema];
+    _contextSchema = [NSString stringWithFormat:@"%@%@/contexts/%@/1-0-0",
+                      kIglu, kSnowplowVendor, schema];
+    _unstructedEventSchema = [NSString stringWithFormat:@"%@%@/unstruct_event/%@/1-0-0",
+                              kIglu, kSnowplowVendor, schema];
 }
 
 - (void) setContext:(SnowplowPayload *)pb
@@ -100,16 +102,16 @@ NSString * const kVersion = @"ios-0.1";
 - (void) setMobileContext: (NSMutableArray *)payloadData {
     SnowplowPayload *mobContext = [[SnowplowPayload alloc] init];
     
-    NSString *schema = [NSString stringWithFormat:@"%@%@/mobile_context/jsonschema/1-0-0", kIglu, kSnowplowVendor];
+    NSString *schema = [NSString stringWithFormat:@"%@%@/mobile_context/jsonschema/1-0-0",
+                        kIglu, kSnowplowVendor];
     
     [mobContext addValueToPayload:[SnowplowUtils getOSType] withKey:@"osType"];
     [mobContext addValueToPayload:[SnowplowUtils getOSVersion] withKey:@"osVersion"];
     [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] withKey:@"deviceVendor"];
     [mobContext addValueToPayload:[SnowplowUtils getDeviceModel] withKey:@"deviceModel"];
     // Can't fake carrier in simulator so this causes runtime errors
-//    [mobContext addValueToPayload:[SnowplowUtils getCarrierName] withKey:@"carrier"];
-    // Uncomment when enabled
-    // [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
+    [mobContext addValueToPayload:[SnowplowUtils getCarrierName] withKey:@"carrier"];
+    [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] withKey:@"openIdfa"];
     [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] withKey:@"appleIdfa"];
     
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:

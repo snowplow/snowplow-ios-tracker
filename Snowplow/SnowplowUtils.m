@@ -21,6 +21,7 @@
 //
 
 #import "SnowplowUtils.h"
+#include <OpenIDFA.h>
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIDevice.h>
 #import <AdSupport/AdSupport.h>
@@ -49,9 +50,8 @@
 }
 
 + (NSString *) getOpenIdfa {
-    // TBD when OpenIDFA is ready
     // See: https://github.com/ylechelle/OpenIDFA
-    return @"";
+    return [OpenIDFA sameDayOpenIDFA];
 }
 
 + (NSString *) getAppleIdfa {
@@ -61,6 +61,10 @@
 + (NSString *) getCarrierName {
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
+    NSString *carrierName = [carrier carrierName];
+    if(carrierName == nil) {
+        return @"None";
+    }
     return [carrier carrierName];
 }
 
