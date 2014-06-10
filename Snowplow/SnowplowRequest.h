@@ -28,7 +28,12 @@
 @property (nonatomic) NSURL *urlEndpoint;
 @property (nonatomic) NSString *httpMethod;
 @property (nonatomic) int bufferTime;
-@property (atomic) NSMutableArray *buffer;
+@property (nonatomic, retain) NSMutableArray *buffer;
+
+enum SnowplowBufferOptions {
+    SnowplowBufferInstant = 1,
+    SnowplowBufferDefault = 10
+};
 
 /**
  *  Initializes a newly allocated SnowplowRequest
@@ -51,6 +56,12 @@
  *  @param bufferTime The time interval to wait until the next POST should be sent.
  */
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time;
+
+/**
+ *  Set the buffer to send the data instantly or after storing 10 events. Use the enum SnowplowBufferOptions to set the preferred option. By default, the tracker is set to SnowplowBufferDefault (10).
+ *  @param buffer Sets the buffer to SnowplowBufferDefault or SnowplowBufferInstant with SnowplowBufferOptions.
+ */
+- (void) setBufferOption:(enum SnowplowBufferOptions) buffer;
 
 /**
  * Inserts a dictionary of data into the buffer for the class.

@@ -44,6 +44,7 @@
 - (void)testExample
 {
     SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:[NSURL URLWithString:@"http://segfault.ngrok.com/events"] httpMethod:@"POST"];
+    [collector setBufferOption:SnowplowBufferInstant];
     SnowplowTracker *tracker = [[SnowplowTracker alloc] initUsingCollector:collector appId:@"foo" base64Encoded:false namespace:@"myname"];
     
     NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -51,7 +52,7 @@
     
     [tracker trackPageView:@"foo2.com" title:@"This is my foo2" referrer:@"myreferrer2" context:context timestamp:124];
     
-    [collector flushBuffer];
+//    [collector flushBuffer];
     
     sleep(2);
 }

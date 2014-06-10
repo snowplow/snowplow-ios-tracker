@@ -26,7 +26,7 @@
 @implementation SnowplowRequest
 
 static int const kDefaultBufferTimeout = 60;
-static int const kDefaultBufferSize = 10;
+static int kDefaultBufferSize = 10;
 static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
 
 - (id) init {
@@ -65,16 +65,19 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
 }
 
 - (void) addToBuffer:(NSDictionary *)payload {
+    [self.buffer addObject:payload];
     if([self.buffer count] == kDefaultBufferSize)
         [self flushBuffer];
-    [self.buffer addObject:payload];
 }
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
-    if([self.buffer count] == kDefaultBufferSize)
-        [self flushBuffer];
     [self.buffer addObject:spPayload.payload];
+    if([self.buffer count] == _bufferTime)
+        [self flushBuffer];
+}
 
+- (void) setBufferOption:(enum SnowplowBufferOptions) buffer {
+    _bufferTime = buffer;
 }
 
 - (void) flushBuffer {
