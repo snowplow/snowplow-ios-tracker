@@ -59,7 +59,7 @@
     NSError *error = nil;
     
     // We do this only for JSON error checking
-    id object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
+    NSDictionary *object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     
     if (error) {
         NSLog(@"addJsonToPayload: error: %@", error.localizedDescription);
@@ -68,7 +68,6 @@
     
     // Checks if it conforms to NSDictionary type
     if([object isKindOfClass:[NSDictionary class]]) {
-        NSString *result = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
         NSString *encodedString = nil;
         if(encode) {
             
@@ -83,7 +82,7 @@
             }
             [self addValueToPayload:encodedString withKey:typeEncoded];
         } else {
-            [self addValueToPayload:result withKey:typeNotEncoded];
+            [self addValueToPayload:object withKey:typeNotEncoded];
         }
     } // else handle a bad name-value pair even though it passes JSONSerialization?
 }

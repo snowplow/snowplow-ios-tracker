@@ -27,6 +27,7 @@
 @implementation SnowplowTracker
 
 NSString * const kSnowplowVendor = @"com.snowplowanalytics.snowplow";
+NSString * const kIglu = @"iglu:";
 Boolean const kDefaultEncodeBase64 = true;
 NSString * const kVersion = @"ios-0.1";
 
@@ -79,19 +80,42 @@ NSString * const kVersion = @"ios-0.1";
 
 - (void) setSchemaTag:(NSString *)schema {
     _schemaTag = schema;
-    _contextSchema = [NSString stringWithFormat:@"iglu:com.snowplowanalytics.snowplow/contexts/%@/1-0-0", schema];
-    _unstructedEventSchema = [NSString stringWithFormat:@"iglu:com.snowplowanalytics.snowplow/unstruct_event/%@/1-0-0", schema];
+    _contextSchema = [NSString stringWithFormat:@"%@%@/contexts/%@/1-0-0", kIglu, kSnowplowVendor, schema];
+    _unstructedEventSchema = [NSString stringWithFormat:@"%@%@/unstruct_event/%@/1-0-0", kIglu, kSnowplowVendor, schema];
 }
 
 - (void) setContext:(SnowplowPayload *)pb
             context:(NSDictionary *)context {
+    NSMutableArray *dataArray = [[NSMutableArray alloc] initWithObjects:context, nil];
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                              self.contextSchema, @"schema",
-                              context, @"data", nil];
+                               self.contextSchema, @"$schema",
+                               dataArray, @"data", nil];
+    [self setMobileContext:dataArray];
     [pb addDictionaryToPayload:envelope
                  base64Encoded:self.base64Encoded
                typeWhenEncoded:@"cx"
             typeWhenNotEncoded:@"co"];
+}
+
+- (void) setMobileContext: (NSMutableArray *)payloadData {
+    SnowplowPayload *mobContext = [[SnowplowPayload alloc] init];
+    
+    NSString *schema = [NSString stringWithFormat:@"%@%@/mobile_context/jsonschema/1-0-0", kIglu, kSnowplowVendor];
+    
+    [mobContext addValueToPayload:[SnowplowUtils getOSType] withKey:@"osType"];
+    [mobContext addValueToPayload:[SnowplowUtils getOSVersion] withKey:@"osVersion"];
+    [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] withKey:@"deviceVendor"];
+    [mobContext addValueToPayload:[SnowplowUtils getDeviceModel] withKey:@"deviceModel"];
+    // Can't fake carrier in simulator so this causes runtime errors
+//    [mobContext addValueToPayload:[SnowplowUtils getCarrierName] withKey:@"carrier"];
+    // Uncomment when enabled
+    // [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
+    [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] withKey:@"appleIdfa"];
+    
+    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
+                              schema, @"$schema",
+                              mobContext.getPayload, @"data", nil];
+    [payloadData addObject:envelope];
 }
 
 - (void) addStandardValuesToPayload:(SnowplowPayload *)payload {
@@ -159,7 +183,6 @@ NSString * const kVersion = @"ios-0.1";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
-    
     [pb addValueToPayload:@"pv"      withKey:@"e"];
     [pb addValueToPayload:pageUrl   withKey:@"url"];
     [pb addValueToPayload:pageTitle withKey:@"page"];
