@@ -52,10 +52,7 @@
 }
 
 - (void) addDictionaryToPayload:(NSDictionary *)dict {
-    if (dict == nil) {
-        return;
-    }
-    [self.payload addEntriesFromDictionary:dict];
+    return dict == nil ? nil : [self.payload addEntriesFromDictionary:dict];
 }
 
 - (void) addJsonToPayload:(NSData *)json

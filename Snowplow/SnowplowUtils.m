@@ -51,7 +51,7 @@
 + (NSString *) getOpenIdfa {
     // See: https://github.com/ylechelle/OpenIDFA
 //    return [OpenIDFA sameDayOpenIDFA];
-    return @"";
+    return nil;
 }
 
 + (NSString *) getAppleIdfa {
@@ -62,10 +62,7 @@
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     NSString *carrierName = [carrier carrierName];
-    if(carrierName == nil) {
-        return @"None";
-    }
-    return [carrier carrierName];
+    return carrierName == nil ? nil : [carrier carrierName];
 }
 
 + (int) getTransactionId {
