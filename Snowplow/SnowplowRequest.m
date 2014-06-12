@@ -33,7 +33,10 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
     self = [super init];
     if (self) {
         _urlEndpoint = nil;
+        _httpMethod = @"GET";
         _bufferTime = kDefaultBufferTimeout;
+        _buffer = [[NSMutableArray alloc] init];
+        _outQueue = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -43,23 +46,26 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
     if(self) {
         _urlEndpoint = url;
         _httpMethod = method;
-        _buffer = [[NSMutableArray alloc] init];
         _bufferTime = kDefaultBufferTimeout;
+        _buffer = [[NSMutableArray alloc] init];
+        _outQueue = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferTime:(int)buffer_time {
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option {
     self = [super init];
     if(self) {
         _urlEndpoint = url;
-        _bufferTime = buffer_time;
+        _httpMethod = method;
+        _bufferTime = option;
         _buffer = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void) dealloc {
+    // Save buffer to database Issue #9
     self.urlEndpoint = nil;
     self.buffer = nil;
 }
@@ -74,6 +80,14 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
     [self.buffer addObject:spPayload.payload];
     if([self.buffer count] == _bufferTime)
         [self flushBuffer];
+}
+
+- (void) addToOutQueue:(NSDictionary *)payload {
+    // Write to SQL db
+}
+
+- (void) popFromOutQueue {
+    // Remove from SQL db
 }
 
 - (void) setBufferOption:(enum SnowplowBufferOptions) buffer {
@@ -92,7 +106,6 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
         for (NSDictionary* event in self.buffer) {
             [self sendGetData:event];
         }
-        [self.buffer removeAllObjects];
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
@@ -102,12 +115,16 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
+    // Add queue to next POST
+    // Empty queue at the same time
+    
     [manager POST:[self.urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        //Handle POST error response
+        //Add event to queue
     }];
+    [self.buffer removeAllObjects];
 }
 
 - (void) sendGetData:(NSDictionary *)data {
@@ -116,10 +133,12 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
 
     [manager GET:[self.urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
+        // Remove from queue
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        //Handle GET error response
+        //Add event to queue
     }];
+    [self.buffer removeObjectAtIndex:0];
 }
 
 @end
