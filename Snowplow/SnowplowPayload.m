@@ -22,7 +22,9 @@
 
 #import "SnowplowPayload.h"
 
-@implementation SnowplowPayload
+@implementation SnowplowPayload {
+    NSMutableDictionary *_payload;
+}
 
 - (id) init {
     self = [super init];
@@ -48,11 +50,11 @@
     if (value == nil) {
         return;
     }
-    [self.payload setObject:value forKey:key];
+    [_payload setObject:value forKey:key];
 }
 
 - (void) addDictionaryToPayload:(NSDictionary *)dict {
-    return dict == nil ? nil : [self.payload addEntriesFromDictionary:dict];
+    return dict == nil ? nil : [_payload addEntriesFromDictionary:dict];
 }
 
 - (void) addJsonToPayload:(NSData *)json
@@ -119,7 +121,7 @@
 }
 
 - (NSDictionary *) getPayload {
-    return self.payload;
+    return _payload;
 }
 
 @end

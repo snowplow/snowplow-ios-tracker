@@ -24,8 +24,6 @@
 
 @interface SnowplowPayload : NSObject
 
-@property (nonatomic, strong) NSMutableDictionary *payload;
-
 /**
  *  Initializes a newly allocated SnowplowPayload
  *  @return A SnowplowPayload.

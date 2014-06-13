@@ -25,12 +25,6 @@
 
 @interface SnowplowRequest : NSObject
 
-@property (nonatomic) NSURL *urlEndpoint;
-@property (nonatomic) NSString *httpMethod;
-@property (nonatomic) int bufferTime;
-@property (nonatomic, retain) NSMutableArray *buffer;
-@property (nonatomic, retain) NSMutableArray *outQueue;
-
 enum SnowplowBufferOptions {
     SnowplowBufferInstant = 1,
     SnowplowBufferDefault = 10

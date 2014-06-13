@@ -30,15 +30,6 @@ extern NSString * const kIglu;
 extern Boolean const kDefaultEncodeBase64;
 extern NSString * const kVersion;
 
-@property (nonatomic) Boolean base64Encoded;
-@property (nonatomic) NSString *trackerNamespace;
-@property (nonatomic) NSString *appId;
-@property (nonatomic) SnowplowRequest *collector;
-@property (nonatomic) NSMutableDictionary *standardData;
-@property (nonatomic) NSString *schemaTag;
-@property (nonatomic) NSString *contextSchema;
-@property (nonatomic) NSString *unstructedEventSchema;
-
 /**
  *  Initializes a newly allocated SnowplowTracker. All class properties default to nil, and require you to use setCollector, setNamespace, setAppId, setUserId. Using initUsingCollector:appId:base64Encoded:namespace is recommended.
  *  @return A SnowplowTracker instance.

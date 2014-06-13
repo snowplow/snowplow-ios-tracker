@@ -24,7 +24,16 @@
 #import "SnowplowPayload.h"
 #import "SnowplowUtils.h"
 
-@implementation SnowplowTracker
+@implementation SnowplowTracker {
+    Boolean _base64Encoded;
+    NSString *_trackerNamespace;
+    NSString *_appId;
+    SnowplowRequest *_collector;
+    NSMutableDictionary *_standardData;
+    NSString *_schemaTag;
+    NSString *_contextSchema;
+    NSString *_unstructedEventSchema;
+}
 
 NSString * const kSnowplowVendor = @"com.snowplowanalytics.snowplow";
 NSString * const kIglu = @"iglu:";
@@ -63,11 +72,11 @@ NSString * const kVersion = @"ios-0.1";
 }
 
 - (void) setCollector:(SnowplowRequest *)collector {
-    _collector = collector;
+    collector = collector;
 }
 
 - (void) setNamespace:(NSString *)trackerNamespace {
-    _trackerNamespace = trackerNamespace;
+    trackerNamespace = trackerNamespace;
 }
 
 - (void) setAppId:(NSString *)appId {
@@ -75,7 +84,7 @@ NSString * const kVersion = @"ios-0.1";
 }
 
 - (void) setUserId:(NSString *)userId {
-    [self.standardData setObject:userId forKey:@"uid"];
+    [_standardData setObject:userId forKey:@"uid"];
 }
 
 - (void) setSchemaTag:(NSString *)schema {
@@ -90,11 +99,11 @@ NSString * const kVersion = @"ios-0.1";
             context:(NSDictionary *)context {
     NSMutableArray *dataArray = [[NSMutableArray alloc] initWithObjects:context, nil];
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                               self.contextSchema, @"$schema",
+                               _contextSchema, @"$schema",
                                dataArray, @"data", nil];
     [self setMobileContext:dataArray];
     [pb addDictionaryToPayload:envelope
-                 base64Encoded:self.base64Encoded
+                 base64Encoded:_base64Encoded
                typeWhenEncoded:@"cx"
             typeWhenNotEncoded:@"co"];
 }
@@ -121,7 +130,7 @@ NSString * const kVersion = @"ios-0.1";
 }
 
 - (void) addStandardValuesToPayload:(SnowplowPayload *)payload {
-    [payload addDictionaryToPayload:self.standardData];
+    [payload addDictionaryToPayload:_standardData];
     [payload addValueToPayload:[SnowplowUtils getPlatform] forKey:@"p"];
     [payload addValueToPayload:[SnowplowUtils getResolution] forKey:@"res"];
     [payload addValueToPayload:[SnowplowUtils getViewPort] forKey:@"vp"];
@@ -131,7 +140,7 @@ NSString * const kVersion = @"ios-0.1";
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
-    [self.collector addPayloadToBuffer:event];
+    [_collector addPayloadToBuffer:event];
 }
 
 - (void) trackStructuredEvent:(NSString *)category
@@ -167,10 +176,10 @@ NSString * const kVersion = @"ios-0.1";
 
     // Creates similar envelop as in setContext with but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                          self.contextSchema, @"$schema",
+                          _contextSchema, @"$schema",
                           context, @"data", nil];
     [pb addDictionaryToPayload:envelope
-                 base64Encoded:self.base64Encoded
+                 base64Encoded:_base64Encoded
                typeWhenEncoded:@"ue_px"
             typeWhenNotEncoded:@"ue_pr"];
     
@@ -275,7 +284,7 @@ NSString * const kVersion = @"ios-0.1";
                       id:(NSString *)id_
                  context:(NSDictionary *)context
                timestamp:(double)timestamp {
-    NSString *snowplowSchema = [NSString stringWithFormat:@"%@/screen_view/%@/1-0-0", kSnowplowVendor, self.schemaTag];
+    NSString *snowplowSchema = [NSString stringWithFormat:@"%@/screen_view/%@/1-0-0", kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                  name, @"name", nil];
     if(id_ != 0)
