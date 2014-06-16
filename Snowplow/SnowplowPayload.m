@@ -77,14 +77,14 @@
         if(encode) {
             
             // We want to use the iOS 7 encoder if it's 7+ so we check if it's available
-            if([NSData respondsToSelector:@selector(base64EncodedStringWithOptions:)]) {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
                 encodedString = [json base64EncodedStringWithOptions:0];
                 NSLog(@"Using iOS 7 encoding: %@", encodedString);
-            } else {
+#else
                 // Officially deprecated in iOS 7, but works in all versions including 7
                 encodedString = [json base64Encoding];
                 NSLog(@"Using 3PD encoding: %@", encodedString);
-            }
+#endif
             [self addValueToPayload:encodedString forKey:typeEncoded];
         } else {
             [self addValueToPayload:object forKey:typeNotEncoded];
