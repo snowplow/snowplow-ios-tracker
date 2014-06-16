@@ -52,7 +52,7 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
     if(self) {
         _urlEndpoint = url;
         _httpMethod = method;
-        _bufferTime = kDefaultBufferTimeout;
+        _bufferTime = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
     }
@@ -74,12 +74,6 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
     // Save buffer to database Issue #9
     _urlEndpoint = nil;
     _buffer = nil;
-}
-
-- (void) addToBuffer:(NSDictionary *)payload {
-    [_buffer addObject:payload];
-    if([_buffer count] == kDefaultBufferSize)
-        [self flushBuffer];
 }
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
@@ -115,7 +109,7 @@ static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplo
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
-        [_buffer removeAllObjects];
+    [_buffer removeAllObjects];
 }
 
 - (void) sendPostData:(NSDictionary *)data {

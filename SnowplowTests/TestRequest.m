@@ -53,7 +53,7 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
     CFRunLoopStop(CFRunLoopGetCurrent());
 }
 
-- (void)testFlushBuffer
+- (void)testExampleFlushBuffer
 {
 
     NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER];
@@ -66,6 +66,51 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
     [sample_req addPayloadToBuffer:sample_event];
     
     [sample_req flushBuffer];
+}
+
+- (void)testInit
+{
+    // Self-explanatory
+}
+
+- (void)testInitWithURLRequest
+{
+    // Self-explanatory
+}
+
+- (void)testInitWithURLRequestWithBufferOption
+{
+    // Self-explanatory
+}
+
+- (void)testSetBufferOption
+{
+    // Self-explanatory
+}
+
+- (void)testAddPayloadToBuffer
+{
+    // Test that a payload is entered into the buffer
+}
+
+- (void)testAddPayloadToBufferMaxBuffer
+{
+    // Test that the buffer is emptied when it hits the max buffer size
+}
+
+- (void)testFlushBuffer
+{
+    // TBD when flushBuffer architecture is finalized
+}
+
+- (void)testSendPostData
+{
+    // Assert POST response somehow
+}
+
+- (void)testSendGetData
+{
+    // Assert GET response somehow
 }
 
 @end
