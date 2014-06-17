@@ -24,4 +24,6 @@
 
 @interface SnowplowEventStore : NSObject
 
+- (id) init;
+
 @end

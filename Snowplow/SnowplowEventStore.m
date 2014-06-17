@@ -21,7 +21,40 @@
 //
 
 #import "SnowplowEventStore.h"
+#import "SnowplowUtils.h"
+#import <FMDB.h>
 
-@implementation SnowplowEventStore
+@implementation SnowplowEventStore {
+    NSString *_dbPath;
+    FMDatabase *_db;
+}
+
+- (id) init {
+    self = [super init];
+    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+    if(self){
+        _db = [FMDatabase databaseWithPath:_dbPath];
+        
+        if([_db open]) {
+            NSLog(@"db description: %@", [_db databasePath]);
+        } else {
+            NSLog(@"Shit happened");
+        }
+        [_db close];
+    }
+    return self;
+}
+
+- (Boolean) createTableWithBundleId:(NSString *)bundleId {
+    Boolean tableExists = false;
+    
+    if([_db open]) {
+        // Create table if not exists
+        [_db executeQuery:@""];
+    }
+    
+    return tableExists;
+}
 
 @end
