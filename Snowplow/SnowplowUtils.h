@@ -114,4 +114,9 @@
  */
 + (NSString *) getOSType;
 
+/**
+ *  TODO
+ */
++ (NSString *) getAppId;
+
 @end

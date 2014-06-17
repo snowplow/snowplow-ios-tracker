@@ -105,4 +105,8 @@
     return @"ios";
 }
 
++ (NSString *) getAppId {
+    return [[NSBundle mainBundle] bundleIdentifier];
+}
+
 @end
