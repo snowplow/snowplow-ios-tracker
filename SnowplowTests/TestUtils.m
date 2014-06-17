@@ -165,4 +165,10 @@
 
 }
 
+- (void)testAppId
+{
+    // TODO Write proper test
+    NSLog(@"appId: %@", [SnowplowUtils getAppId]);
+}
+
 @end

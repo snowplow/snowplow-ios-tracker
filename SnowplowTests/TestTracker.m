@@ -43,15 +43,15 @@
 
 - (void)testExample
 {
-    SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:[NSURL URLWithString:@"http://segfault.ngrok.com/events"] httpMethod:@"GET"];
-    [collector setBufferOption:3];
+    SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:[NSURL URLWithString:@"http://segfault.ngrok.com/events"] httpMethod:@"POST"];
+    [collector setBufferOption:2];
     SnowplowTracker *tracker = [[SnowplowTracker alloc] initUsingCollector:collector appId:@"foo" base64Encoded:false namespace:@"myname"];
     
-//    NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:
-//                             @"foo", @"bar", nil];
-    [tracker trackPageView:@"foo1.com" title:@"This is my foo1" referrer:@"myreferrer1" context:nil timestamp:0];
+    NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:
+                             @"foo", @"bar", nil];
+    [tracker trackPageView:@"foo1.com" title:@"This is my foo1" referrer:@"myreferrer1" context:context timestamp:0];
     [tracker trackPageView:@"foo2.com" title:@"This is my foo2" referrer:@"myreferrer2" context:nil timestamp:0];
-    [tracker trackPageView:@"foo1.com" title:@"This is my foo3" referrer:@"myreferrer3" context:nil timestamp:0];
+//    [tracker trackPageView:@"foo1.com" title:@"This is my foo3" referrer:@"myreferrer3" context:nil timestamp:0];
     
     sleep(2);
     [collector flushBuffer];
