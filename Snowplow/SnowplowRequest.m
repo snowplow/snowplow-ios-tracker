@@ -24,10 +24,10 @@
 #import <AFNetworking/AFNetworking.h>
 
 @implementation SnowplowRequest {
-    NSURL               *_urlEndpoint;
-    NSString            *_httpMethod;
-    NSMutableArray      *_buffer;
-    NSMutableArray      *_outQueue;
+    NSURL *             _urlEndpoint;
+    NSString *          _httpMethod;
+    NSMutableArray *    _buffer;
+    NSMutableArray *    _outQueue;
     int                 _bufferTime;
 }
 

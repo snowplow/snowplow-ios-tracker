@@ -23,7 +23,7 @@
 #import "SnowplowPayload.h"
 
 @implementation SnowplowPayload {
-    NSMutableDictionary *_payload;
+    NSMutableDictionary * _payload;
 }
 
 - (id) init {

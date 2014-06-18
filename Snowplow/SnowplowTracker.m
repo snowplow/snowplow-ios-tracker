@@ -25,14 +25,11 @@
 #import "SnowplowUtils.h"
 
 @implementation SnowplowTracker {
-    Boolean             _base64Encoded;
-    NSString            *_trackerNamespace;
-    NSString            *_appId;
-    SnowplowRequest     *_collector;
-    NSMutableDictionary *_standardData;
-    NSString            *_schemaTag;
-    NSString            *_contextSchema;
-    NSString            *_unstructedEventSchema;
+    Boolean                 _base64Encoded;
+    NSMutableDictionary *   _standardData;
+    NSString *              _schemaTag;
+    NSString *              _contextSchema;
+    NSString *              _unstructedEventSchema;
 }
 
 NSString * const kSnowplowVendor        = @"com.snowplowanalytics.snowplow";
@@ -71,20 +68,9 @@ NSString * const kVersion               = @"ios-0.1";
     return self;
 }
 
-- (void) setCollector:(SnowplowRequest *)collector {
-    collector = collector;
-}
-
-- (void) setNamespace:(NSString *)trackerNamespace {
-    trackerNamespace = trackerNamespace;
-}
-
-- (void) setAppId:(NSString *)appId {
-    _appId = appId;
-}
-
 - (void) setUserId:(NSString *)userId {
-    [_standardData setObject:userId forKey:@"uid"];
+    _userId = userId;
+    [_standardData setObject:_userId forKey:@"uid"];
 }
 
 - (void) setSchemaTag:(NSString *)schema {

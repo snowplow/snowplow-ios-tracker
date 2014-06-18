@@ -25,6 +25,11 @@
 
 @interface SnowplowTracker : NSObject
 
+@property (retain)              SnowplowRequest *   collector;
+@property (retain)              NSString *          appId;
+@property (retain)              NSString *          trackerNamespace;
+@property (nonatomic, retain)   NSString *          userId;
+
 extern NSString * const kSnowplowVendor;
 extern NSString * const kIglu;
 extern Boolean    const kDefaultEncodeBase64;
@@ -48,30 +53,6 @@ extern NSString * const kVersion;
                     appId:(NSString *)appId
             base64Encoded:(Boolean)encoded
                 namespace:(NSString *)namespace_;
-
-/**
- *  Sets the collector to the new SnowplowRequest passed to it.
- *  @param A correctly defined SnowplowRequest instance. Overrides original if set.
- */
-- (void) setCollector:(SnowplowRequest *)collector;
-
-/**
- *  Sets the namespace to the new string passed to it.
- *  @param A string of the new namespace to use. Overrides original if set.
- */
-- (void) setNamespace:(NSString *)trackerNamespace;
-
-/**
- *  Sets the app ID to the new string passed to it.
- *  @param A string of the new app ID to use. Overrides original if set.
- */
-- (void) setAppId:(NSString *)appId;
-
-/**
- *  Sets the user ID to the new string passed to it.
- *  @param A string of the new user ID to use. Overrides original if set.
- */
-- (void) setUserId:(NSString *)userId;
 
 /**
  *  Sets the schema tag to the new string passed to it. This is used to set the context schema in the event for self describing JSON.
