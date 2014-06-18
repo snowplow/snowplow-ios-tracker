@@ -21,9 +21,24 @@
 //
 
 #import <Foundation/Foundation.h>
+#include "SnowplowPayload.h"
 
 @interface SnowplowEventStore : NSObject
 
 - (id) init;
+
+- (void) setAppId:(NSString *)appId;
+
+- (NSString *) getAppId;
+
+- (BOOL) createTableWithBundleId:(NSString *)bundleId;
+
+- (BOOL) insertEvent:(SnowplowPayload *)payload;
+
+- (void) getTable;
+
+- (BOOL) getEventWithId:(NSNumber*) id;
+
+- (NSDictionary *) getAllEvents;
 
 @end
