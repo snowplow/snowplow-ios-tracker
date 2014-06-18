@@ -24,15 +24,15 @@
 #import <AFNetworking/AFNetworking.h>
 
 @implementation SnowplowRequest {
-    NSURL *_urlEndpoint;
-    NSString *_httpMethod;
-    int _bufferTime;
-    NSMutableArray *_buffer;
-    NSMutableArray *_outQueue;
+    NSURL               *_urlEndpoint;
+    NSString            *_httpMethod;
+    NSMutableArray      *_buffer;
+    NSMutableArray      *_outQueue;
+    int                 _bufferTime;
 }
 
-static int const kDefaultBufferTimeout = 60;
-static NSString *const kPayloadDataSchema = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
+static int       const kDefaultBufferTimeout = 60;
+static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
 
 - (id) init {
     self = [super init];

@@ -27,7 +27,7 @@
 
 extern NSString * const kSnowplowVendor;
 extern NSString * const kIglu;
-extern Boolean const kDefaultEncodeBase64;
+extern Boolean    const kDefaultEncodeBase64;
 extern NSString * const kVersion;
 
 /**

@@ -25,20 +25,20 @@
 #import "SnowplowUtils.h"
 
 @implementation SnowplowTracker {
-    Boolean _base64Encoded;
-    NSString *_trackerNamespace;
-    NSString *_appId;
-    SnowplowRequest *_collector;
+    Boolean             _base64Encoded;
+    NSString            *_trackerNamespace;
+    NSString            *_appId;
+    SnowplowRequest     *_collector;
     NSMutableDictionary *_standardData;
-    NSString *_schemaTag;
-    NSString *_contextSchema;
-    NSString *_unstructedEventSchema;
+    NSString            *_schemaTag;
+    NSString            *_contextSchema;
+    NSString            *_unstructedEventSchema;
 }
 
-NSString * const kSnowplowVendor = @"com.snowplowanalytics.snowplow";
-NSString * const kIglu = @"iglu:";
-Boolean const kDefaultEncodeBase64 = true;
-NSString * const kVersion = @"ios-0.1";
+NSString * const kSnowplowVendor        = @"com.snowplowanalytics.snowplow";
+NSString * const kIglu                  = @"iglu:";
+Boolean    const kDefaultEncodeBase64   = true;
+NSString * const kVersion               = @"ios-0.1";
 
 - (id) init {
     self = [super init];
