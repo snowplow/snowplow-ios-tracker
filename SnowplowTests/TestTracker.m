@@ -72,26 +72,6 @@
     // Basic test to see if initUsingCollector are set
 }
 
-- (void)testSetCollector
-{
-    // Self-explanatory
-}
-
-- (void)testSetNamespace
-{
-    // Self-explanatory
-}
-
-- (void)testSetAppId
-{
-    // Self-explanatory
-}
-
-- (void)testSetUserId
-{
-    // Self-explanatory
-}
-
 - (void)testSetSchemaTag
 {
     // Self-explanatory
