@@ -37,40 +37,45 @@ NSString * const kIglu                  = @"iglu:";
 Boolean    const kDefaultEncodeBase64   = true;
 NSString * const kVersion               = @"ios-0.1";
 
+@synthesize collector;
+@synthesize appId;
+@synthesize trackerNamespace;
+@synthesize userId;
+
 - (id) init {
     self = [super init];
     if(self) {
         [self setSchemaTag:@"jsonschema"];
-        _trackerNamespace = nil;
+        trackerNamespace = nil;
         _base64Encoded = true;
-        _collector = nil;
+        collector = nil;
         _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              kVersion, @"tv", nil];
     }
     return self;
 }
 
-- (id) initUsingCollector:(SnowplowRequest *)collector
-                    appId:(NSString *)appId
+- (id) initUsingCollector:(SnowplowRequest *)collector_
+                    appId:(NSString *)appId_
             base64Encoded:(Boolean)encoded
                 namespace:(NSString *)namespace_ {
     self = [super init];
     if(self) {
         [self setSchemaTag:@"jsonschema"];
-        _trackerNamespace = namespace_;
+        trackerNamespace = namespace_;
         _base64Encoded = encoded;
-        _collector = collector;
+        collector = collector_;
         _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                              kVersion, @"tv",
                              namespace_, @"tna",
-                             appId, @"aid", nil];
+                             appId_, @"aid", nil];
     }
     return self;
 }
 
-- (void) setUserId:(NSString *)userId {
-    _userId = userId;
-    [_standardData setObject:_userId forKey:@"uid"];
+- (void) setUserId:(NSString *)userId_ {
+    userId = userId_;
+    [_standardData setObject:userId_ forKey:@"uid"];
 }
 
 - (void) setSchemaTag:(NSString *)schema {
@@ -126,7 +131,7 @@ NSString * const kVersion               = @"ios-0.1";
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
-    [_collector addPayloadToBuffer:event];
+    [collector addPayloadToBuffer:event];
 }
 
 - (void) trackStructuredEvent:(NSString *)category
