@@ -29,7 +29,18 @@
 
 - (void)testExample
 {
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
+    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] initWithAppId:@"FOOO"];
+    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+
+    [pb addValueToPayload:@"pv"      forKey:@"e"];
+    [pb addValueToPayload:@"www.foobar.com"   forKey:@"url"];
+    [pb addValueToPayload:@"Welcome to foobar!" forKey:@"page"];
+    [pb addValueToPayload:@"MEEEE"   forKey:@"refr"];
+    
+    [sampleEventStore createTableWithBundleId:@"FOOO"];
+    [sampleEventStore insertEvent:pb];
+//    [sampleEventStore deleteEventWithId:2];
+    [sampleEventStore getAllEvents];
 }
 
 @end
