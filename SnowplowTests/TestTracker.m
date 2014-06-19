@@ -54,7 +54,6 @@
 //    [tracker trackPageView:@"foo1.com" title:@"This is my foo3" referrer:@"myreferrer3" context:nil timestamp:0];
     
     sleep(2);
-    [collector flushBuffer];
 }
 
 - (void)testInit

@@ -97,8 +97,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     //Empties the buffer and sends the contents to the collector
     if([_httpMethod isEqual:@"POST"]) {
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-        [payload setObject:kPayloadDataSchema forKey:@"$schema"];
-        [payload setObject:_buffer forKey:@"data"];
+        [payload setValue:kPayloadDataSchema forKey:@"$schema"];
+        [payload setValue:_buffer forKey:@"data"];
         
         [self sendPostData:payload];
     } else if ([_httpMethod isEqual:@"GET"]) {
