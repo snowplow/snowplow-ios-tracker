@@ -92,13 +92,11 @@
 }
 
 + (NSString *) getDeviceModel {
-    UIDevice *device = [UIDevice currentDevice];
-    return [device model];
+    return [[UIDevice currentDevice] model];
 }
 
 + (NSString *) getOSVersion {
-    UIDevice *device = [UIDevice currentDevice];
-    return [device systemVersion];
+    return [[UIDevice currentDevice] systemVersion];
 }
 
 + (NSString *) getOSType {
