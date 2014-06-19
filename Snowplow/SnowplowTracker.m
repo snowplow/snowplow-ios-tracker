@@ -109,7 +109,6 @@ NSString * const kVersion               = @"ios-0.1";
     [mobContext addValueToPayload:[SnowplowUtils getOSVersion] forKey:@"osVersion"];
     [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceVendor"];
     [mobContext addValueToPayload:[SnowplowUtils getDeviceModel] forKey:@"deviceModel"];
-    // Can't fake carrier in simulator so this causes runtime errors
     [mobContext addValueToPayload:[SnowplowUtils getCarrierName] forKey:@"carrier"];
     [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
     [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] forKey:@"appleIdfa"];

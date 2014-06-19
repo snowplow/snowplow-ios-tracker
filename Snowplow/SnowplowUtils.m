@@ -61,8 +61,7 @@
 + (NSString *) getCarrierName {
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
-    NSString *carrierName = [carrier carrierName];
-    return carrierName == nil ? nil : [carrier carrierName];
+    return [carrier carrierName];
 }
 
 + (int) getTransactionId {
