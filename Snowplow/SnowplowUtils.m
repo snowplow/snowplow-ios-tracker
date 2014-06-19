@@ -21,6 +21,7 @@
 //
 
 #import "SnowplowUtils.h"
+#import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIDevice.h>
 #import <AdSupport/AdSupport.h>
@@ -50,8 +51,7 @@
 
 + (NSString *) getOpenIdfa {
     // See: https://github.com/ylechelle/OpenIDFA
-//    return [OpenIDFA sameDayOpenIDFA];
-    return nil;
+    return [OpenIDFA sameDayOpenIDFA];
 }
 
 + (NSString *) getAppleIdfa {
