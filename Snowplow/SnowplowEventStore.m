@@ -32,23 +32,33 @@
     NSString *      _querySelectAll;
     NSString *      _queryInsertEvent;
     NSString *      _querySelectId;
+    NSString *      _queryDeleteId;
     NSString *      _appId;
     FMDatabase *    _db;
 }
 
 - (id) init {
     self = [super init];
+    if(self) {
+        self = [self initWithAppId:[SnowplowUtils getAppId]];
+    }
+    return self;
+}
+
+- (id) initWithAppId:(NSString *)appId {
+    self = [super init];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
     if(self){
         _db = [FMDatabase databaseWithPath:_dbPath];
-        _appId = [SnowplowUtils getAppId];
+        _appId = appId;
         
         _queryCreateTable   = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' (id INTEGER PRIMARY KEY AUTOINCREMENT, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)", _appId];
         _querySelectAll     = [NSString stringWithFormat:@"SELECT * FROM '%@'", _appId];
         _querySelectId      = [NSString stringWithFormat:@"SELECT * FROM '%@' WHERE ID=?", _appId];
+        _queryDeleteId      = [NSString stringWithFormat:@"DELETE FROM '%@' WHERE ID=?", _appId];
         _queryInsertEvent   = [NSString stringWithFormat:@"INSERT INTO '%@' (eventData, pending) VALUES (?, 0)", _appId];
-
+        
         
         if([_db open]) {
             NSLog(@"db description: %@", [_db databasePath]);
@@ -80,7 +90,15 @@
 - (BOOL) insertEvent:(SnowplowPayload *)payload {
     if([_db open]) {
         NSData *data = [NSJSONSerialization dataWithJSONObject:[payload getPayload] options:0 error:nil];
-        return [_db executeUpdate:_queryInsertEvent, [data bytes]];
+        return [_db executeUpdate:_queryInsertEvent, data];
+    } else {
+        return false;
+    }
+}
+
+- (BOOL) deleteEventWithId:(int)id_ {
+    if([_db open]) {
+        return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithInt:id_]];
     } else {
         return false;
     }
@@ -93,20 +111,21 @@
             int index = [s intForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
-            NSLog(@"Item: %d %@ %@", index, date, data);
-        }
+            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Item: %d %@ %@", index, date, actualData);        }
     }
 }
 
 // Should never be used realistically
-- (BOOL) getEventWithId:(NSNumber*) id {
+- (BOOL) getEventWithId:(int)id_ {
     if([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectId, id];
+        FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithInt:id_]];
         while ([s next]) {
             int index = [s intForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
-            NSLog(@"Item: %d %@ %@", index, date, data);
+            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Item: %d %@ %@", index, date, actualData);
         }
         return true;
     } else {
@@ -114,6 +133,8 @@
     }
 }
 
+
+// TODO Unfinished
 - (NSDictionary *) getAllEvents {
     NSDictionary *res;
     if([_db open]) {
@@ -122,7 +143,8 @@
             int index = [s intForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
-            NSLog(@"Item: %d %@ %@", index, date, data);
+            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Item: %d %@ %@", index, [date description], actualData);
         }
     }
     return res;

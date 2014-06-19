@@ -27,6 +27,8 @@
 
 - (id) init;
 
+- (id) initWithAppId:(NSString *)appId;
+
 - (void) setAppId:(NSString *)appId;
 
 - (NSString *) getAppId;
@@ -35,9 +37,11 @@
 
 - (BOOL) insertEvent:(SnowplowPayload *)payload;
 
+- (BOOL) deleteEventWithId:(int)id_;
+
 - (void) getTable;
 
-- (BOOL) getEventWithId:(NSNumber*) id;
+- (BOOL) getEventWithId:(int)id_;
 
 - (NSDictionary *) getAllEvents;
 
