@@ -119,23 +119,23 @@
 //
 //}
 
-//- (void)testGetOpenIdfa
-//{
-//    NSString *sample_uuid = [SnowplowUtils getOpenIdfa];
-//
-//    // For regex pattern matching to verify if it's of UUID type 4
-//    NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-//    NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
-//    NSError *error = NULL;
-//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-//    NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
-//
-//    NSLog(@"UUID generated: %@", sample_uuid);
-//
-//    XCTAssertEqual([matches count], (NSUInteger)1,
-//                   @"UUID generated doesn't match the type 4 UUID RFC");
-//
-//}
+- (void)testGetOpenIdfa
+{
+    NSString *sample_uuid = [SnowplowUtils getOpenIdfa];
+
+    // For regex pattern matching to verify if it's of UUID type 4
+    NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
+    NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
+
+    NSLog(@"UUID generated: %@", sample_uuid);
+
+    XCTAssertEqual([matches count], (NSUInteger)1,
+                   @"UUID generated doesn't match the type 4 UUID RFC");
+
+}
 
 - (void)testGetCarrierName
 {
