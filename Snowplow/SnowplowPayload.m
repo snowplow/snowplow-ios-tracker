@@ -124,4 +124,8 @@
     return _payload;
 }
 
+- (NSString *) description {
+    return [[self getPayload] description];
+}
+
 @end

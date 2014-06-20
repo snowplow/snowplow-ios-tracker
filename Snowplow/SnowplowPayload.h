@@ -93,4 +93,6 @@
  */
 - (NSDictionary *) getPayload;
 
+- (NSString *) description;
+
 @end
