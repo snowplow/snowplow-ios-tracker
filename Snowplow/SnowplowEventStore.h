@@ -46,7 +46,7 @@
 
 - (void) getTable;
 
-- (BOOL) getEventWithId:(int)id_;
+- (NSDictionary *) getEventWithId:(int)id_;
 
 - (NSDictionary *) getAllEvents;
 

@@ -118,7 +118,7 @@
     }
 }
 
-- (BOOL) getEventWithId:(int)id_ {
+- (NSDictionary *) getEventWithId:(int)id_ {
     if([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithInt:id_]];
         while ([s next]) {
@@ -127,16 +127,14 @@
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"Item: %d %@ %@", index, date, actualData);
+            return [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
         }
-        return true;
-    } else {
-        return false;
     }
+    return nil;
 }
 
-// Unfinished: Conversion to dicitionary
-- (NSDictionary *) getAllEvents {
-    NSDictionary *res;
+- (NSArray *) getAllEvents {
+    NSMutableArray *res = [[NSMutableArray alloc] init];
     if([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectAll];
         while ([s next]) {
@@ -145,6 +143,7 @@
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"Item: %d %@ %@", index, [date description], actualData);
+            [res addObject:[NSJSONSerialization JSONObjectWithData:data options:0 error:0]];
         }
     }
     return res;
