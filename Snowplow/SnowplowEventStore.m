@@ -63,7 +63,7 @@
         if([_db open]) {
             NSLog(@"db description: %@", [_db databasePath]);
         } else {
-            NSLog(@"Shit happened");
+            NSLog(@"Failed to open database. Events in memory will not persist!");
         }
         [_db close];
     }
@@ -78,7 +78,7 @@
     return _appId;
 }
 
-- (BOOL) createTableWithBundleId:(NSString *)bundleId {
+- (BOOL) createTable {
     if([_db open]) {
         // Create table if not exists
         return [_db executeStatements:_queryCreateTable];
@@ -87,12 +87,13 @@
     }
 }
 
-- (BOOL) insertEvent:(SnowplowPayload *)payload {
+- (long long int) insertEvent:(SnowplowPayload *)payload {
     if([_db open]) {
         NSData *data = [NSJSONSerialization dataWithJSONObject:[payload getPayload] options:0 error:nil];
-        return [_db executeUpdate:_queryInsertEvent, data];
+        [_db executeUpdate:_queryInsertEvent, data];
+        return [_db lastInsertRowId];
     } else {
-        return false;
+        return -1;
     }
 }
 
@@ -112,11 +113,11 @@
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Item: %d %@ %@", index, date, actualData);        }
+            NSLog(@"Item: %d %@ %@", index, date, actualData);
+        }
     }
 }
 
-// Should never be used realistically
 - (BOOL) getEventWithId:(int)id_ {
     if([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithInt:id_]];
@@ -133,8 +134,7 @@
     }
 }
 
-
-// TODO Unfinished
+// Unfinished: Conversion to dicitionary
 - (NSDictionary *) getAllEvents {
     NSDictionary *res;
     if([_db open]) {

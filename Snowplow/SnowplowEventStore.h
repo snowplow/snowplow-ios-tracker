@@ -33,9 +33,14 @@
 
 - (NSString *) getAppId;
 
-- (BOOL) createTableWithBundleId:(NSString *)bundleId;
+- (BOOL) createTable;
 
-- (BOOL) insertEvent:(SnowplowPayload *)payload;
+/**
+ * Inserts events into the sqlite table for the app identified with it's bundleId (appId).
+ * @param payload A SnowplowPayload instance to be inserted into the database.
+ * @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
+ */
+- (long long int) insertEvent:(SnowplowPayload *)payload;
 
 - (BOOL) deleteEventWithId:(int)id_;
 

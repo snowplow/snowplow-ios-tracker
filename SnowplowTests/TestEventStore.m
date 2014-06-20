@@ -37,7 +37,7 @@
     [pb addValueToPayload:@"Welcome to foobar!" forKey:@"page"];
     [pb addValueToPayload:@"MEEEE"   forKey:@"refr"];
     
-    [sampleEventStore createTableWithBundleId:@"FOOO"];
+    [sampleEventStore createTable];
     [sampleEventStore insertEvent:pb];
 //    [sampleEventStore deleteEventWithId:2];
     [sampleEventStore getAllEvents];
