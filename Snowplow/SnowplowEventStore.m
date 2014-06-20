@@ -33,9 +33,10 @@
     NSString *      _queryInsertEvent;
     NSString *      _querySelectId;
     NSString *      _queryDeleteId;
-    NSString *      _appId;
     FMDatabase *    _db;
 }
+
+@synthesize appId;
 
 - (id) init {
     self = [super init];
@@ -45,19 +46,19 @@
     return self;
 }
 
-- (id) initWithAppId:(NSString *)appId {
+- (id) initWithAppId:(NSString *)appId_ {
     self = [super init];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
     if(self){
         _db = [FMDatabase databaseWithPath:_dbPath];
-        _appId = appId;
+        appId = appId_;
         
-        _queryCreateTable   = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' (id INTEGER PRIMARY KEY AUTOINCREMENT, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)", _appId];
-        _querySelectAll     = [NSString stringWithFormat:@"SELECT * FROM '%@'", _appId];
-        _querySelectId      = [NSString stringWithFormat:@"SELECT * FROM '%@' WHERE ID=?", _appId];
-        _queryDeleteId      = [NSString stringWithFormat:@"DELETE FROM '%@' WHERE ID=?", _appId];
-        _queryInsertEvent   = [NSString stringWithFormat:@"INSERT INTO '%@' (eventData, pending) VALUES (?, 0)", _appId];
+        _queryCreateTable   = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' (id INTEGER PRIMARY KEY AUTOINCREMENT, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)", appId];
+        _querySelectAll     = [NSString stringWithFormat:@"SELECT * FROM '%@'", appId];
+        _querySelectId      = [NSString stringWithFormat:@"SELECT * FROM '%@' WHERE ID=?", appId];
+        _queryDeleteId      = [NSString stringWithFormat:@"DELETE FROM '%@' WHERE ID=?", appId];
+        _queryInsertEvent   = [NSString stringWithFormat:@"INSERT INTO '%@' (eventData, pending) VALUES (?, 0)", appId];
         
         
         if([_db open]) {
@@ -68,14 +69,6 @@
         [_db close];
     }
     return self;
-}
-
-- (void) setAppId:(NSString *)appId {
-    _appId = appId;
-}
-
-- (NSString *) getAppId {
-    return _appId;
 }
 
 - (BOOL) createTable {

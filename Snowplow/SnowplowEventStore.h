@@ -25,13 +25,11 @@
 
 @interface SnowplowEventStore : NSObject
 
+@property (retain) NSString * appId;
+
 - (id) init;
 
 - (id) initWithAppId:(NSString *)appId;
-
-- (void) setAppId:(NSString *)appId;
-
-- (NSString *) getAppId;
 
 - (BOOL) createTable;
 
