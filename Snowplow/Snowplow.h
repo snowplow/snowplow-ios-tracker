@@ -20,15 +20,6 @@
 //  License: Apache License Version 2.0
 //
 
-#import <Foundation/Foundation.h>
 #import "SnowplowRequest.h"
-
-@interface Snowplow : NSObject
-
-@property (nonatomic, strong) SnowplowRequest *requestHandler;
-
-- (id) initWithURLString:(NSString *) url;
-
-- (void) sendEvent:(NSDictionary *) data;
-
-@end
+#import "SnowplowTracker.h"
+#import "SnowplowPayload.h"

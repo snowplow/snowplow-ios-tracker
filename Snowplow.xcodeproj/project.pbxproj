@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		AB0C27C6191B408200018557 /* Snowplow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; };
-		AB0C27C8191B408200018557 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27C7191B408200018557 /* Snowplow.m */; };
 		AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27CE191B408200018557 /* XCTest.framework */; };
 		AB0C27D0191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		AB0C27D2191B408200018557 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27D1191B408200018557 /* UIKit.framework */; };
@@ -67,7 +66,6 @@
 		AB0C27C0191B408200018557 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Prefix.pch"; sourceTree = "<group>"; };
 		AB0C27C5191B408200018557 /* Snowplow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snowplow.h; sourceTree = "<group>"; };
-		AB0C27C7191B408200018557 /* Snowplow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snowplow.m; sourceTree = "<group>"; };
 		AB0C27CD191B408200018557 /* SnowplowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0C27CE191B408200018557 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		AB0C27D1191B408200018557 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -159,7 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				AB0C27C5191B408200018557 /* Snowplow.h */,
-				AB0C27C7191B408200018557 /* Snowplow.m */,
 				AB0C27C3191B408200018557 /* Supporting Files */,
 				AB0C27E9191B43D600018557 /* SnowplowRequest.h */,
 				AB0C27EA191B43D600018557 /* SnowplowRequest.m */,
@@ -362,7 +359,6 @@
 				AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */,
 				ABB767B0194974D3006275D1 /* SnowplowEventStore.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
-				AB0C27C8191B408200018557 /* Snowplow.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
