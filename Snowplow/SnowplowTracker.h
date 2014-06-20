@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SnowplowRequest.h"
+#import "SnowplowPayload.h"
 
 @interface SnowplowTracker : NSObject
 
@@ -114,7 +115,7 @@ extern NSString * const kVersion;
  *  @param context Custom context for the param
  *  @param timestamp Optional user provided timestamp. Else, use 0.
  */
-- (void) trackEcommerceTransactionItem:(NSString *)orderId
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                    sku:(NSString *)sku
                                   name:(NSString *)name
                               category:(NSString *)category

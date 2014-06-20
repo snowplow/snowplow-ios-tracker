@@ -195,7 +195,7 @@ NSString * const kVersion               = @"ios-0.1";
     [self addTracker:pb];
 }
 
-- (void) trackEcommerceTransactionItem:(NSString *)orderId
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                    sku:(NSString *)sku
                                   name:(NSString *)name
                               category:(NSString *)category
@@ -220,7 +220,7 @@ NSString * const kVersion               = @"ios-0.1";
     if(timestamp != 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
     
-    [self addTracker:pb];
+    return pb;
 }
 
 - (void) trackEcommerceTransaction:(NSString *)orderId
@@ -261,11 +261,6 @@ NSString * const kVersion               = @"ios-0.1";
     
     if(timestamp != 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
-
-    // This bit is wrong and needs to be changed, see Fred's comments
-    SnowplowPayload *transactionPb = [[SnowplowPayload alloc] init];
-    [transactionPb addValueToPayload:pb forKey:@"transaction_result"];
-    [transactionPb addValueToPayload:itemResults forKey:@"item_results"];
     
     [self addTracker:pb];
 }
