@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.screenshots      = "https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-logo-large.png"
   s.license          = 'Apache License, Version 2.0'
   s.author           = { "Jonathan Almeida" => "jonathan@snowplowanalytics.com" }
-  s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git", :tag => "v0.1" }
+  s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git", :branch => "develop" }
   s.social_media_url = 'https://twitter.com/SnowPlowData'
 
   s.platform     = :ios, '7.0'
@@ -23,5 +23,6 @@ Pod::Spec.new do |s|
   # s.osx.exclude_files = 'Classes/ios'
   s.public_header_files = 'Snowplow/*.h'
   s.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
-  s.dependency 'AFNetworking', '~> 2.0'
+    s.dependency 'FMDB', '~> 2.3'
+    s.dependency 'AFNetworking', '~> 2.0'
 end
