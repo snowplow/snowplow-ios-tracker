@@ -26,12 +26,13 @@
 #import <AFNetworking/AFNetworking.h>
 
 @implementation SnowplowRequest {
-    NSURL *                 _urlEndpoint;
-    NSString *              _httpMethod;
-    NSMutableArray *        _buffer;
-    NSMutableArray *        _outQueue;
-    int                     _bufferTime;
-    SnowplowEventStore *    _db;
+    NSURL *                     _urlEndpoint;
+    NSString *                  _httpMethod;
+    NSMutableArray *            _buffer;
+    NSMutableArray *            _outQueue;
+    enum SnowplowBufferOptions  _bufferTime;
+    NSTimer *                   _timer;
+    SnowplowEventStore *        _db;
 }
 
 static int       const kDefaultBufferTimeout = 60;
@@ -46,6 +47,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -59,6 +61,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -71,6 +74,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferTime = option;
         _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
     }
     return self;
 }
@@ -100,6 +104,12 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) flushBuffer {
+    NSLog(@"Flushing buffer..");
+    // Avoid calling flush to send an empty buffer
+    if ([_buffer count] == 0) {
+        return;
+    }
+    
     //Empties the buffer and sends the contents to the collector
     if([_httpMethod isEqual:@"POST"]) {
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
