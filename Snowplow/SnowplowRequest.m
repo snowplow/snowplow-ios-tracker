@@ -21,14 +21,17 @@
 //
 
 #import "SnowplowRequest.h"
+#import "SnowplowEventStore.h"
+#import "SnowplowUtils.h"
 #import <AFNetworking/AFNetworking.h>
 
 @implementation SnowplowRequest {
-    NSURL *             _urlEndpoint;
-    NSString *          _httpMethod;
-    NSMutableArray *    _buffer;
-    NSMutableArray *    _outQueue;
-    int                 _bufferTime;
+    NSURL *                 _urlEndpoint;
+    NSString *              _httpMethod;
+    NSMutableArray *        _buffer;
+    NSMutableArray *        _outQueue;
+    int                     _bufferTime;
+    SnowplowEventStore *    _db;
 }
 
 static int       const kDefaultBufferTimeout = 60;
@@ -42,6 +45,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferTime = kDefaultBufferTimeout;
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
+        _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
     }
     return self;
 }
@@ -54,6 +58,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferTime = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
+        _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
     }
     return self;
 }
@@ -65,6 +70,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _httpMethod = method;
         _bufferTime = option;
         _buffer = [[NSMutableArray alloc] init];
+        _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
     }
     return self;
 }
@@ -81,8 +87,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         [self flushBuffer];
 }
 
-- (void) addToOutQueue:(NSDictionary *)payload {
-    // Write to SQL db
+- (void) addToOutQueue:(SnowplowPayload *)payload {
+    [_db insertEvent:payload];
 }
 
 - (void) popFromOutQueue {
