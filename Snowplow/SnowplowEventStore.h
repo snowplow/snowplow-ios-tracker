@@ -21,7 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include "SnowplowPayload.h"
+#import "SnowplowPayload.h"
 
 @interface SnowplowEventStore : NSObject
 
