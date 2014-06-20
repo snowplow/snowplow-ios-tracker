@@ -115,7 +115,7 @@ NSString * const kVersion               = @"ios-0.1";
     
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                               schema, @"$schema",
-                              mobContext.getPayload, @"data", nil];
+                              mobContext.getPayloadAsDictionary, @"data", nil];
     [payloadData addObject:envelope];
 }
 

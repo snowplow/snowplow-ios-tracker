@@ -43,7 +43,7 @@
 {
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
    
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           [[NSDictionary alloc] init],
                           @"Payload is not initilized to null on init");
 
@@ -56,7 +56,7 @@
                                  @"Value2", @"Key2", nil];
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict];
 
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict,
                           @"Payload is not initialized with the correct JSON or NSDictionary");
 
@@ -72,7 +72,7 @@
                                   @"Value2", @"Key1", nil];
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict];
     
-    XCTAssertNotEqualObjects(sample_payload.getPayload,
+    XCTAssertNotEqualObjects(sample_payload.getPayloadAsDictionary,
                              sample_dict2,
                              @"Payload is not initialized with the correct JSON or NSDictionary");
 }
@@ -82,7 +82,7 @@
     NSDictionary *sample_dict = nil;
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict];
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           [[NSDictionary alloc] init],
                           @"Payload should be initialized to an empty NSDictionary");
 }
@@ -95,7 +95,7 @@
     [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict,
                           @"Payload should have the correctly added payload");
 }
@@ -108,7 +108,7 @@
     [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
-    XCTAssertNotEqualObjects(sample_payload.getPayload,
+    XCTAssertNotEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict,
                           @"Payload should not be the same as sample_dict");
 }
@@ -123,7 +123,7 @@
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict_init];
     [sample_payload addValueToPayload:@"Value2" forKey:@"Key2"];
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict_final,
                           @"Payload should have the same data as sample_dict_final");
 }
@@ -135,7 +135,7 @@
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
     [sample_payload addDictionaryToPayload:sample_dic];
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dic,
                           @"Payload should contain the exact same contents added from sample_dic");
 }
@@ -152,7 +152,7 @@
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dic];
     [sample_payload addDictionaryToPayload:sample_dic2];
 
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict_final,
                           @"Payload should contain the exact same contents added from sample_dic_final");
 }
@@ -172,7 +172,7 @@
     [sample_payload addJsonToPayload:somedata base64Encoded:true
                      typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
@@ -192,7 +192,7 @@
     [sample_payload addJsonToPayload:somedata base64Encoded:false
                      typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
@@ -210,7 +210,7 @@
                            typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
@@ -228,26 +228,26 @@
                            typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
 
-- (void)testGetPayload
+- (void)testgetPayloadAsDictionary
 {
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           [[NSDictionary alloc] init],
                           @"Payload should be initialized to an empty dictionary");
 }
 
-- (void)testGetPayload2
+- (void)testgetPayloadAsDictionary2
 {
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:@"Value1", @"Key1", nil];
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:@{@"Key1": @"Value1"}];
     
-    XCTAssertEqualObjects(sample_payload.getPayload,
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict,
                           @"Payload should be initialized to an empty dictionary");
 }

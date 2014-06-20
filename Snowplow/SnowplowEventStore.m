@@ -82,7 +82,7 @@
 
 - (long long int) insertEvent:(SnowplowPayload *)payload {
     if([_db open]) {
-        NSData *data = [NSJSONSerialization dataWithJSONObject:[payload getPayload] options:0 error:nil];
+        NSData *data = [NSJSONSerialization dataWithJSONObject:[payload getPayloadAsDictionary] options:0 error:nil];
         [_db executeUpdate:_queryInsertEvent, data];
         return [_db lastInsertRowId];
     } else {

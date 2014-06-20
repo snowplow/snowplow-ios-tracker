@@ -91,7 +91,7 @@
  * Returns the payload of that particular SnowplowPayload object.
  * @return NSDictionary of data in the object.
  */
-- (NSDictionary *) getPayload;
+- (NSDictionary *) getPayloadAsDictionary;
 
 - (NSString *) description;
 
