@@ -60,6 +60,12 @@ enum SnowplowBufferOptions {
 - (void) setBufferOption:(enum SnowplowBufferOptions) buffer;
 
 /**
+ *  Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.
+ *  @param userTime An int value in seconds
+ */
+- (void) setBufferTime:(int) userTime;
+
+/**
  * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests. Use this in favour over addToBuffer:
  * @param spPayload A SnowployPayload containing a completed event to be added into the buffer.
  */

@@ -30,7 +30,7 @@
     NSString *                  _httpMethod;
     NSMutableArray *            _buffer;
     NSMutableArray *            _outQueue;
-    enum SnowplowBufferOptions  _bufferTime;
+    enum SnowplowBufferOptions  _bufferOption;
     NSTimer *                   _timer;
     SnowplowEventStore *        _db;
 }
@@ -43,11 +43,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     if (self) {
         _urlEndpoint = nil;
         _httpMethod = @"GET";
-        _bufferTime = kDefaultBufferTimeout;
+        _bufferOption = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+        [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
 }
@@ -57,11 +57,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     if(self) {
         _urlEndpoint = url;
         _httpMethod = method;
-        _bufferTime = SnowplowBufferDefault;
+        _bufferOption = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+        [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
 }
@@ -71,10 +71,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     if(self) {
         _urlEndpoint = url;
         _httpMethod = method;
-        _bufferTime = option;
+        _bufferOption = option;
         _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
-        _timer = [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+        [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
 }
@@ -87,7 +87,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
     [_buffer addObject:spPayload.getPayloadAsDictionary];
-    if([_buffer count] == _bufferTime)
+    if([_buffer count] == _bufferOption)
         [self flushBuffer];
 }
 
@@ -100,7 +100,14 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) setBufferOption:(enum SnowplowBufferOptions) buffer {
-    _bufferTime = buffer;
+    _bufferOption = buffer;
+}
+
+- (void) setBufferTime:(int) userTime {
+    int time = kDefaultBufferTimeout;
+    if(userTime <= 300) time = userTime; // 5 minutes
+    
+    _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
 }
 
 - (void) flushBuffer {
