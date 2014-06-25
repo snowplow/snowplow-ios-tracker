@@ -34,7 +34,7 @@ limitations under the License.
 [2]: http://snowplowanalytics.com/
 [3]: https://www.apple.com/ios/
 
-[travis]: http://travis-ci.org/snowplow/snowplow-ios-tracker
+[travis]: https://travis-ci.org/snowplow/snowplow-ios-tracker
 [travis-image]: https://travis-ci.org/snowplow/snowplow-ios-tracker.png?branch=develop
 
 [cocoadocs]: http://cocoadocs.org/docsets/Snowplow
