@@ -36,6 +36,7 @@ static NSString * const _querySelectAll     = @"SELECT * FROM 'events'";
 static NSString * const _queryInsertEvent   = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
 static NSString * const _querySelectId      = @"SELECT * FROM 'events' WHERE ID=?";
 static NSString * const _queryDeleteId      = @"DELETE FROM 'events' WHERE ID=?";
+static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pending=1";
 
 
 @synthesize appId;
@@ -131,6 +132,17 @@ static NSString * const _queryDeleteId      = @"DELETE FROM 'events' WHERE ID=?"
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"Item: %d %@ %@", index, [date description], actualData);
             [res addObject:[NSJSONSerialization JSONObjectWithData:data options:0 error:0]];
+        }
+    }
+    return res;
+}
+
+- (NSArray *) getAllPendingEvents {
+    NSMutableArray *res = [[NSMutableArray alloc] init];
+    if([_db open]) {
+        FMResultSet *s = [_db executeQuery:_querySelectPending];
+        while ([s next]) {
+            [res addObject:[s dataForColumn:@"eventData"]];
         }
     }
     return res;
