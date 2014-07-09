@@ -28,13 +28,15 @@
 @implementation SnowplowEventStore {
     @private
     NSString *      _dbPath;
-    NSString *      _queryCreateTable;
-    NSString *      _querySelectAll;
-    NSString *      _queryInsertEvent;
-    NSString *      _querySelectId;
-    NSString *      _queryDeleteId;
     FMDatabase *    _db;
 }
+
+static NSString * const _queryCreateTable   = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY AUTOINCREMENT, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+static NSString * const _querySelectAll     = @"SELECT * FROM 'events'";
+static NSString * const _queryInsertEvent   = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
+static NSString * const _querySelectId      = @"SELECT * FROM 'events' WHERE ID=?";
+static NSString * const _queryDeleteId      = @"DELETE FROM 'events' WHERE ID=?";
+
 
 @synthesize appId;
 
@@ -53,14 +55,6 @@
     if(self){
         _db = [FMDatabase databaseWithPath:_dbPath];
         appId = appId_;
-        
-        _queryCreateTable   = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS '%@' (id INTEGER PRIMARY KEY AUTOINCREMENT, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)", appId];
-        _querySelectAll     = [NSString stringWithFormat:@"SELECT * FROM '%@'", appId];
-        _querySelectId      = [NSString stringWithFormat:@"SELECT * FROM '%@' WHERE ID=?", appId];
-        _queryDeleteId      = [NSString stringWithFormat:@"DELETE FROM '%@' WHERE ID=?", appId];
-        _queryInsertEvent   = [NSString stringWithFormat:@"INSERT INTO '%@' (eventData, pending) VALUES (?, 0)", appId];
-        
-        
         if([_db open]) {
             NSLog(@"db description: %@", [_db databasePath]);
         } else {
@@ -116,7 +110,7 @@
         FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithInt:id_]];
         while ([s next]) {
             int index = [s intForColumn:@"ID"];
-            NSData * data =[s dataForColumn:@"eventData"];
+            NSData * data = [s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"Item: %d %@ %@", index, date, actualData);
