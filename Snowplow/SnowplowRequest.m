@@ -55,11 +55,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
     self = [super init];
     if(self) {
-        _urlEndpoint = url;
         _httpMethod = method;
         _bufferOption = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
+        _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
         [self setBufferTime:kDefaultBufferTimeout];
     }
@@ -73,6 +73,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _httpMethod = method;
         _bufferOption = option;
         _buffer = [[NSMutableArray alloc] init];
+        _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
         [self setBufferTime:kDefaultBufferTimeout];
     }
@@ -108,6 +109,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     if(userTime <= 300) time = userTime; // 5 minutes
     
     _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+}
+
+- (void) setUrlEndpoint:(NSURL *) url {
+    _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
 }
 
 - (void) flushBuffer {
