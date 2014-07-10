@@ -97,7 +97,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) popFromOutQueue {
-    // Remove from SQL db
+    [_db removeEventWithId:[_db getLastInsertedRowId]];
 }
 
 - (void) setBufferOption:(enum SnowplowBufferOptions) buffer {
@@ -106,7 +106,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (void) setBufferTime:(int) userTime {
     int time = kDefaultBufferTimeout;
-    if(userTime <= 300) time = userTime; // 5 minutes
+    if(userTime <= 300) time = userTime; // 5 minute intervals
     
     _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
 }

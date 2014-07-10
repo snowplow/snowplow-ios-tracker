@@ -40,14 +40,18 @@
  */
 - (long long int) insertEvent:(SnowplowPayload *)payload;
 
-- (BOOL) deleteEventWithId:(int)id_;
+- (BOOL) removeEventWithId:(long long int)id_;
 
 - (void) getTable;
 
-- (NSDictionary *) getEventWithId:(int)id_;
+- (NSDictionary *) getEventWithId:(long long int)id_;
+
+- (BOOL) removeAllEvents;
 
 - (NSDictionary *) getAllEvents;
 
 - (NSArray *) getAllPendingEvents;
+
+- (long long int) getLastInsertedRowId;
 
 @end

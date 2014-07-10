@@ -79,18 +79,24 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     if([_db open]) {
         NSData *data = [NSJSONSerialization dataWithJSONObject:[payload getPayloadAsDictionary] options:0 error:nil];
         [_db executeUpdate:_queryInsertEvent, data];
-        return [_db lastInsertRowId];
+        return (long long int) [_db lastInsertRowId];
     } else {
         return -1;
     }
 }
 
-- (BOOL) deleteEventWithId:(int)id_ {
+- (BOOL) removeEventWithId:(long long int)id_ {
     if([_db open]) {
         return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithInt:id_]];
     } else {
         return false;
     }
+}
+
+- (BOOL) removeAllEvents {
+    // TODO
+    // Similar to getAllEvents, but with a DELETE in for-loop
+    return false;
 }
 
 - (void) getTable {
@@ -106,9 +112,9 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     }
 }
 
-- (NSDictionary *) getEventWithId:(int)id_ {
+- (NSDictionary *) getEventWithId:(long long int)id_ {
     if([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithInt:id_]];
+        FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
         while ([s next]) {
             int index = [s intForColumn:@"ID"];
             NSData * data = [s dataForColumn:@"eventData"];
@@ -146,6 +152,10 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
         }
     }
     return res;
+}
+
+- (long long int) getLastInsertedRowId {
+    return (long long int) [_db lastInsertRowId];
 }
 
 @end
