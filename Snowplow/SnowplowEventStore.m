@@ -68,6 +68,10 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     return self;
 }
 
+-(void)dealloc {
+    [_db close];
+}
+
 - (BOOL) createTable {
     if([_db open]) {
         // Create table if not exists
