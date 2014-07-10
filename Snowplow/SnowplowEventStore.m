@@ -136,12 +136,16 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     if([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectAll];
         while ([s next]) {
-            int index = [s intForColumn:@"ID"];
+            long long int index = [s longLongIntForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Item: %d %@ %@", index, [date description], actualData);
-            [res addObject:[NSJSONSerialization JSONObjectWithData:data options:0 error:0]];
+            NSLog(@"Item: %lld %@ %@", index, [date description], actualData);
+            NSDictionary * eventWithSqlMetadata = [NSDictionary dictionaryWithObjectsAndKeys:
+                                                   @"data", actualData,
+                                                   @"ID", index,
+                                                   @"date", date, nil];
+            [res addObject:eventWithSqlMetadata];
         }
     }
     return res;
