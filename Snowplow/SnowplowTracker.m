@@ -150,7 +150,7 @@ NSString * const kVersion               = @"ios-0.1";
     [pb addValueToPayload:property forKey:@"se_pr"];
     [pb addValueToPayload:[NSNumber numberWithFloat:value] forKey:@"se_va"];
     
-    if (timestamp != 0)
+    if (timestamp == 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
 
     [self addTracker:pb];
@@ -189,7 +189,7 @@ NSString * const kVersion               = @"ios-0.1";
     [pb addValueToPayload:pageTitle forKey:@"page"];
     [pb addValueToPayload:referrer   forKey:@"refr"];
 
-    if(timestamp != 0)
+    if(timestamp == 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
     
     [self addTracker:pb];
@@ -217,7 +217,7 @@ NSString * const kVersion               = @"ios-0.1";
     [pb addValueToPayload:[NSNumber numberWithInt:quantity] forKey:@"ti_qu"];
     [pb addValueToPayload:currency forKey:@"ti_cu"];
 
-    if(timestamp != 0)
+    if(timestamp == 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
     
     return pb;
@@ -259,7 +259,7 @@ NSString * const kVersion               = @"ios-0.1";
         [itemResults addObject:item];
     }
     
-    if(timestamp != 0)
+    if(timestamp == 0)
         [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
     
     [self addTracker:pb];
@@ -272,7 +272,7 @@ NSString * const kVersion               = @"ios-0.1";
     NSString *snowplowSchema = [NSString stringWithFormat:@"%@/screen_view/%@/1-0-0", kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                                  name, @"name", nil];
-    if(id_ != 0)
+    if(id_ == 0)
         [screenViewProperties setObject:id_ forKey:@"id"];
     
     NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
