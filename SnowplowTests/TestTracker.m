@@ -43,8 +43,7 @@
 
 - (void)testExample
 {
-    SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:[NSURL URLWithString:@"http://segfault.ngrok.com"] httpMethod:@"GET"];
-    [collector setBufferOption:2];
+    SnowplowRequest *collector = [[SnowplowRequest alloc] initWithURLRequest:[NSURL URLWithString:@"http://segfault.ngrok.com"] httpMethod:@"POST" bufferOption:SnowplowBufferInstant];
     SnowplowTracker *tracker = [[SnowplowTracker alloc] initUsingCollector:collector appId:@"foo" base64Encoded:false namespace:@"myname"];
     
     NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:

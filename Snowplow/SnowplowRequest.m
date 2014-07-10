@@ -88,6 +88,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
     [_buffer addObject:spPayload.getPayloadAsDictionary];
+    [_db insertEvent:spPayload];
     if([_buffer count] == _bufferOption) //TODO add isEmpty check for db
         [self flushBuffer];
 }
@@ -122,7 +123,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         return;
     }
     
-    NSMutableArray *bufferAndBackup = [NSMutableArray arrayWithArray:_buffer];
+    NSMutableArray *bufferAndBackup = [[NSMutableArray alloc] init];
     for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
         [bufferAndBackup addObject:[eventWithMetaData objectForKey:@"data"]];
         [_outQueue addObject:[eventWithMetaData objectForKey:@"ID"]];
@@ -163,7 +164,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (void) sendGetData:(NSDictionary *)data {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.requestSerializer = [AFJSONRequestSerializer serializer];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
