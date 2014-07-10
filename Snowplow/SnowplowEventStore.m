@@ -76,8 +76,12 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
 }
 
 - (long long int) insertEvent:(SnowplowPayload *)payload {
+    return [self insertDicitionaryData:[payload getPayloadAsDictionary]];
+}
+
+- (long long int) insertDicitionaryData:(NSDictionary *)dict {
     if([_db open]) {
-        NSData *data = [NSJSONSerialization dataWithJSONObject:[payload getPayloadAsDictionary] options:0 error:nil];
+        NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
         [_db executeUpdate:_queryInsertEvent, data];
         return (long long int) [_db lastInsertRowId];
     } else {

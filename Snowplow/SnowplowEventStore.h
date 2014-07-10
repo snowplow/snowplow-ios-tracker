@@ -40,6 +40,8 @@
  */
 - (long long int) insertEvent:(SnowplowPayload *)payload;
 
+- (long long int) insertDicitionaryData:(NSDictionary *)dict;
+
 - (BOOL) removeEventWithId:(long long int)id_;
 
 - (void) getTable;
