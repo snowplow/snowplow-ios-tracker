@@ -33,6 +33,7 @@
 
 static NSString * const _queryCreateTable   = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY AUTOINCREMENT, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 static NSString * const _querySelectAll     = @"SELECT * FROM 'events'";
+static NSString * const _querySelectCount   = @"SELECT Count(*) FROM 'events'";
 static NSString * const _queryInsertEvent   = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
 static NSString * const _querySelectId      = @"SELECT * FROM 'events' WHERE ID=?";
 static NSString * const _queryDeleteId      = @"DELETE FROM 'events' WHERE ID=?";
@@ -102,6 +103,17 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     // TODO
     // Similar to getAllEvents, but with a DELETE in for-loop
     return false;
+}
+
+- (NSNumber *) count {
+    NSNumber *num = 0;
+    if ([_db open]) {
+        FMResultSet *s = [_db executeQuery:_querySelectCount];
+        while ([s next]) {
+            num = [NSNumber numberWithInt:[s intForColumnIndex:0]];
+        }
+    }
+    return num;
 }
 
 - (void) getTable {

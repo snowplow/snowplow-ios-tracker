@@ -50,6 +50,8 @@
 
 - (BOOL) removeAllEvents;
 
+- (NSNumber *) count;
+
 - (NSArray *) getAllEvents;
 
 - (NSArray *) getAllPendingEvents;
