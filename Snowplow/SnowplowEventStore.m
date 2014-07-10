@@ -58,6 +58,7 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
         appId = appId_;
         if([_db open]) {
             NSLog(@"db description: %@", [_db databasePath]);
+            [self createTable];
         } else {
             NSLog(@"Failed to open database. Events in memory will not persist!");
         }
