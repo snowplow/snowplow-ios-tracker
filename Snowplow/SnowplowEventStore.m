@@ -87,7 +87,7 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
 
 - (BOOL) removeEventWithId:(long long int)id_ {
     if([_db open]) {
-        return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithInt:id_]];
+        return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
     } else {
         return false;
     }
