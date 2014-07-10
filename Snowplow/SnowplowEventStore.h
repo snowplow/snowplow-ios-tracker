@@ -48,4 +48,6 @@
 
 - (NSDictionary *) getAllEvents;
 
+- (NSArray *) getAllPendingEvents;
+
 @end
