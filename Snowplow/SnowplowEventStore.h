@@ -29,7 +29,7 @@
 
 - (id) init;
 
-- (id) initWithAppId:(NSString *)appId;
+- (id) initWithAppId:(NSString *)appId_;
 
 - (BOOL) createTable;
 
@@ -50,7 +50,7 @@
 
 - (BOOL) removeAllEvents;
 
-- (NSDictionary *) getAllEvents;
+- (NSArray *) getAllEvents;
 
 - (NSArray *) getAllPendingEvents;
 
