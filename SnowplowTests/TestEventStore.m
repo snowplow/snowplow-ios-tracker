@@ -43,4 +43,18 @@
     [sampleEventStore getAllEvents];
 }
 
+- (void)testGetLastInsertedRowId
+{
+    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] initWithAppId:@"FOOO"];
+    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    
+    [pb addValueToPayload:@"pv"      forKey:@"e"];
+    [pb addValueToPayload:@"www.apple.com"   forKey:@"url"];
+    [pb addValueToPayload:@"Welcome to Apple!" forKey:@"page"];
+    [pb addValueToPayload:@"Jobs"   forKey:@"refr"];
+    
+    [sampleEventStore insertEvent:pb];
+    NSLog(@"Inserted row ID: %lld", [sampleEventStore getLastInsertedRowId]);
+}
+
 @end

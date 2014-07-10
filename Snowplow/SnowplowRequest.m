@@ -88,7 +88,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
     [_buffer addObject:spPayload.getPayloadAsDictionary];
-    if([_buffer count] == _bufferOption)
+    if([_buffer count] == _bufferOption) //TODO add isEmpty check for db
         [self flushBuffer];
 }
 
@@ -122,15 +122,21 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         return;
     }
     
+    NSMutableArray *bufferAndBackup = [NSMutableArray arrayWithArray:_buffer];
+    for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
+        [bufferAndBackup addObjectsFromArray:[eventWithMetaData objectForKey:@"data"]];
+        [_outQueue addObject:[eventWithMetaData objectForKey:@"ID"]];
+    }
+    
     //Empties the buffer and sends the contents to the collector
     if([_httpMethod isEqual:@"POST"]) {
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         [payload setValue:kPayloadDataSchema forKey:@"$schema"];
-        [payload setValue:_buffer forKey:@"data"];
+        [payload setValue:bufferAndBackup forKey:@"data"];
         
         [self sendPostData:payload];
     } else if ([_httpMethod isEqual:@"GET"]) {
-        for (NSDictionary* event in _buffer) {
+        for (NSDictionary* event in bufferAndBackup) {
             [self sendGetData:event];
         }
     } else {
@@ -143,25 +149,29 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
-    // Add queue to next POST
-    // Empty queue at the same time
-    
     [manager POST:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
+        for (NSNumber *eventID in _outQueue) {
+            [_db removeEventWithId:[eventID longLongValue]];
+            [_outQueue removeObject:eventID];
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         //Add event to queue
     }];
-//    [self.buffer removeAllObjects];
 }
 
 - (void) sendGetData:(NSDictionary *)data {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
-
+    
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
-        // Remove from queue
+        for (NSNumber *eventID in _outQueue) {
+            [_db removeEventWithId:[eventID longLongValue]];
+            [_outQueue removeObject:eventID];
+        }
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         //Add event to queue
