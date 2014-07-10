@@ -141,10 +141,11 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"Item: %lld %@ %@", index, [date description], actualData);
-            NSDictionary * eventWithSqlMetadata = [NSDictionary dictionaryWithObjectsAndKeys:
-                                                   @"data", actualData,
-                                                   @"ID", index,
-                                                   @"date", date, nil];
+            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+            NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
+            [eventWithSqlMetadata setValue:dict forKey:@"data"];
+            [eventWithSqlMetadata setValue:[NSNumber numberWithLongLong:index] forKey:@"ID"];
+            [eventWithSqlMetadata setValue:date forKey:@"date"];
             [res addObject:eventWithSqlMetadata];
         }
     }

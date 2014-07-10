@@ -124,7 +124,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     NSMutableArray *bufferAndBackup = [NSMutableArray arrayWithArray:_buffer];
     for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
-        [bufferAndBackup addObjectsFromArray:[eventWithMetaData objectForKey:@"data"]];
+        [bufferAndBackup addObject:[eventWithMetaData objectForKey:@"data"]];
         [_outQueue addObject:[eventWithMetaData objectForKey:@"ID"]];
     }
     
