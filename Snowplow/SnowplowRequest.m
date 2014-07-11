@@ -160,7 +160,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     [manager POST:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         for (NSNumber *eventID in dbIndexArray) {
-            [_db removeEventWithId:[eventID longLongValue]];
+            [_dbQueue inDatabase:^(FMDatabase *db) {
+                [_db removeEventWithId:[eventID longLongValue]];
+            }];
             [dbIndexArray removeObject:eventID];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -176,7 +178,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         for (NSNumber *eventID in dbIndexArray) {
-            [_db removeEventWithId:[eventID longLongValue]];
+            [_dbQueue inDatabase:^(FMDatabase *db) {
+                [_db removeEventWithId:[eventID longLongValue]];
+            }];
             [dbIndexArray removeObject:eventID];
         }
         
