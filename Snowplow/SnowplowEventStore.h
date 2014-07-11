@@ -48,7 +48,7 @@
 
 - (BOOL) removeAllEvents;
 
-- (NSNumber *) count;
+- (NSUInteger) count;
 
 - (NSArray *) getAllEvents;
 

@@ -100,12 +100,12 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     return false;
 }
 
-- (NSNumber *) count {
-    NSNumber *num = 0;
+- (NSUInteger) count {
+    NSUInteger num = 0;
     if ([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectCount];
         while ([s next]) {
-            num = [NSNumber numberWithInt:[s intForColumnIndex:0]];
+            num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
         }
     }
     return num;
