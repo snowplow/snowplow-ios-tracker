@@ -159,16 +159,16 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     [manager POST:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
-        for (NSNumber *eventID in dbIndexArray) {
-            [_dbQueue inDatabase:^(FMDatabase *db) {
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            for (NSNumber *eventID in dbIndexArray) {
                 [_db removeEventWithId:[eventID longLongValue]];
-            }];
-            [dbIndexArray removeObject:eventID];
-        }
+            }
+        }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         //Add event to queue
     }];
+    [dbIndexArray removeAllObjects];
 }
 
 - (void) sendGetData:(NSDictionary *)data withDbIndexArray:dbIndexArray {
@@ -177,17 +177,15 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
-        for (NSNumber *eventID in dbIndexArray) {
-            [_dbQueue inDatabase:^(FMDatabase *db) {
+        [_dbQueue inDatabase:^(FMDatabase *db) {
+            for (NSNumber *eventID in dbIndexArray) {
                 [_db removeEventWithId:[eventID longLongValue]];
-            }];
-            [dbIndexArray removeObject:eventID];
-        }
-        
+            }
+        }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         //Add event to queue
     }];
-}
+    [dbIndexArray removeAllObjects];}
 
 @end
