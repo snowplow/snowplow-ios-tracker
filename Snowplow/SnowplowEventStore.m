@@ -44,19 +44,10 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
 
 - (id) init {
     self = [super init];
-    if(self) {
-        self = [self initWithAppId:[SnowplowUtils getAppId]];
-    }
-    return self;
-}
-
-- (id) initWithAppId:(NSString *)appId_ {
-    self = [super init];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
     if(self){
         _db = [FMDatabase databaseWithPath:_dbPath];
-        appId = appId_;
         if([_db open]) {
             NSLog(@"db description: %@", [_db databasePath]);
             [self createTable];
@@ -68,7 +59,7 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     return self;
 }
 
--(void)dealloc {
+- (void) dealloc {
     [_db close];
 }
 

@@ -29,8 +29,6 @@
 
 - (id) init;
 
-- (id) initWithAppId:(NSString *)appId_;
-
 - (BOOL) createTable;
 
 /**

@@ -46,7 +46,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferOption = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
-        _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
+        _db = [[SnowplowEventStore alloc] init];
+        
         [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
@@ -58,9 +59,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _httpMethod = method;
         _bufferOption = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
+        _db = [[SnowplowEventStore alloc] init];
         _outQueue = [[NSMutableArray alloc] init];
         _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
-        _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
+        
         [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
@@ -73,8 +75,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _httpMethod = method;
         _bufferOption = option;
         _buffer = [[NSMutableArray alloc] init];
+        _db = [[SnowplowEventStore alloc] init];
+        _outQueue = [[NSMutableArray alloc] init];
         _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
-        _db = [[SnowplowEventStore alloc] initWithAppId:[SnowplowUtils getAppId]];
+        
         [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;

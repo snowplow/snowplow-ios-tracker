@@ -29,7 +29,7 @@
 
 - (void)testExample
 {
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] initWithAppId:@"FOOO"];
+    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
 
     [pb addValueToPayload:@"pv"      forKey:@"e"];
@@ -45,7 +45,7 @@
 
 - (void)testGetLastInsertedRowId
 {
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] initWithAppId:@"FOOO"];
+    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     
     [pb addValueToPayload:@"pv"      forKey:@"e"];
@@ -55,6 +55,21 @@
     
     [sampleEventStore insertEvent:pb];
     NSLog(@"Inserted row ID: %lld", [sampleEventStore getLastInsertedRowId]);
+}
+
+- (void) testInit
+{
+    // Verify all init variables including table created
+}
+
+- (void) testInsertEvent
+{
+    // Verify basic insert
+}
+
+- (void) testDictionaryData
+{
+    // Same as above
 }
 
 @end
