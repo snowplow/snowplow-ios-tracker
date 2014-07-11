@@ -75,7 +75,7 @@
 - (void) testCount
 {
     SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
-    NSLog(@"Number of events stored: %@", [sampleEventStore count]);
+    NSLog(@"Number of events stored: %lu", (unsigned long)[sampleEventStore count]);
 }
 
 @end
