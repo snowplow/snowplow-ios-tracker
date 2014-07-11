@@ -23,16 +23,17 @@
 #import "SnowplowRequest.h"
 #import "SnowplowEventStore.h"
 #import "SnowplowUtils.h"
+#import <FMDB.h>
 #import <AFNetworking/AFNetworking.h>
 
 @implementation SnowplowRequest {
     NSURL *                     _urlEndpoint;
     NSString *                  _httpMethod;
     NSMutableArray *            _buffer;
-    NSMutableArray *            _outQueue;
     enum SnowplowBufferOptions  _bufferOption;
     NSTimer *                   _timer;
     SnowplowEventStore *        _db;
+    FMDatabaseQueue *           _dbQueue;
 }
 
 static int       const kDefaultBufferTimeout = 60;
@@ -45,7 +46,6 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _httpMethod = @"GET";
         _bufferOption = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
-        _outQueue = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] init];
         
         [self setBufferTime:kDefaultBufferTimeout];
@@ -60,7 +60,6 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferOption = SnowplowBufferDefault;
         _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] init];
-        _outQueue = [[NSMutableArray alloc] init];
         _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         
         [self setBufferTime:kDefaultBufferTimeout];
@@ -76,7 +75,6 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferOption = option;
         _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] init];
-        _outQueue = [[NSMutableArray alloc] init];
         _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         
         [self setBufferTime:kDefaultBufferTimeout];
