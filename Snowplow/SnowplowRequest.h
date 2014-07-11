@@ -72,12 +72,6 @@ enum SnowplowBufferOptions {
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload;
 
 /**
- * Sends a dictionary of data to the urlEndpoint via a JSON POST request.
- * @param A dictionary of event data.
- */
-- (void) sendPostData:(NSDictionary *)data;
-
-/**
  * Empties the buffer of events using the respective HTTP request method in httpMethod.
  */
 - (void) flushBuffer;

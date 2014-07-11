@@ -127,38 +127,43 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         return;
     }
     
-    NSMutableArray *bufferAndBackup = [[NSMutableArray alloc] init];
-    for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
-        [bufferAndBackup addObject:[eventWithMetaData objectForKey:@"data"]];
-        [_outQueue addObject:[eventWithMetaData objectForKey:@"ID"]];
-    }
-    
     //Empties the buffer and sends the contents to the collector
     if([_httpMethod isEqual:@"POST"]) {
+        
+        NSMutableArray *eventArray = [[NSMutableArray alloc] init];
+        NSMutableArray *indexArray = [[NSMutableArray alloc] init];
+        for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
+            [eventArray addObject:[eventWithMetaData objectForKey:@"data"]];
+            [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
+        }
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         [payload setValue:kPayloadDataSchema forKey:@"$schema"];
-        [payload setValue:bufferAndBackup forKey:@"data"];
+        [payload setValue:eventArray forKey:@"data"];
         
-        [self sendPostData:payload];
+        [self sendPostData:payload withDbIndexArray:indexArray];
     } else if ([_httpMethod isEqual:@"GET"]) {
-        for (NSDictionary* event in bufferAndBackup) {
-            [self sendGetData:event];
+        
+        NSMutableArray *indexArray = [[NSMutableArray alloc] init];
+        for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
+            [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
+            [self sendGetData:[eventWithMetaData objectForKey:@"data"] withDbIndexArray:indexArray];
         }
+
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
     [_buffer removeAllObjects];
 }
 
-- (void) sendPostData:(NSDictionary *)data {
+- (void) sendPostData:(NSDictionary *)data withDbIndexArray:dbIndexArray {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     [manager POST:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
-        for (NSNumber *eventID in _outQueue) {
+        for (NSNumber *eventID in dbIndexArray) {
             [_db removeEventWithId:[eventID longLongValue]];
-            [_outQueue removeObject:eventID];
+            [dbIndexArray removeObject:eventID];
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -166,15 +171,15 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     }];
 }
 
-- (void) sendGetData:(NSDictionary *)data {
+- (void) sendGetData:(NSDictionary *)data withDbIndexArray:dbIndexArray {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
-        for (NSNumber *eventID in _outQueue) {
+        for (NSNumber *eventID in dbIndexArray) {
             [_db removeEventWithId:[eventID longLongValue]];
-            [_outQueue removeObject:eventID];
+            [dbIndexArray removeObject:eventID];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
