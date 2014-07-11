@@ -29,7 +29,7 @@
 @implementation SnowplowRequest {
     NSURL *                     _urlEndpoint;
     NSString *                  _httpMethod;
-    NSMutableArray *            _buffer;
+    NSMutableArray *            _buffer; // TODO: Convert to counter instead of array
     enum SnowplowBufferOptions  _bufferOption;
     NSTimer *                   _timer;
     SnowplowEventStore *        _db;
@@ -48,6 +48,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] init];
         
+        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
+        
         [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
@@ -61,6 +65,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] init];
         _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
+        
+        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
         
         [self setBufferTime:kDefaultBufferTimeout];
     }
@@ -77,15 +85,13 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _db = [[SnowplowEventStore alloc] init];
         _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         
+        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
+        
         [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
-}
-
-- (void) dealloc {
-    // Save buffer to database Issue #9
-    _urlEndpoint = nil;
-    _buffer = nil;
 }
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
@@ -121,7 +127,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 - (void) flushBuffer {
     NSLog(@"Flushing buffer..");
     // Avoid calling flush to send an empty buffer
-    if ([_buffer count] == 0) {
+    if ([_buffer count] == 0 && [_db count] == 0) {
+        NSLog(@"Database empty. Returning..");
         return;
     }
     
@@ -146,46 +153,49 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendGetData:[eventWithMetaData objectForKey:@"data"] withDbIndexArray:indexArray];
         }
-
+        
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
     [_buffer removeAllObjects];
 }
 
-- (void) sendPostData:(NSDictionary *)data withDbIndexArray:dbIndexArray {
+- (void) sendPostData:(NSDictionary *)data withDbIndexArray:(NSMutableArray *)dbIndexArray {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     [manager POST:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            for (NSNumber *eventID in dbIndexArray) {
-                [_db removeEventWithId:[eventID longLongValue]];
+            for (int i=0; i< [dbIndexArray count]; i++) {
+                NSLog(@"Removing event at index: %@", dbIndexArray[i]);
+                [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
+                [dbIndexArray removeObjectAtIndex:i];
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         //Add event to queue
     }];
-    [dbIndexArray removeAllObjects];
 }
 
-- (void) sendGetData:(NSDictionary *)data withDbIndexArray:dbIndexArray {
+- (void) sendGetData:(NSDictionary *)data withDbIndexArray:(NSMutableArray *)dbIndexArray {
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            for (NSNumber *eventID in dbIndexArray) {
-                [_db removeEventWithId:[eventID longLongValue]];
+            for (int i=0; i< [dbIndexArray count]; i++) {
+                NSLog(@"Removing event at index: %@", dbIndexArray[i]);
+                [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
+                [dbIndexArray removeObjectAtIndex:i];
             }
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         //Add event to queue
     }];
-    [dbIndexArray removeAllObjects];}
+}
 
 @end
