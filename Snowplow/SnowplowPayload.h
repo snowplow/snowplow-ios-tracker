@@ -38,6 +38,13 @@
 - (id) initWithNSDictionary:(NSDictionary *)dict;
 
 /**
+ *  A SnowplowPayload initialized with a dictionary passed to it.
+ *  @param dict A dictionary of items to be added to the tracker event.
+ *  @return An instance of SnowplowPayload.
+ */
++ (instancetype) payloadWithDictionary:(NSDictionary *) dict;
+
+/**
  *  Adds a simple name-value pair into the SnowplowPayload intance.
  *  @param value A JSON-compatible value
  *  @param key A key of type NSString
