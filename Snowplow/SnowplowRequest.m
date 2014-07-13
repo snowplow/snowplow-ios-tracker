@@ -139,11 +139,12 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     [manager POST:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            for (int i=0; i< [dbIndexArray count]; i++) {
+            NSMutableArray *removedIDs = [NSMutableArray array];
+            for (int i=0; i < dbIndexArray.count; i++) {
                 NSLog(@"Removing event at index: %@", dbIndexArray[i]);
                 [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
-                [dbIndexArray removeObjectAtIndex:i];
             }
+            [dbIndexArray removeObjectsInArray:removedIDs];
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
@@ -158,11 +159,13 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"JSON: %@", responseObject);
         [_dbQueue inDatabase:^(FMDatabase *db) {
-            for (int i=0; i< [dbIndexArray count]; i++) {
+            NSMutableArray *removedIDs = [NSMutableArray array];
+            for (int i=0; i < dbIndexArray.count; i++) {
                 NSLog(@"Removing event at index: %@", dbIndexArray[i]);
-                [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
+                [_db removeEventWithId:(long long int)dbIndexArray[i]];
                 [dbIndexArray removeObjectAtIndex:i];
             }
+            [dbIndexArray removeObjectsInArray:removedIDs];
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
