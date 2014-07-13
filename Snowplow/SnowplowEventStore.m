@@ -94,10 +94,14 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     }
 }
 
-- (BOOL) removeAllEvents {
-    // TODO
-    // Similar to getAllEvents, but with a DELETE in for-loop
-    return false;
+- (void) removeAllEvents {
+    if ([_db open]) {
+        FMResultSet *s = [_db executeQuery:_querySelectAll];
+        while ([s next]) {
+            long long int index = [s longLongIntForColumn:@"ID"];
+            [self removeEventWithId:index];
+        }
+    }
 }
 
 - (NSUInteger) count {

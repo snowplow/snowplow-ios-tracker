@@ -46,7 +46,7 @@
 
 - (NSDictionary *) getEventWithId:(long long int)id_;
 
-- (BOOL) removeAllEvents;
+- (void) removeAllEvents;
 
 - (NSUInteger) count;
 
