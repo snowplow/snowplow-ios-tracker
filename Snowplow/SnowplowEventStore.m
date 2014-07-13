@@ -155,9 +155,9 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
             NSLog(@"Item: %lld %@ %@", index, [date description], actualData);
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
             NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
-            [eventWithSqlMetadata setValue:dict forKey:@"data"];
+            [eventWithSqlMetadata setValue:dict forKey:@"eventData"];
             [eventWithSqlMetadata setValue:[NSNumber numberWithLongLong:index] forKey:@"ID"];
-            [eventWithSqlMetadata setValue:date forKey:@"date"];
+            [eventWithSqlMetadata setValue:date forKey:@"dateCreated"];
             [res addObject:eventWithSqlMetadata];
         }
     }

@@ -110,7 +110,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         NSMutableArray *eventArray = [[NSMutableArray alloc] init];
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
         for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
-            [eventArray addObject:[eventWithMetaData objectForKey:@"data"]];
+            [eventArray addObject:[eventWithMetaData objectForKey:@"eventData"]];
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
         }
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
@@ -123,7 +123,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
         for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
-            [self sendGetData:[eventWithMetaData objectForKey:@"data"] withDbIndexArray:indexArray];
+            [self sendGetData:[eventWithMetaData objectForKey:@"eventData"] withDbIndexArray:indexArray];
         }
         
     } else {
