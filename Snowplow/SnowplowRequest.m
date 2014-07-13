@@ -40,39 +40,11 @@ static int       const kDefaultBufferTimeout = 60;
 static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
 
 - (id) init {
-    self = [super init];
-    if (self) {
-        _urlEndpoint = nil;
-        _httpMethod = @"GET";
-        _bufferOption = SnowplowBufferDefault;
-        _buffer = [[NSMutableArray alloc] init];
-        _db = [[SnowplowEventStore alloc] init];
-        
-        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
-        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-        
-        [self setBufferTime:kDefaultBufferTimeout];
-    }
-    return self;
+    return [self initWithURLRequest:nil httpMethod:@"GET" bufferOption:SnowplowBufferDefault];
 }
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
-    self = [super init];
-    if(self) {
-        _httpMethod = method;
-        _bufferOption = SnowplowBufferDefault;
-        _buffer = [[NSMutableArray alloc] init];
-        _db = [[SnowplowEventStore alloc] init];
-        _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
-        
-        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSString *dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
-        _dbQueue = [FMDatabaseQueue databaseQueueWithPath:dbPath];
-        
-        [self setBufferTime:kDefaultBufferTimeout];
-    }
-    return self;
+    return [self initWithURLRequest:url httpMethod:method bufferOption:SnowplowBufferDefault];
 }
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option {
