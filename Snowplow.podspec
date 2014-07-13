@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   # s.ios.exclude_files = 'Classes/osx'
   # s.osx.exclude_files = 'Classes/ios'
-  s.public_header_files = 'Snowplow/*.h'
+  s.public_header_files = ['Snowplow/SnowplowTracker.h', 'Snowplow/SnowplowPayload.h', 'Snowplow/SnowplowRequest.h']
   s.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
     s.dependency 'FMDB', '~> 2.3'
     s.dependency 'AFNetworking', '~> 2.0'
