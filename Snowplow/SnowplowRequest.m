@@ -55,7 +55,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferOption = option;
         _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] init];
-        _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
+        if([method isEqual: @"GET"]) {
+            _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
+        } else {
+            _urlEndpoint = [url URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];
+        }
         
         NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
         NSString *dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
