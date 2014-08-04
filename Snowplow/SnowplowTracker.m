@@ -90,7 +90,7 @@ NSString * const kVersion               = @"ios-0.1.0";
             context:(NSDictionary *)context {
     NSMutableArray *dataArray = [[NSMutableArray alloc] initWithObjects:context, nil];
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                               _contextSchema, @"$schema",
+                               _contextSchema, @"schema",
                                dataArray, @"data", nil];
     [self setMobileContext:dataArray];
     [pb addDictionaryToPayload:envelope
@@ -114,7 +114,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] forKey:@"appleIdfa"];
     
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                              schema, @"$schema",
+                              schema, @"schema",
                               mobContext.getPayloadAsDictionary, @"data", nil];
     [payloadData addObject:envelope];
 }
@@ -166,7 +166,7 @@ NSString * const kVersion               = @"ios-0.1.0";
 
     // Creates similar envelop as in setContext with but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                          _contextSchema, @"$schema",
+                          _contextSchema, @"schema",
                           context, @"data", nil];
     [pb addDictionaryToPayload:envelope
                  base64Encoded:_base64Encoded
@@ -276,7 +276,7 @@ NSString * const kVersion               = @"ios-0.1.0";
         [screenViewProperties setObject:id_ forKey:@"id"];
     
     NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
-                               snowplowSchema, @"$schema",
+                               snowplowSchema, @"schema",
                                screenViewProperties, @"data", nil];
     [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
 }

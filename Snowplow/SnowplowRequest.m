@@ -118,7 +118,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
         }
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-        [payload setValue:kPayloadDataSchema forKey:@"$schema"];
+        [payload setValue:kPayloadDataSchema forKey:@"schema"];
         [payload setValue:eventArray forKey:@"data"];
         
         [self sendPostData:payload withDbIndexArray:indexArray];
