@@ -145,8 +145,12 @@
 
 - (void)testGetTransactionId
 {
+    // Supressing deprecated warning only for tests
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     int sample_rand = [SnowplowUtils getTransactionId];
     XCTAssertTrue((100000 < sample_rand < 999999), @"Transaction ID doesn't exist between our range of 999,999 and 100,000.");
+#pragma clang diagnostic pop
 }
 
 - (void)testGetTimestamp

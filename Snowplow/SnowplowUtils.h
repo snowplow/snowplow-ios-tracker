@@ -70,7 +70,7 @@
  *  Generates a randomly generated 6-digit integer.
  *  @return A random 6-digit int.
  */
-+ (int) getTransactionId;
++ (int) getTransactionId __deprecated;
 
 /**
  *  Returns the timestamp generated at the point it was called.
