@@ -70,7 +70,7 @@
 
 + (double) getTimestamp {
     NSDate *time = [[NSDate alloc] init];
-    return (double)[time timeIntervalSince1970]*1000;
+    return [time timeIntervalSince1970]*1000;
 }
 
 + (NSString *) getResolution {

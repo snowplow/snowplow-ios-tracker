@@ -151,10 +151,10 @@
 
 - (void)testGetTimestamp
 {
-    NSString *sample_rand = [NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]];
+    NSString *sample_rand = [NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]];
     
     // For regex pattern matching to verify if it's of UUID type 4
-    NSString *pattern = @"[0-9]+.[0-9]+";
+    NSString *pattern = @"[0-9]+";
     NSRange searchRange = NSMakeRange(0, [sample_rand length]);
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];

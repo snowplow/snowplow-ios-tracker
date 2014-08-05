@@ -126,7 +126,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [payload addValueToPayload:[SnowplowUtils getViewPort] forKey:@"vp"];
     [payload addValueToPayload:[SnowplowUtils getEventId] forKey:@"eid"];
     [payload addValueToPayload:[SnowplowUtils getLanguage] forKey:@"lang"];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
@@ -151,7 +151,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", value] forKey:@"se_va"];
     
     if (timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
+        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
 
     [self addTracker:pb];
 }
@@ -190,7 +190,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:referrer   forKey:@"refr"];
 
     if(timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
+        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
@@ -218,7 +218,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:currency forKey:@"ti_cu"];
 
     if(timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
+        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     return pb;
 }
@@ -260,7 +260,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     }
     
     if(timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
+        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
