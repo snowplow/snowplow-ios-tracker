@@ -46,7 +46,7 @@
     return [[self alloc] initWithDictionary:dict];
 }
 
-- (void) addValueToPayload:(id)value forKey:(NSString *)key {
+- (void) addValueToPayload:(NSString *)value forKey:(NSString *)key {
     if (value == nil) {
         return;
     }
@@ -87,7 +87,7 @@
 #endif
             [self addValueToPayload:encodedString forKey:typeEncoded];
         } else {
-            [self addValueToPayload:object forKey:typeNotEncoded];
+            [self addValueToPayload:[NSString stringWithFormat:@"%@", object] forKey:typeNotEncoded];
         }
     } // else handle a bad name-value pair even though it passes JSONSerialization?
 }

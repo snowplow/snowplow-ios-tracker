@@ -126,7 +126,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [payload addValueToPayload:[SnowplowUtils getViewPort] forKey:@"vp"];
     [payload addValueToPayload:[SnowplowUtils getEventId] forKey:@"eid"];
     [payload addValueToPayload:[SnowplowUtils getLanguage] forKey:@"lang"];
-    [payload addValueToPayload:[NSNumber numberWithDouble:[SnowplowUtils getTimestamp]] forKey:@"dtm"];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
@@ -148,10 +148,10 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:action forKey:@"se_ac"];
     [pb addValueToPayload:label forKey:@"se_la"];
     [pb addValueToPayload:property forKey:@"se_pr"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:value] forKey:@"se_va"];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", value] forKey:@"se_va"];
     
-    if (timestamp == 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
+    if (timestamp != 0)
+        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
 
     [self addTracker:pb];
 }
@@ -189,8 +189,8 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:pageTitle forKey:@"page"];
     [pb addValueToPayload:referrer   forKey:@"refr"];
 
-    if(timestamp == 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
+    if(timestamp != 0)
+        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
@@ -213,12 +213,12 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:sku forKey:@"ti_sk"];
     [pb addValueToPayload:name forKey:@"ti_nm"];
     [pb addValueToPayload:category forKey:@"ti_ca"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:price] forKey:@"ti_pr"];
-    [pb addValueToPayload:[NSNumber numberWithInt:quantity] forKey:@"ti_qu"];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", price] forKey:@"ti_pr"];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%d", quantity] forKey:@"ti_qu"];
     [pb addValueToPayload:currency forKey:@"ti_cu"];
 
-    if(timestamp == 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
+    if(timestamp != 0)
+        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     return pb;
 }
@@ -241,10 +241,10 @@ NSString * const kVersion               = @"ios-0.1.0";
 
     [pb addValueToPayload:@"tr" forKey:@"e"];
     [pb addValueToPayload:orderId forKey:@"tr_id"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:totalValue] forKey:@"tr_tt"];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", totalValue] forKey:@"tr_tt"];
     [pb addValueToPayload:affiliation forKey:@"tr_af"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:taxValue] forKey:@"tr_tx"];
-    [pb addValueToPayload:[NSNumber numberWithFloat:shipping] forKey:@"tr_sh"];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", taxValue] forKey:@"tr_tx"];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", shipping] forKey:@"tr_sh"];
     [pb addValueToPayload:city forKey:@"tr_ci"];
     [pb addValueToPayload:state forKey:@"tr_st"];
     [pb addValueToPayload:country forKey:@"tr_co"];
@@ -259,8 +259,8 @@ NSString * const kVersion               = @"ios-0.1.0";
         [itemResults addObject:item];
     }
     
-    if(timestamp == 0)
-        [pb addValueToPayload:[NSNumber numberWithDouble:timestamp] forKey:@"dtm"];
+    if(timestamp != 0)
+        [pb addValueToPayload:[NSString stringWithFormat:@"%f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
 }

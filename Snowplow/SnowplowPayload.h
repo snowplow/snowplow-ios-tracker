@@ -49,7 +49,7 @@
  *  @param value A JSON-compatible value
  *  @param key A key of type NSString
  */
-- (void) addValueToPayload:(id)value forKey:(NSString *)key;
+- (void) addValueToPayload:(NSString *)value forKey:(NSString *)key;
 
 /**
  *  Adds a dictionary of attributes to be appended into the SnowplowPayload instance. It does NOT overwrite the existing data in the object.
