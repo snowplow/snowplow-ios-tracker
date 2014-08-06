@@ -20,6 +20,6 @@
 //  License: Apache License Version 2.0
 //
 
-#include "SnowplowRequest.h"
-#include "SnowplowTracker.h"
-#include "SnowplowPayload.h"
+#import "SnowplowRequest.h"
+#import "SnowplowTracker.h"
+#import "SnowplowPayload.h"

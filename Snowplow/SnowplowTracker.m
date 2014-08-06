@@ -55,10 +55,10 @@ NSString * const kVersion               = @"ios-0.1.0";
     return self;
 }
 
-- (id) initUsingCollector:(SnowplowRequest *)collector_
-                    appId:(NSString *)appId_
-            base64Encoded:(Boolean)encoded
-                namespace:(NSString *)namespace_ {
+- (id) initWithCollector:(SnowplowRequest *)collector_
+                   appId:(NSString *)appId_
+           base64Encoded:(Boolean)encoded
+               namespace:(NSString *)namespace_ {
     self = [super init];
     if(self) {
         [self setSchemaTag:@"jsonschema"];

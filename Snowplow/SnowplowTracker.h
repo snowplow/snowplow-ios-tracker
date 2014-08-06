@@ -44,16 +44,16 @@ extern NSString * const kVersion;
 
 /**
  *  Initializes a newly allocated SnowplowTracker with all the required properties to send events to it.
- *  @param collector A SnowplowRequest object that is initialized to send the events created by the SnowplowTracker.
- *  @param appId Your app ID
+ *  @param collector_ A SnowplowRequest object that is initialized to send the events created by the SnowplowTracker.
+ *  @param appId_ Your app ID
  *  @param base64encoded If true, all context data will be Base64 encoded before being added to the event.
- *  @param namespace Identifier for the tracker instance.
+ *  @param namespace_ Identifier for the tracker instance.
  *  @return A SnowplowTracker instance.
  */
-- (id) initUsingCollector:(SnowplowRequest *)collector
-                    appId:(NSString *)appId
-            base64Encoded:(Boolean)encoded
-                namespace:(NSString *)namespace_;
+- (id) initWithCollector:(SnowplowRequest *)collector_
+                   appId:(NSString *)appId_
+           base64Encoded:(Boolean)encoded
+               namespace:(NSString *)namespace_;
 
 /**
  *  Sets the schema tag to the new string passed to it. This is used to set the context schema in the event for self describing JSON.
@@ -64,7 +64,7 @@ extern NSString * const kVersion;
 /**
  *  Lets you track a page view using all the variables entered here.
  *  @param pageUrl The URL of the page
- *  @param title The title of page we're tracking
+ *  @param pageTitle The title of page we're tracking
  *  @param referrer Referrerr of the page
  *  @param context Custom context for the event
  *  @param timestamp Optional user-provided timestamp. Else, use 0.
