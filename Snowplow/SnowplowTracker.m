@@ -43,16 +43,7 @@ NSString * const kVersion               = @"ios-0.1.0";
 @synthesize userId;
 
 - (id) init {
-    self = [super init];
-    if(self) {
-        [self setSchemaTag:@"jsonschema"];
-        trackerNamespace = nil;
-        _base64Encoded = true;
-        collector = nil;
-        _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                             kVersion, @"tv", nil];
-    }
-    return self;
+    return [self initWithCollector:nil appId:nil base64Encoded:true namespace:nil];
 }
 
 - (id) initWithCollector:(SnowplowRequest *)collector_
