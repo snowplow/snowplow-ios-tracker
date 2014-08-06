@@ -49,10 +49,10 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
     if(self){
         _db = [FMDatabase databaseWithPath:_dbPath];
         if([_db open]) {
-            NSLog(@"db description: %@", [_db databasePath]);
+            DLog(@"db description: %@", [_db databasePath]);
             [self createTable];
         } else {
-            NSLog(@"Failed to open database. Events in memory will not persist!");
+            DLog(@"Failed to open database. Events in memory will not persist!");
         }
         [_db close];
     }
@@ -123,7 +123,7 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Item: %d %@ %@", index, date, actualData);
+            DLog(@"Item: %d %@ %@", index, date, actualData);
         }
     }
 }
@@ -136,7 +136,7 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
             NSData * data = [s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Item: %d %@ %@", index, date, actualData);
+            DLog(@"Item: %d %@ %@", index, date, actualData);
             return [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
         }
     }
@@ -152,7 +152,7 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
             NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            NSLog(@"Item: %lld %@ %@", index, [date description], actualData);
+            DLog(@"Item: %lld %@ %@", index, [date description], actualData);
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
             NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
             [eventWithSqlMetadata setValue:dict forKey:@"eventData"];

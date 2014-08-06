@@ -101,10 +101,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) flushBuffer {
-    NSLog(@"Flushing buffer..");
+    DLog(@"Flushing buffer..");
     // Avoid calling flush to send an empty buffer
     if ([_buffer count] == 0 && [_db count] == 0) {
-        NSLog(@"Database empty. Returning..");
+        DLog(@"Database empty. Returning..");
         return;
     }
     
@@ -131,7 +131,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         }
         
     } else {
-        NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
+        DLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
     [_buffer removeAllObjects];
 }
@@ -141,17 +141,17 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     
     [manager POST:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        DLog(@"JSON: %@", responseObject);
         [_dbQueue inDatabase:^(FMDatabase *db) {
             NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
             for (int i=0; i < dbIndexArray.count; i++) {
-                NSLog(@"Removing event at index: %@", dbIndexArray[i]);
+                DLog(@"Removing event at index: %@", dbIndexArray[i]);
                 [_db removeEventWithId:[[removedIDs objectAtIndex:i] longLongValue]];
             }
             [dbIndexArray removeObjectsInArray:removedIDs];
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        DLog(@"Error: %@", error);
         //Add event to queue
     }];
 }
@@ -162,17 +162,17 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/html", @"application/x-www-form-urlencoded", @"text/plain", @"image/gif", nil];
     
     [manager GET:[_urlEndpoint absoluteString] parameters:data success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        DLog(@"JSON: %@", responseObject);
         [_dbQueue inDatabase:^(FMDatabase *db) {
             NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
             for (int i=0; i < dbIndexArray.count; i++) {
-                NSLog(@"Removing event at index: %@", removedIDs[i]);
+                DLog(@"Removing event at index: %@", removedIDs[i]);
                 [_db removeEventWithId:[[removedIDs objectAtIndex:i] longLongValue]];
             }
             [dbIndexArray removeObjectsInArray:removedIDs];
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        DLog(@"Error: %@", error);
         //Add event to queue
     }];
 }
