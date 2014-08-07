@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
     s.dependency 'FMDB', '~> 2.3'
     s.dependency 'AFNetworking', '~> 2.0'
-  s.prefix_header_contents = <-EOS
+  s.prefix_header_contents = <<-EOS
 #ifdef DEBUG
 #    define DLog(...) NSLog(__VA_ARGS__)
 #else
