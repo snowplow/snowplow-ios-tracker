@@ -130,6 +130,26 @@ NSString * const kVersion               = @"ios-0.1.0";
 
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
+              referrer:(NSString *)referrer {
+    [self trackPageView:pageUrl title:pageTitle referrer:referrer context:nil timestamp:0];
+}
+
+- (void) trackPageView:(NSString *)pageUrl
+                 title:(NSString *)pageTitle
+              referrer:(NSString *)referrer
+               context:(NSArray *)context {
+    [self trackPageView:pageUrl title:pageTitle referrer:referrer context:context timestamp:0];
+}
+
+- (void) trackPageView:(NSString *)pageUrl
+                 title:(NSString *)pageTitle
+              referrer:(NSString *)referrer
+             timestamp:(double)timestamp {
+    [self trackPageView:pageUrl title:pageTitle referrer:referrer context:nil timestamp:timestamp];
+}
+
+- (void) trackPageView:(NSString *)pageUrl
+                 title:(NSString *)pageTitle
               referrer:(NSString *)referrer
                context:(NSArray *)context
              timestamp:(double)timestamp {
@@ -145,6 +165,32 @@ NSString * const kVersion               = @"ios-0.1.0";
         [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
+}
+
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value {
+    [self trackStructuredEvent:category action:action label:label property:property value:value context:nil timestamp:0];
+}
+
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value
+                      context:(NSArray *)context {
+        [self trackStructuredEvent:category action:action label:label property:property value:value context:context timestamp:0];
+}
+
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value
+                    timestamp:(double)timestamp {
+        [self trackStructuredEvent:category action:action label:label property:property value:value context:nil timestamp:timestamp];
 }
 
 - (void) trackStructuredEvent:(NSString *)category
@@ -169,6 +215,20 @@ NSString * const kVersion               = @"ios-0.1.0";
         [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
 
     [self addTracker:pb];
+}
+
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson {
+    [self trackUnstructuredEvent:eventJson context:nil timestamp:0];
+}
+
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
+                        context:(NSArray *)context {
+    [self trackUnstructuredEvent:eventJson context:context timestamp:0];
+}
+
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
+                      timestamp:(double)timestamp {
+    [self trackUnstructuredEvent:eventJson context:nil timestamp:timestamp];
 }
 
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
@@ -198,6 +258,38 @@ NSString * const kVersion               = @"ios-0.1.0";
                                            category:(NSString *)category
                                               price:(float)price
                                            quantity:(int)quantity
+                                           currency:(NSString *)currency {
+    return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:0];
+}
+
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+                                                sku:(NSString *)sku
+                                               name:(NSString *)name
+                                           category:(NSString *)category
+                                              price:(float)price
+                                           quantity:(int)quantity
+                                           currency:(NSString *)currency
+                                            context:(NSArray *)context {
+    return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:context timestamp:0];
+}
+
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+                                                sku:(NSString *)sku
+                                               name:(NSString *)name
+                                           category:(NSString *)category
+                                              price:(float)price
+                                           quantity:(int)quantity
+                                           currency:(NSString *)currency
+                                          timestamp:(double)timestamp {
+    return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:timestamp];
+}
+
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+                                                sku:(NSString *)sku
+                                               name:(NSString *)name
+                                           category:(NSString *)category
+                                              price:(float)price
+                                           quantity:(int)quantity
                                            currency:(NSString *)currency
                                             context:(NSArray *)context
                                           timestamp:(double)timestamp {
@@ -218,6 +310,47 @@ NSString * const kVersion               = @"ios-0.1.0";
         [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     return pb;
+}
+
+- (void) trackEcommerceTransaction:(NSString *)orderId
+                        totalValue:(float)totalValue
+                       affiliation:(NSString *)affiliation
+                          taxValue:(float)taxValue
+                          shipping:(float)shipping
+                              city:(NSString *)city
+                             state:(NSString *)state
+                           country:(NSString *)country
+                          currency:(NSString *)currency
+                             items:(NSArray *)items {
+    [self trackEcommerceTransaction:orderId totalValue:totalValue affiliation:affiliation taxValue:taxValue shipping:shipping city:city state:state country:country currency:currency items:items context:nil timestamp:0];
+}
+
+- (void) trackEcommerceTransaction:(NSString *)orderId
+                        totalValue:(float)totalValue
+                       affiliation:(NSString *)affiliation
+                          taxValue:(float)taxValue
+                          shipping:(float)shipping
+                              city:(NSString *)city
+                             state:(NSString *)state
+                           country:(NSString *)country
+                          currency:(NSString *)currency
+                             items:(NSArray *)items
+                           context:(NSArray *)context {
+    [self trackEcommerceTransaction:orderId totalValue:totalValue affiliation:affiliation taxValue:taxValue shipping:shipping city:city state:state country:country currency:currency items:items context:context timestamp:0];
+}
+
+- (void) trackEcommerceTransaction:(NSString *)orderId
+                        totalValue:(float)totalValue
+                       affiliation:(NSString *)affiliation
+                          taxValue:(float)taxValue
+                          shipping:(float)shipping
+                              city:(NSString *)city
+                             state:(NSString *)state
+                           country:(NSString *)country
+                          currency:(NSString *)currency
+                             items:(NSArray *)items
+                         timestamp:(double)timestamp {
+    [self trackEcommerceTransaction:orderId totalValue:totalValue affiliation:affiliation taxValue:taxValue shipping:shipping city:city state:state country:country currency:currency items:items context:nil timestamp:timestamp];
 }
 
 - (void) trackEcommerceTransaction:(NSString *)orderId
@@ -260,6 +393,23 @@ NSString * const kVersion               = @"ios-0.1.0";
         [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
+}
+
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_ {
+    [self trackScreenView:name id:id_ context:nil timestamp:0];
+}
+
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_
+                 context:(NSArray *)context {
+    [self trackScreenView:name id:id_ context:context timestamp:0];
+}
+
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_
+               timestamp:(double)timestamp {
+    [self trackScreenView:name id:id_ context:nil timestamp:timestamp];
 }
 
 - (void) trackScreenView:(NSString *)name

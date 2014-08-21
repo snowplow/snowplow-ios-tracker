@@ -66,8 +66,42 @@ extern NSString * const kVersion;
  *  @param pageUrl The URL of the page
  *  @param pageTitle The title of page we're tracking
  *  @param referrer Referrerr of the page
+ */
+- (void) trackPageView:(NSString *)pageUrl
+                 title:(NSString *)pageTitle
+              referrer:(NSString *)referrer;
+
+/**
+ *  Lets you track a page view using all the variables entered here.
+ *  @param pageUrl The URL of the page
+ *  @param pageTitle The title of page we're tracking
+ *  @param referrer Referrerr of the page
  *  @param context An array of custom context for the event
- *  @param timestamp Optional user-provided timestamp. Else, use 0.
+ */
+- (void) trackPageView:(NSString *)pageUrl
+                 title:(NSString *)pageTitle
+              referrer:(NSString *)referrer
+               context:(NSArray *)context;
+
+/**
+ *  Lets you track a page view using all the variables entered here.
+ *  @param pageUrl The URL of the page
+ *  @param pageTitle The title of page we're tracking
+ *  @param referrer Referrerr of the page
+ *  @param timestamp Optional user-provided timestamp.
+ */
+- (void) trackPageView:(NSString *)pageUrl
+                 title:(NSString *)pageTitle
+              referrer:(NSString *)referrer
+             timestamp:(double)timestamp;
+
+/**
+ *  Lets you track a page view using all the variables entered here.
+ *  @param pageUrl The URL of the page
+ *  @param pageTitle The title of page we're tracking
+ *  @param referrer Referrerr of the page
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user-provided timestamp.
  */
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
@@ -82,8 +116,54 @@ extern NSString * const kVersion;
  *  @param label Refer to the object the action is performed on
  *  @param property Property associated with either the action or the object
  *  @param value A value associated with the user action
+ */
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value;
+
+/**
+ *  A structured event is a basic event using the paramaters passed to it.
+ *  @param category Category of the event
+ *  @param action The event itself
+ *  @param label Refer to the object the action is performed on
+ *  @param property Property associated with either the action or the object
+ *  @param value A value associated with the user action
  *  @param context An array of custom context for the event
- *  @param timestamp Optional user-provided timestamp. Else, use 0.
+ */
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value
+                      context:(NSArray *)context;
+
+/**
+ *  A structured event is a basic event using the paramaters passed to it.
+ *  @param category Category of the event
+ *  @param action The event itself
+ *  @param label Refer to the object the action is performed on
+ *  @param property Property associated with either the action or the object
+ *  @param value A value associated with the user action
+ *  @param timestamp Optional user-provided timestamp.
+ */
+- (void) trackStructuredEvent:(NSString *)category
+                       action:(NSString *)action
+                        label:(NSString *)label
+                     property:(NSString *)property
+                        value:(float)value
+                    timestamp:(double)timestamp;
+
+/**
+ *  A structured event is a basic event using the paramaters passed to it.
+ *  @param category Category of the event
+ *  @param action The event itself
+ *  @param label Refer to the object the action is performed on
+ *  @param property Property associated with either the action or the object
+ *  @param value A value associated with the user action
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user-provided timestamp.
  */
 - (void) trackStructuredEvent:(NSString *)category
                        action:(NSString *)action
@@ -96,8 +176,30 @@ extern NSString * const kVersion;
 /**
  *  An unstructured event allows you to create an event custom structured to your requirements
  *  @param eventJson A dictionary of event data.
+ */
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson;
+
+/**
+ *  An unstructured event allows you to create an event custom structured to your requirements
+ *  @param eventJson A dictionary of event data.
+ *  @param timestamp Optional user provided timestamp.
+ */
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
+                      timestamp:(double)timestamp;
+
+/**
+ *  An unstructured event allows you to create an event custom structured to your requirements
+ *  @param eventJson A dictionary of event data.
  *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp. Else, use 0.
+ */
+- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
+                        context:(NSArray *)context;
+
+/**
+ *  An unstructured event allows you to create an event custom structured to your requirements
+ *  @param eventJson A dictionary of event data.
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user provided timestamp.
  */
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
                         context:(NSArray *)context
@@ -112,8 +214,66 @@ extern NSString * const kVersion;
  *  @param price Item price
  *  @param quantity Item quantity
  *  @param currency The currency the price is expressed in
+ */
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+                                                sku:(NSString *)sku
+                                               name:(NSString *)name
+                                           category:(NSString *)category
+                                              price:(float)price
+                                           quantity:(int)quantity
+                                           currency:(NSString *)currency;
+
+/**
+ *  An internal method to be called by trackEcommerceTransaction.
+ *  @param orderId Order ID
+ *  @param sku Item SKU
+ *  @param name Item name
+ *  @param category Item category
+ *  @param price Item price
+ *  @param quantity Item quantity
+ *  @param currency The currency the price is expressed in
  *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp. Else, use 0.
+ */
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+                                                sku:(NSString *)sku
+                                               name:(NSString *)name
+                                           category:(NSString *)category
+                                              price:(float)price
+                                           quantity:(int)quantity
+                                           currency:(NSString *)currency
+                                            context:(NSArray *)context;
+
+/**
+ *  An internal method to be called by trackEcommerceTransaction.
+ *  @param orderId Order ID
+ *  @param sku Item SKU
+ *  @param name Item name
+ *  @param category Item category
+ *  @param price Item price
+ *  @param quantity Item quantity
+ *  @param currency The currency the price is expressed in
+ *  @param timestamp Optional user provided timestamp.
+ */
+- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+                                                sku:(NSString *)sku
+                                               name:(NSString *)name
+                                           category:(NSString *)category
+                                              price:(float)price
+                                           quantity:(int)quantity
+                                           currency:(NSString *)currency
+                                          timestamp:(double)timestamp;
+
+/**
+ *  An internal method to be called by trackEcommerceTransaction.
+ *  @param orderId Order ID
+ *  @param sku Item SKU
+ *  @param name Item name
+ *  @param category Item category
+ *  @param price Item price
+ *  @param quantity Item quantity
+ *  @param currency The currency the price is expressed in
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user provided timestamp.
  */
 - (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
@@ -124,6 +284,31 @@ extern NSString * const kVersion;
                                            currency:(NSString *)currency
                                             context:(NSArray *)context
                                           timestamp:(double)timestamp;
+
+/**
+ *  A tracker for e-commerce transactions
+ *  @param orderId ID of the e-commerce transaction
+ *  @param totalValue Total transaction value
+ *  @param affiliation Transaction affiliation
+ *  @param taxValue Transaction tax value
+ *  @param shipping Delivery cost charged
+ *  @param city Delivery address city
+ *  @param state Delivery address state
+ *  @param country Delivery address country
+ *  @param currency The currency the price is expressed in
+ *  @param items The items in the transaction. The structure is up to you.
+ */
+- (void) trackEcommerceTransaction:(NSString *)orderId
+                        totalValue:(float)totalValue
+                       affiliation:(NSString *)affiliation
+                          taxValue:(float)taxValue
+                          shipping:(float)shipping
+                              city:(NSString *)city
+                             state:(NSString *)state
+                           country:(NSString *)country
+                          currency:(NSString *)currency
+                             items:(NSArray *)items;
+
 /**
  *  A tracker for e-commerce transactions
  *  @param orderId ID of the e-commerce transaction
@@ -137,7 +322,59 @@ extern NSString * const kVersion;
  *  @param currency The currency the price is expressed in
  *  @param items The items in the transaction. The structure is up to you.
  *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp. Else, use 0.
+ */
+- (void) trackEcommerceTransaction:(NSString *)orderId
+                        totalValue:(float)totalValue
+                       affiliation:(NSString *)affiliation
+                          taxValue:(float)taxValue
+                          shipping:(float)shipping
+                              city:(NSString *)city
+                             state:(NSString *)state
+                           country:(NSString *)country
+                          currency:(NSString *)currency
+                             items:(NSArray *)items
+                           context:(NSArray *)context;
+
+/**
+ *  A tracker for e-commerce transactions
+ *  @param orderId ID of the e-commerce transaction
+ *  @param totalValue Total transaction value
+ *  @param affiliation Transaction affiliation
+ *  @param taxValue Transaction tax value
+ *  @param shipping Delivery cost charged
+ *  @param city Delivery address city
+ *  @param state Delivery address state
+ *  @param country Delivery address country
+ *  @param currency The currency the price is expressed in
+ *  @param items The items in the transaction. The structure is up to you.
+ *  @param timestamp Optional user provided timestamp.
+ */
+- (void) trackEcommerceTransaction:(NSString *)orderId
+                        totalValue:(float)totalValue
+                       affiliation:(NSString *)affiliation
+                          taxValue:(float)taxValue
+                          shipping:(float)shipping
+                              city:(NSString *)city
+                             state:(NSString *)state
+                           country:(NSString *)country
+                          currency:(NSString *)currency
+                             items:(NSArray *)items
+                         timestamp:(double)timestamp;
+
+/**
+ *  A tracker for e-commerce transactions
+ *  @param orderId ID of the e-commerce transaction
+ *  @param totalValue Total transaction value
+ *  @param affiliation Transaction affiliation
+ *  @param taxValue Transaction tax value
+ *  @param shipping Delivery cost charged
+ *  @param city Delivery address city
+ *  @param state Delivery address state
+ *  @param country Delivery address country
+ *  @param currency The currency the price is expressed in
+ *  @param items The items in the transaction. The structure is up to you.
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user provided timestamp.
  */
 - (void) trackEcommerceTransaction:(NSString *)orderId
                         totalValue:(float)totalValue
@@ -156,8 +393,36 @@ extern NSString * const kVersion;
  *  A tracker for Storyboards, Views, and Windows.
  *  @param name The name of the screen view event
  *  @param id_ Screen view ID
+ */
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_;
+
+/**
+ *  A tracker for Storyboards, Views, and Windows.
+ *  @param name The name of the screen view event
+ *  @param id_ Screen view ID
  *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp. Else, use 0.
+ */
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_
+                 context:(NSArray *)context;
+
+/**
+ *  A tracker for Storyboards, Views, and Windows.
+ *  @param name The name of the screen view event
+ *  @param id_ Screen view ID
+ *  @param timestamp Optional user provided timestamp.
+ */
+- (void) trackScreenView:(NSString *)name
+                      id:(NSString *)id_
+               timestamp:(double)timestamp;
+
+/**
+ *  A tracker for Storyboards, Views, and Windows.
+ *  @param name The name of the screen view event
+ *  @param id_ Screen view ID
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user provided timestamp.
  */
 - (void) trackScreenView:(NSString *)name
                       id:(NSString *)id_
