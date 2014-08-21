@@ -103,6 +103,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [mobContext addValueToPayload:[SnowplowUtils getCarrierName] forKey:@"carrier"];
     [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
     [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] forKey:@"appleIdfa"];
+    [mobContext addValueToPayload:[SnowplowUtils getAppleIdfv] forKey:@"appleIdfv"];
     
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                               schema, @"schema",

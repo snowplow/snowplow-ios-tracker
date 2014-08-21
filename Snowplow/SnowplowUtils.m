@@ -58,6 +58,10 @@
     return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
 }
 
++ (NSString *) getAppleIdfv {
+    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+}
+
 + (NSString *) getCarrierName {
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
