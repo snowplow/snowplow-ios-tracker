@@ -98,7 +98,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     
     [mobContext addValueToPayload:[SnowplowUtils getOSType] forKey:@"osType"];
     [mobContext addValueToPayload:[SnowplowUtils getOSVersion] forKey:@"osVersion"];
-    [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceVendor"];
+    [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceManufacturer"];
     [mobContext addValueToPayload:[SnowplowUtils getDeviceModel] forKey:@"deviceModel"];
     [mobContext addValueToPayload:[SnowplowUtils getCarrierName] forKey:@"carrier"];
     [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
