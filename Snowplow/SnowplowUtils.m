@@ -79,8 +79,9 @@
 
 + (NSString *) getResolution {
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
-    CGFloat screenWidth = mainScreen.size.width;
-    CGFloat screenHeight = mainScreen.size.height;
+    CGFloat screenScale = [[UIScreen mainScreen] scale];
+    CGFloat screenWidth = mainScreen.size.width * screenScale;
+    CGFloat screenHeight = mainScreen.size.height * screenScale;
     NSString *res = [NSString stringWithFormat:@"%.0fx%.0f", screenWidth, screenHeight];
     return res;
 }
