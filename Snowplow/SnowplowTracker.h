@@ -81,7 +81,7 @@ extern NSString * const kVersion;
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
               referrer:(NSString *)referrer
-               context:(NSArray *)context;
+               context:(NSMutableArray *)context;
 
 /**
  *  Lets you track a page view using all the variables entered here.
@@ -106,7 +106,7 @@ extern NSString * const kVersion;
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
               referrer:(NSString *)referrer
-               context:(NSArray *)context
+               context:(NSMutableArray *)context
              timestamp:(double)timestamp;
 
 /**
@@ -137,7 +137,7 @@ extern NSString * const kVersion;
                         label:(NSString *)label
                      property:(NSString *)property
                         value:(float)value
-                      context:(NSArray *)context;
+                      context:(NSMutableArray *)context;
 
 /**
  *  A structured event is a basic event using the paramaters passed to it.
@@ -170,7 +170,7 @@ extern NSString * const kVersion;
                         label:(NSString *)label
                      property:(NSString *)property
                         value:(float)value
-                      context:(NSArray *)context
+                      context:(NSMutableArray *)context
                     timestamp:(double)timestamp;
 
 /**
@@ -193,7 +193,7 @@ extern NSString * const kVersion;
  *  @param context An array of custom context for the event
  */
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
-                        context:(NSArray *)context;
+                        context:(NSMutableArray *)context;
 
 /**
  *  An unstructured event allows you to create an event custom structured to your requirements
@@ -202,7 +202,7 @@ extern NSString * const kVersion;
  *  @param timestamp Optional user provided timestamp.
  */
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
-                        context:(NSArray *)context
+                        context:(NSMutableArray *)context
                       timestamp:(double)timestamp;
 
 /**
@@ -241,7 +241,7 @@ extern NSString * const kVersion;
                                               price:(float)price
                                            quantity:(int)quantity
                                            currency:(NSString *)currency
-                                            context:(NSArray *)context;
+                                            context:(NSMutableArray *)context;
 
 /**
  *  An internal method to be called by trackEcommerceTransaction.
@@ -282,7 +282,7 @@ extern NSString * const kVersion;
                                               price:(float)price
                                            quantity:(int)quantity
                                            currency:(NSString *)currency
-                                            context:(NSArray *)context
+                                            context:(NSMutableArray *)context
                                           timestamp:(double)timestamp;
 
 /**
@@ -333,7 +333,7 @@ extern NSString * const kVersion;
                            country:(NSString *)country
                           currency:(NSString *)currency
                              items:(NSArray *)items
-                           context:(NSArray *)context;
+                           context:(NSMutableArray *)context;
 
 /**
  *  A tracker for e-commerce transactions
@@ -386,7 +386,7 @@ extern NSString * const kVersion;
                            country:(NSString *)country
                           currency:(NSString *)currency
                              items:(NSArray *)items
-                           context:(NSArray *)context
+                           context:(NSMutableArray *)context
                          timestamp:(double)timestamp;
 
 /**
@@ -405,7 +405,7 @@ extern NSString * const kVersion;
  */
 - (void) trackScreenView:(NSString *)name
                       id:(NSString *)id_
-                 context:(NSArray *)context;
+                 context:(NSMutableArray *)context;
 
 /**
  *  A tracker for Storyboards, Views, and Windows.
@@ -426,7 +426,7 @@ extern NSString * const kVersion;
  */
 - (void) trackScreenView:(NSString *)name
                       id:(NSString *)id_
-                 context:(NSArray *)context
+                 context:(NSMutableArray *)context
                timestamp:(double)timestamp;
 
 @end

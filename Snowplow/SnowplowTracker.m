@@ -57,9 +57,9 @@ NSString * const kVersion               = @"ios-0.1.0";
         _base64Encoded = encoded;
         collector = collector_;
         _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                             kVersion, @"tv",
-                             namespace_, @"tna",
-                             appId_, @"aid", nil];
+                         kVersion, @"tv",
+                         namespace_, @"tna",
+                         appId_, @"aid", nil];
     }
     return self;
 }
@@ -85,8 +85,8 @@ NSString * const kVersion               = @"ios-0.1.0";
     
     [self setMobileContext:contextArray];
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                               _contextSchema, @"schema",
-                               contextArray, @"data", nil];
+                              _contextSchema, @"schema",
+                              contextArray, @"data", nil];
     [pb addDictionaryToPayload:envelope
                  base64Encoded:_base64Encoded
                typeWhenEncoded:@"cx"
@@ -137,7 +137,7 @@ NSString * const kVersion               = @"ios-0.1.0";
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
               referrer:(NSString *)referrer
-               context:(NSArray *)context {
+               context:(NSMutableArray *)context {
     [self trackPageView:pageUrl title:pageTitle referrer:referrer context:context timestamp:0];
 }
 
@@ -151,11 +151,11 @@ NSString * const kVersion               = @"ios-0.1.0";
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
               referrer:(NSString *)referrer
-               context:(NSArray *)context
+               context:(NSMutableArray *)context
              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:(NSMutableArray *)context];
+    [self setContext:pb context:context];
     [pb addValueToPayload:@"pv"      forKey:@"e"];
     [pb addValueToPayload:pageUrl   forKey:@"url"];
     [pb addValueToPayload:pageTitle forKey:@"page"];
@@ -180,8 +180,8 @@ NSString * const kVersion               = @"ios-0.1.0";
                         label:(NSString *)label
                      property:(NSString *)property
                         value:(float)value
-                      context:(NSArray *)context {
-        [self trackStructuredEvent:category action:action label:label property:property value:value context:context timestamp:0];
+                      context:(NSMutableArray *)context {
+    [self trackStructuredEvent:category action:action label:label property:property value:value context:context timestamp:0];
 }
 
 - (void) trackStructuredEvent:(NSString *)category
@@ -190,7 +190,7 @@ NSString * const kVersion               = @"ios-0.1.0";
                      property:(NSString *)property
                         value:(float)value
                     timestamp:(double)timestamp {
-        [self trackStructuredEvent:category action:action label:label property:property value:value context:nil timestamp:timestamp];
+    [self trackStructuredEvent:category action:action label:label property:property value:value context:nil timestamp:timestamp];
 }
 
 - (void) trackStructuredEvent:(NSString *)category
@@ -198,11 +198,11 @@ NSString * const kVersion               = @"ios-0.1.0";
                         label:(NSString *)label
                      property:(NSString *)property
                         value:(float)value
-                      context:(NSArray *)context
+                      context:(NSMutableArray *)context
                     timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:(NSMutableArray *)context];
+    [self setContext:pb context:context];
     
     [pb addValueToPayload:@"se" forKey:@"e"];
     [pb addValueToPayload:category forKey:@"se_ca"];
@@ -213,7 +213,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     
     if (timestamp != 0)
         [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
-
+    
     [self addTracker:pb];
 }
 
@@ -222,7 +222,7 @@ NSString * const kVersion               = @"ios-0.1.0";
 }
 
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
-                        context:(NSArray *)context {
+                        context:(NSMutableArray *)context {
     [self trackUnstructuredEvent:eventJson context:context timestamp:0];
 }
 
@@ -232,18 +232,18 @@ NSString * const kVersion               = @"ios-0.1.0";
 }
 
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
-                        context:(NSArray *)context
+                        context:(NSMutableArray *)context
                       timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:(NSMutableArray *)context];
+    [self setContext:pb context:context];
     
     [pb addValueToPayload:@"ue" forKey:@"e"];
-
+    
     // Creates similar envelop as in setContext with but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                          _contextSchema, @"schema",
-                          eventJson, @"data", nil];
+                              _contextSchema, @"schema",
+                              eventJson, @"data", nil];
     [pb addDictionaryToPayload:envelope
                  base64Encoded:_base64Encoded
                typeWhenEncoded:@"ue_px"
@@ -269,7 +269,7 @@ NSString * const kVersion               = @"ios-0.1.0";
                                               price:(float)price
                                            quantity:(int)quantity
                                            currency:(NSString *)currency
-                                            context:(NSArray *)context {
+                                            context:(NSMutableArray *)context {
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:context timestamp:0];
 }
 
@@ -291,12 +291,12 @@ NSString * const kVersion               = @"ios-0.1.0";
                                               price:(float)price
                                            quantity:(int)quantity
                                            currency:(NSString *)currency
-                                            context:(NSArray *)context
+                                            context:(NSMutableArray *)context
                                           timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:(NSMutableArray*)context];
-
+    [self setContext:pb context:context];
+    
     [pb addValueToPayload:@"ti" forKey:@"e"];
     [pb addValueToPayload:orderId forKey:@"ti_id"];
     [pb addValueToPayload:sku forKey:@"ti_sk"];
@@ -305,7 +305,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", price] forKey:@"ti_pr"];
     [pb addValueToPayload:[NSString stringWithFormat:@"%d", quantity] forKey:@"ti_qu"];
     [pb addValueToPayload:currency forKey:@"ti_cu"];
-
+    
     if(timestamp != 0)
         [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
@@ -335,7 +335,7 @@ NSString * const kVersion               = @"ios-0.1.0";
                            country:(NSString *)country
                           currency:(NSString *)currency
                              items:(NSArray *)items
-                           context:(NSArray *)context {
+                           context:(NSMutableArray *)context {
     [self trackEcommerceTransaction:orderId totalValue:totalValue affiliation:affiliation taxValue:taxValue shipping:shipping city:city state:state country:country currency:currency items:items context:context timestamp:0];
 }
 
@@ -363,12 +363,12 @@ NSString * const kVersion               = @"ios-0.1.0";
                            country:(NSString *)country
                           currency:(NSString *)currency
                              items:(NSArray *)items
-                           context:(NSArray *)context
+                           context:(NSMutableArray *)context
                          timestamp:(double)timestamp {
     SnowplowPayload *pb =  [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:(NSMutableArray *)context];
-
+    [self setContext:pb context:context];
+    
     [pb addValueToPayload:@"tr" forKey:@"e"];
     [pb addValueToPayload:orderId forKey:@"tr_id"];
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", totalValue] forKey:@"tr_tt"];
@@ -402,7 +402,7 @@ NSString * const kVersion               = @"ios-0.1.0";
 
 - (void) trackScreenView:(NSString *)name
                       id:(NSString *)id_
-                 context:(NSArray *)context {
+                 context:(NSMutableArray *)context {
     [self trackScreenView:name id:id_ context:context timestamp:0];
 }
 
@@ -414,7 +414,7 @@ NSString * const kVersion               = @"ios-0.1.0";
 
 - (void) trackScreenView:(NSString *)name
                       id:(NSString *)id_
-                 context:(NSArray *)context
+                 context:(NSMutableArray *)context
                timestamp:(double)timestamp {
     NSString *snowplowSchema = [NSString stringWithFormat:@"%@/screen_view/%@/1-0-0", kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [NSMutableDictionary dictionaryWithObjectsAndKeys: name, @"name", nil];
