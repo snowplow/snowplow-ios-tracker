@@ -166,7 +166,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
-    [self setTimestamp:pb toPayload:timestamp];
+    [self setTimestamp:timestamp toPayload:pb];
     [pb addValueToPayload:@"pv"      forKey:@"e"];
     [pb addValueToPayload:pageUrl   forKey:@"url"];
     [pb addValueToPayload:pageTitle forKey:@"page"];
@@ -211,7 +211,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
-    [self setTimestamp:pb toPayload:timestamp];
+    [self setTimestamp:timestamp toPayload:pb];
     
     [pb addValueToPayload:@"se" forKey:@"e"];
     [pb addValueToPayload:category forKey:@"se_ca"];
@@ -243,7 +243,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
-    [self setTimestamp:pb toPayload:timestamp];
+    [self setTimestamp:timestamp toPayload:pb];
     [pb addValueToPayload:@"ue" forKey:@"e"];
     
     // Creates similar envelop as in setContext with but different encoding keys
@@ -302,7 +302,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
-    [self setTimestamp:pb toPayload:timestamp];
+    [self setTimestamp:timestamp toPayload:pb];
     
     [pb addValueToPayload:@"ti" forKey:@"e"];
     [pb addValueToPayload:orderId forKey:@"ti_id"];
@@ -384,7 +384,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:country forKey:@"tr_co"];
     [pb addValueToPayload:currency forKey:@"tr_cu"];
     
-    double tstamp = [self setTimestamp:pb toPayload:timestamp];
+    double tstamp = [self setTimestamp:timestamp toPayload:pb];
     
     for (SnowplowPayload *item in items) {
         [item addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"tstamp"];
