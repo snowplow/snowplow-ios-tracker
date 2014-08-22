@@ -48,7 +48,8 @@
     
     NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:
                              @"foo", @"bar", nil];
-    [tracker trackPageView:@"foo1.com" title:@"This is my foo1" referrer:@"myreferrer1" context:context timestamp:0];
+    NSMutableArray *contextArray = [NSMutableArray arrayWithObject:context];
+    [tracker trackPageView:@"foo1.com" title:@"This is my foo1" referrer:@"myreferrer1" context:contextArray timestamp:0];
     [tracker trackPageView:@"foo2.com" title:@"This is my foo2" referrer:@"myreferrer2" context:nil timestamp:0];
 //    [tracker trackPageView:@"foo1.com" title:@"This is my foo3" referrer:@"myreferrer3" context:nil timestamp:0];
     

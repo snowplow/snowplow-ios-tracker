@@ -70,7 +70,7 @@
     NSString *expected_resp;
 
     if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        expected_resp = @"320x480";
+        expected_resp = @"640x960";
     } else { //iPad
         expected_resp = @"768x1024";
     }
