@@ -124,6 +124,16 @@ NSString * const kVersion               = @"ios-0.1.0";
     [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
 }
 
+- (double) setTimestamp:(double)timestamp toPayload:(SnowplowPayload *)payload {
+    double tstamp = timestamp;
+    if(timestamp == 0) {
+        tstamp = [SnowplowUtils getTimestamp];
+    }
+    [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"dtm"];
+    
+    return tstamp;
+}
+
 - (void) addTracker:(SnowplowPayload *)event {
     [collector addPayloadToBuffer:event];
 }
@@ -156,13 +166,11 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
+    [self setTimestamp:pb toPayload:timestamp];
     [pb addValueToPayload:@"pv"      forKey:@"e"];
     [pb addValueToPayload:pageUrl   forKey:@"url"];
     [pb addValueToPayload:pageTitle forKey:@"page"];
     [pb addValueToPayload:referrer   forKey:@"refr"];
-    
-    if(timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
@@ -203,6 +211,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
+    [self setTimestamp:pb toPayload:timestamp];
     
     [pb addValueToPayload:@"se" forKey:@"e"];
     [pb addValueToPayload:category forKey:@"se_ca"];
@@ -210,9 +219,6 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:label forKey:@"se_la"];
     [pb addValueToPayload:property forKey:@"se_pr"];
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", value] forKey:@"se_va"];
-    
-    if (timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
@@ -237,7 +243,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
-    
+    [self setTimestamp:pb toPayload:timestamp];
     [pb addValueToPayload:@"ue" forKey:@"e"];
     
     // Creates similar envelop as in setContext with but different encoding keys
@@ -296,6 +302,7 @@ NSString * const kVersion               = @"ios-0.1.0";
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
+    [self setTimestamp:pb toPayload:timestamp];
     
     [pb addValueToPayload:@"ti" forKey:@"e"];
     [pb addValueToPayload:orderId forKey:@"ti_id"];
@@ -305,9 +312,6 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", price] forKey:@"ti_pr"];
     [pb addValueToPayload:[NSString stringWithFormat:@"%d", quantity] forKey:@"ti_qu"];
     [pb addValueToPayload:currency forKey:@"ti_cu"];
-    
-    if(timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     return pb;
 }
@@ -380,15 +384,14 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:country forKey:@"tr_co"];
     [pb addValueToPayload:currency forKey:@"tr_cu"];
     
+    double tstamp = [self setTimestamp:pb toPayload:timestamp];
+    
     for (SnowplowPayload *item in items) {
-        [item addValueToPayload:[NSString stringWithFormat:@"%.0f", timestamp] forKey:@"tstamp"];
+        [item addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"tstamp"];
         [item addValueToPayload:orderId forKey:@"order_id"];
         [item addValueToPayload:currency forKey:@"currency"];
         [self addTracker:item];
     }
-    
-    if(timestamp != 0)
-        [pb addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
     
     [self addTracker:pb];
 }
