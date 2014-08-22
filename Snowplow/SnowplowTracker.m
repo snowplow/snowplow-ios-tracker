@@ -380,13 +380,11 @@ NSString * const kVersion               = @"ios-0.1.0";
     [pb addValueToPayload:country forKey:@"tr_co"];
     [pb addValueToPayload:currency forKey:@"tr_cu"];
     
-    NSMutableArray *itemResults;
-    
-    for (NSMutableDictionary *item in items) {
-        [item setObject:[NSNumber numberWithDouble:timestamp] forKey:@"tstamp"];
-        [item setObject:orderId forKey:@"order_id"];
-        [item setObject:currency forKey:@"currency"];
-        [itemResults addObject:item];
+    for (SnowplowPayload *item in items) {
+        [item addValueToPayload:[NSString stringWithFormat:@"%.0f", timestamp] forKey:@"tstamp"];
+        [item addValueToPayload:orderId forKey:@"order_id"];
+        [item addValueToPayload:currency forKey:@"currency"];
+        [self addTracker:item];
     }
     
     if(timestamp != 0)
