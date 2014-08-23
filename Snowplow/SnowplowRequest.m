@@ -146,9 +146,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
             NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
             for (int i=0; i < dbIndexArray.count; i++) {
                 DLog(@"Removing event at index: %@", dbIndexArray[i]);
-                [_db removeEventWithId:[[removedIDs objectAtIndex:i] longLongValue]];
+                [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
+                [removedIDs addObject:dbIndexArray[i]];
             }
             [dbIndexArray removeObjectsInArray:removedIDs];
+
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"Error: %@", error);
@@ -166,8 +168,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         [_dbQueue inDatabase:^(FMDatabase *db) {
             NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
             for (int i=0; i < dbIndexArray.count; i++) {
-                DLog(@"Removing event at index: %@", removedIDs[i]);
-                [_db removeEventWithId:[[removedIDs objectAtIndex:i] longLongValue]];
+                DLog(@"Removing event at index: %@", dbIndexArray[i]);
+                [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
+                [removedIDs addObject:dbIndexArray[i]];
             }
             [dbIndexArray removeObjectsInArray:removedIDs];
         }];
