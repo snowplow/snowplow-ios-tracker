@@ -126,10 +126,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     } else if ([_httpMethod isEqual:@"GET"]) {
         
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
+        for (NSDictionary * eventWithMetaData in [_db getAllNonPendingEvents]) {
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
-            [self sendGetData:[eventWithMetaData objectForKey:@"eventData"] withDbIndexArray:indexArray];
             [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
+            [self sendGetData:[eventWithMetaData objectForKey:@"eventData"] withDbIndexArray:indexArray];
         }
         
     } else {
