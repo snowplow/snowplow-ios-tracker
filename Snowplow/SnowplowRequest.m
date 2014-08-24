@@ -113,9 +113,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         
         NSMutableArray *eventArray = [[NSMutableArray alloc] init];
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
+        for (NSDictionary * eventWithMetaData in [_db getAllNonPendingEvents]) {
             [eventArray addObject:[eventWithMetaData objectForKey:@"eventData"]];
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
+            [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
         }
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         [payload setValue:kPayloadDataSchema forKey:@"schema"];
@@ -128,6 +129,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         for (NSDictionary * eventWithMetaData in [_db getAllEvents]) {
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendGetData:[eventWithMetaData objectForKey:@"eventData"] withDbIndexArray:indexArray];
+            [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
         }
         
     } else {
@@ -154,7 +156,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"Error: %@", error);
-        //Add event to queue
+        for (int i=0; i < dbIndexArray.count;  i++) {
+            [_db removePendingWithId:(long long int)dbIndexArray[i]];
+        }
     }];
 }
 
@@ -176,7 +180,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         }];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         DLog(@"Error: %@", error);
-        //Add event to queue
+        for (int i=0; i < dbIndexArray.count;  i++) {
+            [_db removePendingWithId:(long long int)dbIndexArray[i]];
+        }
     }];
 }
 

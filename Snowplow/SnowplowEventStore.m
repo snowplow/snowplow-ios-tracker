@@ -31,13 +31,16 @@
     FMDatabase *    _db;
 }
 
-static NSString * const _queryCreateTable   = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-static NSString * const _querySelectAll     = @"SELECT * FROM 'events'";
-static NSString * const _querySelectCount   = @"SELECT Count(*) FROM 'events'";
-static NSString * const _queryInsertEvent   = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
-static NSString * const _querySelectId      = @"SELECT * FROM 'events' WHERE ID=?";
-static NSString * const _queryDeleteId      = @"DELETE FROM 'events' WHERE ID=?";
-static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pending=1";
+static NSString * const _queryCreateTable       = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+static NSString * const _querySelectAll         = @"SELECT * FROM 'events'";
+static NSString * const _querySelectCount       = @"SELECT Count(*) FROM 'events'";
+static NSString * const _queryInsertEvent       = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
+static NSString * const _querySelectId          = @"SELECT * FROM 'events' WHERE id=?";
+static NSString * const _queryDeleteId          = @"DELETE FROM 'events' WHERE id=?";
+static NSString * const _querySelectPending     = @"SELECT * FROM 'events' WHERE pending=1";
+static NSString * const _querySelectNonPending  = @"SELECT * FROM 'events' WHERE pending=0";
+static NSString * const _querySetPending        = @"UPDATE events SET pending=1 WHERE id=?";
+static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 WHERE id=?";
 
 
 @synthesize appId;
@@ -88,6 +91,7 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
 
 - (BOOL) removeEventWithId:(long long int)id_ {
     if([_db open]) {
+        NSLog(@"Removing %lld from database now.", id_);
         return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
     } else {
         return false;
@@ -101,6 +105,22 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
             long long int index = [s longLongIntForColumn:@"ID"];
             [self removeEventWithId:index];
         }
+    }
+}
+
+- (BOOL) setPendingWithId:(long long int)id_ {
+    if ([_db open]) {
+        return [_db executeUpdate:_querySetPending, id_];
+    } else {
+        return false;
+    }
+}
+
+- (BOOL) removePendingWithId:(long long int)id_ {
+    if ([_db open]) {
+        return [_db executeUpdate:_querySetPending, id_];
+    } else {
+        return false;
     }
 }
 
@@ -144,9 +164,28 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
 }
 
 - (NSArray *) getAllEvents {
+    return [self getAllEventsWithQuery:_querySelectAll];
+}
+
+- (NSArray *) getAllNonPendingEvents {
+    return [self getAllEventsWithQuery:_querySelectNonPending];
+}
+
+- (NSArray *) getAllPendingEvents {
     NSMutableArray *res = [[NSMutableArray alloc] init];
     if([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectAll];
+        FMResultSet *s = [_db executeQuery:_querySelectPending];
+        while ([s next]) {
+            [res addObject:[s dataForColumn:@"eventData"]];
+        }
+    }
+    return res;
+}
+
+- (NSArray *) getAllEventsWithQuery:(NSString *)query {
+    NSMutableArray *res = [[NSMutableArray alloc] init];
+    if([_db open]) {
+        FMResultSet *s = [_db executeQuery:query];
         while ([s next]) {
             long long int index = [s longLongIntForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
@@ -159,17 +198,6 @@ static NSString * const _querySelectPending = @"SELECT * FROM 'events' WHERE pen
             [eventWithSqlMetadata setValue:[NSNumber numberWithLongLong:index] forKey:@"ID"];
             [eventWithSqlMetadata setValue:date forKey:@"dateCreated"];
             [res addObject:eventWithSqlMetadata];
-        }
-    }
-    return res;
-}
-
-- (NSArray *) getAllPendingEvents {
-    NSMutableArray *res = [[NSMutableArray alloc] init];
-    if([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectPending];
-        while ([s next]) {
-            [res addObject:[s dataForColumn:@"eventData"]];
         }
     }
     return res;

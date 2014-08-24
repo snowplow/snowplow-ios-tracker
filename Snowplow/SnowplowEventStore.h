@@ -73,6 +73,18 @@
 - (NSDictionary *) getEventWithId:(long long int)id_;
 
 /**
+ *  Sets an event as pending with the ID passed in.
+ *  @param id_ Unique ID of the row to be marked as pending.
+ */
+- (BOOL) setPendingWithId:(long long int)id_;
+
+/**
+ *  Sets an event as not pending with the ID passed in.
+ *  @param id_ Unique ID of the row to remove pending.
+ */
+- (BOOL) removePendingWithId:(long long int)id_;
+
+/**
  *  Removes ALL events in the database. USE WITH CARE!
  */
 - (void) removeAllEvents;
@@ -88,6 +100,12 @@
  *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
  */
 - (NSArray *) getAllEvents;
+
+/**
+ *  Returns all the events that are NOT pending in an array of dictionaries.
+ *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
+ */
+- (NSArray *) getAllNonPendingEvents;
 
 /**
  *  Returns all event data of pending data.
