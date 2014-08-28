@@ -1,0 +1,595 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
+		AB0C27C6191B408200018557 /* Snowplow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; };
+		AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27CE191B408200018557 /* XCTest.framework */; };
+		AB0C27D0191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
+		AB0C27D2191B408200018557 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27D1191B408200018557 /* UIKit.framework */; };
+		AB0C27D5191B408200018557 /* libSnowplow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27BD191B408200018557 /* libSnowplow.a */; };
+		AB0C27DB191B408200018557 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0C27D9191B408200018557 /* InfoPlist.strings */; };
+		AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27DC191B408200018557 /* SnowplowTests.m */; };
+		AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SnowplowRequest.m */; };
+		AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SnowplowRequest.h */; };
+		AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
+		AB39617219530E850002F235 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
+		AB4338581950A530006A1DE4 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4338571950A530006A1DE4 /* TestEventStore.m */; };
+		AB9E8212192DD336006744C9 /* SnowplowTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SnowplowTracker.m */; };
+		AB9E8214192DEC38006744C9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
+		ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB2565019286C8C0014FE0C /* TestRequest.m */; };
+		ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27F3191C67CD00018557 /* SnowplowPayload.h */; };
+		ABB2C44D1933E6610039A675 /* SnowplowTracker.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB9E8210192DD336006744C9 /* SnowplowTracker.h */; };
+		ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
+		ABB767B0194974D3006275D1 /* SnowplowEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SnowplowEventStore.m */; };
+		ABB790CC1936F2500084B964 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB790CB1936F2500084B964 /* TestTracker.m */; };
+		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
+		ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
+		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
+		C1F150E28435457F9DF242F0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260A4F15D64B4FE28C393962 /* libPods.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AB0C27D3191B408200018557 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB0C27B5191B408200018557 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AB0C27BC191B408200018557;
+			remoteInfo = Snowplow;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		AB0C27BB191B408200018557 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				ABB2C44D1933E6610039A675 /* SnowplowTracker.h in CopyFiles */,
+				ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */,
+				AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */,
+				AB0C27C6191B408200018557 /* Snowplow.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		260A4F15D64B4FE28C393962 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0C27BD191B408200018557 /* libSnowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSnowplow.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0C27C0191B408200018557 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Prefix.pch"; sourceTree = "<group>"; };
+		AB0C27C5191B408200018557 /* Snowplow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snowplow.h; sourceTree = "<group>"; };
+		AB0C27CD191B408200018557 /* SnowplowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0C27CE191B408200018557 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		AB0C27D1191B408200018557 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		AB0C27D8191B408200018557 /* SnowplowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SnowplowTests-Info.plist"; sourceTree = "<group>"; };
+		AB0C27DA191B408200018557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AB0C27DC191B408200018557 /* SnowplowTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnowplowTests.m; sourceTree = "<group>"; };
+		AB0C27E9191B43D600018557 /* SnowplowRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowRequest.h; sourceTree = "<group>"; };
+		AB0C27EA191B43D600018557 /* SnowplowRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowRequest.m; sourceTree = "<group>"; };
+		AB0C27F3191C67CD00018557 /* SnowplowPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowPayload.h; sourceTree = "<group>"; };
+		AB0C27F4191C67CD00018557 /* SnowplowPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowPayload.m; sourceTree = "<group>"; };
+		AB39617019530E850002F235 /* OpenIDFA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenIDFA.h; sourceTree = "<group>"; };
+		AB39617119530E850002F235 /* OpenIDFA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenIDFA.m; sourceTree = "<group>"; };
+		AB4338571950A530006A1DE4 /* TestEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEventStore.m; sourceTree = "<group>"; };
+		AB9E8210192DD336006744C9 /* SnowplowTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowTracker.h; sourceTree = "<group>"; };
+		AB9E8211192DD336006744C9 /* SnowplowTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowTracker.m; sourceTree = "<group>"; };
+		AB9E8213192DEC38006744C9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		ABB2565019286C8C0014FE0C /* TestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequest.m; sourceTree = "<group>"; };
+		ABB67D8C192D9552009A1ECE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		ABB767AE194974D3006275D1 /* SnowplowEventStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowEventStore.h; sourceTree = "<group>"; };
+		ABB767AF194974D3006275D1 /* SnowplowEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowEventStore.m; sourceTree = "<group>"; };
+		ABB790CB1936F2500084B964 /* TestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTracker.m; sourceTree = "<group>"; };
+		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
+		ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowUtils.h; sourceTree = "<group>"; };
+		ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowUtils.m; sourceTree = "<group>"; };
+		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
+		DC0A1F28E0164666A57680BF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AB0C27BA191B408200018557 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB9E8214192DEC38006744C9 /* CoreTelephony.framework in Frameworks */,
+				ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */,
+				AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */,
+				C1F150E28435457F9DF242F0 /* libPods.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB0C27CA191B408200018557 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB0C27D5191B408200018557 /* libSnowplow.a in Frameworks */,
+				AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */,
+				AB0C27D2191B408200018557 /* UIKit.framework in Frameworks */,
+				AB0C27D0191B408200018557 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AB0C27B4191B408200018557 = {
+			isa = PBXGroup;
+			children = (
+				AB0C27C2191B408200018557 /* Snowplow */,
+				AB0C27D6191B408200018557 /* SnowplowTests */,
+				AB0C27BF191B408200018557 /* Frameworks */,
+				AB0C27BE191B408200018557 /* Products */,
+				DC0A1F28E0164666A57680BF /* Pods.xcconfig */,
+			);
+			sourceTree = "<group>";
+		};
+		AB0C27BE191B408200018557 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AB0C27BD191B408200018557 /* libSnowplow.a */,
+				AB0C27CD191B408200018557 /* SnowplowTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AB0C27BF191B408200018557 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AB9E8213192DEC38006744C9 /* CoreTelephony.framework */,
+				ABB67D8C192D9552009A1ECE /* UIKit.framework */,
+				AB0C27C0191B408200018557 /* Foundation.framework */,
+				AB0C27CE191B408200018557 /* XCTest.framework */,
+				AB0C27D1191B408200018557 /* UIKit.framework */,
+				260A4F15D64B4FE28C393962 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AB0C27C2191B408200018557 /* Snowplow */ = {
+			isa = PBXGroup;
+			children = (
+				AB0C27C5191B408200018557 /* Snowplow.h */,
+				AB0C27C3191B408200018557 /* Supporting Files */,
+				AB0C27E9191B43D600018557 /* SnowplowRequest.h */,
+				AB0C27EA191B43D600018557 /* SnowplowRequest.m */,
+				AB0C27F3191C67CD00018557 /* SnowplowPayload.h */,
+				AB0C27F4191C67CD00018557 /* SnowplowPayload.m */,
+				ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */,
+				ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */,
+				AB9E8210192DD336006744C9 /* SnowplowTracker.h */,
+				AB9E8211192DD336006744C9 /* SnowplowTracker.m */,
+				ABB767AE194974D3006275D1 /* SnowplowEventStore.h */,
+				ABB767AF194974D3006275D1 /* SnowplowEventStore.m */,
+			);
+			path = Snowplow;
+			sourceTree = "<group>";
+		};
+		AB0C27C3191B408200018557 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
+				AB39617019530E850002F235 /* OpenIDFA.h */,
+				AB39617119530E850002F235 /* OpenIDFA.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AB0C27D6191B408200018557 /* SnowplowTests */ = {
+			isa = PBXGroup;
+			children = (
+				AB0C27DC191B408200018557 /* SnowplowTests.m */,
+				AB0C27D7191B408200018557 /* Supporting Files */,
+				ABFCC36D1921016200FAE8FE /* TestPayload.m */,
+				ABFCC377192325FB00FAE8FE /* TestUtils.m */,
+				ABB2565019286C8C0014FE0C /* TestRequest.m */,
+				ABB790CB1936F2500084B964 /* TestTracker.m */,
+				AB4338571950A530006A1DE4 /* TestEventStore.m */,
+			);
+			path = SnowplowTests;
+			sourceTree = "<group>";
+		};
+		AB0C27D7191B408200018557 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AB0C27D8191B408200018557 /* SnowplowTests-Info.plist */,
+				AB0C27D9191B408200018557 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AB0C27BC191B408200018557 /* Snowplow */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB0C27E0191B408200018557 /* Build configuration list for PBXNativeTarget "Snowplow" */;
+			buildPhases = (
+				F5819988FE9F41FDB17FCC93 /* Check Pods Manifest.lock */,
+				AB0C27B9191B408200018557 /* Sources */,
+				AB0C27BA191B408200018557 /* Frameworks */,
+				AB0C27BB191B408200018557 /* CopyFiles */,
+				0F20EA752A384DC984F2A5CE /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Snowplow;
+			productName = Snowplow;
+			productReference = AB0C27BD191B408200018557 /* libSnowplow.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		AB0C27CC191B408200018557 /* SnowplowTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB0C27E3191B408200018557 /* Build configuration list for PBXNativeTarget "SnowplowTests" */;
+			buildPhases = (
+				D9CFCFFB3464429D870730FC /* Check Pods Manifest.lock */,
+				AB0C27C9191B408200018557 /* Sources */,
+				AB0C27CA191B408200018557 /* Frameworks */,
+				AB0C27CB191B408200018557 /* Resources */,
+				C1620BA946E545B4AE806198 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB0C27D4191B408200018557 /* PBXTargetDependency */,
+			);
+			name = SnowplowTests;
+			productName = SnowplowTests;
+			productReference = AB0C27CD191B408200018557 /* SnowplowTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AB0C27B5191B408200018557 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Snowplow Analytics";
+			};
+			buildConfigurationList = AB0C27B8191B408200018557 /* Build configuration list for PBXProject "Snowplow" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AB0C27B4191B408200018557;
+			productRefGroup = AB0C27BE191B408200018557 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AB0C27BC191B408200018557 /* Snowplow */,
+				AB0C27CC191B408200018557 /* SnowplowTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AB0C27CB191B408200018557 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB0C27DB191B408200018557 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0F20EA752A384DC984F2A5CE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C1620BA946E545B4AE806198 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D9CFCFFB3464429D870730FC /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F5819988FE9F41FDB17FCC93 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AB0C27B9191B408200018557 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */,
+				AB39617219530E850002F235 /* OpenIDFA.m in Sources */,
+				AB9E8212192DD336006744C9 /* SnowplowTracker.m in Sources */,
+				AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */,
+				ABB767B0194974D3006275D1 /* SnowplowEventStore.m in Sources */,
+				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AB0C27C9191B408200018557 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */,
+				ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */,
+				AB4338581950A530006A1DE4 /* TestEventStore.m in Sources */,
+				ABB790CC1936F2500084B964 /* TestTracker.m in Sources */,
+				AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */,
+				ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AB0C27D4191B408200018557 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AB0C27BC191B408200018557 /* Snowplow */;
+			targetProxy = AB0C27D3191B408200018557 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AB0C27D9191B408200018557 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AB0C27DA191B408200018557 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AB0C27DE191B408200018557 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AB0C27DF191B408200018557 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AB0C27E1191B408200018557 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				DSTROOT = /tmp/Snowplow.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/FMDB\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		AB0C27E2191B408200018557 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				DSTROOT = /tmp/Snowplow.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
+				);
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/AFNetworking\"",
+					"-isystem",
+					"\"${PODS_ROOT}/Headers/FMDB\"",
+				);
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		AB0C27E4191B408200018557 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SnowplowTests/SnowplowTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		AB0C27E5191B408200018557 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
+				INFOPLIST_FILE = "SnowplowTests/SnowplowTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AB0C27B8191B408200018557 /* Build configuration list for PBXProject "Snowplow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0C27DE191B408200018557 /* Debug */,
+				AB0C27DF191B408200018557 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB0C27E0191B408200018557 /* Build configuration list for PBXNativeTarget "Snowplow" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0C27E1191B408200018557 /* Debug */,
+				AB0C27E2191B408200018557 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AB0C27E3191B408200018557 /* Build configuration list for PBXNativeTarget "SnowplowTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB0C27E4191B408200018557 /* Debug */,
+				AB0C27E5191B408200018557 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AB0C27B5191B408200018557 /* Project object */;
+}
