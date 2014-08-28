@@ -1,13 +1,13 @@
 iOS Analytics for Snowplow
 ==========================
-WORK IN PROGRESS - do not use yet.. *Snowplow event tracker for iOS 6+. Add analytics to your iOS apps and games.*
 
 [ ![Build Status] [travis-image] ] [travis]
 [ ![Version] [cocoa-version] ] [cocoadocs]
 [ ![Platform] [cocoa-plaform] ] [cocoadocs]
 
 ## Overview
-Add analytics to your iOS apps and iOS games with the [Snowplow][2] event tracker for [iOS][3].
+
+Add analytics to your iOS apps and iOS games with the [Snowplow][2] event tracker for [iOS 7.0+][3].
 
 With this tracker you can collect event data from your iOS applications, games or frameworks.
 
@@ -37,16 +37,16 @@ limitations under the License.
 [travis]: https://travis-ci.org/snowplow/snowplow-ios-tracker
 [travis-image]: https://travis-ci.org/snowplow/snowplow-ios-tracker.png?branch=master
 
-[cocoadocs]: http://cocoadocs.org/docsets/Snowplow
-[cocoa-version]: http://cocoapod-badges.herokuapp.com/v/Snowplow/badge.png
-[cocoa-plaform]: http://cocoapod-badges.herokuapp.com/p/Snowplow/badge.png
+[cocoadocs]: http://cocoadocs.org/docsets/SnowplowTracker
+[cocoa-version]: http://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
+[cocoa-plaform]: http://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png
 
 [techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
 [setup-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
 [roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
-[techdocs]: https://github.com/snowplow/snowplow/wiki/Snowplow-technical-documentation
-[setup]: https://github.com/snowplow/snowplow/wiki/Setting-up-Snowplow
-[roadmap]: https://github.com/snowplow/snowplow/wiki
+[techdocs]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
+[setup]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup
+[roadmap]: https://github.com/snowplow/snowplow/wiki/Product-roadmap
 [contributing]: https://github.com/snowplow/snowplow/wiki/Contributing
