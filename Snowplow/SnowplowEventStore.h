@@ -61,11 +61,6 @@
 - (BOOL) removeEventWithId:(long long int)id_;
 
 /**
- *  Returns the table contents into NSLog. USED ONLY FOR TESTING.
- */
-- (void) getTable;
-
-/**
  *  Finds the row in the event table with the supplied ID.
  *  @param id_ Unique ID of the row in the events table to be returned.
  *  @return A dictionary containing data with keys: 'ID', 'eventData', and 'dateCreated'.

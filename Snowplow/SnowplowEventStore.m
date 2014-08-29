@@ -135,19 +135,6 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
     return num;
 }
 
-- (void) getTable {
-    if([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectAll];
-        while ([s next]) {
-            int index = [s intForColumn:@"ID"];
-            NSData * data =[s dataForColumn:@"eventData"];
-            NSDate * date = [s dateForColumn:@"dateCreated"];
-            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            DLog(@"Item: %d %@ %@", index, date, actualData);
-        }
-    }
-}
-
 - (NSDictionary *) getEventWithId:(long long int)id_ {
     if([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
