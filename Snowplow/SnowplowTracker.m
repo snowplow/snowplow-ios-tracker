@@ -419,7 +419,7 @@ NSString * const kVersion               = @"ios-0.1.0";
                timestamp:(double)timestamp {
     NSString *snowplowSchema = [NSString stringWithFormat:@"%@/screen_view/%@/1-0-0", kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [[NSMutableDictionary alloc] init];
-    if(id_ == nil)
+    if(id_ != nil)
         [screenViewProperties setObject:id_ forKey:@"id"];
     if (name != nil) {
         [screenViewProperties setObject:name forKey:@"name"];
