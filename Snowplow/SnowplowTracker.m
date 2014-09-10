@@ -35,7 +35,7 @@
 NSString * const kSnowplowVendor        = @"com.snowplowanalytics.snowplow";
 NSString * const kIglu                  = @"iglu:";
 Boolean    const kDefaultEncodeBase64   = true;
-NSString * const kVersion               = @"ios-0.1.0";
+NSString * const kVersion               = @"ios-0.1.1";
 
 @synthesize collector;
 @synthesize appId;
