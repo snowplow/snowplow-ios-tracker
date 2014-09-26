@@ -1,6 +1,7 @@
 Version 0.1.2 (2014-09-28)
 --------------------------
 Fixed bug where UUIDs generated in uppercase, not lowercase (#71)
+Applied temporary fix to Podfile for Travis builds (#73)
 
 Version 0.1.1 (2014-09-10)
 --------------------------
