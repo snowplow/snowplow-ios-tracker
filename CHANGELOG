@@ -1,3 +1,7 @@
+Version 0.1.2 (2014-09-28)
+--------------------------
+Fixed bug where UUIDs generated in uppercase, not lowercase (#71)
+
 Version 0.1.1 (2014-09-10)
 --------------------------
 Fixed linting notes (#65)

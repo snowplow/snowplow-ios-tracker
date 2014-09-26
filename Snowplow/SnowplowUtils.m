@@ -46,7 +46,7 @@
 
 + (NSString *) getEventId {
     // Generates type 4 UUID
-    return [[NSUUID UUID] UUIDString];
+    return [[NSUUID UUID] UUIDString].lowercaseString;
 }
 
 + (NSString *) getOpenIdfa {
