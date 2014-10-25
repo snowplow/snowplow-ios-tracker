@@ -24,7 +24,6 @@
 #import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIDevice.h>
-#import <AdSupport/AdSupport.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 
@@ -55,7 +54,18 @@
 }
 
 + (NSString *) getAppleIdfa {
-    return [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+    NSString* ifa = nil;
+#ifndef SNOWPLOW_NO_IFA
+    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
+    if (ASIdentifierManagerClass) {
+        SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
+        id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
+        SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
+        NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
+        ifa = [uuid UUIDString];
+    }
+#endif
+    return ifa;
 }
 
 + (NSString *) getAppleIdfv {

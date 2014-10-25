@@ -1,3 +1,7 @@
+Version 0.2.0 (2014-10-xx)
+--------------------------
+Made advertisingId off by default (#76)
+
 Version 0.1.2 (2014-09-28)
 --------------------------
 Fixed bug where UUIDs generated in uppercase, not lowercase (#71)
