@@ -248,7 +248,7 @@ NSString * const kVersion               = @"ios-0.2.0";
     
     // Creates similar envelop as in setContext with but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                              _contextSchema, @"schema",
+                              _unstructedEventSchema, @"schema",
                               eventJson, @"data", nil];
     [pb addDictionaryToPayload:envelope
                  base64Encoded:_base64Encoded
