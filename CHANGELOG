@@ -1,3 +1,7 @@
+Version 0.2.1 (2014-11-28)
+--------------------------
+Fixed unstructured events incorrectly sent wrapped in contexts schema (#81)
+
 Version 0.2.0 (2014-11-08)
 --------------------------
 Only using IFA if AdSupport is included (#76)
