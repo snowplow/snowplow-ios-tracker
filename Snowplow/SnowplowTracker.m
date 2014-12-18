@@ -417,7 +417,7 @@ NSString * const kVersion               = @"ios-0.2.1";
                       id:(NSString *)id_
                  context:(NSMutableArray *)context
                timestamp:(double)timestamp {
-    NSString *snowplowSchema = [NSString stringWithFormat:@"%@/screen_view/%@/1-0-0", kSnowplowVendor, _schemaTag];
+    NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/screen_view/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [[NSMutableDictionary alloc] init];
     if(id_ != nil)
         [screenViewProperties setObject:id_ forKey:@"id"];
