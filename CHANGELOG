@@ -1,3 +1,7 @@
+Version 0.2.2 (2014-12-18)
+--------------------------
+Added missing iglu: protocol for screen_view schema URI (#85)
+
 Version 0.2.1 (2014-11-28)
 --------------------------
 Fixed unstructured events incorrectly sent wrapped in contexts schema (#81)
