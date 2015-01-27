@@ -307,7 +307,7 @@ NSString * const kVersion               = @"ios-0.2.2";
     [pb addValueToPayload:@"ti" forKey:@"e"];
     [pb addValueToPayload:orderId forKey:@"ti_id"];
     [pb addValueToPayload:sku forKey:@"ti_sk"];
-    [pb addValueToPayload:name forKey:@"ti_nm"];
+    [pb addValueToPayload:name forKey:@"ti_na"];
     [pb addValueToPayload:category forKey:@"ti_ca"];
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", price] forKey:@"ti_pr"];
     [pb addValueToPayload:[NSString stringWithFormat:@"%d", quantity] forKey:@"ti_qu"];
