@@ -37,6 +37,13 @@ enum SnowplowBufferOptions {
 - (id) init;
 
 /**
+ *  Initializes a newly allocated SnowplowEmitter with a url sent via POST requests.
+ *  @param url A url of the collector that events should be sent to.
+ *  @return A SnowplowEmitter instance
+ */
+- (id) initWithURLRequest:(NSURL *)url;
+
+/**
  *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method.
  *  @param url A url of the collector that events should be sent to.
  *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
@@ -58,6 +65,12 @@ enum SnowplowBufferOptions {
  *  @param buffer Sets the buffer to SnowplowBufferDefault or SnowplowBufferInstant with SnowplowBufferOptions.
  */
 - (void) setBufferOption:(enum SnowplowBufferOptions) buffer;
+
+/**
+ *  Set the HTTP method to send the events.
+ *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
+ */
+- (void) setHttpMethod:(NSString *)method;
 
 /**
  *  Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.

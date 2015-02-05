@@ -40,7 +40,11 @@ static int       const kDefaultBufferTimeout = 60;
 static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
 
 - (id) init {
-    return [self initWithURLRequest:nil httpMethod:@"GET" bufferOption:SnowplowBufferDefault];
+    return [self initWithURLRequest:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault];
+}
+
+- (id) initWithURLRequest:(NSURL *)url {
+    return [self initWithURLRequest:url httpMethod:@"POST" bufferOption:SnowplowBufferDefault];
 }
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
@@ -83,6 +87,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (void) popFromOutQueue {
     [_db removeEventWithId:[_db getLastInsertedRowId]];
+}
+
+- (void) setHttpMethod:(NSString *)method {
+    _httpMethod = method;
 }
 
 - (void) setBufferOption:(enum SnowplowBufferOptions) buffer {
