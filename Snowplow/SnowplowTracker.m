@@ -46,7 +46,7 @@ NSString * const kVersion               = @"ios-0.2.2";
     return [self initWithCollector:nil appId:nil base64Encoded:true namespace:nil];
 }
 
-- (id) initWithCollector:(SnowplowRequest *)collector_
+- (id) initWithCollector:(SnowplowEmitter *)collector_
                    appId:(NSString *)appId_
            base64Encoded:(Boolean)encoded
                namespace:(NSString *)namespace_ {

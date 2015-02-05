@@ -15,8 +15,8 @@
 		AB0C27D5191B408200018557 /* libSnowplow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27BD191B408200018557 /* libSnowplow.a */; };
 		AB0C27DB191B408200018557 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AB0C27D9191B408200018557 /* InfoPlist.strings */; };
 		AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27DC191B408200018557 /* SnowplowTests.m */; };
-		AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SnowplowRequest.m */; };
-		AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SnowplowRequest.h */; };
+        AB0C27EB191B43D600018557 /* SnowplowEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SnowplowEmitter.m */; };
+        AB0C27EC191B706B00018557 /* SnowplowEmitter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SnowplowEmitter.h */; };
 		AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
 		AB39617219530E850002F235 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
 		AB4338581950A530006A1DE4 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4338571950A530006A1DE4 /* TestEventStore.m */; };
@@ -53,7 +53,7 @@
 			files = (
 				ABB2C44D1933E6610039A675 /* SnowplowTracker.h in CopyFiles */,
 				ABB25658192A10660014FE0C /* SnowplowPayload.h in CopyFiles */,
-				AB0C27EC191B706B00018557 /* SnowplowRequest.h in CopyFiles */,
+				AB0C27EC191B706B00018557 /* SnowplowEmitter.h in CopyFiles */,
 				AB0C27C6191B408200018557 /* Snowplow.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,8 +72,8 @@
 		AB0C27D8191B408200018557 /* SnowplowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SnowplowTests-Info.plist"; sourceTree = "<group>"; };
 		AB0C27DA191B408200018557 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AB0C27DC191B408200018557 /* SnowplowTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SnowplowTests.m; sourceTree = "<group>"; };
-		AB0C27E9191B43D600018557 /* SnowplowRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowRequest.h; sourceTree = "<group>"; };
-		AB0C27EA191B43D600018557 /* SnowplowRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowRequest.m; sourceTree = "<group>"; };
+        AB0C27E9191B43D600018557 /* SnowplowEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowEmitter.h; sourceTree = "<group>"; };
+        AB0C27EA191B43D600018557 /* SnowplowEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowEmitter.m; sourceTree = "<group>"; };
 		AB0C27F3191C67CD00018557 /* SnowplowPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowPayload.h; sourceTree = "<group>"; };
 		AB0C27F4191C67CD00018557 /* SnowplowPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowPayload.m; sourceTree = "<group>"; };
 		AB39617019530E850002F235 /* OpenIDFA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenIDFA.h; sourceTree = "<group>"; };
@@ -158,8 +158,8 @@
 			children = (
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				AB0C27C3191B408200018557 /* Supporting Files */,
-				AB0C27E9191B43D600018557 /* SnowplowRequest.h */,
-				AB0C27EA191B43D600018557 /* SnowplowRequest.m */,
+                AB0C27E9191B43D600018557 /* SnowplowEmitter.h */,
+                AB0C27EA191B43D600018557 /* SnowplowEmitter.m */,
 				AB0C27F3191C67CD00018557 /* SnowplowPayload.h */,
 				AB0C27F4191C67CD00018557 /* SnowplowPayload.m */,
 				ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */,
@@ -356,7 +356,7 @@
 				ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */,
 				AB39617219530E850002F235 /* OpenIDFA.m in Sources */,
 				AB9E8212192DD336006744C9 /* SnowplowTracker.m in Sources */,
-				AB0C27EB191B43D600018557 /* SnowplowRequest.m in Sources */,
+				AB0C27EB191B43D600018557 /* SnowplowEmitter.m in Sources */,
 				ABB767B0194974D3006275D1 /* SnowplowEventStore.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
 			);

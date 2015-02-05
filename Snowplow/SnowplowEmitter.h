@@ -1,5 +1,5 @@
 //
-//  SnowplowRequest.h
+//  SnowplowEmitter.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -23,7 +23,7 @@
 #import <Foundation/Foundation.h>
 #import "SnowplowPayload.h"
 
-@interface SnowplowRequest : NSObject
+@interface SnowplowEmitter : NSObject
 
 enum SnowplowBufferOptions {
     SnowplowBufferInstant = 1,
@@ -31,25 +31,25 @@ enum SnowplowBufferOptions {
 };
 
 /**
- *  Initializes a newly allocated SnowplowRequest
- *  @return A SnowplowRequest.
+ *  Initializes a newly allocated SnowplowEmitter
+ *  @return A SnowplowEmitter.
  */
 - (id) init;
 
 /**
- *  Initializes a newly allocated SnowplowRequest with a url and HTTP data transfer method.
+ *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method.
  *  @param url A url of the collector that events should be sent to.
  *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
- *  @return A SnowplowRequest instance
+ *  @return A SnowplowEmitter instance
  */
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method;
 
 /**
- *  Initializes a newly allocated SnowplowRequest with a url and HTTP data transfer method including the buffer time interval between every POST request is sent.
+ *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method including the buffer time interval between every POST request is sent.
  *  @param url A url of the collector that events should be sent to.
  *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
  *  @param bufferOption The time interval to wait until the next POST should be sent.
- *  @return A SnowplowRequest instance
+ *  @return A SnowplowEmitter instance
  */
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option;
 

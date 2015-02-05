@@ -1,5 +1,5 @@
 //
-//  SnowplowRequest.m
+//  SnowplowEmitter.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -20,13 +20,13 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SnowplowRequest.h"
+#import "SnowplowEmitter.h"
 #import "SnowplowEventStore.h"
 #import "SnowplowUtils.h"
 #import <FMDB.h>
 #import <AFNetworking/AFNetworking.h>
 
-@implementation SnowplowRequest {
+@implementation SnowplowEmitter {
     NSURL *                     _urlEndpoint;
     NSString *                  _httpMethod;
     NSMutableArray *            _buffer; // TODO: Convert to counter instead of array
