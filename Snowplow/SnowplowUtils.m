@@ -21,10 +21,10 @@
 //
 
 #import "SnowplowUtils.h"
-#import "OpenIDFA.h"
 
 #if TARGET_OS_IPHONE
 
+#import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIDevice.h>
 #import <CoreTelephony/CTCarrier.h>
@@ -65,7 +65,8 @@
 
 + (NSString *) getAppleIdfa {
     NSString* ifa = nil;
-#ifndef SNOWPLOW_NO_IFA && TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE
+#ifndef SNOWPLOW_NO_IFA
     Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
     if (ASIdentifierManagerClass) {
         SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
@@ -74,6 +75,7 @@
         NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
         ifa = [uuid UUIDString];
     }
+#endif
 #endif
     return ifa;
 }
