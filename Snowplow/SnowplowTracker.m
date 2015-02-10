@@ -35,7 +35,11 @@
 NSString * const kSnowplowVendor        = @"com.snowplowanalytics.snowplow";
 NSString * const kIglu                  = @"iglu:";
 Boolean    const kDefaultEncodeBase64   = true;
+#if TARGET_OS_IPHONE
 NSString * const kVersion               = @"ios-0.2.2";
+#else
+NSString * const kVersion               = @"osx-0.0.1";
+#endif
 
 @synthesize collector;
 @synthesize appId;
@@ -83,7 +87,11 @@ NSString * const kVersion               = @"ios-0.2.2";
         contextArray = [[NSMutableArray alloc] init];
     }
     
+#if TARGET_OS_IPHONE
     [self setMobileContext:contextArray];
+#else
+    [self setDesktopContext:contextArray];
+#endif
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                               _contextSchema, @"schema",
                               contextArray, @"data", nil];
@@ -111,6 +119,21 @@ NSString * const kVersion               = @"ios-0.2.2";
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                               schema, @"schema",
                               mobContext.getPayloadAsDictionary, @"data", nil];
+    [payloadData addObject:envelope];
+}
+
+- (void) setDesktopContext: (NSMutableArray *)payloadData {
+    SnowplowPayload *context = [[SnowplowPayload alloc] init];
+    
+    NSString *schema = [NSString stringWithFormat:@"%@%@/desktop_context/jsonschema/1-0-0",
+                        kIglu, kSnowplowVendor];
+    
+    [context addValueToPayload:[SnowplowUtils getOSType] forKey:@"osType"];
+    [context addValueToPayload:[SnowplowUtils getOSVersion] forKey:@"osVersion"];
+    [context addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceManufacturer"];
+
+    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:schema, @"schema",
+                              context.getPayloadAsDictionary, @"data", nil];
     [payloadData addObject:envelope];
 }
 

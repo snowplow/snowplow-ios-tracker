@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		57970B111A8A417000044195 /* Snowplow_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 57970B101A8A417000044195 /* Snowplow_OSX.h */; };
+		57970B131A8A417000044195 /* Snowplow_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 57970B121A8A417000044195 /* Snowplow_OSX.m */; };
+		57970B191A8A417100044195 /* libSnowplow-OSX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57970B0E1A8A417000044195 /* libSnowplow-OSX.dylib */; };
+		57970B261A8A42ED00044195 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57970B251A8A42ED00044195 /* Carbon.framework */; };
+		57970B281A8A498B00044195 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57970B271A8A498B00044195 /* AppKit.framework */; };
 		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		AB0C27C6191B408200018557 /* Snowplow.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; };
 		AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27CE191B408200018557 /* XCTest.framework */; };
@@ -35,6 +40,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		57970B1A1A8A417100044195 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB0C27B5191B408200018557 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57970B0D1A8A417000044195;
+			remoteInfo = "Snowplow-OSX";
+		};
 		AB0C27D3191B408200018557 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB0C27B5191B408200018557 /* Project object */;
@@ -62,6 +74,14 @@
 
 /* Begin PBXFileReference section */
 		260A4F15D64B4FE28C393962 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		57970B0E1A8A417000044195 /* libSnowplow-OSX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libSnowplow-OSX.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57970B101A8A417000044195 /* Snowplow_OSX.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snowplow_OSX.h; sourceTree = "<group>"; };
+		57970B121A8A417000044195 /* Snowplow_OSX.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snowplow_OSX.m; sourceTree = "<group>"; };
+		57970B181A8A417100044195 /* Snowplow-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57970B1E1A8A417100044195 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		57970B251A8A42ED00044195 /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/Carbon.framework; sourceTree = DEVELOPER_DIR; };
+		57970B271A8A498B00044195 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.10.sdk/System/Library/Frameworks/AppKit.framework; sourceTree = DEVELOPER_DIR; };
+		8DBAEFFA4B4BFAF7D89810BF /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		AB0C27BD191B408200018557 /* libSnowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSnowplow.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0C27C0191B408200018557 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Prefix.pch"; sourceTree = "<group>"; };
@@ -91,10 +111,27 @@
 		ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowUtils.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowUtils.m; sourceTree = "<group>"; };
 		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
-		DC0A1F28E0164666A57680BF /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		C905E33D893D1237EA1CE81D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		57970B0B1A8A417000044195 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57970B281A8A498B00044195 /* AppKit.framework in Frameworks */,
+				57970B261A8A42ED00044195 /* Carbon.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57970B151A8A417100044195 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57970B191A8A417100044195 /* libSnowplow-OSX.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB0C27BA191B408200018557 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -120,14 +157,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1E73186ED2674A333F8903CC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8DBAEFFA4B4BFAF7D89810BF /* Pods.debug.xcconfig */,
+				C905E33D893D1237EA1CE81D /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		57970B0F1A8A417000044195 /* Snowplow-OSX */ = {
+			isa = PBXGroup;
+			children = (
+				57970B101A8A417000044195 /* Snowplow_OSX.h */,
+				57970B121A8A417000044195 /* Snowplow_OSX.m */,
+			);
+			path = "Snowplow-OSX";
+			sourceTree = "<group>";
+		};
+		57970B1C1A8A417100044195 /* Snowplow-OSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				57970B1D1A8A417100044195 /* Supporting Files */,
+			);
+			path = "Snowplow-OSXTests";
+			sourceTree = "<group>";
+		};
+		57970B1D1A8A417100044195 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				57970B1E1A8A417100044195 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		AB0C27B4191B408200018557 = {
 			isa = PBXGroup;
 			children = (
 				AB0C27C2191B408200018557 /* Snowplow */,
 				AB0C27D6191B408200018557 /* SnowplowTests */,
+				57970B0F1A8A417000044195 /* Snowplow-OSX */,
+				57970B1C1A8A417100044195 /* Snowplow-OSXTests */,
 				AB0C27BF191B408200018557 /* Frameworks */,
 				AB0C27BE191B408200018557 /* Products */,
-				DC0A1F28E0164666A57680BF /* Pods.xcconfig */,
+				1E73186ED2674A333F8903CC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -136,6 +209,8 @@
 			children = (
 				AB0C27BD191B408200018557 /* libSnowplow.a */,
 				AB0C27CD191B408200018557 /* SnowplowTests.xctest */,
+				57970B0E1A8A417000044195 /* libSnowplow-OSX.dylib */,
+				57970B181A8A417100044195 /* Snowplow-OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -143,6 +218,8 @@
 		AB0C27BF191B408200018557 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				57970B271A8A498B00044195 /* AppKit.framework */,
+				57970B251A8A42ED00044195 /* Carbon.framework */,
 				AB9E8213192DEC38006744C9 /* CoreTelephony.framework */,
 				ABB67D8C192D9552009A1ECE /* UIKit.framework */,
 				AB0C27C0191B408200018557 /* Foundation.framework */,
@@ -207,7 +284,53 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		57970B0C1A8A417000044195 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57970B111A8A417000044195 /* Snowplow_OSX.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		57970B0D1A8A417000044195 /* Snowplow-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57970B231A8A417100044195 /* Build configuration list for PBXNativeTarget "Snowplow-OSX" */;
+			buildPhases = (
+				57970B0A1A8A417000044195 /* Sources */,
+				57970B0B1A8A417000044195 /* Frameworks */,
+				57970B0C1A8A417000044195 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Snowplow-OSX";
+			productName = "Snowplow-OSX";
+			productReference = 57970B0E1A8A417000044195 /* libSnowplow-OSX.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
+		};
+		57970B171A8A417100044195 /* Snowplow-OSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57970B241A8A417100044195 /* Build configuration list for PBXNativeTarget "Snowplow-OSXTests" */;
+			buildPhases = (
+				57970B141A8A417100044195 /* Sources */,
+				57970B151A8A417100044195 /* Frameworks */,
+				57970B161A8A417100044195 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57970B1B1A8A417100044195 /* PBXTargetDependency */,
+			);
+			name = "Snowplow-OSXTests";
+			productName = "Snowplow-OSXTests";
+			productReference = 57970B181A8A417100044195 /* Snowplow-OSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AB0C27BC191B408200018557 /* Snowplow */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB0C27E0191B408200018557 /* Build configuration list for PBXNativeTarget "Snowplow" */;
@@ -255,6 +378,14 @@
 			attributes = {
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Snowplow Analytics";
+				TargetAttributes = {
+					57970B0D1A8A417000044195 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					57970B171A8A417100044195 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
 			};
 			buildConfigurationList = AB0C27B8191B408200018557 /* Build configuration list for PBXProject "Snowplow" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -270,11 +401,20 @@
 			targets = (
 				AB0C27BC191B408200018557 /* Snowplow */,
 				AB0C27CC191B408200018557 /* SnowplowTests */,
+				57970B0D1A8A417000044195 /* Snowplow-OSX */,
+				57970B171A8A417100044195 /* Snowplow-OSXTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		57970B161A8A417100044195 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB0C27CB191B408200018557 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -298,7 +438,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C1620BA946E545B4AE806198 /* Copy Pods Resources */ = {
@@ -349,6 +489,21 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		57970B0A1A8A417000044195 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57970B131A8A417000044195 /* Snowplow_OSX.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57970B141A8A417100044195 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB0C27B9191B408200018557 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -378,6 +533,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		57970B1B1A8A417100044195 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57970B0D1A8A417000044195 /* Snowplow-OSX */;
+			targetProxy = 57970B1A1A8A417100044195 /* PBXContainerItemProxy */;
+		};
 		AB0C27D4191B408200018557 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AB0C27BC191B408200018557 /* Snowplow */;
@@ -397,6 +557,85 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		57970B1F1A8A417100044195 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		57970B201A8A417100044195 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		57970B211A8A417100044195 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Snowplow-OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		57970B221A8A417100044195 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Snowplow-OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		AB0C27DE191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -467,7 +706,7 @@
 		};
 		AB0C27E1191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
+			baseConfigurationReference = 8DBAEFFA4B4BFAF7D89810BF /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/Snowplow.dst;
@@ -495,7 +734,7 @@
 		};
 		AB0C27E2191B408200018557 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
+			baseConfigurationReference = C905E33D893D1237EA1CE81D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				DSTROOT = /tmp/Snowplow.dst;
@@ -523,7 +762,6 @@
 		};
 		AB0C27E4191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -544,7 +782,6 @@
 		};
 		AB0C27E5191B408200018557 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DC0A1F28E0164666A57680BF /* Pods.xcconfig */;
 			buildSettings = {
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
@@ -562,6 +799,22 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		57970B231A8A417100044195 /* Build configuration list for PBXNativeTarget "Snowplow-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57970B1F1A8A417100044195 /* Debug */,
+				57970B201A8A417100044195 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		57970B241A8A417100044195 /* Build configuration list for PBXNativeTarget "Snowplow-OSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57970B211A8A417100044195 /* Debug */,
+				57970B221A8A417100044195 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		AB0C27B8191B408200018557 /* Build configuration list for PBXProject "Snowplow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
