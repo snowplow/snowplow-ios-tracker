@@ -44,6 +44,7 @@
 		AE3C1C521A8A64B300F455D9 /* Pods-Snowplow.debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AE3C1C501A8A64B300F455D9 /* Pods-Snowplow.debug.xcconfig */; };
 		AE3C1C531A8A64B300F455D9 /* Pods-Snowplow.release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = AE3C1C511A8A64B300F455D9 /* Pods-Snowplow.release.xcconfig */; };
 		AE3C1C541A8A655F00F455D9 /* Snowplow-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */; };
+		AE3C1C611A8AA1E300F455D9 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3C1C601A8AA1E300F455D9 /* SnowplowTests.m */; };
 		C1F150E28435457F9DF242F0 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 260A4F15D64B4FE28C393962 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +123,7 @@
 		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
 		AE3C1C501A8A64B300F455D9 /* Pods-Snowplow.debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow/Pods-Snowplow.debug.xcconfig"; sourceTree = "<group>"; };
 		AE3C1C511A8A64B300F455D9 /* Pods-Snowplow.release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow/Pods-Snowplow.release.xcconfig"; sourceTree = "<group>"; };
+		AE3C1C601A8AA1E300F455D9 /* SnowplowTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,6 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				57970B1D1A8A417100044195 /* Supporting Files */,
+				AE3C1C601A8AA1E300F455D9 /* SnowplowTests.m */,
 			);
 			path = "Snowplow-OSXTests";
 			sourceTree = "<group>";
@@ -545,6 +548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE3C1C611A8AA1E300F455D9 /* SnowplowTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,4 @@
 def import_pods
-    pod 'AFNetworking'
     pod 'FMDB'
 end
 
