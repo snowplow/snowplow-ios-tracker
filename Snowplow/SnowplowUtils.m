@@ -59,8 +59,12 @@
 }
 
 + (NSString *) getOpenIdfa {
+#if TARGET_OS_IPHONE
     // See: https://github.com/ylechelle/OpenIDFA
     return [OpenIDFA sameDayOpenIDFA];
+#else
+    return @"";
+#endif
 }
 
 + (NSString *) getAppleIdfa {
