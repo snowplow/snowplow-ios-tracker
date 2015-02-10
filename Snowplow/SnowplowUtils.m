@@ -155,7 +155,7 @@
     {
         Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
         Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
-        Gestalt(gestaltSystemVersionBugFix, &osxBugFixVersion);
+        Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
     }
     NSString *versionString = [NSString stringWithFormat:@"%ld.%ld.%ld", (long)osxMajorVersion,
                                (long)osxMinorVersion, (long)osxPatchFixVersion];
