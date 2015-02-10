@@ -153,13 +153,13 @@
     }
     else
     {
-        Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
-        Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
-        Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
+        Gestalt(gestaltSystemVersionMajor, &(SInt32)osxMajorVersion);
+        Gestalt(gestaltSystemVersionMinor, &(SInt32)osxMinorVersion);
+        Gestalt(gestaltSystemVersionBugFix, &(SInt32)osxPatchFixVersion);
     }
     NSString *versionString = [NSString stringWithFormat:@"%ld.%ld.%ld", (long)osxMajorVersion,
                                (long)osxMinorVersion, (long)osxPatchFixVersion];
-    return osxMinorVersion;
+    return versionString;
 #endif
 }
 
