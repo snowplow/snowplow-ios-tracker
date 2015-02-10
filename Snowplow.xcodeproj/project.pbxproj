@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		578A99CA1A8A5A660046868A /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
+		578A99CB1A8A5A660046868A /* SnowplowRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SnowplowRequest.m */; };
+		578A99CC1A8A5A660046868A /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
+		578A99CD1A8A5A660046868A /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
+		578A99CE1A8A5A660046868A /* SnowplowTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SnowplowTracker.m */; };
+		578A99CF1A8A5A660046868A /* SnowplowEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SnowplowEventStore.m */; };
 		57970B111A8A417000044195 /* Snowplow_OSX.h in Headers */ = {isa = PBXBuildFile; fileRef = 57970B101A8A417000044195 /* Snowplow_OSX.h */; };
-		57970B131A8A417000044195 /* Snowplow_OSX.m in Sources */ = {isa = PBXBuildFile; fileRef = 57970B121A8A417000044195 /* Snowplow_OSX.m */; };
 		57970B191A8A417100044195 /* libSnowplow-OSX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 57970B0E1A8A417000044195 /* libSnowplow-OSX.dylib */; };
 		57970B261A8A42ED00044195 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57970B251A8A42ED00044195 /* Carbon.framework */; };
 		57970B281A8A498B00044195 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57970B271A8A498B00044195 /* AppKit.framework */; };
@@ -493,7 +498,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57970B131A8A417000044195 /* Snowplow_OSX.m in Sources */,
+				578A99CD1A8A5A660046868A /* SnowplowUtils.m in Sources */,
+				578A99CE1A8A5A660046868A /* SnowplowTracker.m in Sources */,
+				578A99CB1A8A5A660046868A /* SnowplowRequest.m in Sources */,
+				578A99CF1A8A5A660046868A /* SnowplowEventStore.m in Sources */,
+				578A99CC1A8A5A660046868A /* SnowplowPayload.m in Sources */,
+				578A99CA1A8A5A660046868A /* OpenIDFA.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,6 +816,7 @@
 				57970B201A8A417100044195 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		57970B241A8A417100044195 /* Build configuration list for PBXNativeTarget "Snowplow-OSXTests" */ = {
 			isa = XCConfigurationList;
@@ -814,6 +825,7 @@
 				57970B221A8A417100044195 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AB0C27B8191B408200018557 /* Build configuration list for PBXProject "Snowplow" */ = {
 			isa = XCConfigurationList;
