@@ -1,3 +1,15 @@
-platform :ios, '7.0'
-pod 'AFNetworking'
-pod 'FMDB'
+def import_pods
+    pod 'AFNetworking'
+    pod 'FMDB'
+end
+
+target 'Snowplow' do
+    platform :ios, '7.0'
+    import_pods
+end
+
+target 'Snowplow-OSX' do
+    platform :osx, '10.9'
+    import_pods
+end
+
