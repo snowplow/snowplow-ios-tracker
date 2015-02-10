@@ -140,25 +140,25 @@
 #if TARGET_OS_IPHONE
     return [[UIDevice currentDevice] systemVersion];
 #else
-    long osxMajorVersion;
-    long osxMinorVersion;
-    long osxPatchFixVersion;
+    SInt32 osxMajorVersion;
+    SInt32 osxMinorVersion;
+    SInt32 osxPatchFixVersion;
     NSProcessInfo *info = [NSProcessInfo processInfo];
     if ([info respondsToSelector:@selector(operatingSystemVersion)])
     {
         NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
-        osxMajorVersion = (long)systemVersion.majorVersion;
-        osxMinorVersion = (long)systemVersion.minorVersion;
-        osxPatchFixVersion = (long)systemVersion.patchVersion;
+        osxMajorVersion = (int)systemVersion.majorVersion;
+        osxMinorVersion = (int)systemVersion.minorVersion;
+        osxPatchFixVersion = (int)systemVersion.patchVersion;
     }
     else
     {
-        Gestalt(gestaltSystemVersionMajor, &(SInt32)osxMajorVersion);
-        Gestalt(gestaltSystemVersionMinor, &(SInt32)osxMinorVersion);
-        Gestalt(gestaltSystemVersionBugFix, &(SInt32)osxPatchFixVersion);
+        Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
+        Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
+        Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
     }
-    NSString *versionString = [NSString stringWithFormat:@"%ld.%ld.%ld", (long)osxMajorVersion,
-                               (long)osxMinorVersion, (long)osxPatchFixVersion];
+    NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
+                               osxMinorVersion, osxPatchFixVersion];
     return versionString;
 #endif
 }
