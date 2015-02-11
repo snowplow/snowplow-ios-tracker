@@ -429,4 +429,60 @@ extern NSString * const kVersion;
                  context:(NSMutableArray *)context
                timestamp:(double)timestamp;
 
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                            time:(NSUInteger)time
+                           label:(NSString *)label;
+
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ *  @param context An array of custom context for the event
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                            time:(NSUInteger)time
+                           label:(NSString *)label
+                         context:(NSMutableArray *)context;
+
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ *  @param timestamp Optional user provided timestamp
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                            time:(NSUInteger)time
+                           label:(NSString *)label
+                       timestamp:(double)timestamp;
+
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user provided timestamp
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                            time:(NSUInteger)time
+                           label:(NSString *)label
+                         context:(NSMutableArray *)context
+                       timestamp:(double)timestamp;
+
 @end
