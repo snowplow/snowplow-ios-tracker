@@ -34,6 +34,7 @@
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+#include <sys/sysctl.h>
 
 #endif
 
@@ -138,7 +139,14 @@
 #if TARGET_OS_IPHONE
     return [[UIDevice currentDevice] model];
 #else
-    return @"";
+    size_t size;
+    char *model = nil;
+    sysctlbyname("hw.model", NULL, &size, NULL, 0);
+    model = malloc(size);
+    sysctlbyname("hw.model", model, &size, NULL, 0);
+    NSString *hwString = [NSString stringWithCString:model encoding:NSUTF8StringEncoding];
+    free(model);
+    return hwString;
 #endif
 }
 

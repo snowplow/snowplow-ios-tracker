@@ -132,6 +132,7 @@ NSString * const kVersion               = @"osx-0.1.0";
     [context addValueToPayload:[SnowplowUtils getOSType] forKey:@"osType"];
     [context addValueToPayload:[SnowplowUtils getOSVersion] forKey:@"osVersion"];
     [context addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceManufacturer"];
+    [context addValueToPayload:[SnowplowUtils getDeviceModel] forKey:@"deviceModel"];
 
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:schema, @"schema",
                               context.getPayloadAsDictionary, @"data", nil];
