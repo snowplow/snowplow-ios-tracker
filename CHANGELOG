@@ -1,3 +1,13 @@
+Version 0.3.0 (2015-02-12)
+--------------------------
+Updated Travis to use the most up-to-date simulator (#90)
+Cleaned up SnowplowTracker.podspec (#99)
+Updated Podfile and re-installed to fix Travis (#93)
+Renamed SnowplowRequest to SnowplowEmitter (#70)
+Added new initializer with POST as default method (#69)
+Updated getResolution test to allow 750x1334 for Retina iPhone (#92)
+Added timings event (#89)
+
 Version 0.2.2 (2014-12-18)
 --------------------------
 Added missing iglu: protocol for screen_view schema URI, thanks @michelmongkhoy! (#85)

@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "SnowplowRequest.h"
+#import "SnowplowEmitter.h"
 #import "SnowplowPayload.h"
 
 @interface TestRequest : XCTestCase
@@ -57,7 +57,7 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
 {
 
     NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER];
-    SnowplowRequest *sample_req = [[SnowplowRequest alloc] initWithURLRequest:url httpMethod:@"POST"];
+    SnowplowEmitter *sample_req = [[SnowplowEmitter alloc] initWithURLRequest:url httpMethod:@"POST"];
     SnowplowPayload *sample_event = [[SnowplowPayload alloc] init];
     
     [sample_event addValueToPayload:@"something" forKey:@"nv"];

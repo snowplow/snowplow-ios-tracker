@@ -2,17 +2,10 @@ language: objective-c
 
 before_install:
     - brew update
-    # Cocoapods introduces breaking changes to 0.34+. Using this until the project is updated.
-    - gem install cocoapods -v '0.33.1'
     - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
     - pod install
 
 xcode_workspace: Snowplow.xcworkspace
 xcode_scheme: Snowplow
 xcode_sdk:
-    - iphonesimulator7.1
-    - iphonesimulator7.0
-    # - iphonesimulator6.1
-    # - iphoneos7.1
-    # - iphoneos7.0
-    # - iphoneos6.1
+    - iphonesimulator

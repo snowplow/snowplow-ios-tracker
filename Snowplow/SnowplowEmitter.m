@@ -1,5 +1,5 @@
 //
-//  SnowplowRequest.m
+//  SnowplowEmitter.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -20,12 +20,12 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SnowplowRequest.h"
+#import "SnowplowEmitter.h"
 #import "SnowplowEventStore.h"
 #import "SnowplowUtils.h"
 #import <FMDB.h>
 
-@implementation SnowplowRequest {
+@implementation SnowplowEmitter {
     NSURL *                     _urlEndpoint;
     NSString *                  _httpMethod;
     NSMutableArray *            _buffer; // TODO: Convert to counter instead of array
@@ -59,7 +59,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (id) init {
-    return [self initWithURLRequest:nil httpMethod:@"GET" bufferOption:SnowplowBufferDefault];
+    return [self initWithURLRequest:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault];
+}
+
+- (id) initWithURLRequest:(NSURL *)url {
+    return [self initWithURLRequest:url httpMethod:@"POST" bufferOption:SnowplowBufferDefault];
 }
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
@@ -102,6 +106,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (void) popFromOutQueue {
     [_db removeEventWithId:[_db getLastInsertedRowId]];
+}
+
+- (void) setHttpMethod:(NSString *)method {
+    _httpMethod = method;
 }
 
 - (void) setBufferOption:(enum SnowplowBufferOptions) buffer {
