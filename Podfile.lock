@@ -25,16 +25,16 @@ PODS:
   - FMDB/common (2.3)
   - FMDB/standard (2.3):
     - FMDB/common
-  - OCMock (2.2.4)
+  - OCHamcrest (4.1.1)
 
 DEPENDENCIES:
   - AFNetworking (~> 2.3)
   - FMDB (~> 2.3)
-  - OCMock (~> 2.2.4)
+  - OCHamcrest (~> 4.1)
 
 SPEC CHECKSUMS:
   AFNetworking: 6d7b76aa5d04c8c37daad3eef4b7e3f2a7620da3
   FMDB: 31ec26773c7f7b7890a6038235a1f2bbd933a7cb
-  OCMock: 6db79185520e24f9f299548f2b8b07e41d881bd5
+  OCHamcrest: af1c7c5ea345de69ea6c9c2958f65f3044e5c420
 
 COCOAPODS: 0.34.4

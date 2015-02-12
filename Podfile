@@ -16,7 +16,7 @@ end
 
 target :specs, :exclusive => true do
   link_with ['SnowplowTests']
-  pod 'OCMock', '~> 2.2.4'
+  pod 'OCHamcrest', '~> 4.1'
 end
 
 post_install do |installer_rep|

@@ -20,9 +20,13 @@
 //  License: Apache License Version 2.0
 //
 
-#import <XCTest/XCTest.h>
 #import <UIKit/UIDevice.h>
+
 #import "SnowplowUtils.h"
+
+#import <XCTest/XCTest.h>
+#define HC_SHORTHAND
+#import <OCHamcrest/OCHamcrest.h>
 
 @interface TestUtils : XCTestCase
 
@@ -66,18 +70,16 @@
 
 - (void)testGetResolution
 {
-    NSString *sample_res = [SnowplowUtils getResolution];
-    NSString *expected_resp;
+    NSString *actualResolution = [SnowplowUtils getResolution];
 
-    if(UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        expected_resp = @"320x480";
-    } else { //iPad
-        expected_resp = @"1536x2048";
+    // iPhone (maybe Retina or not)
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+        assertThat(actualResolution, anyOf(equalTo(@"750x1334"),
+                                           equalTo(@"320x480"), nil));
+    // iPad
+    } else {
+        assertThat(actualResolution, equalTo(@"1536x2048"));
     }
-    
-    XCTAssertEqualObjects(sample_res,
-                          expected_resp,
-                          @"Screen size isn't correct. Maybe tested on an iPhone 5?");
 }
 
 - (void)testGetEventId
