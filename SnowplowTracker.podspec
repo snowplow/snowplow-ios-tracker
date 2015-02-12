@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.screenshots      = "https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-logo-large.png"
   s.license          = 'Apache License, Version 2.0'
   s.author           = { "Snowplow Analytics Ltd" => "support@snowplowanalytics.com" }
-  s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/snowplow/snowplow-objc-tracker.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/SnowPlowData'
   s.docset_url	     = 'https://github.com/snowplow/snowplow/wiki/iOS-Tracker'
 
