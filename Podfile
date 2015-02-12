@@ -6,17 +6,21 @@
 
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, '7.0'
-
 target :lib, :exclusive => true do
+  platform :ios, '7.0'
   link_with ['Snowplow']
-  pod 'AFNetworking', '~> 2.3'
   pod 'FMDB', '~> 2.3'
 end
 
 target :specs, :exclusive => true do
+  platform :ios, '7.0'
   link_with ['SnowplowTests']
   pod 'OCHamcrest', '~> 4.1'
+end
+
+target 'Snowplow-OSX' do
+    platform :osx, '10.9'
+    pod 'FMDB', '~> 2.3'
 end
 
 post_install do |installer_rep|
