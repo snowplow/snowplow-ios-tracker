@@ -42,6 +42,11 @@
 		AEA2FCEF1A8CE0DF00123462 /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
 		AEA2FCF01A8CE0DF00123462 /* SnowplowTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SnowplowTracker.m */; };
 		AEA2FCF11A8CE0DF00123462 /* SnowplowEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SnowplowEventStore.m */; };
+		AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27DC191B408200018557 /* SnowplowTests.m */; };
+		AEA2FCF31A8CE30C00123462 /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
+		AEA2FCF41A8CE30E00123462 /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB2565019286C8C0014FE0C /* TestRequest.m */; };
+		AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB790CB1936F2500084B964 /* TestTracker.m */; };
+		AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4338571950A530006A1DE4 /* TestEventStore.m */; };
 		D932075CB63BC67F75B9A27D /* libPods-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1250091B2324E892DC3759B /* libPods-lib.a */; };
 /* End PBXBuildFile section */
 
@@ -567,6 +572,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */,
+				AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */,
+				AEA2FCF31A8CE30C00123462 /* TestPayload.m in Sources */,
+				AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */,
+				AEA2FCF41A8CE30E00123462 /* TestRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
