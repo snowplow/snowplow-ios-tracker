@@ -4,11 +4,14 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - OCHamcrest (4.1.1)
 
 DEPENDENCIES:
-  - FMDB
+  - FMDB (~> 2.3)
+  - OCHamcrest (~> 4.1)
 
 SPEC CHECKSUMS:
   FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
+  OCHamcrest: af1c7c5ea345de69ea6c9c2958f65f3044e5c420
 
 COCOAPODS: 0.35.0

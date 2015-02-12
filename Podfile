@@ -9,7 +9,6 @@ source 'https://github.com/CocoaPods/Specs.git'
 target :lib, :exclusive => true do
   platform :ios, '7.0'
   link_with ['Snowplow']
-  pod 'AFNetworking', '~> 2.3'
   pod 'FMDB', '~> 2.3'
 end
 
@@ -21,7 +20,6 @@ end
 
 target 'Snowplow-OSX' do
     platform :osx, '10.9'
-    pod 'AFNetworking', '~> 2.3'
     pod 'FMDB', '~> 2.3'
 end
 
