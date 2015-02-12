@@ -459,41 +459,40 @@ NSString * const kVersion               = @"osx-0.1.0";
 
 - (void) trackTimingWithCategory:(NSString *)category
             variable:(NSString *)variable
-                time:(NSUInteger)time
+              timing:(NSUInteger)timing
                label:(NSString *)label {
-    [self trackTimingWithCategory:category variable:variable time:time label:label context:nil timestamp:0];
+    [self trackTimingWithCategory:category variable:variable timing:timing label:label context:nil timestamp:0];
 }
 
 - (void) trackTimingWithCategory:(NSString *)category
             variable:(NSString *)variable
-                time:(NSUInteger)time
+              timing:(NSUInteger)timing
                label:(NSString *)label
              context:(NSMutableArray *)context {
-    [self trackTimingWithCategory:category variable:variable time:time label:label context:context timestamp:0];
+    [self trackTimingWithCategory:category variable:variable timing:timing label:label context:context timestamp:0];
 }
 
 - (void) trackTimingWithCategory:(NSString *)category
             variable:(NSString *)variable
-                time:(NSUInteger)time
+              timing:(NSUInteger)timing
                label:(NSString *)label
            timestamp:(double)timestamp {
-    [self trackTimingWithCategory:category variable:variable time:time label:label context:nil timestamp:timestamp];
+    [self trackTimingWithCategory:category variable:variable timing:timing label:label context:nil timestamp:timestamp];
 }
 
 - (void) trackTimingWithCategory:(NSString *)category
             variable:(NSString *)variable
-                time:(NSUInteger)time
+              timing:(NSUInteger)timing
                label:(NSString *)label
              context:(NSMutableArray *)context
            timestamp:(double)timestamp {
-    [self trackTimingWithCategory:category variable:variable time:time label:label context:nil timestamp:timestamp];
 
     NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/timing/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
     NSMutableDictionary *timingProperties = [[NSMutableDictionary alloc] init];
 
     [timingProperties setObject:category forKey:@"category"];
     [timingProperties setObject:variable forKey:@"variable"];
-    [timingProperties setObject:[NSNumber numberWithInteger:time] forKey:@"time"];
+    [timingProperties setObject:[NSNumber numberWithInteger:timing] forKey:@"timing"];
     if (label != nil) {
         [timingProperties setObject:label forKey:@"label"];
     }

@@ -438,7 +438,7 @@ extern NSString * const kVersion;
  */
 - (void) trackTimingWithCategory:(NSString *)category
                         variable:(NSString *)variable
-                            time:(NSUInteger)time
+                          timing:(NSUInteger)timing
                            label:(NSString *)label;
 
 /**
@@ -451,7 +451,7 @@ extern NSString * const kVersion;
  */
 - (void) trackTimingWithCategory:(NSString *)category
                         variable:(NSString *)variable
-                            time:(NSUInteger)time
+                          timing:(NSUInteger)timing
                            label:(NSString *)label
                          context:(NSMutableArray *)context;
 
@@ -465,7 +465,7 @@ extern NSString * const kVersion;
  */
 - (void) trackTimingWithCategory:(NSString *)category
                         variable:(NSString *)variable
-                            time:(NSUInteger)time
+                          timing:(NSUInteger)timing
                            label:(NSString *)label
                        timestamp:(double)timestamp;
 
@@ -480,7 +480,7 @@ extern NSString * const kVersion;
  */
 - (void) trackTimingWithCategory:(NSString *)category
                         variable:(NSString *)variable
-                            time:(NSUInteger)time
+                          timing:(NSUInteger)timing
                            label:(NSString *)label
                          context:(NSMutableArray *)context
                        timestamp:(double)timestamp;
