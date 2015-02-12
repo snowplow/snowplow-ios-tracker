@@ -46,7 +46,7 @@ NSString * const kVersion               = @"ios-0.2.2";
     return [self initWithCollector:nil appId:nil base64Encoded:true namespace:nil];
 }
 
-- (id) initWithCollector:(SnowplowRequest *)collector_
+- (id) initWithCollector:(SnowplowEmitter *)collector_
                    appId:(NSString *)appId_
            base64Encoded:(Boolean)encoded
                namespace:(NSString *)namespace_ {
@@ -246,7 +246,7 @@ NSString * const kVersion               = @"ios-0.2.2";
     [self setTimestamp:timestamp toPayload:pb];
     [pb addValueToPayload:@"ue" forKey:@"e"];
     
-    // Creates similar envelop as in setContext with but different encoding keys
+    // Creates similar envelope as in setContext but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                               _unstructedEventSchema, @"schema",
                               eventJson, @"data", nil];
@@ -419,8 +419,9 @@ NSString * const kVersion               = @"ios-0.2.2";
                timestamp:(double)timestamp {
     NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/screen_view/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [[NSMutableDictionary alloc] init];
-    if(id_ != nil)
+    if (id_ != nil) {
         [screenViewProperties setObject:id_ forKey:@"id"];
+    }
     if (name != nil) {
         [screenViewProperties setObject:name forKey:@"name"];
     }
@@ -428,6 +429,54 @@ NSString * const kVersion               = @"ios-0.2.2";
     NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
                                snowplowSchema, @"schema",
                                screenViewProperties, @"data", nil];
+    [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
+}
+
+- (void) trackTimingWithCategory:(NSString *)category
+            variable:(NSString *)variable
+                time:(NSUInteger)time
+               label:(NSString *)label {
+    [self trackTimingWithCategory:category variable:variable time:time label:label context:nil timestamp:0];
+}
+
+- (void) trackTimingWithCategory:(NSString *)category
+            variable:(NSString *)variable
+                time:(NSUInteger)time
+               label:(NSString *)label
+             context:(NSMutableArray *)context {
+    [self trackTimingWithCategory:category variable:variable time:time label:label context:context timestamp:0];
+}
+
+- (void) trackTimingWithCategory:(NSString *)category
+            variable:(NSString *)variable
+                time:(NSUInteger)time
+               label:(NSString *)label
+           timestamp:(double)timestamp {
+    [self trackTimingWithCategory:category variable:variable time:time label:label context:nil timestamp:timestamp];
+}
+
+- (void) trackTimingWithCategory:(NSString *)category
+            variable:(NSString *)variable
+                time:(NSUInteger)time
+               label:(NSString *)label
+             context:(NSMutableArray *)context
+           timestamp:(double)timestamp {
+    [self trackTimingWithCategory:category variable:variable time:time label:label context:nil timestamp:timestamp];
+
+    NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/timing/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
+    NSMutableDictionary *timingProperties = [[NSMutableDictionary alloc] init];
+
+    [timingProperties setObject:category forKey:@"category"];
+    [timingProperties setObject:variable forKey:@"variable"];
+    [timingProperties setObject:[NSNumber numberWithInteger:time] forKey:@"time"];
+    if (label != nil) {
+        [timingProperties setObject:label forKey:@"label"];
+    }
+
+    NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
+                               snowplowSchema, @"schema",
+                               timingProperties, @"data", nil];
+
     [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
 }
 

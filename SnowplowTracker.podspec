@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.homepage         = "http://snowplowanalytics.com"
   s.screenshots      = "https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-logo-large.png"
   s.license          = 'Apache License, Version 2.0'
-  s.author           = { "Jonathan Almeida" => "support@snowplowanalytics.com" }
-  s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git", :tag => "0.2.2" }
+  s.author           = { "Snowplow Analytics Ltd" => "support@snowplowanalytics.com" }
+  s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/SnowPlowData'
   s.docset_url	     = 'https://github.com/snowplow/snowplow/wiki/iOS-Tracker'
 
@@ -18,12 +18,12 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Snowplow/*.{m,h}'
 
-  # s.ios.exclude_files = 'Classes/osx'
-  # s.osx.exclude_files = 'Classes/ios'
   s.public_header_files = ['Snowplow/SnowplowTracker.h', 'Snowplow/SnowplowPayload.h', 'Snowplow/SnowplowRequest.h']
+
   s.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
-    s.dependency 'FMDB', '~> 2.3'
-    s.dependency 'AFNetworking', '~> 2.0'
+  s.dependency 'FMDB', '~> 2.3'
+  s.dependency 'AFNetworking', '~> 2.0'
+  
   s.prefix_header_contents = <<-EOS
 #ifdef DEBUG
 #    define DLog(...) NSLog(__VA_ARGS__)
