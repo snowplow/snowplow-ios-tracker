@@ -47,6 +47,7 @@
 		AEA2FCF41A8CE30E00123462 /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB2565019286C8C0014FE0C /* TestRequest.m */; };
 		AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB790CB1936F2500084B964 /* TestTracker.m */; };
 		AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4338571950A530006A1DE4 /* TestEventStore.m */; };
+		AEB76D621A8E3AC800BD0E69 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
 		D932075CB63BC67F75B9A27D /* libPods-lib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F1250091B2324E892DC3759B /* libPods-lib.a */; };
 /* End PBXBuildFile section */
 
@@ -565,6 +566,7 @@
 				AEA2FCEF1A8CE0DF00123462 /* SnowplowUtils.m in Sources */,
 				AEA2FCF01A8CE0DF00123462 /* SnowplowTracker.m in Sources */,
 				AEA2FCF11A8CE0DF00123462 /* SnowplowEventStore.m in Sources */,
+				AEB76D621A8E3AC800BD0E69 /* OpenIDFA.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

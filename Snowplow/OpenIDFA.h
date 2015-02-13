@@ -20,6 +20,8 @@
 //  - the author or APPSFIRE may not be held liable in any way for any issue arising from the use of OpenIDFA
 //
 
+#if TARGET_OS_IPHONE
+
 #import <Foundation/Foundation.h>
 
 @interface OpenIDFA : NSObject
@@ -28,3 +30,5 @@
 + (NSArray*) threeDaysOpenIDFAArray;
 
 @end
+
+#endif
