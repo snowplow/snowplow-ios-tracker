@@ -13,7 +13,9 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/SnowPlowData'
   s.docset_url	     = 'https://github.com/snowplow/snowplow/wiki/iOS-Tracker'
 
-  s.platform     = :ios, '7.0'
+  s.ios.deployment_target = '7.0'
+  s.osx.deployment_target = '10.9'
+
   s.requires_arc = true
 
   s.source_files = 'Snowplow/*.{m,h}'
@@ -23,7 +25,7 @@ Pod::Spec.new do |s|
   s.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
   s.dependency 'FMDB', '~> 2.3'
   s.dependency 'AFNetworking', '~> 2.0'
-  
+
   s.prefix_header_contents = <<-EOS
 #ifdef DEBUG
 #    define DLog(...) NSLog(__VA_ARGS__)
