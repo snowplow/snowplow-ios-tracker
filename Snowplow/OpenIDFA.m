@@ -20,6 +20,8 @@
 //  - the author or APPSFIRE may not be held liable in any way for any issue arising from the use of OpenIDFA
 //
 
+#if TARGET_OS_IPHONE
+
 #import "OpenIDFA.h"
 #import <UIKit/UIKit.h>
 #import <UIKit/UIDevice.h>
@@ -237,3 +239,5 @@
 }
 
 @end
+
+#endif
