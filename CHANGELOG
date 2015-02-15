@@ -1,4 +1,4 @@
-Version 0.3.0 (2015-02-XX)
+Version 0.3.0 (2015-02-15)
 --------------------------
 Reverted from AFnetworking to standard NSURLSession (#88)
 Updated Travis to use the most up-to-date simulator (#90)
