@@ -21,12 +21,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SnowplowRequest.h"
+#import "SnowplowEmitter.h"
 #import "SnowplowPayload.h"
 
 @interface SnowplowTracker : NSObject
 
-@property (retain)              SnowplowRequest *   collector;
+@property (retain)              SnowplowEmitter *   collector;
 @property (retain)              NSString *          appId;
 @property (retain)              NSString *          trackerNamespace;
 @property (nonatomic, retain)   NSString *          userId;
@@ -44,13 +44,13 @@ extern NSString * const kVersion;
 
 /**
  *  Initializes a newly allocated SnowplowTracker with all the required properties to send events to it.
- *  @param collector_ A SnowplowRequest object that is initialized to send the events created by the SnowplowTracker.
+ *  @param collector_ A SnowplowEmitter object that is initialized to send the events created by the SnowplowTracker.
  *  @param appId_ Your app ID
  *  @param base64encoded If true, all context data will be Base64 encoded before being added to the event.
  *  @param namespace_ Identifier for the tracker instance.
  *  @return A SnowplowTracker instance.
  */
-- (id) initWithCollector:(SnowplowRequest *)collector_
+- (id) initWithCollector:(SnowplowEmitter *)collector_
                    appId:(NSString *)appId_
            base64Encoded:(Boolean)encoded
                namespace:(NSString *)namespace_;
@@ -428,5 +428,61 @@ extern NSString * const kVersion;
                       id:(NSString *)id_
                  context:(NSMutableArray *)context
                timestamp:(double)timestamp;
+
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                          timing:(NSUInteger)timing
+                           label:(NSString *)label;
+
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ *  @param context An array of custom context for the event
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                          timing:(NSUInteger)timing
+                           label:(NSString *)label
+                         context:(NSMutableArray *)context;
+
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ *  @param timestamp Optional user provided timestamp
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                          timing:(NSUInteger)timing
+                           label:(NSString *)label
+                       timestamp:(double)timestamp;
+
+/**
+ *  A tracker for User Timings.
+ *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
+ *  @param variable Identify the timing being recorded
+ *  @param time The number of milliseconds in elapsed time to report
+ *  @param label Optional description of this timing
+ *  @param context An array of custom context for the event
+ *  @param timestamp Optional user provided timestamp
+ */
+- (void) trackTimingWithCategory:(NSString *)category
+                        variable:(NSString *)variable
+                          timing:(NSUInteger)timing
+                           label:(NSString *)label
+                         context:(NSMutableArray *)context
+                       timestamp:(double)timestamp;
 
 @end

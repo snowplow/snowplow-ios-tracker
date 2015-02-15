@@ -4,6 +4,7 @@ iOS Analytics for Snowplow
 [ ![Build Status] [travis-image] ] [travis]
 [ ![Version] [cocoa-version] ] [cocoadocs]
 [ ![Platform] [cocoa-plaform] ] [cocoadocs]
+[ ![License] [license-image] ] [license]
 
 ## Overview
 
@@ -21,7 +22,7 @@ With this tracker you can collect event data from your iOS applications, games o
 
 The Snowplow iOS Tracker is copyright 2013-2014 Snowplow Analytics Ltd.
 
-Licensed under the [Apache License, Version 2.0][1] (the "License");
+Licensed under the [Apache License, Version 2.0] [license] (the "License");
 you may not use this software except in compliance with the License.
 
 Unless required by applicable law or agreed to in writing, software
@@ -30,12 +31,14 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[1]: http://www.apache.org/licenses/LICENSE-2.0
 [2]: http://snowplowanalytics.com/
 [3]: https://www.apple.com/ios/
 
 [travis]: https://travis-ci.org/snowplow/snowplow-ios-tracker
 [travis-image]: https://travis-ci.org/snowplow/snowplow-ios-tracker.png?branch=master
+
+[license]: http://www.apache.org/licenses/LICENSE-2.0
+[license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
 
 [cocoadocs]: http://cocoadocs.org/docsets/SnowplowTracker
 [cocoa-version]: http://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png

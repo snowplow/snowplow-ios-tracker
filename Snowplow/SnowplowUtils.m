@@ -21,11 +21,22 @@
 //
 
 #import "SnowplowUtils.h"
+
+#if TARGET_OS_IPHONE
+
 #import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
 #import <UIKit/UIDevice.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+
+#else
+
+#import <AppKit/AppKit.h>
+#import <Carbon/Carbon.h>
+#include <sys/sysctl.h>
+
+#endif
 
 @implementation SnowplowUtils
 
@@ -49,12 +60,17 @@
 }
 
 + (NSString *) getOpenIdfa {
+#if TARGET_OS_IPHONE
     // See: https://github.com/ylechelle/OpenIDFA
     return [OpenIDFA sameDayOpenIDFA];
+#else
+    return @"";
+#endif
 }
 
 + (NSString *) getAppleIdfa {
     NSString* ifa = nil;
+#if TARGET_OS_IPHONE
 #ifndef SNOWPLOW_NO_IFA
     Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
     if (ASIdentifierManagerClass) {
@@ -65,17 +81,26 @@
         ifa = [uuid UUIDString];
     }
 #endif
+#endif
     return ifa;
 }
 
 + (NSString *) getAppleIdfv {
+#if TARGET_OS_IPHONE
     return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+#else
+    return @"";
+#endif
 }
 
 + (NSString *) getCarrierName {
+#if TARGET_OS_IPHONE
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     return [carrier carrierName];
+#else
+    return @"";
+#endif
 }
 
 + (int) getTransactionId {
@@ -88,8 +113,13 @@
 }
 
 + (NSString *) getResolution {
+#if TARGET_OS_IPHONE
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     CGFloat screenScale = [[UIScreen mainScreen] scale];
+#else
+    CGRect mainScreen = [[NSScreen mainScreen] frame];
+    CGFloat screenScale = [[NSScreen mainScreen] backingScaleFactor];
+#endif
     CGFloat screenWidth = mainScreen.size.width * screenScale;
     CGFloat screenHeight = mainScreen.size.height * screenScale;
     NSString *res = [NSString stringWithFormat:@"%.0fx%.0f", screenWidth, screenHeight];
@@ -106,15 +136,53 @@
 }
 
 + (NSString *) getDeviceModel {
+#if TARGET_OS_IPHONE
     return [[UIDevice currentDevice] model];
+#else
+    size_t size;
+    char *model = nil;
+    sysctlbyname("hw.model", NULL, &size, NULL, 0);
+    model = malloc(size);
+    sysctlbyname("hw.model", model, &size, NULL, 0);
+    NSString *hwString = [NSString stringWithCString:model encoding:NSUTF8StringEncoding];
+    free(model);
+    return hwString;
+#endif
 }
 
 + (NSString *) getOSVersion {
+#if TARGET_OS_IPHONE
     return [[UIDevice currentDevice] systemVersion];
+#else
+    SInt32 osxMajorVersion;
+    SInt32 osxMinorVersion;
+    SInt32 osxPatchFixVersion;
+    NSProcessInfo *info = [NSProcessInfo processInfo];
+    if ([info respondsToSelector:@selector(operatingSystemVersion)])
+    {
+        NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
+        osxMajorVersion = (int)systemVersion.majorVersion;
+        osxMinorVersion = (int)systemVersion.minorVersion;
+        osxPatchFixVersion = (int)systemVersion.patchVersion;
+    }
+    else
+    {
+        Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
+        Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
+        Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
+    }
+    NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
+                               osxMinorVersion, osxPatchFixVersion];
+    return versionString;
+#endif
 }
 
 + (NSString *) getOSType {
+#if TARGET_OS_IPHONE
     return @"ios";
+#else
+    return @"osx";
+#endif
 }
 
 + (NSString *) getAppId {
