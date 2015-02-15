@@ -1,14 +1,14 @@
 Version 0.3.0 (2015-02-15)
 --------------------------
-Reverted from AFnetworking to standard NSURLSession (#88)
+Reverted from AFnetworking to standard NSURLSession, thanks @atdrendel and @duncan! (#88)
 Updated Travis to use the most up-to-date simulator (#90)
 Cleaned up SnowplowTracker.podspec (#99)
 Updated Podfile and re-installed to fix Travis (#93)
-Renamed SnowplowRequest to SnowplowEmitter (#70)
-Added new initializer with POST as default method (#69)
+Renamed SnowplowRequest to SnowplowEmitter, thanks @jonalmeida! (#70)
+Added new initializer with POST as default method, thanks @jonalmeida! (#69)
 Updated getResolution test to allow 750x1334 for Retina iPhone (#92)
 Added timings event (#89)
-Added Mac OS X support (#104)
+Added Mac OS X support, thanks @atdrendel and @duncan! (#104)
 Renamed from snowplow-ios-tracker to snowplow-objc-tracker (#103)
 Added License button to README (#109)
 
