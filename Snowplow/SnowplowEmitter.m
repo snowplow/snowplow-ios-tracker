@@ -128,10 +128,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) flushBuffer {
-    DLog(@"Flushing buffer..");
     // Avoid calling flush to send an empty buffer
     if ([_buffer count] == 0 && [_db count] == 0) {
-        DLog(@"Database empty. Returning..");
         return;
     }
     
@@ -188,12 +186,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         }
         else
         {
-            DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            
             [_dbQueue inDatabase:^(FMDatabase *db) {
                 NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
                 for (int i=0; i < dbIndexArray.count; i++) {
-                    DLog(@"Removing event at index: %@", dbIndexArray[i]);
                     [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
                     [removedIDs addObject:dbIndexArray[i]];
                 }
@@ -226,11 +221,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
             }
         }
         else {
-            DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             [_dbQueue inDatabase:^(FMDatabase *db) {
                 NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
                 for (int i=0; i < dbIndexArray.count; i++) {
-                    DLog(@"Removing event at index: %@", dbIndexArray[i]);
                     [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
                     [removedIDs addObject:dbIndexArray[i]];
                 }
