@@ -52,6 +52,7 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
     if(self){
         _db = [FMDatabase databaseWithPath:_dbPath];
         if([_db open]) {
+            DLog(@"db description: %@", [_db databasePath]);
             [self createTable];
         } else {
             DLog(@"Failed to open database. Events in memory will not persist!");
@@ -90,6 +91,7 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
 
 - (BOOL) removeEventWithId:(long long int)id_ {
     if([_db open]) {
+        NSLog(@"Removing %lld from database now.", id_);
         return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
     } else {
         return false;
@@ -137,7 +139,11 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
     if([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
         while ([s next]) {
+            int index = [s intForColumn:@"ID"];
             NSData * data = [s dataForColumn:@"eventData"];
+            NSDate * date = [s dateForColumn:@"dateCreated"];
+            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            DLog(@"Item: %d %@ %@", index, date, actualData);
             return [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
         }
     }
@@ -171,6 +177,8 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
             long long int index = [s longLongIntForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
+            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            DLog(@"Item: %lld %@ %@", index, [date description], actualData);
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
             NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
             [eventWithSqlMetadata setValue:dict forKey:@"eventData"];
