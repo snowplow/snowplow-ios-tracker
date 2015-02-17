@@ -1,3 +1,10 @@
+Version 0.3.1 (2015-02-17)
+--------------------------
+Replaced SnowplowRequest.h with SnowplowEmitter.h as a public header, thanks @hamidp! (#133)
+Excluded CoreTelephony dependency for OS X, thanks @duncan! (#134)
+Removed AFNetworking dependency from podspec, thanks @duncan! (#136)
+Adjusted logging to emit debug logs for Snowplow collector only when SNOWPLOW_DEBUG defined, thanks @atdrendel! (#131)
+
 Version 0.3.0 (2015-02-15)
 --------------------------
 Reverted from AFnetworking to standard NSURLSession, thanks @atdrendel and @duncan! (#88)
