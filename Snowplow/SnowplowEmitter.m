@@ -160,7 +160,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         }
         
     } else {
-        DLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
+        NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
     [_buffer removeAllObjects];
 }
@@ -181,7 +181,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                                                           NSError *error) {
         if (error)
         {
-            DLog(@"Error: %@", error);
+            NSLog(@"Error: %@", error);
             for (int i=0; i < dbIndexArray.count;  i++) {
                 [_db removePendingWithId:(long long int)dbIndexArray[i]];
             }
@@ -220,7 +220,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                                                           NSURLResponse *response,
                                                           NSError *error) {
         if (error) {
-            DLog(@"Error: %@", error);
+            NSLog(@"Error: %@", error);
             for (int i=0; i < dbIndexArray.count;  i++) {
                 [_db removePendingWithId:(long long int)dbIndexArray[i]];
             }

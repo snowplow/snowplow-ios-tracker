@@ -27,7 +27,7 @@ Pod::Spec.new do |s|
   s.dependency 'FMDB', '~> 2.3'
 
   s.prefix_header_contents = <<-EOS
-#ifdef DEBUG
+#ifdef SNOWPLOW_DEBUG
 #    define DLog(...) NSLog(__VA_ARGS__)
 #else
 #    define DLog(...)
