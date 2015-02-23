@@ -167,9 +167,14 @@
     }
     else
     {
+        // TODO eliminate this block once minimum version is iOS 8 and OS X 10
+        // and greater
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
         Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
         Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
+#pragma clang diagnostic pop
     }
     NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
                                osxMinorVersion, osxPatchFixVersion];
