@@ -167,8 +167,7 @@
     }
     else
     {
-        // TODO eliminate this block once minimum version is iOS 8 and OS X 10
-        // and greater
+        // TODO eliminate this block once minimum version is OS X 10+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
         Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
