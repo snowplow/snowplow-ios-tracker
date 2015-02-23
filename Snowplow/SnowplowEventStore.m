@@ -139,11 +139,11 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
     if([_db open]) {
         FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
         while ([s next]) {
-            int index = [s intForColumn:@"ID"];
             NSData * data = [s dataForColumn:@"eventData"];
-            NSDate * date = [s dateForColumn:@"dateCreated"];
-            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            DLog(@"Item: %d %@ %@", index, date, actualData);
+            DLog(@"Item: %d %@ %@",
+                 [s intForColumn:@"ID"],
+                 [s dateForColumn:@"dateCreated"],
+                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             return [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
         }
     }
@@ -177,8 +177,10 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
             long long int index = [s longLongIntForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
-            NSString * actualData = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-            DLog(@"Item: %lld %@ %@", index, [date description], actualData);
+            DLog(@"Item: %lld %@ %@",
+                 index,
+                 [date description],
+                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
             NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
             [eventWithSqlMetadata setValue:dict forKey:@"eventData"];
