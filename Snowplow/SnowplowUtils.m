@@ -103,6 +103,23 @@
 #endif
 }
 
+
++ (NSString *) getNetworkType {
+#if TARGET_OS_IPHONE
+    return @"wifi";
+#else
+    return @"";
+#endif
+}
+
++ (NSString *) getNetworkTechnology {
+#if TARGET_OS_IPHONE
+    return @"3g";
+#else
+    return @"";
+#endif
+}
+
 + (int) getTransactionId {
     return arc4random() % (999999 - 100000+1) + 100000;
 }
