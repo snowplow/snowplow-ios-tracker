@@ -21,6 +21,7 @@
 //
 
 #import "SnowplowPayload.h"
+#import "Snowplow.h"
 
 @implementation SnowplowPayload {
     NSMutableDictionary * _payload;
@@ -67,7 +68,7 @@
     NSDictionary *object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     
     if (error) {
-        DLog(@"addJsonToPayload: error: %@", error.localizedDescription);
+        SnowplowDLog(@"addJsonToPayload: error: %@", error.localizedDescription);
         return;
     }
     
@@ -75,16 +76,7 @@
     if([object isKindOfClass:[NSDictionary class]]) {
         NSString *encodedString = nil;
         if(encode) {
-            
-            // We want to use the iOS 7 encoder if it's 7+ so we check if it's available
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000
-                encodedString = [json base64EncodedStringWithOptions:0];
-                DLog(@"Using iOS 7 encoding: %@", encodedString);
-#else
-                // Officially deprecated in iOS 7, but works in all versions including 7
-                encodedString = [json base64Encoding];
-                DLog(@"Using 3PD encoding: %@", encodedString);
-#endif
+            encodedString = [json base64EncodedStringWithOptions:0];
             [self addValueToPayload:encodedString forKey:typeEncoded];
         } else {
             [self addValueToPayload:[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] forKey:typeNotEncoded];

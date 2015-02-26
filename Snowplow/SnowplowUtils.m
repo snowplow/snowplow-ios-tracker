@@ -29,6 +29,7 @@
 #import <UIKit/UIDevice.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import "Reachability.h"
 
 #else
 
@@ -103,6 +104,40 @@
 #endif
 }
 
+
++ (NSString *) getNetworkType {
+#if TARGET_OS_IPHONE
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    if (status == ReachableViaWiFi)
+    {
+        return @"wifi";
+    }
+    else if (status == ReachableViaWWAN)
+    {
+        return @"mobile";
+    }
+    else
+    {
+        return nil;
+    }
+#else
+    return nil;
+#endif
+}
+
++ (NSString *) getNetworkTechnology {
+#if TARGET_OS_IPHONE
+    CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
+    return [netInfo currentRadioAccessTechnology];
+#else
+    return nil;
+#endif
+}
+
 + (int) getTransactionId {
     return arc4random() % (999999 - 100000+1) + 100000;
 }
@@ -167,9 +202,13 @@
     }
     else
     {
+        // TODO eliminate this block once minimum version is OS X 10+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
         Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
         Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
+#pragma clang diagnostic pop
     }
     NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
                                osxMinorVersion, osxPatchFixVersion];
