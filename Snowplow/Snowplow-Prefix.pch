@@ -9,8 +9,8 @@
 #endif
 
 #ifdef SNOWPLOW_DEBUG
-#    define DLog(...) NSLog(__VA_ARGS__)
+#    define SnowplowDLog(...) NSLog(__VA_ARGS__)
 #else
-#    define DLog(...)
+#    define SnowplowDLog(...)
 #endif
 #define ALog(...) NSLog(__VA_ARGS__)

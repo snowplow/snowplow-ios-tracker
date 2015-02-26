@@ -67,7 +67,7 @@
     NSDictionary *object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     
     if (error) {
-        DLog(@"addJsonToPayload: error: %@", error.localizedDescription);
+        SnowplowDLog(@"addJsonToPayload: error: %@", error.localizedDescription);
         return;
     }
     
