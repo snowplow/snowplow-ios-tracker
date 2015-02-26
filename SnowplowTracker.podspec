@@ -25,6 +25,7 @@ Pod::Spec.new do |s|
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
   s.osx.frameworks = 'AppKit', 'Foundation'
   s.dependency 'FMDB', '~> 2.3'
+  s.ios.dependency 'Reachability', '~> 3.2'
 
   s.prefix_header_contents = <<-EOS
 EOS
