@@ -122,7 +122,7 @@
     }
     else
     {
-        return @"none";
+        return nil;
     }
 #else
     return nil;
