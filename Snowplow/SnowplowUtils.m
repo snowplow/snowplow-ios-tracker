@@ -106,7 +106,23 @@
 
 + (NSString *) getNetworkType {
 #if TARGET_OS_IPHONE
-    return @"wifi";
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    if(status == NotReachable)
+    {
+        return @"none";
+    }
+    else if (status == ReachableViaWiFi)
+    {
+        return @"wifi";
+    }
+    else if (status == ReachableViaWWAN)
+    {
+        reutrn @"mobile";
+    }
 #else
     return @"";
 #endif
@@ -114,7 +130,8 @@
 
 + (NSString *) getNetworkTechnology {
 #if TARGET_OS_IPHONE
-    return @"3g";
+    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+    return [netInfo currentRadioAccessTechnology];
 #else
     return @"";
 #endif
