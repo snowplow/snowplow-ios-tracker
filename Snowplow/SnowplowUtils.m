@@ -103,6 +103,40 @@
 #endif
 }
 
+
++ (NSString *) getNetworkType {
+#if TARGET_OS_IPHONE
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    if(status == NotReachable)
+    {
+        return @"none";
+    }
+    else if (status == ReachableViaWiFi)
+    {
+        return @"wifi";
+    }
+    else if (status == ReachableViaWWAN)
+    {
+        reutrn @"mobile";
+    }
+#else
+    return @"";
+#endif
+}
+
++ (NSString *) getNetworkTechnology {
+#if TARGET_OS_IPHONE
+    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
+    return [netInfo currentRadioAccessTechnology];
+#else
+    return @"";
+#endif
+}
+
 + (int) getTransactionId {
     return arc4random() % (999999 - 100000+1) + 100000;
 }
