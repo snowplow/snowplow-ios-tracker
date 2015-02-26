@@ -21,6 +21,7 @@
 //
 
 #import "SnowplowPayload.h"
+#import "Snowplow.h"
 
 @implementation SnowplowPayload {
     NSMutableDictionary * _payload;
