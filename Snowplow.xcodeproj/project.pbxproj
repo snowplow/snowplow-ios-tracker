@@ -36,6 +36,7 @@
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
 		ABFCC3761922984A00FAE8FE /* SnowplowUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */; };
 		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
+		AE0E16AD1A9FB04D009F32DC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE0E16AC1A9FB04D009F32DC /* SystemConfiguration.framework */; };
 		AEA2FCE11A8CDF8100123462 /* libSnowplow-OSX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */; };
 		AEA2FCED1A8CE0DF00123462 /* SnowplowEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SnowplowEmitter.m */; };
 		AEA2FCEE1A8CE0DF00123462 /* SnowplowPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SnowplowPayload.m */; };
@@ -121,6 +122,7 @@
 		ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SnowplowUtils.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowUtils.m; sourceTree = "<group>"; };
 		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
+		AE0E16AC1A9FB04D009F32DC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libSnowplow-OSX.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA2FCE01A8CDF8100123462 /* Snowplow-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA2FCE61A8CDF8100123462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE0E16AD1A9FB04D009F32DC /* SystemConfiguration.framework in Frameworks */,
 				AB9E8214192DEC38006744C9 /* CoreTelephony.framework in Frameworks */,
 				ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */,
 				AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */,
@@ -213,6 +216,7 @@
 		AB0C27BF191B408200018557 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AE0E16AC1A9FB04D009F32DC /* SystemConfiguration.framework */,
 				AB9E8213192DEC38006744C9 /* CoreTelephony.framework */,
 				ABB67D8C192D9552009A1ECE /* UIKit.framework */,
 				AB0C27C0191B408200018557 /* Foundation.framework */,

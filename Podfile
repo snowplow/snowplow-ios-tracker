@@ -10,6 +10,7 @@ target :lib, :exclusive => true do
   platform :ios, '7.0'
   link_with ['Snowplow']
   pod 'FMDB', '~> 2.3'
+  pod 'Reachability', '~>3.2'
 end
 
 target :specs, :exclusive => true do
