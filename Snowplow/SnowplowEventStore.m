@@ -52,10 +52,10 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
     if(self){
         _db = [FMDatabase databaseWithPath:_dbPath];
         if([_db open]) {
-            DLog(@"db description: %@", [_db databasePath]);
+            SnowplowDLog(@"db description: %@", [_db databasePath]);
             [self createTable];
         } else {
-            DLog(@"Failed to open database. Events in memory will not persist!");
+            SnowplowDLog(@"Failed to open database. Events in memory will not persist!");
         }
         [_db close];
     }
@@ -91,7 +91,7 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
 
 - (BOOL) removeEventWithId:(long long int)id_ {
     if([_db open]) {
-        DLog(@"Removing %lld from database now.", id_);
+        SnowplowDLog(@"Removing %lld from database now.", id_);
         return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
     } else {
         return false;
@@ -140,7 +140,7 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
         FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
         while ([s next]) {
             NSData * data = [s dataForColumn:@"eventData"];
-            DLog(@"Item: %d %@ %@",
+            SnowplowDLog(@"Item: %d %@ %@",
                  [s intForColumn:@"ID"],
                  [s dateForColumn:@"dateCreated"],
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -177,7 +177,7 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
             long long int index = [s longLongIntForColumn:@"ID"];
             NSData * data =[s dataForColumn:@"eventData"];
             NSDate * date = [s dateForColumn:@"dateCreated"];
-            DLog(@"Item: %lld %@ %@",
+            SnowplowDLog(@"Item: %lld %@ %@",
                  index,
                  [date description],
                  [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
