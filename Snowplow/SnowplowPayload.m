@@ -48,6 +48,9 @@
 
 - (void) addValueToPayload:(NSString *)value forKey:(NSString *)key {
     if (value == nil) {
+        if ([_payload valueForKey:key] != nil) {
+            [_payload removeObjectForKey:key];
+        }
         return;
     }
     [_payload setObject:value forKey:key];
