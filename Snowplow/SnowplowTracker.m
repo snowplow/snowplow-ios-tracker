@@ -37,9 +37,9 @@ NSString * const kIglu                  = @"iglu:";
 Boolean    const kDefaultEncodeBase64   = true;
 
 #if TARGET_OS_IPHONE
-NSString * const kVersion               = @"ios-0.3.1";
+NSString * const kVersion               = @"ios-0.3.2";
 #else
-NSString * const kVersion               = @"osx-0.3.1";
+NSString * const kVersion               = @"osx-0.3.2";
 #endif
 
 @synthesize collector;
