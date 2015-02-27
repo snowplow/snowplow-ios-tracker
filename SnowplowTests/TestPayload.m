@@ -128,6 +128,20 @@
                           @"Payload should have the same data as sample_dict_final");
 }
 
+- (void)testAddNilValueToPayload
+{
+    SnowplowPayload *payload = [[SnowplowPayload alloc] init];
+    [payload addValueToPayload:nil forKey:@"foo"];
+    XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
+}
+
+- (void)testAddNilValueToPayloadUnsetsKey
+{
+    SnowplowPayload *payload = [[SnowplowPayload alloc] initWithNSDictionary:@{@"foo":@"bar"}];
+    [payload addValueToPayload:nil forKey:@"foo"];
+    XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
+}
+
 - (void)testAddDictToPayload
 {
     NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
