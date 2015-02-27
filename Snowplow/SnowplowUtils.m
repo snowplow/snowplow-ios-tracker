@@ -189,4 +189,22 @@
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 
+
++ (NSString *)urlEncodeString:(NSString *)s {
+    if (!s) {
+        return @"";   
+    }
+    return (NSString *)CFBridgingRelease(
+      CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) s, NULL, (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+      CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
+}
+
++ (NSString *)urlEncodeDictionary:(NSDictionary *)d {
+    NSMutableArray *keyValuePairs = [NSMutableArray arrayWithCapacity:d.count];
+    [d enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+        [keyValuePairs addObject:[NSString stringWithFormat:@"%@=%@", [self urlEncodeString:key], [self urlEncodeString:[value description]]]];
+    }];
+    return [keyValuePairs componentsJoinedByString:@"&"];
+}
+
 @end
