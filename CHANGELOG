@@ -1,4 +1,4 @@
-Version 0.3.2 (2015-02-27)
+Version 0.3.2 (2015-02-28)
 --------------------------
 Now using a querystring, not an HTTP body for GET, thanks @loufranco! (#141)
 Removed unused ifdef around Base64 encoding, thanks @duncan! (#138)
@@ -6,6 +6,7 @@ Quieted unused variable warnings, thanks @duncan! (#139)
 Quieted Gestalt method deprecation warnings, thanks @duncan! (#140)
 Now unsetting payload key when value is nil, thanks @duncan! (#147)
 Made SnowplowUtils public in podspec (#145)
+Now using URL-safe Base64 without padding, thanks @loufranco! (#150)
 
 Version 0.3.1 (2015-02-17)
 --------------------------
