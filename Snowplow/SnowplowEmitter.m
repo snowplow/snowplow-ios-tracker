@@ -206,13 +206,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) sendGetData:(NSDictionary *)getData withDbIndexArray:(NSMutableArray *)dbIndexArray {
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:getData options:0 error:nil];
-    
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
+    NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SnowplowUtils urlEncodeDictionary:getData]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"GET";
-    [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setValue:[self acceptContentTypeHeader] forHTTPHeaderField:@"Accept"];
-    [request setHTTPBody:requestData];
     
     NSURLSessionDataTask *dataTask = [[[self class] snowplowURLSession]
                                       dataTaskWithRequest:request

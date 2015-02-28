@@ -128,6 +128,20 @@
                           @"Payload should have the same data as sample_dict_final");
 }
 
+- (void)testAddNilValueToPayload
+{
+    SnowplowPayload *payload = [[SnowplowPayload alloc] init];
+    [payload addValueToPayload:nil forKey:@"foo"];
+    XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
+}
+
+- (void)testAddNilValueToPayloadUnsetsKey
+{
+    SnowplowPayload *payload = [[SnowplowPayload alloc] initWithNSDictionary:@{@"foo":@"bar"}];
+    [payload addValueToPayload:nil forKey:@"foo"];
+    XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
+}
+
 - (void)testAddDictToPayload
 {
     NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
@@ -164,7 +178,7 @@
     NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"Value1", @"Key1", nil];
     NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                @"eyJLZXkxIjoiVmFsdWUxIn0=", @"type_enc", nil];
+                                @"eyJLZXkxIjoiVmFsdWUxIn0", @"type_enc", nil];
     // NSDictionary conversion to JSON string
     NSData *somedata = [NSJSONSerialization dataWithJSONObject:sample_dic options:0 error:0];
     
@@ -220,7 +234,7 @@
     // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
 
     NSDictionary *sample_enc = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                @"eyJLZXkxIjoiVmFsdWUxIn0=", @"type_enc", nil];
+                                @"eyJLZXkxIjoiVmFsdWUxIn0", @"type_enc", nil];
     NSString *json_str = @"{\"Key1\":\"Value1\"}";
     
     SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];

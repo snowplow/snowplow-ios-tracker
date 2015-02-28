@@ -167,9 +167,13 @@
     }
     else
     {
+        // TODO eliminate this block once minimum version is OS X 10+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
         Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
         Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
+#pragma clang diagnostic pop
     }
     NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
                                osxMinorVersion, osxPatchFixVersion];
@@ -187,6 +191,24 @@
 
 + (NSString *) getAppId {
     return [[NSBundle mainBundle] bundleIdentifier];
+}
+
+
++ (NSString *)urlEncodeString:(NSString *)s {
+    if (!s) {
+        return @"";   
+    }
+    return (NSString *)CFBridgingRelease(
+      CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) s, NULL, (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+      CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
+}
+
++ (NSString *)urlEncodeDictionary:(NSDictionary *)d {
+    NSMutableArray *keyValuePairs = [NSMutableArray arrayWithCapacity:d.count];
+    [d enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop) {
+        [keyValuePairs addObject:[NSString stringWithFormat:@"%@=%@", [self urlEncodeString:key], [self urlEncodeString:[value description]]]];
+    }];
+    return [keyValuePairs componentsJoinedByString:@"&"];
 }
 
 @end
