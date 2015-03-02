@@ -76,10 +76,21 @@
     }
     
     // Checks if it conforms to NSDictionary type
-    if([object isKindOfClass:[NSDictionary class]]) {
+    if ([object isKindOfClass:[NSDictionary class]]) {
         NSString *encodedString = nil;
-        if(encode) {
+        if (encode) {
             encodedString = [json base64EncodedStringWithOptions:0];
+
+            // We need URL safe with no padding. Since there is no built-in way to do this, we transform
+            // the encoded payload to make it URL safe by replacing chars that are different in the URL-safe
+            // alphabet. Namely, 62 is - instead of +, and 63 _ instead of /.
+            // See: https://tools.ietf.org/html/rfc4648#section-5
+            encodedString = [[encodedString stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
+                             stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
+
+            // There is also no padding since the length is implicitly known.
+            encodedString = [encodedString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"="]];
+            
             [self addValueToPayload:encodedString forKey:typeEncoded];
         } else {
             [self addValueToPayload:[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] forKey:typeNotEncoded];
