@@ -177,4 +177,31 @@
     NSLog(@"appId: %@", [SnowplowUtils getAppId]);
 }
 
+- (void)testUrlEncodingString
+{
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@""], @"");
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:nil], @"");
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a"], @"a");
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a b"], @"a%20b");
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a=&"], @"a%3D%26");
+}
+
+- (void)testUrlEncodingDictionary
+{
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:nil], @"");
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:@{@"a": @"b"}], @"a=b");
+    
+    id twoKeys = @{@"a" : @"b", @"c" : @"d" };
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:twoKeys], @"a=b&c=d");
+    
+    id intValues = @{@"a" : @(-5), @"c" : @(3) };
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:intValues], @"a=-5&c=3");
+    
+    id boolValues = @{@"a" : @(NO), @"c" : @(YES) };
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:boolValues], @"a=0&c=1");
+
+    id encodedValues = @{@"a" : @" ", @"c" : @"=" };
+    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
+}
+
 @end

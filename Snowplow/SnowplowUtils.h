@@ -135,4 +135,18 @@
  */
 + (NSString *) getAppId;
 
+/**
+ *  URL encodes a string so that it is suitable to use in a query-string. A nil s returns @"".
+ *  @return The url encoded string
+ */
++ (NSString *)urlEncodeString:(NSString *)s;
+
+/**
+ *  URL encodes a dictionary as key=value pairs separated by &, so that it can be used in a query-string.
+ *  This method can encode string, numbers, and bool values, and not embedded arrays or dictionaries. It
+ *  encodes bool as 1 and 0.
+ *  @return The url encoded string of the dictionary
+ */
++ (NSString *)urlEncodeDictionary:(NSDictionary *)d;
+
 @end
