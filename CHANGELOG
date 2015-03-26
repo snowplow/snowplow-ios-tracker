@@ -1,3 +1,9 @@
+Version 0.3.3 (2015-03-26)
+--------------------------
+Fixed Travis button in README (#152) 	
+Fixed the immediate flushing of the buffer (#153) 	
+Fixed incorrect content type sent if GA SDK also running (#160)
+
 Version 0.3.2 (2015-02-28)
 --------------------------
 Now using a querystring, not an HTTP body for GET, thanks @loufranco! (#141)
