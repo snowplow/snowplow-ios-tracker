@@ -34,8 +34,8 @@ limitations under the License.
 [2]: http://snowplowanalytics.com/
 [3]: https://www.apple.com/ios/
 
-[travis]: https://travis-ci.org/snowplow/snowplow-ios-tracker
-[travis-image]: https://travis-ci.org/snowplow/snowplow-ios-tracker.png?branch=master
+[travis]: https://travis-ci.org/snowplow/snowplow-objc-tracker
+[travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.png?branch=master
 
 [license]: http://www.apache.org/licenses/LICENSE-2.0
 [license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat

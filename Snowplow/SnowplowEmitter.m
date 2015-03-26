@@ -96,8 +96,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
     [_buffer addObject:spPayload.getPayloadAsDictionary];
     [_db insertEvent:spPayload];
-    if([_buffer count] == _bufferOption || [_db count] != 0)
+    if ([_buffer count] == _bufferOption) {
         [self flushBuffer];
+    }
 }
 
 - (void) addToOutQueue:(SnowplowPayload *)payload {
@@ -169,9 +170,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:postData options:0 error:nil];
     
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
-    request.HTTPMethod = @"POST";
     [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setValue:[self acceptContentTypeHeader] forHTTPHeaderField:@"Accept"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
     [request setHTTPBody:requestData];
     
     NSURLSessionDataTask *dataTask = [[[self class] snowplowURLSession]
