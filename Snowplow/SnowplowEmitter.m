@@ -96,8 +96,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
     [_buffer addObject:spPayload.getPayloadAsDictionary];
     [_db insertEvent:spPayload];
-    if([_buffer count] == _bufferOption || [_db count] != 0)
+    if ([_buffer count] == _bufferOption) {
         [self flushBuffer];
+    }
 }
 
 - (void) addToOutQueue:(SnowplowPayload *)payload {
