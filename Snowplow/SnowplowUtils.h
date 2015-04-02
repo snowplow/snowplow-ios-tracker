@@ -73,6 +73,16 @@
 + (NSString *) getCarrierName;
 
 /**
+ *
+ */
++ (NSString *) getNetworkType;
+
+/**
+ *
+ */
++ (NSString *) getNetworkTechnology;
+
+/**
  *  Generates a randomly generated 6-digit integer.
  *  @return A random 6-digit int.
  */
