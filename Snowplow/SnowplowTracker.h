@@ -26,10 +26,11 @@
 
 @interface SnowplowTracker : NSObject
 
-@property (retain)              SnowplowEmitter *   collector;
-@property (retain)              NSString *          appId;
-@property (retain)              NSString *          trackerNamespace;
-@property (nonatomic, retain)   NSString *          userId;
+@property (retain)                  SnowplowEmitter *       collector;
+@property (retain)                  NSString *              appId;
+@property (retain)                  NSString *              trackerNamespace;
+    @property (nonatomic, retain)   NSString *              userId;
+@property (nonatomic, retain)       NSMutableDictionary *   standardData;
 
 extern NSString * const kSnowplowVendor;
 extern NSString * const kIglu;
