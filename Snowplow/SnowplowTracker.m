@@ -26,7 +26,6 @@
 
 @implementation SnowplowTracker {
     Boolean                 _base64Encoded;
-    NSMutableDictionary *   _standardData;
     NSString *              _schemaTag;
     NSString *              _contextSchema;
     NSString *              _unstructedEventSchema;
