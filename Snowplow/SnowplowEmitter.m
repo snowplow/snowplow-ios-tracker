@@ -131,7 +131,15 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 - (void) flushBuffer {
     DLog(@"Flushing buffer..");
     // Avoid calling flush to send an empty buffer
-    if ([_buffer count] == 0 && [_db count] == 0) {
+    NSArray *listValues = nil;
+    
+    if (_bufferOption == SnowplowBufferInstant){
+        listValues = [_db getAllNonPendingEvents];
+    }else{
+        listValues = [_db getAllNonPendingEventsLimited:_bufferOption];
+    }
+
+    if ([listValues count] == 0) {
         DLog(@"Database empty. Returning..");
         return;
     }
@@ -141,11 +149,13 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         
         NSMutableArray *eventArray = [[NSMutableArray alloc] init];
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        for (NSDictionary * eventWithMetaData in [_db getAllNonPendingEvents]) {
+        
+        for (NSDictionary * eventWithMetaData in listValues) {
             [eventArray addObject:[eventWithMetaData objectForKey:@"eventData"]];
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
             [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
         }
+        
         NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
         [payload setValue:kPayloadDataSchema forKey:@"schema"];
         [payload setValue:eventArray forKey:@"data"];
@@ -154,7 +164,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     } else if ([_httpMethod isEqual:@"GET"]) {
         
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        for (NSDictionary * eventWithMetaData in [_db getAllNonPendingEvents]) {
+        for (NSDictionary * eventWithMetaData in listValues) {
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
             [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
             [self sendGetData:[eventWithMetaData objectForKey:@"eventData"] withDbIndexArray:indexArray];
@@ -163,6 +173,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
+    
     [_buffer removeAllObjects];
 }
 
@@ -202,6 +213,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                 [dbIndexArray removeObjectsInArray:removedIDs];
 
             }];
+            
+            // Check pending values
+            [self flushBuffer];
         }
     }];
     [dataTask resume];
