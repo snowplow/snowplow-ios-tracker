@@ -184,6 +184,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         if (error)
         {
             NSLog(@"Error: %@", error);
+            
+            if (![self serverError:error])
+                return;
+            
             for (int i=0; i < dbIndexArray.count;  i++) {
                 [_db removePendingWithId:(long long int)dbIndexArray[i]];
             }
@@ -220,6 +224,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                                                           NSError *error) {
         if (error) {
             NSLog(@"Error: %@", error);
+            
+            if (![self serverError:error])
+                return;
+            
             for (int i=0; i < dbIndexArray.count;  i++) {
                 [_db removePendingWithId:(long long int)dbIndexArray[i]];
             }
@@ -239,7 +247,22 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     }];
     [dataTask resume];
 }
-                       
+
+
+- (BOOL) serverError:(NSError*)error
+{
+    NSUInteger code = [error code];
+    BOOL status = YES;
+    
+    if (code == NSURLErrorNotConnectedToInternet ||
+        code == NSURLErrorNetworkConnectionLost ||
+        code == NSURLErrorTimedOut){
+        status = NO;
+    }
+    
+    return status;
+}
+
 
 - (NSString *)acceptContentTypeHeader
 {
