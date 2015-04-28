@@ -31,7 +31,6 @@
     FMDatabase *    _db;
 }
 
-static NSString * const _queryDeleteId          = @"DELETE FROM 'events' WHERE id=?";
 static NSString * const _queryCreateTable               = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 static NSString * const _querySelectAll                 = @"SELECT * FROM 'events'";
 static NSString * const _querySelectCount               = @"SELECT Count(*) FROM 'events'";
@@ -160,7 +159,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
 }
 
 - (NSArray *) getAllNonPendingEventsLimited:(NSUInteger)limit {
-    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %i", _querySelectNonPending, limit];
+    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %lu", _querySelectNonPending, (unsigned long)limit];
     return [self getAllEventsWithQuery:query];
 }
 
