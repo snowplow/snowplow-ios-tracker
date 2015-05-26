@@ -23,6 +23,7 @@
 #import "SnowplowEmitter.h"
 #import "SnowplowEventStore.h"
 #import "SnowplowUtils.h"
+#import "SnowplowPayload.h"
 #import <FMDB.h>
 
 @implementation SnowplowEmitter {
