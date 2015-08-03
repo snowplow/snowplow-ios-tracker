@@ -28,7 +28,7 @@
 @implementation SnowplowEmitter {
     NSURL *                     _urlEndpoint;
     NSString *                  _httpMethod;
-    NSMutableArray *            _buffer; // TODO: Convert to counter instead of array
+    int                         _buffer;
     enum SnowplowBufferOptions  _bufferOption;
     NSTimer *                   _timer;
     SnowplowEventStore *        _db;
@@ -76,7 +76,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _urlEndpoint = url;
         _httpMethod = method;
         _bufferOption = option;
-        _buffer = [[NSMutableArray alloc] init];
+        _buffer = 0;
         _db = [[SnowplowEventStore alloc] init];
         if([method isEqual: @"GET"]) {
             _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
@@ -94,10 +94,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
-    [_buffer addObject:spPayload.getPayloadAsDictionary];
+    _buffer++;
     [_db insertEvent:spPayload];
-    if ([_buffer count] == _bufferOption) {
+    if (_buffer == _bufferOption) {
         [self flushBuffer];
+        _buffer = 0;
     }
 }
 
@@ -173,8 +174,6 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
-    
-    [_buffer removeAllObjects];
 }
 
 - (void) sendPostData:(NSDictionary *)postData withDbIndexArray:(NSMutableArray *)dbIndexArray {
