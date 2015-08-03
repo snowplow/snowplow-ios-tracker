@@ -103,6 +103,12 @@
 - (NSArray *) getAllNonPendingEvents;
 
 /**
+ *  Returns limited number the events that are NOT pending in an array of dictionaries.
+ *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
+ */
+- (NSArray *) getAllNonPendingEventsLimited:(NSUInteger)limit;
+
+/**
  *  Returns all event data of pending data.
  *  @return An array of event data with pending set as 1.
  */

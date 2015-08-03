@@ -31,16 +31,16 @@
     FMDatabase *    _db;
 }
 
-static NSString * const _queryCreateTable       = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-static NSString * const _querySelectAll         = @"SELECT * FROM 'events'";
-static NSString * const _querySelectCount       = @"SELECT Count(*) FROM 'events'";
-static NSString * const _queryInsertEvent       = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
-static NSString * const _querySelectId          = @"SELECT * FROM 'events' WHERE id=?";
-static NSString * const _queryDeleteId          = @"DELETE FROM 'events' WHERE id=?";
-static NSString * const _querySelectPending     = @"SELECT * FROM 'events' WHERE pending=1";
-static NSString * const _querySelectNonPending  = @"SELECT * FROM 'events' WHERE pending=0";
-static NSString * const _querySetPending        = @"UPDATE events SET pending=1 WHERE id=?";
-static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 WHERE id=?";
+static NSString * const _queryCreateTable               = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+static NSString * const _querySelectAll                 = @"SELECT * FROM 'events'";
+static NSString * const _querySelectCount               = @"SELECT Count(*) FROM 'events'";
+static NSString * const _queryInsertEvent               = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
+static NSString * const _querySelectId                  = @"SELECT * FROM 'events' WHERE id=?";
+static NSString * const _queryDeleteId                  = @"DELETE FROM 'events' WHERE id=?";
+static NSString * const _querySelectPending             = @"SELECT * FROM 'events' WHERE pending=1";
+static NSString * const _querySelectNonPending          = @"SELECT * FROM 'events' WHERE pending=0";
+static NSString * const _querySetPending                = @"UPDATE events SET pending=1 WHERE id=?";
+static NSString * const _querySetNonPending             = @"UPDATE events SET pending=0 WHERE id=?";
 
 
 @synthesize appId;
@@ -156,6 +156,11 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
 
 - (NSArray *) getAllNonPendingEvents {
     return [self getAllEventsWithQuery:_querySelectNonPending];
+}
+
+- (NSArray *) getAllNonPendingEventsLimited:(NSUInteger)limit {
+    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %lu", _querySelectNonPending, (unsigned long)limit];
+    return [self getAllEventsWithQuery:query];
 }
 
 - (NSArray *) getAllPendingEvents {
