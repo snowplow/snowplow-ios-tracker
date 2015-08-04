@@ -54,6 +54,12 @@
 - (long long int) insertDicitionaryData:(NSDictionary *)dict;
 
 /**
+ *  Removes all entries which have a value of NSNull from the dictionary before submitting it to the
+ *  SQLite DB.
+ */
+- (NSDictionary *) getCleanDictionary:(NSDictionary *)dict;
+
+/**
  *  Removes an event from the table with the supplied id.
  *  @param id_ Unique ID of the row in the events table to be deleted.
  *  @return Returns the status of the SQL query sent.

@@ -80,7 +80,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
     __block long long int res = -1;
     [_queue inDatabase:^(FMDatabase *db) {
         if([db open]) {
-            NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
+            NSData *data = [NSJSONSerialization dataWithJSONObject:[self getCleanDictionary:dict] options:0 error:nil];
             [db executeUpdate:_queryInsertEvent, data];
             res = (long long int) [db lastInsertRowId];
         } else {
@@ -88,6 +88,16 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
         }
     }];
     return res;
+}
+
+- (NSDictionary *) getCleanDictionary:(NSDictionary *)dict {
+    NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];
+    for (NSString * key in [dict allKeys]) {
+        if (![[dict objectForKey:key] isKindOfClass:[NSNull class]]) {
+            [cleanDictionary setObject:[dict objectForKey:key] forKey:key];
+        }
+    }
+    return cleanDictionary;
 }
 
 - (BOOL) removeEventWithId:(long long int)id_ {

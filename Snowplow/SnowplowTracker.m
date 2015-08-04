@@ -63,8 +63,8 @@ NSString * const kVersion               = @"osx-0.3.3";
         collector = collector_;
         _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                          kVersion, @"tv",
-                         namespace_, @"tna",
-                         appId_, @"aid", nil];
+                         namespace_ != nil ? namespace_ : [NSNull null], @"tna",
+                         appId_ != nil ? appId_ : [NSNull null], @"aid", nil];
     }
     return self;
 }
