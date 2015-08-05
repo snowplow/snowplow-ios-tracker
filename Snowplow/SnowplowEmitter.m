@@ -75,13 +75,13 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option {
     self = [super init];
-    if(self) {
+    if (self) {
         _urlEndpoint = url;
         _httpMethod = method;
         _isSending = false;
         _bufferOption = option;
         _db = [[SnowplowEventStore alloc] init];
-        if([method isEqual: @"GET"]) {
+        if ([method isEqual: @"GET"]) {
             _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         } else {
             _urlEndpoint = [url URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];

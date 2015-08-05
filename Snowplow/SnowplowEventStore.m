@@ -49,7 +49,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
     self = [super init];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
-    if(self){
+    if (self){
         _queue = [FMDatabaseQueue databaseQueueWithPath:_dbPath];
         [self createTable];
     }
@@ -63,7 +63,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
 - (BOOL) createTable {
     __block BOOL res = false;
     [_queue inDatabase:^(FMDatabase *db) {
-        if([db open]) {
+        if ([db open]) {
             res = [db executeStatements:_queryCreateTable];
         } else {
             res = false;
@@ -73,13 +73,13 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
 }
 
 - (long long int) insertEvent:(SnowplowPayload *)payload {
-    return [self insertDicitionaryData:[payload getPayloadAsDictionary]];
+    return [self insertDictionaryData:[payload getPayloadAsDictionary]];
 }
 
-- (long long int) insertDicitionaryData:(NSDictionary *)dict {
+- (long long int) insertDictionaryData:(NSDictionary *)dict {
     __block long long int res = -1;
     [_queue inDatabase:^(FMDatabase *db) {
-        if([db open]) {
+        if ([db open]) {
             NSData *data = [NSJSONSerialization dataWithJSONObject:[self getCleanDictionary:dict] options:0 error:nil];
             [db executeUpdate:_queryInsertEvent, data];
             res = (long long int) [db lastInsertRowId];
@@ -103,7 +103,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
 - (BOOL) removeEventWithId:(long long int)id_ {
     __block BOOL res = false;
     [_queue inDatabase:^(FMDatabase *db) {
-        if([db open]) {
+        if ([db open]) {
             DLog(@"Removing %lld from database now.", id_);
             res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
         } else {
@@ -165,7 +165,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
 - (NSDictionary *) getEventWithId:(long long int)id_ {
     __block NSDictionary *dict = nil;
     [_queue inDatabase:^(FMDatabase *db) {
-        if([db open]) {
+        if ([db open]) {
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
                 NSData * data = [s dataForColumn:@"eventData"];
@@ -196,7 +196,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
 - (NSArray *) getAllPendingEvents {
     __block NSMutableArray *res = [[NSMutableArray alloc] init];
     [_queue inDatabase:^(FMDatabase *db) {
-        if([db open]) {
+        if ([db open]) {
             FMResultSet *s = [db executeQuery:_querySelectPending];
             while ([s next]) {
                 [res addObject:[s dataForColumn:@"eventData"]];
@@ -209,7 +209,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
 - (NSArray *) getAllEventsWithQuery:(NSString *)query {
     __block NSMutableArray *res = [[NSMutableArray alloc] init];
     [_queue inDatabase:^(FMDatabase *db) {
-        if([db open]) {
+        if ([db open]) {
             FMResultSet *s = [db executeQuery:query];
             while ([s next]) {
                 long long int index = [s longLongIntForColumn:@"ID"];

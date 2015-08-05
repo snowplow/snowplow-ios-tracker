@@ -51,11 +51,13 @@
  *  @param dict An NSDictionary to be inserted into the database.
  *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
  */
-- (long long int) insertDicitionaryData:(NSDictionary *)dict;
+- (long long int) insertDictionaryData:(NSDictionary *)dict;
 
 /**
  *  Removes all entries which have a value of NSNull from the dictionary before submitting it to the
  *  SQLite DB.
+ *  @param dict An NSDictionary to be cleaned
+ *  @return the same NSDictionary without any Null values
  */
 - (NSDictionary *) getCleanDictionary:(NSDictionary *)dict;
 
