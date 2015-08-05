@@ -6,6 +6,7 @@ Fixed FMDB requirement for an operation queue to work properly in a concurrent w
 Fixed bug where appId is nullified if namespace is nil (#165)
 Using buffer size to limit number of events per POST, thanks @leonardors! (#169)
 Removed _buffer in SnowplowEmitter in favour of boolean counter (#173)
+Removed extra DB queue layer for removing events (#181)
 
 Version 0.3.3 (2015-03-26)
 --------------------------
