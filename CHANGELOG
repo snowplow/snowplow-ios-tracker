@@ -1,3 +1,12 @@
+Version 0.3.4 (2015-08-05)
+--------------------------
+Fixed Tracker sometimes POSTs when no events to post, thanks @leonardors! (#164)
+Fixed bug in PR whereby POST is sent with many events when Buffer type is instant (#178)
+Fixed FMDB requirement for an operation queue to work properly in a concurrent world (#179)
+Fixed bug where appId is nullified if namespace is nil (#165)
+Using buffer size to limit number of events per POST, thanks @leonardors! (#169)
+Removed _buffer in SnowplowEmitter in favour of boolean counter (#173)
+
 Version 0.3.3 (2015-03-26)
 --------------------------
 Fixed Travis button in README (#152) 	

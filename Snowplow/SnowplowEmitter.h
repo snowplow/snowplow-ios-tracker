@@ -89,4 +89,9 @@ enum SnowplowBufferOptions {
  */
 - (void) flushBuffer;
 
+/**
+ * Responsible for actually sending the events.  Will recursively check for more events to send every 5 seconds until no more events can be found for sending.
+ */
+- (void) sendEvents;
+
 @end

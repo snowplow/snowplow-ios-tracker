@@ -27,20 +27,20 @@
 
 @implementation SnowplowEventStore {
     @private
-    NSString *      _dbPath;
-    FMDatabase *    _db;
+    NSString *           _dbPath;
+    FMDatabaseQueue *    _queue;
 }
 
-static NSString * const _queryCreateTable       = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-static NSString * const _querySelectAll         = @"SELECT * FROM 'events'";
-static NSString * const _querySelectCount       = @"SELECT Count(*) FROM 'events'";
-static NSString * const _queryInsertEvent       = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
-static NSString * const _querySelectId          = @"SELECT * FROM 'events' WHERE id=?";
-static NSString * const _queryDeleteId          = @"DELETE FROM 'events' WHERE id=?";
-static NSString * const _querySelectPending     = @"SELECT * FROM 'events' WHERE pending=1";
-static NSString * const _querySelectNonPending  = @"SELECT * FROM 'events' WHERE pending=0";
-static NSString * const _querySetPending        = @"UPDATE events SET pending=1 WHERE id=?";
-static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 WHERE id=?";
+static NSString * const _queryCreateTable               = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+static NSString * const _querySelectAll                 = @"SELECT * FROM 'events'";
+static NSString * const _querySelectCount               = @"SELECT Count(*) FROM 'events'";
+static NSString * const _queryInsertEvent               = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
+static NSString * const _querySelectId                  = @"SELECT * FROM 'events' WHERE id=?";
+static NSString * const _queryDeleteId                  = @"DELETE FROM 'events' WHERE id=?";
+static NSString * const _querySelectPending             = @"SELECT * FROM 'events' WHERE pending=1";
+static NSString * const _querySelectNonPending          = @"SELECT * FROM 'events' WHERE pending=0";
+static NSString * const _querySetPending                = @"UPDATE events SET pending=1 WHERE id=?";
+static NSString * const _querySetNonPending             = @"UPDATE events SET pending=0 WHERE id=?";
 
 
 @synthesize appId;
@@ -49,105 +49,135 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
     self = [super init];
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
     _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
-    if(self){
-        _db = [FMDatabase databaseWithPath:_dbPath];
-        if([_db open]) {
-            DLog(@"db description: %@", [_db databasePath]);
-            [self createTable];
-        } else {
-            DLog(@"Failed to open database. Events in memory will not persist!");
-        }
-        [_db close];
+    if (self){
+        _queue = [FMDatabaseQueue databaseQueueWithPath:_dbPath];
+        [self createTable];
     }
     return self;
 }
 
 - (void) dealloc {
-    [_db close];
+    [_queue close];
 }
 
 - (BOOL) createTable {
-    if([_db open]) {
-        // Create table if not exists
-        return [_db executeStatements:_queryCreateTable];
-    } else {
-        return false;
-    }
+    __block BOOL res = false;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            res = [db executeStatements:_queryCreateTable];
+        } else {
+            res = false;
+        }
+    }];
+    return res;
 }
 
 - (long long int) insertEvent:(SnowplowPayload *)payload {
-    return [self insertDicitionaryData:[payload getPayloadAsDictionary]];
+    return [self insertDictionaryData:[payload getPayloadAsDictionary]];
 }
 
-- (long long int) insertDicitionaryData:(NSDictionary *)dict {
-    if([_db open]) {
-        NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
-        [_db executeUpdate:_queryInsertEvent, data];
-        return (long long int) [_db lastInsertRowId];
-    } else {
-        return -1;
+- (long long int) insertDictionaryData:(NSDictionary *)dict {
+    __block long long int res = -1;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            NSData *data = [NSJSONSerialization dataWithJSONObject:[self getCleanDictionary:dict] options:0 error:nil];
+            [db executeUpdate:_queryInsertEvent, data];
+            res = (long long int) [db lastInsertRowId];
+        } else {
+            res = -1;
+        }
+    }];
+    return res;
+}
+
+- (NSDictionary *) getCleanDictionary:(NSDictionary *)dict {
+    NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];
+    for (NSString * key in [dict allKeys]) {
+        if (![[dict objectForKey:key] isKindOfClass:[NSNull class]]) {
+            [cleanDictionary setObject:[dict objectForKey:key] forKey:key];
+        }
     }
+    return cleanDictionary;
 }
 
 - (BOOL) removeEventWithId:(long long int)id_ {
-    if([_db open]) {
-        DLog(@"Removing %lld from database now.", id_);
-        return [_db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
-    } else {
-        return false;
-    }
+    __block BOOL res = false;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            DLog(@"Removing %lld from database now.", id_);
+            res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
+        } else {
+            res = false;
+        }
+    }];
+    return res;
 }
 
 - (void) removeAllEvents {
-    if ([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectAll];
-        while ([s next]) {
-            long long int index = [s longLongIntForColumn:@"ID"];
-            [self removeEventWithId:index];
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectAll];
+            while ([s next]) {
+                long long int index = [s longLongIntForColumn:@"ID"];
+                [self removeEventWithId:index];
+            }
         }
-    }
+    }];
 }
 
 - (BOOL) setPendingWithId:(long long int)id_ {
-    if ([_db open]) {
-        return [_db executeUpdate:_querySetPending, id_];
-    } else {
-        return false;
-    }
+    __block BOOL res = false;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            res = [db executeUpdate:_querySetPending, id_];
+        } else {
+            res = false;
+        }
+    }];
+    return res;
 }
 
 - (BOOL) removePendingWithId:(long long int)id_ {
-    if ([_db open]) {
-        return [_db executeUpdate:_querySetPending, id_];
-    } else {
-        return false;
-    }
+    __block BOOL res = false;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            res = [db executeUpdate:_querySetNonPending, id_];
+        } else {
+            res = false;
+        }
+    }];
+    return res;
 }
 
 - (NSUInteger) count {
-    NSUInteger num = 0;
-    if ([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectCount];
-        while ([s next]) {
-            num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
+    __block NSUInteger num = 0;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectCount];
+            while ([s next]) {
+                num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
+            }
         }
-    }
+    }];
     return num;
 }
 
 - (NSDictionary *) getEventWithId:(long long int)id_ {
-    if([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
-        while ([s next]) {
-            NSData * data = [s dataForColumn:@"eventData"];
-            DLog(@"Item: %d %@ %@",
-                 [s intForColumn:@"ID"],
-                 [s dateForColumn:@"dateCreated"],
-                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            return [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+    __block NSDictionary *dict = nil;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
+            while ([s next]) {
+                NSData * data = [s dataForColumn:@"eventData"];
+                DLog(@"Item: %d %@ %@",
+                     [s intForColumn:@"ID"],
+                     [s dateForColumn:@"dateCreated"],
+                     [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+            }
         }
-    }
-    return nil;
+    }];
+    return dict;
 }
 
 - (NSArray *) getAllEvents {
@@ -158,42 +188,55 @@ static NSString * const _querySetNonPending     = @"UPDATE events SET pending=0 
     return [self getAllEventsWithQuery:_querySelectNonPending];
 }
 
+- (NSArray *) getAllNonPendingEventsLimited:(NSUInteger)limit {
+    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %lu", _querySelectNonPending, (unsigned long)limit];
+    return [self getAllEventsWithQuery:query];
+}
+
 - (NSArray *) getAllPendingEvents {
-    NSMutableArray *res = [[NSMutableArray alloc] init];
-    if([_db open]) {
-        FMResultSet *s = [_db executeQuery:_querySelectPending];
-        while ([s next]) {
-            [res addObject:[s dataForColumn:@"eventData"]];
+    __block NSMutableArray *res = [[NSMutableArray alloc] init];
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectPending];
+            while ([s next]) {
+                [res addObject:[s dataForColumn:@"eventData"]];
+            }
         }
-    }
+    }];
     return res;
 }
 
 - (NSArray *) getAllEventsWithQuery:(NSString *)query {
-    NSMutableArray *res = [[NSMutableArray alloc] init];
-    if([_db open]) {
-        FMResultSet *s = [_db executeQuery:query];
-        while ([s next]) {
-            long long int index = [s longLongIntForColumn:@"ID"];
-            NSData * data =[s dataForColumn:@"eventData"];
-            NSDate * date = [s dateForColumn:@"dateCreated"];
-            DLog(@"Item: %lld %@ %@",
-                 index,
-                 [date description],
-                 [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
-            NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
-            [eventWithSqlMetadata setValue:dict forKey:@"eventData"];
-            [eventWithSqlMetadata setValue:[NSNumber numberWithLongLong:index] forKey:@"ID"];
-            [eventWithSqlMetadata setValue:date forKey:@"dateCreated"];
-            [res addObject:eventWithSqlMetadata];
+    __block NSMutableArray *res = [[NSMutableArray alloc] init];
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:query];
+            while ([s next]) {
+                long long int index = [s longLongIntForColumn:@"ID"];
+                NSData * data =[s dataForColumn:@"eventData"];
+                NSDate * date = [s dateForColumn:@"dateCreated"];
+                DLog(@"Item: %lld %@ %@",
+                     index,
+                     [date description],
+                     [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+                NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
+                [eventWithSqlMetadata setValue:dict forKey:@"eventData"];
+                [eventWithSqlMetadata setValue:[NSNumber numberWithLongLong:index] forKey:@"ID"];
+                [eventWithSqlMetadata setValue:date forKey:@"dateCreated"];
+                [res addObject:eventWithSqlMetadata];
+            }
         }
-    }
+    }];
     return res;
 }
 
 - (long long int) getLastInsertedRowId {
-    return (long long int) [_db lastInsertRowId];
+    __block long long int res = -1;
+    [_queue inDatabase:^(FMDatabase *db) {
+        res = [db lastInsertRowId];
+    }];
+    return res;
 }
 
 @end

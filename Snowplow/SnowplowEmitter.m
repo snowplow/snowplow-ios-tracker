@@ -25,10 +25,13 @@
 #import "SnowplowUtils.h"
 #import <FMDB.h>
 
+@interface SnowplowEmitter()
+@property BOOL isSending;
+@end
+
 @implementation SnowplowEmitter {
     NSURL *                     _urlEndpoint;
     NSString *                  _httpMethod;
-    NSMutableArray *            _buffer; // TODO: Convert to counter instead of array
     enum SnowplowBufferOptions  _bufferOption;
     NSTimer *                   _timer;
     SnowplowEventStore *        _db;
@@ -72,13 +75,13 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option {
     self = [super init];
-    if(self) {
+    if (self) {
         _urlEndpoint = url;
         _httpMethod = method;
+        _isSending = false;
         _bufferOption = option;
-        _buffer = [[NSMutableArray alloc] init];
         _db = [[SnowplowEventStore alloc] init];
-        if([method isEqual: @"GET"]) {
+        if ([method isEqual: @"GET"]) {
             _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         } else {
             _urlEndpoint = [url URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];
@@ -94,11 +97,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
-    [_buffer addObject:spPayload.getPayloadAsDictionary];
-    [_db insertEvent:spPayload];
-    if ([_buffer count] == _bufferOption) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [_db insertEvent:spPayload];
         [self flushBuffer];
-    }
+    });
 }
 
 - (void) addToOutQueue:(SnowplowPayload *)payload {
@@ -117,53 +119,75 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     _bufferOption = buffer;
 }
 
-- (void) setBufferTime:(int) userTime {
-    int time = kDefaultBufferTimeout;
-    if(userTime <= 300) time = userTime; // 5 minute intervals
-    
-    _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
-}
-
 - (void) setUrlEndpoint:(NSURL *) url {
     _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
 }
 
+- (void) setBufferTime:(int) userTime {
+    int time = kDefaultBufferTimeout;
+    if (userTime <= 300) {
+        time = userTime; // 5 minute intervals
+    }
+    _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+}
+
 - (void) flushBuffer {
-    DLog(@"Flushing buffer..");
-    // Avoid calling flush to send an empty buffer
-    if ([_buffer count] == 0 && [_db count] == 0) {
+    if (_isSending == false) {
+        _isSending = true;
+        [self sendEvents];
+    }
+}
+
+- (void) sendEvents {
+    DLog(@"Sending events...");
+    
+    // Get a limited range of events to send
+    // TODO: Convert range into an emitter argument
+    NSArray *listValues = [_db getAllNonPendingEventsLimited:150];
+    
+    // Exit if there is nothing to send and reset
+    // isSending to false
+    if ([listValues count] == 0) {
         DLog(@"Database empty. Returning..");
+        _isSending = false;
         return;
     }
     
-    //Empties the buffer and sends the contents to the collector
-    if([_httpMethod isEqual:@"POST"]) {
+    // Empties the buffer and sends the contents to the collector
+    if ([_httpMethod isEqual:@"POST"]) {
         
-        NSMutableArray *eventArray = [[NSMutableArray alloc] init];
-        NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        for (NSDictionary * eventWithMetaData in [_db getAllNonPendingEvents]) {
-            [eventArray addObject:[eventWithMetaData objectForKey:@"eventData"]];
-            [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
-            [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
+        // Create POSTs with the correct amount of events
+        for (int i = 0; i < listValues.count; i += _bufferOption) {
+            NSMutableArray *eventArray = [[NSMutableArray alloc] init];
+            NSMutableArray *indexArray = [[NSMutableArray alloc] init];
+            
+            for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
+                [_db setPendingWithId:(long long int)[listValues[j] objectForKey:@"ID"]];
+                [eventArray addObject:[listValues[j] objectForKey:@"eventData"]];
+                [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
+            }
+            
+            NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
+            [payload setValue:kPayloadDataSchema forKey:@"schema"];
+            [payload setValue:eventArray forKey:@"data"];
+            [self sendPostData:payload withDbIndexArray:indexArray];
         }
-        NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-        [payload setValue:kPayloadDataSchema forKey:@"schema"];
-        [payload setValue:eventArray forKey:@"data"];
-        
-        [self sendPostData:payload withDbIndexArray:indexArray];
     } else if ([_httpMethod isEqual:@"GET"]) {
-        
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        for (NSDictionary * eventWithMetaData in [_db getAllNonPendingEvents]) {
-            [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
+        
+        for (NSDictionary * eventWithMetaData in listValues) {
             [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
+            [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendGetData:[eventWithMetaData objectForKey:@"eventData"] withDbIndexArray:indexArray];
         }
-        
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
-    [_buffer removeAllObjects];
+    
+    // Queue sending to occur again after 5 seconds
+    // TODO: Convert timeout into an emitter argument
+    [NSThread sleepForTimeInterval:5];
+    [self sendEvents];
 }
 
 - (void) sendPostData:(NSDictionary *)postData withDbIndexArray:(NSMutableArray *)dbIndexArray {
@@ -181,15 +205,12 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                                       completionHandler:^(NSData *data,
                                                           NSURLResponse *response,
                                                           NSError *error) {
-        if (error)
-        {
+        if (error) {
             NSLog(@"Error: %@", error);
             for (int i=0; i < dbIndexArray.count;  i++) {
                 [_db removePendingWithId:(long long int)dbIndexArray[i]];
             }
-        }
-        else
-        {
+        } else {
             DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             
             [_dbQueue inDatabase:^(FMDatabase *db) {
@@ -200,7 +221,6 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                     [removedIDs addObject:dbIndexArray[i]];
                 }
                 [dbIndexArray removeObjectsInArray:removedIDs];
-
             }];
         }
     }];
@@ -223,8 +243,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
             for (int i=0; i < dbIndexArray.count;  i++) {
                 [_db removePendingWithId:(long long int)dbIndexArray[i]];
             }
-        }
-        else {
+        } else {
             DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
             [_dbQueue inDatabase:^(FMDatabase *db) {
                 NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
@@ -239,7 +258,6 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     }];
     [dataTask resume];
 }
-                       
 
 - (NSString *)acceptContentTypeHeader
 {

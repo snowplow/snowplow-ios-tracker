@@ -37,9 +37,9 @@ NSString * const kIglu                  = @"iglu:";
 Boolean    const kDefaultEncodeBase64   = true;
 
 #if TARGET_OS_IPHONE
-NSString * const kVersion               = @"ios-0.3.3";
+NSString * const kVersion               = @"ios-0.3.4";
 #else
-NSString * const kVersion               = @"osx-0.3.3";
+NSString * const kVersion               = @"osx-0.3.4";
 #endif
 
 @synthesize collector;
@@ -63,8 +63,8 @@ NSString * const kVersion               = @"osx-0.3.3";
         collector = collector_;
         _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                          kVersion, @"tv",
-                         namespace_, @"tna",
-                         appId_, @"aid", nil];
+                         namespace_ != nil ? namespace_ : [NSNull null], @"tna",
+                         appId_ != nil ? appId_ : [NSNull null], @"aid", nil];
     }
     return self;
 }
