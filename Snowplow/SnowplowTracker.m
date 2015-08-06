@@ -23,6 +23,7 @@
 #import "SnowplowTracker.h"
 #import "SnowplowPayload.h"
 #import "SnowplowUtils.h"
+#import "SnowplowEmitter.h"
 
 @implementation SnowplowTracker {
     Boolean                 _base64Encoded;

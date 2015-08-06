@@ -8,6 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SnowplowEventStore.h"
+#import "SnowplowPayload.h"
 
 @interface TestEventStore : XCTestCase
 
