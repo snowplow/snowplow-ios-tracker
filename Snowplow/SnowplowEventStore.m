@@ -34,6 +34,8 @@
 static NSString * const _queryCreateTable               = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, pending INTEGER, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 static NSString * const _querySelectAll                 = @"SELECT * FROM 'events'";
 static NSString * const _querySelectCount               = @"SELECT Count(*) FROM 'events'";
+static NSString * const _querySelectCountPending        = @"SELECT Count(*) FROM 'events' WHERE pending=1";
+static NSString * const _querySelectCountNonPending     = @"SELECT Count(*) FROM 'events' WHERE pending=0";
 static NSString * const _queryInsertEvent               = @"INSERT INTO 'events' (eventData, pending) VALUES (?, 0)";
 static NSString * const _querySelectId                  = @"SELECT * FROM 'events' WHERE id=?";
 static NSString * const _queryDeleteId                  = @"DELETE FROM 'events' WHERE id=?";
@@ -154,6 +156,32 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
     [_queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             FMResultSet *s = [db executeQuery:_querySelectCount];
+            while ([s next]) {
+                num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
+            }
+        }
+    }];
+    return num;
+}
+
+- (NSUInteger) countPending {
+    __block NSUInteger num = 0;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectCountPending];
+            while ([s next]) {
+                num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
+            }
+        }
+    }];
+    return num;
+}
+
+- (NSUInteger) countNonPending {
+    __block NSUInteger num = 0;
+    [_queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectCountNonPending];
             while ([s next]) {
                 num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
             }

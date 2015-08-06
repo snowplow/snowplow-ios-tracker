@@ -94,4 +94,22 @@ enum SnowplowBufferOptions {
  */
 - (void) sendEvents;
 
+/**
+ * Returns the total Database Count
+ * @return returns the total DB Count
+ */
+- (NSUInteger) getDbCount;
+
+/**
+ * Returns the Pending Event Count
+ * @return returns the total DB Pending Count
+ */
+- (NSUInteger) getDbPendingCount;
+
+/**
+ * Returns the Non-Pending Count
+ * @return returns the total DB Non-Pending Count
+ */
+- (NSUInteger) getDbNonPendingCount;
+
 @end

@@ -99,6 +99,18 @@
 - (NSUInteger) count;
 
 /**
+ *  Number of Pending events in the database.
+ *  @return An integer of the number of pending events currently in the database.
+ */
+- (NSUInteger) countPending;
+
+/**
+ *  Number of Non-Pending events in the database.
+ *  @return An integer of the number of non-pending events currently in the database.
+ */
+- (NSUInteger) countNonPending;
+
+/**
  *  Returns all the events in an array of dictionaries.
  *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
  */
@@ -120,7 +132,7 @@
  *  Returns all event data of pending data.
  *  @return An array of event data with pending set as 1.
  */
-- (NSArray *) getAllPendingEvents __attribute__((deprecated));
+- (NSArray *) getAllPendingEvents;
 
 /**
  *  The row ID of the last insert made.

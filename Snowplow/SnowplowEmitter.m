@@ -253,6 +253,17 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 {
     return @"text/html, application/x-www-form-urlencoded, text/plain, image/gif";
 }
-                       
+
+- (NSUInteger) getDbCount {
+    return [_db count];
+}
+
+- (NSUInteger) getDbPendingCount {
+    return [_db getAllPendingEvents].count;
+}
+
+- (NSUInteger) getDbNonPendingCount {
+    return [_db getAllNonPendingEvents].count;
+}
 
 @end
