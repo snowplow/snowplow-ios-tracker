@@ -2,6 +2,7 @@ iOS Analytics for Snowplow
 ==========================
 
 [ ![Build Status] [travis-image] ] [travis]
+[ ![Coverage Status][coveralls-image] ][coveralls]
 [ ![Version] [cocoa-version] ] [cocoadocs]
 [ ![Platform] [cocoa-plaform] ] [cocoadocs]
 [ ![License] [license-image] ] [license]
@@ -36,6 +37,9 @@ limitations under the License.
 
 [travis]: https://travis-ci.org/snowplow/snowplow-objc-tracker
 [travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.png?branch=master
+
+[coveralls]: https://coveralls.io/r/snowplow/snowplow-objc-tracker?branch=release/0.4.0
+[coveralls-image]: https://coveralls.io/repos/snowplow/snowplow-objc-tracker/badge.png?branch=release/0.4.0
 
 [license]: http://www.apache.org/licenses/LICENSE-2.0
 [license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
