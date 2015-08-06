@@ -20,6 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SnowplowEmitter.h"
-#import "SnowplowTracker.h"
-#import "SnowplowPayload.h"
+#import <SnowplowTracker/SnowplowEmitter.h>
+#import <SnowplowTracker/SnowplowTracker.h>
+#import <SnowplowTracker/SnowplowPayload.h>
+#import <SnowplowTracker/SnowplowUtils.h>
