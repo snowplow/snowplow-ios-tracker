@@ -35,30 +35,11 @@
     enum SnowplowBufferOptions  _bufferOption;
     NSTimer *                   _timer;
     SnowplowEventStore *        _db;
+    NSOperationQueue *          _dataSendConnectionQueue;
 }
 
 static int       const kDefaultBufferTimeout = 60;
 static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
-
-+ (NSURLSession *)snowplowURLSession
-{
-    static NSURLSession *sharedSession = nil;
-    static dispatch_once_t onceToken;
-    
-    dispatch_once(&onceToken, ^()
-    {
-        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
-        sessionConfig.allowsCellularAccess = YES;
-        sessionConfig.HTTPShouldUsePipelining = YES;
-        sessionConfig.HTTPShouldSetCookies = YES;
-
-        sharedSession = [NSURLSession sessionWithConfiguration:sessionConfig
-                                                      delegate:nil
-                                                 delegateQueue:nil];
-    });
-    
-    return sharedSession;
-}
 
 - (id) init {
     return [self initWithURLRequest:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault];
@@ -80,6 +61,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _isSending = false;
         _bufferOption = option;
         _db = [[SnowplowEventStore alloc] init];
+        _dataSendConnectionQueue = [[NSOperationQueue alloc] init];
         if ([method isEqual: @"GET"]) {
             _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
         } else {
@@ -168,9 +150,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
             [self sendPostData:payload withDbIndexArray:indexArray];
         }
     } else if ([_httpMethod isEqual:@"GET"]) {
-        NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        
         for (NSDictionary * eventWithMetaData in listValues) {
+            NSMutableArray *indexArray = [[NSMutableArray alloc] init];
             [_db setPendingWithId:(long long int)[eventWithMetaData objectForKey:@"ID"]];
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendGetData:[eventWithMetaData objectForKey:@"eventData"] withDbIndexArray:indexArray];
@@ -195,28 +176,25 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:requestData];
     
-    NSURLSessionDataTask *dataTask = [[[self class] snowplowURLSession]
-                                      dataTaskWithRequest:request
-                                      completionHandler:^(NSData *data,
-                                                          NSURLResponse *response,
-                                                          NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-            for (int i=0; i < dbIndexArray.count;  i++) {
-                [_db removePendingWithId:(long long int)dbIndexArray[i]];
-            }
-        } else {
-            DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
-            for (int i=0; i < dbIndexArray.count; i++) {
-                DLog(@"Removing event at index: %@", dbIndexArray[i]);
-                [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
-                [removedIDs addObject:dbIndexArray[i]];
-            }
-            [dbIndexArray removeObjectsInArray:removedIDs];
-        }
-    }];
-    [dataTask resume];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:_dataSendConnectionQueue
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (connectionError) {
+                                   NSLog(@"Error: %@", connectionError);
+                                   for (int i=0; i < dbIndexArray.count;  i++) {
+                                       [_db removePendingWithId:(long long int)dbIndexArray[i]];
+                                   }
+                               } else {
+                                   DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                   NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
+                                   for (int i=0; i < dbIndexArray.count; i++) {
+                                       DLog(@"Removing event at index: %@", dbIndexArray[i]);
+                                       [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
+                                   }
+                                   [dbIndexArray removeObjectsInArray:removedIDs];
+                               }
+                           }
+     ];
 }
 
 - (void) sendGetData:(NSDictionary *)getData withDbIndexArray:(NSMutableArray *)dbIndexArray {
@@ -225,28 +203,25 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     request.HTTPMethod = @"GET";
     [request setValue:[self acceptContentTypeHeader] forHTTPHeaderField:@"Accept"];
     
-    NSURLSessionDataTask *dataTask = [[[self class] snowplowURLSession]
-                                      dataTaskWithRequest:request
-                                      completionHandler:^(NSData *data,
-                                                          NSURLResponse *response,
-                                                          NSError *error) {
-        if (error) {
-            NSLog(@"Error: %@", error);
-            for (int i=0; i < dbIndexArray.count;  i++) {
-                [_db removePendingWithId:(long long int)dbIndexArray[i]];
-            }
-        } else {
-            DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-            NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
-            for (int i=0; i < dbIndexArray.count; i++) {
-                DLog(@"Removing event at index: %@", dbIndexArray[i]);
-                [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
-                [removedIDs addObject:dbIndexArray[i]];
-            }
-            [dbIndexArray removeObjectsInArray:removedIDs];
-        }
-    }];
-    [dataTask resume];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:_dataSendConnectionQueue
+                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+                               if (connectionError) {
+                                   NSLog(@"Error: %@", connectionError);
+                                   for (int i=0; i < dbIndexArray.count;  i++) {
+                                       [_db removePendingWithId:(long long int)dbIndexArray[i]];
+                                   }
+                               } else {
+                                   DLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                   NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
+                                   for (int i=0; i < dbIndexArray.count; i++) {
+                                       DLog(@"Removing event at index: %@", dbIndexArray[i]);
+                                       [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
+                                   }
+                                   [dbIndexArray removeObjectsInArray:removedIDs];
+                               }
+                           }
+     ];
 }
 
 - (NSString *)acceptContentTypeHeader
