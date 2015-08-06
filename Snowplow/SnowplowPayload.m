@@ -20,6 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
+#import "Snowplow.h"
 #import "SnowplowPayload.h"
 
 @implementation SnowplowPayload {
@@ -70,7 +71,7 @@
     NSDictionary *object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     
     if (error) {
-        DLog(@"addJsonToPayload: error: %@", error.localizedDescription);
+        SnowplowDLog(@"addJsonToPayload: error: %@", error.localizedDescription);
         return;
     }
     

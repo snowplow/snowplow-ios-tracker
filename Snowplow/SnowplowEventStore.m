@@ -20,6 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
+#import "Snowplow.h"
 #import "SnowplowEventStore.h"
 #import "SnowplowPayload.h"
 #import "SnowplowUtils.h"
@@ -106,7 +107,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
     __block BOOL res = false;
     [_queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
-            DLog(@"Removing %lld from database now.", id_);
+            SnowplowDLog(@"Removing %lld from database now.", id_);
             res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
         } else {
             res = false;
@@ -197,7 +198,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
                 NSData * data = [s dataForColumn:@"eventData"];
-                DLog(@"Item: %d %@ %@",
+                SnowplowDLog(@"Item: %d %@ %@",
                      [s intForColumn:@"ID"],
                      [s dateForColumn:@"dateCreated"],
                      [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -243,7 +244,7 @@ static NSString * const _querySetNonPending             = @"UPDATE events SET pe
                 long long int index = [s longLongIntForColumn:@"ID"];
                 NSData * data =[s dataForColumn:@"eventData"];
                 NSDate * date = [s dateForColumn:@"dateCreated"];
-                DLog(@"Item: %lld %@ %@",
+                SnowplowDLog(@"Item: %lld %@ %@",
                      index,
                      [date description],
                      [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);

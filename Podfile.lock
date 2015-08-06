@@ -5,13 +5,16 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - OCHamcrest (4.1.1)
+  - Reachability (3.2)
 
 DEPENDENCIES:
   - FMDB (~> 2.3)
   - OCHamcrest (~> 4.1)
+  - Reachability (~> 3.2)
 
 SPEC CHECKSUMS:
-  FMDB: 0efa188cf0dd1ce82c27a478cd5f5fa245308677
-  OCHamcrest: af1c7c5ea345de69ea6c9c2958f65f3044e5c420
+  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
 COCOAPODS: 0.34.4

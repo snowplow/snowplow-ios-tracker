@@ -73,6 +73,18 @@
 + (NSString *) getCarrierName;
 
 /**
+ * Returns the Network Type the device is connected to
+ * @return A string containing the Network Type
+ */
++ (NSString *) getNetworkType;
+
+/**
+ * Returns the Network Technology the device is using
+ * @return A string containing the Network Technology
+ */
++ (NSString *) getNetworkTechnology;
+
+/**
  *  Generates a randomly generated 6-digit integer.
  *  @return A random 6-digit int.
  */
