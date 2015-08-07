@@ -267,6 +267,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/../Pods/Headers/Public/FMDB",
+					"$(PROJECT_DIR)/../Pods/Headers/Public/Reachability",
 				);
 				INFOPLIST_FILE = "SnowplowTracker-iOS-Static/Info.plist";
 				INFOPLIST_PATH = "$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Info.plist";
@@ -326,6 +327,7 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(PROJECT_DIR)/../Pods/Headers/Public/FMDB",
+					"$(PROJECT_DIR)/../Pods/Headers/Public/Reachability",
 				);
 				INFOPLIST_FILE = "SnowplowTracker-iOS-Static/Info.plist";
 				INFOPLIST_PATH = "$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Info.plist";

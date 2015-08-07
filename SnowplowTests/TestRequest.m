@@ -30,7 +30,8 @@ extern NSString * const TEST_SERVER;
 
 @implementation TestRequest
 
-NSString *const TEST_SERVER = @"http://localhost:4545";
+//NSString *const TEST_SERVER_REQUEST = @"http://localhost:4545";
+NSString *const TEST_SERVER_REQUEST = @"http://segfault.ngrok.com/events";
 
 - (void)setUp
 {
@@ -55,7 +56,7 @@ NSString *const TEST_SERVER = @"http://localhost:4545";
 - (void)testExampleFlushBuffer
 {
 
-    NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER];
+    NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER_REQUEST];
     SnowplowEmitter *sample_req = [[SnowplowEmitter alloc] initWithURLRequest:url httpMethod:@"POST"];
     SnowplowPayload *sample_event = [[SnowplowPayload alloc] init];
     
