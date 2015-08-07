@@ -30,8 +30,7 @@ extern NSString * const TEST_SERVER;
 
 @implementation TestRequest
 
-//NSString *const TEST_SERVER = @"http://localhost:3000/events";
-NSString *const TEST_SERVER = @"http://segfault.ngrok.com/events";
+NSString *const TEST_SERVER = @"http://localhost:4545";
 
 - (void)setUp
 {

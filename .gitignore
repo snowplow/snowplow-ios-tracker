@@ -20,3 +20,10 @@ DerivedData
 *.xcuserstate
 
 .DS_Store
+
+# Vagrant
+.vagrant
+
+# Mountebank
+mb.log
+mb.pid
