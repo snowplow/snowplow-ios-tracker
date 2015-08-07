@@ -42,7 +42,7 @@ limitations under the License.
 [coveralls-image]: https://coveralls.io/repos/snowplow/snowplow-objc-tracker/badge.png?branch=release/0.4.0
 
 [license]: http://www.apache.org/licenses/LICENSE-2.0
-[license-image]: http://img.shields.io/badge/license-Apache--2-blue.svg?style=flat
+[license-image]: https://img.shields.io/cocoapods/l/SnowplowTracker.svg
 
 [cocoadocs]: http://cocoadocs.org/docsets/SnowplowTracker
 [cocoa-version]: http://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
