@@ -122,10 +122,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     // Get a limited range of events to send
     // TODO: Convert range into an emitter argument
-    NSArray *listValues = [_db getAllNonPendingEventsLimited:150];
+    NSArray *listValues = [[NSArray alloc] init];
+    listValues = [_db getAllNonPendingEventsLimited:150];
     
-    // Exit if there is nothing to send and reset
-    // isSending to false
+    // Exit if there is nothing to send and reset isSending to false
     if ([listValues count] == 0) {
         SnowplowDLog(@"Database empty. Returning..");
         _isSending = false;
@@ -162,6 +162,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
     }
     
+    listValues = nil;
+    
     // Queue sending to occur again after 5 seconds
     // TODO: Convert timeout into an emitter argument
     [NSThread sleepForTimeInterval:5];
@@ -186,14 +188,14 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                                    for (int i=0; i < dbIndexArray.count;  i++) {
                                        [_db removePendingWithId:(long long int)dbIndexArray[i]];
                                    }
+                                   [dbIndexArray removeAllObjects];
                                } else {
                                    SnowplowDLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                                   NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
                                    for (int i=0; i < dbIndexArray.count; i++) {
                                        SnowplowDLog(@"Removing event at index: %@", dbIndexArray[i]);
                                        [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
                                    }
-                                   [dbIndexArray removeObjectsInArray:removedIDs];
+                                   [dbIndexArray removeAllObjects];
                                }
                            }
      ];
@@ -213,21 +215,20 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
                                    for (int i=0; i < dbIndexArray.count;  i++) {
                                        [_db removePendingWithId:(long long int)dbIndexArray[i]];
                                    }
+                                   [dbIndexArray removeAllObjects];
                                } else {
                                    SnowplowDLog(@"JSON: %@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                                   NSMutableArray *removedIDs = [NSMutableArray arrayWithArray:dbIndexArray];
                                    for (int i=0; i < dbIndexArray.count; i++) {
                                        SnowplowDLog(@"Removing event at index: %@", dbIndexArray[i]);
                                        [_db removeEventWithId:[[dbIndexArray objectAtIndex:i] longLongValue]];
                                    }
-                                   [dbIndexArray removeObjectsInArray:removedIDs];
+                                   [dbIndexArray removeAllObjects];
                                }
                            }
      ];
 }
 
-- (NSString *)acceptContentTypeHeader
-{
+- (NSString *)acceptContentTypeHeader {
     return @"text/html, application/x-www-form-urlencoded, text/plain, image/gif";
 }
 
@@ -236,11 +237,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (NSUInteger) getDbPendingCount {
-    return [_db getAllPendingEvents].count;
+    return [_db countPending];
 }
 
 - (NSUInteger) getDbNonPendingCount {
-    return [_db getAllNonPendingEvents].count;
+    return [_db countNonPending];
 }
 
 @end
