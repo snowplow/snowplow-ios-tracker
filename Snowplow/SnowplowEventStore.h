@@ -77,18 +77,6 @@
 - (NSDictionary *) getEventWithId:(long long int)id_;
 
 /**
- *  Sets an event as pending with the ID passed in.
- *  @param id_ Unique ID of the row to be marked as pending.
- */
-- (BOOL) setPendingWithId:(long long int)id_;
-
-/**
- *  Sets an event as not pending with the ID passed in.
- *  @param id_ Unique ID of the row to remove pending.
- */
-- (BOOL) removePendingWithId:(long long int)id_;
-
-/**
  *  Removes ALL events in the database. USE WITH CARE!
  */
 - (void) removeAllEvents;
@@ -100,40 +88,16 @@
 - (NSUInteger) count;
 
 /**
- *  Number of Pending events in the database.
- *  @return An integer of the number of pending events currently in the database.
- */
-- (NSUInteger) countPending;
-
-/**
- *  Number of Non-Pending events in the database.
- *  @return An integer of the number of non-pending events currently in the database.
- */
-- (NSUInteger) countNonPending;
-
-/**
  *  Returns all the events in an array of dictionaries.
  *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
  */
 - (NSArray *) getAllEvents;
 
 /**
- *  Returns all the events that are NOT pending in an array of dictionaries.
- *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
- */
-- (NSArray *) getAllNonPendingEvents;
-
-/**
  *  Returns limited number the events that are NOT pending in an array of dictionaries.
  *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
  */
-- (NSArray *) getAllNonPendingEventsLimited:(NSUInteger)limit;
-
-/**
- *  Returns all event data of pending data.
- *  @return An array of event data with pending set as 1.
- */
-- (NSArray *) getAllPendingEvents;
+- (NSArray *) getAllEventsLimited:(NSUInteger)limit;
 
 /**
  *  The row ID of the last insert made.
