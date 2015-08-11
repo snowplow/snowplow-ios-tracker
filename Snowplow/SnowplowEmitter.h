@@ -101,4 +101,10 @@ enum SnowplowBufferOptions {
  */
 - (NSUInteger) getDbCount;
 
+/**
+ * Returns whether the emitter is currently sending
+ * @return the sending state as a boolean
+ */
+- (BOOL) getSendingStatus;
+
 @end

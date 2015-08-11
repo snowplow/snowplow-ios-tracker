@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0413DD771B78D643000D2112 /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* RequestResponse.m */; };
 		15E037A453CCCDE789E167B2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		1DB7E7E933ECCEC0BC726275 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		25486E638EB42A2CFFDE626E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
@@ -85,6 +86,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0413DD751B78D635000D2112 /* RequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestResponse.h; sourceTree = "<group>"; };
+		0413DD761B78D643000D2112 /* RequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestResponse.m; sourceTree = "<group>"; };
 		050D36B378D82D87E307F937 /* Pods-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-lib/Pods-lib.release.xcconfig"; sourceTree = "<group>"; };
 		0DC246F4396D6C0652641E05 /* libPods-specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3294C940810A8362413F731B /* Pods-specs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-specs.release.xcconfig"; path = "Pods/Target Support Files/Pods-specs/Pods-specs.release.xcconfig"; sourceTree = "<group>"; };
@@ -240,6 +243,8 @@
 				AB9E8211192DD336006744C9 /* SnowplowTracker.m */,
 				ABB767AE194974D3006275D1 /* SnowplowEventStore.h */,
 				ABB767AF194974D3006275D1 /* SnowplowEventStore.m */,
+				0413DD751B78D635000D2112 /* RequestResponse.h */,
+				0413DD761B78D643000D2112 /* RequestResponse.m */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -541,6 +546,7 @@
 				AB0C27EB191B43D600018557 /* SnowplowEmitter.m in Sources */,
 				ABB767B0194974D3006275D1 /* SnowplowEventStore.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
+				0413DD771B78D643000D2112 /* RequestResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
