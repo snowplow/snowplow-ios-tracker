@@ -88,6 +88,7 @@
 /* Begin PBXFileReference section */
 		0413DD751B78D635000D2112 /* RequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestResponse.h; sourceTree = "<group>"; };
 		0413DD761B78D643000D2112 /* RequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestResponse.m; sourceTree = "<group>"; };
+		049B2BDA1B7A203200BD82FC /* RequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCallback.h; sourceTree = "<group>"; };
 		050D36B378D82D87E307F937 /* Pods-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-lib/Pods-lib.release.xcconfig"; sourceTree = "<group>"; };
 		0DC246F4396D6C0652641E05 /* libPods-specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3294C940810A8362413F731B /* Pods-specs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-specs.release.xcconfig"; path = "Pods/Target Support Files/Pods-specs/Pods-specs.release.xcconfig"; sourceTree = "<group>"; };
@@ -245,6 +246,7 @@
 				ABB767AF194974D3006275D1 /* SnowplowEventStore.m */,
 				0413DD751B78D635000D2112 /* RequestResponse.h */,
 				0413DD761B78D643000D2112 /* RequestResponse.m */,
+				049B2BDA1B7A203200BD82FC /* RequestCallback.h */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";

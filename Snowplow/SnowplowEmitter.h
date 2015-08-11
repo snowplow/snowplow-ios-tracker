@@ -21,6 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RequestCallback.h"
 
 @class SnowplowPayload;
 
@@ -60,6 +61,16 @@ enum SnowplowBufferOptions {
  *  @return A SnowplowEmitter instance
  */
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option;
+
+/**
+ *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method including the buffer time interval between every POST request is sent.
+ *  @param url A url of the collector that events should be sent to.
+ *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
+ *  @param bufferOption The time interval to wait until the next POST should be sent.
+ *  @param callback A reference to the RequestCallback protocol
+ *  @return A SnowplowEmitter instance
+ */
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback;
 
 /**
  *  Set the buffer to send the data instantly or after storing 10 events. Use the enum SnowplowBufferOptions to set the preferred option. By default, the tracker is set to SnowplowBufferDefault (10).

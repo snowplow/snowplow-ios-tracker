@@ -30,6 +30,7 @@
 
 @interface SnowplowEmitter()
 @property BOOL isSending;
+@property (nonatomic, weak) id<RequestCallback> callback;
 @end
 
 @implementation SnowplowEmitter {
@@ -45,18 +46,22 @@ static int       const kDefaultBufferTimeout = 60;
 static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-0";
 
 - (id) init {
-    return [self initWithURLRequest:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault];
+    return [self initWithURLRequest:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
 }
 
 - (id) initWithURLRequest:(NSURL *)url {
-    return [self initWithURLRequest:url httpMethod:@"POST" bufferOption:SnowplowBufferDefault];
+    return [self initWithURLRequest:url httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
 }
 
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
-    return [self initWithURLRequest:url httpMethod:method bufferOption:SnowplowBufferDefault];
+    return [self initWithURLRequest:url httpMethod:method bufferOption:SnowplowBufferDefault emitterCallback:nil];
 }
 
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option {
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method bufferOption:(enum SnowplowBufferOptions)option {
+    return [self initWithURLRequest:url httpMethod:method bufferOption:option emitterCallback:nil];
+}
+
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback {
     self = [super init];
     if (self) {
         _urlEndpoint = url;
@@ -65,6 +70,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         _bufferOption = option;
         _db = [[SnowplowEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
+        _callback = callback;
         
         // TODO: Make Thread Count configurable
         _dataOperationQueue.maxConcurrentOperationCount = 15;
@@ -125,15 +131,14 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 - (void) sendEvents {
     SnowplowDLog(@"Sending events...");
     
-    // TODO: Convert range into an emitter argument
-    NSArray *listValues = [[NSArray alloc] init];
-    listValues = [_db getAllEventsLimited:150];
-    
-    if ([listValues count] == 0) {
+    if ([self getDbCount] == 0) {
         SnowplowDLog(@"Database empty. Returning..");
         _isSending = false;
         return;
     }
+    
+    // TODO: Convert range into an emitter argument
+    NSArray *listValues = [NSArray arrayWithArray:[_db getAllEventsLimited:150]];
     
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
@@ -184,8 +189,20 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     SnowplowDLog(@"Success Count: %@", success);
     SnowplowDLog(@"Failure Count: %@", failure);
     
+    if (_callback != nil) {
+        if (failure == 0) {
+            [self.callback onSuccess:success];
+        } else {
+            [self.callback onFailure:success failure:failure];
+        }
+    }
+    
+    listValues = nil;
+    sendResults = nil;
+    
     if (success == 0 && failure > 0) {
-        SnowplowDLog(@"Ending emitter run as all request failed.");
+        SnowplowDLog(@"Ending emitter run as all requests failed...");
+        _isSending = false;
     } else {
         [self sendEvents];
     }
