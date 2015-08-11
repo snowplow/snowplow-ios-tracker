@@ -8,9 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0413DD771B78D643000D2112 /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* RequestResponse.m */; };
-		15E037A453CCCDE789E167B2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		1DB7E7E933ECCEC0BC726275 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		25486E638EB42A2CFFDE626E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		04F4334F1B7A360E00035CDC /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* RequestResponse.m */; };
 		46A289CC9C4B3D542DF28F92 /* libPods-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D350F2E758CBC781DDD5DDF7 /* libPods-Snowplow-OSX.a */; };
 		8C8D403041F44FFD17B1C857 /* libPods-specs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC246F4396D6C0652641E05 /* libPods-specs.a */; };
 		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
@@ -53,7 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AB0C27D3191B408200018557 /* PBXContainerItemProxy */ = {
+		04DD9E291B7A348400FFF578 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB0C27B5191B408200018557 /* Project object */;
 			proxyType = 1;
@@ -152,9 +150,6 @@
 				AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */,
 				AB0C27D2191B408200018557 /* UIKit.framework in Frameworks */,
 				AB0C27D0191B408200018557 /* Foundation.framework in Frameworks */,
-				25486E638EB42A2CFFDE626E /* (null) in Frameworks */,
-				1DB7E7E933ECCEC0BC726275 /* (null) in Frameworks */,
-				15E037A453CCCDE789E167B2 /* (null) in Frameworks */,
 				8C8D403041F44FFD17B1C857 /* libPods-specs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,7 +340,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				AB0C27D4191B408200018557 /* PBXTargetDependency */,
+				04DD9E2A1B7A348400FFF578 /* PBXTargetDependency */,
 			);
 			name = SnowplowTests;
 			productName = SnowplowTests;
@@ -569,6 +564,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F4334F1B7A360E00035CDC /* RequestResponse.m in Sources */,
 				AEA2FCED1A8CE0DF00123462 /* SnowplowEmitter.m in Sources */,
 				AEA2FCEE1A8CE0DF00123462 /* SnowplowPayload.m in Sources */,
 				AEA2FCEF1A8CE0DF00123462 /* SnowplowUtils.m in Sources */,
@@ -593,10 +589,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AB0C27D4191B408200018557 /* PBXTargetDependency */ = {
+		04DD9E2A1B7A348400FFF578 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AB0C27BC191B408200018557 /* Snowplow */;
-			targetProxy = AB0C27D3191B408200018557 /* PBXContainerItemProxy */;
+			targetProxy = 04DD9E291B7A348400FFF578 /* PBXContainerItemProxy */;
 		};
 		AEA2FCE31A8CDF8100123462 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

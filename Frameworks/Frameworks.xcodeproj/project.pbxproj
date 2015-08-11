@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04DD9E261B7A307900FFF578 /* RequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E231B7A307900FFF578 /* RequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		04DD9E271B7A307900FFF578 /* RequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E241B7A307900FFF578 /* RequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		04DD9E281B7A307900FFF578 /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD9E251B7A307900FFF578 /* RequestResponse.m */; };
 		462FD4DE1B15C76500296A38 /* SnowplowTracker-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 462FD4DD1B15C76500296A38 /* SnowplowTracker-Info.plist */; };
 		462FD4EF1B15CA8A00296A38 /* Snowplow-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 462FD4E71B15CA8A00296A38 /* Snowplow-Prefix.pch */; };
 		462FD4F01B15CA8A00296A38 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = 462FD4E81B15CA8A00296A38 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,6 +26,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04DD9E231B7A307900FFF578 /* RequestCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestCallback.h; path = ../../Snowplow/RequestCallback.h; sourceTree = "<group>"; };
+		04DD9E241B7A307900FFF578 /* RequestResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RequestResponse.h; path = ../../Snowplow/RequestResponse.h; sourceTree = "<group>"; };
+		04DD9E251B7A307900FFF578 /* RequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RequestResponse.m; path = ../../Snowplow/RequestResponse.m; sourceTree = "<group>"; };
 		462FD4D61B15C76500296A38 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		462FD4DA1B15C76500296A38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		462FD4DD1B15C76500296A38 /* SnowplowTracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SnowplowTracker-Info.plist"; sourceTree = "<group>"; };
@@ -70,6 +76,9 @@
 		462FD4D81B15C76500296A38 /* SnowplowTracker-iOS-Static */ = {
 			isa = PBXGroup;
 			children = (
+				04DD9E231B7A307900FFF578 /* RequestCallback.h */,
+				04DD9E241B7A307900FFF578 /* RequestResponse.h */,
+				04DD9E251B7A307900FFF578 /* RequestResponse.m */,
 				462FD4F71B15CABE00296A38 /* SnowplowEmitter.m */,
 				462FD4F81B15CABE00296A38 /* SnowplowEventStore.m */,
 				462FD4F91B15CABE00296A38 /* SnowplowPayload.m */,
@@ -107,6 +116,8 @@
 				462FD4F11B15CA8A00296A38 /* SnowplowEmitter.h in Headers */,
 				462FD4F31B15CA8A00296A38 /* SnowplowPayload.h in Headers */,
 				462FD4F41B15CA8A00296A38 /* SnowplowTracker.h in Headers */,
+				04DD9E271B7A307900FFF578 /* RequestResponse.h in Headers */,
+				04DD9E261B7A307900FFF578 /* RequestCallback.h in Headers */,
 				462FD4F51B15CA8A00296A38 /* SnowplowUtils.h in Headers */,
 				462FD4F21B15CA8A00296A38 /* SnowplowEventStore.h in Headers */,
 				462FD4EF1B15CA8A00296A38 /* Snowplow-Prefix.pch in Headers */,
@@ -202,6 +213,7 @@
 				462FD4FE1B15CABE00296A38 /* SnowplowEventStore.m in Sources */,
 				462FD4FF1B15CABE00296A38 /* SnowplowPayload.m in Sources */,
 				462FD5001B15CABE00296A38 /* SnowplowTracker.m in Sources */,
+				04DD9E281B7A307900FFF578 /* RequestResponse.m in Sources */,
 				462FD5011B15CABE00296A38 /* SnowplowUtils.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
