@@ -13,6 +13,37 @@ Add analytics to your iOS apps and iOS games with the [Snowplow][2] event tracke
 
 With this tracker you can collect event data from your iOS applications, games or frameworks.
 
+### Building the Static Framework
+
+* Open `Snowplow.xcworkspace` in XCode.
+* Select the `SnowplowTracker-iOS-Static` scheme and set device to `iOS Device`.
+* Run `Archive` from the Product menu.
+* Finder should open and show you where `SnowplowTracker.framework` is stored.
+
+### Running the Demo Application
+
+* Open `SnowplowDemo.xcworkspace` in XCode.
+* Select the `SnowplowDemo` scheme and set device to any emulator.
+* Hit run and the demo will be installed and launched in the emulator window.
+* Simply enter a valid endpoint to send events to!
+
+### Setting up a local testing endpoint
+
+Assuming git, **[Vagrant] [vagrant-install]** and **[VirtualBox] [virtualbox-install]** installed:
+
+```bash
+ host$ git clone https://github.com/snowplow/snowplow-objc-tracker.git
+ host$ cd snowplow-objc-tracker
+ host$ vagrant up && vagrant ssh
+guest$ cd /vagrant
+guest$ mb &
+guest$ curl -X POST -d @/vagrant/integration-tests/imposter.json http://localhost:2525/imposters
+```
+
+Your local endpoint will be `http://localhost:4545` which can be used in the demonstration application.
+
+To view sent events in your browser please navigate to `http://localhost:2525`.
+
 ## Find out more
 | Technical Docs                  | Setup Guide               | Roadmap                 | Contributing                      |
 |---------------------------------|---------------------------|-------------------------|-----------------------------------|
@@ -38,8 +69,8 @@ limitations under the License.
 [travis]: https://travis-ci.org/snowplow/snowplow-objc-tracker
 [travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.png?branch=master
 
-[coveralls]: https://coveralls.io/r/snowplow/snowplow-objc-tracker?branch=release/0.4.0
-[coveralls-image]: https://coveralls.io/repos/snowplow/snowplow-objc-tracker/badge.png?branch=release/0.4.0
+[coveralls]: https://coveralls.io/r/snowplow/snowplow-objc-tracker?branch=master
+[coveralls-image]: https://coveralls.io/repos/snowplow/snowplow-objc-tracker/badge.png?branch=master
 
 [license]: http://www.apache.org/licenses/LICENSE-2.0
 [license-image]: https://img.shields.io/cocoapods/l/SnowplowTracker.svg
@@ -57,3 +88,6 @@ limitations under the License.
 [setup]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup
 [roadmap]: https://github.com/snowplow/snowplow/wiki/Product-roadmap
 [contributing]: https://github.com/snowplow/snowplow/wiki/Contributing
+
+[vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
+[virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
