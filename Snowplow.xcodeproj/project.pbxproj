@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		15E037A453CCCDE789E167B2 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		1DB7E7E933ECCEC0BC726275 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
-		25486E638EB42A2CFFDE626E /* (null) in Frameworks */ = {isa = PBXBuildFile; };
+		0413DD771B78D643000D2112 /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* RequestResponse.m */; };
+		04F4334F1B7A360E00035CDC /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* RequestResponse.m */; };
 		46A289CC9C4B3D542DF28F92 /* libPods-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D350F2E758CBC781DDD5DDF7 /* libPods-Snowplow-OSX.a */; };
 		8C8D403041F44FFD17B1C857 /* libPods-specs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC246F4396D6C0652641E05 /* libPods-specs.a */; };
 		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
@@ -52,7 +51,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		AB0C27D3191B408200018557 /* PBXContainerItemProxy */ = {
+		04DD9E291B7A348400FFF578 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB0C27B5191B408200018557 /* Project object */;
 			proxyType = 1;
@@ -85,6 +84,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0413DD751B78D635000D2112 /* RequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestResponse.h; sourceTree = "<group>"; };
+		0413DD761B78D643000D2112 /* RequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestResponse.m; sourceTree = "<group>"; };
+		049B2BDA1B7A203200BD82FC /* RequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCallback.h; sourceTree = "<group>"; };
 		050D36B378D82D87E307F937 /* Pods-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-lib/Pods-lib.release.xcconfig"; sourceTree = "<group>"; };
 		0DC246F4396D6C0652641E05 /* libPods-specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3294C940810A8362413F731B /* Pods-specs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-specs.release.xcconfig"; path = "Pods/Target Support Files/Pods-specs/Pods-specs.release.xcconfig"; sourceTree = "<group>"; };
@@ -148,9 +150,6 @@
 				AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */,
 				AB0C27D2191B408200018557 /* UIKit.framework in Frameworks */,
 				AB0C27D0191B408200018557 /* Foundation.framework in Frameworks */,
-				25486E638EB42A2CFFDE626E /* (null) in Frameworks */,
-				1DB7E7E933ECCEC0BC726275 /* (null) in Frameworks */,
-				15E037A453CCCDE789E167B2 /* (null) in Frameworks */,
 				8C8D403041F44FFD17B1C857 /* libPods-specs.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,6 +239,9 @@
 				AB9E8211192DD336006744C9 /* SnowplowTracker.m */,
 				ABB767AE194974D3006275D1 /* SnowplowEventStore.h */,
 				ABB767AF194974D3006275D1 /* SnowplowEventStore.m */,
+				0413DD751B78D635000D2112 /* RequestResponse.h */,
+				0413DD761B78D643000D2112 /* RequestResponse.m */,
+				049B2BDA1B7A203200BD82FC /* RequestCallback.h */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -338,7 +340,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				AB0C27D4191B408200018557 /* PBXTargetDependency */,
+				04DD9E2A1B7A348400FFF578 /* PBXTargetDependency */,
 			);
 			name = SnowplowTests;
 			productName = SnowplowTests;
@@ -541,6 +543,7 @@
 				AB0C27EB191B43D600018557 /* SnowplowEmitter.m in Sources */,
 				ABB767B0194974D3006275D1 /* SnowplowEventStore.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
+				0413DD771B78D643000D2112 /* RequestResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -561,6 +564,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04F4334F1B7A360E00035CDC /* RequestResponse.m in Sources */,
 				AEA2FCED1A8CE0DF00123462 /* SnowplowEmitter.m in Sources */,
 				AEA2FCEE1A8CE0DF00123462 /* SnowplowPayload.m in Sources */,
 				AEA2FCEF1A8CE0DF00123462 /* SnowplowUtils.m in Sources */,
@@ -585,10 +589,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		AB0C27D4191B408200018557 /* PBXTargetDependency */ = {
+		04DD9E2A1B7A348400FFF578 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AB0C27BC191B408200018557 /* Snowplow */;
-			targetProxy = AB0C27D3191B408200018557 /* PBXContainerItemProxy */;
+			targetProxy = 04DD9E291B7A348400FFF578 /* PBXContainerItemProxy */;
 		};
 		AEA2FCE31A8CDF8100123462 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -628,6 +632,8 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -665,6 +671,8 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;

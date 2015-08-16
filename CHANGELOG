@@ -1,3 +1,20 @@
+Version 0.4.0 (2015-08-14)
+--------------------------
+Updated how the emitter sends information to match the Android Tracker flow (#185)
+Full memory leak and performance analysis (#183)
+Added functions to access metrics on the SQLite database (#182)
+Added target for building Static iOS Framework, thanks @AlexDenisov! (#171)
+Added iOS 6 support, thanks @agarwalswapnil! (#163)
+Macroed out the usage of sharedApplication, thanks @hlian! (#157)
+Added network properties implementation, thanks @duncan! (#142)
+Added Coveralls code coverage to project (#108)
+Added Mountebank for simple testing of tracker locally (#82)
+Added support for callbacks for success/failure (#59)
+Changed license in README to be pulled from CocoaPods (#130)
+Using FIFO instead of "pending" flag to track emit progress (#94)
+Made an iOS test app (#67)
+Fixed Content-Type not being set correctly (#192)
+
 Version 0.3.4 (2015-08-05)
 --------------------------
 Fixed Tracker sometimes POSTs when no events to post, thanks @leonardors! (#164)

@@ -20,6 +20,9 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SnowplowEmitter.h"
-#import "SnowplowTracker.h"
-#import "SnowplowPayload.h"
+#ifdef SNOWPLOW_DEBUG
+#   define SnowplowDLog(...) NSLog(__VA_ARGS__)
+#else
+#   define SnowplowDLog(...)
+#endif
+#define ALog(...) NSLog(__VA_ARGS__)

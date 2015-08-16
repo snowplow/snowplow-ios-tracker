@@ -21,8 +21,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SnowplowEmitter.h"
-#import "SnowplowPayload.h"
+
+@class SnowplowEmitter;
+@class SnowplowPayload;
 
 @interface SnowplowTracker : NSObject
 

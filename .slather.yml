@@ -1,0 +1,2 @@
+coverage_service: coveralls
+xcodeproj: Snowplow.xcodeproj

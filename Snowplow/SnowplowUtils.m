@@ -29,6 +29,7 @@
 #import <UIKit/UIDevice.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
+#import "Reachability.h"
 
 #else
 
@@ -100,6 +101,39 @@
     return [carrier carrierName];
 #else
     return @"";
+#endif
+}
+
++ (NSString *) getNetworkType {
+#if TARGET_OS_IPHONE
+    Reachability *reachability = [Reachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    
+    NetworkStatus status = [reachability currentReachabilityStatus];
+    
+    if (status == ReachableViaWiFi)
+    {
+        return @"wifi";
+    }
+    else if (status == ReachableViaWWAN)
+    {
+        return @"mobile";
+    }
+    else
+    {
+        return nil;
+    }
+#else
+    return nil;
+#endif
+}
+
++ (NSString *) getNetworkTechnology {
+#if TARGET_OS_IPHONE
+    CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
+    return [netInfo currentRadioAccessTechnology];
+#else
+    return nil;
 #endif
 }
 

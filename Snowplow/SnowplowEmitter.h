@@ -21,7 +21,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SnowplowPayload.h"
+#import "RequestCallback.h"
+
+@class SnowplowPayload;
 
 @interface SnowplowEmitter : NSObject
 
@@ -61,6 +63,16 @@ enum SnowplowBufferOptions {
 - (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option;
 
 /**
+ *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method including the buffer time interval between every POST request is sent.
+ *  @param url A url of the collector that events should be sent to.
+ *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
+ *  @param bufferOption The time interval to wait until the next POST should be sent.
+ *  @param callback A reference to the RequestCallback protocol
+ *  @return A SnowplowEmitter instance
+ */
+- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback;
+
+/**
  *  Set the buffer to send the data instantly or after storing 10 events. Use the enum SnowplowBufferOptions to set the preferred option. By default, the tracker is set to SnowplowBufferDefault (10).
  *  @param buffer Sets the buffer to SnowplowBufferDefault or SnowplowBufferInstant with SnowplowBufferOptions.
  */
@@ -93,5 +105,17 @@ enum SnowplowBufferOptions {
  * Responsible for actually sending the events.  Will recursively check for more events to send every 5 seconds until no more events can be found for sending.
  */
 - (void) sendEvents;
+
+/**
+ * Returns the total Database Count
+ * @return returns the total DB Count
+ */
+- (NSUInteger) getDbCount;
+
+/**
+ * Returns whether the emitter is currently sending
+ * @return the sending state as a boolean
+ */
+- (BOOL) getSendingStatus;
 
 @end

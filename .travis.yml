@@ -1,6 +1,7 @@
 language: objective-c
 
 before_install:
+    - gem install slather
     - brew update
     - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
     - pod install
@@ -9,3 +10,5 @@ xcode_workspace: Snowplow.xcworkspace
 xcode_scheme: Snowplow
 xcode_sdk:
     - iphonesimulator
+
+after_success: slather

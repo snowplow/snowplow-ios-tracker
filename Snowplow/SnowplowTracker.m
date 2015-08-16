@@ -20,9 +20,11 @@
 //  License: Apache License Version 2.0
 //
 
+#import "Snowplow.h"
 #import "SnowplowTracker.h"
 #import "SnowplowPayload.h"
 #import "SnowplowUtils.h"
+#import "SnowplowEmitter.h"
 
 @implementation SnowplowTracker {
     Boolean                 _base64Encoded;
@@ -37,9 +39,9 @@ NSString * const kIglu                  = @"iglu:";
 Boolean    const kDefaultEncodeBase64   = true;
 
 #if TARGET_OS_IPHONE
-NSString * const kVersion               = @"ios-0.3.4";
+NSString * const kVersion               = @"ios-0.4.0";
 #else
-NSString * const kVersion               = @"osx-0.3.4";
+NSString * const kVersion               = @"osx-0.4.0";
 #endif
 
 @synthesize collector;
@@ -105,7 +107,7 @@ NSString * const kVersion               = @"osx-0.3.4";
 - (void) setMobileContext: (NSMutableArray *)payloadData {
     SnowplowPayload *mobContext = [[SnowplowPayload alloc] init];
 
-    NSString *schema = [NSString stringWithFormat:@"%@%@/mobile_context/jsonschema/1-0-0",
+    NSString *schema = [NSString stringWithFormat:@"%@%@/mobile_context/jsonschema/1-0-1",
                         kIglu, kSnowplowVendor];
 
     [mobContext addValueToPayload:[SnowplowUtils getOSType] forKey:@"osType"];
@@ -116,6 +118,8 @@ NSString * const kVersion               = @"osx-0.3.4";
     [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
     [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] forKey:@"appleIdfa"];
     [mobContext addValueToPayload:[SnowplowUtils getAppleIdfv] forKey:@"appleIdfv"];
+    [mobContext addValueToPayload:[SnowplowUtils getNetworkType] forKey:@"networkType"];
+    [mobContext addValueToPayload:[SnowplowUtils getNetworkTechnology] forKey:@"networkTechnology"];
 
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                               schema, @"schema",

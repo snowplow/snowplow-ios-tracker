@@ -38,6 +38,18 @@
     return [[OpenIDFA threeDaysOpenIDFAArray] objectAtIndex:0];
 }
 
++ (BOOL) canOpenURL:(NSURL *)URL {
+// @selector(sharedApplication) does not exist when building app extensions instead
+// of apps. With strict objc_msgSend message checking turned on, calls to the class
+// method will become compile-time warnings. To prevent that from happening, build
+// with -DSNOWPLOW_APP_EXTENSIONS=1.
+#if defined(SNOWPLOW_APP_EXTENSIONS)
+    return NO;
+#else
+    return [[UIApplication sharedApplication] canOpenURL:URL];
+#endif
+}
+
 + (NSArray*) threeDaysOpenIDFAArray {
     
     // The following list represents a rather large array of ids used to detect
@@ -69,9 +81,9 @@
     // Computing the "appmap" profile string for this user
     // STRENGTH: potential of 2^61 distinct combinations
     //
-    [_s_appmap appendString:[[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@%@",_f,_b,_c,_s,_s]]]?@"|":@"-"];
+    [_s_appmap appendString:[self.class canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@%@",_f,_b,_c,_s,_s]]]?@"|":@"-"];
     for (id baseid in base) {
-        [_s_appmap appendString:[[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@%@%@",_f,_b,[baseid stringValue],_c,_s,_s]]]?@"|":@"-"];
+        [_s_appmap appendString:[self.class canOpenURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@%@%@%@",_f,_b,[baseid stringValue],_c,_s,_s]]]?@"|":@"-"];
     }
     
     // Collecting the device boottime (Unix epoch) and turn it into a string
@@ -133,7 +145,7 @@
     // STRENGTH: its complicated, but at least 80 combinations not evenly distributed!
     // Check CLDR release 24 to know more: http://cldr.unicode.org/index/downloads/cldr-24
     //
-	NSString *_s_ccode = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
+    NSString *_s_ccode = [[NSLocale currentLocale] objectForKey: NSLocaleCountryCode];
     
     // Collecting an ordered array of preferred languages
     //
