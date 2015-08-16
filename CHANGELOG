@@ -1,4 +1,4 @@
-Version 0.4.0 (2015-08-14)
+Version 0.4.0 (2015-08-16)
 --------------------------
 Updated how the emitter sends information to match the Android Tracker flow (#185)
 Full memory leak and performance analysis (#183)
