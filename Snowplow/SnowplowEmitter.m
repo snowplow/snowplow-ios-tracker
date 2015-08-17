@@ -146,9 +146,13 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         for (int i = 0; i < listValues.count; i += _bufferOption) {
             NSMutableArray *eventArray = [[NSMutableArray alloc] init];
             NSMutableArray *indexArray = [[NSMutableArray alloc] init];
+            double stm = [SnowplowUtils getTimestamp];
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
-                [eventArray addObject:[listValues[j] objectForKey:@"eventData"]];
+                NSMutableDictionary *eventPayload = [NSMutableDictionary dictionaryWithDictionary:[listValues[j] objectForKey:@"eventData"]];
+                [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:@"stm"];
+                
+                [eventArray addObject:eventPayload];
                 [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
             }
             
@@ -159,9 +163,12 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         }
     } else if ([_httpMethod isEqual:@"GET"]) {
         for (NSDictionary * eventWithMetaData in listValues) {
+            NSMutableDictionary *eventPayload = [NSMutableDictionary dictionaryWithDictionary:[eventWithMetaData objectForKey:@"eventData"]];
+            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"stm"];
+            
             NSMutableArray *indexArray = [[NSMutableArray alloc] init];
             [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
-            [self sendSyncRequest:[self getRequestGetWithData:[eventWithMetaData objectForKey:@"eventData"]] withIndex:indexArray withResultPointer:sendResults];
+            [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
         }
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
