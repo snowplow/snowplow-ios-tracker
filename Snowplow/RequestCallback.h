@@ -22,9 +22,9 @@
 
 @protocol RequestCallback <NSObject>
 
-- (void) onSuccess:(NSInteger)successCount;
+- (void) onSuccessWithCount:(NSInteger)successCount;
 
-- (void) onFailure:(NSInteger)successCount failure:(NSInteger)failureCount;
+- (void) onFailureWithCount:(NSInteger)failureCount successCount:(NSInteger)successCount;
 
 @end
 

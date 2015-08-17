@@ -99,11 +99,11 @@ static NSString *const kNamespace = @"DemoAppNamespace";
 
 // Define Callback Functions
 
-- (void) onSuccess:(NSInteger)successCount {
+- (void) onSuccessWithCount:(NSInteger)successCount {
     sentCounter_ += successCount;
 }
 
-- (void) onFailure:(NSInteger)successCount failure:(NSInteger)failureCount {
+- (void) onFailureWithCount:(NSInteger)failureCount successCount:(NSInteger)successCount {
     sentCounter_ += successCount;
 }
 

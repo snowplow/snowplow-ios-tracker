@@ -191,9 +191,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     if (_callback != nil) {
         if (failure == 0) {
-            [self.callback onSuccess:success];
+            [self.callback onSuccessWithCount:success];
         } else {
-            [self.callback onFailure:success failure:failure];
+            [self.callback onFailureWithCount:failure successCount:success];
         }
     }
     
