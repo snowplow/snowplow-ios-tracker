@@ -43,7 +43,7 @@ enum SnowplowBufferOptions {
  *  @param url A url of the collector that events should be sent to.
  *  @return A SnowplowEmitter instance
  */
-- (id) initWithURLRequest:(NSURL *)url;
+- (id) initWithURL:(NSURL *)url;
 
 /**
  *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method.
@@ -51,7 +51,7 @@ enum SnowplowBufferOptions {
  *  @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
  *  @return A SnowplowEmitter instance
  */
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method;
+- (id) initWithURL:(NSURL *)url httpMethod:(NSString* )method;
 
 /**
  *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method including the buffer time interval between every POST request is sent.
@@ -60,7 +60,7 @@ enum SnowplowBufferOptions {
  *  @param bufferOption The time interval to wait until the next POST should be sent.
  *  @return A SnowplowEmitter instance
  */
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option;
+- (id) initWithURL:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option;
 
 /**
  *  Initializes a newly allocated SnowplowEmitter with a url and HTTP data transfer method including the buffer time interval between every POST request is sent.
@@ -70,7 +70,7 @@ enum SnowplowBufferOptions {
  *  @param callback A reference to the RequestCallback protocol
  *  @return A SnowplowEmitter instance
  */
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback;
+- (id) initWithURL:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback;
 
 /**
  *  Set the buffer to send the data instantly or after storing 10 events. Use the enum SnowplowBufferOptions to set the preferred option. By default, the tracker is set to SnowplowBufferDefault (10).

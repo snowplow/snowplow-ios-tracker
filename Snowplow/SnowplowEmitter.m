@@ -46,22 +46,22 @@ static int       const kDefaultBufferTimeout = 60;
 static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3";
 
 - (id) init {
-    return [self initWithURLRequest:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
+    return [self initWithURL:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
 }
 
-- (id) initWithURLRequest:(NSURL *)url {
-    return [self initWithURLRequest:url httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
+- (id) initWithURL:(NSURL *)url {
+    return [self initWithURL:url httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
 }
 
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method {
-    return [self initWithURLRequest:url httpMethod:method bufferOption:SnowplowBufferDefault emitterCallback:nil];
+- (id) initWithURL:(NSURL *)url httpMethod:(NSString* )method {
+    return [self initWithURL:url httpMethod:method bufferOption:SnowplowBufferDefault emitterCallback:nil];
 }
 
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString* )method bufferOption:(enum SnowplowBufferOptions)option {
-    return [self initWithURLRequest:url httpMethod:method bufferOption:option emitterCallback:nil];
+- (id) initWithURL:(NSURL *)url httpMethod:(NSString* )method bufferOption:(enum SnowplowBufferOptions)option {
+    return [self initWithURL:url httpMethod:method bufferOption:option emitterCallback:nil];
 }
 
-- (id) initWithURLRequest:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback {
+- (id) initWithURL:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback {
     self = [super init];
     if (self) {
         _urlEndpoint = url;

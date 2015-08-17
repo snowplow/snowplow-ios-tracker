@@ -92,7 +92,7 @@ static NSString *const kNamespace = @"DemoAppNamespace";
 - (SnowplowTracker *) getTrackerWithUrl:(NSString *)url_
                                  method:(NSString *)method_
                                  option:(enum SnowplowBufferOptions)option_ {
-    SnowplowEmitter *emitter = [[SnowplowEmitter alloc] initWithURLRequest:[NSURL URLWithString:url_] httpMethod:method_ bufferOption:option_ emitterCallback:self];
+    SnowplowEmitter *emitter = [[SnowplowEmitter alloc] initWithURL:[NSURL URLWithString:url_] httpMethod:method_ bufferOption:option_ emitterCallback:self];
     SnowplowTracker *tracker = [[SnowplowTracker alloc] initWithCollector:emitter appId:kAppId base64Encoded:false namespace:kNamespace];
     return tracker;
 }

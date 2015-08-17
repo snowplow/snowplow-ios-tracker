@@ -57,7 +57,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://segfault.ngrok.com/events";
 {
 
     NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER_REQUEST];
-    SnowplowEmitter *sample_req = [[SnowplowEmitter alloc] initWithURLRequest:url httpMethod:@"POST"];
+    SnowplowEmitter *sample_req = [[SnowplowEmitter alloc] initWithURL:url httpMethod:@"POST"];
     SnowplowPayload *sample_event = [[SnowplowPayload alloc] init];
     
     [sample_event addValueToPayload:@"something" forKey:@"nv"];
