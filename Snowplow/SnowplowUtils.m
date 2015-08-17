@@ -245,4 +245,14 @@
     return [keyValuePairs componentsJoinedByString:@"&"];
 }
 
++ (BOOL) isOnline {
+#if TARGET_OS_IPHONE
+    Reachability * reachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
+    return networkStatus != NotReachable;
+#else
+    return NO;
+#endif
+}
+
 @end

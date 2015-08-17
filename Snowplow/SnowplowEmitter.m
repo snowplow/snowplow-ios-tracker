@@ -122,7 +122,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 }
 
 - (void) flushBuffer {
-    if (_isSending == false) {
+    if (_isSending == false && [SnowplowUtils isOnline]) {
         _isSending = true;
         [self sendEvents];
     }

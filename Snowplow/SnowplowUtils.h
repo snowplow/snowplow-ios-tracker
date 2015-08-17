@@ -151,4 +151,10 @@
  */
 + (NSString *)urlEncodeDictionary:(NSDictionary *)d;
 
+/**
+ * Returns whether or not the device is currently online.
+ * @return the network status of the device
+ */
++ (BOOL) isOnline;
+
 @end
