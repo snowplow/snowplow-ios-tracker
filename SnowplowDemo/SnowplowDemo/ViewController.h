@@ -25,11 +25,6 @@
 - (IBAction) trackEvents:(id)sender;
 
 /**
- * Updates the Made Counter Label
- */
-- (void) setMadeCounter;
-
-/**
  * Updates the metrics for the application
  */
 - (void) updateMetrics;

@@ -8,11 +8,13 @@
 
 #import "ViewController.h"
 #import "DemoUtils.h"
+#import "SnowplowUtils.h"
 
 @interface ViewController ()
 @property (nonatomic, weak) IBOutlet UILabel *            madeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            dbCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            isRunningLabel;
+@property (nonatomic, weak) IBOutlet UILabel *            isOnlineLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            sentCountLabel;
 @property (nonatomic, weak) IBOutlet UITextField *        urlTextField;
 @property (nonatomic, weak) IBOutlet UISegmentedControl * methodType;
@@ -62,14 +64,11 @@
     });
 }
 
-- (void) setMadeCounter {
-    [_madeLabel setText:[NSString stringWithFormat:@"Made: %lld", madeCounter_]];
-}
-
 - (void) updateMetrics {
-    [self setMadeCounter];
+    [_madeLabel setText:[NSString stringWithFormat:@"Made: %lld", madeCounter_]];
     [_dbCountLabel setText:[NSString stringWithFormat:@"DB Count: %lu", (unsigned long)[tracker_.collector getDbCount]]];
     [_isRunningLabel setText:[NSString stringWithFormat:@"Running: %s", [tracker_.collector getSendingStatus] ? "yes" : "no"]];
+    [_isOnlineLabel setText:[NSString stringWithFormat:@"Online: %s", [SnowplowUtils isOnline] ? "yes" : "no"]];
     [_sentCountLabel setText:[NSString stringWithFormat:@"Sent: %lu", (unsigned long)sentCounter_]];
 }
 
