@@ -55,9 +55,10 @@ NSString *const TEST_SERVER_REQUEST = @"http://segfault.ngrok.com/events";
 
 - (void)testExampleFlushBuffer
 {
-
     NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER_REQUEST];
-    SnowplowEmitter *sample_req = [[SnowplowEmitter alloc] initWithURL:url httpMethod:@"POST"];
+    SnowplowEmitter *sample_req = [SnowplowEmitter build:^(id<SnowplowEmitterBuilder> builder) {
+        [builder setURL:url];
+    }];
     SnowplowPayload *sample_event = [[SnowplowPayload alloc] init];
     
     [sample_event addValueToPayload:@"something" forKey:@"nv"];

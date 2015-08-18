@@ -28,63 +28,77 @@
 #import "RequestResponse.h"
 #import <FMDB.h>
 
-@interface SnowplowEmitter()
-@property BOOL isSending;
-@property (nonatomic, weak) id<RequestCallback> callback;
-@end
-
 @implementation SnowplowEmitter {
-    NSURL *                     _urlEndpoint;
-    NSString *                  _httpMethod;
-    enum SnowplowBufferOptions  _bufferOption;
-    NSTimer *                   _timer;
-    SnowplowEventStore *        _db;
-    NSOperationQueue *          _dataOperationQueue;
+    NSURL *                    _urlEndpoint;
+    NSString *                 _httpMethod;
+    enum SnowplowBufferOptions _bufferOption;
+    NSTimer *                  _timer;
+    SnowplowEventStore *       _db;
+    NSOperationQueue *         _dataOperationQueue;
 }
 
 static int       const kDefaultBufferTimeout = 60;
 static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3";
+static NSString *const kAcceptContentHeader  = @"text/html, application/x-www-form-urlencoded, text/plain, image/gif";
+static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8";
+
+// SnowplowEmitter Builder
+
++ (instancetype) build:(void(^)(id<SnowplowEmitterBuilder>builder))buildBlock {
+    SnowplowEmitter* emitter = [SnowplowEmitter new];
+    if (buildBlock) {
+        buildBlock(emitter);
+    }
+    [emitter setup];
+    return emitter;
+}
 
 - (id) init {
-    return [self initWithURL:nil httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
-}
-
-- (id) initWithURL:(NSURL *)url {
-    return [self initWithURL:url httpMethod:@"POST" bufferOption:SnowplowBufferDefault emitterCallback:nil];
-}
-
-- (id) initWithURL:(NSURL *)url httpMethod:(NSString* )method {
-    return [self initWithURL:url httpMethod:method bufferOption:SnowplowBufferDefault emitterCallback:nil];
-}
-
-- (id) initWithURL:(NSURL *)url httpMethod:(NSString* )method bufferOption:(enum SnowplowBufferOptions)option {
-    return [self initWithURL:url httpMethod:method bufferOption:option emitterCallback:nil];
-}
-
-- (id) initWithURL:(NSURL *)url httpMethod:(NSString *)method bufferOption:(enum SnowplowBufferOptions)option emitterCallback:(id<RequestCallback>)callback {
     self = [super init];
     if (self) {
-        _urlEndpoint = url;
-        _httpMethod = method;
+        _httpMethod = @"POST";
+        _bufferOption = SnowplowBufferDefault;
+        _callback = nil;
         _isSending = false;
-        _bufferOption = option;
         _db = [[SnowplowEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
-        _callback = callback;
-        
-        // TODO: Make Thread Count configurable
-        _dataOperationQueue.maxConcurrentOperationCount = 15;
-        
-        if ([method isEqual: @"GET"]) {
-            _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
-        } else {
-            _urlEndpoint = [url URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];
-        }
-        
-        [self setBufferTime:kDefaultBufferTimeout];
     }
     return self;
 }
+
+- (void) setup {
+    _dataOperationQueue.maxConcurrentOperationCount = 15;
+    
+    if ([_httpMethod isEqual: @"GET"]) {
+        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/i"];
+    } else {
+        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];
+    }
+    
+    [self setNewBufferTime:kDefaultBufferTimeout];
+}
+
+// Required
+
+- (void) setURL:(NSURL *)url {
+    _urlEndpoint = url;
+}
+
+// Optional
+
+- (void) setHttpMethod:(NSString *)method {
+    _httpMethod = method;
+}
+
+- (void) setBufferOption:(enum SnowplowBufferOptions)option {
+    _bufferOption = option;
+}
+
+- (void) setCallback:(id<RequestCallback>)callback {
+    _callback = callback;
+}
+
+// Builder Finished
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -93,37 +107,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     });
 }
 
-- (void) addToOutQueue:(SnowplowPayload *)payload {
-    [_db insertEvent:payload];
-}
-
-- (void) popFromOutQueue {
-    [_db removeEventWithId:[_db getLastInsertedRowId]];
-}
-
-- (void) setHttpMethod:(NSString *)method {
-    _httpMethod = method;
-}
-
-- (void) setBufferOption:(enum SnowplowBufferOptions) buffer {
-    _bufferOption = buffer;
-}
-
-- (void) setUrlEndpoint:(NSURL *) url {
-    _urlEndpoint = [url URLByAppendingPathComponent:@"/i"];
-}
-
-- (void) setBufferTime:(int) userTime {
-    int time = kDefaultBufferTimeout;
-    if (userTime <= 300) {
-        time = userTime; // 5 minute intervals
-    }
-    _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
-}
-
 - (void) flushBuffer {
-    if (_isSending == false && [SnowplowUtils isOnline]) {
-        _isSending = true;
+    if ([SnowplowUtils isOnline] && !_isSending) {
+        _isSending = YES;
         [self sendEvents];
     }
 }
@@ -133,13 +119,12 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     if ([self getDbCount] == 0) {
         SnowplowDLog(@"Database empty. Returning..");
-        _isSending = false;
+        _isSending = NO;
         return;
     }
     
     // TODO: Convert range into an emitter argument
-    NSArray *listValues = [NSArray arrayWithArray:[_db getAllEventsLimited:150]];
-    
+    NSArray *listValues = [[NSArray alloc] initWithArray:[_db getAllEventsLimited:150]];
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
     if ([_httpMethod isEqual:@"POST"]) {
@@ -149,9 +134,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
             double stm = [SnowplowUtils getTimestamp];
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
-                NSMutableDictionary *eventPayload = [NSMutableDictionary dictionaryWithDictionary:[listValues[j] objectForKey:@"eventData"]];
+                NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
                 [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:@"stm"];
-                
                 [eventArray addObject:eventPayload];
                 [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
             }
@@ -163,11 +147,10 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
         }
     } else if ([_httpMethod isEqual:@"GET"]) {
         for (NSDictionary * eventWithMetaData in listValues) {
-            NSMutableDictionary *eventPayload = [NSMutableDictionary dictionaryWithDictionary:[eventWithMetaData objectForKey:@"eventData"]];
+            NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
             [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"stm"];
             
-            NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-            [indexArray addObject:[eventWithMetaData objectForKey:@"ID"]];
+            NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
         }
     } else {
@@ -181,11 +164,11 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     for (int i = 0; i < sendResults.count; i++) {
         RequestResponse * result = [sendResults objectAtIndex:i];
-        NSMutableArray * resultIndexArray = [result getIndexArray];
+        NSArray * resultIndexArray = [result getIndexArray];
         
         if ([result getSuccess]) {
-            [self processSuccessResult:resultIndexArray];
             success += resultIndexArray.count;
+            [self processSuccessResult:resultIndexArray];
         } else {
             failure += resultIndexArray.count;
         }
@@ -198,27 +181,32 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     
     if (_callback != nil) {
         if (failure == 0) {
-            [self.callback onSuccessWithCount:success];
+            [_callback onSuccessWithCount:success];
         } else {
-            [self.callback onFailureWithCount:failure successCount:success];
+            [_callback onFailureWithCount:failure successCount:success];
         }
     }
     
-    listValues = nil;
-    sendResults = nil;
+    [sendResults removeAllObjects];
     
     if (success == 0 && failure > 0) {
         SnowplowDLog(@"Ending emitter run as all requests failed...");
-        _isSending = false;
+        
+        // Required to allow all send results to be properly de-allocated
+        // Sleep also prevents excessive work if device is not able to send
+        [NSThread sleepForTimeInterval:5];
+        
+        _isSending = NO;
+        return;
     } else {
         [self sendEvents];
     }
 }
 
-- (void) sendSyncRequest:(NSMutableURLRequest *)request withIndex:(NSMutableArray *)indexArray withResultPointer:(NSMutableArray *)results {
+- (void) sendSyncRequest:(NSMutableURLRequest *)request withIndex:(NSArray *)indexArray withResultPointer:(NSMutableArray *)results {
     [_dataOperationQueue addOperationWithBlock:^{
-        NSError *connectionError;
-        NSHTTPURLResponse *response;
+        NSHTTPURLResponse *response = nil;
+        NSError *connectionError = nil;
         [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&connectionError];
         
         if ([response statusCode] >= 200 && [response statusCode] < 300) {
@@ -230,7 +218,7 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     }];
 }
 
-- (void) processSuccessResult:(NSMutableArray *)indexArray {
+- (void) processSuccessResult:(NSArray *)indexArray {
     [_dataOperationQueue addOperationWithBlock:^{
         for (int i = 0; i < indexArray.count;  i++) {
             SnowplowDLog(@"Removing event at index: %@", indexArray[i]);
@@ -243,8 +231,8 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
     [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setValue:[self acceptContentTypeHeader] forHTTPHeaderField:@"Accept"];
-    [request setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:kAcceptContentHeader forHTTPHeaderField:@"Accept"];
+    [request setValue:kContentTypeHeader forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:requestData];
     return request;
@@ -254,13 +242,29 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
     NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SnowplowUtils urlEncodeDictionary:data]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"GET";
-    [request setValue:[self acceptContentTypeHeader] forHTTPHeaderField:@"Accept"];
+    [request setValue:kAcceptContentHeader forHTTPHeaderField:@"Accept"];
     return request;
 }
 
-- (NSString *) acceptContentTypeHeader {
-    return @"text/html, application/x-www-form-urlencoded, text/plain, image/gif";
+// Setters
+
+- (void) setNewHttpMethod:(NSString *)method {
+    _httpMethod = method;
 }
+
+- (void) setNewBufferOption:(enum SnowplowBufferOptions) buffer {
+    _bufferOption = buffer;
+}
+
+- (void) setNewBufferTime:(int) userTime {
+    int time = kDefaultBufferTimeout;
+    if (userTime <= 300) {
+        time = userTime; // 5 minute intervals
+    }
+    _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+}
+
+// Getters
 
 - (NSUInteger) getDbCount {
     return [_db count];

@@ -44,32 +44,56 @@ NSString * const kVersion               = @"ios-0.4.0";
 NSString * const kVersion               = @"osx-0.4.0";
 #endif
 
-@synthesize collector;
-@synthesize appId;
-@synthesize trackerNamespace;
 @synthesize userId;
 
-- (id) init {
-    return [self initWithCollector:nil appId:nil base64Encoded:true namespace:nil];
+// SnowplowTracker Builder
+
++ (instancetype) build:(void(^)(id<SnowplowTrackerBuilder>builder))buildBlock {
+    SnowplowTracker* tracker = [SnowplowTracker new];
+    if (buildBlock) {
+        buildBlock(tracker);
+    }
+    [tracker setup];
+    return tracker;
 }
 
-- (id) initWithCollector:(SnowplowEmitter *)collector_
-                   appId:(NSString *)appId_
-           base64Encoded:(Boolean)encoded
-               namespace:(NSString *)namespace_ {
+- (id) init {
     self = [super init];
-    if(self) {
+    if (self) {
         [self setSchemaTag:@"jsonschema"];
-        trackerNamespace = namespace_;
-        _base64Encoded = encoded;
-        collector = collector_;
-        _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                         kVersion, @"tv",
-                         namespace_ != nil ? namespace_ : [NSNull null], @"tna",
-                         appId_ != nil ? appId_ : [NSNull null], @"aid", nil];
+        _trackerNamespace = nil;
+        _appId = nil;
+        _base64Encoded = YES;
     }
     return self;
 }
+
+- (void) setup {
+    _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                     kVersion, @"tv",
+                     _trackerNamespace != nil ? _trackerNamespace : [NSNull null], @"tna",
+                     _appId != nil ? _appId : [NSNull null], @"aid", nil];
+}
+
+// Required
+
+- (void) setEmitter:(SnowplowEmitter *)emitter {
+    _emitter = emitter;
+}
+
+- (void) setBase64Encoded:(Boolean)encoded {
+    _base64Encoded = encoded;
+}
+
+- (void) setAppId:(NSString *)appId {
+    _appId = appId;
+}
+
+-(void) setNamespace:(NSString *)trackerNamespace {
+    _trackerNamespace = trackerNamespace;
+}
+
+// Builder Finished
 
 - (void) setUserId:(NSString *)userId_ {
     userId = userId_;
@@ -164,7 +188,7 @@ NSString * const kVersion               = @"osx-0.4.0";
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
-    [collector addPayloadToBuffer:event];
+    [_emitter addPayloadToBuffer:event];
 }
 
 - (void) trackPageView:(NSString *)pageUrl

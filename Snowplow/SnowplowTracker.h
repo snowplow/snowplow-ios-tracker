@@ -25,12 +25,21 @@
 @class SnowplowEmitter;
 @class SnowplowPayload;
 
-@interface SnowplowTracker : NSObject
+@protocol SnowplowTrackerBuilder <NSObject>
 
-@property (retain)              SnowplowEmitter *   collector;
-@property (retain)              NSString *          appId;
-@property (retain)              NSString *          trackerNamespace;
-@property (nonatomic, retain)   NSString *          userId;
+- (void) setEmitter:(SnowplowEmitter *)emitter;
+- (void) setAppId:(NSString *)appId;
+- (void) setBase64Encoded:(Boolean)encoded;
+- (void) setNamespace:(NSString *)name;
+
+@end
+
+@interface SnowplowTracker : NSObject <SnowplowTrackerBuilder>
+
+@property (nonatomic, retain) SnowplowEmitter * emitter;
+@property (nonatomic, retain) NSString *        appId;
+@property (nonatomic, retain) NSString *        trackerNamespace;
+@property (nonatomic, retain) NSString *        userId;
 
 extern NSString * const kSnowplowVendor;
 extern NSString * const kIglu;
@@ -38,23 +47,15 @@ extern Boolean    const kDefaultEncodeBase64;
 extern NSString * const kVersion;
 
 /**
- *  Initializes a newly allocated SnowplowTracker. All class properties default to nil, and require you to use setCollector, setNamespace, setAppId, setUserId. Using initUsingCollector:appId:base64Encoded:namespace is recommended.
+ * Builds the Tracker using a build block of functions.
+ */
++ (instancetype) build:(void(^)(id<SnowplowTrackerBuilder>builder))buildBlock;
+
+/**
+ *  Initializes a newly allocated SnowplowTracker.
  *  @return A SnowplowTracker instance.
  */
 - (id) init;
-
-/**
- *  Initializes a newly allocated SnowplowTracker with all the required properties to send events to it.
- *  @param collector_ A SnowplowEmitter object that is initialized to send the events created by the SnowplowTracker.
- *  @param appId_ Your app ID
- *  @param base64encoded If true, all context data will be Base64 encoded before being added to the event.
- *  @param namespace_ Identifier for the tracker instance.
- *  @return A SnowplowTracker instance.
- */
-- (id) initWithCollector:(SnowplowEmitter *)collector_
-                   appId:(NSString *)appId_
-           base64Encoded:(Boolean)encoded
-               namespace:(NSString *)namespace_;
 
 /**
  *  Sets the schema tag to the new string passed to it. This is used to set the context schema in the event for self describing JSON.

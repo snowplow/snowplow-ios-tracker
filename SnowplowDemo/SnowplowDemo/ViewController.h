@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "RequestCallback.h"
 #import "SnowplowEmitter.h"
+#import "SnowplowTracker.h"
 
 @interface ViewController : UIViewController <UITextFieldDelegate, RequestCallback>
 

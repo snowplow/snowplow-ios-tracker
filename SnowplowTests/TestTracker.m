@@ -46,8 +46,17 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com";
 
 - (void)testExample
 {
-    SnowplowEmitter *collector = [[SnowplowEmitter alloc] initWithURL:[NSURL URLWithString:TEST_SERVER] httpMethod:@"POST" bufferOption:SnowplowBufferInstant];
-    SnowplowTracker *tracker = [[SnowplowTracker alloc] initWithCollector:collector appId:@"foo" base64Encoded:false namespace:@"myname"];
+    SnowplowEmitter *emitter = [SnowplowEmitter build:^(id<SnowplowEmitterBuilder> builder) {
+        [builder setURL:[NSURL URLWithString:TEST_SERVER]];
+        [builder setBufferOption:SnowplowBufferInstant];
+    }];
+    
+    SnowplowTracker *tracker = [SnowplowTracker build:^(id<SnowplowTrackerBuilder> builder) {
+        [builder setEmitter:emitter];
+        [builder setAppId:@"foo"];
+        [builder setNamespace:@"myname"];
+        [builder setBase64Encoded:false];
+    }];
     
     NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:
                              @"foo", @"bar", nil];

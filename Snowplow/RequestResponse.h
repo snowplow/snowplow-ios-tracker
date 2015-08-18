@@ -29,7 +29,7 @@
  * @param success whether the operation was a success or not
  * @param index the event indexes in the database
  */
-- (id) initWithBool:(BOOL)success withIndex:(NSMutableArray *)index;
+- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index;
 
 /**
  * Returns the success of the request operation.

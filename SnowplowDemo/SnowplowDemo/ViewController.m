@@ -53,7 +53,7 @@
             return;
         } else if (tracker_ == nil) { // If the Tracker has not been made...
             tracker_ = [self getTrackerWithUrl:url method:[self getMethodType] option:SnowplowBufferDefault];
-        } else if (![tracker_.collector getSendingStatus]) { // If we are offline we can update the Tracker
+        } else if (![tracker_.emitter getSendingStatus]) { // If we are not sending we can update the Tracker
             tracker_ = [self getTrackerWithUrl:url method:[self getMethodType] option:SnowplowBufferDefault];
         }
         
@@ -66,8 +66,8 @@
 
 - (void) updateMetrics {
     [_madeLabel setText:[NSString stringWithFormat:@"Made: %lld", madeCounter_]];
-    [_dbCountLabel setText:[NSString stringWithFormat:@"DB Count: %lu", (unsigned long)[tracker_.collector getDbCount]]];
-    [_isRunningLabel setText:[NSString stringWithFormat:@"Running: %s", [tracker_.collector getSendingStatus] ? "yes" : "no"]];
+    [_dbCountLabel setText:[NSString stringWithFormat:@"DB Count: %lu", (unsigned long)[tracker_.emitter getDbCount]]];
+    [_isRunningLabel setText:[NSString stringWithFormat:@"Running: %s", [tracker_.emitter getSendingStatus] ? "yes" : "no"]];
     [_isOnlineLabel setText:[NSString stringWithFormat:@"Online: %s", [SnowplowUtils isOnline] ? "yes" : "no"]];
     [_sentCountLabel setText:[NSString stringWithFormat:@"Sent: %lu", (unsigned long)sentCounter_]];
 }
@@ -92,8 +92,19 @@ static NSString *const kNamespace = @"DemoAppNamespace";
 - (SnowplowTracker *) getTrackerWithUrl:(NSString *)url_
                                  method:(NSString *)method_
                                  option:(enum SnowplowBufferOptions)option_ {
-    SnowplowEmitter *emitter = [[SnowplowEmitter alloc] initWithURL:[NSURL URLWithString:url_] httpMethod:method_ bufferOption:option_ emitterCallback:self];
-    SnowplowTracker *tracker = [[SnowplowTracker alloc] initWithCollector:emitter appId:kAppId base64Encoded:false namespace:kNamespace];
+    SnowplowEmitter *emitter = [SnowplowEmitter build:^(id<SnowplowEmitterBuilder> builder) {
+        [builder setURL:[NSURL URLWithString:url_]];
+        [builder setHttpMethod:method_];
+        [builder setBufferOption:option_];
+        [builder setCallback:self];
+    }];
+    
+    SnowplowTracker *tracker = [SnowplowTracker build:^(id<SnowplowTrackerBuilder> builder) {
+        [builder setEmitter:emitter];
+        [builder setAppId:kAppId];
+        [builder setNamespace:kNamespace];
+        [builder setBase64Encoded:false];
+    }];
     return tracker;
 }
 

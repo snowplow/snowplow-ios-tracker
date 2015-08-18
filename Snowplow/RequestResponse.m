@@ -23,26 +23,30 @@
 #import "Snowplow.h"
 #import "RequestResponse.h"
 
-@implementation RequestResponse {
-    BOOL             isSuccess;
-    NSMutableArray * indexArray;
-}
+@interface RequestResponse()
 
-- (id) initWithBool:(BOOL)success withIndex:(NSMutableArray *)index {
+@property (nonatomic) BOOL isSuccess;
+@property (nonatomic, weak) NSArray *indexArray;
+
+@end
+
+@implementation RequestResponse
+
+- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index {
     self = [super init];
     if (self) {
-        isSuccess = success;
-        indexArray = index;
+        _isSuccess = success;
+        _indexArray = index;
     }
     return self;
 }
 
 - (BOOL) getSuccess {
-    return isSuccess;
+    return _isSuccess;
 }
 
-- (NSMutableArray *) getIndexArray {
-    return indexArray;
+- (NSArray *) getIndexArray {
+    return _indexArray;
 }
 
 @end
