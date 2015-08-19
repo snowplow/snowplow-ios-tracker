@@ -24,6 +24,7 @@
 
 @class SnowplowEmitter;
 @class SnowplowPayload;
+@class SnowplowSubject;
 
 @protocol SnowplowTrackerBuilder <NSObject>
 
@@ -37,6 +38,7 @@
 @interface SnowplowTracker : NSObject <SnowplowTrackerBuilder>
 
 @property (nonatomic, retain) SnowplowEmitter * emitter;
+@property (nonatomic, retain) SnowplowSubject * subject;
 @property (nonatomic, retain) NSString *        appId;
 @property (nonatomic, retain) NSString *        trackerNamespace;
 @property (nonatomic, retain) NSString *        userId;

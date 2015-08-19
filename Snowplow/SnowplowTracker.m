@@ -22,16 +22,18 @@
 
 #import "Snowplow.h"
 #import "SnowplowTracker.h"
+#import "SnowplowEmitter.h"
+#import "SnowplowSubject.h"
 #import "SnowplowPayload.h"
 #import "SnowplowUtils.h"
-#import "SnowplowEmitter.h"
 
 @implementation SnowplowTracker {
-    Boolean                 _base64Encoded;
-    NSMutableDictionary *   _standardData;
-    NSString *              _schemaTag;
-    NSString *              _contextSchema;
-    NSString *              _unstructedEventSchema;
+    Boolean                _base64Encoded;
+    NSMutableDictionary *  _standardData;
+    NSString *             _schemaTag;
+    NSString *             _contextSchema;
+    NSString *             _unstructedEventSchema;
+    NSString *             _platformContextSchema;
 }
 
 NSString * const kSnowplowVendor        = @"com.snowplowanalytics.snowplow";
@@ -73,6 +75,8 @@ NSString * const kVersion               = @"osx-0.4.0";
                      kVersion, @"tv",
                      _trackerNamespace != nil ? _trackerNamespace : [NSNull null], @"tna",
                      _appId != nil ? _appId : [NSNull null], @"aid", nil];
+    
+    _subject = [[SnowplowSubject alloc] initWithPlatformContext:NO];
 }
 
 // Required
@@ -106,75 +110,51 @@ NSString * const kVersion               = @"osx-0.4.0";
                       kIglu, kSnowplowVendor, schema];
     _unstructedEventSchema = [NSString stringWithFormat:@"%@%@/unstruct_event/%@/1-0-0",
                               kIglu, kSnowplowVendor, schema];
+    NSString * type = nil;
+#if TARGET_OS_IPHONE
+    type = @"mobile_context";
+#else
+    type = @"desktop_context";
+#endif
+    _platformContextSchema = [NSString stringWithFormat:@"%@%@/%@/jsonschema/1-0-1",
+                              kIglu, kSnowplowVendor, type];
 }
 
-- (void) setContext:(SnowplowPayload *)pb
-            context:(NSMutableArray *)contextArray {
+// Event Decoration
+
+- (void) setContext:(SnowplowPayload *)pb context:(NSMutableArray *)contextArray {
     if (contextArray == nil) {
         contextArray = [[NSMutableArray alloc] init];
     }
-
-#if TARGET_OS_IPHONE
-    [self setMobileContext:contextArray];
-#else
-    [self setDesktopContext:contextArray];
-#endif
-    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                              _contextSchema, @"schema",
-                              contextArray, @"data", nil];
-    [pb addDictionaryToPayload:envelope
-                 base64Encoded:_base64Encoded
-               typeWhenEncoded:@"cx"
-            typeWhenNotEncoded:@"co"];
+    
+    if (_subject != nil) {
+        [self setPlatformContextWithData:contextArray];
+    }
+    
+    if (contextArray.count > 0) {
+        NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  _contextSchema, @"schema",
+                                  contextArray, @"data", nil];
+        [pb addDictionaryToPayload:envelope
+                     base64Encoded:_base64Encoded
+                   typeWhenEncoded:@"cx"
+                typeWhenNotEncoded:@"co"];
+    }
 }
 
-- (void) setMobileContext: (NSMutableArray *)payloadData {
-    SnowplowPayload *mobContext = [[SnowplowPayload alloc] init];
-
-    NSString *schema = [NSString stringWithFormat:@"%@%@/mobile_context/jsonschema/1-0-1",
-                        kIglu, kSnowplowVendor];
-
-    [mobContext addValueToPayload:[SnowplowUtils getOSType] forKey:@"osType"];
-    [mobContext addValueToPayload:[SnowplowUtils getOSVersion] forKey:@"osVersion"];
-    [mobContext addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceManufacturer"];
-    [mobContext addValueToPayload:[SnowplowUtils getDeviceModel] forKey:@"deviceModel"];
-    [mobContext addValueToPayload:[SnowplowUtils getCarrierName] forKey:@"carrier"];
-    [mobContext addValueToPayload:[SnowplowUtils getOpenIdfa] forKey:@"openIdfa"];
-    [mobContext addValueToPayload:[SnowplowUtils getAppleIdfa] forKey:@"appleIdfa"];
-    [mobContext addValueToPayload:[SnowplowUtils getAppleIdfv] forKey:@"appleIdfv"];
-    [mobContext addValueToPayload:[SnowplowUtils getNetworkType] forKey:@"networkType"];
-    [mobContext addValueToPayload:[SnowplowUtils getNetworkTechnology] forKey:@"networkTechnology"];
-
-    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                              schema, @"schema",
-                              mobContext.getPayloadAsDictionary, @"data", nil];
-    [payloadData addObject:envelope];
-}
-
-- (void) setDesktopContext: (NSMutableArray *)payloadData {
-    SnowplowPayload *context = [[SnowplowPayload alloc] init];
-
-    NSString *schema = [NSString stringWithFormat:@"%@%@/desktop_context/jsonschema/1-0-0",
-                        kIglu, kSnowplowVendor];
-
-    [context addValueToPayload:[SnowplowUtils getOSType] forKey:@"osType"];
-    [context addValueToPayload:[SnowplowUtils getOSVersion] forKey:@"osVersion"];
-    [context addValueToPayload:[SnowplowUtils getDeviceVendor] forKey:@"deviceManufacturer"];
-    [context addValueToPayload:[SnowplowUtils getDeviceModel] forKey:@"deviceModel"];
-
-    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:schema, @"schema",
-                              context.getPayloadAsDictionary, @"data", nil];
-    [payloadData addObject:envelope];
+- (void) setPlatformContextWithData:(NSMutableArray *)payloadData {
+    SnowplowPayload *platformContext = [_subject getPlatformDict];
+    if (platformContext != nil) {
+        NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  _platformContextSchema, @"schema",
+                                  platformContext.getPayloadAsDictionary, @"data", nil];
+        [payloadData addObject:envelope];
+    }
 }
 
 - (void) addStandardValuesToPayload:(SnowplowPayload *)payload {
     [payload addDictionaryToPayload:_standardData];
-    [payload addValueToPayload:[SnowplowUtils getPlatform] forKey:@"p"];
-    [payload addValueToPayload:[SnowplowUtils getResolution] forKey:@"res"];
-    [payload addValueToPayload:[SnowplowUtils getViewPort] forKey:@"vp"];
-    [payload addValueToPayload:[SnowplowUtils getEventId] forKey:@"eid"];
-    [payload addValueToPayload:[SnowplowUtils getLanguage] forKey:@"lang"];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"dtm"];
+    [payload addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
 }
 
 - (double) setTimestamp:(double)timestamp toPayload:(SnowplowPayload *)payload {
@@ -183,13 +163,14 @@ NSString * const kVersion               = @"osx-0.4.0";
         tstamp = [SnowplowUtils getTimestamp];
     }
     [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"dtm"];
-
     return tstamp;
 }
 
 - (void) addTracker:(SnowplowPayload *)event {
     [_emitter addPayloadToBuffer:event];
 }
+
+// Event Tracking Functions
 
 - (void) trackPageView:(NSString *)pageUrl
                  title:(NSString *)pageTitle
@@ -217,13 +198,15 @@ NSString * const kVersion               = @"osx-0.4.0";
                context:(NSMutableArray *)context
              timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
-    [pb addValueToPayload:@"pv"      forKey:@"e"];
+    
+    [pb addValueToPayload:@"pv"     forKey:@"e"];
     [pb addValueToPayload:pageUrl   forKey:@"url"];
     [pb addValueToPayload:pageTitle forKey:@"page"];
-    [pb addValueToPayload:referrer   forKey:@"refr"];
+    [pb addValueToPayload:referrer  forKey:@"refr"];
 
     [self addTracker:pb];
 }
@@ -262,6 +245,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                       context:(NSMutableArray *)context
                     timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
@@ -294,9 +278,11 @@ NSString * const kVersion               = @"osx-0.4.0";
                         context:(NSMutableArray *)context
                       timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
+    
     [pb addValueToPayload:@"ue" forKey:@"e"];
 
     // Creates similar envelope as in setContext but different encoding keys
@@ -353,6 +339,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                                             context:(NSMutableArray *)context
                                           timestamp:(double)timestamp {
     SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
@@ -423,6 +410,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                            context:(NSMutableArray *)context
                          timestamp:(double)timestamp {
     SnowplowPayload *pb =  [[SnowplowPayload alloc] init];
+    
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
 
@@ -472,6 +460,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                timestamp:(double)timestamp {
     NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/screen_view/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [[NSMutableDictionary alloc] init];
+    
     if (id_ != nil) {
         [screenViewProperties setObject:id_ forKey:@"id"];
     }
@@ -482,6 +471,7 @@ NSString * const kVersion               = @"osx-0.4.0";
     NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
                                snowplowSchema, @"schema",
                                screenViewProperties, @"data", nil];
+    
     [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
 }
 
@@ -514,13 +504,13 @@ NSString * const kVersion               = @"osx-0.4.0";
                label:(NSString *)label
              context:(NSMutableArray *)context
            timestamp:(double)timestamp {
-
     NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/timing/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
     NSMutableDictionary *timingProperties = [[NSMutableDictionary alloc] init];
 
     [timingProperties setObject:category forKey:@"category"];
     [timingProperties setObject:variable forKey:@"variable"];
     [timingProperties setObject:[NSNumber numberWithInteger:timing] forKey:@"timing"];
+    
     if (label != nil) {
         [timingProperties setObject:label forKey:@"label"];
     }

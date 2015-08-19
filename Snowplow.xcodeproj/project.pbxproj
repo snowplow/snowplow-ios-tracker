@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04062D761B8390870019B8D1 /* SnowplowSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SnowplowSubject.m */; };
 		0413DD771B78D643000D2112 /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* RequestResponse.m */; };
+		041B60A91B84C19B00A1EBCB /* SnowplowSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SnowplowSubject.m */; };
 		04F4334F1B7A360E00035CDC /* RequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* RequestResponse.m */; };
 		46A289CC9C4B3D542DF28F92 /* libPods-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D350F2E758CBC781DDD5DDF7 /* libPods-Snowplow-OSX.a */; };
 		8C8D403041F44FFD17B1C857 /* libPods-specs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC246F4396D6C0652641E05 /* libPods-specs.a */; };
@@ -84,6 +86,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		04062D741B8390710019B8D1 /* SnowplowSubject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SnowplowSubject.h; sourceTree = "<group>"; };
+		04062D751B8390870019B8D1 /* SnowplowSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowSubject.m; sourceTree = "<group>"; };
 		0413DD751B78D635000D2112 /* RequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestResponse.h; sourceTree = "<group>"; };
 		0413DD761B78D643000D2112 /* RequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RequestResponse.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* RequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RequestCallback.h; sourceTree = "<group>"; };
@@ -233,6 +237,8 @@
 				AB0C27EA191B43D600018557 /* SnowplowEmitter.m */,
 				AB0C27F3191C67CD00018557 /* SnowplowPayload.h */,
 				AB0C27F4191C67CD00018557 /* SnowplowPayload.m */,
+				04062D741B8390710019B8D1 /* SnowplowSubject.h */,
+				04062D751B8390870019B8D1 /* SnowplowSubject.m */,
 				ABFCC3741922984A00FAE8FE /* SnowplowUtils.h */,
 				ABFCC3751922984A00FAE8FE /* SnowplowUtils.m */,
 				AB9E8210192DD336006744C9 /* SnowplowTracker.h */,
@@ -542,6 +548,7 @@
 				AB9E8212192DD336006744C9 /* SnowplowTracker.m in Sources */,
 				AB0C27EB191B43D600018557 /* SnowplowEmitter.m in Sources */,
 				ABB767B0194974D3006275D1 /* SnowplowEventStore.m in Sources */,
+				04062D761B8390870019B8D1 /* SnowplowSubject.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SnowplowPayload.m in Sources */,
 				0413DD771B78D643000D2112 /* RequestResponse.m in Sources */,
 			);
@@ -564,6 +571,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041B60A91B84C19B00A1EBCB /* SnowplowSubject.m in Sources */,
 				04F4334F1B7A360E00035CDC /* RequestResponse.m in Sources */,
 				AEA2FCED1A8CE0DF00123462 /* SnowplowEmitter.m in Sources */,
 				AEA2FCEE1A8CE0DF00123462 /* SnowplowPayload.m in Sources */,
