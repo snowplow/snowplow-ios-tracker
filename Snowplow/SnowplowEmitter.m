@@ -124,7 +124,9 @@ static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snow
 - (void) flushBuffer {
     if (_isSending == false) {
         _isSending = true;
-        [self sendEvents];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self sendEvents];
+        });
     }
 }
 
