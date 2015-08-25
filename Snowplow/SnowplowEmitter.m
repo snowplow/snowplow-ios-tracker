@@ -108,6 +108,16 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 }
 
 - (void) flushBuffer {
+    if ([NSThread isMainThread]) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [self sendGuard];
+        });
+    } else {
+        [self sendGuard];
+    }
+}
+
+- (void) sendGuard {
     if ([SnowplowUtils isOnline] && !_isSending) {
         _isSending = YES;
         [self sendEvents];
