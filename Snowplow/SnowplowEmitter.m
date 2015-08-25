@@ -32,6 +32,7 @@
     NSURL *                    _urlEndpoint;
     NSString *                 _httpMethod;
     enum SnowplowBufferOptions _bufferOption;
+    NSInteger                  _emitRange;
     NSTimer *                  _timer;
     SnowplowEventStore *       _db;
     NSOperationQueue *         _dataOperationQueue;
@@ -59,6 +60,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
         _httpMethod = @"POST";
         _bufferOption = SnowplowBufferDefault;
         _callback = nil;
+        _emitRange = 150;
         _isSending = false;
         _db = [[SnowplowEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
@@ -98,6 +100,10 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
     _callback = callback;
 }
 
+- (void) setEmitRange:(NSInteger)emitRange {
+    _emitRange = emitRange;
+}
+
 // Builder Finished
 
 - (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
@@ -133,8 +139,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
         return;
     }
     
-    // TODO: Convert range into an emitter argument
-    NSArray *listValues = [[NSArray alloc] initWithArray:[_db getAllEventsLimited:150]];
+    NSArray *listValues = [[NSArray alloc] initWithArray:[_db getAllEventsLimited:_emitRange]];
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
     if ([_httpMethod isEqual:@"POST"]) {

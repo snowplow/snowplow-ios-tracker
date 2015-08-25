@@ -36,6 +36,7 @@ enum SnowplowBufferOptions {
 - (void) setHttpMethod:(NSString *)method;
 - (void) setBufferOption:(enum SnowplowBufferOptions)option;
 - (void) setCallback:(id<RequestCallback>)callback;
+- (void) setEmitRange:(NSInteger)emitRange;
 
 @end
 
