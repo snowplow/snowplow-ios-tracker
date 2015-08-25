@@ -33,6 +33,7 @@
     NSString *                 _httpMethod;
     enum SnowplowBufferOptions _bufferOption;
     NSInteger                  _emitRange;
+    NSInteger                  _emitThreadPoolSize;
     NSTimer *                  _timer;
     SnowplowEventStore *       _db;
     NSOperationQueue *         _dataOperationQueue;
@@ -61,6 +62,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
         _bufferOption = SnowplowBufferDefault;
         _callback = nil;
         _emitRange = 150;
+        _emitThreadPoolSize = 15;
         _isSending = false;
         _db = [[SnowplowEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
@@ -69,7 +71,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 }
 
 - (void) setup {
-    _dataOperationQueue.maxConcurrentOperationCount = 15;
+    _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     
     if ([_httpMethod isEqual: @"GET"]) {
         _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/i"];
@@ -102,6 +104,10 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 
 - (void) setEmitRange:(NSInteger)emitRange {
     _emitRange = emitRange;
+}
+
+- (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize {
+    _emitThreadPoolSize = emitThreadPoolSize;
 }
 
 // Builder Finished

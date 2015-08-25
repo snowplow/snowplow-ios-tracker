@@ -37,6 +37,7 @@ enum SnowplowBufferOptions {
 - (void) setBufferOption:(enum SnowplowBufferOptions)option;
 - (void) setCallback:(id<RequestCallback>)callback;
 - (void) setEmitRange:(NSInteger)emitRange;
+- (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
 
 @end
 
