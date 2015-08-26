@@ -29,14 +29,14 @@
 #import <FMDB.h>
 
 @implementation SnowplowEmitter {
-    NSURL *                    _urlEndpoint;
-    NSString *                 _httpMethod;
-    enum SnowplowBufferOptions _bufferOption;
-    NSInteger                  _emitRange;
-    NSInteger                  _emitThreadPoolSize;
-    NSTimer *                  _timer;
-    SnowplowEventStore *       _db;
-    NSOperationQueue *         _dataOperationQueue;
+    NSURL *                     _urlEndpoint;
+    enum SnowplowRequestOptions _httpMethod;
+    enum SnowplowBufferOptions  _bufferOption;
+    NSInteger                   _emitRange;
+    NSInteger                   _emitThreadPoolSize;
+    NSTimer *                   _timer;
+    SnowplowEventStore *        _db;
+    NSOperationQueue *          _dataOperationQueue;
 }
 
 static int       const kDefaultBufferTimeout = 60;
@@ -58,12 +58,12 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 - (id) init {
     self = [super init];
     if (self) {
-        _httpMethod = @"POST";
+        _httpMethod = SnowplowRequestPost;
         _bufferOption = SnowplowBufferDefault;
         _callback = nil;
         _emitRange = 150;
         _emitThreadPoolSize = 15;
-        _isSending = false;
+        _isSending = NO;
         _db = [[SnowplowEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
     }
@@ -73,7 +73,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     
-    if ([_httpMethod isEqual: @"GET"]) {
+    if (_httpMethod == SnowplowRequestGet) {
         _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/i"];
     } else {
         _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];
@@ -90,7 +90,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 
 // Optional
 
-- (void) setHttpMethod:(NSString *)method {
+- (void) setHttpMethod:(enum SnowplowRequestOptions)method {
     _httpMethod = method;
 }
 
@@ -148,7 +148,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
     NSArray *listValues = [[NSArray alloc] initWithArray:[_db getAllEventsLimited:_emitRange]];
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
-    if ([_httpMethod isEqual:@"POST"]) {
+    if (_httpMethod == SnowplowRequestPost) {
         for (int i = 0; i < listValues.count; i += _bufferOption) {
             NSMutableArray *eventArray = [[NSMutableArray alloc] init];
             NSMutableArray *indexArray = [[NSMutableArray alloc] init];
@@ -166,7 +166,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
             [payload setValue:eventArray forKey:@"data"];
             [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults];
         }
-    } else if ([_httpMethod isEqual:@"GET"]) {
+    } else if (_httpMethod == SnowplowRequestGet) {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
             [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"stm"];
@@ -176,6 +176,9 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
         }
     } else {
         NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
+        [NSThread sleepForTimeInterval:5];
+        _isSending = NO;
+        return;
     }
     
     [_dataOperationQueue waitUntilAllOperationsAreFinished];
@@ -216,7 +219,6 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
         // Required to allow all send results to be properly de-allocated
         // Sleep also prevents excessive work if device is not able to send
         [NSThread sleepForTimeInterval:5];
-        
         _isSending = NO;
         return;
     } else {
@@ -269,11 +271,11 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 
 // Setters
 
-- (void) setNewHttpMethod:(NSString *)method {
+- (void) setNewHttpMethod:(enum SnowplowRequestOptions)method {
     _httpMethod = method;
 }
 
-- (void) setNewBufferOption:(enum SnowplowBufferOptions) buffer {
+- (void) setNewBufferOption:(enum SnowplowBufferOptions)buffer {
     _bufferOption = buffer;
 }
 

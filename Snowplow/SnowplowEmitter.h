@@ -30,10 +30,15 @@ enum SnowplowBufferOptions {
     SnowplowBufferDefault = 10
 };
 
+enum SnowplowRequestOptions {
+    SnowplowRequestGet,
+    SnowplowRequestPost
+};
+
 @protocol SnowplowEmitterBuilder <NSObject>
 
 - (void) setURL:(NSURL *)url;
-- (void) setHttpMethod:(NSString *)method;
+- (void) setHttpMethod:(enum SnowplowRequestOptions)method;
 - (void) setBufferOption:(enum SnowplowBufferOptions)option;
 - (void) setCallback:(id<RequestCallback>)callback;
 - (void) setEmitRange:(NSInteger)emitRange;
@@ -72,13 +77,13 @@ enum SnowplowBufferOptions {
  * Set the buffer to send the data instantly or after storing 10 events. Use the enum SnowplowBufferOptions to set the preferred option. By default, the tracker is set to SnowplowBufferDefault (10).
  * @param buffer Sets the buffer to SnowplowBufferDefault or SnowplowBufferInstant with SnowplowBufferOptions.
  */
-- (void) setNewBufferOption:(enum SnowplowBufferOptions) buffer;
+- (void) setNewBufferOption:(enum SnowplowBufferOptions)buffer;
 
 /**
  * Set the HTTP method to send the events.
  * @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
  */
-- (void) setNewHttpMethod:(NSString *)method;
+- (void) setNewHttpMethod:(enum SnowplowRequestOptions)method;
 
 /**
  * Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.
