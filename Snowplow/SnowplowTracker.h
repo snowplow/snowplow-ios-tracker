@@ -25,6 +25,7 @@
 @class SnowplowEmitter;
 @class SnowplowPayload;
 @class SnowplowSubject;
+@class SnowplowSession;
 
 @protocol SnowplowTrackerBuilder <NSObject>
 
@@ -32,6 +33,7 @@
 - (void) setAppId:(NSString *)appId;
 - (void) setBase64Encoded:(Boolean)encoded;
 - (void) setNamespace:(NSString *)name;
+- (void) setSessionContext:(BOOL)sessionContext;
 
 @end
 
@@ -39,6 +41,7 @@
 
 @property (nonatomic, retain) SnowplowEmitter * emitter;
 @property (nonatomic, retain) SnowplowSubject * subject;
+@property (nonatomic, retain) SnowplowSession * session;
 @property (nonatomic, retain) NSString *        appId;
 @property (nonatomic, retain) NSString *        trackerNamespace;
 @property (nonatomic, retain) NSString *        userId;
@@ -64,6 +67,18 @@ extern NSString * const kVersion;
  *  @param A string of the new namespace to be use.
  */
 - (void) setSchemaTag:(NSString *)schema;
+
+/**
+ * Returns the current session index count
+ * @return a count of sessions
+ */
+- (NSInteger) getSessionIndex;
+
+/**
+ * Returns whether the application is in the background or foreground
+ * @return boolean truth of application location
+ */
+- (BOOL) getInBackground;
 
 /**
  *  Lets you track a page view using all the variables entered here.

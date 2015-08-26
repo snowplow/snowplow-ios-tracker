@@ -1,0 +1,200 @@
+//
+//  SnowplowSession.m
+//  Snowplow
+//
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  License: Apache License Version 2.0
+//
+
+#import "Snowplow.h"
+#import "SnowplowSession.h"
+#import "SnowplowUtils.h"
+#import "SnowplowPayload.h"
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#endif
+
+@implementation SnowplowSession {
+    NSInteger         _accessedLast;
+    NSInteger         _foregroundTimeout;
+    NSInteger         _backgroundTimeout;
+    NSInteger         _checkInterval;
+    BOOL              _inBackground;
+    NSString *        _userId;
+    NSString *        _currentSessionId;
+    NSString *        _previousSessionId;
+    NSInteger         _sessionIndex;
+    NSString *        _sessionStorage;
+    SnowplowPayload * _sessionDict;
+    NSTimer *         _sessionTimer;
+}
+
+NSString * const kSessionSavePath = @"session.dict";
+
+- (id) init {
+    return [self initWithForegroundTimeout:600 andBackgroundTimeout:5 andCheckInterval:3];
+}
+
+- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval {
+    self = [super init];
+    if (self) {
+        _foregroundTimeout = foregroundTimeout * 1000;
+        _backgroundTimeout = backgroundTimeout * 1000;
+        _checkInterval = checkInterval;
+        _inBackground = NO;
+        _sessionStorage = @"SQLITE";
+        
+        NSDictionary * maybeSessionDict = [self getSessionFromFile];
+        if (maybeSessionDict == nil) {
+            _userId = [SnowplowUtils getEventId];
+            _currentSessionId = @"";
+        } else {
+            _userId = [maybeSessionDict valueForKey:@"userId"];
+            _currentSessionId = [maybeSessionDict valueForKey:@"sessionId"];
+            _previousSessionId = [maybeSessionDict valueForKey:@"previousSessionId"];
+            _sessionIndex = [[maybeSessionDict valueForKey:@"sessionIndex"] intValue];
+        }
+        
+        [self updateSession];
+        [self updateAccessedLast];
+        [self updateSessionDict];
+        [self writeSessionToFile];
+        [self startChecker];
+        
+        // Trigger notification for view changes
+        #if TARGET_OS_IPHONE
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(updateInBackground)
+                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(updateInForeground)
+                                                     name:UIApplicationWillEnterForegroundNotification
+                                                   object:nil];
+        #endif
+    }
+    return self;
+}
+
+// --- Public
+
+- (void) startChecker {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _sessionTimer = [NSTimer scheduledTimerWithTimeInterval:_checkInterval
+                                                         target:self
+                                                       selector:@selector(checkSession:)
+                                                       userInfo:nil
+                                                        repeats:YES];
+    });
+}
+
+- (void) stopChecker {
+    [_sessionTimer invalidate];
+    _sessionTimer = nil;
+}
+
+- (SnowplowPayload *) getSessionDict {
+    [self updateAccessedLast];
+    return _sessionDict;
+}
+
+- (NSInteger) getSessionIndex {
+    return _sessionIndex;
+}
+
+- (BOOL) getInBackground {
+    return _inBackground;
+}
+
+// --- Private
+
+- (BOOL) writeSessionToFile {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    BOOL result = NO;
+    if ([paths count] > 0) {
+        NSString * savePath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
+        NSDictionary * sessionDict = [[self getSessionDict] getPayloadAsDictionary];
+        result = [sessionDict writeToFile:savePath atomically:YES];
+    }
+    return result;
+}
+
+- (NSDictionary *) getSessionFromFile {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSDictionary *sessionDict = nil;
+    if ([paths count] > 0) {
+        NSString * readPath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
+        sessionDict = [NSDictionary dictionaryWithContentsOfFile:readPath];
+    }
+    return sessionDict;
+}
+
+- (void) checkSession:(NSTimer *)timer {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSInteger checkTime = [SnowplowUtils getTimestamp];
+        NSInteger range = 0;
+        
+        if (_inBackground) {
+            range = _backgroundTimeout;
+        } else {
+            range = _foregroundTimeout;
+        }
+        
+        if (![self isTimeInRangeWithStartTime:_accessedLast andCheckTime:checkTime andRange:range]) {
+            [self updateSession];
+            [self updateAccessedLast];
+            [self updateSessionDict];
+            [self writeSessionToFile];
+        }
+    });
+}
+
+- (void) updateSession {
+    _previousSessionId = _currentSessionId;
+    _currentSessionId = [SnowplowUtils getEventId];
+    _sessionIndex++;
+}
+
+- (void) updateAccessedLast {
+    _accessedLast = [SnowplowUtils getTimestamp];
+}
+
+- (void) updateSessionDict {
+    _sessionDict = [[SnowplowPayload alloc] init];
+    [_sessionDict addValueToPayload:_userId forKey:@"userId"];
+    [_sessionDict addValueToPayload:_currentSessionId forKey:@"sessionId"];
+    [_sessionDict addValueToPayload:_previousSessionId forKey:@"previousSessionId"];
+    [_sessionDict addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_sessionIndex] forKey:@"sessionIndex"];
+    [_sessionDict addValueToPayload:_sessionStorage forKey:@"storageMechanism"];
+}
+
+- (BOOL) isTimeInRangeWithStartTime:(NSInteger)startTime
+                       andCheckTime:(NSInteger)checkTime
+                           andRange:(NSInteger)range {
+    return startTime > (checkTime - range);
+}
+
+- (void) updateInBackground {
+    _inBackground = YES;
+}
+
+- (void) updateInForeground {
+    _inBackground = NO;
+}
+
+@end

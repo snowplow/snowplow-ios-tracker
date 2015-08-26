@@ -26,6 +26,7 @@
 #import "SnowplowSubject.h"
 #import "SnowplowPayload.h"
 #import "SnowplowUtils.h"
+#import "SnowplowSession.h"
 
 @implementation SnowplowTracker {
     Boolean                _base64Encoded;
@@ -34,6 +35,7 @@
     NSString *             _contextSchema;
     NSString *             _unstructedEventSchema;
     NSString *             _platformContextSchema;
+    NSString *             _sessionContextSchema;
 }
 
 NSString * const kSnowplowVendor        = @"com.snowplowanalytics.snowplow";
@@ -76,7 +78,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                      _trackerNamespace != nil ? _trackerNamespace : [NSNull null], @"tna",
                      _appId != nil ? _appId : [NSNull null], @"aid", nil];
     
-    _subject = [[SnowplowSubject alloc] initWithPlatformContext:NO];
+    _subject = [[SnowplowSubject alloc] initWithPlatformContext:YES];
 }
 
 // Required
@@ -93,31 +95,14 @@ NSString * const kVersion               = @"osx-0.4.0";
     _appId = appId;
 }
 
--(void) setNamespace:(NSString *)trackerNamespace {
+- (void) setNamespace:(NSString *)trackerNamespace {
     _trackerNamespace = trackerNamespace;
 }
 
-// Builder Finished
-
-- (void) setUserId:(NSString *)userId_ {
-    userId = userId_;
-    [_standardData setObject:userId_ forKey:@"uid"];
-}
-
-- (void) setSchemaTag:(NSString *)schema {
-    _schemaTag = schema;
-    _contextSchema = [NSString stringWithFormat:@"%@%@/contexts/%@/1-0-0",
-                      kIglu, kSnowplowVendor, schema];
-    _unstructedEventSchema = [NSString stringWithFormat:@"%@%@/unstruct_event/%@/1-0-0",
-                              kIglu, kSnowplowVendor, schema];
-    NSString * type = nil;
-#if TARGET_OS_IPHONE
-    type = @"mobile_context";
-#else
-    type = @"desktop_context";
-#endif
-    _platformContextSchema = [NSString stringWithFormat:@"%@%@/%@/jsonschema/1-0-1",
-                              kIglu, kSnowplowVendor, type];
+- (void) setSessionContext:(BOOL)sessionContext {
+    if (sessionContext) {
+        _session = [[SnowplowSession alloc] init];
+    }
 }
 
 // Event Decoration
@@ -129,6 +114,10 @@ NSString * const kVersion               = @"osx-0.4.0";
     
     if (_subject != nil) {
         [self setPlatformContextWithData:contextArray];
+    }
+    
+    if (_session != nil) {
+        [self setSessionContextWithData:contextArray];
     }
     
     if (contextArray.count > 0) {
@@ -147,7 +136,17 @@ NSString * const kVersion               = @"osx-0.4.0";
     if (platformContext != nil) {
         NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                                   _platformContextSchema, @"schema",
-                                  platformContext.getPayloadAsDictionary, @"data", nil];
+                                  [platformContext getPayloadAsDictionary], @"data", nil];
+        [payloadData addObject:envelope];
+    }
+}
+
+- (void) setSessionContextWithData:(NSMutableArray *)payloadData {
+    SnowplowPayload *sessionContext = [_session getSessionDict];
+    if (sessionContext != nil) {
+        NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  _sessionContextSchema, @"schema",
+                                  [sessionContext getPayloadAsDictionary], @"data", nil];
         [payloadData addObject:envelope];
     }
 }
@@ -168,6 +167,39 @@ NSString * const kVersion               = @"osx-0.4.0";
 
 - (void) addTracker:(SnowplowPayload *)event {
     [_emitter addPayloadToBuffer:event];
+}
+
+// Getters & Setters
+
+- (void) setUserId:(NSString *)userId_ {
+    userId = userId_;
+    [_standardData setObject:userId_ forKey:@"uid"];
+}
+
+- (void) setSchemaTag:(NSString *)schema {
+    _schemaTag = schema;
+    _contextSchema = [NSString stringWithFormat:@"%@%@/contexts/%@/1-0-0",
+                      kIglu, kSnowplowVendor, schema];
+    _unstructedEventSchema = [NSString stringWithFormat:@"%@%@/unstruct_event/%@/1-0-0",
+                              kIglu, kSnowplowVendor, schema];
+    NSString * type = nil;
+#if TARGET_OS_IPHONE
+    type = @"mobile_context";
+#else
+    type = @"desktop_context";
+#endif
+    _platformContextSchema = [NSString stringWithFormat:@"%@%@/%@/%@/1-0-1",
+                              kIglu, kSnowplowVendor, type, schema];
+    _sessionContextSchema = [NSString stringWithFormat:@"%@%@/client_session/%@/1-0-1",
+                             kIglu, kSnowplowVendor, schema];
+}
+
+- (NSInteger) getSessionIndex {
+    return [_session getSessionIndex];
+}
+
+- (BOOL) getInBackground {
+    return [_session getInBackground];
 }
 
 // Event Tracking Functions
