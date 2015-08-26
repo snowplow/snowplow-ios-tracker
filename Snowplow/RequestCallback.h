@@ -20,6 +20,8 @@
 //  License: Apache License Version 2.0
 //
 
+#import <Foundation/Foundation.h>
+
 @protocol RequestCallback <NSObject>
 
 - (void) onSuccessWithCount:(NSInteger)successCount;
@@ -27,5 +29,3 @@
 - (void) onFailureWithCount:(NSInteger)failureCount successCount:(NSInteger)successCount;
 
 @end
-
-#import <Foundation/Foundation.h>
