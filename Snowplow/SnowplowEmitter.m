@@ -284,7 +284,10 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
     if (userTime <= 300) {
         time = userTime; // 5 minute intervals
     }
-    _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+    });
 }
 
 // Getters
