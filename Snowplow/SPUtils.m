@@ -51,8 +51,11 @@
 }
 
 + (NSString *) getPlatform {
-    // There doesn't seem to be any reason to set any other value
+#if TARGET_OS_IPHONE
     return @"mob";
+#else
+    return @"pc";
+#endif
 }
 
 + (NSString *) getEventId {
