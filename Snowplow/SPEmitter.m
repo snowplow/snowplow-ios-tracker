@@ -68,10 +68,14 @@
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     
-    if (_httpMethod == SPRequestGet) {
-        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointGet];
+    if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
+        if (_httpMethod == SPRequestGet) {
+            _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointGet];
+        } else {
+            _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointPost];
+        }
     } else {
-        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointPost];
+        [NSException raise:@"Invalid SPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _urlEndpoint];
     }
     
     [self setNewBufferTime:kDefaultBufferTimeout];
