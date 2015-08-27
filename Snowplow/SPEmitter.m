@@ -39,11 +39,6 @@
     NSOperationQueue *          _dataOperationQueue;
 }
 
-static int        const kDefaultBufferTimeout = 60;
-static NSString * const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3";
-static NSString * const kAcceptContentHeader  = @"text/html, application/x-www-form-urlencoded, text/plain, image/gif";
-static NSString * const kContentTypeHeader    = @"application/json; charset=utf-8";
-
 // SnowplowEmitter Builder
 
 + (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock {
@@ -74,9 +69,9 @@ static NSString * const kContentTypeHeader    = @"application/json; charset=utf-
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     
     if (_httpMethod == SPRequestGet) {
-        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/i"];
+        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointGet];
     } else {
-        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];
+        _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointPost];
     }
     
     [self setNewBufferTime:kDefaultBufferTimeout];
@@ -156,7 +151,7 @@ static NSString * const kContentTypeHeader    = @"application/json; charset=utf-
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
                 NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
-                [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:@"stm"];
+                [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:kSentTimestamp];
                 [eventArray addObject:eventPayload];
                 [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
             }
@@ -169,7 +164,7 @@ static NSString * const kContentTypeHeader    = @"application/json; charset=utf-
     } else if (_httpMethod == SPRequestGet) {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:@"stm"];
+            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:kSentTimestamp];
             
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
@@ -279,8 +274,8 @@ static NSString * const kContentTypeHeader    = @"application/json; charset=utf-
     _bufferOption = buffer;
 }
 
-- (void) setNewBufferTime:(int) userTime {
-    int time = kDefaultBufferTimeout;
+- (void) setNewBufferTime:(NSInteger) userTime {
+    NSInteger time = kDefaultBufferTimeout;
     if (userTime <= 300) {
         time = userTime; // 5 minute intervals
     }

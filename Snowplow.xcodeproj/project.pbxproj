@@ -12,6 +12,8 @@
 		041B60A91B84C19B00A1EBCB /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
 		043EC5E01B8F049200294081 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5DF1B8F049200294081 /* SPSession.m */; };
 		043EC5E11B8F049200294081 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5DF1B8F049200294081 /* SPSession.m */; };
+		043EC5E71B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
+		043EC5E81B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		46A289CC9C4B3D542DF28F92 /* libPods-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D350F2E758CBC781DDD5DDF7 /* libPods-Snowplow-OSX.a */; };
 		8C8D403041F44FFD17B1C857 /* libPods-specs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC246F4396D6C0652641E05 /* libPods-specs.a */; };
@@ -87,6 +89,7 @@
 		0413DD761B78D643000D2112 /* SPRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPRequestResponse.m; sourceTree = "<group>"; };
 		043EC5DD1B8F048500294081 /* SPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSession.h; sourceTree = "<group>"; };
 		043EC5DF1B8F049200294081 /* SPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSession.m; sourceTree = "<group>"; };
+		043EC5E61B8F224900294081 /* Snowplow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snowplow.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestCallback.h; sourceTree = "<group>"; };
 		050D36B378D82D87E307F937 /* Pods-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-lib/Pods-lib.release.xcconfig"; sourceTree = "<group>"; };
 		0DC246F4396D6C0652641E05 /* libPods-specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,6 +233,7 @@
 			children = (
 				AB0C27C3191B408200018557 /* Supporting Files */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,
+				043EC5E61B8F224900294081 /* Snowplow.m */,
 				AB9E8210192DD336006744C9 /* SPTracker.h */,
 				AB9E8211192DD336006744C9 /* SPTracker.m */,
 				AB0C27E9191B43D600018557 /* SPEmitter.h */,
@@ -542,6 +546,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043EC5E71B8F224900294081 /* Snowplow.m in Sources */,
 				AB39617219530E850002F235 /* OpenIDFA.m in Sources */,
 				AB9E8212192DD336006744C9 /* SPTracker.m in Sources */,
 				AB0C27EB191B43D600018557 /* SPEmitter.m in Sources */,
@@ -571,6 +576,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043EC5E81B8F224900294081 /* Snowplow.m in Sources */,
 				AEB76D621A8E3AC800BD0E69 /* OpenIDFA.m in Sources */,
 				AEA2FCF01A8CE0DF00123462 /* SPTracker.m in Sources */,
 				AEA2FCED1A8CE0DF00123462 /* SPEmitter.m in Sources */,

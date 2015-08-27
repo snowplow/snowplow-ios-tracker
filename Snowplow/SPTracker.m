@@ -31,22 +31,8 @@
 @implementation SPTracker {
     Boolean                _base64Encoded;
     NSMutableDictionary *  _standardData;
-    NSString *             _schemaTag;
-    NSString *             _contextSchema;
-    NSString *             _unstructedEventSchema;
     NSString *             _platformContextSchema;
-    NSString *             _sessionContextSchema;
 }
-
-NSString * const kSnowplowVendor        = @"com.snowplowanalytics.snowplow";
-NSString * const kIglu                  = @"iglu:";
-Boolean    const kDefaultEncodeBase64   = true;
-
-#if TARGET_OS_IPHONE
-NSString * const kVersion               = @"ios-0.4.0";
-#else
-NSString * const kVersion               = @"osx-0.4.0";
-#endif
 
 @synthesize userId;
 
@@ -64,19 +50,24 @@ NSString * const kVersion               = @"osx-0.4.0";
 - (id) init {
     self = [super init];
     if (self) {
-        [self setSchemaTag:@"jsonschema"];
         _trackerNamespace = nil;
         _appId = nil;
         _base64Encoded = YES;
+        
+#if TARGET_OS_IPHONE
+        _platformContextSchema = kMobileContextSchema;
+#else
+        _platformContextSchema = kDesktopContextSchema;
+#endif
     }
     return self;
 }
 
 - (void) setup {
     _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                     kVersion, @"tv",
-                     _trackerNamespace != nil ? _trackerNamespace : [NSNull null], @"tna",
-                     _appId != nil ? _appId : [NSNull null], @"aid", nil];
+                     kVersion, kTrackerVersion,
+                     _trackerNamespace != nil ? _trackerNamespace : [NSNull null], kNamespace,
+                     _appId != nil ? _appId : [NSNull null], kAppId, nil];
     
     _subject = [[SPSubject alloc] initWithPlatformContext:YES];
 }
@@ -122,12 +113,12 @@ NSString * const kVersion               = @"osx-0.4.0";
     
     if (contextArray.count > 0) {
         NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  _contextSchema, @"schema",
-                                  contextArray, @"data", nil];
+                                  kContextSchema, kSchema,
+                                  contextArray, kData, nil];
         [pb addDictionaryToPayload:envelope
                      base64Encoded:_base64Encoded
-                   typeWhenEncoded:@"cx"
-                typeWhenNotEncoded:@"co"];
+                   typeWhenEncoded:kContextEncoded
+                typeWhenNotEncoded:kContext];
     }
 }
 
@@ -135,8 +126,8 @@ NSString * const kVersion               = @"osx-0.4.0";
     SPPayload *platformContext = [_subject getPlatformDict];
     if (platformContext != nil) {
         NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  _platformContextSchema, @"schema",
-                                  [platformContext getPayloadAsDictionary], @"data", nil];
+                                  _platformContextSchema, kSchema,
+                                  [platformContext getPayloadAsDictionary], kData, nil];
         [payloadData addObject:envelope];
     }
 }
@@ -145,8 +136,8 @@ NSString * const kVersion               = @"osx-0.4.0";
     SPPayload *sessionContext = [_session getSessionDict];
     if (sessionContext != nil) {
         NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  _sessionContextSchema, @"schema",
-                                  [sessionContext getPayloadAsDictionary], @"data", nil];
+                                  kSessionContextSchema, kSchema,
+                                  [sessionContext getPayloadAsDictionary], kData, nil];
         [payloadData addObject:envelope];
     }
 }
@@ -154,6 +145,7 @@ NSString * const kVersion               = @"osx-0.4.0";
 - (void) addStandardValuesToPayload:(SPPayload *)payload {
     [payload addDictionaryToPayload:_standardData];
     [payload addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
+    [payload addValueToPayload:[SPUtils getEventId] forKey:kEid];
 }
 
 - (double) setTimestamp:(double)timestamp toPayload:(SPPayload *)payload {
@@ -161,7 +153,7 @@ NSString * const kVersion               = @"osx-0.4.0";
     if(timestamp == 0) {
         tstamp = [SPUtils getTimestamp];
     }
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"dtm"];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:kTimestamp];
     return tstamp;
 }
 
@@ -174,24 +166,6 @@ NSString * const kVersion               = @"osx-0.4.0";
 - (void) setUserId:(NSString *)userId_ {
     userId = userId_;
     [_standardData setObject:userId_ forKey:@"uid"];
-}
-
-- (void) setSchemaTag:(NSString *)schema {
-    _schemaTag = schema;
-    _contextSchema = [NSString stringWithFormat:@"%@%@/contexts/%@/1-0-0",
-                      kIglu, kSnowplowVendor, schema];
-    _unstructedEventSchema = [NSString stringWithFormat:@"%@%@/unstruct_event/%@/1-0-0",
-                              kIglu, kSnowplowVendor, schema];
-    NSString * type = nil;
-#if TARGET_OS_IPHONE
-    type = @"mobile_context";
-#else
-    type = @"desktop_context";
-#endif
-    _platformContextSchema = [NSString stringWithFormat:@"%@%@/%@/%@/1-0-1",
-                              kIglu, kSnowplowVendor, type, schema];
-    _sessionContextSchema = [NSString stringWithFormat:@"%@%@/client_session/%@/1-0-1",
-                             kIglu, kSnowplowVendor, schema];
 }
 
 - (NSInteger) getSessionIndex {
@@ -235,10 +209,10 @@ NSString * const kVersion               = @"osx-0.4.0";
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
     
-    [pb addValueToPayload:@"pv"     forKey:@"e"];
-    [pb addValueToPayload:pageUrl   forKey:@"url"];
-    [pb addValueToPayload:pageTitle forKey:@"page"];
-    [pb addValueToPayload:referrer  forKey:@"refr"];
+    [pb addValueToPayload:kEventPageView forKey:kEvent];
+    [pb addValueToPayload:pageUrl        forKey:kPageUrl];
+    [pb addValueToPayload:pageTitle      forKey:kPageTitle];
+    [pb addValueToPayload:referrer       forKey:kPageRefr];
 
     [self addTracker:pb];
 }
@@ -282,12 +256,12 @@ NSString * const kVersion               = @"osx-0.4.0";
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
 
-    [pb addValueToPayload:@"se" forKey:@"e"];
-    [pb addValueToPayload:category forKey:@"se_ca"];
-    [pb addValueToPayload:action forKey:@"se_ac"];
-    [pb addValueToPayload:label forKey:@"se_la"];
-    [pb addValueToPayload:property forKey:@"se_pr"];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", value] forKey:@"se_va"];
+    [pb addValueToPayload:kEventStructured forKey:kEvent];
+    [pb addValueToPayload:category         forKey:kStuctCategory];
+    [pb addValueToPayload:action           forKey:kStuctAction];
+    [pb addValueToPayload:label            forKey:kStuctLabel];
+    [pb addValueToPayload:property         forKey:kStuctProperty];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", value] forKey:kStuctValue];
 
     [self addTracker:pb];
 }
@@ -315,75 +289,74 @@ NSString * const kVersion               = @"osx-0.4.0";
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
     
-    [pb addValueToPayload:@"ue" forKey:@"e"];
+    [pb addValueToPayload:kEventUnstructured forKey:kEvent];
 
-    // Creates similar envelope as in setContext but different encoding keys
     NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                              _unstructedEventSchema, @"schema",
-                              eventJson, @"data", nil];
+                              kUnstructSchema, kSchema,
+                              eventJson, kData, nil];
     [pb addDictionaryToPayload:envelope
                  base64Encoded:_base64Encoded
-               typeWhenEncoded:@"ue_px"
-            typeWhenNotEncoded:@"ue_pr"];
+               typeWhenEncoded:kUnstructuredEncoded
+            typeWhenNotEncoded:kUnstructured];
 
     [self addTracker:pb];
 }
 
 - (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency {
+                                          sku:(NSString *)sku
+                                         name:(NSString *)name
+                                     category:(NSString *)category
+                                        price:(float)price
+                                     quantity:(int)quantity
+                                     currency:(NSString *)currency {
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:0];
 }
 
 - (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency
-                                            context:(NSMutableArray *)context {
+                                          sku:(NSString *)sku
+                                         name:(NSString *)name
+                                     category:(NSString *)category
+                                        price:(float)price
+                                     quantity:(int)quantity
+                                     currency:(NSString *)currency
+                                      context:(NSMutableArray *)context {
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:context timestamp:0];
 }
 
 - (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency
-                                          timestamp:(double)timestamp {
+                                          sku:(NSString *)sku
+                                         name:(NSString *)name
+                                     category:(NSString *)category
+                                        price:(float)price
+                                     quantity:(int)quantity
+                                     currency:(NSString *)currency
+                                    timestamp:(double)timestamp {
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:timestamp];
 }
 
 - (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency
-                                            context:(NSMutableArray *)context
-                                          timestamp:(double)timestamp {
+                                          sku:(NSString *)sku
+                                         name:(NSString *)name
+                                     category:(NSString *)category
+                                        price:(float)price
+                                     quantity:(int)quantity
+                                     currency:(NSString *)currency
+                                      context:(NSMutableArray *)context
+                                    timestamp:(double)timestamp {
     SPPayload *pb = [[SPPayload alloc] init];
     
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
 
-    [pb addValueToPayload:@"ti" forKey:@"e"];
-    [pb addValueToPayload:orderId forKey:@"ti_id"];
-    [pb addValueToPayload:sku forKey:@"ti_sk"];
-    [pb addValueToPayload:name forKey:@"ti_nm"];
-    [pb addValueToPayload:category forKey:@"ti_ca"];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", price] forKey:@"ti_pr"];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%d", quantity] forKey:@"ti_qu"];
-    [pb addValueToPayload:currency forKey:@"ti_cu"];
+    [pb addValueToPayload:kEventEcommItem forKey:kEvent];
+    [pb addValueToPayload:orderId         forKey:kEcommItemId];
+    [pb addValueToPayload:sku             forKey:kEcommItemSku];
+    [pb addValueToPayload:name            forKey:kEcommItemName];
+    [pb addValueToPayload:category        forKey:kEcommItemCategory];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", price]    forKey:kEcommItemPrice];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%d", quantity] forKey:kEcommItemQuantity];
+    [pb addValueToPayload:currency        forKey:kEcommItemCurrency];
 
     return pb;
 }
@@ -446,23 +419,23 @@ NSString * const kVersion               = @"osx-0.4.0";
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
 
-    [pb addValueToPayload:@"tr" forKey:@"e"];
-    [pb addValueToPayload:orderId forKey:@"tr_id"];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", totalValue] forKey:@"tr_tt"];
-    [pb addValueToPayload:affiliation forKey:@"tr_af"];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", taxValue] forKey:@"tr_tx"];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", shipping] forKey:@"tr_sh"];
-    [pb addValueToPayload:city forKey:@"tr_ci"];
-    [pb addValueToPayload:state forKey:@"tr_st"];
-    [pb addValueToPayload:country forKey:@"tr_co"];
-    [pb addValueToPayload:currency forKey:@"tr_cu"];
+    [pb addValueToPayload:KEventEcomm forKey:kEvent];
+    [pb addValueToPayload:orderId     forKey:kEcommId];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", totalValue] forKey:kEcommTotal];
+    [pb addValueToPayload:affiliation forKey:kEcommAffiliation];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", taxValue]   forKey:kEcommTax];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%f", shipping]   forKey:kEcommShipping];
+    [pb addValueToPayload:city        forKey:kEcommCity];
+    [pb addValueToPayload:state       forKey:kEcommState];
+    [pb addValueToPayload:country     forKey:kEcommCountry];
+    [pb addValueToPayload:currency    forKey:kEcommCurrency];
 
     double tstamp = [self setTimestamp:timestamp toPayload:pb];
 
     for (SPPayload *item in items) {
-        [item addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"tstamp"];
-        [item addValueToPayload:orderId forKey:@"order_id"];
-        [item addValueToPayload:currency forKey:@"currency"];
+        [item addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:kTimestamp];
+        [item addValueToPayload:orderId  forKey:kEcommItemId];
+        [item addValueToPayload:currency forKey:kEcommItemCurrency];
         [self addTracker:item];
     }
 
@@ -490,19 +463,18 @@ NSString * const kVersion               = @"osx-0.4.0";
                       id:(NSString *)id_
                  context:(NSMutableArray *)context
                timestamp:(double)timestamp {
-    NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/screen_view/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
     NSMutableDictionary *screenViewProperties = [[NSMutableDictionary alloc] init];
     
     if (id_ != nil) {
-        [screenViewProperties setObject:id_ forKey:@"id"];
+        [screenViewProperties setObject:id_ forKey:kSvId];
     }
     if (name != nil) {
-        [screenViewProperties setObject:name forKey:@"name"];
+        [screenViewProperties setObject:name forKey:kSvName];
     }
 
     NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
-                               snowplowSchema, @"schema",
-                               screenViewProperties, @"data", nil];
+                               kScreenViewSchema, kSchema,
+                               screenViewProperties, kData, nil];
     
     [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
 }
@@ -536,20 +508,19 @@ NSString * const kVersion               = @"osx-0.4.0";
                label:(NSString *)label
              context:(NSMutableArray *)context
            timestamp:(double)timestamp {
-    NSString *snowplowSchema = [NSString stringWithFormat:@"%@%@/timing/%@/1-0-0", kIglu, kSnowplowVendor, _schemaTag];
     NSMutableDictionary *timingProperties = [[NSMutableDictionary alloc] init];
 
-    [timingProperties setObject:category forKey:@"category"];
-    [timingProperties setObject:variable forKey:@"variable"];
-    [timingProperties setObject:[NSNumber numberWithInteger:timing] forKey:@"timing"];
+    [timingProperties setObject:category forKey:kUtCategory];
+    [timingProperties setObject:variable forKey:kUtVariable];
+    [timingProperties setObject:[NSNumber numberWithInteger:timing] forKey:kUtTiming];
     
     if (label != nil) {
-        [timingProperties setObject:label forKey:@"label"];
+        [timingProperties setObject:label forKey:kUtLabel];
     }
 
     NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
-                               snowplowSchema, @"schema",
-                               timingProperties, @"data", nil];
+                               kUserTimingsSchema, kSchema,
+                               timingProperties, kData, nil];
 
     [self trackUnstructuredEvent:eventJson context:context timestamp:timestamp];
 }

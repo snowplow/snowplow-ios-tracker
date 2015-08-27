@@ -11,6 +11,7 @@
 		041B60A81B84C0D600A1EBCB /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 041B60A61B84C0D500A1EBCB /* SPSubject.m */; };
 		043EC5E41B8F050900294081 /* SPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 043EC5E21B8F050900294081 /* SPSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		043EC5E51B8F050900294081 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E31B8F050900294081 /* SPSession.m */; };
+		043EC5EA1B8F315400294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E91B8F315400294081 /* Snowplow.m */; };
 		04DD9E261B7A307900FFF578 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E231B7A307900FFF578 /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E241B7A307900FFF578 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		04DD9E281B7A307900FFF578 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD9E251B7A307900FFF578 /* SPRequestResponse.m */; };
@@ -34,6 +35,7 @@
 		041B60A61B84C0D500A1EBCB /* SPSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPSubject.m; path = ../../Snowplow/SPSubject.m; sourceTree = "<group>"; };
 		043EC5E21B8F050900294081 /* SPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSession.h; path = ../../Snowplow/SPSession.h; sourceTree = "<group>"; };
 		043EC5E31B8F050900294081 /* SPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPSession.m; path = ../../Snowplow/SPSession.m; sourceTree = "<group>"; };
+		043EC5E91B8F315400294081 /* Snowplow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Snowplow.m; path = ../../Snowplow/Snowplow.m; sourceTree = "<group>"; };
 		04DD9E231B7A307900FFF578 /* SPRequestCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPRequestCallback.h; path = ../../Snowplow/SPRequestCallback.h; sourceTree = "<group>"; };
 		04DD9E241B7A307900FFF578 /* SPRequestResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPRequestResponse.h; path = ../../Snowplow/SPRequestResponse.h; sourceTree = "<group>"; };
 		04DD9E251B7A307900FFF578 /* SPRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPRequestResponse.m; path = ../../Snowplow/SPRequestResponse.m; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 		462FD4D81B15C76500296A38 /* SnowplowTracker-iOS-Static */ = {
 			isa = PBXGroup;
 			children = (
+				043EC5E91B8F315400294081 /* Snowplow.m */,
 				462FD4FA1B15CABE00296A38 /* SPTracker.m */,
 				462FD4F71B15CABE00296A38 /* SPEmitter.m */,
 				041B60A61B84C0D500A1EBCB /* SPSubject.m */,
@@ -223,6 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				043EC5EA1B8F315400294081 /* Snowplow.m in Sources */,
 				462FD5001B15CABE00296A38 /* SPTracker.m in Sources */,
 				462FD4FD1B15CABE00296A38 /* SPEmitter.m in Sources */,
 				041B60A81B84C0D600A1EBCB /* SPSubject.m in Sources */,

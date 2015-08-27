@@ -64,10 +64,10 @@ NSString * const kSessionSavePath = @"session.dict";
             _userId = [SPUtils getEventId];
             _currentSessionId = @"";
         } else {
-            _userId = [maybeSessionDict valueForKey:@"userId"];
-            _currentSessionId = [maybeSessionDict valueForKey:@"sessionId"];
-            _previousSessionId = [maybeSessionDict valueForKey:@"previousSessionId"];
-            _sessionIndex = [[maybeSessionDict valueForKey:@"sessionIndex"] intValue];
+            _userId = [maybeSessionDict valueForKey:kSessionUserId];
+            _currentSessionId = [maybeSessionDict valueForKey:kSessionId];
+            _previousSessionId = [maybeSessionDict valueForKey:kSessionPreviousId];
+            _sessionIndex = [[maybeSessionDict valueForKey:kSessionIndex] intValue];
         }
         
         [self updateSession];
@@ -176,11 +176,11 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) updateSessionDict {
     _sessionDict = [[SPPayload alloc] init];
-    [_sessionDict addValueToPayload:_userId forKey:@"userId"];
-    [_sessionDict addValueToPayload:_currentSessionId forKey:@"sessionId"];
-    [_sessionDict addValueToPayload:_previousSessionId forKey:@"previousSessionId"];
-    [_sessionDict addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_sessionIndex] forKey:@"sessionIndex"];
-    [_sessionDict addValueToPayload:_sessionStorage forKey:@"storageMechanism"];
+    [_sessionDict addValueToPayload:_userId forKey:kSessionUserId];
+    [_sessionDict addValueToPayload:_currentSessionId forKey:kSessionId];
+    [_sessionDict addValueToPayload:_previousSessionId forKey:kSessionPreviousId];
+    [_sessionDict addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_sessionIndex] forKey:kSessionIndex];
+    [_sessionDict addValueToPayload:_sessionStorage forKey:kSessionStorage];
 }
 
 - (BOOL) isTimeInRangeWithStartTime:(NSInteger)startTime

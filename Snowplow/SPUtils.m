@@ -111,16 +111,13 @@
     
     NetworkStatus status = [reachability currentReachabilityStatus];
     
-    if (status == ReachableViaWiFi)
-    {
+    if (status == ReachableViaWiFi) {
         return @"wifi";
     }
-    else if (status == ReachableViaWWAN)
-    {
+    else if (status == ReachableViaWWAN) {
         return @"mobile";
     }
-    else
-    {
+    else {
         return nil;
     }
 #else

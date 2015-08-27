@@ -46,11 +46,6 @@
 @property (nonatomic, retain) NSString *  trackerNamespace;
 @property (nonatomic, retain) NSString *  userId;
 
-extern NSString * const kSnowplowVendor;
-extern NSString * const kIglu;
-extern Boolean    const kDefaultEncodeBase64;
-extern NSString * const kVersion;
-
 /**
  * Builds the Tracker using a build block of functions.
  */
@@ -61,12 +56,6 @@ extern NSString * const kVersion;
  *  @return A SnowplowTracker instance.
  */
 - (id) init;
-
-/**
- *  Sets the schema tag to the new string passed to it. This is used to set the context schema in the event for self describing JSON.
- *  @param A string of the new namespace to be use.
- */
-- (void) setSchemaTag:(NSString *)schema;
 
 /**
  * Returns the current session index count

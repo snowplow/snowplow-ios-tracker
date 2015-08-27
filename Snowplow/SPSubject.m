@@ -57,11 +57,10 @@
 // Standard Dictionary
 
 - (void) setStandardDict {
-    [_standardDict addValueToPayload:[SPUtils getPlatform] forKey:@"p"];
-    [_standardDict addValueToPayload:[SPUtils getResolution] forKey:@"res"];
-    [_standardDict addValueToPayload:[SPUtils getViewPort] forKey:@"vp"];
-    [_standardDict addValueToPayload:[SPUtils getEventId] forKey:@"eid"];
-    [_standardDict addValueToPayload:[SPUtils getLanguage] forKey:@"lang"];
+    [_standardDict addValueToPayload:[SPUtils getPlatform]   forKey:kPlatform];
+    [_standardDict addValueToPayload:[SPUtils getResolution] forKey:kResolution];
+    [_standardDict addValueToPayload:[SPUtils getViewPort]   forKey:kViewPort];
+    [_standardDict addValueToPayload:[SPUtils getLanguage]   forKey:kLanguage];
 }
 
 // Platform Dictionary
@@ -76,23 +75,23 @@
 }
 
 - (void) setMobileDict {
-    [_platformDict addValueToPayload:[SPUtils getOSType] forKey:@"osType"];
-    [_platformDict addValueToPayload:[SPUtils getOSVersion] forKey:@"osVersion"];
-    [_platformDict addValueToPayload:[SPUtils getDeviceVendor] forKey:@"deviceManufacturer"];
-    [_platformDict addValueToPayload:[SPUtils getDeviceModel] forKey:@"deviceModel"];
-    [_platformDict addValueToPayload:[SPUtils getCarrierName] forKey:@"carrier"];
-    [_platformDict addValueToPayload:[SPUtils getOpenIdfa] forKey:@"openIdfa"];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfa] forKey:@"appleIdfa"];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfv] forKey:@"appleIdfv"];
-    [_platformDict addValueToPayload:[SPUtils getNetworkType] forKey:@"networkType"];
-    [_platformDict addValueToPayload:[SPUtils getNetworkTechnology] forKey:@"networkTechnology"];
+    [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kPlatformOsType];
+    [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kPlatformOsVersion];
+    [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kPlatformDeviceManu];
+    [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kPlatformDeviceModel];
+    [_platformDict addValueToPayload:[SPUtils getCarrierName]       forKey:kMobileCarrier];
+    [_platformDict addValueToPayload:[SPUtils getOpenIdfa]          forKey:kMobileOpenIdfa];
+    [_platformDict addValueToPayload:[SPUtils getAppleIdfa]         forKey:kMobileAppleIdfa];
+    [_platformDict addValueToPayload:[SPUtils getAppleIdfv]         forKey:kMobileAppleIdfv];
+    [_platformDict addValueToPayload:[SPUtils getNetworkType]       forKey:kMobileNetworkType];
+    [_platformDict addValueToPayload:[SPUtils getNetworkTechnology] forKey:kMobileNetworkTech];
 }
 
 - (void) setDesktopDict {
-    [_platformDict addValueToPayload:[SPUtils getOSType] forKey:@"osType"];
-    [_platformDict addValueToPayload:[SPUtils getOSVersion] forKey:@"osVersion"];
-    [_platformDict addValueToPayload:[SPUtils getDeviceVendor] forKey:@"deviceManufacturer"];
-    [_platformDict addValueToPayload:[SPUtils getDeviceModel] forKey:@"deviceModel"];
+    [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kPlatformOsType];
+    [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kPlatformOsVersion];
+    [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kPlatformDeviceManu];
+    [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kPlatformDeviceModel];
 }
 
 @end
