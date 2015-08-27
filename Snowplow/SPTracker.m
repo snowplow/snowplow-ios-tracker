@@ -30,7 +30,7 @@
 
 @implementation SPTracker {
     BOOL                   _base64Encoded;
-    NSMutableDictionary *  _standardData;
+    NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
 }
 
@@ -62,7 +62,7 @@
 }
 
 - (void) setup {
-    _standardData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+    _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                      kVersion, kTrackerVersion,
                      _trackerNamespace != nil ? _trackerNamespace : [NSNull null], kNamespace,
                      _appId != nil ? _appId : [NSNull null], kAppId, nil];
@@ -98,56 +98,50 @@
 
 // Event Decoration
 
-- (void) setContext:(SPPayload *)pb context:(NSMutableArray *)contextArray {
+- (void) decorateEventPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray {
+    
+    // Add Tracker and Subject Data to event
+    [pb addDictionaryToPayload:_trackerData];
+    if (_subject != nil) {
+        [pb addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
+    }
+    
+    // Add the Contexts together
     if (contextArray == nil) {
         contextArray = [[NSMutableArray alloc] init];
     }
     
     if (_subject != nil) {
-        [self setPlatformContextWithData:contextArray];
+        NSDictionary * platformDict = [[_subject getPlatformDict] getPayloadAsDictionary];
+        if (platformDict != nil) {
+            [contextArray addObject:[self getContextEnvelopeWithSchema:_platformContextSchema
+                                                               andData:platformDict]];
+        }
     }
     
     if (_session != nil) {
-        [self setSessionContextWithData:contextArray];
+        NSDictionary * sessionDict = [[_session getSessionDict] getPayloadAsDictionary];
+        if (sessionDict != nil) {
+            [contextArray addObject:[self getContextEnvelopeWithSchema:kSessionContextSchema
+                                                               andData:sessionDict]];
+        }
     }
     
     if (contextArray.count > 0) {
-        NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  kContextSchema, kSchema,
-                                  contextArray, kData, nil];
-        [pb addDictionaryToPayload:envelope
+        NSDictionary * contextEnvelope = [self getContextEnvelopeWithSchema:kContextSchema
+                                                                    andData:contextArray];
+        [pb addDictionaryToPayload:contextEnvelope
                      base64Encoded:_base64Encoded
                    typeWhenEncoded:kContextEncoded
                 typeWhenNotEncoded:kContext];
     }
+    
+    // Add an Event ID
+    [pb addValueToPayload:[SPUtils getEventId] forKey:kEid];
 }
 
-- (void) setPlatformContextWithData:(NSMutableArray *)payloadData {
-    SPPayload *platformContext = [_subject getPlatformDict];
-    if (platformContext != nil) {
-        NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  _platformContextSchema, kSchema,
-                                  [platformContext getPayloadAsDictionary], kData, nil];
-        [payloadData addObject:envelope];
-    }
-}
-
-- (void) setSessionContextWithData:(NSMutableArray *)payloadData {
-    SPPayload *sessionContext = [_session getSessionDict];
-    if (sessionContext != nil) {
-        NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                                  kSessionContextSchema, kSchema,
-                                  [sessionContext getPayloadAsDictionary], kData, nil];
-        [payloadData addObject:envelope];
-    }
-}
-
-- (void) addStandardValuesToPayload:(SPPayload *)payload {
-    if (_subject != nil) {
-        [payload addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
-    }
-    [payload addDictionaryToPayload:_standardData];
-    [payload addValueToPayload:[SPUtils getEventId] forKey:kEid];
+- (NSDictionary *) getContextEnvelopeWithSchema:(NSString *)schema andData:(NSObject *)data {
+    return [NSDictionary dictionaryWithObjectsAndKeys:schema, kSchema, data, kData, nil];
 }
 
 - (double) setTimestamp:(double)timestamp toPayload:(SPPayload *)payload {
@@ -202,8 +196,7 @@
              timestamp:(double)timestamp {
     SPPayload *pb = [[SPPayload alloc] init];
     
-    [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:context];
+    [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
     
     [pb addValueToPayload:kEventPageView forKey:kEvent];
@@ -249,8 +242,7 @@
                     timestamp:(double)timestamp {
     SPPayload *pb = [[SPPayload alloc] init];
     
-    [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:context];
+    [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
 
     [pb addValueToPayload:kEventStructured forKey:kEvent];
@@ -282,8 +274,7 @@
                       timestamp:(double)timestamp {
     SPPayload *pb = [[SPPayload alloc] init];
     
-    [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:context];
+    [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
     
     [pb addValueToPayload:kEventUnstructured forKey:kEvent];
@@ -342,8 +333,7 @@
                                     timestamp:(double)timestamp {
     SPPayload *pb = [[SPPayload alloc] init];
     
-    [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:context];
+    [self decorateEventPayload:pb context:context];
     [self setTimestamp:timestamp toPayload:pb];
 
     [pb addValueToPayload:kEventEcommItem forKey:kEvent];
@@ -413,8 +403,7 @@
                          timestamp:(double)timestamp {
     SPPayload *pb =  [[SPPayload alloc] init];
     
-    [self addStandardValuesToPayload:pb];
-    [self setContext:pb context:context];
+    [self decorateEventPayload:pb context:context];
 
     [pb addValueToPayload:KEventEcomm forKey:kEvent];
     [pb addValueToPayload:orderId     forKey:kEcommId];
