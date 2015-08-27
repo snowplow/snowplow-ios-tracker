@@ -22,7 +22,7 @@
 
 #import <UIKit/UIDevice.h>
 
-#import "SnowplowUtils.h"
+#import "SPUtils.h"
 
 #import <XCTest/XCTest.h>
 #define HC_SHORTHAND
@@ -46,14 +46,14 @@
 
 - (void)testGetTimeZone
 {
-    XCTAssertEqualObjects([SnowplowUtils getTimezone],
+    XCTAssertEqualObjects([SPUtils getTimezone],
                           [[NSTimeZone systemTimeZone] name],
                           @"Incorrect timezone expected");
 }
 
 - (void)testGetLanguage
 {
-    XCTAssertEqualObjects([SnowplowUtils getLanguage],
+    XCTAssertEqualObjects([SPUtils getLanguage],
                           @"en",
                           @"Language retrieved is not the same as 'en'");
 }
@@ -63,14 +63,14 @@
     // This test is a reminder to add a unit test,
     // if we add some different logic to get the platform
 
-    XCTAssertEqualObjects([SnowplowUtils getPlatform],
+    XCTAssertEqualObjects([SPUtils getPlatform],
                           @"mob",
                           @"How could this fail?");
 }
 
 - (void)testGetResolution
 {
-    NSString *actualResolution = [SnowplowUtils getResolution];
+    NSString *actualResolution = [SPUtils getResolution];
 
     // iPhone (maybe Retina or not)
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
@@ -86,7 +86,7 @@
 {
     // Probably an unneccessary test, but this verifies for a proper UUID
 
-    NSString *sample_uuid = [SnowplowUtils getEventId];
+    NSString *sample_uuid = [SPUtils getEventId];
 
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
@@ -123,7 +123,7 @@
 
 - (void)testGetOpenIdfa
 {
-    NSString *sample_uuid = [SnowplowUtils getOpenIdfa];
+    NSString *sample_uuid = [SPUtils getOpenIdfa];
 
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
@@ -141,7 +141,7 @@
 
 - (void)testGetCarrierName
 {
-    NSLog(@"Carrier: %@", [SnowplowUtils getCarrierName]);
+    NSLog(@"Carrier: %@", [SPUtils getCarrierName]);
     // No way to fake carrier in Travis simulator
 }
 
@@ -150,14 +150,14 @@
     // Supressing deprecated warning only for tests
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    int sample_rand = [SnowplowUtils getTransactionId];
+    int sample_rand = [SPUtils getTransactionId];
     XCTAssertTrue((100000 < sample_rand < 999999), @"Transaction ID doesn't exist between our range of 999,999 and 100,000.");
 #pragma clang diagnostic pop
 }
 
 - (void)testGetTimestamp
 {
-    NSString *sample_rand = [NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]];
+    NSString *sample_rand = [NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]];
     
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9]+";
@@ -174,34 +174,34 @@
 - (void)testAppId
 {
     // TODO Write proper test
-    NSLog(@"appId: %@", [SnowplowUtils getAppId]);
+    NSLog(@"appId: %@", [SPUtils getAppId]);
 }
 
 - (void)testUrlEncodingString
 {
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@""], @"");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:nil], @"");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a"], @"a");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a b"], @"a%20b");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a=&"], @"a%3D%26");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@""], @"");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:nil], @"");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@"a"], @"a");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@"a b"], @"a%20b");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@"a=&"], @"a%3D%26");
 }
 
 - (void)testUrlEncodingDictionary
 {
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:nil], @"");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:@{@"a": @"b"}], @"a=b");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:nil], @"");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:@{@"a": @"b"}], @"a=b");
     
     id twoKeys = @{@"a" : @"b", @"c" : @"d" };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:twoKeys], @"a=b&c=d");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:twoKeys], @"a=b&c=d");
     
     id intValues = @{@"a" : @(-5), @"c" : @(3) };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:intValues], @"a=-5&c=3");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:intValues], @"a=-5&c=3");
     
     id boolValues = @{@"a" : @(NO), @"c" : @(YES) };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:boolValues], @"a=0&c=1");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:boolValues], @"a=0&c=1");
 
     id encodedValues = @{@"a" : @" ", @"c" : @"=" };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
 }
 
 @end

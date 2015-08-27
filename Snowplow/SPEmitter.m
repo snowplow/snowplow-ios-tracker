@@ -1,5 +1,5 @@
 //
-//  SnowplowEmitter.m
+//  SPEmitter.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -15,39 +15,39 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import "Snowplow.h"
-#import "SnowplowEmitter.h"
-#import "SnowplowEventStore.h"
-#import "SnowplowUtils.h"
-#import "SnowplowPayload.h"
-#import "RequestResponse.h"
+#import "SPEmitter.h"
+#import "SPEventStore.h"
+#import "SPUtils.h"
+#import "SPPayload.h"
+#import "SPRequestResponse.h"
 #import <FMDB.h>
 
-@implementation SnowplowEmitter {
+@implementation SPEmitter {
     NSURL *                     _urlEndpoint;
-    enum SnowplowRequestOptions _httpMethod;
-    enum SnowplowBufferOptions  _bufferOption;
+    enum SPRequestOptions       _httpMethod;
+    enum SPBufferOptions        _bufferOption;
     NSInteger                   _emitRange;
     NSInteger                   _emitThreadPoolSize;
     NSTimer *                   _timer;
-    SnowplowEventStore *        _db;
+    SPEventStore *              _db;
     NSOperationQueue *          _dataOperationQueue;
 }
 
-static int       const kDefaultBufferTimeout = 60;
-static NSString *const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3";
-static NSString *const kAcceptContentHeader  = @"text/html, application/x-www-form-urlencoded, text/plain, image/gif";
-static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8";
+static int        const kDefaultBufferTimeout = 60;
+static NSString * const kPayloadDataSchema    = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3";
+static NSString * const kAcceptContentHeader  = @"text/html, application/x-www-form-urlencoded, text/plain, image/gif";
+static NSString * const kContentTypeHeader    = @"application/json; charset=utf-8";
 
 // SnowplowEmitter Builder
 
-+ (instancetype) build:(void(^)(id<SnowplowEmitterBuilder>builder))buildBlock {
-    SnowplowEmitter* emitter = [SnowplowEmitter new];
++ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock {
+    SPEmitter* emitter = [SPEmitter new];
     if (buildBlock) {
         buildBlock(emitter);
     }
@@ -58,13 +58,13 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 - (id) init {
     self = [super init];
     if (self) {
-        _httpMethod = SnowplowRequestPost;
-        _bufferOption = SnowplowBufferDefault;
+        _httpMethod = SPRequestPost;
+        _bufferOption = SPBufferDefault;
         _callback = nil;
         _emitRange = 150;
         _emitThreadPoolSize = 15;
         _isSending = NO;
-        _db = [[SnowplowEventStore alloc] init];
+        _db = [[SPEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
     }
     return self;
@@ -73,7 +73,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     
-    if (_httpMethod == SnowplowRequestGet) {
+    if (_httpMethod == SPRequestGet) {
         _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/i"];
     } else {
         _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:@"/com.snowplowanalytics.snowplow/tp2"];
@@ -90,15 +90,15 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 
 // Optional
 
-- (void) setHttpMethod:(enum SnowplowRequestOptions)method {
+- (void) setHttpMethod:(enum SPRequestOptions)method {
     _httpMethod = method;
 }
 
-- (void) setBufferOption:(enum SnowplowBufferOptions)option {
+- (void) setBufferOption:(enum SPBufferOptions)option {
     _bufferOption = option;
 }
 
-- (void) setCallback:(id<RequestCallback>)callback {
+- (void) setCallback:(id<SPRequestCallback>)callback {
     _callback = callback;
 }
 
@@ -112,7 +112,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 
 // Builder Finished
 
-- (void) addPayloadToBuffer:(SnowplowPayload *)spPayload {
+- (void) addPayloadToBuffer:(SPPayload *)spPayload {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [_db insertEvent:spPayload];
         [self flushBuffer];
@@ -130,7 +130,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 }
 
 - (void) sendGuard {
-    if ([SnowplowUtils isOnline] && !_isSending) {
+    if ([SPUtils isOnline] && !_isSending) {
         _isSending = YES;
         [self sendEvents];
     }
@@ -148,11 +148,11 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
     NSArray *listValues = [[NSArray alloc] initWithArray:[_db getAllEventsLimited:_emitRange]];
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
-    if (_httpMethod == SnowplowRequestPost) {
+    if (_httpMethod == SPRequestPost) {
         for (int i = 0; i < listValues.count; i += _bufferOption) {
             NSMutableArray *eventArray = [[NSMutableArray alloc] init];
             NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-            double stm = [SnowplowUtils getTimestamp];
+            double stm = [SPUtils getTimestamp];
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
                 NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
@@ -166,10 +166,10 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
             [payload setValue:eventArray forKey:@"data"];
             [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults];
         }
-    } else if (_httpMethod == SnowplowRequestGet) {
+    } else if (_httpMethod == SPRequestGet) {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]] forKey:@"stm"];
+            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:@"stm"];
             
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
@@ -187,7 +187,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
     NSInteger failure = 0;
     
     for (int i = 0; i < sendResults.count; i++) {
-        RequestResponse * result = [sendResults objectAtIndex:i];
+        SPRequestResponse * result = [sendResults objectAtIndex:i];
         NSArray * resultIndexArray = [result getIndexArray];
         
         if ([result getSuccess]) {
@@ -233,10 +233,10 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
         [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&connectionError];
         
         if ([response statusCode] >= 200 && [response statusCode] < 300) {
-            [results addObject:[[RequestResponse alloc] initWithBool:true withIndex:indexArray]];
+            [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
         } else {
             NSLog(@"Error: %@", connectionError);
-            [results addObject:[[RequestResponse alloc] initWithBool:false withIndex:indexArray]];
+            [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
         }
     }];
 }
@@ -262,7 +262,7 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 }
 
 - (NSMutableURLRequest *) getRequestGetWithData:(NSDictionary *)data {
-    NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SnowplowUtils urlEncodeDictionary:data]];
+    NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtils urlEncodeDictionary:data]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"GET";
     [request setValue:kAcceptContentHeader forHTTPHeaderField:@"Accept"];
@@ -271,11 +271,11 @@ static NSString *const kContentTypeHeader    = @"application/json; charset=utf-8
 
 // Setters
 
-- (void) setNewHttpMethod:(enum SnowplowRequestOptions)method {
+- (void) setNewHttpMethod:(enum SPRequestOptions)method {
     _httpMethod = method;
 }
 
-- (void) setNewBufferOption:(enum SnowplowBufferOptions)buffer {
+- (void) setNewBufferOption:(enum SPBufferOptions)buffer {
     _bufferOption = buffer;
 }
 

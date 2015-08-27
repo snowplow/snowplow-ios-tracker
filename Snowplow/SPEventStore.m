@@ -1,5 +1,5 @@
 //
-//  SnowplowEventStore.h
+//  SPEventStore.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -15,18 +15,18 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import "Snowplow.h"
-#import "SnowplowEventStore.h"
-#import "SnowplowPayload.h"
-#import "SnowplowUtils.h"
+#import "SPEventStore.h"
+#import "SPPayload.h"
+#import "SPUtils.h"
 #import <FMDB.h>
 
-@implementation SnowplowEventStore {
+@implementation SPEventStore {
     @private
     NSString *           _dbPath;
     FMDatabaseQueue *    _queue;
@@ -68,7 +68,7 @@ static NSString * const _queryDeleteId                  = @"DELETE FROM 'events'
     return res;
 }
 
-- (long long int) insertEvent:(SnowplowPayload *)payload {
+- (long long int) insertEvent:(SPPayload *)payload {
     return [self insertDictionaryData:[payload getPayloadAsDictionary]];
 }
 

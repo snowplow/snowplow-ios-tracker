@@ -1,5 +1,5 @@
 //
-//  RequestCallback.h
+//  SPRequestResponse.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
@@ -16,16 +16,37 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
-#import <Foundation/Foundation.h>
+#import "Snowplow.h"
+#import "SPRequestResponse.h"
 
-@protocol RequestCallback <NSObject>
+@interface SPRequestResponse()
 
-- (void) onSuccessWithCount:(NSInteger)successCount;
+@property (nonatomic) BOOL isSuccess;
+@property (nonatomic, weak) NSArray *indexArray;
 
-- (void) onFailureWithCount:(NSInteger)failureCount successCount:(NSInteger)successCount;
+@end
+
+@implementation SPRequestResponse
+
+- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index {
+    self = [super init];
+    if (self) {
+        _isSuccess = success;
+        _indexArray = index;
+    }
+    return self;
+}
+
+- (BOOL) getSuccess {
+    return _isSuccess;
+}
+
+- (NSArray *) getIndexArray {
+    return _indexArray;
+}
 
 @end

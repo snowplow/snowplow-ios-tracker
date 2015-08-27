@@ -1,5 +1,5 @@
 //
-//  SnowplowSubject.h
+//  SPSubject.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
@@ -16,14 +16,15 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
-#import "SnowplowPayload.h"
 
-@interface SnowplowSubject : NSObject
+@class SPPayload;
+
+@interface SPSubject : NSObject
 
 /**
  * Initializes a newly allocated SnowplowSubject object.
@@ -42,13 +43,13 @@
  * Gets all standard dictionary pairs to decorate the event with.
  * @return a SnowplowPayload with all standard pairs
  */
-- (SnowplowPayload *) getStandardDict;
+- (SPPayload *) getStandardDict;
 
 /**
  * Gets all platform dictionary pairs to decorate event with.
  * @return a SnowplowPayload with all platform specific pairs
  */
-- (SnowplowPayload *) getPlatformDict;
+- (SPPayload *) getPlatformDict;
 
 /**
  * Sets the standard pairs for the Subject, called automatically on object creation.

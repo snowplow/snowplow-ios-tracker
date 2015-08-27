@@ -1,5 +1,5 @@
 //
-//  SnowplowTracker.m
+//  SPEventStore.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -15,16 +15,16 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 
-@class SnowplowPayload;
+@class SPPayload;
 
-@interface SnowplowEventStore : NSObject
+@interface SPEventStore : NSObject
 
 @property (retain) NSString * appId;
 
@@ -45,7 +45,7 @@
  *  @param payload A SnowplowPayload instance to be inserted into the database.
  *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
  */
-- (long long int) insertEvent:(SnowplowPayload *)payload;
+- (long long int) insertEvent:(SPPayload *)payload;
 
 /**
  *  Inserts a dictionary into to events table. Mainly used in insertEvent: for SnowplowPayload events.

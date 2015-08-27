@@ -1,5 +1,5 @@
 //
-//  SnowplowTracker.h
+//  SPTracker.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -15,21 +15,21 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 
-@class SnowplowEmitter;
-@class SnowplowPayload;
-@class SnowplowSubject;
-@class SnowplowSession;
+@class SPEmitter;
+@class SPPayload;
+@class SPSubject;
+@class SPSession;
 
-@protocol SnowplowTrackerBuilder <NSObject>
+@protocol SPTrackerBuilder <NSObject>
 
-- (void) setEmitter:(SnowplowEmitter *)emitter;
+- (void) setEmitter:(SPEmitter *)emitter;
 - (void) setAppId:(NSString *)appId;
 - (void) setBase64Encoded:(Boolean)encoded;
 - (void) setNamespace:(NSString *)name;
@@ -37,14 +37,14 @@
 
 @end
 
-@interface SnowplowTracker : NSObject <SnowplowTrackerBuilder>
+@interface SPTracker : NSObject <SPTrackerBuilder>
 
-@property (nonatomic, retain) SnowplowEmitter * emitter;
-@property (nonatomic, retain) SnowplowSubject * subject;
-@property (nonatomic, retain) SnowplowSession * session;
-@property (nonatomic, retain) NSString *        appId;
-@property (nonatomic, retain) NSString *        trackerNamespace;
-@property (nonatomic, retain) NSString *        userId;
+@property (nonatomic, retain) SPEmitter * emitter;
+@property (nonatomic, retain) SPSubject * subject;
+@property (nonatomic, retain) SPSession * session;
+@property (nonatomic, retain) NSString *  appId;
+@property (nonatomic, retain) NSString *  trackerNamespace;
+@property (nonatomic, retain) NSString *  userId;
 
 extern NSString * const kSnowplowVendor;
 extern NSString * const kIglu;
@@ -54,7 +54,7 @@ extern NSString * const kVersion;
 /**
  * Builds the Tracker using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SnowplowTrackerBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock;
 
 /**
  *  Initializes a newly allocated SnowplowTracker.
@@ -234,7 +234,7 @@ extern NSString * const kVersion;
  *  @param quantity Item quantity
  *  @param currency The currency the price is expressed in
  */
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -253,7 +253,7 @@ extern NSString * const kVersion;
  *  @param currency The currency the price is expressed in
  *  @param context An array of custom context for the event
  */
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -273,7 +273,7 @@ extern NSString * const kVersion;
  *  @param currency The currency the price is expressed in
  *  @param timestamp Optional user provided timestamp.
  */
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -294,7 +294,7 @@ extern NSString * const kVersion;
  *  @param context An array of custom context for the event
  *  @param timestamp Optional user provided timestamp.
  */
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category

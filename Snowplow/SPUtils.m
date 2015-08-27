@@ -1,5 +1,5 @@
 //
-//  SnowplowUtils.m
+//  SPUtils.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -15,12 +15,12 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
-#import "SnowplowUtils.h"
+#import "SPUtils.h"
 
 #if TARGET_OS_IPHONE
 
@@ -39,7 +39,7 @@
 
 #endif
 
-@implementation SnowplowUtils
+@implementation SPUtils
 
 + (NSString *) getTimezone {
     NSTimeZone *timeZone = [NSTimeZone systemTimeZone];

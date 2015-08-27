@@ -21,9 +21,9 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "SnowplowEmitter.h"
-#import "SnowplowPayload.h"
-#import "SnowplowTracker.h"
+#import "SPTracker.h"
+#import "SPEmitter.h"
+#import "SPPayload.h"
 
 @interface TestTracker : XCTestCase
 
@@ -46,12 +46,12 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com";
 
 - (void)testExample
 {
-    SnowplowEmitter *emitter = [SnowplowEmitter build:^(id<SnowplowEmitterBuilder> builder) {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setURL:[NSURL URLWithString:TEST_SERVER]];
-        [builder setBufferOption:SnowplowBufferInstant];
+        [builder setBufferOption:SPBufferInstant];
     }];
     
-    SnowplowTracker *tracker = [SnowplowTracker build:^(id<SnowplowTrackerBuilder> builder) {
+    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
         [builder setAppId:@"foo"];
         [builder setNamespace:@"myname"];
@@ -63,7 +63,6 @@ NSString *const TEST_SERVER = @"http://segfault.ngrok.com";
     NSMutableArray *contextArray = [NSMutableArray arrayWithObject:context];
     [tracker trackPageView:@"foo1.com" title:@"This is my foo1" referrer:@"myreferrer1" context:contextArray timestamp:0];
     [tracker trackPageView:@"foo2.com" title:@"This is my foo2" referrer:@"myreferrer2" context:nil timestamp:0];
-//    [tracker trackPageView:@"foo1.com" title:@"This is my foo3" referrer:@"myreferrer3" context:nil timestamp:0];
     
     sleep(2);
 }

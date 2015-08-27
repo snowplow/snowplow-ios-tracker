@@ -1,5 +1,5 @@
 //
-//  SnowplowSession.m
+//  SPSession.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
@@ -16,20 +16,20 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import "Snowplow.h"
-#import "SnowplowSession.h"
-#import "SnowplowUtils.h"
-#import "SnowplowPayload.h"
+#import "SPSession.h"
+#import "SPUtils.h"
+#import "SPPayload.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
 #endif
 
-@implementation SnowplowSession {
+@implementation SPSession {
     NSInteger         _accessedLast;
     NSInteger         _foregroundTimeout;
     NSInteger         _backgroundTimeout;
@@ -40,7 +40,7 @@
     NSString *        _previousSessionId;
     NSInteger         _sessionIndex;
     NSString *        _sessionStorage;
-    SnowplowPayload * _sessionDict;
+    SPPayload *       _sessionDict;
     NSTimer *         _sessionTimer;
 }
 
@@ -61,7 +61,7 @@ NSString * const kSessionSavePath = @"session.dict";
         
         NSDictionary * maybeSessionDict = [self getSessionFromFile];
         if (maybeSessionDict == nil) {
-            _userId = [SnowplowUtils getEventId];
+            _userId = [SPUtils getEventId];
             _currentSessionId = @"";
         } else {
             _userId = [maybeSessionDict valueForKey:@"userId"];
@@ -108,7 +108,7 @@ NSString * const kSessionSavePath = @"session.dict";
     _sessionTimer = nil;
 }
 
-- (SnowplowPayload *) getSessionDict {
+- (SPPayload *) getSessionDict {
     [self updateAccessedLast];
     return _sessionDict;
 }
@@ -146,7 +146,7 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) checkSession:(NSTimer *)timer {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSInteger checkTime = [SnowplowUtils getTimestamp];
+        NSInteger checkTime = [SPUtils getTimestamp];
         NSInteger range = 0;
         
         if (_inBackground) {
@@ -166,16 +166,16 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) updateSession {
     _previousSessionId = _currentSessionId;
-    _currentSessionId = [SnowplowUtils getEventId];
+    _currentSessionId = [SPUtils getEventId];
     _sessionIndex++;
 }
 
 - (void) updateAccessedLast {
-    _accessedLast = [SnowplowUtils getTimestamp];
+    _accessedLast = [SPUtils getTimestamp];
 }
 
 - (void) updateSessionDict {
-    _sessionDict = [[SnowplowPayload alloc] init];
+    _sessionDict = [[SPPayload alloc] init];
     [_sessionDict addValueToPayload:_userId forKey:@"userId"];
     [_sessionDict addValueToPayload:_currentSessionId forKey:@"sessionId"];
     [_sessionDict addValueToPayload:_previousSessionId forKey:@"previousSessionId"];

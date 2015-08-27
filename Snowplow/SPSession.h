@@ -1,5 +1,5 @@
 //
-//  SnowplowSession.h
+//  SPSession.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
@@ -16,15 +16,15 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 
-@class SnowplowPayload;
+@class SPPayload;
 
-@interface SnowplowSession : NSObject
+@interface SPSession : NSObject
 
 /**
  * Initializes a newly allocated SnowplowSession
@@ -55,7 +55,7 @@
  * Returns the session dictionary
  * @return a SnowplowPayload containing the session dictionary
  */
-- (SnowplowPayload *) getSessionDict;
+- (SPPayload *) getSessionDict;
 
 /**
  * Returns the current session index count

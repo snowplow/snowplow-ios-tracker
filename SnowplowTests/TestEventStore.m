@@ -7,8 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "SnowplowEventStore.h"
-#import "SnowplowPayload.h"
+#import "SPEventStore.h"
+#import "SPPayload.h"
 
 @interface TestEventStore : XCTestCase
 
@@ -30,8 +30,8 @@
 
 - (void)testExample
 {
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    SPEventStore *sampleEventStore = [[SPEventStore alloc] init];
+    SPPayload *pb = [[SPPayload alloc] init];
 
     [pb addValueToPayload:@"pv"      forKey:@"e"];
     [pb addValueToPayload:@"www.foobar.com"   forKey:@"url"];
@@ -46,8 +46,8 @@
 
 - (void)testGetLastInsertedRowId
 {
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    SPEventStore *sampleEventStore = [[SPEventStore alloc] init];
+    SPPayload *pb = [[SPPayload alloc] init];
     
     [pb addValueToPayload:@"pv"      forKey:@"e"];
     [pb addValueToPayload:@"www.apple.com"   forKey:@"url"];
@@ -75,7 +75,7 @@
 
 - (void) testCount
 {
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
+    SPEventStore *sampleEventStore = [[SPEventStore alloc] init];
     NSLog(@"Number of events stored: %lu", (unsigned long)[sampleEventStore count]);
 }
 

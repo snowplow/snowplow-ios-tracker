@@ -1,5 +1,5 @@
 //
-//  SnowplowTracker.m
+//  SPTracker.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -15,20 +15,20 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import "Snowplow.h"
-#import "SnowplowTracker.h"
-#import "SnowplowEmitter.h"
-#import "SnowplowSubject.h"
-#import "SnowplowPayload.h"
-#import "SnowplowUtils.h"
-#import "SnowplowSession.h"
+#import "SPTracker.h"
+#import "SPEmitter.h"
+#import "SPSubject.h"
+#import "SPPayload.h"
+#import "SPUtils.h"
+#import "SPSession.h"
 
-@implementation SnowplowTracker {
+@implementation SPTracker {
     Boolean                _base64Encoded;
     NSMutableDictionary *  _standardData;
     NSString *             _schemaTag;
@@ -52,8 +52,8 @@ NSString * const kVersion               = @"osx-0.4.0";
 
 // SnowplowTracker Builder
 
-+ (instancetype) build:(void(^)(id<SnowplowTrackerBuilder>builder))buildBlock {
-    SnowplowTracker* tracker = [SnowplowTracker new];
++ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
+    SPTracker* tracker = [SPTracker new];
     if (buildBlock) {
         buildBlock(tracker);
     }
@@ -78,12 +78,12 @@ NSString * const kVersion               = @"osx-0.4.0";
                      _trackerNamespace != nil ? _trackerNamespace : [NSNull null], @"tna",
                      _appId != nil ? _appId : [NSNull null], @"aid", nil];
     
-    _subject = [[SnowplowSubject alloc] initWithPlatformContext:YES];
+    _subject = [[SPSubject alloc] initWithPlatformContext:YES];
 }
 
 // Required
 
-- (void) setEmitter:(SnowplowEmitter *)emitter {
+- (void) setEmitter:(SPEmitter *)emitter {
     _emitter = emitter;
 }
 
@@ -101,13 +101,13 @@ NSString * const kVersion               = @"osx-0.4.0";
 
 - (void) setSessionContext:(BOOL)sessionContext {
     if (sessionContext) {
-        _session = [[SnowplowSession alloc] init];
+        _session = [[SPSession alloc] init];
     }
 }
 
 // Event Decoration
 
-- (void) setContext:(SnowplowPayload *)pb context:(NSMutableArray *)contextArray {
+- (void) setContext:(SPPayload *)pb context:(NSMutableArray *)contextArray {
     if (contextArray == nil) {
         contextArray = [[NSMutableArray alloc] init];
     }
@@ -132,7 +132,7 @@ NSString * const kVersion               = @"osx-0.4.0";
 }
 
 - (void) setPlatformContextWithData:(NSMutableArray *)payloadData {
-    SnowplowPayload *platformContext = [_subject getPlatformDict];
+    SPPayload *platformContext = [_subject getPlatformDict];
     if (platformContext != nil) {
         NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                                   _platformContextSchema, @"schema",
@@ -142,7 +142,7 @@ NSString * const kVersion               = @"osx-0.4.0";
 }
 
 - (void) setSessionContextWithData:(NSMutableArray *)payloadData {
-    SnowplowPayload *sessionContext = [_session getSessionDict];
+    SPPayload *sessionContext = [_session getSessionDict];
     if (sessionContext != nil) {
         NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
                                   _sessionContextSchema, @"schema",
@@ -151,21 +151,21 @@ NSString * const kVersion               = @"osx-0.4.0";
     }
 }
 
-- (void) addStandardValuesToPayload:(SnowplowPayload *)payload {
+- (void) addStandardValuesToPayload:(SPPayload *)payload {
     [payload addDictionaryToPayload:_standardData];
     [payload addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
 }
 
-- (double) setTimestamp:(double)timestamp toPayload:(SnowplowPayload *)payload {
+- (double) setTimestamp:(double)timestamp toPayload:(SPPayload *)payload {
     double tstamp = timestamp;
     if(timestamp == 0) {
-        tstamp = [SnowplowUtils getTimestamp];
+        tstamp = [SPUtils getTimestamp];
     }
     [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"dtm"];
     return tstamp;
 }
 
-- (void) addTracker:(SnowplowPayload *)event {
+- (void) addTracker:(SPPayload *)event {
     [_emitter addPayloadToBuffer:event];
 }
 
@@ -229,7 +229,7 @@ NSString * const kVersion               = @"osx-0.4.0";
               referrer:(NSString *)referrer
                context:(NSMutableArray *)context
              timestamp:(double)timestamp {
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    SPPayload *pb = [[SPPayload alloc] init];
     
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
@@ -276,7 +276,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                         value:(float)value
                       context:(NSMutableArray *)context
                     timestamp:(double)timestamp {
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    SPPayload *pb = [[SPPayload alloc] init];
     
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
@@ -309,7 +309,7 @@ NSString * const kVersion               = @"osx-0.4.0";
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
                         context:(NSMutableArray *)context
                       timestamp:(double)timestamp {
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    SPPayload *pb = [[SPPayload alloc] init];
     
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
@@ -329,7 +329,7 @@ NSString * const kVersion               = @"osx-0.4.0";
     [self addTracker:pb];
 }
 
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -339,7 +339,7 @@ NSString * const kVersion               = @"osx-0.4.0";
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:0];
 }
 
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -350,7 +350,7 @@ NSString * const kVersion               = @"osx-0.4.0";
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:context timestamp:0];
 }
 
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -361,7 +361,7 @@ NSString * const kVersion               = @"osx-0.4.0";
     return [self trackEcommerceTransactionItem:orderId sku:sku name:name category:category price:price quantity:quantity currency:currency context:nil timestamp:timestamp];
 }
 
-- (SnowplowPayload *) trackEcommerceTransactionItem:(NSString *)orderId
+- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
                                                 sku:(NSString *)sku
                                                name:(NSString *)name
                                            category:(NSString *)category
@@ -370,7 +370,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                                            currency:(NSString *)currency
                                             context:(NSMutableArray *)context
                                           timestamp:(double)timestamp {
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    SPPayload *pb = [[SPPayload alloc] init];
     
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
@@ -441,7 +441,7 @@ NSString * const kVersion               = @"osx-0.4.0";
                              items:(NSArray *)items
                            context:(NSMutableArray *)context
                          timestamp:(double)timestamp {
-    SnowplowPayload *pb =  [[SnowplowPayload alloc] init];
+    SPPayload *pb =  [[SPPayload alloc] init];
     
     [self addStandardValuesToPayload:pb];
     [self setContext:pb context:context];
@@ -459,7 +459,7 @@ NSString * const kVersion               = @"osx-0.4.0";
 
     double tstamp = [self setTimestamp:timestamp toPayload:pb];
 
-    for (SnowplowPayload *item in items) {
+    for (SPPayload *item in items) {
         [item addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:@"tstamp"];
         [item addValueToPayload:orderId forKey:@"order_id"];
         [item addValueToPayload:currency forKey:@"currency"];

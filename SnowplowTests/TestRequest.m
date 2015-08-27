@@ -21,8 +21,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "SnowplowEmitter.h"
-#import "SnowplowPayload.h"
+#import "SPEmitter.h"
+#import "SPPayload.h"
 
 @interface TestRequest : XCTestCase
 extern NSString * const TEST_SERVER;
@@ -56,10 +56,10 @@ NSString *const TEST_SERVER_REQUEST = @"http://segfault.ngrok.com/events";
 - (void)testExampleFlushBuffer
 {
     NSURL *url = [[NSURL alloc] initWithString:TEST_SERVER_REQUEST];
-    SnowplowEmitter *sample_req = [SnowplowEmitter build:^(id<SnowplowEmitterBuilder> builder) {
+    SPEmitter *sample_req = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setURL:url];
     }];
-    SnowplowPayload *sample_event = [[SnowplowPayload alloc] init];
+    SPPayload *sample_event = [[SPPayload alloc] init];
     
     [sample_event addValueToPayload:@"something" forKey:@"nv"];
     [sample_event addValueToPayload:@"newstuff" forKey:@"pv"];

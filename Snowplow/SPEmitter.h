@@ -1,5 +1,5 @@
 //
-//  SnowplowEmitter.h
+//  SPEmitter.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
@@ -15,46 +15,46 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
-#import "RequestCallback.h"
+#import "SPRequestCallback.h"
 
-@class SnowplowPayload;
+@class SPPayload;
 
-enum SnowplowBufferOptions {
-    SnowplowBufferInstant = 1,
-    SnowplowBufferDefault = 10
+enum SPBufferOptions {
+    SPBufferInstant = 1,
+    SPBufferDefault = 10
 };
 
-enum SnowplowRequestOptions {
-    SnowplowRequestGet,
-    SnowplowRequestPost
+enum SPRequestOptions {
+    SPRequestGet,
+    SPRequestPost
 };
 
-@protocol SnowplowEmitterBuilder <NSObject>
+@protocol SPEmitterBuilder <NSObject>
 
 - (void) setURL:(NSURL *)url;
-- (void) setHttpMethod:(enum SnowplowRequestOptions)method;
-- (void) setBufferOption:(enum SnowplowBufferOptions)option;
-- (void) setCallback:(id<RequestCallback>)callback;
+- (void) setHttpMethod:(enum SPRequestOptions)method;
+- (void) setBufferOption:(enum SPBufferOptions)option;
+- (void) setCallback:(id<SPRequestCallback>)callback;
 - (void) setEmitRange:(NSInteger)emitRange;
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
 
 @end
 
-@interface SnowplowEmitter : NSObject <SnowplowEmitterBuilder>
+@interface SPEmitter : NSObject <SPEmitterBuilder>
 
-@property BOOL                                  isSending;
-@property (nonatomic, weak) id<RequestCallback> callback;
+@property BOOL                                    isSending;
+@property (nonatomic, weak) id<SPRequestCallback> callback;
 
 /**
  * Builds the Emitter using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SnowplowEmitterBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock;
 
 /**
  * Initializes a newly allocated SnowplowEmitter
@@ -66,7 +66,7 @@ enum SnowplowRequestOptions {
  * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests. Use this in favour over addToBuffer:
  * @param spPayload A SnowployPayload containing a completed event to be added into the buffer.
  */
-- (void) addPayloadToBuffer:(SnowplowPayload *)spPayload;
+- (void) addPayloadToBuffer:(SPPayload *)spPayload;
 
 /**
  * Empties the buffer of events using the respective HTTP request method in httpMethod.
@@ -77,13 +77,13 @@ enum SnowplowRequestOptions {
  * Set the buffer to send the data instantly or after storing 10 events. Use the enum SnowplowBufferOptions to set the preferred option. By default, the tracker is set to SnowplowBufferDefault (10).
  * @param buffer Sets the buffer to SnowplowBufferDefault or SnowplowBufferInstant with SnowplowBufferOptions.
  */
-- (void) setNewBufferOption:(enum SnowplowBufferOptions)buffer;
+- (void) setNewBufferOption:(enum SPBufferOptions)buffer;
 
 /**
  * Set the HTTP method to send the events.
  * @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
  */
-- (void) setNewHttpMethod:(enum SnowplowRequestOptions)method;
+- (void) setNewHttpMethod:(enum SPRequestOptions)method;
 
 /**
  * Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.

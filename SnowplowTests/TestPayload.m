@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "SnowplowPayload.h"
+#import "SPPayload.h"
 
 @interface TestPayload : XCTestCase
 
@@ -41,7 +41,7 @@
 
 - (void)testInit
 {
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
    
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           [[NSDictionary alloc] init],
@@ -54,7 +54,7 @@
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  @"Value1", @"Key1",
                                  @"Value2", @"Key2", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict];
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict];
 
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict,
@@ -70,7 +70,7 @@
     NSDictionary *sample_dict2 = [[NSDictionary alloc] initWithObjectsAndKeys:
                                   @"Value1", @"Key2",
                                   @"Value2", @"Key1", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict];
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict];
     
     XCTAssertNotEqualObjects(sample_payload.getPayloadAsDictionary,
                              sample_dict2,
@@ -80,7 +80,7 @@
 - (void)testInitWithNullDictionary
 {
     NSDictionary *sample_dict = nil;
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict];
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict];
     
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           [[NSDictionary alloc] init],
@@ -91,7 +91,7 @@
 {
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  @"Value1", @"Key1", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
@@ -104,7 +104,7 @@
 {
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  @"Value2", @"Key2", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
@@ -120,7 +120,7 @@
     NSDictionary *sample_dict_final = [[NSDictionary alloc] initWithObjectsAndKeys:
                                  @"Value1", @"Key1",
                                  @"Value2", @"Key2", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dict_init];
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict_init];
     [sample_payload addValueToPayload:@"Value2" forKey:@"Key2"];
     
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
@@ -130,14 +130,14 @@
 
 - (void)testAddNilValueToPayload
 {
-    SnowplowPayload *payload = [[SnowplowPayload alloc] init];
+    SPPayload *payload = [[SPPayload alloc] init];
     [payload addValueToPayload:nil forKey:@"foo"];
     XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
 }
 
 - (void)testAddNilValueToPayloadUnsetsKey
 {
-    SnowplowPayload *payload = [[SnowplowPayload alloc] initWithNSDictionary:@{@"foo":@"bar"}];
+    SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:@{@"foo":@"bar"}];
     [payload addValueToPayload:nil forKey:@"foo"];
     XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
 }
@@ -146,7 +146,7 @@
 {
     NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"Value1", @"Key1", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addDictionaryToPayload:sample_dic];
     
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
@@ -163,7 +163,7 @@
     NSDictionary *sample_dict_final = [[NSDictionary alloc] initWithObjectsAndKeys:
                                        @"Value1", @"Key1",
                                        @"Value2", @"Key2", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:sample_dic];
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dic];
     [sample_payload addDictionaryToPayload:sample_dic2];
 
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
@@ -182,7 +182,7 @@
     // NSDictionary conversion to JSON string
     NSData *somedata = [NSJSONSerialization dataWithJSONObject:sample_dic options:0 error:0];
     
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addJsonToPayload:somedata base64Encoded:true
                      typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
@@ -202,7 +202,7 @@
     // NSDictionary conversion to JSON string
     NSData *somedata = [NSJSONSerialization dataWithJSONObject:sample_dic options:0 error:0];
     
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addJsonToPayload:somedata base64Encoded:false
                      typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
@@ -219,7 +219,7 @@
                                 @"{\"Key1\":\"Value1\"}", @"type_notenc", nil];
     NSString *json_str = @"{\"Key1\":\"Value1\"}";
     
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addJsonStringToPayload:json_str base64Encoded:false
                            typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
@@ -237,7 +237,7 @@
                                 @"eyJLZXkxIjoiVmFsdWUxIn0", @"type_enc", nil];
     NSString *json_str = @"{\"Key1\":\"Value1\"}";
     
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addJsonStringToPayload:json_str base64Encoded:true
                            typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
@@ -249,7 +249,7 @@
 
 - (void)testgetPayloadAsDictionary
 {
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] init];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
     
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           [[NSDictionary alloc] init],
@@ -259,7 +259,7 @@
 - (void)testgetPayloadAsDictionary2
 {
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:@"Value1", @"Key1", nil];
-    SnowplowPayload *sample_payload = [[SnowplowPayload alloc] initWithNSDictionary:@{@"Key1": @"Value1"}];
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:@{@"Key1": @"Value1"}];
     
     XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
                           sample_dict,

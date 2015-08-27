@@ -1,5 +1,5 @@
 //
-//  RequestResponse.h
+//  SPRequestResponse.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
@@ -16,13 +16,13 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 
-@interface RequestResponse : NSObject
+@interface SPRequestResponse : NSObject
 
 /**
  * Creates a request response object
