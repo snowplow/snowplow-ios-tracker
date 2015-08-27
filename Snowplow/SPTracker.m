@@ -32,6 +32,7 @@
     BOOL                   _base64Encoded;
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
+    BOOL                   _dataCollection;
 }
 
 // SnowplowTracker Builder
@@ -51,6 +52,7 @@
         _trackerNamespace = nil;
         _appId = nil;
         _base64Encoded = YES;
+        _dataCollection = YES;
         
 #if TARGET_OS_IPHONE
         _platformContextSchema = kMobileContextSchema;
@@ -159,6 +161,16 @@
     [_emitter addPayloadToBuffer:event];
 }
 
+- (void) pauseEventTracking {
+    _dataCollection = NO;
+    [_session stopChecker];
+}
+
+- (void) resumeEventTracking {
+    _dataCollection = YES;
+    [_session startChecker];
+}
+
 // Getters & Setters
 
 - (NSInteger) getSessionIndex {
@@ -167,6 +179,10 @@
 
 - (BOOL) getInBackground {
     return [_session getInBackground];
+}
+
+- (BOOL) getIsTracking {
+    return _dataCollection;
 }
 
 // Event Tracking Functions
@@ -196,6 +212,10 @@
               referrer:(NSString *)referrer
                context:(NSMutableArray *)context
              timestamp:(double)timestamp {
+    if (!_dataCollection) {
+        return;
+    }
+    
     SPPayload *pb = [[SPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
@@ -242,6 +262,10 @@
                         value:(float)value
                       context:(NSMutableArray *)context
                     timestamp:(double)timestamp {
+    if (!_dataCollection) {
+        return;
+    }
+    
     SPPayload *pb = [[SPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
@@ -274,6 +298,10 @@
 - (void) trackUnstructuredEvent:(NSDictionary *)eventJson
                         context:(NSMutableArray *)context
                       timestamp:(double)timestamp {
+    if (!_dataCollection) {
+        return;
+    }
+    
     SPPayload *pb = [[SPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
@@ -403,6 +431,10 @@
                              items:(NSArray *)items
                            context:(NSMutableArray *)context
                          timestamp:(double)timestamp {
+    if (!_dataCollection) {
+        return;
+    }
+    
     SPPayload *pb =  [[SPPayload alloc] init];
     
     [self decorateEventPayload:pb context:context];
@@ -451,6 +483,10 @@
                       id:(NSString *)id_
                  context:(NSMutableArray *)context
                timestamp:(double)timestamp {
+    if (!_dataCollection) {
+        return;
+    }
+    
     NSMutableDictionary *screenViewProperties = [[NSMutableDictionary alloc] init];
     
     if (id_ != nil) {
@@ -496,6 +532,10 @@
                label:(NSString *)label
              context:(NSMutableArray *)context
            timestamp:(double)timestamp {
+    if (!_dataCollection) {
+        return;
+    }
+    
     NSMutableDictionary *timingProperties = [[NSMutableDictionary alloc] init];
 
     [timingProperties setObject:category forKey:kUtCategory];

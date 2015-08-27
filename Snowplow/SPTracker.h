@@ -58,6 +58,16 @@
 - (id) init;
 
 /**
+ * Pauses all event tracking, storage and session checking.
+ */
+- (void) pauseEventTracking;
+
+/**
+ * Resumes all event tracking and restarts the session checking.
+ */
+- (void) resumeEventTracking;
+
+/**
  * Returns the current session index count
  * @return a count of sessions
  */
@@ -68,6 +78,12 @@
  * @return boolean truth of application location
  */
 - (BOOL) getInBackground;
+
+/**
+ * Returns whether the Tracker is currently collecting data.
+ * @return the boolean state of the tracker (on/off)
+ */
+- (BOOL) getIsTracking;
 
 /**
  *  Lets you track a page view using all the variables entered here.
