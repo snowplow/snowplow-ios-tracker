@@ -63,6 +63,49 @@
     [_standardDict addValueToPayload:[SPUtils getLanguage]   forKey:kLanguage];
 }
 
+- (void) setUserId:(NSString *)uid {
+    [_standardDict addValueToPayload:uid forKey:kUid];
+}
+
+- (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height {
+    NSString * res = [NSString stringWithFormat:@"%ldx%ld", (long)width, (long)height];
+    [_standardDict addValueToPayload:res forKey:kResolution];
+}
+
+- (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height {
+    NSString * res = [NSString stringWithFormat:@"%ldx%ld", (long)width, (long)height];
+    [_standardDict addValueToPayload:res forKey:kViewPort];
+}
+
+- (void) setColorDepth:(NSInteger)depth {
+    NSString * res = [NSString stringWithFormat:@"%ld", (long)depth];
+    [_standardDict addValueToPayload:res forKey:kColorDepth];
+}
+
+- (void) setTimezone:(NSString *)timezone {
+    [_standardDict addValueToPayload:timezone forKey:kTimezone];
+}
+
+- (void) setLanguage:(NSString *)lang {
+    [_standardDict addValueToPayload:lang forKey:kLanguage];
+}
+
+- (void) setIpAddress:(NSString *)ip {
+    [_standardDict addValueToPayload:ip forKey:kIpAddress];
+}
+
+- (void) setUseragent:(NSString *)useragent {
+    [_standardDict addValueToPayload:useragent forKey:kUseragent];
+}
+
+- (void) setNetworkUserId:(NSString *)nuid {
+    [_standardDict addValueToPayload:nuid forKey:kNetworkUid];
+}
+
+- (void) setDomainUserId:(NSString *)duid {
+    [_standardDict addValueToPayload:duid forKey:kDomainUid];
+}
+
 // Platform Dictionary
 
 - (void) setPlatformDict {

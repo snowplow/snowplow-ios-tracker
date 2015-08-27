@@ -30,8 +30,9 @@
 @protocol SPTrackerBuilder <NSObject>
 
 - (void) setEmitter:(SPEmitter *)emitter;
+- (void) setSubject:(SPSubject *)subject;
 - (void) setAppId:(NSString *)appId;
-- (void) setBase64Encoded:(Boolean)encoded;
+- (void) setBase64Encoded:(BOOL)encoded;
 - (void) setNamespace:(NSString *)name;
 - (void) setSessionContext:(BOOL)sessionContext;
 
@@ -44,7 +45,6 @@
 @property (nonatomic, retain) SPSession * session;
 @property (nonatomic, retain) NSString *  appId;
 @property (nonatomic, retain) NSString *  trackerNamespace;
-@property (nonatomic, retain) NSString *  userId;
 
 /**
  * Builds the Tracker using a build block of functions.

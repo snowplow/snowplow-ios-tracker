@@ -133,7 +133,8 @@
 + (NSString *) getOSType;
 
 /**
- *  TODO
+ *  Returns the Application ID
+ *  @return The device bundle application id
  */
 + (NSString *) getAppId;
 

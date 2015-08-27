@@ -29,12 +29,10 @@
 #import "SPSession.h"
 
 @implementation SPTracker {
-    Boolean                _base64Encoded;
+    BOOL                   _base64Encoded;
     NSMutableDictionary *  _standardData;
     NSString *             _platformContextSchema;
 }
-
-@synthesize userId;
 
 // SnowplowTracker Builder
 
@@ -68,8 +66,6 @@
                      kVersion, kTrackerVersion,
                      _trackerNamespace != nil ? _trackerNamespace : [NSNull null], kNamespace,
                      _appId != nil ? _appId : [NSNull null], kAppId, nil];
-    
-    _subject = [[SPSubject alloc] initWithPlatformContext:YES];
 }
 
 // Required
@@ -78,7 +74,11 @@
     _emitter = emitter;
 }
 
-- (void) setBase64Encoded:(Boolean)encoded {
+- (void) setSubject:(SPSubject *)subject {
+    _subject = subject;
+}
+
+- (void) setBase64Encoded:(BOOL)encoded {
     _base64Encoded = encoded;
 }
 
@@ -143,8 +143,10 @@
 }
 
 - (void) addStandardValuesToPayload:(SPPayload *)payload {
+    if (_subject != nil) {
+        [payload addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
+    }
     [payload addDictionaryToPayload:_standardData];
-    [payload addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
     [payload addValueToPayload:[SPUtils getEventId] forKey:kEid];
 }
 
@@ -162,11 +164,6 @@
 }
 
 // Getters & Setters
-
-- (void) setUserId:(NSString *)userId_ {
-    userId = userId_;
-    [_standardData setObject:userId_ forKey:@"uid"];
-}
 
 - (NSInteger) getSessionIndex {
     return [_session getSessionIndex];

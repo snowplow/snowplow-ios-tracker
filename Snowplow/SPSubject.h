@@ -52,6 +52,68 @@
 - (SPPayload *) getPlatformDict;
 
 /**
+ * Sets the User ID
+ * @param uid as a String
+ */
+- (void) setUserId:(NSString *)uid;
+
+/**
+ * Sets the Screen Resolution
+ * @param width as an Int
+ * @param height as an Int
+ */
+- (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height;
+
+/**
+ * Sets the View Port dimensions
+ * @param width as an Int
+ * @param height as an Int
+ */
+- (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height;
+
+/**
+ * Sets the Color Depth
+ * @param depth as an Int
+ */
+- (void) setColorDepth:(NSInteger)depth;
+
+/**
+ * Sets the Timezone
+ * @param timezone as a String
+ */
+- (void) setTimezone:(NSString *)timezone;
+
+/**
+ * Sets the Language
+ * @param lang the language as a String
+ */
+- (void) setLanguage:(NSString *)lang;
+
+/**
+ * Sets the IP Address
+ * @param ip as a String
+ */
+- (void) setIpAddress:(NSString *)ip;
+
+/**
+ * Sets the Useragent
+ * @param useragent as a String
+ */
+- (void) setUseragent:(NSString *)useragent;
+
+/**
+ * Sets the Network User ID
+ * @param nuid as a String
+ */
+- (void) setNetworkUserId:(NSString *)nuid;
+
+/**
+ * Sets the Domain User ID
+ * @param duid as a String
+ */
+- (void) setDomainUserId:(NSString *)duid;
+
+/**
  * Sets the standard pairs for the Subject, called automatically on object creation.
  */
 - (void) setStandardDict;
