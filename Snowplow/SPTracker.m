@@ -104,6 +104,8 @@
     [pb addDictionaryToPayload:_trackerData];
     if (_subject != nil) {
         [pb addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
+    } else {
+        [pb addValueToPayload:[SPUtils getPlatform] forKey:kPlatform];
     }
     
     // Add the Contexts together
