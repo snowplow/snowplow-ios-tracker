@@ -2,7 +2,7 @@
 //  SPPayload.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -41,10 +41,6 @@
         _payload = [NSMutableDictionary dictionaryWithDictionary:dict];
     }
     return self;
-}
-
-+ (instancetype) payloadWithDictionary:(NSDictionary *) dict {
-    return [[self alloc] initWithDictionary:dict];
 }
 
 - (void) addValueToPayload:(NSString *)value forKey:(NSString *)key {

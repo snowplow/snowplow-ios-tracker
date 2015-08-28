@@ -2,7 +2,7 @@
 //  SPEventStore.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -26,20 +26,21 @@
 #import "SPUtils.h"
 #import <FMDB.h>
 
-@implementation SPEventStore {
-    @private
-    NSString *           _dbPath;
-    FMDatabaseQueue *    _queue;
-}
+@interface SPEventStore ()
 
-static NSString * const _queryCreateTable               = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-static NSString * const _querySelectAll                 = @"SELECT * FROM 'events'";
-static NSString * const _querySelectCount               = @"SELECT Count(*) FROM 'events'";
-static NSString * const _queryInsertEvent               = @"INSERT INTO 'events' (eventData) VALUES (?)";
-static NSString * const _querySelectId                  = @"SELECT * FROM 'events' WHERE id=?";
-static NSString * const _queryDeleteId                  = @"DELETE FROM 'events' WHERE id=?";
+@property (nonatomic, retain) NSString *        dbPath;
+@property (nonatomic, retain) FMDatabaseQueue * queue;
 
-@synthesize appId;
+@end
+
+@implementation SPEventStore
+
+static NSString * const _queryCreateTable = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+static NSString * const _querySelectAll   = @"SELECT * FROM 'events'";
+static NSString * const _querySelectCount = @"SELECT Count(*) FROM 'events'";
+static NSString * const _queryInsertEvent = @"INSERT INTO 'events' (eventData) VALUES (?)";
+static NSString * const _querySelectId    = @"SELECT * FROM 'events' WHERE id=?";
+static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 
 - (id) init {
     self = [super init];
@@ -79,8 +80,6 @@ static NSString * const _queryDeleteId                  = @"DELETE FROM 'events'
             NSData *data = [NSJSONSerialization dataWithJSONObject:[self getCleanDictionary:dict] options:0 error:nil];
             [db executeUpdate:_queryInsertEvent, data];
             res = (long long int) [db lastInsertRowId];
-        } else {
-            res = -1;
         }
     }];
     return res;
@@ -115,7 +114,7 @@ static NSString * const _queryDeleteId                  = @"DELETE FROM 'events'
             FMResultSet *s = [db executeQuery:_querySelectAll];
             while ([s next]) {
                 long long int index = [s longLongIntForColumn:@"ID"];
-                [self removeEventWithId:index];
+                [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:index]];
             }
         }
     }];

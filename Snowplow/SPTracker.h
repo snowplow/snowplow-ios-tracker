@@ -2,7 +2,7 @@
 //  SPTracker.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -32,19 +32,19 @@
 - (void) setEmitter:(SPEmitter *)emitter;
 - (void) setSubject:(SPSubject *)subject;
 - (void) setAppId:(NSString *)appId;
-- (void) setBase64Encoded:(BOOL)encoded;
-- (void) setNamespace:(NSString *)name;
+- (void) setBase64Encoded:(BOOL)base64Encoded;
+- (void) setTrackerNamespace:(NSString *)trackerNamespace;
 - (void) setSessionContext:(BOOL)sessionContext;
 
 @end
 
 @interface SPTracker : NSObject <SPTrackerBuilder>
 
-@property (nonatomic, retain) SPEmitter * emitter;
-@property (nonatomic, retain) SPSubject * subject;
-@property (nonatomic, retain) SPSession * session;
-@property (nonatomic, retain) NSString *  appId;
-@property (nonatomic, retain) NSString *  trackerNamespace;
+@property (readonly, nonatomic, retain) SPEmitter * emitter;
+@property (readonly, nonatomic, retain) SPSubject * subject;
+@property (readonly, nonatomic, retain) NSString *  appId;
+@property (readonly, nonatomic, retain) NSString *  trackerNamespace;
+@property (readonly, nonatomic)         BOOL        base64Encoded;
 
 /**
  * Builds the Tracker using a build block of functions.

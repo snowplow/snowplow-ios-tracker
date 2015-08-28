@@ -2,7 +2,7 @@
 //  SPSession.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -29,11 +29,16 @@
 #import <UIKit/UIKit.h>
 #endif
 
+@interface SPSession ()
+
+@property (nonatomic) NSInteger foregroundTimeout;
+@property (nonatomic) NSInteger backgroundTimeout;
+@property (nonatomic) NSInteger checkInterval;
+
+@end
+
 @implementation SPSession {
     NSInteger         _accessedLast;
-    NSInteger         _foregroundTimeout;
-    NSInteger         _backgroundTimeout;
-    NSInteger         _checkInterval;
     BOOL              _inBackground;
     NSString *        _userId;
     NSString *        _currentSessionId;
@@ -47,7 +52,7 @@
 NSString * const kSessionSavePath = @"session.dict";
 
 - (id) init {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:5 andCheckInterval:3];
+    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15];
 }
 
 - (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval {

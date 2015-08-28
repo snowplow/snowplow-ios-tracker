@@ -2,7 +2,7 @@
 //  SPPayload.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -36,13 +36,6 @@
  *  @return A SnowplowPayload.
  */
 - (id) initWithNSDictionary:(NSDictionary *)dict;
-
-/**
- *  A SnowplowPayload initialized with a dictionary passed to it.
- *  @param dict A dictionary of items to be added to the tracker event.
- *  @return An instance of SnowplowPayload.
- */
-+ (instancetype) payloadWithDictionary:(NSDictionary *) dict;
 
 /**
  *  Adds a simple name-value pair into the SnowplowPayload intance.

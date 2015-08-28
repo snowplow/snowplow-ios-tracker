@@ -2,7 +2,7 @@
 //  SPEmitter.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -28,15 +28,23 @@
 #import "SPRequestResponse.h"
 #import <FMDB.h>
 
+@interface SPEmitter ()
+
+@property (nonatomic) enum    SPRequestOptions      httpMethod;
+@property (nonatomic) enum    SPBufferOptions       bufferOption;
+@property (nonatomic, retain) NSURL *               urlEndpoint;
+@property (nonatomic)         NSInteger             emitRange;
+@property (nonatomic)         NSInteger             emitThreadPoolSize;
+@property (nonatomic, weak)   id<SPRequestCallback> callback;
+
+@end
+
 @implementation SPEmitter {
-    NSURL *                     _urlEndpoint;
-    enum SPRequestOptions       _httpMethod;
-    enum SPBufferOptions        _bufferOption;
-    NSInteger                   _emitRange;
-    NSInteger                   _emitThreadPoolSize;
-    NSTimer *                   _timer;
-    SPEventStore *              _db;
-    NSOperationQueue *          _dataOperationQueue;
+    SPEventStore *     _db;
+    NSURL *            _url;
+    NSTimer *          _timer;
+    BOOL               _isSending;
+    NSOperationQueue * _dataOperationQueue;
 }
 
 // SnowplowEmitter Builder
@@ -67,30 +75,34 @@
 
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
-    
-    if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
+    [self setupUrlEndpoint];
+    [self setNewBufferTime:kDefaultBufferTimeout];
+}
+
+- (void) setupUrlEndpoint {
+    if (_url && _url.scheme && _url.host) {
         if (_httpMethod == SPRequestGet) {
-            _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointGet];
+            _urlEndpoint = [_url URLByAppendingPathComponent:kEndpointGet];
         } else {
-            _urlEndpoint = [_urlEndpoint URLByAppendingPathComponent:kEndpointPost];
+            _urlEndpoint = [_url URLByAppendingPathComponent:kEndpointPost];
         }
     } else {
-        [NSException raise:@"Invalid SPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _urlEndpoint];
+        [NSException raise:@"Invalid SPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _url];
     }
-    
-    [self setNewBufferTime:kDefaultBufferTimeout];
 }
 
 // Required
 
-- (void) setURL:(NSURL *)url {
-    _urlEndpoint = url;
+- (void) setUrlEndpoint:(NSURL *)urlEndpoint {
+    _url = urlEndpoint;
+    [self setupUrlEndpoint];
 }
-
-// Optional
 
 - (void) setHttpMethod:(enum SPRequestOptions)method {
     _httpMethod = method;
+    if (_urlEndpoint != nil) {
+        [self setupUrlEndpoint];
+    }
 }
 
 - (void) setBufferOption:(enum SPBufferOptions)option {
@@ -107,6 +119,9 @@
 
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize {
     _emitThreadPoolSize = emitThreadPoolSize;
+    if (_dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize) {
+        _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
+    }
 }
 
 // Builder Finished
@@ -269,14 +284,6 @@
 }
 
 // Setters
-
-- (void) setNewHttpMethod:(enum SPRequestOptions)method {
-    _httpMethod = method;
-}
-
-- (void) setNewBufferOption:(enum SPBufferOptions)buffer {
-    _bufferOption = buffer;
-}
 
 - (void) setNewBufferTime:(NSInteger) userTime {
     NSInteger time = kDefaultBufferTimeout;

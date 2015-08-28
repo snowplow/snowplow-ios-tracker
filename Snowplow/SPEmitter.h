@@ -2,7 +2,7 @@
 //  SPEmitter.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -24,6 +24,7 @@
 #import "SPRequestCallback.h"
 
 @class SPPayload;
+@class SPEventStore;
 
 enum SPBufferOptions {
     SPBufferInstant = 1,
@@ -37,7 +38,7 @@ enum SPRequestOptions {
 
 @protocol SPEmitterBuilder <NSObject>
 
-- (void) setURL:(NSURL *)url;
+- (void) setUrlEndpoint:(NSURL *)urlEndpoint;
 - (void) setHttpMethod:(enum SPRequestOptions)method;
 - (void) setBufferOption:(enum SPBufferOptions)option;
 - (void) setCallback:(id<SPRequestCallback>)callback;
@@ -48,8 +49,12 @@ enum SPRequestOptions {
 
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
-@property BOOL                                    isSending;
-@property (nonatomic, weak) id<SPRequestCallback> callback;
+@property (readonly, nonatomic) enum    SPRequestOptions      httpMethod;
+@property (readonly, nonatomic) enum    SPBufferOptions       bufferOption;
+@property (readonly, nonatomic, retain) NSURL *               urlEndpoint;
+@property (readonly, nonatomic)         NSInteger             emitRange;
+@property (readonly, nonatomic)         NSInteger             emitThreadPoolSize;
+@property (readonly, nonatomic, weak)   id<SPRequestCallback> callback;
 
 /**
  * Builds the Emitter using a build block of functions.
@@ -72,18 +77,6 @@ enum SPRequestOptions {
  * Empties the buffer of events using the respective HTTP request method in httpMethod.
  */
 - (void) flushBuffer;
-
-/**
- * Set the buffer to send the data instantly or after storing 10 events. Use the enum SnowplowBufferOptions to set the preferred option. By default, the tracker is set to SnowplowBufferDefault (10).
- * @param buffer Sets the buffer to SnowplowBufferDefault or SnowplowBufferInstant with SnowplowBufferOptions.
- */
-- (void) setNewBufferOption:(enum SPBufferOptions)buffer;
-
-/**
- * Set the HTTP method to send the events.
- * @param method The HTTP request method that the tracker should send the event data (either GET or POST requests).
- */
-- (void) setNewHttpMethod:(enum SPRequestOptions)method;
 
 /**
  * Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.

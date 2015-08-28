@@ -28,8 +28,18 @@
 #import "SPUtils.h"
 #import "SPSession.h"
 
+@interface SPTracker ()
+
+@property (nonatomic, retain) SPEmitter * emitter;
+@property (nonatomic, retain) SPSubject * subject;
+@property (nonatomic, retain) NSString *  appId;
+@property (nonatomic, retain) NSString *  trackerNamespace;
+@property (nonatomic)         BOOL        base64Encoded;
+
+@end
+
 @implementation SPTracker {
-    BOOL                   _base64Encoded;
+    SPSession *            _session;
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
     BOOL                   _dataCollection;
@@ -86,15 +96,23 @@
 
 - (void) setAppId:(NSString *)appId {
     _appId = appId;
+    if (_trackerData != nil) {
+        [self setup];
+    }
 }
 
-- (void) setNamespace:(NSString *)trackerNamespace {
+- (void) setTrackerNamespace:(NSString *)trackerNamespace {
     _trackerNamespace = trackerNamespace;
+    if (_trackerData != nil) {
+        [self setup];
+    }
 }
 
 - (void) setSessionContext:(BOOL)sessionContext {
     if (sessionContext) {
         _session = [[SPSession alloc] init];
+    } else {
+        _session = nil;
     }
 }
 

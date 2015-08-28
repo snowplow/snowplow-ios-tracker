@@ -2,7 +2,7 @@
 //  SPRequestResponse.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,12 +25,16 @@
 
 @interface SPRequestResponse()
 
-@property (nonatomic) BOOL isSuccess;
+@property (nonatomic) BOOL  isSuccess;
 @property (nonatomic, weak) NSArray *indexArray;
 
 @end
 
 @implementation SPRequestResponse
+
+- (id) init {
+    return [self initWithBool:NO withIndex:nil];
+}
 
 - (id) initWithBool:(BOOL)success withIndex:(NSArray *)index {
     self = [super init];

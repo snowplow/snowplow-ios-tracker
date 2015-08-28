@@ -2,7 +2,7 @@
 //  SPSession.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,6 +25,10 @@
 @class SPPayload;
 
 @interface SPSession : NSObject
+
+@property (readonly, nonatomic) NSInteger foregroundTimeout;
+@property (readonly, nonatomic) NSInteger backgroundTimeout;
+@property (readonly, nonatomic) NSInteger checkInterval;
 
 /**
  * Initializes a newly allocated SnowplowSession

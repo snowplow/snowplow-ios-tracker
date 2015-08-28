@@ -110,31 +110,22 @@
 
 - (void) setPlatformDict {
     _platformDict = [[SPPayload alloc] init];
-#if TARGET_OS_IPHONE
-    [self setMobileDict];
-#else
-    [self setDesktopDict];
-#endif
-}
-
-- (void) setMobileDict {
     [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kPlatformOsType];
     [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kPlatformOsVersion];
     [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kPlatformDeviceManu];
     [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kPlatformDeviceModel];
+#if TARGET_OS_IPHONE
+    [self setMobileDict];
+#endif
+}
+
+- (void) setMobileDict {
     [_platformDict addValueToPayload:[SPUtils getCarrierName]       forKey:kMobileCarrier];
     [_platformDict addValueToPayload:[SPUtils getOpenIdfa]          forKey:kMobileOpenIdfa];
     [_platformDict addValueToPayload:[SPUtils getAppleIdfa]         forKey:kMobileAppleIdfa];
     [_platformDict addValueToPayload:[SPUtils getAppleIdfv]         forKey:kMobileAppleIdfv];
     [_platformDict addValueToPayload:[SPUtils getNetworkType]       forKey:kMobileNetworkType];
     [_platformDict addValueToPayload:[SPUtils getNetworkTechnology] forKey:kMobileNetworkTech];
-}
-
-- (void) setDesktopDict {
-    [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kPlatformOsType];
-    [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kPlatformOsVersion];
-    [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kPlatformDeviceManu];
-    [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kPlatformDeviceModel];
 }
 
 @end

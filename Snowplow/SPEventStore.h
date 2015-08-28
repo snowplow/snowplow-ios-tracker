@@ -2,7 +2,7 @@
 //  SPEventStore.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -23,10 +23,12 @@
 #import <Foundation/Foundation.h>
 
 @class SPPayload;
+@class FMDatabaseQueue;
 
 @interface SPEventStore : NSObject
 
-@property (retain) NSString * appId;
+@property (readonly, nonatomic, retain) NSString *        dbPath;
+@property (readonly, nonatomic, retain) FMDatabaseQueue * queue;
 
 /**
  *  Basic initializer that creates a database event table (if one does not exist) and then closes the connection.
