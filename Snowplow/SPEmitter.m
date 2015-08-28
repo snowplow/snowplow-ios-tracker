@@ -180,7 +180,7 @@
             [payload setValue:eventArray forKey:@"data"];
             [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults];
         }
-    } else if (_httpMethod == SPRequestGet) {
+    } else {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
             [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:kSentTimestamp];
@@ -188,11 +188,6 @@
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
         }
-    } else {
-        NSLog(@"Invalid httpMethod provided. Use \"POST\" or \"GET\".");
-        [NSThread sleepForTimeInterval:5];
-        _isSending = NO;
-        return;
     }
     
     [_dataOperationQueue waitUntilAllOperationsAreFinished];

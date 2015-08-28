@@ -15,8 +15,8 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -24,6 +24,7 @@
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPPayload.h"
+#import "SPSubject.h"
 
 @interface TestTracker : XCTestCase
 
@@ -31,77 +32,72 @@
 
 @implementation TestTracker
 
-//NSString *const TEST_SERVER = @"http://localhost:4545";
-NSString *const TEST_SERVER = @"http://segfault.ngrok.com";
+NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     [super tearDown];
 }
 
-- (void)testExample
-{
+- (void)testTrackerBuilderAndOptions {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setURL:[NSURL URLWithString:TEST_SERVER]];
-        [builder setBufferOption:SPBufferInstant];
+        [builder setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_TRACKER]];
     }];
     
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    
+    SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
-        [builder setAppId:@"foo"];
-        [builder setNamespace:@"myname"];
-        [builder setBase64Encoded:false];
+        [builder setSubject:subject];
+        [builder setAppId:@"anAppId"];
+        [builder setBase64Encoded:NO];
+        [builder setTrackerNamespace:@"aNamespace"];
+        [builder setSessionContext:YES];
     }];
     
-    NSDictionary *context = [NSDictionary dictionaryWithObjectsAndKeys:
-                             @"foo", @"bar", nil];
-    NSMutableArray *contextArray = [NSMutableArray arrayWithObject:context];
-    [tracker trackPageView:@"foo1.com" title:@"This is my foo1" referrer:@"myreferrer1" context:contextArray timestamp:0];
-    [tracker trackPageView:@"foo2.com" title:@"This is my foo2" referrer:@"myreferrer2" context:nil timestamp:0];
+    // Test builder setting properly
     
-    sleep(2);
+    XCTAssertNotNil([tracker emitter]);
+    XCTAssertEqual([tracker emitter], emitter);
+    XCTAssertNotNil([tracker subject]);
+    XCTAssertEqual([tracker subject], subject);
+    XCTAssertTrue([tracker getSessionIndex] >= 1);
+    XCTAssertEqual([tracker appId], @"anAppId");
+    XCTAssertEqual([tracker trackerNamespace], @"aNamespace");
+    XCTAssertEqual([tracker base64Encoded], NO);
+    XCTAssertEqual([tracker getInBackground], NO);
+    XCTAssertEqual([tracker getIsTracking], YES);
+    
+    // Test Pause/Resume logic
+    
+    [tracker pauseEventTracking];
+    XCTAssertEqual([tracker getIsTracking], NO);
+    [tracker resumeEventTracking];
+    XCTAssertEqual([tracker getIsTracking], YES);
+    
+    // Test setting variables to new values
+    
+    [tracker setAppId:@"newAppId"];
+    XCTAssertEqual([tracker appId], @"newAppId");
+    [tracker setTrackerNamespace:@"newNamespace"];
+    XCTAssertEqual([tracker trackerNamespace], @"newNamespace");
+    [tracker setBase64Encoded:YES];
+    XCTAssertEqual([tracker base64Encoded], YES);
+    
+    SPSubject * subject2 = [[SPSubject alloc] initWithPlatformContext:YES];
+    [tracker setSubject:subject2];
+    XCTAssertNotEqual([tracker subject], subject);
+    XCTAssertEqual([tracker subject], subject2);
+    
+    SPEmitter * emitter2 = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_TRACKER]];
+    }];
+    [tracker setEmitter:emitter2];
+    XCTAssertNotEqual([tracker emitter], emitter);
+    XCTAssertEqual([tracker emitter], emitter2);
 }
-
-- (void)testInit
-{
-    // Basic test to see if init values are set
-}
-
-- (void)testInitPropertySet
-{
-    // Force setting of init values that were not set if using initUsingCollector:appId:base64Encoded:namespace:
-}
-
-- (void)testInitUsingCollector
-{
-    // Basic test to see if initUsingCollector are set
-}
-
-- (void)testSetSchemaTag
-{
-    // Self-explanatory
-}
-
-- (void)testTrackPageViewWithoutContext {
-    // Test page view tracker WITHOUT a context set
-}
-
-- (void)testTrackPageViewWithContext {
-    // Test page view tracker WITH a context set
-}
-
-- (void)testTrackPageViewWithTimestamp {
-    // Test page view tracker WITH a timestamp set
-}
-
-- (void)testTrackPageViewWithoutTimestamp {
-    // Test page view tracker WITHOUT a timestamp set
-}
-
 
 @end

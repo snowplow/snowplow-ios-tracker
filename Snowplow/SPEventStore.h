@@ -27,9 +27,6 @@
 
 @interface SPEventStore : NSObject
 
-@property (readonly, nonatomic, retain) NSString *        dbPath;
-@property (readonly, nonatomic, retain) FMDatabaseQueue * queue;
-
 /**
  *  Basic initializer that creates a database event table (if one does not exist) and then closes the connection.
  *  @return A SnowplowEventStore object.

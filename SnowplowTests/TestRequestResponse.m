@@ -1,5 +1,5 @@
 //
-//  SPRequestResponse.m
+//  TestRequestResponse.m
 //  Snowplow
 //
 //  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
@@ -20,33 +20,38 @@
 //  License: Apache License Version 2.0
 //
 
+#import <XCTest/XCTest.h>
 #import "Snowplow.h"
 #import "SPRequestResponse.h"
 
-@implementation SPRequestResponse {
-    BOOL      _isSuccess;
-    NSArray * _indexArray;
+@interface TestRequestResponse : XCTestCase
+
+@end
+
+@implementation TestRequestResponse
+
+- (void)setUp {
+    [super setUp];
 }
 
-- (id) init {
-    return [self initWithBool:NO withIndex:nil];
+- (void)tearDown {
+    [super tearDown];
 }
 
-- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index {
-    self = [super init];
-    if (self) {
-        _isSuccess = success;
-        _indexArray = index;
-    }
-    return self;
-}
-
-- (BOOL) getSuccess {
-    return _isSuccess;
-}
-
-- (NSArray *) getIndexArray {
-    return _indexArray;
+- (void)testInit {
+    NSMutableArray * array = [[NSMutableArray alloc] init];
+    [array addObject:[NSNumber numberWithInteger:1]];
+    SPRequestResponse * response = [[SPRequestResponse alloc] initWithBool:YES withIndex:array];
+    
+    XCTAssertNotNil(response);
+    XCTAssertEqual([response getSuccess], YES);
+    XCTAssertEqual([response getIndexArray], array);
+    
+    response = [[SPRequestResponse alloc] init];
+    
+    XCTAssertNotNil(response);
+    XCTAssertEqual([response getSuccess], NO);
+    XCTAssertNil([response getIndexArray]);
 }
 
 @end

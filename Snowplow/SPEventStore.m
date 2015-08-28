@@ -26,14 +26,10 @@
 #import "SPUtils.h"
 #import <FMDB.h>
 
-@interface SPEventStore ()
-
-@property (nonatomic, retain) NSString *        dbPath;
-@property (nonatomic, retain) FMDatabaseQueue * queue;
-
-@end
-
-@implementation SPEventStore
+@implementation SPEventStore {
+    NSString *        _dbPath;
+    FMDatabaseQueue * _queue;
+}
 
 static NSString * const _queryCreateTable = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 static NSString * const _querySelectAll   = @"SELECT * FROM 'events'";
@@ -62,8 +58,6 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     [_queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             res = [db executeStatements:_queryCreateTable];
-        } else {
-            res = false;
         }
     }];
     return res;
@@ -101,8 +95,6 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
         if ([db open]) {
             SnowplowDLog(@"Removing %lld from database now.", id_);
             res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
-        } else {
-            res = false;
         }
     }];
     return res;

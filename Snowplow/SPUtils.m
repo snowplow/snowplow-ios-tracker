@@ -108,24 +108,19 @@
 }
 
 + (NSString *) getNetworkType {
+    NSString * type = nil;
 #if TARGET_OS_IPHONE
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     [reachability startNotifier];
-    
     NetworkStatus status = [reachability currentReachabilityStatus];
-    
     if (status == ReachableViaWiFi) {
-        return @"wifi";
+        type = @"wifi";
     }
     else if (status == ReachableViaWWAN) {
-        return @"mobile";
+        type = @"mobile";
     }
-    else {
-        return nil;
-    }
-#else
-    return nil;
 #endif
+    return type;
 }
 
 + (NSString *) getNetworkTechnology {
@@ -246,13 +241,13 @@
 }
 
 + (BOOL) isOnline {
+    BOOL online = YES;
 #if TARGET_OS_IPHONE
     Reachability * reachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-    return networkStatus != NotReachable;
-#else
-    return NO;
+    online = networkStatus != NotReachable;
 #endif
+    return online;
 }
 
 @end

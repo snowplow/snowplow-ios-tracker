@@ -111,8 +111,6 @@
 - (void) setSessionContext:(BOOL)sessionContext {
     if (sessionContext) {
         _session = [[SPSession alloc] init];
-    } else {
-        _session = nil;
     }
 }
 

@@ -62,11 +62,12 @@
           typeWhenEncoded:(NSString *)typeEncoded
        typeWhenNotEncoded:(NSString *)typeNotEncoded {
     NSError *error = nil;
+    NSDictionary *object = nil;
     
-    // We do this only for JSON error checking
-    NSDictionary *object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
-    
-    if (error) {
+    @try {
+        object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
+    }
+    @catch (NSException *exception) {
         SnowplowDLog(@"addJsonToPayload: error: %@", error.localizedDescription);
         return;
     }

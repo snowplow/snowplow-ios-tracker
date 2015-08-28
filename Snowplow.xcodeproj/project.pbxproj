@@ -14,6 +14,15 @@
 		043EC5E11B8F049200294081 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5DF1B8F049200294081 /* SPSession.m */; };
 		043EC5E71B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		043EC5E81B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
+		04ABC3591B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
+		04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
+		04ABC35C1B905F5200F50CAD /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */; };
+		04ABC35D1B905F5200F50CAD /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */; };
+		04ABC35F1B906E1500F50CAD /* TestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35E1B906E1500F50CAD /* TestEmitter.m */; };
+		04ABC3601B906E1500F50CAD /* TestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35E1B906E1500F50CAD /* TestEmitter.m */; };
+		04ABC3621B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
+		04ABC3631B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
+		04ABC3641B908E6500F50CAD /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
 		04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		46A289CC9C4B3D542DF28F92 /* libPods-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D350F2E758CBC781DDD5DDF7 /* libPods-Snowplow-OSX.a */; };
 		8C8D403041F44FFD17B1C857 /* libPods-specs.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DC246F4396D6C0652641E05 /* libPods-specs.a */; };
@@ -91,6 +100,10 @@
 		043EC5DF1B8F049200294081 /* SPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSession.m; sourceTree = "<group>"; };
 		043EC5E61B8F224900294081 /* Snowplow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snowplow.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestCallback.h; sourceTree = "<group>"; };
+		04ABC3581B905A5B00F50CAD /* TestSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSubject.m; sourceTree = "<group>"; };
+		04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequestResponse.m; sourceTree = "<group>"; };
+		04ABC35E1B906E1500F50CAD /* TestEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEmitter.m; sourceTree = "<group>"; };
+		04ABC3611B9088DA00F50CAD /* TestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSession.m; sourceTree = "<group>"; };
 		050D36B378D82D87E307F937 /* Pods-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-lib/Pods-lib.release.xcconfig"; sourceTree = "<group>"; };
 		0DC246F4396D6C0652641E05 /* libPods-specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3294C940810A8362413F731B /* Pods-specs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-specs.release.xcconfig"; path = "Pods/Target Support Files/Pods-specs/Pods-specs.release.xcconfig"; sourceTree = "<group>"; };
@@ -268,13 +281,17 @@
 		AB0C27D6191B408200018557 /* SnowplowTests */ = {
 			isa = PBXGroup;
 			children = (
-				AB0C27DC191B408200018557 /* SnowplowTests.m */,
 				AB0C27D7191B408200018557 /* Supporting Files */,
-				ABFCC36D1921016200FAE8FE /* TestPayload.m */,
-				ABFCC377192325FB00FAE8FE /* TestUtils.m */,
-				ABB2565019286C8C0014FE0C /* TestRequest.m */,
+				AB0C27DC191B408200018557 /* SnowplowTests.m */,
 				ABB790CB1936F2500084B964 /* TestTracker.m */,
+				04ABC35E1B906E1500F50CAD /* TestEmitter.m */,
 				AB4338571950A530006A1DE4 /* TestEventStore.m */,
+				04ABC3581B905A5B00F50CAD /* TestSubject.m */,
+				ABFCC36D1921016200FAE8FE /* TestPayload.m */,
+				04ABC3611B9088DA00F50CAD /* TestSession.m */,
+				ABFCC377192325FB00FAE8FE /* TestUtils.m */,
+				04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */,
+				ABB2565019286C8C0014FE0C /* TestRequest.m */,
 			);
 			path = SnowplowTests;
 			sourceTree = "<group>";
@@ -565,10 +582,14 @@
 			files = (
 				AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */,
 				ABB790CC1936F2500084B964 /* TestTracker.m in Sources */,
-				ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */,
-				ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */,
+				04ABC35F1B906E1500F50CAD /* TestEmitter.m in Sources */,
 				AB4338581950A530006A1DE4 /* TestEventStore.m in Sources */,
+				04ABC3591B905A5B00F50CAD /* TestSubject.m in Sources */,
+				ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */,
+				04ABC3621B9088DA00F50CAD /* TestSession.m in Sources */,
 				ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */,
+				04ABC35C1B905F5200F50CAD /* TestRequestResponse.m in Sources */,
+				ABB2565119286C8C0014FE0C /* TestRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,9 +616,14 @@
 			files = (
 				AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */,
 				AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */,
-				AEA2FCF41A8CE30E00123462 /* TestRequest.m in Sources */,
-				AEA2FCF31A8CE30C00123462 /* TestPayload.m in Sources */,
+				04ABC3601B906E1500F50CAD /* TestEmitter.m in Sources */,
 				AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */,
+				04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */,
+				AEA2FCF31A8CE30C00123462 /* TestPayload.m in Sources */,
+				04ABC3631B9088DA00F50CAD /* TestSession.m in Sources */,
+				04ABC3641B908E6500F50CAD /* TestUtils.m in Sources */,
+				04ABC35D1B905F5200F50CAD /* TestRequestResponse.m in Sources */,
+				AEA2FCF41A8CE30E00123462 /* TestRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
