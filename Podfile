@@ -24,6 +24,11 @@ target 'Snowplow-OSX' do
     pod 'FMDB', '~> 2.3'
 end
 
+target 'Snowplow-OSXTests' do
+  platform :osx, '10.9'
+  pod 'Nocilla'
+end
+
 post_install do |installer_rep|
 
   # We need to remove sqlite3 from the library
