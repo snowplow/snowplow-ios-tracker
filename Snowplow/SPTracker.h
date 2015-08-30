@@ -35,6 +35,9 @@
 - (void) setBase64Encoded:(BOOL)base64Encoded;
 - (void) setTrackerNamespace:(NSString *)trackerNamespace;
 - (void) setSessionContext:(BOOL)sessionContext;
+- (void) setForegroundTimeout:(NSInteger)foregroundTimeout;
+- (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;
+- (void) setCheckInterval:(NSInteger)checkInterval;
 
 @end
 

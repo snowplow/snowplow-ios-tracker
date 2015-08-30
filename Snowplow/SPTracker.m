@@ -39,10 +39,14 @@
 @end
 
 @implementation SPTracker {
-    SPSession *            _session;
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
     BOOL                   _dataCollection;
+    SPSession *            _session;
+    BOOL                   _sessionContext;
+    NSInteger              _foregroundTimeout;
+    NSInteger              _backgroundTimeout;
+    NSInteger              _checkInterval;
 }
 
 // SnowplowTracker Builder
@@ -63,6 +67,10 @@
         _appId = nil;
         _base64Encoded = YES;
         _dataCollection = YES;
+        _sessionContext = NO;
+        _foregroundTimeout = 600000;
+        _backgroundTimeout = 300000;
+        _checkInterval = 15;
         
 #if TARGET_OS_IPHONE
         _platformContextSchema = kMobileContextSchema;
@@ -78,6 +86,12 @@
                      kVersion, kTrackerVersion,
                      _trackerNamespace != nil ? _trackerNamespace : [NSNull null], kNamespace,
                      _appId != nil ? _appId : [NSNull null], kAppId, nil];
+    
+    if (_session != nil && _sessionContext) {
+        [_session setForegroundTimeout:_foregroundTimeout];
+        [_session setBackgroundTimeout:_backgroundTimeout];
+        [_session setCheckInterval:_checkInterval];
+    }
 }
 
 // Required
@@ -109,8 +123,33 @@
 }
 
 - (void) setSessionContext:(BOOL)sessionContext {
-    if (sessionContext) {
-        _session = [[SPSession alloc] init];
+    _sessionContext = sessionContext;
+    if (_session != nil && !sessionContext) {
+        [_session stopChecker];
+        _session = nil;
+    } else if (_session == nil && sessionContext) {
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
+    }
+}
+
+- (void) setForegroundTimeout:(NSInteger)foregroundTimeout {
+    _foregroundTimeout = foregroundTimeout;
+    if (_session != nil) {
+        [_session setForegroundTimeout:foregroundTimeout];
+    }
+}
+
+- (void) setBackgroundTimeout:(NSInteger)backgroundTimeout {
+    _backgroundTimeout = backgroundTimeout;
+    if (_session != nil) {
+        [_session setBackgroundTimeout:backgroundTimeout];
+    }
+}
+
+- (void) setCheckInterval:(NSInteger)checkInterval {
+    _checkInterval = checkInterval;
+    if (_session != nil) {
+        [_session setCheckInterval:checkInterval];
     }
 }
 
@@ -187,7 +226,7 @@
     [_session startChecker];
 }
 
-// Getters & Setters
+// Getters
 
 - (NSInteger) getSessionIndex {
     return [_session getSessionIndex];

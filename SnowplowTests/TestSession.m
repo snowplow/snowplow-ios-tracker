@@ -42,16 +42,24 @@
     XCTAssertTrue(![session getInBackground]);
     XCTAssertTrue([session getSessionIndex] >= 1);
     XCTAssertNotNil([session getSessionDict]);
-    XCTAssertEqual([session foregroundTimeout], 600000);
-    XCTAssertEqual([session backgroundTimeout], 300000);
-    XCTAssertEqual([session checkInterval], 15);
+    XCTAssertEqual([session getForegroundTimeout], 600000);
+    XCTAssertEqual([session getBackgroundTimeout], 300000);
+    XCTAssertEqual([session getCheckInterval], 15);
 }
 
 - (void)testInitWithOptions {
     SPSession * session = [[SPSession alloc] initWithForegroundTimeout:5 andBackgroundTimeout:300 andCheckInterval:2];
-    XCTAssertEqual([session foregroundTimeout], 5000);
-    XCTAssertEqual([session backgroundTimeout], 300000);
-    XCTAssertEqual([session checkInterval], 2);
+    XCTAssertEqual([session getForegroundTimeout], 5000);
+    XCTAssertEqual([session getBackgroundTimeout], 300000);
+    XCTAssertEqual([session getCheckInterval], 2);
+    
+    [session setCheckInterval:20];
+    [session setBackgroundTimeout:5];
+    [session setForegroundTimeout:10];
+    
+    XCTAssertEqual([session getForegroundTimeout], 10);
+    XCTAssertEqual([session getBackgroundTimeout], 5);
+    XCTAssertEqual([session getCheckInterval], 20);
 }
 
 - (void)testInitInBgThread {
@@ -65,14 +73,14 @@
 }
 
 - (void)testSessionFunction {
-    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:5 andBackgroundTimeout:1 andCheckInterval:2];
+    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:1 andCheckInterval:1];
     NSInteger count = [session getSessionIndex];
     XCTAssertTrue(count > 0);
     
-    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:6]];
+    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:7]];
     [NSThread sleepForTimeInterval:1];
     
-    XCTAssertEqual(count + 1, [session getSessionIndex]);
+    XCTAssertEqual(count + 2, [session getSessionIndex]);
 }
 
 @end

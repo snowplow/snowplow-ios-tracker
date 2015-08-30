@@ -26,10 +26,6 @@
 
 @interface SPSession : NSObject
 
-@property (readonly, nonatomic) NSInteger foregroundTimeout;
-@property (readonly, nonatomic) NSInteger backgroundTimeout;
-@property (readonly, nonatomic) NSInteger checkInterval;
-
 /**
  * Initializes a newly allocated SnowplowSession
  * @return a SnowplowSession
@@ -54,6 +50,36 @@
  * Stops the recurring timer check for sessions
  */
 - (void) stopChecker;
+
+/**
+ * Sets a new foreground timeout
+ */
+- (void) setForegroundTimeout:(NSInteger)foregroundTimeout;
+
+/**
+ * Sets a new background timeout
+ */
+- (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;
+
+/**
+ * Sets a new check interval and restarts the timer
+ */
+- (void) setCheckInterval:(NSInteger)checkInterval;
+
+/**
+ * Returns the currently set Foreground Timeout
+ */
+- (NSInteger) getForegroundTimeout;
+
+/**
+ * Returns the currently set Background Timeout
+ */
+- (NSInteger) getBackgroundTimeout;
+
+/**
+ * Returns the currently set Check Interval
+ */
+- (NSInteger) getCheckInterval;
 
 /**
  * Returns the session dictionary

@@ -29,15 +29,10 @@
 #import <UIKit/UIKit.h>
 #endif
 
-@interface SPSession ()
-
-@property (nonatomic) NSInteger foregroundTimeout;
-@property (nonatomic) NSInteger backgroundTimeout;
-@property (nonatomic) NSInteger checkInterval;
-
-@end
-
 @implementation SPSession {
+    NSInteger         _foregroundTimeout;
+    NSInteger         _backgroundTimeout;
+    NSInteger         _checkInterval;
     NSInteger         _accessedLast;
     BOOL              _inBackground;
     NSString *        _userId;
@@ -113,9 +108,35 @@ NSString * const kSessionSavePath = @"session.dict";
     _sessionTimer = nil;
 }
 
+- (void) setForegroundTimeout:(NSInteger)foregroundTimeout {
+    _foregroundTimeout = foregroundTimeout;
+}
+
+- (void) setBackgroundTimeout:(NSInteger)backgroundTimeout {
+    _backgroundTimeout = backgroundTimeout;
+}
+
+- (void) setCheckInterval:(NSInteger)checkInterval {
+    _checkInterval = checkInterval;
+    [self stopChecker];
+    [self startChecker];
+}
+
 - (SPPayload *) getSessionDict {
     [self updateAccessedLast];
     return _sessionDict;
+}
+
+- (NSInteger) getForegroundTimeout {
+    return _foregroundTimeout;
+}
+
+- (NSInteger) getBackgroundTimeout {
+    return _backgroundTimeout;
+}
+
+- (NSInteger) getCheckInterval {
+    return _checkInterval;
 }
 
 - (NSInteger) getSessionIndex {

@@ -56,6 +56,9 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setBase64Encoded:NO];
         [builder setTrackerNamespace:@"aNamespace"];
         [builder setSessionContext:YES];
+        [builder setForegroundTimeout:300];
+        [builder setBackgroundTimeout:150];
+        [builder setCheckInterval:10];
     }];
     
     // Test builder setting properly
@@ -98,6 +101,18 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     [tracker setEmitter:emitter2];
     XCTAssertNotEqual([tracker emitter], emitter);
     XCTAssertEqual([tracker emitter], emitter2);
+    
+    // Test Session Switch on/off
+    
+    [tracker setSessionContext:NO];
+    XCTAssertTrue([tracker getSessionIndex] == 0);
+    
+    [tracker setSessionContext:YES];
+    XCTAssertTrue([tracker getSessionIndex] > 0);
+    
+    [tracker setForegroundTimeout:10];
+    [tracker setBackgroundTimeout:20];
+    [tracker setCheckInterval:15];
 }
 
 @end
