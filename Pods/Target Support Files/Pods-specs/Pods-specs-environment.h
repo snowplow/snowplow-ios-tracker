@@ -6,9 +6,9 @@
 // project.
 
 
-// OCHamcrest
-#define COCOAPODS_POD_AVAILABLE_OCHamcrest
-#define COCOAPODS_VERSION_MAJOR_OCHamcrest 4
-#define COCOAPODS_VERSION_MINOR_OCHamcrest 1
-#define COCOAPODS_VERSION_PATCH_OCHamcrest 1
+// Nocilla
+#define COCOAPODS_POD_AVAILABLE_Nocilla
+#define COCOAPODS_VERSION_MAJOR_Nocilla 0
+#define COCOAPODS_VERSION_MINOR_Nocilla 10
+#define COCOAPODS_VERSION_PATCH_Nocilla 0
 

@@ -16,6 +16,7 @@ end
 target :specs, :exclusive => true do
   platform :ios, '7.0'
   link_with ['SnowplowTests']
+  pod 'Nocilla'
 end
 
 target 'Snowplow-OSX' do
