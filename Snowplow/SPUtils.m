@@ -64,16 +64,15 @@
 }
 
 + (NSString *) getOpenIdfa {
+    NSString * idfa = nil;
 #if TARGET_OS_IPHONE
-    // See: https://github.com/ylechelle/OpenIDFA
-    return [OpenIDFA sameDayOpenIDFA];
-#else
-    return @"";
+    idfa = [OpenIDFA sameDayOpenIDFA];
 #endif
+    return idfa;
 }
 
 + (NSString *) getAppleIdfa {
-    NSString* ifa = nil;
+    NSString* idfa = nil;
 #if TARGET_OS_IPHONE
 #ifndef SNOWPLOW_NO_IFA
     Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
@@ -82,29 +81,29 @@
         id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
         SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
         NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
-        ifa = [uuid UUIDString];
+        idfa = [uuid UUIDString];
     }
 #endif
 #endif
-    return ifa;
+    return idfa;
 }
 
 + (NSString *) getAppleIdfv {
+    NSString * idfv = nil;
 #if TARGET_OS_IPHONE
-    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-#else
-    return @"";
+    idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 #endif
+    return idfv;
 }
 
 + (NSString *) getCarrierName {
+    NSString * carrierName = nil;
 #if TARGET_OS_IPHONE
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
-    return [carrier carrierName];
-#else
-    return @"";
+    carrierName = [carrier carrierName];
 #endif
+    return carrierName;
 }
 
 + (NSString *) getNetworkType {
@@ -124,12 +123,12 @@
 }
 
 + (NSString *) getNetworkTechnology {
+    NSString * netTech = nil;
 #if TARGET_OS_IPHONE
     CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
-    return [netInfo currentRadioAccessTechnology];
-#else
-    return nil;
+    netTech = [netInfo currentRadioAccessTechnology];
 #endif
+    return netTech;
 }
 
 + (int) getTransactionId {
@@ -138,7 +137,7 @@
 
 + (double) getTimestamp {
     NSDate *time = [[NSDate alloc] init];
-    return [time timeIntervalSince1970]*1000;
+    return [time timeIntervalSince1970] * 1000;
 }
 
 + (NSString *) getResolution {
@@ -187,15 +186,13 @@
     SInt32 osxMinorVersion;
     SInt32 osxPatchFixVersion;
     NSProcessInfo *info = [NSProcessInfo processInfo];
-    if ([info respondsToSelector:@selector(operatingSystemVersion)])
-    {
+    if ([info respondsToSelector:@selector(operatingSystemVersion)]) {
         NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
         osxMajorVersion = (int)systemVersion.majorVersion;
         osxMinorVersion = (int)systemVersion.minorVersion;
         osxPatchFixVersion = (int)systemVersion.patchVersion;
     }
-    else
-    {
+    else {
         // TODO eliminate this block once minimum version is OS X 10+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
