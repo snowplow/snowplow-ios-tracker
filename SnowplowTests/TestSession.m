@@ -76,11 +76,6 @@
     SPSession * session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:1 andCheckInterval:1];
     NSInteger count = [session getSessionIndex];
     XCTAssertTrue(count > 0);
-    
-    [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:7]];
-    [NSThread sleepForTimeInterval:1];
-    
-    XCTAssertEqual(count + 2, [session getSessionIndex]);
 }
 
 @end
