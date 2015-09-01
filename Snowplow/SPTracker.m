@@ -47,6 +47,7 @@
     NSInteger              _foregroundTimeout;
     NSInteger              _backgroundTimeout;
     NSInteger              _checkInterval;
+    BOOL                   _builderFinished;
 }
 
 // SnowplowTracker Builder
@@ -71,6 +72,7 @@
         _foregroundTimeout = 600000;
         _backgroundTimeout = 300000;
         _checkInterval = 15;
+        _builderFinished = NO;
         
 #if TARGET_OS_IPHONE
         _platformContextSchema = kMobileContextSchema;
@@ -82,16 +84,18 @@
 }
 
 - (void) setup {
-    _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                     kVersion, kTrackerVersion,
-                     _trackerNamespace != nil ? _trackerNamespace : [NSNull null], kNamespace,
-                     _appId != nil ? _appId : [NSNull null], kAppId, nil];
-    
-    if (_session != nil && _sessionContext) {
-        [_session setForegroundTimeout:_foregroundTimeout];
-        [_session setBackgroundTimeout:_backgroundTimeout];
-        [_session setCheckInterval:_checkInterval];
+    [self setTrackerData];
+    if (_sessionContext) {
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
     }
+    _builderFinished = YES;
+}
+
+- (void) setTrackerData {
+    _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                    kVersion, kTrackerVersion,
+                    _trackerNamespace != nil ? _trackerNamespace : [NSNull null], kNamespace,
+                    _appId != nil ? _appId : [NSNull null], kAppId, nil];
 }
 
 // Required
@@ -110,15 +114,15 @@
 
 - (void) setAppId:(NSString *)appId {
     _appId = appId;
-    if (_trackerData != nil) {
-        [self setup];
+    if (_builderFinished && _trackerData != nil) {
+        [self setTrackerData];
     }
 }
 
 - (void) setTrackerNamespace:(NSString *)trackerNamespace {
     _trackerNamespace = trackerNamespace;
-    if (_trackerData != nil) {
-        [self setup];
+    if (_builderFinished && _trackerData != nil) {
+        [self setTrackerData];
     }
 }
 
@@ -127,28 +131,28 @@
     if (_session != nil && !sessionContext) {
         [_session stopChecker];
         _session = nil;
-    } else if (_session == nil && sessionContext) {
+    } else if (_builderFinished && _session == nil && sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
     }
 }
 
 - (void) setForegroundTimeout:(NSInteger)foregroundTimeout {
     _foregroundTimeout = foregroundTimeout;
-    if (_session != nil) {
+    if (_builderFinished && _session != nil) {
         [_session setForegroundTimeout:foregroundTimeout];
     }
 }
 
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout {
     _backgroundTimeout = backgroundTimeout;
-    if (_session != nil) {
+    if (_builderFinished && _session != nil) {
         [_session setBackgroundTimeout:backgroundTimeout];
     }
 }
 
 - (void) setCheckInterval:(NSInteger)checkInterval {
     _checkInterval = checkInterval;
-    if (_session != nil) {
+    if (_builderFinished && _session != nil) {
         [_session setCheckInterval:checkInterval];
     }
 }

@@ -46,6 +46,7 @@
     NSTimer *          _timer;
     BOOL               _isSending;
     NSOperationQueue * _dataOperationQueue;
+    BOOL               _builderFinished;
 }
 
 // SnowplowEmitter Builder
@@ -70,6 +71,7 @@
         _isSending = NO;
         _db = [[SPEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
+        _builderFinished = NO;
     }
     return self;
 }
@@ -78,6 +80,7 @@
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupUrlEndpoint];
     [self setFutureBufferFlushWithTime:kDefaultBufferTimeout];
+    _builderFinished = YES;
 }
 
 - (void) setupUrlEndpoint {
@@ -96,12 +99,14 @@
 
 - (void) setUrlEndpoint:(NSURL *)urlEndpoint {
     _url = urlEndpoint;
-    [self setupUrlEndpoint];
+    if (_builderFinished) {
+        [self setupUrlEndpoint];
+    }
 }
 
 - (void) setHttpMethod:(enum SPRequestOptions)method {
     _httpMethod = method;
-    if (_urlEndpoint != nil) {
+    if (_builderFinished && _urlEndpoint != nil) {
         [self setupUrlEndpoint];
     }
 }
