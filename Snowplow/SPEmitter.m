@@ -230,9 +230,6 @@
     
     if (success == 0 && failure > 0) {
         SnowplowDLog(@"Ending emitter run as all requests failed...");
-        
-        // Required to allow all send results to be properly de-allocated
-        // Sleep also prevents excessive work if device is not able to send
         [NSThread sleepForTimeInterval:5];
         _isSending = NO;
         return;
@@ -247,11 +244,13 @@
         NSError *connectionError = nil;
         [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&connectionError];
         
-        if ([response statusCode] >= 200 && [response statusCode] < 300) {
-            [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
-        } else {
-            NSLog(@"Error: %@", connectionError);
-            [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
+        @synchronized (results) {
+            if ([response statusCode] >= 200 && [response statusCode] < 300) {
+                [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
+            } else {
+                NSLog(@"Error: %@", connectionError);
+                [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
+            }
         }
     }];
 }
