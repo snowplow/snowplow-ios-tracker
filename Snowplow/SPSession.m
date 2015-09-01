@@ -24,6 +24,7 @@
 #import "SPSession.h"
 #import "SPUtils.h"
 #import "SPPayload.h"
+#import "SPWeakTimerTarget.h"
 
 #if TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
@@ -96,8 +97,8 @@ NSString * const kSessionSavePath = @"session.dict";
 - (void) startChecker {
     dispatch_async(dispatch_get_main_queue(), ^{
         _sessionTimer = [NSTimer scheduledTimerWithTimeInterval:_checkInterval
-                                                         target:self
-                                                       selector:@selector(checkSession:)
+                                                         target:[[SPWeakTimerTarget alloc] initWithTarget:self andSelector:@selector(checkSession:)]
+                                                       selector:@selector(timerFired:)
                                                        userInfo:nil
                                                         repeats:YES];
     });
@@ -221,6 +222,12 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) updateInForeground {
     _inBackground = NO;
+}
+
+- (void) dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_sessionTimer invalidate];
+    _sessionTimer = nil;
 }
 
 @end

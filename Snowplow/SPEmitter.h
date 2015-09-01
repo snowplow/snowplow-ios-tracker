@@ -82,7 +82,7 @@ enum SPRequestOptions {
  * Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.
  * @param userTime An int value in seconds
  */
-- (void) setNewBufferTime:(NSInteger) userTime;
+- (void) setFutureBufferFlushWithTime:(NSInteger)userTime;
 
 /**
  * Returns the total Database Count

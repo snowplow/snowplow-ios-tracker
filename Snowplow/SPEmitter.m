@@ -26,6 +26,7 @@
 #import "SPUtils.h"
 #import "SPPayload.h"
 #import "SPRequestResponse.h"
+#import "SPWeakTimerTarget.h"
 #import <FMDB.h>
 
 @interface SPEmitter ()
@@ -76,7 +77,7 @@
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupUrlEndpoint];
-    [self setNewBufferTime:kDefaultBufferTimeout];
+    [self setFutureBufferFlushWithTime:kDefaultBufferTimeout];
 }
 
 - (void) setupUrlEndpoint {
@@ -280,14 +281,23 @@
 
 // Setters
 
-- (void) setNewBufferTime:(NSInteger) userTime {
+- (void) setFutureBufferFlushWithTime:(NSInteger)userTime {
     NSInteger time = kDefaultBufferTimeout;
     if (userTime <= 300) {
         time = userTime; // 5 minute intervals
     }
     
+    if (_timer != nil) {
+        [_timer invalidate];
+        _timer = nil;
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
-        _timer = [NSTimer scheduledTimerWithTimeInterval:time target:self selector:@selector(flushBuffer) userInfo:nil repeats:YES];
+        _timer = [NSTimer scheduledTimerWithTimeInterval:time
+                                                  target:[[SPWeakTimerTarget alloc] initWithTarget:self andSelector:@selector(flushBuffer)]
+                                                selector:@selector(timerFired:)
+                                                userInfo:nil
+                                                 repeats:YES];
     });
 }
 
@@ -299,6 +309,11 @@
 
 - (BOOL) getSendingStatus {
     return _isSending;
+}
+
+- (void) dealloc {
+    [_timer invalidate];
+    _timer = nil;
 }
 
 @end

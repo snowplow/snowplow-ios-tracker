@@ -12,6 +12,8 @@
 		043EC5E41B8F050900294081 /* SPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 043EC5E21B8F050900294081 /* SPSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		043EC5E51B8F050900294081 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E31B8F050900294081 /* SPSession.m */; };
 		043EC5EA1B8F315400294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E91B8F315400294081 /* Snowplow.m */; };
+		044CA8911B948639000EA3B1 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88F1B948639000EA3B1 /* SPWeakTimerTarget.h */; };
+		044CA8921B948639000EA3B1 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA8901B948639000EA3B1 /* SPWeakTimerTarget.m */; };
 		04DD9E261B7A307900FFF578 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E231B7A307900FFF578 /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E241B7A307900FFF578 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		04DD9E281B7A307900FFF578 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD9E251B7A307900FFF578 /* SPRequestResponse.m */; };
@@ -36,6 +38,8 @@
 		043EC5E21B8F050900294081 /* SPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSession.h; path = ../../Snowplow/SPSession.h; sourceTree = "<group>"; };
 		043EC5E31B8F050900294081 /* SPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPSession.m; path = ../../Snowplow/SPSession.m; sourceTree = "<group>"; };
 		043EC5E91B8F315400294081 /* Snowplow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Snowplow.m; path = ../../Snowplow/Snowplow.m; sourceTree = "<group>"; };
+		044CA88F1B948639000EA3B1 /* SPWeakTimerTarget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPWeakTimerTarget.h; path = ../../Snowplow/SPWeakTimerTarget.h; sourceTree = "<group>"; };
+		044CA8901B948639000EA3B1 /* SPWeakTimerTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPWeakTimerTarget.m; path = ../../Snowplow/SPWeakTimerTarget.m; sourceTree = "<group>"; };
 		04DD9E231B7A307900FFF578 /* SPRequestCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPRequestCallback.h; path = ../../Snowplow/SPRequestCallback.h; sourceTree = "<group>"; };
 		04DD9E241B7A307900FFF578 /* SPRequestResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPRequestResponse.h; path = ../../Snowplow/SPRequestResponse.h; sourceTree = "<group>"; };
 		04DD9E251B7A307900FFF578 /* SPRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPRequestResponse.m; path = ../../Snowplow/SPRequestResponse.m; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 				462FD4F81B15CABE00296A38 /* SPEventStore.m */,
 				462FD4FB1B15CABE00296A38 /* SPUtils.m */,
 				04DD9E251B7A307900FFF578 /* SPRequestResponse.m */,
+				044CA8901B948639000EA3B1 /* SPWeakTimerTarget.m */,
 				462FD4E81B15CA8A00296A38 /* Snowplow.h */,
 				462FD4E71B15CA8A00296A38 /* Snowplow-Prefix.pch */,
 				462FD4EC1B15CA8A00296A38 /* SPTracker.h */,
@@ -106,6 +111,7 @@
 				462FD4ED1B15CA8A00296A38 /* SPUtils.h */,
 				04DD9E241B7A307900FFF578 /* SPRequestResponse.h */,
 				04DD9E231B7A307900FFF578 /* SPRequestCallback.h */,
+				044CA88F1B948639000EA3B1 /* SPWeakTimerTarget.h */,
 				462FD4DD1B15C76500296A38 /* SnowplowTracker-Info.plist */,
 				462FD4D91B15C76500296A38 /* Supporting Files */,
 			);
@@ -137,6 +143,7 @@
 				04DD9E261B7A307900FFF578 /* SPRequestCallback.h in Headers */,
 				043EC5E41B8F050900294081 /* SPSession.h in Headers */,
 				462FD4F21B15CA8A00296A38 /* SPEventStore.h in Headers */,
+				044CA8911B948639000EA3B1 /* SPWeakTimerTarget.h in Headers */,
 				04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +242,7 @@
 				462FD4FE1B15CABE00296A38 /* SPEventStore.m in Sources */,
 				04DD9E281B7A307900FFF578 /* SPRequestResponse.m in Sources */,
 				462FD5011B15CABE00296A38 /* SPUtils.m in Sources */,
+				044CA8921B948639000EA3B1 /* SPWeakTimerTarget.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
