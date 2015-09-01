@@ -27,9 +27,9 @@
 // --- Version
 
 #if TARGET_OS_IPHONE
-NSString * const kVersion               = @"ios-0.4.0";
+NSString * const kVersion               = @"ios-0.5.0";
 #else
-NSString * const kVersion               = @"osx-0.4.0";
+NSString * const kVersion               = @"osx-0.5.0";
 #endif
 
 // --- Emitter
