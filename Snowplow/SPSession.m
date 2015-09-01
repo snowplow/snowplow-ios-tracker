@@ -31,18 +31,18 @@
 #endif
 
 @implementation SPSession {
-    NSInteger         _foregroundTimeout;
-    NSInteger         _backgroundTimeout;
-    NSInteger         _checkInterval;
-    NSInteger         _accessedLast;
-    BOOL              _inBackground;
-    NSString *        _userId;
-    NSString *        _currentSessionId;
-    NSString *        _previousSessionId;
-    NSInteger         _sessionIndex;
-    NSString *        _sessionStorage;
-    SPPayload *       _sessionDict;
-    NSTimer *         _sessionTimer;
+    NSInteger   _foregroundTimeout;
+    NSInteger   _backgroundTimeout;
+    NSInteger   _checkInterval;
+    NSInteger   _accessedLast;
+    BOOL        _inBackground;
+    NSString *  _userId;
+    NSString *  _currentSessionId;
+    NSString *  _previousSessionId;
+    NSInteger   _sessionIndex;
+    NSString *  _sessionStorage;
+    SPPayload * _sessionDict;
+    NSTimer *   _sessionTimer;
 }
 
 NSString * const kSessionSavePath = @"session.dict";
@@ -155,7 +155,7 @@ NSString * const kSessionSavePath = @"session.dict";
     BOOL result = NO;
     if ([paths count] > 0) {
         NSString * savePath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
-        NSDictionary * sessionDict = [[self getSessionDict] getPayloadAsDictionary];
+        NSDictionary * sessionDict = [_sessionDict getPayloadAsDictionary];
         result = [sessionDict writeToFile:savePath atomically:YES];
     }
     return result;
