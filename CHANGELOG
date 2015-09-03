@@ -1,4 +1,4 @@
-Version 0.5.0 (2015-xx-xx)
+Version 0.5.0 (2015-09-03)
 --------------------------
 Removed OCHamcrest test dependency from podfile (#211)
 Validated all public properties of all classes (#209)
