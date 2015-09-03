@@ -21,6 +21,9 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "SPTracker.h"
+#import "SPEmitter.h"
+#import "SPSubject.h"
 
 @interface SnowplowTests : XCTestCase
 
@@ -28,14 +31,33 @@
 
 @implementation SnowplowTests
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     [super tearDown];
+}
+
+- (void)testCreateTracker {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:[NSURL URLWithString:@"http://not-real.com"]];
+    }];
+    
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    
+    SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+        [builder setEmitter:emitter];
+        [builder setSubject:subject];
+        [builder setAppId:@"anAppId"];
+        [builder setBase64Encoded:NO];
+        [builder setTrackerNamespace:@"aNamespace"];
+        [builder setSessionContext:YES];
+    }];
+    
+    XCTAssertNotNil(subject);
+    XCTAssertNotNil(emitter);
+    XCTAssertNotNil(tracker);
 }
 
 @end

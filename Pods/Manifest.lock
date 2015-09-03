@@ -4,17 +4,17 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
-  - OCHamcrest (4.1.1)
+  - Nocilla (0.10.0)
   - Reachability (3.2)
 
 DEPENDENCIES:
   - FMDB (~> 2.3)
-  - OCHamcrest (~> 4.1)
+  - Nocilla
   - Reachability (~> 3.2)
 
 SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
-  OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
+  Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 
 COCOAPODS: 0.34.4

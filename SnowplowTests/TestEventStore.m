@@ -2,13 +2,27 @@
 //  TestEventStore.m
 //  Snowplow
 //
-//  Created by Jonathan Almeida on 2014-06-17.
-//  Copyright (c) 2014 Snowplow Analytics. All rights reserved.
+//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Jonathan Almeida
+//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  License: Apache License Version 2.0
 //
 
 #import <XCTest/XCTest.h>
-#import "SnowplowEventStore.h"
-#import "SnowplowPayload.h"
+#import "SPEventStore.h"
+#import "SPPayload.h"
 
 @interface TestEventStore : XCTestCase
 
@@ -16,67 +30,70 @@
 
 @implementation TestEventStore
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
 }
 
-- (void)tearDown
-{
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+- (void)tearDown {
     [super tearDown];
 }
 
-- (void)testExample
-{
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+- (void)testInit {
+    SPEventStore * eventStore = [[SPEventStore alloc] init];
+    XCTAssertTrue([eventStore createTable]);
+}
 
-    [pb addValueToPayload:@"pv"      forKey:@"e"];
-    [pb addValueToPayload:@"www.foobar.com"   forKey:@"url"];
-    [pb addValueToPayload:@"Welcome to foobar!" forKey:@"page"];
-    [pb addValueToPayload:@"MEEEE"   forKey:@"refr"];
+- (void)testInsertPayload {
+    SPEventStore * eventStore = [[SPEventStore alloc] init];
+    [eventStore removeAllEvents];
     
-    [sampleEventStore createTable];
-    [sampleEventStore insertEvent:pb];
-//    [sampleEventStore deleteEventWithId:2];
-    [sampleEventStore getAllEvents];
-}
-
-- (void)testGetLastInsertedRowId
-{
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
-    SnowplowPayload *pb = [[SnowplowPayload alloc] init];
+    // Build an event
+    SPPayload * payload = [[SPPayload alloc] init];
+    [payload addValueToPayload:@"pv"                 forKey:@"e"];
+    [payload addValueToPayload:@"www.foobar.com"     forKey:@"url"];
+    [payload addValueToPayload:@"Welcome to foobar!" forKey:@"page"];
+    [payload addValueToPayload:@"MEEEE"              forKey:@"refr"];
     
-    [pb addValueToPayload:@"pv"      forKey:@"e"];
-    [pb addValueToPayload:@"www.apple.com"   forKey:@"url"];
-    [pb addValueToPayload:@"Welcome to Apple!" forKey:@"page"];
-    [pb addValueToPayload:@"Jobs"   forKey:@"refr"];
+    // Insert an event
+    [eventStore insertEvent:payload];
     
-    [sampleEventStore insertEvent:pb];
-    NSLog(@"Inserted row ID: %lld", [sampleEventStore getLastInsertedRowId]);
+    XCTAssertEqual([eventStore count], 1);
+    XCTAssertEqualObjects([eventStore getEventWithId:1], [payload getPayloadAsDictionary]);
+    XCTAssertEqual([eventStore getLastInsertedRowId], 1);
+    [eventStore removeEventWithId:1];
+    
+    XCTAssertEqual([eventStore count], 0);
 }
 
-- (void) testInit
-{
-    // Verify all init variables including table created
+- (void)testInsertManyPayloads {
+    SPEventStore * eventStore = [[SPEventStore alloc] init];
+    [eventStore removeAllEvents];
+    
+    // Build an event
+    SPPayload * payload = [[SPPayload alloc] init];
+    [payload addValueToPayload:@"pv"                 forKey:@"e"];
+    [payload addValueToPayload:@"www.foobar.com"     forKey:@"url"];
+    [payload addValueToPayload:@"Welcome to foobar!" forKey:@"page"];
+    [payload addValueToPayload:@"MEEEE"              forKey:@"refr"];
+    
+    for (int i = 0; i < 250; i++) {
+        [eventStore insertEvent:payload];
+    }
+    
+    XCTAssertEqual([eventStore count], 250);
+    XCTAssertEqual([eventStore getAllEventsLimited:600].count, 250);
+    XCTAssertEqual([eventStore getAllEventsLimited:150].count, 150);
+    XCTAssertEqual([eventStore getAllEvents].count, 250);
 }
 
-- (void) testInsertEvent
-{
-    // Verify basic insert
-}
-
-- (void) testDictionaryData
-{
-    // Same as above
-}
-
-- (void) testCount
-{
-    SnowplowEventStore *sampleEventStore = [[SnowplowEventStore alloc] init];
-    NSLog(@"Number of events stored: %lu", (unsigned long)[sampleEventStore count]);
+- (void)testDictionaryCleaner {
+    SPEventStore * eventStore = [[SPEventStore alloc] init];
+    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                           [NSNull null], @"a_null_value",
+                           @"Not null!", @"a_string_value", nil];
+    XCTAssertEqual(dict.count, 2);
+    NSDictionary * result = [eventStore getCleanDictionary:dict];
+    XCTAssertEqual(result.count, 1);
 }
 
 @end

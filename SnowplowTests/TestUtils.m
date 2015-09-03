@@ -2,7 +2,7 @@
 //  TestUtils.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2014 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -15,18 +15,21 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
-//  Copyright: Copyright (c) 2013-2014 Snowplow Analytics Ltd
+//  Authors: Jonathan Almeida, Joshua Beemster
+//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
-#import <UIKit/UIDevice.h>
-
-#import "SnowplowUtils.h"
-
 #import <XCTest/XCTest.h>
+
+#if TARGET_OS_IPHONE
+#import <UIKit/UIDevice.h>
+#endif
+
+#import "SPUtils.h"
+
 #define HC_SHORTHAND
-#import <OCHamcrest/OCHamcrest.h>
+
 
 @interface TestUtils : XCTestCase
 
@@ -34,59 +37,45 @@
 
 @implementation TestUtils
 
-- (void)setUp
-{
+- (void)setUp {
     [super setUp];
 }
 
-- (void)tearDown
-{
+- (void)tearDown {
     [super tearDown];
 }
 
-- (void)testGetTimeZone
-{
-    XCTAssertEqualObjects([SnowplowUtils getTimezone],
+- (void)testGetTimeZone {
+    XCTAssertEqualObjects([SPUtils getTimezone],
                           [[NSTimeZone systemTimeZone] name],
                           @"Incorrect timezone expected");
 }
 
-- (void)testGetLanguage
-{
-    XCTAssertEqualObjects([SnowplowUtils getLanguage],
+- (void)testGetLanguage {
+    XCTAssertEqualObjects([SPUtils getLanguage],
                           @"en",
                           @"Language retrieved is not the same as 'en'");
 }
 
-- (void)testGetPlatform
-{
-    // This test is a reminder to add a unit test,
-    // if we add some different logic to get the platform
-
-    XCTAssertEqualObjects([SnowplowUtils getPlatform],
+- (void)testGetPlatform {
+#if TARGET_OS_IPHONE
+    XCTAssertEqualObjects([SPUtils getPlatform],
                           @"mob",
                           @"How could this fail?");
+#else
+    XCTAssertEqualObjects([SPUtils getPlatform],
+                          @"pc",
+                          @"How could this fail?");
+#endif
 }
 
-- (void)testGetResolution
-{
-    NSString *actualResolution = [SnowplowUtils getResolution];
-
-    // iPhone (maybe Retina or not)
-    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
-        assertThat(actualResolution, anyOf(equalTo(@"750x1334"),
-                                           equalTo(@"320x480"), nil));
-    // iPad
-    } else {
-        assertThat(actualResolution, equalTo(@"1536x2048"));
-    }
+- (void)testGetResolution {
+    NSString *actualResolution = [SPUtils getResolution];
+    XCTAssertTrue(actualResolution != nil);
 }
 
-- (void)testGetEventId
-{
-    // Probably an unneccessary test, but this verifies for a proper UUID
-
-    NSString *sample_uuid = [SnowplowUtils getEventId];
+- (void)testGetEventId {
+    NSString *sample_uuid = [SPUtils getEventId];
 
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";
@@ -95,36 +84,32 @@
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
     NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
     
-    //NSLog(@"UUID generated: %@", sample_uuid);
-    
     XCTAssertEqual([matches count], (NSUInteger)1,
                    @"UUID generated doesn't match the type 4 UUID RFC");
 }
 
-// This test is causing xctool problems for some unknown reason
-//
-//- (void)testGetAppleIdfa
-//{
-//    NSString *sample_uuid = [SnowplowUtils getAppleIdfa];
-//    
-//    // For regex pattern matching to verify if it's of UUID type 4
-//    NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-//    NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
-//    NSError *error = NULL;
-//    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-//    NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
-//    
-//    //NSLog(@"UUID generated: %@", sample_uuid);
-//    
-//    XCTAssertEqual([matches count], (NSUInteger)1,
-//                   @"UUID generated doesn't match the type 4 UUID RFC");
-//
-//}
+/**
 
-- (void)testGetOpenIdfa
-{
-    NSString *sample_uuid = [SnowplowUtils getOpenIdfa];
+ This is always NULL as we do not have the AdSupport imported
+ 
+- (void)testGetAppleIdfa {
+    NSString *sample_uuid = [SPUtils getAppleIdfa];
+    
+    // For regex pattern matching to verify if it's of UUID type 4
+    NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
+    NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+    NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
+    
+    XCTAssertEqual([matches count], (NSUInteger)1,
+                   @"UUID generated doesn't match the type 4 UUID RFC");
+}
+*/
 
+- (void)testGetOpenIdfa {
+    NSString *sample_uuid = [SPUtils getOpenIdfa];
+#if TARGET_OS_IPHONE
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
     NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
@@ -136,28 +121,27 @@
 
     XCTAssertEqual([matches count], (NSUInteger)1,
                    @"UUID generated doesn't match the type 4 UUID RFC");
-
+#else
+    XCTAssertNil(sample_uuid);
+#endif
 }
 
-- (void)testGetCarrierName
-{
-    NSLog(@"Carrier: %@", [SnowplowUtils getCarrierName]);
+- (void)testGetCarrierName {
+    NSLog(@"Carrier: %@", [SPUtils getCarrierName]);
     // No way to fake carrier in Travis simulator
 }
 
-- (void)testGetTransactionId
-{
+- (void)testGetTransactionId {
     // Supressing deprecated warning only for tests
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
-    int sample_rand = [SnowplowUtils getTransactionId];
-    XCTAssertTrue((100000 < sample_rand < 999999), @"Transaction ID doesn't exist between our range of 999,999 and 100,000.");
+    int sample_rand = [SPUtils getTransactionId];
+    XCTAssertTrue((sample_rand > 100000 && sample_rand < 999999), @"Transaction ID doesn't exist between our range of 999,999 and 100,000.");
 #pragma clang diagnostic pop
 }
 
-- (void)testGetTimestamp
-{
-    NSString *sample_rand = [NSString stringWithFormat:@"%.0f", [SnowplowUtils getTimestamp]];
+- (void)testGetTimestamp {
+    NSString *sample_rand = [NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]];
     
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9]+";
@@ -171,37 +155,38 @@
 
 }
 
-- (void)testAppId
-{
-    // TODO Write proper test
-    NSLog(@"appId: %@", [SnowplowUtils getAppId]);
+- (void)testAppId {
+    // This is always NULL in a test environment
+    NSLog(@"appId: %@", [SPUtils getAppId]);
 }
 
-- (void)testUrlEncodingString
-{
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@""], @"");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:nil], @"");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a"], @"a");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a b"], @"a%20b");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeString:@"a=&"], @"a%3D%26");
+- (void)testUrlEncodingString {
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@""], @"");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:nil], @"");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@"a"], @"a");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@"a b"], @"a%20b");
+    XCTAssertEqualObjects([SPUtils urlEncodeString:@"a=&"], @"a%3D%26");
 }
 
-- (void)testUrlEncodingDictionary
-{
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:nil], @"");
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:@{@"a": @"b"}], @"a=b");
+- (void)testUrlEncodingDictionary {
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:nil], @"");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:@{@"a": @"b"}], @"a=b");
     
     id twoKeys = @{@"a" : @"b", @"c" : @"d" };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:twoKeys], @"a=b&c=d");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:twoKeys], @"a=b&c=d");
     
     id intValues = @{@"a" : @(-5), @"c" : @(3) };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:intValues], @"a=-5&c=3");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:intValues], @"a=-5&c=3");
     
     id boolValues = @{@"a" : @(NO), @"c" : @(YES) };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:boolValues], @"a=0&c=1");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:boolValues], @"a=0&c=1");
 
     id encodedValues = @{@"a" : @" ", @"c" : @"=" };
-    XCTAssertEqualObjects([SnowplowUtils urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
+    XCTAssertEqualObjects([SPUtils urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
+}
+
+- (void)testIsOnline {
+    XCTAssertEqual([SPUtils isOnline], YES);
 }
 
 @end
