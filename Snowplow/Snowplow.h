@@ -33,138 +33,138 @@
 
 // --- Version
 
-extern NSString * const kVersion;
+extern NSString * const kSPVersion;
 
 // --- Emitter
 
-extern NSString * const kContentTypeHeader;
-extern NSString * const kAcceptContentHeader;
-extern NSInteger  const kDefaultBufferTimeout;
-extern NSString * const kEndpointPost;
-extern NSString * const kEndpointGet;
+extern NSString * const kSPContentTypeHeader;
+extern NSString * const kSPAcceptContentHeader;
+extern NSInteger  const kSPDefaultBufferTimeout;
+extern NSString * const kSPEndpointPost;
+extern NSString * const kSPEndpointGet;
 
 // --- Schema Paths
 
-extern NSString * const kIglu;
-extern NSString * const kSnowplowVendor;
-extern NSString * const kSchemaTag;
-extern NSString * const kPayloadDataSchema;
-extern NSString * const kUserTimingsSchema;
-extern NSString * const kScreenViewSchema;
-extern NSString * const kUnstructSchema;
-extern NSString * const kContextSchema;
-extern NSString * const kMobileContextSchema;
-extern NSString * const kDesktopContextSchema;
-extern NSString * const kSessionContextSchema;
+extern NSString * const kSPIglu;
+extern NSString * const kSPSnowplowVendor;
+extern NSString * const kSPSchemaTag;
+extern NSString * const kSPPayloadDataSchema;
+extern NSString * const kSPUserTimingsSchema;
+extern NSString * const kSPScreenViewSchema;
+extern NSString * const kSPUnstructSchema;
+extern NSString * const kSPContextSchema;
+extern NSString * const kSPMobileContextSchema;
+extern NSString * const kSPDesktopContextSchema;
+extern NSString * const kSPSessionContextSchema;
 
 // --- Event Keys
 
-extern NSString * const kEventPageView;
-extern NSString * const kEventStructured;
-extern NSString * const kEventUnstructured;
-extern NSString * const KEventEcomm;
-extern NSString * const kEventEcommItem;
+extern NSString * const kSPEventPageView;
+extern NSString * const kSPEventStructured;
+extern NSString * const kSPEventUnstructured;
+extern NSString * const kSPEventEcomm;
+extern NSString * const kSPEventEcommItem;
 
 // --- General Keys
 
-extern NSString * const kSchema;
-extern NSString * const kData;
-extern NSString * const kEvent;
-extern NSString * const kEid;
-extern NSString * const kTimestamp;
-extern NSString * const kSentTimestamp;
-extern NSString * const kTrackerVersion;
-extern NSString * const kAppId;
-extern NSString * const kNamespace;
-extern NSString * const kUid;
-extern NSString * const kContext;
-extern NSString * const kContextEncoded;
-extern NSString * const kUnstructured;
-extern NSString * const kUnstructuredEncoded;
+extern NSString * const kSPSchema;
+extern NSString * const kSPData;
+extern NSString * const kSPEvent;
+extern NSString * const kSPEid;
+extern NSString * const kSPTimestamp;
+extern NSString * const kSPSentTimestamp;
+extern NSString * const kSPTrackerVersion;
+extern NSString * const kSPAppId;
+extern NSString * const kSPNamespace;
+extern NSString * const kSPUid;
+extern NSString * const kSPContext;
+extern NSString * const kSPContextEncoded;
+extern NSString * const kSPUnstructured;
+extern NSString * const kSPUnstructuredEncoded;
 
 // --- Subject
 
-extern NSString * const kPlatform;
-extern NSString * const kResolution;
-extern NSString * const kViewPort;
-extern NSString * const kColorDepth;
-extern NSString * const kTimezone;
-extern NSString * const kLanguage;
-extern NSString * const kIpAddress;
-extern NSString * const kUseragent;
-extern NSString * const kNetworkUid;
-extern NSString * const kDomainUid;
+extern NSString * const kSPPlatform;
+extern NSString * const kSPResolution;
+extern NSString * const kSPViewPort;
+extern NSString * const kSPColorDepth;
+extern NSString * const kSPTimezone;
+extern NSString * const kSPLanguage;
+extern NSString * const kSPIpAddress;
+extern NSString * const kSPUseragent;
+extern NSString * const kSPNetworkUid;
+extern NSString * const kSPDomainUid;
 
 // --- Platform Generic
 
-extern NSString * const kPlatformOsType;
-extern NSString * const kPlatformOsVersion;
-extern NSString * const kPlatformDeviceManu;
-extern NSString * const kPlatformDeviceModel;
+extern NSString * const kSPPlatformOsType;
+extern NSString * const kSPPlatformOsVersion;
+extern NSString * const kSPPlatformDeviceManu;
+extern NSString * const kSPPlatformDeviceModel;
 
 // --- Mobile Context
 
-extern NSString * const kMobileCarrier;
-extern NSString * const kMobileOpenIdfa;
-extern NSString * const kMobileAppleIdfa;
-extern NSString * const kMobileAppleIdfv;
-extern NSString * const kMobileNetworkType;
-extern NSString * const kMobileNetworkTech;
+extern NSString * const kSPMobileCarrier;
+extern NSString * const kSPMobileOpenIdfa;
+extern NSString * const kSPMobileAppleIdfa;
+extern NSString * const kSPMobileAppleIdfv;
+extern NSString * const kSPMobileNetworkType;
+extern NSString * const kSPMobileNetworkTech;
 
 // --- Session Context
 
-extern NSString * const kSessionUserId;
-extern NSString * const kSessionId;
-extern NSString * const kSessionPreviousId;
-extern NSString * const kSessionIndex;
-extern NSString * const kSessionStorage;
+extern NSString * const kSPSessionUserId;
+extern NSString * const kSPSessionId;
+extern NSString * const kSPSessionPreviousId;
+extern NSString * const kSPSessionIndex;
+extern NSString * const kSPSessionStorage;
 
 // --- Page View Event
 
-extern NSString * const kPageUrl;
-extern NSString * const kPageTitle;
-extern NSString * const kPageRefr;
+extern NSString * const kSPPageUrl;
+extern NSString * const kSPPageTitle;
+extern NSString * const kSPPageRefr;
 
 // --- Structured Event
 
-extern NSString * const kStuctCategory;
-extern NSString * const kStuctAction;
-extern NSString * const kStuctLabel;
-extern NSString * const kStuctProperty;
-extern NSString * const kStuctValue;
+extern NSString * const kSPStuctCategory;
+extern NSString * const kSPStuctAction;
+extern NSString * const kSPStuctLabel;
+extern NSString * const kSPStuctProperty;
+extern NSString * const kSPStuctValue;
 
 // --- E-commerce Transaction Event
 
-extern NSString * const kEcommId;
-extern NSString * const kEcommTotal;
-extern NSString * const kEcommAffiliation;
-extern NSString * const kEcommTax;
-extern NSString * const kEcommShipping;
-extern NSString * const kEcommCity;
-extern NSString * const kEcommState;
-extern NSString * const kEcommCountry;
-extern NSString * const kEcommCurrency;
+extern NSString * const kSPEcommId;
+extern NSString * const kSPEcommTotal;
+extern NSString * const kSPEcommAffiliation;
+extern NSString * const kSPEcommTax;
+extern NSString * const kSPEcommShipping;
+extern NSString * const kSPEcommCity;
+extern NSString * const kSPEcommState;
+extern NSString * const kSPEcommCountry;
+extern NSString * const kSPEcommCurrency;
 
 // --- E-commerce Transaction Item Event
 
-extern NSString * const kEcommItemId;
-extern NSString * const kEcommItemSku;
-extern NSString * const kEcommItemName;
-extern NSString * const kEcommItemCategory;
-extern NSString * const kEcommItemPrice;
-extern NSString * const kEcommItemQuantity;
-extern NSString * const kEcommItemCurrency;
+extern NSString * const kSPEcommItemId;
+extern NSString * const kSPEcommItemSku;
+extern NSString * const kSPEcommItemName;
+extern NSString * const kSPEcommItemCategory;
+extern NSString * const kSPEcommItemPrice;
+extern NSString * const kSPEcommItemQuantity;
+extern NSString * const kSPEcommItemCurrency;
 
 // --- Screen View Event
 
-extern NSString * const kSvId;
-extern NSString * const kSvName;
+extern NSString * const kSPSvId;
+extern NSString * const kSPSvName;
 
 // --- User Timing Event
 
-extern NSString * const kUtCategory;
-extern NSString * const kUtVariable;
-extern NSString * const kUtTiming;
-extern NSString * const kUtLabel;
+extern NSString * const kSPUtCategory;
+extern NSString * const kSPUtVariable;
+extern NSString * const kSPUtTiming;
+extern NSString * const kSPUtLabel;
 
 @end

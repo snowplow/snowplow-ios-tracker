@@ -66,18 +66,18 @@
     
     NSDictionary * values = [[subject getStandardDict] getPayloadAsDictionary];
     
-    NSLog(@"Weird value: %@", [values valueForKey:kResolution]);
+    NSLog(@"Weird value: %@", [values valueForKey:kSPResolution]);
     
-    XCTAssertEqual([values valueForKey:kUid], @"aUserId");
-    XCTAssertTrue([[values valueForKey:kResolution] isEqualToString:@"1920x1080" ]);
-    XCTAssertTrue([[values valueForKey:kViewPort] isEqualToString:@"1080x1920"]);
-    XCTAssertTrue([[values valueForKey:kColorDepth] isEqualToString:@"20"]);
-    XCTAssertEqual([values valueForKey:kTimezone], @"UTC");
-    XCTAssertEqual([values valueForKey:kLanguage], @"EN");
-    XCTAssertEqual([values valueForKey:kIpAddress], @"127.0.0.1");
-    XCTAssertEqual([values valueForKey:kUseragent], @"aUseragent");
-    XCTAssertEqual([values valueForKey:kNetworkUid], @"aNuid");
-    XCTAssertEqual([values valueForKey:kDomainUid], @"aDuid");
+    XCTAssertEqual([values valueForKey:kSPUid], @"aUserId");
+    XCTAssertTrue([[values valueForKey:kSPResolution] isEqualToString:@"1920x1080" ]);
+    XCTAssertTrue([[values valueForKey:kSPViewPort] isEqualToString:@"1080x1920"]);
+    XCTAssertTrue([[values valueForKey:kSPColorDepth] isEqualToString:@"20"]);
+    XCTAssertEqual([values valueForKey:kSPTimezone], @"UTC");
+    XCTAssertEqual([values valueForKey:kSPLanguage], @"EN");
+    XCTAssertEqual([values valueForKey:kSPIpAddress], @"127.0.0.1");
+    XCTAssertEqual([values valueForKey:kSPUseragent], @"aUseragent");
+    XCTAssertEqual([values valueForKey:kSPNetworkUid], @"aNuid");
+    XCTAssertEqual([values valueForKey:kSPDomainUid], @"aDuid");
 }
 
 @end

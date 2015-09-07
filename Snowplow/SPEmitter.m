@@ -79,16 +79,16 @@
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupUrlEndpoint];
-    [self setFutureBufferFlushWithTime:kDefaultBufferTimeout];
+    [self setFutureBufferFlushWithTime:kSPDefaultBufferTimeout];
     _builderFinished = YES;
 }
 
 - (void) setupUrlEndpoint {
     if (_url && _url.scheme && _url.host) {
         if (_httpMethod == SPRequestGet) {
-            _urlEndpoint = [_url URLByAppendingPathComponent:kEndpointGet];
+            _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointGet];
         } else {
-            _urlEndpoint = [_url URLByAppendingPathComponent:kEndpointPost];
+            _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointPost];
         }
     } else {
         [NSException raise:@"Invalid SPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _url];
@@ -176,20 +176,20 @@
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
                 NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
-                [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:kSentTimestamp];
+                [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:kSPSentTimestamp];
                 [eventArray addObject:eventPayload];
                 [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
             }
             
             NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-            [payload setValue:kPayloadDataSchema forKey:@"schema"];
+            [payload setValue:kSPPayloadDataSchema forKey:@"schema"];
             [payload setValue:eventArray forKey:@"data"];
             [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults];
         }
     } else {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:kSentTimestamp];
+            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:kSPSentTimestamp];
             
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
@@ -268,8 +268,8 @@
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
     [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
-    [request setValue:kAcceptContentHeader forHTTPHeaderField:@"Accept"];
-    [request setValue:kContentTypeHeader forHTTPHeaderField:@"Content-Type"];
+    [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
+    [request setValue:kSPContentTypeHeader forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
     [request setHTTPBody:requestData];
     return request;
@@ -279,14 +279,14 @@
     NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtils urlEncodeDictionary:data]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"GET";
-    [request setValue:kAcceptContentHeader forHTTPHeaderField:@"Accept"];
+    [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
     return request;
 }
 
 // Setters
 
 - (void) setFutureBufferFlushWithTime:(NSInteger)userTime {
-    NSInteger time = kDefaultBufferTimeout;
+    NSInteger time = kSPDefaultBufferTimeout;
     if (userTime <= 300) {
         time = userTime; // 5 minute intervals
     }
