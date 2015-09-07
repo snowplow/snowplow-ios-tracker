@@ -34,5 +34,5 @@
 #define COCOAPODS_POD_AVAILABLE_SnowplowTracker
 #define COCOAPODS_VERSION_MAJOR_SnowplowTracker 0
 #define COCOAPODS_VERSION_MINOR_SnowplowTracker 5
-#define COCOAPODS_VERSION_PATCH_SnowplowTracker 0
+#define COCOAPODS_VERSION_PATCH_SnowplowTracker 1
 
