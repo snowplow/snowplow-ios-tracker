@@ -1,3 +1,7 @@
+Version 0.5.1 (2015-09-07)
+--------------------------
+Added entropy to global constants to avoid clang errors with other libraries (closes #224)
+
 Version 0.5.0 (2015-09-03)
 --------------------------
 Removed OCHamcrest test dependency from podfile (#211)
