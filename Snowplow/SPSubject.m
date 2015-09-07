@@ -57,75 +57,75 @@
 // Standard Dictionary
 
 - (void) setStandardDict {
-    [_standardDict addValueToPayload:[SPUtils getPlatform]   forKey:kPlatform];
-    [_standardDict addValueToPayload:[SPUtils getResolution] forKey:kResolution];
-    [_standardDict addValueToPayload:[SPUtils getViewPort]   forKey:kViewPort];
-    [_standardDict addValueToPayload:[SPUtils getLanguage]   forKey:kLanguage];
+    [_standardDict addValueToPayload:[SPUtils getPlatform]   forKey:kSPPlatform];
+    [_standardDict addValueToPayload:[SPUtils getResolution] forKey:kSPResolution];
+    [_standardDict addValueToPayload:[SPUtils getViewPort]   forKey:kSPViewPort];
+    [_standardDict addValueToPayload:[SPUtils getLanguage]   forKey:kSPLanguage];
 }
 
 - (void) setUserId:(NSString *)uid {
-    [_standardDict addValueToPayload:uid forKey:kUid];
+    [_standardDict addValueToPayload:uid forKey:kSPUid];
 }
 
 - (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height {
     NSString * res = [NSString stringWithFormat:@"%ldx%ld", (long)width, (long)height];
-    [_standardDict addValueToPayload:res forKey:kResolution];
+    [_standardDict addValueToPayload:res forKey:kSPResolution];
 }
 
 - (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height {
     NSString * res = [NSString stringWithFormat:@"%ldx%ld", (long)width, (long)height];
-    [_standardDict addValueToPayload:res forKey:kViewPort];
+    [_standardDict addValueToPayload:res forKey:kSPViewPort];
 }
 
 - (void) setColorDepth:(NSInteger)depth {
     NSString * res = [NSString stringWithFormat:@"%ld", (long)depth];
-    [_standardDict addValueToPayload:res forKey:kColorDepth];
+    [_standardDict addValueToPayload:res forKey:kSPColorDepth];
 }
 
 - (void) setTimezone:(NSString *)timezone {
-    [_standardDict addValueToPayload:timezone forKey:kTimezone];
+    [_standardDict addValueToPayload:timezone forKey:kSPTimezone];
 }
 
 - (void) setLanguage:(NSString *)lang {
-    [_standardDict addValueToPayload:lang forKey:kLanguage];
+    [_standardDict addValueToPayload:lang forKey:kSPLanguage];
 }
 
 - (void) setIpAddress:(NSString *)ip {
-    [_standardDict addValueToPayload:ip forKey:kIpAddress];
+    [_standardDict addValueToPayload:ip forKey:kSPIpAddress];
 }
 
 - (void) setUseragent:(NSString *)useragent {
-    [_standardDict addValueToPayload:useragent forKey:kUseragent];
+    [_standardDict addValueToPayload:useragent forKey:kSPUseragent];
 }
 
 - (void) setNetworkUserId:(NSString *)nuid {
-    [_standardDict addValueToPayload:nuid forKey:kNetworkUid];
+    [_standardDict addValueToPayload:nuid forKey:kSPNetworkUid];
 }
 
 - (void) setDomainUserId:(NSString *)duid {
-    [_standardDict addValueToPayload:duid forKey:kDomainUid];
+    [_standardDict addValueToPayload:duid forKey:kSPDomainUid];
 }
 
 // Platform Dictionary
 
 - (void) setPlatformDict {
     _platformDict = [[SPPayload alloc] init];
-    [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kPlatformOsType];
-    [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kPlatformOsVersion];
-    [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kPlatformDeviceManu];
-    [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kPlatformDeviceModel];
+    [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kSPPlatformOsType];
+    [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kSPPlatformOsVersion];
+    [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kSPPlatformDeviceManu];
+    [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kSPPlatformDeviceModel];
 #if TARGET_OS_IPHONE
     [self setMobileDict];
 #endif
 }
 
 - (void) setMobileDict {
-    [_platformDict addValueToPayload:[SPUtils getCarrierName]       forKey:kMobileCarrier];
-    [_platformDict addValueToPayload:[SPUtils getOpenIdfa]          forKey:kMobileOpenIdfa];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfa]         forKey:kMobileAppleIdfa];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfv]         forKey:kMobileAppleIdfv];
-    [_platformDict addValueToPayload:[SPUtils getNetworkType]       forKey:kMobileNetworkType];
-    [_platformDict addValueToPayload:[SPUtils getNetworkTechnology] forKey:kMobileNetworkTech];
+    [_platformDict addValueToPayload:[SPUtils getCarrierName]       forKey:kSPMobileCarrier];
+    [_platformDict addValueToPayload:[SPUtils getOpenIdfa]          forKey:kSPMobileOpenIdfa];
+    [_platformDict addValueToPayload:[SPUtils getAppleIdfa]         forKey:kSPMobileAppleIdfa];
+    [_platformDict addValueToPayload:[SPUtils getAppleIdfv]         forKey:kSPMobileAppleIdfv];
+    [_platformDict addValueToPayload:[SPUtils getNetworkType]       forKey:kSPMobileNetworkType];
+    [_platformDict addValueToPayload:[SPUtils getNetworkTechnology] forKey:kSPMobileNetworkTech];
 }
 
 @end
