@@ -1,4 +1,4 @@
-Version 0.5.1 (2015-09-07)
+Version 0.5.1 (2015-09-11)
 --------------------------
 Added entropy to global constants to avoid clang errors with other libraries (closes #224)
 
