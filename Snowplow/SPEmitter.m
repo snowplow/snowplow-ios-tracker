@@ -23,7 +23,7 @@
 #import "Snowplow.h"
 #import "SPEmitter.h"
 #import "SPEventStore.h"
-#import "SPUtils.h"
+#import "SPUtilites.h"
 #import "SPPayload.h"
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
@@ -150,7 +150,7 @@
 }
 
 - (void) sendGuard {
-    if ([SPUtils isOnline] && !_isSending) {
+    if ([SPUtilites isOnline] && !_isSending) {
         _isSending = YES;
         [self sendEvents];
     }
@@ -172,7 +172,7 @@
         for (int i = 0; i < listValues.count; i += _bufferOption) {
             NSMutableArray *eventArray = [[NSMutableArray alloc] init];
             NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-            double stm = [SPUtils getTimestamp];
+            double stm = [SPUtilites getTimestamp];
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
                 NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
@@ -189,7 +189,7 @@
     } else {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:kSPSentTimestamp];
+            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtilites getTimestamp]] forKey:kSPSentTimestamp];
             
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
@@ -276,7 +276,7 @@
 }
 
 - (NSMutableURLRequest *) getRequestGetWithData:(NSDictionary *)data {
-    NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtils urlEncodeDictionary:data]];
+    NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtilites urlEncodeDictionary:data]];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"GET";
     [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];

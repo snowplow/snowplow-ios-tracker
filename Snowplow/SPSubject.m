@@ -23,7 +23,7 @@
 #import "Snowplow.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
-#import "SPUtils.h"
+#import "SPUtilites.h"
 
 @implementation SPSubject {
     SPPayload * _standardDict;
@@ -57,10 +57,10 @@
 // Standard Dictionary
 
 - (void) setStandardDict {
-    [_standardDict addValueToPayload:[SPUtils getPlatform]   forKey:kSPPlatform];
-    [_standardDict addValueToPayload:[SPUtils getResolution] forKey:kSPResolution];
-    [_standardDict addValueToPayload:[SPUtils getViewPort]   forKey:kSPViewPort];
-    [_standardDict addValueToPayload:[SPUtils getLanguage]   forKey:kSPLanguage];
+    [_standardDict addValueToPayload:[SPUtilites getPlatform]   forKey:kSPPlatform];
+    [_standardDict addValueToPayload:[SPUtilites getResolution] forKey:kSPResolution];
+    [_standardDict addValueToPayload:[SPUtilites getViewPort]   forKey:kSPViewPort];
+    [_standardDict addValueToPayload:[SPUtilites getLanguage]   forKey:kSPLanguage];
 }
 
 - (void) setUserId:(NSString *)uid {
@@ -110,22 +110,22 @@
 
 - (void) setPlatformDict {
     _platformDict = [[SPPayload alloc] init];
-    [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kSPPlatformOsType];
-    [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kSPPlatformOsVersion];
-    [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kSPPlatformDeviceManu];
-    [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kSPPlatformDeviceModel];
+    [_platformDict addValueToPayload:[SPUtilites getOSType]            forKey:kSPPlatformOsType];
+    [_platformDict addValueToPayload:[SPUtilites getOSVersion]         forKey:kSPPlatformOsVersion];
+    [_platformDict addValueToPayload:[SPUtilites getDeviceVendor]      forKey:kSPPlatformDeviceManu];
+    [_platformDict addValueToPayload:[SPUtilites getDeviceModel]       forKey:kSPPlatformDeviceModel];
 #if TARGET_OS_IPHONE
     [self setMobileDict];
 #endif
 }
 
 - (void) setMobileDict {
-    [_platformDict addValueToPayload:[SPUtils getCarrierName]       forKey:kSPMobileCarrier];
-    [_platformDict addValueToPayload:[SPUtils getOpenIdfa]          forKey:kSPMobileOpenIdfa];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfa]         forKey:kSPMobileAppleIdfa];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfv]         forKey:kSPMobileAppleIdfv];
-    [_platformDict addValueToPayload:[SPUtils getNetworkType]       forKey:kSPMobileNetworkType];
-    [_platformDict addValueToPayload:[SPUtils getNetworkTechnology] forKey:kSPMobileNetworkTech];
+    [_platformDict addValueToPayload:[SPUtilites getCarrierName]       forKey:kSPMobileCarrier];
+    [_platformDict addValueToPayload:[SPUtilites getOpenIdfa]          forKey:kSPMobileOpenIdfa];
+    [_platformDict addValueToPayload:[SPUtilites getAppleIdfa]         forKey:kSPMobileAppleIdfa];
+    [_platformDict addValueToPayload:[SPUtilites getAppleIdfv]         forKey:kSPMobileAppleIdfv];
+    [_platformDict addValueToPayload:[SPUtilites getNetworkType]       forKey:kSPMobileNetworkType];
+    [_platformDict addValueToPayload:[SPUtilites getNetworkTechnology] forKey:kSPMobileNetworkTech];
 }
 
 @end

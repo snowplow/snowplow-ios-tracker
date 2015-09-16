@@ -25,7 +25,7 @@
 #import "SPEmitter.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
-#import "SPUtils.h"
+#import "SPUtilites.h"
 #import "SPSession.h"
 
 @interface SPTracker ()
@@ -166,7 +166,7 @@
     if (_subject != nil) {
         [pb addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
     } else {
-        [pb addValueToPayload:[SPUtils getPlatform] forKey:kSPPlatform];
+        [pb addValueToPayload:[SPUtilites getPlatform] forKey:kSPPlatform];
     }
     
     // Add the Contexts together
@@ -200,7 +200,7 @@
     }
     
     // Add an Event ID
-    [pb addValueToPayload:[SPUtils getEventId] forKey:kSPEid];
+    [pb addValueToPayload:[SPUtilites getEventId] forKey:kSPEid];
 }
 
 - (NSDictionary *) getContextEnvelopeWithSchema:(NSString *)schema andData:(NSObject *)data {
@@ -210,7 +210,7 @@
 - (double) setTimestamp:(double)timestamp toPayload:(SPPayload *)payload {
     double tstamp = timestamp;
     if(timestamp == 0) {
-        tstamp = [SPUtils getTimestamp];
+        tstamp = [SPUtilites getTimestamp];
     }
     [payload addValueToPayload:[NSString stringWithFormat:@"%.0f", tstamp] forKey:kSPTimestamp];
     return tstamp;
