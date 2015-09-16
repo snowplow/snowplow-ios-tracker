@@ -23,6 +23,8 @@
 #import "DemoUtils.h"
 #import "SPPayload.h"
 #import "SPTracker.h"
+#import "SPSelfDescribingJson.h"
+#import "SPEvent.h"
 
 @implementation DemoUtils {}
 
@@ -38,117 +40,241 @@
 // Event Tracking
 
 + (void) trackStructuredEventWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5];
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5 context:[self getCustomContext]];
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5 timestamp:1243567890];
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5 context:[self getCustomContext] timestamp:1243567890];
+    SPStructured *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+        [builder setCategory:@"DemoCategory"];
+        [builder setAction:@"DemoAction"];
+        [builder setLabel:@"DemoLabel"];
+        [builder setProperty:@"DemoProperty"];
+        [builder setValue:5];
+    }];
+    [tracker_ trackStructuredEvent:event];
+    event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+        [builder setCategory:@"DemoCategory"];
+        [builder setAction:@"DemoAction"];
+        [builder setLabel:@"DemoLabel"];
+        [builder setProperty:@"DemoProperty"];
+        [builder setValue:5];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackStructuredEvent:event];
+    event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+        [builder setCategory:@"DemoCategory"];
+        [builder setAction:@"DemoAction"];
+        [builder setLabel:@"DemoLabel"];
+        [builder setProperty:@"DemoProperty"];
+        [builder setValue:5];
+        [builder setContexts:[self getCustomContext]];
+    }];
+    [tracker_ trackStructuredEvent:event];
+    event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+        [builder setCategory:@"DemoCategory"];
+        [builder setAction:@"DemoAction"];
+        [builder setLabel:@"DemoLabel"];
+        [builder setProperty:@"DemoProperty"];
+        [builder setValue:5];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackStructuredEvent:event];
 }
 
 + (void) trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
-    NSDictionary *event = @{
-                            @"schema":@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
-                            @"data": @{
-                                    @"level": @23,
-                                    @"score": @56473
-                                    }
-                            };
+    NSDictionary * data = @{@"level": @23, @"score": @56473};
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:data];
+    SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:sdj];
+    }];
     [tracker_ trackUnstructuredEvent:event];
-    [tracker_ trackUnstructuredEvent:event context:[self getCustomContext]];
-    [tracker_ trackUnstructuredEvent:event timestamp:1243567890];
-    [tracker_ trackUnstructuredEvent:event context:[self getCustomContext] timestamp:1243567890];
+    event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:sdj];
+        [builder setContexts:[self getCustomContext]];
+    }];
+    [tracker_ trackUnstructuredEvent:event];
+    event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:sdj];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackUnstructuredEvent:event];
+    event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:sdj];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackUnstructuredEvent:event];
 }
 
 + (void) trackPageViewWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer"];
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer" context:[self getCustomContext]];
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer" timestamp:1243567890];
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer" context:[self getCustomContext] timestamp:1243567890];
+    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setPageTitle:@"DemoPageTitle"];
+        [builder setReferrer:@"DemoPageReferrer"];
+    }];
+    [tracker_ trackPageViewEvent:event];
+    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setPageTitle:@"DemoPageTitle"];
+        [builder setReferrer:@"DemoPageReferrer"];
+        [builder setContexts:[self getCustomContext]];
+    }];
+    [tracker_ trackPageViewEvent:event];
+    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setPageTitle:@"DemoPageTitle"];
+        [builder setReferrer:@"DemoPageReferrer"];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackPageViewEvent:event];
+    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setPageTitle:@"DemoPageTitle"];
+        [builder setReferrer:@"DemoPageReferrer"];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackPageViewEvent:event];
 }
 
 + (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId"];
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId" context:[self getCustomContext]];
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId" timestamp:1243567890];
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId" context:[self getCustomContext] timestamp:1243567890];
+    SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
+        [builder setName:@"DemoScreenName"];
+        [builder setId:@"DemoScreenId"];
+    }];
+    [tracker_ trackScreenViewEvent:event];
+    event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
+        [builder setName:@"DemoScreenName"];
+        [builder setId:@"DemoScreenId"];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackScreenViewEvent:event];
+    event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
+        [builder setName:@"DemoScreenName"];
+        [builder setId:@"DemoScreenId"];
+        [builder setContexts:[self getCustomContext]];
+    }];
+    [tracker_ trackScreenViewEvent:event];
+    event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
+        [builder setName:@"DemoScreenName"];
+        [builder setId:@"DemoScreenId"];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackScreenViewEvent:event];
 }
 
 + (void) trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel"];
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel" context:[self getCustomContext]];
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel" timestamp:1243567890];
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel" context:[self getCustomContext] timestamp:1243567890];
+    SPTiming *event = [SPTiming build:^(id<SPTimingBuilder> builder) {
+        [builder setCategory:@"DemoTimingCategory"];
+        [builder setVariable:@"DemoTimingVariable"];
+        [builder setTiming:5];
+        [builder setLabel:@"DemoTimingLabel"];
+    }];
+    [tracker_ trackTimingEvent:event];
+    event = [SPTiming build:^(id<SPTimingBuilder> builder) {
+        [builder setCategory:@"DemoTimingCategory"];
+        [builder setVariable:@"DemoTimingVariable"];
+        [builder setTiming:5];
+        [builder setLabel:@"DemoTimingLabel"];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackTimingEvent:event];
+    event = [SPTiming build:^(id<SPTimingBuilder> builder) {
+        [builder setCategory:@"DemoTimingCategory"];
+        [builder setVariable:@"DemoTimingVariable"];
+        [builder setTiming:5];
+        [builder setLabel:@"DemoTimingLabel"];
+        [builder setContexts:[self getCustomContext]];
+    }];
+    [tracker_ trackTimingEvent:event];
+    event = [SPTiming build:^(id<SPTimingBuilder> builder) {
+        [builder setCategory:@"DemoTimingCategory"];
+        [builder setVariable:@"DemoTimingVariable"];
+        [builder setTiming:5];
+        [builder setLabel:@"DemoTimingLabel"];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackTimingEvent:event];
 }
 
 + (void) trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
     
-    [itemArray addObject:[tracker_ trackEcommerceTransactionItem:transactionID
-                                                             sku:@"DemoItemSku"
-                                                            name:@"DemoItemName"
-                                                        category:@"DemoItemCategory"
-                                                           price:0.75F
-                                                        quantity:1
-                                                        currency:@"USD"]];
+    [itemArray addObject:[SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
+        [builder setItemId:transactionID];
+        [builder setSku:@"DemoItemSku"];
+        [builder setName:@"DemoItemName"];
+        [builder setCategory:@"DemoItemCategory"];
+        [builder setPrice:0.75F];
+        [builder setQuantity:1];
+        [builder setCurrency:@"USD"];
+    }]];
     
-    [tracker_ trackEcommerceTransaction:transactionID
-                             totalValue:350
-                            affiliation:@"DemoTranAffiliation"
-                               taxValue:10
-                               shipping:15
-                                   city:@"Boston"
-                                  state:@"Massachusetts"
-                                country:@"USA"
-                               currency:@"USD"
-                                  items:itemArray];
-
-     [tracker_ trackEcommerceTransaction:transactionID
-     totalValue:350
-     affiliation:@"DemoTranAffiliation"
-     taxValue:10
-     shipping:15
-     city:@"Boston"
-     state:@"Massachusetts"
-     country:@"USA"
-     currency:@"USD"
-     items:itemArray
-     context:[self getCustomContext]];
-     
-     [tracker_ trackEcommerceTransaction:transactionID
-     totalValue:350
-     affiliation:@"DemoTranAffiliation"
-     taxValue:10
-     shipping:15
-     city:@"Boston"
-     state:@"Massachusetts"
-     country:@"USA"
-     currency:@"USD"
-     items:itemArray
-     timestamp:1243567890];
-     
-     [tracker_ trackEcommerceTransaction:transactionID
-     totalValue:350
-     affiliation:@"DemoTranAffiliation"
-     taxValue:10
-     shipping:15
-     city:@"Boston"
-     state:@"Massachusetts"
-     country:@"USA"
-     currency:@"USD"
-     items:itemArray
-     context:[self getCustomContext]
-     timestamp:1243567890];
+    SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
+        [builder setOrderId:transactionID];
+        [builder setTotalValue:350];
+        [builder setAffiliation:@"DemoTranAffiliation"];
+        [builder setTaxValue:10];
+        [builder setShipping:15];
+        [builder setCity:@"Boston"];
+        [builder setState:@"Massachusetts"];
+        [builder setCountry:@"USA"];
+        [builder setCurrency:@"USD"];
+        [builder setItems:itemArray];
+    }];
+    [tracker_ trackEcommerceEvent:event];
+    event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
+        [builder setOrderId:transactionID];
+        [builder setTotalValue:350];
+        [builder setAffiliation:@"DemoTranAffiliation"];
+        [builder setTaxValue:10];
+        [builder setShipping:15];
+        [builder setCity:@"Boston"];
+        [builder setState:@"Massachusetts"];
+        [builder setCountry:@"USA"];
+        [builder setCurrency:@"USD"];
+        [builder setItems:itemArray];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackEcommerceEvent:event];
+    event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
+        [builder setOrderId:transactionID];
+        [builder setTotalValue:350];
+        [builder setAffiliation:@"DemoTranAffiliation"];
+        [builder setTaxValue:10];
+        [builder setShipping:15];
+        [builder setCity:@"Boston"];
+        [builder setState:@"Massachusetts"];
+        [builder setCountry:@"USA"];
+        [builder setCurrency:@"USD"];
+        [builder setItems:itemArray];
+        [builder setContexts:[self getCustomContext]];
+    }];
+    [tracker_ trackEcommerceEvent:event];
+    event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
+        [builder setOrderId:transactionID];
+        [builder setTotalValue:350];
+        [builder setAffiliation:@"DemoTranAffiliation"];
+        [builder setTaxValue:10];
+        [builder setShipping:15];
+        [builder setCity:@"Boston"];
+        [builder setState:@"Massachusetts"];
+        [builder setCountry:@"USA"];
+        [builder setCurrency:@"USD"];
+        [builder setItems:itemArray];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+    }];
+    [tracker_ trackEcommerceEvent:event];
 }
 
 // Helpers
 
 + (NSMutableArray *) getCustomContext {
-    NSDictionary *context = @{
-                              @"schema":@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0",
-                              @"data": @{
-                                      @"snowplow": @"demo-tracker"
-                                      }
-                              };
+    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
+    SPSelfDescribingJson * context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
+                                                                          andData:data];
     return [NSMutableArray arrayWithArray:@[context]];
 }
 
