@@ -222,11 +222,13 @@
 
 - (void) pauseEventTracking {
     _dataCollection = NO;
+    [_emitter stopTimerFlush];
     [_session stopChecker];
 }
 
 - (void) resumeEventTracking {
     _dataCollection = YES;
+    [_emitter startTimerFlush];
     [_session startChecker];
 }
 

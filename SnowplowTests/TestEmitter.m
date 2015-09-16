@@ -81,7 +81,7 @@ NSString *const TEST_SERVER_EMITTER = @"http://www.notarealurl.com";
     
     // Allow timer to be set
     [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-    [emitter setFutureBufferFlushWithTime:5];
+    [emitter startTimerFlush];
 }
 
 - (void)testEmitterBuilderWithBadUrl {
