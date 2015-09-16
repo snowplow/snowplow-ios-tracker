@@ -24,7 +24,7 @@
 #import "SPEventStore.h"
 #import "SPPayload.h"
 #import "SPUtilites.h"
-#import <FMDB.h>
+#import "FMDB.h"
 
 @implementation SPEventStore {
     NSString *        _dbPath;
