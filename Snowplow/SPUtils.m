@@ -135,7 +135,7 @@
     return arc4random() % (999999 - 100000+1) + 100000;
 }
 
-+ (double) getTimestamp {
++ (NSInteger) getTimestamp {
     NSDate *time = [[NSDate alloc] init];
     return [time timeIntervalSince1970] * 1000;
 }

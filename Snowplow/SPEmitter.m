@@ -189,7 +189,7 @@
     } else {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:kSPSentTimestamp];
+            [eventPayload setValue:[NSString stringWithFormat:@"%.0ld", (long)[SPUtils getTimestamp]] forKey:kSPSentTimestamp];
             
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
