@@ -214,6 +214,7 @@
         [builder setEventData:[event getPayload]];
         [builder setTimestamp:[event getTimestamp]];
         [builder setContexts:[event getContexts]];
+        [builder setEventId:[event getEventId]];
     }];
     [self trackUnstructuredEvent:unstruct];
 }
@@ -223,6 +224,7 @@
         [builder setEventData:[event getPayload]];
         [builder setTimestamp:[event getTimestamp]];
         [builder setContexts:[event getContexts]];
+        [builder setEventId:[event getEventId]];
     }];
     [self trackUnstructuredEvent:unstruct];
 }
@@ -246,9 +248,6 @@
 // Event Decoration
 
 - (void) addTrackerPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray {
-    
-    // Add an Event ID
-    [pb addValueToPayload:[SPUtils getEventId] forKey:kSPEid];
     [pb addDictionaryToPayload:_trackerData];
     
     // Add Subject information

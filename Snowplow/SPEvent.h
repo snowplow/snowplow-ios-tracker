@@ -29,6 +29,7 @@
 @protocol SPEventBuilder <NSObject>
 - (void) setTimestamp:(NSInteger)timestamp;
 - (void) setContexts:(NSMutableArray *)contexts;
+- (void) setEventId:(NSString *)eventId;
 @end
 
 @protocol SPPageViewBuilder <SPEventBuilder>
@@ -115,6 +116,7 @@
 - (NSDictionary *) getPayload;
 - (NSMutableArray *) getContexts;
 - (NSInteger) getTimestamp;
+- (NSString *) getEventId;
 @end
 
 // Timing Event
@@ -124,6 +126,7 @@
 - (NSDictionary *) getPayload;
 - (NSMutableArray *) getContexts;
 - (NSInteger) getTimestamp;
+- (NSString *) getEventId;
 @end
 
 // Ecommerce Event
