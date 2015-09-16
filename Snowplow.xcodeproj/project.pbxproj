@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0402EBEE1BA93CCC006C8818 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
+		0402EBEF1BA93CCC006C8818 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
 		04062D761B8390870019B8D1 /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
 		0413DD771B78D643000D2112 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		041B60A91B84C19B00A1EBCB /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
@@ -95,6 +97,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0402EBEB1BA93CA5006C8818 /* SPEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
+		0402EBED1BA93CCC006C8818 /* SPEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEvent.m; sourceTree = "<group>"; };
 		04062D741B8390710019B8D1 /* SPSubject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSubject.h; sourceTree = "<group>"; };
 		04062D751B8390870019B8D1 /* SPSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSubject.m; sourceTree = "<group>"; };
 		0413DD751B78D635000D2112 /* SPRequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestResponse.h; sourceTree = "<group>"; };
@@ -277,6 +281,8 @@
 				0413DD761B78D643000D2112 /* SPRequestResponse.m */,
 				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
 				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
+				0402EBEB1BA93CA5006C8818 /* SPEvent.h */,
+				0402EBED1BA93CCC006C8818 /* SPEvent.m */,
 				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
 			);
 			path = Snowplow;
@@ -618,6 +624,7 @@
 				044CA88D1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SPPayload.m in Sources */,
 				ABB767B0194974D3006275D1 /* SPEventStore.m in Sources */,
+				0402EBEE1BA93CCC006C8818 /* SPEvent.m in Sources */,
 				ABFCC3761922984A00FAE8FE /* SPUtils.m in Sources */,
 				0413DD771B78D643000D2112 /* SPRequestResponse.m in Sources */,
 			);
@@ -653,6 +660,7 @@
 				044CA88E1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */,
 				AEA2FCEE1A8CE0DF00123462 /* SPPayload.m in Sources */,
 				AEA2FCF11A8CE0DF00123462 /* SPEventStore.m in Sources */,
+				0402EBEF1BA93CCC006C8818 /* SPEvent.m in Sources */,
 				AEA2FCEF1A8CE0DF00123462 /* SPUtils.m in Sources */,
 				04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */,
 			);

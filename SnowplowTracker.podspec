@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Snowplow/*.{m,h}'
 
-  s.public_header_files = ['Snowplow/Snowplow.h', 'Snowplow/SPTracker.h', 'Snowplow/SPEmitter.h', 'Snowplow/SPSubject.h', 'Snowplow/SPPayload.h', 'Snowplow/SPUtils.h', 'Snowplow/SPRequestCallback.h']
+  s.public_header_files = ['Snowplow/Snowplow.h', 'Snowplow/SPTracker.h', 'Snowplow/SPEmitter.h', 'Snowplow/SPSubject.h', 'Snowplow/SPPayload.h', 'Snowplow/SPUtils.h', 'Snowplow/SPRequestCallback.h', 'Snowplow/SPEvent.h']
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
   s.osx.frameworks = 'AppKit', 'Foundation'
