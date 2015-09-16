@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPUtilites.h"
+#import "SPUtilities.h"
 
 #if TARGET_OS_IPHONE
 
@@ -39,7 +39,7 @@
 
 #endif
 
-@implementation SPUtilites
+@implementation SPUtilities
 
 + (NSString *) getTimezone {
     NSTimeZone *timeZone = [NSTimeZone systemTimeZone];

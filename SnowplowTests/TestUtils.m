@@ -26,7 +26,7 @@
 #import <UIKit/UIDevice.h>
 #endif
 
-#import "SPUtilites.h"
+#import "SPUtilities.h"
 
 #define HC_SHORTHAND
 

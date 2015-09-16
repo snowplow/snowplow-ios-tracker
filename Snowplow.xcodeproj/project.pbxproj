@@ -47,12 +47,12 @@
 		ABB767B0194974D3006275D1 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SPEventStore.m */; };
 		ABB790CC1936F2500084B964 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB790CB1936F2500084B964 /* TestTracker.m */; };
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
-		ABFCC3761922984A00FAE8FE /* SPUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilites.m */; };
+		ABFCC3761922984A00FAE8FE /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
 		AEA2FCE11A8CDF8100123462 /* libSnowplow-OSX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */; };
 		AEA2FCED1A8CE0DF00123462 /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SPEmitter.m */; };
 		AEA2FCEE1A8CE0DF00123462 /* SPPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SPPayload.m */; };
-		AEA2FCEF1A8CE0DF00123462 /* SPUtilites.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilites.m */; };
+		AEA2FCEF1A8CE0DF00123462 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		AEA2FCF01A8CE0DF00123462 /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SPTracker.m */; };
 		AEA2FCF11A8CE0DF00123462 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SPEventStore.m */; };
 		AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27DC191B408200018557 /* SnowplowTests.m */; };
@@ -143,8 +143,8 @@
 		ABB767AF194974D3006275D1 /* SPEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventStore.m; sourceTree = "<group>"; };
 		ABB790CB1936F2500084B964 /* TestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTracker.m; sourceTree = "<group>"; };
 		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
-		ABFCC3741922984A00FAE8FE /* SPUtilites.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilites.h; sourceTree = "<group>"; };
-		ABFCC3751922984A00FAE8FE /* SPUtilites.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilites.m; sourceTree = "<group>"; };
+		ABFCC3741922984A00FAE8FE /* SPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilities.h; sourceTree = "<group>"; };
+		ABFCC3751922984A00FAE8FE /* SPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilities.m; sourceTree = "<group>"; };
 		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
 		AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libSnowplow-OSX.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA2FCE01A8CDF8100123462 /* Snowplow-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -271,8 +271,8 @@
 				AB0C27F4191C67CD00018557 /* SPPayload.m */,
 				ABB767AE194974D3006275D1 /* SPEventStore.h */,
 				ABB767AF194974D3006275D1 /* SPEventStore.m */,
-				ABFCC3741922984A00FAE8FE /* SPUtilites.h */,
-				ABFCC3751922984A00FAE8FE /* SPUtilites.m */,
+				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
+				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
 				0413DD751B78D635000D2112 /* SPRequestResponse.h */,
 				0413DD761B78D643000D2112 /* SPRequestResponse.m */,
 				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
@@ -618,7 +618,7 @@
 				044CA88D1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SPPayload.m in Sources */,
 				ABB767B0194974D3006275D1 /* SPEventStore.m in Sources */,
-				ABFCC3761922984A00FAE8FE /* SPUtilites.m in Sources */,
+				ABFCC3761922984A00FAE8FE /* SPUtilities.m in Sources */,
 				0413DD771B78D643000D2112 /* SPRequestResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -653,7 +653,7 @@
 				044CA88E1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */,
 				AEA2FCEE1A8CE0DF00123462 /* SPPayload.m in Sources */,
 				AEA2FCF11A8CE0DF00123462 /* SPEventStore.m in Sources */,
-				AEA2FCEF1A8CE0DF00123462 /* SPUtilites.m in Sources */,
+				AEA2FCEF1A8CE0DF00123462 /* SPUtilities.m in Sources */,
 				04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

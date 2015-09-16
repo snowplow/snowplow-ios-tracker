@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SPUtilites : NSObject
+@interface SPUtilities : NSObject
 
 /**
  *  Returns the system timezone region.
