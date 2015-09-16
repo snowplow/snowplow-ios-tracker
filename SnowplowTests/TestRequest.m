@@ -180,6 +180,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setValue:5];
         [builder setContexts:nil];
         [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
     }];
     [tracker_ trackStructuredEvent:event];
 }
@@ -196,6 +197,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setEventData:data];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
     }];
     [tracker_ trackUnstructuredEvent:event];
 }
@@ -207,6 +209,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setReferrer:@"DemoPageReferrer"];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
     }];
     [tracker_ trackPageViewEvent:event];
 }
@@ -217,6 +220,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setId:@"DemoScreenId"];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
     }];
     [tracker_ trackScreenViewEvent:event];
 }
@@ -229,6 +233,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setLabel:@"DemoTimingLabel"];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
     }];
     [tracker_ trackTimingEvent:event];
 }
@@ -247,6 +252,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setCurrency:@"USD"];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1234657890];
+        [builder setEventId:@"an-event-id"];
     }];
     
     [itemArray addObject:item];
@@ -264,6 +270,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setItems:itemArray];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
     }];
     [tracker_ trackEcommerceEvent:event];
 }
