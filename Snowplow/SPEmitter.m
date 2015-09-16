@@ -79,7 +79,7 @@
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupUrlEndpoint];
-    [self setFutureBufferFlushWithTime:kSPDefaultBufferTimeout];
+    [self startTimerFlush];
     _builderFinished = YES;
 }
 
@@ -283,26 +283,25 @@
     return request;
 }
 
-// Setters
+// Extra functions
 
-- (void) setFutureBufferFlushWithTime:(NSInteger)userTime {
-    NSInteger time = kSPDefaultBufferTimeout;
-    if (userTime <= 300) {
-        time = userTime; // 5 minute intervals
-    }
-    
+- (void) startTimerFlush {
     if (_timer != nil) {
-        [_timer invalidate];
-        _timer = nil;
+        [self stopTimerFlush];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        _timer = [NSTimer scheduledTimerWithTimeInterval:time
+        _timer = [NSTimer scheduledTimerWithTimeInterval:kSPDefaultBufferTimeout
                                                   target:[[SPWeakTimerTarget alloc] initWithTarget:self andSelector:@selector(flushBuffer)]
                                                 selector:@selector(timerFired:)
                                                 userInfo:nil
                                                  repeats:YES];
     });
+}
+
+- (void) stopTimerFlush {
+    [_timer invalidate];
+    _timer = nil;
 }
 
 // Getters
@@ -316,8 +315,7 @@
 }
 
 - (void) dealloc {
-    [_timer invalidate];
-    _timer = nil;
+    [self stopTimerFlush];
 }
 
 @end

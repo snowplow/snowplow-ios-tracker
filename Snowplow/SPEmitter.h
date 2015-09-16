@@ -79,10 +79,14 @@ enum SPRequestOptions {
 - (void) flushBuffer;
 
 /**
- * Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.
- * @param userTime An int value in seconds
+ * Sets up a timer to automatically initiate sending of events at pre-determined intervals.
  */
-- (void) setFutureBufferFlushWithTime:(NSInteger)userTime;
+- (void) startTimerFlush;
+
+/**
+ * Stops the Future Buffer Flush function.
+ */
+- (void) stopTimerFlush;
 
 /**
  * Returns the total Database Count
