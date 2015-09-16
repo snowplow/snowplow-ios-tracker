@@ -41,6 +41,7 @@ Added `is online` label to the demo app (#193)
 Added builder pattern for tracker/emitter (#190)
 Added checks for malformed NSURL (#79)
 Added in-client sessionization (#19)
+Added device sent time on outbound events (#158)
 
 Version 0.4.0 (2015-08-16)
 --------------------------
