@@ -23,8 +23,8 @@
 #import "Snowplow.h"
 #import "SPEventStore.h"
 #import "SPPayload.h"
-#import "SPUtils.h"
-#import <FMDB.h>
+#import "SPUtilities.h"
+#import "FMDB.h"
 
 @implementation SPEventStore {
     NSString *        _dbPath;
