@@ -158,6 +158,22 @@
                           @"Payload should contain the exact same contents added from sample_dic_final");
 }
 
+- (void)testAddDictToPayload3 {
+    NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"Value1", @"Key1", nil];
+    NSDictionary *sample_dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 [[NSNumber alloc] initWithInt:2], @"Key2", nil];
+    NSDictionary *sample_dict_final = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                       @"Value1", @"Key1", nil];
+    
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dic];
+    [sample_payload addDictionaryToPayload:sample_dic2];
+    
+    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+                          sample_dict_final,
+                          @"Payload should contain the exact same contents added from sample_dic_final");
+}
+
 - (void)testJsonToPayload {
     // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
 
