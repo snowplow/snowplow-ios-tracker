@@ -22,7 +22,7 @@
 
 #import "Snowplow.h"
 #import "SPEvent.h"
-#import "SPUtils.h"
+#import "SPUtilities.h"
 #import "SPPayload.h"
 
 // PageView Event
@@ -45,9 +45,9 @@
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtils getTimestamp];
+        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtils getEventId];
+        _eventId = [SPUtilities getEventId];
     }
     return self;
 }
@@ -119,9 +119,9 @@
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtils getTimestamp];
+        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtils getEventId];
+        _eventId = [SPUtilities getEventId];
     }
     return self;
 }
@@ -199,9 +199,9 @@
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtils getTimestamp];
+        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtils getEventId];
+        _eventId = [SPUtilities getEventId];
     }
     return self;
 }
@@ -266,9 +266,9 @@
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtils getTimestamp];
+        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtils getEventId];
+        _eventId = [SPUtilities getEventId];
     }
     return self;
 }
@@ -346,9 +346,9 @@
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtils getTimestamp];
+        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtils getEventId];
+        _eventId = [SPUtilities getEventId];
     }
     return self;
 }
@@ -441,9 +441,9 @@
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtils getTimestamp];
+        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtils getEventId];
+        _eventId = [SPUtilities getEventId];
     }
     return self;
 }
@@ -559,9 +559,9 @@
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtils getTimestamp];
+        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtils getEventId];
+        _eventId = [SPUtilities getEventId];
     }
     return self;
 }

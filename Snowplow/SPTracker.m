@@ -25,7 +25,7 @@
 #import "SPEmitter.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
-#import "SPUtils.h"
+#import "SPUtilities.h"
 #import "SPSession.h"
 #import "SPEvent.h"
 
@@ -254,7 +254,7 @@
     if (_subject != nil) {
         [pb addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
     } else {
-        [pb addValueToPayload:[SPUtils getPlatform] forKey:kSPPlatform];
+        [pb addValueToPayload:[SPUtilities getPlatform] forKey:kSPPlatform];
     }
     
     // Add the Contexts together

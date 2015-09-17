@@ -22,7 +22,8 @@
 
 #import "Snowplow.h"
 #import "SPSession.h"
-#import "SPUtils.h"
+#import "SPUtilities.h"
+#import "SPPayload.h"
 #import "SPWeakTimerTarget.h"
 
 #if TARGET_OS_IPHONE
@@ -61,7 +62,7 @@ NSString * const kSessionSavePath = @"session.dict";
         
         NSDictionary * maybeSessionDict = [self getSessionFromFile];
         if (maybeSessionDict == nil) {
-            _userId = [SPUtils getEventId];
+            _userId = [SPUtilities getEventId];
             _currentSessionId = @"";
         } else {
             _userId = [maybeSessionDict valueForKey:kSPSessionUserId];
@@ -172,7 +173,7 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) checkSession:(NSTimer *)timer {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSInteger checkTime = [SPUtils getTimestamp];
+        NSInteger checkTime = [SPUtilities getTimestamp];
         NSInteger range = 0;
         
         if (_inBackground) {
@@ -192,12 +193,12 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) updateSession {
     _previousSessionId = _currentSessionId;
-    _currentSessionId = [SPUtils getEventId];
+    _currentSessionId = [SPUtilities getEventId];
     _sessionIndex++;
 }
 
 - (void) updateAccessedLast {
-    _accessedLast = [SPUtils getTimestamp];
+    _accessedLast = [SPUtilities getTimestamp];
 }
 
 - (void) updateSessionDict {
