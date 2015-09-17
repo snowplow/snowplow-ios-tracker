@@ -91,7 +91,7 @@
             _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointPost];
         }
     } else {
-        [NSException raise:@"Invalid SPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _url];
+        [NSException raise:@"InvalidSPEmitterEndpoint" format:@"An invalid Emitter URL was found: %@", _url];
     }
 }
 
@@ -120,13 +120,17 @@
 }
 
 - (void) setEmitRange:(NSInteger)emitRange {
-    _emitRange = emitRange;
+    if (emitRange > 0) {
+        _emitRange = emitRange;
+    }
 }
 
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize {
-    _emitThreadPoolSize = emitThreadPoolSize;
-    if (_dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize) {
-        _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
+    if (emitThreadPoolSize > 0) {
+        _emitThreadPoolSize = emitThreadPoolSize;
+        if (_dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize) {
+            _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
+        }
     }
 }
 
