@@ -237,12 +237,13 @@
     
     NSInteger tstamp = [event getTimestamp];
     for (SPEcommerceItem * item in [event getItems]) {
-        [self trackEcommerceItemEvent:item andTimestamp:tstamp];
+        [item setTimestamp:tstamp];
+        [self trackEcommerceItemEvent:item];
     }
 }
 
-- (void) trackEcommerceItemEvent:(SPEcommerceItem *)event andTimestamp:(NSInteger)tstamp {
-    [self addTrackerPayload:[event getPayloadWithTimestamp:tstamp] context:[event getContexts]];
+- (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
+    [self addTrackerPayload:[event getPayload] context:[event getContexts]];
 }
 
 // Event Decoration
