@@ -113,6 +113,23 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     [tracker setForegroundTimeout:10];
     [tracker setBackgroundTimeout:20];
     [tracker setCheckInterval:15];
+    
+    @try {
+        tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+            [builder setEmitter:nil];
+            [builder setSubject:subject];
+            [builder setAppId:@"anAppId"];
+            [builder setBase64Encoded:NO];
+            [builder setTrackerNamespace:@"aNamespace"];
+            [builder setSessionContext:YES];
+            [builder setForegroundTimeout:300];
+            [builder setBackgroundTimeout:150];
+            [builder setCheckInterval:10];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Emitter cannot be nil.", exception.reason);
+    }
 }
 
 @end

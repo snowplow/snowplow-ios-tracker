@@ -85,6 +85,8 @@
 }
 
 - (void) setup {
+    [SPUtilities checkArgument:(_emitter != nil) withMessage:@"Emitter cannot be nil."];
+    
     [self setTrackerData];
     if (_sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
@@ -102,7 +104,9 @@
 // Required
 
 - (void) setEmitter:(SPEmitter *)emitter {
-    _emitter = emitter;
+    if (emitter != nil) {
+        _emitter = emitter;
+    }
 }
 
 - (void) setSubject:(SPSubject *)subject {
@@ -259,10 +263,6 @@
     }
     
     // Add the Contexts together
-    if (contextArray == nil) {
-        contextArray = [[NSMutableArray alloc] init];
-    }
-    
     if (_subject != nil) {
         NSDictionary * platformDict = [[_subject getPlatformDict] getPayloadAsDictionary];
         if (platformDict != nil) {
