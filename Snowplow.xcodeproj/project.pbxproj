@@ -18,6 +18,8 @@
 		043EC5E81B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		044CA88D1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
 		044CA88E1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
+		04921CAF1BAABE11009E221E /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04921CAE1BAABE11009E221E /* TestEvent.m */; };
+		04921CB01BAABE11009E221E /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04921CAE1BAABE11009E221E /* TestEvent.m */; };
 		04ABC3591B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
 		04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
 		04ABC35C1B905F5200F50CAD /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */; };
@@ -108,6 +110,7 @@
 		043EC5E61B8F224900294081 /* Snowplow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snowplow.m; sourceTree = "<group>"; };
 		044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPWeakTimerTarget.h; sourceTree = "<group>"; };
 		044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWeakTimerTarget.m; sourceTree = "<group>"; };
+		04921CAE1BAABE11009E221E /* TestEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEvent.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestCallback.h; sourceTree = "<group>"; };
 		04ABC3581B905A5B00F50CAD /* TestSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSubject.m; sourceTree = "<group>"; };
 		04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequestResponse.m; sourceTree = "<group>"; };
@@ -312,6 +315,7 @@
 				ABFCC377192325FB00FAE8FE /* TestUtils.m */,
 				04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */,
 				ABB2565019286C8C0014FE0C /* TestRequest.m */,
+				04921CAE1BAABE11009E221E /* TestEvent.m */,
 			);
 			path = SnowplowTests;
 			sourceTree = "<group>";
@@ -636,6 +640,7 @@
 			files = (
 				AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */,
 				ABB790CC1936F2500084B964 /* TestTracker.m in Sources */,
+				04921CAF1BAABE11009E221E /* TestEvent.m in Sources */,
 				04ABC35F1B906E1500F50CAD /* TestEmitter.m in Sources */,
 				AB4338581950A530006A1DE4 /* TestEventStore.m in Sources */,
 				04ABC3591B905A5B00F50CAD /* TestSubject.m in Sources */,
@@ -672,6 +677,7 @@
 			files = (
 				AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */,
 				AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */,
+				04921CB01BAABE11009E221E /* TestEvent.m in Sources */,
 				04ABC3601B906E1500F50CAD /* TestEmitter.m in Sources */,
 				AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */,
 				04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */,

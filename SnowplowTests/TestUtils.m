@@ -189,4 +189,14 @@
     XCTAssertEqual([SPUtilities isOnline], YES);
 }
 
+- (void)testCheckArgument {
+    @try {
+        [SPUtilities checkArgument:NO withMessage:@"This will throw an exception."];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"IllegalArgumentException", exception.name);
+        XCTAssertEqualObjects(@"This will throw an exception.", exception.reason);
+    }
+}
+
 @end

@@ -73,6 +73,11 @@
     return pb;
 }
 
+- (void) basePreconditions {
+    [SPUtilities checkArgument:(_contexts != nil) withMessage:@"Contexts cannot be nil."];
+    [SPUtilities checkArgument:([_eventId length] != 0) withMessage:@"EventID cannot be nil or empty."];
+}
+
 @end
 
 // PageView Event
@@ -86,12 +91,18 @@
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock {
     SPPageView* event = [SPPageView new];
     if (buildBlock) { buildBlock(event); }
+    [event preconditions];
     return event;
 }
 
 - (id) init {
     self = [super init];
     return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_pageUrl length] != 0) withMessage:@"PageURL cannot be nil or empty."];
+    [self basePreconditions];
 }
 
 // --- Builder Methods
@@ -134,12 +145,19 @@
 + (instancetype) build:(void(^)(id<SPStructuredBuilder>builder))buildBlock {
     SPStructured* event = [SPStructured new];
     if (buildBlock) { buildBlock(event); }
+    [event preconditions];
     return event;
 }
 
 - (id) init {
     self = [super init];
     return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
+    [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
+    [self basePreconditions];
 }
 
 // --- Builder Methods
@@ -188,12 +206,18 @@
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock {
     SPUnstructured* event = [SPUnstructured new];
     if (buildBlock) { buildBlock(event); }
+    [event preconditions];
     return event;
 }
 
 - (id) init {
     self = [super init];
     return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:(_eventData != nil) withMessage:@"EventData cannot be nil."];
+    [self basePreconditions];
 }
 
 // --- Builder Methods
@@ -229,12 +253,18 @@
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock {
     SPScreenView* event = [SPScreenView new];
     if (buildBlock) { buildBlock(event); }
+    [event preconditions];
     return event;
 }
 
 - (id) init {
     self = [super init];
     return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_name length] != 0 || [_id length] != 0) withMessage:@"Name and ID cannot both be nil and empty."];
+    [self basePreconditions];
 }
 
 // --- Builder Methods
@@ -277,12 +307,19 @@
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock {
     SPTiming* event = [SPTiming new];
     if (buildBlock) { buildBlock(event); }
+    [event preconditions];
     return event;
 }
 
 - (id) init {
     self = [super init];
     return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
+    [SPUtilities checkArgument:([_variable length] != 0) withMessage:@"Variable cannot be nil or empty."];
+    [self basePreconditions];
 }
 
 // --- Builder Methods
@@ -340,12 +377,19 @@
 + (instancetype) build:(void(^)(id<SPEcommTransactionBuilder>builder))buildBlock {
     SPEcommerce* event = [SPEcommerce new];
     if (buildBlock) { buildBlock(event); }
+    [event preconditions];
     return event;
 }
 
 - (id) init {
     self = [super init];
     return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_orderId length] != 0) withMessage:@"OrderId cannot be nil or empty."];
+    [SPUtilities checkArgument:(_items != nil) withMessage:@"Items cannot be nil."];
+    [self basePreconditions];
 }
 
 // --- Builder Methods
@@ -428,12 +472,19 @@
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock {
     SPEcommerceItem* event = [SPEcommerceItem new];
     if (buildBlock) { buildBlock(event); }
+    [event preconditions];
     return event;
 }
 
 - (id) init {
     self = [super init];
     return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_itemId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
+    [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
+    [self basePreconditions];
 }
 
 // --- Builder Methods
