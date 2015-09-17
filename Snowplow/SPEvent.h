@@ -85,65 +85,67 @@
 - (void) setCurrency:(NSString *)currency;
 @end
 
+// Base Event
+
+@interface SPEvent : NSObject <SPEventBuilder>
+
+@property (nonatomic, readwrite) NSInteger timestamp;
+@property (nonatomic, readwrite, retain) NSMutableArray* contexts;
+@property (nonatomic, readwrite, retain) NSString * eventId;
+
+- (NSMutableArray *) getContexts;
+- (NSInteger) getTimestamp;
+- (NSString *) getEventId;
+- (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb;
+@end
+
 // PageView Event
 
-@interface SPPageView : NSObject <SPPageViewBuilder>
+@interface SPPageView : SPEvent <SPPageViewBuilder>
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock;
 - (SPPayload *) getPayload;
-- (NSMutableArray *) getContexts;
 @end
 
 // Structured Event
 
-@interface SPStructured : NSObject <SPStructuredBuilder>
+@interface SPStructured : SPEvent <SPStructuredBuilder>
 + (instancetype) build:(void(^)(id<SPStructuredBuilder>builder))buildBlock;
 - (SPPayload *) getPayload;
-- (NSMutableArray *) getContexts;
 @end
 
 // Unstructured Event
 
-@interface SPUnstructured : NSObject <SPUnstructuredBuilder>
+@interface SPUnstructured : SPEvent <SPUnstructuredBuilder>
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock;
 - (SPPayload *) getPayloadWithEncoding:(BOOL)encoding;
-- (NSMutableArray *) getContexts;
 @end
 
 // ScreenView Event
 
-@interface SPScreenView : NSObject <SPScreenViewBuilder>
+@interface SPScreenView : SPEvent <SPScreenViewBuilder>
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock;
 - (NSDictionary *) getPayload;
-- (NSMutableArray *) getContexts;
-- (NSInteger) getTimestamp;
-- (NSString *) getEventId;
 @end
 
 // Timing Event
 
-@interface SPTiming : NSObject <SPTimingBuilder>
+@interface SPTiming : SPEvent <SPTimingBuilder>
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock;
 - (NSDictionary *) getPayload;
-- (NSMutableArray *) getContexts;
-- (NSInteger) getTimestamp;
-- (NSString *) getEventId;
 @end
 
 // Ecommerce Event
 
-@interface SPEcommerce : NSObject <SPEcommTransactionBuilder>
+@interface SPEcommerce : SPEvent <SPEcommTransactionBuilder>
 + (instancetype) build:(void(^)(id<SPEcommTransactionBuilder>builder))buildBlock;
 - (SPPayload *) getPayload;
-- (NSMutableArray *) getContexts;
-- (NSInteger) getTimestamp;
 - (NSArray *) getItems;
 @end
 
 
 // Ecommerce Item Event
 
-@interface SPEcommerceItem : NSObject <SPEcommTransactionItemBuilder>
+@interface SPEcommerceItem : SPEvent <SPEcommTransactionItemBuilder>
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock;
-- (SPPayload *) getPayloadWithTimestamp:(NSInteger)tstamp;
-- (NSMutableArray *) getContexts;
+- (SPPayload *) getPayload;
 @end

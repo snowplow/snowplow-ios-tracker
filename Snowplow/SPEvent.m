@@ -25,15 +25,62 @@
 #import "SPUtilities.h"
 #import "SPPayload.h"
 
+// Base Event
+
+@implementation SPEvent
+
+- (id) init {
+    self = [super init];
+    if (self) {
+        _timestamp = [SPUtilities getTimestamp];
+        _contexts = [[NSMutableArray alloc] init];
+        _eventId = [SPUtilities getEventId];
+    }
+    return self;
+}
+
+// --- Builder Methods
+
+- (void) setTimestamp:(NSInteger)timestamp {
+    _timestamp = timestamp;
+}
+
+- (void) setContexts:(NSMutableArray *)contexts {
+    _contexts = contexts;
+}
+
+- (void) setEventId:(NSString *)eventId {
+    _eventId = eventId;
+}
+
+// --- Public Methods
+
+- (NSMutableArray *) getContexts {
+    return [NSMutableArray arrayWithArray:_contexts];
+}
+
+- (NSInteger) getTimestamp {
+    return _timestamp;
+}
+
+- (NSString *) getEventId {
+    return _eventId;
+}
+
+- (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb {
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.0ld", (long)_timestamp] forKey:kSPTimestamp];
+    [pb addValueToPayload:_eventId forKey:kSPEid];
+    return pb;
+}
+
+@end
+
 // PageView Event
 
 @implementation SPPageView {
     NSString *       _pageUrl;
     NSString *       _pageTitle;
     NSString *       _referrer;
-    NSInteger        _timestamp;
-    NSMutableArray * _contexts;
-    NSString *       _eventId;
 }
 
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock {
@@ -44,11 +91,6 @@
 
 - (id) init {
     self = [super init];
-    if (self) {
-        _timestamp = [SPUtilities getTimestamp];
-        _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
-    }
     return self;
 }
 
@@ -66,18 +108,6 @@
     _referrer = referrer;
 }
 
-- (void) setTimestamp:(NSInteger)timestamp {
-    _timestamp = timestamp;
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    _contexts = contexts;
-}
-
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
-}
-
 // --- Public Methods
 
 - (SPPayload *) getPayload {
@@ -86,13 +116,7 @@
     [pb addValueToPayload:_pageUrl forKey:kSPPageUrl];
     [pb addValueToPayload:_pageTitle forKey:kSPPageTitle];
     [pb addValueToPayload:_referrer forKey:kSPPageRefr];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.0ld", (long)_timestamp] forKey:kSPTimestamp];
-    [pb addValueToPayload:_eventId forKey:kSPEid];
-    return pb;
-}
-
-- (NSMutableArray *) getContexts {
-    return _contexts;
+    return [self addDefaultParamsToPayload:pb];
 }
 
 @end
@@ -105,9 +129,6 @@
     NSString *       _label;
     NSString *       _property;
     double           _value;
-    NSInteger        _timestamp;
-    NSMutableArray * _contexts;
-    NSString *       _eventId;
 }
 
 + (instancetype) build:(void(^)(id<SPStructuredBuilder>builder))buildBlock {
@@ -118,11 +139,6 @@
 
 - (id) init {
     self = [super init];
-    if (self) {
-        _timestamp = [SPUtilities getTimestamp];
-        _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
-    }
     return self;
 }
 
@@ -148,18 +164,6 @@
     _value = value;
 }
 
-- (void) setTimestamp:(NSInteger)timestamp {
-    _timestamp = timestamp;
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    _contexts = contexts;
-}
-
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
-}
-
 // --- Public Methods
 
 - (SPPayload *) getPayload {
@@ -170,13 +174,7 @@
     [pb addValueToPayload:_label forKey:kSPStuctLabel];
     [pb addValueToPayload:_property forKey:kSPStuctProperty];
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", _value] forKey:kSPStuctValue];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.0ld", (long)_timestamp] forKey:kSPTimestamp];
-    [pb addValueToPayload:_eventId forKey:kSPEid];
-    return pb;
-}
-
-- (NSMutableArray *) getContexts {
-    return _contexts;
+    return [self addDefaultParamsToPayload:pb];
 }
 
 @end
@@ -185,9 +183,6 @@
 
 @implementation SPUnstructured {
     NSDictionary *   _eventData;
-    NSInteger        _timestamp;
-    NSMutableArray * _contexts;
-    NSString *       _eventId;
 }
 
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock {
@@ -198,11 +193,6 @@
 
 - (id) init {
     self = [super init];
-    if (self) {
-        _timestamp = [SPUtilities getTimestamp];
-        _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
-    }
     return self;
 }
 
@@ -210,18 +200,6 @@
 
 - (void) setEventData:(NSDictionary *)eventData {
     _eventData = eventData;
-}
-
-- (void) setTimestamp:(NSInteger)timestamp {
-    _timestamp = timestamp;
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    _contexts = contexts;
-}
-
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
 }
 
 // --- Public Methods
@@ -236,13 +214,7 @@
                  base64Encoded:encoding
                typeWhenEncoded:kSPUnstructuredEncoded
             typeWhenNotEncoded:kSPUnstructured];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.0ld", (long)_timestamp] forKey:kSPTimestamp];
-    [pb addValueToPayload:_eventId forKey:kSPEid];
-    return pb;
-}
-
-- (NSMutableArray *) getContexts {
-    return _contexts;
+    return [self addDefaultParamsToPayload:pb];
 }
 
 @end
@@ -252,9 +224,6 @@
 @implementation SPScreenView {
     NSString *       _name;
     NSString *       _id;
-    NSInteger        _timestamp;
-    NSMutableArray * _contexts;
-    NSString *       _eventId;
 }
 
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock {
@@ -265,11 +234,6 @@
 
 - (id) init {
     self = [super init];
-    if (self) {
-        _timestamp = [SPUtilities getTimestamp];
-        _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
-    }
     return self;
 }
 
@@ -281,18 +245,6 @@
 
 - (void) setId:(NSString *)sId {
     _id = sId;
-}
-
-- (void) setTimestamp:(NSInteger)timestamp {
-    _timestamp = timestamp;
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    _contexts = contexts;
-}
-
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
 }
 
 // --- Public Methods
@@ -311,18 +263,6 @@
     return eventJson;
 }
 
-- (NSMutableArray *) getContexts {
-    return _contexts;
-}
-
-- (NSInteger) getTimestamp {
-    return _timestamp;
-}
-
-- (NSString *) getEventId {
-    return _eventId;
-}
-
 @end
 
 // Timing Event
@@ -332,9 +272,6 @@
     NSString *       _variable;
     NSInteger        _timing;
     NSString *       _label;
-    NSInteger        _timestamp;
-    NSMutableArray * _contexts;
-    NSString *       _eventId;
 }
 
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock {
@@ -345,11 +282,6 @@
 
 - (id) init {
     self = [super init];
-    if (self) {
-        _timestamp = [SPUtilities getTimestamp];
-        _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
-    }
     return self;
 }
 
@@ -371,18 +303,6 @@
     _label = label;
 }
 
-- (void) setTimestamp:(NSInteger)timestamp {
-    _timestamp = timestamp;
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    _contexts = contexts;
-}
-
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
-}
-
 // --- Public Methods
 
 - (NSDictionary *) getPayload {
@@ -400,18 +320,6 @@
     return eventJson;
 }
 
-- (NSMutableArray *) getContexts {
-    return _contexts;
-}
-
-- (NSInteger) getTimestamp {
-    return _timestamp;
-}
-
-- (NSString *) getEventId {
-    return _eventId;
-}
-
 @end
 
 // Ecommerce Event
@@ -427,9 +335,6 @@
     NSString *       _country;
     NSString *       _currency;
     NSArray *        _items;
-    NSInteger        _timestamp;
-    NSMutableArray * _contexts;
-    NSString *       _eventId;
 }
 
 + (instancetype) build:(void(^)(id<SPEcommTransactionBuilder>builder))buildBlock {
@@ -440,11 +345,6 @@
 
 - (id) init {
     self = [super init];
-    if (self) {
-        _timestamp = [SPUtilities getTimestamp];
-        _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
-    }
     return self;
 }
 
@@ -490,18 +390,6 @@
     _items = items;
 }
 
-- (void) setTimestamp:(NSInteger)timestamp {
-    _timestamp = timestamp;
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    _contexts = contexts;
-}
-
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
-}
-
 // --- Public Methods
 
 - (SPPayload *) getPayload {
@@ -516,17 +404,7 @@
     [pb addValueToPayload:_state forKey:kSPEcommState];
     [pb addValueToPayload:_country forKey:kSPEcommCountry];
     [pb addValueToPayload:_currency forKey:kSPEcommCurrency];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.0ld", (long)_timestamp] forKey:kSPTimestamp];
-    [pb addValueToPayload:_eventId forKey:kSPEid];
-    return pb;
-}
-
-- (NSMutableArray *) getContexts {
-    return _contexts;
-}
-
-- (NSInteger) getTimestamp {
-    return _timestamp;
+    return [self addDefaultParamsToPayload:pb];
 }
 
 - (NSArray *) getItems {
@@ -545,9 +423,6 @@
     NSString *       _name;
     NSString *       _category;
     NSString *       _currency;
-    NSInteger        _timestamp;
-    NSMutableArray * _contexts;
-    NSString *       _eventId;
 }
 
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock {
@@ -558,11 +433,6 @@
 
 - (id) init {
     self = [super init];
-    if (self) {
-        _timestamp = [SPUtilities getTimestamp];
-        _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
-    }
     return self;
 }
 
@@ -596,21 +466,9 @@
     _currency = currency;
 }
 
-- (void) setTimestamp:(NSInteger)timestamp {
-    _timestamp = timestamp;
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    _contexts = contexts;
-}
-
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
-}
-
 // --- Public Methods
 
-- (SPPayload *) getPayloadWithTimestamp:(NSInteger)tstamp {
+- (SPPayload *) getPayload {
     SPPayload *pb = [[SPPayload alloc] init];
     [pb addValueToPayload:kSPEventEcommItem forKey:kSPEvent];
     [pb addValueToPayload:_itemId forKey:kSPEcommItemId];
@@ -620,13 +478,7 @@
     [pb addValueToPayload:[NSString stringWithFormat:@"%f", _price] forKey:kSPEcommItemPrice];
     [pb addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_quantity] forKey:kSPEcommItemQuantity];
     [pb addValueToPayload:_currency forKey:kSPEcommItemCurrency];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.0ld", (long)tstamp] forKey:kSPTimestamp];
-    [pb addValueToPayload:_eventId forKey:kSPEid];
-    return pb;
-}
-
-- (NSMutableArray *) getContexts {
-    return _contexts;
+    return [self addDefaultParamsToPayload:pb];
 }
 
 @end
