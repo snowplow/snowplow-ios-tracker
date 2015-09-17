@@ -247,4 +247,10 @@
     return online;
 }
 
++ (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
+    if (!argument) {
+        [NSException raise:@"IllegalArgumentException" format:@"%@", message];
+    }
+}
+
 @end

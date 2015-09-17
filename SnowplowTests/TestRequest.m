@@ -178,7 +178,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
         [builder setLabel:@"DemoLabel"];
         [builder setProperty:@"DemoProperty"];
         [builder setValue:5];
-        [builder setContexts:nil];
+        [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1243567890];
         [builder setEventId:@"an-event-id"];
     }];
