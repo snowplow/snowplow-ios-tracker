@@ -41,7 +41,7 @@
 
 @implementation SPEmitter {
     SPEventStore *     _db;
-    NSURL *            _url;
+    NSString *         _url;
     NSTimer *          _timer;
     BOOL               _isSending;
     NSOperationQueue * _dataOperationQueue;
@@ -64,6 +64,7 @@
     if (self) {
         _httpMethod = SPRequestPost;
         _bufferOption = SPBufferDefault;
+        _protocol = SPHttp;
         _callback = nil;
         _emitRange = 150;
         _emitThreadPoolSize = 15;
@@ -83,12 +84,20 @@
 }
 
 - (void) setupUrlEndpoint {
-    if (_url && _url.scheme && _url.host) {
-        if (_httpMethod == SPRequestGet) {
-            _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointGet];
-        } else {
-            _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointPost];
-        }
+    // Force protocol to HTTPS for iOS 9:
+    // https://developer.apple.com/library/prerelease/ios/releasenotes/General/WhatsNewIniOS/Articles/iOS9.html
+#if TARGET_OS_IPHONE
+    if (SNOWPLOW_iOS_9_OR_LATER) {
+        _protocol = SPHttps;
+    }
+#endif
+    
+    NSString * urlPrefix = _protocol == SPHttp ? @"http://" : @"https://";
+    NSString * urlSuffix = _httpMethod == SPRequestGet ? kSPEndpointGet : kSPEndpointPost;
+    _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _url, urlSuffix]];
+    
+    if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
+        SnowplowDLog(@"Emitter URL created successfully");
     } else {
         [NSException raise:@"InvalidSPEmitterEndpoint" format:@"An invalid Emitter URL was found: %@", _url];
     }
@@ -96,7 +105,7 @@
 
 // Required
 
-- (void) setUrlEndpoint:(NSURL *)urlEndpoint {
+- (void) setUrlEndpoint:(NSString *)urlEndpoint {
     _url = urlEndpoint;
     if (_builderFinished) {
         [self setupUrlEndpoint];
@@ -105,6 +114,13 @@
 
 - (void) setHttpMethod:(enum SPRequestOptions)method {
     _httpMethod = method;
+    if (_builderFinished && _urlEndpoint != nil) {
+        [self setupUrlEndpoint];
+    }
+}
+
+- (void) setProtocol:(enum SPProtocol)protocol {
+    _protocol = protocol;
     if (_builderFinished && _urlEndpoint != nil) {
         [self setupUrlEndpoint];
     }

@@ -41,7 +41,7 @@
 
 - (void)testCreateTracker {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:[NSURL URLWithString:@"http://not-real.com"]];
+        [builder setUrlEndpoint:@"not-real.com"];
     }];
     
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];

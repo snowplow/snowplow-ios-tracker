@@ -21,6 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Snowplow.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -38,11 +39,19 @@
     NSInteger _failureCount;
 }
 
-NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
+NSString *const TEST_SERVER_REQUEST = @"acme.test.url.com";
+NSString *protocol = @"http";
 
 - (void)setUp {
     [super setUp];
     [[LSNocilla sharedInstance] start];
+#if TARGET_OS_IPHONE
+    if (SNOWPLOW_iOS_9_OR_LATER) {
+        protocol = @"https";
+    }
+#else
+    protocol = @"http";
+#endif
 }
 
 - (void)tearDown {
@@ -53,9 +62,9 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 // Tests
 
 - (void)testRequestSendWithPost {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(200);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     
@@ -65,9 +74,9 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 
 
 - (void)testRequestSendWithGet {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@/i?(.*?)", TEST_SERVER_REQUEST].regex).andReturn(200);
+    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestGet];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     XCTAssertEqual(_successCount, 7);
@@ -75,20 +84,20 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 }
 
 - (void)testRequestSendWithBadUrl {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(404);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(404);
     
     // Send all events with a bad URL
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     XCTAssertEqual(_failureCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 7);
     
     // Update the URL and flush
-    [[tracker emitter] setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_REQUEST]];
+    [[tracker emitter] setUrlEndpoint:TEST_SERVER_REQUEST];
     
     [[LSNocilla sharedInstance] clearStubs];
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(200);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
     [[tracker emitter] flushBuffer];
     [self emitterSleep:[tracker emitter]];
@@ -97,9 +106,9 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 }
 
 - (void)testRequestSendWithoutSubject {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@/i?(.*?)", TEST_SERVER_REQUEST].regex).andReturn(200);
+    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestGet];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
     [tracker setSubject:nil];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
@@ -108,9 +117,9 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 }
 
 - (void)testRequestSendWithCollectionOff {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(200);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
     [tracker pauseEventTracking];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
@@ -121,7 +130,7 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 
 // Helpers
 
-- (SPTracker *)getTracker:(NSURL *)url requestType:(enum SPRequestOptions)type {
+- (SPTracker *)getTracker:(NSString *)url requestType:(enum SPRequestOptions)type {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:url];
         [builder setCallback:self];

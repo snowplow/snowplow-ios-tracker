@@ -21,16 +21,8 @@
 //
 
 #import <XCTest/XCTest.h>
-
-#if TARGET_OS_IPHONE
-#import <UIKit/UIDevice.h>
-#endif
-
 #import "SPUtilities.h"
 #import "Snowplow.h"
-
-#define HC_SHORTHAND
-
 
 @interface TestUtils : XCTestCase
 
