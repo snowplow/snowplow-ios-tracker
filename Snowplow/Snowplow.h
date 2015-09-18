@@ -127,6 +127,7 @@ extern NSString * const kSPSessionId;
 extern NSString * const kSPSessionPreviousId;
 extern NSString * const kSPSessionIndex;
 extern NSString * const kSPSessionStorage;
+extern NSString * const kSPSessionFirstEventId;
 
 // --- Page View Event
 

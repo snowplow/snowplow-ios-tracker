@@ -41,6 +41,8 @@
     NSString *  _previousSessionId;
     NSInteger   _sessionIndex;
     NSString *  _sessionStorage;
+    NSString *  _firstEventId;
+    SPPayload * _sessionDict;
     NSTimer *   _sessionTimer;
     NSMutableDictionary * _sessionDict;
 }
@@ -123,8 +125,12 @@ NSString * const kSessionSavePath = @"session.dict";
     [self startChecker];
 }
 
-- (NSMutableDictionary *) getSessionDict {
+- (SPPayload *) getSessionDictWithEventId:(NSString *)firstEventId {
     [self updateAccessedLast];
+    if (_firstEventId == nil) {
+        _firstEventId = firstEventId;
+        [self addFirstEventIdToDict];
+    }
     return _sessionDict;
 }
 
@@ -195,6 +201,7 @@ NSString * const kSessionSavePath = @"session.dict";
     _previousSessionId = _currentSessionId;
     _currentSessionId = [SPUtilities getEventId];
     _sessionIndex++;
+    _firstEventId = nil;
 }
 
 - (void) updateAccessedLast {
@@ -202,13 +209,17 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void) updateSessionDict {
-    NSMutableDictionary * newSessionDict = [[NSMutableDictionary alloc] init];
-    [newSessionDict setObject:_userId forKey:kSPSessionUserId];
-    [newSessionDict setObject:_currentSessionId forKey:kSPSessionId];
-    [newSessionDict setObject:_previousSessionId forKey:kSPSessionPreviousId];
-    [newSessionDict setObject:[NSNumber numberWithInt:(int)_sessionIndex] forKey:kSPSessionIndex];
-    [newSessionDict setObject:_sessionStorage forKey:kSPSessionStorage];
+    SPPayload * newSessionDict = [[SPPayload alloc] init];
+    [newSessionDict addValueToPayload:_userId forKey:kSPSessionUserId];
+    [newSessionDict addValueToPayload:_currentSessionId forKey:kSPSessionId];
+    [newSessionDict addValueToPayload:_previousSessionId forKey:kSPSessionPreviousId];
+    [newSessionDict addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_sessionIndex] forKey:kSPSessionIndex];
+    [newSessionDict addValueToPayload:_sessionStorage forKey:kSPSessionStorage];
     _sessionDict = newSessionDict;
+}
+
+- (void) addFirstEventIdToDict {
+    [_sessionDict addValueToPayload:_firstEventId forKey:kSPSessionFirstEventId];
 }
 
 - (BOOL) isTimeInRangeWithStartTime:(NSInteger)startTime

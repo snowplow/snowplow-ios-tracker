@@ -196,21 +196,21 @@
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayload] context:[event getContexts]];
+    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
 }
 
 - (void) trackStructuredEvent:(SPStructured *)event {
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayload] context:[event getContexts]];
+    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
 }
 
 - (void) trackUnstructuredEvent:(SPUnstructured *)event {
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayloadWithEncoding:_base64Encoded] context:[event getContexts]];
+    [self addTrackerPayload:[event getPayloadWithEncoding:_base64Encoded] context:[event getContexts] eventId:[event getEventId]];
 }
 
 - (void) trackScreenViewEvent:(SPScreenView *)event {
@@ -237,7 +237,7 @@
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayload] context:[event getContexts]];
+    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
     
     NSInteger tstamp = [event getTimestamp];
     for (SPEcommerceItem * item in [event getItems]) {
@@ -247,12 +247,12 @@
 }
 
 - (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
-    [self addTrackerPayload:[event getPayload] context:[event getContexts]];
+    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
 }
 
 // Event Decoration
 
-- (void) addTrackerPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray {
+- (void) addTrackerPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray eventId:(NSString *)eventId {
     [pb addDictionaryToPayload:_trackerData];
     
     // Add Subject information
@@ -272,7 +272,7 @@
     }
     
     if (_session != nil) {
-        NSDictionary * sessionDict = [[_session getSessionDict] getPayloadAsDictionary];
+        NSDictionary * sessionDict = [[_session getSessionDictWithEventId:eventId] getPayloadAsDictionary];
         if (sessionDict != nil) {
             [contextArray addObject:[self getContextEnvelopeWithSchema:kSPSessionContextSchema
                                                                andData:sessionDict]];
