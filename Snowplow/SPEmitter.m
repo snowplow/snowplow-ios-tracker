@@ -175,11 +175,11 @@
         for (int i = 0; i < listValues.count; i += _bufferOption) {
             NSMutableArray *eventArray = [[NSMutableArray alloc] init];
             NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-            double stm = [SPUtilities getTimestamp];
+            NSInteger stm = [SPUtilities getTimestamp];
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
                 NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
-                [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:kSPSentTimestamp];
+                [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)stm] forKey:kSPSentTimestamp];
                 [eventArray addObject:eventPayload];
                 [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
             }
@@ -192,7 +192,7 @@
     } else {
         for (NSDictionary * eventWithMetaData in listValues) {
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%.0ld", (long)[SPUtilities getTimestamp]] forKey:kSPSentTimestamp];
+            [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)[SPUtilities getTimestamp]] forKey:kSPSentTimestamp];
             
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];

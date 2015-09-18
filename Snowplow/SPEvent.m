@@ -68,7 +68,7 @@
 }
 
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb {
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.0ld", (long)_timestamp] forKey:kSPTimestamp];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_timestamp] forKey:kSPTimestamp];
     [pb addValueToPayload:_eventId forKey:kSPEid];
     return pb;
 }
@@ -191,7 +191,7 @@
     [pb addValueToPayload:_action forKey:kSPStuctAction];
     [pb addValueToPayload:_label forKey:kSPStuctLabel];
     [pb addValueToPayload:_property forKey:kSPStuctProperty];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", _value] forKey:kSPStuctValue];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%g", _value] forKey:kSPStuctValue];
     return [self addDefaultParamsToPayload:pb];
 }
 
@@ -440,10 +440,10 @@
     SPPayload *pb = [[SPPayload alloc] init];
     [pb addValueToPayload:kSPEventEcomm forKey:kSPEvent];
     [pb addValueToPayload:_orderId forKey:kSPEcommId];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", _totalValue] forKey:kSPEcommTotal];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _totalValue] forKey:kSPEcommTotal];
     [pb addValueToPayload:_affiliation forKey:kSPEcommAffiliation];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", _taxValue] forKey:kSPEcommTax];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", _shipping] forKey:kSPEcommShipping];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _taxValue] forKey:kSPEcommTax];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _shipping] forKey:kSPEcommShipping];
     [pb addValueToPayload:_city forKey:kSPEcommCity];
     [pb addValueToPayload:_state forKey:kSPEcommState];
     [pb addValueToPayload:_country forKey:kSPEcommCountry];
@@ -526,7 +526,7 @@
     [pb addValueToPayload:_sku forKey:kSPEcommItemSku];
     [pb addValueToPayload:_name forKey:kSPEcommItemName];
     [pb addValueToPayload:_category forKey:kSPEcommItemCategory];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%f", _price] forKey:kSPEcommItemPrice];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _price] forKey:kSPEcommItemPrice];
     [pb addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_quantity] forKey:kSPEcommItemQuantity];
     [pb addValueToPayload:_currency forKey:kSPEcommItemCurrency];
     return [self addDefaultParamsToPayload:pb];
