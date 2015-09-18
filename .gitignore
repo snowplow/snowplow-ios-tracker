@@ -18,6 +18,8 @@ xcuserdata
 *.moved-aside
 DerivedData
 *.xcuserstate
+ObjectiveC.gcda
+ObjectiveC.gcno
 
 .DS_Store
 
