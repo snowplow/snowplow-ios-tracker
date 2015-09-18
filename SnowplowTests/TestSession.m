@@ -41,7 +41,7 @@
     SPSession * session = [[SPSession alloc] init];
     XCTAssertTrue(![session getInBackground]);
     XCTAssertTrue([session getSessionIndex] >= 1);
-    XCTAssertNotNil([session getSessionDict]);
+    XCTAssertNotNil([session getSessionDictWithEventId:@"eventid-1"]);
     XCTAssertEqual([session getForegroundTimeout], 600000);
     XCTAssertEqual([session getBackgroundTimeout], 300000);
     XCTAssertEqual([session getCheckInterval], 15);

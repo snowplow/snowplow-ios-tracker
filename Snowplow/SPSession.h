@@ -83,9 +83,10 @@
 
 /**
  * Returns the session dictionary
+ * @param firstEventId The potential first event id of the session
  * @return a SnowplowPayload containing the session dictionary
  */
-- (SPPayload *) getSessionDict;
+- (SPPayload *) getSessionDictWithEventId:(NSString *)firstEventId;
 
 /**
  * Returns the current session index count
