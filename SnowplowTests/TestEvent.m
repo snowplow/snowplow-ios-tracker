@@ -238,6 +238,7 @@
     SPTiming *event = [SPTiming build:^(id<SPTimingBuilder> builder) {
         [builder setCategory:@"category"];
         [builder setVariable:@"variable"];
+        [builder setTiming:5];
     }];
     XCTAssertNotNil(event);
     
@@ -246,6 +247,7 @@
         event = [SPTiming build:^(id<SPTimingBuilder> builder) {
             [builder setCategory:@""];
             [builder setVariable:@"variable"];
+            [builder setTiming:5];
         }];
     }
     @catch (NSException *exception) {
@@ -257,6 +259,7 @@
         event = [SPTiming build:^(id<SPTimingBuilder> builder) {
             [builder setCategory:nil];
             [builder setVariable:@"variable"];
+            [builder setTiming:5];
         }];
     }
     @catch (NSException *exception) {
@@ -268,6 +271,7 @@
         event = [SPTiming build:^(id<SPTimingBuilder> builder) {
             [builder setCategory:@"category"];
             [builder setVariable:@""];
+            [builder setTiming:5];
         }];
     }
     @catch (NSException *exception) {
@@ -279,10 +283,22 @@
         event = [SPTiming build:^(id<SPTimingBuilder> builder) {
             [builder setCategory:@"category"];
             [builder setVariable:nil];
+            [builder setTiming:5];
         }];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Variable cannot be nil or empty.", exception.reason);
+    }
+    
+    // Timing is nil
+    @try {
+        event = [SPTiming build:^(id<SPTimingBuilder> builder) {
+            [builder setCategory:@"category"];
+            [builder setVariable:@"variable"];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Timing cannot be nil.", exception.reason);
     }
 }
 
@@ -290,6 +306,7 @@
     // Valid construction
     SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
         [builder setOrderId:@"orderid"];
+        [builder setTotalValue:5];
         [builder setItems:[[NSArray alloc] init]]; // This is valid as we don't check for count of items. Should we?
     }];
     XCTAssertNotNil(event);
@@ -298,6 +315,7 @@
     @try {
         event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
             [builder setOrderId:@""];
+            [builder setTotalValue:5];
             [builder setItems:[[NSArray alloc] init]];
         }];
     }
@@ -309,6 +327,7 @@
     @try {
         event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
             [builder setOrderId:nil];
+            [builder setTotalValue:5];
             [builder setItems:[[NSArray alloc] init]];
         }];
     }
@@ -320,11 +339,23 @@
     @try {
         event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
             [builder setOrderId:@"orderid"];
+            [builder setTotalValue:5];
             [builder setItems:nil];
         }];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Items cannot be nil.", exception.reason);
+    }
+    
+    // TotalValue is nil
+    @try {
+        event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
+            [builder setOrderId:@"orderid"];
+            [builder setItems:[[NSArray alloc] init]];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"TotalValue cannot be nil.", exception.reason);
     }
 }
 
@@ -333,6 +364,8 @@
     SPEcommerceItem *event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
         [builder setItemId:@"itemid"];
         [builder setSku:@"sku"];
+        [builder setPrice:5];
+        [builder setQuantity:1];
     }];
     XCTAssertNotNil(event);
     
@@ -341,6 +374,8 @@
         event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
             [builder setItemId:@""];
             [builder setSku:@"sku"];
+            [builder setPrice:5];
+            [builder setQuantity:1];
         }];
     }
     @catch (NSException *exception) {
@@ -352,6 +387,8 @@
         event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
             [builder setItemId:nil];
             [builder setSku:@"sku"];
+            [builder setPrice:5];
+            [builder setQuantity:1];
         }];
     }
     @catch (NSException *exception) {
@@ -363,6 +400,8 @@
         event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
             [builder setItemId:@"itemid"];
             [builder setSku:@""];
+            [builder setPrice:5];
+            [builder setQuantity:1];
         }];
     }
     @catch (NSException *exception) {
@@ -374,10 +413,36 @@
         event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
             [builder setItemId:@"itemid"];
             [builder setSku:nil];
+            [builder setPrice:5];
+            [builder setQuantity:1];
         }];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"SKU cannot be nil or empty.", exception.reason);
+    }
+    
+    // Price is nil
+    @try {
+        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
+            [builder setItemId:@"itemid"];
+            [builder setSku:@"sku"];
+            [builder setQuantity:1];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Price cannot be nil.", exception.reason);
+    }
+    
+    // Quantity is nil
+    @try {
+        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
+            [builder setItemId:@"itemid"];
+            [builder setSku:@"sku"];
+            [builder setPrice:1];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Quantity cannot be nil.", exception.reason);
     }
 }
 

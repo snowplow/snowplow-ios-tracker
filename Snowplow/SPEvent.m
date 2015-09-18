@@ -83,9 +83,9 @@
 // PageView Event
 
 @implementation SPPageView {
-    NSString *       _pageUrl;
-    NSString *       _pageTitle;
-    NSString *       _referrer;
+    NSString * _pageUrl;
+    NSString * _pageTitle;
+    NSString * _referrer;
 }
 
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock {
@@ -135,11 +135,11 @@
 // Structured Event
 
 @implementation SPStructured {
-    NSString *       _category;
-    NSString *       _action;
-    NSString *       _label;
-    NSString *       _property;
-    double           _value;
+    NSString * _category;
+    NSString * _action;
+    NSString * _label;
+    NSString * _property;
+    NSNumber * _value;
 }
 
 + (instancetype) build:(void(^)(id<SPStructuredBuilder>builder))buildBlock {
@@ -179,7 +179,7 @@
 }
 
 - (void) setValue:(double)value {
-    _value = value;
+    _value = [NSNumber numberWithDouble:value];
 }
 
 // --- Public Methods
@@ -191,7 +191,7 @@
     [pb addValueToPayload:_action forKey:kSPStuctAction];
     [pb addValueToPayload:_label forKey:kSPStuctLabel];
     [pb addValueToPayload:_property forKey:kSPStuctProperty];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%g", _value] forKey:kSPStuctValue];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%g", [_value doubleValue]] forKey:kSPStuctValue];
     return [self addDefaultParamsToPayload:pb];
 }
 
@@ -200,7 +200,7 @@
 // Unstructured Event
 
 @implementation SPUnstructured {
-    NSDictionary *   _eventData;
+    NSDictionary * _eventData;
 }
 
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock {
@@ -246,8 +246,8 @@
 // ScreenView Event
 
 @implementation SPScreenView {
-    NSString *       _name;
-    NSString *       _id;
+    NSString * _name;
+    NSString * _id;
 }
 
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock {
@@ -298,10 +298,10 @@
 // Timing Event
 
 @implementation SPTiming {
-    NSString *       _category;
-    NSString *       _variable;
-    NSInteger        _timing;
-    NSString *       _label;
+    NSString * _category;
+    NSString * _variable;
+    NSNumber * _timing;
+    NSString * _label;
 }
 
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock {
@@ -319,6 +319,7 @@
 - (void) preconditions {
     [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
     [SPUtilities checkArgument:([_variable length] != 0) withMessage:@"Variable cannot be nil or empty."];
+    [SPUtilities checkArgument:(_timing != nil) withMessage:@"Timing cannot be nil."];
     [self basePreconditions];
 }
 
@@ -333,7 +334,7 @@
 }
 
 - (void) setTiming:(NSInteger)timing {
-    _timing = timing;
+    _timing = [NSNumber numberWithLong:timing];
 }
 
 - (void) setLabel:(NSString *)label {
@@ -346,7 +347,7 @@
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
     [event setObject:_category forKey:kSPUtCategory];
     [event setObject:_variable forKey:kSPUtVariable];
-    [event setObject:[NSNumber numberWithInteger:_timing] forKey:kSPUtTiming];
+    [event setObject:_timing forKey:kSPUtTiming];
     if (_label != nil) {
         [event setObject:_label forKey:kSPUtLabel];
     }
@@ -362,16 +363,16 @@
 // Ecommerce Event
 
 @implementation SPEcommerce {
-    NSString *       _orderId;
-    double           _totalValue;
-    NSString *       _affiliation;
-    double           _taxValue;
-    double           _shipping;
-    NSString *       _city;
-    NSString *       _state;
-    NSString *       _country;
-    NSString *       _currency;
-    NSArray *        _items;
+    NSString * _orderId;
+    NSNumber * _totalValue;
+    NSString * _affiliation;
+    NSNumber * _taxValue;
+    NSNumber * _shipping;
+    NSString * _city;
+    NSString * _state;
+    NSString * _country;
+    NSString * _currency;
+    NSArray *  _items;
 }
 
 + (instancetype) build:(void(^)(id<SPEcommTransactionBuilder>builder))buildBlock {
@@ -389,6 +390,7 @@
 - (void) preconditions {
     [SPUtilities checkArgument:([_orderId length] != 0) withMessage:@"OrderId cannot be nil or empty."];
     [SPUtilities checkArgument:(_items != nil) withMessage:@"Items cannot be nil."];
+    [SPUtilities checkArgument:(_totalValue != nil) withMessage:@"TotalValue cannot be nil."];
     [self basePreconditions];
 }
 
@@ -399,7 +401,7 @@
 }
 
 - (void) setTotalValue:(double)totalValue {
-    _totalValue = totalValue;
+    _totalValue = [NSNumber numberWithDouble:totalValue];
 }
 
 - (void) setAffiliation:(NSString *)affiliation {
@@ -407,11 +409,11 @@
 }
 
 - (void) setTaxValue:(double)taxValue {
-    _taxValue = taxValue;
+    _taxValue =  [NSNumber numberWithDouble:taxValue];
 }
 
 - (void) setShipping:(double)shipping {
-    _shipping = shipping;
+    _shipping =  [NSNumber numberWithDouble:shipping];
 }
 
 - (void) setCity:(NSString *)city {
@@ -440,10 +442,10 @@
     SPPayload *pb = [[SPPayload alloc] init];
     [pb addValueToPayload:kSPEventEcomm forKey:kSPEvent];
     [pb addValueToPayload:_orderId forKey:kSPEcommId];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _totalValue] forKey:kSPEcommTotal];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", [_totalValue doubleValue]] forKey:kSPEcommTotal];
     [pb addValueToPayload:_affiliation forKey:kSPEcommAffiliation];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _taxValue] forKey:kSPEcommTax];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _shipping] forKey:kSPEcommShipping];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", [_taxValue doubleValue]] forKey:kSPEcommTax];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", [_shipping doubleValue]] forKey:kSPEcommShipping];
     [pb addValueToPayload:_city forKey:kSPEcommCity];
     [pb addValueToPayload:_state forKey:kSPEcommState];
     [pb addValueToPayload:_country forKey:kSPEcommCountry];
@@ -460,13 +462,13 @@
 // Ecommerce Item Event
 
 @implementation SPEcommerceItem {
-    NSString *       _itemId;
-    NSString *       _sku;
-    double           _price;
-    NSInteger        _quantity;
-    NSString *       _name;
-    NSString *       _category;
-    NSString *       _currency;
+    NSString * _itemId;
+    NSString * _sku;
+    NSNumber * _price;
+    NSNumber * _quantity;
+    NSString * _name;
+    NSString * _category;
+    NSString * _currency;
 }
 
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock {
@@ -484,6 +486,8 @@
 - (void) preconditions {
     [SPUtilities checkArgument:([_itemId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
     [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
+    [SPUtilities checkArgument:(_price != nil) withMessage:@"Price cannot be nil."];
+    [SPUtilities checkArgument:(_quantity != nil) withMessage:@"Quantity cannot be nil."];
     [self basePreconditions];
 }
 
@@ -498,11 +502,11 @@
 }
 
 - (void) setPrice:(double)price {
-    _price = price;
+    _price = [NSNumber numberWithDouble:price];
 }
 
 - (void) setQuantity:(NSInteger)quantity {
-    _quantity = quantity;
+    _quantity = [NSNumber numberWithLong:quantity];
 }
 
 - (void) setName:(NSString *)name {
@@ -526,8 +530,8 @@
     [pb addValueToPayload:_sku forKey:kSPEcommItemSku];
     [pb addValueToPayload:_name forKey:kSPEcommItemName];
     [pb addValueToPayload:_category forKey:kSPEcommItemCategory];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", _price] forKey:kSPEcommItemPrice];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_quantity] forKey:kSPEcommItemQuantity];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
     [pb addValueToPayload:_currency forKey:kSPEcommItemCurrency];
     return [self addDefaultParamsToPayload:pb];
 }
