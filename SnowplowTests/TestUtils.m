@@ -27,6 +27,7 @@
 #endif
 
 #import "SPUtilities.h"
+#import "Snowplow.h"
 
 #define HC_SHORTHAND
 
@@ -52,9 +53,17 @@
 }
 
 - (void)testGetLanguage {
+#if TARGET_OS_IPHONE
+    if (SNOWPLOW_iOS_9_OR_LATER) {
+        XCTAssertEqualObjects([SPUtilities getLanguage],
+                              @"en-US",
+                              @"Language retrieved is not the same as 'en-US'");
+    }
+#else
     XCTAssertEqualObjects([SPUtilities getLanguage],
                           @"en",
                           @"Language retrieved is not the same as 'en'");
+#endif
 }
 
 - (void)testGetPlatform {
@@ -110,17 +119,19 @@
 - (void)testGetOpenIdfa {
     NSString *sample_uuid = [SPUtilities getOpenIdfa];
 #if TARGET_OS_IPHONE
-    // For regex pattern matching to verify if it's of UUID type 4
-    NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-    NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-    NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
-
-    NSLog(@"UUID generated: %@", sample_uuid);
-
-    XCTAssertEqual([matches count], (NSUInteger)1,
-                   @"UUID generated doesn't match the type 4 UUID RFC");
+    if (SNOWPLOW_iOS_9_OR_LATER) {
+        XCTAssertNil(sample_uuid);
+    } else {
+        // For regex pattern matching to verify if it's of UUID type 4
+        NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
+        NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
+        NSError *error = NULL;
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+        NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
+        NSLog(@"UUID generated: %@", sample_uuid);
+        XCTAssertEqual([matches count], (NSUInteger)1,
+                       @"UUID generated doesn't match the type 4 UUID RFC");
+    }
 #else
     XCTAssertNil(sample_uuid);
 #endif

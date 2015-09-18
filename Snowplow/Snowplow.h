@@ -22,6 +22,13 @@
 
 #import <Foundation/Foundation.h>
 
+// Macros for iOS Versions
+#if TARGET_OS_IPHONE
+#define SNOWPLOW_iOS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+#endif
+
+// Macros for Logging
 #ifdef SNOWPLOW_DEBUG
 #   define SnowplowDLog(...) NSLog(__VA_ARGS__)
 #else

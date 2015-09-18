@@ -20,6 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
+#import "Snowplow.h"
 #import "SPUtilities.h"
 
 #if TARGET_OS_IPHONE
@@ -66,7 +67,9 @@
 + (NSString *) getOpenIdfa {
     NSString * idfa = nil;
 #if TARGET_OS_IPHONE
-    idfa = [OpenIDFA sameDayOpenIDFA];
+    if (!SNOWPLOW_iOS_9_OR_LATER) {
+        idfa = [OpenIDFA sameDayOpenIDFA];
+    }
 #endif
     return idfa;
 }

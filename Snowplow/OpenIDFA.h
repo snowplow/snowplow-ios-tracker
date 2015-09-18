@@ -24,12 +24,6 @@
 
 #import <Foundation/Foundation.h>
 
-#ifdef __IPHONE_8_0
-#define SPDynamicGregorianCalendar NSCalendarIdentifierGregorian
-#else
-#define SPDynamicGregorianCalendar NSGregorianCalendar
-#endif
-
 @interface OpenIDFA : NSObject
 
 + (NSString*) sameDayOpenIDFA;
