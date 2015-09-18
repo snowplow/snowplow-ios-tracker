@@ -44,7 +44,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
 
 - (void)testTrackerBuilderAndOptions {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_TRACKER]];
+        [builder setUrlEndpoint:TEST_SERVER_TRACKER];
     }];
     
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
@@ -96,7 +96,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     XCTAssertEqual([tracker subject], subject2);
     
     SPEmitter * emitter2 = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_TRACKER]];
+        [builder setUrlEndpoint:TEST_SERVER_TRACKER];
     }];
     [tracker setEmitter:emitter2];
     XCTAssertNotEqual([tracker emitter], emitter);

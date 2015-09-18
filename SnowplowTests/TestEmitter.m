@@ -21,6 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Snowplow.h"
 #import "SPEmitter.h"
 
 @interface TestEmitter : XCTestCase
@@ -29,7 +30,7 @@
 
 @implementation TestEmitter
 
-NSString *const TEST_SERVER_EMITTER = @"http://www.notarealurl.com";
+NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 
 - (void)setUp {
     [super setUp];
@@ -40,15 +41,26 @@ NSString *const TEST_SERVER_EMITTER = @"http://www.notarealurl.com";
 }
 
 - (void)testEmitterBuilderAndOptions {
+    NSString * protocol;
+#if TARGET_OS_IPHONE
+    if (SNOWPLOW_iOS_9_OR_LATER) {
+        protocol = @"https";
+    } else {
+        protocol = @"http";
+    }
+#else
+    protocol = @"http";
+#endif
+    
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_EMITTER]];
+        [builder setUrlEndpoint:TEST_SERVER_EMITTER];
         [builder setBufferOption:SPBufferDefault];
         [builder setHttpMethod:SPRequestPost];
         [builder setEmitRange:500];
         [builder setEmitThreadPoolSize:30];
     }];
     
-    NSString * url = [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_EMITTER];
+    NSString * url = [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_EMITTER];
     
     // Test builder setting properly
     
@@ -61,14 +73,14 @@ NSString *const TEST_SERVER_EMITTER = @"http://www.notarealurl.com";
     
     // Test setting variables to new values
     
-    [emitter setUrlEndpoint:[NSURL URLWithString:@"http://www.test.com"]];
-    url = [[NSString alloc] initWithFormat:@"http://www.test.com/com.snowplowanalytics.snowplow/tp2"];
+    [emitter setUrlEndpoint:@"www.test.com"];
+    url = [[NSString alloc] initWithFormat:@"%@://www.test.com/com.snowplowanalytics.snowplow/tp2", protocol];
     XCTAssertTrue([[[emitter urlEndpoint] absoluteString] isEqualToString:url]);
     [emitter setBufferOption:SPBufferInstant];
     XCTAssertEqual([emitter bufferOption], SPBufferInstant);
     [emitter setHttpMethod:SPRequestGet];
     XCTAssertEqual([emitter httpMethod], SPRequestGet);
-    url = [[NSString alloc] initWithFormat:@"http://www.test.com/i"];
+    url = [[NSString alloc] initWithFormat:@"%@://www.test.com/i", protocol];
     XCTAssertTrue([[[emitter urlEndpoint] absoluteString] isEqualToString:url]);
     [emitter setEmitRange:1000];
     XCTAssertEqual([emitter emitRange], 1000);
@@ -82,21 +94,6 @@ NSString *const TEST_SERVER_EMITTER = @"http://www.notarealurl.com";
     // Allow timer to be set
     [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     [emitter startTimerFlush];
-}
-
-- (void)testEmitterBuilderWithBadUrl {
-    SPEmitter * emitter = nil;
-    @try {
-        emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-            [builder setUrlEndpoint:[NSURL URLWithString:@"this-is-a-bad-url"]];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertTrue([exception.reason isEqualToString:@"An invalid Emitter URL was found: this-is-a-bad-url"]);
-    }
-    @finally {
-        XCTAssertNil(emitter);
-    }
 }
 
 @end

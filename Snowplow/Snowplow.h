@@ -24,6 +24,8 @@
 
 // Macros for iOS Versions
 #if TARGET_OS_IPHONE
+#import <UIKit/UIDevice.h>
+
 #define SNOWPLOW_iOS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
 #endif
