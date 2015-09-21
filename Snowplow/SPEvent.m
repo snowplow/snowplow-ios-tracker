@@ -24,6 +24,7 @@
 #import "SPEvent.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
 
 // Base Event
 
@@ -46,6 +47,10 @@
 }
 
 - (void) setContexts:(NSMutableArray *)contexts {
+    for (NSObject * sdj in contexts) {
+        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
+                       withMessage:@"All contexts must be SelfDescribingJson objects."];
+    }
     _contexts = contexts;
 }
 
@@ -200,7 +205,7 @@
 // Unstructured Event
 
 @implementation SPUnstructured {
-    NSDictionary * _eventData;
+    SPSelfDescribingJson * _eventData;
 }
 
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock {
@@ -222,7 +227,7 @@
 
 // --- Builder Methods
 
-- (void) setEventData:(NSDictionary *)eventData {
+- (void) setEventData:(SPSelfDescribingJson *)eventData {
     _eventData = eventData;
 }
 
@@ -231,10 +236,11 @@
 - (SPPayload *) getPayloadWithEncoding:(BOOL)encoding {
     SPPayload *pb = [[SPPayload alloc] init];
     [pb addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
-    NSDictionary *envelope = [NSDictionary dictionaryWithObjectsAndKeys:
-                              kSPUnstructSchema, kSPSchema,
-                              _eventData, kSPData, nil];
-    [pb addDictionaryToPayload:envelope
+    
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:kSPUnstructSchema
+                                                        andSelfDescribingJson:_eventData];
+    
+    [pb addDictionaryToPayload:[sdj getAsDictionary]
                  base64Encoded:encoding
                typeWhenEncoded:kSPUnstructuredEncoded
             typeWhenNotEncoded:kSPUnstructured];
@@ -279,7 +285,7 @@
 
 // --- Public Methods
 
-- (NSDictionary *) getPayload {
+- (SPSelfDescribingJson *) getPayload {
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
     if (_id != nil) {
         [event setObject:_id forKey:kSPSvId];
@@ -287,10 +293,9 @@
     if (_name != nil) {
         [event setObject:_name forKey:kSPSvName];
     }
-    NSDictionary * eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
-                               kSPScreenViewSchema, kSPSchema,
-                               event, kSPData, nil];
-    return eventJson;
+    
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenViewSchema
+                                                andData:event];
 }
 
 @end
@@ -343,7 +348,7 @@
 
 // --- Public Methods
 
-- (NSDictionary *) getPayload {
+- (SPSelfDescribingJson *) getPayload {
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
     [event setObject:_category forKey:kSPUtCategory];
     [event setObject:_variable forKey:kSPUtVariable];
@@ -352,10 +357,8 @@
         [event setObject:_label forKey:kSPUtLabel];
     }
     
-    NSDictionary *eventJson = [NSDictionary dictionaryWithObjectsAndKeys:
-                               kSPUserTimingsSchema, kSPSchema,
-                               event, kSPData, nil];
-    return eventJson;
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPUserTimingsSchema
+                                                andData:event];
 }
 
 @end
