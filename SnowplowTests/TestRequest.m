@@ -26,6 +26,7 @@
 #import "SPEmitter.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
 #import "SPRequestCallback.h"
 #import "SPEvent.h"
 #import "Nocilla.h"
@@ -195,15 +196,13 @@ NSString *protocol = @"http";
 }
 
 - (void) trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
-    NSDictionary *data = @{
-                           @"schema":@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
-                           @"data": @{
-                                   @"level": @23,
-                                   @"score": @56473
-                                   }
-                           };
+    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
+    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:data];
     SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:data];
+        [builder setEventData:sdj];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:1243567890];
         [builder setEventId:@"an-event-id"];
@@ -285,12 +284,9 @@ NSString *protocol = @"http";
 }
 
 - (NSMutableArray *) getCustomContext {
-    NSDictionary *context = @{
-                              @"schema":@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0",
-                              @"data": @{
-                                      @"snowplow": @"demo-tracker"
-                                      }
-                              };
+    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
+    SPSelfDescribingJson * context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
+                                                                          andData:data];
     return [NSMutableArray arrayWithArray:@[context]];
 }
 

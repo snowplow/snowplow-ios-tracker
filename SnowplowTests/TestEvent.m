@@ -22,6 +22,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SPEvent.h"
+#import "SPSelfDescribingJson.h"
 
 @interface TestEvent : XCTestCase
 
@@ -46,7 +47,6 @@
         [builder setTimestamp:1234567890];
     }];
     XCTAssertNotNil(event);
-    XCTAssertEqualObjects([event getContexts], [self getCustomContext]);
     XCTAssertEqualObjects([event getEventId], @"an-event-id-string");
     XCTAssertEqual([event getTimestamp], 1234567890);
     
@@ -59,6 +59,17 @@
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Contexts cannot be nil.", exception.reason);
+    }
+    
+    // Context is not SelfDescribingJson
+    @try {
+        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+            [builder setPageUrl:@"DemoPageUrl"];
+            [builder setContexts:[self getBadCustomContext]];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"All contexts must be SelfDescribingJson objects.", exception.reason);
     }
     
     // EventID is nil
@@ -167,15 +178,13 @@
 
 - (void)testUnstructuredBuilderConditions {
     // Valid construction
-    NSDictionary *data = @{
-                           @"schema":@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
-                           @"data": @{
-                                   @"level": @23,
-                                   @"score": @56473
-                                   }
-                           };
+    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
+    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:data];
     SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:data];
+        [builder setEventData:sdj];
     }];
     XCTAssertNotNil(event);
     
@@ -449,13 +458,15 @@
 // --- Helpers
 
 - (NSMutableArray *) getCustomContext {
-    NSDictionary *context = @{
-                              @"schema":@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0",
-                              @"data": @{
-                                      @"snowplow": @"demo-tracker"
-                                      }
-                              };
+    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
+    SPSelfDescribingJson * context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
+                                                                          andData:data];
     return [NSMutableArray arrayWithArray:@[context]];
+}
+
+- (NSMutableArray *) getBadCustomContext {
+    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
+    return [NSMutableArray arrayWithArray:@[data]];
 }
 
 @end

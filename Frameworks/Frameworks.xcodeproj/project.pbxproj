@@ -20,6 +20,8 @@
 		04DD9E261B7A307900FFF578 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E231B7A307900FFF578 /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E241B7A307900FFF578 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		04DD9E281B7A307900FFF578 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD9E251B7A307900FFF578 /* SPRequestResponse.m */; };
+		04E8DE6A1BB0092800FC60A4 /* SPSelfDescribingJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E8DE691BB0092800FC60A4 /* SPSelfDescribingJson.h */; settings = {ASSET_TAGS = (); }; };
+		04E8DE6C1BB0092C00FC60A4 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8DE6B1BB0092C00FC60A4 /* SPSelfDescribingJson.m */; settings = {ASSET_TAGS = (); }; };
 		462FD4DE1B15C76500296A38 /* SnowplowTracker-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 462FD4DD1B15C76500296A38 /* SnowplowTracker-Info.plist */; };
 		462FD4EF1B15CA8A00296A38 /* Snowplow-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 462FD4E71B15CA8A00296A38 /* Snowplow-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		462FD4F01B15CA8A00296A38 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = 462FD4E81B15CA8A00296A38 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,6 +50,8 @@
 		04DD9E231B7A307900FFF578 /* SPRequestCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPRequestCallback.h; path = ../../Snowplow/SPRequestCallback.h; sourceTree = "<group>"; };
 		04DD9E241B7A307900FFF578 /* SPRequestResponse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPRequestResponse.h; path = ../../Snowplow/SPRequestResponse.h; sourceTree = "<group>"; };
 		04DD9E251B7A307900FFF578 /* SPRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPRequestResponse.m; path = ../../Snowplow/SPRequestResponse.m; sourceTree = "<group>"; };
+		04E8DE691BB0092800FC60A4 /* SPSelfDescribingJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPSelfDescribingJson.h; path = ../../Snowplow/SPSelfDescribingJson.h; sourceTree = "<group>"; };
+		04E8DE6B1BB0092C00FC60A4 /* SPSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPSelfDescribingJson.m; path = ../../Snowplow/SPSelfDescribingJson.m; sourceTree = "<group>"; };
 		462FD4D61B15C76500296A38 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		462FD4DA1B15C76500296A38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		462FD4DD1B15C76500296A38 /* SnowplowTracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SnowplowTracker-Info.plist"; sourceTree = "<group>"; };
@@ -100,6 +104,7 @@
 				041B60A61B84C0D500A1EBCB /* SPSubject.m */,
 				043EC5E31B8F050900294081 /* SPSession.m */,
 				462FD4F91B15CABE00296A38 /* SPPayload.m */,
+				04E8DE6B1BB0092C00FC60A4 /* SPSelfDescribingJson.m */,
 				462FD4F81B15CABE00296A38 /* SPEventStore.m */,
 				462FD4FB1B15CABE00296A38 /* SPUtilities.m */,
 				04DD9E251B7A307900FFF578 /* SPRequestResponse.m */,
@@ -112,6 +117,7 @@
 				041B60A51B84C0D500A1EBCB /* SPSubject.h */,
 				043EC5E21B8F050900294081 /* SPSession.h */,
 				462FD4EB1B15CA8A00296A38 /* SPPayload.h */,
+				04E8DE691BB0092800FC60A4 /* SPSelfDescribingJson.h */,
 				462FD4EA1B15CA8A00296A38 /* SPEventStore.h */,
 				04921CAC1BAA986D009E221E /* SPUtilities.h */,
 				04DD9E241B7A307900FFF578 /* SPRequestResponse.h */,
@@ -150,6 +156,7 @@
 				04DD9E261B7A307900FFF578 /* SPRequestCallback.h in Headers */,
 				043EC5E41B8F050900294081 /* SPSession.h in Headers */,
 				462FD4F21B15CA8A00296A38 /* SPEventStore.h in Headers */,
+				04E8DE6A1BB0092800FC60A4 /* SPSelfDescribingJson.h in Headers */,
 				044CA8911B948639000EA3B1 /* SPWeakTimerTarget.h in Headers */,
 				04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */,
 			);
@@ -242,6 +249,7 @@
 			files = (
 				043EC5EA1B8F315400294081 /* Snowplow.m in Sources */,
 				462FD5001B15CABE00296A38 /* SPTracker.m in Sources */,
+				04E8DE6C1BB0092C00FC60A4 /* SPSelfDescribingJson.m in Sources */,
 				462FD4FD1B15CABE00296A38 /* SPEmitter.m in Sources */,
 				041B60A81B84C0D600A1EBCB /* SPSubject.m in Sources */,
 				043EC5E51B8F050900294081 /* SPSession.m in Sources */,

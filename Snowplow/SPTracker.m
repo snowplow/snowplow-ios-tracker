@@ -25,6 +25,7 @@
 #import "SPEmitter.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSession.h"
 #import "SPEvent.h"
@@ -262,27 +263,10 @@
         [pb addValueToPayload:[SPUtilities getPlatform] forKey:kSPPlatform];
     }
     
-    // Add the Contexts together
-    if (_subject != nil) {
-        NSDictionary * platformDict = [[_subject getPlatformDict] getPayloadAsDictionary];
-        if (platformDict != nil) {
-            [contextArray addObject:[self getContextEnvelopeWithSchema:_platformContextSchema
-                                                               andData:platformDict]];
-        }
-    }
-    
-    if (_session != nil) {
-        NSDictionary * sessionDict = [[_session getSessionDictWithEventId:eventId] getPayloadAsDictionary];
-        if (sessionDict != nil) {
-            [contextArray addObject:[self getContextEnvelopeWithSchema:kSPSessionContextSchema
-                                                               andData:sessionDict]];
-        }
-    }
-    
-    if (contextArray.count > 0) {
-        NSDictionary * contextEnvelope = [self getContextEnvelopeWithSchema:kSPContextSchema
-                                                                    andData:contextArray];
-        [pb addDictionaryToPayload:contextEnvelope
+    // Add the contexts
+    SPSelfDescribingJson * context = [self getFinalContextWithContexts:contextArray andEventId:eventId];
+    if (context != nil) {
+        [pb addDictionaryToPayload:[context getAsDictionary]
                      base64Encoded:_base64Encoded
                    typeWhenEncoded:kSPContextEncoded
                 typeWhenNotEncoded:kSPContext];
@@ -292,8 +276,34 @@
     [_emitter addPayloadToBuffer:pb];
 }
 
-- (NSDictionary *) getContextEnvelopeWithSchema:(NSString *)schema andData:(NSObject *)data {
-    return [NSDictionary dictionaryWithObjectsAndKeys:schema, kSPSchema, data, kSPData, nil];
+- (SPSelfDescribingJson *) getFinalContextWithContexts:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
+    SPSelfDescribingJson * finalContext = nil;
+    
+    // Add subject if available
+    if (_subject != nil) {
+        NSDictionary * platformDict = [[_subject getPlatformDict] getPayloadAsDictionary];
+        if (platformDict != nil) {
+            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
+        }
+    }
+    
+    // Add session if active
+    if (_session != nil) {
+        NSDictionary * sessionDict = [[_session getSessionDictWithEventId:eventId] getPayloadAsDictionary];
+        if (sessionDict != nil) {
+            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
+        }
+    }
+    
+    // If some contexts are available...
+    if (contextArray.count > 0) {
+        NSMutableArray * contexts = [[NSMutableArray alloc] init];
+        for (SPSelfDescribingJson * context in contextArray) {
+            [contexts addObject:[context getAsDictionary]];
+        }
+        finalContext = [[SPSelfDescribingJson alloc] initWithSchema:kSPContextSchema andData:contexts];
+    }
+    return finalContext;
 }
 
 @end

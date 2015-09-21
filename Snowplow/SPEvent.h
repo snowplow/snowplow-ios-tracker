@@ -23,6 +23,7 @@
 #import <Foundation/Foundation.h>
 
 @class SPPayload;
+@class SPSelfDescribingJson;
 
 // Builder Protocols : Defines all setter functions
 
@@ -47,7 +48,7 @@
 @end
 
 @protocol SPUnstructuredBuilder <SPEventBuilder>
-- (void) setEventData:(NSDictionary *)eventData;
+- (void) setEventData:(SPSelfDescribingJson *)eventData;
 @end
 
 @protocol SPScreenViewBuilder <SPEventBuilder>
@@ -124,14 +125,14 @@
 
 @interface SPScreenView : SPEvent <SPScreenViewBuilder>
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock;
-- (NSDictionary *) getPayload;
+- (SPSelfDescribingJson *) getPayload;
 @end
 
 // Timing Event
 
 @interface SPTiming : SPEvent <SPTimingBuilder>
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock;
-- (NSDictionary *) getPayload;
+- (SPSelfDescribingJson *) getPayload;
 @end
 
 // Ecommerce Event

@@ -25,6 +25,7 @@
 #import "SPEventStore.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
 
@@ -200,9 +201,8 @@
                 [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
             }
             
-            NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-            [payload setValue:kSPPayloadDataSchema forKey:@"schema"];
-            [payload setValue:eventArray forKey:@"data"];
+            SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
+                                                                                 andData:eventArray];
             [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults];
         }
     } else {
@@ -283,8 +283,8 @@
     }];
 }
 
-- (NSMutableURLRequest *) getRequestPostWithData:(NSDictionary *)data {
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
+- (NSMutableURLRequest *) getRequestPostWithData:(SPSelfDescribingJson *)data {
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:[data getAsDictionary] options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
     [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
