@@ -49,6 +49,9 @@
     BOOL               _builderFinished;
 }
 
+const NSInteger POST_WRAPPER_BYTES = 88;
+const NSInteger POST_STM_BYTES = 22;
+
 // SnowplowEmitter Builder
 
 + (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock {
@@ -202,33 +205,36 @@
         for (int i = 0; i < listValues.count; i += _bufferOption) {
             NSMutableArray *eventArray = [[NSMutableArray alloc] init];
             NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-            NSInteger stm = [SPUtilities getTimestamp];
             NSInteger totalByteSize = 0;
             
             for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
-                // Add STM to payload
+                // Get the event payload
                 NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
-                [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)stm] forKey:kSPSentTimestamp];
                 
                 // Convert to NSData and check the byte size
                 NSData *data = [NSJSONSerialization dataWithJSONObject:eventPayload options:0 error:nil];
                 NSInteger payloadByteSize = [SPUtilities getByteSizeWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+                payloadByteSize += POST_STM_BYTES;
                 
-                if (payloadByteSize > _byteLimitPost) {
+                if ((payloadByteSize + POST_WRAPPER_BYTES) > _byteLimitPost) {
                     // Single event exceeds the byte limit so must be sent individually.
                     NSMutableArray *singleEventArray = [[NSMutableArray alloc] init];
                     NSMutableArray *singleIndexArray = [[NSMutableArray alloc] init];
                     
-                    // Reset the STM as it is going individually
-                    [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)[SPUtilities getTimestamp]] forKey:kSPSentTimestamp];
-                    
                     // Build and Send the event!
                     [singleEventArray addObject:eventPayload];
                     [singleIndexArray addObject:[listValues[j] objectForKey:@"ID"]];
+                    
+                    // Add the STM to the event
+                    [self addStmToEventPayloadsWithArray:singleEventArray];
+                    
                     SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                          andData:singleEventArray];
                     [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:singleIndexArray andResultArray:sendResults andOversize:YES];
-                } else if (totalByteSize + payloadByteSize > _byteLimitPost) {
+                } else if ((totalByteSize + payloadByteSize + POST_WRAPPER_BYTES + (eventArray.count - 1)) > _byteLimitPost) {
+                    // Add the STM to each event
+                    [self addStmToEventPayloadsWithArray:eventArray];
+                    
                     // Adding this event to the accumulated array would exceed the limit.
                     SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                          andData:eventArray];
@@ -237,10 +243,6 @@
                     // Reset collections and STM
                     eventArray = [[NSMutableArray alloc] init];
                     indexArray = [[NSMutableArray alloc] init];
-                    stm = [SPUtilities getTimestamp];
-                    
-                    // Add new STM to the payload
-                    [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)stm] forKey:kSPSentTimestamp];
                     
                     // Add event to collections
                     [eventArray addObject:eventPayload];
@@ -260,6 +262,10 @@
             
             // If we have not sent all of the events...
             if (eventArray.count > 0) {
+                // Add the STM to each event
+                [self addStmToEventPayloadsWithArray:eventArray];
+                
+                // Send the event!
                 SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                      andData:eventArray];
                 [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
@@ -366,6 +372,13 @@
     request.HTTPMethod = @"GET";
     [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
     return request;
+}
+
+- (void) addStmToEventPayloadsWithArray:(NSArray *)eventArray {
+    NSInteger stm = [SPUtilities getTimestamp];
+    for (NSMutableDictionary * event in eventArray) {
+        [event setValue:[NSString stringWithFormat:@"%ld", (long)stm] forKey:kSPSentTimestamp];
+    }
 }
 
 // Extra functions
