@@ -23,7 +23,6 @@
 #import "Snowplow.h"
 #import "SPSession.h"
 #import "SPUtilities.h"
-#import "SPPayload.h"
 #import "SPWeakTimerTarget.h"
 
 #if TARGET_OS_IPHONE
@@ -42,7 +41,6 @@
     NSInteger   _sessionIndex;
     NSString *  _sessionStorage;
     NSString *  _firstEventId;
-    SPPayload * _sessionDict;
     NSTimer *   _sessionTimer;
     NSMutableDictionary * _sessionDict;
 }
@@ -125,7 +123,7 @@ NSString * const kSessionSavePath = @"session.dict";
     [self startChecker];
 }
 
-- (SPPayload *) getSessionDictWithEventId:(NSString *)firstEventId {
+- (NSMutableDictionary *) getSessionDictWithEventId:(NSString *)firstEventId {
     [self updateAccessedLast];
     if (_firstEventId == nil) {
         _firstEventId = firstEventId;
@@ -209,17 +207,17 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void) updateSessionDict {
-    SPPayload * newSessionDict = [[SPPayload alloc] init];
-    [newSessionDict addValueToPayload:_userId forKey:kSPSessionUserId];
-    [newSessionDict addValueToPayload:_currentSessionId forKey:kSPSessionId];
-    [newSessionDict addValueToPayload:_previousSessionId forKey:kSPSessionPreviousId];
-    [newSessionDict addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_sessionIndex] forKey:kSPSessionIndex];
-    [newSessionDict addValueToPayload:_sessionStorage forKey:kSPSessionStorage];
+    NSMutableDictionary * newSessionDict = [[NSMutableDictionary alloc] init];
+    [newSessionDict setObject:_userId forKey:kSPSessionUserId];
+    [newSessionDict setObject:_currentSessionId forKey:kSPSessionId];
+    [newSessionDict setObject:_previousSessionId forKey:kSPSessionPreviousId];
+    [newSessionDict setObject:[NSNumber numberWithInt:(int)_sessionIndex] forKey:kSPSessionIndex];
+    [newSessionDict setObject:_sessionStorage forKey:kSPSessionStorage];
     _sessionDict = newSessionDict;
 }
 
 - (void) addFirstEventIdToDict {
-    [_sessionDict addValueToPayload:_firstEventId forKey:kSPSessionFirstEventId];
+    [_sessionDict setObject:_firstEventId forKey:kSPSessionFirstEventId];
 }
 
 - (BOOL) isTimeInRangeWithStartTime:(NSInteger)startTime
