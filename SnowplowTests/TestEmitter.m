@@ -58,6 +58,8 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
         [builder setHttpMethod:SPRequestPost];
         [builder setEmitRange:500];
         [builder setEmitThreadPoolSize:30];
+        [builder setByteLimitGet:30000];
+        [builder setByteLimitPost:35000];
     }];
     
     NSString * url = [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_EMITTER];
@@ -70,6 +72,8 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertEqual([emitter httpMethod], SPRequestPost);
     XCTAssertEqual([emitter emitRange], 500);
     XCTAssertEqual([emitter emitThreadPoolSize], 30);
+    XCTAssertEqual([emitter byteLimitGet], 30000);
+    XCTAssertEqual([emitter byteLimitPost], 35000);
     
     // Test setting variables to new values
     
@@ -86,6 +90,10 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertEqual([emitter emitRange], 1000);
     [emitter setEmitThreadPoolSize:50];
     XCTAssertEqual([emitter emitThreadPoolSize], 50);
+    [emitter setByteLimitGet:1000];
+    XCTAssertEqual([emitter byteLimitGet], 1000);
+    [emitter setByteLimitPost:50];
+    XCTAssertEqual([emitter byteLimitPost], 50);
     
     // Test extra functions
     XCTAssertTrue(![emitter getSendingStatus]);

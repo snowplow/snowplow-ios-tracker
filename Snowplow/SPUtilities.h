@@ -153,6 +153,13 @@
 + (NSString *)urlEncodeDictionary:(NSDictionary *)d;
 
 /**
+ * Returns the byte size of the string
+ * @param str The string to get the byte-size of
+ * @return the byte size of the String
+ */
++ (NSInteger) getByteSizeWithString:(NSString *)str;
+
+/**
  * Returns whether or not the device is currently online.
  * @return the network status of the device
  */

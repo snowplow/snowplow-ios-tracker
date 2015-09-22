@@ -239,6 +239,10 @@
     return [keyValuePairs componentsJoinedByString:@"&"];
 }
 
++ (NSInteger) getByteSizeWithString:(NSString *)str {
+    return [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+}
+
 + (BOOL) isOnline {
     BOOL online = YES;
 #if TARGET_OS_IPHONE
