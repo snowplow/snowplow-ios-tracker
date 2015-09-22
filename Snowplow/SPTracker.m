@@ -254,6 +254,10 @@
 // Event Decoration
 
 - (void) addTrackerPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray eventId:(NSString *)eventId {
+    [_emitter addPayloadToBuffer:[self getFinalPayload:pb context:contextArray eventId:eventId]];
+}
+
+- (SPPayload *) getFinalPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray eventId:(NSString *)eventId {
     [pb addDictionaryToPayload:_trackerData];
     
     // Add Subject information
@@ -272,8 +276,7 @@
                 typeWhenNotEncoded:kSPContext];
     }
     
-    // Add the event!
-    [_emitter addPayloadToBuffer:pb];
+    return pb;
 }
 
 - (SPSelfDescribingJson *) getFinalContextWithContexts:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {

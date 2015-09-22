@@ -4,16 +4,26 @@ PODS:
   - FMDB/common (2.5)
   - FMDB/standard (2.5):
     - FMDB/common
+  - KiteJSONValidator (0.2.3):
+    - KiteJSONValidator/KiteJSONResources
+  - KiteJSONValidator/KiteJSONResources (0.2.3)
   - Nocilla (0.10.0)
   - Reachability (3.2)
 
 DEPENDENCIES:
   - FMDB (~> 2.3)
+  - KiteJSONValidator (from `https://github.com/samskiter/KiteJSONValidator`, commit `ed726ab8e720482bb0d4bf6af18c17c08712a540`)
   - Nocilla
   - Reachability (~> 3.2)
 
+EXTERNAL SOURCES:
+  KiteJSONValidator:
+    :commit: ed726ab8e720482bb0d4bf6af18c17c08712a540
+    :git: https://github.com/samskiter/KiteJSONValidator
+
 SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  KiteJSONValidator: cfededc4c62cd5fe207889425356d040ecfa09e4
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
 

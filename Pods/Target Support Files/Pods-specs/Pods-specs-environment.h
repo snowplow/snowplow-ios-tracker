@@ -6,6 +6,18 @@
 // project.
 
 
+// KiteJSONValidator
+#define COCOAPODS_POD_AVAILABLE_KiteJSONValidator
+#define COCOAPODS_VERSION_MAJOR_KiteJSONValidator 0
+#define COCOAPODS_VERSION_MINOR_KiteJSONValidator 2
+#define COCOAPODS_VERSION_PATCH_KiteJSONValidator 3
+
+// KiteJSONValidator/KiteJSONResources
+#define COCOAPODS_POD_AVAILABLE_KiteJSONValidator_KiteJSONResources
+#define COCOAPODS_VERSION_MAJOR_KiteJSONValidator_KiteJSONResources 0
+#define COCOAPODS_VERSION_MINOR_KiteJSONValidator_KiteJSONResources 2
+#define COCOAPODS_VERSION_PATCH_KiteJSONValidator_KiteJSONResources 3
+
 // Nocilla
 #define COCOAPODS_POD_AVAILABLE_Nocilla
 #define COCOAPODS_VERSION_MAJOR_Nocilla 0

@@ -17,6 +17,7 @@ target :specs, :exclusive => true do
   platform :ios, '7.0'
   link_with ['SnowplowTests']
   pod 'Nocilla'
+  pod 'KiteJSONValidator', :git => 'https://github.com/samskiter/KiteJSONValidator', :commit => 'ed726ab8e720482bb0d4bf6af18c17c08712a540'
 end
 
 target 'Snowplow-OSX' do
@@ -27,6 +28,7 @@ end
 target 'Snowplow-OSXTests' do
   platform :osx, '10.9'
   pod 'Nocilla'
+  pod 'KiteJSONValidator', :git => 'https://github.com/samskiter/KiteJSONValidator', :commit => 'ed726ab8e720482bb0d4bf6af18c17c08712a540'
 end
 
 post_install do |installer_rep|
@@ -58,4 +60,10 @@ post_install do |installer_rep|
     FileUtils.mv("config.tmp", path)
   end
 
+  # Ensure we build all architectures
+  installer_rep.project.targets.each do |target|
+      target.build_configurations.each do |config|
+          config.build_settings['ONLY_ACTIVE_ARCH'] = 'NO'
+      end
+  end
 end
