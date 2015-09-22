@@ -289,7 +289,7 @@
     
     // Add session if active
     if (_session != nil) {
-        NSDictionary * sessionDict = [[_session getSessionDictWithEventId:eventId] getPayloadAsDictionary];
+        NSDictionary * sessionDict = [_session getSessionDictWithEventId:eventId];
         if (sessionDict != nil) {
             [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
         }
