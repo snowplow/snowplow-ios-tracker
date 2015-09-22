@@ -45,7 +45,6 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:TEST_SERVER_EMITTER];
-        [builder setBufferOption:SPBufferDefault];
         [builder setHttpMethod:SPRequestPost];
         [builder setEmitRange:500];
         [builder setEmitThreadPoolSize:30];
@@ -60,7 +59,6 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     XCTAssertNil([emitter callback]);
     XCTAssertTrue([[[emitter urlEndpoint] absoluteString] isEqualToString:url]);
-    XCTAssertEqual([emitter bufferOption], SPBufferDefault);
     XCTAssertEqual([emitter httpMethod], SPRequestPost);
     XCTAssertEqual([emitter emitRange], 500);
     XCTAssertEqual([emitter emitThreadPoolSize], 30);
@@ -73,8 +71,6 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     [emitter setUrlEndpoint:@"www.test.com"];
     url = [[NSString alloc] initWithFormat:@"%@://www.test.com/com.snowplowanalytics.snowplow/tp2", protocol];
     XCTAssertTrue([[[emitter urlEndpoint] absoluteString] isEqualToString:url]);
-    [emitter setBufferOption:SPBufferInstant];
-    XCTAssertEqual([emitter bufferOption], SPBufferInstant);
     [emitter setHttpMethod:SPRequestGet];
     XCTAssertEqual([emitter httpMethod], SPRequestGet);
     url = [[NSString alloc] initWithFormat:@"%@://www.test.com/i", protocol];

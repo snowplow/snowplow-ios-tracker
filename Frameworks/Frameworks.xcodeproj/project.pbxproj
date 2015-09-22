@@ -20,7 +20,7 @@
 		04DD9E261B7A307900FFF578 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E231B7A307900FFF578 /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E241B7A307900FFF578 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		04DD9E281B7A307900FFF578 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD9E251B7A307900FFF578 /* SPRequestResponse.m */; };
-		04E8DE6A1BB0092800FC60A4 /* SPSelfDescribingJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E8DE691BB0092800FC60A4 /* SPSelfDescribingJson.h */; settings = {ASSET_TAGS = (); }; };
+		04E8DE6A1BB0092800FC60A4 /* SPSelfDescribingJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E8DE691BB0092800FC60A4 /* SPSelfDescribingJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		04E8DE6C1BB0092C00FC60A4 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8DE6B1BB0092C00FC60A4 /* SPSelfDescribingJson.m */; settings = {ASSET_TAGS = (); }; };
 		462FD4DE1B15C76500296A38 /* SnowplowTracker-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 462FD4DD1B15C76500296A38 /* SnowplowTracker-Info.plist */; };
 		462FD4EF1B15CA8A00296A38 /* Snowplow-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 462FD4E71B15CA8A00296A38 /* Snowplow-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -153,10 +153,10 @@
 				04921CAD1BAA986D009E221E /* SPUtilities.h in Headers */,
 				462FD4F31B15CA8A00296A38 /* SPPayload.h in Headers */,
 				0402EBF21BA94BCE006C8818 /* SPEvent.h in Headers */,
+				04E8DE6A1BB0092800FC60A4 /* SPSelfDescribingJson.h in Headers */,
 				04DD9E261B7A307900FFF578 /* SPRequestCallback.h in Headers */,
 				043EC5E41B8F050900294081 /* SPSession.h in Headers */,
 				462FD4F21B15CA8A00296A38 /* SPEventStore.h in Headers */,
-				04E8DE6A1BB0092800FC60A4 /* SPSelfDescribingJson.h in Headers */,
 				044CA8911B948639000EA3B1 /* SPWeakTimerTarget.h in Headers */,
 				04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */,
 			);

@@ -26,11 +26,6 @@
 @class SPPayload;
 @class SPEventStore;
 
-enum SPBufferOptions {
-    SPBufferInstant = 1,
-    SPBufferDefault = 10
-};
-
 enum SPRequestOptions {
     SPRequestGet,
     SPRequestPost
@@ -45,7 +40,6 @@ enum SPProtocol {
 
 - (void) setUrlEndpoint:(NSString *)urlEndpoint;
 - (void) setHttpMethod:(enum SPRequestOptions)method;
-- (void) setBufferOption:(enum SPBufferOptions)option;
 - (void) setProtocol:(enum SPProtocol)protocol;
 - (void) setCallback:(id<SPRequestCallback>)callback;
 - (void) setEmitRange:(NSInteger)emitRange;
@@ -58,7 +52,6 @@ enum SPProtocol {
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
 @property (readonly, nonatomic) enum    SPRequestOptions      httpMethod;
-@property (readonly, nonatomic) enum    SPBufferOptions       bufferOption;
 @property (readonly, nonatomic) enum    SPProtocol            protocol;
 @property (readonly, nonatomic, retain) NSURL *               urlEndpoint;
 @property (readonly, nonatomic)         NSInteger             emitRange;
