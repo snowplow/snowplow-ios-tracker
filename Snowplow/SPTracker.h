@@ -95,6 +95,17 @@
 - (BOOL) getIsTracking;
 
 /**
+ * Constructs the final event payload that is sent to the emitter.
+ * NOTE: This function is only used for testing purposes; should never be called in production.
+ *
+ * @param pb The event payload without any decoration
+ * @param contextArray The array of SelfDescribingJsons to add to the context json
+ * @param eventId The events eventId which will be used to generate the session json
+ * @return the final complete payload ready for sending
+ */
+- (SPPayload *) getFinalPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray eventId:(NSString *)eventId;
+
+/**
  * Tracks a PageView Event object.
  */
 - (void) trackPageViewEvent:(SPPageView *)event;
