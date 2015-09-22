@@ -50,6 +50,8 @@ enum SPProtocol {
 - (void) setCallback:(id<SPRequestCallback>)callback;
 - (void) setEmitRange:(NSInteger)emitRange;
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
+- (void) setByteLimitGet:(NSInteger)byteLimitGet;
+- (void) setByteLimitPost:(NSInteger)byteLimitPost;
 
 @end
 
@@ -61,6 +63,8 @@ enum SPProtocol {
 @property (readonly, nonatomic, retain) NSURL *               urlEndpoint;
 @property (readonly, nonatomic)         NSInteger             emitRange;
 @property (readonly, nonatomic)         NSInteger             emitThreadPoolSize;
+@property (readonly, nonatomic)         NSInteger             byteLimitGet;
+@property (readonly, nonatomic)         NSInteger             byteLimitPost;
 @property (readonly, nonatomic, weak)   id<SPRequestCallback> callback;
 
 /**
