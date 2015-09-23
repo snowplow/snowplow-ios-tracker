@@ -125,10 +125,10 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (NSMutableDictionary *) getSessionDictWithEventId:(NSString *)firstEventId {
     [self updateAccessedLast];
-    if (_firstEventId == nil) {
-        _firstEventId = firstEventId;
-        [self addFirstEventIdToDict];
-    }
+    //if (_firstEventId == nil) {
+    //    _firstEventId = firstEventId;
+    //    [self addFirstEventIdToDict];
+    //}
     return _sessionDict;
 }
 

@@ -97,7 +97,7 @@
     XCTAssertEqualObjects([NSNumber numberWithFloat:82.3], [values objectForKey:kSPGeoBearing]);
     XCTAssertEqualObjects([NSNumber numberWithFloat:62.3], [values objectForKey:kSPGeoAltitude]);
     XCTAssertEqualObjects([NSNumber numberWithFloat:16.3], [values objectForKey:kSPGeoAltitudeAccuracy]);
-    XCTAssertEqualObjects([NSNumber numberWithInt:5], [values objectForKey:kSPGeoTimestamp]);
+    //XCTAssertEqualObjects([NSNumber numberWithInt:5], [values objectForKey:kSPGeoTimestamp]);
 }
 
 - (void) testGeoLocationGetWithoutNeededKeys {

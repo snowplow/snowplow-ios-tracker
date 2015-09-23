@@ -137,8 +137,8 @@
     [_platformDict addValueToPayload:[SPUtilities getOpenIdfa]          forKey:kSPMobileOpenIdfa];
     [_platformDict addValueToPayload:[SPUtilities getAppleIdfa]         forKey:kSPMobileAppleIdfa];
     [_platformDict addValueToPayload:[SPUtilities getAppleIdfv]         forKey:kSPMobileAppleIdfv];
-    [_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];
-    [_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
+    //[_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];
+    //[_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
 }
 
 // Geo-Location Dictionary
@@ -176,7 +176,7 @@
 }
 
 - (void) setGeoTimestamp:(NSInteger)timestamp {
-    [_geoLocationDict setObject:[NSNumber numberWithInt:(int)timestamp] forKey:kSPGeoTimestamp];
+    //[_geoLocationDict setObject:[NSNumber numberWithInt:(int)timestamp] forKey:kSPGeoTimestamp];
 }
 
 @end
