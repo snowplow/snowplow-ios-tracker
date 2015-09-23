@@ -23,8 +23,8 @@
 #import "Snowplow.h"
 #import "SPEventStore.h"
 #import "SPPayload.h"
-#import "SPUtils.h"
-#import <FMDB.h>
+#import "SPUtilities.h"
+#import "FMDB.h"
 
 @implementation SPEventStore {
     NSString *        _dbPath;
@@ -64,29 +64,19 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 }
 
 - (long long int) insertEvent:(SPPayload *)payload {
-    return [self insertDictionaryData:[payload getPayloadAsDictionary]];
+    return [self insertDictionaryData:[payload getAsDictionary]];
 }
 
 - (long long int) insertDictionaryData:(NSDictionary *)dict {
     __block long long int res = -1;
     [_queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
-            NSData *data = [NSJSONSerialization dataWithJSONObject:[self getCleanDictionary:dict] options:0 error:nil];
+            NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
             [db executeUpdate:_queryInsertEvent, data];
             res = (long long int) [db lastInsertRowId];
         }
     }];
     return res;
-}
-
-- (NSDictionary *) getCleanDictionary:(NSDictionary *)dict {
-    NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];
-    for (NSString * key in [dict allKeys]) {
-        if (![[dict objectForKey:key] isKindOfClass:[NSNull class]]) {
-            [cleanDictionary setObject:[dict objectForKey:key] forKey:key];
-        }
-    }
-    return cleanDictionary;
 }
 
 - (BOOL) removeEventWithId:(long long int)id_ {

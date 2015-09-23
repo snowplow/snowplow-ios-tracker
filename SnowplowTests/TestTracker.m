@@ -44,10 +44,10 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
 
 - (void)testTrackerBuilderAndOptions {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_TRACKER]];
+        [builder setUrlEndpoint:TEST_SERVER_TRACKER];
     }];
     
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     
     SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
@@ -90,13 +90,13 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     [tracker setBase64Encoded:YES];
     XCTAssertEqual([tracker base64Encoded], YES);
     
-    SPSubject * subject2 = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject2 = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     [tracker setSubject:subject2];
     XCTAssertNotEqual([tracker subject], subject);
     XCTAssertEqual([tracker subject], subject2);
     
     SPEmitter * emitter2 = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_TRACKER]];
+        [builder setUrlEndpoint:TEST_SERVER_TRACKER];
     }];
     [tracker setEmitter:emitter2];
     XCTAssertNotEqual([tracker emitter], emitter);
@@ -113,6 +113,23 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     [tracker setForegroundTimeout:10];
     [tracker setBackgroundTimeout:20];
     [tracker setCheckInterval:15];
+    
+    @try {
+        tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+            [builder setEmitter:nil];
+            [builder setSubject:subject];
+            [builder setAppId:@"anAppId"];
+            [builder setBase64Encoded:NO];
+            [builder setTrackerNamespace:@"aNamespace"];
+            [builder setSessionContext:YES];
+            [builder setForegroundTimeout:300];
+            [builder setBackgroundTimeout:150];
+            [builder setCheckInterval:10];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Emitter cannot be nil.", exception.reason);
+    }
 }
 
 @end

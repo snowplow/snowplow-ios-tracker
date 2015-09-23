@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SPUtils : NSObject
+@interface SPUtilities : NSObject
 
 /**
  *  Returns the system timezone region.
@@ -94,7 +94,7 @@
  *  Returns the timestamp generated at the point it was called.
  *  @return A double of the timestamp from when the method was called.
  */
-+ (double) getTimestamp;
++ (NSInteger) getTimestamp;
 
 /**
  *  Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.
@@ -153,9 +153,31 @@
 + (NSString *)urlEncodeDictionary:(NSDictionary *)d;
 
 /**
+ * Returns the byte size of the string
+ * @param str The string to get the byte-size of
+ * @return the byte size of the String
+ */
++ (NSInteger) getByteSizeWithString:(NSString *)str;
+
+/**
  * Returns whether or not the device is currently online.
  * @return the network status of the device
  */
 + (BOOL) isOnline;
+
+/**
+ * Checks an expression and will throw an exception if it is false.
+ * This allows for rudimentary Preconditions for object setup.
+ * @param argument The argument to check
+ * @param message The message to append to the exception
+ */
++ (void) checkArgument:(BOOL)argument withMessage:(NSString *)message;
+
+/**
+ *  Removes all entries which have a value of NSNull from the dictionary.
+ *  @param dict An NSDictionary to be cleaned
+ *  @return the same NSDictionary without any Null values
+ */
++ (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict;
 
 @end

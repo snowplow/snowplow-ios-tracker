@@ -22,6 +22,7 @@
 
 #if TARGET_OS_IPHONE
 
+#import "Snowplow.h"
 #import "OpenIDFA.h"
 #import <UIKit/UIKit.h>
 #import <UIKit/UIDevice.h>
@@ -194,7 +195,12 @@
     //
     NSDateFormatter* dateFormatter = [ [ NSDateFormatter alloc ] init ];
     [ dateFormatter setDateFormat:@"yyMMdd" ];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar;
+    if (SNOWPLOW_iOS_8_OR_LATER) {
+        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    } else {
+        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    }
     NSDateComponents *hourShift = [[NSDateComponents alloc] init];
     [hourShift setHour:-4];
     NSDate *currentDay= [calendar dateByAddingComponents:hourShift toDate:[NSDate date] options:0];

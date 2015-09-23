@@ -27,9 +27,9 @@
 // --- Version
 
 #if TARGET_OS_IPHONE
-NSString * const kSPVersion               = @"ios-0.5.1";
+NSString * const kSPVersion               = @"ios-0.6.0";
 #else
-NSString * const kSPVersion               = @"osx-0.5.1";
+NSString * const kSPVersion               = @"osx-0.6.0";
 #endif
 
 // --- Emitter
@@ -50,9 +50,13 @@ NSString * const kSPUserTimingsSchema     = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPScreenViewSchema      = @"iglu:com.snowplowanalytics.snowplow/screen_view/jsonschema/1-0-0";
 NSString * const kSPUnstructSchema        = @"iglu:com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0";
 NSString * const kSPContextSchema         = @"iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1";
-NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0";
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
+//NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-1";
+NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0";
+//NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-1";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-0";
+//NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0";
+NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -115,6 +119,18 @@ NSString * const kSPSessionId             = @"sessionId";
 NSString * const kSPSessionPreviousId     = @"previousSessionId";
 NSString * const kSPSessionIndex          = @"sessionIndex";
 NSString * const kSPSessionStorage        = @"storageMechanism";
+NSString * const kSPSessionFirstEventId   = @"firstEventId";
+
+// --- Geo-Location Context
+
+NSString * const kSPGeoLatitude           = @"latitude";
+NSString * const kSPGeoLongitude          = @"longitude";
+NSString * const kSPGeoLatLongAccuracy    = @"latitudeLongitudeAccuracy";
+NSString * const kSPGeoAltitude           = @"altitude";
+NSString * const kSPGeoAltitudeAccuracy   = @"altitudeAccuracy";
+NSString * const kSPGeoBearing            = @"bearing";
+NSString * const kSPGeoSpeed              = @"speed";
+NSString * const kSPGeoTimestamp          = @"timestamp";
 
 // --- Page View Event
 

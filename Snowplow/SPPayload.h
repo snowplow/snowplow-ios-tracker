@@ -15,7 +15,7 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
+//  Authors: Jonathan Almeida, Joshua Beemster
 //  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
@@ -25,33 +25,34 @@
 @interface SPPayload : NSObject
 
 /**
- *  Initializes a newly allocated SnowplowPayload
+ *  Initializes a newly allocated SPPayload
  *  @return A SnowplowPayload.
  */
 - (id) init;
 
 /**
- *  Initializes a newly allocated SnowplowPayload with an existing object of type NSDictionary.
+ *  Initializes a newly allocated SPPayload with an existing object of type NSDictionary.
  *  @param dict An object of NSDictionary.
  *  @return A SnowplowPayload.
  */
 - (id) initWithNSDictionary:(NSDictionary *)dict;
 
 /**
- *  Adds a simple name-value pair into the SnowplowPayload intance.
- *  @param value A JSON-compatible value
+ *  Adds a simple name-value pair into the SPPayload intance.
+ *  @param value A NSString value
  *  @param key A key of type NSString
  */
 - (void) addValueToPayload:(NSString *)value forKey:(NSString *)key;
 
 /**
- *  Adds a dictionary of attributes to be appended into the SnowplowPayload instance. It does NOT overwrite the existing data in the object.
+ *  Adds a dictionary of attributes to be appended into the SPPayload instance. It does NOT overwrite the existing data in the object.
+ *  All attribute values must be NSString types to be added; all others are discarded.
  *  @param dict An object of NSDictionary.
  */
 - (void) addDictionaryToPayload:(NSDictionary *)dict;
 
 /**
- *  Adds a dictionary of attributes to be appended into the SnowplowPayload instance. Gives you the option to Base64 encode the data before adding it into the object.
+ *  Adds a dictionary of attributes to be appended into the SPPayload instance. Gives you the option to Base64 encode the data before adding it into the object.
  *  @param json NSData of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
@@ -63,7 +64,7 @@
        typeWhenNotEncoded:(NSString *)typeNotEncoded;
 
 /**
- *  Adds a JSON string of attributes to be appended into the SnowplowPayload instance. Gives you the option to Base64 encode the data before adding it into the object. This method converts the string to NSData and uses the data with addJsonStringToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:
+ *  Adds a JSON string of attributes to be appended into the SPPayload instance. Gives you the option to Base64 encode the data before adding it into the object. This method converts the string to NSData and uses the data with addJsonStringToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:
  *  @param json NSData of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
@@ -75,23 +76,22 @@
              typeWhenNotEncoded:(NSString *)typeNotEncoded;
 
 /**
- *  Adds a dictionary of attributes to be appended into the SnowplowPayload instance. Gives you the option to Base64 encode the data before adding it into the object. This method converts the dictionary to NSData and uses the data with addJsonStringToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:
+ *  Adds a dictionary of attributes to be appended into the SPPayload instance. Gives you the option to Base64 encode the data before adding it into the object. This method converts the dictionary to NSData and uses the data with addJsonStringToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:
  *  @param json NSDictionary of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
  *  @param typeWhenNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
  */
-
 - (void) addDictionaryToPayload:(NSDictionary *)json
                       base64Encoded:(Boolean)encode
                     typeWhenEncoded:(NSString *)typeEncoded
                  typeWhenNotEncoded:(NSString *)typeNotEncoded;
 
 /**
- * Returns the payload of that particular SnowplowPayload object.
+ * Returns the payload of that particular SPPayload object.
  * @return NSDictionary of data in the object.
  */
-- (NSDictionary *) getPayloadAsDictionary;
+- (NSDictionary *) getAsDictionary;
 
 - (NSString *) description;
 

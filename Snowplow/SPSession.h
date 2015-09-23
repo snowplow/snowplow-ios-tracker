@@ -22,8 +22,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class SPPayload;
-
 @interface SPSession : NSObject
 
 /**
@@ -83,9 +81,10 @@
 
 /**
  * Returns the session dictionary
+ * @param firstEventId The potential first event id of the session
  * @return a SnowplowPayload containing the session dictionary
  */
-- (SPPayload *) getSessionDict;
+- (NSMutableDictionary *) getSessionDictWithEventId:(NSString *)firstEventId;
 
 /**
  * Returns the current session index count

@@ -22,6 +22,15 @@
 
 #import <Foundation/Foundation.h>
 
+// Macros for iOS Versions
+#if TARGET_OS_IPHONE
+#import <UIKit/UIDevice.h>
+
+#define SNOWPLOW_iOS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+#endif
+
+// Macros for Logging
 #ifdef SNOWPLOW_DEBUG
 #   define SnowplowDLog(...) NSLog(__VA_ARGS__)
 #else
@@ -56,6 +65,7 @@ extern NSString * const kSPContextSchema;
 extern NSString * const kSPMobileContextSchema;
 extern NSString * const kSPDesktopContextSchema;
 extern NSString * const kSPSessionContextSchema;
+extern NSString * const kSPGeoContextSchema;
 
 // --- Event Keys
 
@@ -118,6 +128,18 @@ extern NSString * const kSPSessionId;
 extern NSString * const kSPSessionPreviousId;
 extern NSString * const kSPSessionIndex;
 extern NSString * const kSPSessionStorage;
+extern NSString * const kSPSessionFirstEventId;
+
+// --- Geo-Location Context
+
+extern NSString * const kSPGeoLatitude;
+extern NSString * const kSPGeoLongitude;
+extern NSString * const kSPGeoLatLongAccuracy;
+extern NSString * const kSPGeoAltitude;
+extern NSString * const kSPGeoAltitudeAccuracy;
+extern NSString * const kSPGeoBearing;
+extern NSString * const kSPGeoSpeed;
+extern NSString * const kSPGeoTimestamp;
 
 // --- Page View Event
 

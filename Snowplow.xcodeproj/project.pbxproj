@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040296EB1BB155A700895DED /* TestGeneratedJsons.m in Sources */ = {isa = PBXBuildFile; fileRef = 040296EA1BB155A700895DED /* TestGeneratedJsons.m */; settings = {ASSET_TAGS = (); }; };
+		0402EBEE1BA93CCC006C8818 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
+		0402EBEF1BA93CCC006C8818 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
 		04062D761B8390870019B8D1 /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
 		0413DD771B78D643000D2112 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		041B60A91B84C19B00A1EBCB /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
@@ -16,6 +19,10 @@
 		043EC5E81B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		044CA88D1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
 		044CA88E1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
+		0485CA161BAC65A300214BC5 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */; settings = {ASSET_TAGS = (); }; };
+		0485CA171BAC65A300214BC5 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */; settings = {ASSET_TAGS = (); }; };
+		04921CAF1BAABE11009E221E /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04921CAE1BAABE11009E221E /* TestEvent.m */; };
+		04921CB01BAABE11009E221E /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04921CAE1BAABE11009E221E /* TestEvent.m */; };
 		04ABC3591B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
 		04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
 		04ABC35C1B905F5200F50CAD /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */; };
@@ -25,6 +32,9 @@
 		04ABC3621B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
 		04ABC3631B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
 		04ABC3641B908E6500F50CAD /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
+		04B41EAA1BB2843F007C19C8 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 04B41EA91BB2843F007C19C8 /* Resources */; settings = {ASSET_TAGS = (); }; };
+		04EF45611BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */; settings = {ASSET_TAGS = (); }; };
+		04EF45621BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */; settings = {ASSET_TAGS = (); }; };
 		04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		1986201FC02601DFE2A62AC3 /* libPods-Snowplow-OSXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B61D6274CCDEF01550CC85 /* libPods-Snowplow-OSXTests.a */; };
 		46A289CC9C4B3D542DF28F92 /* libPods-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D350F2E758CBC781DDD5DDF7 /* libPods-Snowplow-OSX.a */; };
@@ -47,12 +57,12 @@
 		ABB767B0194974D3006275D1 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SPEventStore.m */; };
 		ABB790CC1936F2500084B964 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB790CB1936F2500084B964 /* TestTracker.m */; };
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
-		ABFCC3761922984A00FAE8FE /* SPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtils.m */; };
+		ABFCC3761922984A00FAE8FE /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
 		AEA2FCE11A8CDF8100123462 /* libSnowplow-OSX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */; };
 		AEA2FCED1A8CE0DF00123462 /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SPEmitter.m */; };
 		AEA2FCEE1A8CE0DF00123462 /* SPPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SPPayload.m */; };
-		AEA2FCEF1A8CE0DF00123462 /* SPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtils.m */; };
+		AEA2FCEF1A8CE0DF00123462 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		AEA2FCF01A8CE0DF00123462 /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SPTracker.m */; };
 		AEA2FCF11A8CE0DF00123462 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SPEventStore.m */; };
 		AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27DC191B408200018557 /* SnowplowTests.m */; };
@@ -95,6 +105,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		040296EA1BB155A700895DED /* TestGeneratedJsons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestGeneratedJsons.m; sourceTree = "<group>"; };
+		0402EBEB1BA93CA5006C8818 /* SPEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
+		0402EBED1BA93CCC006C8818 /* SPEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEvent.m; sourceTree = "<group>"; };
 		04062D741B8390710019B8D1 /* SPSubject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSubject.h; sourceTree = "<group>"; };
 		04062D751B8390870019B8D1 /* SPSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSubject.m; sourceTree = "<group>"; };
 		0413DD751B78D635000D2112 /* SPRequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestResponse.h; sourceTree = "<group>"; };
@@ -104,11 +117,16 @@
 		043EC5E61B8F224900294081 /* Snowplow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Snowplow.m; sourceTree = "<group>"; };
 		044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPWeakTimerTarget.h; sourceTree = "<group>"; };
 		044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPWeakTimerTarget.m; sourceTree = "<group>"; };
+		0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSelfDescribingJson.h; sourceTree = "<group>"; };
+		0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSelfDescribingJson.m; sourceTree = "<group>"; };
+		04921CAE1BAABE11009E221E /* TestEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEvent.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestCallback.h; sourceTree = "<group>"; };
 		04ABC3581B905A5B00F50CAD /* TestSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSubject.m; sourceTree = "<group>"; };
 		04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequestResponse.m; sourceTree = "<group>"; };
 		04ABC35E1B906E1500F50CAD /* TestEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEmitter.m; sourceTree = "<group>"; };
 		04ABC3611B9088DA00F50CAD /* TestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSession.m; sourceTree = "<group>"; };
+		04B41EA91BB2843F007C19C8 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSelfDescribingJson.m; sourceTree = "<group>"; };
 		050D36B378D82D87E307F937 /* Pods-lib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lib.release.xcconfig"; path = "Pods/Target Support Files/Pods-lib/Pods-lib.release.xcconfig"; sourceTree = "<group>"; };
 		0DC246F4396D6C0652641E05 /* libPods-specs.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-specs.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3294C940810A8362413F731B /* Pods-specs.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-specs.release.xcconfig"; path = "Pods/Target Support Files/Pods-specs/Pods-specs.release.xcconfig"; sourceTree = "<group>"; };
@@ -143,8 +161,8 @@
 		ABB767AF194974D3006275D1 /* SPEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventStore.m; sourceTree = "<group>"; };
 		ABB790CB1936F2500084B964 /* TestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTracker.m; sourceTree = "<group>"; };
 		ABFCC36D1921016200FAE8FE /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
-		ABFCC3741922984A00FAE8FE /* SPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtils.h; sourceTree = "<group>"; };
-		ABFCC3751922984A00FAE8FE /* SPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtils.m; sourceTree = "<group>"; };
+		ABFCC3741922984A00FAE8FE /* SPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilities.h; sourceTree = "<group>"; };
+		ABFCC3751922984A00FAE8FE /* SPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilities.m; sourceTree = "<group>"; };
 		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
 		AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libSnowplow-OSX.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA2FCE01A8CDF8100123462 /* Snowplow-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -269,14 +287,18 @@
 				043EC5DF1B8F049200294081 /* SPSession.m */,
 				AB0C27F3191C67CD00018557 /* SPPayload.h */,
 				AB0C27F4191C67CD00018557 /* SPPayload.m */,
+				0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */,
+				0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */,
 				ABB767AE194974D3006275D1 /* SPEventStore.h */,
 				ABB767AF194974D3006275D1 /* SPEventStore.m */,
-				ABFCC3741922984A00FAE8FE /* SPUtils.h */,
-				ABFCC3751922984A00FAE8FE /* SPUtils.m */,
+				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
+				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
 				0413DD751B78D635000D2112 /* SPRequestResponse.h */,
 				0413DD761B78D643000D2112 /* SPRequestResponse.m */,
 				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
 				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
+				0402EBEB1BA93CA5006C8818 /* SPEvent.h */,
+				0402EBED1BA93CCC006C8818 /* SPEvent.m */,
 				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
 			);
 			path = Snowplow;
@@ -296,16 +318,20 @@
 			isa = PBXGroup;
 			children = (
 				AB0C27D7191B408200018557 /* Supporting Files */,
+				04B41EA91BB2843F007C19C8 /* Resources */,
 				AB0C27DC191B408200018557 /* SnowplowTests.m */,
 				ABB790CB1936F2500084B964 /* TestTracker.m */,
 				04ABC35E1B906E1500F50CAD /* TestEmitter.m */,
 				AB4338571950A530006A1DE4 /* TestEventStore.m */,
 				04ABC3581B905A5B00F50CAD /* TestSubject.m */,
 				ABFCC36D1921016200FAE8FE /* TestPayload.m */,
+				04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */,
 				04ABC3611B9088DA00F50CAD /* TestSession.m */,
 				ABFCC377192325FB00FAE8FE /* TestUtils.m */,
 				04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */,
 				ABB2565019286C8C0014FE0C /* TestRequest.m */,
+				04921CAE1BAABE11009E221E /* TestEvent.m */,
+				040296EA1BB155A700895DED /* TestGeneratedJsons.m */,
 			);
 			path = SnowplowTests;
 			sourceTree = "<group>";
@@ -468,6 +494,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04B41EAA1BB2843F007C19C8 /* Resources in Resources */,
 				AB0C27DB191B408200018557 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,7 +645,9 @@
 				044CA88D1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */,
 				AB0C27F5191C67CD00018557 /* SPPayload.m in Sources */,
 				ABB767B0194974D3006275D1 /* SPEventStore.m in Sources */,
-				ABFCC3761922984A00FAE8FE /* SPUtils.m in Sources */,
+				0402EBEE1BA93CCC006C8818 /* SPEvent.m in Sources */,
+				0485CA161BAC65A300214BC5 /* SPSelfDescribingJson.m in Sources */,
+				ABFCC3761922984A00FAE8FE /* SPUtilities.m in Sources */,
 				0413DD771B78D643000D2112 /* SPRequestResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -628,7 +657,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				AB0C27DD191B408200018557 /* SnowplowTests.m in Sources */,
+				040296EB1BB155A700895DED /* TestGeneratedJsons.m in Sources */,
+				04EF45611BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */,
 				ABB790CC1936F2500084B964 /* TestTracker.m in Sources */,
+				04921CAF1BAABE11009E221E /* TestEvent.m in Sources */,
 				04ABC35F1B906E1500F50CAD /* TestEmitter.m in Sources */,
 				AB4338581950A530006A1DE4 /* TestEventStore.m in Sources */,
 				04ABC3591B905A5B00F50CAD /* TestSubject.m in Sources */,
@@ -653,7 +685,9 @@
 				044CA88E1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */,
 				AEA2FCEE1A8CE0DF00123462 /* SPPayload.m in Sources */,
 				AEA2FCF11A8CE0DF00123462 /* SPEventStore.m in Sources */,
-				AEA2FCEF1A8CE0DF00123462 /* SPUtils.m in Sources */,
+				0402EBEF1BA93CCC006C8818 /* SPEvent.m in Sources */,
+				0485CA171BAC65A300214BC5 /* SPSelfDescribingJson.m in Sources */,
+				AEA2FCEF1A8CE0DF00123462 /* SPUtilities.m in Sources */,
 				04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -663,7 +697,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */,
+				04EF45621BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */,
 				AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */,
+				04921CB01BAABE11009E221E /* TestEvent.m in Sources */,
 				04ABC3601B906E1500F50CAD /* TestEmitter.m in Sources */,
 				AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */,
 				04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */,
@@ -786,6 +822,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = (
 					"$(inherited)",
 					"-isystem",
@@ -840,11 +877,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A708C591B56760A3F4E1E3CD /* Pods-specs.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_CODE_COVERAGE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -858,6 +898,7 @@
 				);
 				PODS_ROOT = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -866,11 +907,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3294C940810A8362413F731B /* Pods-specs.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_CODE_COVERAGE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
 				INFOPLIST_FILE = "SnowplowTests/SnowplowTests-Info.plist";
@@ -880,6 +924,7 @@
 				);
 				PODS_ROOT = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;

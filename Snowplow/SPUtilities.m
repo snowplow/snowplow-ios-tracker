@@ -20,13 +20,13 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPUtils.h"
+#import "Snowplow.h"
+#import "SPUtilities.h"
 
 #if TARGET_OS_IPHONE
 
 #import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
-#import <UIKit/UIDevice.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "Reachability.h"
@@ -39,7 +39,7 @@
 
 #endif
 
-@implementation SPUtils
+@implementation SPUtilities
 
 + (NSString *) getTimezone {
     NSTimeZone *timeZone = [NSTimeZone systemTimeZone];
@@ -66,7 +66,9 @@
 + (NSString *) getOpenIdfa {
     NSString * idfa = nil;
 #if TARGET_OS_IPHONE
-    idfa = [OpenIDFA sameDayOpenIDFA];
+    if (!SNOWPLOW_iOS_9_OR_LATER) {
+        idfa = [OpenIDFA sameDayOpenIDFA];
+    }
 #endif
     return idfa;
 }
@@ -135,7 +137,7 @@
     return arc4random() % (999999 - 100000+1) + 100000;
 }
 
-+ (double) getTimestamp {
++ (NSInteger) getTimestamp {
     NSDate *time = [[NSDate alloc] init];
     return [time timeIntervalSince1970] * 1000;
 }
@@ -219,7 +221,6 @@
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 
-
 + (NSString *)urlEncodeString:(NSString *)s {
     if (!s) {
         return @"";   
@@ -237,6 +238,10 @@
     return [keyValuePairs componentsJoinedByString:@"&"];
 }
 
++ (NSInteger) getByteSizeWithString:(NSString *)str {
+    return [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
+}
+
 + (BOOL) isOnline {
     BOOL online = YES;
 #if TARGET_OS_IPHONE
@@ -245,6 +250,22 @@
     online = networkStatus != NotReachable;
 #endif
     return online;
+}
+
++ (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
+    if (!argument) {
+        [NSException raise:@"IllegalArgumentException" format:@"%@", message];
+    }
+}
+
++ (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict {
+    NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];
+    for (NSString * key in [dict allKeys]) {
+        if (![[dict objectForKey:key] isKindOfClass:[NSNull class]]) {
+            [cleanDictionary setObject:[dict objectForKey:key] forKey:key];
+        }
+    }
+    return cleanDictionary;
 }
 
 @end
