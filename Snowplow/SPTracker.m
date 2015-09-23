@@ -197,21 +197,21 @@
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
+    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
 }
 
 - (void) trackStructuredEvent:(SPStructured *)event {
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
+    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
 }
 
 - (void) trackUnstructuredEvent:(SPUnstructured *)event {
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayloadWithEncoding:_base64Encoded] context:[event getContexts] eventId:[event getEventId]];
+    [self addEventWithPayload:[event getPayloadWithEncoding:_base64Encoded] andContext:[event getContexts] andEventId:[event getEventId]];
 }
 
 - (void) trackScreenViewEvent:(SPScreenView *)event {
@@ -238,7 +238,7 @@
     if (!_dataCollection) {
         return;
     }
-    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
+    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
     
     NSInteger tstamp = [event getTimestamp];
     for (SPEcommerceItem * item in [event getItems]) {
@@ -248,21 +248,21 @@
 }
 
 - (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
-    [self addTrackerPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]];
+    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
 }
 
 // Event Decoration
 
-- (void) addTrackerPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray eventId:(NSString *)eventId {
-    [_emitter addPayloadToBuffer:[self getFinalPayload:pb context:contextArray eventId:eventId]];
+- (void) addEventWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
+    [_emitter addPayloadToBuffer:[self getFinalPayloadWithPayload:pb andContext:contextArray andEventId:eventId]];
 }
 
-- (SPPayload *) getFinalPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray eventId:(NSString *)eventId {
+- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
     [pb addDictionaryToPayload:_trackerData];
     
     // Add Subject information
     if (_subject != nil) {
-        [pb addDictionaryToPayload:[[_subject getStandardDict] getPayloadAsDictionary]];
+        [pb addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
     } else {
         [pb addValueToPayload:[SPUtilities getPlatform] forKey:kSPPlatform];
     }
@@ -284,7 +284,7 @@
     
     // Add contexts if populated
     if (_subject != nil) {
-        NSDictionary * platformDict = [[_subject getPlatformDict] getPayloadAsDictionary];
+        NSDictionary * platformDict = [[_subject getPlatformDict] getAsDictionary];
         if (platformDict != nil) {
             [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
         }

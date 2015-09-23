@@ -128,12 +128,12 @@
         typeWhenNotEncoded:typeNotEncoded];
 }
 
-- (NSDictionary *) getPayloadAsDictionary {
+- (NSDictionary *) getAsDictionary {
     return _payload;
 }
 
 - (NSString *) description {
-    return [[self getPayloadAsDictionary] description];
+    return [[self getAsDictionary] description];
 }
 
 @end

@@ -227,12 +227,12 @@
                     [singleIndexArray addObject:[listValues[j] objectForKey:@"ID"]];
                     SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                          andData:singleEventArray];
-                    [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:singleIndexArray withResultPointer:sendResults withOversize:YES];
+                    [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:singleIndexArray andResultArray:sendResults andOversize:YES];
                 } else if (totalByteSize + payloadByteSize > _byteLimitPost) {
                     // Adding this event to the accumulated array would exceed the limit.
                     SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                          andData:eventArray];
-                    [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults withOversize:NO];
+                    [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
                     
                     // Reset collections and STM
                     eventArray = [[NSMutableArray alloc] init];
@@ -262,7 +262,7 @@
             if (eventArray.count > 0) {
                 SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                      andData:eventArray];
-                [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults withOversize:NO];
+                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
             }
         }
     } else {
@@ -276,7 +276,7 @@
             BOOL oversize = ([SPUtilities getByteSizeWithString:url] > _byteLimitGet);
             
             // Send the request
-            [self sendSyncRequest:[self getRequestGetWithString:url] withIndex:indexArray withResultPointer:sendResults withOversize:oversize];
+            [self sendEventWithRequest:[self getRequestGetWithString:url] andIndex:indexArray andResultArray:sendResults andOversize:oversize];
         }
     }
     
@@ -291,7 +291,7 @@
         
         if ([result getSuccess]) {
             success += resultIndexArray.count;
-            [self processSuccessResult:resultIndexArray];
+            [self processSuccessesWithResults:resultIndexArray];
         } else {
             failure += resultIndexArray.count;
         }
@@ -322,7 +322,7 @@
     }
 }
 
-- (void) sendSyncRequest:(NSMutableURLRequest *)request withIndex:(NSArray *)indexArray withResultPointer:(NSMutableArray *)results withOversize:(BOOL)oversize {
+- (void) sendEventWithRequest:(NSMutableURLRequest *)request andIndex:(NSArray *)indexArray andResultArray:(NSMutableArray *)results andOversize:(BOOL)oversize {
     [_dataOperationQueue addOperationWithBlock:^{
         NSHTTPURLResponse *response = nil;
         NSError *connectionError = nil;
@@ -341,7 +341,7 @@
     }];
 }
 
-- (void) processSuccessResult:(NSArray *)indexArray {
+- (void) processSuccessesWithResults:(NSArray *)indexArray {
     [_dataOperationQueue addOperationWithBlock:^{
         for (int i = 0; i < indexArray.count;  i++) {
             SnowplowDLog(@"Removing event at index: %@", indexArray[i]);

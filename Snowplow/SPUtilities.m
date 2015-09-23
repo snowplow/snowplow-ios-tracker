@@ -221,7 +221,6 @@
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 
-
 + (NSString *)urlEncodeString:(NSString *)s {
     if (!s) {
         return @"";   
@@ -257,6 +256,16 @@
     if (!argument) {
         [NSException raise:@"IllegalArgumentException" format:@"%@", message];
     }
+}
+
++ (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict {
+    NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];
+    for (NSString * key in [dict allKeys]) {
+        if (![[dict objectForKey:key] isKindOfClass:[NSNull class]]) {
+            [cleanDictionary setObject:[dict objectForKey:key] forKey:key];
+        }
+    }
+    return cleanDictionary;
 }
 
 @end
