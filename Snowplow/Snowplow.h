@@ -65,6 +65,7 @@ extern NSString * const kSPContextSchema;
 extern NSString * const kSPMobileContextSchema;
 extern NSString * const kSPDesktopContextSchema;
 extern NSString * const kSPSessionContextSchema;
+extern NSString * const kSPGeoContextSchema;
 
 // --- Event Keys
 
@@ -128,6 +129,17 @@ extern NSString * const kSPSessionPreviousId;
 extern NSString * const kSPSessionIndex;
 extern NSString * const kSPSessionStorage;
 extern NSString * const kSPSessionFirstEventId;
+
+// --- Geo-Location Context
+
+extern NSString * const kSPGeoLatitude;
+extern NSString * const kSPGeoLongitude;
+extern NSString * const kSPGeoLatLongAccuracy;
+extern NSString * const kSPGeoAltitude;
+extern NSString * const kSPGeoAltitudeAccuracy;
+extern NSString * const kSPGeoBearing;
+extern NSString * const kSPGeoSpeed;
+extern NSString * const kSPGeoTimestamp;
 
 // --- Page View Event
 

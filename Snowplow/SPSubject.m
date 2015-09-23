@@ -26,21 +26,25 @@
 #import "SPUtilities.h"
 
 @implementation SPSubject {
-    SPPayload * _standardDict;
-    SPPayload * _platformDict;
+    SPPayload *           _standardDict;
+    SPPayload *           _platformDict;
+    NSMutableDictionary * _geoLocationDict;
 }
 
 - (id) init {
-    return [self initWithPlatformContext:false];
+    return [self initWithPlatformContext:false andGeoContext:false];
 }
 
-- (id) initWithPlatformContext:(BOOL)platformContext {
+- (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext {
     self = [super init];
     if (self) {
         _standardDict = [[SPPayload alloc] init];
         [self setStandardDict];
         if (platformContext) {
             [self setPlatformDict];
+        }
+        if (geoContext) {
+            [self setGeoDict];
         }
     }
     return self;
@@ -52,6 +56,15 @@
 
 - (SPPayload *) getPlatformDict {
     return _platformDict;
+}
+
+- (NSDictionary *) getGeoLocationDict {
+    if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
+        return _geoLocationDict;
+    } else {
+        SnowplowDLog(@"Geo-Location is missing required fields; cannot return.");
+        return nil;
+    }
 }
 
 // Standard Dictionary
@@ -126,6 +139,44 @@
     [_platformDict addValueToPayload:[SPUtilities getAppleIdfv]         forKey:kSPMobileAppleIdfv];
     [_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];
     [_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
+}
+
+// Geo-Location Dictionary
+
+- (void) setGeoDict {
+    _geoLocationDict = [[NSMutableDictionary alloc] init];
+}
+
+- (void) setGeoLatitude:(float)latitude {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:latitude] forKey:kSPGeoLatitude];
+}
+
+- (void) setGeoLongitude:(float)longitude {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:longitude] forKey:kSPGeoLongitude];
+}
+
+- (void) setGeoLatitudeLongitudeAccuracy:(float)latitudeLongitudeAccuracy {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:latitudeLongitudeAccuracy] forKey:kSPGeoLatLongAccuracy];
+}
+
+- (void) setGeoAltitude:(float)altitude {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:altitude] forKey:kSPGeoAltitude];
+}
+
+- (void) setGeoAltitudeAccuracy:(float)altitudeAccuracy {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:altitudeAccuracy] forKey:kSPGeoAltitudeAccuracy];
+}
+
+- (void) setGeoBearing:(float)bearing {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:bearing] forKey:kSPGeoBearing];
+}
+
+- (void) setGeoSpeed:(float)speed {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:speed] forKey:kSPGeoSpeed];
+}
+
+- (void) setGeoTimestamp:(NSInteger)timestamp {
+    [_geoLocationDict setObject:[NSNumber numberWithInt:(int)timestamp] forKey:kSPGeoTimestamp];
 }
 
 @end

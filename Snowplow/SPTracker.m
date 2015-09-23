@@ -282,11 +282,15 @@
 - (SPSelfDescribingJson *) getFinalContextWithContexts:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
     SPSelfDescribingJson * finalContext = nil;
     
-    // Add subject if available
+    // Add contexts if populated
     if (_subject != nil) {
         NSDictionary * platformDict = [[_subject getPlatformDict] getPayloadAsDictionary];
         if (platformDict != nil) {
             [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
+        }
+        NSDictionary * geoLocationDict = [_subject getGeoLocationDict];
+        if (geoLocationDict != nil) {
+            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:geoLocationDict]];
         }
     }
     

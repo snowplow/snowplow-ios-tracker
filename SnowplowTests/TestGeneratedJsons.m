@@ -47,6 +47,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void)tearDown {
+    validator = nil;
     [super tearDown];
 }
 
@@ -58,7 +59,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void)testPlatformContextJson {
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     NSDictionary * data = [[subject getPlatformDict] getPayloadAsDictionary];
     NSDictionary * schema;
 #if TARGET_OS_IPHONE
@@ -66,6 +67,21 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 #else
     schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPDesktopContextSchema];
 #endif
+    XCTAssertTrue([validator validateJSONInstance:data withSchema:schema]);
+}
+
+- (void)testGeoContextJson {
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:YES];
+    [subject setGeoLongitude:5];
+    [subject setGeoLatitude:170.2];
+    [subject setGeoTimestamp:5];
+    [subject setGeoLatitudeLongitudeAccuracy:5.5];
+    [subject setGeoSpeed:6.2];
+    [subject setGeoBearing:82.3];
+    [subject setGeoAltitude:62.3];
+    [subject setGeoAltitudeAccuracy:16.3];
+    NSDictionary * data = [subject getGeoLocationDict];
+    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPGeoContextSchema];
     XCTAssertTrue([validator validateJSONInstance:data withSchema:schema]);
 }
 
@@ -234,7 +250,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:url];
     }];
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
         [builder setSubject:subject];

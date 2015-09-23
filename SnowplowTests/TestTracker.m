@@ -47,7 +47,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setUrlEndpoint:TEST_SERVER_TRACKER];
     }];
     
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     
     SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
@@ -90,7 +90,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     [tracker setBase64Encoded:YES];
     XCTAssertEqual([tracker base64Encoded], YES);
     
-    SPSubject * subject2 = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject2 = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     [tracker setSubject:subject2];
     XCTAssertNotEqual([tracker subject], subject);
     XCTAssertEqual([tracker subject], subject2);
