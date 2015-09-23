@@ -71,7 +71,7 @@
 }
 
 - (void) setDataWithPayload:(SPPayload *)data {
-    return [self setDataWithObject:[data getPayloadAsDictionary]];
+    return [self setDataWithObject:[data getAsDictionary]];
 }
 
 - (void) setDataWithSelfDescribingJson:(SPSelfDescribingJson *)data {

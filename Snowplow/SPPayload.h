@@ -91,7 +91,7 @@
  * Returns the payload of that particular SPPayload object.
  * @return NSDictionary of data in the object.
  */
-- (NSDictionary *) getPayloadAsDictionary;
+- (NSDictionary *) getAsDictionary;
 
 - (NSString *) description;
 

@@ -103,7 +103,7 @@
  * @param eventId The events eventId which will be used to generate the session json
  * @return the final complete payload ready for sending
  */
-- (SPPayload *) getFinalPayload:(SPPayload *)pb context:(NSMutableArray *)contextArray eventId:(NSString *)eventId;
+- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId;
 
 /**
  * Tracks a PageView Event object.

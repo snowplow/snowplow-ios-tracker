@@ -34,32 +34,11 @@
 - (id) init;
 
 /**
- *  Creates an event table (if one does not exist) within the application data directory using NSLibraryDirectory. This is mainly for internal use.
- *  @return A bool if the SQL statement is executed without errors. (May return YES if executed even though a table already exists).
- */
-- (BOOL) createTable;
-
-/**
  *  Inserts events into the sqlite table for the app identified with it's bundleId (appId).
  *  @param payload A SnowplowPayload instance to be inserted into the database.
  *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
  */
 - (long long int) insertEvent:(SPPayload *)payload;
-
-/**
- *  Inserts a dictionary into to events table. Mainly used in insertEvent: for SnowplowPayload events.
- *  @param dict An NSDictionary to be inserted into the database.
- *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
- */
-- (long long int) insertDictionaryData:(NSDictionary *)dict;
-
-/**
- *  Removes all entries which have a value of NSNull from the dictionary before submitting it to the
- *  SQLite DB.
- *  @param dict An NSDictionary to be cleaned
- *  @return the same NSDictionary without any Null values
- */
-- (NSDictionary *) getCleanDictionary:(NSDictionary *)dict;
 
 /**
  *  Removes an event from the table with the supplied id.

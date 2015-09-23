@@ -41,16 +41,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitterBuilderAndOptions {
-    NSString * protocol;
-#if TARGET_OS_IPHONE
-    if (SNOWPLOW_iOS_9_OR_LATER) {
-        protocol = @"https";
-    } else {
-        protocol = @"http";
-    }
-#else
-    protocol = @"http";
-#endif
+    NSString * protocol = @"https";
     
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:TEST_SERVER_EMITTER];
@@ -60,6 +51,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
         [builder setEmitThreadPoolSize:30];
         [builder setByteLimitGet:30000];
         [builder setByteLimitPost:35000];
+        [builder setProtocol:SPHttps];
     }];
     
     NSString * url = [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_EMITTER];
@@ -74,6 +66,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertEqual([emitter emitThreadPoolSize], 30);
     XCTAssertEqual([emitter byteLimitGet], 30000);
     XCTAssertEqual([emitter byteLimitPost], 35000);
+    XCTAssertEqual([emitter protocol], SPHttps);
     
     // Test setting variables to new values
     

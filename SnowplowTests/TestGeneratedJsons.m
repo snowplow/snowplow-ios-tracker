@@ -60,7 +60,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 
 - (void)testPlatformContextJson {
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
-    NSDictionary * data = [[subject getPlatformDict] getPayloadAsDictionary];
+    NSDictionary * data = [[subject getPlatformDict] getAsDictionary];
     NSDictionary * schema;
 #if TARGET_OS_IPHONE
     schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPMobileContextSchema];
@@ -96,7 +96,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the final payload passes validation
-    NSDictionary * data = [[tracker getFinalPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]] getPayloadAsDictionary];
+    NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
     NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
     XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
@@ -114,7 +114,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the final payload passes validation
-    NSDictionary * data = [[tracker getFinalPayload:[event getPayloadWithEncoding:false] context:[event getContexts] eventId:[event getEventId]] getPayloadAsDictionary];
+    NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayloadWithEncoding:false] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
     NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
     XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
@@ -135,7 +135,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the final payload passes validation
-    NSDictionary * data = [[tracker getFinalPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]] getPayloadAsDictionary];
+    NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
     NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
     XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
@@ -170,13 +170,13 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the main payload passes validation
-    NSDictionary * data = [[tracker getFinalPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]] getPayloadAsDictionary];
+    NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
     NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
     XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
     
     // Check that the item payload passes validation
-    data = [[tracker getFinalPayload:[item getPayload] context:[item getContexts] eventId:[item getEventId]] getPayloadAsDictionary];
+    data = [[tracker getFinalPayloadWithPayload:[item getPayload] andContext:[item getContexts] andEventId:[item getEventId]] getAsDictionary];
     dataArray = [NSArray arrayWithObject:data];
     XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
 }
@@ -226,7 +226,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the final payload passes validation
-    NSDictionary * data = [[tracker getFinalPayload:[event getPayload] context:[event getContexts] eventId:[event getEventId]] getPayloadAsDictionary];
+    NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
+    
     NSArray * dataArray = [NSArray arrayWithObject:data];
     NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
     XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);

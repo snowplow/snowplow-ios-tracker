@@ -173,4 +173,11 @@
  */
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message;
 
+/**
+ *  Removes all entries which have a value of NSNull from the dictionary.
+ *  @param dict An NSDictionary to be cleaned
+ *  @return the same NSDictionary without any Null values
+ */
++ (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict;
+
 @end

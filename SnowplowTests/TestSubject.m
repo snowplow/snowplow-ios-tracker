@@ -64,7 +64,7 @@
     [subject setNetworkUserId:@"aNuid"];
     [subject setDomainUserId:@"aDuid"];
     
-    NSDictionary * values = [[subject getStandardDict] getPayloadAsDictionary];
+    NSDictionary * values = [[subject getStandardDict] getAsDictionary];
     
     XCTAssertEqual([values valueForKey:kSPUid], @"aUserId");
     XCTAssertTrue([[values valueForKey:kSPResolution] isEqualToString:@"1920x1080" ]);

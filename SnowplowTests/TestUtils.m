@@ -202,4 +202,13 @@
     }
 }
 
+- (void)testDictionaryNullRemover {
+    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNull null], @"a_null_value",
+                                  @"Not null!", @"a_string_value", nil];
+    XCTAssertEqual(dict.count, 2);
+    NSDictionary * result = [SPUtilities removeNullValuesFromDictWithDict:dict];
+    XCTAssertEqual(result.count, 1);
+}
+
 @end
