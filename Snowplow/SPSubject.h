@@ -37,7 +37,7 @@
  * @param whether to create platform dictionary
  * @return a new SnowplowSubject
  */
-- (id) initWithPlatformContext:(BOOL)platformContext;
+- (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext;
 
 /**
  * Gets all standard dictionary pairs to decorate the event with.
@@ -50,6 +50,12 @@
  * @return a SnowplowPayload with all platform specific pairs
  */
 - (SPPayload *) getPlatformDict;
+
+/**
+ * Gets the Geo-Location dictionary if the required keys are available.
+ * @return the NSDictionary or nil
+ */
+- (NSDictionary *) getGeoLocationDict;
 
 /**
  * Sets the User ID
@@ -122,5 +128,58 @@
  * Optional mobile/desktop context, if selected will be automatically populated on object creation.
  */
 - (void) setPlatformDict;
+
+/**
+ * Optional geo context, if run will allocate memory for the geo-location context
+ */
+- (void) setGeoDict;
+
+/**
+ * Sets the latitude value for the geo context
+ * @param latitude A non-nil number
+ */
+- (void) setGeoLatitude:(float)latitude;
+
+/**
+ * Sets the longitude value for the geo context
+ * @param longitude A non-nil number
+ */
+- (void) setGeoLongitude:(float)longitude;
+
+/**
+ * Sets the latitudeLongitudeAccuracy value for the geo context
+ * @param latitudeLongitudeAccuracy A non-nil number
+ */
+- (void) setGeoLatitudeLongitudeAccuracy:(float)latitudeLongitudeAccuracy;
+
+/**
+ * Sets the altitude value for the geo context
+ * @param altitude A non-nil number
+ */
+- (void) setGeoAltitude:(float)altitude;
+
+/**
+ * Sets the altitudeAccuracy value for the geo context
+ * @param altitudeAccuracy A non-nil number
+ */
+- (void) setGeoAltitudeAccuracy:(float)altitudeAccuracy;
+
+/**
+ * Sets the bearing value for the geo context
+ * @param bearing A non-nil number
+ */
+- (void) setGeoBearing:(float)bearing;
+
+/**
+ * Sets the speed value for the geo context
+ * @param speed A non-nil number
+ */
+- (void) setGeoSpeed:(float)speed;
+
+/**
+ * Sets the timestamp value for the geo context
+ * @param timestamp An NSInteger value
+ */
+- (void) setGeoTimestamp:(NSInteger)timestamp;
 
 @end

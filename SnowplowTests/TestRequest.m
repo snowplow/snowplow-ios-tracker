@@ -137,7 +137,7 @@ NSString *protocol = @"http";
         [builder setCallback:self];
         [builder setHttpMethod:type];
     }];
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
         [builder setSubject:subject];
