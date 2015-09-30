@@ -50,7 +50,7 @@ NSString * const kSPUserTimingsSchema     = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPScreenViewSchema      = @"iglu:com.snowplowanalytics.snowplow/screen_view/jsonschema/1-0-0";
 NSString * const kSPUnstructSchema        = @"iglu:com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0";
 NSString * const kSPContextSchema         = @"iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1";
-NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-0";
+NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-1";
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-0";
 
