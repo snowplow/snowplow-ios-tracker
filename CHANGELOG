@@ -1,3 +1,9 @@
+Version 0.5.2 (2015-09-30)
+--------------------------
+Fixed regression of mobile_context to 1-0-0 from 1-0-1 (#235)
+Fixed SessionIndex being passed as a string not as an integer (#234)
+Fixed .gitignore to work with Xcode 7 (#241)
+
 Version 0.5.1 (2015-09-11)
 --------------------------
 Added entropy to global constants to avoid clang errors with other libraries (closes #224)
