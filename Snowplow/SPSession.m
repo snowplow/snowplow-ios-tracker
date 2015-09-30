@@ -23,7 +23,6 @@
 #import "Snowplow.h"
 #import "SPSession.h"
 #import "SPUtils.h"
-#import "SPPayload.h"
 #import "SPWeakTimerTarget.h"
 
 #if TARGET_OS_IPHONE
@@ -41,8 +40,8 @@
     NSString *  _previousSessionId;
     NSInteger   _sessionIndex;
     NSString *  _sessionStorage;
-    SPPayload * _sessionDict;
     NSTimer *   _sessionTimer;
+    NSMutableDictionary * _sessionDict;
 }
 
 NSString * const kSessionSavePath = @"session.dict";
@@ -123,7 +122,7 @@ NSString * const kSessionSavePath = @"session.dict";
     [self startChecker];
 }
 
-- (SPPayload *) getSessionDict {
+- (NSMutableDictionary *) getSessionDict {
     [self updateAccessedLast];
     return _sessionDict;
 }
@@ -155,7 +154,7 @@ NSString * const kSessionSavePath = @"session.dict";
     BOOL result = NO;
     if ([paths count] > 0) {
         NSString * savePath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
-        NSDictionary * sessionDict = [_sessionDict getPayloadAsDictionary];
+        NSDictionary * sessionDict = _sessionDict;
         result = [sessionDict writeToFile:savePath atomically:YES];
     }
     return result;
@@ -202,12 +201,13 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void) updateSessionDict {
-    _sessionDict = [[SPPayload alloc] init];
-    [_sessionDict addValueToPayload:_userId forKey:kSPSessionUserId];
-    [_sessionDict addValueToPayload:_currentSessionId forKey:kSPSessionId];
-    [_sessionDict addValueToPayload:_previousSessionId forKey:kSPSessionPreviousId];
-    [_sessionDict addValueToPayload:[NSString stringWithFormat:@"%ld", (long)_sessionIndex] forKey:kSPSessionIndex];
-    [_sessionDict addValueToPayload:_sessionStorage forKey:kSPSessionStorage];
+    NSMutableDictionary * newSessionDict = [[NSMutableDictionary alloc] init];
+    [newSessionDict setObject:_userId forKey:kSPSessionUserId];
+    [newSessionDict setObject:_currentSessionId forKey:kSPSessionId];
+    [newSessionDict setObject:_previousSessionId forKey:kSPSessionPreviousId];
+    [newSessionDict setObject:[NSNumber numberWithInt:(int)_sessionIndex] forKey:kSPSessionIndex];
+    [newSessionDict setObject:_sessionStorage forKey:kSPSessionStorage];
+    _sessionDict = newSessionDict;
 }
 
 - (BOOL) isTimeInRangeWithStartTime:(NSInteger)startTime

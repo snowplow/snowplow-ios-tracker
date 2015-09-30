@@ -183,7 +183,7 @@
     }
     
     if (_session != nil) {
-        NSDictionary * sessionDict = [[_session getSessionDict] getPayloadAsDictionary];
+        NSDictionary * sessionDict = [_session getSessionDict];
         if (sessionDict != nil) {
             [contextArray addObject:[self getContextEnvelopeWithSchema:kSPSessionContextSchema
                                                                andData:sessionDict]];
