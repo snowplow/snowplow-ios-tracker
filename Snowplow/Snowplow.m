@@ -27,9 +27,9 @@
 // --- Version
 
 #if TARGET_OS_IPHONE
-NSString * const kSPVersion               = @"ios-0.5.1";
+NSString * const kSPVersion               = @"ios-0.5.2";
 #else
-NSString * const kSPVersion               = @"osx-0.5.1";
+NSString * const kSPVersion               = @"osx-0.5.2";
 #endif
 
 // --- Emitter
