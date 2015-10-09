@@ -24,7 +24,7 @@
 #import "DemoUtils.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
-#import "SPUtils.h"
+#import "SPUtilities.h"
 #import "SPSubject.h"
 
 @interface ViewController ()
@@ -39,6 +39,7 @@
 @property (nonatomic, weak) IBOutlet UITextField *        urlTextField;
 @property (nonatomic, weak) IBOutlet UISegmentedControl * methodType;
 @property (nonatomic, weak) IBOutlet UISegmentedControl * trackingOnOff;
+@property (nonatomic, weak) IBOutlet UISegmentedControl * protocolType;
 @property (strong, nonatomic) IBOutlet UIScrollView *     scrollView;
 
 @end
@@ -60,7 +61,7 @@
 }
 
 - (void) setup {
-    _tracker = [self getTrackerWithUrl:@"http://acme.fake.com" method:SPRequestPost option:SPBufferDefault];
+    _tracker = [self getTrackerWithUrl:@"http://acme.fake.com" method:SPRequestPost];
     _updateTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(updateMetrics) userInfo:nil repeats:YES];
     _urlTextField.delegate = self;
     [_trackingOnOff addTarget:self
@@ -79,13 +80,14 @@
         
         // Ensures the application won't crash with a bad URL
         @try {
-            [_tracker.emitter setUrlEndpoint:[NSURL URLWithString:url]];
+            [_tracker.emitter setUrlEndpoint:url];
         }
         @catch (NSException *exception) {
             return;
         }
         
         [_tracker.emitter setHttpMethod:[self getMethodType]];
+        [_tracker.emitter setProtocol:[self getProtocolType]];
         
         // Itterate the made counter
         _madeCounter += 28;
@@ -101,7 +103,7 @@
     [_sessionCountLabel setText:[NSString stringWithFormat:@"Session Count: %lu", (unsigned long)[_tracker getSessionIndex]]];
     [_isRunningLabel setText:[NSString stringWithFormat:@"Running: %s", [_tracker.emitter getSendingStatus] ? "yes" : "no"]];
     [_isBackgroundLabel setText:[NSString stringWithFormat:@"Background: %s", [_tracker getInBackground] ? "yes" : "no"]];
-    [_isOnlineLabel setText:[NSString stringWithFormat:@"Online: %s", [SPUtils isOnline] ? "yes" : "no"]];
+    [_isOnlineLabel setText:[NSString stringWithFormat:@"Online: %s", [SPUtilities isOnline] ? "yes" : "no"]];
     [_sentCountLabel setText:[NSString stringWithFormat:@"Sent: %lu", (unsigned long)_sentCounter]];
 }
 
@@ -122,6 +124,10 @@
     return _methodType.selectedSegmentIndex == 0 ? SPRequestGet : SPRequestPost;
 }
 
+- (enum SPProtocol) getProtocolType {
+    return _protocolType.selectedSegmentIndex == 0 ? SPHttp : SPHttps;
+}
+
 - (BOOL) textFieldShouldReturn:(UITextField *)textField {
     return [textField resignFirstResponder];
 }
@@ -132,18 +138,17 @@ static NSString *const kNamespace = @"DemoAppNamespace";
 // Tracker Setup & Init
 
 - (SPTracker *) getTrackerWithUrl:(NSString *)url_
-                                 method:(enum SPRequestOptions)method_
-                                 option:(enum SPBufferOptions)option_ {
+                           method:(enum SPRequestOptions)method_ {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:[NSURL URLWithString:url_]];
+        [builder setUrlEndpoint:url_];
         [builder setHttpMethod:method_];
-        [builder setBufferOption:option_];
         [builder setCallback:self];
-        [builder setEmitRange:200];
+        [builder setEmitRange:500];
         [builder setEmitThreadPoolSize:20];
+        [builder setByteLimitPost:52000];
     }];
     
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
     
     SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
