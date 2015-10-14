@@ -1,6 +1,0 @@
-#include "Pods-Snowplow-OSXTests-KiteJSONValidator.xcconfig"
-GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Build" "${PODS_ROOT}/Headers/Build/KiteJSONValidator" "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/KiteJSONValidator" "${PODS_ROOT}/Headers/Public/Nocilla" "${PODS_ROOT}/Headers/Public/Reachability"
-ONLY_ACTIVE_ARCH = ${PODS_SNOWPLOW_OSXTESTS_KITEJSONVALIDATOR_ONLY_ACTIVE_ARCH}
-OTHER_LDFLAGS = -ObjC
-PODS_ROOT = ${SRCROOT}

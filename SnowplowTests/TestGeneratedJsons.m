@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "KiteJSONValidator.h"
+#import "IGLUClient.h"
 #import "Snowplow.h"
 #import "SPEmitter.h"
 #import "SPTracker.h"
@@ -36,14 +36,14 @@
 @end
 
 @implementation TestGeneratedJsons {
-    KiteJSONValidator * validator;
+    IGLUClient * validator;
 }
 
 const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-central/master/schemas/";
 
 - (void)setUp {
     [super setUp];
-    validator = [KiteJSONValidator new];
+    validator = [[IGLUClient alloc] initWithJsonString:[self getJSONAsStringWithFilePath:@"iglu_resolver.json"] andBundles:[[NSMutableArray alloc] initWithObjects:[NSBundle bundleForClass:[self class]], nil]];
 }
 
 - (void)tearDown {
@@ -54,20 +54,20 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 - (void)testClientSessionContextJson {
     SPSession * session = [[SPSession alloc] init];
     NSDictionary * data = [session getSessionDictWithEventId:@"first-event-id"];
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPSessionContextSchema];
-    XCTAssertTrue([validator validateJSONInstance:data withSchema:schema]);
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:data] getAsDictionary];
+    XCTAssertTrue([validator validateJson:json]);
 }
 
 - (void)testPlatformContextJson {
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     NSDictionary * data = [[subject getPlatformDict] getAsDictionary];
-    NSDictionary * schema;
+    NSDictionary * json;
 #if TARGET_OS_IPHONE
-    schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPMobileContextSchema];
+    json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPMobileContextSchema andData:data] getAsDictionary];
 #else
-    schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPDesktopContextSchema];
+    json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPDesktopContextSchema andData:data] getAsDictionary];
 #endif
-    XCTAssertTrue([validator validateJSONInstance:data withSchema:schema]);
+    XCTAssertTrue([validator validateJson:json]);
 }
 
 - (void)testGeoContextJson {
@@ -81,8 +81,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [subject setGeoAltitude:62.3];
     [subject setGeoAltitudeAccuracy:16.3];
     NSDictionary * data = [subject getGeoLocationDict];
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPGeoContextSchema];
-    XCTAssertTrue([validator validateJSONInstance:data withSchema:schema]);
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:data] getAsDictionary];
+    XCTAssertTrue([validator validateJson:json]);
 }
 
 - (void)testStructuredEventPayloadJson  {
@@ -98,8 +98,9 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     // Check that the final payload passes validation
     NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
-    XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    
+    XCTAssertTrue([validator validateJson:json]);
 }
 
 - (void)testUnstructuredEventPayloadJson  {
@@ -116,14 +117,15 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     // Check that the final payload passes validation
     NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayloadWithEncoding:false] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
-    XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    
+    XCTAssertTrue([validator validateJson:json]);
     
     // Check that the nested unstructured event passes validation
     NSString * ue_pr = [data objectForKey:@"ue_pr"];
     NSDictionary * unstructDictionary = [NSJSONSerialization JSONObjectWithData:[ue_pr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPUnstructSchema];
-    XCTAssertTrue([validator validateJSONInstance:unstructDictionary withSchema:schema]);
+    
+    XCTAssertTrue([validator validateJson:unstructDictionary]);
 }
 
 - (void)testPageViewEventPayloadJson {
@@ -137,8 +139,9 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     // Check that the final payload passes validation
     NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
-    XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    
+    XCTAssertTrue([validator validateJson:json]);
 }
 
 - (void)testEcommerceEventPayloadJson {
@@ -172,13 +175,16 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     // Check that the main payload passes validation
     NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
     NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
-    XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    
+    XCTAssertTrue([validator validateJson:json]);
     
     // Check that the item payload passes validation
     data = [[tracker getFinalPayloadWithPayload:[item getPayload] andContext:[item getContexts] andEventId:[item getEventId]] getAsDictionary];
     dataArray = [NSArray arrayWithObject:data];
-    XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
+    json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    
+    XCTAssertTrue([validator validateJson:json]);
 }
 
 - (void)testTimingEventJson {
@@ -190,14 +196,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     NSDictionary * sdj = [[event getPayload] getAsDictionary];
     
-    // Test that the SelfDescribingJson passes unstruct_event validation
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPUnstructSchema];
-    XCTAssertTrue([validator validateJSONInstance:sdj withSchema:schema]);
-    
-    // Test that the data passes timing validation
-    NSDictionary * data = [sdj objectForKey:@"data"];
-    schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPUserTimingsSchema];
-    XCTAssertTrue([validator validateJSONInstance:data withSchema:schema]);
+    // Test that the SelfDescribingJson passes validation
+    XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testScreenViewEventJson {
@@ -207,14 +207,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     NSDictionary * sdj = [[event getPayload] getAsDictionary];
     
-    // Test that the SelfDescribingJson passes unstruct_event validation
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPUnstructSchema];
-    XCTAssertTrue([validator validateJSONInstance:sdj withSchema:schema]);
-    
-    // Test that the data passes timing validation
-    NSDictionary * data = [sdj objectForKey:@"data"];
-    schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPScreenViewSchema];
-    XCTAssertTrue([validator validateJSONInstance:data withSchema:schema]);
+    // Test that the SelfDescribingJson passes validation
+    XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testFinalEventPayloadJson {
@@ -227,24 +221,25 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     
     // Check that the final payload passes validation
     NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
-    
     NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPPayloadDataSchema];
-    XCTAssertTrue([validator validateJSONInstance:dataArray withSchema:schema]);
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    XCTAssertTrue([validator validateJson:json]);
     
     // Check that the nested context json passes validation
     NSString * contextsJson = [data objectForKey:@"co"];
     NSDictionary * contextDictionary = [NSJSONSerialization JSONObjectWithData:[contextsJson dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    NSArray * contextArray = [contextDictionary objectForKey:@"data"];
-    schema = [self getJSONSchemaAsDictionaryWithIgluPath:kSPContextSchema];
-    XCTAssertTrue([validator validateJSONInstance:contextArray withSchema:schema]);
+    XCTAssertTrue([validator validateJson:contextDictionary]);
 }
 
-- (NSDictionary *)getJSONSchemaAsDictionaryWithIgluPath:(NSString *)raw {
-    NSBundle * mainBundle = [NSBundle bundleForClass:[self class]];
-    NSString * path = [mainBundle pathForResource:[raw substringFromIndex:5] ofType:nil inDirectory:@"Resources"];
-    NSData * data = [NSData dataWithContentsOfFile:path];
-    return [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+- (NSString *)getJSONAsStringWithFilePath:(NSString *)filePath {
+    NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:filePath ofType:nil inDirectory:@"Resources"];
+    @try {
+        NSData * data = [NSData dataWithContentsOfFile:path];
+        return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
+    @catch (NSException *exception) {
+        return nil;
+    }
 }
 
 - (SPTracker *)getTracker:(NSString *)url {

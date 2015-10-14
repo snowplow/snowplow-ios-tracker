@@ -1,0 +1,1 @@
+../../../SnowplowIgluClient/SnowplowIgluClient/IGLUSchema.h
