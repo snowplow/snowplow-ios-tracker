@@ -23,7 +23,7 @@
 #import "Snowplow.h"
 #import "SPUtilities.h"
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE && !(TARGET_OS_TV)
 
 #import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
@@ -31,11 +31,15 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "Reachability.h"
 
-#else
+#elif !(TARGET_OS_TV)
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
 #include <sys/sysctl.h>
+
+#elif TARGET_OS_TV
+
+#import <UIKit/UIScreen.h>
 
 #endif
 
@@ -65,7 +69,7 @@
 
 + (NSString *) getOpenIdfa {
     NSString * idfa = nil;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE  && !(TARGET_OS_TV)
     if (!SNOWPLOW_iOS_9_OR_LATER) {
         idfa = [OpenIDFA sameDayOpenIDFA];
     }
@@ -100,7 +104,7 @@
 
 + (NSString *) getCarrierName {
     NSString * carrierName = nil;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE  && !(TARGET_OS_TV)
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     carrierName = [carrier carrierName];
@@ -110,7 +114,7 @@
 
 + (NSString *) getNetworkType {
     NSString * type = nil;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE  && !(TARGET_OS_TV)
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     [reachability startNotifier];
     NetworkStatus status = [reachability currentReachabilityStatus];
@@ -126,7 +130,7 @@
 
 + (NSString *) getNetworkTechnology {
     NSString * netTech = nil;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE && !(TARGET_OS_TV)
     CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
     netTech = [netInfo currentRadioAccessTechnology];
 #endif
@@ -244,7 +248,7 @@
 
 + (BOOL) isOnline {
     BOOL online = YES;
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IPHONE && !(TARGET_OS_TV)
     Reachability * reachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     online = networkStatus != NotReachable;

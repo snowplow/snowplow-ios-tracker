@@ -15,18 +15,26 @@ Pod::Spec.new do |s|
 
   s.ios.deployment_target = '7.0'
   s.osx.deployment_target = '10.9'
+  s.tvos.deployment_target = '9.0'
 
   s.requires_arc = true
 
   s.source_files = 'Snowplow/*.{m,h}'
-
-  s.public_header_files = ['Snowplow/Snowplow.h', 'Snowplow/SPTracker.h', 'Snowplow/SPEmitter.h', 'Snowplow/SPSubject.h', 'Snowplow/SPPayload.h', 'Snowplow/SPUtilities.h', 'Snowplow/SPRequestCallback.h', 'Snowplow/SPEvent.h', 'Snowplow/SPSelfDescribingJson.h']
+  s.public_header_files = [
+    'Snowplow/Snowplow.h', 
+    'Snowplow/SPTracker.h', 
+    'Snowplow/SPEmitter.h', 
+    'Snowplow/SPSubject.h', 
+    'Snowplow/SPPayload.h', 
+    'Snowplow/SPUtilities.h', 
+    'Snowplow/SPRequestCallback.h', 
+    'Snowplow/SPEvent.h', 
+    'Snowplow/SPSelfDescribingJson.h'
+  ]
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
   s.osx.frameworks = 'AppKit', 'Foundation'
+  s.tvos.frameworks = 'UIKit', 'Foundation'
   s.dependency 'FMDB', '~> 2.3'
   s.ios.dependency 'Reachability', '~> 3.2'
-
-  s.prefix_header_contents = <<-EOS
-EOS
 end
