@@ -127,7 +127,7 @@
     [_platformDict addValueToPayload:[SPUtilities getOSVersion]         forKey:kSPPlatformOsVersion];
     [_platformDict addValueToPayload:[SPUtilities getDeviceVendor]      forKey:kSPPlatformDeviceManu];
     [_platformDict addValueToPayload:[SPUtilities getDeviceModel]       forKey:kSPPlatformDeviceModel];
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS
     [self setMobileDict];
 #endif
 }

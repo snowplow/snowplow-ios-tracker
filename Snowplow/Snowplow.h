@@ -22,10 +22,17 @@
 
 #import <Foundation/Foundation.h>
 
-// Macros for iOS Versions
-#if TARGET_OS_IPHONE
-#import <UIKit/UIDevice.h>
+// Macros to define what OS is running:
+// 1. iOS: iOS == 1; OSX == 1; tvOS == 0
+// 2. OSX: iOS == 0; OSX == 1; tvOS == 0
+// 3. TV:  iOS == 1; OSX == 1; tvOS == 1
+#define SNOWPLOW_TARGET_IOS (TARGET_OS_IPHONE && TARGET_OS_MAC && !(TARGET_OS_TV))
+#define SNOWPLOW_TARGET_OSX (!(TARGET_OS_IPHONE) && TARGET_OS_MAC && !(TARGET_OS_TV))
+#define SNOWPLOW_TARGET_TV  (TARGET_OS_IPHONE && TARGET_OS_MAC && TARGET_OS_TV)
 
+// Macros for iOS Versions
+#if SNOWPLOW_TARGET_IOS
+#import <UIKit/UIDevice.h>
 #define SNOWPLOW_iOS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
 #endif

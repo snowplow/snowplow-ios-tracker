@@ -42,7 +42,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     self = [super init];
     NSString *libraryPath = nil;
     
-#if TARGET_OS_TV
+#if SNOWPLOW_TARGET_TV
     libraryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 #else
     libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];

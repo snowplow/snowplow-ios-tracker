@@ -41,7 +41,7 @@
 }
 
 NSString *const TEST_SERVER_REQUEST = @"acme.test.url.com";
-NSString *protocol = @"http";
+NSString *protocol = @"https";
 
 - (void)setUp {
     [super setUp];
@@ -51,7 +51,7 @@ NSString *protocol = @"http";
         protocol = @"https";
     }
 #else
-    protocol = @"http";
+    protocol = @"https";
 #endif
 }
 

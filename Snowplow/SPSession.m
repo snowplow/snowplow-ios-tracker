@@ -25,7 +25,7 @@
 #import "SPUtilities.h"
 #import "SPWeakTimerTarget.h"
 
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS
 #import <UIKit/UIKit.h>
 #endif
 
@@ -78,7 +78,7 @@ NSString * const kSessionSavePath = @"session.dict";
         [self startChecker];
         
         // Trigger notification for view changes
-        #if TARGET_OS_IPHONE
+        #if SNOWPLOW_TARGET_IOS
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(updateInBackground)
                                                      name:UIApplicationDidEnterBackgroundNotification

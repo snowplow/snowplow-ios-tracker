@@ -76,7 +76,7 @@
         _checkInterval = 15;
         _builderFinished = NO;
         
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS
         _platformContextSchema = kSPMobileContextSchema;
 #else
         _platformContextSchema = kSPDesktopContextSchema;

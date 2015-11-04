@@ -66,7 +66,7 @@ const NSInteger POST_STM_BYTES = 22;
     self = [super init];
     if (self) {
         _httpMethod = SPRequestPost;
-        _protocol = SPHttp;
+        _protocol = SPHttps;
         _callback = nil;
         _emitRange = 150;
         _emitThreadPoolSize = 15;
@@ -88,14 +88,6 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) setupUrlEndpoint {
-    // Force protocol to HTTPS for iOS 9:
-    // https://developer.apple.com/library/prerelease/ios/releasenotes/General/WhatsNewIniOS/Articles/iOS9.html
-#if TARGET_OS_IPHONE
-    if (SNOWPLOW_iOS_9_OR_LATER) {
-        _protocol = SPHttps;
-    }
-#endif
-    
     NSString * urlPrefix = _protocol == SPHttp ? @"http://" : @"https://";
     NSString * urlSuffix = _httpMethod == SPRequestGet ? kSPEndpointGet : kSPEndpointPost;
     _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _url, urlSuffix]];

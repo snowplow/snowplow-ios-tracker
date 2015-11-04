@@ -23,7 +23,7 @@
 #import "Snowplow.h"
 #import "SPUtilities.h"
 
-#if TARGET_OS_IPHONE && !(TARGET_OS_TV)
+#if SNOWPLOW_TARGET_IOS
 
 #import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
@@ -31,13 +31,13 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import "Reachability.h"
 
-#elif !(TARGET_OS_TV)
+#elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
 #include <sys/sysctl.h>
 
-#elif TARGET_OS_TV
+#elif SNOWPLOW_TARGET_TV
 
 #import <UIKit/UIScreen.h>
 
@@ -55,7 +55,7 @@
 }
 
 + (NSString *) getPlatform {
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS
     return @"mob";
 #else
     return @"pc";
@@ -69,7 +69,7 @@
 
 + (NSString *) getOpenIdfa {
     NSString * idfa = nil;
-#if TARGET_OS_IPHONE  && !(TARGET_OS_TV)
+#if SNOWPLOW_TARGET_IOS
     if (!SNOWPLOW_iOS_9_OR_LATER) {
         idfa = [OpenIDFA sameDayOpenIDFA];
     }
@@ -79,7 +79,7 @@
 
 + (NSString *) getAppleIdfa {
     NSString* idfa = nil;
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #ifndef SNOWPLOW_NO_IFA
     Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
     if (ASIdentifierManagerClass) {
@@ -96,7 +96,7 @@
 
 + (NSString *) getAppleIdfv {
     NSString * idfv = nil;
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 #endif
     return idfv;
@@ -104,7 +104,7 @@
 
 + (NSString *) getCarrierName {
     NSString * carrierName = nil;
-#if TARGET_OS_IPHONE  && !(TARGET_OS_TV)
+#if SNOWPLOW_TARGET_IOS
     CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
     CTCarrier *carrier = [netinfo subscriberCellularProvider];
     carrierName = [carrier carrierName];
@@ -114,7 +114,7 @@
 
 + (NSString *) getNetworkType {
     NSString * type = nil;
-#if TARGET_OS_IPHONE  && !(TARGET_OS_TV)
+#if SNOWPLOW_TARGET_IOS
     Reachability *reachability = [Reachability reachabilityForInternetConnection];
     [reachability startNotifier];
     NetworkStatus status = [reachability currentReachabilityStatus];
@@ -130,7 +130,7 @@
 
 + (NSString *) getNetworkTechnology {
     NSString * netTech = nil;
-#if TARGET_OS_IPHONE && !(TARGET_OS_TV)
+#if SNOWPLOW_TARGET_IOS
     CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
     netTech = [netInfo currentRadioAccessTechnology];
 #endif
@@ -147,7 +147,7 @@
 }
 
 + (NSString *) getResolution {
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     CGFloat screenScale = [[UIScreen mainScreen] scale];
 #else
@@ -170,7 +170,7 @@
 }
 
 + (NSString *) getDeviceModel {
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     return [[UIDevice currentDevice] model];
 #else
     size_t size;
@@ -185,7 +185,7 @@
 }
 
 + (NSString *) getOSVersion {
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     return [[UIDevice currentDevice] systemVersion];
 #else
     SInt32 osxMajorVersion;
@@ -214,8 +214,10 @@
 }
 
 + (NSString *) getOSType {
-#if TARGET_OS_IPHONE
+#if SNOWPLOW_TARGET_IOS
     return @"ios";
+#elif SNOWPLOW_TARGET_TV
+    return @"tvos";
 #else
     return @"osx";
 #endif
@@ -230,8 +232,12 @@
         return @"";   
     }
     return (NSString *)CFBridgingRelease(
-      CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef) s, NULL, (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
-      CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
+            CFURLCreateStringByAddingPercentEscapes(
+                NULL, 
+                (CFStringRef) s, 
+                NULL, 
+                (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
+                CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
 }
 
 + (NSString *)urlEncodeDictionary:(NSDictionary *)d {
@@ -248,7 +254,7 @@
 
 + (BOOL) isOnline {
     BOOL online = YES;
-#if TARGET_OS_IPHONE && !(TARGET_OS_TV)
+#if SNOWPLOW_TARGET_IOS
     Reachability * reachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [reachability currentReachabilityStatus];
     online = networkStatus != NotReachable;
