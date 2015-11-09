@@ -27,7 +27,7 @@
 #import "SPPayload.h"
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
-#import <FMDB.h>
+#import <FMDB/FMDB.h>
 
 @interface SPEmitter ()
 
