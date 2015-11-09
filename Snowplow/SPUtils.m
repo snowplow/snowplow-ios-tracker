@@ -29,7 +29,7 @@
 #import <UIKit/UIDevice.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import "Reachability.h"
+#import <Reachability/Reachability.h>
 
 #else
 
