@@ -40,8 +40,15 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 
 - (id) init {
     self = [super init];
-    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    NSString *libraryPath = nil;
+    
+#if TARGET_OS_TV
+    libraryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+#else
+    libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+#endif
     _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+    
     if (self){
         _queue = [FMDatabaseQueue databaseQueueWithPath:_dbPath];
         [self createTable];
