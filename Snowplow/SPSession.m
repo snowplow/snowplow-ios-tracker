@@ -95,6 +95,10 @@ NSString * const kSessionSavePath = @"session.dict";
 // --- Public
 
 - (void) startChecker {
+    if (_sessionTimer != nil) {
+        [self stopChecker];
+    }
+    
     dispatch_async(dispatch_get_main_queue(), ^{
         _sessionTimer = [NSTimer scheduledTimerWithTimeInterval:_checkInterval
                                                          target:[[SPWeakTimerTarget alloc] initWithTarget:self andSelector:@selector(checkSession:)]
