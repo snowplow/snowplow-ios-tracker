@@ -65,11 +65,8 @@ enum SPProtocol {
  */
 + (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock;
 
-/**
- * Initializes a newly allocated SnowplowEmitter
- * @return A SnowplowEmitter.
- */
-- (id) init;
++ (instancetype) new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
 
 /**
  * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests. Use this in favour over addToBuffer:
