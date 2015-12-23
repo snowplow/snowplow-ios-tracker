@@ -53,7 +53,7 @@
 // SnowplowTracker Builder
 
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
-    SPTracker* tracker = [SPTracker new];
+    SPTracker* tracker = [[SPTracker alloc] initWithDefaultValues];
     if (buildBlock) {
         buildBlock(tracker);
     }
@@ -61,7 +61,7 @@
     return tracker;
 }
 
-- (id) init {
+- (instancetype) initWithDefaultValues {
     self = [super init];
     if (self) {
         _trackerNamespace = nil;
