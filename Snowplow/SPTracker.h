@@ -68,11 +68,8 @@
  */
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock;
 
-/**
- *  Initializes a newly allocated SnowplowTracker.
- *  @return A SnowplowTracker instance.
- */
-- (id) init;
++ (instancetype) new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
 
 /**
  * Pauses all event tracking, storage and session checking.
