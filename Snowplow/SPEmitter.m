@@ -52,7 +52,7 @@
 // SnowplowEmitter Builder
 
 + (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock {
-    SPEmitter* emitter = [SPEmitter new];
+    SPEmitter* emitter = [[SPEmitter alloc] initWithDefaultValues];
     if (buildBlock) {
         buildBlock(emitter);
     }
@@ -60,7 +60,7 @@
     return emitter;
 }
 
-- (id) init {
+- (instancetype) initWithDefaultValues {
     self = [super init];
     if (self) {
         _httpMethod = SPRequestPost;
