@@ -59,6 +59,7 @@
 
 @property (readonly, nonatomic, retain) SPEmitter * emitter;
 @property (readonly, nonatomic, retain) SPSubject * subject;
+@property (nonatomic, retain) SPSession * session;
 @property (readonly, nonatomic, retain) NSString *  appId;
 @property (readonly, nonatomic, retain) NSString *  trackerNamespace;
 @property (readonly, nonatomic)         BOOL        base64Encoded;
