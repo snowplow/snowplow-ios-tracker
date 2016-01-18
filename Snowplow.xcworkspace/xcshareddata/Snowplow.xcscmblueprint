@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "60622D2027FDE57C4CF364BB08B662BD8E0B9774",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "60622D2027FDE57C4CF364BB08B662BD8E0B9774" : 0,
+    "4BF6A9E87FDDF79057FC7F111E9FBB00123544F2" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "CB65620D-BF0C-4EEC-93C1-C29293EBEC3E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "60622D2027FDE57C4CF364BB08B662BD8E0B9774" : "snowplow-objc-tracker\/",
+    "4BF6A9E87FDDF79057FC7F111E9FBB00123544F2" : "iglu-objc-client\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Snowplow",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Snowplow.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/snowplow\/iglu-objc-client.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4BF6A9E87FDDF79057FC7F111E9FBB00123544F2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/snowplow\/snowplow-objc-tracker.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "60622D2027FDE57C4CF364BB08B662BD8E0B9774"
+    }
+  ]
+}

@@ -20,7 +20,9 @@
 //  - the author or APPSFIRE may not be held liable in any way for any issue arising from the use of OpenIDFA
 //
 
-#if TARGET_OS_IPHONE
+#import "Snowplow.h"
+
+#if SNOWPLOW_TARGET_IOS
 
 #import "OpenIDFA.h"
 #import <UIKit/UIKit.h>
@@ -194,7 +196,12 @@
     //
     NSDateFormatter* dateFormatter = [ [ NSDateFormatter alloc ] init ];
     [ dateFormatter setDateFormat:@"yyMMdd" ];
-    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *calendar;
+    if (SNOWPLOW_iOS_8_OR_LATER) {
+        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    } else {
+        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    }
     NSDateComponents *hourShift = [[NSDateComponents alloc] init];
     [hourShift setHour:-4];
     NSDate *currentDay= [calendar dateByAddingComponents:hourShift toDate:[NSDate date] options:0];

@@ -21,11 +21,14 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "Snowplow.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
 #import "SPRequestCallback.h"
+#import "SPEvent.h"
 #import "Nocilla.h"
 
 @interface TestRequest : XCTestCase <SPRequestCallback>
@@ -37,11 +40,19 @@
     NSInteger _failureCount;
 }
 
-NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
+NSString *const TEST_SERVER_REQUEST = @"acme.test.url.com";
+NSString *protocol = @"https";
 
 - (void)setUp {
     [super setUp];
     [[LSNocilla sharedInstance] start];
+#if TARGET_OS_IPHONE
+    if (SNOWPLOW_iOS_9_OR_LATER) {
+        protocol = @"https";
+    }
+#else
+    protocol = @"https";
+#endif
 }
 
 - (void)tearDown {
@@ -52,64 +63,64 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 // Tests
 
 - (void)testRequestSendWithPost {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(200);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     
-    XCTAssertEqual(_successCount, 28);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 
 - (void)testRequestSendWithGet {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@/i?(.*?)", TEST_SERVER_REQUEST].regex).andReturn(200);
+    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestGet];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_successCount, 28);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithBadUrl {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(404);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(404);
     
     // Send all events with a bad URL
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_failureCount, 28);
-    XCTAssertEqual([tracker.emitter getDbCount], 28);
+    XCTAssertEqual(_failureCount, 7);
+    XCTAssertEqual([tracker.emitter getDbCount], 7);
     
     // Update the URL and flush
-    [[tracker emitter] setUrlEndpoint:[NSURL URLWithString:TEST_SERVER_REQUEST]];
+    [[tracker emitter] setUrlEndpoint:TEST_SERVER_REQUEST];
     
     [[LSNocilla sharedInstance] clearStubs];
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(200);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
     [[tracker emitter] flushBuffer];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_successCount, 28);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithoutSubject {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@/i?(.*?)", TEST_SERVER_REQUEST].regex).andReturn(200);
+    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestGet];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
     [tracker setSubject:nil];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_successCount, 28);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithCollectionOff {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@/com.snowplowanalytics.snowplow/tp2", TEST_SERVER_REQUEST]).andReturn(200);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:[NSURL URLWithString:TEST_SERVER_REQUEST] requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
     [tracker pauseEventTracking];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
@@ -120,13 +131,13 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 
 // Helpers
 
-- (SPTracker *)getTracker:(NSURL *)url requestType:(enum SPRequestOptions)type {
+- (SPTracker *)getTracker:(NSString *)url requestType:(enum SPRequestOptions)type {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:url];
         [builder setCallback:self];
         [builder setHttpMethod:type];
     }];
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
         [builder setSubject:subject];
@@ -171,136 +182,111 @@ NSString *const TEST_SERVER_REQUEST = @"http://acme.test.url.com";
 }
 
 - (void) trackStructuredEventWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5];
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5 context:[self getCustomContext]];
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5 timestamp:1243567890];
-    [tracker_ trackStructuredEvent:@"DemoCategory" action:@"DemoAction" label:@"DemoLabel" property:@"DemoProperty" value:5 context:[self getCustomContext] timestamp:1243567890];
+    SPStructured *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+        [builder setCategory:@"DemoCategory"];
+        [builder setAction:@"DemoAction"];
+        [builder setLabel:@"DemoLabel"];
+        [builder setProperty:@"DemoProperty"];
+        [builder setValue:5];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
+    }];
+    [tracker_ trackStructuredEvent:event];
 }
 
 - (void) trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
-    NSDictionary *event = @{
-                            @"schema":@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
-                            @"data": @{
-                                    @"level": @23,
-                                    @"score": @56473
-                                    }
-                            };
+    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
+    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:data];
+    SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:sdj];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
+    }];
     [tracker_ trackUnstructuredEvent:event];
-    [tracker_ trackUnstructuredEvent:event context:[self getCustomContext]];
-    [tracker_ trackUnstructuredEvent:event timestamp:1243567890];
-    [tracker_ trackUnstructuredEvent:event context:[self getCustomContext] timestamp:1243567890];
 }
 
 - (void) trackPageViewWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer"];
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer" context:[self getCustomContext]];
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer" timestamp:1243567890];
-    [tracker_ trackPageView:@"DemoPageUrl" title:@"DemoPageTitle" referrer:@"DemoPageReferrer" context:[self getCustomContext] timestamp:1243567890];
+    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setPageTitle:@"DemoPageTitle"];
+        [builder setReferrer:@"DemoPageReferrer"];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
+    }];
+    [tracker_ trackPageViewEvent:event];
 }
 
 - (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId"];
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId" context:[self getCustomContext]];
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId" timestamp:1243567890];
-    [tracker_ trackScreenView:@"DemoScreenName" id:@"DemoScreenId" context:[self getCustomContext] timestamp:1243567890];
+    SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
+        [builder setName:@"DemoScreenName"];
+        [builder setId:@"DemoScreenId"];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
+    }];
+    [tracker_ trackScreenViewEvent:event];
 }
 
 - (void) trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel"];
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel" context:[self getCustomContext]];
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel" timestamp:1243567890];
-    [tracker_ trackTimingWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:5 label:@"DemoTimingLabel" context:[self getCustomContext] timestamp:1243567890];
+    SPTiming *event = [SPTiming build:^(id<SPTimingBuilder> builder) {
+        [builder setCategory:@"DemoTimingCategory"];
+        [builder setVariable:@"DemoTimingVariable"];
+        [builder setTiming:5];
+        [builder setLabel:@"DemoTimingLabel"];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
+    }];
+    [tracker_ trackTimingEvent:event];
 }
 
 - (void) trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
     
-    SPPayload * item1 = [tracker_ trackEcommerceTransactionItem:transactionID
-                                                            sku:@"DemoItemSku"
-                                                           name:@"DemoItemName"
-                                                       category:@"DemoItemCategory"
-                                                          price:0.75F
-                                                       quantity:1
-                                                       currency:@"USD"];
-    SPPayload * item2 = [tracker_ trackEcommerceTransactionItem:transactionID
-                                                            sku:@"DemoItemSku"
-                                                           name:@"DemoItemName"
-                                                       category:@"DemoItemCategory"
-                                                          price:0.75F
-                                                       quantity:1
-                                                       currency:@"USD"
-                                                        context:[self getCustomContext]];
-    SPPayload * item3 = [tracker_ trackEcommerceTransactionItem:transactionID
-                                                            sku:@"DemoItemSku"
-                                                           name:@"DemoItemName"
-                                                       category:@"DemoItemCategory"
-                                                          price:0.75F
-                                                       quantity:1
-                                                       currency:@"USD"
-                                                      timestamp:1243567890];
+    SPEcommerceItem * item = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
+        [builder setItemId:transactionID];
+        [builder setSku:@"DemoItemSku"];
+        [builder setName:@"DemoItemName"];
+        [builder setCategory:@"DemoItemCategory"];
+        [builder setPrice:0.75F];
+        [builder setQuantity:1];
+        [builder setCurrency:@"USD"];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1234657890];
+        [builder setEventId:@"an-event-id"];
+    }];
     
-    [itemArray addObject:item1];
-    [tracker_ trackEcommerceTransaction:transactionID
-                             totalValue:350
-                            affiliation:@"DemoTranAffiliation"
-                               taxValue:10
-                               shipping:15
-                                   city:@"Boston"
-                                  state:@"Massachusetts"
-                                country:@"USA"
-                               currency:@"USD"
-                                  items:itemArray];
+    [itemArray addObject:item];
     
-    [tracker_ trackEcommerceTransaction:transactionID
-                             totalValue:350
-                            affiliation:@"DemoTranAffiliation"
-                               taxValue:10
-                               shipping:15
-                                   city:@"Boston"
-                                  state:@"Massachusetts"
-                                country:@"USA"
-                               currency:@"USD"
-                                  items:itemArray
-                                context:[self getCustomContext]];
-    
-    [itemArray removeAllObjects];
-    [itemArray addObject:item2];
-    [tracker_ trackEcommerceTransaction:transactionID
-                             totalValue:350
-                            affiliation:@"DemoTranAffiliation"
-                               taxValue:10
-                               shipping:15
-                                   city:@"Boston"
-                                  state:@"Massachusetts"
-                                country:@"USA"
-                               currency:@"USD"
-                                  items:itemArray
-                              timestamp:1243567890];
-    
-    [itemArray removeAllObjects];
-    [itemArray addObject:item3];
-    [tracker_ trackEcommerceTransaction:transactionID
-                             totalValue:350
-                            affiliation:@"DemoTranAffiliation"
-                               taxValue:10
-                               shipping:15
-                                   city:@"Boston"
-                                  state:@"Massachusetts"
-                                country:@"USA"
-                               currency:@"USD"
-                                  items:itemArray
-                                context:[self getCustomContext]
-                              timestamp:1243567890];
+    SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
+        [builder setOrderId:transactionID];
+        [builder setTotalValue:350];
+        [builder setAffiliation:@"DemoTranAffiliation"];
+        [builder setTaxValue:10];
+        [builder setShipping:15];
+        [builder setCity:@"Boston"];
+        [builder setState:@"Massachusetts"];
+        [builder setCountry:@"USA"];
+        [builder setCurrency:@"USD"];
+        [builder setItems:itemArray];
+        [builder setContexts:[self getCustomContext]];
+        [builder setTimestamp:1243567890];
+        [builder setEventId:@"an-event-id"];
+    }];
+    [tracker_ trackEcommerceEvent:event];
 }
 
 - (NSMutableArray *) getCustomContext {
-    NSDictionary *context = @{
-                              @"schema":@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0",
-                              @"data": @{
-                                      @"snowplow": @"demo-tracker"
-                                      }
-                              };
+    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
+    SPSelfDescribingJson * context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
+                                                                          andData:data];
     return [NSMutableArray arrayWithArray:@[context]];
 }
 

@@ -23,16 +23,15 @@
 #import "Snowplow.h"
 #import "SPEmitter.h"
 #import "SPEventStore.h"
-#import "SPUtils.h"
+#import "SPUtilities.h"
 #import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
-#import <FMDB.h>
 
 @interface SPEmitter ()
 
 @property (nonatomic) enum    SPRequestOptions      httpMethod;
-@property (nonatomic) enum    SPBufferOptions       bufferOption;
 @property (nonatomic, retain) NSURL *               urlEndpoint;
 @property (nonatomic)         NSInteger             emitRange;
 @property (nonatomic)         NSInteger             emitThreadPoolSize;
@@ -42,12 +41,15 @@
 
 @implementation SPEmitter {
     SPEventStore *     _db;
-    NSURL *            _url;
+    NSString *         _url;
     NSTimer *          _timer;
     BOOL               _isSending;
     NSOperationQueue * _dataOperationQueue;
     BOOL               _builderFinished;
 }
+
+const NSInteger POST_WRAPPER_BYTES = 88;
+const NSInteger POST_STM_BYTES = 22;
 
 // SnowplowEmitter Builder
 
@@ -64,10 +66,12 @@
     self = [super init];
     if (self) {
         _httpMethod = SPRequestPost;
-        _bufferOption = SPBufferDefault;
+        _protocol = SPHttps;
         _callback = nil;
         _emitRange = 150;
         _emitThreadPoolSize = 15;
+        _byteLimitGet = 40000;
+        _byteLimitPost = 40000;
         _isSending = NO;
         _db = [[SPEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
@@ -79,25 +83,25 @@
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupUrlEndpoint];
-    [self setFutureBufferFlushWithTime:kSPDefaultBufferTimeout];
+    [self startTimerFlush];
     _builderFinished = YES;
 }
 
 - (void) setupUrlEndpoint {
-    if (_url && _url.scheme && _url.host) {
-        if (_httpMethod == SPRequestGet) {
-            _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointGet];
-        } else {
-            _urlEndpoint = [_url URLByAppendingPathComponent:kSPEndpointPost];
-        }
+    NSString * urlPrefix = _protocol == SPHttp ? @"http://" : @"https://";
+    NSString * urlSuffix = _httpMethod == SPRequestGet ? kSPEndpointGet : kSPEndpointPost;
+    _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _url, urlSuffix]];
+    
+    if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
+        SnowplowDLog(@"Emitter URL created successfully");
     } else {
-        [NSException raise:@"Invalid SPEmitter Endpoint" format:@"An invalid Emitter URL was found: %@", _url];
+        [NSException raise:@"InvalidSPEmitterEndpoint" format:@"An invalid Emitter URL was found: %@", _url];
     }
 }
 
 // Required
 
-- (void) setUrlEndpoint:(NSURL *)urlEndpoint {
+- (void) setUrlEndpoint:(NSString *)urlEndpoint {
     _url = urlEndpoint;
     if (_builderFinished) {
         [self setupUrlEndpoint];
@@ -111,8 +115,11 @@
     }
 }
 
-- (void) setBufferOption:(enum SPBufferOptions)option {
-    _bufferOption = option;
+- (void) setProtocol:(enum SPProtocol)protocol {
+    _protocol = protocol;
+    if (_builderFinished && _urlEndpoint != nil) {
+        [self setupUrlEndpoint];
+    }
 }
 
 - (void) setCallback:(id<SPRequestCallback>)callback {
@@ -120,14 +127,26 @@
 }
 
 - (void) setEmitRange:(NSInteger)emitRange {
-    _emitRange = emitRange;
+    if (emitRange > 0) {
+        _emitRange = emitRange;
+    }
 }
 
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize {
-    _emitThreadPoolSize = emitThreadPoolSize;
-    if (_dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize) {
-        _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
+    if (emitThreadPoolSize > 0) {
+        _emitThreadPoolSize = emitThreadPoolSize;
+        if (_dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize) {
+            _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
+        }
     }
+}
+
+- (void) setByteLimitGet:(NSInteger)byteLimitGet {
+    _byteLimitGet = byteLimitGet;
+}
+
+- (void) setByteLimitPost:(NSInteger)byteLimitPost {
+    _byteLimitPost = byteLimitPost;
 }
 
 // Builder Finished
@@ -150,7 +169,7 @@
 }
 
 - (void) sendGuard {
-    if ([SPUtils isOnline] && !_isSending) {
+    if ([SPUtilities isOnline] && !_isSending) {
         _isSending = YES;
         [self sendEvents];
     }
@@ -169,30 +188,86 @@
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
     if (_httpMethod == SPRequestPost) {
-        for (int i = 0; i < listValues.count; i += _bufferOption) {
-            NSMutableArray *eventArray = [[NSMutableArray alloc] init];
-            NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-            double stm = [SPUtils getTimestamp];
+        NSMutableArray *eventArray = [[NSMutableArray alloc] init];
+        NSMutableArray *indexArray = [[NSMutableArray alloc] init];
+        NSInteger totalByteSize = 0;
+        
+        for (int i = 0; i < listValues.count; i ++) {
             
-            for (int j = i; j < (i + _bufferOption) && j < listValues.count; j++) {
-                NSMutableDictionary *eventPayload = [[listValues[j] objectForKey:@"eventData"] mutableCopy];
-                [eventPayload setValue:[NSString stringWithFormat:@"%.0f", stm] forKey:kSPSentTimestamp];
+            // Get the event payload
+            NSMutableDictionary *eventPayload = [[listValues[i] objectForKey:@"eventData"] mutableCopy];
+            
+            // Convert to NSData and check the byte size
+            NSData *data = [NSJSONSerialization dataWithJSONObject:eventPayload options:0 error:nil];
+            NSInteger payloadByteSize = [SPUtilities getByteSizeWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+            payloadByteSize += POST_STM_BYTES;
+            
+            if ((payloadByteSize + POST_WRAPPER_BYTES) > _byteLimitPost) {
+                // Single event exceeds the byte limit so must be sent individually.
+                NSMutableArray *singleEventArray = [[NSMutableArray alloc] init];
+                NSMutableArray *singleIndexArray = [[NSMutableArray alloc] init];
+                
+                // Build and Send the event!
+                [singleEventArray addObject:eventPayload];
+                [singleIndexArray addObject:[listValues[i] objectForKey:@"ID"]];
+                
+                // Add the STM to the event
+                [self addStmToEventPayloadsWithArray:singleEventArray];
+                
+                SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
+                                                                                     andData:singleEventArray];
+                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:singleIndexArray andResultArray:sendResults andOversize:YES];
+            } else if ((totalByteSize + payloadByteSize + POST_WRAPPER_BYTES + (eventArray.count - 1)) > _byteLimitPost) {
+                // Add the STM to each event
+                [self addStmToEventPayloadsWithArray:eventArray];
+                
+                // Adding this event to the accumulated array would exceed the limit.
+                SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
+                                                                                     andData:eventArray];
+                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
+                
+                // Reset collections and STM
+                eventArray = [[NSMutableArray alloc] init];
+                indexArray = [[NSMutableArray alloc] init];
+                
+                // Add event to collections
                 [eventArray addObject:eventPayload];
-                [indexArray addObject:[listValues[j] objectForKey:@"ID"]];
+                [indexArray addObject:[listValues[i] objectForKey:@"ID"]];
+                
+                // Update byte count
+                totalByteSize = payloadByteSize;
+            } else {
+                // Add event to collections
+                [eventArray addObject:eventPayload];
+                [indexArray addObject:[listValues[i] objectForKey:@"ID"]];
+                
+                // Update byte count
+                totalByteSize += payloadByteSize;
             }
+        }
             
-            NSMutableDictionary *payload = [[NSMutableDictionary alloc] init];
-            [payload setValue:kSPPayloadDataSchema forKey:@"schema"];
-            [payload setValue:eventArray forKey:@"data"];
-            [self sendSyncRequest:[self getRequestPostWithData:payload] withIndex:indexArray withResultPointer:sendResults];
+        // If we have not sent all of the events...
+        if (eventArray.count > 0) {
+            // Add the STM to each event
+            [self addStmToEventPayloadsWithArray:eventArray];
+            
+            // Send the event!
+            SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
+                                                                                 andData:eventArray];
+            [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
         }
     } else {
         for (NSDictionary * eventWithMetaData in listValues) {
-            NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%.0f", [SPUtils getTimestamp]] forKey:kSPSentTimestamp];
-            
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
-            [self sendSyncRequest:[self getRequestGetWithData:eventPayload] withIndex:indexArray withResultPointer:sendResults];
+            NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
+            [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)[SPUtilities getTimestamp]] forKey:kSPSentTimestamp];
+            
+            // Make GET URL to send
+            NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtilities urlEncodeDictionary:eventPayload]];
+            BOOL oversize = ([SPUtilities getByteSizeWithString:url] > _byteLimitGet);
+            
+            // Send the request
+            [self sendEventWithRequest:[self getRequestGetWithString:url] andIndex:indexArray andResultArray:sendResults andOversize:oversize];
         }
     }
     
@@ -207,7 +282,7 @@
         
         if ([result getSuccess]) {
             success += resultIndexArray.count;
-            [self processSuccessResult:resultIndexArray];
+            [self processSuccessesWithResults:resultIndexArray];
         } else {
             failure += resultIndexArray.count;
         }
@@ -238,14 +313,16 @@
     }
 }
 
-- (void) sendSyncRequest:(NSMutableURLRequest *)request withIndex:(NSArray *)indexArray withResultPointer:(NSMutableArray *)results {
+- (void) sendEventWithRequest:(NSMutableURLRequest *)request andIndex:(NSArray *)indexArray andResultArray:(NSMutableArray *)results andOversize:(BOOL)oversize {
     [_dataOperationQueue addOperationWithBlock:^{
         NSHTTPURLResponse *response = nil;
         NSError *connectionError = nil;
         [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&connectionError];
         
         @synchronized (results) {
-            if ([response statusCode] >= 200 && [response statusCode] < 300) {
+            if (oversize) {
+                [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
+            } else if ([response statusCode] >= 200 && [response statusCode] < 300) {
                 [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
             } else {
                 NSLog(@"Error: %@", connectionError);
@@ -255,7 +332,7 @@
     }];
 }
 
-- (void) processSuccessResult:(NSArray *)indexArray {
+- (void) processSuccessesWithResults:(NSArray *)indexArray {
     [_dataOperationQueue addOperationWithBlock:^{
         for (int i = 0; i < indexArray.count;  i++) {
             SnowplowDLog(@"Removing event at index: %@", indexArray[i]);
@@ -264,8 +341,8 @@
     }];
 }
 
-- (NSMutableURLRequest *) getRequestPostWithData:(NSDictionary *)data {
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:data options:0 error:nil];
+- (NSMutableURLRequest *) getRequestPostWithData:(SPSelfDescribingJson *)data {
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:[data getAsDictionary] options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
     [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
     [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
@@ -275,34 +352,39 @@
     return request;
 }
 
-- (NSMutableURLRequest *) getRequestGetWithData:(NSDictionary *)data {
-    NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtils urlEncodeDictionary:data]];
+- (NSMutableURLRequest *) getRequestGetWithString:(NSString *)url {
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     request.HTTPMethod = @"GET";
     [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
     return request;
 }
 
-// Setters
-
-- (void) setFutureBufferFlushWithTime:(NSInteger)userTime {
-    NSInteger time = kSPDefaultBufferTimeout;
-    if (userTime <= 300) {
-        time = userTime; // 5 minute intervals
+- (void) addStmToEventPayloadsWithArray:(NSArray *)eventArray {
+    NSInteger stm = [SPUtilities getTimestamp];
+    for (NSMutableDictionary * event in eventArray) {
+        [event setValue:[NSString stringWithFormat:@"%ld", (long)stm] forKey:kSPSentTimestamp];
     }
-    
+}
+
+// Extra functions
+
+- (void) startTimerFlush {
     if (_timer != nil) {
-        [_timer invalidate];
-        _timer = nil;
+        [self stopTimerFlush];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        _timer = [NSTimer scheduledTimerWithTimeInterval:time
+        _timer = [NSTimer scheduledTimerWithTimeInterval:kSPDefaultBufferTimeout
                                                   target:[[SPWeakTimerTarget alloc] initWithTarget:self andSelector:@selector(flushBuffer)]
                                                 selector:@selector(timerFired:)
                                                 userInfo:nil
                                                  repeats:YES];
     });
+}
+
+- (void) stopTimerFlush {
+    [_timer invalidate];
+    _timer = nil;
 }
 
 // Getters
@@ -316,8 +398,7 @@
 }
 
 - (void) dealloc {
-    [_timer invalidate];
-    _timer = nil;
+    [self stopTimerFlush];
 }
 
 @end

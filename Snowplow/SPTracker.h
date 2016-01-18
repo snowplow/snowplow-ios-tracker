@@ -26,6 +26,12 @@
 @class SPPayload;
 @class SPSubject;
 @class SPSession;
+@class SPPageView;
+@class SPStructured;
+@class SPUnstructured;
+@class SPScreenView;
+@class SPTiming;
+@class SPEcommerce;
 
 @protocol SPTrackerBuilder <NSObject>
 
@@ -89,427 +95,44 @@
 - (BOOL) getIsTracking;
 
 /**
- *  Lets you track a page view using all the variables entered here.
- *  @param pageUrl The URL of the page
- *  @param pageTitle The title of page we're tracking
- *  @param referrer Referrerr of the page
+ * Constructs the final event payload that is sent to the emitter.
+ * NOTE: This function is only used for testing purposes; should never be called in production.
+ *
+ * @param pb The event payload without any decoration
+ * @param contextArray The array of SelfDescribingJsons to add to the context json
+ * @param eventId The events eventId which will be used to generate the session json
+ * @return the final complete payload ready for sending
  */
-- (void) trackPageView:(NSString *)pageUrl
-                 title:(NSString *)pageTitle
-              referrer:(NSString *)referrer;
+- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId;
 
 /**
- *  Lets you track a page view using all the variables entered here.
- *  @param pageUrl The URL of the page
- *  @param pageTitle The title of page we're tracking
- *  @param referrer Referrerr of the page
- *  @param context An array of custom context for the event
+ * Tracks a PageView Event object.
  */
-- (void) trackPageView:(NSString *)pageUrl
-                 title:(NSString *)pageTitle
-              referrer:(NSString *)referrer
-               context:(NSMutableArray *)context;
+- (void) trackPageViewEvent:(SPPageView *)event;
 
 /**
- *  Lets you track a page view using all the variables entered here.
- *  @param pageUrl The URL of the page
- *  @param pageTitle The title of page we're tracking
- *  @param referrer Referrerr of the page
- *  @param timestamp Optional user-provided timestamp.
+ * Tracks a Structured Event object.
  */
-- (void) trackPageView:(NSString *)pageUrl
-                 title:(NSString *)pageTitle
-              referrer:(NSString *)referrer
-             timestamp:(double)timestamp;
+- (void) trackStructuredEvent:(SPStructured *)event;
 
 /**
- *  Lets you track a page view using all the variables entered here.
- *  @param pageUrl The URL of the page
- *  @param pageTitle The title of page we're tracking
- *  @param referrer Referrerr of the page
- *  @param context An array of custom context for the event
- *  @param timestamp Optional user-provided timestamp.
+ * Tracks an Unstructured Event object.
  */
-- (void) trackPageView:(NSString *)pageUrl
-                 title:(NSString *)pageTitle
-              referrer:(NSString *)referrer
-               context:(NSMutableArray *)context
-             timestamp:(double)timestamp;
+- (void) trackUnstructuredEvent:(SPUnstructured *)event;
 
 /**
- *  A structured event is a basic event using the paramaters passed to it.
- *  @param category Category of the event
- *  @param action The event itself
- *  @param label Refer to the object the action is performed on
- *  @param property Property associated with either the action or the object
- *  @param value A value associated with the user action
+ * Tracks a ScreenView Event object.
  */
-- (void) trackStructuredEvent:(NSString *)category
-                       action:(NSString *)action
-                        label:(NSString *)label
-                     property:(NSString *)property
-                        value:(float)value;
+- (void) trackScreenViewEvent:(SPScreenView *) event;
 
 /**
- *  A structured event is a basic event using the paramaters passed to it.
- *  @param category Category of the event
- *  @param action The event itself
- *  @param label Refer to the object the action is performed on
- *  @param property Property associated with either the action or the object
- *  @param value A value associated with the user action
- *  @param context An array of custom context for the event
+ * Tracks a Timing Event object.
  */
-- (void) trackStructuredEvent:(NSString *)category
-                       action:(NSString *)action
-                        label:(NSString *)label
-                     property:(NSString *)property
-                        value:(float)value
-                      context:(NSMutableArray *)context;
+- (void) trackTimingEvent:(SPTiming *) event;
 
 /**
- *  A structured event is a basic event using the paramaters passed to it.
- *  @param category Category of the event
- *  @param action The event itself
- *  @param label Refer to the object the action is performed on
- *  @param property Property associated with either the action or the object
- *  @param value A value associated with the user action
- *  @param timestamp Optional user-provided timestamp.
+ * Tracks an Ecommerce Event object.
  */
-- (void) trackStructuredEvent:(NSString *)category
-                       action:(NSString *)action
-                        label:(NSString *)label
-                     property:(NSString *)property
-                        value:(float)value
-                    timestamp:(double)timestamp;
-
-/**
- *  A structured event is a basic event using the paramaters passed to it.
- *  @param category Category of the event
- *  @param action The event itself
- *  @param label Refer to the object the action is performed on
- *  @param property Property associated with either the action or the object
- *  @param value A value associated with the user action
- *  @param context An array of custom context for the event
- *  @param timestamp Optional user-provided timestamp.
- */
-- (void) trackStructuredEvent:(NSString *)category
-                       action:(NSString *)action
-                        label:(NSString *)label
-                     property:(NSString *)property
-                        value:(float)value
-                      context:(NSMutableArray *)context
-                    timestamp:(double)timestamp;
-
-/**
- *  An unstructured event allows you to create an event custom structured to your requirements
- *  @param eventJson A dictionary of event data.
- */
-- (void) trackUnstructuredEvent:(NSDictionary *)eventJson;
-
-/**
- *  An unstructured event allows you to create an event custom structured to your requirements
- *  @param eventJson A dictionary of event data.
- *  @param timestamp Optional user provided timestamp.
- */
-- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
-                      timestamp:(double)timestamp;
-
-/**
- *  An unstructured event allows you to create an event custom structured to your requirements
- *  @param eventJson A dictionary of event data.
- *  @param context An array of custom context for the event
- */
-- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
-                        context:(NSMutableArray *)context;
-
-/**
- *  An unstructured event allows you to create an event custom structured to your requirements
- *  @param eventJson A dictionary of event data.
- *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp.
- */
-- (void) trackUnstructuredEvent:(NSDictionary *)eventJson
-                        context:(NSMutableArray *)context
-                      timestamp:(double)timestamp;
-
-/**
- *  An internal method to be called by trackEcommerceTransaction.
- *  @param orderId Order ID
- *  @param sku Item SKU
- *  @param name Item name
- *  @param category Item category
- *  @param price Item price
- *  @param quantity Item quantity
- *  @param currency The currency the price is expressed in
- */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency;
-
-/**
- *  An internal method to be called by trackEcommerceTransaction.
- *  @param orderId Order ID
- *  @param sku Item SKU
- *  @param name Item name
- *  @param category Item category
- *  @param price Item price
- *  @param quantity Item quantity
- *  @param currency The currency the price is expressed in
- *  @param context An array of custom context for the event
- */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency
-                                            context:(NSMutableArray *)context;
-
-/**
- *  An internal method to be called by trackEcommerceTransaction.
- *  @param orderId Order ID
- *  @param sku Item SKU
- *  @param name Item name
- *  @param category Item category
- *  @param price Item price
- *  @param quantity Item quantity
- *  @param currency The currency the price is expressed in
- *  @param timestamp Optional user provided timestamp.
- */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency
-                                          timestamp:(double)timestamp;
-
-/**
- *  An internal method to be called by trackEcommerceTransaction.
- *  @param orderId Order ID
- *  @param sku Item SKU
- *  @param name Item name
- *  @param category Item category
- *  @param price Item price
- *  @param quantity Item quantity
- *  @param currency The currency the price is expressed in
- *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp.
- */
-- (SPPayload *) trackEcommerceTransactionItem:(NSString *)orderId
-                                                sku:(NSString *)sku
-                                               name:(NSString *)name
-                                           category:(NSString *)category
-                                              price:(float)price
-                                           quantity:(int)quantity
-                                           currency:(NSString *)currency
-                                            context:(NSMutableArray *)context
-                                          timestamp:(double)timestamp;
-
-/**
- *  A tracker for e-commerce transactions
- *  @param orderId ID of the e-commerce transaction
- *  @param totalValue Total transaction value
- *  @param affiliation Transaction affiliation
- *  @param taxValue Transaction tax value
- *  @param shipping Delivery cost charged
- *  @param city Delivery address city
- *  @param state Delivery address state
- *  @param country Delivery address country
- *  @param currency The currency the price is expressed in
- *  @param items The items in the transaction. The structure is up to you.
- */
-- (void) trackEcommerceTransaction:(NSString *)orderId
-                        totalValue:(float)totalValue
-                       affiliation:(NSString *)affiliation
-                          taxValue:(float)taxValue
-                          shipping:(float)shipping
-                              city:(NSString *)city
-                             state:(NSString *)state
-                           country:(NSString *)country
-                          currency:(NSString *)currency
-                             items:(NSArray *)items;
-
-/**
- *  A tracker for e-commerce transactions
- *  @param orderId ID of the e-commerce transaction
- *  @param totalValue Total transaction value
- *  @param affiliation Transaction affiliation
- *  @param taxValue Transaction tax value
- *  @param shipping Delivery cost charged
- *  @param city Delivery address city
- *  @param state Delivery address state
- *  @param country Delivery address country
- *  @param currency The currency the price is expressed in
- *  @param items The items in the transaction. The structure is up to you.
- *  @param context An array of custom context for the event
- */
-- (void) trackEcommerceTransaction:(NSString *)orderId
-                        totalValue:(float)totalValue
-                       affiliation:(NSString *)affiliation
-                          taxValue:(float)taxValue
-                          shipping:(float)shipping
-                              city:(NSString *)city
-                             state:(NSString *)state
-                           country:(NSString *)country
-                          currency:(NSString *)currency
-                             items:(NSArray *)items
-                           context:(NSMutableArray *)context;
-
-/**
- *  A tracker for e-commerce transactions
- *  @param orderId ID of the e-commerce transaction
- *  @param totalValue Total transaction value
- *  @param affiliation Transaction affiliation
- *  @param taxValue Transaction tax value
- *  @param shipping Delivery cost charged
- *  @param city Delivery address city
- *  @param state Delivery address state
- *  @param country Delivery address country
- *  @param currency The currency the price is expressed in
- *  @param items The items in the transaction. The structure is up to you.
- *  @param timestamp Optional user provided timestamp.
- */
-- (void) trackEcommerceTransaction:(NSString *)orderId
-                        totalValue:(float)totalValue
-                       affiliation:(NSString *)affiliation
-                          taxValue:(float)taxValue
-                          shipping:(float)shipping
-                              city:(NSString *)city
-                             state:(NSString *)state
-                           country:(NSString *)country
-                          currency:(NSString *)currency
-                             items:(NSArray *)items
-                         timestamp:(double)timestamp;
-
-/**
- *  A tracker for e-commerce transactions
- *  @param orderId ID of the e-commerce transaction
- *  @param totalValue Total transaction value
- *  @param affiliation Transaction affiliation
- *  @param taxValue Transaction tax value
- *  @param shipping Delivery cost charged
- *  @param city Delivery address city
- *  @param state Delivery address state
- *  @param country Delivery address country
- *  @param currency The currency the price is expressed in
- *  @param items The items in the transaction. The structure is up to you.
- *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp.
- */
-- (void) trackEcommerceTransaction:(NSString *)orderId
-                        totalValue:(float)totalValue
-                       affiliation:(NSString *)affiliation
-                          taxValue:(float)taxValue
-                          shipping:(float)shipping
-                              city:(NSString *)city
-                             state:(NSString *)state
-                           country:(NSString *)country
-                          currency:(NSString *)currency
-                             items:(NSArray *)items
-                           context:(NSMutableArray *)context
-                         timestamp:(double)timestamp;
-
-/**
- *  A tracker for Storyboards, Views, and Windows.
- *  @param name The name of the screen view event
- *  @param id_ Screen view ID
- */
-- (void) trackScreenView:(NSString *)name
-                      id:(NSString *)id_;
-
-/**
- *  A tracker for Storyboards, Views, and Windows.
- *  @param name The name of the screen view event
- *  @param id_ Screen view ID
- *  @param context An array of custom context for the event
- */
-- (void) trackScreenView:(NSString *)name
-                      id:(NSString *)id_
-                 context:(NSMutableArray *)context;
-
-/**
- *  A tracker for Storyboards, Views, and Windows.
- *  @param name The name of the screen view event
- *  @param id_ Screen view ID
- *  @param timestamp Optional user provided timestamp.
- */
-- (void) trackScreenView:(NSString *)name
-                      id:(NSString *)id_
-               timestamp:(double)timestamp;
-
-/**
- *  A tracker for Storyboards, Views, and Windows.
- *  @param name The name of the screen view event
- *  @param id_ Screen view ID
- *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp.
- */
-- (void) trackScreenView:(NSString *)name
-                      id:(NSString *)id_
-                 context:(NSMutableArray *)context
-               timestamp:(double)timestamp;
-
-/**
- *  A tracker for User Timings.
- *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
- *  @param variable Identify the timing being recorded
- *  @param time The number of milliseconds in elapsed time to report
- *  @param label Optional description of this timing
- */
-- (void) trackTimingWithCategory:(NSString *)category
-                        variable:(NSString *)variable
-                          timing:(NSUInteger)timing
-                           label:(NSString *)label;
-
-/**
- *  A tracker for User Timings.
- *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
- *  @param variable Identify the timing being recorded
- *  @param time The number of milliseconds in elapsed time to report
- *  @param label Optional description of this timing
- *  @param context An array of custom context for the event
- */
-- (void) trackTimingWithCategory:(NSString *)category
-                        variable:(NSString *)variable
-                          timing:(NSUInteger)timing
-                           label:(NSString *)label
-                         context:(NSMutableArray *)context;
-
-/**
- *  A tracker for User Timings.
- *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
- *  @param variable Identify the timing being recorded
- *  @param time The number of milliseconds in elapsed time to report
- *  @param label Optional description of this timing
- *  @param timestamp Optional user provided timestamp
- */
-- (void) trackTimingWithCategory:(NSString *)category
-                        variable:(NSString *)variable
-                          timing:(NSUInteger)timing
-                           label:(NSString *)label
-                       timestamp:(double)timestamp;
-
-/**
- *  A tracker for User Timings.
- *  @param category Categorizing timing variables into logical groups (e.g API calls, asset loading)
- *  @param variable Identify the timing being recorded
- *  @param time The number of milliseconds in elapsed time to report
- *  @param label Optional description of this timing
- *  @param context An array of custom context for the event
- *  @param timestamp Optional user provided timestamp
- */
-- (void) trackTimingWithCategory:(NSString *)category
-                        variable:(NSString *)variable
-                          timing:(NSUInteger)timing
-                           label:(NSString *)label
-                         context:(NSMutableArray *)context
-                       timestamp:(double)timestamp;
+- (void) trackEcommerceEvent:(SPEcommerce *)event;
 
 @end

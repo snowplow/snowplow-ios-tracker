@@ -23,24 +23,28 @@
 #import "Snowplow.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
-#import "SPUtils.h"
+#import "SPUtilities.h"
 
 @implementation SPSubject {
-    SPPayload * _standardDict;
-    SPPayload * _platformDict;
+    SPPayload *           _standardDict;
+    SPPayload *           _platformDict;
+    NSMutableDictionary * _geoLocationDict;
 }
 
 - (id) init {
-    return [self initWithPlatformContext:false];
+    return [self initWithPlatformContext:false andGeoContext:false];
 }
 
-- (id) initWithPlatformContext:(BOOL)platformContext {
+- (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext {
     self = [super init];
     if (self) {
         _standardDict = [[SPPayload alloc] init];
         [self setStandardDict];
         if (platformContext) {
             [self setPlatformDict];
+        }
+        if (geoContext) {
+            [self setGeoDict];
         }
     }
     return self;
@@ -54,13 +58,22 @@
     return _platformDict;
 }
 
+- (NSDictionary *) getGeoLocationDict {
+    if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
+        return _geoLocationDict;
+    } else {
+        SnowplowDLog(@"Geo-Location is missing required fields; cannot return.");
+        return nil;
+    }
+}
+
 // Standard Dictionary
 
 - (void) setStandardDict {
-    [_standardDict addValueToPayload:[SPUtils getPlatform]   forKey:kSPPlatform];
-    [_standardDict addValueToPayload:[SPUtils getResolution] forKey:kSPResolution];
-    [_standardDict addValueToPayload:[SPUtils getViewPort]   forKey:kSPViewPort];
-    [_standardDict addValueToPayload:[SPUtils getLanguage]   forKey:kSPLanguage];
+    [_standardDict addValueToPayload:[SPUtilities getPlatform]   forKey:kSPPlatform];
+    [_standardDict addValueToPayload:[SPUtilities getResolution] forKey:kSPResolution];
+    [_standardDict addValueToPayload:[SPUtilities getViewPort]   forKey:kSPViewPort];
+    [_standardDict addValueToPayload:[SPUtilities getLanguage]   forKey:kSPLanguage];
 }
 
 - (void) setUserId:(NSString *)uid {
@@ -110,22 +123,60 @@
 
 - (void) setPlatformDict {
     _platformDict = [[SPPayload alloc] init];
-    [_platformDict addValueToPayload:[SPUtils getOSType]            forKey:kSPPlatformOsType];
-    [_platformDict addValueToPayload:[SPUtils getOSVersion]         forKey:kSPPlatformOsVersion];
-    [_platformDict addValueToPayload:[SPUtils getDeviceVendor]      forKey:kSPPlatformDeviceManu];
-    [_platformDict addValueToPayload:[SPUtils getDeviceModel]       forKey:kSPPlatformDeviceModel];
-#if TARGET_OS_IPHONE
+    [_platformDict addValueToPayload:[SPUtilities getOSType]            forKey:kSPPlatformOsType];
+    [_platformDict addValueToPayload:[SPUtilities getOSVersion]         forKey:kSPPlatformOsVersion];
+    [_platformDict addValueToPayload:[SPUtilities getDeviceVendor]      forKey:kSPPlatformDeviceManu];
+    [_platformDict addValueToPayload:[SPUtilities getDeviceModel]       forKey:kSPPlatformDeviceModel];
+#if SNOWPLOW_TARGET_IOS
     [self setMobileDict];
 #endif
 }
 
 - (void) setMobileDict {
-    [_platformDict addValueToPayload:[SPUtils getCarrierName]       forKey:kSPMobileCarrier];
-    [_platformDict addValueToPayload:[SPUtils getOpenIdfa]          forKey:kSPMobileOpenIdfa];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfa]         forKey:kSPMobileAppleIdfa];
-    [_platformDict addValueToPayload:[SPUtils getAppleIdfv]         forKey:kSPMobileAppleIdfv];
-    [_platformDict addValueToPayload:[SPUtils getNetworkType]       forKey:kSPMobileNetworkType];
-    [_platformDict addValueToPayload:[SPUtils getNetworkTechnology] forKey:kSPMobileNetworkTech];
+    [_platformDict addValueToPayload:[SPUtilities getCarrierName]       forKey:kSPMobileCarrier];
+    [_platformDict addValueToPayload:[SPUtilities getOpenIdfa]          forKey:kSPMobileOpenIdfa];
+    [_platformDict addValueToPayload:[SPUtilities getAppleIdfa]         forKey:kSPMobileAppleIdfa];
+    [_platformDict addValueToPayload:[SPUtilities getAppleIdfv]         forKey:kSPMobileAppleIdfv];
+    [_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];
+    [_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
+}
+
+// Geo-Location Dictionary
+
+- (void) setGeoDict {
+    _geoLocationDict = [[NSMutableDictionary alloc] init];
+}
+
+- (void) setGeoLatitude:(float)latitude {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:latitude] forKey:kSPGeoLatitude];
+}
+
+- (void) setGeoLongitude:(float)longitude {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:longitude] forKey:kSPGeoLongitude];
+}
+
+- (void) setGeoLatitudeLongitudeAccuracy:(float)latitudeLongitudeAccuracy {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:latitudeLongitudeAccuracy] forKey:kSPGeoLatLongAccuracy];
+}
+
+- (void) setGeoAltitude:(float)altitude {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:altitude] forKey:kSPGeoAltitude];
+}
+
+- (void) setGeoAltitudeAccuracy:(float)altitudeAccuracy {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:altitudeAccuracy] forKey:kSPGeoAltitudeAccuracy];
+}
+
+- (void) setGeoBearing:(float)bearing {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:bearing] forKey:kSPGeoBearing];
+}
+
+- (void) setGeoSpeed:(float)speed {
+    [_geoLocationDict setObject:[NSNumber numberWithFloat:speed] forKey:kSPGeoSpeed];
+}
+
+- (void) setGeoTimestamp:(NSInteger)timestamp {
+    [_geoLocationDict setObject:[NSNumber numberWithInt:(int)timestamp] forKey:kSPGeoTimestamp];
 }
 
 @end

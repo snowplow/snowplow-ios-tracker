@@ -22,6 +22,22 @@
 
 #import <Foundation/Foundation.h>
 
+// Macros to define what OS is running:
+// 1. iOS: iOS == 1; OSX == 1; tvOS == 0
+// 2. OSX: iOS == 0; OSX == 1; tvOS == 0
+// 3. TV:  iOS == 1; OSX == 1; tvOS == 1
+#define SNOWPLOW_TARGET_IOS (TARGET_OS_IPHONE && TARGET_OS_MAC && !(TARGET_OS_TV))
+#define SNOWPLOW_TARGET_OSX (!(TARGET_OS_IPHONE) && TARGET_OS_MAC && !(TARGET_OS_TV))
+#define SNOWPLOW_TARGET_TV  (TARGET_OS_IPHONE && TARGET_OS_MAC && TARGET_OS_TV)
+
+// Macros for iOS Versions
+#if SNOWPLOW_TARGET_IOS
+#import <UIKit/UIDevice.h>
+#define SNOWPLOW_iOS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+#define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
+#endif
+
+// Macros for Logging
 #ifdef SNOWPLOW_DEBUG
 #   define SnowplowDLog(...) NSLog(__VA_ARGS__)
 #else
@@ -56,6 +72,7 @@ extern NSString * const kSPContextSchema;
 extern NSString * const kSPMobileContextSchema;
 extern NSString * const kSPDesktopContextSchema;
 extern NSString * const kSPSessionContextSchema;
+extern NSString * const kSPGeoContextSchema;
 
 // --- Event Keys
 
@@ -118,6 +135,18 @@ extern NSString * const kSPSessionId;
 extern NSString * const kSPSessionPreviousId;
 extern NSString * const kSPSessionIndex;
 extern NSString * const kSPSessionStorage;
+extern NSString * const kSPSessionFirstEventId;
+
+// --- Geo-Location Context
+
+extern NSString * const kSPGeoLatitude;
+extern NSString * const kSPGeoLongitude;
+extern NSString * const kSPGeoLatLongAccuracy;
+extern NSString * const kSPGeoAltitude;
+extern NSString * const kSPGeoAltitudeAccuracy;
+extern NSString * const kSPGeoBearing;
+extern NSString * const kSPGeoSpeed;
+extern NSString * const kSPGeoTimestamp;
 
 // --- Page View Event
 

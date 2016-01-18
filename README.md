@@ -1,5 +1,5 @@
-iOS Analytics for Snowplow
-==========================
+iOS, OSX and tvOS Analytics for Snowplow
+========================================
 
 [ ![Build Status] [travis-image] ] [travis]
 [ ![Coverage Status][coveralls-image] ][coveralls]
@@ -9,18 +9,18 @@ iOS Analytics for Snowplow
 
 ## Overview
 
-Add analytics to your iOS apps and iOS games with the [Snowplow][2] event tracker for [iOS 7.0+][3].
+Add analytics to your iOS, OSX and tvOS apps and games with the [Snowplow][2] event tracker for [iOS 7.0+][3], [OSX 10.9+][4] and [tvOS 9.0+][5].
 
-With this tracker you can collect event data from your iOS applications, games or frameworks.
+With this tracker you can collect event data from your applications, games or frameworks.
 
-### Building the Static Framework
+### Building the Static Framework (iOS only)
 
 * Open `Snowplow.xcworkspace` in XCode.
 * Select the `SnowplowTracker-iOS-Static` scheme and set device to `iOS Device`.
 * Run `Archive` from the Product menu.
 * Finder should open and show you where `SnowplowTracker.framework` is stored.
 
-### Running the Demo Application
+### Running the Demo Application (iOS only)
 
 * Open `SnowplowDemo.xcworkspace` in XCode.
 * Select the `SnowplowDemo` scheme and set device to any emulator.
@@ -52,7 +52,7 @@ To view sent events in your browser please navigate to `http://localhost:2525`.
 
 ## Copyright and license
 
-The Snowplow iOS Tracker is copyright 2013-2014 Snowplow Analytics Ltd.
+The Snowplow iOS/OSX/tvOS Tracker is copyright 2013-2015 Snowplow Analytics Ltd.
 
 Licensed under the [Apache License, Version 2.0] [license] (the "License");
 you may not use this software except in compliance with the License.
@@ -65,6 +65,8 @@ limitations under the License.
 
 [2]: http://snowplowanalytics.com/
 [3]: https://www.apple.com/ios/
+[4]: https://www.apple.com/osx/
+[5]: https://www.apple.com/tv/
 
 [travis]: https://travis-ci.org/snowplow/snowplow-objc-tracker
 [travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.png?branch=master

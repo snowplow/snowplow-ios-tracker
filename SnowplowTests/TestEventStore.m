@@ -40,7 +40,7 @@
 
 - (void)testInit {
     SPEventStore * eventStore = [[SPEventStore alloc] init];
-    XCTAssertTrue([eventStore createTable]);
+    XCTAssertNotNil(eventStore);
 }
 
 - (void)testInsertPayload {
@@ -58,7 +58,7 @@
     [eventStore insertEvent:payload];
     
     XCTAssertEqual([eventStore count], 1);
-    XCTAssertEqualObjects([eventStore getEventWithId:1], [payload getPayloadAsDictionary]);
+    XCTAssertEqualObjects([eventStore getEventWithId:1], [payload getAsDictionary]);
     XCTAssertEqual([eventStore getLastInsertedRowId], 1);
     [eventStore removeEventWithId:1];
     
@@ -84,16 +84,6 @@
     XCTAssertEqual([eventStore getAllEventsLimited:600].count, 250);
     XCTAssertEqual([eventStore getAllEventsLimited:150].count, 150);
     XCTAssertEqual([eventStore getAllEvents].count, 250);
-}
-
-- (void)testDictionaryCleaner {
-    SPEventStore * eventStore = [[SPEventStore alloc] init];
-    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                           [NSNull null], @"a_null_value",
-                           @"Not null!", @"a_string_value", nil];
-    XCTAssertEqual(dict.count, 2);
-    NSDictionary * result = [eventStore getCleanDictionary:dict];
-    XCTAssertEqual(result.count, 1);
 }
 
 @end

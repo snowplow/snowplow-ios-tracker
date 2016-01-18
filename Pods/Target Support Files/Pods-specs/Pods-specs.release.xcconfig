@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/Nocilla" "${PODS_ROOT}/Headers/Public/Reachability"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/Nocilla" -isystem "${PODS_ROOT}/Headers/Public/Reachability"
-OTHER_LDFLAGS = -l"sqlite3" -ObjC -l"Pods-specs-Nocilla" -framework "CFNetwork"
-OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
+HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/KiteJSONValidator" "${PODS_ROOT}/Headers/Public/Nocilla" "${PODS_ROOT}/Headers/Public/Reachability" "${PODS_ROOT}/Headers/Public/SnowplowIgluClient"
+ONLY_ACTIVE_ARCH = NO
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/FMDB" -isystem "${PODS_ROOT}/Headers/Public/KiteJSONValidator" -isystem "${PODS_ROOT}/Headers/Public/Nocilla" -isystem "${PODS_ROOT}/Headers/Public/Reachability" -isystem "${PODS_ROOT}/Headers/Public/SnowplowIgluClient"
+OTHER_LDFLAGS = -l"sqlite3" $(inherited) -ObjC -l"Pods-specs-KiteJSONValidator" -l"Pods-specs-Nocilla" -l"Pods-specs-SnowplowIgluClient" -framework "CFNetwork" -framework "Foundation"
 PODS_ROOT = ${SRCROOT}/Pods

@@ -26,34 +26,38 @@
 @class SPPayload;
 @class SPEventStore;
 
-enum SPBufferOptions {
-    SPBufferInstant = 1,
-    SPBufferDefault = 10
-};
-
 enum SPRequestOptions {
     SPRequestGet,
     SPRequestPost
 };
 
+enum SPProtocol {
+    SPHttp,
+    SPHttps
+};
+
 @protocol SPEmitterBuilder <NSObject>
 
-- (void) setUrlEndpoint:(NSURL *)urlEndpoint;
+- (void) setUrlEndpoint:(NSString *)urlEndpoint;
 - (void) setHttpMethod:(enum SPRequestOptions)method;
-- (void) setBufferOption:(enum SPBufferOptions)option;
+- (void) setProtocol:(enum SPProtocol)protocol;
 - (void) setCallback:(id<SPRequestCallback>)callback;
 - (void) setEmitRange:(NSInteger)emitRange;
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
+- (void) setByteLimitGet:(NSInteger)byteLimitGet;
+- (void) setByteLimitPost:(NSInteger)byteLimitPost;
 
 @end
 
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
 @property (readonly, nonatomic) enum    SPRequestOptions      httpMethod;
-@property (readonly, nonatomic) enum    SPBufferOptions       bufferOption;
+@property (readonly, nonatomic) enum    SPProtocol            protocol;
 @property (readonly, nonatomic, retain) NSURL *               urlEndpoint;
 @property (readonly, nonatomic)         NSInteger             emitRange;
 @property (readonly, nonatomic)         NSInteger             emitThreadPoolSize;
+@property (readonly, nonatomic)         NSInteger             byteLimitGet;
+@property (readonly, nonatomic)         NSInteger             byteLimitPost;
 @property (readonly, nonatomic, weak)   id<SPRequestCallback> callback;
 
 /**
@@ -79,10 +83,14 @@ enum SPRequestOptions {
 - (void) flushBuffer;
 
 /**
- * Set the buffer time interval to send the events if the buffer hasn't reached it's max capacity yet.
- * @param userTime An int value in seconds
+ * Sets up a timer to automatically initiate sending of events at pre-determined intervals.
  */
-- (void) setFutureBufferFlushWithTime:(NSInteger)userTime;
+- (void) startTimerFlush;
+
+/**
+ * Stops the Future Buffer Flush function.
+ */
+- (void) stopTimerFlush;
 
 /**
  * Returns the total Database Count

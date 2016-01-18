@@ -15,7 +15,7 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida
+//  Authors: Jonathan Almeida, Joshua Beemster
 //  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
@@ -38,13 +38,14 @@
 - (id) initWithNSDictionary:(NSDictionary *) dict {
     self = [super init];
     if(self) {
-        _payload = [NSMutableDictionary dictionaryWithDictionary:dict];
+        _payload = [[NSMutableDictionary alloc] init];
+        [self addDictionaryToPayload:dict];
     }
     return self;
 }
 
 - (void) addValueToPayload:(NSString *)value forKey:(NSString *)key {
-    if (value == nil) {
+    if ([value length] == 0) {
         if ([_payload valueForKey:key] != nil) {
             [_payload removeObjectForKey:key];
         }
@@ -54,7 +55,14 @@
 }
 
 - (void) addDictionaryToPayload:(NSDictionary *)dict {
-    return dict == nil ? nil : [_payload addEntriesFromDictionary:dict];
+    if (dict != nil) {
+        for (NSString * key in dict) {
+            id value = [dict objectForKey:key];
+            if ([value isKindOfClass:[NSString class]]) {
+                [self addValueToPayload:(NSString *)value forKey:key];
+            }
+        }
+    }
 }
 
 - (void) addJsonToPayload:(NSData *)json
@@ -92,16 +100,13 @@
         } else {
             [self addValueToPayload:[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] forKey:typeNotEncoded];
         }
-    } // else handle a bad name-value pair even though it passes JSONSerialization?
+    }
 }
 
 - (void) addJsonStringToPayload:(NSString *)json
                   base64Encoded:(Boolean)encode
                 typeWhenEncoded:(NSString *)typeEncoded
              typeWhenNotEncoded:(NSString *)typeNotEncoded {
-    
-    // This method is added just to make it easier to accept JSON as a string
-    // Can be removed later if it's unused.
     NSData *data = [json dataUsingEncoding:NSUTF8StringEncoding];
 
     [self addJsonToPayload:data
@@ -123,12 +128,12 @@
         typeWhenNotEncoded:typeNotEncoded];
 }
 
-- (NSDictionary *) getPayloadAsDictionary {
+- (NSDictionary *) getAsDictionary {
     return _payload;
 }
 
 - (NSString *) description {
-    return [[self getPayloadAsDictionary] description];
+    return [[self getAsDictionary] description];
 }
 
 @end

@@ -40,7 +40,7 @@
 - (void)testInit {
     SPPayload *sample_payload = [[SPPayload alloc] init];
    
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           [[NSDictionary alloc] init],
                           @"Payload is not initilized to null on init");
 
@@ -52,7 +52,7 @@
                                  @"Value2", @"Key2", nil];
     SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict];
 
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_dict,
                           @"Payload is not initialized with the correct JSON or NSDictionary");
     XCTAssertTrue([[sample_payload description] isEqualToString:@"{\n    Key1 = Value1;\n    Key2 = Value2;\n}"]);
@@ -67,7 +67,7 @@
                                   @"Value2", @"Key1", nil];
     SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict];
     
-    XCTAssertNotEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertNotEqualObjects(sample_payload.getAsDictionary,
                              sample_dict2,
                              @"Payload is not initialized with the correct JSON or NSDictionary");
 }
@@ -76,7 +76,7 @@
     NSDictionary *sample_dict = nil;
     SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           [[NSDictionary alloc] init],
                           @"Payload should be initialized to an empty NSDictionary");
 }
@@ -88,7 +88,7 @@
     [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_dict,
                           @"Payload should have the correctly added payload");
 }
@@ -100,7 +100,7 @@
     [sample_payload addValueToPayload:@"Value1" forKey:@"Key1"];
     
     
-    XCTAssertNotEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertNotEqualObjects(sample_payload.getAsDictionary,
                           sample_dict,
                           @"Payload should not be the same as sample_dict");
 }
@@ -114,7 +114,7 @@
     SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dict_init];
     [sample_payload addValueToPayload:@"Value2" forKey:@"Key2"];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_dict_final,
                           @"Payload should have the same data as sample_dict_final");
 }
@@ -122,13 +122,13 @@
 - (void)testAddNilValueToPayload {
     SPPayload *payload = [[SPPayload alloc] init];
     [payload addValueToPayload:nil forKey:@"foo"];
-    XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
+    XCTAssertEqualObjects(payload.getAsDictionary, [[NSDictionary alloc] init]);
 }
 
 - (void)testAddNilValueToPayloadUnsetsKey {
     SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:@{@"foo":@"bar"}];
     [payload addValueToPayload:nil forKey:@"foo"];
-    XCTAssertEqualObjects(payload.getPayloadAsDictionary, [[NSDictionary alloc] init]);
+    XCTAssertEqualObjects(payload.getAsDictionary, [[NSDictionary alloc] init]);
 }
 
 - (void)testAddDictToPayload {
@@ -137,7 +137,7 @@
     SPPayload *sample_payload = [[SPPayload alloc] init];
     [sample_payload addDictionaryToPayload:sample_dic];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_dic,
                           @"Payload should contain the exact same contents added from sample_dic");
 }
@@ -153,7 +153,23 @@
     SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dic];
     [sample_payload addDictionaryToPayload:sample_dic2];
 
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
+                          sample_dict_final,
+                          @"Payload should contain the exact same contents added from sample_dic_final");
+}
+
+- (void)testAddDictToPayload3 {
+    NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                @"Value1", @"Key1", nil];
+    NSDictionary *sample_dic2 = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 [[NSNumber alloc] initWithInt:2], @"Key2", nil];
+    NSDictionary *sample_dict_final = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                       @"Value1", @"Key1", nil];
+    
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:sample_dic];
+    [sample_payload addDictionaryToPayload:sample_dic2];
+    
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_dict_final,
                           @"Payload should contain the exact same contents added from sample_dic_final");
 }
@@ -173,7 +189,7 @@
     [sample_payload addJsonToPayload:somedata base64Encoded:true
                      typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
@@ -193,7 +209,7 @@
     [sample_payload addJsonToPayload:somedata base64Encoded:false
                      typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
@@ -205,7 +221,7 @@
     [sample_payload addJsonToPayload:somedata base64Encoded:false
                      typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
-    XCTAssertTrue([sample_payload.getPayloadAsDictionary count] == 0);
+    XCTAssertTrue([sample_payload.getAsDictionary count] == 0);
 }
 
 - (void)testJsonStringToPayload {
@@ -219,7 +235,7 @@
     [sample_payload addJsonStringToPayload:json_str base64Encoded:false
                            typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
@@ -235,7 +251,7 @@
     [sample_payload addJsonStringToPayload:json_str base64Encoded:true
                            typeWhenEncoded:@"type_enc" typeWhenNotEncoded:@"type_notenc"];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_enc,
                           @"Payload doesn't match sample_enc, might be a b64 encoding problem.");
 }
@@ -243,7 +259,7 @@
 - (void)testgetPayloadAsDictionary {
     SPPayload *sample_payload = [[SPPayload alloc] init];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           [[NSDictionary alloc] init],
                           @"Payload should be initialized to an empty dictionary");
 }
@@ -252,7 +268,7 @@
     NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:@"Value1", @"Key1", nil];
     SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:@{@"Key1": @"Value1"}];
     
-    XCTAssertEqualObjects(sample_payload.getPayloadAsDictionary,
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_dict,
                           @"Payload should be initialized to an empty dictionary");
 }
