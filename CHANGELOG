@@ -25,6 +25,7 @@ OpenIDFA calendar is deprecated for iOS 8, thanks @iamjason! (#230)
 SPUtilities getTimestamp should return an NSInteger not double (#229)
 Fixed classname collision: SPUtils vs WatchKit.framework, thanks @iamjason! (#228)
 Fixed tvOS could not create database queue for path (#251)
+Replaced legacy docset_url in podspec with documentation_url (#259)
 
 Version 0.5.2 (2015-09-30)
 --------------------------
