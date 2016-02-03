@@ -290,8 +290,8 @@ const NSInteger POST_STM_BYTES = 22;
     
     [_dataOperationQueue waitUntilAllOperationsAreFinished];
     
-    SnowplowDLog(@"Success Count: %@", success);
-    SnowplowDLog(@"Failure Count: %@", failure);
+    SnowplowDLog(@"Success Count: %@", @(success).stringValue);
+    SnowplowDLog(@"Failure Count: %@", @(failure).stringValue);
     
     if (_callback != nil) {
         if (failure == 0) {
