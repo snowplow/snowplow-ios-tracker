@@ -325,7 +325,7 @@ const NSInteger POST_STM_BYTES = 22;
             } else if ([response statusCode] >= 200 && [response statusCode] < 300) {
                 [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
             } else {
-                NSLog(@"Error: %@", connectionError);
+                NSLog(@"Snowplow connection error %@ %@ %@", connectionError.domain, @(connectionError.code), connectionError.localizedDescription);
                 [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
             }
         }
