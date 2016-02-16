@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SnowplowTracker"
-  s.version          = "0.6.0"
+  s.version          = "0.6.1"
   s.summary          = "Snowplow event tracker for iOS 7+. Add analytics to your iOS apps and games."
   s.description      = <<-DESC
   Snowplow is a mobile and event analytics platform with a difference: rather than tell our users how they should analyze their data, we deliver their event-level data in their own data warehouse, on their own Amazon Redshift or Postgres database, so they can analyze it any way they choose. Snowplow mobile is used by data-savvy games companies and app developers to better understand their users and how they engage with their games and applications. Snowplow is open source using the business-friendly Apache License, Version 2.0 and scales horizontally to many billions of events.
