@@ -260,7 +260,7 @@ const NSInteger POST_STM_BYTES = 22;
         for (NSDictionary * eventWithMetaData in listValues) {
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)[SPUtilities getTimestamp]] forKey:kSPSentTimestamp];
+            [eventPayload setValue:[NSString stringWithFormat:@"%@", [@([SPUtilities getTimestamp]) stringValue]] forKey:kSPSentTimestamp];
             
             // Make GET URL to send
             NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtilities urlEncodeDictionary:eventPayload]];
@@ -344,7 +344,7 @@ const NSInteger POST_STM_BYTES = 22;
 - (NSMutableURLRequest *) getRequestPostWithData:(SPSelfDescribingJson *)data {
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:[data getAsDictionary] options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
-    [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:[NSString stringWithFormat:@"%@", [@([requestData length]) stringValue]] forHTTPHeaderField:@"Content-Length"];
     [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
     [request setValue:kSPContentTypeHeader forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
@@ -362,7 +362,7 @@ const NSInteger POST_STM_BYTES = 22;
 - (void) addStmToEventPayloadsWithArray:(NSArray *)eventArray {
     NSInteger stm = [SPUtilities getTimestamp];
     for (NSMutableDictionary * event in eventArray) {
-        [event setValue:[NSString stringWithFormat:@"%ld", (long)stm] forKey:kSPSentTimestamp];
+        [event setValue:[NSString stringWithFormat:@"%@", [@(stm) stringValue]] forKey:kSPSentTimestamp];
     }
 }
 

@@ -145,7 +145,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 }
 
 - (NSArray *) getAllEventsLimited:(NSUInteger)limit {
-    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %lu", _querySelectAll, (unsigned long)limit];
+    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %@", _querySelectAll, [@(limit) stringValue]];
     return [self getAllEventsWithQuery:query];
 }
 
