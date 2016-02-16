@@ -5,9 +5,9 @@ PODS:
   - FMDB/standard (2.5):
     - FMDB/common
   - Reachability (3.2)
-  - SnowplowTracker (0.6.0):
-    - FMDB (~> 2.3)
-    - Reachability (~> 3.2)
+  - SnowplowTracker (0.6.1):
+    - FMDB (= 2.5)
+    - Reachability (= 3.2)
 
 DEPENDENCIES:
   - SnowplowTracker (from `../`)
@@ -19,6 +19,6 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SnowplowTracker: a8f415a6e3c72b862d201a17ff3678fe091f9fb4
+  SnowplowTracker: fd63aa0ccb9c8b8c054c858d0bb82dd35f91daf2
 
 COCOAPODS: 0.39.0
