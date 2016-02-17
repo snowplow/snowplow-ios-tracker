@@ -62,7 +62,7 @@
     if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
         return _geoLocationDict;
     } else {
-        SnowplowDLog(@"Geo-Location is missing required fields; cannot return.");
+        SnowplowDLog(@"SPLog: GeoLocation missing required fields; cannot get.");
         return nil;
     }
 }

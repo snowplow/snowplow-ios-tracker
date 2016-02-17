@@ -76,7 +76,7 @@
         object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     }
     @catch (NSException *exception) {
-        SnowplowDLog(@"addJsonToPayload: error: %@", error.localizedDescription);
+        SnowplowDLog(@"SPLog: addJsonToPayload error, %@", error.localizedDescription);
         return;
     }
     
