@@ -90,7 +90,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     __block BOOL res = false;
     [_queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
-            SnowplowDLog(@"Removing %lld from database now.", id_);
+            SnowplowDLog(@"SPLog: Removing %@ from database now.", [@(id_) stringValue]);
             res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
         }
     }];
@@ -129,7 +129,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
                 NSData * data = [s dataForColumn:@"eventData"];
-                SnowplowDLog(@"Item: %d %@ %@",
+                SnowplowDLog(@"SPLog: Item: %d %@ %@",
                      [s intForColumn:@"ID"],
                      [s dateForColumn:@"dateCreated"],
                      [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
@@ -145,7 +145,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 }
 
 - (NSArray *) getAllEventsLimited:(NSUInteger)limit {
-    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %lu", _querySelectAll, (unsigned long)limit];
+    NSString *query = [NSString stringWithFormat:@"%@ LIMIT %@", _querySelectAll, [@(limit) stringValue]];
     return [self getAllEventsWithQuery:query];
 }
 
@@ -158,8 +158,8 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
                 long long int index = [s longLongIntForColumn:@"ID"];
                 NSData * data =[s dataForColumn:@"eventData"];
                 NSDate * date = [s dateForColumn:@"dateCreated"];
-                SnowplowDLog(@"Item: %lld %@ %@",
-                     index,
+                SnowplowDLog(@"SPLog: Item: %@ %@ %@",
+                     [@(index) stringValue],
                      [date description],
                      [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                 NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];

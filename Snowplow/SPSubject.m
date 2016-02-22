@@ -62,7 +62,7 @@
     if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
         return _geoLocationDict;
     } else {
-        SnowplowDLog(@"Geo-Location is missing required fields; cannot return.");
+        SnowplowDLog(@"SPLog: GeoLocation missing required fields; cannot get.");
         return nil;
     }
 }
@@ -81,17 +81,17 @@
 }
 
 - (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height {
-    NSString * res = [NSString stringWithFormat:@"%ldx%ld", (long)width, (long)height];
+    NSString * res = [NSString stringWithFormat:@"%@x%@", [@(width) stringValue], [@(height) stringValue]];
     [_standardDict addValueToPayload:res forKey:kSPResolution];
 }
 
 - (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height {
-    NSString * res = [NSString stringWithFormat:@"%ldx%ld", (long)width, (long)height];
+    NSString * res = [NSString stringWithFormat:@"%@x%@", [@(width) stringValue], [@(height) stringValue]];
     [_standardDict addValueToPayload:res forKey:kSPViewPort];
 }
 
 - (void) setColorDepth:(NSInteger)depth {
-    NSString * res = [NSString stringWithFormat:@"%ld", (long)depth];
+    NSString * res = [NSString stringWithFormat:@"%@", [@(depth) stringValue]];
     [_standardDict addValueToPayload:res forKey:kSPColorDepth];
 }
 

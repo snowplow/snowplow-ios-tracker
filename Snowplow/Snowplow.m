@@ -27,11 +27,11 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-0.6.0";
+NSString * const kSPVersion               = @"ios-0.6.1";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-0.6.0";
+NSString * const kSPVersion               = @"tvos-0.6.1";
 #else
-NSString * const kSPVersion               = @"osx-0.6.0";
+NSString * const kSPVersion               = @"osx-0.6.1";
 #endif
 
 // --- Emitter

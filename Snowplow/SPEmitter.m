@@ -93,7 +93,7 @@ const NSInteger POST_STM_BYTES = 22;
     _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _url, urlSuffix]];
     
     if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
-        SnowplowDLog(@"Emitter URL created successfully");
+        SnowplowDLog(@"SPLog: Emitter URL created successfully '%@'", _urlEndpoint);
     } else {
         [NSException raise:@"InvalidSPEmitterEndpoint" format:@"An invalid Emitter URL was found: %@", _url];
     }
@@ -176,10 +176,10 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) sendEvents {
-    SnowplowDLog(@"Sending events...");
+    SnowplowDLog(@"SPLog: Sending events...");
     
     if ([self getDbCount] == 0) {
-        SnowplowDLog(@"Database empty. Returning..");
+        SnowplowDLog(@"SPLog: Database empty. Returning..");
         _isSending = NO;
         return;
     }
@@ -260,7 +260,7 @@ const NSInteger POST_STM_BYTES = 22;
         for (NSDictionary * eventWithMetaData in listValues) {
             NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
             NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%ld", (long)[SPUtilities getTimestamp]] forKey:kSPSentTimestamp];
+            [eventPayload setValue:[NSString stringWithFormat:@"%@", [@([SPUtilities getTimestamp]) stringValue]] forKey:kSPSentTimestamp];
             
             // Make GET URL to send
             NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtilities urlEncodeDictionary:eventPayload]];
@@ -290,8 +290,8 @@ const NSInteger POST_STM_BYTES = 22;
     
     [_dataOperationQueue waitUntilAllOperationsAreFinished];
     
-    SnowplowDLog(@"Success Count: %@", success);
-    SnowplowDLog(@"Failure Count: %@", failure);
+    SnowplowDLog(@"SPLog: Emitter Success Count: %@", [@(success) stringValue]);
+    SnowplowDLog(@"SPLog: Emitter Failure Count: %@", [@(failure) stringValue]);
     
     if (_callback != nil) {
         if (failure == 0) {
@@ -304,7 +304,7 @@ const NSInteger POST_STM_BYTES = 22;
     [sendResults removeAllObjects];
     
     if (success == 0 && failure > 0) {
-        SnowplowDLog(@"Ending emitter run as all requests failed...");
+        SnowplowDLog(@"SPLog: Ending emitter run as all requests failed...");
         [NSThread sleepForTimeInterval:5];
         _isSending = NO;
         return;
@@ -325,7 +325,7 @@ const NSInteger POST_STM_BYTES = 22;
             } else if ([response statusCode] >= 200 && [response statusCode] < 300) {
                 [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
             } else {
-                NSLog(@"Error: %@", connectionError);
+                NSLog(@"SPLog: Error: %@", connectionError);
                 [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
             }
         }
@@ -335,7 +335,7 @@ const NSInteger POST_STM_BYTES = 22;
 - (void) processSuccessesWithResults:(NSArray *)indexArray {
     [_dataOperationQueue addOperationWithBlock:^{
         for (int i = 0; i < indexArray.count;  i++) {
-            SnowplowDLog(@"Removing event at index: %@", indexArray[i]);
+            SnowplowDLog(@"SPLog: Removing event at index: %@", [@(i) stringValue]);
             [_db removeEventWithId:[[indexArray objectAtIndex:i] longLongValue]];
         }
     }];
@@ -344,7 +344,7 @@ const NSInteger POST_STM_BYTES = 22;
 - (NSMutableURLRequest *) getRequestPostWithData:(SPSelfDescribingJson *)data {
     NSData *requestData = [NSJSONSerialization dataWithJSONObject:[data getAsDictionary] options:0 error:nil];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
-    [request setValue:[NSString stringWithFormat:@"%ld", (unsigned long)[requestData length]] forHTTPHeaderField:@"Content-Length"];
+    [request setValue:[NSString stringWithFormat:@"%@", [@([requestData length]) stringValue]] forHTTPHeaderField:@"Content-Length"];
     [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
     [request setValue:kSPContentTypeHeader forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
@@ -362,7 +362,7 @@ const NSInteger POST_STM_BYTES = 22;
 - (void) addStmToEventPayloadsWithArray:(NSArray *)eventArray {
     NSInteger stm = [SPUtilities getTimestamp];
     for (NSMutableDictionary * event in eventArray) {
-        [event setValue:[NSString stringWithFormat:@"%ld", (long)stm] forKey:kSPSentTimestamp];
+        [event setValue:[NSString stringWithFormat:@"%@", [@(stm) stringValue]] forKey:kSPSentTimestamp];
     }
 }
 

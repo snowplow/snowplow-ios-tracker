@@ -1,3 +1,10 @@
+Version 0.6.1 (2016-02-17)
+--------------------------
+Made podfile dependencies more restrictive (#266)
+Harmonized foreground and background timeouts with Android (#265)
+Fixed Cast from NS(U)Integer to long type causing crashes on 32-bit devices (#264)
+Fixed crash when logging emitter attempts, thanks @rockshassa! (#262)
+
 Version 0.6.0 (2016-01-18)
 --------------------------
 ClientSession needs to send null for the first previousSessionId (#257)

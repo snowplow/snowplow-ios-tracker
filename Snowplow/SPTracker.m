@@ -71,8 +71,8 @@
         _base64Encoded = YES;
         _dataCollection = YES;
         _sessionContext = NO;
-        _foregroundTimeout = 600000;
-        _backgroundTimeout = 300000;
+        _foregroundTimeout = 600;
+        _backgroundTimeout = 300;
         _checkInterval = 15;
         _builderFinished = NO;
         

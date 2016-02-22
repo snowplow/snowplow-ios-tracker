@@ -9,8 +9,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 target :lib, :exclusive => true do
   platform :ios, '7.0'
   link_with ['Snowplow']
-  pod 'FMDB', '~> 2.3'
-  pod 'Reachability', '~>3.2'
+  pod 'FMDB', '2.5'
+  pod 'Reachability', '3.2'
 end
 
 target :specs, :exclusive => true do
@@ -22,7 +22,7 @@ end
 
 target 'Snowplow-OSX' do
     platform :osx, '10.9'
-    pod 'FMDB', '~> 2.3'
+    pod 'FMDB', '2.5'
 end
 
 target 'Snowplow-OSXTests' do

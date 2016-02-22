@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '422BE2DC5957C1CE04C036C3'
+               BlueprintIdentifier = '6FCE0C006E59278240BE4BAC'
                BlueprintName = 'SnowplowTracker'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libSnowplowTracker.a'>

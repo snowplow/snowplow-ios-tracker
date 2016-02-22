@@ -13,9 +13,9 @@ PODS:
     - KiteJSONValidator (~> 0.2.3)
 
 DEPENDENCIES:
-  - FMDB (~> 2.3)
+  - FMDB (= 2.5)
   - Nocilla
-  - Reachability (~> 3.2)
+  - Reachability (= 3.2)
   - SnowplowIgluClient
 
 SPEC CHECKSUMS:
