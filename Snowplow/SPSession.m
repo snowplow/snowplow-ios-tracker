@@ -33,7 +33,7 @@
     NSInteger   _foregroundTimeout;
     NSInteger   _backgroundTimeout;
     NSInteger   _checkInterval;
-    NSInteger   _accessedLast;
+    NSNumber *  _accessedLast;
     BOOL        _inBackground;
     NSString *  _userId;
     NSString *  _currentSessionId;
@@ -182,7 +182,7 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) checkSession:(NSTimer *)timer {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSInteger checkTime = [SPUtilities getTimestamp];
+        NSNumber *checkTime = [SPUtilities getTimestamp];
         NSInteger range = 0;
         
         if (_inBackground) {
@@ -191,7 +191,7 @@ NSString * const kSessionSavePath = @"session.dict";
             range = _foregroundTimeout;
         }
         
-        if (![self isTimeInRangeWithStartTime:_accessedLast andCheckTime:checkTime andRange:range]) {
+        if (![self isTimeInRangeWithStartTime:_accessedLast.longLongValue andCheckTime:checkTime.longLongValue andRange:range]) {
             [self updateSession];
             [self updateAccessedLast];
             [self updateSessionDict];
@@ -225,9 +225,9 @@ NSString * const kSessionSavePath = @"session.dict";
     [_sessionDict setObject:_firstEventId forKey:kSPSessionFirstEventId];
 }
 
-- (BOOL) isTimeInRangeWithStartTime:(NSInteger)startTime
-                       andCheckTime:(NSInteger)checkTime
-                           andRange:(NSInteger)range {
+- (BOOL) isTimeInRangeWithStartTime:(long long)startTime
+                       andCheckTime:(long long)checkTime
+                           andRange:(long long)range {
     return startTime > (checkTime - range);
 }
 

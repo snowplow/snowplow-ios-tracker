@@ -94,7 +94,7 @@
  *  Returns the timestamp generated at the point it was called.
  *  @return A double of the timestamp from when the method was called.
  */
-+ (NSInteger) getTimestamp;
++ (NSNumber *) getTimestamp;
 
 /**
  *  Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.
