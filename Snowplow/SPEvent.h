@@ -28,7 +28,7 @@
 // Builder Protocols : Defines all setter functions
 
 @protocol SPEventBuilder <NSObject>
-- (void) setTimestamp:(NSInteger)timestamp;
+- (void) setTimestamp:(NSNumber *)timestamp;
 - (void) setContexts:(NSMutableArray *)contexts;
 - (void) setEventId:(NSString *)eventId;
 @end
@@ -90,12 +90,12 @@
 
 @interface SPEvent : NSObject <SPEventBuilder>
 
-@property (nonatomic, readwrite) NSInteger timestamp;
+@property (nonatomic, readwrite) NSNumber *timestamp;
 @property (nonatomic, readwrite, retain) NSMutableArray* contexts;
 @property (nonatomic, readwrite, retain) NSString * eventId;
 
 - (NSMutableArray *) getContexts;
-- (NSInteger) getTimestamp;
+- (NSNumber *) getTimestamp;
 - (NSString *) getEventId;
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb;
 @end

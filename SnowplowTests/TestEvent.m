@@ -44,11 +44,11 @@
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setContexts:[self getCustomContext]];
         [builder setEventId:@"an-event-id-string"];
-        [builder setTimestamp:1234567890];
+        [builder setTimestamp:@1234567890];
     }];
     XCTAssertNotNil(event);
     XCTAssertEqualObjects([event getEventId], @"an-event-id-string");
-    XCTAssertEqual([event getTimestamp], 1234567890);
+    XCTAssertEqual([event getTimestamp].longLongValue, @(1234567890).longLongValue);
     
     // Context is nil
     @try {

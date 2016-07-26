@@ -81,7 +81,7 @@
     [subject setGeoDict];
     [subject setGeoLongitude:5];
     [subject setGeoLatitude:170.2];
-    [subject setGeoTimestamp:5];
+    [subject setGeoTimestamp:@5];
     [subject setGeoLatitudeLongitudeAccuracy:5.5];
     [subject setGeoSpeed:6.2];
     [subject setGeoBearing:82.3];
