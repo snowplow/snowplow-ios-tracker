@@ -42,7 +42,7 @@
 
 // --- Builder Methods
 
-- (void) setTimestamp:(NSInteger)timestamp {
+- (void) setTimestamp:(NSNumber *)timestamp {
     _timestamp = timestamp;
 }
 
@@ -64,7 +64,7 @@
     return [NSMutableArray arrayWithArray:_contexts];
 }
 
-- (NSInteger) getTimestamp {
+- (NSNumber *) getTimestamp {
     return _timestamp;
 }
 
@@ -73,7 +73,7 @@
 }
 
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb {
-    [pb addValueToPayload:[NSString stringWithFormat:@"%@", [@(_timestamp) stringValue]] forKey:kSPTimestamp];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%lld", _timestamp.longLongValue] forKey:kSPTimestamp];
     [pb addValueToPayload:_eventId forKey:kSPEid];
     return pb;
 }

@@ -180,6 +180,6 @@
  * Sets the timestamp value for the geo context
  * @param timestamp An NSInteger value
  */
-- (void) setGeoTimestamp:(NSInteger)timestamp;
+- (void) setGeoTimestamp:(NSNumber *)timestamp;
 
 @end

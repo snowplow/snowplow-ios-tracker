@@ -144,7 +144,7 @@
 }
 
 - (void)testGetTimestamp {
-    NSString *sample_rand = [NSString stringWithFormat:@"%@", [@([SPUtilities getTimestamp]) stringValue]];
+    NSString *sample_rand = [NSString stringWithFormat:@"%lld", [[SPUtilities getTimestamp] longLongValue]];
     
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9]+";

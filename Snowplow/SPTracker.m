@@ -240,7 +240,7 @@
     }
     [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
     
-    NSInteger tstamp = [event getTimestamp];
+    NSNumber *tstamp = [event getTimestamp];
     for (SPEcommerceItem * item in [event getItems]) {
         [item setTimestamp:tstamp];
         [self trackEcommerceItemEvent:item];
