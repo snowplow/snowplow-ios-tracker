@@ -76,6 +76,9 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 
 - (long long int) insertDictionaryData:(NSDictionary *)dict {
     __block long long int res = -1;
+    if (!dict) {
+      return res;
+    }
     [_queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
