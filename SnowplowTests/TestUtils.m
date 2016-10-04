@@ -47,9 +47,8 @@
 - (void)testGetLanguage {
 #if TARGET_OS_IPHONE
     if (SNOWPLOW_iOS_9_OR_LATER) {
-        XCTAssertEqualObjects([SPUtilities getLanguage],
-                              @"en-US",
-                              @"Language retrieved is not the same as 'en-US'");
+        NSArray *options = [NSArray arrayWithObjects:@"en", @"en-US", nil];
+        XCTAssertTrue([options containsObject:[SPUtilities getLanguage]]);
     }
 #else
     XCTAssertEqualObjects([SPUtilities getLanguage],
