@@ -54,7 +54,7 @@
         [builder setLabel:@"DemoLabel"];
         [builder setProperty:@"DemoProperty"];
         [builder setValue:5];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackStructuredEvent:event];
     event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
@@ -73,7 +73,7 @@
         [builder setProperty:@"DemoProperty"];
         [builder setValue:5];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackStructuredEvent:event];
 }
@@ -93,13 +93,13 @@
     [tracker_ trackUnstructuredEvent:event];
     event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:sdj];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackUnstructuredEvent:event];
     event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:sdj];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackUnstructuredEvent:event];
 }
@@ -122,7 +122,7 @@
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setPageTitle:@"DemoPageTitle"];
         [builder setReferrer:@"DemoPageReferrer"];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackPageViewEvent:event];
     event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
@@ -130,7 +130,7 @@
         [builder setPageTitle:@"DemoPageTitle"];
         [builder setReferrer:@"DemoPageReferrer"];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackPageViewEvent:event];
 }
@@ -144,7 +144,7 @@
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
         [builder setId:@"DemoScreenId"];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackScreenViewEvent:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
@@ -157,7 +157,7 @@
         [builder setName:@"DemoScreenName"];
         [builder setId:@"DemoScreenId"];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackScreenViewEvent:event];
 }
@@ -175,7 +175,7 @@
         [builder setVariable:@"DemoTimingVariable"];
         [builder setTiming:5];
         [builder setLabel:@"DemoTimingLabel"];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackTimingEvent:event];
     event = [SPTiming build:^(id<SPTimingBuilder> builder) {
@@ -192,7 +192,7 @@
         [builder setTiming:5];
         [builder setLabel:@"DemoTimingLabel"];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackTimingEvent:event];
 }
@@ -235,7 +235,7 @@
         [builder setCountry:@"USA"];
         [builder setCurrency:@"USD"];
         [builder setItems:itemArray];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackEcommerceEvent:event];
     event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
@@ -264,7 +264,7 @@
         [builder setCurrency:@"USD"];
         [builder setItems:itemArray];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:1243567890];
+        [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackEcommerceEvent:event];
 }
