@@ -15,14 +15,14 @@ With this tracker you can collect event data from your applications, games or fr
 
 ### Building the Static Framework (iOS only)
 
-* Open `Snowplow.xcworkspace` in XCode.
+* Open `Snowplow.xcworkspace` in Xcode.
 * Select the `SnowplowTracker-iOS-Static` scheme and set device to `iOS Device`.
 * Run `Archive` from the Product menu.
 * Finder should open and show you where `SnowplowTracker.framework` is stored.
 
 ### Running the Demo Application (iOS only)
 
-* Open `SnowplowDemo.xcworkspace` in XCode.
+* Open `SnowplowDemo.xcworkspace` in Xcode.
 * Select the `SnowplowDemo` scheme and set device to any emulator.
 * Hit run and the demo will be installed and launched in the emulator window.
 * Simply enter a valid endpoint to send events to!
