@@ -1,3 +1,12 @@
+Version 0.6.2 (2016-10-10)
+--------------------------
+Fix failing geolocation_context test (#293)
+Cast from NS(U)Integer to long type causes crashes on 32-bit devices, thanks @chrisfsampaio (#271)
+App crashes on iPhone 4s simulator, thanks @chrisfsampaio (#278)
+Fix Travis build (#295)
+Fix failing getLanguage test on Travis (#294)
+Correct the capitalization of Xcode in README, thanks @ReadmeCritic (#268)
+
 Version 0.6.1 (2016-02-22)
 --------------------------
 Made podfile dependencies more restrictive (#266)

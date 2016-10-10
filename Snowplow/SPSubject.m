@@ -175,8 +175,8 @@
     [_geoLocationDict setObject:[NSNumber numberWithFloat:speed] forKey:kSPGeoSpeed];
 }
 
-- (void) setGeoTimestamp:(NSInteger)timestamp {
-    [_geoLocationDict setObject:[NSNumber numberWithInt:(int)timestamp] forKey:kSPGeoTimestamp];
+- (void) setGeoTimestamp:(NSNumber *)timestamp {
+    [_geoLocationDict setObject:timestamp forKey:kSPGeoTimestamp];
 }
 
 @end
