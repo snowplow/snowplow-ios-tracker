@@ -1,8 +1,8 @@
 PODS:
-  - FMDB (2.5):
-    - FMDB/standard (= 2.5)
-  - FMDB/common (2.5)
-  - FMDB/standard (2.5):
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/common (2.6.2)
+  - FMDB/standard (2.6.2):
     - FMDB/common
   - KiteJSONValidator (0.2.3):
     - KiteJSONValidator/KiteJSONResources (= 0.2.3)
@@ -13,13 +13,13 @@ PODS:
     - KiteJSONValidator (~> 0.2.3)
 
 DEPENDENCIES:
-  - FMDB (= 2.5)
+  - FMDB (= 2.6.2)
   - Nocilla
   - Reachability (= 3.2)
   - SnowplowIgluClient
 
 SPEC CHECKSUMS:
-  FMDB: 96e8f1bcc1329e269330f99770ad4285d9003e52
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   KiteJSONValidator: 9692df579aab9d195c68d4cab992cfd37d8744ab
   Nocilla: ae0a2b05f3087b473624ac2b25903695df51246a
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
