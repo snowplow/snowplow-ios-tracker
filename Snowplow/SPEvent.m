@@ -196,7 +196,7 @@
     [pb addValueToPayload:_action forKey:kSPStuctAction];
     [pb addValueToPayload:_label forKey:kSPStuctLabel];
     [pb addValueToPayload:_property forKey:kSPStuctProperty];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%g", [_value doubleValue]] forKey:kSPStuctValue];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
     return [self addDefaultParamsToPayload:pb];
 }
 
