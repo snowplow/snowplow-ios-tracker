@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.screenshots      = "https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-logo-large.png"
   s.license          = 'Apache License, Version 2.0'
   s.author           = { "Snowplow Analytics Ltd" => "support@snowplowanalytics.com" }
-  s.source           = { :git => "https://github.com/snowplow/snowplow-objc-tracker.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/brainbow/snowplow-objc-tracker.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/SnowPlowData'
   s.documentation_url	= 'https://github.com/snowplow/snowplow/wiki/iOS-Tracker'
 
@@ -18,8 +18,8 @@ Pod::Spec.new do |s|
   s.tvos.deployment_target = '9.0'
 
   s.requires_arc = true
+  s.default_subspec = 'Core'
 
-  s.source_files = 'Snowplow/*.{m,h,swift}'
   s.public_header_files = [
     'Snowplow/Snowplow.h', 
     'Snowplow/SPTracker.h', 
@@ -38,4 +38,14 @@ Pod::Spec.new do |s|
   s.tvos.frameworks = 'UIKit', 'Foundation'
   s.dependency 'FMDB', '2.6.2'
   s.ios.dependency 'ReachabilitySwift'
+
+  s.subspec 'Core' do |core|
+    core.source_files = 'Snowplow/*.{m,h,swift}'
+  end
+
+  s.subspec 'AppExtension' do |ext|
+    ext.source_files = 'Snowplow/*.{m,h,swift}'
+    # For app extensions, disabling code paths using unavailable API
+    ext.pod_target_xcconfig = { 'GCC_PREPROCESSOR_DEFINITIONS' => 'SNOWPLOW_APP_EXTENSIONS=1' }
+  end
 end
