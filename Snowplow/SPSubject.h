@@ -34,7 +34,7 @@
 
 /**
  * Creates a subject which also creates all Platform specific pairs.
- * @param whether to create platform dictionary
+ * @param platformContext to create platform dictionary
  * @return a new SnowplowSubject
  */
 - (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext;
