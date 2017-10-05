@@ -5,7 +5,7 @@ osx_image: xcode8
 env:
   matrix:
     - TEST_PLATFORM="platform=iOS Simulator,OS=9.0,name=iPhone 6"
-    - TEST_PLATFORM="platform=iOS Simulator,name=iPhone 7,OS=10.0"
+    - TEST_PLATFORM="platform=iOS Simulator,OS=10.0,name=iPhone 7"
 
 rvm:
     - 2.2.2
@@ -23,6 +23,6 @@ before_install:
 
 script:
     - set -o pipefail
-    - xcodebuild clean build -sdk iphonesimulator -destination "${TEST_PLATFORM}" -workspace Snowplow.xcworkspace -scheme Snowplow CODE_SIGNING_REQUIRED=NO | xcpretty
+    - xcodebuild clean test -sdk iphonesimulator -destination "${TEST_PLATFORM}" -workspace Snowplow.xcworkspace -scheme Snowplow CODE_SIGNING_REQUIRED=NO | xcpretty
 
 after_success: slather
