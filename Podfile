@@ -8,14 +8,14 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'Snowplow' do
   inherit! :search_paths
-  platform :ios, '7.0'
+  platform :ios, '8.0'
   pod 'FMDB', '2.6.2'
   pod 'Reachability', '3.2'
 end
 
 target 'SnowplowTests' do
   inherit! :search_paths
-  platform :ios, '7.0'
+  platform :ios, '8.0'
   pod 'Nocilla'
   pod 'SnowplowIgluClient'
 end

@@ -21,7 +21,7 @@
 		04DD9E271B7A307900FFF578 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 04DD9E241B7A307900FFF578 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		04DD9E281B7A307900FFF578 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04DD9E251B7A307900FFF578 /* SPRequestResponse.m */; };
 		04E8DE6A1BB0092800FC60A4 /* SPSelfDescribingJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 04E8DE691BB0092800FC60A4 /* SPSelfDescribingJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		04E8DE6C1BB0092C00FC60A4 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8DE6B1BB0092C00FC60A4 /* SPSelfDescribingJson.m */; settings = {ASSET_TAGS = (); }; };
+		04E8DE6C1BB0092C00FC60A4 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E8DE6B1BB0092C00FC60A4 /* SPSelfDescribingJson.m */; };
 		462FD4DE1B15C76500296A38 /* SnowplowTracker-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 462FD4DD1B15C76500296A38 /* SnowplowTracker-Info.plist */; };
 		462FD4EF1B15CA8A00296A38 /* Snowplow-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 462FD4E71B15CA8A00296A38 /* Snowplow-Prefix.pch */; settings = {ATTRIBUTES = (Public, ); }; };
 		462FD4F01B15CA8A00296A38 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = 462FD4E81B15CA8A00296A38 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -328,7 +328,7 @@
 				INFOPLIST_FILE = "SnowplowTracker-iOS-Static/Info.plist";
 				INFOPLIST_PATH = "$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Info.plist";
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = mh_object;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -388,7 +388,7 @@
 				INFOPLIST_FILE = "SnowplowTracker-iOS-Static/Info.plist";
 				INFOPLIST_PATH = "$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/Info.plist";
 				INSTALL_PATH = "$(BUILT_PRODUCTS_DIR)";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				MACH_O_TYPE = mh_object;
 				MTL_ENABLE_DEBUG_INFO = NO;
