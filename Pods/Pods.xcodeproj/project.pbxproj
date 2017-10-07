@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		001AD4CAF9FED3EBC91C4D869C903E09 /* LSMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBBE0968B9402FDF97CED4BA602C25E /* LSMatcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		013A9BE21A9CF33555893AA781410FB0 /* FMDB-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D70B1910E175494A11CA7FFE10E013A /* FMDB-macOS-dummy.m */; };
 		02C344D231D1442C2644A289199F0871 /* Pods-SnowplowTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 236A0A7EACD0F842751916EFD32CA0D4 /* Pods-SnowplowTests-dummy.m */; };
 		04CC997796360DE0D3D33A08230F01E4 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B593868B1605E526BC31D20063C45C /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -54,6 +53,7 @@
 		35588010754872EDF7A8175F5289767F /* NSURLRequest+LSHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B44A4E2DED8C1C7FA92EB405036F973 /* NSURLRequest+LSHTTPRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		35A2F7D8D906F631D5F73D2BCC3DFCD5 /* LSStubRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F06651269E81C127F4F27DFEA85BF12 /* LSStubRequest.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		372475D1D553FA4D8BFD1702909468F2 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = E3DEAD35CA1A51BB5820373D632D2017 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		3885FB70EBEF9C87C4A7FEA369C95C26 /* LSMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBBE0968B9402FDF97CED4BA602C25E /* LSMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		39CB419A21E28D2D8A0BC6D0160749DE /* KiteJSONValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = A2FBAD5D97D565118DEBA8F7445CA366 /* KiteJSONValidator.m */; };
 		39DADA190C87181E6B078C0582DBCF88 /* KiteValidationPair.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A9C6898564712533E77920717FF920 /* KiteValidationPair.m */; };
 		3A0F5EDC795886735E8B5DFF43CD9FCC /* NSString+Nocilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E502259AAD0F007581FC196EBE56D86 /* NSString+Nocilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -62,6 +62,7 @@
 		401C7167342CA314BDE2648BF6558FB4 /* LSHTTPStubURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B286A22A1774A0552DCFCEE1D2A3ECF /* LSHTTPStubURLProtocol.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		40CCF1B34F054F61C7D94E27B0DEFE91 /* LSStubRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA2F9E77B347A5E78FF2AFBBD6343BC /* LSStubRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		42DCC8F17877956C4A4D713EF5BCDBA6 /* NSData+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83DD235A746FB174A80D56108D8D0 /* NSData+Nocilla.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		45116A41C3E5E5905F758E2FC911047D /* LSMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBBE0968B9402FDF97CED4BA602C25E /* LSMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		46C6027A0503851D2987AAA9BC1766BA /* Pods-Snowplow-OSX-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C4394402F33F004C3EAA25AA92A92D3C /* Pods-Snowplow-OSX-dummy.m */; };
 		480A91F18E3D56D8048D92AD02CF8B75 /* KiteJSONValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8589C03988922FEE2A25FF356259D6BD /* KiteJSONValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4977FCFF6EEDF220779057AC6BF10741 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = B3613A0AAC7DCE353CD44B10AFA386B0 /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -167,7 +168,6 @@
 		D026DF0CE8BB17CC0767B8F19C36E5CF /* NSRegularExpression+Matcheable.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C2C88093E7C8407D361EADC6FFD515 /* NSRegularExpression+Matcheable.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D047A7BA76CC7F2E2E492AA0066C6494 /* schema in Resources */ = {isa = PBXBuildFile; fileRef = 6281E7A0056094742AA93FFFFC94C323 /* schema */; };
 		D0D15160256B6F404B7B4AA33FC7B09C /* NSData+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83DD235A746FB174A80D56108D8D0 /* NSData+Nocilla.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		D1DF9C3745AA0241620D94024361A76D /* LSMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBBE0968B9402FDF97CED4BA602C25E /* LSMatcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		D34C0927A648E65823A8EC33A68E5AC2 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */; };
 		D48073C2840C393F79C9160149EC7E0F /* LSDataMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 91A81F725D8CBEE146E220C85E3430E7 /* LSDataMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D5943CF49D5DD54802F644F523CC3FC2 /* LSHTTPBody.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E1AC98C4E5E64775B68DA6C26A55F3 /* LSHTTPBody.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1061,7 +1061,7 @@
 				F24AEE01D8B040CAAFBB95B363E7A8A2 /* LSHTTPResponse.h in Headers */,
 				401C7167342CA314BDE2648BF6558FB4 /* LSHTTPStubURLProtocol.h in Headers */,
 				49A7F5F128739E50DFDB2934E749BB56 /* LSMatcheable.h in Headers */,
-				D1DF9C3745AA0241620D94024361A76D /* LSMatcher.h in Headers */,
+				3885FB70EBEF9C87C4A7FEA369C95C26 /* LSMatcher.h in Headers */,
 				146C44404207507192C6D2F3077F9555 /* LSNocilla.h in Headers */,
 				73220CCF9784DEC3CF088A4FC166E86E /* LSNSURLHook.h in Headers */,
 				688D3DFB896A95DE1F3ED5AFCA39179C /* LSNSURLSessionHook.h in Headers */,
@@ -1098,7 +1098,7 @@
 				1BAB6CA3821DA9395981A9E193C2931C /* LSHTTPResponse.h in Headers */,
 				96E75AA428E459D1F6EF6CD5D98DF34A /* LSHTTPStubURLProtocol.h in Headers */,
 				DE2341C2703E6D06F313AD4FF8E2F9C3 /* LSMatcheable.h in Headers */,
-				001AD4CAF9FED3EBC91C4D869C903E09 /* LSMatcher.h in Headers */,
+				45116A41C3E5E5905F758E2FC911047D /* LSMatcher.h in Headers */,
 				5F40B36E695DFBF3362B8AC291F593D2 /* LSNocilla.h in Headers */,
 				6CF95C3D4A2BFC55F63F4816E2A9484A /* LSNSURLHook.h in Headers */,
 				152EE6E3C943CCAC396131F796C3D7C7 /* LSNSURLSessionHook.h in Headers */,
@@ -1887,6 +1887,62 @@
 			};
 			name = Release;
 		};
+		19688D4DC2C9A73806BA3378597AD3A3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
 		20C5636032FB4822EED9E7D70133C833 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8EE3E198E1CF1F9C88E7478C3953C892 /* SnowplowIgluClient-iOS.xcconfig */;
@@ -1896,7 +1952,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/SnowplowIgluClient-iOS/SnowplowIgluClient-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -1909,26 +1965,28 @@
 			};
 			name = Debug;
 		};
-		229790D92BD2D516C65874CEFB4852A1 /* Debug */ = {
+		248AD24DF54FAC13E083F05220168372 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 964B4098E1F8A8834BB5BDE33C3AA4F2 /* Pods-SnowplowTests.debug.xcconfig */;
+			baseConfigurationReference = F765A8BE8DB0B68BF57A9B65F77F9AA1 /* Nocilla-iOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
+				GCC_PREFIX_HEADER = "Target Support Files/Nocilla-iOS/Nocilla-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
+			name = Release;
 		};
 		24AFEAC5247D6D1DECCDAC43EBB72F60 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -1937,35 +1995,13 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/KiteJSONValidator-iOS";
 				INFOPLIST_FILE = "Target Support Files/KiteJSONValidator-iOS/ResourceBundle-KiteJSONValidator-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = KiteJSONValidator;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		2808A2942BEAC6608A38C876F6B2F79A /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AA2CCC3E9BE4F1646485B3B3BB32E24 /* Pods-Snowplow.release.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1976,7 +2012,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SnowplowIgluClient-iOS";
 				INFOPLIST_FILE = "Target Support Files/SnowplowIgluClient-iOS/ResourceBundle-SnowplowIgluResources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = SnowplowIgluResources;
 				SDKROOT = iphoneos;
@@ -2082,64 +2118,25 @@
 			};
 			name = Debug;
 		};
-		50C8C4B248C5D16A0760C4ABCE1BBB40 /* Debug */ = {
+		4FF27E39C2DB059B92D1A06177FE6A64 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F765A8BE8DB0B68BF57A9B65F77F9AA1 /* Nocilla-iOS.xcconfig */;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_DEBUG=1",
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SYMROOT = "${SRCROOT}/../build";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				GCC_PREFIX_HEADER = "Target Support Files/Nocilla-iOS/Nocilla-iOS-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -2161,84 +2158,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		692833DE1FEA50FEF7E74ECAAFBD7E8C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F765A8BE8DB0B68BF57A9B65F77F9AA1 /* Nocilla-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/Nocilla-iOS/Nocilla-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		6E29A127103940F6574B23393F32E812 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGNING_REQUIRED = NO;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"POD_CONFIGURATION_RELEASE=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
-				STRIP_INSTALLED_PRODUCT = NO;
-				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Release;
 		};
@@ -2272,7 +2191,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/KiteJSONValidator-iOS/KiteJSONValidator-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2292,7 +2211,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SnowplowIgluClient-iOS";
 				INFOPLIST_FILE = "Target Support Files/SnowplowIgluClient-iOS/ResourceBundle-SnowplowIgluResources-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = SnowplowIgluResources;
 				SDKROOT = iphoneos;
@@ -2374,7 +2293,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/Reachability/Reachability-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2415,7 +2334,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/KiteJSONValidator-iOS";
 				INFOPLIST_FILE = "Target Support Files/KiteJSONValidator-iOS/ResourceBundle-KiteJSONValidator-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = KiteJSONValidator;
 				SDKROOT = iphoneos;
@@ -2425,24 +2344,64 @@
 			};
 			name = Debug;
 		};
-		AADA8B41A57D90257F2D88A4ACD1E821 /* Debug */ = {
+		A667B73873946ACDA0B82F8DDBC497B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EA7C819CAC7ECEFF490836AFF6C4F1A /* Pods-Snowplow.debug.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
 			};
 			name = Debug;
 		};
@@ -2476,7 +2435,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/Reachability/Reachability-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2490,6 +2449,49 @@
 			};
 			name = Release;
 		};
+		BEEDED0E77A4A53E6BB6C36FF6876600 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0AA2CCC3E9BE4F1646485B3B3BB32E24 /* Pods-Snowplow.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		C2333D393D744A1CF266A7A10FEBD4F7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 964B4098E1F8A8834BB5BDE33C3AA4F2 /* Pods-SnowplowTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		CD45175FC95AEB27014D151EDD652970 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BFDE8233D505CB069915C73BD480853B /* FMDB-iOS.xcconfig */;
@@ -2499,7 +2501,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/FMDB-iOS/FMDB-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2543,7 +2545,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/KiteJSONValidator-iOS/KiteJSONValidator-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2566,7 +2568,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/FMDB-iOS/FMDB-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2621,30 +2623,7 @@
 			};
 			name = Release;
 		};
-		E8936FDCD6BAA542E3C0A844594A5197 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F765A8BE8DB0B68BF57A9B65F77F9AA1 /* Nocilla-iOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/Nocilla-iOS/Nocilla-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
-		F4A8D74A55B2A6033C41BB0F533A9C62 /* Release */ = {
+		EEE763DF5EC385AB64837478F695C8A8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 794DBBA5E3837C1010CFC8A08B401288 /* Pods-SnowplowTests.release.xcconfig */;
 			buildSettings = {
@@ -2675,7 +2654,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/SnowplowIgluClient-iOS/SnowplowIgluClient-iOS-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -2689,14 +2668,35 @@
 			};
 			name = Release;
 		};
+		F7B13B36B698E96844541FBE397E5A4F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1EA7C819CAC7ECEFF490836AFF6C4F1A /* Pods-Snowplow.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MACH_O_TYPE = staticlib;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
 		23B3D29B21F3A3D34317A1A043A69487 /* Build configuration list for PBXNativeTarget "Pods-SnowplowTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				229790D92BD2D516C65874CEFB4852A1 /* Debug */,
-				F4A8D74A55B2A6033C41BB0F533A9C62 /* Release */,
+				C2333D393D744A1CF266A7A10FEBD4F7 /* Debug */,
+				EEE763DF5EC385AB64837478F695C8A8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2704,8 +2704,8 @@
 		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				50C8C4B248C5D16A0760C4ABCE1BBB40 /* Debug */,
-				6E29A127103940F6574B23393F32E812 /* Release */,
+				A667B73873946ACDA0B82F8DDBC497B3 /* Debug */,
+				19688D4DC2C9A73806BA3378597AD3A3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2821,8 +2821,8 @@
 		DC51D290597A912C8297F62093CC30A6 /* Build configuration list for PBXNativeTarget "Pods-Snowplow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AADA8B41A57D90257F2D88A4ACD1E821 /* Debug */,
-				2808A2942BEAC6608A38C876F6B2F79A /* Release */,
+				F7B13B36B698E96844541FBE397E5A4F /* Debug */,
+				BEEDED0E77A4A53E6BB6C36FF6876600 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2839,8 +2839,8 @@
 		F5B04723FC11F560525E7E3518D33D1B /* Build configuration list for PBXNativeTarget "Nocilla-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				692833DE1FEA50FEF7E74ECAAFBD7E8C /* Debug */,
-				E8936FDCD6BAA542E3C0A844594A5197 /* Release */,
+				4FF27E39C2DB059B92D1A06177FE6A64 /* Debug */,
+				248AD24DF54FAC13E083F05220168372 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
