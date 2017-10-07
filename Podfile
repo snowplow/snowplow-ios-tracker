@@ -13,22 +13,23 @@ target 'Snowplow' do
   pod 'Reachability', '3.2'
 end
 
-target 'SnowplowTests' do
-  inherit! :search_paths
-  platform :ios, '8.0'
-  pod 'Nocilla'
-  pod 'SnowplowIgluClient'
-end
-
 target 'Snowplow-OSX' do
     platform :osx, '10.9'
     pod 'FMDB', '2.6.2'
 end
 
-target 'Snowplow-OSXTests' do
-  platform :osx, '10.9'
+target 'Tests' do
   pod 'Nocilla'
   pod 'SnowplowIgluClient'
+
+  target 'SnowplowTests' do
+    inherit! :search_paths
+    platform :ios, '8.0'
+  end
+
+  target 'Snowplow-OSXTests' do
+    platform :osx, '10.9'
+  end
 end
 
 post_install do |installer|
