@@ -8,21 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		013A9BE21A9CF33555893AA781410FB0 /* FMDB-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D70B1910E175494A11CA7FFE10E013A /* FMDB-macOS-dummy.m */; };
-		02C344D231D1442C2644A289199F0871 /* Pods-SnowplowTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 236A0A7EACD0F842751916EFD32CA0D4 /* Pods-SnowplowTests-dummy.m */; };
+		0155F6C39719782A45203565600E42DF /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 6DA346DBDCB5CBA6A7B889ADB1825000 /* Resources */; };
+		02C344D231D1442C2644A289199F0871 /* Pods-SnowplowTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 16458E292E0171D44C431F7A413ADCE2 /* Pods-SnowplowTests-dummy.m */; };
 		04CC997796360DE0D3D33A08230F01E4 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B593868B1605E526BC31D20063C45C /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		0620CB7625CC1B7586E03FCC9D100D46 /* IGLUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AB574CFEE2326EE923EECD8C7FB42095 /* IGLUConstants.m */; };
 		0633F02F53ECA6A560C787CFABE76655 /* LSStubResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A0DEDAC17EE86C80DCBB435C5D1B95 /* LSStubResponse.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		069D002506A5267B8B67332595295247 /* LSStubRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F06651269E81C127F4F27DFEA85BF12 /* LSStubRequest.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		073A664F84D10FEA79FD7DC557F780B5 /* SnowplowIgluClient-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A55DCAC7863E8803C47F0A9964D79 /* SnowplowIgluClient-macOS-dummy.m */; };
+		075F97788289BA72796FDB319E003341 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */; };
 		0A1A411A728BCAFBAB7511DA5C40F99F /* NSString+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA5E3DFA2ED0C683D541AFE94176C8 /* NSString+Nocilla.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		0BA1A7C6612401730B1237CC1BCE390E /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */; };
-		0DBD62265CB9B5F5ECE3D065512B4F16 /* IGLUUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A24299B447CC4657BEC3DD75FE2A91 /* IGLUUtilities.m */; };
+		0F4ACBD4E1FBC054DC1BA46FADFEC497 /* IGLUClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 52E11A1EBE298E375FA03667C2BBCDB9 /* IGLUClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		10099736B02DB2B48E28DC910AE914D3 /* KiteValidationPair.m in Sources */ = {isa = PBXBuildFile; fileRef = A6A9C6898564712533E77920717FF920 /* KiteValidationPair.m */; };
 		11990D3823103D8D4ECBB2AD37049B88 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = E3DEAD35CA1A51BB5820373D632D2017 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		11D9A4092AB873A9332CEBA2904CCE14 /* LSNSURLHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F265E0E78B3822C6A7AA3D3EC8D0BC /* LSNSURLHook.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		136976CD902FD165CC59B777ECCC3D9A /* IGLUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = AB574CFEE2326EE923EECD8C7FB42095 /* IGLUConstants.m */; };
 		146C44404207507192C6D2F3077F9555 /* LSNocilla.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6A2105E71FA33C61ED8441CD925682 /* LSNocilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		149D6B2B0CBF399B8A74DE2A2220B3F0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */; };
 		14BEC8215D795E3DDDAA615C8DA6B984 /* ASIHTTPRequestStub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C39291A128638266EEC2A69AB348F0 /* ASIHTTPRequestStub.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		14EDED684D20707367B537F4A914B97C /* IGLUResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = CABAFA9061EC59B5DCCE269AC8FCF345 /* IGLUResolver.m */; };
 		152EE6E3C943CCAC396131F796C3D7C7 /* LSNSURLSessionHook.h in Headers */ = {isa = PBXBuildFile; fileRef = CA7BCADB5B9D4EDBB246F2D904C56F35 /* LSNSURLSessionHook.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		19D16A9FB2BEAA9FFD3A2974036CFD4E /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EC561D8494288FE0087E70BA4820F3F /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		19F9D50C2E54AF4DF0FD55B621723CF5 /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = F35AAB4A67435A4A2AB73F6013196FEC /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -33,7 +35,6 @@
 		1BAB6CA3821DA9395981A9E193C2931C /* LSHTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = E5426926018908BD43879088E1469A8D /* LSHTTPResponse.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1CEE68116EB0E6AEB6D925F8BE3EC304 /* LSStubResponseDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F5AC0FC461D20DEC0CA80710049F7E /* LSStubResponseDSL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		1D617E666D72E2260A479902C0F966E0 /* NSString+Matcheable.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A4D27452043AD349F8E95D41C4AD3D3 /* NSString+Matcheable.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		1EB9BA429CBE7054C7BC2D3701EBF490 /* IGLUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AE95751CF43CD6D3BF746FA23A2079E /* IGLUConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1EDEC07C088A108F7E2C18501C6924DC /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = BA44B6C3B9D56679A82A35D20A9AE54F /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1FC76C2D9B7A7A46595CDBFB00EF6CCD /* NSRegularExpression+Matcheable.h in Headers */ = {isa = PBXBuildFile; fileRef = 28DB6381C3AB341EEF7835F2A20A73B6 /* NSRegularExpression+Matcheable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1FDD5D767CF4B435EB73FD872AD6FCA3 /* LSMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E482CAAB0728E2C44571E48755EDE15 /* LSMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -48,6 +49,7 @@
 		2B424757BD97CDA0A352F19FD8DA03C4 /* Nocilla-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2410C1E37785ECED3C0B8562F0C86180 /* Nocilla-macOS-dummy.m */; };
 		2F1B31FC9925C5A2AB45B67F4B85AA3B /* LSStubResponseDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 74F5AC0FC461D20DEC0CA80710049F7E /* LSStubResponseDSL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		306D16B7E422F6BA26A0B7E2CBF38BAD /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8A62EADDBC9096FA6E71A443FE51E765 /* SystemConfiguration.framework */; };
+		3272F2C9CC0E0FE21E63560C262C5207 /* SnowplowIgluClient-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 319A55DCAC7863E8803C47F0A9964D79 /* SnowplowIgluClient-macOS-dummy.m */; };
 		333E15F245698C9CC07E3DED6DF656C1 /* LSHTTPClientHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 71560D7C9F4A15234D5EC26D5112F4EA /* LSHTTPClientHook.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		3436E4FBF992568A0821EF96F4763ED4 /* Nocilla-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F1ABC97B167A55DFB339D0BA98083C62 /* Nocilla-iOS-dummy.m */; };
 		35588010754872EDF7A8175F5289767F /* NSURLRequest+LSHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 7B44A4E2DED8C1C7FA92EB405036F973 /* NSURLRequest+LSHTTPRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -63,7 +65,6 @@
 		40CCF1B34F054F61C7D94E27B0DEFE91 /* LSStubRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BDA2F9E77B347A5E78FF2AFBBD6343BC /* LSStubRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		42DCC8F17877956C4A4D713EF5BCDBA6 /* NSData+Nocilla.m in Sources */ = {isa = PBXBuildFile; fileRef = B8F83DD235A746FB174A80D56108D8D0 /* NSData+Nocilla.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		45116A41C3E5E5905F758E2FC911047D /* LSMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBBE0968B9402FDF97CED4BA602C25E /* LSMatcher.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		46C6027A0503851D2987AAA9BC1766BA /* Pods-Snowplow-OSX-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C4394402F33F004C3EAA25AA92A92D3C /* Pods-Snowplow-OSX-dummy.m */; };
 		480A91F18E3D56D8048D92AD02CF8B75 /* KiteJSONValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8589C03988922FEE2A25FF356259D6BD /* KiteJSONValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4977FCFF6EEDF220779057AC6BF10741 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = B3613A0AAC7DCE353CD44B10AFA386B0 /* FMDB.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		49A7F5F128739E50DFDB2934E749BB56 /* LSMatcheable.h in Headers */ = {isa = PBXBuildFile; fileRef = 11F18BBC17BF9681CDC88A16D0BDC53D /* LSMatcheable.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -74,10 +75,8 @@
 		4D726BFEC99F4690FBDD60C8D13C9B7B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */; };
 		502927E9B6397EDF5360BC461BE2E1F7 /* LSASIHTTPRequestAdapter.h in Headers */ = {isa = PBXBuildFile; fileRef = F47C53627D7D0FB10D89D1AD25C25766 /* LSASIHTTPRequestAdapter.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		51ABF7FBABA986F40C5E65B9B3EF13C0 /* LSStubRequestDSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFA61B60A8021EE5DC5A96A67E7A0A5 /* LSStubRequestDSL.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5255707030987E3C2653BFB08911F95E /* IGLUUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BAD643502F041A988BA31EF96CD8E669 /* IGLUUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		57E7941CFC1D1E92657080A82C11B99D /* KiteValidationPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F96BE65F9D2CC7B04944CB9F5A25D90 /* KiteValidationPair.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5A69327207B32BB7F90D9AD1E9AC5F74 /* LSASIHTTPRequestHook.m in Sources */ = {isa = PBXBuildFile; fileRef = CA10DF491C5CC8FD051956005A6F2768 /* LSASIHTTPRequestHook.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		5E6759188AA9487B2F2FDD512BC51D3B /* IGLUClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 60660904DEC1601402E89199704D06C8 /* IGLUClient.m */; };
 		5F40B36E695DFBF3362B8AC291F593D2 /* LSNocilla.h in Headers */ = {isa = PBXBuildFile; fileRef = FA6A2105E71FA33C61ED8441CD925682 /* LSNocilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5F972A0002C33617C96ECC728AD674C6 /* LSHTTPRequestDiff.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FC3E736129919177513F5B153575A36 /* LSHTTPRequestDiff.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		5FE2C9E51F165FA2615F5BED1DF83EEC /* Reachability-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9343EA56702E5EEEE29F67B1AACB9055 /* Reachability-dummy.m */; };
@@ -97,37 +96,40 @@
 		70D4EDA40ED5A01A1F45B3D3755EAE88 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */; };
 		724EC00602A7FE63062EB190D7DADEB9 /* IGLUResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 970D9F5F3E63DC981D87A72130A1D144 /* IGLUResolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		73220CCF9784DEC3CF088A4FC166E86E /* LSNSURLHook.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FCC9AB09655AE75C7F8BB75FACE2534 /* LSNSURLHook.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		733188337386A2035D6D1C70B6ABEAB5 /* IGLUSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F6E35F46EC4ADB11FA58C9E535634 /* IGLUSchema.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		73CBA31F6D5377A028C4DD0C7F762957 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */; };
-		7721B547AE7415C8F02C9B9A49DC5B38 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */; };
 		7760E38A89563D580C5EF455DEC62691 /* LSASIHTTPRequestHook.m in Sources */ = {isa = PBXBuildFile; fileRef = CA10DF491C5CC8FD051956005A6F2768 /* LSASIHTTPRequestHook.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		7794B05FE8A8E8BABCFD5C32AFDDE0EA /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */; };
+		78234FC549909F33C005DD17D95AE480 /* IGLUClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 60660904DEC1601402E89199704D06C8 /* IGLUClient.m */; };
 		784BD41F2609E066A97BA5D40561BBF5 /* LSRegexMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 6268EB8902543C18DB1CFD73B6F63EDB /* LSRegexMatcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		79B7C8156F1EAC9624B22B299DF636A9 /* LSRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = EB99CEB0A93F3A864C98E0C75EC6A6B5 /* LSRegexMatcher.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		7A59006FF9D663D329D970230A821C40 /* LSHTTPRequestDSLRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 114305AC43F0381D3BEB644295B47B2C /* LSHTTPRequestDSLRepresentation.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7C4136D366BD85977B065304692B5D22 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */; };
 		7C5995FEB9FD036B5D58DFA4F5F6FBFD /* LSHTTPRequestDSLRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6B9FD7A8FA6CC9792ACBF498A4EE46 /* LSHTTPRequestDSLRepresentation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		7E3496D79496A727236388EB6156D3CB /* Nocilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 7397945DE5C4B5F261EFFBAFAA822223 /* Nocilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7F55DBBFE79FA8ED8537A8280159768E /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128BFEF8FE4891C99445FDCFFE78E03 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		8219974F6941EA34724F89AF5FD97C57 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD68D4CD882FF157F9A55571E9E0D1C /* Foundation.framework */; };
+		815DF8FD31496A731E0DAF9C9176EFFB /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F157F9698ED97FB4504E257F9669047B /* Info.plist */; };
 		83077D81DB97779FCA575A509AF629E4 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 7FBF7E8081DE55BAE429778899452B18 /* Reachability.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		84DA3016883BDB6F918FEC18DF442D5C /* LSHTTPStubURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 384B08D95D656F877F80FF83769004B0 /* LSHTTPStubURLProtocol.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		88C6A41DFCD30F8F772A9FC7A5FB7974 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F157F9698ED97FB4504E257F9669047B /* Info.plist */; };
+		879AB1CBA9EED4CCE98458CE5F1E5D7E /* IGLUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AE95751CF43CD6D3BF746FA23A2079E /* IGLUConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		87E0CFF4CD51459924C6C15A9C1F2459 /* Pods-BaseTests-Snowplow-OSXTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = DC458247CF054B73A2AD19B3358B714B /* Pods-BaseTests-Snowplow-OSXTests-dummy.m */; };
 		8A76A176F19405E07719F06869D7276C /* KiteValidationPair.h in Headers */ = {isa = PBXBuildFile; fileRef = 8F96BE65F9D2CC7B04944CB9F5A25D90 /* KiteValidationPair.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8A9A5FFD292E8874C1D76E839E617623 /* LSStringMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = CAC11164B395429144DEF339CAD3D62C /* LSStringMatcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8A9C75F04F3873F93A2AC7EF39D7E775 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */; };
 		8C2D0E3CFD63109D853366796431BD92 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */; };
 		8C7C6929434919BBDBB2CB239D5C6C3C /* NSString+Matcheable.h in Headers */ = {isa = PBXBuildFile; fileRef = A734CB5F21398FEE3F777B1A4D99918F /* NSString+Matcheable.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8D45FD629944C15F62483CC682A6CB36 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */; };
 		8F441DD61B9527E23D66AEB7C3D19B4C /* IGLUClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 52E11A1EBE298E375FA03667C2BBCDB9 /* IGLUClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		90924286367A5AF9A7E9A58F373A848D /* ASIHTTPRequestStub.h in Headers */ = {isa = PBXBuildFile; fileRef = 22C39291A128638266EEC2A69AB348F0 /* ASIHTTPRequestStub.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		90CC7BE37CD2B5712AC6F6F4099165BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD68D4CD882FF157F9A55571E9E0D1C /* Foundation.framework */; };
 		912906753B0F781239190AF5D3EA5D9E /* NSURLRequest+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C666BCEB314BF588D404531D283584 /* NSURLRequest+DSL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		9153E5BF8A61DE2467D88E74EBF84F3D /* NSData+Matcheable.m in Sources */ = {isa = PBXBuildFile; fileRef = 23B20A7ECC52097785A9EFC22B61DB27 /* NSData+Matcheable.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		92544896E3B9D84080A59312CA1F493A /* NSData+Nocilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FF3A96DBD9CD3BC6EDFBD41354E4AA7 /* NSData+Nocilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		92E66DAFFB64EC05BE0FF61B45A1C9AE /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F2C16ED93C93C622316F7A11F87C19 /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		94019631294A4F64E94CDD706660F78C /* IGLUClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 60660904DEC1601402E89199704D06C8 /* IGLUClient.m */; };
-		958DBABEE90F26AB4F670990B20E09EA /* IGLUResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = CABAFA9061EC59B5DCCE269AC8FCF345 /* IGLUResolver.m */; };
 		961984E46D10F466DC71534763F3F37B /* ASIHTTPRequestStub.m in Sources */ = {isa = PBXBuildFile; fileRef = 1414DC576697AE1F35797FD6ABB84711 /* ASIHTTPRequestStub.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		96E75AA428E459D1F6EF6CD5D98DF34A /* LSHTTPStubURLProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 0B286A22A1774A0552DCFCEE1D2A3ECF /* LSHTTPStubURLProtocol.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		98CFA9AAD643D65AFFDC1108103BB606 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 6DA346DBDCB5CBA6A7B889ADB1825000 /* Resources */; };
 		9BB627F44D4B6088B5D87E184E3C38DE /* LSHTTPBody.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E1AC98C4E5E64775B68DA6C26A55F3 /* LSHTTPBody.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9CEB06FA24A20B9CC3015FAA8BA6BC0E /* IGLUUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = BAD643502F041A988BA31EF96CD8E669 /* IGLUUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9D25B118EABBF0FC2B794F8BC0335A8F /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF84D28BAF9700777031CD340BF9E8F /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		9DB803DF3C2A127206EA661BC8450F37 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 7EC561D8494288FE0087E70BA4820F3F /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9E083778629F786DA65CBBF5C042E6DC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 282CD4D3FCF019164E598AAC7A357B8B /* CFNetwork.framework */; };
@@ -140,6 +142,7 @@
 		A3C49DC7556CD37D578315FABA73D607 /* LSHTTPRequestDSLRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 114305AC43F0381D3BEB644295B47B2C /* LSHTTPRequestDSLRepresentation.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		A3F942D00A30DED43CCFC8C1900270D3 /* KiteJSONValidator-macOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F35D7F5175D27EF2F3A6A589197AF898 /* KiteJSONValidator-macOS-dummy.m */; };
 		A6A092C6B7B755B42B815DD0E615EED5 /* IGLUSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8FF4C8CA1B893E97DA03A4DE093A99 /* IGLUSchema.m */; };
+		A6EB0A9F8CB45D40966B1B5DB816CFEE /* Pods-Base-Snowplow-OSX-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3903FF17DACCDCFDCCC6A5847CC426C8 /* Pods-Base-Snowplow-OSX-dummy.m */; };
 		ACC920743F151E9A9F52EBEB310852AE /* NSData+Matcheable.h in Headers */ = {isa = PBXBuildFile; fileRef = 9561E6F7A084E6BAA48C6B47A57A6CF6 /* NSData+Matcheable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD45188D00058051B51406AE7895BBEF /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 69734A1BE1A3B7BF228A44E93D3295FC /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		AE957A4E5B193E865085879321EE2B3F /* LSDataMatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = 461BA16EC06E09BEC31530FCF9EBF9B2 /* LSDataMatcher.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -153,7 +156,6 @@
 		BA58BB5C6FB11D66C2132218F81F8D37 /* LSHTTPRequestDiff.h in Headers */ = {isa = PBXBuildFile; fileRef = A0F541DDE70936E53781A22BC3337A2A /* LSHTTPRequestDiff.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		BB631B452D43D122E2BBDD4C3454E1AF /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F157F9698ED97FB4504E257F9669047B /* Info.plist */; };
 		BCC6174493E6CD287BA07786DD0B5127 /* LSStubRequestDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CD8822B6CAFD2A04A0F18B4EDEA4EB /* LSStubRequestDSL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		C0BD136A6409ABD322471CAC4CD9712F /* IGLUSchema.h in Headers */ = {isa = PBXBuildFile; fileRef = 458F6E35F46EC4ADB11FA58C9E535634 /* IGLUSchema.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C2800F207B0C48C728186E508C919AB1 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9128BFEF8FE4891C99445FDCFFE78E03 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		C32D46CD65CA374D861D3DF77A21ED68 /* LSNSURLHook.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F265E0E78B3822C6A7AA3D3EC8D0BC /* LSNSURLHook.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		C3B3C1EA60A370E1B4381BA8DB6AEFC4 /* IGLUUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A24299B447CC4657BEC3DD75FE2A91 /* IGLUUtilities.m */; };
@@ -161,9 +163,9 @@
 		C4D92745368E9B8E7487F318C77C45B5 /* Nocilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 7397945DE5C4B5F261EFFBAFAA822223 /* Nocilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C516FB29EA3E61634D15308F4DCED720 /* LSHTTPClientHook.h in Headers */ = {isa = PBXBuildFile; fileRef = F426AE2D29EDB2CE91601AADF5DB091C /* LSHTTPClientHook.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		C7A563BB4EE9B1210104E1993238B9A9 /* LSHTTPRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4685F2935067A9F3C6B8E25A6BA23CE4 /* LSHTTPRequest.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C9C59099531F886685095573F0FBC9EC /* IGLUSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8FF4C8CA1B893E97DA03A4DE093A99 /* IGLUSchema.m */; };
 		CB64B4A8258BB6ACF7E1103D40B215C1 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71F216E484028B60992DE8C0B6C99F18 /* CFNetwork.framework */; };
 		CC706F57A10F3B4E26FA1F12067A9C08 /* NSURLRequest+LSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E164678CF27A18EC61ED2BA4A6688571 /* NSURLRequest+LSHTTPRequest.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		CD84F50A3E70DA02337A75DAEA6BAD6B /* IGLUSchema.m in Sources */ = {isa = PBXBuildFile; fileRef = CD8FF4C8CA1B893E97DA03A4DE093A99 /* IGLUSchema.m */; };
 		CE9C3D6DBA3881CDBF088837160A35CE /* LSHTTPRequestDSLRepresentation.m in Sources */ = {isa = PBXBuildFile; fileRef = CB6B9FD7A8FA6CC9792ACBF498A4EE46 /* LSHTTPRequestDSLRepresentation.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D026DF0CE8BB17CC0767B8F19C36E5CF /* NSRegularExpression+Matcheable.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C2C88093E7C8407D361EADC6FFD515 /* NSRegularExpression+Matcheable.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D047A7BA76CC7F2E2E492AA0066C6494 /* schema in Resources */ = {isa = PBXBuildFile; fileRef = 6281E7A0056094742AA93FFFFC94C323 /* schema */; };
@@ -173,11 +175,9 @@
 		D5943CF49D5DD54802F644F523CC3FC2 /* LSHTTPBody.h in Headers */ = {isa = PBXBuildFile; fileRef = 95E1AC98C4E5E64775B68DA6C26A55F3 /* LSHTTPBody.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D5F101ED58188832CA11E423FF6628F9 /* NSData+Nocilla.h in Headers */ = {isa = PBXBuildFile; fileRef = 6FF3A96DBD9CD3BC6EDFBD41354E4AA7 /* NSData+Nocilla.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D645F0C80D121EC84E44CF50E5CF79D8 /* schema in Resources */ = {isa = PBXBuildFile; fileRef = 6281E7A0056094742AA93FFFFC94C323 /* schema */; };
+		D65D12A4BBB29F83A1FB3EEAE7EA35D0 /* IGLUUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 18A24299B447CC4657BEC3DD75FE2A91 /* IGLUUtilities.m */; };
 		D6C51CB168FE88897E876F601590920D /* NSURLRequest+DSL.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C666BCEB314BF588D404531D283584 /* NSURLRequest+DSL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		D8C16A8516A230361333C853287B3584 /* LSHTTPClientHook.h in Headers */ = {isa = PBXBuildFile; fileRef = F426AE2D29EDB2CE91601AADF5DB091C /* LSHTTPClientHook.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		D8EAF48CDECE3D80AFBC5DE8B12030B6 /* IGLUResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 970D9F5F3E63DC981D87A72130A1D144 /* IGLUResolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		DB144464BF3F6A8F2DBC6DE881656479 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 6DA346DBDCB5CBA6A7B889ADB1825000 /* Resources */; };
-		DB8DADB4660E88485D5876643B60206A /* Pods-Snowplow-OSXTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = A6E0792A4A38F55F68321C0299D41454 /* Pods-Snowplow-OSXTests-dummy.m */; };
 		DD1FC229B451FDEEC80FCD1B9B334653 /* NSURLRequest+LSHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = E164678CF27A18EC61ED2BA4A6688571 /* NSURLRequest+LSHTTPRequest.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		DE2341C2703E6D06F313AD4FF8E2F9C3 /* LSMatcheable.h in Headers */ = {isa = PBXBuildFile; fileRef = 11F18BBC17BF9681CDC88A16D0BDC53D /* LSMatcheable.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E25CB7E9955E3ECFA9CB32D3A41E5FBC /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = E1F2C16ED93C93C622316F7A11F87C19 /* FMResultSet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -196,14 +196,14 @@
 		F24AEE01D8B040CAAFBB95B363E7A8A2 /* LSHTTPResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = E5426926018908BD43879088E1469A8D /* LSHTTPResponse.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		F3C5716104C3C94519FE276B8CBA1A07 /* LSStubResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F9A0DEDAC17EE86C80DCBB435C5D1B95 /* LSStubResponse.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		F8D51D32D1CB2BBF507114F9C903E96F /* NSURLRequest+DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 3E11BDB9861A965B2BFCF91B578484A4 /* NSURLRequest+DSL.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F8E7CEEAD6FC917EFDA878F214752D14 /* IGLUClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 52E11A1EBE298E375FA03667C2BBCDB9 /* IGLUClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F982C85F96312F1FA0C5E3DEE9C662EE /* LSASIHTTPRequestAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9BF3958710383651C08758B4EA17845A /* LSASIHTTPRequestAdapter.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		FA176C33834B040EAC67FC035E568E55 /* Pods-Snowplow-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 77F93B1CF9E02EFFBDCE708955A4B797 /* Pods-Snowplow-dummy.m */; };
+		FA176C33834B040EAC67FC035E568E55 /* Pods-Snowplow-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 94BDFE911E795F1604AFF33D83254F0B /* Pods-Snowplow-dummy.m */; };
 		FA17DC3AFE5ECA1315C85D252D56CEA3 /* LSASIHTTPRequestHook.h in Headers */ = {isa = PBXBuildFile; fileRef = 76D335D8AD818F4E68DD216903ADD450 /* LSASIHTTPRequestHook.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FA41A98FBE966E3B0EC0E404AB162FE0 /* SnowplowIgluClient-iOS-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 572D397B8E59E3D1D68E11392E0FECC1 /* SnowplowIgluClient-iOS-dummy.m */; };
 		FC0141E8CD4FAA8B08A68BEFF9BFD12D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */; };
 		FC248F6EB541AE4A58EB53576D0CB067 /* LSStubRequestDSL.m in Sources */ = {isa = PBXBuildFile; fileRef = 59CD8822B6CAFD2A04A0F18B4EDEA4EB /* LSStubRequestDSL.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 		FEC1AEEEC124B5E9E70DE6A687FCEDB9 /* NSString+Matcheable.h in Headers */ = {isa = PBXBuildFile; fileRef = A734CB5F21398FEE3F777B1A4D99918F /* NSString+Matcheable.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FF134FF98D35A97B6EC3EC9C45EA0E1E /* IGLUResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 970D9F5F3E63DC981D87A72130A1D144 /* IGLUResolver.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FF4DB3A979375E58D29F8DCD4496D4CB /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = DEF84D28BAF9700777031CD340BF9E8F /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
 /* End PBXBuildFile section */
 
@@ -215,12 +215,12 @@
 			remoteGlobalIDString = D14072505E0DEBD1EBFE9B8E497223F3;
 			remoteInfo = "SnowplowIgluClient-iOS-SnowplowIgluResources";
 		};
-		10924B4CC099038B075B99EA43EA3AE6 /* PBXContainerItemProxy */ = {
+		10C6EF9FA8B3CAAF877DAFB7A76919BF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 65243EFE2720599D63E901339FB6D059;
-			remoteInfo = "Nocilla-macOS";
+			remoteGlobalIDString = EBD9012C1DB233FDE3AC9A811DCB4385;
+			remoteInfo = "FMDB-macOS";
 		};
 		16BC5D497B81D9AA361BE9D08D69C9BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -236,12 +236,19 @@
 			remoteGlobalIDString = 8CA7D82EC79D4E4BCFF715D040B32159;
 			remoteInfo = "Nocilla-iOS";
 		};
-		407401B93FA3054B5719851B2216A2CA /* PBXContainerItemProxy */ = {
+		1F101AACE4EAA9A15DD102F43E412FAB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 52EEDFE12A0DD7B161B9E63018EFC04D;
-			remoteInfo = "KiteJSONValidator-macOS";
+			remoteGlobalIDString = BE4936E0AB2F9B8FECFCB2A2D651FCEF;
+			remoteInfo = "SnowplowIgluClient-macOS";
+		};
+		3ADF6987A7F9A8D15E3A6384B932DA2F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7375C8C1774C18921EDEDC8BF6E0BDEE;
+			remoteInfo = "SnowplowIgluClient-macOS-SnowplowIgluResources";
 		};
 		475BCE64009275E1219902883B07BC63 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -257,33 +264,12 @@
 			remoteGlobalIDString = 55CBD5049E68CE19F32CEAA6E868CE29;
 			remoteInfo = "SnowplowIgluClient-iOS";
 		};
-		50872F37FA793AF66C3383FC75EB461C /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EBD9012C1DB233FDE3AC9A811DCB4385;
-			remoteInfo = "FMDB-macOS";
-		};
 		68159AEFB1C092D98D4F2AFBA86FDE2D /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 75C7FD024C2608E95F6E1653BBF1D477;
 			remoteInfo = "FMDB-iOS";
-		};
-		6C3E3DCEF555B3E7207F74908FF59B6B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6413387E452BBB7F35200ECB712A802E;
-			remoteInfo = "SnowplowIgluClient-macOS-SnowplowIgluResources";
-		};
-		7A5A7EBBF565DED05BEDE4BD66F3D4DD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 52EEDFE12A0DD7B161B9E63018EFC04D;
-			remoteInfo = "KiteJSONValidator-macOS";
 		};
 		8F87AA53A08C799EF34306FDFE99893A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -313,13 +299,6 @@
 			remoteGlobalIDString = 5E47FC842492E2AD63B1F47BE40B9482;
 			remoteInfo = "KiteJSONValidator-iOS-KiteJSONValidator";
 		};
-		AD0CE11AEB4EAA2834F0BC02EC5DA2C4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4D2FCEC67AB9C379E72FB5EAB90FFE52;
-			remoteInfo = "SnowplowIgluClient-macOS";
-		};
 		B9E59B8791563D8FD433D0DCB8D98838 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
@@ -327,62 +306,81 @@
 			remoteGlobalIDString = 0F2FB34BE7275ABD84547EDE91F01D6F;
 			remoteInfo = "KiteJSONValidator-iOS";
 		};
+		DF329AFDBE80C91FCA594A0341A42018 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 65243EFE2720599D63E901339FB6D059;
+			remoteInfo = "Nocilla-macOS";
+		};
+		E2872CC0F958AF4CCBB1DD598FC5C8E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52EEDFE12A0DD7B161B9E63018EFC04D;
+			remoteInfo = "KiteJSONValidator-macOS";
+		};
+		F8E2C0088BD475801803E1BA34DA1E71 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 52EEDFE12A0DD7B161B9E63018EFC04D;
+			remoteInfo = "KiteJSONValidator-macOS";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		005B08A1CFBC332069ACC572CA879FA7 /* LSStubResponseDSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSStubResponseDSL.h; path = Nocilla/DSL/LSStubResponseDSL.h; sourceTree = "<group>"; };
 		007C35FE1C980C5D61A7C15948499392 /* LSNocilla.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSNocilla.m; path = Nocilla/LSNocilla.m; sourceTree = "<group>"; };
-		02AE732EC0AE4060F3D32C6046F33059 /* libReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libReachability.a; path = libReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		03C1F8D910C7D75A3992F735D24C2497 /* libPods-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Snowplow-OSXTests.a"; path = "libPods-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0401C385427EB27218BADFE1E5854EF5 /* Pods-SnowplowTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SnowplowTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		0642710CC1F6A0BFBD68D1DB4E534D92 /* Pods-Snowplow-OSXTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Snowplow-OSXTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		03FB23C08B559FFF1D45935F0EA6F548 /* libPods-Base-Snowplow-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Base-Snowplow-OSX.a"; path = "libPods-Base-Snowplow-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		06A6815024646AF79A1F291215E47C92 /* LSStringMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStringMatcher.m; path = Nocilla/Matchers/LSStringMatcher.m; sourceTree = "<group>"; };
-		06ABBA2D047019BD5E13BFD920C46753 /* libSnowplowIgluClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSnowplowIgluClient-iOS.a"; path = "libSnowplowIgluClient-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		0AA2CCC3E9BE4F1646485B3B3BB32E24 /* Pods-Snowplow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow.release.xcconfig"; sourceTree = "<group>"; };
 		0B286A22A1774A0552DCFCEE1D2A3ECF /* LSHTTPStubURLProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPStubURLProtocol.h; path = Nocilla/Hooks/NSURLRequest/LSHTTPStubURLProtocol.h; sourceTree = "<group>"; };
-		1068A624A47B294C98454F242AD297E1 /* libPods-Snowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Snowplow.a"; path = "libPods-Snowplow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		114305AC43F0381D3BEB644295B47B2C /* LSHTTPRequestDSLRepresentation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPRequestDSLRepresentation.h; path = Nocilla/DSL/LSHTTPRequestDSLRepresentation.h; sourceTree = "<group>"; };
 		11F18BBC17BF9681CDC88A16D0BDC53D /* LSMatcheable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSMatcheable.h; path = Nocilla/Matchers/LSMatcheable.h; sourceTree = "<group>"; };
-		13E102349A8A25F0135A40A79DC7D8BE /* Pods-Snowplow-OSX-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Snowplow-OSX-acknowledgements.plist"; sourceTree = "<group>"; };
 		1414DC576697AE1F35797FD6ABB84711 /* ASIHTTPRequestStub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ASIHTTPRequestStub.m; path = Nocilla/Hooks/ASIHTTPRequest/ASIHTTPRequestStub.m; sourceTree = "<group>"; };
-		181CA7BE3FCD42140A61B1B23E29FCB6 /* libSnowplowIgluClient-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSnowplowIgluClient-macOS.a"; path = "libSnowplowIgluClient-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		16458E292E0171D44C431F7A413ADCE2 /* Pods-SnowplowTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SnowplowTests-dummy.m"; sourceTree = "<group>"; };
 		18A24299B447CC4657BEC3DD75FE2A91 /* IGLUUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGLUUtilities.m; path = SnowplowIgluClient/IGLUUtilities.m; sourceTree = "<group>"; };
 		18E743BACDE2DFFBE5B3938DCC405590 /* ResourceBundle-SnowplowIgluResources-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-SnowplowIgluResources-Info.plist"; sourceTree = "<group>"; };
+		1B574A1FFFD673D85CE1D6AC3207590F /* Pods-Snowplow-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snowplow-resources.sh"; sourceTree = "<group>"; };
 		1D2F902AD0378172A114E9CABB97F6E1 /* ResourceBundle-KiteJSONValidator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-KiteJSONValidator-Info.plist"; sourceTree = "<group>"; };
 		1DF7E565FBE8D9771AEB33F2ECE20853 /* SnowplowIgluClient-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnowplowIgluClient-iOS-prefix.pch"; sourceTree = "<group>"; };
-		1EA7C819CAC7ECEFF490836AFF6C4F1A /* Pods-Snowplow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow.debug.xcconfig"; sourceTree = "<group>"; };
+		1F53A24F235833E314E5F4E617FD15C4 /* Pods-SnowplowTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowTests-resources.sh"; sourceTree = "<group>"; };
 		22C39291A128638266EEC2A69AB348F0 /* ASIHTTPRequestStub.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ASIHTTPRequestStub.h; path = Nocilla/Hooks/ASIHTTPRequest/ASIHTTPRequestStub.h; sourceTree = "<group>"; };
-		236A0A7EACD0F842751916EFD32CA0D4 /* Pods-SnowplowTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SnowplowTests-dummy.m"; sourceTree = "<group>"; };
 		23B20A7ECC52097785A9EFC22B61DB27 /* NSData+Matcheable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+Matcheable.m"; path = "Nocilla/Matchers/NSData+Matcheable.m"; sourceTree = "<group>"; };
+		23F925B3FC4D2FB7864690FCD7C7E8DD /* libPods-SnowplowTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SnowplowTests.a"; path = "libPods-SnowplowTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2410C1E37785ECED3C0B8562F0C86180 /* Nocilla-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "Nocilla-macOS-dummy.m"; path = "../Nocilla-macOS/Nocilla-macOS-dummy.m"; sourceTree = "<group>"; };
-		27088474B057A5EE96DB1DD7EBFA6473 /* Pods-Snowplow-OSX-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snowplow-OSX-acknowledgements.markdown"; sourceTree = "<group>"; };
+		252BDEA1712E5BCD11981F317900B92E /* Pods-BaseTests-Snowplow-OSXTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-BaseTests-Snowplow-OSXTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		2728FFAB08B4F54131E121F730808616 /* Pods-Base-Snowplow-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Base-Snowplow-OSX.debug.xcconfig"; sourceTree = "<group>"; };
 		282CD4D3FCF019164E598AAC7A357B8B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
 		28DB6381C3AB341EEF7835F2A20A73B6 /* NSRegularExpression+Matcheable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSRegularExpression+Matcheable.h"; path = "Nocilla/Matchers/NSRegularExpression+Matcheable.h"; sourceTree = "<group>"; };
+		28F6F2EE63E4C14DEC4763B9B8AAA522 /* Pods-SnowplowTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowTests-frameworks.sh"; sourceTree = "<group>"; };
+		29EE1BFDD4BBF81236D99AC496834801 /* libSnowplowIgluClient-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSnowplowIgluClient-macOS.a"; path = "libSnowplowIgluClient-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2AFD6211F13071F5432E813278AAD079 /* libPods-BaseTests-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BaseTests-Snowplow-OSXTests.a"; path = "libPods-BaseTests-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DE61107459B3193FC65CCA9AADBF85D /* LSNSURLSessionHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSNSURLSessionHook.m; path = Nocilla/Hooks/NSURLSession/LSNSURLSessionHook.m; sourceTree = "<group>"; };
-		2FB14BB79E2361923A5CA7A95B36028F /* Pods-Snowplow-OSX-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snowplow-OSX-frameworks.sh"; sourceTree = "<group>"; };
 		300D76586BD1E5C5B7104CDB94A00119 /* Nocilla-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Nocilla-iOS-prefix.pch"; sourceTree = "<group>"; };
 		319A55DCAC7863E8803C47F0A9964D79 /* SnowplowIgluClient-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "SnowplowIgluClient-macOS-dummy.m"; path = "../SnowplowIgluClient-macOS/SnowplowIgluClient-macOS-dummy.m"; sourceTree = "<group>"; };
-		347BDA89BD0CBE072B75C94A052CBC59 /* Pods-Snowplow-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snowplow-resources.sh"; sourceTree = "<group>"; };
 		384B08D95D656F877F80FF83769004B0 /* LSHTTPStubURLProtocol.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSHTTPStubURLProtocol.m; path = Nocilla/Hooks/NSURLRequest/LSHTTPStubURLProtocol.m; sourceTree = "<group>"; };
+		3903FF17DACCDCFDCCC6A5847CC426C8 /* Pods-Base-Snowplow-OSX-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Base-Snowplow-OSX-dummy.m"; sourceTree = "<group>"; };
 		3A6734F5DBA030CCF05AEB32693BF472 /* Reachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		3AE95751CF43CD6D3BF746FA23A2079E /* IGLUConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGLUConstants.h; path = SnowplowIgluClient/IGLUConstants.h; sourceTree = "<group>"; };
 		3E11BDB9861A965B2BFCF91B578484A4 /* NSURLRequest+DSL.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+DSL.h"; path = "Nocilla/Hooks/NSURLRequest/NSURLRequest+DSL.h"; sourceTree = "<group>"; };
-		3F45B76CA35F10870188D140A270447F /* Pods-Snowplow-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
-		42AAAEE1B63DFF387A9B0E3DBCEB85BE /* Pods-SnowplowTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowTests-resources.sh"; sourceTree = "<group>"; };
+		42AE2514B5234DEE94426306C092E633 /* libSnowplowIgluClient-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libSnowplowIgluClient-iOS.a"; path = "libSnowplowIgluClient-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		458F6E35F46EC4ADB11FA58C9E535634 /* IGLUSchema.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGLUSchema.h; path = SnowplowIgluClient/IGLUSchema.h; sourceTree = "<group>"; };
 		461BA16EC06E09BEC31530FCF9EBF9B2 /* LSDataMatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSDataMatcher.h; path = Nocilla/Matchers/LSDataMatcher.h; sourceTree = "<group>"; };
+		4660094C8F974FD25E824922F608CEA6 /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4685F2935067A9F3C6B8E25A6BA23CE4 /* LSHTTPRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPRequest.h; path = Nocilla/Model/LSHTTPRequest.h; sourceTree = "<group>"; };
+		484088206ED6342D980106407D2F9EF0 /* Pods-Snowplow-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Snowplow-acknowledgements.plist"; sourceTree = "<group>"; };
 		486322429EEA27F0B0611BC9B0699DAC /* Nocilla-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Nocilla-macOS-prefix.pch"; path = "../Nocilla-macOS/Nocilla-macOS-prefix.pch"; sourceTree = "<group>"; };
 		4AA32008165C496D638B32D58DC0E80E /* KiteJSONValidator-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "KiteJSONValidator-iOS.xcconfig"; sourceTree = "<group>"; };
 		4D799EE5D8A9F8BCA9934C6E959DEA83 /* FMDB-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-iOS-prefix.pch"; sourceTree = "<group>"; };
 		4E502259AAD0F007581FC196EBE56D86 /* NSString+Nocilla.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+Nocilla.h"; path = "Nocilla/Categories/NSString+Nocilla.h"; sourceTree = "<group>"; };
+		50D2DE8728DA2F1F39280921B95A3046 /* Pods-Base-Snowplow-OSX-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Base-Snowplow-OSX-acknowledgements.plist"; sourceTree = "<group>"; };
+		524A2F5E239FD52E5AD51E9A7601B99D /* Pods-Snowplow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow.debug.xcconfig"; sourceTree = "<group>"; };
 		52E11A1EBE298E375FA03667C2BBCDB9 /* IGLUClient.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGLUClient.h; path = SnowplowIgluClient/IGLUClient.h; sourceTree = "<group>"; };
 		53EB6A942D163B4266C3CA0270249F1F /* KiteJSONValidator-iOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "KiteJSONValidator-iOS-prefix.pch"; sourceTree = "<group>"; };
 		5609133E1A8653A9783B48658B606AD7 /* LSStubResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSStubResponse.h; path = Nocilla/Stubs/LSStubResponse.h; sourceTree = "<group>"; };
-		560D029B702A0E115817D81163405E3A /* libKiteJSONValidator-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libKiteJSONValidator-iOS.a"; path = "libKiteJSONValidator-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		567F2917C655CD4EBE8A02E4916E4142 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
 		572D397B8E59E3D1D68E11392E0FECC1 /* SnowplowIgluClient-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnowplowIgluClient-iOS-dummy.m"; sourceTree = "<group>"; };
-		57E8EA35FFC2D591197EF000CFCFDA56 /* Pods-Snowplow-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snowplow-acknowledgements.markdown"; sourceTree = "<group>"; };
-		57FD461C39970DD44E426F0470BD2227 /* KiteJSONValidator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KiteJSONValidator.bundle; path = KiteJSONValidator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		5978F6E4D790991DFD4D353E3EB9C394 /* KiteJSONValidator-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "KiteJSONValidator-macOS.xcconfig"; path = "../KiteJSONValidator-macOS/KiteJSONValidator-macOS.xcconfig"; sourceTree = "<group>"; };
 		59CD8822B6CAFD2A04A0F18B4EDEA4EB /* LSStubRequestDSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStubRequestDSL.m; path = Nocilla/DSL/LSStubRequestDSL.m; sourceTree = "<group>"; };
 		5B31CC1BB1168D456AC9585F8B5938A6 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
@@ -392,28 +390,27 @@
 		6270E44C6B59A4554F0C1CAB59DAA970 /* ResourceBundle-KiteJSONValidator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "ResourceBundle-KiteJSONValidator-Info.plist"; path = "../KiteJSONValidator-macOS/ResourceBundle-KiteJSONValidator-Info.plist"; sourceTree = "<group>"; };
 		6281E7A0056094742AA93FFFFC94C323 /* schema */ = {isa = PBXFileReference; includeInIndex = 1; name = schema; path = Resources/ReferenceSchemae/schema; sourceTree = "<group>"; };
 		634490E4F985862B19C041177E6ADF10 /* Reachability.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Reachability.xcconfig; sourceTree = "<group>"; };
-		6923743A5BE984D1883F15A86BB32E3E /* Pods-SnowplowTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowTests-frameworks.sh"; sourceTree = "<group>"; };
 		69734A1BE1A3B7BF228A44E93D3295FC /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
-		6D51E91467E20FEC8921AEFBD6251698 /* libFMDB-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libFMDB-macOS.a"; path = "libFMDB-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69778BF91DFC14C0246D51494970AAB9 /* Pods-SnowplowTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowTests.release.xcconfig"; sourceTree = "<group>"; };
+		6B3733754AEFA70B91B977971F36DF99 /* libFMDB-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libFMDB-macOS.a"; path = "libFMDB-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DA346DBDCB5CBA6A7B889ADB1825000 /* Resources */ = {isa = PBXFileReference; includeInIndex = 1; name = Resources; path = SnowplowIgluResources/Resources; sourceTree = "<group>"; };
+		6FC0808B4BC3B0D8758E4C25C0B7F408 /* libNocilla-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libNocilla-iOS.a"; path = "libNocilla-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FF3A96DBD9CD3BC6EDFBD41354E4AA7 /* NSData+Nocilla.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+Nocilla.h"; path = "Nocilla/Categories/NSData+Nocilla.h"; sourceTree = "<group>"; };
-		7018F7DB1E0270FBCE11613F98F10EA7 /* SnowplowIgluResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SnowplowIgluResources.bundle; path = SnowplowIgluResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		71560D7C9F4A15234D5EC26D5112F4EA /* LSHTTPClientHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSHTTPClientHook.m; path = Nocilla/Hooks/LSHTTPClientHook.m; sourceTree = "<group>"; };
 		71F216E484028B60992DE8C0B6C99F18 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/CFNetwork.framework; sourceTree = DEVELOPER_DIR; };
-		72DE69BB5348CE5D00561FE9931C8D53 /* libPods-Snowplow-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Snowplow-OSX.a"; path = "libPods-Snowplow-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7397945DE5C4B5F261EFFBAFAA822223 /* Nocilla.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Nocilla.h; path = Nocilla/Nocilla.h; sourceTree = "<group>"; };
 		74F5AC0FC461D20DEC0CA80710049F7E /* LSStubResponseDSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStubResponseDSL.m; path = Nocilla/DSL/LSStubResponseDSL.m; sourceTree = "<group>"; };
 		75B593868B1605E526BC31D20063C45C /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
 		76C2C88093E7C8407D361EADC6FFD515 /* NSRegularExpression+Matcheable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSRegularExpression+Matcheable.m"; path = "Nocilla/Matchers/NSRegularExpression+Matcheable.m"; sourceTree = "<group>"; };
 		76D335D8AD818F4E68DD216903ADD450 /* LSASIHTTPRequestHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSASIHTTPRequestHook.h; path = Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestHook.h; sourceTree = "<group>"; };
-		77F93B1CF9E02EFFBDCE708955A4B797 /* Pods-Snowplow-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snowplow-dummy.m"; sourceTree = "<group>"; };
-		794DBBA5E3837C1010CFC8A08B401288 /* Pods-SnowplowTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowTests.release.xcconfig"; sourceTree = "<group>"; };
 		7B44A4E2DED8C1C7FA92EB405036F973 /* NSURLRequest+LSHTTPRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSURLRequest+LSHTTPRequest.h"; path = "Nocilla/Hooks/NSURLRequest/NSURLRequest+LSHTTPRequest.h"; sourceTree = "<group>"; };
 		7E482CAAB0728E2C44571E48755EDE15 /* LSMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSMatcher.m; path = Nocilla/Matchers/LSMatcher.m; sourceTree = "<group>"; };
-		7E4B5197F50D619F269C4C85699D21C0 /* libPods-SnowplowTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SnowplowTests.a"; path = "libPods-SnowplowTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EC561D8494288FE0087E70BA4820F3F /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
 		7FBF7E8081DE55BAE429778899452B18 /* Reachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		7FD89AB8E333FCA6674D732007E22B98 /* Pods-Base-Snowplow-OSX-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Base-Snowplow-OSX-acknowledgements.markdown"; sourceTree = "<group>"; };
 		8589C03988922FEE2A25FF356259D6BD /* KiteJSONValidator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KiteJSONValidator.h; path = Sources/KiteJSONValidator.h; sourceTree = "<group>"; };
+		85FE1D43BD5852E49AB4C3CC224AE7E5 /* libKiteJSONValidator-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libKiteJSONValidator-iOS.a"; path = "libKiteJSONValidator-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8813B20A797494BB3095EC1AB0FD6893 /* libReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libReachability.a; path = libReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A4D27452043AD349F8E95D41C4AD3D3 /* NSString+Matcheable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+Matcheable.m"; path = "Nocilla/Matchers/NSString+Matcheable.m"; sourceTree = "<group>"; };
 		8A62EADDBC9096FA6E71A443FE51E765 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		8C62AF2DADEFDBC9741B04BC32B206BA /* ResourceBundle-SnowplowIgluResources-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "ResourceBundle-SnowplowIgluResources-Info.plist"; path = "../SnowplowIgluClient-macOS/ResourceBundle-SnowplowIgluResources-Info.plist"; sourceTree = "<group>"; };
@@ -422,74 +419,77 @@
 		8EE3E198E1CF1F9C88E7478C3953C892 /* SnowplowIgluClient-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "SnowplowIgluClient-iOS.xcconfig"; sourceTree = "<group>"; };
 		8F96BE65F9D2CC7B04944CB9F5A25D90 /* KiteValidationPair.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KiteValidationPair.h; path = Sources/KiteValidationPair.h; sourceTree = "<group>"; };
 		8FCC9AB09655AE75C7F8BB75FACE2534 /* LSNSURLHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSNSURLHook.h; path = Nocilla/Hooks/NSURLRequest/LSNSURLHook.h; sourceTree = "<group>"; };
-		9051AEF72B3DF36A9545C35AA35BD543 /* Pods-Snowplow-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Snowplow-acknowledgements.plist"; sourceTree = "<group>"; };
+		9031CC4E2CE742EE4235FE69884716B6 /* Pods-BaseTests-Snowplow-OSXTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BaseTests-Snowplow-OSXTests-frameworks.sh"; sourceTree = "<group>"; };
 		9128BFEF8FE4891C99445FDCFFE78E03 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		914009477C7F75EADE33F774740572AF /* Pods-Snowplow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow.release.xcconfig"; sourceTree = "<group>"; };
 		91A81F725D8CBEE146E220C85E3430E7 /* LSDataMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSDataMatcher.m; path = Nocilla/Matchers/LSDataMatcher.m; sourceTree = "<group>"; };
-		926DF254272EE3A512048050FE74D5AE /* Pods-Snowplow-OSXTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snowplow-OSXTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		9343EA56702E5EEEE29F67B1AACB9055 /* Reachability-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Reachability-dummy.m"; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94BDFE911E795F1604AFF33D83254F0B /* Pods-Snowplow-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snowplow-dummy.m"; sourceTree = "<group>"; };
 		9561E6F7A084E6BAA48C6B47A57A6CF6 /* NSData+Matcheable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+Matcheable.h"; path = "Nocilla/Matchers/NSData+Matcheable.h"; sourceTree = "<group>"; };
 		95E1AC98C4E5E64775B68DA6C26A55F3 /* LSHTTPBody.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPBody.h; path = Nocilla/Model/LSHTTPBody.h; sourceTree = "<group>"; };
-		964B4098E1F8A8834BB5BDE33C3AA4F2 /* Pods-SnowplowTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowTests.debug.xcconfig"; sourceTree = "<group>"; };
 		968A847C5A985E66C1D2D55CB183C146 /* FMDB-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "FMDB-macOS.xcconfig"; path = "../FMDB-macOS/FMDB-macOS.xcconfig"; sourceTree = "<group>"; };
 		970D9F5F3E63DC981D87A72130A1D144 /* IGLUResolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGLUResolver.h; path = SnowplowIgluClient/IGLUResolver.h; sourceTree = "<group>"; };
+		97C472B4CD81E7BCD91AE303F7362307 /* Pods-SnowplowTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowTests.debug.xcconfig"; sourceTree = "<group>"; };
 		97F265E0E78B3822C6A7AA3D3EC8D0BC /* LSNSURLHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSNSURLHook.m; path = Nocilla/Hooks/NSURLRequest/LSNSURLHook.m; sourceTree = "<group>"; };
 		9BF3958710383651C08758B4EA17845A /* LSASIHTTPRequestAdapter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSASIHTTPRequestAdapter.m; path = Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestAdapter.m; sourceTree = "<group>"; };
 		9F06651269E81C127F4F27DFEA85BF12 /* LSStubRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStubRequest.m; path = Nocilla/Stubs/LSStubRequest.m; sourceTree = "<group>"; };
-		9F63376ED74EAE535BA31E43190ED853 /* Pods-SnowplowTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		9FC3E736129919177513F5B153575A36 /* LSHTTPRequestDiff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSHTTPRequestDiff.m; path = Nocilla/Diff/LSHTTPRequestDiff.m; sourceTree = "<group>"; };
 		A0C666BCEB314BF588D404531D283584 /* NSURLRequest+DSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+DSL.m"; path = "Nocilla/Hooks/NSURLRequest/NSURLRequest+DSL.m"; sourceTree = "<group>"; };
 		A0F541DDE70936E53781A22BC3337A2A /* LSHTTPRequestDiff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPRequestDiff.h; path = Nocilla/Diff/LSHTTPRequestDiff.h; sourceTree = "<group>"; };
 		A2FBAD5D97D565118DEBA8F7445CA366 /* KiteJSONValidator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KiteJSONValidator.m; path = Sources/KiteJSONValidator.m; sourceTree = "<group>"; };
 		A6A9C6898564712533E77920717FF920 /* KiteValidationPair.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = KiteValidationPair.m; path = Sources/KiteValidationPair.m; sourceTree = "<group>"; };
-		A6E0792A4A38F55F68321C0299D41454 /* Pods-Snowplow-OSXTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snowplow-OSXTests-dummy.m"; sourceTree = "<group>"; };
+		A72FE1C2831B247C7BCF4B41C5C66DFF /* Pods-Base-Snowplow-OSX-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Base-Snowplow-OSX-resources.sh"; sourceTree = "<group>"; };
 		A734CB5F21398FEE3F777B1A4D99918F /* NSString+Matcheable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+Matcheable.h"; path = "Nocilla/Matchers/NSString+Matcheable.h"; sourceTree = "<group>"; };
 		A7AF51739020623019D185FAD49132F7 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		A82578FCE6F9F98F77AF7F93E9A954D3 /* libNocilla-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libNocilla-macOS.a"; path = "libNocilla-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7B073F2FA6EB712A0553A0E9CDC56A4 /* SnowplowIgluResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SnowplowIgluResources.bundle; path = SnowplowIgluResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		A8394F269A972A3A3DE840E583652BD4 /* Pods-SnowplowTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SnowplowTests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		AB574CFEE2326EE923EECD8C7FB42095 /* IGLUConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGLUConstants.m; path = SnowplowIgluClient/IGLUConstants.m; sourceTree = "<group>"; };
 		B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "SnowplowIgluClient-macOS.xcconfig"; path = "../SnowplowIgluClient-macOS/SnowplowIgluClient-macOS.xcconfig"; sourceTree = "<group>"; };
 		B0F2CE575FBF067AB8D270129C12EA20 /* FMDB-macOS-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "FMDB-macOS-prefix.pch"; path = "../FMDB-macOS/FMDB-macOS-prefix.pch"; sourceTree = "<group>"; };
 		B0FA5E3DFA2ED0C683D541AFE94176C8 /* NSString+Nocilla.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+Nocilla.m"; path = "Nocilla/Categories/NSString+Nocilla.m"; sourceTree = "<group>"; };
+		B250EBA24FF382F3623D7253E2D64D26 /* libFMDB-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libFMDB-iOS.a"; path = "libFMDB-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2607BC2DEC20E461D4E3FE260C68FA0 /* libKiteJSONValidator-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libKiteJSONValidator-macOS.a"; path = "libKiteJSONValidator-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3613A0AAC7DCE353CD44B10AFA386B0 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		B5D4BF68E012DBCF3627E1F4572D5953 /* Pods-Snowplow-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snowplow-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B8F83DD235A746FB174A80D56108D8D0 /* NSData+Nocilla.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+Nocilla.m"; path = "Nocilla/Categories/NSData+Nocilla.m"; sourceTree = "<group>"; };
 		BA44B6C3B9D56679A82A35D20A9AE54F /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
 		BAD643502F041A988BA31EF96CD8E669 /* IGLUUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGLUUtilities.h; path = SnowplowIgluClient/IGLUUtilities.h; sourceTree = "<group>"; };
 		BDA2F9E77B347A5E78FF2AFBBD6343BC /* LSStubRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSStubRequest.h; path = Nocilla/Stubs/LSStubRequest.h; sourceTree = "<group>"; };
-		BF4E10CA6647AE3B05E3C37E50EB3EFF /* Pods-Snowplow-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow-OSX.release.xcconfig"; sourceTree = "<group>"; };
 		BFDE8233D505CB069915C73BD480853B /* FMDB-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "FMDB-iOS.xcconfig"; sourceTree = "<group>"; };
-		C4394402F33F004C3EAA25AA92A92D3C /* Pods-Snowplow-OSX-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snowplow-OSX-dummy.m"; sourceTree = "<group>"; };
-		C46D62805BB2063AA122271D5AB9144C /* libFMDB-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libFMDB-iOS.a"; path = "libFMDB-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C2489902E7F8654A5878CD54A4551E74 /* KiteJSONValidator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KiteJSONValidator.bundle; path = KiteJSONValidator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		C47D7292631AC5A0B8F33554A4D25CAC /* FMDB-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-iOS-dummy.m"; sourceTree = "<group>"; };
 		C8916269527CF05CAB49D363CDA43F39 /* Reachability-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Reachability-prefix.pch"; sourceTree = "<group>"; };
 		CA10DF491C5CC8FD051956005A6F2768 /* LSASIHTTPRequestHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSASIHTTPRequestHook.m; path = Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestHook.m; sourceTree = "<group>"; };
 		CA7BCADB5B9D4EDBB246F2D904C56F35 /* LSNSURLSessionHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSNSURLSessionHook.h; path = Nocilla/Hooks/NSURLSession/LSNSURLSessionHook.h; sourceTree = "<group>"; };
 		CABAFA9061EC59B5DCCE269AC8FCF345 /* IGLUResolver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGLUResolver.m; path = SnowplowIgluClient/IGLUResolver.m; sourceTree = "<group>"; };
 		CAC11164B395429144DEF339CAD3D62C /* LSStringMatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSStringMatcher.h; path = Nocilla/Matchers/LSStringMatcher.h; sourceTree = "<group>"; };
-		CB5342B90AB8C061A733D7938AD46EF6 /* Pods-Snowplow-OSXTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snowplow-OSXTests-resources.sh"; sourceTree = "<group>"; };
 		CB6B9FD7A8FA6CC9792ACBF498A4EE46 /* LSHTTPRequestDSLRepresentation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSHTTPRequestDSLRepresentation.m; path = Nocilla/DSL/LSHTTPRequestDSLRepresentation.m; sourceTree = "<group>"; };
+		CC1D5058DE88B33DA3E8B7213318C074 /* libNocilla-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libNocilla-macOS.a"; path = "libNocilla-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD8FF4C8CA1B893E97DA03A4DE093A99 /* IGLUSchema.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGLUSchema.m; path = SnowplowIgluClient/IGLUSchema.m; sourceTree = "<group>"; };
 		D05291DE14B2CADED42326863D760BA3 /* KiteJSONValidator-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KiteJSONValidator-iOS-dummy.m"; sourceTree = "<group>"; };
-		D1408827D0B844F7BCF247E679B6E8C6 /* Pods-Snowplow-OSXTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snowplow-OSXTests-frameworks.sh"; sourceTree = "<group>"; };
+		D42CABE495597E0EF0F34017AA42551B /* libPods-Snowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Snowplow.a"; path = "libPods-Snowplow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D47BF69AC7A03BA092EA72F6B401C480 /* Nocilla-macOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Nocilla-macOS.xcconfig"; path = "../Nocilla-macOS/Nocilla-macOS.xcconfig"; sourceTree = "<group>"; };
+		DC458247CF054B73A2AD19B3358B714B /* Pods-BaseTests-Snowplow-OSXTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-BaseTests-Snowplow-OSXTests-dummy.m"; sourceTree = "<group>"; };
 		DEF84D28BAF9700777031CD340BF9E8F /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
-		DF968F46C740CB452527A4A022DDB1C6 /* Pods-Snowplow-OSX-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Snowplow-OSX-resources.sh"; sourceTree = "<group>"; };
 		E164678CF27A18EC61ED2BA4A6688571 /* NSURLRequest+LSHTTPRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+LSHTTPRequest.m"; path = "Nocilla/Hooks/NSURLRequest/NSURLRequest+LSHTTPRequest.m"; sourceTree = "<group>"; };
 		E1F2C16ED93C93C622316F7A11F87C19 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
-		E27DD68494DFA97EAB3358E34771C8AC /* libNocilla-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libNocilla-iOS.a"; path = "libNocilla-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E3DEAD35CA1A51BB5820373D632D2017 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
 		E5426926018908BD43879088E1469A8D /* LSHTTPResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPResponse.h; path = Nocilla/Model/LSHTTPResponse.h; sourceTree = "<group>"; };
-		E86D7FEE0B6C75B4D29CA074B365D573 /* libKiteJSONValidator-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libKiteJSONValidator-macOS.a"; path = "libKiteJSONValidator-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E6C33BC81BE8F4E41B8D27F1C75F3D07 /* Pods-BaseTests-Snowplow-OSXTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-BaseTests-Snowplow-OSXTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		E94F482D8875F65F1B5035CA851067E2 /* Pods-SnowplowTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		EAA63B1B4B9AF77AB7A687FDB55B8AE5 /* Pods-Base-Snowplow-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Base-Snowplow-OSX.release.xcconfig"; sourceTree = "<group>"; };
 		EAD68D4CD882FF157F9A55571E9E0D1C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.12.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		EB99CEB0A93F3A864C98E0C75EC6A6B5 /* LSRegexMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSRegexMatcher.m; path = Nocilla/Matchers/LSRegexMatcher.m; sourceTree = "<group>"; };
+		F06437FE425924A5A7B6150AB7D6B5C5 /* Pods-BaseTests-Snowplow-OSXTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BaseTests-Snowplow-OSXTests-resources.sh"; sourceTree = "<group>"; };
 		F157F9698ED97FB4504E257F9669047B /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = Info.plist; path = SnowplowIgluResources/Info.plist; sourceTree = "<group>"; };
+		F1619DEE373D497F1436F269058231EB /* Pods-Base-Snowplow-OSX-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Base-Snowplow-OSX-frameworks.sh"; sourceTree = "<group>"; };
 		F1ABC97B167A55DFB339D0BA98083C62 /* Nocilla-iOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Nocilla-iOS-dummy.m"; sourceTree = "<group>"; };
 		F267E93FCF133BE45DBE6C4C9C42EE75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		F35AAB4A67435A4A2AB73F6013196FEC /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
 		F35D7F5175D27EF2F3A6A589197AF898 /* KiteJSONValidator-macOS-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "KiteJSONValidator-macOS-dummy.m"; path = "../KiteJSONValidator-macOS/KiteJSONValidator-macOS-dummy.m"; sourceTree = "<group>"; };
 		F426AE2D29EDB2CE91601AADF5DB091C /* LSHTTPClientHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPClientHook.h; path = Nocilla/Hooks/LSHTTPClientHook.h; sourceTree = "<group>"; };
 		F47C53627D7D0FB10D89D1AD25C25766 /* LSASIHTTPRequestAdapter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSASIHTTPRequestAdapter.h; path = Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestAdapter.h; sourceTree = "<group>"; };
-		F6B3CFA8F42F257B367676A1D9B3D381 /* Pods-Snowplow-OSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow-OSXTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F727983AD872FAF5F8C2501CA475BF9A /* Pods-Snowplow-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow-OSX.debug.xcconfig"; sourceTree = "<group>"; };
 		F765A8BE8DB0B68BF57A9B65F77F9AA1 /* Nocilla-iOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Nocilla-iOS.xcconfig"; sourceTree = "<group>"; };
 		F9A0DEDAC17EE86C80DCBB435C5D1B95 /* LSStubResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStubResponse.m; path = Nocilla/Stubs/LSStubResponse.m; sourceTree = "<group>"; };
 		FA6A2105E71FA33C61ED8441CD925682 /* LSNocilla.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSNocilla.h; path = Nocilla/LSNocilla.h; sourceTree = "<group>"; };
@@ -531,14 +531,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		41513C5B868D3F7F1E6DCD31942A9A30 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8A9C75F04F3873F93A2AC7EF39D7E775 /* Cocoa.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		555A3CC6E822AB01A7DF73DEBEE59DEE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -547,12 +539,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5B95EBB6CC8066CCB749E19528947C16 /* Frameworks */ = {
+		56198A0F62294EE0EFEFD3A4C84A761A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D45FD629944C15F62483CC682A6CB36 /* Cocoa.framework in Frameworks */,
-				8219974F6941EA34724F89AF5FD97C57 /* Foundation.framework in Frameworks */,
+				075F97788289BA72796FDB319E003341 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,17 +556,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		774127E016F493F5DB4EB19A109EFACD /* Frameworks */ = {
+		814CAA5D3E7409B66B59E9BDDDE215D9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		814CAA5D3E7409B66B59E9BDDDE215D9 /* Frameworks */ = {
+		89455041FBC19B7613516E78B72F73D2 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8B5636C7E9F00D83D5F74144626149E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7C4136D366BD85977B065304692B5D22 /* Cocoa.framework in Frameworks */,
+				90CC7BE37CD2B5712AC6F6F4099165BD /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,14 +593,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D726BFEC99F4690FBDD60C8D13C9B7B /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		ED924122706DE45926A6B76002788542 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7721B547AE7415C8F02C9B9A49DC5B38 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,9 +626,32 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FDA75BCBD37ABBD5B7C91F041942E4AC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7794B05FE8A8E8BABCFD5C32AFDDE0EA /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		07FF724931D7BC44D483DD49D78D0D2A /* Pods-SnowplowTests */ = {
+			isa = PBXGroup;
+			children = (
+				A8394F269A972A3A3DE840E583652BD4 /* Pods-SnowplowTests-acknowledgements.markdown */,
+				E94F482D8875F65F1B5035CA851067E2 /* Pods-SnowplowTests-acknowledgements.plist */,
+				16458E292E0171D44C431F7A413ADCE2 /* Pods-SnowplowTests-dummy.m */,
+				28F6F2EE63E4C14DEC4763B9B8AAA522 /* Pods-SnowplowTests-frameworks.sh */,
+				1F53A24F235833E314E5F4E617FD15C4 /* Pods-SnowplowTests-resources.sh */,
+				97C472B4CD81E7BCD91AE303F7362307 /* Pods-SnowplowTests.debug.xcconfig */,
+				69778BF91DFC14C0246D51494970AAB9 /* Pods-SnowplowTests.release.xcconfig */,
+			);
+			name = "Pods-SnowplowTests";
+			path = "Target Support Files/Pods-SnowplowTests";
+			sourceTree = "<group>";
+		};
 		10A3D06FDB979D435653E95EC4C6E14C /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +678,21 @@
 			name = "OS X";
 			sourceTree = "<group>";
 		};
+		1E3B44009A81BA451289311BDC531648 /* Pods-Base-Snowplow-OSX */ = {
+			isa = PBXGroup;
+			children = (
+				7FD89AB8E333FCA6674D732007E22B98 /* Pods-Base-Snowplow-OSX-acknowledgements.markdown */,
+				50D2DE8728DA2F1F39280921B95A3046 /* Pods-Base-Snowplow-OSX-acknowledgements.plist */,
+				3903FF17DACCDCFDCCC6A5847CC426C8 /* Pods-Base-Snowplow-OSX-dummy.m */,
+				F1619DEE373D497F1436F269058231EB /* Pods-Base-Snowplow-OSX-frameworks.sh */,
+				A72FE1C2831B247C7BCF4B41C5C66DFF /* Pods-Base-Snowplow-OSX-resources.sh */,
+				2728FFAB08B4F54131E121F730808616 /* Pods-Base-Snowplow-OSX.debug.xcconfig */,
+				EAA63B1B4B9AF77AB7A687FDB55B8AE5 /* Pods-Base-Snowplow-OSX.release.xcconfig */,
+			);
+			name = "Pods-Base-Snowplow-OSX";
+			path = "Target Support Files/Pods-Base-Snowplow-OSX";
+			sourceTree = "<group>";
+		};
 		222DA1F6B3670D20485C78DC8A4AEFAD /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -671,15 +701,29 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		44ED2207DD55EE92CC7813A7921ABC68 /* Targets Support Files */ = {
+		263F27F25802906A0FA5AC09983C26F5 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				7A81B1E03E43FA859370526B7C863C57 /* Pods-Snowplow */,
-				C449F0A6A7D96656E481741E14E3A195 /* Pods-Snowplow-OSX */,
-				A68B332555A2FA8F35D202C81A5CBC3A /* Pods-Snowplow-OSXTests */,
-				FE845E78A6D5E39DA32C186C3025BFEC /* Pods-SnowplowTests */,
+				1E3B44009A81BA451289311BDC531648 /* Pods-Base-Snowplow-OSX */,
+				BEE20B922D770A9E4B571F6281A84A84 /* Pods-BaseTests-Snowplow-OSXTests */,
+				2ED78614C5A80588981DEE08D129B466 /* Pods-Snowplow */,
+				07FF724931D7BC44D483DD49D78D0D2A /* Pods-SnowplowTests */,
 			);
 			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		2ED78614C5A80588981DEE08D129B466 /* Pods-Snowplow */ = {
+			isa = PBXGroup;
+			children = (
+				B5D4BF68E012DBCF3627E1F4572D5953 /* Pods-Snowplow-acknowledgements.markdown */,
+				484088206ED6342D980106407D2F9EF0 /* Pods-Snowplow-acknowledgements.plist */,
+				94BDFE911E795F1604AFF33D83254F0B /* Pods-Snowplow-dummy.m */,
+				1B574A1FFFD673D85CE1D6AC3207590F /* Pods-Snowplow-resources.sh */,
+				524A2F5E239FD52E5AD51E9A7601B99D /* Pods-Snowplow.debug.xcconfig */,
+				914009477C7F75EADE33F774740572AF /* Pods-Snowplow.release.xcconfig */,
+			);
+			name = "Pods-Snowplow";
+			path = "Target Support Files/Pods-Snowplow";
 			sourceTree = "<group>";
 		};
 		544E509C035632C6EB7FD6AC7DD713FA /* Frameworks */ = {
@@ -700,30 +744,6 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Reachability";
-			sourceTree = "<group>";
-		};
-		6800416CFAB79B9BFCB87018C138E173 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				57FD461C39970DD44E426F0470BD2227 /* KiteJSONValidator.bundle */,
-				57FD461C39970DD44E426F0470BD2227 /* KiteJSONValidator.bundle */,
-				C46D62805BB2063AA122271D5AB9144C /* libFMDB-iOS.a */,
-				6D51E91467E20FEC8921AEFBD6251698 /* libFMDB-macOS.a */,
-				560D029B702A0E115817D81163405E3A /* libKiteJSONValidator-iOS.a */,
-				E86D7FEE0B6C75B4D29CA074B365D573 /* libKiteJSONValidator-macOS.a */,
-				E27DD68494DFA97EAB3358E34771C8AC /* libNocilla-iOS.a */,
-				A82578FCE6F9F98F77AF7F93E9A954D3 /* libNocilla-macOS.a */,
-				1068A624A47B294C98454F242AD297E1 /* libPods-Snowplow.a */,
-				72DE69BB5348CE5D00561FE9931C8D53 /* libPods-Snowplow-OSX.a */,
-				03C1F8D910C7D75A3992F735D24C2497 /* libPods-Snowplow-OSXTests.a */,
-				7E4B5197F50D619F269C4C85699D21C0 /* libPods-SnowplowTests.a */,
-				02AE732EC0AE4060F3D32C6046F33059 /* libReachability.a */,
-				06ABBA2D047019BD5E13BFD920C46753 /* libSnowplowIgluClient-iOS.a */,
-				181CA7BE3FCD42140A61B1B23E29FCB6 /* libSnowplowIgluClient-macOS.a */,
-				7018F7DB1E0270FBCE11613F98F10EA7 /* SnowplowIgluResources.bundle */,
-				7018F7DB1E0270FBCE11613F98F10EA7 /* SnowplowIgluResources.bundle */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		683BCE72604A1A2CC5D4134475A316DB /* Resources */ = {
@@ -747,6 +767,30 @@
 			);
 			name = "Support Files";
 			path = "../Target Support Files/Nocilla-iOS";
+			sourceTree = "<group>";
+		};
+		70419A03DE20278ACEDBEA38E8437DD0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C2489902E7F8654A5878CD54A4551E74 /* KiteJSONValidator.bundle */,
+				C2489902E7F8654A5878CD54A4551E74 /* KiteJSONValidator.bundle */,
+				B250EBA24FF382F3623D7253E2D64D26 /* libFMDB-iOS.a */,
+				6B3733754AEFA70B91B977971F36DF99 /* libFMDB-macOS.a */,
+				85FE1D43BD5852E49AB4C3CC224AE7E5 /* libKiteJSONValidator-iOS.a */,
+				B2607BC2DEC20E461D4E3FE260C68FA0 /* libKiteJSONValidator-macOS.a */,
+				6FC0808B4BC3B0D8758E4C25C0B7F408 /* libNocilla-iOS.a */,
+				CC1D5058DE88B33DA3E8B7213318C074 /* libNocilla-macOS.a */,
+				03FB23C08B559FFF1D45935F0EA6F548 /* libPods-Base-Snowplow-OSX.a */,
+				2AFD6211F13071F5432E813278AAD079 /* libPods-BaseTests-Snowplow-OSXTests.a */,
+				D42CABE495597E0EF0F34017AA42551B /* libPods-Snowplow.a */,
+				23F925B3FC4D2FB7864690FCD7C7E8DD /* libPods-SnowplowTests.a */,
+				8813B20A797494BB3095EC1AB0FD6893 /* libReachability.a */,
+				42AE2514B5234DEE94426306C092E633 /* libSnowplowIgluClient-iOS.a */,
+				29EE1BFDD4BBF81236D99AC496834801 /* libSnowplowIgluClient-macOS.a */,
+				A7B073F2FA6EB712A0553A0E9CDC56A4 /* SnowplowIgluResources.bundle */,
+				A7B073F2FA6EB712A0553A0E9CDC56A4 /* SnowplowIgluResources.bundle */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 		7464669A39EC1C4C44427D31345D5627 /* iOS */ = {
@@ -775,28 +819,14 @@
 			path = "../Target Support Files/SnowplowIgluClient-iOS";
 			sourceTree = "<group>";
 		};
-		7A81B1E03E43FA859370526B7C863C57 /* Pods-Snowplow */ = {
-			isa = PBXGroup;
-			children = (
-				57E8EA35FFC2D591197EF000CFCFDA56 /* Pods-Snowplow-acknowledgements.markdown */,
-				9051AEF72B3DF36A9545C35AA35BD543 /* Pods-Snowplow-acknowledgements.plist */,
-				77F93B1CF9E02EFFBDCE708955A4B797 /* Pods-Snowplow-dummy.m */,
-				347BDA89BD0CBE072B75C94A052CBC59 /* Pods-Snowplow-resources.sh */,
-				1EA7C819CAC7ECEFF490836AFF6C4F1A /* Pods-Snowplow.debug.xcconfig */,
-				0AA2CCC3E9BE4F1646485B3B3BB32E24 /* Pods-Snowplow.release.xcconfig */,
-			);
-			name = "Pods-Snowplow";
-			path = "Target Support Files/Pods-Snowplow";
-			sourceTree = "<group>";
-		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
 				544E509C035632C6EB7FD6AC7DD713FA /* Frameworks */,
 				8EF760A119CA6880D4C6631F12E5F514 /* Pods */,
-				6800416CFAB79B9BFCB87018C138E173 /* Products */,
-				44ED2207DD55EE92CC7813A7921ABC68 /* Targets Support Files */,
+				70419A03DE20278ACEDBEA38E8437DD0 /* Products */,
+				263F27F25802906A0FA5AC09983C26F5 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -836,21 +866,6 @@
 			path = KiteJSONValidator;
 			sourceTree = "<group>";
 		};
-		A68B332555A2FA8F35D202C81A5CBC3A /* Pods-Snowplow-OSXTests */ = {
-			isa = PBXGroup;
-			children = (
-				926DF254272EE3A512048050FE74D5AE /* Pods-Snowplow-OSXTests-acknowledgements.markdown */,
-				0642710CC1F6A0BFBD68D1DB4E534D92 /* Pods-Snowplow-OSXTests-acknowledgements.plist */,
-				A6E0792A4A38F55F68321C0299D41454 /* Pods-Snowplow-OSXTests-dummy.m */,
-				D1408827D0B844F7BCF247E679B6E8C6 /* Pods-Snowplow-OSXTests-frameworks.sh */,
-				CB5342B90AB8C061A733D7938AD46EF6 /* Pods-Snowplow-OSXTests-resources.sh */,
-				F6B3CFA8F42F257B367676A1D9B3D381 /* Pods-Snowplow-OSXTests.debug.xcconfig */,
-				3F45B76CA35F10870188D140A270447F /* Pods-Snowplow-OSXTests.release.xcconfig */,
-			);
-			name = "Pods-Snowplow-OSXTests";
-			path = "Target Support Files/Pods-Snowplow-OSXTests";
-			sourceTree = "<group>";
-		};
 		BB6C197CE3EE43479E630771DFAB6AF1 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -865,19 +880,19 @@
 			path = "../Target Support Files/FMDB-iOS";
 			sourceTree = "<group>";
 		};
-		C449F0A6A7D96656E481741E14E3A195 /* Pods-Snowplow-OSX */ = {
+		BEE20B922D770A9E4B571F6281A84A84 /* Pods-BaseTests-Snowplow-OSXTests */ = {
 			isa = PBXGroup;
 			children = (
-				27088474B057A5EE96DB1DD7EBFA6473 /* Pods-Snowplow-OSX-acknowledgements.markdown */,
-				13E102349A8A25F0135A40A79DC7D8BE /* Pods-Snowplow-OSX-acknowledgements.plist */,
-				C4394402F33F004C3EAA25AA92A92D3C /* Pods-Snowplow-OSX-dummy.m */,
-				2FB14BB79E2361923A5CA7A95B36028F /* Pods-Snowplow-OSX-frameworks.sh */,
-				DF968F46C740CB452527A4A022DDB1C6 /* Pods-Snowplow-OSX-resources.sh */,
-				F727983AD872FAF5F8C2501CA475BF9A /* Pods-Snowplow-OSX.debug.xcconfig */,
-				BF4E10CA6647AE3B05E3C37E50EB3EFF /* Pods-Snowplow-OSX.release.xcconfig */,
+				252BDEA1712E5BCD11981F317900B92E /* Pods-BaseTests-Snowplow-OSXTests-acknowledgements.markdown */,
+				E6C33BC81BE8F4E41B8D27F1C75F3D07 /* Pods-BaseTests-Snowplow-OSXTests-acknowledgements.plist */,
+				DC458247CF054B73A2AD19B3358B714B /* Pods-BaseTests-Snowplow-OSXTests-dummy.m */,
+				9031CC4E2CE742EE4235FE69884716B6 /* Pods-BaseTests-Snowplow-OSXTests-frameworks.sh */,
+				F06437FE425924A5A7B6150AB7D6B5C5 /* Pods-BaseTests-Snowplow-OSXTests-resources.sh */,
+				4660094C8F974FD25E824922F608CEA6 /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */,
+				567F2917C655CD4EBE8A02E4916E4142 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */,
 			);
-			name = "Pods-Snowplow-OSX";
-			path = "Target Support Files/Pods-Snowplow-OSX";
+			name = "Pods-BaseTests-Snowplow-OSXTests";
+			path = "Target Support Files/Pods-BaseTests-Snowplow-OSXTests";
 			sourceTree = "<group>";
 		};
 		CACE91BEE53836BE09AEB9B1CB12BD97 /* Nocilla */ = {
@@ -1001,21 +1016,6 @@
 			name = KiteJSONResources;
 			sourceTree = "<group>";
 		};
-		FE845E78A6D5E39DA32C186C3025BFEC /* Pods-SnowplowTests */ = {
-			isa = PBXGroup;
-			children = (
-				0401C385427EB27218BADFE1E5854EF5 /* Pods-SnowplowTests-acknowledgements.markdown */,
-				9F63376ED74EAE535BA31E43190ED853 /* Pods-SnowplowTests-acknowledgements.plist */,
-				236A0A7EACD0F842751916EFD32CA0D4 /* Pods-SnowplowTests-dummy.m */,
-				6923743A5BE984D1883F15A86BB32E3E /* Pods-SnowplowTests-frameworks.sh */,
-				42AAAEE1B63DFF387A9B0E3DBCEB85BE /* Pods-SnowplowTests-resources.sh */,
-				964B4098E1F8A8834BB5BDE33C3AA4F2 /* Pods-SnowplowTests.debug.xcconfig */,
-				794DBBA5E3837C1010CFC8A08B401288 /* Pods-SnowplowTests.release.xcconfig */,
-			);
-			name = "Pods-SnowplowTests";
-			path = "Target Support Files/Pods-SnowplowTests";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -1082,6 +1082,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		4F5BFBAED1029EBD47196D8E86439975 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0F4ACBD4E1FBC054DC1BA46FADFEC497 /* IGLUClient.h in Headers */,
+				879AB1CBA9EED4CCE98458CE5F1E5D7E /* IGLUConstants.h in Headers */,
+				FF134FF98D35A97B6EC3EC9C45EA0E1E /* IGLUResolver.h in Headers */,
+				733188337386A2035D6D1C70B6ABEAB5 /* IGLUSchema.h in Headers */,
+				9CEB06FA24A20B9CC3015FAA8BA6BC0E /* IGLUUtilities.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6D45B6C3C1CEF2D8283E6458E40E1D5A /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1125,18 +1137,6 @@
 			files = (
 				27F201BFBA3181DCA031753818E52987 /* KiteJSONValidator.h in Headers */,
 				8A76A176F19405E07719F06869D7276C /* KiteValidationPair.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		959904A37C714B8782864E4DC59F26A7 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				F8E7CEEAD6FC917EFDA878F214752D14 /* IGLUClient.h in Headers */,
-				1EB9BA429CBE7054C7BC2D3701EBF490 /* IGLUConstants.h in Headers */,
-				D8EAF48CDECE3D80AFBC5DE8B12030B6 /* IGLUResolver.h in Headers */,
-				C0BD136A6409ABD322471CAC4CD9712F /* IGLUSchema.h in Headers */,
-				5255707030987E3C2653BFB08911F95E /* IGLUUtilities.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1187,7 +1187,7 @@
 			);
 			name = "KiteJSONValidator-iOS";
 			productName = "KiteJSONValidator-iOS";
-			productReference = 560D029B702A0E115817D81163405E3A /* libKiteJSONValidator-iOS.a */;
+			productReference = 85FE1D43BD5852E49AB4C3CC224AE7E5 /* libKiteJSONValidator-iOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		2A8F69486E99DF84BFFA4A0F9F579E9F /* Reachability */ = {
@@ -1204,7 +1204,24 @@
 			);
 			name = Reachability;
 			productName = Reachability;
-			productReference = 02AE732EC0AE4060F3D32C6046F33059 /* libReachability.a */;
+			productReference = 8813B20A797494BB3095EC1AB0FD6893 /* libReachability.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		398A48414A97833E7522E5CC1A14DA6C /* Pods-Base-Snowplow-OSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 59FD3C89CC0DB74EB0C21CF7D9CBE467 /* Build configuration list for PBXNativeTarget "Pods-Base-Snowplow-OSX" */;
+			buildPhases = (
+				2830C82FDC135EFFE58CA5FC0F77E5B7 /* Sources */,
+				56198A0F62294EE0EFEFD3A4C84A761A /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2BE98EA0F61024CECFBBEC71D1C09D59 /* PBXTargetDependency */,
+			);
+			name = "Pods-Base-Snowplow-OSX";
+			productName = "Pods-Base-Snowplow-OSX";
+			productReference = 03FB23C08B559FFF1D45935F0EA6F548 /* libPods-Base-Snowplow-OSX.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		3B888D6C7A9184E11B92BDC62B0EB75D /* Pods-Snowplow */ = {
@@ -1222,26 +1239,7 @@
 			);
 			name = "Pods-Snowplow";
 			productName = "Pods-Snowplow";
-			productReference = 1068A624A47B294C98454F242AD297E1 /* libPods-Snowplow.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		4D2FCEC67AB9C379E72FB5EAB90FFE52 /* SnowplowIgluClient-macOS */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 856294F07CA92CBA7928068A480F3568 /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS" */;
-			buildPhases = (
-				DF263D5D7C06F8DE5BBA33B3566DC57F /* Sources */,
-				5B95EBB6CC8066CCB749E19528947C16 /* Frameworks */,
-				959904A37C714B8782864E4DC59F26A7 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7F2C2997E07BF7D52A5FA27DEC194D9B /* PBXTargetDependency */,
-				838DD68171276429897942EB593EC494 /* PBXTargetDependency */,
-			);
-			name = "SnowplowIgluClient-macOS";
-			productName = "SnowplowIgluClient-macOS";
-			productReference = 181CA7BE3FCD42140A61B1B23E29FCB6 /* libSnowplowIgluClient-macOS.a */;
+			productReference = D42CABE495597E0EF0F34017AA42551B /* libPods-Snowplow.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		52EEDFE12A0DD7B161B9E63018EFC04D /* KiteJSONValidator-macOS */ = {
@@ -1259,7 +1257,7 @@
 			);
 			name = "KiteJSONValidator-macOS";
 			productName = "KiteJSONValidator-macOS";
-			productReference = E86D7FEE0B6C75B4D29CA074B365D573 /* libKiteJSONValidator-macOS.a */;
+			productReference = B2607BC2DEC20E461D4E3FE260C68FA0 /* libKiteJSONValidator-macOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		55CBD5049E68CE19F32CEAA6E868CE29 /* SnowplowIgluClient-iOS */ = {
@@ -1278,7 +1276,7 @@
 			);
 			name = "SnowplowIgluClient-iOS";
 			productName = "SnowplowIgluClient-iOS";
-			productReference = 06ABBA2D047019BD5E13BFD920C46753 /* libSnowplowIgluClient-iOS.a */;
+			productReference = 42AE2514B5234DEE94426306C092E633 /* libSnowplowIgluClient-iOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		5E47FC842492E2AD63B1F47BE40B9482 /* KiteJSONValidator-iOS-KiteJSONValidator */ = {
@@ -1295,24 +1293,7 @@
 			);
 			name = "KiteJSONValidator-iOS-KiteJSONValidator";
 			productName = "KiteJSONValidator-iOS-KiteJSONValidator";
-			productReference = 57FD461C39970DD44E426F0470BD2227 /* KiteJSONValidator.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
-		6413387E452BBB7F35200ECB712A802E /* SnowplowIgluClient-macOS-SnowplowIgluResources */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EB65AA4E181C7B85BBCB7A8F7736CD7F /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS-SnowplowIgluResources" */;
-			buildPhases = (
-				0F5B416A493DE06AD08028A39078EAD4 /* Sources */,
-				774127E016F493F5DB4EB19A109EFACD /* Frameworks */,
-				40EE9AD1FED487A7351922A05BA1549D /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "SnowplowIgluClient-macOS-SnowplowIgluResources";
-			productName = "SnowplowIgluClient-macOS-SnowplowIgluResources";
-			productReference = 7018F7DB1E0270FBCE11613F98F10EA7 /* SnowplowIgluResources.bundle */;
+			productReference = C2489902E7F8654A5878CD54A4551E74 /* KiteJSONValidator.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
 		65243EFE2720599D63E901339FB6D059 /* Nocilla-macOS */ = {
@@ -1329,8 +1310,25 @@
 			);
 			name = "Nocilla-macOS";
 			productName = "Nocilla-macOS";
-			productReference = A82578FCE6F9F98F77AF7F93E9A954D3 /* libNocilla-macOS.a */;
+			productReference = CC1D5058DE88B33DA3E8B7213318C074 /* libNocilla-macOS.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		7375C8C1774C18921EDEDC8BF6E0BDEE /* SnowplowIgluClient-macOS-SnowplowIgluResources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64DAC1907A22BEBC661D5245057B5018 /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS-SnowplowIgluResources" */;
+			buildPhases = (
+				6F457D52AB362F8CF6E5C2B8FFCE42BD /* Sources */,
+				89455041FBC19B7613516E78B72F73D2 /* Frameworks */,
+				FA89A8EC48389A8C5DEE7D868E6C9995 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SnowplowIgluClient-macOS-SnowplowIgluResources";
+			productName = "SnowplowIgluClient-macOS-SnowplowIgluResources";
+			productReference = A7B073F2FA6EB712A0553A0E9CDC56A4 /* SnowplowIgluResources.bundle */;
+			productType = "com.apple.product-type.bundle";
 		};
 		75C7FD024C2608E95F6E1653BBF1D477 /* FMDB-iOS */ = {
 			isa = PBXNativeTarget;
@@ -1346,7 +1344,7 @@
 			);
 			name = "FMDB-iOS";
 			productName = "FMDB-iOS";
-			productReference = C46D62805BB2063AA122271D5AB9144C /* libFMDB-iOS.a */;
+			productReference = B250EBA24FF382F3623D7253E2D64D26 /* libFMDB-iOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		8CA7D82EC79D4E4BCFF715D040B32159 /* Nocilla-iOS */ = {
@@ -1363,7 +1361,7 @@
 			);
 			name = "Nocilla-iOS";
 			productName = "Nocilla-iOS";
-			productReference = E27DD68494DFA97EAB3358E34771C8AC /* libNocilla-iOS.a */;
+			productReference = 6FC0808B4BC3B0D8758E4C25C0B7F408 /* libNocilla-iOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		9CE215E1EA8869939F7FC8BD5D9557A1 /* Pods-SnowplowTests */ = {
@@ -1384,7 +1382,7 @@
 			);
 			name = "Pods-SnowplowTests";
 			productName = "Pods-SnowplowTests";
-			productReference = 7E4B5197F50D619F269C4C85699D21C0 /* libPods-SnowplowTests.a */;
+			productReference = 23F925B3FC4D2FB7864690FCD7C7E8DD /* libPods-SnowplowTests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		BB74065A1A8416F90EEE8A8EFCE0D1D7 /* KiteJSONValidator-macOS-KiteJSONValidator */ = {
@@ -1401,8 +1399,27 @@
 			);
 			name = "KiteJSONValidator-macOS-KiteJSONValidator";
 			productName = "KiteJSONValidator-macOS-KiteJSONValidator";
-			productReference = 57FD461C39970DD44E426F0470BD2227 /* KiteJSONValidator.bundle */;
+			productReference = C2489902E7F8654A5878CD54A4551E74 /* KiteJSONValidator.bundle */;
 			productType = "com.apple.product-type.bundle";
+		};
+		BE4936E0AB2F9B8FECFCB2A2D651FCEF /* SnowplowIgluClient-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 76BFFBD07020C6D76E27E028EE2C94C5 /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS" */;
+			buildPhases = (
+				60E91E60205568EBF625494C71FC547F /* Sources */,
+				8B5636C7E9F00D83D5F74144626149E1 /* Frameworks */,
+				4F5BFBAED1029EBD47196D8E86439975 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				446F78AA2737DFFCB487BAF6A14D4C83 /* PBXTargetDependency */,
+				904EB613656DA2DFC2BE0314B71F444D /* PBXTargetDependency */,
+			);
+			name = "SnowplowIgluClient-macOS";
+			productName = "SnowplowIgluClient-macOS";
+			productReference = 29EE1BFDD4BBF81236D99AC496834801 /* libSnowplowIgluClient-macOS.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		D14072505E0DEBD1EBFE9B8E497223F3 /* SnowplowIgluClient-iOS-SnowplowIgluResources */ = {
 			isa = PBXNativeTarget;
@@ -1418,26 +1435,26 @@
 			);
 			name = "SnowplowIgluClient-iOS-SnowplowIgluResources";
 			productName = "SnowplowIgluClient-iOS-SnowplowIgluResources";
-			productReference = 7018F7DB1E0270FBCE11613F98F10EA7 /* SnowplowIgluResources.bundle */;
+			productReference = A7B073F2FA6EB712A0553A0E9CDC56A4 /* SnowplowIgluResources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
-		D6207D8C85ACEC4763BE5155CA8DAFBB /* Pods-Snowplow-OSXTests */ = {
+		EB8F9C931D072D36098BEFB3384F32BB /* Pods-BaseTests-Snowplow-OSXTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9BA6065EECECE452A21CE47DA209E03B /* Build configuration list for PBXNativeTarget "Pods-Snowplow-OSXTests" */;
+			buildConfigurationList = 6C9F001D42F37C08AA2B43AFA37A0F4A /* Build configuration list for PBXNativeTarget "Pods-BaseTests-Snowplow-OSXTests" */;
 			buildPhases = (
-				0CB8767203822DF058B24F35CCC89690 /* Sources */,
-				41513C5B868D3F7F1E6DCD31942A9A30 /* Frameworks */,
+				F8E1D0CAA984B6347E571B1826247A76 /* Sources */,
+				FDA75BCBD37ABBD5B7C91F041942E4AC /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				2D6ADF525E5CE740414310F2133D9304 /* PBXTargetDependency */,
-				D97CD0AD23CAAF5775C50E9355525A2A /* PBXTargetDependency */,
-				F66CC3CA8FEEE31BAB77256693083FC3 /* PBXTargetDependency */,
+				5C6AEE03C07CB00B7536004A0EADCA47 /* PBXTargetDependency */,
+				BC298B964361CE064C6310BFF25FBDCD /* PBXTargetDependency */,
+				B911F50162091351120453F147DA5659 /* PBXTargetDependency */,
 			);
-			name = "Pods-Snowplow-OSXTests";
-			productName = "Pods-Snowplow-OSXTests";
-			productReference = 03C1F8D910C7D75A3992F735D24C2497 /* libPods-Snowplow-OSXTests.a */;
+			name = "Pods-BaseTests-Snowplow-OSXTests";
+			productName = "Pods-BaseTests-Snowplow-OSXTests";
+			productReference = 2AFD6211F13071F5432E813278AAD079 /* libPods-BaseTests-Snowplow-OSXTests.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		EBD9012C1DB233FDE3AC9A811DCB4385 /* FMDB-macOS */ = {
@@ -1454,24 +1471,7 @@
 			);
 			name = "FMDB-macOS";
 			productName = "FMDB-macOS";
-			productReference = 6D51E91467E20FEC8921AEFBD6251698 /* libFMDB-macOS.a */;
-			productType = "com.apple.product-type.library.static";
-		};
-		F14D336775E5E714BB69BFB1708412E7 /* Pods-Snowplow-OSX */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = ADC62E55EE0DE33A76DCAE3B5C8F0F22 /* Build configuration list for PBXNativeTarget "Pods-Snowplow-OSX" */;
-			buildPhases = (
-				6D1B7176E5887B9263D531764AA15FD5 /* Sources */,
-				ED924122706DE45926A6B76002788542 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B9AC419BC680A4B631CBE6CC70BA940E /* PBXTargetDependency */,
-			);
-			name = "Pods-Snowplow-OSX";
-			productName = "Pods-Snowplow-OSX";
-			productReference = 72DE69BB5348CE5D00561FE9931C8D53 /* libPods-Snowplow-OSX.a */;
+			productReference = 6B3733754AEFA70B91B977971F36DF99 /* libFMDB-macOS.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -1491,7 +1491,7 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = 6800416CFAB79B9BFCB87018C138E173 /* Products */;
+			productRefGroup = 70419A03DE20278ACEDBEA38E8437DD0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
@@ -1503,29 +1503,20 @@
 				BB74065A1A8416F90EEE8A8EFCE0D1D7 /* KiteJSONValidator-macOS-KiteJSONValidator */,
 				8CA7D82EC79D4E4BCFF715D040B32159 /* Nocilla-iOS */,
 				65243EFE2720599D63E901339FB6D059 /* Nocilla-macOS */,
+				398A48414A97833E7522E5CC1A14DA6C /* Pods-Base-Snowplow-OSX */,
+				EB8F9C931D072D36098BEFB3384F32BB /* Pods-BaseTests-Snowplow-OSXTests */,
 				3B888D6C7A9184E11B92BDC62B0EB75D /* Pods-Snowplow */,
-				F14D336775E5E714BB69BFB1708412E7 /* Pods-Snowplow-OSX */,
-				D6207D8C85ACEC4763BE5155CA8DAFBB /* Pods-Snowplow-OSXTests */,
 				9CE215E1EA8869939F7FC8BD5D9557A1 /* Pods-SnowplowTests */,
 				2A8F69486E99DF84BFFA4A0F9F579E9F /* Reachability */,
 				55CBD5049E68CE19F32CEAA6E868CE29 /* SnowplowIgluClient-iOS */,
 				D14072505E0DEBD1EBFE9B8E497223F3 /* SnowplowIgluClient-iOS-SnowplowIgluResources */,
-				4D2FCEC67AB9C379E72FB5EAB90FFE52 /* SnowplowIgluClient-macOS */,
-				6413387E452BBB7F35200ECB712A802E /* SnowplowIgluClient-macOS-SnowplowIgluResources */,
+				BE4936E0AB2F9B8FECFCB2A2D651FCEF /* SnowplowIgluClient-macOS */,
+				7375C8C1774C18921EDEDC8BF6E0BDEE /* SnowplowIgluClient-macOS-SnowplowIgluResources */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		40EE9AD1FED487A7351922A05BA1549D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				88C6A41DFCD30F8F772A9FC7A5FB7974 /* Info.plist in Resources */,
-				DB144464BF3F6A8F2DBC6DE881656479 /* Resources in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		CE5E9DCAE3FE0F658EE80E1130029838 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1542,6 +1533,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA89A8EC48389A8C5DEE7D868E6C9995 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				815DF8FD31496A731E0DAF9C9176EFFB /* Info.plist in Resources */,
+				0155F6C39719782A45203565600E42DF /* Resources in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FFD572985C06E37799CEF054D50A4FD9 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1554,21 +1554,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		0CB8767203822DF058B24F35CCC89690 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DB8DADB4660E88485D5876643B60206A /* Pods-Snowplow-OSXTests-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		0F5B416A493DE06AD08028A39078EAD4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0FB21141C6A437FD11871030515FF5C9 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1589,6 +1574,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				FA176C33834B040EAC67FC035E568E55 /* Pods-Snowplow-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2830C82FDC135EFFE58CA5FC0F77E5B7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A6EB0A9F8CB45D40966B1B5DB816CFEE /* Pods-Base-Snowplow-OSX-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1684,11 +1677,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		6D1B7176E5887B9263D531764AA15FD5 /* Sources */ = {
+		60E91E60205568EBF625494C71FC547F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				46C6027A0503851D2987AAA9BC1766BA /* Pods-Snowplow-OSX-dummy.m in Sources */,
+				78234FC549909F33C005DD17D95AE480 /* IGLUClient.m in Sources */,
+				136976CD902FD165CC59B777ECCC3D9A /* IGLUConstants.m in Sources */,
+				14EDED684D20707367B537F4A914B97C /* IGLUResolver.m in Sources */,
+				C9C59099531F886685095573F0FBC9EC /* IGLUSchema.m in Sources */,
+				D65D12A4BBB29F83A1FB3EEAE7EA35D0 /* IGLUUtilities.m in Sources */,
+				3272F2C9CC0E0FE21E63560C262C5207 /* SnowplowIgluClient-macOS-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6F457D52AB362F8CF6E5C2B8FFCE42BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1748,16 +1753,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DF263D5D7C06F8DE5BBA33B3566DC57F /* Sources */ = {
+		F8E1D0CAA984B6347E571B1826247A76 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5E6759188AA9487B2F2FDD512BC51D3B /* IGLUClient.m in Sources */,
-				0620CB7625CC1B7586E03FCC9D100D46 /* IGLUConstants.m in Sources */,
-				958DBABEE90F26AB4F670990B20E09EA /* IGLUResolver.m in Sources */,
-				CD84F50A3E70DA02337A75DAEA6BAD6B /* IGLUSchema.m in Sources */,
-				0DBD62265CB9B5F5ECE3D065512B4F16 /* IGLUUtilities.m in Sources */,
-				073A664F84D10FEA79FD7DC557F780B5 /* SnowplowIgluClient-macOS-dummy.m in Sources */,
+				87E0CFF4CD51459924C6C15A9C1F2459 /* Pods-BaseTests-Snowplow-OSXTests-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1776,11 +1776,17 @@
 			target = 2A8F69486E99DF84BFFA4A0F9F579E9F /* Reachability */;
 			targetProxy = 475BCE64009275E1219902883B07BC63 /* PBXContainerItemProxy */;
 		};
-		2D6ADF525E5CE740414310F2133D9304 /* PBXTargetDependency */ = {
+		2BE98EA0F61024CECFBBEC71D1C09D59 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "FMDB-macOS";
+			target = EBD9012C1DB233FDE3AC9A811DCB4385 /* FMDB-macOS */;
+			targetProxy = 10C6EF9FA8B3CAAF877DAFB7A76919BF /* PBXContainerItemProxy */;
+		};
+		446F78AA2737DFFCB487BAF6A14D4C83 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "KiteJSONValidator-macOS";
 			target = 52EEDFE12A0DD7B161B9E63018EFC04D /* KiteJSONValidator-macOS */;
-			targetProxy = 7A5A7EBBF565DED05BEDE4BD66F3D4DD /* PBXContainerItemProxy */;
+			targetProxy = F8E2C0088BD475801803E1BA34DA1E71 /* PBXContainerItemProxy */;
 		};
 		4BA7F429011B55AE58B24D148B698B33 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1794,23 +1800,23 @@
 			target = 8CA7D82EC79D4E4BCFF715D040B32159 /* Nocilla-iOS */;
 			targetProxy = 1BADE22541D5A6CEF69069E4986F7203 /* PBXContainerItemProxy */;
 		};
+		5C6AEE03C07CB00B7536004A0EADCA47 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "KiteJSONValidator-macOS";
+			target = 52EEDFE12A0DD7B161B9E63018EFC04D /* KiteJSONValidator-macOS */;
+			targetProxy = E2872CC0F958AF4CCBB1DD598FC5C8E1 /* PBXContainerItemProxy */;
+		};
 		7E9C263AD3AAA75E8576A4D3A9CFDB0D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "KiteJSONValidator-iOS-KiteJSONValidator";
 			target = 5E47FC842492E2AD63B1F47BE40B9482 /* KiteJSONValidator-iOS-KiteJSONValidator */;
 			targetProxy = 9F592426CEA3DA45864F2F4CC4B003AC /* PBXContainerItemProxy */;
 		};
-		7F2C2997E07BF7D52A5FA27DEC194D9B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "KiteJSONValidator-macOS";
-			target = 52EEDFE12A0DD7B161B9E63018EFC04D /* KiteJSONValidator-macOS */;
-			targetProxy = 407401B93FA3054B5719851B2216A2CA /* PBXContainerItemProxy */;
-		};
-		838DD68171276429897942EB593EC494 /* PBXTargetDependency */ = {
+		904EB613656DA2DFC2BE0314B71F444D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "SnowplowIgluClient-macOS-SnowplowIgluResources";
-			target = 6413387E452BBB7F35200ECB712A802E /* SnowplowIgluClient-macOS-SnowplowIgluResources */;
-			targetProxy = 6C3E3DCEF555B3E7207F74908FF59B6B /* PBXContainerItemProxy */;
+			target = 7375C8C1774C18921EDEDC8BF6E0BDEE /* SnowplowIgluClient-macOS-SnowplowIgluResources */;
+			targetProxy = 3ADF6987A7F9A8D15E3A6384B932DA2F /* PBXContainerItemProxy */;
 		};
 		96C613F55EB47A9FCA2C3D3893648C5E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1824,11 +1830,17 @@
 			target = D14072505E0DEBD1EBFE9B8E497223F3 /* SnowplowIgluClient-iOS-SnowplowIgluResources */;
 			targetProxy = 00C8B7399F4BE98A9E60255EF48AA7FF /* PBXContainerItemProxy */;
 		};
-		B9AC419BC680A4B631CBE6CC70BA940E /* PBXTargetDependency */ = {
+		B911F50162091351120453F147DA5659 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = "FMDB-macOS";
-			target = EBD9012C1DB233FDE3AC9A811DCB4385 /* FMDB-macOS */;
-			targetProxy = 50872F37FA793AF66C3383FC75EB461C /* PBXContainerItemProxy */;
+			name = "SnowplowIgluClient-macOS";
+			target = BE4936E0AB2F9B8FECFCB2A2D651FCEF /* SnowplowIgluClient-macOS */;
+			targetProxy = 1F101AACE4EAA9A15DD102F43E412FAB /* PBXContainerItemProxy */;
+		};
+		BC298B964361CE064C6310BFF25FBDCD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Nocilla-macOS";
+			target = 65243EFE2720599D63E901339FB6D059 /* Nocilla-macOS */;
+			targetProxy = DF329AFDBE80C91FCA594A0341A42018 /* PBXContainerItemProxy */;
 		};
 		CD86813F10BA7129DF9568760750A4DF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1842,12 +1854,6 @@
 			target = 75C7FD024C2608E95F6E1653BBF1D477 /* FMDB-iOS */;
 			targetProxy = 98C1805742E808294BE9EEB0AAECBBE2 /* PBXContainerItemProxy */;
 		};
-		D97CD0AD23CAAF5775C50E9355525A2A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Nocilla-macOS";
-			target = 65243EFE2720599D63E901339FB6D059 /* Nocilla-macOS */;
-			targetProxy = 10924B4CC099038B075B99EA43EA3AE6 /* PBXContainerItemProxy */;
-		};
 		EBAEA7DB2806845B32E57A2A1D4BBE7D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "KiteJSONValidator-iOS";
@@ -1859,12 +1865,6 @@
 			name = "KiteJSONValidator-macOS-KiteJSONValidator";
 			target = BB74065A1A8416F90EEE8A8EFCE0D1D7 /* KiteJSONValidator-macOS-KiteJSONValidator */;
 			targetProxy = 96E5D12AA95CD53F10256F022C771DCF /* PBXContainerItemProxy */;
-		};
-		F66CC3CA8FEEE31BAB77256693083FC3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "SnowplowIgluClient-macOS";
-			target = 4D2FCEC67AB9C379E72FB5EAB90FFE52 /* SnowplowIgluClient-macOS */;
-			targetProxy = AD0CE11AEB4EAA2834F0BC02EC5DA2C4 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2022,60 +2022,24 @@
 			};
 			name = Debug;
 		};
-		306FFBED0271929F93A719A4735F4F7B /* Release */ = {
+		473AC4ACD64FC11B88F17FDF211C1FBF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3F45B76CA35F10870188D140A270447F /* Pods-Snowplow-OSXTests.release.xcconfig */;
+			baseConfigurationReference = B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
+				GCC_PREFIX_HEADER = "Target Support Files/SnowplowIgluClient-macOS/SnowplowIgluClient-macOS-prefix.pch";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		390108072298F007D5B930881AE170EC /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SnowplowIgluClient-macOS";
-				INFOPLIST_FILE = "Target Support Files/SnowplowIgluClient-macOS/ResourceBundle-SnowplowIgluResources-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = SnowplowIgluResources;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		43C356FBBAC162485034669B4D8F1240 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				COMBINE_HIDPI_IMAGES = YES;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SnowplowIgluClient-macOS";
-				INFOPLIST_FILE = "Target Support Files/SnowplowIgluClient-macOS/ResourceBundle-SnowplowIgluResources-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = SnowplowIgluResources;
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 			};
 			name = Debug;
 		};
@@ -2094,27 +2058,6 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		4C86F4A2A8A592A55A8613FE7C14E366 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				GCC_PREFIX_HEADER = "Target Support Files/SnowplowIgluClient-macOS/SnowplowIgluClient-macOS-prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
 			};
 			name = Debug;
 		};
@@ -2140,9 +2083,27 @@
 			};
 			name = Debug;
 		};
-		68290205CE499B5F156F9D959BA01646 /* Release */ = {
+		60AD3EEC0AF9B88C6CC362D31A527953 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BF4E10CA6647AE3B05E3C37E50EB3EFF /* Pods-Snowplow-OSX.release.xcconfig */;
+			baseConfigurationReference = B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SnowplowIgluClient-macOS";
+				INFOPLIST_FILE = "Target Support Files/SnowplowIgluClient-macOS/ResourceBundle-SnowplowIgluResources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = SnowplowIgluResources;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		80EAE61784CE0CB233BC058215DFEB05 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EAA63B1B4B9AF77AB7A687FDB55B8AE5 /* Pods-Base-Snowplow-OSX.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "-";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2160,27 +2121,6 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
-		};
-		74F023ED2860E36E6404189BCC058F1C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F727983AD872FAF5F8C2501CA475BF9A /* Pods-Snowplow-OSX.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
 		};
 		89301559650E3427FB50616A7E0DF230 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2220,27 +2160,6 @@
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
-		};
-		8BED12F2E4F0CE63931BB32685D4B668 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = F6B3CFA8F42F257B367676A1D9B3D381 /* Pods-Snowplow-OSXTests.debug.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "-";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				EXECUTABLE_PREFIX = lib;
-				MACH_O_TYPE = staticlib;
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				SDKROOT = macosx;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
 		};
 		932C74130A78E52233CA1FAA3021CC2A /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -2305,6 +2224,24 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		9F1D3CD2FC86AF567C907B208C91815A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				COMBINE_HIDPI_IMAGES = YES;
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SnowplowIgluClient-macOS";
+				INFOPLIST_FILE = "Target Support Files/SnowplowIgluClient-macOS/ResourceBundle-SnowplowIgluResources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = SnowplowIgluResources;
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
 		};
 		A4DCC7CDD1BBB1838B7119CFC221C8AD /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -2451,7 +2388,7 @@
 		};
 		BEEDED0E77A4A53E6BB6C36FF6876600 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AA2CCC3E9BE4F1646485B3B3BB32E24 /* Pods-Snowplow.release.xcconfig */;
+			baseConfigurationReference = 914009477C7F75EADE33F774740572AF /* Pods-Snowplow.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2473,7 +2410,7 @@
 		};
 		C2333D393D744A1CF266A7A10FEBD4F7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 964B4098E1F8A8834BB5BDE33C3AA4F2 /* Pods-SnowplowTests.debug.xcconfig */;
+			baseConfigurationReference = 97C472B4CD81E7BCD91AE303F7362307 /* Pods-SnowplowTests.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2581,6 +2518,27 @@
 			};
 			name = Debug;
 		};
+		E0E87B8471BF27D24BF5CB5C62AE782E /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 567F2917C655CD4EBE8A02E4916E4142 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		E2948265259A539C98D1F154D2B8FA59 /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 968A847C5A985E66C1D2D55CB183C146 /* FMDB-macOS.xcconfig */;
@@ -2602,7 +2560,7 @@
 			};
 			name = Release;
 		};
-		E487C6512DEC338CD9C178564DCCF1CB /* Release */ = {
+		E71B840FA4D40E21146F918B85975DAA /* Release */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B0B463015554D16BF6FFED003E89B421 /* SnowplowIgluClient-macOS.xcconfig */;
 			buildSettings = {
@@ -2623,9 +2581,51 @@
 			};
 			name = Release;
 		};
+		ECAB044743C2BCB2D8A3BE61EE45C1D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4660094C8F974FD25E824922F608CEA6 /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		ED35B23AC0D82571D90FA067E8F18B40 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2728FFAB08B4F54131E121F730808616 /* Pods-Base-Snowplow-OSX.debug.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				EXECUTABLE_PREFIX = lib;
+				MACH_O_TYPE = staticlib;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
 		EEE763DF5EC385AB64837478F695C8A8 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 794DBBA5E3837C1010CFC8A08B401288 /* Pods-SnowplowTests.release.xcconfig */;
+			baseConfigurationReference = 69778BF91DFC14C0246D51494970AAB9 /* Pods-SnowplowTests.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2670,7 +2670,7 @@
 		};
 		F7B13B36B698E96844541FBE397E5A4F /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1EA7C819CAC7ECEFF490836AFF6C4F1A /* Pods-Snowplow.debug.xcconfig */;
+			baseConfigurationReference = 524A2F5E239FD52E5AD51E9A7601B99D /* Pods-Snowplow.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -2737,20 +2737,47 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		59FD3C89CC0DB74EB0C21CF7D9CBE467 /* Build configuration list for PBXNativeTarget "Pods-Base-Snowplow-OSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED35B23AC0D82571D90FA067E8F18B40 /* Debug */,
+				80EAE61784CE0CB233BC058215DFEB05 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		64DAC1907A22BEBC661D5245057B5018 /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS-SnowplowIgluResources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60AD3EEC0AF9B88C6CC362D31A527953 /* Debug */,
+				9F1D3CD2FC86AF567C907B208C91815A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6C9F001D42F37C08AA2B43AFA37A0F4A /* Build configuration list for PBXNativeTarget "Pods-BaseTests-Snowplow-OSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECAB044743C2BCB2D8A3BE61EE45C1D3 /* Debug */,
+				E0E87B8471BF27D24BF5CB5C62AE782E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		76BFFBD07020C6D76E27E028EE2C94C5 /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				473AC4ACD64FC11B88F17FDF211C1FBF /* Debug */,
+				E71B840FA4D40E21146F918B85975DAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		76EB845D1DC2190A3E2B52FE2298F45D /* Build configuration list for PBXNativeTarget "KiteJSONValidator-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				89301559650E3427FB50616A7E0DF230 /* Debug */,
 				DA2C94A08722D724E75529E6C7E42314 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		856294F07CA92CBA7928068A480F3568 /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4C86F4A2A8A592A55A8613FE7C14E366 /* Debug */,
-				E487C6512DEC338CD9C178564DCCF1CB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2764,29 +2791,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		9BA6065EECECE452A21CE47DA209E03B /* Build configuration list for PBXNativeTarget "Pods-Snowplow-OSXTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8BED12F2E4F0CE63931BB32685D4B668 /* Debug */,
-				306FFBED0271929F93A719A4735F4F7B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		A47AD5A5F2E885254A70EDEFFB521D40 /* Build configuration list for PBXNativeTarget "Nocilla-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				CF7122FF4BF4E2D8070858C7685F2C67 /* Debug */,
 				A4DCC7CDD1BBB1838B7119CFC221C8AD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		ADC62E55EE0DE33A76DCAE3B5C8F0F22 /* Build configuration list for PBXNativeTarget "Pods-Snowplow-OSX" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				74F023ED2860E36E6404189BCC058F1C /* Debug */,
-				68290205CE499B5F156F9D959BA01646 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -2823,15 +2832,6 @@
 			buildConfigurations = (
 				F7B13B36B698E96844541FBE397E5A4F /* Debug */,
 				BEEDED0E77A4A53E6BB6C36FF6876600 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EB65AA4E181C7B85BBCB7A8F7736CD7F /* Build configuration list for PBXNativeTarget "SnowplowIgluClient-macOS-SnowplowIgluResources" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				43C356FBBAC162485034669B4D8F1240 /* Debug */,
-				390108072298F007D5B930881AE170EC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
