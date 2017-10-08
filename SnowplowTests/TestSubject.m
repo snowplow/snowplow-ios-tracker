@@ -80,7 +80,7 @@
     // Setup GeoLocation
     [subject setGeoDict];
     [subject setGeoLongitude:5];
-    [subject setGeoLatitude:170.2];
+    [subject setGeoLatitude:89.2];
     [subject setGeoTimestamp:@5];
     [subject setGeoLatitudeLongitudeAccuracy:5.5];
     [subject setGeoSpeed:6.2];
@@ -91,7 +91,7 @@
     values = [subject getGeoLocationDict];
     
     XCTAssertEqualObjects([NSNumber numberWithFloat:5], [values objectForKey:kSPGeoLongitude]);
-    XCTAssertEqualObjects([NSNumber numberWithFloat:170.2], [values objectForKey:kSPGeoLatitude]);
+    XCTAssertEqualObjects([NSNumber numberWithFloat:89.2], [values objectForKey:kSPGeoLatitude]);
     XCTAssertEqualObjects([NSNumber numberWithFloat:5.5], [values objectForKey:kSPGeoLatLongAccuracy]);
     XCTAssertEqualObjects([NSNumber numberWithFloat:6.2], [values objectForKey:kSPGeoSpeed]);
     XCTAssertEqualObjects([NSNumber numberWithFloat:82.3], [values objectForKey:kSPGeoBearing]);
@@ -105,7 +105,7 @@
     XCTAssertNil([subject getGeoLocationDict]);
     
     [subject setGeoLongitude:5];
-    [subject setGeoLatitude:170.2];
+    [subject setGeoLatitude:89.2];
     
     XCTAssertNotNil([subject getGeoLocationDict]);
 }
