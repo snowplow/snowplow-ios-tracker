@@ -214,7 +214,7 @@
 		336DB1D305C37135AC53A9BF323AD3F4 /* LSMatcheable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSMatcheable.h; path = Nocilla/Matchers/LSMatcheable.h; sourceTree = "<group>"; };
 		3903FF17DACCDCFDCCC6A5847CC426C8 /* Pods-Base-Snowplow-OSX-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Base-Snowplow-OSX-dummy.m"; sourceTree = "<group>"; };
 		3A6734F5DBA030CCF05AEB32693BF472 /* Reachability.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		3BE26FD824466EECE7486064151B8FBC /* schema */ = {isa = PBXFileReference; includeInIndex = 1; name = schema; path = Resources/ReferenceSchemae/schema; sourceTree = "<group>"; };
+		3BE26FD824466EECE7486064151B8FBC /* schema */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = schema; path = Resources/ReferenceSchemae/schema; sourceTree = "<group>"; };
 		3FBEB6F39CD69E4082090251651DC8DF /* IGLUConstants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGLUConstants.h; path = SnowplowIgluClient/IGLUConstants.h; sourceTree = "<group>"; };
 		40DA08FC456A998D59FC6644260D1096 /* LSHTTPRequestDiff.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPRequestDiff.h; path = Nocilla/Diff/LSHTTPRequestDiff.h; sourceTree = "<group>"; };
 		41647644A4AAFA4D0FCCBA4D45E6127E /* IGLUClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGLUClient.m; path = SnowplowIgluClient/IGLUClient.m; sourceTree = "<group>"; };
@@ -229,9 +229,9 @@
 		49711F9A412BB27EEEBD9B937E91FDF6 /* LSNSURLHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSNSURLHook.m; path = Nocilla/Hooks/NSURLRequest/LSNSURLHook.m; sourceTree = "<group>"; };
 		4C669B0B8AFB20379124EBE5B1B11844 /* LSNSURLSessionHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSNSURLSessionHook.h; path = Nocilla/Hooks/NSURLSession/LSNSURLSessionHook.h; sourceTree = "<group>"; };
 		4D12C215B00C662E4878CC1D09E133C3 /* ResourceBundle-KiteJSONValidator-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-KiteJSONValidator-Info.plist"; sourceTree = "<group>"; };
-		50C26AAB0896ED1020FE68678A953373 /* libSnowplowIgluClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSnowplowIgluClient.a; path = libSnowplowIgluClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		50C26AAB0896ED1020FE68678A953373 /* libSnowplowIgluClient.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSnowplowIgluClient.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		50D2DE8728DA2F1F39280921B95A3046 /* Pods-Base-Snowplow-OSX-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Base-Snowplow-OSX-acknowledgements.plist"; sourceTree = "<group>"; };
-		50ECBF740A4E72B3D01EE6B4C491068F /* KiteJSONValidator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = KiteJSONValidator.bundle; path = KiteJSONValidator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		50ECBF740A4E72B3D01EE6B4C491068F /* KiteJSONValidator.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KiteJSONValidator.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		524A2F5E239FD52E5AD51E9A7601B99D /* Pods-Snowplow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Snowplow.debug.xcconfig"; sourceTree = "<group>"; };
 		5270F7848A6AFD4ABCE8B4647F7A9442 /* LSHTTPRequestDSLRepresentation.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPRequestDSLRepresentation.h; path = Nocilla/DSL/LSHTTPRequestDSLRepresentation.h; sourceTree = "<group>"; };
 		567F2917C655CD4EBE8A02E4916E4142 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -260,7 +260,7 @@
 		7E3AFA73C25F35AB850262F66987C7FF /* LSASIHTTPRequestHook.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSASIHTTPRequestHook.h; path = Nocilla/Hooks/ASIHTTPRequest/LSASIHTTPRequestHook.h; sourceTree = "<group>"; };
 		7FBF7E8081DE55BAE429778899452B18 /* Reachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		7FD89AB8E333FCA6674D732007E22B98 /* Pods-Base-Snowplow-OSX-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Base-Snowplow-OSX-acknowledgements.markdown"; sourceTree = "<group>"; };
-		894A1FCA0EB6E436D9A8C8CB641420B7 /* Resources */ = {isa = PBXFileReference; includeInIndex = 1; name = Resources; path = SnowplowIgluResources/Resources; sourceTree = "<group>"; };
+		894A1FCA0EB6E436D9A8C8CB641420B7 /* Resources */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; name = Resources; path = SnowplowIgluResources/Resources; sourceTree = "<group>"; };
 		8D87745A067234D4D5059E330520077A /* NSData+Nocilla.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSData+Nocilla.m"; path = "Nocilla/Categories/NSData+Nocilla.m"; sourceTree = "<group>"; };
 		8DBF69AE6C6B2C96ACD57A4D27DB6C98 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
 		9031CC4E2CE742EE4235FE69884716B6 /* Pods-BaseTests-Snowplow-OSXTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BaseTests-Snowplow-OSXTests-frameworks.sh"; sourceTree = "<group>"; };
@@ -268,43 +268,43 @@
 		914166DC9DD28053C825BF18F8BF5A31 /* IGLUConstants.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = IGLUConstants.m; path = SnowplowIgluClient/IGLUConstants.m; sourceTree = "<group>"; };
 		920EE2F9F16821BDB80D4750CCEC1633 /* NSString+Matcheable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+Matcheable.h"; path = "Nocilla/Matchers/NSString+Matcheable.h"; sourceTree = "<group>"; };
 		9343EA56702E5EEEE29F67B1AACB9055 /* Reachability-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Reachability-dummy.m"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94BDFE911E795F1604AFF33D83254F0B /* Pods-Snowplow-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Snowplow-dummy.m"; sourceTree = "<group>"; };
 		97C472B4CD81E7BCD91AE303F7362307 /* Pods-SnowplowTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B4F61FD0A3CBEBDBB6C675AD99DFFD1 /* LSNocilla.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSNocilla.h; path = Nocilla/LSNocilla.h; sourceTree = "<group>"; };
 		9B8ACCF87D6F442A630713A00329EFFD /* Nocilla.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Nocilla.xcconfig; sourceTree = "<group>"; };
 		9C15DB1AB228AB433772C7AD2E7C1B2B /* NSURLRequest+DSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSURLRequest+DSL.m"; path = "Nocilla/Hooks/NSURLRequest/NSURLRequest+DSL.m"; sourceTree = "<group>"; };
 		9E012A06CC112A81CBD4AA4388224A62 /* KiteValidationPair.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = KiteValidationPair.h; path = Sources/KiteValidationPair.h; sourceTree = "<group>"; };
-		A1C9DD742AD56B86718E20BC550758DD /* libNocilla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libNocilla.a; path = libNocilla.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A1C9DD742AD56B86718E20BC550758DD /* libNocilla.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libNocilla.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3999F5AA0F5D8411FD82AAE4ADB2288 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		A3E77B7D33E13727F9299E909C71259A /* libReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libReachability.a; path = libReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A3E77B7D33E13727F9299E909C71259A /* libReachability.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libReachability.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A53C9BB8F3C3D0EDCEF8678C54FF84D0 /* LSStubResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSStubResponse.h; path = Nocilla/Stubs/LSStubResponse.h; sourceTree = "<group>"; };
 		A5D935CADBC41C41B2A7DD464332B75C /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 		A61B8C528FFBC2B2D98A4B33FA4EC0D1 /* LSMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSMatcher.m; path = Nocilla/Matchers/LSMatcher.m; sourceTree = "<group>"; };
 		A72CDCD73628A9C773A08202B41B1A46 /* NSString+Matcheable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+Matcheable.m"; path = "Nocilla/Matchers/NSString+Matcheable.m"; sourceTree = "<group>"; };
 		A72FE1C2831B247C7BCF4B41C5C66DFF /* Pods-Base-Snowplow-OSX-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Base-Snowplow-OSX-resources.sh"; sourceTree = "<group>"; };
 		A8394F269A972A3A3DE840E583652BD4 /* Pods-SnowplowTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SnowplowTests-acknowledgements.markdown"; sourceTree = "<group>"; };
-		A86221B42AAC8E5A031320EFE9E5F9C2 /* libPods-SnowplowTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SnowplowTests.a"; path = "libPods-SnowplowTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A86221B42AAC8E5A031320EFE9E5F9C2 /* libPods-SnowplowTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnowplowTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA36161CD47A04EE6F8B88A9C15C6B82 /* LSHTTPRequestDiff.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSHTTPRequestDiff.m; path = Nocilla/Diff/LSHTTPRequestDiff.m; sourceTree = "<group>"; };
 		AA517439D5D722095FB568AD01A3C6E6 /* LSNSURLSessionHook.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSNSURLSessionHook.m; path = Nocilla/Hooks/NSURLSession/LSNSURLSessionHook.m; sourceTree = "<group>"; };
 		ABAFE7EB904079C4FCF8CC78587A33EC /* NSString+Nocilla.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+Nocilla.m"; path = "Nocilla/Categories/NSString+Nocilla.m"; sourceTree = "<group>"; };
-		AC061FF18E0FE068B71B219BFE794B5E /* libKiteJSONValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libKiteJSONValidator.a; path = libKiteJSONValidator.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC061FF18E0FE068B71B219BFE794B5E /* libKiteJSONValidator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libKiteJSONValidator.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACC4F810218998DA2560BB92EB59C3D2 /* LSStubRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStubRequest.m; path = Nocilla/Stubs/LSStubRequest.m; sourceTree = "<group>"; };
 		ADB7801107BF0699E2B09B3DC095BC05 /* KiteJSONValidator-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "KiteJSONValidator-dummy.m"; sourceTree = "<group>"; };
 		B1065F001F2567175C39E507E630A1A5 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
-		B2595EED3E67215656BDAA79F995038A /* libPods-Snowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Snowplow.a"; path = "libPods-Snowplow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2595EED3E67215656BDAA79F995038A /* libPods-Snowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B4CA9CE1D10B768C40BAABA8AD8FAEB8 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		B5D4BF68E012DBCF3627E1F4572D5953 /* Pods-Snowplow-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Snowplow-acknowledgements.markdown"; sourceTree = "<group>"; };
 		B74F5A05C91DDD740D8100ED81D9E07B /* LSHTTPRequestDSLRepresentation.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSHTTPRequestDSLRepresentation.m; path = Nocilla/DSL/LSHTTPRequestDSLRepresentation.m; sourceTree = "<group>"; };
 		BAFE7C148D0173D86D036546711D2480 /* LSStubRequestDSL.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStubRequestDSL.m; path = Nocilla/DSL/LSStubRequestDSL.m; sourceTree = "<group>"; };
-		BF0AF714090030D5C9160A3A7616054C /* libFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libFMDB.a; path = libFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BF0AF714090030D5C9160A3A7616054C /* libFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C627A158D97A21F324B5FBA78F9A8EE3 /* LSHTTPRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPRequest.h; path = Nocilla/Model/LSHTTPRequest.h; sourceTree = "<group>"; };
 		C8916269527CF05CAB49D363CDA43F39 /* Reachability-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Reachability-prefix.pch"; sourceTree = "<group>"; };
 		CC9E12F98A9A4D2C13BC3E6CFD4D6F63 /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
 		CCF20223D89FA6A56EEA24126F53C43B /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
 		CFBA499CD7E43D8F65B741CB92FB3AE3 /* LSStubRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSStubRequest.h; path = Nocilla/Stubs/LSStubRequest.h; sourceTree = "<group>"; };
 		D3CD73E43037FFFF93BDCD127FCF61E7 /* LSHTTPResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSHTTPResponse.h; path = Nocilla/Model/LSHTTPResponse.h; sourceTree = "<group>"; };
-		D5B9EAD089C1E19F0B828EAB5E673CDC /* libPods-Base-Snowplow-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-Base-Snowplow-OSX.a"; path = "libPods-Base-Snowplow-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D5B9EAD089C1E19F0B828EAB5E673CDC /* libPods-Base-Snowplow-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Base-Snowplow-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7454B35F8053205A6C59D6A212EB1A1 /* NSData+Matcheable.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSData+Matcheable.h"; path = "Nocilla/Matchers/NSData+Matcheable.h"; sourceTree = "<group>"; };
 		D9A143AE7853B9D312797CB27E384E52 /* IGLUUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = IGLUUtilities.h; path = SnowplowIgluClient/IGLUUtilities.h; sourceTree = "<group>"; };
 		D9DAF7BC528E6930FAED315581B0CF2F /* ASIHTTPRequestStub.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = ASIHTTPRequestStub.m; path = Nocilla/Hooks/ASIHTTPRequest/ASIHTTPRequestStub.m; sourceTree = "<group>"; };
@@ -318,10 +318,10 @@
 		E794D05A00B3D7FA7AC89663FE589B11 /* LSStringMatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = LSStringMatcher.m; path = Nocilla/Matchers/LSStringMatcher.m; sourceTree = "<group>"; };
 		E94F482D8875F65F1B5035CA851067E2 /* Pods-SnowplowTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowTests-acknowledgements.plist"; sourceTree = "<group>"; };
 		EAA63B1B4B9AF77AB7A687FDB55B8AE5 /* Pods-Base-Snowplow-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Base-Snowplow-OSX.release.xcconfig"; sourceTree = "<group>"; };
-		EAB5C0BEEF9E8B1B5E0419C595DFB875 /* libPods-BaseTests-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-BaseTests-Snowplow-OSXTests.a"; path = "libPods-BaseTests-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAB5C0BEEF9E8B1B5E0419C595DFB875 /* libPods-BaseTests-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BaseTests-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EC46DB5BFC8DF6E2D37B07CC51670E40 /* NSRegularExpression+Matcheable.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSRegularExpression+Matcheable.m"; path = "Nocilla/Matchers/NSRegularExpression+Matcheable.m"; sourceTree = "<group>"; };
 		EC83C5E4B07C3E721E40D1ED26659922 /* LSRegexMatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = LSRegexMatcher.h; path = Nocilla/Matchers/LSRegexMatcher.h; sourceTree = "<group>"; };
-		EDE7B20B4121EE69268971549764A83A /* SnowplowIgluResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SnowplowIgluResources.bundle; path = SnowplowIgluResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		EDE7B20B4121EE69268971549764A83A /* SnowplowIgluResources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowIgluResources.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDF3F8A00FB1DBD5D56E9A24372C1E6B /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
 		F06437FE425924A5A7B6150AB7D6B5C5 /* Pods-BaseTests-Snowplow-OSXTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-BaseTests-Snowplow-OSXTests-resources.sh"; sourceTree = "<group>"; };
 		F1619DEE373D497F1436F269058231EB /* Pods-Base-Snowplow-OSX-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Base-Snowplow-OSX-frameworks.sh"; sourceTree = "<group>"; };
@@ -550,7 +550,6 @@
 				1A69B1B51C0330348C13D2D031EA94DE /* standard */,
 				C91F0450852AACD4EF1AC8AA1719184D /* Support Files */,
 			);
-			name = FMDB;
 			path = FMDB;
 			sourceTree = "<group>";
 		};
@@ -648,7 +647,6 @@
 				57F6E24175EB161FFAB721DBDF9BEA38 /* NSURLRequest+LSHTTPRequest.m */,
 				734A4FB24C5FE233E8B545D12559BC06 /* Support Files */,
 			);
-			name = Nocilla;
 			path = Nocilla;
 			sourceTree = "<group>";
 		};
@@ -705,7 +703,6 @@
 				F32E6BC1771C6BD1AD97C0D4A1DD116E /* Resources */,
 				B669F423200F88F4721831769CFE371A /* Support Files */,
 			);
-			name = SnowplowIgluClient;
 			path = SnowplowIgluClient;
 			sourceTree = "<group>";
 		};
@@ -727,7 +724,6 @@
 				3A6734F5DBA030CCF05AEB32693BF472 /* Reachability.m */,
 				672592B783C864CF2387271DBB015B7D /* Support Files */,
 			);
-			name = Reachability;
 			path = Reachability;
 			sourceTree = "<group>";
 		};
@@ -768,7 +764,6 @@
 				27E0AC03C38773B6A55F9DEECC219F77 /* KiteJSONResources */,
 				01027BFFCDA31951EAFD6210CFBB0954 /* Support Files */,
 			);
-			name = KiteJSONValidator;
 			path = KiteJSONValidator;
 			sourceTree = "<group>";
 		};
@@ -1065,7 +1060,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -1385,7 +1380,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/Reachability/Reachability-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
@@ -1836,7 +1831,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				GCC_PREFIX_HEADER = "Target Support Files/Reachability/Reachability-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
