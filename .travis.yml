@@ -25,4 +25,6 @@ script:
     - set -o pipefail
     - xcodebuild clean test -sdk iphonesimulator -destination "${TEST_PLATFORM}" -workspace Snowplow.xcworkspace -scheme Snowplow CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | xcpretty
 
-after_success: slather
+after_success:
+    - slather
+    - sleep 5
