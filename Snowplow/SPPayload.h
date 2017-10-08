@@ -56,7 +56,7 @@
  *  @param json NSData of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
- *  @param typeWhenNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
+ *  @param typeNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
  */
 - (void) addJsonToPayload:(NSData *)json
             base64Encoded:(Boolean)encode
@@ -68,7 +68,7 @@
  *  @param json NSData of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
- *  @param typeWhenNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
+ *  @param typeNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
  */
 - (void) addJsonStringToPayload:(NSString *)json
                   base64Encoded:(Boolean)encode
@@ -80,7 +80,7 @@
  *  @param json NSDictionary of JSON-compatible data to be added.
  *  @param encode Boolean option to choose whether the JSON data should be encoded.
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
- *  @param typeWhenNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
+ *  @param typeNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
  */
 - (void) addDictionaryToPayload:(NSDictionary *)json
                       base64Encoded:(Boolean)encode
