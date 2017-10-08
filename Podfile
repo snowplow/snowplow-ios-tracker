@@ -22,16 +22,18 @@ abstract_target 'Base' do
 end
 
 abstract_target 'BaseTests' do
-  pod 'Nocilla'
-  pod 'SnowplowIgluClient'
 
   target 'SnowplowTests' do
     inherit! :search_paths
     platform :ios, '8.0'
+    pod 'Nocilla'
+    pod 'SnowplowIgluClient'
   end
 
   target 'Snowplow-OSXTests' do
     platform :osx, '10.9'
+    pod 'Nocilla'
+    pod 'SnowplowIgluClient'
   end
 end
 
