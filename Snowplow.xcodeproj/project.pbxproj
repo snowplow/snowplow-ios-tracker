@@ -676,8 +676,8 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests-resources.sh",
-				$PODS_CONFIGURATION_BUILD_DIR/KiteJSONValidator/KiteJSONValidator.bundle,
-				$PODS_CONFIGURATION_BUILD_DIR/SnowplowIgluClient/SnowplowIgluResources.bundle,
+				"$PODS_CONFIGURATION_BUILD_DIR/KiteJSONValidator-macOS/KiteJSONValidator.bundle",
+				"$PODS_CONFIGURATION_BUILD_DIR/SnowplowIgluClient-macOS/SnowplowIgluResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
