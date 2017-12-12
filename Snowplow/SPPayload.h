@@ -83,9 +83,9 @@
  *  @param typeNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
  */
 - (void) addDictionaryToPayload:(NSDictionary *)json
-                      base64Encoded:(Boolean)encode
-                    typeWhenEncoded:(NSString *)typeEncoded
-                 typeWhenNotEncoded:(NSString *)typeNotEncoded;
+                  base64Encoded:(Boolean)encode
+                typeWhenEncoded:(NSString *)typeEncoded
+             typeWhenNotEncoded:(NSString *)typeNotEncoded;
 
 /**
  * Returns the payload of that particular SPPayload object.
@@ -96,3 +96,4 @@
 - (NSString *) description;
 
 @end
+
