@@ -1,3 +1,15 @@
+Version 0.7.0 (2017-12-24)
+--------------------------
+Bump iOS deployment target to 8.0 (#326)
+Bump Xcode to 9.1 and test against iOS 8.1 and 9.0 (#325)
+Bump CocoaPods to 1.3.1 (#306)
+Bump FMDB to 2.6.2 (#315)
+Use default Bundler version in Travis (#336)
+Fix invalid latitude in test suite (#322)
+Don't attempt to serialize nil object in event store (#286)
+Fix method description typos (#317)
+Update README markdown in accordance with CommonMark (close #333)
+
 Version 0.6.2 (2016-10-10)
 --------------------------
 Fix failing geolocation_context test (#293)

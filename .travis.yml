@@ -1,21 +1,25 @@
 language: objective-c
 
+osx_image: xcode9.1
+
+env:
+  matrix:
+    - TEST_PLATFORM="platform=iOS Simulator,OS=8.1,name=iPhone 5s"
+    - TEST_PLATFORM="platform=iOS Simulator,OS=9.0,name=iPhone 6"
+
 rvm:
     - 2.2.2
 
 before_install:
-    - rvm @global do gem uninstall bundler --all --executables
-    - gem uninstall bundler --all --executables
-    - gem install bundler --version '1.11.2'
-    - gem install cocoapods -v '0.39.0'
+    - gem install cocoapods -v '1.3.1'
     - gem install slather
+    - gem install xcpretty -N --no-ri --no-rdoc
     - brew update
     - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
     - pod install
 
-xcode_workspace: Snowplow.xcworkspace
-xcode_scheme: Snowplow
-xcode_sdk:
-    - iphonesimulator
+script:
+    - set -o pipefail
+    - xcodebuild clean test -sdk iphonesimulator -destination "${TEST_PLATFORM}" -workspace Snowplow.xcworkspace -scheme Snowplow CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO | xcpretty
 
 after_success: slather

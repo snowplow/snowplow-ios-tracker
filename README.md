@@ -1,15 +1,15 @@
 iOS, OSX and tvOS Analytics for Snowplow
 ========================================
 
-[ ![Build Status] [travis-image] ] [travis]
+[ ![Build Status][travis-image] ][travis]
 [ ![Coverage Status][coveralls-image] ][coveralls]
-[ ![Version] [cocoa-version] ] [cocoadocs]
-[ ![Platform] [cocoa-plaform] ] [cocoadocs]
-[ ![License] [license-image] ] [license]
+[ ![Version][cocoa-version] ][cocoadocs]
+[ ![Platform][cocoa-plaform] ][cocoadocs]
+[ ![License][license-image] ][license]
 
 ## Overview
 
-Add analytics to your iOS, OSX and tvOS apps and games with the [Snowplow][2] event tracker for [iOS 7.0+][3], [OSX 10.9+][4] and [tvOS 9.0+][5].
+Add analytics to your iOS, OSX and tvOS apps and games with the **[Snowplow][2]** event tracker for **[iOS 8.0+][3]**, **[OSX 10.9+][4]** and **[tvOS 9.0+][5]**.
 
 With this tracker you can collect event data from your applications, games or frameworks.
 
@@ -29,7 +29,7 @@ With this tracker you can collect event data from your applications, games or fr
 
 ### Setting up a local testing endpoint
 
-Assuming git, **[Vagrant] [vagrant-install]** and **[VirtualBox] [virtualbox-install]** installed:
+Assuming git, **[Vagrant][vagrant-install]** and **[VirtualBox][virtualbox-install]** installed:
 
 ```bash
  host$ git clone https://github.com/snowplow/snowplow-objc-tracker.git
@@ -47,14 +47,14 @@ To view sent events in your browser please navigate to `http://localhost:2525`.
 ## Find out more
 | Technical Docs                  | Setup Guide               | Roadmap                 | Contributing                      |
 |---------------------------------|---------------------------|-------------------------|-----------------------------------|
-| ![i1] [techdocs-image]          | ![i2] [setup-image]       | ![i3] [roadmap-image]   | ![i4] [contributing-image]        |
-| **[Technical Docs] [techdocs]** | **[Setup Guide] [setup]** | **[Roadmap] [roadmap]** | **[Contributing] [contributing]** |
+| ![i1][techdocs-image]          | ![i2][setup-image]       | ![i3][roadmap-image]   | ![i4][contributing-image]        |
+| **[Technical Docs][techdocs]** | **[Setup Guide][setup]** | **[Roadmap][roadmap]** | **[Contributing][contributing]** |
 
 ## Copyright and license
 
 The Snowplow iOS/OSX/tvOS Tracker is copyright 2013-2015 Snowplow Analytics Ltd.
 
-Licensed under the [Apache License, Version 2.0] [license] (the "License");
+Licensed under the **[Apache License, Version 2.0][license]** (the "License");
 you may not use this software except in compliance with the License.
 
 Unless required by applicable law or agreed to in writing, software

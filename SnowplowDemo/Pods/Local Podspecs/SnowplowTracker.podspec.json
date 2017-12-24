@@ -16,7 +16,7 @@
   "social_media_url": "https://twitter.com/SnowPlowData",
   "documentation_url": "https://github.com/snowplow/snowplow/wiki/iOS-Tracker",
   "platforms": {
-    "ios": "7.0",
+    "ios": "8.0",
     "osx": "10.9",
     "tvos": "9.0"
   },
