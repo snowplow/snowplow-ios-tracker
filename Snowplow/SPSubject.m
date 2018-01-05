@@ -80,6 +80,10 @@
     [_standardDict addValueToPayload:uid forKey:kSPUid];
 }
 
+- (void) identifyUser:(NSString *)uid {
+    [self setUserId:uid];
+}
+
 - (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height {
     NSString * res = [NSString stringWithFormat:@"%@x%@", [@(width) stringValue], [@(height) stringValue]];
     [_standardDict addValueToPayload:res forKey:kSPResolution];
