@@ -8,7 +8,7 @@ Use default Bundler version in Travis (#336)
 Fix invalid latitude in test suite (#322)
 Don't attempt to serialize nil object in event store (#286)
 Fix method description typos (#317)
-Update README markdown in accordance with CommonMark (close #333)
+Update README markdown in accordance with CommonMark (#333)
 
 Version 0.6.2 (2016-10-10)
 --------------------------
