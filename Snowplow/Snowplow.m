@@ -56,6 +56,9 @@ NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-1";
 NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0";
+NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0";
+NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";
+NSString * const kSPConsentWithdrawnSchema = @"iglu:com.snowplowanalytics.snowplow/consent_withdrawn/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -166,6 +169,18 @@ NSString * const kSPEcommItemCategory     = @"ti_ca";
 NSString * const kSPEcommItemPrice        = @"ti_pr";
 NSString * const kSPEcommItemQuantity     = @"ti_qu";
 NSString * const kSPEcommItemCurrency     = @"ti_cu";
+
+// --- Consent Granted Event
+NSString * const KSPCgExpiry              = @"expiry";
+
+// --- Consent Withdrawn Event
+NSString * const KSPCwAll                 = @"all";
+
+// --- Consent Document Event
+NSString * const kSPCdId                  = @"id";
+NSString * const kSPCdVersion             = @"version";
+NSString * const kSPCdName                = @"name";
+NSString * const KSPCdDescription         = @"description";
 
 // --- Screen View Event
 

@@ -33,6 +33,8 @@
 @class SPTiming;
 @class SPEcommerce;
 @class SPSelfDescribingJson;
+@class SPConsentWithdrawn;
+@class SPConsentGranted;
 
 @protocol SPTrackerBuilder <NSObject>
 
@@ -140,5 +142,15 @@
  * Tracks an Ecommerce Event object.
  */
 - (void) trackEcommerceEvent:(SPEcommerce *)event;
+
+/**
+ * Tracks a Consent Withdrawn Event object.
+ */
+- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event;
+
+/**
+ * Tracks a Consent Granted Event object.
+ */
+- (void) trackConsentGrantedEvent:(SPConsentGranted *)event;
 
 @end

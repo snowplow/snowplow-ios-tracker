@@ -199,6 +199,86 @@
     }
 }
 
+- (void)testConsentWithdrawnBuilderConditions {
+    // Valid construction
+    SPConsentWithdrawn *event = [SPConsentWithdrawn build:^(id<SPConsentWithdrawnBuilder> builder) {
+        [builder setName:@"name"];
+        [builder setAll:false];
+        [builder setVersion:[NSNumber numberWithInt:3]];
+        [builder setDocumentId:[NSNumber numberWithInt:1000]];
+        [builder setDescription:@"description"];
+    }];
+    XCTAssertNotNil(event);
+}
+
+- (void)testConsentGrantedBuilderConditions {
+    // Valid construction
+    SPConsentGranted *event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+        [builder setName:@"name"];
+        [builder setExpiry:@"expiry"];
+        [builder setVersion:[NSNumber numberWithInt:3]];
+        [builder setDocumentId:[NSNumber numberWithInt:1000]];
+        [builder setDescription:@"description"];
+    }];
+    XCTAssertNotNil(event);
+
+    // documentId is empty
+    @try {
+        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+            [builder setDocumentId:nil];
+            [builder setVersion:[NSNumber numberWithInt:3]];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Document ID cannot be nil.", exception.reason);
+    }
+
+    // Version is empty
+    @try {
+        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+            [builder setDocumentId:[NSNumber numberWithInt:3]];
+            [builder setVersion:nil];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Version cannot be nil.", exception.reason);
+    }
+}
+
+- (void)testConsentDocumentBuilderConditions {
+    // Valid construction
+    SPConsentGranted *event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+        [builder setName:@"name"];
+        [builder setExpiry:@"expiry"];
+        [builder setVersion:[NSNumber numberWithInt:3]];
+        [builder setDocumentId:[NSNumber numberWithInt:1000]];
+        [builder setDescription:@"description"];
+    }];
+    XCTAssertNotNil(event);
+
+    // documentId is empty
+    @try {
+        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+            [builder setDocumentId:nil];
+            [builder setVersion:[NSNumber numberWithInt:3]];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Document ID cannot be nil.", exception.reason);
+    }
+
+    // Version is empty
+    @try {
+        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+            [builder setVersion:nil];
+            [builder setDocumentId:[NSNumber numberWithInt:3]];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Version cannot be nil.", exception.reason);
+    }
+}
+
 - (void)testScreenViewBuilderConditions {
     // Valid construction
     SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {

@@ -75,7 +75,7 @@
         _backgroundTimeout = 300;
         _checkInterval = 15;
         _builderFinished = NO;
-        
+
 #if SNOWPLOW_TARGET_IOS
         _platformContextSchema = kSPMobileContextSchema;
 #else
@@ -87,7 +87,7 @@
 
 - (void) setup {
     [SPUtilities checkArgument:(_emitter != nil) withMessage:@"Emitter cannot be nil."];
-    
+
     [self setTrackerData];
     if (_sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
@@ -246,7 +246,7 @@
         return;
     }
     [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
-    
+
     NSNumber *tstamp = [event getTimestamp];
     for (SPEcommerceItem * item in [event getItems]) {
         [item setTimestamp:tstamp];
@@ -258,6 +258,33 @@
     [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
 }
 
+- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event {
+    NSArray * documents = [event getDocuments];
+    NSMutableArray * contexts = [event getContexts];
+    [contexts addObjectsFromArray:documents];
+
+    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:[event getPayload]];
+        [builder setTimestamp:[event getTimestamp]];
+        [builder setContexts:[event contexts]];
+        [builder setEventId:[event getEventId]];
+    }];
+    [self trackUnstructuredEvent:unstruct];
+}
+
+- (void) trackConsentGrantedEvent:(SPConsentGranted *)event {
+    NSArray * documents = [event getDocuments];
+    NSMutableArray * contexts = [event getContexts];
+    [contexts addObjectsFromArray:documents];
+    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:[event getPayload]];
+        [builder setTimestamp:[event getTimestamp]];
+        [builder setContexts:[event contexts]];
+        [builder setEventId:[event getEventId]];
+    }];
+    [self trackUnstructuredEvent:unstruct];
+}
+
 // Event Decoration
 
 - (void) addEventWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
@@ -266,14 +293,14 @@
 
 - (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
     [pb addDictionaryToPayload:_trackerData];
-    
+
     // Add Subject information
     if (_subject != nil) {
         [pb addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
     } else {
         [pb addValueToPayload:[SPUtilities getPlatform] forKey:kSPPlatform];
     }
-    
+
     // Add the contexts
     SPSelfDescribingJson * context = [self getFinalContextWithContexts:contextArray andEventId:eventId];
     if (context != nil) {
@@ -282,13 +309,13 @@
                    typeWhenEncoded:kSPContextEncoded
                 typeWhenNotEncoded:kSPContext];
     }
-    
+
     return pb;
 }
 
 - (SPSelfDescribingJson *) getFinalContextWithContexts:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
     SPSelfDescribingJson * finalContext = nil;
-    
+
     // Add contexts if populated
     if (_subject != nil) {
         NSDictionary * platformDict = [[_subject getPlatformDict] getAsDictionary];
@@ -300,7 +327,7 @@
             [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:geoLocationDict]];
         }
     }
-    
+
     // Add session if active
     if (_session != nil) {
         NSDictionary * sessionDict = [_session getSessionDictWithEventId:eventId];
@@ -308,7 +335,7 @@
             [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
         }
     }
-    
+
     // If some contexts are available...
     if (contextArray.count > 0) {
         NSMutableArray * contexts = [[NSMutableArray alloc] init];
@@ -321,3 +348,4 @@
 }
 
 @end
+
