@@ -257,7 +257,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (NSString *)getJSONAsStringWithFilePath:(NSString *)filePath {
-    NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:filePath ofType:nil inDirectory:@"Resources"];
+    NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:filePath ofType:nil inDirectory:@"Products"];
     @try {
         NSData * data = [NSData dataWithContentsOfFile:path];
         return [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
