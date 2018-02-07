@@ -98,4 +98,10 @@
  */
 - (BOOL) getInBackground;
 
+/**
+ * Returns the session's userId
+ * @return the session's userId
+ */
+- (NSString*) getUserId;
+
 @end
