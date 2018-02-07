@@ -191,6 +191,10 @@
     return _dataCollection;
 }
 
+- (NSString*) getSessionUserId {
+    return [_session getUserId];
+}
+
 // Event Tracking Functions
 
 - (void) trackPageViewEvent:(SPPageView *)event {

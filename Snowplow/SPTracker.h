@@ -98,6 +98,12 @@
 - (BOOL) getIsTracking;
 
 /**
+ * Returns the session's userId.
+ * @return the session's userId.
+ */
+- (NSString*) getSessionUserId;
+
+/**
  * Constructs the final event payload that is sent to the emitter.
  * NOTE: This function is only used for testing purposes; should never be called in production.
  *
