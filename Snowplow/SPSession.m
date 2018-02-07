@@ -157,6 +157,10 @@ NSString * const kSessionSavePath = @"session.dict";
     return _inBackground;
 }
 
+- (NSString *)getUserId {
+    return _userId;
+}
+
 // --- Private
 
 - (BOOL) writeSessionToFile {
