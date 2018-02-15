@@ -300,6 +300,249 @@
 
 @end
 
+// ConsentWithdrawn Event
+
+@implementation SPConsentWithdrawn {
+    BOOL * _all;
+    NSNumber * _documentId;
+    NSNumber * _version;
+    NSString * _name;
+    NSString * _description;
+    NSArray * _documents;
+}
+
++ (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock {
+    SPConsentWithdrawn* event = [SPConsentWithdrawn new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setDocumentId:(NSNumber *)dId {
+    _documentId = dId;
+}
+
+- (void) setVersion:(NSNumber *)version {
+    _version = version;
+}
+
+- (void) setName:(NSString *)name {
+    _name = name;
+}
+
+- (void) setDescription:(NSString *)description {
+    _description = description;
+}
+
+- (void) setAll:(BOOL *)all {
+    _all = all;
+}
+
+- (void) setDocuments:(NSArray *)documents {
+    for (NSObject * sdj in documents) {
+        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
+                       withMessage:@"All documents must be SelfDescribingJson objects."];
+    }
+    _documents = documents;
+}
+
+// --- Public Methods
+
+- (SPSelfDescribingJson *) getPayload{
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+    [event setObject:(_all ? @"true" : @"false") forKey:KSPCwAll];
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentWithdrawnSchema
+                                                andData:event];
+}
+
+- (NSArray *) getDocuments {
+    // returns the result of appending document passed through {docId, version, name, description} to the documents data member
+    NSMutableArray * documents = [[NSMutableArray alloc] init];
+    SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
+        if (_documentId != nil) {
+            [builder setDocumentId:_documentId];
+        }
+        if (_version != nil) {
+            [builder setVersion:_version];
+        }
+        if ([_name length] != 0) {
+            [builder setName:_name];
+        }
+        if ([_description length] != 0) {
+            [builder setDescription:_description];
+        }
+    }];
+    [documents addObject:[document getPayload]];
+    return documents;
+}
+
+@end
+
+// Consent Document Event
+
+@implementation SPConsentDocument {
+    NSNumber * _documentId;
+    NSNumber * _version;
+    NSString * _name;
+    NSString * _description;
+}
+
++ (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock {
+    SPConsentDocument* event = [SPConsentDocument new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
+    [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setDocumentId:(NSNumber *)dId {
+    _documentId = dId;
+}
+
+- (void) setVersion:(NSNumber *)version {
+    _version = version;
+}
+
+- (void) setName:(NSString *)name {
+    _name = name;
+}
+
+- (void) setDescription:(NSString *)description {
+    _description = description;
+}
+
+// --- Public Methods
+
+- (SPSelfDescribingJson *) getPayload {
+
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+    [event setObject:_documentId forKey:kSPCdId];
+    [event setObject:_version forKey:kSPCdVersion];
+    if ([_name length] != 0) {
+        [event setObject:_name forKey:kSPCdName];
+    }
+    if ([_description length] != 0) {
+        [event setObject:_description forKey:KSPCdDescription];
+    }
+
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentDocumentSchema
+                                                andData:event];
+}
+
+@end
+
+// ConsentGranted Event
+
+@implementation SPConsentGranted {
+    NSNumber * _documentId;
+    NSNumber * _version;
+    NSString * _name;
+    NSString * _description;
+    NSString * _expiry;
+    NSArray * _documents;
+}
+
++ (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock {
+    SPConsentGranted* event = [SPConsentGranted new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
+    [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setDocumentId:(NSNumber *)dId {
+    _documentId = dId;
+}
+
+- (void) setVersion:(NSNumber *)version {
+    _version = version;
+}
+
+- (void) setName:(NSString *)name {
+    _name = name;
+}
+
+- (void) setDescription:(NSString *)description {
+    _description = description;
+}
+
+- (void) setExpiry:(NSString *)expiry {
+    _expiry = expiry;
+}
+
+- (void) setDocuments:(NSArray *)documents {
+    for (NSObject * sdj in documents) {
+        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
+                       withMessage:@"All documents must be SelfDescribingJson objects."];
+    }
+    _documents = documents;
+}
+
+// --- Public Methods
+
+- (SPSelfDescribingJson *) getPayload{
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+    if ([_expiry length] != 0) {
+        [event setObject:_expiry forKey:KSPCgExpiry];
+    }
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentGrantedSchema
+                                                andData:event];
+}
+
+- (NSArray *) getDocuments {
+    // returns the result of appending document passed through {docId, version, name, description} to the documents data member
+    NSMutableArray * documents = [[NSMutableArray alloc] init];
+    SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
+        [builder setDocumentId:_documentId];
+        [builder setVersion:_version];
+        if ([_name length] != 0) {
+            [builder setName:_name];
+        }
+        if ([_description length] != 0) {
+            [builder setDescription:_description];
+        }
+    }];
+    [documents addObject:[document getPayload]];
+    return documents;
+}
+
+@end
+
 // Timing Event
 
 @implementation SPTiming {
