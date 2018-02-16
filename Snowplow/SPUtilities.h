@@ -49,7 +49,7 @@
 + (NSString *) getEventId;
 
 /**
- *  Returns a generated string unique to each device, used only for serving advertisements. This is similar to the native advertisingIdentifier supplied by Apple.
+ *  Returns a generated string unique to each device, used only for serving advertisements. This is similar to the native advertisingIdentifier supplied by Apple. If you do not want to use OpenIDFA, add the compiler flag <code>SNOWPLOW_NO_OPENIDFA</code> to your build settings.
  *  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */
 + (NSString *) getOpenIdfa;
@@ -61,7 +61,7 @@
 + (NSString *) getAppleIdfa;
 
 /**
- * Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation.
+ * Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.
  *  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */
 + (NSString *) getAppleIdfv;

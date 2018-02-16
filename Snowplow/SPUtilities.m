@@ -70,9 +70,11 @@
 + (NSString *) getOpenIdfa {
     NSString * idfa = nil;
 #if SNOWPLOW_TARGET_IOS
+#ifndef SNOWPLOW_NO_OPENIDFA
     if (!SNOWPLOW_iOS_9_OR_LATER) {
         idfa = [OpenIDFA sameDayOpenIDFA];
     }
+#endif
 #endif
     return idfa;
 }
@@ -97,7 +99,9 @@
 + (NSString *) getAppleIdfv {
     NSString * idfv = nil;
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
+#ifndef SNOWPLOW_NO_IDFV
     idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+#endif
 #endif
     return idfv;
 }
