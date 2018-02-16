@@ -214,6 +214,13 @@
     [self addEventWithPayload:[event getPayloadWithEncoding:_base64Encoded] andContext:[event getContexts] andEventId:[event getEventId]];
 }
 
+- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
+    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData: event];
+    }];
+    [self trackUnstructuredEvent:unstruct];
+}
+
 - (void) trackScreenViewEvent:(SPScreenView *)event {
     SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:[event getPayload]];

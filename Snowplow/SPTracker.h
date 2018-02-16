@@ -32,6 +32,7 @@
 @class SPScreenView;
 @class SPTiming;
 @class SPEcommerce;
+@class SPSelfDescribingJson;
 
 @protocol SPTrackerBuilder <NSObject>
 
@@ -119,6 +120,11 @@
  * Tracks an Unstructured Event object.
  */
 - (void) trackUnstructuredEvent:(SPUnstructured *)event;
+
+/**
+ * Tracks an Unstructured Event object.
+ */
+- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event;
 
 /**
  * Tracks a ScreenView Event object.

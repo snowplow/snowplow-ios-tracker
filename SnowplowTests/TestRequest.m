@@ -210,6 +210,15 @@ NSString *protocol = @"https";
     [tracker_ trackUnstructuredEvent:event];
 }
 
+- (void) trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
+    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
+    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:data];
+    [tracker_ trackSelfDescribingEvent:sdj];
+}
+
 - (void) trackPageViewWithTracker:(SPTracker *)tracker_ {
     SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];

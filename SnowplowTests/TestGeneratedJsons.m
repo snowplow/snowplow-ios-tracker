@@ -128,6 +128,31 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     XCTAssertTrue([validator validateJson:unstructDictionary]);
 }
 
+- (void)testSelfDescribingEventPayloadJson  {
+    SPTracker * tracker = [self getTracker:@"acme.fake.url"];
+    NSMutableDictionary * input = [[NSMutableDictionary alloc] init];
+    [input setObject:[NSNumber numberWithInt:23] forKey:@"level"];
+    [input setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:input];
+    SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData: sdj];
+    }];
+
+    // Check that the final payload passes validation
+    NSDictionary * data = [[tracker getFinalPayloadWithPayload:[event getPayloadWithEncoding:false] andContext:[event getContexts] andEventId:[event getEventId]] getAsDictionary];
+    NSArray * dataArray = [NSArray arrayWithObject:data];
+    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+
+    XCTAssertTrue([validator validateJson:json]);
+
+    // Check that the nested unstructured event passes validation
+    NSString * ue_pr = [data objectForKey:@"ue_pr"];
+    NSDictionary * unstructDictionary = [NSJSONSerialization JSONObjectWithData:[ue_pr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+
+    XCTAssertTrue([validator validateJson:unstructDictionary]);
+}
+
 - (void)testPageViewEventPayloadJson {
     SPTracker * tracker = [self getTracker:@"acme.fake.url"];
     SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
