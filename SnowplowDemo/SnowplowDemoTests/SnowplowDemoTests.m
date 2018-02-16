@@ -3,7 +3,7 @@
 //  SnowplowDemoTests
 //
 //  Created by Joshua Beemster on 06/08/2015.
-//  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2015-2018 Snowplow Analytics Ltd. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
