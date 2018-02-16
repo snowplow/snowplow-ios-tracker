@@ -17,6 +17,7 @@ before_install:
     - gem install xcpretty -N --no-ri --no-rdoc
     - brew update
     - if brew outdated | grep -qx xctool; then brew upgrade xctool; fi
+    - pod repo update
     - pod install
     - pod update
 
