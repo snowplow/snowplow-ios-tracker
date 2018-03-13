@@ -30,6 +30,7 @@
 #import "SPPayload.h"
 #import "SPEvent.h"
 #import "SPSelfDescribingJson.h"
+#import "SPUtilities.h"
 
 @interface TestGeneratedJsons : XCTestCase
 
@@ -276,6 +277,48 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     NSDictionary * sdj = [[event getPayload] getAsDictionary];
     
+    // Test that the SelfDescribingJson passes validation
+    XCTAssertTrue([validator validateJson:sdj]);
+}
+
+- (void)testPushNotificationEventJson {
+    NSMutableArray * attachments = [[NSMutableArray alloc] init];
+    [attachments addObject:@{ kSPPnAttachmentId : @"identifier",
+                              kSPPnAttachmentUrl : @"url",
+                              kSPPnAttachmentType : @"type"
+                              }];
+
+    NSDictionary * userInfo = @{@"aps":
+                                    @{@"alert":
+                                          @{@"title": @"test title",
+                                            @"body": @"test",
+                                            @"loc-key": @"test key"
+                                            },
+                                      @"content-available": @0
+                                          }
+                                    };
+
+    SPNotificationContent * content = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
+        [builder setTitle:@"title"];
+        [builder setSubtitle:@"subtitle"];
+        [builder setBody:@"body"];
+        [builder setBadge:[NSNumber numberWithInt:5]];
+        [builder setSound:@"sound"];
+        [builder setLaunchImageName:@"launchImageName"];
+        [builder setUserInfo: userInfo];
+        //[builder setAttachments: [NSArray arrayWithArray:attachments]];
+    }];
+
+    SPPushNotification * event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
+        [builder setTrigger:@"PUSH"];
+        [builder setAction:@"action"];
+        [builder setDeliveryDate:@"date"];
+        [builder setCategoryIdentifier:@"category"];
+        [builder setThreadIdentifier:@"thread"];
+        [builder setNotification:content];
+    }];
+    NSDictionary * sdj = [[event getPayload] getAsDictionary];
+
     // Test that the SelfDescribingJson passes validation
     XCTAssertTrue([validator validateJson:sdj]);
 }

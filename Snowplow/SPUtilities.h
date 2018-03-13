@@ -22,6 +22,10 @@
 
 #import <Foundation/Foundation.h>
 
+#if SNOWPLOW_TARGET_IOS
+#import <UserNotifications/UserNotifications.h>
+#endif
+
 @interface SPUtilities : NSObject
 
 /**
@@ -179,5 +183,38 @@
  *  @return the same NSDictionary without any Null values
  */
 + (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict;
+
+/**
+ * Maps a trigger object to the corresponding simplified string.
+ * @ param trigger A UNNotificationTrigger object
+ * @ return a string describing the type of trigger
+ */
+#if SNOWPLOW_TARGET_IOS
++ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger NS_AVAILABLE_IOS(10.0);
+#endif
+
+/**
+ * Converts a UNNotificationAttachment array into an array of string dictionaries
+ * @ param UNNotificationAttachment attachments
+ * @ return an array of string dictionaries
+ */
+
+#if SNOWPLOW_TARGET_IOS
++ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments NS_AVAILABLE_IOS(10.0);
+#endif
+
+/**
+ * Converts a kebab-case string keys into a camel-case string keys
+ * @ param NSDictionary dict
+ * @ return a dictionary
+ */
++ (NSDictionary *) replaceHyphenatedKeysWithCamelcase:(NSDictionary *)dict;
+
+/**
+ * Converts a kebab-case string into a camel-case string
+ * @ param NSString key
+ * @ return a string
+ */
++ (NSString *) camelcaseParsedKey:(NSString *)key;
 
 @end

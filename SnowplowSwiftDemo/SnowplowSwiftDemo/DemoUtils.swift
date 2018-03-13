@@ -17,6 +17,7 @@ class DemoUtils {
         self.trackUnstructuredEventWithTracker(tracker)
         self.trackTimingWithCategoryWithTracker(tracker)
         self.trackEcommerceTransactionWithTracker(tracker)
+        self.trackPushNotificationWithTracker(tracker)
     }
     
     static func trackStructuredEventWithTracker(_ tracker: SPTracker) {
@@ -96,6 +97,7 @@ class DemoUtils {
             builder!.setEventData(sdj)
             builder!.setTimestamp(1243567890)
         })
+        
         tracker.trackUnstructuredEvent(event)
     }
     
@@ -126,6 +128,7 @@ class DemoUtils {
             builder!.setContexts(self.getCustomContext())
             builder!.setTimestamp(1243567890)
         })
+
         tracker.trackScreenViewEvent(event)
     }
     
@@ -164,6 +167,7 @@ class DemoUtils {
             builder!.setTimestamp(1243567890)
             builder!.setContexts(self.getCustomContext())
         })
+        print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary(), options: .prettyPrinted), encoding: .utf8 )!)
         tracker.trackTimingEvent(event)
     }
     
@@ -237,9 +241,41 @@ class DemoUtils {
             builder!.setContexts(self.getCustomContext())
             builder!.setTimestamp(1243567890)
         })
+
         tracker.trackEcommerceEvent(event)
     }
-    
+
+    static func trackPushNotificationWithTracker(_ tracker: SPTracker) {
+        let attachments = [["identifier": "testidentifier",
+                            "url": "testurl",
+                            "type": "testtype"]]
+
+        var userInfo = Dictionary<String, Any>()
+        userInfo["test"] = "test"
+
+        let content = SPNotificationContent.build({(builder : SPNotificationContentBuilder?) -> Void in
+            builder!.setTitle("title")
+            builder!.setSubtitle("subtitle")
+            builder!.setBody("body")
+            builder!.setBadge(5)
+            builder!.setSound("sound")
+            builder!.setLaunchImageName("launchImageName")
+            builder!.setUserInfo(userInfo)
+            builder!.setAttachments(attachments)
+        })
+
+        let event = SPPushNotification.build({(builder : SPPushNotificationBuilder?) -> Void in
+            builder!.setTrigger("PUSH") // can be "PUSH", "LOCATION", "CALENDAR", or "TIME_INTERVAL"
+            builder!.setAction("action")
+            builder!.setDeliveryDate("date")
+            builder!.setCategoryIdentifier("category")
+            builder!.setThreadIdentifier("thread")
+            builder!.setNotification(content)
+        })
+
+        tracker.trackPushNotificationEvent(event)
+    }
+
     static func getCustomContext() -> NSMutableArray {
         let data : NSDictionary = [ "snowplow": "demo-tracker" ]
         let context = SPSelfDescribingJson(schema: "iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", andData: data)

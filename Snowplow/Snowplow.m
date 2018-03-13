@@ -59,6 +59,7 @@ NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0";
 NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";
 NSString * const kSPConsentWithdrawnSchema = @"iglu:com.snowplowanalytics.snowplow/consent_withdrawn/jsonschema/1-0-0";
+NSString * const kSPPushNotificationSchema = @"iglu:com.apple/notification_event/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -193,5 +194,25 @@ NSString * const kSPUtCategory            = @"category";
 NSString * const kSPUtVariable            = @"variable";
 NSString * const kSPUtTiming              = @"timing";
 NSString * const kSPUtLabel               = @"label";
+
+// --- Push Notification Event
+
+NSString * const kSPPushAction            = @"action";
+NSString * const kSPPushTrigger           = @"trigger";
+NSString * const kSPPushDeliveryDate      = @"deliveryDate";
+NSString * const kSPPushCategoryId        = @"categoryIdentifier";
+NSString * const kSPPushThreadId          = @"threadIdentifier";
+NSString * const kSPPushNotification      = @"notification";
+NSString * const kSPPnTitle               = @"title";
+NSString * const kSPPnSubtitle            = @"subtitle";
+NSString * const kSPPnBody                = @"body";
+NSString * const kSPPnBadge               = @"badge";
+NSString * const kSPPnSound               = @"sound";
+NSString * const kSPPnLaunchImageName     = @"launchImageName";
+NSString * const kSPPnUserInfo            = @"userInfo";
+NSString * const kSPPnAttachments         = @"attachments";
+NSString * const kSPPnAttachmentId        = @"identifier";
+NSString * const kSPPnAttachmentUrl       = @"url";
+NSString * const kSPPnAttachmentType      = @"type";
 
 @end

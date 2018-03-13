@@ -24,6 +24,7 @@ class ViewController: UIViewController, UITextFieldDelegate, SPRequestCallback {
     @IBOutlet weak var madeLabel: UILabel!
     @IBOutlet weak var dbCountLabel: UILabel!
     @IBOutlet weak var sentLabel: UILabel!
+    @IBOutlet weak var tokenLabel: UILabel!
     
     var tracker : SPTracker!
     var madeCounter : Int = 0
@@ -133,6 +134,10 @@ class ViewController: UIViewController, UITextFieldDelegate, SPRequestCallback {
         sentLabel.text = String(format: "Sent: %lu", CUnsignedLong(sentCounter))
     }
     
+    func updateToken(_ token: String) {
+        tokenLabel.text = String(format: "Token: %@", token)
+    }
+
     // Tracker setup and init
     
     func getTracker(_ url: String, method: SPRequestOptions) -> SPTracker {

@@ -90,7 +90,7 @@
         [_tracker.emitter setProtocol:[self getProtocolType]];
         
         // Itterate the made counter
-        _madeCounter += 28;
+        _madeCounter += 25;
         
         // Track all types of events!
         [DemoUtils trackAll:_tracker];

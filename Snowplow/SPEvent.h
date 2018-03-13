@@ -24,6 +24,7 @@
 
 @class SPPayload;
 @class SPSelfDescribingJson;
+@class SPNotificationContent;
 
 // Builder Protocols : Defines all setter functions
 
@@ -109,6 +110,26 @@
 - (void) setName:(NSString *)name;
 - (void) setCategory:(NSString *)category;
 - (void) setCurrency:(NSString *)currency;
+@end
+
+@protocol SPNotificationContentBuilder <SPEventBuilder>
+- (void) setTitle:(NSString *)title;
+- (void) setSubtitle:(NSString *)subtitle;
+- (void) setBody:(NSString *)body;
+- (void) setBadge:(NSNumber *)badge;
+- (void) setSound:(NSString *)sound;
+- (void) setLaunchImageName:(NSString *)name;
+- (void) setUserInfo:(NSDictionary *)userInfo;
+- (void) setAttachments:(NSArray *)attachments;
+@end
+
+@protocol SPPushNotificationBuilder <SPEventBuilder>
+- (void) setAction:(NSString *)action;
+- (void) setDeliveryDate:(NSString *)date;
+- (void) setTrigger:(NSString *)trigger;
+- (void) setCategoryIdentifier:(NSString *)category;
+- (void) setThreadIdentifier:(NSString *)thread;
+- (void) setNotification:(SPNotificationContent *)content;
 @end
 
 // Base Event
@@ -197,4 +218,18 @@
 @interface SPEcommerceItem : SPEvent <SPEcommTransactionItemBuilder>
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock;
 - (SPPayload *) getPayload;
+@end
+
+// Push Notification Content Event
+
+@interface SPNotificationContent : SPEvent <SPNotificationContentBuilder>
++ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock;
+- (NSDictionary *) getPayload;
+@end
+
+// Push Notification Event
+
+@interface SPPushNotification : SPEvent <SPPushNotificationBuilder>
++ (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
 @end
