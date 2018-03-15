@@ -1,0 +1,27 @@
+PODS:
+  - FMDB (2.6.2):
+    - FMDB/standard (= 2.6.2)
+  - FMDB/standard (2.6.2)
+  - Reachability (3.2)
+  - SnowplowTracker (0.7.0):
+    - FMDB (= 2.6.2)
+    - Reachability (= 3.2)
+  - SwiftTryCatch (0.0.1)
+
+DEPENDENCIES:
+  - SnowplowTracker (from `../`)
+  - SwiftTryCatch
+
+EXTERNAL SOURCES:
+  SnowplowTracker:
+    :path: ../
+
+SPEC CHECKSUMS:
+  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  SnowplowTracker: b445639aac57dc8f4c01d7433e370e5915103a4c
+  SwiftTryCatch: fb6d2b34abe48efd69578dac919293a44f95b481
+
+PODFILE CHECKSUM: ee8668707da942c0c024303e73e0f57defbe9eaf
+
+COCOAPODS: 1.4.0
