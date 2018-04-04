@@ -1,3 +1,20 @@
+Version 0.8.0 (2018-04-29)
+--------------------------
+Update CocoaPods to 1.4.0 and add pod update repo in build script (#347)
+Add method to SPTracker to get session's userId (#345)
+Drop iOS 8 test target, add iOS 10 and 11 (#344)
+Fix SnowplowTests bundle custom folder name (#343)
+Add a Swift port of SnowplowDemo (#342)
+Add identifyUser as alias for setUserId (#341)
+Add trackConsentGrantedEvent and trackConsentWithdrawnEvent methods (#340)
+Remove "close" from CHANGELOG for issue #333 (#338)
+Add support for push notification open tracking (#335)
+Add preprocessor flags to disable OpenIDFA or IDFV (#334)
+Extend copyright notice in all files to 2018 (#331)
+Replace NSGregorianCalendar with NSCalendarIdentifierGregorian (#329)
+Fix truncation of structured event value to 6 digits (#299)
+Add trackSelfDescribingEvent method as alias for trackUnstructEvent (#272)
+
 Version 0.7.0 (2017-12-24)
 --------------------------
 Bump iOS deployment target to 8.0 (#326)
