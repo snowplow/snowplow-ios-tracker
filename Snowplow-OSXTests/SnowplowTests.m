@@ -3,7 +3,7 @@
 //  Snowplow
 //
 //  Created by James Duncan Davidson on 2/10/15.
-//  Copyright (c) 2015 Snowplow Analytics. All rights reserved.
+//  Copyright (c) 2015-2018 Snowplow Analytics. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

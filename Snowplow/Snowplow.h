@@ -2,7 +2,7 @@
 //  Snowplow.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -73,6 +73,12 @@ extern NSString * const kSPMobileContextSchema;
 extern NSString * const kSPDesktopContextSchema;
 extern NSString * const kSPSessionContextSchema;
 extern NSString * const kSPGeoContextSchema;
+extern NSString * const kSPConsentDocumentSchema;
+extern NSString * const kSPConsentGrantedSchema;
+extern NSString * const kSPConsentWithdrawnSchema;
+extern NSString * const kSPConsentDocumentSchema;
+extern NSString * const kSPConsentGrantedSchema;
+extern NSString * const kSPPushNotificationSchema;
 
 // --- Event Keys
 
@@ -184,6 +190,18 @@ extern NSString * const kSPEcommItemPrice;
 extern NSString * const kSPEcommItemQuantity;
 extern NSString * const kSPEcommItemCurrency;
 
+// --- Consent Granted Event
+extern NSString * const KSPCgExpiry;
+
+// --- Consent Withdrawn Event
+extern NSString * const KSPCwAll;
+
+// --- Consent Document Event
+extern NSString * const kSPCdId;
+extern NSString * const kSPCdVersion;
+extern NSString * const kSPCdName;
+extern NSString * const KSPCdDescription;
+
 // --- Screen View Event
 
 extern NSString * const kSPSvId;
@@ -195,5 +213,25 @@ extern NSString * const kSPUtCategory;
 extern NSString * const kSPUtVariable;
 extern NSString * const kSPUtTiming;
 extern NSString * const kSPUtLabel;
+
+// --- Push Notification Event
+
+extern NSString * const kSPPushAction;
+extern NSString * const kSPPushTrigger;
+extern NSString * const kSPPushDeliveryDate;
+extern NSString * const kSPPushCategoryId;
+extern NSString * const kSPPushThreadId;
+extern NSString * const kSPPushNotification;
+extern NSString * const kSPPnTitle;
+extern NSString * const kSPPnSubtitle;
+extern NSString * const kSPPnBody;
+extern NSString * const kSPPnBadge;
+extern NSString * const kSPPnSound;
+extern NSString * const kSPPnLaunchImageName;
+extern NSString * const kSPPnUserInfo;
+extern NSString * const kSPPnAttachments;
+extern NSString * const kSPPnAttachmentId;
+extern NSString * const kSPPnAttachmentUrl;
+extern NSString * const kSPPnAttachmentType;
 
 @end

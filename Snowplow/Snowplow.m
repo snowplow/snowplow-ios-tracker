@@ -2,7 +2,7 @@
 //  Snowplow.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -27,11 +27,11 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-0.7.0";
+NSString * const kSPVersion               = @"ios-0.8.0";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-0.7.0";
+NSString * const kSPVersion               = @"tvos-0.8.0";
 #else
-NSString * const kSPVersion               = @"osx-0.7.0";
+NSString * const kSPVersion               = @"osx-0.8.0";
 #endif
 
 // --- Emitter
@@ -56,6 +56,10 @@ NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-1";
 NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0";
+NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0";
+NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";
+NSString * const kSPConsentWithdrawnSchema = @"iglu:com.snowplowanalytics.snowplow/consent_withdrawn/jsonschema/1-0-0";
+NSString * const kSPPushNotificationSchema = @"iglu:com.apple/notification_event/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -167,6 +171,18 @@ NSString * const kSPEcommItemPrice        = @"ti_pr";
 NSString * const kSPEcommItemQuantity     = @"ti_qu";
 NSString * const kSPEcommItemCurrency     = @"ti_cu";
 
+// --- Consent Granted Event
+NSString * const KSPCgExpiry              = @"expiry";
+
+// --- Consent Withdrawn Event
+NSString * const KSPCwAll                 = @"all";
+
+// --- Consent Document Event
+NSString * const kSPCdId                  = @"id";
+NSString * const kSPCdVersion             = @"version";
+NSString * const kSPCdName                = @"name";
+NSString * const KSPCdDescription         = @"description";
+
 // --- Screen View Event
 
 NSString * const kSPSvId                  = @"id";
@@ -178,5 +194,25 @@ NSString * const kSPUtCategory            = @"category";
 NSString * const kSPUtVariable            = @"variable";
 NSString * const kSPUtTiming              = @"timing";
 NSString * const kSPUtLabel               = @"label";
+
+// --- Push Notification Event
+
+NSString * const kSPPushAction            = @"action";
+NSString * const kSPPushTrigger           = @"trigger";
+NSString * const kSPPushDeliveryDate      = @"deliveryDate";
+NSString * const kSPPushCategoryId        = @"categoryIdentifier";
+NSString * const kSPPushThreadId          = @"threadIdentifier";
+NSString * const kSPPushNotification      = @"notification";
+NSString * const kSPPnTitle               = @"title";
+NSString * const kSPPnSubtitle            = @"subtitle";
+NSString * const kSPPnBody                = @"body";
+NSString * const kSPPnBadge               = @"badge";
+NSString * const kSPPnSound               = @"sound";
+NSString * const kSPPnLaunchImageName     = @"launchImageName";
+NSString * const kSPPnUserInfo            = @"userInfo";
+NSString * const kSPPnAttachments         = @"attachments";
+NSString * const kSPPnAttachmentId        = @"identifier";
+NSString * const kSPPnAttachmentUrl       = @"url";
+NSString * const kSPPnAttachmentType      = @"type";
 
 @end

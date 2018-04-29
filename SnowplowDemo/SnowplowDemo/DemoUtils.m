@@ -2,7 +2,7 @@
 //  DemoUtils.m
 //  SnowplowDemo
 //
-//  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2015-2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2015-2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -35,6 +35,7 @@
     [self trackScreenViewWithTracker:tracker_];
     [self trackTimingWithCategoryWithTracker:tracker_];
     [self trackEcommerceTransactionWithTracker:tracker_];
+    [self trackPushNotificationWithTracker:tracker_];
 }
 
 // Event Tracking
@@ -267,6 +268,39 @@
         [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackEcommerceEvent:event];
+}
+
++ (void) trackPushNotificationWithTracker:(SPTracker *)tracker_ {
+    NSMutableArray * attachments = [[NSMutableArray alloc] init];
+    [attachments addObject:@{ @"identifier" : @"testidentifier",
+                              @"url" : @"testurl",
+                              @"type" : @"testtype"
+                              }];
+
+    NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] init];
+    [userInfo setObject:@"test" forKey:@"test"];
+
+    SPNotificationContent * content = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
+        [builder setTitle:@"title"];
+        [builder setSubtitle:@"subtitle"];
+        [builder setBody:@"body"];
+        [builder setBadge:[NSNumber numberWithInt:5]];
+        [builder setSound:@"sound"];
+        [builder setLaunchImageName:@"launchImageName"];
+        [builder setUserInfo: [NSDictionary dictionaryWithDictionary:userInfo]];
+        [builder setAttachments: [NSArray arrayWithArray:attachments]];
+    }];
+
+    SPPushNotification * event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
+        [builder setAction:@"action"];
+        [builder setTrigger:@"trigger"];
+        [builder setDate:@"date"];
+        [builder setCategoryIdentifier:@"category"];
+        [builder setThreadIdentifier:@"thread"];
+        [builder setNotification:content];
+    }];
+
+    [tracker_ trackPushNotificationEvent:event];
 }
 
 // Helpers

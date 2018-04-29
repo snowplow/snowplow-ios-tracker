@@ -2,7 +2,7 @@
 //  SPUtils.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -70,9 +70,11 @@
 + (NSString *) getOpenIdfa {
     NSString * idfa = nil;
 #if SNOWPLOW_TARGET_IOS
+#ifndef SNOWPLOW_NO_OPENIDFA
     if (!SNOWPLOW_iOS_9_OR_LATER) {
         idfa = [OpenIDFA sameDayOpenIDFA];
     }
+#endif
 #endif
     return idfa;
 }
@@ -97,7 +99,9 @@
 + (NSString *) getAppleIdfv {
     NSString * idfv = nil;
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
+#ifndef SNOWPLOW_NO_IDFV
     idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+#endif
 #endif
     return idfv;
 }
@@ -268,6 +272,39 @@
     }
 }
 
+#if SNOWPLOW_TARGET_IOS
++ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger {
+    NSMutableString * triggerType = [[NSMutableString alloc] initWithString:@"UNKNOWN"];
+    NSString * triggerClass = NSStringFromClass([trigger class]);
+    if ([triggerClass isEqualToString:@"UNTimeIntervalNotificationTrigger"]) {
+        [triggerType setString:@"TIME_INTERVAL"];
+    } else if ([triggerClass isEqualToString:@"UNCalendarNotificationTrigger"]) {
+        [triggerType setString:@"CALENDAR"];
+    } else if ([triggerClass isEqualToString:@"UNLocationNotificationTrigger"]) {
+        [triggerType setString:@"LOCATION"];
+    } else if ([triggerClass isEqualToString:@"UNPushNotificationTrigger"]) {
+        [triggerType setString:@"PUSH"];
+    }
+
+    return (NSString *)triggerType;
+}
+
++ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments {
+    NSMutableArray<NSDictionary *> * converting = [[NSMutableArray alloc] init];
+    NSMutableDictionary * newAttachment = [[NSMutableDictionary alloc] init];
+
+    for (id attachment in attachments) {
+        newAttachment[kSPPnAttachmentId] = [attachment valueForKey:@"identifier"];
+        newAttachment[kSPPnAttachmentUrl] = [attachment valueForKey:@"URL"];
+        newAttachment[kSPPnAttachmentType] = [attachment valueForKey:@"type"];
+        [converting addObject: (NSDictionary *)[newAttachment copy]];
+        [newAttachment removeAllObjects];
+    }
+
+    return (NSArray<NSDictionary *> *)[NSArray arrayWithArray:converting];
+}
+#endif
+
 + (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict {
     NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];
     for (NSString * key in [dict allKeys]) {
@@ -276,6 +313,56 @@
         }
     }
     return cleanDictionary;
+}
+
++ (NSDictionary *) replaceHyphenatedKeysWithCamelcase:(NSDictionary *)dict{
+    NSMutableDictionary * newDictionary = [[NSMutableDictionary alloc] init];
+    for (NSString * key in dict) {
+        if ([key containsString:@"-"]) {
+            if ([dict[key] isKindOfClass:[NSDictionary class]]) {
+                newDictionary[[self camelcaseParsedKey:key]] = [self replaceHyphenatedKeysWithCamelcase:dict[key]];
+            } else {
+                newDictionary[[self camelcaseParsedKey:key]] = dict[key];
+            }
+        } else {
+            if ([dict[key] isKindOfClass:[NSDictionary class]]) {
+                newDictionary[key] = [self replaceHyphenatedKeysWithCamelcase:dict[key]];
+            } else {
+                newDictionary[key] = dict[key];
+            }
+        }
+    }
+
+    return [[NSDictionary alloc] initWithDictionary:newDictionary copyItems:YES];
+}
+
++ (NSString *) camelcaseParsedKey:(NSString *)key {
+    NSScanner * scanner = [[NSScanner alloc] initWithString:key];
+    NSMutableArray * words = [[NSMutableArray alloc] init];
+    NSString * scannedWord = [[NSString alloc] init];
+
+    while (![scanner isAtEnd]) {
+        [scanner scanUpToString:@"-" intoString:&scannedWord];
+        [words addObject:scannedWord];
+        NSLog(@"scanned word: %@", scannedWord);
+        [scanner scanString:@"-" intoString:nil];
+    }
+
+    NSLog(@"%@", words);
+    if ([words count] == 0) {
+        return @"";
+    } else if ([words count] == 1) {
+        return [[NSString alloc] initWithString:[words[0] lowercaseString]];
+    } else {
+        NSMutableString * camelcaseKey = [[NSMutableString alloc] initWithString:[words[0] lowercaseString]];
+        NSRange range;
+        range.length = words.count-1;
+        range.location = 1;
+        for (NSString * word in [words subarrayWithRange:range]) {
+            [camelcaseKey appendString:[word capitalizedString]];
+        }
+        return camelcaseKey;
+    }
 }
 
 @end

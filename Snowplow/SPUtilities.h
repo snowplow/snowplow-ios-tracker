@@ -2,7 +2,7 @@
 //  SPUtils.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,11 +16,15 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
+
+#if SNOWPLOW_TARGET_IOS
+#import <UserNotifications/UserNotifications.h>
+#endif
 
 @interface SPUtilities : NSObject
 
@@ -49,7 +53,7 @@
 + (NSString *) getEventId;
 
 /**
- *  Returns a generated string unique to each device, used only for serving advertisements. This is similar to the native advertisingIdentifier supplied by Apple.
+ *  Returns a generated string unique to each device, used only for serving advertisements. This is similar to the native advertisingIdentifier supplied by Apple. If you do not want to use OpenIDFA, add the compiler flag <code>SNOWPLOW_NO_OPENIDFA</code> to your build settings.
  *  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */
 + (NSString *) getOpenIdfa;
@@ -61,7 +65,7 @@
 + (NSString *) getAppleIdfa;
 
 /**
- * Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation.
+ * Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.
  *  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */
 + (NSString *) getAppleIdfv;
@@ -179,5 +183,38 @@
  *  @return the same NSDictionary without any Null values
  */
 + (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict;
+
+/**
+ * Maps a trigger object to the corresponding simplified string.
+ * @ param trigger A UNNotificationTrigger object
+ * @ return a string describing the type of trigger
+ */
+#if SNOWPLOW_TARGET_IOS
++ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger NS_AVAILABLE_IOS(10.0);
+#endif
+
+/**
+ * Converts a UNNotificationAttachment array into an array of string dictionaries
+ * @ param UNNotificationAttachment attachments
+ * @ return an array of string dictionaries
+ */
+
+#if SNOWPLOW_TARGET_IOS
++ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments NS_AVAILABLE_IOS(10.0);
+#endif
+
+/**
+ * Converts a kebab-case string keys into a camel-case string keys
+ * @ param NSDictionary dict
+ * @ return a dictionary
+ */
++ (NSDictionary *) replaceHyphenatedKeysWithCamelcase:(NSDictionary *)dict;
+
+/**
+ * Converts a kebab-case string into a camel-case string
+ * @ param NSString key
+ * @ return a string
+ */
++ (NSString *) camelcaseParsedKey:(NSString *)key;
 
 @end

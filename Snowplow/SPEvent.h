@@ -2,7 +2,7 @@
 //  SPEvent.h
 //  Snowplow
 //
-//  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -24,6 +24,7 @@
 
 @class SPPayload;
 @class SPSelfDescribingJson;
+@class SPNotificationContent;
 
 // Builder Protocols : Defines all setter functions
 
@@ -56,6 +57,31 @@
 - (void) setId:(NSString *)sId;
 @end
 
+@protocol SPConsentWithdrawnBuilder <SPEventBuilder>
+- (void) setDocumentId:(NSString *)documentId;
+- (void) setVersion:(NSString *)version;
+- (void) setName:(NSString *)name;
+- (void) setDescription:(NSString *)description;
+- (void) setAll:(BOOL *)all;
+- (void) setDocuments:(NSArray *)documents;
+@end
+
+@protocol SPConsentDocumentBuilder <SPEventBuilder>
+- (void) setDocumentId:(NSString *)documentId;
+- (void) setVersion:(NSString *)version;
+- (void) setName:(NSString *)name;
+- (void) setDescription:(NSString *)description;
+@end
+
+@protocol SPConsentGrantedBuilder <SPEventBuilder>
+- (void) setDocumentId:(NSString *)documentId;
+- (void) setVersion:(NSString *)version;
+- (void) setName:(NSString *)name;
+- (void) setDescription:(NSString *)description;
+- (void) setExpiry:(NSString *)expiry;
+- (void) setDocuments:(NSArray *)documents;
+@end
+
 @protocol SPTimingBuilder <SPEventBuilder>
 - (void) setCategory:(NSString *)category;
 - (void) setVariable:(NSString *)variable;
@@ -84,6 +110,26 @@
 - (void) setName:(NSString *)name;
 - (void) setCategory:(NSString *)category;
 - (void) setCurrency:(NSString *)currency;
+@end
+
+@protocol SPNotificationContentBuilder <SPEventBuilder>
+- (void) setTitle:(NSString *)title;
+- (void) setSubtitle:(NSString *)subtitle;
+- (void) setBody:(NSString *)body;
+- (void) setBadge:(NSNumber *)badge;
+- (void) setSound:(NSString *)sound;
+- (void) setLaunchImageName:(NSString *)name;
+- (void) setUserInfo:(NSDictionary *)userInfo;
+- (void) setAttachments:(NSArray *)attachments;
+@end
+
+@protocol SPPushNotificationBuilder <SPEventBuilder>
+- (void) setAction:(NSString *)action;
+- (void) setDeliveryDate:(NSString *)date;
+- (void) setTrigger:(NSString *)trigger;
+- (void) setCategoryIdentifier:(NSString *)category;
+- (void) setThreadIdentifier:(NSString *)thread;
+- (void) setNotification:(SPNotificationContent *)content;
 @end
 
 // Base Event
@@ -121,6 +167,29 @@
 - (SPPayload *) getPayloadWithEncoding:(BOOL)encoding;
 @end
 
+// Consent Withdrawn Event
+
+@interface SPConsentWithdrawn : SPEvent <SPConsentWithdrawnBuilder>
++ (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
+- (NSArray *) getDocuments;
+@end
+
+// Consent Document Event
+
+@interface SPConsentDocument : SPEvent <SPConsentDocumentBuilder>
++ (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
+@end
+
+// Consent Granted Event
+
+@interface SPConsentGranted : SPEvent <SPConsentGrantedBuilder>
++ (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
+- (NSArray *) getDocuments;
+@end
+
 // ScreenView Event
 
 @interface SPScreenView : SPEvent <SPScreenViewBuilder>
@@ -149,4 +218,18 @@
 @interface SPEcommerceItem : SPEvent <SPEcommTransactionItemBuilder>
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock;
 - (SPPayload *) getPayload;
+@end
+
+// Push Notification Content Event
+
+@interface SPNotificationContent : SPEvent <SPNotificationContentBuilder>
++ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock;
+- (NSDictionary *) getPayload;
+@end
+
+// Push Notification Event
+
+@interface SPPushNotification : SPEvent <SPPushNotificationBuilder>
++ (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
 @end

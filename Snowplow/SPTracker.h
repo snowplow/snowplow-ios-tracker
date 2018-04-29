@@ -2,7 +2,7 @@
 //  SPTracker.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -32,6 +32,10 @@
 @class SPScreenView;
 @class SPTiming;
 @class SPEcommerce;
+@class SPSelfDescribingJson;
+@class SPConsentWithdrawn;
+@class SPConsentGranted;
+@class SPPushNotification;
 
 @protocol SPTrackerBuilder <NSObject>
 
@@ -95,6 +99,12 @@
 - (BOOL) getIsTracking;
 
 /**
+ * Returns the session's userId.
+ * @return the session's userId.
+ */
+- (NSString*) getSessionUserId;
+
+/**
  * Constructs the final event payload that is sent to the emitter.
  * NOTE: This function is only used for testing purposes; should never be called in production.
  *
@@ -121,6 +131,11 @@
 - (void) trackUnstructuredEvent:(SPUnstructured *)event;
 
 /**
+ * Tracks an Unstructured Event object.
+ */
+- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event;
+
+/**
  * Tracks a ScreenView Event object.
  */
 - (void) trackScreenViewEvent:(SPScreenView *) event;
@@ -134,5 +149,21 @@
  * Tracks an Ecommerce Event object.
  */
 - (void) trackEcommerceEvent:(SPEcommerce *)event;
+
+/**
+<<<<<<< HEAD
+ * Tracks a Consent Withdrawn Event object.
+ */
+- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event;
+
+/**
+ * Tracks a Consent Granted Event object.
+ */
+- (void) trackConsentGrantedEvent:(SPConsentGranted *)event;
+
+/**
+ * Tracks an Open Push Notification object.
+ */
+- (void) trackPushNotificationEvent:(SPPushNotification *)event;
 
 @end

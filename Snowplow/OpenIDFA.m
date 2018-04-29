@@ -197,11 +197,8 @@
     NSDateFormatter* dateFormatter = [ [ NSDateFormatter alloc ] init ];
     [ dateFormatter setDateFormat:@"yyMMdd" ];
     NSCalendar *calendar;
-    if (SNOWPLOW_iOS_8_OR_LATER) {
-        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    } else {
-        calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    }
+    calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    
     NSDateComponents *hourShift = [[NSDateComponents alloc] init];
     [hourShift setHour:-4];
     NSDate *currentDay= [calendar dateByAddingComponents:hourShift toDate:[NSDate date] options:0];

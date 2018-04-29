@@ -36,7 +36,6 @@
 		04ABC3621B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
 		04ABC3631B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
 		04ABC3641B908E6500F50CAD /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
-		04B41EAA1BB2843F007C19C8 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 04B41EA91BB2843F007C19C8 /* Resources */; };
 		04EF45611BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */; };
 		04EF45621BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */; };
 		04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
@@ -44,6 +43,7 @@
 		24103385337EE3892FDCDE3E /* libPods-Snowplow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CE2733D73A2C7D4E3888FB /* libPods-Snowplow.a */; };
 		4C5E98E9C0215549D74F9396 /* libPods-Base-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFD2A3839970FE05343E80B /* libPods-Base-Snowplow-OSX.a */; };
 		739CB86F6E68F675EBA47AE2 /* libPods-SnowplowTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D284B1244765020D7B12B722 /* libPods-SnowplowTests.a */; };
+		75907E3C200EB0C000096DB1 /* Products in Resources */ = {isa = PBXBuildFile; fileRef = 75907E3B200EB0C000096DB1 /* Products */; };
 		968F9AB1BB9FC18F0D22FB63 /* libPods-BaseTests-Snowplow-OSXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 717C9BDC06316B667870FEE3 /* libPods-BaseTests-Snowplow-OSXTests.a */; };
 		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27CE191B408200018557 /* XCTest.framework */; };
@@ -145,6 +145,7 @@
 		42CE2733D73A2C7D4E3888FB /* libPods-Snowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		66ACC5B9C3FCC32FFC03B64E /* Pods-Snowplow-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-OSX/Pods-Snowplow-OSX.release.xcconfig"; sourceTree = "<group>"; };
 		717C9BDC06316B667870FEE3 /* libPods-BaseTests-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BaseTests-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		75907E3B200EB0C000096DB1 /* Products */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Products; path = SnowplowTests/Products; sourceTree = "<group>"; };
 		832ACF462F797D21EF3D667E /* Pods-SnowplowTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnowplowTests/Pods-SnowplowTests.release.xcconfig"; sourceTree = "<group>"; };
 		94D24AFAC0C72DF11D744E20 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
 		97BD0CE0229A798C94CE1C3D /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -255,6 +256,7 @@
 		AB0C27B4191B408200018557 = {
 			isa = PBXGroup;
 			children = (
+				75907E3B200EB0C000096DB1 /* Products */,
 				AB0C27C2191B408200018557 /* Snowplow */,
 				AB0C27D6191B408200018557 /* SnowplowTests */,
 				AEA2FCE41A8CDF8100123462 /* Snowplow-OSXTests */,
@@ -520,7 +522,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04B41EAA1BB2843F007C19C8 /* Resources in Resources */,
+				75907E3C200EB0C000096DB1 /* Products in Resources */,
 				AB0C27DB191B408200018557 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -543,12 +545,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SnowplowTests/Pods-SnowplowTests-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/KiteJSONValidator-iOS/KiteJSONValidator.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/SnowplowIgluClient-iOS/SnowplowIgluResources.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/KiteJSONValidator-iOS/KiteJSONValidator.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-iOS/SnowplowIgluResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/KiteJSONValidator.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnowplowIgluResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -676,12 +679,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests-resources.sh",
-				"$PODS_CONFIGURATION_BUILD_DIR/KiteJSONValidator-macOS/KiteJSONValidator.bundle",
-				"$PODS_CONFIGURATION_BUILD_DIR/SnowplowIgluClient-macOS/SnowplowIgluResources.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/KiteJSONValidator-macOS/KiteJSONValidator.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-macOS/SnowplowIgluResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/KiteJSONValidator.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnowplowIgluResources.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

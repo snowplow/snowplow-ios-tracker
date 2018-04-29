@@ -2,7 +2,7 @@
 //  SPEvent.m
 //  Snowplow
 //
-//  Copyright (c) 2015 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2018 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2015 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2018 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -196,7 +196,7 @@
     [pb addValueToPayload:_action forKey:kSPStuctAction];
     [pb addValueToPayload:_label forKey:kSPStuctLabel];
     [pb addValueToPayload:_property forKey:kSPStuctProperty];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%g", [_value doubleValue]] forKey:kSPStuctValue];
+    [pb addValueToPayload:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
     return [self addDefaultParamsToPayload:pb];
 }
 
@@ -236,10 +236,10 @@
 - (SPPayload *) getPayloadWithEncoding:(BOOL)encoding {
     SPPayload *pb = [[SPPayload alloc] init];
     [pb addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
-    
+
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:kSPUnstructSchema
                                                         andSelfDescribingJson:_eventData];
-    
+
     [pb addDictionaryToPayload:[sdj getAsDictionary]
                  base64Encoded:encoding
                typeWhenEncoded:kSPUnstructuredEncoded
@@ -293,9 +293,255 @@
     if (_name != nil) {
         [event setObject:_name forKey:kSPSvName];
     }
-    
+
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenViewSchema
                                                 andData:event];
+}
+
+@end
+
+// ConsentWithdrawn Event
+
+@implementation SPConsentWithdrawn {
+    BOOL * _all;
+    NSString * _documentId;
+    NSString * _version;
+    NSString * _name;
+    NSString * _description;
+    NSArray * _documents;
+}
+
++ (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock {
+    SPConsentWithdrawn* event = [SPConsentWithdrawn new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setDocumentId:(NSString *)dId {
+    _documentId = dId;
+}
+
+- (void) setVersion:(NSString *)version {
+    _version = version;
+}
+
+- (void) setName:(NSString *)name {
+    _name = name;
+}
+
+- (void) setDescription:(NSString *)description {
+    _description = description;
+}
+
+- (void) setAll:(BOOL *)all {
+    _all = all;
+}
+
+// documents should be an array of consent SDJs
+- (void) setDocuments:(NSArray *)documents {
+    for (NSObject * sdj in documents) {
+        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
+                       withMessage:@"All documents must be SelfDescribingJson objects."];
+    }
+    _documents = documents;
+}
+
+// --- Public Methods
+
+- (SPSelfDescribingJson *) getPayload{
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+
+    // set event
+    [event setObject:(_all ? @YES: @NO) forKey:KSPCwAll];
+
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentWithdrawnSchema andData:event];
+}
+
+- (NSArray *) getDocuments {
+    // returns the result of appending document passed through {docId, version, name, description} builder arguments to _documents
+    NSMutableArray * documents = [[NSMutableArray alloc] init];
+    SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
+        if (_documentId != nil) {
+            [builder setDocumentId:_documentId];
+        }
+        if (_version != nil) {
+            [builder setVersion:_version];
+        }
+        if ([_name length] != 0) {
+            [builder setName:_name];
+        }
+        if ([_description length] != 0) {
+            [builder setDescription:_description];
+        }
+    }];
+    [documents addObject:[document getPayload]];
+    return documents;
+}
+
+@end
+
+// Consent Document Event
+
+@implementation SPConsentDocument {
+    NSString * _documentId;
+    NSString * _version;
+    NSString * _name;
+    NSString * _description;
+}
+
++ (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock {
+    SPConsentDocument* event = [SPConsentDocument new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
+    [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setDocumentId:(NSString *)dId {
+    _documentId = dId;
+}
+
+- (void) setVersion:(NSString *)version {
+    _version = version;
+}
+
+- (void) setName:(NSString *)name {
+    _name = name;
+}
+
+- (void) setDescription:(NSString *)description {
+    _description = description;
+}
+
+// --- Public Methods
+
+- (SPSelfDescribingJson *) getPayload {
+
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+    [event setObject:_documentId forKey:kSPCdId];
+    [event setObject:_version forKey:kSPCdVersion];
+    if ([_name length] != 0) {
+        [event setObject:_name forKey:kSPCdName];
+    }
+    if ([_description length] != 0) {
+        [event setObject:_description forKey:KSPCdDescription];
+    }
+
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentDocumentSchema
+                                                andData:event];
+}
+
+@end
+
+// ConsentGranted Event
+
+@implementation SPConsentGranted {
+    NSString * _documentId;
+    NSString * _version;
+    NSString * _name;
+    NSString * _description;
+    NSString * _expiry;
+    NSArray * _documents;
+}
+
++ (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock {
+    SPConsentGranted* event = [SPConsentGranted new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
+    [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setDocumentId:(NSString *)dId {
+    _documentId = dId;
+}
+
+- (void) setVersion:(NSString *)version {
+    _version = version;
+}
+
+- (void) setName:(NSString *)name {
+    _name = name;
+}
+
+- (void) setDescription:(NSString *)description {
+    _description = description;
+}
+
+- (void) setExpiry:(NSString *)expiry {
+    _expiry = expiry;
+}
+
+- (void) setDocuments:(NSArray *)documents {
+    for (NSObject * sdj in documents) {
+        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
+                       withMessage:@"All documents must be SelfDescribingJson objects."];
+    }
+    _documents = documents;
+}
+
+// --- Public Methods
+
+- (SPSelfDescribingJson *) getPayload{
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+    if ([_expiry length] != 0) {
+        [event setObject:_expiry forKey:KSPCgExpiry];
+    }
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentGrantedSchema
+                                                andData:event];
+}
+
+- (NSArray *) getDocuments {
+    // returns the result of appending document passed through {docId, version, name, description} to the documents data member
+    NSMutableArray * documents = [[NSMutableArray alloc] init];
+    SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
+        [builder setDocumentId:_documentId];
+        [builder setVersion:_version];
+        if ([_name length] != 0) {
+            [builder setName:_name];
+        }
+        if ([_description length] != 0) {
+            [builder setDescription:_description];
+        }
+    }];
+    [documents addObject:[document getPayload]];
+    return documents;
 }
 
 @end
@@ -356,7 +602,7 @@
     if (_label != nil) {
         [event setObject:_label forKey:kSPUtLabel];
     }
-    
+
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPUserTimingsSchema
                                                 andData:event];
 }
@@ -537,6 +783,194 @@
     [pb addValueToPayload:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
     [pb addValueToPayload:_currency forKey:kSPEcommItemCurrency];
     return [self addDefaultParamsToPayload:pb];
+}
+
+@end
+
+// Push Notification Content
+
+@implementation SPNotificationContent {
+    NSString * _title;
+    NSString * _subtitle;
+    NSString * _body;
+    NSNumber * _badge;
+    NSString * _sound;
+    NSString * _launchImageName;
+    NSDictionary * _userInfo;
+    NSArray * _attachments;
+}
+
++ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock {
+    SPNotificationContent* event = [SPNotificationContent new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_title length] != 0) withMessage:@"Title cannot be nil or empty."];
+    [SPUtilities checkArgument:([_body length] != 0) withMessage:@"Body cannot be nil or empty."];
+    [SPUtilities checkArgument:(_badge != nil) withMessage:@"Badge cannot be nil."];
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setTitle:(NSString *)title {
+    _title = title;
+}
+
+- (void) setSubtitle:(NSString *)subtitle {
+    _subtitle = subtitle;
+}
+
+- (void) setBody:(NSString *)body {
+    _body = body;
+}
+
+- (void) setBadge:(NSNumber *)badge {
+    _badge = badge;
+}
+
+- (void) setSound:(NSString *)sound {
+    _sound = sound;
+}
+
+- (void) setLaunchImageName:(NSString *)name {
+    _launchImageName = name;
+}
+
+- (void) setUserInfo:(NSDictionary *)userInfo {
+    _userInfo = [SPUtilities replaceHyphenatedKeysWithCamelcase:userInfo];
+}
+
+- (void) setAttachments:(NSArray *)attachments {
+    _attachments = attachments;
+}
+
+// --- Public Methods
+
+- (NSDictionary *) getPayload {
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+    [event setObject:_title forKey:kSPPnTitle];
+    [event setObject:_body forKey:kSPPnBody];
+    [event setValue:_badge forKey:kSPPnBadge];
+    if (_subtitle != nil) {
+        [event setObject:_subtitle forKey:kSPPnSubtitle];
+    }
+    if (_subtitle != nil) {
+        [event setObject:_subtitle forKey:kSPPnSubtitle];
+    }
+    if (_sound != nil) {
+        [event setObject:_sound forKey:kSPPnSound];
+    }
+    if (_launchImageName != nil) {
+        [event setObject:_launchImageName forKey:kSPPnLaunchImageName];
+    }
+    if (_userInfo != nil) {
+        NSMutableDictionary * aps = nil;
+        NSMutableDictionary * newUserInfo = nil;
+
+        // modify contentAvailable value "1" and "0" to @YES and @NO to comply with schema
+        if (![[_userInfo valueForKeyPath:@"aps.contentAvailable"] isEqual:nil] &&
+            [[_userInfo objectForKey:@"aps"] isKindOfClass:[NSDictionary class]]) {
+            aps = [[NSMutableDictionary alloc] initWithDictionary:_userInfo[@"aps"]];
+
+            if ([[_userInfo valueForKeyPath:@"aps.contentAvailable"] isEqual:@1]) {
+                [aps setObject:@YES forKey:@"contentAvailable"];
+            } else if ([[_userInfo valueForKeyPath:@"aps.contentAvailable"] isEqual:@0]) {
+                [aps setObject:@NO forKey:@"contentAvailable"];
+            }
+            newUserInfo = [[NSMutableDictionary alloc] initWithDictionary:_userInfo];
+            [newUserInfo setObject:aps forKey:@"aps"];
+        }
+        [event setObject:[[NSDictionary alloc] initWithDictionary:newUserInfo] forKey:kSPPnUserInfo];
+    }
+    if (_attachments != nil) {
+        [event setObject:_attachments forKey:kSPPnAttachments];
+    }
+
+    return [[NSDictionary alloc] initWithDictionary:event copyItems:YES];
+}
+
+@end
+
+// Push Notification Event
+
+@implementation SPPushNotification {
+    NSString * _action;
+    NSString * _trigger;
+    NSString * _date;
+    NSString * _category;
+    NSString * _thread;
+    SPNotificationContent * _notification;
+}
+
++ (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock {
+    SPPushNotification* event = [SPPushNotification new];
+    if (buildBlock) { buildBlock(event); }
+    [event preconditions];
+    return event;
+}
+
+- (id) init {
+    self = [super init];
+    return self;
+}
+
+- (void) preconditions {
+    [SPUtilities checkArgument:([_date length] != 0) withMessage:@"Delivery date cannot be nil or empty."];
+    [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
+    [SPUtilities checkArgument:([_trigger length] != 0) withMessage:@"Trigger cannot be nil or empty."];
+    [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
+    [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
+    [SPUtilities checkArgument:(_notification != nil) withMessage:@"Notification cannot be nil."];
+    [self basePreconditions];
+}
+
+// --- Builder Methods
+
+- (void) setAction:(NSString *)action {
+    _action = action;
+}
+
+- (void) setDeliveryDate:(NSString *)date {
+    _date = date;
+}
+
+- (void) setTrigger:(NSString *)trigger {
+    _trigger = trigger;
+}
+
+- (void) setCategoryIdentifier:(NSString *)category {
+    _category = category;
+}
+
+- (void) setThreadIdentifier:(NSString *)thread {
+    _thread = thread;
+}
+
+- (void) setNotification:(SPNotificationContent *)content {
+    _notification = content;
+}
+
+// --- Public Methods
+
+- (SPSelfDescribingJson *) getPayload {
+    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+
+    [event setObject:[_notification getPayload] forKey:kSPPushNotification];
+    [event setObject:_trigger forKey:kSPPushTrigger];
+    [event setObject:_action forKey:kSPPushAction];
+    [event setObject:_date forKey:kSPPushDeliveryDate];
+    [event setObject:_category forKey:kSPPushCategoryId];
+    [event setObject:_thread forKey:kSPPushThreadId];
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPPushNotificationSchema andData:event];
 }
 
 @end
