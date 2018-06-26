@@ -922,6 +922,7 @@
 			baseConfigurationReference = 12A60D7497F52746347837AE /* Pods-Snowplow.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				DSTROOT = /tmp/Snowplow.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
@@ -952,6 +953,7 @@
 			baseConfigurationReference = 37A423DE6135420B7C94F1C5 /* Pods-Snowplow.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				DSTROOT = /tmp/Snowplow.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
