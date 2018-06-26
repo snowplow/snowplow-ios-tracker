@@ -96,13 +96,18 @@ NSString * const kSessionSavePath = @"session.dict";
 // --- Public
 
 - (void) startChecker {
+    __weak __typeof__(self) weakSelf = self;
+    
     if (_sessionTimer != nil) {
         [self stopChecker];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        _sessionTimer = [NSTimer scheduledTimerWithTimeInterval:_checkInterval
-                                                         target:[[SPWeakTimerTarget alloc] initWithTarget:self andSelector:@selector(checkSession:)]
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
+        strongSelf->_sessionTimer = [NSTimer scheduledTimerWithTimeInterval:strongSelf->_checkInterval
+                                                         target:[[SPWeakTimerTarget alloc] initWithTarget:strongSelf andSelector:@selector(checkSession:)]
                                                        selector:@selector(timerFired:)
                                                        userInfo:nil
                                                         repeats:YES];
@@ -187,21 +192,26 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void) checkSession:(NSTimer *)timer {
+    __weak __typeof__(self) weakSelf = self;
+    
     dispatch_async(_sessionQueue, ^{
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
         NSNumber *checkTime = [SPUtilities getTimestamp];
         NSInteger range = 0;
         
-        if (_inBackground) {
-            range = _backgroundTimeout;
+        if (strongSelf->_inBackground) {
+            range = strongSelf->_backgroundTimeout;
         } else {
-            range = _foregroundTimeout;
+            range = strongSelf->_foregroundTimeout;
         }
         
-        if (![self isTimeInRangeWithStartTime:_accessedLast.longLongValue andCheckTime:checkTime.longLongValue andRange:range]) {
-            [self updateSession];
-            [self updateAccessedLast];
-            [self updateSessionDict];
-            [self writeSessionToFile];
+        if (![strongSelf isTimeInRangeWithStartTime:strongSelf->_accessedLast.longLongValue andCheckTime:checkTime.longLongValue andRange:range]) {
+            [strongSelf updateSession];
+            [strongSelf updateAccessedLast];
+            [strongSelf updateSessionDict];
+            [strongSelf writeSessionToFile];
         }
     });
 }

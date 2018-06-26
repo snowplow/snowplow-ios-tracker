@@ -152,9 +152,14 @@ const NSInteger POST_STM_BYTES = 22;
 // Builder Finished
 
 - (void) addPayloadToBuffer:(SPPayload *)spPayload {
+    __weak __typeof__(self) weakSelf = self;
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [_db insertEvent:spPayload];
-        [self flushBuffer];
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
+        [strongSelf->_db insertEvent:spPayload];
+        [strongSelf flushBuffer];
     });
 }
 
@@ -333,10 +338,15 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) processSuccessesWithResults:(NSArray *)indexArray {
+    __weak __typeof__(self) weakSelf = self;
+    
     [_dataOperationQueue addOperationWithBlock:^{
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
         for (int i = 0; i < indexArray.count;  i++) {
             SnowplowDLog(@"SPLog: Removing event at index: %@", [@(i) stringValue]);
-            [_db removeEventWithId:[[indexArray objectAtIndex:i] longLongValue]];
+            [strongSelf->_db removeEventWithId:[[indexArray objectAtIndex:i] longLongValue]];
         }
     }];
 }
@@ -369,13 +379,18 @@ const NSInteger POST_STM_BYTES = 22;
 // Extra functions
 
 - (void) startTimerFlush {
+    __weak __typeof__(self) weakSelf = self;
+    
     if (_timer != nil) {
         [self stopTimerFlush];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        _timer = [NSTimer scheduledTimerWithTimeInterval:kSPDefaultBufferTimeout
-                                                  target:[[SPWeakTimerTarget alloc] initWithTarget:self andSelector:@selector(flushBuffer)]
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
+        strongSelf->_timer = [NSTimer scheduledTimerWithTimeInterval:kSPDefaultBufferTimeout
+                                                  target:[[SPWeakTimerTarget alloc] initWithTarget:strongSelf andSelector:@selector(flushBuffer)]
                                                 selector:@selector(timerFired:)
                                                 userInfo:nil
                                                  repeats:YES];

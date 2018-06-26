@@ -370,20 +370,25 @@
 }
 
 - (NSArray *) getDocuments {
+    __weak __typeof__(self) weakSelf = self;
+    
     // returns the result of appending document passed through {docId, version, name, description} builder arguments to _documents
     NSMutableArray * documents = [[NSMutableArray alloc] init];
     SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        if (_documentId != nil) {
-            [builder setDocumentId:_documentId];
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
+        if (strongSelf->_documentId != nil) {
+            [builder setDocumentId:strongSelf->_documentId];
         }
-        if (_version != nil) {
-            [builder setVersion:_version];
+        if (strongSelf->_version != nil) {
+            [builder setVersion:strongSelf->_version];
         }
-        if ([_name length] != 0) {
-            [builder setName:_name];
+        if ([strongSelf->_name length] != 0) {
+            [builder setName:strongSelf->_name];
         }
-        if ([_description length] != 0) {
-            [builder setDescription:_description];
+        if ([strongSelf->_description length] != 0) {
+            [builder setDescription:strongSelf->_description];
         }
     }];
     [documents addObject:[document getPayload]];
@@ -528,16 +533,21 @@
 }
 
 - (NSArray *) getDocuments {
+    __weak __typeof__(self) weakSelf = self;
+    
     // returns the result of appending document passed through {docId, version, name, description} to the documents data member
     NSMutableArray * documents = [[NSMutableArray alloc] init];
     SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        [builder setDocumentId:_documentId];
-        [builder setVersion:_version];
-        if ([_name length] != 0) {
-            [builder setName:_name];
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
+        [builder setDocumentId:strongSelf->_documentId];
+        [builder setVersion:strongSelf->_version];
+        if ([strongSelf->_name length] != 0) {
+            [builder setName:strongSelf->_name];
         }
-        if ([_description length] != 0) {
-            [builder setDescription:_description];
+        if ([strongSelf->_description length] != 0) {
+            [builder setDescription:strongSelf->_description];
         }
     }];
     [documents addObject:[document getPayload]];
