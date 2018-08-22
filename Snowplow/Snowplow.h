@@ -79,6 +79,7 @@ extern NSString * const kSPConsentWithdrawnSchema;
 extern NSString * const kSPConsentDocumentSchema;
 extern NSString * const kSPConsentGrantedSchema;
 extern NSString * const kSPPushNotificationSchema;
+extern NSString * const kSPApplicationContextSchema;
 
 // --- Event Keys
 
@@ -133,6 +134,10 @@ extern NSString * const kSPMobileAppleIdfa;
 extern NSString * const kSPMobileAppleIdfv;
 extern NSString * const kSPMobileNetworkType;
 extern NSString * const kSPMobileNetworkTech;
+
+// --- Application Context
+extern NSString * const kSPApplicationVersion;
+extern NSString * const kSPApplicationBuild;
 
 // --- Session Context
 
