@@ -48,6 +48,7 @@
 - (void) setForegroundTimeout:(NSInteger)foregroundTimeout;
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;
 - (void) setCheckInterval:(NSInteger)checkInterval;
+- (void) setApplicationContext:(BOOL)applicationContext;
 
 @end
 

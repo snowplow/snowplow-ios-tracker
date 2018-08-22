@@ -60,6 +60,7 @@ NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";
 NSString * const kSPConsentWithdrawnSchema = @"iglu:com.snowplowanalytics.snowplow/consent_withdrawn/jsonschema/1-0-0";
 NSString * const kSPPushNotificationSchema = @"iglu:com.apple/notification_event/jsonschema/1-0-0";
+NSString * const kSPApplicationContextSchema = @"iglu:com.snowplowanalytics.mobile/application/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -114,6 +115,11 @@ NSString * const kSPMobileAppleIdfa       = @"appleIdfa";
 NSString * const kSPMobileAppleIdfv       = @"appleIdfv";
 NSString * const kSPMobileNetworkType     = @"networkType";
 NSString * const kSPMobileNetworkTech     = @"networkTechnology";
+
+// --- Application Context
+
+NSString * const kSPApplicationVersion    = @"version";
+NSString * const kSPApplicationBuild      = @"build";
 
 // --- Session Context
 

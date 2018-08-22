@@ -46,6 +46,7 @@
     BOOL                   _dataCollection;
     SPSession *            _session;
     BOOL                   _sessionContext;
+    BOOL                   _applicationContext;
     NSInteger              _foregroundTimeout;
     NSInteger              _backgroundTimeout;
     NSInteger              _checkInterval;
@@ -71,6 +72,7 @@
         _base64Encoded = YES;
         _dataCollection = YES;
         _sessionContext = NO;
+        _applicationContext = NO;
         _foregroundTimeout = 600;
         _backgroundTimeout = 300;
         _checkInterval = 15;
@@ -92,6 +94,7 @@
     if (_sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
     }
+
     _builderFinished = YES;
 }
 
@@ -140,6 +143,10 @@
     } else if (_builderFinished && _session == nil && sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
     }
+}
+
+- (void) setApplicationContext:(BOOL)applicationContext {
+    _applicationContext = applicationContext;
 }
 
 - (void) setForegroundTimeout:(NSInteger)foregroundTimeout {
@@ -193,6 +200,15 @@
 
 - (NSString*) getSessionUserId {
     return [_session getUserId];
+}
+
+- (SPPayload*) getApplicationInfo {
+    SPPayload * applicationInfo = [[SPPayload alloc] init];
+    NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+    [applicationInfo addValueToPayload:kSPApplicationBuild forKey:build];
+    [applicationInfo addValueToPayload:kSPApplicationVersion forKey:version];
+    return applicationInfo;
 }
 
 // Event Tracking Functions
@@ -339,6 +355,13 @@
         NSDictionary * geoLocationDict = [_subject getGeoLocationDict];
         if (geoLocationDict != nil) {
             [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:geoLocationDict]];
+        }
+    }
+
+    if (_applicationContext) {
+        NSDictionary * applicationDict = [[self getApplicationInfo] getAsDictionary];
+        if (applicationDict != nil) {
+            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationContextSchema andData:applicationDict]];
         }
     }
 
