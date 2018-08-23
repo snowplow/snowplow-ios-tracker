@@ -24,6 +24,8 @@
 #import "SPSession.h"
 #import "SPUtilities.h"
 #import "SPWeakTimerTarget.h"
+#import "SPTracker.h"
+#import "SPEvent.h"
 
 #if SNOWPLOW_TARGET_IOS
 #import <UIKit/UIKit.h>
@@ -44,15 +46,22 @@
     NSTimer *   _sessionTimer;
     NSDictionary * _sessionDict;
     dispatch_queue_t _sessionQueue;
+    NSInteger   _foregroundIndex;
+    NSInteger   _backgroundIndex;
+    SPTracker * _tracker;
 }
 
 NSString * const kSessionSavePath = @"session.dict";
 
 - (id) init {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15];
+    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15 andTracker:nil];
 }
 
 - (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval {
+    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15 andTracker:nil];
+}
+
+- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval andTracker:(SPTracker *)tracker{
     self = [super init];
     if (self) {
         _sessionQueue = dispatch_queue_create("com.snowplow.sessionUpdates", DISPATCH_QUEUE_SERIAL);
@@ -61,6 +70,7 @@ NSString * const kSessionSavePath = @"session.dict";
         _checkInterval = checkInterval;
         _inBackground = NO;
         _sessionStorage = @"SQLITE";
+        _tracker = tracker;
 
         NSDictionary * maybeSessionDict = [self getSessionFromFile];
         if (maybeSessionDict == nil) {
@@ -77,16 +87,16 @@ NSString * const kSessionSavePath = @"session.dict";
         [self updateSessionDict];
         [self writeSessionToFile];
         [self startChecker];
-        
+
         // Trigger notification for view changes
         #if SNOWPLOW_TARGET_IOS
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(updateInBackground)
-                                                     name:UIApplicationDidEnterBackgroundNotification
+                                                     name:UIApplicationWillResignActiveNotification
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(updateInForeground)
-                                                     name:UIApplicationWillEnterForegroundNotification
+                                                     name:UIApplicationDidBecomeActiveNotification
                                                    object:nil];
         #endif
     }
@@ -159,6 +169,18 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (NSString *)getUserId {
     return _userId;
+}
+
+- (NSInteger) getBackgroundIndex {
+    return _backgroundIndex;
+}
+
+- (NSInteger) getForegroundIndex {
+    return _foregroundIndex;
+}
+
+- (SPTracker *) getTracker {
+    return _tracker;
 }
 
 // --- Private
@@ -240,15 +262,47 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void) updateInBackground {
-    _inBackground = YES;
+    if (!_inBackground) {
+        _backgroundIndex += 1;
+        _inBackground = YES;
+        if ([_tracker getLifecycleEvents]) {
+            [self sendBackgroundEvent];
+        }
+    }
 }
 
 - (void) updateInForeground {
-    _inBackground = NO;
+    if (_inBackground) {
+        _foregroundIndex += 1;
+        _inBackground = NO;
+        if ([_tracker getLifecycleEvents]) {
+            [self sendForegroundEvent];
+        }
+    }
+}
+
+- (void) sendBackgroundEvent {
+    if (_tracker) {
+        SPBackground * backgroundEvent = [SPBackground build:^(id<SPBackgroundBuilder> builder) {
+            [builder setIndex:[NSNumber numberWithInteger:_backgroundIndex]];
+        }];
+        [_tracker trackBackgroundEvent:backgroundEvent];
+    }
+}
+
+- (void) sendForegroundEvent {
+    if (_tracker) {
+        SPForeground * foregroundEvent = [SPForeground build:^(id<SPForegroundBuilder> builder) {
+            [builder setIndex:[NSNumber numberWithInteger:_foregroundIndex]];
+        }];
+        [_tracker trackForegroundEvent:foregroundEvent];
+    }
 }
 
 - (void) dealloc {
+    #if SNOWPLOW_TARGET_IOS
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    #endif
     [_sessionTimer invalidate];
     _sessionTimer = nil;
 }

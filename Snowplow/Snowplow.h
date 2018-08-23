@@ -80,6 +80,8 @@ extern NSString * const kSPConsentDocumentSchema;
 extern NSString * const kSPConsentGrantedSchema;
 extern NSString * const kSPPushNotificationSchema;
 extern NSString * const kSPApplicationContextSchema;
+extern NSString * const kSPBackgroundSchema;
+extern NSString * const kSPForegroundSchema;
 
 // --- Event Keys
 
@@ -238,5 +240,13 @@ extern NSString * const kSPPnAttachments;
 extern NSString * const kSPPnAttachmentId;
 extern NSString * const kSPPnAttachmentUrl;
 extern NSString * const kSPPnAttachmentType;
+
+// --- Background Event
+
+extern NSString * const kSPBackgroundIndex;
+
+// --- Foreground Event
+
+extern NSString * const kSPForegroundIndex;
 
 @end

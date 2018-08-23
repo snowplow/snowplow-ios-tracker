@@ -132,6 +132,14 @@
 - (void) setNotification:(SPNotificationContent *)content;
 @end
 
+@protocol SPForegroundBuilder <SPEventBuilder>
+- (void) setIndex:(NSNumber *)index;
+@end
+
+@protocol SPBackgroundBuilder <SPEventBuilder>
+- (void) setIndex:(NSNumber *)index;
+@end
+
 // Base Event
 
 @interface SPEvent : NSObject <SPEventBuilder>
@@ -212,7 +220,6 @@
 - (NSArray *) getItems;
 @end
 
-
 // Ecommerce Item Event
 
 @interface SPEcommerceItem : SPEvent <SPEcommTransactionItemBuilder>
@@ -231,5 +238,19 @@
 
 @interface SPPushNotification : SPEvent <SPPushNotificationBuilder>
 + (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
+@end
+
+// Foreground Event
+
+@interface SPForeground : SPEvent <SPForegroundBuilder>
++ (instancetype) build:(void(^)(id<SPForegroundBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
+@end
+
+// Background Event
+
+@interface SPBackground : SPEvent <SPBackgroundBuilder>
++ (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload;
 @end
