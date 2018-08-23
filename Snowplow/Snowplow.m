@@ -61,6 +61,8 @@ NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow
 NSString * const kSPConsentWithdrawnSchema = @"iglu:com.snowplowanalytics.snowplow/consent_withdrawn/jsonschema/1-0-0";
 NSString * const kSPPushNotificationSchema = @"iglu:com.apple/notification_event/jsonschema/1-0-0";
 NSString * const kSPApplicationContextSchema = @"iglu:com.snowplowanalytics.mobile/application/jsonschema/1-0-0";
+NSString * const kSPForegroundSchema = @"iglu:com.snowplowanalytics.snowplow/application_foreground/jsonschema/1-0-0";
+NSString * const kSPBackgroundSchema = @"iglu:com.snowplowanalytics.snowplow/application_background/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -220,5 +222,13 @@ NSString * const kSPPnAttachments         = @"attachments";
 NSString * const kSPPnAttachmentId        = @"identifier";
 NSString * const kSPPnAttachmentUrl       = @"url";
 NSString * const kSPPnAttachmentType      = @"type";
+
+// --- Foreground Event
+
+NSString * const kSPBackgroundIndex       = @"backgroundIndex";
+
+// --- Background Event
+
+NSString * const kSPForegroundIndex       = @"foregroundIndex";
 
 @end

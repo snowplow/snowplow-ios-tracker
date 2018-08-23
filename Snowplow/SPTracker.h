@@ -36,6 +36,8 @@
 @class SPConsentWithdrawn;
 @class SPConsentGranted;
 @class SPPushNotification;
+@class SPForeground;
+@class SPBackground;
 
 @protocol SPTrackerBuilder <NSObject>
 
@@ -49,6 +51,7 @@
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;
 - (void) setCheckInterval:(NSInteger)checkInterval;
 - (void) setApplicationContext:(BOOL)applicationContext;
+- (void) setLifecycleEvents:(BOOL)lifecycleEvents;
 
 @end
 
@@ -106,6 +109,12 @@
 - (NSString*) getSessionUserId;
 
 /**
+ * Returns whether lifecycle events are tracked.
+ * @return the truth of lifecycle events tracking.
+ */
+- (BOOL) getLifecycleEvents;
+
+/**
  * Constructs the final event payload that is sent to the emitter.
  * NOTE: This function is only used for testing purposes; should never be called in production.
  *
@@ -152,7 +161,6 @@
 - (void) trackEcommerceEvent:(SPEcommerce *)event;
 
 /**
-<<<<<<< HEAD
  * Tracks a Consent Withdrawn Event object.
  */
 - (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event;
@@ -166,5 +174,15 @@
  * Tracks an Open Push Notification object.
  */
 - (void) trackPushNotificationEvent:(SPPushNotification *)event;
+
+/**
+ * Tracks a Foreground Event object.
+ */
+- (void) trackForegroundEvent:(SPForeground *)event;
+
+/**
+ * Tracks a Background Event object.
+ */
+- (void) trackBackgroundEvent:(SPBackground *)event;
 
 @end

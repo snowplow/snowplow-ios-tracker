@@ -3,13 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		007E769D8A0C72184D202B0DBE40907F /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 6926F99971A36669D90BF039C8ECF6CD /* SPTracker.m */; };
-		10C4B6D4344D9C27AFE9522E6EC17535 /* SPEvent_BACKUP_25650.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CF4CC54533A4C952630CAF32738B47E /* SPEvent_BACKUP_25650.m */; };
-		1AC1E804526105CD6660C557F9676461 /* SPEvent_REMOTE_25650.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FC60B8AB9DE3DDE03E2FD1B4875F97E /* SPEvent_REMOTE_25650.m */; };
 		1C37CDBF71D6906DAFFBD4CA40354650 /* Pods-SnowplowSwiftDemoUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A9797AAB54775FC9EE31598180DBC34 /* Pods-SnowplowSwiftDemoUITests-dummy.m */; };
 		22554065FA07F1BFE5308A685394CB12 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 61AD02C5CCB2ED421F7FB5B0799F2F58 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		24C441B6D7690B1E3E05F3B72E78C1D0 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = D18B774CA0353BEBC75C99CC73D5B6DA /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -52,7 +50,6 @@
 		B03449621852F2EE83EDFDB37F2C93A7 /* SPEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 4258E61EB1134A2628513CD7398C2EE7 /* SPEmitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B1F4B5E7ECDC9C61CB56B7CF3B31E218 /* SPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = A56AA34999EC7A8D81BAD7A832D03C5B /* SPSession.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		B76121488B646F8FC0025E608ECFE923 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33494453EFEAAB9E414C5EF78AF2F9DB /* Foundation.framework */; };
-		BD80EE17631EDF39F2A9D9AFBB033C13 /* SPEvent_LOCAL_25650.m in Sources */ = {isa = PBXBuildFile; fileRef = A8D32DC3157E9747F570E43D106007A2 /* SPEvent_LOCAL_25650.m */; };
 		BF5455BAF35472DEEC56F5C97559FED4 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0831ABE2C2B277E67DA356CE4E408B6C /* SPRequestResponse.m */; };
 		C60515674641E5205308B41BBEC2BD93 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = F6D7DAEB42407EEF2EC2C011BAF92D52 /* SPSession.m */; };
 		C605A44DF96E7FCACF7D6E37B62F795D /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = BDA75E95BE3A225490CAFD27B319B20F /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
@@ -72,13 +69,11 @@
 		EB97516DAE243DEBAFF37488C814BD52 /* SPPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 31AA76EA52B99CCF36B554ECBC2F2715 /* SPPayload.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EBE14C373D7897ADD4C618340AE3CA52 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33494453EFEAAB9E414C5EF78AF2F9DB /* Foundation.framework */; };
 		ED2FA3192E5C44985E07DEBE1F8D2EC5 /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA6F5191EBA217242E6A184BB09EDA /* SPEmitter.m */; };
-		F0FCC410C3BA53D563003DE9EE7849EB /* SPEvent_BASE_25650.m in Sources */ = {isa = PBXBuildFile; fileRef = FECC32B6687F775E71139B2BC4CA52F6 /* SPEvent_BASE_25650.m */; };
 		F11FAB91014130EE233A3429439D38D7 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2BB2209FA578B65B3F5BE1CE80FC5293 /* FMDatabase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F232D9E96B1819527ECAC1D0DF19E035 /* SnowplowTracker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AD70572AC4E49894B33CBB2D1D4CA945 /* SnowplowTracker-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F374165C9DA576ED42BFE967FA3B903D /* SPTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = D711F332CF1AEB63511B8494BA082138 /* SPTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F44365D71F14050F48E6432C541C4022 /* SwiftTryCatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 11262BFCF169032CEC90131D0BE6D33D /* SwiftTryCatch.m */; };
 		F4F4E89DDAE8C2CBDD43851ADEF8A856 /* Reachability-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F38BC40945DE380E649EC2F019B25B6B /* Reachability-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		FF6D1B4E744FA92C9489607FDE73E521 /* SnowplowTracker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C034F8CA8B5B5BF112719ED2DB03DF2 /* SnowplowTracker-dummy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -134,14 +129,14 @@
 		061A372FF24067ADCFF5A86AC0F531E3 /* SPUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPUtilities.m; path = Snowplow/SPUtilities.m; sourceTree = "<group>"; };
 		06FA86D50BA58970E9C9BF3A12D507B8 /* Pods-SnowplowSwiftDemoTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowSwiftDemoTests-frameworks.sh"; sourceTree = "<group>"; };
 		0831ABE2C2B277E67DA356CE4E408B6C /* SPRequestResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPRequestResponse.m; path = Snowplow/SPRequestResponse.m; sourceTree = "<group>"; };
-		09789C8933BB3DAD62FECD3F760820E1 /* Reachability.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = Reachability.modulemap; sourceTree = "<group>"; };
+		09789C8933BB3DAD62FECD3F760820E1 /* Reachability.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = Reachability.modulemap; sourceTree = "<group>"; };
 		0C0BDD2A7830601C8335A900ACF6E093 /* SPEventStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEventStore.h; path = Snowplow/SPEventStore.h; sourceTree = "<group>"; };
 		0ED79B1BBDE625EDB88D89568202D121 /* Pods-SnowplowSwiftDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SnowplowSwiftDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
 		0F9E58A7FBF4616DE2F70821E75E8011 /* Reachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		11262BFCF169032CEC90131D0BE6D33D /* SwiftTryCatch.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = SwiftTryCatch.m; sourceTree = "<group>"; };
 		125775C78E747E0E3AFC11257C119B41 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1647ACC277B033EB234A3F3BB4DFA076 /* Pods-SnowplowSwiftDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SnowplowSwiftDemo.modulemap"; sourceTree = "<group>"; };
-		1F63FDB513052873E41DA4A223B94696 /* SwiftTryCatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SwiftTryCatch.framework; path = SwiftTryCatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1647ACC277B033EB234A3F3BB4DFA076 /* Pods-SnowplowSwiftDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SnowplowSwiftDemo.modulemap"; sourceTree = "<group>"; };
+		1F63FDB513052873E41DA4A223B94696 /* SwiftTryCatch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftTryCatch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F73B2EEFCBC117C3A44E84659E0ACA3 /* SPUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUtilities.h; path = Snowplow/SPUtilities.h; sourceTree = "<group>"; };
 		236F3BB41101929D572DA4949EBC8091 /* Pods-SnowplowSwiftDemoUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowSwiftDemoUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		26BE55BECAC37B385E60DFCA91413C49 /* Pods-SnowplowSwiftDemoUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowSwiftDemoUITests-resources.sh"; sourceTree = "<group>"; };
@@ -153,19 +148,18 @@
 		31AA76EA52B99CCF36B554ECBC2F2715 /* SPPayload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPPayload.h; path = Snowplow/SPPayload.h; sourceTree = "<group>"; };
 		31ACC849030A2983CAE85A6104038E51 /* Snowplow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Snowplow.h; path = Snowplow/Snowplow.h; sourceTree = "<group>"; };
 		33494453EFEAAB9E414C5EF78AF2F9DB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		347326C1AD081DD6B73EE428A98A97C5 /* SnowplowTracker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SnowplowTracker.modulemap; sourceTree = "<group>"; };
+		347326C1AD081DD6B73EE428A98A97C5 /* SnowplowTracker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SnowplowTracker.modulemap; sourceTree = "<group>"; };
 		34AD18BCA68A0E40029B67600AE14500 /* Snowplow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Snowplow.m; path = Snowplow/Snowplow.m; sourceTree = "<group>"; };
 		3537166E9F5F86E26DFBC58AEBC5136F /* OpenIDFA.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OpenIDFA.m; path = Snowplow/OpenIDFA.m; sourceTree = "<group>"; };
 		365B9242B8C5F100394406EED519622A /* Reachability.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Reachability.xcconfig; sourceTree = "<group>"; };
 		3E55765AEFD1EBB3C98B251AF3BB61D4 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
 		3F4F04FF870CCA6EF4CAA735D8672C91 /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
-		3FC60B8AB9DE3DDE03E2FD1B4875F97E /* SPEvent_REMOTE_25650.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEvent_REMOTE_25650.m; path = Snowplow/SPEvent_REMOTE_25650.m; sourceTree = "<group>"; };
-		41FE4DB6E3E7F7A51866EAEF687FAAAA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Reachability.framework; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		41FE4DB6E3E7F7A51866EAEF687FAAAA /* Reachability.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reachability.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4258E61EB1134A2628513CD7398C2EE7 /* SPEmitter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEmitter.h; path = Snowplow/SPEmitter.h; sourceTree = "<group>"; };
 		43DAE71912F14EFD164F4DF14DE04D6C /* SPRequestResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPRequestResponse.h; path = Snowplow/SPRequestResponse.h; sourceTree = "<group>"; };
 		44B8EDE61523191FD449362F4A3D2B81 /* Pods-SnowplowSwiftDemo-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowSwiftDemo-frameworks.sh"; sourceTree = "<group>"; };
-		482A47EDEC8B1959D61665FAFB1409FC /* Pods_SnowplowSwiftDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SnowplowSwiftDemoTests.framework; path = "Pods-SnowplowSwiftDemoTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4A8CD6BE055FB247F89E9B1B9479257B /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = FMDB.modulemap; sourceTree = "<group>"; };
+		482A47EDEC8B1959D61665FAFB1409FC /* Pods_SnowplowSwiftDemoTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnowplowSwiftDemoTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A8CD6BE055FB247F89E9B1B9479257B /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = FMDB.modulemap; sourceTree = "<group>"; };
 		524B72981C5152E5076A8A65CC7E8C1B /* Reachability-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Reachability-prefix.pch"; sourceTree = "<group>"; };
 		52543AAC78A8228FC496D62893DC4C71 /* SPSubject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPSubject.m; path = Snowplow/SPSubject.m; sourceTree = "<group>"; };
 		5829C35A9C053BF9A7FC808059FF0959 /* Pods-SnowplowSwiftDemoTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowSwiftDemoTests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -181,22 +175,21 @@
 		77C90F7918C5D2BADE4841020755DDAD /* Pods-SnowplowSwiftDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SnowplowSwiftDemo-umbrella.h"; sourceTree = "<group>"; };
 		7875004843A806B7B0C77C8068E3F90B /* FMDB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-umbrella.h"; sourceTree = "<group>"; };
 		7A9797AAB54775FC9EE31598180DBC34 /* Pods-SnowplowSwiftDemoUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SnowplowSwiftDemoUITests-dummy.m"; sourceTree = "<group>"; };
-		8519291E9C9EB679F5D76C52FAAFF292 /* Pods-SnowplowSwiftDemoTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SnowplowSwiftDemoTests.modulemap"; sourceTree = "<group>"; };
+		8519291E9C9EB679F5D76C52FAAFF292 /* Pods-SnowplowSwiftDemoTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SnowplowSwiftDemoTests.modulemap"; sourceTree = "<group>"; };
 		85AD0E5F71397F87D0547E513F63771D /* SPWeakTimerTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPWeakTimerTarget.h; path = Snowplow/SPWeakTimerTarget.h; sourceTree = "<group>"; };
 		85DCB39BCEC6CAC322C4D089EEAB5957 /* Pods-SnowplowSwiftDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowSwiftDemo-acknowledgements.plist"; sourceTree = "<group>"; };
 		88288C3DDBF9D0176AA54FFDAC33B645 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		894990CBA57E08F0FBA6068E00968BBC /* Pods-SnowplowSwiftDemoUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SnowplowSwiftDemoUITests.modulemap"; sourceTree = "<group>"; };
+		894990CBA57E08F0FBA6068E00968BBC /* Pods-SnowplowSwiftDemoUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SnowplowSwiftDemoUITests.modulemap"; sourceTree = "<group>"; };
 		8FADD0FCA01EB2781CB6107F19AFB309 /* Pods-SnowplowSwiftDemoUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SnowplowSwiftDemoUITests-frameworks.sh"; sourceTree = "<group>"; };
 		918EAEEFF005A8010CBFE7520BDFB171 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
 		91E35DF5880AD9AE18431043D8DB5C59 /* SnowplowTracker-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnowplowTracker-prefix.pch"; sourceTree = "<group>"; };
-		924D0199AE30DF87CCBFCED5D8BADD76 /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = FMDB.framework; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		94828221611518767FDB6D97F542CC81 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		977784C0F938D57995D617436BBEE30A /* SnowplowTracker.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = SnowplowTracker.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		999DB5A0F89B9A6D74FF0CF37EF05686 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		924D0199AE30DF87CCBFCED5D8BADD76 /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		94828221611518767FDB6D97F542CC81 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		977784C0F938D57995D617436BBEE30A /* SnowplowTracker.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = SnowplowTracker.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		999DB5A0F89B9A6D74FF0CF37EF05686 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9BA2E5ABA902A972F2CFDFB00C0A0AF9 /* SPSelfDescribingJson.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPSelfDescribingJson.h; path = Snowplow/SPSelfDescribingJson.h; sourceTree = "<group>"; };
 		9C034F8CA8B5B5BF112719ED2DB03DF2 /* SnowplowTracker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnowplowTracker-dummy.m"; sourceTree = "<group>"; };
-		9CF4CC54533A4C952630CAF32738B47E /* SPEvent_BACKUP_25650.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEvent_BACKUP_25650.m; path = Snowplow/SPEvent_BACKUP_25650.m; sourceTree = "<group>"; };
 		9D1A4F7DB06BDD1B06FE133AAA2346A9 /* Reachability-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Reachability-dummy.m"; sourceTree = "<group>"; };
 		9DE3D7E1ECF2945D391EC64422FB2C03 /* Pods-SnowplowSwiftDemoTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SnowplowSwiftDemoTests-dummy.m"; sourceTree = "<group>"; };
 		A3A38C9FE5CFDE6FA36C39152CB9ED52 /* Pods-SnowplowSwiftDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SnowplowSwiftDemo-dummy.m"; sourceTree = "<group>"; };
@@ -204,20 +197,19 @@
 		A5CA19474B8D0E4A67B7FD8208BF7726 /* Pods-SnowplowSwiftDemoUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SnowplowSwiftDemoUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		A73BF2C0440D8C81C3FF534AAB462EFD /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A75D536CB25D34ECEEF37FD52FF0D07B /* Pods-SnowplowSwiftDemoTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SnowplowSwiftDemoTests-umbrella.h"; sourceTree = "<group>"; };
-		A8D32DC3157E9747F570E43D106007A2 /* SPEvent_LOCAL_25650.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEvent_LOCAL_25650.m; path = Snowplow/SPEvent_LOCAL_25650.m; sourceTree = "<group>"; };
 		AA0D309F9DC1E3F9A6EF1945DD046AD3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC7F7A359CCEBA0CFD08D1407BB19D27 /* SwiftTryCatch-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SwiftTryCatch-dummy.m"; sourceTree = "<group>"; };
 		AD70572AC4E49894B33CBB2D1D4CA945 /* SnowplowTracker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnowplowTracker-umbrella.h"; sourceTree = "<group>"; };
-		AF9419472863AAED3ED1C334BDE32978 /* SwiftTryCatch.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SwiftTryCatch.modulemap; sourceTree = "<group>"; };
+		AF9419472863AAED3ED1C334BDE32978 /* SwiftTryCatch.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SwiftTryCatch.modulemap; sourceTree = "<group>"; };
 		B11185483F2C33995C71137199BF2316 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC080999D4E9CF3893041A77A6EC2477 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC181136E94ADE59B9AEF185EE1FB2DF /* SwiftTryCatch-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftTryCatch-umbrella.h"; sourceTree = "<group>"; };
 		BDA75E95BE3A225490CAFD27B319B20F /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
 		BE046B52BD0071047A8A46C624953FEE /* SPPayload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPPayload.m; path = Snowplow/SPPayload.m; sourceTree = "<group>"; };
 		BE559ADE1E9B37E04C1524D218D0726E /* SPEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEvent.h; path = Snowplow/SPEvent.h; sourceTree = "<group>"; };
-		BED6D3F17155872A76F900A1C8E42D1E /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SnowplowTracker.framework; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BED6D3F17155872A76F900A1C8E42D1E /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C045CA2CAE1768EDD98AB84D104C718A /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
-		C3BE449A3F9EE3349761ACDF54F94FC6 /* Pods_SnowplowSwiftDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SnowplowSwiftDemoUITests.framework; path = "Pods-SnowplowSwiftDemoUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3BE449A3F9EE3349761ACDF54F94FC6 /* Pods_SnowplowSwiftDemoUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnowplowSwiftDemoUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C659A06F8815196B6FE8A436AAEA4DA1 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
 		C8CEE08C4B8E70764703AB45329CB0B3 /* SnowplowTracker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnowplowTracker.xcconfig; sourceTree = "<group>"; };
 		CC07F7A45DDDD4C845F3B3102B9029F2 /* Pods-SnowplowSwiftDemoUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowSwiftDemoUITests-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -232,7 +224,7 @@
 		E48F39B6B7390603F777669E6C223109 /* SwiftTryCatch.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftTryCatch.xcconfig; sourceTree = "<group>"; };
 		E4E095396E68DA369FDADA38AD18CE23 /* Pods-SnowplowSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		EA1DFB22B519DB8B69B8E76AC6A7464F /* FMDB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FMDB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAA97F733C993CF782276DCD9E193B73 /* Pods_SnowplowSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SnowplowSwiftDemo.framework; path = "Pods-SnowplowSwiftDemo.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAA97F733C993CF782276DCD9E193B73 /* Pods_SnowplowSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnowplowSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EAD2C5D26374645DEBCC8254A6F446FD /* Pods-SnowplowSwiftDemoTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowSwiftDemoTests.release.xcconfig"; sourceTree = "<group>"; };
 		EC0DA277025D9F19124988D6FB1EFAE7 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
 		ED546B434A4A546D1E030495EBC63BDC /* SPEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEvent.m; path = Snowplow/SPEvent.m; sourceTree = "<group>"; };
@@ -243,7 +235,6 @@
 		F6F0647C8E7DB3DA294060161B88109D /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/CoreTelephony.framework; sourceTree = DEVELOPER_DIR; };
 		FC5C5C21AA256D13A0CB5528FA9C9202 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/SystemConfiguration.framework; sourceTree = DEVELOPER_DIR; };
 		FE77287645D77E8B1BB48E28FFB277BA /* SwiftTryCatch.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = SwiftTryCatch.h; sourceTree = "<group>"; };
-		FECC32B6687F775E71139B2BC4CA52F6 /* SPEvent_BASE_25650.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEvent_BASE_25650.m; path = Snowplow/SPEvent_BASE_25650.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,7 +359,6 @@
 				5CAA6C250CD700D81243A952BB75B9D5 /* Reachability.m */,
 				D2D4F106186FEFAE9F67FCFCE3486042 /* Support Files */,
 			);
-			name = Reachability;
 			path = Reachability;
 			sourceTree = "<group>";
 		};
@@ -392,7 +382,6 @@
 				3E735426C9D02343A96D21041FE43FF9 /* standard */,
 				D73C66FE3EC9C692DAD1241270758485 /* Support Files */,
 			);
-			name = FMDB;
 			path = FMDB;
 			sourceTree = "<group>";
 		};
@@ -528,7 +517,6 @@
 				11262BFCF169032CEC90131D0BE6D33D /* SwiftTryCatch.m */,
 				5578EC3875C4F380BFD407C393E6A310 /* Support Files */,
 			);
-			name = SwiftTryCatch;
 			path = SwiftTryCatch;
 			sourceTree = "<group>";
 		};
@@ -543,10 +531,6 @@
 				2ABA6F5191EBA217242E6A184BB09EDA /* SPEmitter.m */,
 				BE559ADE1E9B37E04C1524D218D0726E /* SPEvent.h */,
 				ED546B434A4A546D1E030495EBC63BDC /* SPEvent.m */,
-				9CF4CC54533A4C952630CAF32738B47E /* SPEvent_BACKUP_25650.m */,
-				FECC32B6687F775E71139B2BC4CA52F6 /* SPEvent_BASE_25650.m */,
-				A8D32DC3157E9747F570E43D106007A2 /* SPEvent_LOCAL_25650.m */,
-				3FC60B8AB9DE3DDE03E2FD1B4875F97E /* SPEvent_REMOTE_25650.m */,
 				0C0BDD2A7830601C8335A900ACF6E093 /* SPEventStore.h */,
 				DE154E328A75B6DEC8EB157B83159CEF /* SPEventStore.m */,
 				31AA76EA52B99CCF36B554ECBC2F2715 /* SPPayload.h */,
@@ -854,13 +838,8 @@
 			files = (
 				99C90DCE46BA9E6A2B9FD1C83E9BB692 /* OpenIDFA.m in Sources */,
 				E73954B82BBF8909E938B55D25488D7E /* Snowplow.m in Sources */,
-				FF6D1B4E744FA92C9489607FDE73E521 /* SnowplowTracker-dummy.m in Sources */,
 				ED2FA3192E5C44985E07DEBE1F8D2EC5 /* SPEmitter.m in Sources */,
 				95A5B7C1D47BE7CF7DBD1DAA46CFDB9E /* SPEvent.m in Sources */,
-				10C4B6D4344D9C27AFE9522E6EC17535 /* SPEvent_BACKUP_25650.m in Sources */,
-				F0FCC410C3BA53D563003DE9EE7849EB /* SPEvent_BASE_25650.m in Sources */,
-				BD80EE17631EDF39F2A9D9AFBB033C13 /* SPEvent_LOCAL_25650.m in Sources */,
-				1AC1E804526105CD6660C557F9676461 /* SPEvent_REMOTE_25650.m in Sources */,
 				61C1F0AB4E14DAED9DD20CE4367B9F4A /* SPEventStore.m in Sources */,
 				96A498BBEC3655A18B26DA632B1A443C /* SPPayload.m in Sources */,
 				BF5455BAF35472DEEC56F5C97559FED4 /* SPRequestResponse.m in Sources */,

@@ -39,6 +39,7 @@
 
 - (void)testInit {
     SPSession * session = [[SPSession alloc] init];
+    XCTAssertNil([session getTracker]);
     XCTAssertTrue(![session getInBackground]);
     XCTAssertTrue([session getSessionIndex] >= 1);
     XCTAssertNotNil([session getSessionDictWithEventId:@"eventid-1"]);
@@ -48,7 +49,7 @@
 }
 
 - (void)testInitWithOptions {
-    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:5 andBackgroundTimeout:300 andCheckInterval:2];
+    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:5 andBackgroundTimeout:300 andCheckInterval:2 andTracker:nil];
     XCTAssertEqual([session getForegroundTimeout], 5000);
     XCTAssertEqual([session getBackgroundTimeout], 300000);
     XCTAssertEqual([session getCheckInterval], 2);
@@ -65,7 +66,7 @@
 - (void)testInitInBgThread {
     __block SPSession * session = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andCheckInterval:1];
+        session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andCheckInterval:1 andTracker:nil];
     });
     [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     [NSThread sleepForTimeInterval:1];
@@ -73,7 +74,7 @@
 }
 
 - (void)testSessionFunction {
-    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:1 andCheckInterval:1];
+    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:1 andCheckInterval:1 andTracker:nil];
     NSInteger count = [session getSessionIndex];
     XCTAssertTrue(count > 0);
 }

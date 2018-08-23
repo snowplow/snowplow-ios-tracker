@@ -30,6 +30,8 @@
 #import "SPSession.h"
 #import "SPEvent.h"
 
+static void * SessionObserverContext = &SessionObserverContext;
+
 @interface SPTracker ()
 
 @property (nonatomic, retain) SPEmitter * emitter;
@@ -47,6 +49,7 @@
     SPSession *            _session;
     BOOL                   _sessionContext;
     BOOL                   _applicationContext;
+    BOOL                   _lifecycleEvents;
     NSInteger              _foregroundTimeout;
     NSInteger              _backgroundTimeout;
     NSInteger              _checkInterval;
@@ -73,6 +76,7 @@
         _dataCollection = YES;
         _sessionContext = NO;
         _applicationContext = NO;
+        _lifecycleEvents = NO;
         _foregroundTimeout = 600;
         _backgroundTimeout = 300;
         _checkInterval = 15;
@@ -92,7 +96,10 @@
 
     [self setTrackerData];
     if (_sessionContext) {
-        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
+                                           andBackgroundTimeout:_backgroundTimeout
+                                               andCheckInterval:_checkInterval
+                                                     andTracker:self];
     }
 
     _builderFinished = YES;
@@ -141,7 +148,7 @@
         [_session stopChecker];
         _session = nil;
     } else if (_builderFinished && _session == nil && sessionContext) {
-        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval];
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval andTracker:self];
     }
 }
 
@@ -168,6 +175,10 @@
     if (_builderFinished && _session != nil) {
         [_session setCheckInterval:checkInterval];
     }
+}
+
+- (void) setLifecycleEvents:(BOOL)lifecycleEvents {
+    _lifecycleEvents = lifecycleEvents;
 }
 
 // Extra Functions
@@ -200,6 +211,10 @@
 
 - (NSString*) getSessionUserId {
     return [_session getUserId];
+}
+
+- (BOOL) getLifecycleEvents {
+    return _lifecycleEvents;
 }
 
 - (SPPayload*) getApplicationInfo {
@@ -306,6 +321,26 @@
 }
 
 - (void) trackPushNotificationEvent:(SPPushNotification *)event {
+    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:[event getPayload]];
+        [builder setTimestamp:[event getTimestamp]];
+        [builder setContexts:[event getContexts]];
+        [builder setEventId:[event getEventId]];
+    }];
+    [self trackUnstructuredEvent:unstruct];
+}
+
+- (void) trackForegroundEvent:(SPForeground *)event {
+    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:[event getPayload]];
+        [builder setTimestamp:[event getTimestamp]];
+        [builder setContexts:[event getContexts]];
+        [builder setEventId:[event getEventId]];
+    }];
+    [self trackUnstructuredEvent:unstruct];
+}
+
+- (void) trackBackgroundEvent:(SPBackground *)event {
     SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:[event getPayload]];
         [builder setTimestamp:[event getTimestamp]];

@@ -22,6 +22,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class SPTracker;
+
 @interface SPSession : NSObject
 
 /**
@@ -37,7 +39,22 @@
  * @param checkInterval how often to query for if the session has timed out
  * @return a SnowplowSession
  */
-- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval;
+- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout
+            andBackgroundTimeout:(NSInteger)backgroundTimeout
+                andCheckInterval:(NSInteger)checkInterval;
+
+/**
+ * Initializes a newly allocated SnowplowSession
+ * @param foregroundTimeout the session timeout while it is in the foreground
+ * @param backgroundTimeout the session timeout while it is in the background
+ * @param checkInterval how often to query for if the session has timed out
+ * @param tracker reference to the associated tracker of the session
+ * @return a SnowplowSession
+ */
+- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout
+            andBackgroundTimeout:(NSInteger)backgroundTimeout
+                andCheckInterval:(NSInteger)checkInterval
+                      andTracker:(SPTracker *)tracker;
 
 /**
  * Starts the recurring timer check for sessions
@@ -80,6 +97,11 @@
 - (NSInteger) getCheckInterval;
 
 /**
+ * Returns the current tracker associated with the session
+ */
+- (SPTracker *) getTracker;
+
+/**
  * Returns the session dictionary
  * @param firstEventId The potential first event id of the session
  * @return a SnowplowPayload containing the session dictionary
@@ -91,6 +113,18 @@
  * @return a count of sessions
  */
 - (NSInteger) getSessionIndex;
+
+/**
+ * Returns the foreground index count
+ * @return a count of foregrounds
+ */
+- (NSInteger) getForegroundIndex;
+
+/**
+ * Returns the background index count
+ * @return a count of backgrounds
+ */
+- (NSInteger) getBackgroundIndex;
 
 /**
  * Returns whether the application is in the background or foreground
