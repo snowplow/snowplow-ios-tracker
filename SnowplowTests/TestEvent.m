@@ -204,8 +204,8 @@
     SPConsentWithdrawn *event = [SPConsentWithdrawn build:^(id<SPConsentWithdrawnBuilder> builder) {
         [builder setName:@"name"];
         [builder setAll:false];
-        [builder setVersion:[NSNumber numberWithInt:3]];
-        [builder setDocumentId:[NSNumber numberWithInt:1000]];
+        [builder setVersion:@"3"];
+        [builder setDocumentId:@"1000"];
         [builder setDescription:@"description"];
     }];
     XCTAssertNotNil(event);
@@ -216,8 +216,8 @@
     SPConsentGranted *event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
         [builder setName:@"name"];
         [builder setExpiry:@"expiry"];
-        [builder setVersion:[NSNumber numberWithInt:3]];
-        [builder setDocumentId:[NSNumber numberWithInt:1000]];
+        [builder setVersion:@"3"];
+        [builder setDocumentId:@"1000"];
         [builder setDescription:@"description"];
     }];
     XCTAssertNotNil(event);
@@ -226,7 +226,7 @@
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
             [builder setDocumentId:nil];
-            [builder setVersion:[NSNumber numberWithInt:3]];
+            [builder setVersion:@"3"];
         }];
     }
     @catch (NSException *exception) {
@@ -236,7 +236,7 @@
     // Version is empty
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-            [builder setDocumentId:[NSNumber numberWithInt:3]];
+            [builder setDocumentId:@"1000"];
             [builder setVersion:nil];
         }];
     }
@@ -250,8 +250,8 @@
     SPConsentGranted *event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
         [builder setName:@"name"];
         [builder setExpiry:@"expiry"];
-        [builder setVersion:[NSNumber numberWithInt:3]];
-        [builder setDocumentId:[NSNumber numberWithInt:1000]];
+        [builder setVersion:@"3"];
+        [builder setDocumentId:@"1000"];
         [builder setDescription:@"description"];
     }];
     XCTAssertNotNil(event);
@@ -260,7 +260,7 @@
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
             [builder setDocumentId:nil];
-            [builder setVersion:[NSNumber numberWithInt:3]];
+            [builder setVersion:@"3"];
         }];
     }
     @catch (NSException *exception) {
@@ -271,7 +271,7 @@
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
             [builder setVersion:nil];
-            [builder setDocumentId:[NSNumber numberWithInt:3]];
+            [builder setDocumentId:@"3"];
         }];
     }
     @catch (NSException *exception) {
