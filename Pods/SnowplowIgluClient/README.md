@@ -1,26 +1,26 @@
 Obj-C Client for Iglu
-==========================
+=====================
 
-[ ![Build Status] [travis-image] ] [travis]
-[ ![Coverage Status][coveralls-image] ][coveralls]
-[ ![Version] [cocoa-version] ] [cocoadocs]
-[ ![Platform] [cocoa-plaform] ] [cocoadocs]
-[ ![License] [license-image] ] [license]
+[![Build Status][travis-image]][travis]
+[![Coverage Status][coveralls-image]][coveralls]
+[![Version][cocoa-version]][cocoadocs]
+[![Platform][cocoa-plaform]][cocoadocs]
+[![License][license-image]][license]
 
 ## Overview
 
-An Obj-C client and resolver for **[Iglu schema repositories] [iglu-wiki]** from the team at **[Snowplow Analytics] [snowplow-website]**.
+An Obj-C client and resolver for **[Iglu schema repositories][iglu-wiki]** from the team at **[Snowplow Analytics][snowplow-website]**.
 
 ## Find out more
-| **[Technical Docs] [techdocs]**     | **[Setup Guide] [setup]**     | **[Roadmap] [roadmap]**           | **[Contributing] [contributing]**           |
-|-------------------------------------|-------------------------------|-----------------------------------|---------------------------------------------|
-| [![i1] [techdocs-image]] [techdocs] | [![i2] [setup-image]] [setup] | [![i3] [roadmap-image]] [roadmap] | [![i4] [contributing-image]] [contributing] |
+|  **[Technical Docs][techdocs]**   |  **[Setup Guide][setup]**   |     **[Roadmap][roadmap]**      |     **[Contributing][contributing]**      |
+|:---------------------------------:|:---------------------------:|:-------------------------------:|:-----------------------------------------:|
+| [![i1][techdocs-image]][techdocs] | [![i2][setup-image]][setup] | [![i3][roadmap-image]][roadmap] | [![i4][contributing-image]][contributing] |
 
 ## Copyright and license
 
-The Snowplow Iglu Obj-C Client is copyright 2015 Snowplow Analytics Ltd.
+The Snowplow Iglu Obj-C Client is copyright 2015-2018 Snowplow Analytics Ltd.
 
-Licensed under the **[Apache License, Version 2.0] [license]** (the "License");
+Licensed under the **[Apache License, Version 2.0][license]** (the "License");
 you may not use this software except in compliance with the License.
 
 Unless required by applicable law or agreed to in writing, software

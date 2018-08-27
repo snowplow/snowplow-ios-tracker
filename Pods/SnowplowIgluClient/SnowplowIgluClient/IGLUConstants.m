@@ -24,12 +24,12 @@
 
 // --- Version
 
-NSString * const kIGLUVersion               = @"iglu-objc-client-0.1.0";
+NSString * const kIGLUVersion               = @"iglu-objc-client-0.1.1";
 
 // --- Embedded Directory
 
 NSString * const kIGLUEmbeddedBundle        = @"SnowplowIgluResources";
-NSString * const kIGLUEmbeddedDirectory     = @"Resources/iglu-client-embedded/schemas";
+NSString * const kIGLUEmbeddedDirectory     = @"IGLUResources/iglu-client-embedded/schemas";
 NSString * const kIGLUInstanceIgluOnly      = @"iglu:com.snowplowanalytics.self-desc/instance-iglu-only/jsonschema/1-0-0";
 NSString * const kIGLUResolverConfig        = @"iglu:com.snowplowanalytics.iglu/resolver-config/jsonschema/1-0-0";
 
