@@ -1,3 +1,13 @@
+Version 0.9.0 (2018-10-15)
+--------------------------
+Fix ConsentGranted builder argument type in tests (#361)
+Add SRCROOT to project header search path (#362)
+Update pods committed to Git repo (#360)
+Update CocoaPods in Travis build (#359)
+Add application context capability (#358)
+Commit IDEWorkspaceChecks.plist to repo (#354)
+Add foreground and background events (#349)
+
 Version 0.8.0 (2018-04-29)
 --------------------------
 Update CocoaPods to 1.4.0 and add pod update repo in build script (#347)
