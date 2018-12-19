@@ -29,3 +29,9 @@ DerivedData
 # Mountebank
 mb.log
 mb.pid
+
+# Cocoapods
+Pods/
+
+# Carthage
+Carthage/

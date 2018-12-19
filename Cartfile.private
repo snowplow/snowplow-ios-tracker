@@ -1,0 +1,5 @@
+# Stub library for testing
+github "luisobo/Nocilla" ~> 0.11.0
+
+# objc-iglu-client
+github "snowplow/iglu-objc-client" "feature/carthage"
