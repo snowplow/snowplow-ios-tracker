@@ -9,7 +9,6 @@
 import UIKit
 import Foundation
 import CoreData
-import SwiftTryCatch
 import SnowplowTracker
 
 class ViewController: UIViewController, UITextFieldDelegate, SPRequestCallback {
@@ -104,15 +103,7 @@ class ViewController: UIViewController, UITextFieldDelegate, SPRequestCallback {
             }
             
             // Update the tracker
-            
-            SwiftTryCatch.try({
-                self.tracker.emitter.setUrlEndpoint(url)
-            }, catch: { (error) in
-                return
-            }, finally: {
-                
-            })
-            
+            self.tracker.emitter.setUrlEndpoint(url)
             self.tracker.emitter.setHttpMethod(self.getMethodType())
             self.tracker.emitter.setProtocol(self.getProtocolType())
             

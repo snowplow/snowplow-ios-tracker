@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/SnowPlowData'
   s.documentation_url	= 'https://github.com/snowplow/snowplow/wiki/iOS-Tracker'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '10.0'
   s.osx.deployment_target = '10.9'
   s.tvos.deployment_target = '9.0'
 
