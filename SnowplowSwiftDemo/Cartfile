@@ -1,0 +1,2 @@
+# Snowplow Tracker
+github "snowplow/snowplow-objc-tracker" "feature/carthage"

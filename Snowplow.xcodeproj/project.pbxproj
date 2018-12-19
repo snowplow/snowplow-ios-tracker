@@ -3,50 +3,68 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03DD2B79EF5B82E4F1ED5D44 /* libPods-Snowplow-OSXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DA0C3EF0493B776ED45FA05 /* libPods-Snowplow-OSXTests.a */; };
 		040296EB1BB155A700895DED /* TestGeneratedJsons.m in Sources */ = {isa = PBXBuildFile; fileRef = 040296EA1BB155A700895DED /* TestGeneratedJsons.m */; };
 		0402EBEE1BA93CCC006C8818 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
-		0402EBEF1BA93CCC006C8818 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
 		04062D761B8390870019B8D1 /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
 		0413DD771B78D643000D2112 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
-		041B60A91B84C19B00A1EBCB /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
-		042F44521BC7F41B00F43930 /* TestGeneratedJsons.m in Sources */ = {isa = PBXBuildFile; fileRef = 040296EA1BB155A700895DED /* TestGeneratedJsons.m */; };
-		042F44531BC7F59B00F43930 /* Resources in Resources */ = {isa = PBXBuildFile; fileRef = 04B41EA91BB2843F007C19C8 /* Resources */; };
 		043EC5E01B8F049200294081 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5DF1B8F049200294081 /* SPSession.m */; };
-		043EC5E11B8F049200294081 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5DF1B8F049200294081 /* SPSession.m */; };
 		043EC5E71B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
-		043EC5E81B8F224900294081 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		044CA88D1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
-		044CA88E1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
 		047CBC7B1BD4EEDD006653B3 /* libReachability.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 047CBC7A1BD4EEDD006653B3 /* libReachability.a */; };
 		0485CA161BAC65A300214BC5 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */; };
-		0485CA171BAC65A300214BC5 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */; };
 		04921CAF1BAABE11009E221E /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04921CAE1BAABE11009E221E /* TestEvent.m */; };
-		04921CB01BAABE11009E221E /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 04921CAE1BAABE11009E221E /* TestEvent.m */; };
 		04ABC3591B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
-		04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3581B905A5B00F50CAD /* TestSubject.m */; };
 		04ABC35C1B905F5200F50CAD /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */; };
-		04ABC35D1B905F5200F50CAD /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35B1B905F5200F50CAD /* TestRequestResponse.m */; };
 		04ABC35F1B906E1500F50CAD /* TestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35E1B906E1500F50CAD /* TestEmitter.m */; };
-		04ABC3601B906E1500F50CAD /* TestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC35E1B906E1500F50CAD /* TestEmitter.m */; };
 		04ABC3621B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
-		04ABC3631B9088DA00F50CAD /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 04ABC3611B9088DA00F50CAD /* TestSession.m */; };
-		04ABC3641B908E6500F50CAD /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
 		04EF45611BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */; };
-		04EF45621BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */; };
-		04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
-		140454A81B399B9BD12C2030 /* libPods-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3950A58E0CFC6101746B4C28 /* libPods-Snowplow-OSX.a */; };
-		24103385337EE3892FDCDE3E /* libPods-Snowplow.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 42CE2733D73A2C7D4E3888FB /* libPods-Snowplow.a */; };
-		4C5E98E9C0215549D74F9396 /* libPods-Base-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFD2A3839970FE05343E80B /* libPods-Base-Snowplow-OSX.a */; };
-		739CB86F6E68F675EBA47AE2 /* libPods-SnowplowTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D284B1244765020D7B12B722 /* libPods-SnowplowTests.a */; };
+		752DABD521CC38560065F874 /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
+		752DABDA21CC38560065F874 /* Snowplow_iOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 752DABD921CC38560065F874 /* Snowplow_iOSTests.m */; };
+		752DABFE21CC3B380065F874 /* Snowplow_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABF521CC3B380065F874 /* Snowplow_macOS.framework */; };
+		752DAC0321CC3B380065F874 /* Snowplow_macOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */; };
+		752DAC0D21CC3EEA0065F874 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
+		752DAC0F21CC3EED0065F874 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0E21CC3EED0065F874 /* Reachability.framework */; };
+		752DAC1121CC3F020065F874 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC1021CC3F010065F874 /* FMDB.framework */; };
+		752DAC1421CC3F140065F874 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC1221CC3F140065F874 /* Reachability.framework */; };
+		752DAC1521CC3F140065F874 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC1321CC3F140065F874 /* FMDB.framework */; };
+		752DAC1721CC42BC0065F874 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
+		752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SPTracker.m */; };
+		752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SPEmitter.m */; };
+		752DAC1D21CC42BC0065F874 /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04062D751B8390870019B8D1 /* SPSubject.m */; };
+		752DAC1F21CC42BC0065F874 /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5DF1B8F049200294081 /* SPSession.m */; };
+		752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SPPayload.m */; };
+		752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */; };
+		752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SPEventStore.m */; };
+		752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
+		752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
+		752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
+		752DAC2D21CC42BC0065F874 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
+		752DAC2F21CC42BC0065F874 /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */; };
+		752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
+		752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		752DAC3221CC43C60065F874 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3321CC43C70065F874 /* SPTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = AB9E8210192DD336006744C9 /* SPTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SPEmitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3521CC43C70065F874 /* SPSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 04062D741B8390710019B8D1 /* SPSubject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3621CC43C70065F874 /* SPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 043EC5DD1B8F048500294081 /* SPSession.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		752DAC3721CC43C70065F874 /* SPPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27F3191C67CD00018557 /* SPPayload.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = ABB767AE194974D3006275D1 /* SPEventStore.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		752DAC3A21CC43C70065F874 /* SPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFCC3741922984A00FAE8FE /* SPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0413DD751B78D635000D2112 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		752DAC3D21CC43C70065F874 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
+		752DAC4021CC4A830065F874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
+		752DAC4121CC4A8C0065F874 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
+		752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75907E3C200EB0C000096DB1 /* Products in Resources */ = {isa = PBXBuildFile; fileRef = 75907E3B200EB0C000096DB1 /* Products */; };
-		75D6062121CACB7600C7B016 /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */; };
 		75D6062221CACC2500C7B016 /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */; };
-		968F9AB1BB9FC18F0D22FB63 /* libPods-BaseTests-Snowplow-OSXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 717C9BDC06316B667870FEE3 /* libPods-BaseTests-Snowplow-OSXTests.a */; };
 		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27CE191B408200018557 /* XCTest.framework */; };
 		AB0C27D0191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
@@ -67,18 +85,6 @@
 		ABFCC36E1921016200FAE8FE /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
 		ABFCC3761922984A00FAE8FE /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		ABFCC378192325FB00FAE8FE /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC377192325FB00FAE8FE /* TestUtils.m */; };
-		AEA2FCE11A8CDF8100123462 /* libSnowplow-OSX.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */; };
-		AEA2FCED1A8CE0DF00123462 /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SPEmitter.m */; };
-		AEA2FCEE1A8CE0DF00123462 /* SPPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27F4191C67CD00018557 /* SPPayload.m */; };
-		AEA2FCEF1A8CE0DF00123462 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
-		AEA2FCF01A8CE0DF00123462 /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SPTracker.m */; };
-		AEA2FCF11A8CE0DF00123462 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB767AF194974D3006275D1 /* SPEventStore.m */; };
-		AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27DC191B408200018557 /* SnowplowTests.m */; };
-		AEA2FCF31A8CE30C00123462 /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC36D1921016200FAE8FE /* TestPayload.m */; };
-		AEA2FCF41A8CE30E00123462 /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB2565019286C8C0014FE0C /* TestRequest.m */; };
-		AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = ABB790CB1936F2500084B964 /* TestTracker.m */; };
-		AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = AB4338571950A530006A1DE4 /* TestEventStore.m */; };
-		AEB76D621A8E3AC800BD0E69 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,12 +95,19 @@
 			remoteGlobalIDString = AB0C27BC191B408200018557;
 			remoteInfo = Snowplow;
 		};
-		AEA2FCE21A8CDF8100123462 /* PBXContainerItemProxy */ = {
+		752DABD621CC38560065F874 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AB0C27B5191B408200018557 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AEA2FCD51A8CDF8100123462;
-			remoteInfo = "Snowplow-OSX";
+			remoteGlobalIDString = 752DABCB21CC38550065F874;
+			remoteInfo = "Snowplow iOS";
+		};
+		752DABFF21CC3B380065F874 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AB0C27B5191B408200018557 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 752DABF421CC3B380065F874;
+			remoteInfo = "Snowplow macOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -136,23 +149,29 @@
 		04ABC3611B9088DA00F50CAD /* TestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSession.m; sourceTree = "<group>"; };
 		04B41EA91BB2843F007C19C8 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 		04EF45601BB01C26008E5E8B /* TestSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSelfDescribingJson.m; sourceTree = "<group>"; };
-		12A60D7497F52746347837AE /* Pods-Snowplow.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow/Pods-Snowplow.debug.xcconfig"; sourceTree = "<group>"; };
-		1DA0C3EF0493B776ED45FA05 /* libPods-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		267BD9953CB239A58C6589EE /* Pods-SnowplowTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnowplowTests/Pods-SnowplowTests.debug.xcconfig"; sourceTree = "<group>"; };
-		28A23ECAE63F8779C6709804 /* Pods-Snowplow-OSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-OSXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-OSXTests/Pods-Snowplow-OSXTests.debug.xcconfig"; sourceTree = "<group>"; };
-		2ED66E1B4D9BEC802D606B1D /* Pods-Base-Snowplow-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Base-Snowplow-OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-Base-Snowplow-OSX/Pods-Base-Snowplow-OSX.release.xcconfig"; sourceTree = "<group>"; };
-		37A423DE6135420B7C94F1C5 /* Pods-Snowplow.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow/Pods-Snowplow.release.xcconfig"; sourceTree = "<group>"; };
-		3929CEC70626A2ACFBAA8686 /* Pods-Snowplow-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-OSXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-OSXTests/Pods-Snowplow-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
-		3950A58E0CFC6101746B4C28 /* libPods-Snowplow-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		42CE2733D73A2C7D4E3888FB /* libPods-Snowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		66ACC5B9C3FCC32FFC03B64E /* Pods-Snowplow-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-OSX/Pods-Snowplow-OSX.release.xcconfig"; sourceTree = "<group>"; };
-		717C9BDC06316B667870FEE3 /* libPods-BaseTests-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BaseTests-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DABCC21CC38550065F874 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DABCE21CC38550065F874 /* Snowplow_iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snowplow_iOS.h; sourceTree = "<group>"; };
+		752DABCF21CC38550065F874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		752DABD421CC38560065F874 /* Snowplow iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DABD921CC38560065F874 /* Snowplow_iOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snowplow_iOSTests.m; sourceTree = "<group>"; };
+		752DABDB21CC38560065F874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Snowplow_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DABEA21CC3A090065F874 /* Snowplow_watchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snowplow_watchOS.h; sourceTree = "<group>"; };
+		752DABEB21CC3A090065F874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		752DABF521CC3B380065F874 /* Snowplow_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Snowplow_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DABF721CC3B380065F874 /* Snowplow_macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snowplow_macOS.h; sourceTree = "<group>"; };
+		752DABF821CC3B380065F874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		752DABFD21CC3B380065F874 /* Snowplow macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snowplow_macOSTests.m; sourceTree = "<group>"; };
+		752DAC0421CC3B380065F874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		752DAC0C21CC3EEA0065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		752DAC0E21CC3EED0065F874 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
+		752DAC1021CC3F010065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/watchOS/FMDB.framework; sourceTree = "<group>"; };
+		752DAC1221CC3F140065F874 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/Mac/Reachability.framework; sourceTree = "<group>"; };
+		752DAC1321CC3F140065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
 		75907E3B200EB0C000096DB1 /* Products */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Products; path = SnowplowTests/Products; sourceTree = "<group>"; };
 		75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Bridging-Header.h"; sourceTree = "<group>"; };
 		75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityBridge.swift; sourceTree = "<group>"; };
-		832ACF462F797D21EF3D667E /* Pods-SnowplowTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnowplowTests/Pods-SnowplowTests.release.xcconfig"; sourceTree = "<group>"; };
-		94D24AFAC0C72DF11D744E20 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
-		97BD0CE0229A798C94CE1C3D /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AB0C27BD191B408200018557 /* libSnowplow.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libSnowplow.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0C27C0191B408200018557 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Prefix.pch"; sourceTree = "<group>"; };
@@ -182,16 +201,55 @@
 		ABFCC3741922984A00FAE8FE /* SPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilities.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilities.m; sourceTree = "<group>"; };
 		ABFCC377192325FB00FAE8FE /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
-		AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = "libSnowplow-OSX.dylib"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AEA2FCE01A8CDF8100123462 /* Snowplow-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AEA2FCE61A8CDF8100123462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AEFD2A3839970FE05343E80B /* libPods-Base-Snowplow-OSX.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Base-Snowplow-OSX.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		C66B5D6EC09F069C2E7517A9 /* Pods-Snowplow-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-OSX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-OSX/Pods-Snowplow-OSX.debug.xcconfig"; sourceTree = "<group>"; };
-		C76F61F8CADECC35DA3D5132 /* Pods-Base-Snowplow-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Base-Snowplow-OSX.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Base-Snowplow-OSX/Pods-Base-Snowplow-OSX.debug.xcconfig"; sourceTree = "<group>"; };
-		D284B1244765020D7B12B722 /* libPods-SnowplowTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnowplowTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		752DABC921CC38550065F874 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DAC4121CC4A8C0065F874 /* Foundation.framework in Frameworks */,
+				752DAC4021CC4A830065F874 /* UIKit.framework in Frameworks */,
+				752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */,
+				752DAC0D21CC3EEA0065F874 /* FMDB.framework in Frameworks */,
+				752DAC0F21CC3EED0065F874 /* Reachability.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABD121CC38560065F874 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DABD521CC38560065F874 /* SnowplowTracker.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABE521CC3A090065F874 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DAC1121CC3F020065F874 /* FMDB.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABF221CC3B380065F874 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DAC1421CC3F140065F874 /* Reachability.framework in Frameworks */,
+				752DAC1521CC3F140065F874 /* FMDB.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABFA21CC3B380065F874 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DABFE21CC3B380065F874 /* Snowplow_macOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB0C27BA191B408200018557 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -199,7 +257,6 @@
 				AB9E8214192DEC38006744C9 /* CoreTelephony.framework in Frameworks */,
 				ABB67D8D192D9552009A1ECE /* UIKit.framework in Frameworks */,
 				AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */,
-				24103385337EE3892FDCDE3E /* libPods-Snowplow.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,62 +269,71 @@
 				AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */,
 				AB0C27D2191B408200018557 /* UIKit.framework in Frameworks */,
 				AB0C27D5191B408200018557 /* libSnowplow.a in Frameworks */,
-				739CB86F6E68F675EBA47AE2 /* libPods-SnowplowTests.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AEA2FCD31A8CDF8100123462 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				140454A81B399B9BD12C2030 /* libPods-Snowplow-OSX.a in Frameworks */,
-				4C5E98E9C0215549D74F9396 /* libPods-Base-Snowplow-OSX.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AEA2FCDD1A8CDF8100123462 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AEA2FCE11A8CDF8100123462 /* libSnowplow-OSX.dylib in Frameworks */,
-				03DD2B79EF5B82E4F1ED5D44 /* libPods-Snowplow-OSXTests.a in Frameworks */,
-				968F9AB1BB9FC18F0D22FB63 /* libPods-BaseTests-Snowplow-OSXTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		88BA9344523FA1E6EBA7E7A9 /* Pods */ = {
+		752DABCD21CC38550065F874 /* Snowplow iOS */ = {
 			isa = PBXGroup;
 			children = (
-				12A60D7497F52746347837AE /* Pods-Snowplow.debug.xcconfig */,
-				37A423DE6135420B7C94F1C5 /* Pods-Snowplow.release.xcconfig */,
-				C66B5D6EC09F069C2E7517A9 /* Pods-Snowplow-OSX.debug.xcconfig */,
-				66ACC5B9C3FCC32FFC03B64E /* Pods-Snowplow-OSX.release.xcconfig */,
-				28A23ECAE63F8779C6709804 /* Pods-Snowplow-OSXTests.debug.xcconfig */,
-				3929CEC70626A2ACFBAA8686 /* Pods-Snowplow-OSXTests.release.xcconfig */,
-				267BD9953CB239A58C6589EE /* Pods-SnowplowTests.debug.xcconfig */,
-				832ACF462F797D21EF3D667E /* Pods-SnowplowTests.release.xcconfig */,
-				C76F61F8CADECC35DA3D5132 /* Pods-Base-Snowplow-OSX.debug.xcconfig */,
-				2ED66E1B4D9BEC802D606B1D /* Pods-Base-Snowplow-OSX.release.xcconfig */,
-				97BD0CE0229A798C94CE1C3D /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */,
-				94D24AFAC0C72DF11D744E20 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */,
+				752DABCE21CC38550065F874 /* Snowplow_iOS.h */,
+				752DABCF21CC38550065F874 /* Info.plist */,
 			);
-			name = Pods;
+			path = "Snowplow iOS";
+			sourceTree = "<group>";
+		};
+		752DABD821CC38560065F874 /* Snowplow iOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				752DABD921CC38560065F874 /* Snowplow_iOSTests.m */,
+				752DABDB21CC38560065F874 /* Info.plist */,
+			);
+			path = "Snowplow iOSTests";
+			sourceTree = "<group>";
+		};
+		752DABE921CC3A090065F874 /* Snowplow watchOS */ = {
+			isa = PBXGroup;
+			children = (
+				752DABEA21CC3A090065F874 /* Snowplow_watchOS.h */,
+				752DABEB21CC3A090065F874 /* Info.plist */,
+			);
+			path = "Snowplow watchOS";
+			sourceTree = "<group>";
+		};
+		752DABF621CC3B380065F874 /* Snowplow macOS */ = {
+			isa = PBXGroup;
+			children = (
+				752DABF721CC3B380065F874 /* Snowplow_macOS.h */,
+				752DABF821CC3B380065F874 /* Info.plist */,
+			);
+			path = "Snowplow macOS";
+			sourceTree = "<group>";
+		};
+		752DAC0121CC3B380065F874 /* Snowplow macOSTests */ = {
+			isa = PBXGroup;
+			children = (
+				752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */,
+				752DAC0421CC3B380065F874 /* Info.plist */,
+			);
+			path = "Snowplow macOSTests";
 			sourceTree = "<group>";
 		};
 		AB0C27B4191B408200018557 = {
 			isa = PBXGroup;
 			children = (
+				752DABCD21CC38550065F874 /* Snowplow iOS */,
+				752DABD821CC38560065F874 /* Snowplow iOSTests */,
+				752DABE921CC3A090065F874 /* Snowplow watchOS */,
+				752DABF621CC3B380065F874 /* Snowplow macOS */,
+				752DAC0121CC3B380065F874 /* Snowplow macOSTests */,
 				75907E3B200EB0C000096DB1 /* Products */,
 				AB0C27C2191B408200018557 /* Snowplow */,
 				AB0C27D6191B408200018557 /* SnowplowTests */,
 				AEA2FCE41A8CDF8100123462 /* Snowplow-OSXTests */,
 				AB0C27BF191B408200018557 /* Frameworks */,
 				AB0C27BE191B408200018557 /* Products */,
-				88BA9344523FA1E6EBA7E7A9 /* Pods */,
-				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -276,8 +342,11 @@
 			children = (
 				AB0C27BD191B408200018557 /* libSnowplow.a */,
 				AB0C27CD191B408200018557 /* SnowplowTests.xctest */,
-				AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */,
-				AEA2FCE01A8CDF8100123462 /* Snowplow-OSXTests.xctest */,
+				752DABCC21CC38550065F874 /* SnowplowTracker.framework */,
+				752DABD421CC38560065F874 /* Snowplow iOSTests.xctest */,
+				752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */,
+				752DABF521CC3B380065F874 /* Snowplow_macOS.framework */,
+				752DABFD21CC3B380065F874 /* Snowplow macOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -285,6 +354,11 @@
 		AB0C27BF191B408200018557 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				752DAC1021CC3F010065F874 /* FMDB.framework */,
+				752DAC1321CC3F140065F874 /* FMDB.framework */,
+				752DAC0E21CC3EED0065F874 /* Reachability.framework */,
+				752DAC0C21CC3EEA0065F874 /* FMDB.framework */,
+				752DAC1221CC3F140065F874 /* Reachability.framework */,
 				047CBC7C1BD4EEE2006653B3 /* libPods-lib-FMDB.a */,
 				047CBC7A1BD4EEDD006653B3 /* libReachability.a */,
 				AB9E8213192DEC38006744C9 /* CoreTelephony.framework */,
@@ -292,12 +366,6 @@
 				AB0C27C0191B408200018557 /* Foundation.framework */,
 				AB0C27CE191B408200018557 /* XCTest.framework */,
 				AB0C27D1191B408200018557 /* UIKit.framework */,
-				42CE2733D73A2C7D4E3888FB /* libPods-Snowplow.a */,
-				3950A58E0CFC6101746B4C28 /* libPods-Snowplow-OSX.a */,
-				1DA0C3EF0493B776ED45FA05 /* libPods-Snowplow-OSXTests.a */,
-				D284B1244765020D7B12B722 /* libPods-SnowplowTests.a */,
-				AEFD2A3839970FE05343E80B /* libPods-Base-Snowplow-OSX.a */,
-				717C9BDC06316B667870FEE3 /* libPods-BaseTests-Snowplow-OSXTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -332,6 +400,7 @@
 				0402EBED1BA93CCC006C8818 /* SPEvent.m */,
 				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
 				75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */,
+				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -396,7 +465,36 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		AEA2FCD41A8CDF8100123462 /* Headers */ = {
+		752DABC721CC38550065F874 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DAC3221CC43C60065F874 /* Snowplow.h in Headers */,
+				752DAC3321CC43C70065F874 /* SPTracker.h in Headers */,
+				752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */,
+				752DAC3521CC43C70065F874 /* SPSubject.h in Headers */,
+				752DAC3721CC43C70065F874 /* SPPayload.h in Headers */,
+				752DAC3A21CC43C70065F874 /* SPUtilities.h in Headers */,
+				752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */,
+				752DAC3D21CC43C70065F874 /* SPEvent.h in Headers */,
+				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
+				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
+				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
+				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
+				752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */,
+				752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */,
+				752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABE321CC3A090065F874 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABF021CC3B380065F874 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -406,11 +504,100 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		752DABCB21CC38550065F874 /* Snowplow iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 752DABDD21CC38560065F874 /* Build configuration list for PBXNativeTarget "Snowplow iOS" */;
+			buildPhases = (
+				752DABC721CC38550065F874 /* Headers */,
+				752DABC821CC38550065F874 /* Sources */,
+				752DABC921CC38550065F874 /* Frameworks */,
+				752DABCA21CC38550065F874 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Snowplow iOS";
+			productName = "Snowplow iOS";
+			productReference = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		752DABD321CC38560065F874 /* Snowplow iOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 752DABE021CC38560065F874 /* Build configuration list for PBXNativeTarget "Snowplow iOSTests" */;
+			buildPhases = (
+				752DABD021CC38560065F874 /* Sources */,
+				752DABD121CC38560065F874 /* Frameworks */,
+				752DABD221CC38560065F874 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				752DABD721CC38560065F874 /* PBXTargetDependency */,
+			);
+			name = "Snowplow iOSTests";
+			productName = "Snowplow iOSTests";
+			productReference = 752DABD421CC38560065F874 /* Snowplow iOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		752DABE721CC3A090065F874 /* Snowplow watchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 752DABED21CC3A090065F874 /* Build configuration list for PBXNativeTarget "Snowplow watchOS" */;
+			buildPhases = (
+				752DABE321CC3A090065F874 /* Headers */,
+				752DABE421CC3A090065F874 /* Sources */,
+				752DABE521CC3A090065F874 /* Frameworks */,
+				752DABE621CC3A090065F874 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Snowplow watchOS";
+			productName = "Snowplow watchOS";
+			productReference = 752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		752DABF421CC3B380065F874 /* Snowplow macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 752DAC0621CC3B380065F874 /* Build configuration list for PBXNativeTarget "Snowplow macOS" */;
+			buildPhases = (
+				752DABF021CC3B380065F874 /* Headers */,
+				752DABF121CC3B380065F874 /* Sources */,
+				752DABF221CC3B380065F874 /* Frameworks */,
+				752DABF321CC3B380065F874 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Snowplow macOS";
+			productName = "Snowplow macOS";
+			productReference = 752DABF521CC3B380065F874 /* Snowplow_macOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		752DABFC21CC3B380065F874 /* Snowplow macOSTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 752DAC0921CC3B380065F874 /* Build configuration list for PBXNativeTarget "Snowplow macOSTests" */;
+			buildPhases = (
+				752DABF921CC3B380065F874 /* Sources */,
+				752DABFA21CC3B380065F874 /* Frameworks */,
+				752DABFB21CC3B380065F874 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				752DAC0021CC3B380065F874 /* PBXTargetDependency */,
+			);
+			name = "Snowplow macOSTests";
+			productName = "Snowplow macOSTests";
+			productReference = 752DABFD21CC3B380065F874 /* Snowplow macOSTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AB0C27BC191B408200018557 /* Snowplow */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB0C27E0191B408200018557 /* Build configuration list for PBXNativeTarget "Snowplow" */;
 			buildPhases = (
-				D57FB56B09604F7DE5A24E67 /* [CP] Check Pods Manifest.lock */,
 				AB0C27B9191B408200018557 /* Sources */,
 				AB0C27BA191B408200018557 /* Frameworks */,
 				AB0C27BB191B408200018557 /* Copy Files */,
@@ -428,11 +615,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AB0C27E3191B408200018557 /* Build configuration list for PBXNativeTarget "SnowplowTests" */;
 			buildPhases = (
-				EADC0929A9F59CAB14899FE2 /* [CP] Check Pods Manifest.lock */,
 				AB0C27C9191B408200018557 /* Sources */,
 				AB0C27CA191B408200018557 /* Frameworks */,
 				AB0C27CB191B408200018557 /* Resources */,
-				1F9BC9FB423F0943D5280774 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -444,44 +629,6 @@
 			productReference = AB0C27CD191B408200018557 /* SnowplowTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AEA2FCD51A8CDF8100123462 /* Snowplow-OSX */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AEA2FCEB1A8CDF8100123462 /* Build configuration list for PBXNativeTarget "Snowplow-OSX" */;
-			buildPhases = (
-				7738A32EBD19843A8632A64F /* [CP] Check Pods Manifest.lock */,
-				AEA2FCD21A8CDF8100123462 /* Sources */,
-				AEA2FCD31A8CDF8100123462 /* Frameworks */,
-				AEA2FCD41A8CDF8100123462 /* Headers */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Snowplow-OSX";
-			productName = "Snowplow-OSX";
-			productReference = AEA2FCD61A8CDF8100123462 /* libSnowplow-OSX.dylib */;
-			productType = "com.apple.product-type.library.dynamic";
-		};
-		AEA2FCDF1A8CDF8100123462 /* Snowplow-OSXTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AEA2FCEC1A8CDF8100123462 /* Build configuration list for PBXNativeTarget "Snowplow-OSXTests" */;
-			buildPhases = (
-				7DA7A3401305596378159266 /* [CP] Check Pods Manifest.lock */,
-				AEA2FCDC1A8CDF8100123462 /* Sources */,
-				AEA2FCDD1A8CDF8100123462 /* Frameworks */,
-				AEA2FCDE1A8CDF8100123462 /* Resources */,
-				D5C477874193EA89B516CB80 /* [CP] Copy Pods Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AEA2FCE31A8CDF8100123462 /* PBXTargetDependency */,
-			);
-			name = "Snowplow-OSXTests";
-			productName = "Snowplow-OSXTests";
-			productReference = AEA2FCE01A8CDF8100123462 /* Snowplow-OSXTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -491,19 +638,28 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Snowplow Analytics";
 				TargetAttributes = {
+					752DABCB21CC38550065F874 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					752DABD321CC38560065F874 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					752DABE721CC3A090065F874 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					752DABF421CC3B380065F874 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					752DABFC21CC3B380065F874 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					AB0C27BC191B408200018557 = {
 						LastSwiftMigration = 1010;
-					};
-					AEA2FCD51A8CDF8100123462 = {
-						CreatedOnToolsVersion = 6.1.1;
-					};
-					AEA2FCDF1A8CDF8100123462 = {
-						CreatedOnToolsVersion = 6.1.1;
 					};
 				};
 			};
 			buildConfigurationList = AB0C27B8191B408200018557 /* Build configuration list for PBXProject "Snowplow" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -516,13 +672,51 @@
 			targets = (
 				AB0C27BC191B408200018557 /* Snowplow */,
 				AB0C27CC191B408200018557 /* SnowplowTests */,
-				AEA2FCD51A8CDF8100123462 /* Snowplow-OSX */,
-				AEA2FCDF1A8CDF8100123462 /* Snowplow-OSXTests */,
+				752DABCB21CC38550065F874 /* Snowplow iOS */,
+				752DABD321CC38560065F874 /* Snowplow iOSTests */,
+				752DABE721CC3A090065F874 /* Snowplow watchOS */,
+				752DABF421CC3B380065F874 /* Snowplow macOS */,
+				752DABFC21CC3B380065F874 /* Snowplow macOSTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		752DABCA21CC38550065F874 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABD221CC38560065F874 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABE621CC3A090065F874 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABF321CC3B380065F874 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABFB21CC3B380065F874 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB0C27CB191B408200018557 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -532,132 +726,60 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AEA2FCDE1A8CDF8100123462 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				042F44531BC7F59B00F43930 /* Resources in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		1F9BC9FB423F0943D5280774 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SnowplowTests/Pods-SnowplowTests-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/KiteJSONValidator-iOS/KiteJSONValidator.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-iOS/SnowplowIgluResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/KiteJSONValidator.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnowplowIgluResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnowplowTests/Pods-SnowplowTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7738A32EBD19843A8632A64F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Base-Snowplow-OSX-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7DA7A3401305596378159266 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BaseTests-Snowplow-OSXTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D57FB56B09604F7DE5A24E67 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Snowplow-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D5C477874193EA89B516CB80 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/KiteJSONValidator-macOS/KiteJSONValidator.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-macOS/SnowplowIgluResources.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/KiteJSONValidator.bundle",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnowplowIgluResources.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EADC0929A9F59CAB14899FE2 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SnowplowTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
+		752DABC821CC38550065F874 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */,
+				752DAC1721CC42BC0065F874 /* Snowplow.m in Sources */,
+				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
+				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
+				752DAC1D21CC42BC0065F874 /* SPSubject.m in Sources */,
+				752DAC1F21CC42BC0065F874 /* SPSession.m in Sources */,
+				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
+				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
+				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
+				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
+				752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */,
+				752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */,
+				752DAC2D21CC42BC0065F874 /* SPEvent.m in Sources */,
+				752DAC2F21CC42BC0065F874 /* ReachabilityBridge.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABD021CC38560065F874 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DABDA21CC38560065F874 /* Snowplow_iOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABE421CC3A090065F874 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABF121CC3B380065F874 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		752DABF921CC3B380065F874 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				752DAC0321CC3B380065F874 /* Snowplow_macOSTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AB0C27B9191B408200018557 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -699,47 +821,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AEA2FCD21A8CDF8100123462 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				043EC5E81B8F224900294081 /* Snowplow.m in Sources */,
-				75D6062121CACB7600C7B016 /* ReachabilityBridge.swift in Sources */,
-				AEB76D621A8E3AC800BD0E69 /* OpenIDFA.m in Sources */,
-				AEA2FCF01A8CE0DF00123462 /* SPTracker.m in Sources */,
-				AEA2FCED1A8CE0DF00123462 /* SPEmitter.m in Sources */,
-				041B60A91B84C19B00A1EBCB /* SPSubject.m in Sources */,
-				043EC5E11B8F049200294081 /* SPSession.m in Sources */,
-				044CA88E1B94792B000EA3B1 /* SPWeakTimerTarget.m in Sources */,
-				AEA2FCEE1A8CE0DF00123462 /* SPPayload.m in Sources */,
-				AEA2FCF11A8CE0DF00123462 /* SPEventStore.m in Sources */,
-				0402EBEF1BA93CCC006C8818 /* SPEvent.m in Sources */,
-				0485CA171BAC65A300214BC5 /* SPSelfDescribingJson.m in Sources */,
-				AEA2FCEF1A8CE0DF00123462 /* SPUtilities.m in Sources */,
-				04F4334F1B7A360E00035CDC /* SPRequestResponse.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AEA2FCDC1A8CDF8100123462 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AEA2FCF21A8CE30900123462 /* SnowplowTests.m in Sources */,
-				042F44521BC7F41B00F43930 /* TestGeneratedJsons.m in Sources */,
-				04EF45621BB01C26008E5E8B /* TestSelfDescribingJson.m in Sources */,
-				AEA2FCF51A8CE31000123462 /* TestTracker.m in Sources */,
-				04921CB01BAABE11009E221E /* TestEvent.m in Sources */,
-				04ABC3601B906E1500F50CAD /* TestEmitter.m in Sources */,
-				AEA2FCF61A8CE31200123462 /* TestEventStore.m in Sources */,
-				04ABC35A1B905A5B00F50CAD /* TestSubject.m in Sources */,
-				AEA2FCF31A8CE30C00123462 /* TestPayload.m in Sources */,
-				04ABC3631B9088DA00F50CAD /* TestSession.m in Sources */,
-				04ABC3641B908E6500F50CAD /* TestUtils.m in Sources */,
-				04ABC35D1B905F5200F50CAD /* TestRequestResponse.m in Sources */,
-				AEA2FCF41A8CE30E00123462 /* TestRequest.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -748,10 +829,15 @@
 			target = AB0C27BC191B408200018557 /* Snowplow */;
 			targetProxy = 04DD9E291B7A348400FFF578 /* PBXContainerItemProxy */;
 		};
-		AEA2FCE31A8CDF8100123462 /* PBXTargetDependency */ = {
+		752DABD721CC38560065F874 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AEA2FCD51A8CDF8100123462 /* Snowplow-OSX */;
-			targetProxy = AEA2FCE21A8CDF8100123462 /* PBXContainerItemProxy */;
+			target = 752DABCB21CC38550065F874 /* Snowplow iOS */;
+			targetProxy = 752DABD621CC38560065F874 /* PBXContainerItemProxy */;
+		};
+		752DAC0021CC3B380065F874 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 752DABF421CC3B380065F874 /* Snowplow macOS */;
+			targetProxy = 752DABFF21CC3B380065F874 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -767,6 +853,401 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		752DABDE21CC38560065F874 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-iOS";
+				PRODUCT_NAME = SnowplowTracker;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Snowplow/Snowplow-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		752DABDF21CC38560065F874 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow iOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-iOS";
+				PRODUCT_NAME = SnowplowTracker;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Snowplow/Snowplow-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		752DABE121CC38560065F874 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		752DABE221CC38560065F874 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-iOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		752DABEE21CC3A090065F874 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Debug;
+		};
+		752DABEF21CC3A090065F874 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow watchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-watchOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 5.1;
+			};
+			name = Release;
+		};
+		752DAC0721CC3B380065F874 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		752DAC0821CC3B380065F874 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+				);
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow macOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		752DAC0A21CC3B380065F874 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow macOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		752DAC0B21CC3B380065F874 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "Snowplow macOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.14;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-macOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		AB0C27DE191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -874,7 +1355,6 @@
 		};
 		AB0C27E1191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 12A60D7497F52746347837AE /* Pods-Snowplow.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -893,7 +1373,11 @@
 					"\"${PODS_ROOT}/Headers/Public/SnowplowIgluClient\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
@@ -920,7 +1404,6 @@
 		};
 		AB0C27E2191B408200018557 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 37A423DE6135420B7C94F1C5 /* Pods-Snowplow.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -939,7 +1422,11 @@
 					"\"${PODS_ROOT}/Headers/Public/SnowplowIgluClient\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
@@ -965,7 +1452,6 @@
 		};
 		AB0C27E4191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 267BD9953CB239A58C6589EE /* Pods-SnowplowTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
@@ -992,7 +1478,6 @@
 		};
 		AB0C27E5191B408200018557 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 832ACF462F797D21EF3D667E /* Pods-SnowplowTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
@@ -1013,99 +1498,54 @@
 			};
 			name = Release;
 		};
-		AEA2FCE71A8CDF8100123462 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = C76F61F8CADECC35DA3D5132 /* Pods-Base-Snowplow-OSX.debug.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		AEA2FCE81A8CDF8100123462 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2ED66E1B4D9BEC802D606B1D /* Pods-Base-Snowplow-OSX.release.xcconfig */;
-			buildSettings = {
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				EXECUTABLE_PREFIX = lib;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
-		AEA2FCE91A8CDF8100123462 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 97BD0CE0229A798C94CE1C3D /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Snowplow-OSXTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Debug;
-		};
-		AEA2FCEA1A8CDF8100123462 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 94D24AFAC0C72DF11D744E20 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "Snowplow-OSXTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.$(PRODUCT_NAME:rfc1034identifier)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		752DABDD21CC38560065F874 /* Build configuration list for PBXNativeTarget "Snowplow iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				752DABDE21CC38560065F874 /* Debug */,
+				752DABDF21CC38560065F874 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		752DABE021CC38560065F874 /* Build configuration list for PBXNativeTarget "Snowplow iOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				752DABE121CC38560065F874 /* Debug */,
+				752DABE221CC38560065F874 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		752DABED21CC3A090065F874 /* Build configuration list for PBXNativeTarget "Snowplow watchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				752DABEE21CC3A090065F874 /* Debug */,
+				752DABEF21CC3A090065F874 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		752DAC0621CC3B380065F874 /* Build configuration list for PBXNativeTarget "Snowplow macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				752DAC0721CC3B380065F874 /* Debug */,
+				752DAC0821CC3B380065F874 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		752DAC0921CC3B380065F874 /* Build configuration list for PBXNativeTarget "Snowplow macOSTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				752DAC0A21CC3B380065F874 /* Debug */,
+				752DAC0B21CC3B380065F874 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AB0C27B8191B408200018557 /* Build configuration list for PBXProject "Snowplow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1129,24 +1569,6 @@
 			buildConfigurations = (
 				AB0C27E4191B408200018557 /* Debug */,
 				AB0C27E5191B408200018557 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AEA2FCEB1A8CDF8100123462 /* Build configuration list for PBXNativeTarget "Snowplow-OSX" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AEA2FCE71A8CDF8100123462 /* Debug */,
-				AEA2FCE81A8CDF8100123462 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AEA2FCEC1A8CDF8100123462 /* Build configuration list for PBXNativeTarget "Snowplow-OSXTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AEA2FCE91A8CDF8100123462 /* Debug */,
-				AEA2FCEA1A8CDF8100123462 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
