@@ -23,12 +23,13 @@
 #import <Foundation/Foundation.h>
 
 // Macros to define what OS is running:
-// 1. iOS: iOS == 1; OSX == 1; tvOS == 0
+// 1. iOS: iOS == 1; OSX == 1; tvOS == 0 ; watchOS == 0
 // 2. OSX: iOS == 0; OSX == 1; tvOS == 0
 // 3. TV:  iOS == 1; OSX == 1; tvOS == 1
-#define SNOWPLOW_TARGET_IOS (TARGET_OS_IPHONE && TARGET_OS_MAC && !(TARGET_OS_TV))
+#define SNOWPLOW_TARGET_IOS (TARGET_OS_IPHONE && TARGET_OS_MAC && !(TARGET_OS_TV) && !(TARGET_OS_WATCH))
 #define SNOWPLOW_TARGET_OSX (!(TARGET_OS_IPHONE) && TARGET_OS_MAC && !(TARGET_OS_TV))
 #define SNOWPLOW_TARGET_TV  (TARGET_OS_IPHONE && TARGET_OS_MAC && TARGET_OS_TV)
+#define SNOWPLOW_TARGET_WATCHOS (TARGET_OS_WATCH)
 
 // Macros for iOS Versions
 #if SNOWPLOW_TARGET_IOS

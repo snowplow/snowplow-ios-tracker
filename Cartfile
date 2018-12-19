@@ -1,0 +1,5 @@
+# Reachability.swift
+github "ashleymills/Reachability.swift" ~> 4.3
+
+# FMDB
+github "ccgus/fmdb" ~> 2.7

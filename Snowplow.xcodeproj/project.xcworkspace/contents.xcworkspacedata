@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "absolute:../Snowplow/Info.plist">
+   </FileRef>
+   <FileRef
       location = "self:Snowplow.xcodeproj">
    </FileRef>
 </Workspace>
