@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
-  s.source_files = 'Snowplow/*.{m,h}'
+  s.source_files = 'Snowplow/*.{m,h,swift}'
   s.public_header_files = [
     'Snowplow/Snowplow.h', 
     'Snowplow/SPTracker.h', 
@@ -28,6 +28,7 @@ Pod::Spec.new do |s|
     'Snowplow/SPPayload.h', 
     'Snowplow/SPUtilities.h', 
     'Snowplow/SPRequestCallback.h', 
+    'Snowplow/SPRequestResponse.h',
     'Snowplow/SPEvent.h', 
     'Snowplow/SPSelfDescribingJson.h'
   ]
@@ -36,5 +37,5 @@ Pod::Spec.new do |s|
   s.osx.frameworks = 'AppKit', 'Foundation'
   s.tvos.frameworks = 'UIKit', 'Foundation'
   s.dependency 'FMDB', '2.6.2'
-  s.ios.dependency 'Reachability', '3.2'
+  s.ios.dependency 'ReachabilitySwift'
 end

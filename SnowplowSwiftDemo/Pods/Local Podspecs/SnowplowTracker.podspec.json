@@ -21,7 +21,7 @@
     "tvos": "9.0"
   },
   "requires_arc": true,
-  "source_files": "Snowplow/*.{m,h}",
+  "source_files": "Snowplow/*.{m,h,swift}",
   "public_header_files": [
     "Snowplow/Snowplow.h",
     "Snowplow/SPTracker.h",
@@ -40,8 +40,8 @@
       "Foundation"
     ],
     "dependencies": {
-      "Reachability": [
-        "3.2"
+      "ReachabilitySwift": [
+
       ]
     }
   },

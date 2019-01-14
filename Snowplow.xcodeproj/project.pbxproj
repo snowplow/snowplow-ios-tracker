@@ -44,6 +44,8 @@
 		4C5E98E9C0215549D74F9396 /* libPods-Base-Snowplow-OSX.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AEFD2A3839970FE05343E80B /* libPods-Base-Snowplow-OSX.a */; };
 		739CB86F6E68F675EBA47AE2 /* libPods-SnowplowTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D284B1244765020D7B12B722 /* libPods-SnowplowTests.a */; };
 		75907E3C200EB0C000096DB1 /* Products in Resources */ = {isa = PBXBuildFile; fileRef = 75907E3B200EB0C000096DB1 /* Products */; };
+		75D6062121CACB7600C7B016 /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */; };
+		75D6062221CACC2500C7B016 /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */; };
 		968F9AB1BB9FC18F0D22FB63 /* libPods-BaseTests-Snowplow-OSXTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 717C9BDC06316B667870FEE3 /* libPods-BaseTests-Snowplow-OSXTests.a */; };
 		AB0C27C1191B408200018557 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		AB0C27CF191B408200018557 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27CE191B408200018557 /* XCTest.framework */; };
@@ -146,6 +148,8 @@
 		66ACC5B9C3FCC32FFC03B64E /* Pods-Snowplow-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-OSX.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-OSX/Pods-Snowplow-OSX.release.xcconfig"; sourceTree = "<group>"; };
 		717C9BDC06316B667870FEE3 /* libPods-BaseTests-Snowplow-OSXTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BaseTests-Snowplow-OSXTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		75907E3B200EB0C000096DB1 /* Products */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Products; path = SnowplowTests/Products; sourceTree = "<group>"; };
+		75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Bridging-Header.h"; sourceTree = "<group>"; };
+		75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityBridge.swift; sourceTree = "<group>"; };
 		832ACF462F797D21EF3D667E /* Pods-SnowplowTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnowplowTests/Pods-SnowplowTests.release.xcconfig"; sourceTree = "<group>"; };
 		94D24AFAC0C72DF11D744E20 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests.release.xcconfig"; sourceTree = "<group>"; };
 		97BD0CE0229A798C94CE1C3D /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BaseTests-Snowplow-OSXTests/Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +267,7 @@
 				AB0C27BF191B408200018557 /* Frameworks */,
 				AB0C27BE191B408200018557 /* Products */,
 				88BA9344523FA1E6EBA7E7A9 /* Pods */,
+				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -326,6 +331,7 @@
 				0402EBEB1BA93CA5006C8818 /* SPEvent.h */,
 				0402EBED1BA93CCC006C8818 /* SPEvent.m */,
 				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
+				75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -485,6 +491,9 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Snowplow Analytics";
 				TargetAttributes = {
+					AB0C27BC191B408200018557 = {
+						LastSwiftMigration = 1010;
+					};
 					AEA2FCD51A8CDF8100123462 = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
@@ -653,6 +662,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75D6062221CACC2500C7B016 /* ReachabilityBridge.swift in Sources */,
 				043EC5E71B8F224900294081 /* Snowplow.m in Sources */,
 				AB39617219530E850002F235 /* OpenIDFA.m in Sources */,
 				AB9E8212192DD336006744C9 /* SPTracker.m in Sources */,
@@ -694,6 +704,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				043EC5E81B8F224900294081 /* Snowplow.m in Sources */,
+				75D6062121CACB7600C7B016 /* ReachabilityBridge.swift in Sources */,
 				AEB76D621A8E3AC800BD0E69 /* OpenIDFA.m in Sources */,
 				AEA2FCF01A8CE0DF00123462 /* SPTracker.m in Sources */,
 				AEA2FCED1A8CE0DF00123462 /* SPEmitter.m in Sources */,
@@ -759,7 +770,9 @@
 		AB0C27DE191B408200018557 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_CODE_COVERAGE = YES;
@@ -806,13 +819,16 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
 		AB0C27DF191B408200018557 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_CODE_COVERAGE = YES;
@@ -851,6 +867,7 @@
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Snowplow\"";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -860,6 +877,9 @@
 			baseConfigurationReference = 12A60D7497F52746347837AE /* Pods-Snowplow.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				DSTROOT = /tmp/Snowplow.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
@@ -873,6 +893,7 @@
 					"\"${PODS_ROOT}/Headers/Public/SnowplowIgluClient\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
@@ -891,6 +912,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Snowplow-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -899,6 +923,9 @@
 			baseConfigurationReference = 37A423DE6135420B7C94F1C5 /* Pods-Snowplow.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
 				DSTROOT = /tmp/Snowplow.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
@@ -912,6 +939,7 @@
 					"\"${PODS_ROOT}/Headers/Public/SnowplowIgluClient\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Pods/build/Debug-iphoneos",
@@ -930,6 +958,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Snowplow-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -937,6 +967,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 267BD9953CB239A58C6589EE /* Pods-SnowplowTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -963,6 +994,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 832ACF462F797D21EF3D667E /* Pods-SnowplowTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
@@ -1026,6 +1058,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 97BD0CE0229A798C94CE1C3D /* Pods-BaseTests-Snowplow-OSXTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1051,6 +1084,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 94D24AFAC0C72DF11D744E20 /* Pods-BaseTests-Snowplow-OSXTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
