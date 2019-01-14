@@ -29,7 +29,8 @@
 #import <UIKit/UIScreen.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import "Reachability.h"
+#import <SystemConfiguration/SystemConfiguration.h>
+#import <SnowplowTracker/SnowplowTracker-Swift.h>
 
 #elif SNOWPLOW_TARGET_OSX
 
@@ -119,14 +120,9 @@
 + (NSString *) getNetworkType {
     NSString * type = nil;
 #if SNOWPLOW_TARGET_IOS
-    Reachability *reachability = [Reachability reachabilityForInternetConnection];
-    [reachability startNotifier];
-    NetworkStatus status = [reachability currentReachabilityStatus];
-    if (status == ReachableViaWiFi) {
-        type = @"wifi";
-    }
-    else if (status == ReachableViaWWAN) {
-        type = @"mobile";
+    type = [ReachabilityBridge connectionType];
+    if ([type isEqualToString: @"error"]) {
+        type = nil;
     }
 #endif
     return type;
@@ -259,9 +255,7 @@
 + (BOOL) isOnline {
     BOOL online = YES;
 #if SNOWPLOW_TARGET_IOS
-    Reachability * reachability = [Reachability reachabilityForInternetConnection];
-    NetworkStatus networkStatus = [reachability currentReachabilityStatus];
-    online = networkStatus != NotReachable;
+    online = [ReachabilityBridge isOnline];
 #endif
     return online;
 }

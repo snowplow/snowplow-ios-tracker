@@ -1,0 +1,6 @@
+module Pods_SnowplowTests {
+  umbrella header "Pods-SnowplowTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
