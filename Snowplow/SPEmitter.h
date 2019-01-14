@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPRequestCallback.h"
+#import "SPRequestResponse.h"
 
 @class SPPayload;
 @class SPEventStore;
@@ -46,6 +47,7 @@ enum SPProtocol {
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
 - (void) setByteLimitGet:(NSInteger)byteLimitGet;
 - (void) setByteLimitPost:(NSInteger)byteLimitPost;
+- (void) processResult:(SPRequestResponse *)response;
 
 @end
 
