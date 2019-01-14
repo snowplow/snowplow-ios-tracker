@@ -48,8 +48,7 @@
 #if defined(SNOWPLOW_APP_EXTENSIONS)
     return NO;
 #else
-    return NO;
-    //return [[UIApplication sharedApplication] canOpenURL:URL];
+    return [[UIApplication sharedApplication] canOpenURL:URL];
 #endif
 }
 

@@ -26,6 +26,7 @@
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
+#import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
 
 @interface SPEmitter ()
@@ -44,12 +45,7 @@
     NSTimer *          _timer;
     BOOL               _isSending;
     NSOperationQueue * _dataOperationQueue;
-    dispatch_queue_t   _completionQueue;
-    dispatch_queue_t   _sendQueue;
     BOOL               _builderFinished;
-    NSMutableArray *   _eventsInSending;
-    NSInteger          _sendingSuccesses;
-    NSInteger          _sendingFailures;
 }
 
 const NSInteger POST_WRAPPER_BYTES = 88;
@@ -77,13 +73,8 @@ const NSInteger POST_STM_BYTES = 22;
         _byteLimitGet = 40000;
         _byteLimitPost = 40000;
         _isSending = NO;
-        _eventsInSending = [[NSMutableArray alloc] init];
-        _sendingSuccesses = 0;
-        _sendingFailures = 0;
         _db = [[SPEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
-        _completionQueue = dispatch_queue_create("com.snowplow.CompletionQueue", DISPATCH_QUEUE_SERIAL);
-        _sendQueue = dispatch_queue_create("com.snowplow.SendQueue", DISPATCH_QUEUE_SERIAL);
         _builderFinished = NO;
     }
     return self;
@@ -104,7 +95,6 @@ const NSInteger POST_STM_BYTES = 22;
     if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
         SnowplowDLog(@"SPLog: Emitter URL created successfully '%@'", _urlEndpoint);
     } else {
-        // TODO: make this raise an NSError
         [NSException raise:@"InvalidSPEmitterEndpoint" format:@"An invalid Emitter URL was found: %@", _url];
     }
 }
@@ -179,39 +169,24 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) sendGuard {
-    if ([_eventsInSending count] > 0) {
+    if ([SPUtilities isOnline] && !_isSending) {
         _isSending = YES;
-    } else {
-        _isSending = YES;
-        dispatch_async(_sendQueue, ^{
-            [self sendEvents];
-        });
+        [self sendEvents];
     }
 }
 
 - (void) sendEvents {
     SnowplowDLog(@"SPLog: Sending events...");
-
+    
     if ([self getDbCount] == 0) {
         SnowplowDLog(@"SPLog: Database empty. Returning..");
         _isSending = NO;
         return;
     }
-
-    // sendGuard ensures sendEvents is called only when previous events have been sent
-    // listValues is the list of events (in index, event pairs) we'd like to send
+    
     NSArray *listValues = [[NSArray alloc] initWithArray:[_db getAllEventsLimited:_emitRange]];
-    NSMutableArray *listIds = [[NSMutableArray alloc] init];
-    for (id value in listValues) {
-        [listIds addObject:value];
-    }
-    // we need to keep track of the events we try to send (async because NSMutableArray isn't thread-safe)
-    dispatch_async(_completionQueue, ^{
-        [_eventsInSending addObjectsFromArray:listIds];
-    });
-    _sendingSuccesses = 0;
-    _sendingFailures = 0;
-
+    NSMutableArray *sendResults = [[NSMutableArray alloc] init];
+    
     if (_httpMethod == SPRequestPost) {
         NSMutableArray *eventArray = [[NSMutableArray alloc] init];
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
@@ -221,7 +196,7 @@ const NSInteger POST_STM_BYTES = 22;
             
             // Get the event payload
             NSMutableDictionary *eventPayload = [[listValues[i] objectForKey:@"eventData"] mutableCopy];
-
+            
             // Convert to NSData and check the byte size
             NSData *data = [NSJSONSerialization dataWithJSONObject:eventPayload options:0 error:nil];
             NSInteger payloadByteSize = [SPUtilities getByteSizeWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
@@ -241,7 +216,7 @@ const NSInteger POST_STM_BYTES = 22;
                 
                 SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                      andData:singleEventArray];
-                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:singleIndexArray andOversize:YES];
+                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:singleIndexArray andResultArray:sendResults andOversize:YES];
             } else if ((totalByteSize + payloadByteSize + POST_WRAPPER_BYTES + (eventArray.count - 1)) > _byteLimitPost) {
                 // Add the STM to each event
                 [self addStmToEventPayloadsWithArray:eventArray];
@@ -249,7 +224,7 @@ const NSInteger POST_STM_BYTES = 22;
                 // Adding this event to the accumulated array would exceed the limit.
                 SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                      andData:eventArray];
-                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andOversize:NO];
+                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
                 
                 // Reset collections and STM
                 eventArray = [[NSMutableArray alloc] init];
@@ -279,7 +254,7 @@ const NSInteger POST_STM_BYTES = 22;
             // Send the event!
             SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
                                                                                  andData:eventArray];
-            [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andOversize:NO];
+            [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
         }
     } else {
         for (NSDictionary * eventWithMetaData in listValues) {
@@ -292,77 +267,77 @@ const NSInteger POST_STM_BYTES = 22;
             BOOL oversize = ([SPUtilities getByteSizeWithString:url] > _byteLimitGet);
             
             // Send the request
-            [self sendEventWithRequest:[self getRequestGetWithString:url] andIndex:indexArray andOversize:oversize];
+            [self sendEventWithRequest:[self getRequestGetWithString:url] andIndex:indexArray andResultArray:sendResults andOversize:oversize];
         }
     }
+    
     [_dataOperationQueue waitUntilAllOperationsAreFinished];
-}
-
-- (void) processResult:(SPRequestResponse *)response {
-    NSArray * resultIndexArray = [response getIndexArray];
-    if ([response getSuccess]) {
-        _sendingSuccesses += resultIndexArray.count;
-        [_dataOperationQueue addOperationWithBlock:^{
-            for (int i = 0; i < resultIndexArray.count;  i++) {
-                SnowplowDLog(@"SPLog: Removing event at index: %@", [@(i) stringValue]);
-                [_db removeEventWithId:[[resultIndexArray objectAtIndex:i] longLongValue]];
-            }
-        }];
-    } else {
-        _sendingFailures += resultIndexArray.count;
+    
+    NSInteger success = 0;
+    NSInteger failure = 0;
+    
+    for (int i = 0; i < sendResults.count; i++) {
+        SPRequestResponse * result = [sendResults objectAtIndex:i];
+        NSArray * resultIndexArray = [result getIndexArray];
+        
+        if ([result getSuccess]) {
+            success += resultIndexArray.count;
+            [self processSuccessesWithResults:resultIndexArray];
+        } else {
+            failure += resultIndexArray.count;
+        }
     }
-
-    if ((_eventsInSending.count - resultIndexArray.count) <= 0) {
-        // these have sent or failed, so no longer sending
-        dispatch_async(_completionQueue, ^{
-            [_eventsInSending removeObjectsInArray:resultIndexArray];
-        });
-        if (_sendingSuccesses > 0) {
-            SnowplowDLog(@"SPLog: Emitter Sent %@ Events", [@(_sendingSuccesses) stringValue]);
-            if (_sendingFailures > 0) {
-                SnowplowDLog(@"SPLog: Emitter Failed to Send %@ Events", [@(_sendingFailures) stringValue]);
-            }
+    
+    [_dataOperationQueue waitUntilAllOperationsAreFinished];
+    
+    SnowplowDLog(@"SPLog: Emitter Success Count: %@", [@(success) stringValue]);
+    SnowplowDLog(@"SPLog: Emitter Failure Count: %@", [@(failure) stringValue]);
+    
+    if (_callback != nil) {
+        if (failure == 0) {
+            [_callback onSuccessWithCount:success];
+        } else {
+            [_callback onFailureWithCount:failure successCount:success];
         }
-        if (_callback != nil) {
-            if (_sendingFailures == 0) {
-                [_callback onSuccessWithCount:_sendingSuccesses];
-            } else {
-                [_callback onFailureWithCount:_sendingFailures successCount:_sendingSuccesses];
-            }
-        }
-        if (_sendingSuccesses == 0 && _sendingFailures > 0) {
-            SnowplowDLog(@"SPLog: Ending emitter run as all requests failed...");
-            [NSThread sleepForTimeInterval:5];
-            _isSending = NO;
-            return;
-        }
-        dispatch_async(_sendQueue, ^{
-            [self sendEvents];
-        });
+    }
+    
+    [sendResults removeAllObjects];
+    
+    if (success == 0 && failure > 0) {
+        SnowplowDLog(@"SPLog: Ending emitter run as all requests failed...");
+        [NSThread sleepForTimeInterval:5];
+        _isSending = NO;
         return;
+    } else {
+        [self sendEvents];
     }
-    // these have sent or failed, so no longer sending
-    dispatch_async(_completionQueue, ^{
-        [_eventsInSending removeObjectsInArray:resultIndexArray];
-    });
 }
 
-- (void) sendEventWithRequest:(NSMutableURLRequest *)request andIndex:(NSArray *)indexArray andOversize:(BOOL)oversize {
+- (void) sendEventWithRequest:(NSMutableURLRequest *)request andIndex:(NSArray *)indexArray andResultArray:(NSMutableArray *)results andOversize:(BOOL)oversize {
     [_dataOperationQueue addOperationWithBlock:^{
-        void (^handler)(NSData * _Nullable, NSURLResponse * r_Nullable, NSError * _Nullable) = ^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-            NSHTTPURLResponse * httpResponse = (NSHTTPURLResponse *)response;
-            SPRequestResponse * requestResponse = nil;
+        NSHTTPURLResponse *response = nil;
+        NSError *connectionError = nil;
+        [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&connectionError];
+        
+        @synchronized (results) {
             if (oversize) {
-                requestResponse = [[SPRequestResponse alloc] initWithBool:true withIndex:indexArray];
-            } else if ([httpResponse statusCode] >= 200 && [httpResponse statusCode] < 300) {
-                requestResponse = [[SPRequestResponse alloc] initWithBool:true withIndex:indexArray];
+                [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
+            } else if ([response statusCode] >= 200 && [response statusCode] < 300) {
+                [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
             } else {
-                NSLog(@"SPLog: Error: %@", error);
-                requestResponse = [[SPRequestResponse alloc] initWithBool:false withIndex:indexArray];
+                NSLog(@"SPLog: Error: %@", connectionError);
+                [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
             }
-            [self processResult:requestResponse];
-        };
-        [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:handler];
+        }
+    }];
+}
+
+- (void) processSuccessesWithResults:(NSArray *)indexArray {
+    [_dataOperationQueue addOperationWithBlock:^{
+        for (int i = 0; i < indexArray.count;  i++) {
+            SnowplowDLog(@"SPLog: Removing event at index: %@", [@(i) stringValue]);
+            [_db removeEventWithId:[[indexArray objectAtIndex:i] longLongValue]];
+        }
     }];
 }
 
