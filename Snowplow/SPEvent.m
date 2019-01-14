@@ -372,21 +372,27 @@
 - (NSArray *) getDocuments {
     // returns the result of appending document passed through {docId, version, name, description} builder arguments to _documents
     NSMutableArray * documents = [[NSMutableArray alloc] init];
+    if (self == nil) {
+        return documents;
+    }
     SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        if (_documentId != nil) {
-            [builder setDocumentId:_documentId];
+        if (self->_documentId != nil) {
+            [builder setDocumentId:self->_documentId];
         }
-        if (_version != nil) {
-            [builder setVersion:_version];
+        if (self->_version != nil) {
+            [builder setVersion:self->_version];
         }
-        if ([_name length] != 0) {
-            [builder setName:_name];
+        if ([self->_name length] != 0) {
+            [builder setName:self->_name];
         }
-        if ([_description length] != 0) {
-            [builder setDescription:_description];
+        if ([self->_description length] != 0) {
+            [builder setDescription:self->_description];
         }
     }];
     [documents addObject:[document getPayload]];
+    if ([self->_documents count] > 0) {
+        [documents addObjectsFromArray:self->_documents];
+    }
     return documents;
 }
 
@@ -530,17 +536,23 @@
 - (NSArray *) getDocuments {
     // returns the result of appending document passed through {docId, version, name, description} to the documents data member
     NSMutableArray * documents = [[NSMutableArray alloc] init];
+    if (self == nil) {
+        return documents;
+    }
     SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        [builder setDocumentId:_documentId];
-        [builder setVersion:_version];
-        if ([_name length] != 0) {
-            [builder setName:_name];
+        [builder setDocumentId:self->_documentId];
+        [builder setVersion:self->_version];
+        if ([self->_name length] != 0) {
+            [builder setName:self->_name];
         }
-        if ([_description length] != 0) {
-            [builder setDescription:_description];
+        if ([self->_description length] != 0) {
+            [builder setDescription:self->_description];
         }
     }];
     [documents addObject:[document getPayload]];
+    if ([self->_documents count] > 0) {
+        [documents addObjectsFromArray:self->_documents];
+    }
     return documents;
 }
 
