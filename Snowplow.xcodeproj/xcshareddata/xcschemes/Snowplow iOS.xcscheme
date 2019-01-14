@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "752DABCB21CC38550065F874"
-               BuildableName = "Snowplow_iOS.framework"
+               BuildableName = "SnowplowTracker.framework"
                BlueprintName = "Snowplow iOS"
                ReferencedContainer = "container:Snowplow.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "752DABCB21CC38550065F874"
-            BuildableName = "Snowplow_iOS.framework"
+            BuildableName = "SnowplowTracker.framework"
             BlueprintName = "Snowplow iOS"
             ReferencedContainer = "container:Snowplow.xcodeproj">
          </BuildableReference>
@@ -65,7 +65,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "752DABCB21CC38550065F874"
-            BuildableName = "Snowplow_iOS.framework"
+            BuildableName = "SnowplowTracker.framework"
             BlueprintName = "Snowplow iOS"
             ReferencedContainer = "container:Snowplow.xcodeproj">
          </BuildableReference>
@@ -83,7 +83,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "752DABCB21CC38550065F874"
-            BuildableName = "Snowplow_iOS.framework"
+            BuildableName = "SnowplowTracker.framework"
             BlueprintName = "Snowplow iOS"
             ReferencedContainer = "container:Snowplow.xcodeproj">
          </BuildableReference>
