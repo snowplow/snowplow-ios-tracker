@@ -2,10 +2,10 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
-  - Reachability (3.2)
+  - ReachabilitySwift (4.3.0)
   - SnowplowTracker (0.9.0):
     - FMDB (= 2.6.2)
-    - Reachability (= 3.2)
+    - ReachabilitySwift
   - SwiftTryCatch (0.0.1)
 
 DEPENDENCIES:
@@ -15,7 +15,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FMDB
-    - Reachability
+    - ReachabilitySwift
     - SwiftTryCatch
 
 EXTERNAL SOURCES:
@@ -24,8 +24,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SnowplowTracker: a8538b6626495308e50724264c987733f2aae7a6
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+  SnowplowTracker: e2391bc4da0650caeed2d9a2986a2c53f7efac61
   SwiftTryCatch: fb6d2b34abe48efd69578dac919293a44f95b481
 
 PODFILE CHECKSUM: 356ea3e34becfce57a595434c6cbb7611f768412
