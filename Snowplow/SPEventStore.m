@@ -108,6 +108,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
                 long long int index = [s longLongIntForColumn:@"ID"];
                 [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:index]];
             }
+            [s close];
         }
     }];
 }
@@ -120,6 +121,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
             while ([s next]) {
                 num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
             }
+            [s close];
         }
     }];
     return num;
@@ -138,6 +140,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
                      [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                 dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
             }
+            [s close];
         }
     }];
     return dict;
@@ -172,6 +175,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
                 [eventWithSqlMetadata setValue:date forKey:@"dateCreated"];
                 [res addObject:eventWithSqlMetadata];
             }
+            [s close];
         }
     }];
     return res;
