@@ -15,7 +15,7 @@ abstract_target 'Base' do
     pod 'ReachabilitySwift'
   end
 
-  target 'Snowplow-OSX' do
+  target 'Snowplow macOS' do
     pod 'FMDB', '2.6.2'
     platform :osx, '10.9'
   end
@@ -30,7 +30,7 @@ abstract_target 'BaseTests' do
     pod 'SnowplowIgluClient'
   end
 
-  target 'Snowplow-OSXTests' do
+  target 'Snowplow macOSTests' do
     platform :osx, '10.9'
     pod 'Nocilla'
     pod 'SnowplowIgluClient'
