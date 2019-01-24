@@ -44,14 +44,14 @@
         sdj = [[SPSelfDescribingJson alloc] initWithSchema:nil andData:nil];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Schema cannot be nil or empty.", exception.reason);
+        // formally this function would generate an exception, now only emits a log line
     }
     
     @try {
         sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"" andData:nil];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Schema cannot be nil or empty.", exception.reason);
+        // formally this function would generate an exception, now only emits a log line
     }
 }
 
