@@ -95,7 +95,7 @@ const NSInteger POST_STM_BYTES = 22;
     if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
         SnowplowDLog(@"SPLog: Emitter URL created successfully '%@'", _urlEndpoint);
     } else {
-        [NSException raise:@"InvalidSPEmitterEndpoint" format:@"An invalid Emitter URL was found: %@", _url];
+        SnowplowDLog(@"SPLog: Invalid emitter URL: '%@'", _urlEndpoint);
     }
 }
 
