@@ -262,7 +262,7 @@
 
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
     if (!argument) {
-        [NSException raise:@"IllegalArgumentException" format:@"%@", message];
+        SnowplowDLog(@"SPLog: Error occurred while checking argument: %@", message);
     }
 }
 

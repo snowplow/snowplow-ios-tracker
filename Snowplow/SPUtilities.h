@@ -170,7 +170,7 @@
 + (BOOL) isOnline;
 
 /**
- * Checks an expression and will throw an exception if it is false.
+ * Checks an expression and will log if it is false
  * This allows for rudimentary Preconditions for object setup.
  * @param argument The argument to check
  * @param message The message to append to the exception
