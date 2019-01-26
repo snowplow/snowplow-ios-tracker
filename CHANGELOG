@@ -1,3 +1,18 @@
+Version 1.0.0 (2019-01-28)
+--------------------------
+Exposes session property in SPTracker (#256)
+Fix parameter documentation (#389)
+Make initializers unavailable in SPEmitter and SPTracker (#255)
+Add OpenIdfa files to framework target (#382)
+Resolve potential memory leaks from implicit retain of self (#353)
+Embed Swift standard library for tests (#388)
+Disable always embed Swift standard libraries (#381)
+Remove exceptions (#383)
+Explicitly close all statements in FMDB (#384)
+Fix getDocuments function in consent events (#386)
+Add support for Carthage (#291)
+Replace Reachability with Reachability.swift (#385)
+
 Version 0.9.0 (2018-10-15)
 --------------------------
 Fix ConsentGranted builder argument type in tests (#361)
