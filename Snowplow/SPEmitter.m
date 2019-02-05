@@ -29,16 +29,6 @@
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
 
-@interface SPEmitter ()
-
-@property (nonatomic) enum    SPRequestOptions      httpMethod;
-@property (nonatomic, retain) NSURL *               urlEndpoint;
-@property (nonatomic)         NSInteger             emitRange;
-@property (nonatomic)         NSInteger             emitThreadPoolSize;
-@property (nonatomic, weak)   id<SPRequestCallback> callback;
-
-@end
-
 @implementation SPEmitter {
     SPEventStore *     _db;
     NSString *         _url;

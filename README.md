@@ -50,6 +50,8 @@ To view sent events in your browser please navigate to `http://localhost:2525`.
 | ![i1][techdocs-image]          | ![i2][setup-image]       | ![i3][roadmap-image]   | ![i4][contributing-image]        |
 | **[Technical Docs][techdocs]** | **[Setup Guide][setup]** | **[Roadmap][roadmap]** | **[Contributing][contributing]** |
 
+Past documentation can be found [here][olddocs].
+
 ## Copyright and license
 
 The Snowplow iOS/OSX/tvOS Tracker is copyright 2013-2015 Snowplow Analytics Ltd.
@@ -86,7 +88,8 @@ limitations under the License.
 [roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
-[techdocs]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
+[techdocs]: https://raw.githubusercontent.com/snowplow/snowplow-objc-tracker/develop/docs/html/index.html
+[olddocs]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup
 [roadmap]: https://github.com/snowplow/snowplow/wiki/Product-roadmap
 [contributing]: https://github.com/snowplow/snowplow/wiki/Contributing
