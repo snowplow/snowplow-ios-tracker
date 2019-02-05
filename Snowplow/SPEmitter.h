@@ -20,84 +20,166 @@
 //  License: Apache License Version 2.0
 //
 
+/*!
+ @file SPEmitter.h
+
+ @brief Header file for SPEmitter.
+ */
+
 #import <Foundation/Foundation.h>
 #import "SPRequestCallback.h"
 
 @class SPPayload;
 @class SPEventStore;
 
+/*!
+ @brief An enum for HTTP method types.
+ */
 enum SPRequestOptions {
+    /*! GET request. */
     SPRequestGet,
+    /*! POST request. */
     SPRequestPost
 };
 
+/*!
+ @brief An enum for HTTP security.
+ */
 enum SPProtocol {
+    /*! Use HTTP. */
     SPHttp,
+    /*! Use HTTP over TLS. */
     SPHttps
 };
 
+/*!
+ @brief The builder for SPEmitter.
+ */
 @protocol SPEmitterBuilder <NSObject>
 
+/*!
+ @brief Emitter builder method to set the collector endpoint.
+
+ @param urlEndpoint The collector endpoint.
+ */
 - (void) setUrlEndpoint:(NSString *)urlEndpoint;
+
+/*!
+ @brief Emitter builder method to set HTTP method.
+
+ @param method Should be SPRequestGet or SPRequestPost.
+ */
 - (void) setHttpMethod:(enum SPRequestOptions)method;
+
+/*!
+ @brief Emitter builder method to set HTTP security.
+
+ @param protocol Should be SPHttp or SPHttps.
+ */
 - (void) setProtocol:(enum SPProtocol)protocol;
+
+/*!
+ @brief Emitter builder method to set callbacks.
+
+ @param callback Called on when events have sent.
+ */
 - (void) setCallback:(id<SPRequestCallback>)callback;
+
+/*!
+ @brief Emitter builder method to set emit range.
+
+ @param emitRange Number of events to pull from database.
+ */
 - (void) setEmitRange:(NSInteger)emitRange;
+
+/*!
+ @brief Emitter builder method to set thread pool size.
+
+ @param emitThreadPoolSize The number of threads used by the emitter.
+ */
 - (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
+
+/*!
+ @brief Emitter builder method to set byte limit for GET requests.
+ @param byteLimitGet Maximum event size for a GET request.
+ */
 - (void) setByteLimitGet:(NSInteger)byteLimitGet;
+
+/*!
+ @brief Emitter builder method to set byte limit for POST requests.
+ @param byteLimitPost Maximum event size for a POST request.
+ */
 - (void) setByteLimitPost:(NSInteger)byteLimitPost;
 
 @end
 
+/*!
+ @class SPEmitter
+ @brief The emitter class.
+
+ This class sends events to the collector.
+ */
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
+/*! @brief Chosen HTTP method - SPRequestGet or SPRequestPost. */
 @property (readonly, nonatomic) enum    SPRequestOptions      httpMethod;
+/*! @brief Security of requests - SPHttp or SPHttps.  */
 @property (readonly, nonatomic) enum    SPProtocol            protocol;
+/*! @brief Collector endpoint. */
 @property (readonly, nonatomic, retain) NSURL *               urlEndpoint;
+/*! @brief Number of events retrieved from the database when needed. */
 @property (readonly, nonatomic)         NSInteger             emitRange;
+/*! @brief Number of threads used for emitting events. */
 @property (readonly, nonatomic)         NSInteger             emitThreadPoolSize;
+/*! @brief Byte limit for GET requests. */
 @property (readonly, nonatomic)         NSInteger             byteLimitGet;
+/*! @brief Byte limit for POST requests. */
 @property (readonly, nonatomic)         NSInteger             byteLimitPost;
+/*! @brief Callbacks supplied with number of failures and successes of sent events. */
 @property (readonly, nonatomic, weak)   id<SPRequestCallback> callback;
 
-/**
- * Builds the Emitter using a build block of functions.
+/*!
+ @brief Builds the emitter using a build block of functions.
  */
 + (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock;
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
-/**
- * Inserts a SnowplowPayload object into the buffer to be sent in the next POST requests. Use this in favour over addToBuffer:
- * @param spPayload A SnowployPayload containing a completed event to be added into the buffer.
+/*!
+ @brief Insert a SPPayload object into the buffer to be sent to collector.
+
+ This method will add the payload to the database and flush (send all events).
+ @param spPayload An SPPayload containing a completed event to be added into the buffer.
  */
 - (void) addPayloadToBuffer:(SPPayload *)spPayload;
 
-/**
- * Empties the buffer of events using the respective HTTP request method in httpMethod.
+/*!
+ @brief Empties the buffer of events using the respective HTTP request method.
  */
 - (void) flushBuffer;
 
-/**
- * Sets up a timer to automatically initiate sending of events at pre-determined intervals.
+/*!
+ @brief Sets up a timer to automatically initiate sending of events at pre-determined intervals.
  */
 - (void) startTimerFlush;
 
-/**
- * Stops the Future Buffer Flush function.
+/*!
+ @brief Suspends the timer so flush will not be called.
  */
 - (void) stopTimerFlush;
 
-/**
- * Returns the total Database Count
- * @return returns the total DB Count
+/*!
+ @brief Returns the number of events in the DB.
+
+ @return The number of events in DB.
  */
 - (NSUInteger) getDbCount;
 
-/**
- * Returns whether the emitter is currently sending
- * @return the sending state as a boolean
+/*!
+ @brief Returns whether the emitter is currently sending.
+
+ @return Whether the emitter is currently sending.
  */
 - (BOOL) getSendingStatus;
 
