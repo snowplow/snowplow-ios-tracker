@@ -32,16 +32,6 @@
 
 static void * SessionObserverContext = &SessionObserverContext;
 
-@interface SPTracker ()
-
-@property (nonatomic, retain) SPEmitter * emitter;
-@property (nonatomic, retain) SPSubject * subject;
-@property (nonatomic, retain) NSString *  appId;
-@property (nonatomic, retain) NSString *  trackerNamespace;
-@property (nonatomic)         BOOL        base64Encoded;
-
-@end
-
 @implementation SPTracker {
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;

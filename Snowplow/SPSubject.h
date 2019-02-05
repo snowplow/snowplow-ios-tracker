@@ -24,161 +24,191 @@
 
 @class SPPayload;
 
+/*!
+ @class SPSubject
+ @brief The subject class.
+
+ This class is used to access and persist user information, it represents the current user being tracked.
+ */
 @interface SPSubject : NSObject
 
-/**
- * Initializes a newly allocated SnowplowSubject object.
- * @return a new SnowplowSubject
+/*!
+ @brief Initializes a newly allocated SPSubject object.
+
+ @return A new SPSubject.
  */
 - (id) init;
 
-/**
- * Creates a subject which also creates all Platform specific pairs.
- * @param platformContext whether to create platform dictionary
- * @return a new SnowplowSubject
+/*!
+ @brief Creates a subject which optionally adds platform and geolocation pairs.
+
+ @param platformContext Whether to enable the platform context.
+ @param geoContext Whether to enabled the geolocation context.
+ @return A new SPSubject.
  */
 - (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext;
 
-/**
- * Gets all standard dictionary pairs to decorate the event with.
- * @return a SnowplowPayload with all standard pairs
+/*!
+ @brief Gets all standard dictionary pairs to decorate the event with.
+
+ @return A SPPayload with all standard pairs.
  */
 - (SPPayload *) getStandardDict;
 
-/**
- * Gets all platform dictionary pairs to decorate event with.
- * @return a SnowplowPayload with all platform specific pairs
+/*!
+ @brief Gets all platform dictionary pairs to decorate event with.
+
+ @return A SPPayload with all platform specific pairs.
  */
 - (SPPayload *) getPlatformDict;
 
-/**
- * Gets the Geo-Location dictionary if the required keys are available.
- * @return the NSDictionary or nil
+/*!
+ @brief Gets the geolocation dictionary if the required keys are available.
+
+ @return A dictionary with key-value pairs of the geolocation context.
  */
 - (NSDictionary *) getGeoLocationDict;
 
-/**
- * Sets the User ID
- * @param uid as a String
+/*!
+ @brief Sets the user ID.
+
+ @param uid The user's ID.
  */
 - (void) setUserId:(NSString *)uid;
 
-/**
- * Sets the Screen Resolution
- * @param width as an Int
- * @param height as an Int
+/*!
+ @brief Sets the screen resolution.
+
+ @param width The screen resolution width in pixels.
+ @param height The screen resolution height in pixels.
  */
 - (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height;
 
-/**
- * Sets the View Port dimensions
- * @param width as an Int
- * @param height as an Int
+/*!
+ @brief Sets the viewport dimensions.
+
+ @param width The viewport width in pixels.
+ @param height The viewport height in pixels.
  */
 - (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height;
 
-/**
- * Sets the Color Depth
- * @param depth as an Int
+/*!
+ @brief Sets the color depth.
+
+ @param depth The user's color depth.
  */
 - (void) setColorDepth:(NSInteger)depth;
 
-/**
- * Sets the Timezone
- * @param timezone as a String
+/*!
+ @brief Sets the timezone.
+
+ @param timezone The user's timezone.
  */
 - (void) setTimezone:(NSString *)timezone;
 
-/**
- * Sets the Language
- * @param lang the language as a String
+/*!
+ @brief Sets the language.
+
+ @param lang The user's language.
  */
 - (void) setLanguage:(NSString *)lang;
 
-/**
- * Sets the IP Address
- * @param ip as a String
+/*!
+ @brief Sets the IP Address.
+
+ @param ip The user's IP address.
  */
 - (void) setIpAddress:(NSString *)ip;
 
-/**
- * Sets the Useragent
- * @param useragent as a String
+/*!
+ @brief Sets the user agent (also known as browser string).
+
+ @param useragent The user agent (also known as browser string).
  */
 - (void) setUseragent:(NSString *)useragent;
 
-/**
- * Sets the Network User ID
- * @param nuid as a String
+/*!
+ @brief Sets the Network User ID.
+
+ @param nuid The network UID.
  */
 - (void) setNetworkUserId:(NSString *)nuid;
 
-/**
- * Sets the Domain User ID
- * @param duid as a String
+/*!
+ @brief Sets the Domain User ID.
+
+ @param duid The domain UID.
  */
 - (void) setDomainUserId:(NSString *)duid;
 
-/**
- * Sets the standard pairs for the Subject, called automatically on object creation.
+/*!
+ @brief Sets the standard pairs for the Subject, called automatically on object creation.
  */
 - (void) setStandardDict;
 
-/**
- * Optional mobile/desktop context, if selected will be automatically populated on object creation.
+/*!
+ @brief Optional mobile/desktop context, if selected will be automatically populated on object creation.
  */
 - (void) setPlatformDict;
 
-/**
- * Optional geo context, if run will allocate memory for the geo-location context
+/*!
+ @brief Optional geolocation context, if run will allocate memory for the geolocation context
  */
 - (void) setGeoDict;
 
-/**
- * Sets the latitude value for the geo context
- * @param latitude A non-nil number
+/*!
+ @brief Sets the latitude value for the geolocation context.
+
+ @param latitude A non-nil number.
  */
 - (void) setGeoLatitude:(float)latitude;
 
-/**
- * Sets the longitude value for the geo context
- * @param longitude A non-nil number
+/*!
+ @brief Sets the longitude value for the geo context.
+
+ @param longitude A non-nil number.
  */
 - (void) setGeoLongitude:(float)longitude;
 
-/**
- * Sets the latitudeLongitudeAccuracy value for the geo context
- * @param latitudeLongitudeAccuracy A non-nil number
+/*!
+ @brief Sets the latitudeLongitudeAccuracy value for the geolocation context.
+
+ @param latitudeLongitudeAccuracy A non-nil number
  */
 - (void) setGeoLatitudeLongitudeAccuracy:(float)latitudeLongitudeAccuracy;
 
-/**
- * Sets the altitude value for the geo context
- * @param altitude A non-nil number
+/*!
+ @brief Sets the altitude value for the geolocation context.
+
+ @param altitude A non-nil number.
  */
 - (void) setGeoAltitude:(float)altitude;
 
-/**
- * Sets the altitudeAccuracy value for the geo context
- * @param altitudeAccuracy A non-nil number
+/*!
+ @brief Sets the altitudeAccuracy value for the geolocation context.
+
+ @param altitudeAccuracy A non-nil number.
  */
 - (void) setGeoAltitudeAccuracy:(float)altitudeAccuracy;
 
-/**
- * Sets the bearing value for the geo context
- * @param bearing A non-nil number
+/*!
+ @brief Sets the bearing value for the geolocation context.
+
+ @param bearing A non-nil number.
  */
 - (void) setGeoBearing:(float)bearing;
 
-/**
- * Sets the speed value for the geo context
- * @param speed A non-nil number
+/*!
+ @brief Sets the speed value for the geolocation context.
+
+ @param speed A non-nil number.
  */
 - (void) setGeoSpeed:(float)speed;
 
-/**
- * Sets the timestamp value for the geo context
- * @param timestamp An NSInteger value
+/*!
+ @brief Sets the timestamp value for the geolocation context.
+
+ @param timestamp The timestamp.
  */
 - (void) setGeoTimestamp:(NSNumber *)timestamp;
 
