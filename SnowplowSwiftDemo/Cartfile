@@ -1,2 +1,2 @@
 # Snowplow Tracker
-github "snowplow/snowplow-objc-tracker" "release/1.0.0"
+github "snowplow/snowplow-objc-tracker"
