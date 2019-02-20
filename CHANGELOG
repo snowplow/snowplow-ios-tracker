@@ -1,3 +1,11 @@
+Version 1.0.1 (2019-02-20)
+--------------------------
+Update README.md for new documentation site (#394)
+Update Swift demo Cartfile (#393)
+Add initializers for SPSession (#396)
+Remove dangling constant (#395)
+Add Doxygen-generated API reference (#392)
+
 Version 1.0.0 (2019-01-28)
 --------------------------
 Exposes session property in SPTracker (#256)
