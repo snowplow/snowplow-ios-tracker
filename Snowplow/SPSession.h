@@ -34,6 +34,13 @@
 
 /**
  * Initializes a newly allocated SnowplowSession
+ * @param tracker reference to the associated tracker of the session
+ * @return a SnowplowSession
+ */
+- (id) initWithTracker:(SPTracker *)tracker;
+
+/**
+ * Initializes a newly allocated SnowplowSession
  * @param foregroundTimeout the session timeout while it is in the foreground
  * @param backgroundTimeout the session timeout while it is in the background
  * @param checkInterval how often to query for if the session has timed out

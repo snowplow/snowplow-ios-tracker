@@ -57,6 +57,10 @@ NSString * const kSessionSavePath = @"session.dict";
     return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15 andTracker:nil];
 }
 
+- (id) initWithTracker:(SPTracker *)tracker {
+    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15 andTracker:tracker];
+}
+
 - (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval {
     return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15 andTracker:nil];
 }
