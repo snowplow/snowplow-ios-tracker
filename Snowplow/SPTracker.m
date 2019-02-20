@@ -30,8 +30,6 @@
 #import "SPSession.h"
 #import "SPEvent.h"
 
-static void * SessionObserverContext = &SessionObserverContext;
-
 @implementation SPTracker {
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
