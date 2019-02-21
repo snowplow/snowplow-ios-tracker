@@ -1,3 +1,9 @@
+Version 1.0.2 (2019-02-20)
+--------------------------
+Add Carthage badge (#390)
+Lower minimum deployment targets (#399)
+Update old badges (#400)
+
 Version 1.0.1 (2019-02-20)
 --------------------------
 Update README.md for new documentation site (#394)
