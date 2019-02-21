@@ -5,6 +5,7 @@ iOS, OSX and tvOS Analytics for Snowplow
 [ ![Coverage Status][coveralls-image] ][coveralls]
 [ ![Version][cocoa-version] ][cocoadocs]
 [ ![Platform][cocoa-plaform] ][cocoadocs]
+[ ![Carthage][carthage-badge] ][carthage]
 [ ![License][license-image] ][license]
 
 ## Overview
@@ -82,6 +83,9 @@ limitations under the License.
 [cocoadocs]: http://cocoadocs.org/docsets/SnowplowTracker
 [cocoa-version]: http://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
 [cocoa-plaform]: http://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png
+
+[carthage]: https://github.com/Carthage/Carthage
+[carthage-badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
 
 [techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
 [setup-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
