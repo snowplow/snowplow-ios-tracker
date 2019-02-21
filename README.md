@@ -72,11 +72,10 @@ limitations under the License.
 [5]: https://www.apple.com/tv/
 
 [travis]: https://travis-ci.org/snowplow/snowplow-objc-tracker
-[travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.png?branch=master
+[travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.svg?branch=master
 
-[coveralls]: https://coveralls.io/r/snowplow/snowplow-objc-tracker?branch=master
-[coveralls-image]: https://coveralls.io/repos/snowplow/snowplow-objc-tracker/badge.png?branch=master
-
+[coveralls]: https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master
+[coveralls-image]: https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master
 [license]: http://www.apache.org/licenses/LICENSE-2.0
 [license-image]: https://img.shields.io/cocoapods/l/SnowplowTracker.svg
 
