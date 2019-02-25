@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
     'Snowplow/SPSelfDescribingJson.h'
   ]
 
-  s.ios.frameworks = 'Reachability', 'CoreTelephony', 'UIKit', 'Foundation'
+  s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
   s.osx.frameworks = 'AppKit', 'Foundation'
   s.tvos.frameworks = 'UIKit', 'Foundation'
   s.dependency 'FMDB', '2.6.2'
