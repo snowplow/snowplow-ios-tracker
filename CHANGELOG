@@ -1,3 +1,8 @@
+Version 1.0.3 (2019-02-25)
+--------------------------
+Remove unnecessary Reachability from podspec (#404)
+Fix value reported by Reachability (#403)
+
 Version 1.0.2 (2019-02-20)
 --------------------------
 Add Carthage badge (#390)
