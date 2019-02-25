@@ -16,14 +16,19 @@ import Reachability
         do {
             try reachability.startNotifier()
         } catch {
-            return "error"
+            return "offline"
         }
-        if reachability.connection == .wifi {
+
+        switch reachability.connection {
+        case .cellular:
+            reachability.stopNotifier()
+            return "mobile"
+        case .wifi:
             reachability.stopNotifier()
             return "wifi"
-        } else {
+        case .none:
             reachability.stopNotifier()
-            return "cell"
+            return "offline"
         }
     }
 

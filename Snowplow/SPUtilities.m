@@ -118,12 +118,9 @@
 }
 
 + (NSString *) getNetworkType {
-    NSString * type = nil;
+    NSString * type = @"offline";
 #if SNOWPLOW_TARGET_IOS
     type = [ReachabilityBridge connectionType];
-    if ([type isEqualToString: @"error"]) {
-        type = nil;
-    }
 #endif
     return type;
 }
