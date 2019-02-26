@@ -73,6 +73,7 @@ extern NSString * const kSPContextSchema;
 extern NSString * const kSPMobileContextSchema;
 extern NSString * const kSPDesktopContextSchema;
 extern NSString * const kSPSessionContextSchema;
+extern NSString * const kSPScreenContextSchema;
 extern NSString * const kSPGeoContextSchema;
 extern NSString * const kSPConsentDocumentSchema;
 extern NSString * const kSPConsentGrantedSchema;
@@ -162,6 +163,13 @@ extern NSString * const kSPGeoBearing;
 extern NSString * const kSPGeoSpeed;
 extern NSString * const kSPGeoTimestamp;
 
+// --- Screen Context
+extern NSString * const kSPScreenName;
+extern NSString * const kSPScreenType;
+extern NSString * const kSPScreenId;
+extern NSString * const kSPScreenViewController;
+extern NSString * const kSPScreenTopViewController;
+
 // --- Page View Event
 
 extern NSString * const kSPPageUrl;
@@ -212,8 +220,13 @@ extern NSString * const KSPCdDescription;
 
 // --- Screen View Event
 
-extern NSString * const kSPSvId;
 extern NSString * const kSPSvName;
+extern NSString * const kSPSvType;
+extern NSString * const kSPSvScreenId;
+extern NSString * const kSPSvPreviousName;
+extern NSString * const kSPSvPreviousType;
+extern NSString * const kSPSvPreviousScreenId;
+extern NSString * const kSPSvTransitionType;
 
 // --- User Timing Event
 

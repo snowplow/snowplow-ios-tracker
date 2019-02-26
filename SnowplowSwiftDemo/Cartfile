@@ -1,2 +1,1 @@
-# Snowplow Tracker
-github "snowplow/snowplow-objc-tracker"
+git "file:///Users/mhadam/Snowplow/snowplow-objc-tracker" "develop"

@@ -52,6 +52,12 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [super tearDown];
 }
 
+- (void) testScreenContextJson {
+    SPScreenState * screen = [[SPScreenState alloc] initWithName:@"name" type:@"type" topViewControllerClassName:@"topvcname" viewControllerClassName:@"vcname"];
+    SPSelfDescribingJson * json = [SPUtilities getScreenContextWithScreenState:screen];
+    XCTAssertTrue([validator validateJson:[json getAsDictionary]]);
+}
+
 - (void)testClientSessionContextJson {
     SPSession * session = [[SPSession alloc] init];
     NSDictionary * data = [session getSessionDictWithEventId:@"first-event-id"];
@@ -273,7 +279,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 - (void)testScreenViewEventJson {
     SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setId:@"DemoScreenId"];
+        [builder setScreenId:@"DemoScreenId"];
     }];
     NSDictionary * sdj = [[event getPayload] getAsDictionary];
     

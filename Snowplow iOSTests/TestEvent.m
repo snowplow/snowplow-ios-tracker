@@ -283,19 +283,19 @@
     // Valid construction
     SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"name"];
-        [builder setId:@"id"];
+        [builder setScreenId:@"id"];
     }];
     XCTAssertNotNil(event);
     
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@""];
-        [builder setId:@"id"];
+        [builder setScreenId:@"id"];
     }];
     XCTAssertNotNil(event);
     
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"name"];
-        [builder setId:@""];
+        [builder setScreenId:@""];
     }];
     XCTAssertNotNil(event);
     
@@ -303,7 +303,7 @@
     @try {
         event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
             [builder setName:@""];
-            [builder setId:@""];
+            [builder setScreenId:@""];
         }];
     }
     @catch (NSException *exception) {
@@ -314,7 +314,7 @@
     @try {
         event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
             [builder setName:nil];
-            [builder setId:nil];
+            [builder setScreenId:nil];
         }];
     }
     @catch (NSException *exception) {
@@ -745,6 +745,17 @@
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Notification cannot be nil.", exception.reason);
     }
+}
+
+- (void)testErrorBuilderConditions {
+    // Valid construction
+    SPError * error = [SPError build:^(id<SPErrorBuilder> builder) {
+        [builder setName:@"name"];
+        [builder setMessage:@"message"];
+        [builder setStackTrace:@"stackTrace"];
+    }];
+    
+    XCTAssertNotNil(error);
 }
 
 // --- Helpers
