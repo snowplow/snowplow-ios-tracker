@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             completionHandler()
         case UNNotificationDefaultActionIdentifier: // App was opened from notification
             NSLog("Remote notification opened app from background!")
-            if let rootViewController = window?.rootViewController as? ViewController {
+            if let rootViewController = window?.rootViewController as? PageViewController {
 
                 NSLog("Notification action identifier: %@", actionIdentifier)
 
@@ -66,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 })
 
                 //print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary(), options: .prettyPrinted), encoding: .utf8 )!)
-                rootViewController.tracker.trackPushNotificationEvent(event)
+                rootViewController.tracker?.trackPushNotificationEvent(event)
             }
             completionHandler()
         default:
@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        if let rootViewController = window?.rootViewController as? ViewController {
+        if let rootViewController = window?.rootViewController as? PageViewController {
             let token = String(format: "%@", deviceToken as CVarArg).trimmingCharacters(in: CharacterSet(charactersIn: "<>")).replacingOccurrences(of: " ", with: "")
             NSLog("%@", token)
             rootViewController.updateToken(token)
@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         NSLog("%@", error.localizedDescription )
-        if let rootViewController = window?.rootViewController as? ViewController {
+        if let rootViewController = window?.rootViewController as? PageViewController {
             rootViewController.updateToken("failed to register")
         }
     }

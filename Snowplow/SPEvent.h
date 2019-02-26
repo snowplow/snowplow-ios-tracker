@@ -21,10 +21,28 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPScreenState.h"
 
 @class SPPayload;
 @class SPSelfDescribingJson;
 @class SPNotificationContent;
+
+/*!
+ @brief An enum for screen types.
+ */
+typedef NS_ENUM(NSInteger, SPScreenType) {
+    // sourced from `View Controller Catalog for iOS`
+    SPScreenTypeDefault,
+    SPScreenTypeNavigation,
+    SPScreenTypeTabBar,
+    SPScreenTypePageView,
+    SPScreenTypeSplitView,
+    SPScreenTypePopoverPresentation,
+    SPScreenTypeModal,
+    SPScreenTypeCombined
+};
+
+NSString * stringWithSPScreenType(SPScreenType screenType);
 
 /*!
  @protocol SPEventBuilder
@@ -152,11 +170,53 @@
 - (void) setName:(NSString *)name;
 
 /*!
+ @brief Set the type of the screen.
+
+ @param type The type for the screen.
+ */
+- (void) setType:(NSString *)type;
+
+/*!
  @brief Set the ID of the screen.
 
- @param sId The UUID for the screen.
+ @param screenId The ID for the screen.
  */
-- (void) setId:(NSString *)sId;
+- (void) setScreenId:(NSString *)screenId;
+
+/*!
+ @brief Set the name of the previous screen.
+
+ @param name The name of the previous screen.
+ */
+- (void) setPreviousScreenName:(NSString *)name;
+
+/*!
+ @brief Set the type of the previous screen.
+
+ @param type The type of the previous screen.
+ */
+- (void) setPreviousScreenType:(NSString *)type;
+
+/*!
+ @brief Set the ID of the previous screen.
+
+ @param screenId The ID for the previous screen.
+ */
+- (void) setPreviousScreenId:(NSString *)screenId;
+
+/*!
+ @brief Set the type of the screen transition.
+
+ @param type The type of the screen transition.
+ */
+- (void) setTransitionType:(NSString *)type;
+
+- (BOOL) setWithPreviousState:(SPScreenState *)previousState;
+
+- (BOOL) setWithCurrentState:(SPScreenState *)currentState previousState:(SPScreenState *)previousState;
+
+- (BOOL) setWithCurrentState:(SPScreenState *)currentState;
+
 @end
 
 /*!
@@ -688,6 +748,12 @@
 @interface SPScreenView : SPEvent <SPScreenViewBuilder>
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload;
+- (SPScreenState *) getScreenState;
+- (BOOL) definesPreviousState;
+- (SPScreenState *) getPreviousState;
+- (BOOL) setWithPreviousState:(SPScreenState *)previousState;
+- (BOOL) setWithCurrentState:(SPScreenState *)currentState;
+- (BOOL) setWithCurrentState:(SPScreenState *)currentState previousState:(SPScreenState *)previousState;
 @end
 
 /*!

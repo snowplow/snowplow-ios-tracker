@@ -26,6 +26,20 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
+NSString * stringWithSPScreenType(SPScreenType screenType) {
+    NSArray * arr = @[
+                      @"Default",
+                      @"Navigation",
+                      @"TabBar",
+                      @"PageView",
+                      @"SplitView",
+                      @"PopoverPresentation",
+                      @"Modal",
+                      @"Combined"
+                      ];
+    return (NSString *)[arr objectAtIndex:screenType];
+}
+
 // Base Event
 
 @implementation SPEvent
@@ -254,6 +268,11 @@
 @implementation SPScreenView {
     NSString * _name;
     NSString * _id;
+    NSString * _type;
+    NSString * _previousName;
+    NSString * _previousId;
+    NSString * _previousType;
+    NSString * _transitionType;
 }
 
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock {
@@ -265,11 +284,14 @@
 
 - (id) init {
     self = [super init];
+    if (!_id) {
+        _id = [[NSUUID UUID] UUIDString];
+    }
     return self;
 }
 
 - (void) preconditions {
-    [SPUtilities checkArgument:([_name length] != 0 || [_id length] != 0) withMessage:@"Name and ID cannot both be nil and empty."];
+    [SPUtilities checkArgument:([_name length] != 0) withMessage:@"Name cannot be empty."];
     [self basePreconditions];
 }
 
@@ -279,23 +301,95 @@
     _name = name;
 }
 
-- (void) setId:(NSString *)sId {
-    _id = sId;
+- (void) setScreenId:(NSString *)screenId {
+    _id = screenId;
+}
+
+- (void) setType:(NSString *)type {
+    _type = type;
+}
+
+- (void) setPreviousScreenName:(NSString *)name {
+    _previousName = name;
+}
+
+- (void) setPreviousScreenId:(NSString *)screenId {
+    _previousId = screenId;
+}
+
+- (void) setPreviousScreenType:(NSString *)type {
+    _previousType = type;
+}
+
+- (void) setTransitionType:(NSString *)type {
+    _transitionType = type;
+}
+
+- (BOOL) setWithPreviousState:(SPScreenState *)previousState {
+    if (![previousState isValid]) {
+        return NO;
+    }
+    _previousName = previousState.name;
+    _previousId = previousState.screenId;
+    _previousType = previousState.type;
+    return YES;
+}
+
+- (BOOL) setWithCurrentState:(SPScreenState *)currentState {
+    if (![currentState isValid]) {
+        return NO;
+    }
+    _name = currentState.name;
+    _id = currentState.screenId;
+    _type = currentState.type;
+    _transitionType = currentState.transitionType;
+    return YES;
+}
+
+- (BOOL) setWithCurrentState:(SPScreenState *)currentState previousState:(SPScreenState *)previousState {
+    BOOL success = NO;
+    success = [self setWithCurrentState:currentState];
+    if (!success) {
+        return NO;
+    }
+
+    success = [self setWithPreviousState:previousState];
+    return success;
 }
 
 // --- Public Methods
 
 - (SPSelfDescribingJson *) getPayload {
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-    if (_id != nil) {
-        [event setObject:_id forKey:kSPSvId];
-    }
-    if (_name != nil) {
-        [event setObject:_name forKey:kSPSvName];
-    }
-
+    SPPayload * payload = [[SPPayload alloc] init];
+    [payload addValueToPayload:_name forKey:kSPSvName];
+    [payload addValueToPayload:_type forKey:kSPSvType];
+    [payload addValueToPayload:_id forKey:kSPSvScreenId];
+    [payload addValueToPayload:_previousName forKey:kSPSvPreviousName];
+    [payload addValueToPayload:_previousType forKey:kSPSvPreviousType];
+    [payload addValueToPayload:_previousId forKey:kSPSvPreviousScreenId];
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenViewSchema
-                                                andData:event];
+                                                andPayload:payload];
+}
+
+- (SPScreenState *) getScreenState {
+    SPScreenState * state = [[SPScreenState alloc] initWithName:_name
+                                                           type:_type
+                                                       screenId:_id
+                                                 transitionType:_transitionType];
+    return state;
+}
+
+- (BOOL) definesPreviousState {
+    // returns if valid previous state data exists in event
+    return ([self getPreviousState] != nil);
+}
+
+- (SPScreenState *) getPreviousState {
+    // returns valid previous state data in event
+    SPScreenState * previousState = [[SPScreenState alloc] initWithName:_previousName
+                                                                   type:_previousType
+                                                               screenId:_previousId];
+    return previousState;
 }
 
 @end
@@ -1072,3 +1166,5 @@
 }
 
 @end
+
+// 

@@ -49,12 +49,13 @@ NSString * const kSPSnowplowVendor        = @"com.snowplowanalytics.snowplow";
 NSString * const kSPSchemaTag             = @"jsonschema";
 NSString * const kSPPayloadDataSchema     = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3";
 NSString * const kSPUserTimingsSchema     = @"iglu:com.snowplowanalytics.snowplow/timing/jsonschema/1-0-0";
-NSString * const kSPScreenViewSchema      = @"iglu:com.snowplowanalytics.snowplow/screen_view/jsonschema/1-0-0";
+NSString * const kSPScreenViewSchema      = @"iglu:com.snowplowanalytics.mobile/screen_view/jsonschema/1-0-0";
 NSString * const kSPUnstructSchema        = @"iglu:com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0";
 NSString * const kSPContextSchema         = @"iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1";
 NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-1";
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-1";
+NSString * const kSPScreenContextSchema   = @"iglu:com.snowplowanalytics.mobile/screen/jsonschema/1-0-0";
 NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0";
 NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0";
 NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";
@@ -143,6 +144,13 @@ NSString * const kSPGeoBearing            = @"bearing";
 NSString * const kSPGeoSpeed              = @"speed";
 NSString * const kSPGeoTimestamp          = @"timestamp";
 
+// --- Screen Context
+NSString * const kSPScreenName                = @"name";
+NSString * const kSPScreenType                = @"type";
+NSString * const kSPScreenId                  = @"id";
+NSString * const kSPScreenViewController      = @"viewController";
+NSString * const kSPScreenTopViewController   = @"topViewController";
+
 // --- Page View Event
 
 NSString * const kSPPageUrl               = @"url";
@@ -193,8 +201,16 @@ NSString * const KSPCdDescription         = @"description";
 
 // --- Screen View Event
 
-NSString * const kSPSvId                  = @"id";
-NSString * const kSPSvName                = @"name";
+NSString * const kSPSvName                    = @"name";
+NSString * const kSPSvType                    = @"type";
+NSString * const kSPSvScreenId                = @"id";
+NSString * const kSPSvPreviousName            = @"previousName";
+NSString * const kSPSvPreviousType            = @"previousType";
+NSString * const kSPSvPreviousScreenId        = @"previousId";
+NSString * const kSPSvTransitionType          = @"transitionType";
+NSString * const kSPSvViewController          = @"viewController";
+NSString * const kSPSvTopViewController       = @"topViewController";
+
 
 // --- User Timing Event
 

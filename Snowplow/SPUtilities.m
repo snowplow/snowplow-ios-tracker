@@ -22,6 +22,9 @@
 
 #import "Snowplow.h"
 #import "SPUtilities.h"
+#import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
+#import "SPScreenState.h"
 
 #if SNOWPLOW_TARGET_IOS
 
@@ -353,6 +356,22 @@
             [camelcaseKey appendString:[word capitalizedString]];
         }
         return camelcaseKey;
+    }
+}
+
++ (NSString *) validateString:(NSString *)aString {
+    if (!aString | ([aString length] == 0)) {
+        return nil;
+    }
+    return aString;
+}
+
++ (SPSelfDescribingJson *) getScreenContextWithScreenState:(SPScreenState *)screenState {
+    SPPayload * contextPayload = [screenState getValidPayload];
+    if (contextPayload) {
+        return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenContextSchema andPayload:contextPayload];
+    } else {
+        return nil;
     }
 }
 

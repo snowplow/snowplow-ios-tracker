@@ -32,6 +32,7 @@ Pod::Spec.new do |s|
     'Snowplow/SPRequestResponse.h',
     'Snowplow/SPEvent.h', 
     'Snowplow/SPSelfDescribingJson.h'
+    'Snowplow/SPScreenState.h'
   ]
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'

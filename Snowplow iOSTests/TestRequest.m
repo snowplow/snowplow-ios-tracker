@@ -234,7 +234,7 @@ NSString *protocol = @"https";
 - (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
     SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setId:@"DemoScreenId"];
+        [builder setScreenId:@"DemoScreenId"];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:@1243567890];
         [builder setEventId:@"an-event-id"];
