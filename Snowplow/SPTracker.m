@@ -209,8 +209,8 @@
     SPPayload * applicationInfo = [[SPPayload alloc] init];
     NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
     NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-    [applicationInfo addValueToPayload:kSPApplicationBuild forKey:build];
-    [applicationInfo addValueToPayload:kSPApplicationVersion forKey:version];
+    [applicationInfo addValueToPayload:build forKey:kSPApplicationBuild];
+    [applicationInfo addValueToPayload:version forKey:kSPApplicationVersion];
     return applicationInfo;
 }
 
