@@ -35,7 +35,7 @@
 /*!
  @brief An enum for HTTP method types.
  */
-enum SPRequestOptions {
+typedef NS_ENUM(NSInteger, SPRequestOptions) {
     /*! GET request. */
     SPRequestGet,
     /*! POST request. */
@@ -45,7 +45,7 @@ enum SPRequestOptions {
 /*!
  @brief An enum for HTTP security.
  */
-enum SPProtocol {
+typedef NS_ENUM(NSInteger, SPProtocol) {
     /*! Use HTTP. */
     SPHttp,
     /*! Use HTTP over TLS. */
@@ -69,14 +69,14 @@ enum SPProtocol {
 
  @param method Should be SPRequestGet or SPRequestPost.
  */
-- (void) setHttpMethod:(enum SPRequestOptions)method;
+- (void) setHttpMethod:(SPRequestOptions)method;
 
 /*!
  @brief Emitter builder method to set HTTP security.
 
  @param protocol Should be SPHttp or SPHttps.
  */
-- (void) setProtocol:(enum SPProtocol)protocol;
+- (void) setProtocol:(SPProtocol)protocol;
 
 /*!
  @brief Emitter builder method to set callbacks.
@@ -122,9 +122,9 @@ enum SPProtocol {
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
 /*! @brief Chosen HTTP method - SPRequestGet or SPRequestPost. */
-@property (readonly, nonatomic) enum    SPRequestOptions      httpMethod;
+@property (readonly, nonatomic) SPRequestOptions              httpMethod;
 /*! @brief Security of requests - SPHttp or SPHttps.  */
-@property (readonly, nonatomic) enum    SPProtocol            protocol;
+@property (readonly, nonatomic) SPProtocol                    protocol;
 /*! @brief Collector endpoint. */
 @property (readonly, nonatomic, retain) NSURL *               urlEndpoint;
 /*! @brief Number of events retrieved from the database when needed. */
