@@ -98,14 +98,14 @@ const NSInteger POST_STM_BYTES = 22;
     }
 }
 
-- (void) setHttpMethod:(enum SPRequestOptions)method {
+- (void) setHttpMethod:(SPRequestOptions)method {
     _httpMethod = method;
     if (_builderFinished && _urlEndpoint != nil) {
         [self setupUrlEndpoint];
     }
 }
 
-- (void) setProtocol:(enum SPProtocol)protocol {
+- (void) setProtocol:(SPProtocol)protocol {
     _protocol = protocol;
     if (_builderFinished && _urlEndpoint != nil) {
         [self setupUrlEndpoint];
