@@ -1,3 +1,8 @@
+Version 1.0.4 (2019-02-28)
+--------------------------
+Use NS_ENUM for SPRequestOptions and SPProtocol (#402)
+Fix key-value order for application context (#406)
+
 Version 1.0.3 (2019-02-25)
 --------------------------
 Remove unnecessary Reachability from podspec (#404)
