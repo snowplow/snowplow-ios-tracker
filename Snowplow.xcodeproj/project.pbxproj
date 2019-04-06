@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		75264A2C224D56C5000E0E9B /* SPError.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A2B224D56C5000E0E9B /* SPError.m */; };
-		75264A2E224D56DA000E0E9B /* SPError.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2D224D56DA000E0E9B /* SPError.h */; };
-		75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; };
+		75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		752DABD521CC38560065F874 /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
 		752DABFE21CC3B380065F874 /* Snowplow_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABF521CC3B380065F874 /* Snowplow_macOS.framework */; };
@@ -48,6 +46,13 @@
 		752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		752DAC4021CC4A830065F874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7534D20122569BED00904EE5 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
+		7534D20222569BED00904EE5 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
+		7534D20322569BED00904EE5 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
+		7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		7534D20822569F3400904EE5 /* TestScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7534D20722569F3400904EE5 /* TestScreenState.m */; };
 		753DDA6D21F803B10007C3AE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 753DDA6C21F803B10007C3AE /* Cocoa.framework */; };
 		754774BC2225FBA60043B814 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
 		754774BD2225FBA60043B814 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
@@ -268,6 +273,7 @@
 		752DAC1021CC3F010065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/watchOS/FMDB.framework; sourceTree = "<group>"; };
 		752DAC1221CC3F140065F874 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/Mac/Reachability.framework; sourceTree = "<group>"; };
 		752DAC1321CC3F140065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
+		7534D20722569F3400904EE5 /* TestScreenState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestScreenState.m; sourceTree = "<group>"; };
 		753DDA6C21F803B10007C3AE /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		754774BB2225FBA60043B814 /* SPScreenState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPScreenState.m; sourceTree = "<group>"; };
 		754774BF2225FBB90043B814 /* SPScreenState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPScreenState.h; sourceTree = "<group>"; };
@@ -411,6 +417,7 @@
 				75CAC3F421F2955000271FB3 /* TestSubject.m */,
 				75CAC40021F2955100271FB3 /* TestTracker.m */,
 				75CAC40221F2955100271FB3 /* TestUtils.m */,
+				7534D20722569F3400904EE5 /* TestScreenState.m */,
 			);
 			path = "Snowplow iOSTests";
 			sourceTree = "<group>";
@@ -553,14 +560,13 @@
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				754774C02225FBB90043B814 /* SPScreenState.h in Headers */,
+				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
-				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
 				752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */,
 				752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */,
 				752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */,
-				75264A2E224D56DA000E0E9B /* SPError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,8 +630,11 @@
 				75F9C5EC21FA35BC00A5B8FC /* SPSelfDescribingJson.h in Headers */,
 				75F9C5EE21FA35BC00A5B8FC /* SPUtilities.h in Headers */,
 				75F9C5F121FA35BC00A5B8FC /* SPEvent.h in Headers */,
+				7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */,
 				75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */,
 				75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */,
+				7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */,
+				7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				75F9C5ED21FA35BC00A5B8FC /* SPEventStore.h in Headers */,
 				75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */,
 				75F9C5EA21FA35BC00A5B8FC /* SPSession.h in Headers */,
@@ -843,7 +852,6 @@
 				752DAC1F21CC42BC0065F874 /* SPSession.m in Sources */,
 				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
-				75264A2C224D56C5000E0E9B /* SPError.m in Sources */,
 				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
 				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
 				752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */,
@@ -865,6 +873,7 @@
 				75CAC40D21F2955100271FB3 /* TestEmitter.m in Sources */,
 				75CAC40721F2955100271FB3 /* TestPayload.m in Sources */,
 				75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */,
+				7534D20822569F3400904EE5 /* TestScreenState.m in Sources */,
 				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
 				75CAC40F21F2955100271FB3 /* SnowplowTests.m in Sources */,
 				75CAC41321F2955100271FB3 /* TestUtils.m in Sources */,
@@ -929,6 +938,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7534D20122569BED00904EE5 /* SPScreenState.m in Sources */,
+				7534D20222569BED00904EE5 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
+				7534D20322569BED00904EE5 /* SPInstallTracker.m in Sources */,
 				75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */,
 				75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */,
 				75F9C5D721FA357100A5B8FC /* SPTracker.m in Sources */,

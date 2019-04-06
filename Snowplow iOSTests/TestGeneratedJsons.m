@@ -335,6 +335,11 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     XCTAssertTrue([validator validateJson:json]);
 }
 
+- (void)testApplicationContextJson {
+    SPSelfDescribingJson * json = [SPUtilities getApplicationContextWithVersion:@"testversion" andBuild:@"testbuild"];
+    XCTAssertTrue([validator validateJson:[json getAsDictionary]]);
+}
+
 - (void)testErrorEventJson {
     SPError *event = [SPError build:^(id<SPErrorBuilder> builder) {
         [builder setMessage:@"some error message"];

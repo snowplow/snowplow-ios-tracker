@@ -326,14 +326,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     return _lifecycleEvents;
 }
 
-- (SPPayload*) getApplicationInfo {
-    SPPayload * applicationInfo = [[SPPayload alloc] init];
-    NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
-    NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
-    [applicationInfo addValueToPayload:build forKey:kSPApplicationBuild];
-    [applicationInfo addValueToPayload:version forKey:kSPApplicationVersion];
-    return applicationInfo;
-}
 
 - (void) receiveScreenViewNotification:(NSNotification *)notification {
     NSString * name = [[notification userInfo] objectForKey:@"name"];
@@ -544,9 +536,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
 
     if (_applicationContext) {
-        NSDictionary * applicationDict = [[self getApplicationInfo] getAsDictionary];
-        if (applicationDict != nil) {
-            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationContextSchema andData:applicationDict]];
+        SPSelfDescribingJson * contextJson = [SPUtilities getApplicationContext];
+        if (contextJson != nil) {
+            [contextArray addObject:contextJson];
         }
     }
 
