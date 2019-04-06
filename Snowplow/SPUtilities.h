@@ -281,4 +281,18 @@
  */
 + (NSString *) getAppBuild;
 
+/*!
+ Returns the application build and version as a payload to be used in the application context.
+ @return A context SDJ.
+ */
++ (SPSelfDescribingJson *) getApplicationContext;
+
+/*!
+ Returns the application build and version as a payload to be used in the application context.
+ @param version The application version
+ @param build The application build
+ @return A context SDJ.
+ */
++ (SPSelfDescribingJson *) getApplicationContextWithVersion:(NSString *)version andBuild:(NSString *)build;
+
 @end

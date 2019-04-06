@@ -375,6 +375,23 @@
     }
 }
 
++ (SPSelfDescribingJson *) getApplicationContext {
+    NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+    NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+    return [self getApplicationContextWithVersion:version andBuild:build];
+}
+
++ (SPSelfDescribingJson *) getApplicationContextWithVersion:(NSString *)version andBuild:(NSString *)build {
+    SPPayload * payload = [[SPPayload alloc] init];
+    [payload addValueToPayload:build forKey:kSPApplicationBuild];
+    [payload addValueToPayload:version forKey:kSPApplicationVersion];
+    if (payload != nil && [[payload getAsDictionary] count] > 0) {
+        return [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationContextSchema andPayload:payload];
+    } else {
+        return nil;
+    }
+}
+
 + (NSString *) getAppVersion {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
 }
