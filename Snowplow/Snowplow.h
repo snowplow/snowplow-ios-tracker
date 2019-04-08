@@ -85,6 +85,7 @@ extern NSString * const kSPApplicationContextSchema;
 extern NSString * const kSPBackgroundSchema;
 extern NSString * const kSPForegroundSchema;
 extern NSString * const kSPErrorSchema;
+extern NSString * const kSPApplicationInstallSchema;
 
 // --- Event Keys
 
@@ -228,6 +229,8 @@ extern NSString * const kSPSvPreviousName;
 extern NSString * const kSPSvPreviousType;
 extern NSString * const kSPSvPreviousScreenId;
 extern NSString * const kSPSvTransitionType;
+extern NSString * const kSPSvViewController;
+extern NSString * const kSPSvTopViewController;
 
 // --- User Timing Event
 
@@ -274,5 +277,12 @@ extern NSString * const kSPErrorLanguage;
 extern NSString * const kSPErrorTrackerUrl;
 extern NSString * const kSPErrorTrackerProtocol;
 extern NSString * const kSPErrorTrackerMethod;
+
+// --- Install tracking
+
+extern NSString * const kSPInstalledBefore;
+extern NSString * const kSPInstallTimestamp;
+extern NSString * const kSPPreviousInstallVersion;
+extern NSString * const kSPPreviousInstallBuild;
 
 @end

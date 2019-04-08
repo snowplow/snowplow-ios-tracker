@@ -47,6 +47,7 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
             builder!.setScreenContext(true)
             builder!.setApplicationContext(true)
             builder!.setExceptionEvents(true)
+            builder!.setInstallEvent(true)
         })
         return newTracker!
     }

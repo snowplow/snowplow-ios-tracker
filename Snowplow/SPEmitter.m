@@ -28,6 +28,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
+#import "SPRequestCallback.h"
 
 @implementation SPEmitter {
     SPEventStore *     _db;

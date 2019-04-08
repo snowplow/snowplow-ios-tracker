@@ -141,18 +141,25 @@ void uncaughtExceptionHandler(NSException *exception);
 - (void) setLifecycleEvents:(BOOL)lifecycleEvents;
 
 /*!
- @brief Tracker builder method to set whether screenviews should be autotracked.
+ @brief Tracker builder method to set whether exceptions should be autotracked.
+ 
+ @param exceptionEvents Whether to autotrack exceptions.
+ */
+- (void) setExceptionEvents:(BOOL)exceptionEvents;
+
+/*!
+ @brief Tracker builder method to set whether screenviews will be autotracked.
 
  @param autotrackScreenViews Whether to autotrack screenviews.
  */
 - (void) setAutotrackScreenViews:(BOOL)autotrackScreenViews;
 
 /*!
- @brief Tracker builder method to set whether exceptions should be autotracked.
+ @brief Tracker builder method to set whether application install should be autotracked.
  
- @param exceptionEvents Whether to autotrack exceptions.
+ @param installEvent Whether to autotrack application installs.
  */
-- (void) setExceptionEvents:(BOOL)exceptionEvents;
+- (void) setInstallEvent:(BOOL)installEvent;
 
 @end
 

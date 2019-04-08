@@ -30,6 +30,7 @@
 #import "SPSession.h"
 #import "SPEvent.h"
 #import "SPScreenState.h"
+#import "SPInstallTracker.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
@@ -50,7 +51,6 @@
 
 void uncaughtExceptionHandler(NSException *exception) {
     NSArray* symbols = [exception callStackSymbols];
-    // Construct userInfo
     NSString * stackTrace = [NSString stringWithFormat:@"Stacktrace:\n%@", symbols];
     NSString * message = [exception reason];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -106,6 +106,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSInteger              _checkInterval;
     BOOL                   _builderFinished;
     BOOL                   _exceptionEvents;
+    BOOL                   _installEvent;
 }
 
 // SnowplowTracker Builder
@@ -116,6 +117,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         buildBlock(tracker);
     }
     [tracker setup];
+    [tracker checkInstall];
     return tracker;
 }
 
@@ -138,6 +140,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         self.previousScreenState = nil;
         self.currentScreenState = nil;
         _exceptionEvents = NO;
+        _installEvent = NO;
 #if SNOWPLOW_TARGET_IOS
         _platformContextSchema = kSPMobileContextSchema;
 #else
@@ -168,6 +171,31 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
 
     _builderFinished = YES;
+}
+
+- (void) checkInstall {
+    SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
+    NSNumber * previousTimestamp = [installTracker getPreviousInstallTimestamp];
+    if (_installEvent) {
+        if (installTracker.isNewInstall) {
+            SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
+            SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+                [builder setEventData:installEvent];
+            }];
+            [self trackUnstructuredEvent:event];
+            if (previousTimestamp) {
+                [installTracker clearPreviousInstallTimestamp];
+            }
+        } else if (previousTimestamp) {
+            SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
+            SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+                [builder setEventData:installEvent];
+                [builder setTimestamp:previousTimestamp];
+            }];
+            [self trackUnstructuredEvent:event];
+            [installTracker clearPreviousInstallTimestamp];
+        }
+    }
 }
 
 - (void) setTrackerData {
@@ -256,6 +284,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) setExceptionEvents:(BOOL)exceptionEvents {
     _exceptionEvents = exceptionEvents;
+}
+
+- (void) setInstallEvent:(BOOL)installEvent {
+    _installEvent = installEvent;
 }
 
 // Extra Functions

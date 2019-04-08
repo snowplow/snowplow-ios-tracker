@@ -269,4 +269,16 @@
  */
 + (SPSelfDescribingJson *) getScreenContextWithScreenState:(SPScreenState *)screenState;
 
+/*!
+ Returns the app version.
+ @return App version string.
+ */
++ (NSString *) getAppVersion;
+ 
+ /*!
+ Returns the app build.
+ @return App build string.
+ */
++ (NSString *) getAppBuild;
+
 @end
