@@ -371,8 +371,16 @@
     if (contextPayload) {
         return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenContextSchema andPayload:contextPayload];
     } else {
-        return nil;
+    	return nil;
     }
+}
+
++ (NSString *) getAppVersion {
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+}
+
++ (NSString *) getAppBuild {
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
 }
 
 @end

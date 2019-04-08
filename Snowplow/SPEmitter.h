@@ -27,8 +27,8 @@
  */
 
 #import <Foundation/Foundation.h>
-#import "SPRequestCallback.h"
 
+@protocol SPRequestCallback;
 @class SPPayload;
 @class SPEventStore;
 
