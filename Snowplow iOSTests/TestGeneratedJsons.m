@@ -329,6 +329,17 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
+- (void)testErrorEventJson {
+    SPError *event = [SPError build:^(id<SPErrorBuilder> builder) {
+        [builder setMessage:@"some error message"];
+        [builder setName:@"some exception name"];
+        [builder setStackTrace:@"some stack trace"];
+    }];
+    NSDictionary * sdj = [[event getPayload] getAsDictionary];
+
+    XCTAssertTrue([validator validateJson:sdj]);
+}
+
 - (void)testFinalEventPayloadJson {
     SPTracker * tracker = [self getTracker:@"acme.fake.url"];
     SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {

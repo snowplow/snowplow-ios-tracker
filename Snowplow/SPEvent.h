@@ -663,6 +663,35 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @end
 
 /*!
+ @protocol SPErrorBuilder
+ @brief The protocol for building error events.
+ */
+@protocol SPErrorBuilder <SPEventBuilder>
+
+/*!
+ @brief Set the error message.
+ 
+ @param message The error message.
+ */
+- (void) setMessage:(NSString *)message;
+
+/*!
+ @brief Set the exception stack trace.
+ 
+ @param stackTrace The stack trace of the exception.
+ */
+- (void) setStackTrace:(NSString *)stackTrace;
+
+/*!
+ @brief Set the exception name.
+ 
+ @param name The exception name.
+ */
+- (void) setName:(NSString *)name;
+
+@end
+
+/*!
  @class SPEvent
  @brief The base object for all events.
 
@@ -677,6 +706,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 /*! The UUID that identifies the event. */
 @property (nonatomic, readwrite, retain) NSString * eventId;
 
+- (void) basePreconditions;
 - (NSMutableArray *) getContexts;
 - (NSNumber *) getTimestamp;
 - (NSString *) getEventId;
@@ -684,10 +714,8 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @end
 
 /*!
- @class SPEvent
- @brief The base object for all events.
-
- This class has the basic functionality needed to represent all events.
+ @class SPPageView
+ @brief A pageview.
  */
 @interface SPPageView : SPEvent <SPPageViewBuilder>
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock;
@@ -819,5 +847,14 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  */
 @interface SPBackground : SPEvent <SPBackgroundBuilder>
 + (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock;
+- (SPSelfDescribingJson *) getPayload;
+@end
+
+/*!
+ @class SPError
+ @brief An error event.
+ */
+@interface SPError : SPEvent <SPErrorBuilder>
++ (instancetype) build:(void(^)(id<SPErrorBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload;
 @end

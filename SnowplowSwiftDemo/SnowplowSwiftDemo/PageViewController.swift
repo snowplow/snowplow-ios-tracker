@@ -44,6 +44,9 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
             builder!.setSubject(subject)
             builder!.setLifecycleEvents(true)
             builder!.setAutotrackScreenViews(true)
+            builder!.setScreenContext(true)
+            builder!.setApplicationContext(true)
+            builder!.setExceptionEvents(true)
         })
         return newTracker!
     }
@@ -76,7 +79,8 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
 
     lazy var orderedViewControllers: [UIViewController] = {
         return [self.newVc(viewController: "demo"),
-                self.newVc(viewController: "metrics")]
+                self.newVc(viewController: "metrics"),
+                self.newVc(viewController: "additional")]
     }()
 
     // MARK: Data source functions.

@@ -84,8 +84,16 @@ const NSInteger POST_STM_BYTES = 22;
     
     if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
         SnowplowDLog(@"SPLog: Emitter URL created successfully '%@'", _urlEndpoint);
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:_url forKey:kSPErrorTrackerUrl];
+        [userDefaults setObject:urlSuffix forKey:kSPErrorTrackerProtocol];
+        [userDefaults setObject:urlPrefix forKey:kSPErrorTrackerMethod];
     } else {
         SnowplowDLog(@"SPLog: Invalid emitter URL: '%@'", _urlEndpoint);
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:@"acme.com" forKey:kSPErrorTrackerUrl];
+        [userDefaults setObject:kSPEndpointPost forKey:kSPErrorTrackerProtocol];
+        [userDefaults setObject:@"http://" forKey:kSPErrorTrackerMethod];
     }
 }
 
