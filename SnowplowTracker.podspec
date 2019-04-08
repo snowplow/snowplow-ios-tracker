@@ -31,6 +31,7 @@ Pod::Spec.new do |s|
     'Snowplow/SPRequestCallback.h', 
     'Snowplow/SPRequestResponse.h',
     'Snowplow/SPEvent.h', 
+    'Snowplow/SPError.h',
     'Snowplow/SPSelfDescribingJson.h'
     'Snowplow/SPScreenState.h'
   ]

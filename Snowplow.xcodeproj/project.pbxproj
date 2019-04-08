@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		75264A2C224D56C5000E0E9B /* SPError.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A2B224D56C5000E0E9B /* SPError.m */; };
+		75264A2E224D56DA000E0E9B /* SPError.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2D224D56DA000E0E9B /* SPError.h */; };
 		752DABD521CC38560065F874 /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
 		752DABFE21CC3B380065F874 /* Snowplow_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABF521CC3B380065F874 /* Snowplow_macOS.framework */; };
 		752DAC0321CC3B380065F874 /* Snowplow_macOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */; };
@@ -248,6 +250,8 @@
 		0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSelfDescribingJson.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestCallback.h; sourceTree = "<group>"; };
 		750E7F1121F2735C0050A993 /* Nocilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nocilla.framework; path = Carthage/Build/iOS/Nocilla.framework; sourceTree = "<group>"; };
+		75264A2B224D56C5000E0E9B /* SPError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPError.m; sourceTree = "<group>"; };
+		75264A2D224D56DA000E0E9B /* SPError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPError.h; sourceTree = "<group>"; };
 		752DABCC21CC38550065F874 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABD421CC38560065F874 /* Snowplow-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Snowplow_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -374,6 +378,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		75264A2A224D270C000E0E9B /* Events */ = {
+			isa = PBXGroup;
+			children = (
+				75264A2D224D56DA000E0E9B /* SPError.h */,
+				75264A2B224D56C5000E0E9B /* SPError.m */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
 		752DABD821CC38560065F874 /* Snowplow iOSTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +482,7 @@
 		AB0C27C2191B408200018557 /* Snowplow */ = {
 			isa = PBXGroup;
 			children = (
+				75264A2A224D270C000E0E9B /* Events */,
 				AB0C27C3191B408200018557 /* Supporting Files */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				043EC5E61B8F224900294081 /* Snowplow.m */,
@@ -539,6 +553,7 @@
 				752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */,
 				752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */,
 				752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */,
+				75264A2E224D56DA000E0E9B /* SPError.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -757,6 +772,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = AB0C27B4191B408200018557;
@@ -819,6 +835,7 @@
 				752DAC1F21CC42BC0065F874 /* SPSession.m in Sources */,
 				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
+				75264A2C224D56C5000E0E9B /* SPError.m in Sources */,
 				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
 				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
 				752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */,

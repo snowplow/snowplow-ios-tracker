@@ -48,6 +48,49 @@
 
 @end
 
+void uncaughtExceptionHandler(NSException *exception) {
+    NSArray* symbols = [exception callStackSymbols];
+    // Construct userInfo
+    NSString * stackTrace = [NSString stringWithFormat:@"Stacktrace:\n%@", symbols];
+    NSString * message = [exception reason];
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        // Load values
+        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString * url = [userDefaults objectForKey:kSPErrorTrackerUrl];
+        NSString * protocolString = [userDefaults objectForKey:kSPErrorTrackerProtocol];
+        NSString * methodString = [userDefaults objectForKey:kSPErrorTrackerMethod];
+        SPProtocol protocol = SPHttps;
+        if (protocolString && [protocolString isEqual:@"http://"]) {
+            protocol = SPHttp;
+        }
+        SPRequestOptions method = SPRequestPost;
+        if (methodString && [methodString isEqual:@"/i"]) {
+            method = SPRequestGet;
+        }
+        // Send notification to tracker
+        SPEmitter * emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+            [builder setUrlEndpoint:url];
+            [builder setProtocol:protocol];
+            [builder setHttpMethod:method];
+        }];
+        SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+            [builder setEmitter:emitter];
+        }];
+        
+        if (message == nil || [message length] == 0) {
+            return;
+        }
+        SPError * error = [SPError build:^(id<SPErrorBuilder> builder) {
+            [builder setMessage:message];
+            if (stackTrace != nil && [stackTrace length] > 0) {
+                [builder setStackTrace:stackTrace];
+            }
+        }];
+        [tracker trackErrorEvent:error];
+        [NSThread sleepForTimeInterval:2.0f];
+    });
+}
+
 @implementation SPTracker {
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
@@ -62,6 +105,7 @@
     NSInteger              _backgroundTimeout;
     NSInteger              _checkInterval;
     BOOL                   _builderFinished;
+    BOOL                   _exceptionEvents;
 }
 
 // SnowplowTracker Builder
@@ -93,6 +137,7 @@
         _builderFinished = NO;
         self.previousScreenState = nil;
         self.currentScreenState = nil;
+        _exceptionEvents = NO;
 #if SNOWPLOW_TARGET_IOS
         _platformContextSchema = kSPMobileContextSchema;
 #else
@@ -118,6 +163,10 @@
                                                  name:@"SPScreenViewDidAppear"
                                                object:nil];
     
+    if (_exceptionEvents) {
+        NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
+    }
+
     _builderFinished = YES;
 }
 
@@ -203,6 +252,10 @@
 
 - (void) setLifecycleEvents:(BOOL)lifecycleEvents {
     _lifecycleEvents = lifecycleEvents;
+}
+
+- (void) setExceptionEvents:(BOOL)exceptionEvents {
+    _exceptionEvents = exceptionEvents;
 }
 
 // Extra Functions
@@ -405,6 +458,16 @@
     [self trackUnstructuredEvent:unstruct];
 }
 
+- (void) trackErrorEvent:(SPError *)event {
+    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:[event getPayload]];
+        [builder setTimestamp:[event getTimestamp]];
+        [builder setContexts:[event getContexts]];
+        [builder setEventId:[event getEventId]];
+    }];
+    [self trackUnstructuredEvent:unstruct];
+}
+
 // Event Decoration
 
 - (void) addEventWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
@@ -466,13 +529,9 @@
     // Add screen context
     if (_screenContext && _currentScreenState) {
         SPSelfDescribingJson * contextJson = [SPUtilities getScreenContextWithScreenState:_currentScreenState];
-        ALog(@"SPLog: Screen context JSON that we should add: %@", contextJson);
         if (contextJson != nil) {
-            ALog(@"SPLog: Here's our screen context JSON: %@", contextJson);
             [contextArray addObject:contextJson];
         }
-    } else {
-        ALog(@"SPLog: Screen context disabled.");
     }
 
     // If some contexts are available...

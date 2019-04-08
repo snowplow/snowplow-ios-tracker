@@ -18,6 +18,7 @@
 		75699CC6200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */; };
 		75866F89222C9BB40039A3E1 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75866F88222C9BB40039A3E1 /* MetricsViewController.swift */; };
 		75866F8B222DD0B30039A3E1 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75866F8A222DD0B30039A3E1 /* PageViewController.swift */; };
+		75ABB1A12260E5B000527764 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABB1A02260E5B000527764 /* AdditionalViewController.swift */; };
 		75F9C61021FC14A600A5B8FC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F9C5F621FC004100A5B8FC /* FMDB.framework */; };
 		75F9C61121FC14A600A5B8FC /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F9C5F521FC004100A5B8FC /* Reachability.framework */; };
 		75F9C61221FC14A600A5B8FC /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */; };
@@ -58,6 +59,7 @@
 		75699CC7200FB29C00FFC20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75866F88222C9BB40039A3E1 /* MetricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
 		75866F8A222DD0B30039A3E1 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		75ABB1A02260E5B000527764 /* AdditionalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalViewController.swift; sourceTree = "<group>"; };
 		75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnowplowTracker.framework; path = Carthage/Build/iOS/SnowplowTracker.framework; sourceTree = "<group>"; };
 		75F9C5F521FC004100A5B8FC /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		75F9C5F621FC004100A5B8FC /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
@@ -119,6 +121,7 @@
 				75699CA4200FB29C00FFC20D /* DemoViewController.swift */,
 				75866F88222C9BB40039A3E1 /* MetricsViewController.swift */,
 				75866F8A222DD0B30039A3E1 /* PageViewController.swift */,
+				75ABB1A02260E5B000527764 /* AdditionalViewController.swift */,
 				751BBDAE2012727B001DC712 /* DemoUtils.swift */,
 				75699CA6200FB29C00FFC20D /* Main.storyboard */,
 				75699CAC200FB29C00FFC20D /* Assets.xcassets */,
@@ -227,7 +230,6 @@
 					75699C9E200FB29C00FFC20D = {
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
-						ProvisioningStyle = Manual;
 					};
 					75699CB5200FB29C00FFC20D = {
 						CreatedOnToolsVersion = 9.2;
@@ -319,6 +321,7 @@
 				751BBDAF2012727B001DC712 /* DemoUtils.swift in Sources */,
 				75699CA5200FB29C00FFC20D /* DemoViewController.swift in Sources */,
 				75699CAB200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodeld in Sources */,
+				75ABB1A12260E5B000527764 /* AdditionalViewController.swift in Sources */,
 				75866F8B222DD0B30039A3E1 /* PageViewController.swift in Sources */,
 				75866F89222C9BB40039A3E1 /* MetricsViewController.swift in Sources */,
 				75699CA3200FB29C00FFC20D /* AppDelegate.swift in Sources */,
@@ -491,13 +494,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J4ZKH42DAT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_DEBUG=1";
 				INFOPLIST_FILE = SnowplowSwiftDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -524,13 +529,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J4ZKH42DAT;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_DEBUG=1";
 				INFOPLIST_FILE = SnowplowSwiftDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (

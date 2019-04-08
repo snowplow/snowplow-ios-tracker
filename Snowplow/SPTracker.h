@@ -28,6 +28,8 @@
 
 #import <Foundation/Foundation.h>
 
+void uncaughtExceptionHandler(NSException *exception);
+
 @class SPEmitter;
 @class SPPayload;
 @class SPSubject;
@@ -45,6 +47,7 @@
 @class SPForeground;
 @class SPBackground;
 @class SPScreenState;
+@class SPError;
 
 /*!
  @brief The builder for SPTracker.
@@ -144,6 +147,13 @@
  */
 - (void) setAutotrackScreenViews:(BOOL)autotrackScreenViews;
 
+/*!
+ @brief Tracker builder method to set whether exceptions should be autotracked.
+ 
+ @param exceptionEvents Whether to autotrack exceptions.
+ */
+- (void) setExceptionEvents:(BOOL)exceptionEvents;
+
 @end
 
 /*!
@@ -178,6 +188,8 @@
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
+
+- (void) receiveScreenViewNotification:(NSNotification *)notification;
 
 /*!
  @brief Pauses all event tracking, storage and session checking.
@@ -321,5 +333,12 @@
  @param event A background event.
  */
 - (void) trackBackgroundEvent:(SPBackground *)event;
+
+/*!
+ @brief Tracks an error event.
+ 
+ @param event An error event.
+ */
+- (void) trackErrorEvent:(SPError *)event;
 
 @end

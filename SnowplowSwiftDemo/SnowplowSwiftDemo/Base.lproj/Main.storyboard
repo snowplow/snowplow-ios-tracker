@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BD3-Hb-Mgx">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BD3-Hb-Mgx">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment version="4096" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -328,6 +328,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q1C-T3-RIc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="479" y="-618"/>
+        </scene>
+        <!--Additional View Controller-->
+        <scene sceneID="ifC-2O-6p1">
+            <objects>
+                <viewController storyboardIdentifier="additional" id="OQ6-f8-9wr" customClass="AdditionalViewController" customModule="SnowplowSwiftDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LnC-5B-NDm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="vaO-ga-RyR">
+                                <rect key="frame" x="15" y="21" width="343" height="627"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kbk-Jx-3gO">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="627"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                        <state key="normal" title="Crash me!"/>
+                                        <connections>
+                                            <action selector="crashTheApp" destination="OQ6-f8-9wr" eventType="touchUpInside" id="p6W-t9-Jfb"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="AUh-sj-HqI" firstAttribute="bottom" secondItem="vaO-ga-RyR" secondAttribute="bottom" constant="19" id="2ci-OT-pDf"/>
+                            <constraint firstItem="vaO-ga-RyR" firstAttribute="leading" secondItem="AUh-sj-HqI" secondAttribute="leading" constant="15" id="Duw-mK-Vzp"/>
+                            <constraint firstItem="vaO-ga-RyR" firstAttribute="top" secondItem="AUh-sj-HqI" secondAttribute="top" constant="1" id="VO2-fo-tBd"/>
+                            <constraint firstItem="AUh-sj-HqI" firstAttribute="trailing" secondItem="vaO-ga-RyR" secondAttribute="trailing" constant="17" id="k36-cM-mnX"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AUh-sj-HqI"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="18U-fq-eA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2088.8000000000002" y="115.59220389805098"/>
         </scene>
     </scenes>
 </document>
