@@ -1,3 +1,13 @@
+Version 1.0.5 (2019-05-06)
+--------------------------
+Allow configurable postPath parameter (#409)
+Fix various build warnings (#414)
+Fix warning about self references being retained in SPSession (#412)
+Add tests for application context (#410)
+Add automatic tracking of install lifecycle event (close #374)
+Enable automatic unhandled exception tracking (#371)
+Add automatic screen view events and screen context (#370)
+
 Version 1.0.4 (2019-02-28)
 --------------------------
 Use NS_ENUM for SPRequestOptions and SPProtocol (#402)
