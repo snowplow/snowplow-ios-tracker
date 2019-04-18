@@ -66,6 +66,20 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertEqual([emitter byteLimitPost], 35000);
     XCTAssertEqual([emitter protocol], SPHttps);
     
+    SPEmitter * customPathEmitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:TEST_SERVER_EMITTER];
+        [builder setHttpMethod:SPRequestPost];
+        [builder setCustomPostPath:@"/com.acme.company/tpx"];
+        [builder setEmitRange:500];
+        [builder setEmitThreadPoolSize:30];
+        [builder setByteLimitGet:30000];
+        [builder setByteLimitPost:35000];
+        [builder setProtocol:SPHttps];
+    }];
+    
+    NSString * customUrl = [[NSString alloc] initWithFormat:@"%@://%@/com.acme.company/tpx", protocol, TEST_SERVER_EMITTER];
+    XCTAssertTrue([[[customPathEmitter urlEndpoint] absoluteString] isEqualToString:customUrl]);
+    
     // Test setting variables to new values
     
     [emitter setUrlEndpoint:@"www.test.com"];

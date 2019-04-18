@@ -111,6 +111,12 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
  */
 - (void) setByteLimitPost:(NSInteger)byteLimitPost;
 
+/*!
+ @brief Emitter builder method to set a custom POST path.
+ @param customPath A custom path that is used on the endpoint to send requests.
+ */
+- (void) setCustomPostPath:(NSString *)customPath;
+
 @end
 
 /*!
@@ -137,6 +143,8 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
 @property (readonly, nonatomic)         NSInteger             byteLimitPost;
 /*! @brief Callbacks supplied with number of failures and successes of sent events. */
 @property (readonly, nonatomic, weak)   id<SPRequestCallback> callback;
+/*! @brief Custom endpoint path for POST requests. */
+@property (readonly, nonatomic) NSString * customPostPath;
 
 /*!
  @brief Builds the emitter using a build block of functions.
