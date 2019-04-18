@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -69,7 +69,7 @@ $(function() {
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">SPEmitter.h File Reference</div>  </div>
 </div><!--header-->
@@ -78,7 +78,6 @@ $(function() {
 <p>Header file for <a class="el" href="interface_s_p_emitter.html" title="The emitter class.">SPEmitter</a>.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#import &lt;Foundation/Foundation.h&gt;</code><br />
-<code>#import &quot;SPRequestCallback.h&quot;</code><br />
 </div>
 <p><a href="_s_p_emitter_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -91,57 +90,73 @@ Data Structures</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">The emitter class.  <a href="interface_s_p_emitter.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
-Enumerations</h2></td></tr>
-<tr class="memitem:a28167ad4ca9a0fffb06975a71c7981cb"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_emitter_8h.html#a28167ad4ca9a0fffb06975a71c7981cb">SPRequestOptions</a> { <a class="el" href="_s_p_emitter_8h.html#a28167ad4ca9a0fffb06975a71c7981cba812f7f14df420e356de68ceb1ee8ba1a">SPRequestGet</a>, 
-<a class="el" href="_s_p_emitter_8h.html#a28167ad4ca9a0fffb06975a71c7981cbaab68696421dd3b68b9f69b78c04a0172">SPRequestPost</a>
- }</td></tr>
-<tr class="memdesc:a28167ad4ca9a0fffb06975a71c7981cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum for HTTP method types.  <a href="_s_p_emitter_8h.html#a28167ad4ca9a0fffb06975a71c7981cb">More...</a><br /></td></tr>
-<tr class="separator:a28167ad4ca9a0fffb06975a71c7981cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a282105d2b102510d8c997b557ef98944"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_emitter_8h.html#a282105d2b102510d8c997b557ef98944">SPProtocol</a> { <a class="el" href="_s_p_emitter_8h.html#a282105d2b102510d8c997b557ef98944a1c4bdb598aaa87bed0f9dc6c2eabf4d1">SPHttp</a>, 
-<a class="el" href="_s_p_emitter_8h.html#a282105d2b102510d8c997b557ef98944af7c1b4308337a8d3ce0cdb2c1335df16">SPHttps</a>
- }</td></tr>
-<tr class="memdesc:a282105d2b102510d8c997b557ef98944"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum for HTTP security.  <a href="_s_p_emitter_8h.html#a282105d2b102510d8c997b557ef98944">More...</a><br /></td></tr>
-<tr class="separator:a282105d2b102510d8c997b557ef98944"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae347a70ea5e4dda3d7f7f0fae1f46294"><td class="memItemLeft" align="right" valign="top">typedef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_emitter_8h.html#ae347a70ea5e4dda3d7f7f0fae1f46294">NS_ENUM</a> (NSInteger, SPRequestOptions)</td></tr>
+<tr class="memdesc:ae347a70ea5e4dda3d7f7f0fae1f46294"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum for HTTP method types.  <a href="#ae347a70ea5e4dda3d7f7f0fae1f46294">More...</a><br /></td></tr>
+<tr class="separator:ae347a70ea5e4dda3d7f7f0fae1f46294"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c7062fa3f8a64466d48155064fb7e1e"><td class="memItemLeft" align="right" valign="top">typedef&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_emitter_8h.html#a7c7062fa3f8a64466d48155064fb7e1e">NS_ENUM</a> (NSInteger, SPProtocol)</td></tr>
+<tr class="memdesc:a7c7062fa3f8a64466d48155064fb7e1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">An enum for HTTP security.  <a href="#a7c7062fa3f8a64466d48155064fb7e1e">More...</a><br /></td></tr>
+<tr class="separator:a7c7062fa3f8a64466d48155064fb7e1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Enumeration Type Documentation</h2>
-<a id="a282105d2b102510d8c997b557ef98944"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a282105d2b102510d8c997b557ef98944">&#9670;&nbsp;</a></span>SPProtocol</h2>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ae347a70ea5e4dda3d7f7f0fae1f46294"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae347a70ea5e4dda3d7f7f0fae1f46294">&#9670;&nbsp;</a></span>NS_ENUM() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="_s_p_emitter_8h.html#a282105d2b102510d8c997b557ef98944">SPProtocol</a></td>
+          <td class="memname">typedef NS_ENUM </td>
+          <td>(</td>
+          <td class="paramtype">NSInteger&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SPRequestOptions&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a282105d2b102510d8c997b557ef98944a1c4bdb598aaa87bed0f9dc6c2eabf4d1"></a>SPHttp&#160;</td><td class="fielddoc"><p>Use HTTP. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a282105d2b102510d8c997b557ef98944af7c1b4308337a8d3ce0cdb2c1335df16"></a>SPHttps&#160;</td><td class="fielddoc"><p>Use HTTP over TLS. </p>
-</td></tr>
-</table>
+<p>GET request.</p>
+<p>POST request. </p>
 
 </div>
 </div>
-<a id="a28167ad4ca9a0fffb06975a71c7981cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28167ad4ca9a0fffb06975a71c7981cb">&#9670;&nbsp;</a></span>SPRequestOptions</h2>
+<a id="a7c7062fa3f8a64466d48155064fb7e1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c7062fa3f8a64466d48155064fb7e1e">&#9670;&nbsp;</a></span>NS_ENUM() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="_s_p_emitter_8h.html#a28167ad4ca9a0fffb06975a71c7981cb">SPRequestOptions</a></td>
+          <td class="memname">typedef NS_ENUM </td>
+          <td>(</td>
+          <td class="paramtype">NSInteger&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">SPProtocol&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a28167ad4ca9a0fffb06975a71c7981cba812f7f14df420e356de68ceb1ee8ba1a"></a>SPRequestGet&#160;</td><td class="fielddoc"><p>GET request. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a28167ad4ca9a0fffb06975a71c7981cbaab68696421dd3b68b9f69b78c04a0172"></a>SPRequestPost&#160;</td><td class="fielddoc"><p>POST request. </p>
-</td></tr>
-</table>
+<p>Use HTTP.</p>
+<p>Use HTTP over TLS. </p>
 
 </div>
 </div>

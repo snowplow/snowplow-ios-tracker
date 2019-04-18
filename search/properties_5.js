@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['protocol',['protocol',['../interface_s_p_emitter.html#ae0660711e30c1e5b9d96030b930d52ee',1,'SPEmitter']]]
+  ['isnewinstall',['isNewInstall',['../interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312',1,'SPInstallTracker']]]
 ];

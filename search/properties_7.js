@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['timestamp',['timestamp',['../interface_s_p_event.html#a291499642e1caa1c735a524702a0490d',1,'SPEvent']]],
-  ['trackernamespace',['trackerNamespace',['../interface_s_p_tracker.html#a97987b98d675ea54a02798cc8f83145b',1,'SPTracker']]]
+  ['previousscreenstate',['previousScreenState',['../interface_s_p_tracker.html#aa67525cde5b8165a61548549fae7410a',1,'SPTracker']]],
+  ['protocol',['protocol',['../interface_s_p_emitter.html#a2685bb05bd03555b988042d2d6774c28',1,'SPEmitter']]]
 ];

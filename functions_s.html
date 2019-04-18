@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -66,6 +66,9 @@ $(function() {
 <div class="textblock">Here is a list of all documented struct and union fields with links to the struct/union documentation for each field:</div>
 
 <h3><a id="index_s"></a>- s -</h3><ul>
+<li>screenId
+: <a class="el" href="interface_s_p_screen_state.html#aee9144d75682935c9a51d00df414d317">SPScreenState</a>
+</li>
 <li>session
 : <a class="el" href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">SPTracker</a>
 </li>
@@ -87,6 +90,9 @@ $(function() {
 </li>
 <li>setAttachments:
 : <a class="el" href="protocol_s_p_notification_content_builder-p.html#afac0733cd001f09c124d02bf58258fe0">&lt;SPNotificationContentBuilder&gt;</a>
+</li>
+<li>setAutotrackScreenViews:
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setBackgroundTimeout:
 : <a class="el" href="interface_s_p_session.html#af04e59f09b9ba729db01529aad534ef2">SPSession</a>
@@ -182,6 +188,9 @@ $(function() {
 <li>setEventId:
 : <a class="el" href="protocol_s_p_event_builder-p.html#ac427747778fac0c2121b173498cda7ee">&lt;SPEventBuilder&gt;</a>
 </li>
+<li>setExceptionEvents:
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">&lt;SPTrackerBuilder&gt;</a>
+</li>
 <li>setExpiry:
 : <a class="el" href="protocol_s_p_consent_granted_builder-p.html#ac75d42756e693972e530a0b5ffc6e5b4">&lt;SPConsentGrantedBuilder&gt;</a>
 </li>
@@ -217,14 +226,14 @@ $(function() {
 : <a class="el" href="interface_s_p_subject.html#acc629002b0c9ebf0c0ba23bb98bd4179">SPSubject</a>
 </li>
 <li>setHttpMethod:
-: <a class="el" href="protocol_s_p_emitter_builder-p.html#acab3155940df4e9c5309019376110dee">&lt;SPEmitterBuilder&gt;</a>
-</li>
-<li>setId:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#ae3f3c1001d602bf5a8d7b0c55037a933">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#a94b1da8a4546588ae23db9450629021e">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setIndex:
 : <a class="el" href="protocol_s_p_background_builder-p.html#a60b59e51b921701c6542cb077d879e04">&lt;SPBackgroundBuilder&gt;</a>
 , <a class="el" href="protocol_s_p_foreground_builder-p.html#a60b59e51b921701c6542cb077d879e04">&lt;SPForegroundBuilder&gt;</a>
+</li>
+<li>setInstallEvent:
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setIpAddress:
 : <a class="el" href="interface_s_p_subject.html#a75c16b939a4abdd0f63665c5b8971e98">SPSubject</a>
@@ -248,11 +257,15 @@ $(function() {
 <li>setLifecycleEvents:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">&lt;SPTrackerBuilder&gt;</a>
 </li>
+<li>setMessage:
+: <a class="el" href="protocol_s_p_error_builder-p.html#af51f303e067683f96a051869506a5831">&lt;SPErrorBuilder&gt;</a>
+</li>
 <li>setName:
 : <a class="el" href="protocol_s_p_consent_document_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPConsentDocumentBuilder&gt;</a>
 , <a class="el" href="protocol_s_p_consent_granted_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPConsentGrantedBuilder&gt;</a>
 , <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPConsentWithdrawnBuilder&gt;</a>
 , <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPEcommTransactionItemBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_error_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPErrorBuilder&gt;</a>
 , <a class="el" href="protocol_s_p_screen_view_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setNetworkUserId:
@@ -273,6 +286,15 @@ $(function() {
 <li>setPlatformDict
 : <a class="el" href="interface_s_p_subject.html#a864ec43fb18940dc045cdfacafa02835">SPSubject</a>
 </li>
+<li>setPreviousScreenId:
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3342a6dc9b842d7aa8d48b568da718e3">&lt;SPScreenViewBuilder&gt;</a>
+</li>
+<li>setPreviousScreenName:
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#afb24f8c4bc25ba6ec92c8dc9df76b3c4">&lt;SPScreenViewBuilder&gt;</a>
+</li>
+<li>setPreviousScreenType:
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a590d9688b4b8deebd48ffc66fd728c52">&lt;SPScreenViewBuilder&gt;</a>
+</li>
 <li>setPrice:
 : <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a75f70a703a309233d2e19a2feaf0733c">&lt;SPEcommTransactionItemBuilder&gt;</a>
 </li>
@@ -280,7 +302,7 @@ $(function() {
 : <a class="el" href="protocol_s_p_structured_builder-p.html#a2da4d4a28370547c303026e56ab82ad2">&lt;SPStructuredBuilder&gt;</a>
 </li>
 <li>setProtocol:
-: <a class="el" href="protocol_s_p_emitter_builder-p.html#ab2ddbcd75fb815b329f88ff6a9c9a079">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#a826f03dcebe3e2e32b316a5f47b837cb">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setQuantity:
 : <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a471e2b10c3cfb2dc80640fddd7e9392f">&lt;SPEcommTransactionItemBuilder&gt;</a>
@@ -294,6 +316,12 @@ $(function() {
 <li>setSchema:
 : <a class="el" href="interface_s_p_self_describing_json.html#a01683a388cfe084fc567b5d959eab20a">SPSelfDescribingJson</a>
 </li>
+<li>setScreenContext:
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">&lt;SPTrackerBuilder&gt;</a>
+</li>
+<li>setScreenId:
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3d0f88516e60181543e9bd19c45f9e87">&lt;SPScreenViewBuilder&gt;</a>
+</li>
 <li>setSessionContext:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a4add7c27a903e3795fcdd166ca07f8f3">&lt;SPTrackerBuilder&gt;</a>
 </li>
@@ -305,6 +333,9 @@ $(function() {
 </li>
 <li>setSound:
 : <a class="el" href="protocol_s_p_notification_content_builder-p.html#a3e1661fc3ad3cfe92935fd8392b1037a">&lt;SPNotificationContentBuilder&gt;</a>
+</li>
+<li>setStackTrace:
+: <a class="el" href="protocol_s_p_error_builder-p.html#aa396bbde6446281cd46188f071c2550d">&lt;SPErrorBuilder&gt;</a>
 </li>
 <li>setStandardDict
 : <a class="el" href="interface_s_p_subject.html#a794f8f3fee2db271dd5aa98b3cd2c7cd">SPSubject</a>
@@ -342,8 +373,14 @@ $(function() {
 <li>setTrackerNamespace:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a795c8dbff2629f57b7396dc3450793a1">&lt;SPTrackerBuilder&gt;</a>
 </li>
+<li>setTransitionType:
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a894b36fefbee356ec0c9c448bf8f7f63">&lt;SPScreenViewBuilder&gt;</a>
+</li>
 <li>setTrigger:
 : <a class="el" href="protocol_s_p_push_notification_builder-p.html#a761e8cf6d3af4cea073f016f741ad0c9">&lt;SPPushNotificationBuilder&gt;</a>
+</li>
+<li>setType:
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a146195fbad98fcd27e27df2802e340ea">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setUrlEndpoint:
 : <a class="el" href="protocol_s_p_emitter_builder-p.html#ae4faadb111a5775f1880cca75561a70d">&lt;SPEmitterBuilder&gt;</a>

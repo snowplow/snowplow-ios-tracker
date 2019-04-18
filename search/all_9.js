@@ -4,12 +4,20 @@ var searchData=
   ['initwithbool_3awithindex_3a',['initWithBool:withIndex:',['../interface_s_p_request_response.html#a8ab6d10dd792381007b5607f55add5a5',1,'SPRequestResponse']]],
   ['initwithforegroundtimeout_3aandbackgroundtimeout_3aandcheckinterval_3a',['initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:',['../interface_s_p_session.html#a45d6257689529533563ad0ca2537f849',1,'SPSession']]],
   ['initwithforegroundtimeout_3aandbackgroundtimeout_3aandcheckinterval_3aandtracker_3a',['initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:andTracker:',['../interface_s_p_session.html#a9836d3109016445849e7957ed2d00189',1,'SPSession']]],
+  ['initwithname_3ascreenid_3a',['initWithName:screenId:',['../interface_s_p_screen_state.html#a7abde7021928ee0a112762d69322553b',1,'SPScreenState']]],
+  ['initwithname_3atype_3ascreenid_3a',['initWithName:type:screenId:',['../interface_s_p_screen_state.html#a3d75e6c3baeae7e32fbd55aa7d24fff3',1,'SPScreenState']]],
+  ['initwithname_3atype_3ascreenid_3atransitiontype_3a',['initWithName:type:screenId:transitionType:',['../interface_s_p_screen_state.html#a9f1648b12ffed9907e05c831f1a5eb4e',1,'SPScreenState']]],
+  ['initwithname_3atype_3ascreenid_3atransitiontype_3atopviewcontrollerclassname_3aviewcontrollerclassname_3a',['initWithName:type:screenId:transitionType:topViewControllerClassName:viewControllerClassName:',['../interface_s_p_screen_state.html#aab6583d6e12bec270c88e479e5487bf5',1,'SPScreenState']]],
+  ['initwithname_3atype_3atopviewcontrollerclassname_3aviewcontrollerclassname_3a',['initWithName:type:topViewControllerClassName:viewControllerClassName:',['../interface_s_p_screen_state.html#a04d7bd679da9abf4bedf9ec0e95fa2d8',1,'SPScreenState']]],
   ['initwithnsdictionary_3a',['initWithNSDictionary:',['../interface_s_p_payload.html#abadcc8638404771798ee7c823463594e',1,'SPPayload']]],
   ['initwithplatformcontext_3aandgeocontext_3a',['initWithPlatformContext:andGeoContext:',['../interface_s_p_subject.html#a07d87641b79303ee459922934649c68c',1,'SPSubject']]],
   ['initwithschema_3aanddata_3a',['initWithSchema:andData:',['../interface_s_p_self_describing_json.html#a0b0cefc23a02bb0bd6c2122d830b09e0',1,'SPSelfDescribingJson']]],
   ['initwithschema_3aandpayload_3a',['initWithSchema:andPayload:',['../interface_s_p_self_describing_json.html#aed4d017c263a6313ff58b7f27911bbd8',1,'SPSelfDescribingJson']]],
   ['initwithschema_3aandselfdescribingjson_3a',['initWithSchema:andSelfDescribingJson:',['../interface_s_p_self_describing_json.html#a42309775d57d447d43245d5e7fdd0743',1,'SPSelfDescribingJson']]],
   ['initwithtarget_3aandselector_3a',['initWithTarget:andSelector:',['../interface_s_p_weak_timer_target.html#a8cb16131cc6a6df0fb4a4423f9e13ddb',1,'SPWeakTimerTarget']]],
+  ['initwithtracker_3a',['initWithTracker:',['../interface_s_p_session.html#a372ca4c6b3c4beaffa3571e707c061f8',1,'SPSession']]],
   ['insertevent_3a',['insertEvent:',['../interface_s_p_event_store.html#a63608ac08e3606c391e23f6f06bfad91',1,'SPEventStore']]],
-  ['isonline',['isOnline',['../interface_s_p_utilities.html#a00f2a342949ba37eec1ca88f4228e1af',1,'SPUtilities']]]
+  ['isnewinstall',['isNewInstall',['../interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312',1,'SPInstallTracker']]],
+  ['isonline',['isOnline',['../interface_s_p_utilities.html#a00f2a342949ba37eec1ca88f4228e1af',1,'SPUtilities']]],
+  ['isvalid',['isValid',['../interface_s_p_screen_state.html#aa29c0e93357b1d83c72352cc03e84ca8',1,'SPScreenState']]]
 ];

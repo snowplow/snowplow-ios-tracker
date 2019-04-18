@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -91,6 +91,9 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top"><a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
 (instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <b>NS_UNAVAILABLE</b></td></tr>
 <tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3828de4f1426bf290d3f54a6192a3310"><td class="memItemLeft" align="right" valign="top"><a id="a3828de4f1426bf290d3f54a6192a3310"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>receiveScreenViewNotification:</b></td></tr>
+<tr class="separator:a3828de4f1426bf290d3f54a6192a3310"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a438132304bb8705edbb9a89512f81125"><td class="memItemLeft" align="right" valign="top"><a id="a438132304bb8705edbb9a89512f81125"></a>
 (void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">pauseEventTracking</a></td></tr>
 <tr class="memdesc:a438132304bb8705edbb9a89512f81125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses all event tracking, storage and session checking. <br /></td></tr>
@@ -153,6 +156,9 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a232997424ba4f34ade01285892315f3a"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a232997424ba4f34ade01285892315f3a">trackBackgroundEvent:</a></td></tr>
 <tr class="memdesc:a232997424ba4f34ade01285892315f3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks a background event.  <a href="#a232997424ba4f34ade01285892315f3a">More...</a><br /></td></tr>
 <tr class="separator:a232997424ba4f34ade01285892315f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1daf40ce8ba985848d3d051b5d5315f8"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a1daf40ce8ba985848d3d051b5d5315f8">trackErrorEvent:</a></td></tr>
+<tr class="memdesc:a1daf40ce8ba985848d3d051b5d5315f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks an error event.  <a href="#a1daf40ce8ba985848d3d051b5d5315f8">More...</a><br /></td></tr>
+<tr class="separator:a1daf40ce8ba985848d3d051b5d5315f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_protocol_s_p_tracker_builder-p"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_protocol_s_p_tracker_builder-p')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="protocol_s_p_tracker_builder-p.html">&lt;SPTrackerBuilder&gt;</a></td></tr>
 <tr class="memitem:a919c65f46636089e2d2760b7a73e0a25 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a919c65f46636089e2d2760b7a73e0a25">setEmitter:</a></td></tr>
 <tr class="memdesc:a919c65f46636089e2d2760b7a73e0a25 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set an emitter.  <a href="protocol_s_p_tracker_builder-p.html#a919c65f46636089e2d2760b7a73e0a25">More...</a><br /></td></tr>
@@ -184,9 +190,21 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">setApplicationContext:</a></td></tr>
 <tr class="memdesc:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether events will include application context.  <a href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">More...</a><br /></td></tr>
 <tr class="separator:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">setScreenContext:</a></td></tr>
+<tr class="memdesc:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether screen contexts will be added to all events.  <a href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">More...</a><br /></td></tr>
+<tr class="separator:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16e3832b7898d53c77bd1c8c2cd5d04b inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">setLifecycleEvents:</a></td></tr>
 <tr class="memdesc:a16e3832b7898d53c77bd1c8c2cd5d04b inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether foreground and background events are sent on app suspend and resume.  <a href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">More...</a><br /></td></tr>
 <tr class="separator:a16e3832b7898d53c77bd1c8c2cd5d04b inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88c11a27d3e33a9147bfed13aeec0a7f inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">setExceptionEvents:</a></td></tr>
+<tr class="memdesc:a88c11a27d3e33a9147bfed13aeec0a7f inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether exceptions should be autotracked.  <a href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">More...</a><br /></td></tr>
+<tr class="separator:a88c11a27d3e33a9147bfed13aeec0a7f inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacac592802ef3e5fbcb3f7b354ff07ee inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">setAutotrackScreenViews:</a></td></tr>
+<tr class="memdesc:aacac592802ef3e5fbcb3f7b354ff07ee inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether screenviews will be autotracked.  <a href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">More...</a><br /></td></tr>
+<tr class="separator:aacac592802ef3e5fbcb3f7b354ff07ee inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa82d4da0338212add4f4fc3555f8d7ad inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">setInstallEvent:</a></td></tr>
+<tr class="memdesc:aa82d4da0338212add4f4fc3555f8d7ad inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether application install should be autotracked.  <a href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">More...</a><br /></td></tr>
+<tr class="separator:aa82d4da0338212add4f4fc3555f8d7ad inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Class Methods</h2></td></tr>
@@ -224,6 +242,14 @@ NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href
 BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#aefb984aa6d25c487860a844b75108a80">base64Encoded</a></td></tr>
 <tr class="memdesc:aefb984aa6d25c487860a844b75108a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to use Base64 encoding for events. <br /></td></tr>
 <tr class="separator:aefb984aa6d25c487860a844b75108a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa67525cde5b8165a61548549fae7410a"><td class="memItemLeft" align="right" valign="top"><a id="aa67525cde5b8165a61548549fae7410a"></a>
+<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#aa67525cde5b8165a61548549fae7410a">previousScreenState</a></td></tr>
+<tr class="memdesc:aa67525cde5b8165a61548549fae7410a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous screen view state. <br /></td></tr>
+<tr class="separator:aa67525cde5b8165a61548549fae7410a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memItemLeft" align="right" valign="top"><a id="a6f0862d7ee7afbc7655cb6101d442a4d"></a>
+<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a6f0862d7ee7afbc7655cb6101d442a4d">currentScreenState</a></td></tr>
+<tr class="memdesc:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current screen view state. <br /></td></tr>
+<tr class="separator:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class is used for tracking events, and delegates them to other classes responsible for sending, storage, etc. </p>
@@ -452,6 +478,30 @@ BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="inte
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">event</td><td>An ecommerce event. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a1daf40ce8ba985848d3d051b5d5315f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1daf40ce8ba985848d3d051b5d5315f8">&#9670;&nbsp;</a></span>trackErrorEvent:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) trackErrorEvent: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_s_p_error.html">SPError</a> *)&#160;</td>
+          <td class="paramname"><em>event</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>An error event. </td></tr>
   </table>
   </dd>
 </dl>

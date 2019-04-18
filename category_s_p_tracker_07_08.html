@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -64,31 +64,58 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#properties">Properties</a> &#124;
-<a href="category_s_p_tracker_07_08-members.html">List of all members</a>  </div>
+<a href="#pub-methods">Instance Methods</a> &#124;
+<a href="#properties">Properties</a>  </div>
   <div class="headertitle">
 <div class="title">SPTracker() Category Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Instance Methods</h2></td></tr>
+<tr class="memitem:aeb3e02a28296bd8fbde6216809a9b8d8"><td class="memItemLeft" align="right" valign="top"><a id="aeb3e02a28296bd8fbde6216809a9b8d8"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>populatePreviousScreenState</b></td></tr>
+<tr class="separator:aeb3e02a28296bd8fbde6216809a9b8d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3828de4f1426bf290d3f54a6192a3310"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="category_s_p_tracker_07_08.html#a3828de4f1426bf290d3f54a6192a3310">receiveScreenViewNotification:</a></td></tr>
+<tr class="memdesc:a3828de4f1426bf290d3f54a6192a3310"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is called to send an auto-tracked screen view event.  <a href="#a3828de4f1426bf290d3f54a6192a3310">More...</a><br /></td></tr>
+<tr class="separator:a3828de4f1426bf290d3f54a6192a3310"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a929692bd4ad3a008ccea9a89ef90e771"><td class="memItemLeft" align="right" valign="top"><a id="a929692bd4ad3a008ccea9a89ef90e771"></a>
-<a class="el" href="interface_s_p_emitter.html">SPEmitter</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>emitter</b></td></tr>
-<tr class="separator:a929692bd4ad3a008ccea9a89ef90e771"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a779ad6f9d42676996de7d95e5878d180"><td class="memItemLeft" align="right" valign="top"><a id="a779ad6f9d42676996de7d95e5878d180"></a>
-<a class="el" href="interface_s_p_subject.html">SPSubject</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>subject</b></td></tr>
-<tr class="separator:a779ad6f9d42676996de7d95e5878d180"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abda006c27585c5a54551312eea17cf33"><td class="memItemLeft" align="right" valign="top"><a id="abda006c27585c5a54551312eea17cf33"></a>
-NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>appId</b></td></tr>
-<tr class="separator:abda006c27585c5a54551312eea17cf33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a75111c5f42835215148b9d851f56b6"><td class="memItemLeft" align="right" valign="top"><a id="a8a75111c5f42835215148b9d851f56b6"></a>
-NSString *&#160;</td><td class="memItemRight" valign="bottom"><b>trackerNamespace</b></td></tr>
-<tr class="separator:a8a75111c5f42835215148b9d851f56b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a220af055e6ea2e5eec086deee69863f4"><td class="memItemLeft" align="right" valign="top"><a id="a220af055e6ea2e5eec086deee69863f4"></a>
-BOOL&#160;</td><td class="memItemRight" valign="bottom"><b>base64Encoded</b></td></tr>
-<tr class="separator:a220af055e6ea2e5eec086deee69863f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memItemLeft" align="right" valign="top"><a id="a6f0862d7ee7afbc7655cb6101d442a4d"></a>
+<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>currentScreenState</b></td></tr>
+<tr class="separator:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa67525cde5b8165a61548549fae7410a"><td class="memItemLeft" align="right" valign="top"><a id="aa67525cde5b8165a61548549fae7410a"></a>
+<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>previousScreenState</b></td></tr>
+<tr class="separator:aa67525cde5b8165a61548549fae7410a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>A class extension that makes the screen view states mutable internally. </p>
+</div><h2 class="groupheader">Method Documentation</h2>
+<a id="a3828de4f1426bf290d3f54a6192a3310"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3828de4f1426bf290d3f54a6192a3310">&#9670;&nbsp;</a></span>receiveScreenViewNotification:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) receiveScreenViewNotification: </td>
+          <td></td>
+          <td class="paramtype">(NSNotification *)&#160;</td>
+          <td class="paramname"><em>notification</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">notification</td><td>The notification raised by a UIViewController </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <hr/>The documentation for this category was generated from the following file:<ul>
 <li>Snowplow/SPTracker.m</li>
 </ul>

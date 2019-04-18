@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -93,7 +93,28 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a3ed0eaa1593dd4c523105d334b72af8d"><td class="memItemLeft" align="right" valign="top"><a id="a3ed0eaa1593dd4c523105d334b72af8d"></a>
 (<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <b>getPayload</b></td></tr>
 <tr class="separator:a3ed0eaa1593dd4c523105d334b72af8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab6d97c69cd8da8ce099167364706a3ac"><td class="memItemLeft" align="right" valign="top"><a id="ab6d97c69cd8da8ce099167364706a3ac"></a>
+(<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <b>getScreenState</b></td></tr>
+<tr class="separator:ab6d97c69cd8da8ce099167364706a3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e75394e73b49a294a5e87c3d024bd1a"><td class="memItemLeft" align="right" valign="top"><a id="a4e75394e73b49a294a5e87c3d024bd1a"></a>
+(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>definesPreviousState</b></td></tr>
+<tr class="separator:a4e75394e73b49a294a5e87c3d024bd1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0885bdeeb9ba35acca1426a0453386b4"><td class="memItemLeft" align="right" valign="top"><a id="a0885bdeeb9ba35acca1426a0453386b4"></a>
+(<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <b>getPreviousState</b></td></tr>
+<tr class="separator:a0885bdeeb9ba35acca1426a0453386b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abdb7cffbd607e829c14022db70bf1d96"><td class="memItemLeft" align="right" valign="top"><a id="abdb7cffbd607e829c14022db70bf1d96"></a>
+(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>setWithPreviousState:</b></td></tr>
+<tr class="separator:abdb7cffbd607e829c14022db70bf1d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4deb1cc9c17ce1c7e6492ba43255873d"><td class="memItemLeft" align="right" valign="top"><a id="a4deb1cc9c17ce1c7e6492ba43255873d"></a>
+(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>setWithCurrentState:</b></td></tr>
+<tr class="separator:a4deb1cc9c17ce1c7e6492ba43255873d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a3c7a163b6ecec71d0322a66a2bbfa"><td class="memItemLeft" align="right" valign="top"><a id="a34a3c7a163b6ecec71d0322a66a2bbfa"></a>
+(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <b>setWithCurrentState:previousState:</b></td></tr>
+<tr class="separator:a34a3c7a163b6ecec71d0322a66a2bbfa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_interface_s_p_event"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_interface_s_p_event')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="interface_s_p_event.html">SPEvent</a></td></tr>
+<tr class="memitem:a7d386251ba1e7585ebbb5dc4a62ed0ee inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top"><a id="a7d386251ba1e7585ebbb5dc4a62ed0ee"></a>
+(void)&#160;</td><td class="memItemRight" valign="bottom">- <b>basePreconditions</b></td></tr>
+<tr class="separator:a7d386251ba1e7585ebbb5dc4a62ed0ee inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f97a27e1bcc210a1010fe95f0c15451 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top"><a id="a9f97a27e1bcc210a1010fe95f0c15451"></a>
 (NSMutableArray *)&#160;</td><td class="memItemRight" valign="bottom">- <b>getContexts</b></td></tr>
 <tr class="separator:a9f97a27e1bcc210a1010fe95f0c15451 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,9 +141,24 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a9ee5517d51908f1d712a4e2d984c2eec inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">setName:</a></td></tr>
 <tr class="memdesc:a9ee5517d51908f1d712a4e2d984c2eec inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">More...</a><br /></td></tr>
 <tr class="separator:a9ee5517d51908f1d712a4e2d984c2eec inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3f3c1001d602bf5a8d7b0c55037a933 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#ae3f3c1001d602bf5a8d7b0c55037a933">setId:</a></td></tr>
-<tr class="memdesc:ae3f3c1001d602bf5a8d7b0c55037a933 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#ae3f3c1001d602bf5a8d7b0c55037a933">More...</a><br /></td></tr>
-<tr class="separator:ae3f3c1001d602bf5a8d7b0c55037a933 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a146195fbad98fcd27e27df2802e340ea inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a146195fbad98fcd27e27df2802e340ea">setType:</a></td></tr>
+<tr class="memdesc:a146195fbad98fcd27e27df2802e340ea inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#a146195fbad98fcd27e27df2802e340ea">More...</a><br /></td></tr>
+<tr class="separator:a146195fbad98fcd27e27df2802e340ea inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d0f88516e60181543e9bd19c45f9e87 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3d0f88516e60181543e9bd19c45f9e87">setScreenId:</a></td></tr>
+<tr class="memdesc:a3d0f88516e60181543e9bd19c45f9e87 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#a3d0f88516e60181543e9bd19c45f9e87">More...</a><br /></td></tr>
+<tr class="separator:a3d0f88516e60181543e9bd19c45f9e87 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb24f8c4bc25ba6ec92c8dc9df76b3c4 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#afb24f8c4bc25ba6ec92c8dc9df76b3c4">setPreviousScreenName:</a></td></tr>
+<tr class="memdesc:afb24f8c4bc25ba6ec92c8dc9df76b3c4 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#afb24f8c4bc25ba6ec92c8dc9df76b3c4">More...</a><br /></td></tr>
+<tr class="separator:afb24f8c4bc25ba6ec92c8dc9df76b3c4 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a590d9688b4b8deebd48ffc66fd728c52 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a590d9688b4b8deebd48ffc66fd728c52">setPreviousScreenType:</a></td></tr>
+<tr class="memdesc:a590d9688b4b8deebd48ffc66fd728c52 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a590d9688b4b8deebd48ffc66fd728c52">More...</a><br /></td></tr>
+<tr class="separator:a590d9688b4b8deebd48ffc66fd728c52 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3342a6dc9b842d7aa8d48b568da718e3 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3342a6dc9b842d7aa8d48b568da718e3">setPreviousScreenId:</a></td></tr>
+<tr class="memdesc:a3342a6dc9b842d7aa8d48b568da718e3 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a3342a6dc9b842d7aa8d48b568da718e3">More...</a><br /></td></tr>
+<tr class="separator:a3342a6dc9b842d7aa8d48b568da718e3 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a894b36fefbee356ec0c9c448bf8f7f63 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a894b36fefbee356ec0c9c448bf8f7f63">setTransitionType:</a></td></tr>
+<tr class="memdesc:a894b36fefbee356ec0c9c448bf8f7f63 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen transition.  <a href="protocol_s_p_screen_view_builder-p.html#a894b36fefbee356ec0c9c448bf8f7f63">More...</a><br /></td></tr>
+<tr class="separator:a894b36fefbee356ec0c9c448bf8f7f63 inherit pub_methods_protocol_s_p_screen_view_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Class Methods</h2></td></tr>

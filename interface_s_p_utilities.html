@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -163,6 +163,18 @@ Class Methods</h2></td></tr>
 <tr class="separator:a9c205b9f5849d02d0526873b5aff1c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab261c0eac0dc36aea8bc680e73788abe"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ab261c0eac0dc36aea8bc680e73788abe">camelcaseParsedKey:</a></td></tr>
 <tr class="separator:ab261c0eac0dc36aea8bc680e73788abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06142c86ea1296ecbd2b3b2844596b01"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a06142c86ea1296ecbd2b3b2844596b01">validateString:</a></td></tr>
+<tr class="separator:a06142c86ea1296ecbd2b3b2844596b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8513474ba478a5c12d55b12d7c7b5560"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a8513474ba478a5c12d55b12d7c7b5560">getScreenContextWithScreenState:</a></td></tr>
+<tr class="separator:a8513474ba478a5c12d55b12d7c7b5560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2137fc87f6963308d0fc128f36f827b"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ae2137fc87f6963308d0fc128f36f827b">getAppVersion</a></td></tr>
+<tr class="separator:ae2137fc87f6963308d0fc128f36f827b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae23ed71460453a1498dff63997a79b82"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ae23ed71460453a1498dff63997a79b82">getAppBuild</a></td></tr>
+<tr class="separator:ae23ed71460453a1498dff63997a79b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38da29ab4302a0474a2508c3dfcfbf85"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a38da29ab4302a0474a2508c3dfcfbf85">getApplicationContext</a></td></tr>
+<tr class="separator:a38da29ab4302a0474a2508c3dfcfbf85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9040717c935483b99c876671e44444f1"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a9040717c935483b99c876671e44444f1">getApplicationContextWithVersion:andBuild:</a></td></tr>
+<tr class="separator:a9040717c935483b99c876671e44444f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is a class that contains utility functions used throughout the tracker. </p>
@@ -246,6 +258,24 @@ Class Methods</h2></td></tr>
 
 </div>
 </div>
+<a id="ae23ed71460453a1498dff63997a79b82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae23ed71460453a1498dff63997a79b82">&#9670;&nbsp;</a></span>getAppBuild()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getAppBuild </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the app build. </p><dl class="section return"><dt>Returns</dt><dd>App build string. </dd></dl>
+
+</div>
+</div>
 <a id="a0b6e2fe861aa88acb7ae65edaa290d09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b6e2fe861aa88acb7ae65edaa290d09">&#9670;&nbsp;</a></span>getAppId()</h2>
 
@@ -297,6 +327,78 @@ Class Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F. </dd></dl>
+
+</div>
+</div>
+<a id="a38da29ab4302a0474a2508c3dfcfbf85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38da29ab4302a0474a2508c3dfcfbf85">&#9670;&nbsp;</a></span>getApplicationContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *) getApplicationContext </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the application build and version as a payload to be used in the application context. </p><dl class="section return"><dt>Returns</dt><dd>A context SDJ. </dd></dl>
+
+</div>
+</div>
+<a id="a9040717c935483b99c876671e44444f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9040717c935483b99c876671e44444f1">&#9670;&nbsp;</a></span>getApplicationContextWithVersion:andBuild:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *) getApplicationContextWithVersion: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>version</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">andBuild:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>build</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the application build and version as a payload to be used in the application context. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">version</td><td>The application version </td></tr>
+    <tr><td class="paramname">build</td><td>The application build </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A context SDJ. </dd></dl>
+
+</div>
+</div>
+<a id="ae2137fc87f6963308d0fc128f36f827b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2137fc87f6963308d0fc128f36f827b">&#9670;&nbsp;</a></span>getAppVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getAppVersion </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the app version. </p><dl class="section return"><dt>Returns</dt><dd>App version string. </dd></dl>
 
 </div>
 </div>
@@ -541,6 +643,31 @@ Class Methods</h2></td></tr>
 
 </div>
 </div>
+<a id="a8513474ba478a5c12d55b12d7c7b5560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8513474ba478a5c12d55b12d7c7b5560">&#9670;&nbsp;</a></span>getScreenContextWithScreenState:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *) getScreenContextWithScreenState: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *)&#160;</td>
+          <td class="paramname"><em>screenState</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns a screen context SDJ given a screen state object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">screenState</td><td>Some screen state </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A context SDJ. </dd></dl>
+
+</div>
+</div>
 <a id="ab647eb87a22c5930fe25820e6d3ed3b7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab647eb87a22c5930fe25820e6d3ed3b7">&#9670;&nbsp;</a></span>getTimestamp()</h2>
 
@@ -713,6 +840,31 @@ Class Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The url encoded string </dd></dl>
+
+</div>
+</div>
+<a id="a06142c86ea1296ecbd2b3b2844596b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06142c86ea1296ecbd2b3b2844596b01">&#9670;&nbsp;</a></span>validateString:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) validateString: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>aString</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return nil if value is nil or empty string, otherwise return string. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aString</td><td>Some string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string or nil </dd></dl>
 
 </div>
 </div>

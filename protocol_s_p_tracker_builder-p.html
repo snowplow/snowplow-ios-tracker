@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -116,9 +116,21 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a6f80293c6bbabc838796c35ef56674b5"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">setApplicationContext:</a></td></tr>
 <tr class="memdesc:a6f80293c6bbabc838796c35ef56674b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether events will include application context.  <a href="#a6f80293c6bbabc838796c35ef56674b5">More...</a><br /></td></tr>
 <tr class="separator:a6f80293c6bbabc838796c35ef56674b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae43c91cdb33a509965bf9912e92eb3af"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">setScreenContext:</a></td></tr>
+<tr class="memdesc:ae43c91cdb33a509965bf9912e92eb3af"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether screen contexts will be added to all events.  <a href="#ae43c91cdb33a509965bf9912e92eb3af">More...</a><br /></td></tr>
+<tr class="separator:ae43c91cdb33a509965bf9912e92eb3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a16e3832b7898d53c77bd1c8c2cd5d04b"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">setLifecycleEvents:</a></td></tr>
 <tr class="memdesc:a16e3832b7898d53c77bd1c8c2cd5d04b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether foreground and background events are sent on app suspend and resume.  <a href="#a16e3832b7898d53c77bd1c8c2cd5d04b">More...</a><br /></td></tr>
 <tr class="separator:a16e3832b7898d53c77bd1c8c2cd5d04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a88c11a27d3e33a9147bfed13aeec0a7f"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">setExceptionEvents:</a></td></tr>
+<tr class="memdesc:a88c11a27d3e33a9147bfed13aeec0a7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether exceptions should be autotracked.  <a href="#a88c11a27d3e33a9147bfed13aeec0a7f">More...</a><br /></td></tr>
+<tr class="separator:a88c11a27d3e33a9147bfed13aeec0a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacac592802ef3e5fbcb3f7b354ff07ee"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">setAutotrackScreenViews:</a></td></tr>
+<tr class="memdesc:aacac592802ef3e5fbcb3f7b354ff07ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether screenviews will be autotracked.  <a href="#aacac592802ef3e5fbcb3f7b354ff07ee">More...</a><br /></td></tr>
+<tr class="separator:aacac592802ef3e5fbcb3f7b354ff07ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa82d4da0338212add4f4fc3555f8d7ad"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">setInstallEvent:</a></td></tr>
+<tr class="memdesc:aa82d4da0338212add4f4fc3555f8d7ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether application install should be autotracked.  <a href="#aa82d4da0338212add4f4fc3555f8d7ad">More...</a><br /></td></tr>
+<tr class="separator:aa82d4da0338212add4f4fc3555f8d7ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Method Documentation</h2>
 <a id="a1f5fb5611f45dcc5c780ca74dfe730a7"></a>
@@ -163,6 +175,30 @@ Instance Methods</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">applicationContext</td><td>Whether application context is enabled. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aacac592802ef3e5fbcb3f7b354ff07ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacac592802ef3e5fbcb3f7b354ff07ee">&#9670;&nbsp;</a></span>setAutotrackScreenViews:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setAutotrackScreenViews: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>autotrackScreenViews</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">autotrackScreenViews</td><td>Whether to autotrack screenviews. </td></tr>
   </table>
   </dd>
 </dl>
@@ -265,6 +301,30 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
+<a id="a88c11a27d3e33a9147bfed13aeec0a7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a88c11a27d3e33a9147bfed13aeec0a7f">&#9670;&nbsp;</a></span>setExceptionEvents:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setExceptionEvents: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>exceptionEvents</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">exceptionEvents</td><td>Whether to autotrack exceptions. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a17d9de813b2a3bbabe9c807ab3b17146"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a17d9de813b2a3bbabe9c807ab3b17146">&#9670;&nbsp;</a></span>setForegroundTimeout:()</h2>
 
@@ -289,6 +349,30 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
+<a id="aa82d4da0338212add4f4fc3555f8d7ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa82d4da0338212add4f4fc3555f8d7ad">&#9670;&nbsp;</a></span>setInstallEvent:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setInstallEvent: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>installEvent</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">installEvent</td><td>Whether to autotrack application installs. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a16e3832b7898d53c77bd1c8c2cd5d04b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a16e3832b7898d53c77bd1c8c2cd5d04b">&#9670;&nbsp;</a></span>setLifecycleEvents:()</h2>
 
@@ -307,6 +391,30 @@ Instance Methods</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">lifecycleEvents</td><td>Whether foreground and background events are enabled. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ae43c91cdb33a509965bf9912e92eb3af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae43c91cdb33a509965bf9912e92eb3af">&#9670;&nbsp;</a></span>setScreenContext:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setScreenContext: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>screenContext</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">screenContext</td><td>Whether screen contexts are enabled. </td></tr>
   </table>
   </dd>
 </dl>

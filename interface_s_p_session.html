@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow Objective-C Tracker
-   &#160;<span id="projectnumber">1.0.0</span>
+   &#160;<span id="projectnumber">1.1.0</span>
    </div>
    <div id="projectbrief">An Objective-C SDK for event tracking</div>
   </td>
@@ -80,6 +80,8 @@ Inheritance diagram for SPSession:</div>
 Instance Methods</h2></td></tr>
 <tr class="memitem:a4213bb26f5207ee3f402fe463badc691"><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#a4213bb26f5207ee3f402fe463badc691">init</a></td></tr>
 <tr class="separator:a4213bb26f5207ee3f402fe463badc691"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a372ca4c6b3c4beaffa3571e707c061f8"><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#a372ca4c6b3c4beaffa3571e707c061f8">initWithTracker:</a></td></tr>
+<tr class="separator:a372ca4c6b3c4beaffa3571e707c061f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45d6257689529533563ad0ca2537f849"><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#a45d6257689529533563ad0ca2537f849">initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:</a></td></tr>
 <tr class="separator:a45d6257689529533563ad0ca2537f849"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9836d3109016445849e7957ed2d00189"><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#a9836d3109016445849e7957ed2d00189">initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:andTracker:</a></td></tr>
@@ -406,6 +408,31 @@ Instance Methods</h2></td></tr>
     <tr><td class="paramname">foregroundTimeout</td><td>the session timeout while it is in the foreground </td></tr>
     <tr><td class="paramname">backgroundTimeout</td><td>the session timeout while it is in the background </td></tr>
     <tr><td class="paramname">checkInterval</td><td>how often to query for if the session has timed out </td></tr>
+    <tr><td class="paramname">tracker</td><td>reference to the associated tracker of the session </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a SnowplowSession </dd></dl>
+
+</div>
+</div>
+<a id="a372ca4c6b3c4beaffa3571e707c061f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a372ca4c6b3c4beaffa3571e707c061f8">&#9670;&nbsp;</a></span>initWithTracker:()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (id) initWithTracker: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_s_p_tracker.html">SPTracker</a> *)&#160;</td>
+          <td class="paramname"><em>tracker</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Initializes a newly allocated SnowplowSession </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
     <tr><td class="paramname">tracker</td><td>reference to the associated tracker of the session </td></tr>
   </table>
   </dd>

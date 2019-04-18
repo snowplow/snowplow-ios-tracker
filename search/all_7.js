@@ -2,9 +2,13 @@ var searchData=
 [
   ['getallevents',['getAllEvents',['../interface_s_p_event_store.html#a2af6ffc50c7f7f895d4abd481b01fb3f',1,'SPEventStore']]],
   ['getalleventslimited_3a',['getAllEventsLimited:',['../interface_s_p_event_store.html#ab29cc9667b30b4401b66152b2827063d',1,'SPEventStore']]],
+  ['getappbuild',['getAppBuild',['../interface_s_p_utilities.html#ae23ed71460453a1498dff63997a79b82',1,'SPUtilities']]],
   ['getappid',['getAppId',['../interface_s_p_utilities.html#a0b6e2fe861aa88acb7ae65edaa290d09',1,'SPUtilities']]],
   ['getappleidfa',['getAppleIdfa',['../interface_s_p_utilities.html#a325981fc009d3391aaeef66781bfc9f5',1,'SPUtilities']]],
   ['getappleidfv',['getAppleIdfv',['../interface_s_p_utilities.html#acfd2664b710496eb9606968ed103cd79',1,'SPUtilities']]],
+  ['getapplicationcontext',['getApplicationContext',['../interface_s_p_utilities.html#a38da29ab4302a0474a2508c3dfcfbf85',1,'SPUtilities']]],
+  ['getapplicationcontextwithversion_3aandbuild_3a',['getApplicationContextWithVersion:andBuild:',['../interface_s_p_utilities.html#a9040717c935483b99c876671e44444f1',1,'SPUtilities']]],
+  ['getappversion',['getAppVersion',['../interface_s_p_utilities.html#ae2137fc87f6963308d0fc128f36f827b',1,'SPUtilities']]],
   ['getasdictionary',['getAsDictionary',['../interface_s_p_payload.html#a8b42bd1a1d8089e20ecc1ebe07d7c9e6',1,'SPPayload::getAsDictionary()'],['../interface_s_p_self_describing_json.html#a8b42bd1a1d8089e20ecc1ebe07d7c9e6',1,'SPSelfDescribingJson::getAsDictionary()']]],
   ['getbackgroundindex',['getBackgroundIndex',['../interface_s_p_session.html#ab3bbad6aa3a4de7c5616fe5ee4fea569',1,'SPSession']]],
   ['getbackgroundtimeout',['getBackgroundTimeout',['../interface_s_p_session.html#a14cad00f834d7a2985959f9a17d2a9e2',1,'SPSession']]],
@@ -34,6 +38,7 @@ var searchData=
   ['getplatform',['getPlatform',['../interface_s_p_utilities.html#aac5fdd98dc118e58feac6d00725d4ff8',1,'SPUtilities']]],
   ['getplatformdict',['getPlatformDict',['../interface_s_p_subject.html#a506429412bcf165868663de4de39e733',1,'SPSubject']]],
   ['getresolution',['getResolution',['../interface_s_p_utilities.html#a4fa7689e8f358b7fc15e35b833b94fbf',1,'SPUtilities']]],
+  ['getscreencontextwithscreenstate_3a',['getScreenContextWithScreenState:',['../interface_s_p_utilities.html#a8513474ba478a5c12d55b12d7c7b5560',1,'SPUtilities']]],
   ['getsendingstatus',['getSendingStatus',['../interface_s_p_emitter.html#aea92337f1c8c74ba3bad1557f3660337',1,'SPEmitter']]],
   ['getsessiondictwitheventid_3a',['getSessionDictWithEventId:',['../interface_s_p_session.html#a3d089e5146abedcd8fc23ae85d0ec534',1,'SPSession']]],
   ['getsessionindex',['getSessionIndex',['../interface_s_p_session.html#ad8b89df302614274a293777fa02578eb',1,'SPSession::getSessionIndex()'],['../interface_s_p_tracker.html#ad8b89df302614274a293777fa02578eb',1,'SPTracker::getSessionIndex()']]],
@@ -44,5 +49,6 @@ var searchData=
   ['gettimezone',['getTimezone',['../interface_s_p_utilities.html#a98a87af2df9d8db803b1416c267a2fe3',1,'SPUtilities']]],
   ['gettracker',['getTracker',['../interface_s_p_session.html#ad85d58fd2b76f297786a18a54931a136',1,'SPSession']]],
   ['getuserid',['getUserId',['../interface_s_p_session.html#aa8fcc313c7a082962ff8facc3f187a84',1,'SPSession']]],
+  ['getvalidpayload',['getValidPayload',['../interface_s_p_screen_state.html#aeaa3e2130c31149a09535118b76277c5',1,'SPScreenState']]],
   ['getviewport',['getViewPort',['../interface_s_p_utilities.html#a3c45f71f793a05bd6b1802d21cefd321',1,'SPUtilities']]]
 ];
