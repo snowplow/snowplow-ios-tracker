@@ -23,6 +23,9 @@ DerivedData
 
 .DS_Store
 
+# Tracker source files
+Snowplow/
+
 # Vagrant
 .vagrant
 
