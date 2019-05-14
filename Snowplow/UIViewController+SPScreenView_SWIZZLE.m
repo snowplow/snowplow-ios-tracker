@@ -145,8 +145,9 @@
         return [self _SP_topViewController:tabController.selectedViewController];
     }
 
-    if (rootViewController.presentedViewController) {
-        return [self _SP_topViewController:rootViewController];
+    UIViewController *presentedViewController = rootViewController.presentedViewController;
+    if (presentedViewController != nil) {
+        return [self _SP_topViewController:presentedViewController];
     }
 
     return rootViewController;
