@@ -1170,14 +1170,14 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 // Error event
 
-@implementation SPError {
+@implementation SNOWError {
     NSString * _name;
     NSString * _stackTrace;
     NSString * _message;
 }
 
 + (instancetype) build:(void(^)(id<SPErrorBuilder>builder))buildBlock {
-    SPError * event = [SPError new];
+    SNOWError * event = [SNOWError new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;

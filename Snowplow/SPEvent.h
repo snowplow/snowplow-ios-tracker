@@ -851,10 +851,10 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @end
 
 /*!
- @class SPError
+ @class SNOWError
  @brief An error event.
  */
-@interface SPError : SPEvent <SPErrorBuilder>
+@interface SNOWError : SPEvent <SPErrorBuilder>
 + (instancetype) build:(void(^)(id<SPErrorBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload;
 @end

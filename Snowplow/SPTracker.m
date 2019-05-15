@@ -80,7 +80,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         if (message == nil || [message length] == 0) {
             return;
         }
-        SPError * error = [SPError build:^(id<SPErrorBuilder> builder) {
+        SNOWError * error = [SNOWError build:^(id<SPErrorBuilder> builder) {
             [builder setMessage:message];
             if (stackTrace != nil && [stackTrace length] > 0) {
                 [builder setStackTrace:stackTrace];
@@ -482,7 +482,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [self trackUnstructuredEvent:unstruct];
 }
 
-- (void) trackErrorEvent:(SPError *)event {
+- (void) trackErrorEvent:(SNOWError *)event {
     SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:[event getPayload]];
         [builder setTimestamp:[event getTimestamp]];

@@ -749,7 +749,7 @@
 
 - (void)testErrorBuilderConditions {
     // Valid construction
-    SPError * error = [SPError build:^(id<SPErrorBuilder> builder) {
+    SNOWError * error = [SNOWError build:^(id<SPErrorBuilder> builder) {
         [builder setName:@"name"];
         [builder setMessage:@"message"];
         [builder setStackTrace:@"stackTrace"];

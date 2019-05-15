@@ -47,7 +47,7 @@ void uncaughtExceptionHandler(NSException *exception);
 @class SPForeground;
 @class SPBackground;
 @class SPScreenState;
-@class SPError;
+@class SNOWError;
 
 /*!
  @brief The builder for SPTracker.
@@ -346,6 +346,6 @@ void uncaughtExceptionHandler(NSException *exception);
  
  @param event An error event.
  */
-- (void) trackErrorEvent:(SPError *)event;
+- (void) trackErrorEvent:(SNOWError *)event;
 
 @end
