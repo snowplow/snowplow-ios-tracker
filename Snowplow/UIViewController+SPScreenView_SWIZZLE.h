@@ -6,10 +6,8 @@
 //  Copyright © 2019 Snowplow Analytics. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "SPTracker.h"
-#import "SPEvent.h"
-#import "SPUtilities.h"
+@class UIViewController;
+typedef NS_ENUM(NSInteger, SPScreenType);
 
 NS_ASSUME_NONNULL_BEGIN
 

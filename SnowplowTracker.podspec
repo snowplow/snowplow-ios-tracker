@@ -13,6 +13,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/SnowPlowData'
   s.documentation_url	= 'https://github.com/snowplow/snowplow/wiki/iOS-Tracker'
 
+  s.swift_version = '5.0'
   s.ios.deployment_target = '8.0'
   s.osx.deployment_target = '10.9'
   s.tvos.deployment_target = '9.0'
@@ -20,6 +21,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.ios.source_files = 'Snowplow/*.swift'
+  s.osx.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
+  s.tvos.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
   s.source_files = 'Snowplow/*.{m,h}'
   s.public_header_files = [
     'Snowplow/Snowplow.h', 
@@ -31,7 +34,6 @@ Pod::Spec.new do |s|
     'Snowplow/SPRequestCallback.h', 
     'Snowplow/SPRequestResponse.h',
     'Snowplow/SPEvent.h', 
-    'Snowplow/SPError.h',
     'Snowplow/SPSelfDescribingJson.h',
     'Snowplow/SPScreenState.h'
   ]
