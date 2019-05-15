@@ -6,6 +6,10 @@
 //  Copyright © 2019 Snowplow Analytics. All rights reserved.
 //
 
+#import "SPTracker.h"
+#import "SPEvent.h"
+#import "SPUtilities.h"
+#import "UIKit/UIKit.h"
 #import "UIViewController+SPScreenView_SWIZZLE.h"
 #import <objc/runtime.h>
 
