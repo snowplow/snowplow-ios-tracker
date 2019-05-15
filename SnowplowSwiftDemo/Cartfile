@@ -1,1 +1,1 @@
-git "snowplow/snowplow-objc-tracker" "develop"
+github "snowplow/snowplow-objc-tracker" "develop"
