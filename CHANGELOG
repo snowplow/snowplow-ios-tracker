@@ -1,4 +1,9 @@
-Version 1.0.5 (2019-05-06)
+Version 1.1.1 (2019-05-15)
+--------------------------
+Make SPScreenState.h public and foward declare in SPEvent.h (#415)
+Fix recursion in screen auto-tracking (#416)
+
+Version 1.1.0 (2019-05-06)
 --------------------------
 Allow configurable postPath parameter (#409)
 Fix various build warnings (#414)
