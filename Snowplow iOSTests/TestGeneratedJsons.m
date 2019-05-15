@@ -30,6 +30,7 @@
 #import "SPPayload.h"
 #import "SPEvent.h"
 #import "SPSelfDescribingJson.h"
+#import "SPScreenState.h"
 #import "SPUtilities.h"
 
 @interface TestGeneratedJsons : XCTestCase

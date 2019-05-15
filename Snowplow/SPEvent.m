@@ -25,6 +25,7 @@
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
+#import "SPScreenState.h"
 
 NSString * stringWithSPScreenType(SPScreenType screenType) {
     NSArray * arr = @[

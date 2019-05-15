@@ -57,7 +57,7 @@
 		754774BC2225FBA60043B814 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
 		754774BD2225FBA60043B814 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
 		754774BE2225FBA60043B814 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
-		754774C02225FBB90043B814 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		754774C02225FBB90043B814 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		754774C12225FBB90043B814 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; };
 		754774C22225FBB90043B814 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; };
 		754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -555,11 +555,11 @@
 				752DAC3521CC43C70065F874 /* SPSubject.h in Headers */,
 				752DAC3721CC43C70065F874 /* SPPayload.h in Headers */,
 				752DAC3A21CC43C70065F874 /* SPUtilities.h in Headers */,
+				754774C02225FBB90043B814 /* SPScreenState.h in Headers */,
 				752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */,
 				752DAC3D21CC43C70065F874 /* SPEvent.h in Headers */,
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
-				754774C02225FBB90043B814 /* SPScreenState.h in Headers */,
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,

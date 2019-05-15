@@ -21,8 +21,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPScreenState.h"
 
+@class SPScreenState;
 @class SPPayload;
 @class SPSelfDescribingJson;
 @class SPNotificationContent;
