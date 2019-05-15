@@ -1,3 +1,3 @@
-git "file:///Users/mhadam/Snowplow/snowplow-objc-tracker" "73cfae47c5efb2b8c57c801e0ebde5508607139e"
 github "ashleymills/Reachability.swift" "v4.3.1"
 github "ccgus/fmdb" "2.7.5"
+github "snowplow/snowplow-objc-tracker" "9fc82130997e28a661c8a0e9614c2aba3582ac2e"
