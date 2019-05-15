@@ -342,7 +342,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void)testErrorEventJson {
-    SPError *event = [SPError build:^(id<SPErrorBuilder> builder) {
+    SNOWError *event = [SNOWError build:^(id<SPErrorBuilder> builder) {
         [builder setMessage:@"some error message"];
         [builder setName:@"some exception name"];
         [builder setStackTrace:@"some stack trace"];
