@@ -3,8 +3,8 @@ iOS, OSX and tvOS Analytics for Snowplow
 
 [ ![Build Status][travis-image] ][travis]
 [ ![Coverage Status][coveralls-image] ][coveralls]
-[ ![Version][cocoa-version] ][cocoadocs]
-[ ![Platform][cocoa-plaform] ][cocoadocs]
+[ ![Cocoapods][cocoapods-version-badge] ][cocoapods]
+[ ![Platform][cocoapods-platform-badge] ][cocoapods]
 [ ![Carthage][carthage-badge] ][carthage]
 [ ![License][license-image] ][license]
 
@@ -79,9 +79,9 @@ limitations under the License.
 [license]: http://www.apache.org/licenses/LICENSE-2.0
 [license-image]: https://img.shields.io/cocoapods/l/SnowplowTracker.svg
 
-[cocoadocs]: http://cocoadocs.org/docsets/SnowplowTracker
-[cocoa-version]: http://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
-[cocoa-plaform]: http://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png
+[cocoapods]: https://cocoapods.org/pods/SnowplowTracker
+[cocoapods-version-badge]: https://img.shields.io/cocoapods/v/SnowplowTracker.svg
+[cocoapods-platform-badge]: https://img.shields.io/cocoapods/p/SnowplowTracker.svg
 
 [carthage]: https://github.com/Carthage/Carthage
 [carthage-badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
