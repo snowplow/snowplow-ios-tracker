@@ -22,6 +22,9 @@
 
 #import <XCTest/XCTest.h>
 #import "SPPayload.h"
+#import "SPEvent.h"
+#import "Snowplow.h"
+#import "SPSelfDescribingJson.h"
 
 @interface TestPayload : XCTestCase
 
@@ -271,6 +274,41 @@
     XCTAssertEqualObjects(sample_payload.getAsDictionary,
                           sample_dict,
                           @"Payload should be initialized to an empty dictionary");
+}
+
+- (void)testDecodeBase64Field {
+    NSString * output = [SPPayload decodeBase64URLField:@"eyJLZXkxIjoiVmFsdWUxIn0"];
+    XCTAssertNotNil(output);
+    XCTAssertEqualObjects(output, @"{\"Key1\":\"Value1\"}");
+}
+
+- (void)testDeserializeField {
+    NSString * output = [SPPayload decodeBase64URLField:@"eyJLZXkxIjoiVmFsdWUxIn0"];
+    XCTAssertNotNil(output);
+    XCTAssertEqualObjects(output, @"{\"Key1\":\"Value1\"}");
+    XCTAssertEqualObjects(@{@"Key1": @"Value1"}, [SPPayload deserializeJSONField:output]);
+}
+
+- (void)testPayloadDecode {
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:@{kSPEvent: kSPEventUnstructured,
+                                                                          kSPUnstructuredEncoded: @"eyJLZXkxIjoiVmFsdWUxIn0"
+                                                                        }];
+    NSString * type = @"";
+    NSString * schema = @"";
+    [SPPayload inspectEventPayload:sample_payload returningEventType:&type andEventSchema:&schema];
+    XCTAssertEqualObjects(type, @"ue");
+    XCTAssertEqualObjects(schema, @"");
+    
+    NSString * arbitrarySchema = @"iglu:com.acme/event/jsonschema/1-0-0";
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:arbitrarySchema andData:@{@"Key1": @"Value1"}];
+    SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        [builder setEventData:sdj];
+    }];
+    type = @"";
+    schema = @"";
+    [SPPayload inspectEventPayload:[event getPayloadWithEncoding:YES] returningEventType:&type andEventSchema:&schema];
+    XCTAssertEqualObjects(type, @"ue");
+    XCTAssertEqualObjects(schema, arbitrarySchema);
 }
 
 @end

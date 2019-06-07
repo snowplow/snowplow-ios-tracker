@@ -22,6 +22,13 @@
 
 #import <Foundation/Foundation.h>
 
+/*!
+ @brief An object used for representing events to the emitter in the way it will be sent.
+ @details The most important thing to understand is that SPPayload maps to the schema:
+ iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/x-x-x
+ Notice that the schema is a single-level dictionary with a string->string mapping.
+ As a consequence, fields like `ue_pr`, `ue_px`, `co` and `cx` are stringified despite being multi-level/nested data.
+ */
 @interface SPPayload : NSObject
 
 /**
@@ -92,6 +99,21 @@
  * @return NSDictionary of data in the object.
  */
 - (NSDictionary *) getAsDictionary;
+
+/*!
+ @brief Provides information for evaluating global contexts
+ */
++ (void) inspectEventPayload:(SPPayload *)payload returningEventType:(NSString **)type andEventSchema:(NSString **)schema;
+
+/*!
+ @brief Utility function for inspecting deserializing event fields, e.g. `ue_pr`/`ue_px`, or `co`/`cx`
+ */
++ (NSObject *) deserializeJSONField:(NSString *)field;
+
+/*!
+ @brief Utility function for inspecting decoding url-safe base64 field: `cx` and `ue_px`
+ */
++ (NSString *) decodeBase64URLField:(NSString *)field;
 
 - (NSString *) description;
 

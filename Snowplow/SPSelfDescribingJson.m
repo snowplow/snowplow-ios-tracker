@@ -25,38 +25,35 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPSelfDescribingJson {
-    NSMutableDictionary * _payload;
+@implementation SPSelfDescribingJson
+
+- (id)copyWithZone:(NSZone *)zone {
+    SPSelfDescribingJson * copy = [[[self class] alloc] init];
+    [copy setPayload:_payload];
+    return copy;
+}
+
+- (id) init {
+    return [self initWithSchema:@"" andData:[NSMutableDictionary dictionary]];
 }
 
 - (id) initWithSchema:(NSString *)schema andData:(NSObject *)data {
     self = [super init];
-    if(self) {
+    if (self) {
         _payload = [[NSMutableDictionary alloc] init];
         [self setSchema:schema];
         [self setDataWithObject:data];
+        return self;
     }
-    return self;
+    return nil;
 }
 
 - (id) initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
-    self = [super init];
-    if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
-        [self setSchema:schema];
-        [self setDataWithPayload:data];
-    }
-    return self;
+    return [self initWithSchema:schema andData:[data getAsDictionary]];
 }
 
 - (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data {
-    self = [super init];
-    if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
-        [self setSchema:schema];
-        [self setDataWithSelfDescribingJson:data];
-    }
-    return self;
+    return [self initWithSchema:schema andData:[data getAsDictionary]];
 }
 
 - (void) setSchema:(NSString *)schema {
@@ -84,6 +81,19 @@
 
 - (NSString *) description {
     return [[self getAsDictionary] description];
+}
+
+- (BOOL) isEqual:(id)other {
+    return ([other isKindOfClass: [SPSelfDescribingJson class]] &&
+            [_payload isEqualToDictionary:[other getAsDictionary]]);
+}
+
+- (NSUInteger) hash {
+    NSUInteger hash = 0;
+    if (_payload && [_payload objectForKey:kSPSchema]) {
+        hash += [[_payload objectForKey:kSPSchema] hash];
+    }
+    return hash;
 }
 
 @end

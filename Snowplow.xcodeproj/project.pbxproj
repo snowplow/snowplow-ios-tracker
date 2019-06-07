@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
-		752DABD521CC38560065F874 /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
 		752DABFE21CC3B380065F874 /* Snowplow_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABF521CC3B380065F874 /* Snowplow_macOS.framework */; };
 		752DAC0321CC3B380065F874 /* Snowplow_macOSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */; };
 		752DAC0D21CC3EEA0065F874 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; settings = {ATTRIBUTES = (Required, ); }; };
@@ -52,7 +51,6 @@
 		7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		7534D20822569F3400904EE5 /* TestScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7534D20722569F3400904EE5 /* TestScreenState.m */; };
 		753DDA6D21F803B10007C3AE /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 753DDA6C21F803B10007C3AE /* Cocoa.framework */; };
 		754774BC2225FBA60043B814 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
 		754774BD2225FBA60043B814 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774BB2225FBA60043B814 /* SPScreenState.m */; };
@@ -66,25 +64,18 @@
 		754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
 		754774D1222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
 		754774D2222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
-		75CAC40521F2955100271FB3 /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F121F2955000271FB3 /* TestSession.m */; };
-		75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F221F2955000271FB3 /* TestEventStore.m */; };
-		75CAC40721F2955100271FB3 /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F321F2955000271FB3 /* TestPayload.m */; };
-		75CAC40821F2955100271FB3 /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F421F2955000271FB3 /* TestSubject.m */; };
-		75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F521F2955000271FB3 /* TestSelfDescribingJson.m */; };
-		75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F621F2955000271FB3 /* TestGeneratedJsons.m */; };
-		75CAC40C21F2955100271FB3 /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FA21F2955000271FB3 /* TestEvent.m */; };
-		75CAC40D21F2955100271FB3 /* TestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FB21F2955100271FB3 /* TestEmitter.m */; };
-		75CAC40E21F2955100271FB3 /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FC21F2955100271FB3 /* TestRequestResponse.m */; };
-		75CAC40F21F2955100271FB3 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FD21F2955100271FB3 /* SnowplowTests.m */; };
-		75CAC41121F2955100271FB3 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40021F2955100271FB3 /* TestTracker.m */; };
-		75CAC41221F2955100271FB3 /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40121F2955100271FB3 /* TestRequest.m */; };
-		75CAC41321F2955100271FB3 /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40221F2955100271FB3 /* TestUtils.m */; };
-		75CAC41621F2958400271FB3 /* VVJSONSchemaValidation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
-		75CAC41721F2958700271FB3 /* SnowplowIgluClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
-		75CAC41821F2958900271FB3 /* Nocilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750E7F1121F2735C0050A993 /* Nocilla.framework */; };
-		75CAC41921F2958E00271FB3 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0E21CC3EED0065F874 /* Reachability.framework */; };
-		75CAC41A21F2959800271FB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
-		75CAC41B21F2960200271FB3 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
+		75AAB02B22A5C84000801925 /* SNOWSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = 75AAB02A22A5C84000801925 /* SNOWSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75AAB02D22A6A7E400801925 /* SNOWContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB02C22A6A7E400801925 /* SNOWContext.m */; };
+		75AAB02F22A6DF7C00801925 /* SNOWContextFilter.h in Headers */ = {isa = PBXBuildFile; fileRef = 75AAB02E22A6DF7C00801925 /* SNOWContextFilter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75AAB03522A6DFAF00801925 /* SNOWContextFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB03422A6DFAF00801925 /* SNOWContextFilter.m */; };
+		75AAB03722A6E02F00801925 /* SNOWSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB03622A6E02F00801925 /* SNOWSchemaRuleset.m */; };
+		75AAB03922A82B9C00801925 /* SNOWContextGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 75AAB03822A82B9C00801925 /* SNOWContextGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		75AAB03B22A82CA900801925 /* SNOWContextGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB03A22A82CA900801925 /* SNOWContextGenerator.m */; };
+		75AAB03D22A97B1E00801925 /* SNOWSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 75AAB03C22A97B1E00801925 /* SNOWSchemaRule.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		75AAB03F22A97B3F00801925 /* SNOWSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB03E22A97B3F00801925 /* SNOWSchemaRule.m */; };
+		75B0920022A1C7DE003E155A /* SNOWGlobalContexts.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B091FF22A1C7DE003E155A /* SNOWGlobalContexts.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		75B0920222A1C804003E155A /* SNOWGlobalContexts.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B0920122A1C804003E155A /* SNOWGlobalContexts.m */; };
+		75B0920422A1D3BF003E155A /* SNOWContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B0920322A1D3BF003E155A /* SNOWContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC41D21F2962E00271FB3 /* VVJSONSchemaValidation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
 		75CAC41E21F2962E00271FB3 /* SnowplowIgluClient.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
 		75CAC41F21F2962E00271FB3 /* Nocilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 750E7F1121F2735C0050A993 /* Nocilla.framework */; };
@@ -151,6 +142,31 @@
 		75CAC46621F2A22500271FB3 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75CAC46721F2A25B00271FB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		75CAC46921F2A25B00271FB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
+		75CFDD0422B8074700B0061C /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FD21F2955100271FB3 /* SnowplowTests.m */; };
+		75CFDD0522B8074700B0061C /* TestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FB21F2955100271FB3 /* TestEmitter.m */; };
+		75CFDD0622B8074700B0061C /* TestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FA21F2955000271FB3 /* TestEvent.m */; };
+		75CFDD0722B8074700B0061C /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F221F2955000271FB3 /* TestEventStore.m */; };
+		75CFDD0822B8074700B0061C /* TestGeneratedJsons.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F621F2955000271FB3 /* TestGeneratedJsons.m */; };
+		75CFDD0922B8074700B0061C /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F321F2955000271FB3 /* TestPayload.m */; };
+		75CFDD0A22B8074700B0061C /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40121F2955100271FB3 /* TestRequest.m */; };
+		75CFDD0B22B8074700B0061C /* TestRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FC21F2955100271FB3 /* TestRequestResponse.m */; };
+		75CFDD0C22B8074700B0061C /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F521F2955000271FB3 /* TestSelfDescribingJson.m */; };
+		75CFDD0D22B8074700B0061C /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F121F2955000271FB3 /* TestSession.m */; };
+		75CFDD0E22B8074700B0061C /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F421F2955000271FB3 /* TestSubject.m */; };
+		75CFDD0F22B8074700B0061C /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40021F2955100271FB3 /* TestTracker.m */; };
+		75CFDD1022B8074700B0061C /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40221F2955100271FB3 /* TestUtils.m */; };
+		75CFDD1122B8074700B0061C /* TestScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 7534D20722569F3400904EE5 /* TestScreenState.m */; };
+		75CFDD1222B8074700B0061C /* TestGlobalContexts.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB04022AE9E3700801925 /* TestGlobalContexts.m */; };
+		75CFDD1622B807AC00B0061C /* TestSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDD1522B807AC00B0061C /* TestSchemaRuleset.m */; };
+		75CFDD1822B807CA00B0061C /* TestContextFilter.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDD1722B807CA00B0061C /* TestContextFilter.m */; };
+		75CFDD1A22B807DB00B0061C /* TestContextGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CFDD1922B807DB00B0061C /* TestContextGenerator.m */; };
+		75CFDD1B22B8146500B0061C /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
+		75CFDD1C22B8148A00B0061C /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
+		75CFDD1D22B814D800B0061C /* VVJSONSchemaValidation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
+		75CFDD1E22B814D800B0061C /* SnowplowIgluClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
+		75CFDD1F22B814D800B0061C /* Nocilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750E7F1121F2735C0050A993 /* Nocilla.framework */; };
+		75CFDD2022B814D800B0061C /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0E21CC3EED0065F874 /* Reachability.framework */; };
+		75CFDD2122B814D800B0061C /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
 		75F9C5D121FA2E8B00A5B8FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		75F9C5D221FA2E9F00A5B8FC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		75F9C5D321FA352800A5B8FC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
@@ -277,6 +293,19 @@
 		754774BF2225FBB90043B814 /* SPScreenState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPScreenState.h; sourceTree = "<group>"; };
 		754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIViewController+SPScreenView_SWIZZLE.h"; sourceTree = "<group>"; };
 		754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SPScreenView_SWIZZLE.m"; sourceTree = "<group>"; };
+		75AAB02A22A5C84000801925 /* SNOWSchemaRuleset.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWSchemaRuleset.h; sourceTree = "<group>"; };
+		75AAB02C22A6A7E400801925 /* SNOWContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWContext.m; sourceTree = "<group>"; };
+		75AAB02E22A6DF7C00801925 /* SNOWContextFilter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWContextFilter.h; sourceTree = "<group>"; };
+		75AAB03422A6DFAF00801925 /* SNOWContextFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWContextFilter.m; sourceTree = "<group>"; };
+		75AAB03622A6E02F00801925 /* SNOWSchemaRuleset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWSchemaRuleset.m; sourceTree = "<group>"; };
+		75AAB03822A82B9C00801925 /* SNOWContextGenerator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWContextGenerator.h; sourceTree = "<group>"; };
+		75AAB03A22A82CA900801925 /* SNOWContextGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWContextGenerator.m; sourceTree = "<group>"; };
+		75AAB03C22A97B1E00801925 /* SNOWSchemaRule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWSchemaRule.h; sourceTree = "<group>"; };
+		75AAB03E22A97B3F00801925 /* SNOWSchemaRule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWSchemaRule.m; sourceTree = "<group>"; };
+		75AAB04022AE9E3700801925 /* TestGlobalContexts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestGlobalContexts.m; sourceTree = "<group>"; };
+		75B091FF22A1C7DE003E155A /* SNOWGlobalContexts.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWGlobalContexts.h; sourceTree = "<group>"; };
+		75B0920122A1C804003E155A /* SNOWGlobalContexts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWGlobalContexts.m; sourceTree = "<group>"; };
+		75B0920322A1D3BF003E155A /* SNOWContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWContext.h; sourceTree = "<group>"; };
 		75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnowplowIgluClient.framework; path = Carthage/Build/iOS/SnowplowIgluClient.framework; sourceTree = "<group>"; };
 		75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVJSONSchemaValidation.framework; path = Carthage/Build/iOS/VVJSONSchemaValidation.framework; sourceTree = "<group>"; };
 		75CAC3F121F2955000271FB3 /* TestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSession.m; sourceTree = "<group>"; };
@@ -296,6 +325,9 @@
 		75CAC40221F2955100271FB3 /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
 		75CAC40321F2955100271FB3 /* SnowplowTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SnowplowTests-Info.plist"; sourceTree = "<group>"; };
 		75CAC40421F2955100271FB3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75CFDD1522B807AC00B0061C /* TestSchemaRuleset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSchemaRuleset.m; sourceTree = "<group>"; };
+		75CFDD1722B807CA00B0061C /* TestContextFilter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestContextFilter.m; sourceTree = "<group>"; };
+		75CFDD1922B807DB00B0061C /* TestContextGenerator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestContextGenerator.m; sourceTree = "<group>"; };
 		75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Bridging-Header.h"; sourceTree = "<group>"; };
 		75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityBridge.swift; sourceTree = "<group>"; };
 		75F9C5C821FA2E0F00A5B8FC /* libSnowplow-iOS-Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSnowplow-iOS-Static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -334,13 +366,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75CAC41A21F2959800271FB3 /* CoreTelephony.framework in Frameworks */,
-				752DABD521CC38560065F874 /* SnowplowTracker.framework in Frameworks */,
-				75CAC41621F2958400271FB3 /* VVJSONSchemaValidation.framework in Frameworks */,
-				75CAC41821F2958900271FB3 /* Nocilla.framework in Frameworks */,
-				75CAC41721F2958700271FB3 /* SnowplowIgluClient.framework in Frameworks */,
-				75CAC41921F2958E00271FB3 /* Reachability.framework in Frameworks */,
-				75CAC41B21F2960200271FB3 /* FMDB.framework in Frameworks */,
+				75CFDD1B22B8146500B0061C /* CoreTelephony.framework in Frameworks */,
+				75CFDD1C22B8148A00B0061C /* SnowplowTracker.framework in Frameworks */,
+				75CFDD1D22B814D800B0061C /* VVJSONSchemaValidation.framework in Frameworks */,
+				75CFDD1E22B814D800B0061C /* SnowplowIgluClient.framework in Frameworks */,
+				75CFDD1F22B814D800B0061C /* Nocilla.framework in Frameworks */,
+				75CFDD2022B814D800B0061C /* Reachability.framework in Frameworks */,
+				75CFDD2122B814D800B0061C /* FMDB.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +439,10 @@
 				75CAC40021F2955100271FB3 /* TestTracker.m */,
 				75CAC40221F2955100271FB3 /* TestUtils.m */,
 				7534D20722569F3400904EE5 /* TestScreenState.m */,
+				75AAB04022AE9E3700801925 /* TestGlobalContexts.m */,
+				75CFDD1522B807AC00B0061C /* TestSchemaRuleset.m */,
+				75CFDD1722B807CA00B0061C /* TestContextFilter.m */,
+				75CFDD1922B807DB00B0061C /* TestContextGenerator.m */,
 			);
 			path = "Snowplow iOSTests";
 			sourceTree = "<group>";
@@ -508,14 +544,24 @@
 				0402EBEB1BA93CA5006C8818 /* SPEvent.h */,
 				0402EBED1BA93CCC006C8818 /* SPEvent.m */,
 				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
-				75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */,
-				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
 				754774BF2225FBB90043B814 /* SPScreenState.h */,
 				754774BB2225FBA60043B814 /* SPScreenState.m */,
 				754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */,
 				754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */,
 				75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */,
 				75264A31224E5DD2000E0E9B /* SPInstallTracker.m */,
+				75B091FF22A1C7DE003E155A /* SNOWGlobalContexts.h */,
+				75B0920122A1C804003E155A /* SNOWGlobalContexts.m */,
+				75AAB03822A82B9C00801925 /* SNOWContextGenerator.h */,
+				75AAB03A22A82CA900801925 /* SNOWContextGenerator.m */,
+				75B0920322A1D3BF003E155A /* SNOWContext.h */,
+				75AAB02C22A6A7E400801925 /* SNOWContext.m */,
+				75AAB02E22A6DF7C00801925 /* SNOWContextFilter.h */,
+				75AAB03422A6DFAF00801925 /* SNOWContextFilter.m */,
+				75AAB02A22A5C84000801925 /* SNOWSchemaRuleset.h */,
+				75AAB03622A6E02F00801925 /* SNOWSchemaRuleset.m */,
+				75AAB03C22A97B1E00801925 /* SNOWSchemaRule.h */,
+				75AAB03E22A97B3F00801925 /* SNOWSchemaRule.m */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -523,6 +569,8 @@
 		AB0C27C3191B408200018557 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
+				75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */,
 				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
 				AB39617019530E850002F235 /* OpenIDFA.h */,
 				AB39617119530E850002F235 /* OpenIDFA.m */,
@@ -537,6 +585,10 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75B0920422A1D3BF003E155A /* SNOWContext.h in Headers */,
+				75AAB03922A82B9C00801925 /* SNOWContextGenerator.h in Headers */,
+				75AAB02F22A6DF7C00801925 /* SNOWContextFilter.h in Headers */,
+				75AAB02B22A5C84000801925 /* SNOWSchemaRuleset.h in Headers */,
 				752DAC3221CC43C60065F874 /* Snowplow.h in Headers */,
 				752DAC3321CC43C70065F874 /* SPTracker.h in Headers */,
 				752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */,
@@ -548,11 +600,13 @@
 				752DAC3D21CC43C70065F874 /* SPEvent.h in Headers */,
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
+				75AAB03D22A97B1E00801925 /* SNOWSchemaRule.h in Headers */,
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
 				752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */,
+				75B0920022A1C7DE003E155A /* SNOWGlobalContexts.h in Headers */,
 				752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */,
 				752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */,
 			);
@@ -833,13 +887,19 @@
 			files = (
 				754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */,
+				75AAB03722A6E02F00801925 /* SNOWSchemaRuleset.m in Sources */,
 				752DAC1721CC42BC0065F874 /* Snowplow.m in Sources */,
 				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
+				75AAB03B22A82CA900801925 /* SNOWContextGenerator.m in Sources */,
 				75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */,
+				75B0920222A1C804003E155A /* SNOWGlobalContexts.m in Sources */,
+				75AAB03F22A97B3F00801925 /* SNOWSchemaRule.m in Sources */,
 				752DAC1D21CC42BC0065F874 /* SPSubject.m in Sources */,
 				752DAC1F21CC42BC0065F874 /* SPSession.m in Sources */,
 				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
+				75AAB03522A6DFAF00801925 /* SNOWContextFilter.m in Sources */,
+				75AAB02D22A6A7E400801925 /* SNOWContext.m in Sources */,
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
 				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
 				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
@@ -855,20 +915,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75CAC40821F2955100271FB3 /* TestSubject.m in Sources */,
-				75CAC41221F2955100271FB3 /* TestRequest.m in Sources */,
-				75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */,
-				75CAC41121F2955100271FB3 /* TestTracker.m in Sources */,
-				75CAC40D21F2955100271FB3 /* TestEmitter.m in Sources */,
-				75CAC40721F2955100271FB3 /* TestPayload.m in Sources */,
-				75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */,
-				7534D20822569F3400904EE5 /* TestScreenState.m in Sources */,
-				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
-				75CAC40F21F2955100271FB3 /* SnowplowTests.m in Sources */,
-				75CAC41321F2955100271FB3 /* TestUtils.m in Sources */,
-				75CAC40521F2955100271FB3 /* TestSession.m in Sources */,
-				75CAC40E21F2955100271FB3 /* TestRequestResponse.m in Sources */,
-				75CAC40C21F2955100271FB3 /* TestEvent.m in Sources */,
+				75CFDD0422B8074700B0061C /* SnowplowTests.m in Sources */,
+				75CFDD0522B8074700B0061C /* TestEmitter.m in Sources */,
+				75CFDD0622B8074700B0061C /* TestEvent.m in Sources */,
+				75CFDD0722B8074700B0061C /* TestEventStore.m in Sources */,
+				75CFDD1822B807CA00B0061C /* TestContextFilter.m in Sources */,
+				75CFDD0822B8074700B0061C /* TestGeneratedJsons.m in Sources */,
+				75CFDD0922B8074700B0061C /* TestPayload.m in Sources */,
+				75CFDD0A22B8074700B0061C /* TestRequest.m in Sources */,
+				75CFDD0B22B8074700B0061C /* TestRequestResponse.m in Sources */,
+				75CFDD1A22B807DB00B0061C /* TestContextGenerator.m in Sources */,
+				75CFDD0C22B8074700B0061C /* TestSelfDescribingJson.m in Sources */,
+				75CFDD0D22B8074700B0061C /* TestSession.m in Sources */,
+				75CFDD0E22B8074700B0061C /* TestSubject.m in Sources */,
+				75CFDD0F22B8074700B0061C /* TestTracker.m in Sources */,
+				75CFDD1022B8074700B0061C /* TestUtils.m in Sources */,
+				75CFDD1122B8074700B0061C /* TestScreenState.m in Sources */,
+				75CFDD1622B807AC00B0061C /* TestSchemaRuleset.m in Sources */,
+				75CFDD1222B8074700B0061C /* TestGlobalContexts.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1000,6 +1064,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1055,6 +1120,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_PREFIX_HEADER = "Snowplow/Snowplow-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_APP_EXTENSIONS=0";
 				INFOPLIST_FILE = "Snowplow iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -1086,6 +1152,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1099,8 +1166,19 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/SnowplowSwiftDemo/Carthage/Checkouts/snowplow-objc-tracker/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/SnowplowSwiftDemo/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_DEBUG=1";
 				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -1126,6 +1204,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_CODE_COVERAGE = NO;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1140,8 +1219,19 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/SnowplowSwiftDemo/Carthage/Checkouts/snowplow-objc-tracker/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/SnowplowSwiftDemo/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Checkouts/iglu-objc-client/Carthage/Build/tvOS",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)/Carthage/Build/tvOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
+				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_DEBUG=1";
 				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

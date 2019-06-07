@@ -162,4 +162,30 @@
     XCTAssertEqualObjects(expected, [sdj getAsDictionary]);
 }
 
+- (void) testEquality {
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:acme.com/test_event/jsonschema/1-0-0"
+                                                                      andData:@{@"hello":@"world"}];
+    SPSelfDescribingJson * otherSdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:acme.com/test_event/jsonschema/1-0-0"
+                                                                           andData:@{@"hello":@"world"}];
+    SPSelfDescribingJson * differentSdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:acme.com/test_event/jsonschema/1-0-2"
+                                                                           andData:@{@"hello":@"world"}];
+    XCTAssertEqualObjects(sdj, otherSdj);
+    XCTAssertNotEqualObjects(sdj, differentSdj);
+}
+
+- (void) testHash {
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:acme.com/test_event/jsonschema/1-0-0"
+                                                                      andData:@{@"hello":@"world"}];
+    SPSelfDescribingJson * otherSdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:acme.com/test_event/jsonschema/1-0-0"
+                                                                           andData:@{@"hello":@"world"}];
+    SPSelfDescribingJson * differentSdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:acme.com/test_event/jsonschema/1-0-2"
+                                                                               andData:@{@"hello":@"world"}];
+    // same hash but different data
+    SPSelfDescribingJson * sameHashSdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:acme.com/test_event/jsonschema/1-0-0"
+                                                                               andData:@{@"different":@"data"}];
+    XCTAssertEqual([sdj hash], [otherSdj hash]);
+    XCTAssertNotEqual([sdj hash], [differentSdj hash]);
+    XCTAssertEqual([sdj hash], [sameHashSdj hash]);
+}
+
 @end
