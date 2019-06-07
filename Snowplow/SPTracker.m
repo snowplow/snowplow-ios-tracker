@@ -31,6 +31,7 @@
 #import "SPEvent.h"
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
+#import "SNOWGlobalContexts.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
@@ -139,6 +140,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         _builderFinished = NO;
         self.previousScreenState = nil;
         self.currentScreenState = nil;
+        _globalContexts = [[SNOWGlobalContexts alloc] init];
         _exceptionEvents = NO;
         _installEvent = NO;
 #if SNOWPLOW_TARGET_IOS
@@ -324,6 +326,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (BOOL) getLifecycleEvents {
     return _lifecycleEvents;
+}
+
+- (void) addGlobalContext:(SNOWContext *)context {
+    [self.globalContexts addContext:context];
 }
 
 
@@ -516,7 +522,19 @@ void uncaughtExceptionHandler(NSException *exception) {
                    typeWhenEncoded:kSPContextEncoded
                 typeWhenNotEncoded:kSPContext];
     }
-
+    
+    // Add global contexts
+    NSArray<SPSelfDescribingJson *> * globalContexts = [_globalContexts evaluateWithPayload:pb];
+    if (globalContexts && [globalContexts count] > 0) {
+        context = [self getFinalContextWithContexts:[[contextArray arrayByAddingObjectsFromArray:globalContexts] mutableCopy] andEventId:eventId];
+        if (context != nil) {
+            [pb addDictionaryToPayload:[context getAsDictionary]
+                         base64Encoded:_base64Encoded
+                       typeWhenEncoded:kSPContextEncoded
+                    typeWhenNotEncoded:kSPContext];
+        }
+    }
+    
     return pb;
 }
 

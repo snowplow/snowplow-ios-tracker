@@ -48,6 +48,8 @@ void uncaughtExceptionHandler(NSException *exception);
 @class SPBackground;
 @class SPScreenState;
 @class SNOWError;
+@class SNOWContext;
+@class SNOWGlobalContexts;
 
 /*!
  @brief The builder for SPTracker.
@@ -187,6 +189,8 @@ void uncaughtExceptionHandler(NSException *exception);
 @property (readonly, nonatomic, strong) SPScreenState * previousScreenState;
 /*! @brief Current screen view state. */
 @property (readonly, nonatomic, strong) SPScreenState * currentScreenState;
+/*! @brief Manages global contexts. */
+@property (readonly, strong) SNOWGlobalContexts * globalContexts;
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.
@@ -254,6 +258,13 @@ void uncaughtExceptionHandler(NSException *exception);
  @return The final complete payload ready for sending.
  */
 - (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId;
+
+/*!
+ @brief Add global context to be used by tracker.
+ 
+ @param context The global context to be added.
+ */
+- (void) addGlobalContext:(SNOWContext *)context;
 
 /*!
  @brief Tracks a page view event.

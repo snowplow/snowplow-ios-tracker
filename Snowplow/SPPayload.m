@@ -132,6 +132,79 @@
     return _payload;
 }
 
++ (NSObject *) deserializeJSONField:(NSString *)field {
+    NSObject * object;
+    NSData * jsonData = [field dataUsingEncoding:NSUTF8StringEncoding];
+    NSError * error = nil;
+    @try {
+        object = [NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:&error];
+    }
+    @catch (NSException *exception) {
+        SnowplowDLog(@"SPLog: decode JSON field error, %@", error.localizedDescription);
+        return nil;
+    }
+    return object;
+}
+
++ (NSString *) decodeBase64URLField:(NSString *)field {
+    NSString * reversedUrlString = [[field stringByReplacingOccurrencesOfString:@"_" withString:@"/"]
+                                    stringByReplacingOccurrencesOfString:@"-" withString:@"+"];
+    NSUInteger padding = ([reversedUrlString length] * 3) % 4;
+    NSMutableString * decodeReady = [NSMutableString stringWithString:reversedUrlString];
+    if (padding != 0) {
+        int i;
+        for (i = 0; i < padding; i++) {
+            [decodeReady appendString:@"="];
+        }
+    }
+    NSData *decodedData = [[NSData alloc] initWithBase64EncodedString:decodeReady options:0];
+    return [[NSString alloc] initWithData:decodedData encoding:NSUTF8StringEncoding];
+}
+
++ (void) inspectEventPayload:(SPPayload *)payload
+          returningEventType:(NSString **)type
+              andEventSchema:(NSString **)schema {
+    if (payload) {
+        NSDictionary * payloadDict = [payload getAsDictionary];
+        if ([payloadDict objectForKey:kSPEvent] && [[payloadDict objectForKey:kSPEvent] isKindOfClass:[NSString class]]) {
+            *type = [payloadDict objectForKey:kSPEvent];
+        } else {
+            *type = @"";
+        }
+        if ([*type isEqualToString:kSPEventUnstructured]) {
+            NSObject * object;
+            id unencodedJsonString = [payloadDict objectForKey:kSPUnstructured];
+            id encodedJsonString = [payloadDict objectForKey:kSPUnstructuredEncoded];
+            if (unencodedJsonString && [unencodedJsonString isKindOfClass:[NSString class]]) {
+                object = [SPPayload deserializeJSONField:unencodedJsonString];
+            } else if (encodedJsonString && [encodedJsonString isKindOfClass:[NSString class]]) {
+                NSString * decodedJsonString = [SPPayload decodeBase64URLField:encodedJsonString];
+                object = [SPPayload deserializeJSONField:decodedJsonString];
+            }
+            // This is where we search the payload for the schema. Type is easily discerned earlier
+            // but searching ue_pr and ue_px is more involved (checking that key paths are present)
+            if (object && [object isKindOfClass:[NSDictionary class]]) {
+                NSDictionary * unstructPayload = (NSDictionary *)object;
+                if (unstructPayload &&
+                    [unstructPayload respondsToSelector:@selector(objectForKey:)] &&
+                    [unstructPayload objectForKey:kSPData]) {
+                    NSDictionary * data = [unstructPayload objectForKey:kSPData];
+                    if (data &&
+                        [data respondsToSelector:@selector(objectForKey:)] &&
+                        [data objectForKey:kSPSchema]) {
+                        *schema = [NSString stringWithString:[data objectForKey:kSPSchema]];
+                    }
+                }
+            }
+        } else {
+           *schema = @"";
+        }
+    } else {
+        *type = @"";
+        *schema = @"";
+    }
+}
+
 - (NSString *) description {
     return [[self getAsDictionary] description];
 }

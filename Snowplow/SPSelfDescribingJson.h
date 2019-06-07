@@ -32,7 +32,11 @@
 
  @see SPPayload
  */
-@interface SPSelfDescribingJson : NSObject
+@interface SPSelfDescribingJson : NSObject <NSCopying>
+
+@property (readwrite, copy) NSMutableDictionary * payload;
+
+- (id) init;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -41,7 +45,7 @@
  @param data Data to set for data field of the self-describing JSON, should be an NSDictionary.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data;
+- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data NS_DESIGNATED_INITIALIZER;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -102,5 +106,15 @@
  @return The description of the dictionary.
  */
 - (NSString *) description;
+
+/*!
+ @brief Override for equality.
+ */
+- (BOOL) isEqual: (id)other;
+
+/*!
+ @brief Override for hash. Calculated using the schema URI string, if it exists - otherwise 0.
+ */
+- (NSUInteger) hash;
 
 @end
