@@ -74,6 +74,7 @@ extern NSString * const kSPMobileContextSchema;
 extern NSString * const kSPDesktopContextSchema;
 extern NSString * const kSPSessionContextSchema;
 extern NSString * const kSPScreenContextSchema;
+extern NSString * const kSPGDPRContextSchema;
 extern NSString * const kSPGeoContextSchema;
 extern NSString * const kSPConsentDocumentSchema;
 extern NSString * const kSPConsentGrantedSchema;
@@ -153,6 +154,13 @@ extern NSString * const kSPSessionPreviousId;
 extern NSString * const kSPSessionIndex;
 extern NSString * const kSPSessionStorage;
 extern NSString * const kSPSessionFirstEventId;
+
+// --- GDPR Context
+
+extern NSString * const kSPBasisForProcessing;
+extern NSString * const kSPDocumentId;
+extern NSString * const kSPDocumentVersion;
+extern NSString * const kSPDocumentDescription;
 
 // --- Geo-Location Context
 

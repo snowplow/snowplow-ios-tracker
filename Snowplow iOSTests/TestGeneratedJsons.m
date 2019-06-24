@@ -32,6 +32,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
 #import "SPUtilities.h"
+#import "SNOWGlobalContexts.h"
 
 @interface TestGeneratedJsons : XCTestCase
 
@@ -91,6 +92,28 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     NSDictionary * data = [subject getGeoLocationDict];
     NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:data] getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
+}
+
+- (void)testGDPRContextJson {
+    SPTracker * tracker = [self getTracker:@"acme.fake.url"];
+    SNOWGlobalContexts * sgc = [tracker globalContexts];
+    SPPayload * payl = [[SPPayload alloc]initWithNSDictionary:@{}];
+    NSArray * contexts = [sgc evaluateWithPayload:payl];
+    // FIXME: The following values are duplicated in the builder in getTracker
+    NSDictionary * data = @{
+                            kSPBasisForProcessing : @"legal_obligation",
+                            kSPDocumentDescription : @"descriptionOfDoc",
+                            kSPDocumentVersion : @"version1",
+                            kSPDocumentId : @"id2"
+                           };
+    NSDictionary * expectedJson = [[[SPSelfDescribingJson alloc] initWithSchema:kSPGDPRContextSchema andData:data] getAsDictionary];
+    NSInteger indexOfFound = [contexts indexOfObjectPassingTest:^BOOL(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSDictionary *tD = [obj getAsDictionary];
+        return [expectedJson isEqualToDictionary:tD];
+    }];
+    XCTAssertNotEqual(NSNotFound, indexOfFound);
+    NSDictionary *returnedJson = [[contexts objectAtIndex:indexOfFound] getAsDictionary];
+    XCTAssertTrue([validator validateJson:returnedJson]);
 }
 
 - (void)testStructuredEventPayloadJson  {
@@ -395,6 +418,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setTrackerNamespace:@"aNamespace"];
         [builder setBase64Encoded:NO];
         [builder setSessionContext:YES];
+        [builder setGDPRContextWithBasis:SNOWProcessingBasisLegalObligation withDocumentDescription:@"descriptionOfDoc" withDocumentVersion:@"version1" withDocumentId:@"id2"];
     }];
     return tracker;
 }

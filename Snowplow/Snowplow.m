@@ -56,6 +56,7 @@ NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-1";
 NSString * const kSPScreenContextSchema   = @"iglu:com.snowplowanalytics.mobile/screen/jsonschema/1-0-0";
+NSString * const kSPGDPRContextSchema     = @"iglu:com.snowplowanalytics.snowplow/gdpr/jsonschema/1-0-0";
 NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplow/geolocation_context/jsonschema/1-1-0";
 NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0";
 NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";
@@ -147,11 +148,19 @@ NSString * const kSPGeoSpeed              = @"speed";
 NSString * const kSPGeoTimestamp          = @"timestamp";
 
 // --- Screen Context
+
 NSString * const kSPScreenName                = @"name";
 NSString * const kSPScreenType                = @"type";
 NSString * const kSPScreenId                  = @"id";
 NSString * const kSPScreenViewController      = @"viewController";
 NSString * const kSPScreenTopViewController   = @"topViewController";
+
+// --- GDPR Context
+
+NSString * const kSPBasisForProcessing  = @"basisForProcessing";
+NSString * const kSPDocumentId          = @"documentId";
+NSString * const kSPDocumentVersion     = @"documentVersion";
+NSString * const kSPDocumentDescription = @"documentDescription";
 
 // --- Page View Event
 
