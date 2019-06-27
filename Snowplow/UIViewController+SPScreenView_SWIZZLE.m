@@ -69,16 +69,14 @@
 }
 
 - (NSString *) _SP_getSnowplowId {
-    @try {
-        // Here we introspect to see if snowplowId exists
-        // Catching an exception during KVO seems easiest outside metaprogramming
-        id value = [self valueForKey:@"snowplowId"];
+    NSString * propertyName = @"snowplowId";
+    SEL selector = NSSelectorFromString(propertyName);
+    BOOL propertyExists = [self respondsToSelector:selector];
+    if (propertyExists) {
+        id value = [self valueForKey:propertyName];
         if (value && ([value isKindOfClass:[NSString class]] || [NSStringFromClass([value class]) isEqualToString:@"Swift.String"])) {
             return value;
         }
-    }
-    @catch (NSException * e) {
-        // Key did not exist
     }
     return nil;
 }
