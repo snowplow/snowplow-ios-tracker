@@ -339,9 +339,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString * topViewControllerClassName = [[notification userInfo] objectForKey:@"topViewControllerClassName"];
     NSString * viewControllerClassName = [[notification userInfo] objectForKey:@"viewControllerClassName"];
     SPScreenState * newScreenState = [[SPScreenState alloc] initWithName:name type:type topViewControllerClassName:topViewControllerClassName viewControllerClassName:viewControllerClassName];
-    [self populatePreviousScreenState];
-    self.currentScreenState = newScreenState;
     if (_autotrackScreenViews) {
+        [self populatePreviousScreenState];
+        self.currentScreenState = newScreenState;
         SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
             if (self.previousScreenState) {
                 [builder setWithPreviousState:self.previousScreenState];
