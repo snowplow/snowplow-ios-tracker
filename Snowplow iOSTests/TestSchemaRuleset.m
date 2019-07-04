@@ -13,7 +13,7 @@
 #import "Snowplow.h"
 #import "SNOWGlobalContexts.h"
 #import "SNOWContext.h"
-#import "SPSelfDescribingJSON.h"
+#import "SPSelfDescribingJson.h"
 #import "SPPayload.h"
 #import "SPEvent.h"
 #import "SNOWContextFilter.h"

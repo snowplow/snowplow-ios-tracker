@@ -42,7 +42,6 @@
     SPSelfDescribingJson * contextSdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme/context/jsonschema/1-0-0"
                                                                              andData:@{@"test": @5}];
     SNOWContextFilter * filter = [[SNOWContextFilter alloc] initWithFilter:^bool(SPPayload *event, NSString *eventType, NSString *eventSchema) {
-        NSLog(@"schema: %@ type: %@ dict: %@", eventSchema, eventType, event);
         return [eventSchema isEqualToString:@"iglu:com.acme/event/jsonschema/1-0-0"];
     }];
     SNOWContext * context = [[SNOWContext alloc] initWithFilter:filter andContext:contextSdj];
