@@ -1,13 +1,53 @@
 language: objective-c
 osx_image: xcode10.2
+
+xcode_workspace: Snowplow.xcworkspace
+
+stages:
+  - lint
+  - test
+  - name: deploy
+    if: tag IS present
+
+jobs:
+  include:
+    - stage: lint
+      install: gem install cocoapods
+      script: pod lib lint --allow-warnings
+
+    # # FIXME: This test fails due to platform specific deps
+    # # - <<: *test
+    # #   stage: test
+    # #   xcode_scheme: Snowplow-macOS
+    # #   xcode_destination: platform=macOS
+    # #   before_script:
+    # #     - carthage update --platform macOS
+    # #     - pod install
+
+    - &test
+      stage: test
+      xcode_scheme: Snowplow-iOS
+      xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone X
+      before_script:
+        - carthage update --platform iOS
+        - pod install
+      after_success: 
+        - gem install slather
+        - slather
+
+    - stage: deploy
+      script: pod trunk push --verbose --allow-warnings
+      osx_image: xcode10.2
+      language: objective-c
+      xcode_scheme: Snowplow-iOS
+      xcode_workspace: Snowplow.xcworkspace
+      on:
+        condition: $(< VERSION) == $TRAVIS_TAG
+        tags: true
+
 env:
-    - TEST_PLATFORM="platform=iOS Simulator,OS=12.1,name=iPhone XR"
-rvm:
-    - 2.3.7
-before_install:
-    - gem install slather
-    - gem install xcpretty -N --no-document
-install:
-    - ./.travis/install.sh
-script: ./.travis/test.sh
-after_success: slather
+  global:
+    - secure: FfsA8B/GHFnIst46Z9Z2VNzd38NTsRp/DLF3IGDWTZAUFMRqVVu2fC/KmfOMH47XMqhtdvOkAjCf0K9BzDrpEwypAz4h5BoZPR7x+sz5eZ91jSKGAK7R8JWvj2hihoPSCc+ytXQwQFZYzP1hM6Wfyc+37riU7w00eJEz3vexD3w=
+    - CODE_SIGNING_REQUIRED=NO
+    - CODE_SIGN_IDENTITY=""
+
