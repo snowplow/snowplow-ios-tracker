@@ -51,6 +51,15 @@ void uncaughtExceptionHandler(NSException *exception);
 @class SNOWContext;
 @class SNOWGlobalContexts;
 
+typedef NS_ENUM(NSInteger, SNOWProcessingBasis) {
+    SNOWProcessingBasisConsent = 0,
+    SNOWProcessingBasisContract = 1,
+    SNOWProcessingBasisLegalObligation = 2,
+    SNOWProcessingBasisVitalInterest = 3,
+    SNOWProcessingBasisPublicTask = 4,
+    SNOWProcessingBasisLegitimateInterests = 5
+};
+
 /*!
  @brief The builder for SPTracker.
  */
@@ -99,6 +108,19 @@ void uncaughtExceptionHandler(NSException *exception);
  @param sessionContext Whether session context is enabled.
  */
 - (void) setSessionContext:(BOOL)sessionContext;
+
+/*!
+ @brief Tracker builder method to set a GDPR context for the tracker
+
+ @param basisForProcessing Enum one of valid legal bases for processing.
+ @param documentDescription Description of the document
+ @param documentVersion Version of the document
+ @param documentId Document ID
+ */
+- (void) setGDPRContextWithBasis:(SNOWProcessingBasis)basisForProcessing
+         withDocumentDescription:(NSString *)documentDescription
+             withDocumentVersion:(NSString *)documentVersion
+                  withDocumentId:(NSString *)documentId;
 
 /*!
  @brief Tracker builder method to set the foreground timeout.
@@ -358,5 +380,12 @@ void uncaughtExceptionHandler(NSException *exception);
  @param event An error event.
  */
 - (void) trackErrorEvent:(SNOWError *)event;
+
+/*!
+ @brief Gets a string corresponging to the basis enum
+
+ @param basis The basis enum value
+ */
++ (NSString *) getBasisForProcessingString:(SNOWProcessingBasis) basis;
 
 @end

@@ -73,7 +73,7 @@
 		75AAB03B22A82CA900801925 /* SNOWContextGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB03A22A82CA900801925 /* SNOWContextGenerator.m */; };
 		75AAB03D22A97B1E00801925 /* SNOWSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = 75AAB03C22A97B1E00801925 /* SNOWSchemaRule.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75AAB03F22A97B3F00801925 /* SNOWSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = 75AAB03E22A97B3F00801925 /* SNOWSchemaRule.m */; };
-		75B0920022A1C7DE003E155A /* SNOWGlobalContexts.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B091FF22A1C7DE003E155A /* SNOWGlobalContexts.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		75B0920022A1C7DE003E155A /* SNOWGlobalContexts.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B091FF22A1C7DE003E155A /* SNOWGlobalContexts.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75B0920222A1C804003E155A /* SNOWGlobalContexts.m in Sources */ = {isa = PBXBuildFile; fileRef = 75B0920122A1C804003E155A /* SNOWGlobalContexts.m */; };
 		75B0920422A1D3BF003E155A /* SNOWContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 75B0920322A1D3BF003E155A /* SNOWContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC41D21F2962E00271FB3 /* VVJSONSchemaValidation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
@@ -600,13 +600,13 @@
 				752DAC3D21CC43C70065F874 /* SPEvent.h in Headers */,
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
+				75B0920022A1C7DE003E155A /* SNOWGlobalContexts.h in Headers */,
 				75AAB03D22A97B1E00801925 /* SNOWSchemaRule.h in Headers */,
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
 				752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */,
-				75B0920022A1C7DE003E155A /* SNOWGlobalContexts.h in Headers */,
 				752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */,
 				752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */,
 			);

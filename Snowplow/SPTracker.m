@@ -32,6 +32,7 @@
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
 #import "SNOWGlobalContexts.h"
+#import "SNOWContext.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
@@ -245,6 +246,48 @@ void uncaughtExceptionHandler(NSException *exception) {
     } else if (_builderFinished && _session == nil && sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval andTracker:self];
     }
+}
+
+- (void) setGDPRContextWithBasis:(SNOWProcessingBasis)basisForProcessing
+         withDocumentDescription:(NSString *)documentDescription
+             withDocumentVersion:(NSString *)documentVersion
+                  withDocumentId:(NSString *)documentId {
+    SPPayload * pl = [[SPPayload alloc] init];
+    [pl addValueToPayload:documentId forKey:kSPDocumentId];
+    [pl addValueToPayload:documentVersion forKey:kSPDocumentVersion];
+    [pl addValueToPayload:documentDescription forKey:kSPDocumentDescription];
+    NSString *pB = [[self class] getProcessingBasisString:basisForProcessing];
+    [pl addValueToPayload:pB forKey:kSPBasisForProcessing];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:kSPGDPRContextSchema andPayload:pl];
+    SNOWContext * sc = [[SNOWContext alloc] initWithContext:sdj];
+    [_globalContexts addContext:sc];
+}
+
++ (nonnull NSString*) getProcessingBasisString:(SNOWProcessingBasis) basis {
+    NSString *result = nil;
+    switch (basis) {
+        case SNOWProcessingBasisConsent:
+            result = @"consent";
+            break;
+        case SNOWProcessingBasisContract:
+            result = @"contract";
+            break;
+        case SNOWProcessingBasisLegalObligation:
+            result = @"legal_obligation";
+            break;
+        case SNOWProcessingBasisVitalInterest:
+            result = @"vital_interests";
+            break;
+        case SNOWProcessingBasisPublicTask:
+            result = @"public_task";
+            break;
+        case SNOWProcessingBasisLegitimateInterests:
+            result = @"legitimate_interests";
+            break;
+        default:
+            break;
+    }
+    return result;
 }
 
 - (void) setScreenContext:(BOOL)screenContext {
