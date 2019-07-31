@@ -42,6 +42,8 @@ jobs:
       os: ios
       osx_image: xcode11
       language: objective-c
+      before_install:
+        - pod repo update
       on:
         condition: $(< VERSION) == $TRAVIS_TAG
         tags: true
