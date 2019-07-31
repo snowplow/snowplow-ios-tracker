@@ -35,7 +35,7 @@ jobs:
     #     - pod install
     #   after_success: 
     #     - gem install slather
-        - slather
+    #     - slather
 
     - stage: deploy
       script: pod trunk push --verbose
