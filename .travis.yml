@@ -11,30 +11,30 @@ stages:
 
 jobs:
   include:
-    - stage: lint
-      install: gem install cocoapods
-      script: pod lib lint --allow-warnings
+    # - stage: lint
+    #   install: gem install cocoapods
+    #   script: pod lib lint --allow-warnings
 
-    # FIXME: This test fails due to platform specific deps
-    # - <<: *test
+    # # FIXME: This test fails due to platform specific deps
+    # # - <<: *test
+    # #   stage: test
+    # #   name: OSX / Xcode 11
+    # #   xcode_scheme: Snowplow-macOS
+    # #   xcode_destination: platform=macOS
+    # #   before_script:
+    # #     - carthage update --platform macOS
+    # #     - pod install
+
+    # - &test
     #   stage: test
-    #   name: OSX / Xcode 11
-    #   xcode_scheme: Snowplow-macOS
-    #   xcode_destination: platform=macOS
+    #   name: iOS / Xcode 11
+    #   xcode_scheme: Snowplow-iOS
+    #   xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone X
     #   before_script:
-    #     - carthage update --platform macOS
+    #     - carthage update --platform iOS
     #     - pod install
-
-    - &test
-      stage: test
-      name: iOS / Xcode 11
-      xcode_scheme: Snowplow-iOS
-      xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone X
-      before_script:
-        - carthage update --platform iOS
-        - pod install
-      after_success: 
-        - gem install slather
+    #   after_success: 
+    #     - gem install slather
         - slather
 
     - stage: deploy
@@ -43,6 +43,7 @@ jobs:
       osx_image: xcode11
       language: objective-c
       before_install:
+        - gem update xcodeproj
         - pod repo update
       on:
         condition: $(< VERSION) == $TRAVIS_TAG
