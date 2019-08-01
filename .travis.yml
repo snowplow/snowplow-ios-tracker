@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode8.3
+osx_image: xcode10.2
 
 xcode_workspace: Snowplow.xcworkspace
 
@@ -40,7 +40,7 @@ jobs:
     - stage: deploy
       script: pod trunk push --verbose
       os: ios
-      osx_image: xcode8.3
+      osx_image: xcode10.2
       language: objective-c
       xcode_scheme: Snowplow-iOS
       xcode_workspace: Snowplow.xcworkspace
