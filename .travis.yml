@@ -39,15 +39,15 @@ jobs:
 
     - stage: deploy
       script: pod trunk push --verbose
-      os: ios
+      # os: ios
       osx_image: xcode10.2
       language: objective-c
       xcode_scheme: Snowplow-iOS
       xcode_workspace: Snowplow.xcworkspace
-      before_install:
-        - gem update cocoapods
-        - gem update xcodeproj
-        - pod repo update
+      # before_install:
+      #   - gem update cocoapods
+      #   - gem update xcodeproj
+      #   - pod repo update
       on:
         condition: $(< VERSION) == $TRAVIS_TAG
         tags: true
