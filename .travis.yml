@@ -4,8 +4,8 @@ osx_image: xcode11
 xcode_workspace: Snowplow.xcworkspace
 
 stages:
-  - lint
-  - test
+  # - lint
+  # - test
   - name: deploy
     if: tag IS present
 
@@ -52,3 +52,4 @@ jobs:
 env:
   - secure: FfsA8B/GHFnIst46Z9Z2VNzd38NTsRp/DLF3IGDWTZAUFMRqVVu2fC/KmfOMH47XMqhtdvOkAjCf0K9BzDrpEwypAz4h5BoZPR7x+sz5eZ91jSKGAK7R8JWvj2hihoPSCc+ytXQwQFZYzP1hM6Wfyc+37riU7w00eJEz3vexD3w=
   - CODE_SIGNING_REQUIRED=NO
+  
