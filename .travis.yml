@@ -18,7 +18,6 @@ jobs:
     # # FIXME: This test fails due to platform specific deps
     # # - <<: *test
     # #   stage: test
-    # #   name: OSX / Xcode 11
     # #   xcode_scheme: Snowplow-macOS
     # #   xcode_destination: platform=macOS
     # #   before_script:
@@ -27,7 +26,6 @@ jobs:
 
     - &test
       stage: test
-      name: iOS / Xcode 11
       xcode_scheme: Snowplow-iOS
       xcode_destination: platform=iOS Simulator,OS=12.1,name=iPhone X
       before_script:
