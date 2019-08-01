@@ -45,6 +45,7 @@ jobs:
       xcode_scheme: Snowplow-iOS
       xcode_workspace: Snowplow.xcworkspace
       before_install:
+        - gem update cocoapods
         - gem update xcodeproj
         - pod repo update
       on:
