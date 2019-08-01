@@ -38,7 +38,7 @@ jobs:
     #     - slather
 
     - stage: deploy
-      script: pod trunk push --verbose
+      script: pod trunk push --verbose --allow-warnings
       # os: ios
       osx_image: xcode10.2
       language: objective-c
