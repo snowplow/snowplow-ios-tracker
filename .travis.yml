@@ -4,8 +4,8 @@ osx_image: xcode10.2
 xcode_workspace: Snowplow.xcworkspace
 
 stages:
-  # - lint
-  # - test
+  - lint
+  - test
   - name: deploy
     if: tag IS present
 
