@@ -7,7 +7,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 target 'Snowplow-iOS' do
     inherit! :search_paths
-    platform :ios, '8.0'
+    platform :ios, '8.4'
     pod 'FMDB'
     pod 'Reachability'
 end
