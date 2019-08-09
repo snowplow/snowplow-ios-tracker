@@ -2,21 +2,21 @@ PODS:
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
-  - Reachability (3.2)
+  - ReachabilitySwift (4.3.1)
 
 DEPENDENCIES:
   - FMDB
-  - Reachability
+  - ReachabilitySwift
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - FMDB
-    - Reachability
+    - ReachabilitySwift
 
 SPEC CHECKSUMS:
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
-  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
 
-PODFILE CHECKSUM: d13bd2e190887d612fa90523be03ee4d9f38a0df
+PODFILE CHECKSUM: 68a3d6ca4325a23301112ebfccfc931ba666523a
 
 COCOAPODS: 1.5.3

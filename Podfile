@@ -9,7 +9,7 @@ target 'Snowplow-iOS' do
     inherit! :search_paths
     platform :ios, '8.4'
     pod 'FMDB'
-    pod 'Reachability'
+    pod 'ReachabilitySwift'
 end
 
 target 'Snowplow-macOS' do
