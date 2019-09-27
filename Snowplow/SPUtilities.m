@@ -25,6 +25,7 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
+#include <sys/sysctl.h>
 
 #if SNOWPLOW_TARGET_IOS
 
@@ -39,7 +40,6 @@
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
-#include <sys/sysctl.h>
 
 #elif SNOWPLOW_TARGET_TV
 
@@ -170,18 +170,13 @@
 }
 
 + (NSString *) getDeviceModel {
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-    return [[UIDevice currentDevice] model];
-#else
     size_t size;
-    char *model = nil;
-    sysctlbyname("hw.model", NULL, &size, NULL, 0);
-    model = malloc(size);
-    sysctlbyname("hw.model", model, &size, NULL, 0);
-    NSString *hwString = [NSString stringWithCString:model encoding:NSUTF8StringEncoding];
-    free(model);
-    return hwString;
-#endif
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithUTF8String:machine];
+    free(machine);
+    return platform;
 }
 
 + (NSString *) getOSVersion {
