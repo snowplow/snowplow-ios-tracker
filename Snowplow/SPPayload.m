@@ -56,12 +56,11 @@
 
 - (void) addDictionaryToPayload:(NSDictionary *)dict {
     if (dict != nil) {
-        for (NSString * key in dict) {
-            id value = [dict objectForKey:key];
+        [dict.copy enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stop) {
             if ([value isKindOfClass:[NSString class]]) {
                 [self addValueToPayload:(NSString *)value forKey:key];
             }
-        }
+        }];
     }
 }
 
