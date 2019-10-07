@@ -1,5 +1,6 @@
-Version 1.1.3 (2019-08-21)
+Version 1.1.3 (2019-10-07)
 --------------------------
+Fix incomplete device model information (close #444)
 Automating publication of new releases (closes #337)
 Added GDPR context (closes #425)
 Update SnowplowTracker.podspec to allow newer FMDB 
