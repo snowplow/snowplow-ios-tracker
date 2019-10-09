@@ -5,28 +5,49 @@
 # is part of the source tree.
 
 source 'https://github.com/CocoaPods/Specs.git'
+
 target 'Snowplow-iOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Snowplow-iOS
+  inherit! :search_paths
+  platform :ios, '8.4'
+  pod 'FMDB'
+  pod 'ReachabilitySwift'
+
+  target 'Snowplow-iOSTests' do
     inherit! :search_paths
-    platform :ios, '8.4'
-    pod 'FMDB'
-    pod 'ReachabilitySwift'
+    # Pods for testing
+  end
+
 end
 
-target 'Snowplow-macOS' do
-    pod 'FMDB'
-    platform :osx, '10.9'
-end
-
-# FIXME: Is this needed? 
-# target 'Snowplow-iOSTests' do
-#     inherit! :search_paths
-#     platform :ios, '8.4'
-#     pod 'Nocilla'
-#     pod 'SnowplowIgluClient', :git => 'https://github.com/snowplow/iglu-objc-client.git', :branch => 'feature/carthage'
+# target 'Snowplow-iOS-Static' do
+#   # Comment the next line if you don't want to use dynamic frameworks
+#   use_frameworks!
+#
+#   # Pods for Snowplow-iOS-Static
+#
 # end
 
-# target 'Snowplow-macOSTests' do
-#     platform :osx, '10.9'
-#     pod 'Nocilla'
-#     pod 'SnowplowIgluClient', :git => 'https://github.com/snowplow/iglu-objc-client.git', :branch => 'feature/carthage'
-# end
+# target 'Snowplow-macOS' do
+#  # Comment the next line if you don't want to use dynamic frameworks
+#   use_frameworks!
+#
+#  # Pods for Snowplow-macOS
+#
+#  target 'Snowplow-macOSTests' do
+#    inherit! :search_paths
+#    # Pods for testing
+#  end
+#
+#end
+
+#target 'Snowplow-watchOS' do
+#  # Comment the next line if you don't want to use dynamic frameworks
+#  use_frameworks!
+#
+#  # Pods for Snowplow-watchOS
+#
+#end
