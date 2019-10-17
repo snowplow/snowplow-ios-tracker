@@ -1,3 +1,8 @@
+Version 1.1.3 (2019-10-18)
+--------------------------
+Fix broken build process (#452)
+Fix ReachabilitySwift at 4.3.1 (#449)
+
 Version 1.1.2 (2019-05-16)
 --------------------------
 Fix Cartfile in SnowplowSwiftDemo (#420)
