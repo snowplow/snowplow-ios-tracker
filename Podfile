@@ -9,12 +9,12 @@ target 'Snowplow-iOS' do
     inherit! :search_paths
     platform :ios, '8.0'
     pod 'FMDB', '2.6.2'
-    pod 'ReachabilitySwift'
+    pod 'ReachabilitySwift', '4.3.1'
 end
 
 target 'Snowplow-macOS' do
     pod 'FMDB', '2.6.2'
-    platform :osx, '10.9'
+    platform :osx, '10.10'
 end
 
 target 'Snowplow-iOSTests' do
@@ -25,7 +25,7 @@ target 'Snowplow-iOSTests' do
 end
 
 target 'Snowplow-macOSTests' do
-    platform :osx, '10.9'
+    platform :osx, '10.10'
     pod 'Nocilla'
     pod 'SnowplowIgluClient', :git => 'https://github.com/snowplow/iglu-objc-client.git', :branch => 'feature/carthage'
 end
