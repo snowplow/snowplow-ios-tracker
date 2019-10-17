@@ -15,7 +15,7 @@ DEPENDENCIES:
   - SnowplowIgluClient (from `https://github.com/snowplow/iglu-objc-client.git`, branch `feature/carthage`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - FMDB
     - Nocilla
     - ReachabilitySwift
@@ -40,4 +40,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: b311bd33cc17017fcfc6d11660967ba278fa780a
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.5.3

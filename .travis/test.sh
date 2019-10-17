@@ -4,7 +4,7 @@ set -o pipefail
 
 xcodebuild -sdk iphonesimulator \
 -destination "${TEST_PLATFORM}" \
--project Snowplow.xcodeproj \
+-workspace Snowplow.xcworkspace \
 -scheme Snowplow-iOS \
 clean test \
 | xcpretty
