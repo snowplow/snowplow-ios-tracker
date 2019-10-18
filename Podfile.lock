@@ -3,7 +3,7 @@ PODS:
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
   - Nocilla (0.11.0)
-  - ReachabilitySwift (4.3.0)
+  - ReachabilitySwift (4.3.1)
   - SnowplowIgluClient (0.1.1):
     - VVJSONSchemaValidation (~> 1.5.0)
   - VVJSONSchemaValidation (1.5.0)
@@ -11,7 +11,7 @@ PODS:
 DEPENDENCIES:
   - FMDB (= 2.6.2)
   - Nocilla
-  - ReachabilitySwift
+  - ReachabilitySwift (= 4.3.1)
   - SnowplowIgluClient (from `https://github.com/snowplow/iglu-objc-client.git`, branch `feature/carthage`)
 
 SPEC REPOS:
@@ -34,10 +34,10 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   Nocilla: 7af7a386071150cc8aa5da4da97d060f049dd61c
-  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
+  ReachabilitySwift: 4032e2f59586e11e3b0ebe15b167abdd587a388b
   SnowplowIgluClient: 4cda3cca105c844bea49b45e30145dc35cb5208d
   VVJSONSchemaValidation: 40411ea98f65d065a7c2ce7483876106bf710e9b
 
-PODFILE CHECKSUM: 047bc905c385190179c8d68cd4481474c8e05932
+PODFILE CHECKSUM: b311bd33cc17017fcfc6d11660967ba278fa780a
 
 COCOAPODS: 1.5.3

@@ -184,6 +184,10 @@
 		75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5F121FA35BC00A5B8FC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		983E071016B9F2C9D795C9D2 /* libPods-Snowplow-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D39577C915882506F76CFA74 /* libPods-Snowplow-macOS.a */; };
+		9EAA4A623333558D3B0CE765 /* libPods-Snowplow-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2904EB4D15396D06F947D8C /* libPods-Snowplow-iOS.a */; };
+		DDC5D9041D6E4E059D2ABECC /* libPods-Snowplow-macOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BF19FC691D361DC65685A9 /* libPods-Snowplow-macOSTests.a */; };
+		F4F03A888AB1E732E1353F09 /* libPods-Snowplow-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC6F0EC5182C6B14D03E947 /* libPods-Snowplow-iOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +260,11 @@
 		0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSelfDescribingJson.h; sourceTree = "<group>"; };
 		0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSelfDescribingJson.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestCallback.h; sourceTree = "<group>"; };
+		17E4CF0C9ECDF825CE683033 /* Pods-Snowplow-macOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-macOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-macOSTests/Pods-Snowplow-macOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		28BF19FC691D361DC65685A9 /* libPods-Snowplow-macOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow-macOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		5ABE526A6BE3015F24971BDD /* Pods-Snowplow-iOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-iOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-iOSTests/Pods-Snowplow-iOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		61536FB3FEDC308DB428EF73 /* Pods-Snowplow-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-iOS/Pods-Snowplow-iOS.release.xcconfig"; sourceTree = "<group>"; };
+		6607FF014C01079F941D6706 /* Pods-Snowplow-iOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-iOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-iOSTests/Pods-Snowplow-iOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		750E7F1121F2735C0050A993 /* Nocilla.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nocilla.framework; path = Carthage/Build/iOS/Nocilla.framework; sourceTree = "<group>"; };
 		75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPInstallTracker.h; sourceTree = "<group>"; };
 		75264A31224E5DD2000E0E9B /* SPInstallTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPInstallTracker.m; sourceTree = "<group>"; };
@@ -299,6 +308,8 @@
 		75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Bridging-Header.h"; sourceTree = "<group>"; };
 		75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityBridge.swift; sourceTree = "<group>"; };
 		75F9C5C821FA2E0F00A5B8FC /* libSnowplow-iOS-Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSnowplow-iOS-Static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8CC6F0EC5182C6B14D03E947 /* libPods-Snowplow-iOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow-iOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		907F5C2E8601E4A9AD270720 /* Pods-Snowplow-macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-macOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-macOS/Pods-Snowplow-macOS.release.xcconfig"; sourceTree = "<group>"; };
 		AB0C27C0191B408200018557 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Prefix.pch"; sourceTree = "<group>"; };
 		AB0C27C5191B408200018557 /* Snowplow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Snowplow.h; sourceTree = "<group>"; };
@@ -316,6 +327,11 @@
 		ABB767AF194974D3006275D1 /* SPEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventStore.m; sourceTree = "<group>"; };
 		ABFCC3741922984A00FAE8FE /* SPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilities.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilities.m; sourceTree = "<group>"; };
+		B440685B06860AC1A1F64C2A /* Pods-Snowplow-macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-macOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-macOS/Pods-Snowplow-macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B5D6F3169FDAE95A3095EB77 /* Pods-Snowplow-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-iOS/Pods-Snowplow-iOS.debug.xcconfig"; sourceTree = "<group>"; };
+		D2904EB4D15396D06F947D8C /* libPods-Snowplow-iOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow-iOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2E81238FF66A542FBCD30A2 /* Pods-Snowplow-macOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snowplow-macOSTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Snowplow-macOSTests/Pods-Snowplow-macOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		D39577C915882506F76CFA74 /* libPods-Snowplow-macOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snowplow-macOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -327,6 +343,7 @@
 				752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */,
 				752DAC0D21CC3EEA0065F874 /* FMDB.framework in Frameworks */,
 				752DAC0F21CC3EED0065F874 /* Reachability.framework in Frameworks */,
+				9EAA4A623333558D3B0CE765 /* libPods-Snowplow-iOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +358,7 @@
 				75CAC41721F2958700271FB3 /* SnowplowIgluClient.framework in Frameworks */,
 				75CAC41921F2958E00271FB3 /* Reachability.framework in Frameworks */,
 				75CAC41B21F2960200271FB3 /* FMDB.framework in Frameworks */,
+				F4F03A888AB1E732E1353F09 /* libPods-Snowplow-iOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -361,6 +379,7 @@
 				753DDA6D21F803B10007C3AE /* Cocoa.framework in Frameworks */,
 				75CAC45721F2A1E400271FB3 /* FMDB.framework in Frameworks */,
 				75CAC45621F2A1CC00271FB3 /* Foundation.framework in Frameworks */,
+				983E071016B9F2C9D795C9D2 /* libPods-Snowplow-macOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				752DABFE21CC3B380065F874 /* Snowplow_macOS.framework in Frameworks */,
+				DDC5D9041D6E4E059D2ABECC /* libPods-Snowplow-macOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +464,7 @@
 				AB0C27C2191B408200018557 /* Snowplow */,
 				AB0C27BF191B408200018557 /* Frameworks */,
 				AB0C27BE191B408200018557 /* Products */,
+				BEC7E115ED5323959E2808AA /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -475,6 +496,10 @@
 				AB9E8213192DEC38006744C9 /* CoreTelephony.framework */,
 				ABB67D8C192D9552009A1ECE /* UIKit.framework */,
 				AB0C27C0191B408200018557 /* Foundation.framework */,
+				D2904EB4D15396D06F947D8C /* libPods-Snowplow-iOS.a */,
+				8CC6F0EC5182C6B14D03E947 /* libPods-Snowplow-iOSTests.a */,
+				D39577C915882506F76CFA74 /* libPods-Snowplow-macOS.a */,
+				28BF19FC691D361DC65685A9 /* libPods-Snowplow-macOSTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -528,6 +553,21 @@
 				AB39617119530E850002F235 /* OpenIDFA.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BEC7E115ED5323959E2808AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B5D6F3169FDAE95A3095EB77 /* Pods-Snowplow-iOS.debug.xcconfig */,
+				61536FB3FEDC308DB428EF73 /* Pods-Snowplow-iOS.release.xcconfig */,
+				6607FF014C01079F941D6706 /* Pods-Snowplow-iOSTests.debug.xcconfig */,
+				5ABE526A6BE3015F24971BDD /* Pods-Snowplow-iOSTests.release.xcconfig */,
+				B440685B06860AC1A1F64C2A /* Pods-Snowplow-macOS.debug.xcconfig */,
+				907F5C2E8601E4A9AD270720 /* Pods-Snowplow-macOS.release.xcconfig */,
+				17E4CF0C9ECDF825CE683033 /* Pods-Snowplow-macOSTests.debug.xcconfig */,
+				D2E81238FF66A542FBCD30A2 /* Pods-Snowplow-macOSTests.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -637,6 +677,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 752DABDD21CC38560065F874 /* Build configuration list for PBXNativeTarget "Snowplow-iOS" */;
 			buildPhases = (
+				D7A349C98101434299B0064C /* [CP] Check Pods Manifest.lock */,
 				752DABC721CC38550065F874 /* Headers */,
 				752DABC821CC38550065F874 /* Sources */,
 				752DABC921CC38550065F874 /* Frameworks */,
@@ -655,10 +696,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 752DABE021CC38560065F874 /* Build configuration list for PBXNativeTarget "Snowplow-iOSTests" */;
 			buildPhases = (
+				5650BC91B425E5162600830B /* [CP] Check Pods Manifest.lock */,
 				752DABD021CC38560065F874 /* Sources */,
 				752DABD121CC38560065F874 /* Frameworks */,
 				75CAC41C21F2960F00271FB3 /* CopyFiles */,
 				75CAC42921F29E5900271FB3 /* CopyFiles */,
+				D44F1066E50A517200A43ED4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -692,6 +735,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 752DAC0621CC3B380065F874 /* Build configuration list for PBXNativeTarget "Snowplow-macOS" */;
 			buildPhases = (
+				84D2E744EE2B00A7386CEC08 /* [CP] Check Pods Manifest.lock */,
 				752DABF021CC3B380065F874 /* Headers */,
 				752DABF121CC3B380065F874 /* Sources */,
 				752DABF221CC3B380065F874 /* Frameworks */,
@@ -710,9 +754,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 752DAC0921CC3B380065F874 /* Build configuration list for PBXNativeTarget "Snowplow-macOSTests" */;
 			buildPhases = (
+				98681E02A562506D55F4D55E /* [CP] Check Pods Manifest.lock */,
 				752DABF921CC3B380065F874 /* Sources */,
 				752DABFA21CC3B380065F874 /* Frameworks */,
 				752DABFB21CC3B380065F874 /* Resources */,
+				85125C9759D065F28B8732E4 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -825,6 +871,141 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		5650BC91B425E5162600830B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Snowplow-iOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		84D2E744EE2B00A7386CEC08 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Snowplow-macOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		85125C9759D065F28B8732E4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Snowplow-macOSTests/Pods-Snowplow-macOSTests-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-macOS/SnowplowIgluResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnowplowIgluResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snowplow-macOSTests/Pods-Snowplow-macOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		98681E02A562506D55F4D55E /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Snowplow-macOSTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D44F1066E50A517200A43ED4 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Snowplow-iOSTests/Pods-Snowplow-iOSTests-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-iOS/SnowplowIgluResources.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SnowplowIgluResources.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Snowplow-iOSTests/Pods-Snowplow-iOSTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D7A349C98101434299B0064C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Snowplow-iOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		752DABC821CC38550065F874 /* Sources */ = {
@@ -976,6 +1157,7 @@
 /* Begin XCBuildConfiguration section */
 		752DABDE21CC38560065F874 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B5D6F3169FDAE95A3095EB77 /* Pods-Snowplow-iOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1013,6 +1195,12 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1030,6 +1218,7 @@
 		};
 		752DABDF21CC38560065F874 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61536FB3FEDC308DB428EF73 /* Pods-Snowplow-iOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1055,7 +1244,10 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_APP_EXTENSIONS=0";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"SNOWPLOW_APP_EXTENSIONS=0",
+				);
 				INFOPLIST_FILE = "Snowplow iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1063,6 +1255,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1081,8 +1279,8 @@
 		};
 		752DABE121CC38560065F874 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6607FF014C01079F941D6706 /* Pods-Snowplow-iOSTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1101,13 +1299,27 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_DEBUG=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"SNOWPLOW_DEBUG=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nocilla-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/VVJSONSchemaValidation-iOS\"",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1121,8 +1333,8 @@
 		};
 		752DABE221CC38560065F874 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5ABE526A6BE3015F24971BDD /* Pods-Snowplow-iOSTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -1142,13 +1354,27 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_DEBUG=1";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"SNOWPLOW_DEBUG=1",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
+					/usr/lib/swift,
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nocilla-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-iOS\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/VVJSONSchemaValidation-iOS\"",
+					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -1269,6 +1495,7 @@
 		};
 		752DAC0721CC3B380065F874 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B440685B06860AC1A1F64C2A /* Pods-Snowplow-macOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1323,6 +1550,7 @@
 		};
 		752DAC0821CC3B380065F874 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 907F5C2E8601E4A9AD270720 /* Pods-Snowplow-macOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1350,7 +1578,10 @@
 				);
 				FRAMEWORK_VERSION = A;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_APP_EXTENSIONS=0";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"SNOWPLOW_APP_EXTENSIONS=0",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = "Snowplow macOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1374,6 +1605,7 @@
 		};
 		752DAC0A21CC3B380065F874 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 17E4CF0C9ECDF825CE683033 /* Pods-Snowplow-macOSTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1409,6 +1641,7 @@
 		};
 		752DAC0B21CC3B380065F874 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D2E81238FF66A542FBCD30A2 /* Pods-Snowplow-macOSTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ANALYZER_NONNULL = YES;
