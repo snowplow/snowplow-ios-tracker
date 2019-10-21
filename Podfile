@@ -20,13 +20,13 @@ end
 target 'Snowplow-iOSTests' do
     inherit! :search_paths
     platform :ios, '8.0'
-    pod 'Nocilla'
+    pod 'Nocilla', '~> 0.11'
     pod 'SnowplowIgluClient', :git => 'https://github.com/snowplow/iglu-objc-client.git', :branch => 'feature/carthage'
 end
 
 target 'Snowplow-macOSTests' do
     platform :osx, '10.10'
-    pod 'Nocilla'
+    pod 'Nocilla', '~> 0.11'
     pod 'SnowplowIgluClient', :git => 'https://github.com/snowplow/iglu-objc-client.git', :branch => 'feature/carthage'
 end
 

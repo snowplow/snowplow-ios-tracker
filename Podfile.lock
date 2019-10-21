@@ -10,7 +10,7 @@ PODS:
 
 DEPENDENCIES:
   - FMDB (= 2.6.2)
-  - Nocilla
+  - Nocilla (~> 0.11)
   - ReachabilitySwift (= 4.3.1)
   - SnowplowIgluClient (from `https://github.com/snowplow/iglu-objc-client.git`, branch `feature/carthage`)
 
@@ -38,6 +38,6 @@ SPEC CHECKSUMS:
   SnowplowIgluClient: 4cda3cca105c844bea49b45e30145dc35cb5208d
   VVJSONSchemaValidation: 40411ea98f65d065a7c2ce7483876106bf710e9b
 
-PODFILE CHECKSUM: b311bd33cc17017fcfc6d11660967ba278fa780a
+PODFILE CHECKSUM: e5d3c885d828eb6bae7fa413699de5c1756d9501
 
 COCOAPODS: 1.5.3
