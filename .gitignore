@@ -30,9 +30,6 @@ DerivedData
 mb.log
 mb.pid
 
-# Cocoapods
-Pods/
-
 # Carthage
 Carthage/
 Frameworks/
