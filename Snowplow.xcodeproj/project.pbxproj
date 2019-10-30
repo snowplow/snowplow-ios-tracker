@@ -316,6 +316,7 @@
 		ABB767AF194974D3006275D1 /* SPEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventStore.m; sourceTree = "<group>"; };
 		ABFCC3741922984A00FAE8FE /* SPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilities.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilities.m; sourceTree = "<group>"; };
+		ED6AC5152369D42800A8F8A3 /* ios.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ios.modulemap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -523,6 +524,7 @@
 		AB0C27C3191B408200018557 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				ED6AC5152369D42800A8F8A3 /* ios.modulemap */,
 				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
 				AB39617019530E850002F235 /* OpenIDFA.h */,
 				AB39617119530E850002F235 /* OpenIDFA.m */,
@@ -1012,6 +1014,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = Snowplow/ios.modulemap;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1065,6 +1068,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = Snowplow/ios.modulemap;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
