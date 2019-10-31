@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -19,9 +19,6 @@
 		75866F89222C9BB40039A3E1 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75866F88222C9BB40039A3E1 /* MetricsViewController.swift */; };
 		75866F8B222DD0B30039A3E1 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75866F8A222DD0B30039A3E1 /* PageViewController.swift */; };
 		75ABB1A12260E5B000527764 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABB1A02260E5B000527764 /* AdditionalViewController.swift */; };
-		75F9C61021FC14A600A5B8FC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F9C5F621FC004100A5B8FC /* FMDB.framework */; };
-		75F9C61121FC14A600A5B8FC /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F9C5F521FC004100A5B8FC /* Reachability.framework */; };
-		75F9C61221FC14A600A5B8FC /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,9 +67,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75F9C61021FC14A600A5B8FC /* FMDB.framework in Frameworks */,
-				75F9C61121FC14A600A5B8FC /* Reachability.framework in Frameworks */,
-				75F9C61221FC14A600A5B8FC /* SnowplowTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,13 +291,12 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"$(SRCROOT)/inputFile.xcfilelist",
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/FMDB.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Reachability.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SnowplowTracker.framework",
 			);
 			outputFileListPaths = (
+				"$(SRCROOT)/outputFile.xcfilelist",
 			);
 			outputPaths = (
 			);

@@ -12,7 +12,7 @@ import SnowplowTracker
 class DemoUtils {
     static func trackAll(_ tracker: SPTracker) {
         self.trackPageViewWithTracker(tracker)
-        //self.trackScreenViewWithTracker(tracker)
+        self.trackScreenViewWithTracker(tracker)
         self.trackStructuredEventWithTracker(tracker)
         self.trackUnstructuredEventWithTracker(tracker)
         self.trackTimingWithCategoryWithTracker(tracker)
@@ -101,36 +101,36 @@ class DemoUtils {
         tracker.trackUnstructuredEvent(event)
     }
     
-    /**static func trackScreenViewWithTracker(_ tracker: SPTracker) {
+    static func trackScreenViewWithTracker(_ tracker: SPTracker) {
         var event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setId("DemoScreenId")
+            builder!.setEventId("DemoScreenId")
         })
         tracker.trackScreenViewEvent(event)
         
         event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setId("DemoScreenId")
+            builder!.setEventId("DemoScreenId")
             builder!.setTimestamp(1243567890)
         })
         tracker.trackScreenViewEvent(event)
         
         event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setId("DemoScreenId")
+            builder!.setEventId("DemoScreenId")
             builder!.setContexts(self.getCustomContext())
         })
         tracker.trackScreenViewEvent(event)
         
         event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setId("DemoScreenId")
+            builder!.setEventId("DemoScreenId")
             builder!.setContexts(self.getCustomContext())
             builder!.setTimestamp(1243567890)
         })
 
         tracker.trackScreenViewEvent(event)
-    }*/
+    }
     
     static func trackTimingWithCategoryWithTracker(_ tracker: SPTracker) {
         var event = SPTiming.build({ (builder : SPTimingBuilder?) -> Void in

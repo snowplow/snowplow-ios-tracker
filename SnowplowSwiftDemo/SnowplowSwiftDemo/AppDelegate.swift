@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 formatter.timeStyle = .medium
                 formatter.locale = Locale(identifier: "en_US")
                 let dateString = formatter.string(from: response.notification.date)
-
+                
                 let event = SPPushNotification.build({(builder : SPPushNotificationBuilder?) -> Void in
                     builder!.setAction(actionIdentifier)
                     builder!.setTrigger(SPUtilities.getTriggerType(request.trigger))
@@ -64,7 +64,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     builder!.setThreadIdentifier(requestContent.threadIdentifier)
                     builder!.setNotification(content)
                 })
-
+                
                 //print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary(), options: .prettyPrinted), encoding: .utf8 )!)
                 rootViewController.tracker?.trackPushNotificationEvent(event)
             }
@@ -78,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
         application.registerForRemoteNotifications()
         UNUserNotificationCenter.current().delegate = self
-
+        
         return true
     }
 

@@ -1,1 +1,1 @@
-github "snowplow/snowplow-objc-tracker" "develop"
+git "file:///Users/alexbenini/dev/snowplow/snowplow-objc-tracker" "460-update_swift_demo_app_to_1_1_4"

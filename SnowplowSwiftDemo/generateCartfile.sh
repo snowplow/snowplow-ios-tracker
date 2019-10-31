@@ -1,4 +1,6 @@
 parent=$(dirname `pwd`)
+branch=$(git rev-parse --abbrev-ref HEAD)
+
 cat >./Cartfile <<EOF
-git "file://${parent}"
+git "file://${parent}" "${branch}"
 EOF
