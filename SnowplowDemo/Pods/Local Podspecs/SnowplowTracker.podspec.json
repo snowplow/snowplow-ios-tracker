@@ -1,6 +1,6 @@
 {
   "name": "SnowplowTracker",
-  "version": "0.6.1",
+  "version": "1.1.4-rc2",
   "summary": "Snowplow event tracker for iOS 7+. Add analytics to your iOS apps and games.",
   "description": "Snowplow is a mobile and event analytics platform with a difference: rather than tell our users how they should analyze their data, we deliver their event-level data in their own data warehouse, on their own Amazon Redshift or Postgres database, so they can analyze it any way they choose. Snowplow mobile is used by data-savvy games companies and app developers to better understand their users and how they engage with their games and applications. Snowplow is open source using the business-friendly Apache License, Version 2.0 and scales horizontally to many billions of events.",
   "homepage": "http://snowplowanalytics.com",
@@ -11,16 +11,44 @@
   },
   "source": {
     "git": "https://github.com/snowplow/snowplow-objc-tracker.git",
-    "tag": "0.6.1"
+    "tag": "1.1.4-rc2"
   },
   "social_media_url": "https://twitter.com/SnowPlowData",
   "documentation_url": "https://github.com/snowplow/snowplow/wiki/iOS-Tracker",
+  "swift_versions": "5.0",
   "platforms": {
     "ios": "8.0",
-    "osx": "10.9",
+    "osx": "10.10",
     "tvos": "9.0"
   },
   "requires_arc": true,
+  "ios": {
+    "source_files": "Snowplow/*.swift",
+    "frameworks": [
+      "CoreTelephony",
+      "UIKit",
+      "Foundation"
+    ],
+    "dependencies": {
+      "ReachabilitySwift": [
+        "~> 4.3.1"
+      ]
+    }
+  },
+  "osx": {
+    "exclude_files": "Snowplow/UIViewController+SPScreenView_SWIZZLE.*",
+    "frameworks": [
+      "AppKit",
+      "Foundation"
+    ]
+  },
+  "tvos": {
+    "exclude_files": "Snowplow/UIViewController+SPScreenView_SWIZZLE.*",
+    "frameworks": [
+      "UIKit",
+      "Foundation"
+    ]
+  },
   "source_files": "Snowplow/*.{m,h}",
   "public_header_files": [
     "Snowplow/Snowplow.h",
@@ -30,36 +58,15 @@
     "Snowplow/SPPayload.h",
     "Snowplow/SPUtilities.h",
     "Snowplow/SPRequestCallback.h",
+    "Snowplow/SPRequestResponse.h",
     "Snowplow/SPEvent.h",
-    "Snowplow/SPSelfDescribingJson.h"
+    "Snowplow/SPSelfDescribingJson.h",
+    "Snowplow/SPScreenState.h"
   ],
-  "ios": {
-    "frameworks": [
-      "CoreTelephony",
-      "UIKit",
-      "Foundation"
-    ],
-    "dependencies": {
-      "Reachability": [
-        "3.2"
-      ]
-    }
-  },
-  "osx": {
-    "frameworks": [
-      "AppKit",
-      "Foundation"
-    ]
-  },
-  "tvos": {
-    "frameworks": [
-      "UIKit",
-      "Foundation"
-    ]
-  },
   "dependencies": {
     "FMDB": [
-      "2.5"
+      "~> 2.6.2"
     ]
-  }
+  },
+  "swift_version": "5.0"
 }

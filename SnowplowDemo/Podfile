@@ -1,1 +1,9 @@
-pod 'SnowplowTracker', :path=> '../'
+platform :ios, '9.0'
+use_frameworks!
+
+workspace 'SnowplowDemo.xcworkspace'
+
+target 'SnowplowDemo' do
+    pod 'SnowplowTracker', :path=> '../'
+end
+

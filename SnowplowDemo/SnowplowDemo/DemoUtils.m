@@ -139,24 +139,24 @@
 + (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
     SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setId:@"DemoScreenId"];
+        [builder setEventId:@"DemoScreenId"];
     }];
     [tracker_ trackScreenViewEvent:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setId:@"DemoScreenId"];
+        [builder setEventId:@"DemoScreenId"];
         [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackScreenViewEvent:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setId:@"DemoScreenId"];
+        [builder setEventId:@"DemoScreenId"];
         [builder setContexts:[self getCustomContext]];
     }];
     [tracker_ trackScreenViewEvent:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setId:@"DemoScreenId"];
+        [builder setEventId:@"DemoScreenId"];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:@1243567890];
     }];
@@ -294,7 +294,7 @@
     SPPushNotification * event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
         [builder setAction:@"action"];
         [builder setTrigger:@"trigger"];
-        [builder setDate:@"date"];
+        [builder setDeliveryDate:@"date"];
         [builder setCategoryIdentifier:@"category"];
         [builder setThreadIdentifier:@"thread"];
         [builder setNotification:content];

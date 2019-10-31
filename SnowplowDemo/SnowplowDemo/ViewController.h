@@ -23,8 +23,6 @@
 #import <UIKit/UIKit.h>
 #import "SPRequestCallback.h"
 
-@class SPEmitter;
-
 @interface ViewController : UIViewController <UITextFieldDelegate, SPRequestCallback>
 
 /**
@@ -48,10 +46,5 @@
  * Gets the Collector URL from the input TextField
  */
 - (NSString *) getCollectorUrl;
-
-/**
- * Gets the Request Method Type that has been selected
- */
-- (enum SPRequestOptions) getMethodType;
 
 @end

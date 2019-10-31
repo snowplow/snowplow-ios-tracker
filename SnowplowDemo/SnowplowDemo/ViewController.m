@@ -70,8 +70,10 @@
 }
 
 - (IBAction) trackEvents:(id)sender {
+    NSString *url = [self getCollectorUrl];
+    SPRequestOptions methodType = [self getMethodType];
+    SPProtocol protocolType = [self getProtocolType];
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSString *url = [self getCollectorUrl];
         if ([url isEqual: @""]) {
             return;
         }
@@ -86,8 +88,8 @@
             return;
         }
         
-        [_tracker.emitter setHttpMethod:[self getMethodType]];
-        [_tracker.emitter setProtocol:[self getProtocolType]];
+        [_tracker.emitter setHttpMethod:methodType];
+        [_tracker.emitter setProtocol:protocolType];
         
         // Itterate the made counter
         _madeCounter += 25;
