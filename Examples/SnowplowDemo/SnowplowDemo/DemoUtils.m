@@ -139,24 +139,24 @@
 + (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
     SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setEventId:@"DemoScreenId"];
+        [builder setScreenId:@"DemoScreenId"];
     }];
     [tracker_ trackScreenViewEvent:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setEventId:@"DemoScreenId"];
+        [builder setScreenId:@"DemoScreenId"];
         [builder setTimestamp:@1243567890];
     }];
     [tracker_ trackScreenViewEvent:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setEventId:@"DemoScreenId"];
+        [builder setScreenId:@"DemoScreenId"];
         [builder setContexts:[self getCustomContext]];
     }];
     [tracker_ trackScreenViewEvent:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setEventId:@"DemoScreenId"];
+        [builder setScreenId:@"DemoScreenId"];
         [builder setContexts:[self getCustomContext]];
         [builder setTimestamp:@1243567890];
     }];
