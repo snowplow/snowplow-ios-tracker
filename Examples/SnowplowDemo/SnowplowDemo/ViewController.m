@@ -82,20 +82,20 @@
         
         // Ensures the application won't crash with a bad URL
         @try {
-            [_tracker.emitter setUrlEndpoint:url];
+            [self->_tracker.emitter setUrlEndpoint:url];
         }
         @catch (NSException *exception) {
             return;
         }
         
-        [_tracker.emitter setHttpMethod:methodType];
-        [_tracker.emitter setProtocol:protocolType];
+        [self->_tracker.emitter setHttpMethod:methodType];
+        [self->_tracker.emitter setProtocol:protocolType];
         
         // Itterate the made counter
-        _madeCounter += 25;
+        self->_madeCounter += 25;
         
         // Track all types of events!
-        [DemoUtils trackAll:_tracker];
+        [DemoUtils trackAll:self->_tracker];
     });
 }
 
