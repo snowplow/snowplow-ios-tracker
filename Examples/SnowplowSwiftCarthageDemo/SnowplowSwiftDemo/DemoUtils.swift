@@ -104,27 +104,27 @@ class DemoUtils {
     static func trackScreenViewWithTracker(_ tracker: SPTracker) {
         var event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setEventId("DemoScreenId")
+            builder!.setScreenId("DemoScreenId")
         })
         tracker.trackScreenViewEvent(event)
         
         event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setEventId("DemoScreenId")
+            builder!.setScreenId("DemoScreenId")
             builder!.setTimestamp(1243567890)
         })
         tracker.trackScreenViewEvent(event)
         
         event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setEventId("DemoScreenId")
+            builder!.setScreenId("DemoScreenId")
             builder!.setContexts(self.getCustomContext())
         })
         tracker.trackScreenViewEvent(event)
         
         event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setEventId("DemoScreenId")
+            builder!.setScreenId("DemoScreenId")
             builder!.setContexts(self.getCustomContext())
             builder!.setTimestamp(1243567890)
         })
