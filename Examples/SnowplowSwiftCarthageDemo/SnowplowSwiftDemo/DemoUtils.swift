@@ -167,7 +167,7 @@ class DemoUtils {
             builder!.setTimestamp(1243567890)
             builder!.setContexts(self.getCustomContext())
         })
-        print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary(), options: .prettyPrinted), encoding: .utf8 )!)
+        print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary()!, options: .prettyPrinted), encoding: .utf8 )!)
         tracker.trackTimingEvent(event)
     }
     
@@ -181,7 +181,7 @@ class DemoUtils {
             builder!.setPrice(0.75)
             builder!.setQuantity(1)
             builder!.setCurrency("USD")
-        }) ]
+        })! ]
         
         var event = SPEcommerce.build({ (builder : SPEcommTransactionBuilder?) -> Void in
             builder!.setOrderId(transactionID)
