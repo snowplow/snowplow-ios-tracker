@@ -185,13 +185,12 @@
     SInt32 osxMinorVersion;
     SInt32 osxPatchFixVersion;
     NSProcessInfo *info = [NSProcessInfo processInfo];
-    if ([info respondsToSelector:@selector(operatingSystemVersion)]) {
+    if (@available(macOS 10.10, *)) {
         NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
         osxMajorVersion = (int)systemVersion.majorVersion;
         osxMinorVersion = (int)systemVersion.minorVersion;
         osxPatchFixVersion = (int)systemVersion.patchVersion;
-    }
-    else {
+    } else {
         // TODO eliminate this block once minimum version is OS X 10+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -305,7 +304,7 @@
 + (NSDictionary *) replaceHyphenatedKeysWithCamelcase:(NSDictionary *)dict{
     NSMutableDictionary * newDictionary = [[NSMutableDictionary alloc] init];
     for (NSString * key in dict) {
-        if ([key containsString:@"-"]) {
+        if ([self string:key contains:@"-"]) {
             if ([dict[key] isKindOfClass:[NSDictionary class]]) {
                 newDictionary[[self camelcaseParsedKey:key]] = [self replaceHyphenatedKeysWithCamelcase:dict[key]];
             } else {
@@ -319,8 +318,17 @@
             }
         }
     }
-
+    
     return [[NSDictionary alloc] initWithDictionary:newDictionary copyItems:YES];
+}
+
++ (BOOL) string:(NSString *)string contains:(NSString *)subString {
+    if (!subString) return false;
+    if (@available(macOS 10.10, *)) {
+        return [string containsString:subString];
+    } else {
+        return ([string rangeOfString:subString].location != NSNotFound);
+    }
 }
 
 + (NSString *) camelcaseParsedKey:(NSString *)key {
