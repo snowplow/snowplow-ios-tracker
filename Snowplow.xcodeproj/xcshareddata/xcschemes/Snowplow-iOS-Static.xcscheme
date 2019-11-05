@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1020"
+   LastUpgradeVersion = "1110"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "752DABCB21CC38550065F874"
-               BuildableName = "SnowplowTracker.framework"
-               BlueprintName = "Snowplow-iOS"
+               BlueprintIdentifier = "75F9C5C721FA2E0F00A5B8FC"
+               BuildableName = "libSnowplow-iOS-Static.a"
+               BlueprintName = "Snowplow-iOS-Static"
                ReferencedContainer = "container:Snowplow.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -27,26 +27,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "752DABCB21CC38550065F874"
-            BuildableName = "SnowplowTracker.framework"
-            BlueprintName = "Snowplow-iOS"
-            ReferencedContainer = "container:Snowplow.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "752DABD321CC38560065F874"
-               BuildableName = "Snowplow-iOSTests.xctest"
-               BlueprintName = "Snowplow-iOSTests"
-               ReferencedContainer = "container:Snowplow.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -59,15 +40,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "752DABCB21CC38550065F874"
-            BuildableName = "SnowplowTracker.framework"
-            BlueprintName = "Snowplow-iOS"
-            ReferencedContainer = "container:Snowplow.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -78,9 +50,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "752DABCB21CC38550065F874"
-            BuildableName = "SnowplowTracker.framework"
-            BlueprintName = "Snowplow-iOS"
+            BlueprintIdentifier = "75F9C5C721FA2E0F00A5B8FC"
+            BuildableName = "libSnowplow-iOS-Static.a"
+            BlueprintName = "Snowplow-iOS-Static"
             ReferencedContainer = "container:Snowplow.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

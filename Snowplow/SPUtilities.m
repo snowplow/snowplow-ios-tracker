@@ -35,7 +35,12 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+
+#if SNOWPLOW_IOS_STATIC
+#import "Snowplow_iOS_Static-Swift.h"
+#else
 #import <SnowplowTracker/SnowplowTracker-Swift.h>
+#endif
 
 #elif SNOWPLOW_TARGET_OSX
 
