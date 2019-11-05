@@ -67,11 +67,7 @@
 		754774C12225FBB90043B814 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; };
 		754774C22225FBB90043B814 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774BF2225FBB90043B814 /* SPScreenState.h */; };
 		754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		754774CE222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */; };
-		754774CF222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */; };
 		754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
-		754774D1222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
-		754774D2222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
 		75CAC40521F2955100271FB3 /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F121F2955000271FB3 /* TestSession.m */; };
 		75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F221F2955000271FB3 /* TestEventStore.m */; };
 		75CAC40721F2955100271FB3 /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F321F2955000271FB3 /* TestPayload.m */; };
@@ -184,6 +180,8 @@
 		75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5F121FA35BC00A5B8FC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
+		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -500,9 +498,9 @@
 				0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */,
 				ABB767AE194974D3006275D1 /* SPEventStore.h */,
 				ABB767AF194974D3006275D1 /* SPEventStore.m */,
+				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
 				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
 				0413DD751B78D635000D2112 /* SPRequestResponse.h */,
-				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
 				0413DD761B78D643000D2112 /* SPRequestResponse.m */,
 				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
 				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
@@ -574,7 +572,6 @@
 				754774C12225FBB90043B814 /* SPScreenState.h in Headers */,
 				75CAC46121F2A21B00271FB3 /* SPUtilities.h in Headers */,
 				75CAC46421F2A21B00271FB3 /* SPEvent.h in Headers */,
-				754774CE222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */,
 				75CAC46621F2A22500271FB3 /* OpenIDFA.h in Headers */,
 				75CAC45D21F2A21B00271FB3 /* SPSession.h in Headers */,
@@ -599,10 +596,10 @@
 				75CAC43721F2A0CC00271FB3 /* SPRequestCallback.h in Headers */,
 				754774C22225FBB90043B814 /* SPScreenState.h in Headers */,
 				75CAC43821F2A0CC00271FB3 /* Snowplow-Bridging-Header.h in Headers */,
-				754774CF222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				75CAC42F21F2A0CC00271FB3 /* SPSession.h in Headers */,
 				75CAC43221F2A0CC00271FB3 /* SPEventStore.h in Headers */,
 				75CAC43421F2A0CC00271FB3 /* SPRequestResponse.h in Headers */,
+				ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */,
 				75CAC43521F2A0CC00271FB3 /* SPWeakTimerTarget.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -879,7 +876,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				75CAC43A21F2A17500271FB3 /* Snowplow.m in Sources */,
-				754774D1222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				754774BD2225FBA60043B814 /* SPScreenState.m in Sources */,
 				75CAC43B21F2A17500271FB3 /* SPTracker.m in Sources */,
 				75CAC43C21F2A17500271FB3 /* SPEmitter.m in Sources */,
@@ -902,8 +898,8 @@
 			files = (
 				75CAC44821F2A19500271FB3 /* Snowplow.m in Sources */,
 				754774BE2225FBA60043B814 /* SPScreenState.m in Sources */,
-				754774D2222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				75CAC44921F2A19500271FB3 /* SPTracker.m in Sources */,
+				ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */,
 				75CAC44A21F2A19500271FB3 /* SPEmitter.m in Sources */,
 				75CAC44B21F2A19500271FB3 /* SPSubject.m in Sources */,
 				75CAC44C21F2A19500271FB3 /* SPSession.m in Sources */,
