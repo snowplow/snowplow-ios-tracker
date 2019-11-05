@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		751BBDAF2012727B001DC712 /* DemoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 751BBDAE2012727B001DC712 /* DemoUtils.swift */; };
-		75699CA3200FB29C00FFC20D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CA2200FB29C00FFC20D /* AppDelegate.swift */; };
-		75699CA5200FB29C00FFC20D /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CA4200FB29C00FFC20D /* DemoViewController.swift */; };
-		75699CA8200FB29C00FFC20D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75699CA6200FB29C00FFC20D /* Main.storyboard */; };
-		75699CAB200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 75699CA9200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodeld */; };
-		75699CAD200FB29C00FFC20D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75699CAC200FB29C00FFC20D /* Assets.xcassets */; };
-		75699CB0200FB29C00FFC20D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75699CAE200FB29C00FFC20D /* LaunchScreen.storyboard */; };
 		75699CBB200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CBA200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift */; };
 		75699CC6200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */; };
-		75866F89222C9BB40039A3E1 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75866F88222C9BB40039A3E1 /* MetricsViewController.swift */; };
-		75866F8B222DD0B30039A3E1 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75866F8A222DD0B30039A3E1 /* PageViewController.swift */; };
-		75ABB1A12260E5B000527764 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75ABB1A02260E5B000527764 /* AdditionalViewController.swift */; };
+		ED8A3EDD23716C9300E51827 /* SnowplowSwiftDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED223716C9300E51827 /* SnowplowSwiftDemo.xcdatamodeld */; };
+		ED8A3EDF23716C9300E51827 /* DemoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED523716C9300E51827 /* DemoUtils.swift */; };
+		ED8A3EE023716C9300E51827 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED623716C9300E51827 /* DemoViewController.swift */; };
+		ED8A3EE123716C9300E51827 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED723716C9300E51827 /* MetricsViewController.swift */; };
+		ED8A3EE223716C9300E51827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED8A3ED823716C9300E51827 /* Assets.xcassets */; };
+		ED8A3EE323716C9300E51827 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EDA23716C9300E51827 /* PageViewController.swift */; };
+		ED8A3EE423716C9300E51827 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EDB23716C9300E51827 /* AdditionalViewController.swift */; };
+		ED8A3EE523716C9300E51827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EDC23716C9300E51827 /* AppDelegate.swift */; };
+		ED8A3EEA23716CA800E51827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8A3EE623716C9B00E51827 /* LaunchScreen.storyboard */; };
+		ED8A3EEB23716CA800E51827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8A3EE823716C9B00E51827 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,14 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		751BBDAE2012727B001DC712 /* DemoUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUtils.swift; sourceTree = "<group>"; };
 		75699C9F200FB29C00FFC20D /* SnowplowSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnowplowSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		75699CA2200FB29C00FFC20D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		75699CA4200FB29C00FFC20D /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
-		75699CA7200FB29C00FFC20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		75699CAA200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnowplowSwiftDemo.xcdatamodel; sourceTree = "<group>"; };
-		75699CAC200FB29C00FFC20D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		75699CAF200FB29C00FFC20D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		75699CB1200FB29C00FFC20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75699CB6200FB29C00FFC20D /* SnowplowSwiftDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowSwiftDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75699CBA200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowplowSwiftDemoTests.swift; sourceTree = "<group>"; };
@@ -54,12 +47,20 @@
 		75699CC1200FB29C00FFC20D /* SnowplowSwiftDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowSwiftDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowplowSwiftDemoUITests.swift; sourceTree = "<group>"; };
 		75699CC7200FB29C00FFC20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		75866F88222C9BB40039A3E1 /* MetricsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetricsViewController.swift; sourceTree = "<group>"; };
-		75866F8A222DD0B30039A3E1 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		75ABB1A02260E5B000527764 /* AdditionalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalViewController.swift; sourceTree = "<group>"; };
 		75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnowplowTracker.framework; path = Carthage/Build/iOS/SnowplowTracker.framework; sourceTree = "<group>"; };
 		75F9C5F521FC004100A5B8FC /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		75F9C5F621FC004100A5B8FC /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		ED8A3ED323716C9300E51827 /* SnowplowSwiftDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnowplowSwiftDemo.xcdatamodel; sourceTree = "<group>"; };
+		ED8A3ED523716C9300E51827 /* DemoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoUtils.swift; path = ../../CommonSwiftCode/DemoUtils.swift; sourceTree = "<group>"; };
+		ED8A3ED623716C9300E51827 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoViewController.swift; path = ../../CommonSwiftCode/DemoViewController.swift; sourceTree = "<group>"; };
+		ED8A3ED723716C9300E51827 /* MetricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricsViewController.swift; path = ../../CommonSwiftCode/MetricsViewController.swift; sourceTree = "<group>"; };
+		ED8A3ED823716C9300E51827 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../CommonSwiftCode/Assets.xcassets; sourceTree = "<group>"; };
+		ED8A3ED923716C9300E51827 /* SnowplowSwiftDemo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = SnowplowSwiftDemo.entitlements; path = ../../CommonSwiftCode/SnowplowSwiftDemo.entitlements; sourceTree = "<group>"; };
+		ED8A3EDA23716C9300E51827 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = ../../CommonSwiftCode/PageViewController.swift; sourceTree = "<group>"; };
+		ED8A3EDB23716C9300E51827 /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdditionalViewController.swift; path = ../../CommonSwiftCode/AdditionalViewController.swift; sourceTree = "<group>"; };
+		ED8A3EDC23716C9300E51827 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../CommonSwiftCode/AppDelegate.swift; sourceTree = "<group>"; };
+		ED8A3EE723716C9B00E51827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../CommonSwiftCode/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ED8A3EE923716C9B00E51827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../CommonSwiftCode/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,17 +112,18 @@
 		75699CA1200FB29C00FFC20D /* SnowplowSwiftDemo */ = {
 			isa = PBXGroup;
 			children = (
-				75699CA2200FB29C00FFC20D /* AppDelegate.swift */,
-				75699CA4200FB29C00FFC20D /* DemoViewController.swift */,
-				75866F88222C9BB40039A3E1 /* MetricsViewController.swift */,
-				75866F8A222DD0B30039A3E1 /* PageViewController.swift */,
-				75ABB1A02260E5B000527764 /* AdditionalViewController.swift */,
-				751BBDAE2012727B001DC712 /* DemoUtils.swift */,
-				75699CA6200FB29C00FFC20D /* Main.storyboard */,
-				75699CAC200FB29C00FFC20D /* Assets.xcassets */,
-				75699CAE200FB29C00FFC20D /* LaunchScreen.storyboard */,
+				ED8A3EE623716C9B00E51827 /* LaunchScreen.storyboard */,
+				ED8A3EE823716C9B00E51827 /* Main.storyboard */,
+				ED8A3EDB23716C9300E51827 /* AdditionalViewController.swift */,
+				ED8A3EDC23716C9300E51827 /* AppDelegate.swift */,
+				ED8A3ED823716C9300E51827 /* Assets.xcassets */,
+				ED8A3ED523716C9300E51827 /* DemoUtils.swift */,
+				ED8A3ED623716C9300E51827 /* DemoViewController.swift */,
+				ED8A3ED723716C9300E51827 /* MetricsViewController.swift */,
+				ED8A3EDA23716C9300E51827 /* PageViewController.swift */,
+				ED8A3ED923716C9300E51827 /* SnowplowSwiftDemo.entitlements */,
+				ED8A3ED223716C9300E51827 /* SnowplowSwiftDemo.xcdatamodeld */,
 				75699CB1200FB29C00FFC20D /* Info.plist */,
-				75699CA9200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodeld */,
 			);
 			path = SnowplowSwiftDemo;
 			sourceTree = "<group>";
@@ -264,9 +266,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75699CB0200FB29C00FFC20D /* LaunchScreen.storyboard in Resources */,
-				75699CAD200FB29C00FFC20D /* Assets.xcassets in Resources */,
-				75699CA8200FB29C00FFC20D /* Main.storyboard in Resources */,
+				ED8A3EEB23716CA800E51827 /* Main.storyboard in Resources */,
+				ED8A3EE223716C9300E51827 /* Assets.xcassets in Resources */,
+				ED8A3EEA23716CA800E51827 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,13 +315,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				751BBDAF2012727B001DC712 /* DemoUtils.swift in Sources */,
-				75699CA5200FB29C00FFC20D /* DemoViewController.swift in Sources */,
-				75699CAB200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodeld in Sources */,
-				75ABB1A12260E5B000527764 /* AdditionalViewController.swift in Sources */,
-				75866F8B222DD0B30039A3E1 /* PageViewController.swift in Sources */,
-				75866F89222C9BB40039A3E1 /* MetricsViewController.swift in Sources */,
-				75699CA3200FB29C00FFC20D /* AppDelegate.swift in Sources */,
+				ED8A3EE123716C9300E51827 /* MetricsViewController.swift in Sources */,
+				ED8A3EE323716C9300E51827 /* PageViewController.swift in Sources */,
+				ED8A3EE023716C9300E51827 /* DemoViewController.swift in Sources */,
+				ED8A3EE423716C9300E51827 /* AdditionalViewController.swift in Sources */,
+				ED8A3EE523716C9300E51827 /* AppDelegate.swift in Sources */,
+				ED8A3EDF23716C9300E51827 /* DemoUtils.swift in Sources */,
+				ED8A3EDD23716C9300E51827 /* SnowplowSwiftDemo.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,20 +357,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		75699CA6200FB29C00FFC20D /* Main.storyboard */ = {
+		ED8A3EE623716C9B00E51827 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				75699CA7200FB29C00FFC20D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		75699CAE200FB29C00FFC20D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				75699CAF200FB29C00FFC20D /* Base */,
+				ED8A3EE723716C9B00E51827 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		ED8A3EE823716C9B00E51827 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED8A3EE923716C9B00E51827 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -678,13 +680,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		75699CA9200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodeld */ = {
+		ED8A3ED223716C9300E51827 /* SnowplowSwiftDemo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				75699CAA200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodel */,
+				ED8A3ED323716C9300E51827 /* SnowplowSwiftDemo.xcdatamodel */,
 			);
-			currentVersion = 75699CAA200FB29C00FFC20D /* SnowplowSwiftDemo.xcdatamodel */;
-			path = SnowplowSwiftDemo.xcdatamodeld;
+			currentVersion = ED8A3ED323716C9300E51827 /* SnowplowSwiftDemo.xcdatamodel */;
+			name = SnowplowSwiftDemo.xcdatamodeld;
+			path = ../../CommonSwiftCode/SnowplowSwiftDemo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
