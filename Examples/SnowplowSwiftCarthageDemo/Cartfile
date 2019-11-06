@@ -1,1 +1,1 @@
-git "file:///Users/alexbenini/dev/snowplow/snowplow-objc-tracker" "460-update_swift_demo_app_to_1_1_4"
+github "snowplow/snowplow-objc-tracker" "master"
