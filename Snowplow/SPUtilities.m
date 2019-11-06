@@ -52,6 +52,10 @@
 @import AdSupport;
 #import <UIKit/UIScreen.h>
 
+#elif SNOWPLOW_TARGET_WATCHOS
+
+#import <WatchKit/WatchKit.h>
+
 #endif
 
 @implementation SPUtilities
@@ -153,6 +157,9 @@
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     CGFloat screenScale = [[UIScreen mainScreen] scale];
+#elif SNOWPLOW_TARGET_WATCHOS
+    CGRect mainScreen = [[WKInterfaceDevice currentDevice] screenBounds];
+    CGFloat screenScale = 1;//[[UIScreen mainScreen] scale];
 #else
     CGRect mainScreen = [[NSScreen mainScreen] frame];
     CGFloat screenScale = [[NSScreen mainScreen] backingScaleFactor];
@@ -173,9 +180,14 @@
 }
 
 + (NSString *) getDeviceModel {
-    NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
-    if (simulatorModel) return simulatorModel;
+   NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
+    if (simulatorModel) return simulatorModel;    
 
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
+    return [[UIDevice currentDevice] model];
+#elif SNOWPLOW_TARGET_WATCHOS
+    return [[WKInterfaceDevice currentDevice] model];
+#else
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
     char *machine = malloc(size);
@@ -188,6 +200,8 @@
 + (NSString *) getOSVersion {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     return [[UIDevice currentDevice] systemVersion];
+#elif SNOWPLOW_TARGET_WATCHOS
+    return [[WKInterfaceDevice currentDevice] systemVersion];
 #else
     SInt32 osxMajorVersion;
     SInt32 osxMinorVersion;

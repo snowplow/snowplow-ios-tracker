@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -180,8 +180,11 @@
 		75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5F121FA35BC00A5B8FC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
-		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		983E071016B9F2C9D795C9D2 /* libPods-Snowplow-macOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D39577C915882506F76CFA74 /* libPods-Snowplow-macOS.a */; };
+		9EAA4A623333558D3B0CE765 /* libPods-Snowplow-iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2904EB4D15396D06F947D8C /* libPods-Snowplow-iOS.a */; };
+		D8B28367B35E107A44B5F776 /* libPods-Snowplow-watchOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D33B3CAA7537C0DF4D1D36C0 /* libPods-Snowplow-watchOS.a */; };
+		DDC5D9041D6E4E059D2ABECC /* libPods-Snowplow-macOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BF19FC691D361DC65685A9 /* libPods-Snowplow-macOSTests.a */; };
+		F4F03A888AB1E732E1353F09 /* libPods-Snowplow-iOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC6F0EC5182C6B14D03E947 /* libPods-Snowplow-iOSTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,6 +353,7 @@
 				23DFEC7D2362FAA500BD19C4 /* FMDB.framework in Frameworks */,
 				75CAC46721F2A25B00271FB3 /* CoreTelephony.framework in Frameworks */,
 				75CAC46921F2A25B00271FB3 /* Foundation.framework in Frameworks */,
+				D8B28367B35E107A44B5F776 /* libPods-Snowplow-watchOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -673,6 +677,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 752DABED21CC3A090065F874 /* Build configuration list for PBXNativeTarget "Snowplow-watchOS" */;
 			buildPhases = (
+				FD35A08A1692057727BBABD3 /* [CP] Check Pods Manifest.lock */,
 				752DABE321CC3A090065F874 /* Headers */,
 				752DABE421CC3A090065F874 /* Sources */,
 				752DABE521CC3A090065F874 /* Frameworks */,
@@ -1191,6 +1196,7 @@
 		};
 		752DABEE21CC3A090065F874 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3ECF84ED6FC265BA42E71D4D /* Pods-Snowplow-watchOS.debug.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -1245,6 +1251,7 @@
 		};
 		752DABEF21CC3A090065F874 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71CD2326050368A99BDEB01F /* Pods-Snowplow-watchOS.release.xcconfig */;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
