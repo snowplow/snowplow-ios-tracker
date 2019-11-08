@@ -1,0 +1,6 @@
+framework module Pods_SnowplowDemo {
+  umbrella header "Pods-SnowplowDemo-umbrella.h"
+
+  export *
+  module * { export * }
+}
