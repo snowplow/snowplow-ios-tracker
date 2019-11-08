@@ -50,85 +50,37 @@ class DemoUtils {
             builder!.setTimestamp(1243567890)
         })
         tracker.trackStructuredEvent(event)
-        
-        event = SPStructured.build({ (builder : SPStructuredBuilder?) -> Void in
-            builder!.setCategory("DemoCategory")
-            builder!.setAction("DemoAction")
-            builder!.setLabel("DemoLabel")
-            builder!.setProperty("DemoProperty")
-            builder!.setValue(5)
-            builder!.setContexts(self.getCustomContext())
-        })
-        tracker.trackStructuredEvent(event)
-        
-        event = SPStructured.build({ (builder : SPStructuredBuilder?) -> Void in
-            builder!.setCategory("DemoCategory")
-            builder!.setAction("DemoAction")
-            builder!.setLabel("DemoLabel")
-            builder!.setProperty("DemoProperty")
-            builder!.setValue(5)
-            builder!.setTimestamp(1243567890)
-        })
-        tracker.trackStructuredEvent(event)
     }
     
     static func trackPageViewWithTracker(_ tracker: SPTracker) {
-        let data: NSDictionary = [ "level": 23, "score": 56473]
-        let sdj = SPSelfDescribingJson(schema: "iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", andData: data);
+        let data: NSDictionary = [ "targetUrl": "http://a-target-url.com"]
+        let sdj = SPSelfDescribingJson(schema: "iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1", andData: data);
+
         var event = SPUnstructured.build({ (builder : SPUnstructuredBuilder?) -> Void in
             builder!.setEventData(sdj!)
         })
         tracker.trackUnstructuredEvent(event)
         
         event = SPUnstructured.build({ (builder : SPUnstructuredBuilder?) -> Void in
-            builder!.setEventData(sdj!)
-            builder!.setContexts(self.getCustomContext())
-        })
-        tracker.trackUnstructuredEvent(event)
-
-        event = SPUnstructured.build({ (builder : SPUnstructuredBuilder?) -> Void in
-            builder!.setEventData(sdj)
-            builder!.setTimestamp(1243567890)
-            builder!.setContexts(self.getCustomContext())
-        })
-        tracker.trackUnstructuredEvent(event)
-        
-        event = SPUnstructured.build({ (builder : SPUnstructuredBuilder?) -> Void in
             builder!.setEventData(sdj)
             builder!.setTimestamp(1243567890)
         })
-        
         tracker.trackUnstructuredEvent(event)
     }
     
     static func trackScreenViewWithTracker(_ tracker: SPTracker) {
+        let screenId = UUID().uuidString
         var event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setScreenId("DemoScreenId")
+            builder!.setScreenId(screenId)
         })
         tracker.trackScreenViewEvent(event)
         
         event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
             builder!.setName("DemoScreenName")
-            builder!.setScreenId("DemoScreenId")
+            builder!.setScreenId(screenId)
             builder!.setTimestamp(1243567890)
         })
-        tracker.trackScreenViewEvent(event)
-        
-        event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
-            builder!.setName("DemoScreenName")
-            builder!.setScreenId("DemoScreenId")
-            builder!.setContexts(self.getCustomContext())
-        })
-        tracker.trackScreenViewEvent(event)
-        
-        event = SPScreenView.build({ (builder : SPScreenViewBuilder?) -> Void in
-            builder!.setName("DemoScreenName")
-            builder!.setScreenId("DemoScreenId")
-            builder!.setContexts(self.getCustomContext())
-            builder!.setTimestamp(1243567890)
-        })
-
         tracker.trackScreenViewEvent(event)
     }
     
@@ -148,26 +100,6 @@ class DemoUtils {
             builder!.setLabel("DemoTimingLabel")
             builder!.setTimestamp(1243567890)
         })
-        tracker.trackTimingEvent(event)
-        
-        event = SPTiming.build({ (builder : SPTimingBuilder?) -> Void in
-            builder!.setCategory("DemoTimingCategory")
-            builder!.setVariable("DemoTimingVariable")
-            builder!.setTiming(5)
-            builder!.setLabel("DemoTimingLabel")
-            builder!.setContexts(self.getCustomContext())
-        })
-        tracker.trackTimingEvent(event)
-        
-        event = SPTiming.build({ (builder : SPTimingBuilder?) -> Void in
-            builder!.setCategory("DemoTimingCategory")
-            builder!.setVariable("DemoTimingVariable")
-            builder!.setTiming(5)
-            builder!.setLabel("DemoTimingLabel")
-            builder!.setTimestamp(1243567890)
-            builder!.setContexts(self.getCustomContext())
-        })
-        print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary()!, options: .prettyPrinted), encoding: .utf8 )!)
         tracker.trackTimingEvent(event)
     }
     
@@ -211,38 +143,6 @@ class DemoUtils {
             builder!.setTimestamp(1243567890)
         })
         tracker.trackEcommerceEvent(event)
-        
-        event = SPEcommerce.build({ (builder : SPEcommTransactionBuilder?) -> Void in
-            builder!.setOrderId(transactionID)
-            builder!.setTotalValue(350)
-            builder!.setAffiliation("DemoTransactionAffiliation")
-            builder!.setTaxValue(10)
-            builder!.setShipping(15)
-            builder!.setCity("Boston")
-            builder!.setState("Massachusetts")
-            builder!.setCountry("USA")
-            builder!.setCurrency("USD")
-            builder!.setItems(itemArray)
-            builder!.setContexts(self.getCustomContext())
-        })
-        tracker.trackEcommerceEvent(event)
-        
-        event = SPEcommerce.build({ (builder : SPEcommTransactionBuilder?) -> Void in
-            builder!.setOrderId(transactionID)
-            builder!.setTotalValue(350)
-            builder!.setAffiliation("DemoTransactionAffiliation")
-            builder!.setTaxValue(10)
-            builder!.setShipping(15)
-            builder!.setCity("Boston")
-            builder!.setState("Massachusetts")
-            builder!.setCountry("USA")
-            builder!.setCurrency("USD")
-            builder!.setItems(itemArray)
-            builder!.setContexts(self.getCustomContext())
-            builder!.setTimestamp(1243567890)
-        })
-
-        tracker.trackEcommerceEvent(event)
     }
 
     static func trackPushNotificationWithTracker(_ tracker: SPTracker) {
@@ -274,12 +174,5 @@ class DemoUtils {
         })
 
         tracker.trackPushNotificationEvent(event)
-    }
-
-    static func getCustomContext() -> NSMutableArray {
-        let data : NSDictionary = [ "snowplow": "demo-tracker" ]
-        let context = SPSelfDescribingJson(schema: "iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", andData: data)
-        let result : NSMutableArray = [ context! ]
-        return result
     }
 }
