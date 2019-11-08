@@ -173,6 +173,9 @@
 }
 
 + (NSString *) getDeviceModel {
+    NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
+    if (simulatorModel) return simulatorModel;
+
     size_t size;
     sysctlbyname("hw.machine", NULL, &size, NULL, 0);
     char *machine = malloc(size);
