@@ -69,10 +69,4 @@
  */
 + (void) trackEcommerceTransactionWithTracker:(SPTracker *)tracker_;
 
-/**
- * Returns a pre-built custom context ready for embedding in an event
- * @return The custom context
- */
-+ (NSMutableArray *) getCustomContext;
-
 @end
