@@ -1,0 +1,738 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 51;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75699CBB200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CBA200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift */; };
+		75699CC6200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */; };
+		8250FAB091797F45D6CD2275 /* Pods_SnowplowSwiftDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BF8934039F940AB9640A858 /* Pods_SnowplowSwiftDemo.framework */; };
+		ED8A3EBE2371684500E51827 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EB32371684500E51827 /* DemoViewController.swift */; };
+		ED8A3EBF2371684500E51827 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EB42371684500E51827 /* AppDelegate.swift */; };
+		ED8A3EC02371684500E51827 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED8A3EB52371684500E51827 /* Assets.xcassets */; };
+		ED8A3EC12371684500E51827 /* DemoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EB72371684500E51827 /* DemoUtils.swift */; };
+		ED8A3EC22371684500E51827 /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EB82371684500E51827 /* AdditionalViewController.swift */; };
+		ED8A3EC32371684500E51827 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EB92371684500E51827 /* PageViewController.swift */; };
+		ED8A3EC42371684500E51827 /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EBA2371684500E51827 /* MetricsViewController.swift */; };
+		ED8A3EC52371684500E51827 /* SnowplowSwiftDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3EBB2371684500E51827 /* SnowplowSwiftDemo.xcdatamodeld */; };
+		ED8A3ED023716BDE00E51827 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8A3ECE23716BC700E51827 /* Main.storyboard */; };
+		ED8A3ED123716BEA00E51827 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8A3ECC23716BC400E51827 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75699CB7200FB29C00FFC20D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75699C97200FB29C00FFC20D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75699C9E200FB29C00FFC20D;
+			remoteInfo = SnowplowSwiftDemo;
+		};
+		75699CC2200FB29C00FFC20D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75699C97200FB29C00FFC20D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75699C9E200FB29C00FFC20D;
+			remoteInfo = SnowplowSwiftDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		2BF8934039F940AB9640A858 /* Pods_SnowplowSwiftDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnowplowSwiftDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		458479EB1C7ABA691B3DD1A3 /* Pods-SnowplowSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowSwiftDemo.release.xcconfig"; path = "Target Support Files/Pods-SnowplowSwiftDemo/Pods-SnowplowSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
+		5DF37441E73CB4E4BA108A05 /* Pods-SnowplowSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnowplowSwiftDemo.debug.xcconfig"; path = "Target Support Files/Pods-SnowplowSwiftDemo/Pods-SnowplowSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		75699C9F200FB29C00FFC20D /* SnowplowSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnowplowSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		75699CB1200FB29C00FFC20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75699CB6200FB29C00FFC20D /* SnowplowSwiftDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowSwiftDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75699CBA200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowplowSwiftDemoTests.swift; sourceTree = "<group>"; };
+		75699CBC200FB29C00FFC20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75699CC1200FB29C00FFC20D /* SnowplowSwiftDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SnowplowSwiftDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnowplowSwiftDemoUITests.swift; sourceTree = "<group>"; };
+		75699CC7200FB29C00FFC20D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnowplowTracker.framework; path = Carthage/Build/iOS/SnowplowTracker.framework; sourceTree = "<group>"; };
+		75F9C5F521FC004100A5B8FC /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
+		75F9C5F621FC004100A5B8FC /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		ED8A3EB32371684500E51827 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoViewController.swift; path = ../../CommonSwiftCode/DemoViewController.swift; sourceTree = "<group>"; };
+		ED8A3EB42371684500E51827 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../CommonSwiftCode/AppDelegate.swift; sourceTree = "<group>"; };
+		ED8A3EB52371684500E51827 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../CommonSwiftCode/Assets.xcassets; sourceTree = "<group>"; };
+		ED8A3EB62371684500E51827 /* SnowplowSwiftDemo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = SnowplowSwiftDemo.entitlements; path = ../../CommonSwiftCode/SnowplowSwiftDemo.entitlements; sourceTree = "<group>"; };
+		ED8A3EB72371684500E51827 /* DemoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoUtils.swift; path = ../../CommonSwiftCode/DemoUtils.swift; sourceTree = "<group>"; };
+		ED8A3EB82371684500E51827 /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdditionalViewController.swift; path = ../../CommonSwiftCode/AdditionalViewController.swift; sourceTree = "<group>"; };
+		ED8A3EB92371684500E51827 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PageViewController.swift; path = ../../CommonSwiftCode/PageViewController.swift; sourceTree = "<group>"; };
+		ED8A3EBA2371684500E51827 /* MetricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricsViewController.swift; path = ../../CommonSwiftCode/MetricsViewController.swift; sourceTree = "<group>"; };
+		ED8A3EBC2371684500E51827 /* SnowplowSwiftDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnowplowSwiftDemo.xcdatamodel; sourceTree = "<group>"; };
+		ED8A3ECD23716BC400E51827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../CommonSwiftCode/Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ED8A3ECF23716BC700E51827 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../CommonSwiftCode/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		75699C9C200FB29C00FFC20D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8250FAB091797F45D6CD2275 /* Pods_SnowplowSwiftDemo.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75699CB3200FB29C00FFC20D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75699CBE200FB29C00FFC20D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		75699C96200FB29C00FFC20D = {
+			isa = PBXGroup;
+			children = (
+				75699CA1200FB29C00FFC20D /* SnowplowSwiftDemo */,
+				75699CB9200FB29C00FFC20D /* SnowplowSwiftDemoTests */,
+				75699CC4200FB29C00FFC20D /* SnowplowSwiftDemoUITests */,
+				75699CA0200FB29C00FFC20D /* Products */,
+				75F9C5F321FC004100A5B8FC /* Frameworks */,
+				FD201F29F327AA7F6C86880B /* Pods */,
+			);
+			sourceTree = "<group>";
+		};
+		75699CA0200FB29C00FFC20D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75699C9F200FB29C00FFC20D /* SnowplowSwiftDemo.app */,
+				75699CB6200FB29C00FFC20D /* SnowplowSwiftDemoTests.xctest */,
+				75699CC1200FB29C00FFC20D /* SnowplowSwiftDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		75699CA1200FB29C00FFC20D /* SnowplowSwiftDemo */ = {
+			isa = PBXGroup;
+			children = (
+				ED8A3ECC23716BC400E51827 /* LaunchScreen.storyboard */,
+				ED8A3ECE23716BC700E51827 /* Main.storyboard */,
+				ED8A3EB82371684500E51827 /* AdditionalViewController.swift */,
+				ED8A3EB42371684500E51827 /* AppDelegate.swift */,
+				ED8A3EB52371684500E51827 /* Assets.xcassets */,
+				ED8A3EB72371684500E51827 /* DemoUtils.swift */,
+				ED8A3EB32371684500E51827 /* DemoViewController.swift */,
+				ED8A3EBA2371684500E51827 /* MetricsViewController.swift */,
+				ED8A3EB92371684500E51827 /* PageViewController.swift */,
+				ED8A3EB62371684500E51827 /* SnowplowSwiftDemo.entitlements */,
+				ED8A3EBB2371684500E51827 /* SnowplowSwiftDemo.xcdatamodeld */,
+				75699CB1200FB29C00FFC20D /* Info.plist */,
+			);
+			path = SnowplowSwiftDemo;
+			sourceTree = "<group>";
+		};
+		75699CB9200FB29C00FFC20D /* SnowplowSwiftDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				75699CBA200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift */,
+				75699CBC200FB29C00FFC20D /* Info.plist */,
+			);
+			path = SnowplowSwiftDemoTests;
+			sourceTree = "<group>";
+		};
+		75699CC4200FB29C00FFC20D /* SnowplowSwiftDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */,
+				75699CC7200FB29C00FFC20D /* Info.plist */,
+			);
+			path = SnowplowSwiftDemoUITests;
+			sourceTree = "<group>";
+		};
+		75F9C5F321FC004100A5B8FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				75F9C5F621FC004100A5B8FC /* FMDB.framework */,
+				75F9C5F521FC004100A5B8FC /* Reachability.framework */,
+				75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */,
+				2BF8934039F940AB9640A858 /* Pods_SnowplowSwiftDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FD201F29F327AA7F6C86880B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				5DF37441E73CB4E4BA108A05 /* Pods-SnowplowSwiftDemo.debug.xcconfig */,
+				458479EB1C7ABA691B3DD1A3 /* Pods-SnowplowSwiftDemo.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		75699C9E200FB29C00FFC20D /* SnowplowSwiftDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75699CCA200FB29C00FFC20D /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemo" */;
+			buildPhases = (
+				29696EAEE67AAD3F103884C4 /* [CP] Check Pods Manifest.lock */,
+				75699C9B200FB29C00FFC20D /* Sources */,
+				75699C9C200FB29C00FFC20D /* Frameworks */,
+				75699C9D200FB29C00FFC20D /* Resources */,
+				161D2FEE61C08DA080FD0CBB /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SnowplowSwiftDemo;
+			productName = SnowplowSwiftDemo;
+			productReference = 75699C9F200FB29C00FFC20D /* SnowplowSwiftDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		75699CB5200FB29C00FFC20D /* SnowplowSwiftDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75699CCD200FB29C00FFC20D /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoTests" */;
+			buildPhases = (
+				75699CB2200FB29C00FFC20D /* Sources */,
+				75699CB3200FB29C00FFC20D /* Frameworks */,
+				75699CB4200FB29C00FFC20D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75699CB8200FB29C00FFC20D /* PBXTargetDependency */,
+			);
+			name = SnowplowSwiftDemoTests;
+			productName = SnowplowSwiftDemoTests;
+			productReference = 75699CB6200FB29C00FFC20D /* SnowplowSwiftDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		75699CC0200FB29C00FFC20D /* SnowplowSwiftDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75699CD0200FB29C00FFC20D /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoUITests" */;
+			buildPhases = (
+				75699CBD200FB29C00FFC20D /* Sources */,
+				75699CBE200FB29C00FFC20D /* Frameworks */,
+				75699CBF200FB29C00FFC20D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75699CC3200FB29C00FFC20D /* PBXTargetDependency */,
+			);
+			name = SnowplowSwiftDemoUITests;
+			productName = SnowplowSwiftDemoUITests;
+			productReference = 75699CC1200FB29C00FFC20D /* SnowplowSwiftDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		75699C97200FB29C00FFC20D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 1110;
+				ORGANIZATIONNAME = snowplowanalytics;
+				TargetAttributes = {
+					75699C9E200FB29C00FFC20D = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1110;
+					};
+					75699CB5200FB29C00FFC20D = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1110;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75699C9E200FB29C00FFC20D;
+					};
+					75699CC0200FB29C00FFC20D = {
+						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1110;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75699C9E200FB29C00FFC20D;
+					};
+				};
+			};
+			buildConfigurationList = 75699C9A200FB29C00FFC20D /* Build configuration list for PBXProject "SnowplowSwiftDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 75699C96200FB29C00FFC20D;
+			productRefGroup = 75699CA0200FB29C00FFC20D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				75699C9E200FB29C00FFC20D /* SnowplowSwiftDemo */,
+				75699CB5200FB29C00FFC20D /* SnowplowSwiftDemoTests */,
+				75699CC0200FB29C00FFC20D /* SnowplowSwiftDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		75699C9D200FB29C00FFC20D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED8A3ED123716BEA00E51827 /* LaunchScreen.storyboard in Resources */,
+				ED8A3EC02371684500E51827 /* Assets.xcassets in Resources */,
+				ED8A3ED023716BDE00E51827 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75699CB4200FB29C00FFC20D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75699CBF200FB29C00FFC20D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		161D2FEE61C08DA080FD0CBB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SnowplowSwiftDemo/Pods-SnowplowSwiftDemo-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-SnowplowSwiftDemo/Pods-SnowplowSwiftDemo-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SnowplowSwiftDemo/Pods-SnowplowSwiftDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		29696EAEE67AAD3F103884C4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SnowplowSwiftDemo-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		75699C9B200FB29C00FFC20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED8A3EC42371684500E51827 /* MetricsViewController.swift in Sources */,
+				ED8A3EC12371684500E51827 /* DemoUtils.swift in Sources */,
+				ED8A3EC52371684500E51827 /* SnowplowSwiftDemo.xcdatamodeld in Sources */,
+				ED8A3EC32371684500E51827 /* PageViewController.swift in Sources */,
+				ED8A3EC22371684500E51827 /* AdditionalViewController.swift in Sources */,
+				ED8A3EBF2371684500E51827 /* AppDelegate.swift in Sources */,
+				ED8A3EBE2371684500E51827 /* DemoViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75699CB2200FB29C00FFC20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75699CBB200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75699CBD200FB29C00FFC20D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75699CC6200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75699CB8200FB29C00FFC20D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75699C9E200FB29C00FFC20D /* SnowplowSwiftDemo */;
+			targetProxy = 75699CB7200FB29C00FFC20D /* PBXContainerItemProxy */;
+		};
+		75699CC3200FB29C00FFC20D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75699C9E200FB29C00FFC20D /* SnowplowSwiftDemo */;
+			targetProxy = 75699CC2200FB29C00FFC20D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ED8A3ECC23716BC400E51827 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED8A3ECD23716BC400E51827 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		ED8A3ECE23716BC700E51827 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ED8A3ECF23716BC700E51827 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		75699CC8200FB29C00FFC20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		75699CC9200FB29C00FFC20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		75699CCB200FB29C00FFC20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DF37441E73CB4E4BA108A05 /* Pods-SnowplowSwiftDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J4ZKH42DAT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = SnowplowSwiftDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"Pods/**",
+					Development,
+					"Pods/**",
+				);
+			};
+			name = Debug;
+		};
+		75699CCC200FB29C00FFC20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 458479EB1C7ABA691B3DD1A3 /* Pods-SnowplowSwiftDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J4ZKH42DAT;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				INFOPLIST_FILE = SnowplowSwiftDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				OTHER_SWIFT_FLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "-fobjc-arc-exceptions";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"Pods/**",
+					Development,
+					"Pods/**",
+				);
+			};
+			name = Release;
+		};
+		75699CCE200FB29C00FFC20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SnowplowSwiftDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnowplowSwiftDemo.app/SnowplowSwiftDemo";
+			};
+			name = Debug;
+		};
+		75699CCF200FB29C00FFC20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SnowplowSwiftDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SnowplowSwiftDemo.app/SnowplowSwiftDemo";
+			};
+			name = Release;
+		};
+		75699CD1200FB29C00FFC20D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SnowplowSwiftDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SnowplowSwiftDemo;
+			};
+			name = Debug;
+		};
+		75699CD2200FB29C00FFC20D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = SnowplowSwiftDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = SnowplowSwiftDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		75699C9A200FB29C00FFC20D /* Build configuration list for PBXProject "SnowplowSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75699CC8200FB29C00FFC20D /* Debug */,
+				75699CC9200FB29C00FFC20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75699CCA200FB29C00FFC20D /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75699CCB200FB29C00FFC20D /* Debug */,
+				75699CCC200FB29C00FFC20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75699CCD200FB29C00FFC20D /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75699CCE200FB29C00FFC20D /* Debug */,
+				75699CCF200FB29C00FFC20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75699CD0200FB29C00FFC20D /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75699CD1200FB29C00FFC20D /* Debug */,
+				75699CD2200FB29C00FFC20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		ED8A3EBB2371684500E51827 /* SnowplowSwiftDemo.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				ED8A3EBC2371684500E51827 /* SnowplowSwiftDemo.xcdatamodel */,
+			);
+			currentVersion = ED8A3EBC2371684500E51827 /* SnowplowSwiftDemo.xcdatamodel */;
+			name = SnowplowSwiftDemo.xcdatamodeld;
+			path = ../../CommonSwiftCode/SnowplowSwiftDemo.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 75699C97200FB29C00FFC20D /* Project object */;
+}

@@ -55,7 +55,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 /*!
  @brief Set the timestamp of the event.
 
- @param timestamp The timestamp of the event in seconds (epoch time)
+ @param timestamp The timestamp of the event in milliseconds (epoch time)
  */
 - (void) setTimestamp:(NSNumber *)timestamp;
 
@@ -699,7 +699,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  */
 @interface SPEvent : NSObject <SPEventBuilder>
 
-/*! The event timestamp in epoch time. */
+/*! The event timestamp in milliseconds (epoch time). */
 @property (nonatomic, readwrite) NSNumber *timestamp;
 /*! The contexts attached to the event. */
 @property (nonatomic, readwrite, retain) NSMutableArray* contexts;

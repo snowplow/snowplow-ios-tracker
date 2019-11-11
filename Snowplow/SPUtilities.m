@@ -25,24 +25,31 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
+#include <sys/sysctl.h>
 
 #if SNOWPLOW_TARGET_IOS
 
+@import AdSupport;
 #import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+
+#if SNOWPLOW_IOS_STATIC
+#import "Snowplow_iOS_Static-Swift.h"
+#else
 #import <SnowplowTracker/SnowplowTracker-Swift.h>
+#endif
 
 #elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
-#include <sys/sysctl.h>
 
 #elif SNOWPLOW_TARGET_TV
 
+@import AdSupport;
 #import <UIKit/UIScreen.h>
 
 #endif
@@ -87,13 +94,9 @@
     NSString* idfa = nil;
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #ifndef SNOWPLOW_NO_IFA
-    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
-    if (ASIdentifierManagerClass) {
-        SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
-        id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
-        SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
-        NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
-        idfa = [uuid UUIDString];
+    if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
+        NSUUID *identifier = [[ASIdentifierManager sharedManager] advertisingIdentifier];
+        idfa = [identifier UUIDString];
     }
 #endif
 #endif
@@ -170,18 +173,16 @@
 }
 
 + (NSString *) getDeviceModel {
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-    return [[UIDevice currentDevice] model];
-#else
+    NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
+    if (simulatorModel) return simulatorModel;
+
     size_t size;
-    char *model = nil;
-    sysctlbyname("hw.model", NULL, &size, NULL, 0);
-    model = malloc(size);
-    sysctlbyname("hw.model", model, &size, NULL, 0);
-    NSString *hwString = [NSString stringWithCString:model encoding:NSUTF8StringEncoding];
-    free(model);
-    return hwString;
-#endif
+    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+    char *machine = malloc(size);
+    sysctlbyname("hw.machine", machine, &size, NULL, 0);
+    NSString *platform = [NSString stringWithUTF8String:machine];
+    free(machine);
+    return platform;
 }
 
 + (NSString *) getOSVersion {
@@ -192,13 +193,12 @@
     SInt32 osxMinorVersion;
     SInt32 osxPatchFixVersion;
     NSProcessInfo *info = [NSProcessInfo processInfo];
-    if ([info respondsToSelector:@selector(operatingSystemVersion)]) {
+    if (@available(macOS 10.10, *)) {
         NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
         osxMajorVersion = (int)systemVersion.majorVersion;
         osxMinorVersion = (int)systemVersion.minorVersion;
         osxPatchFixVersion = (int)systemVersion.patchVersion;
-    }
-    else {
+    } else {
         // TODO eliminate this block once minimum version is OS X 10+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
@@ -312,7 +312,7 @@
 + (NSDictionary *) replaceHyphenatedKeysWithCamelcase:(NSDictionary *)dict{
     NSMutableDictionary * newDictionary = [[NSMutableDictionary alloc] init];
     for (NSString * key in dict) {
-        if ([key containsString:@"-"]) {
+        if ([self string:key contains:@"-"]) {
             if ([dict[key] isKindOfClass:[NSDictionary class]]) {
                 newDictionary[[self camelcaseParsedKey:key]] = [self replaceHyphenatedKeysWithCamelcase:dict[key]];
             } else {
@@ -326,8 +326,17 @@
             }
         }
     }
-
+    
     return [[NSDictionary alloc] initWithDictionary:newDictionary copyItems:YES];
+}
+
++ (BOOL) string:(NSString *)string contains:(NSString *)subString {
+    if (!subString) return false;
+    if (@available(macOS 10.10, *)) {
+        return [string containsString:subString];
+    } else {
+        return ([string rangeOfString:subString].location != NSNotFound);
+    }
 }
 
 + (NSString *) camelcaseParsedKey:(NSString *)key {

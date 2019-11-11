@@ -1,1 +1,0 @@
-../../../../../Snowplow/SPSelfDescribingJson.h

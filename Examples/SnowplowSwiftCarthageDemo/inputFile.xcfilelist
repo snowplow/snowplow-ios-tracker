@@ -1,0 +1,3 @@
+$(SRCROOT)/Carthage/Build/iOS/FMDB.framework
+$(SRCROOT)/Carthage/Build/iOS/Reachability.framework
+$(SRCROOT)/Carthage/Build/iOS/SnowplowTracker.framework
