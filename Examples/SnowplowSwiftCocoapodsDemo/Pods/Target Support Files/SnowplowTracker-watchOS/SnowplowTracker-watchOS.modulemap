@@ -1,5 +1,5 @@
 framework module SnowplowTracker {
-  umbrella header "SnowplowTracker-umbrella.h"
+  umbrella header "SnowplowTracker-watchOS-umbrella.h"
 
   export *
   module * { export * }
