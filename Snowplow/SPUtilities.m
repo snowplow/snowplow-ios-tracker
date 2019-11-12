@@ -180,8 +180,8 @@
 }
 
 + (NSString *) getDeviceModel {
-   NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
-    if (simulatorModel) return simulatorModel;    
+    NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
+    if (simulatorModel) return simulatorModel;
 
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     return [[UIDevice currentDevice] model];
@@ -195,6 +195,7 @@
     NSString *platform = [NSString stringWithUTF8String:machine];
     free(machine);
     return platform;
+#endif
 }
 
 + (NSString *) getOSVersion {
