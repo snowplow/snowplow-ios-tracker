@@ -260,7 +260,7 @@
 		75264A31224E5DD2000E0E9B /* SPInstallTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPInstallTracker.m; sourceTree = "<group>"; };
 		752DABCC21CC38550065F874 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABD421CC38560065F874 /* Snowplow-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Snowplow_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DABE821CC3A090065F874 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABF521CC3B380065F874 /* Snowplow_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Snowplow_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABFD21CC3B380065F874 /* Snowplow-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snowplow_macOSTests.m; sourceTree = "<group>"; };
@@ -451,7 +451,7 @@
 			children = (
 				752DABCC21CC38550065F874 /* SnowplowTracker.framework */,
 				752DABD421CC38560065F874 /* Snowplow-iOSTests.xctest */,
-				752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */,
+				752DABE821CC3A090065F874 /* SnowplowTracker.framework */,
 				752DABF521CC3B380065F874 /* Snowplow_macOS.framework */,
 				752DABFD21CC3B380065F874 /* Snowplow-macOSTests.xctest */,
 				75F9C5C821FA2E0F00A5B8FC /* libSnowplow-iOS-Static.a */,
@@ -685,7 +685,7 @@
 			);
 			name = "Snowplow-watchOS";
 			productName = "Snowplow watchOS";
-			productReference = 752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */;
+			productReference = 752DABE821CC3A090065F874 /* SnowplowTracker.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		752DABF421CC3B380065F874 /* Snowplow-macOS */ = {
@@ -1234,7 +1234,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-watchOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = SnowplowTracker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1285,7 +1285,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-watchOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = SnowplowTracker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
