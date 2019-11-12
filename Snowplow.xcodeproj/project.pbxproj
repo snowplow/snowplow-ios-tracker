@@ -1215,7 +1215,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1270,7 +1269,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_APP_EXTENSIONS=1";
