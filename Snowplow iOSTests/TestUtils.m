@@ -21,6 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <AdSupport/AdSupport.h>
 #import "SPUtilities.h"
 #import "Snowplow.h"
 
@@ -88,12 +89,10 @@
                    @"UUID generated doesn't match the type 4 UUID RFC");
 }
 
-/**
-
- This is always NULL as we do not have the AdSupport imported
- 
 - (void)testGetAppleIdfa {
-    NSString *sample_uuid = [SPUtils getAppleIdfa];
+    // The simulator running the test must have "limit ad tracking" disabled.
+    // (You can find it in the Simulator: Settings > Privacy > Advertising > Limit Ad Tracking > Set to False)
+    NSString *sample_uuid = [SPUtilities getAppleIdfa];
     
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
@@ -105,7 +104,6 @@
     XCTAssertEqual([matches count], (NSUInteger)1,
                    @"UUID generated doesn't match the type 4 UUID RFC");
 }
-*/
 
 - (void)testGetOpenIdfa {
     NSString *sample_uuid = [SPUtilities getOpenIdfa];

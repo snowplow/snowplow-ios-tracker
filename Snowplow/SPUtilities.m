@@ -29,7 +29,6 @@
 
 #if SNOWPLOW_TARGET_IOS
 
-@import AdSupport;
 #import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
 #import <CoreTelephony/CTCarrier.h>
@@ -49,7 +48,6 @@
 
 #elif SNOWPLOW_TARGET_TV
 
-@import AdSupport;
 #import <UIKit/UIScreen.h>
 
 #endif
@@ -90,17 +88,33 @@
     return idfa;
 }
 
+/*
+ The IDFA can be retrieved using selectors rather than proper instance methods because
+ the compiler would complain about the missing AdSupport framework.
+ As stated in the header file, this only works if you have the AdSupport library in your project.
+ If you have it, but do not want to use IDFA, add the compiler flag <code>SNOWPLOW_NO_IFA</code> to your build settings.
+ If you haven't AdSupport framework in your project it just compiles returning a nil advertisingIdentifier.
+ */
 + (NSString *) getAppleIdfa {
-    NSString* idfa = nil;
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #ifndef SNOWPLOW_NO_IFA
-    if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]) {
-        NSUUID *identifier = [[ASIdentifierManager sharedManager] advertisingIdentifier];
-        idfa = [identifier UUIDString];
-    }
+    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
+    if (!ASIdentifierManagerClass) return nil;
+
+    SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
+    id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
+
+    SEL isAdvertisingTrackingEnabledSelector = NSSelectorFromString(@"isAdvertisingTrackingEnabled");
+    BOOL isAdvertisingTrackingEnabled = ((BOOL (*)(id, SEL))[sharedManager methodForSelector:isAdvertisingTrackingEnabledSelector])(sharedManager, isAdvertisingTrackingEnabledSelector);
+
+    if (!isAdvertisingTrackingEnabled) return nil;
+
+    SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
+    NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
+    return [uuid UUIDString];
 #endif
 #endif
-    return idfa;
+    return nil;
 }
 
 + (NSString *) getAppleIdfv {
