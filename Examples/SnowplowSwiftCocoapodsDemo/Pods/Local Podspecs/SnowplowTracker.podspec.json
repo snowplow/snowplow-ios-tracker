@@ -20,7 +20,7 @@
     "ios": "8.0",
     "osx": "10.10",
     "tvos": "9.0",
-    "watchos": "4.0"
+    "watchos": "2.0"
   },
   "requires_arc": true,
   "ios": {
