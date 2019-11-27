@@ -1,1 +1,1 @@
-github "snowplow/snowplow-objc-tracker" "master"
+git "file:///Users/leo/Developer/AsanaRebel/snowplow-objc-tracker" "watchos"

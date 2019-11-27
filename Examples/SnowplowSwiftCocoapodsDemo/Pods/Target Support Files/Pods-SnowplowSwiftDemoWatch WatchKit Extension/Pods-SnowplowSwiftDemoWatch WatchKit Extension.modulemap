@@ -1,6 +1,0 @@
-framework module Pods_SnowplowSwiftDemoWatch_WatchKit_Extension {
-  umbrella header "Pods-SnowplowSwiftDemoWatch WatchKit Extension-umbrella.h"
-
-  export *
-  module * { export * }
-}

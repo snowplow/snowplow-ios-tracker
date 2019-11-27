@@ -7,7 +7,8 @@ target 'SnowplowSwiftDemo' do
     pod 'SnowplowTracker', :path=> '../../'
 end
 
-target 'SnowplowSwiftDemoWatch WatchKit Extension' do
-    platform :watchos, '2.0' 
+target 'SnowplowSwiftWatch Extension' do
+    platform :watchos, '4.0' 
     pod 'SnowplowTracker', :path=> '../../'
   end
+

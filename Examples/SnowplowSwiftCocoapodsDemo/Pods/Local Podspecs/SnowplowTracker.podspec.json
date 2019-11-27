@@ -20,7 +20,7 @@
     "ios": "8.0",
     "osx": "10.10",
     "tvos": "9.0",
-    "watchos": "2.0"
+    "watchos": "4.0"
   },
   "requires_arc": true,
   "ios": {
@@ -51,11 +51,7 @@
     ]
   },
   "watchos": {
-    "exclude_files": "Snowplow/UIViewController+SPScreenView_SWIZZLE.*",
-    "frameworks": [
-      "WatchKit",
-      "Foundation"
-    ]
+    "exclude_files": "Snowplow/UIViewController+SPScreenView_SWIZZLE.*"
   },
   "source_files": "Snowplow/*.{m,h}",
   "public_header_files": [

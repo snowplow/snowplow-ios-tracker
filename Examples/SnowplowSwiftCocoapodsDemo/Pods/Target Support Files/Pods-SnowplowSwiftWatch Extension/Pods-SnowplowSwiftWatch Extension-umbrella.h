@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_SnowplowSwiftDemoWatch_WatchKit_ExtensionVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_SnowplowSwiftDemoWatch_WatchKit_ExtensionVersionString[];
+FOUNDATION_EXPORT double Pods_SnowplowSwiftWatch_ExtensionVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_SnowplowSwiftWatch_ExtensionVersionString[];
 
