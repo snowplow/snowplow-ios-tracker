@@ -4,7 +4,7 @@ osx_image: xcode11.2
 env:
   global:
     - secure: H45yyUlB0cXQrzTTcnmD3WrkCyqjUzaop2jHgmBF3bm8ue4XOcTWKDSDcAN39SG0FUeDC7GdDCtWAc3VCpLwN++5IznAnvBuZSGgxQ2lCxWMhdTtXtOWU2mivgVvs+uldS7/TuVlOjZ7inrTgetl+jgFjenwESOGIIZwn7SXpPo=
-    - BUILD_DEST="platform=iOS Simulator,OS=13.2,name=iPhone 8"
+    - BUILD_DEST="platform=iOS Simulator,OS=13.2.2,name=iPhone 8"
     - BUILD_PROJECT_LIB="-project Snowplow.xcodeproj"
     - BUILD_SCHEME_LIB="-scheme Snowplow-iOS"
     - BUILD_WORKSPACE_OBJC_DEMO="-workspace SnowplowDemo.xcworkspace"
@@ -12,9 +12,6 @@ env:
     - BUILD_WORKSPACE_SWIFT_DEMO="-workspace SnowplowSwiftDemo.xcworkspace"
     - BUILD_PROJECT_SWIFT_DEMO="-project SnowplowSwiftDemo.xcodeproj"
     - BUILD_SCHEME_SWIFT_DEMO="-scheme SnowplowSwiftDemo"
-
-rvm:
-    - 2.3.7
 
 before_install:
   - gem install slather
