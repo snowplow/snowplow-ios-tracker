@@ -36,9 +36,11 @@
 #import <SystemConfiguration/SystemConfiguration.h>
 
 #if SNOWPLOW_IOS_STATIC
-#import "Snowplow_iOS_Static-Swift.h"
+    #import "Snowplow_iOS_Static-Swift.h"
+#elif __has_include("SnowplowTracker-Swift.h")
+    #import "SnowplowTracker-Swift.h"
 #else
-#import <SnowplowTracker/SnowplowTracker-Swift.h>
+    #import <SnowplowTracker/SnowplowTracker-Swift.h>
 #endif
 
 #elif SNOWPLOW_TARGET_OSX
