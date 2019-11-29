@@ -1,4 +1,4 @@
-framework module Pods_SnowplowSwiftDemo {
+module Pods_SnowplowSwiftDemo {
   umbrella header "Pods-SnowplowSwiftDemo-umbrella.h"
 
   export *

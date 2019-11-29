@@ -1,8 +1,10 @@
 platform :ios, '9.0'
-use_frameworks!
+#use_frameworks!
 
 workspace 'SnowplowSwiftDemo.xcworkspace'
 
 target 'SnowplowSwiftDemo' do
+    pod 'FMDB', '~> 2.6.2', :modular_headers => true
     pod 'SnowplowTracker', :path=> '../../'
 end
+
