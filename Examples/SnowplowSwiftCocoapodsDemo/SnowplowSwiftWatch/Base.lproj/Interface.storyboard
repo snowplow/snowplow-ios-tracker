@@ -12,7 +12,7 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="SnowplowSwiftWatch" customModuleProvider="target">
                     <items>
-                        <button width="1" alignment="left" title="Button" id="4zh-cX-d3V">
+                        <button width="1" alignment="left" title="Send Event" id="4zh-cX-d3V">
                             <connections>
                                 <action selector="sendEvent" destination="AgC-eL-Hgc" id="5Mq-Zv-UNT"/>
                             </connections>
