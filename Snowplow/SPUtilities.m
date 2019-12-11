@@ -286,14 +286,6 @@
     return [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
 }
 
-+ (BOOL) isOnline {
-    BOOL online = YES;
-#if SNOWPLOW_TARGET_IOS
-    online = YES;
-#endif
-    return online;
-}
-
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
     if (!argument) {
         SnowplowDLog(@"SPLog: Error occurred while checking argument: %@", message);
