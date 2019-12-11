@@ -25,6 +25,7 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
+#import "SNOWReachability.h"
 #include <sys/sysctl.h>
 
 #if SNOWPLOW_TARGET_IOS
@@ -150,11 +151,18 @@
 }
 
 + (NSString *) getNetworkType {
-    NSString * type = @"offline";
 #if SNOWPLOW_TARGET_IOS
-    type = @"wifi";
+    SNOWNetworkStatus networkStatus = [SNOWReachability reachabilityForInternetConnection].networkStatus;
+    switch (networkStatus) {
+        case SNOWNetworkStatusOffline:
+            return @"offline";
+        case SNOWNetworkStatusWifi:
+            return @"wifi";
+        case SNOWNetworkStatusWWAN:
+            return @"mobile";
+    }
 #endif
-    return type;
+    return @"offline";
 }
 
 + (NSString *) getNetworkTechnology {
