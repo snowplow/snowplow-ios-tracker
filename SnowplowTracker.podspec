@@ -42,5 +42,4 @@ Pod::Spec.new do |s|
   s.osx.frameworks = 'AppKit', 'Foundation'
   s.tvos.frameworks = 'UIKit', 'Foundation'
   s.dependency 'FMDB', '~> 2.6.2'
-  s.ios.dependency 'ReachabilitySwift', '~> 4.3.1'
 end

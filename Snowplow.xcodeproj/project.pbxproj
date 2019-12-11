@@ -8,12 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		23DFEC7B2362FA5D00BD19C4 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
-		23DFEC7C2362FA9700BD19C4 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0E21CC3EED0065F874 /* Reachability.framework */; };
 		23DFEC7D2362FAA500BD19C4 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC1021CC3F010065F874 /* FMDB.framework */; };
 		23DFEC7E2362FAB100BD19C4 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC1321CC3F140065F874 /* FMDB.framework */; };
 		23DFEC7F2362FAC700BD19C4 /* Nocilla.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 750E7F1121F2735C0050A993 /* Nocilla.framework */; };
 		23DFEC802362FAD500BD19C4 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
-		23DFEC812362FAE200BD19C4 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0E21CC3EED0065F874 /* Reachability.framework */; };
 		23DFEC822362FAED00BD19C4 /* SnowplowIgluClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
 		23DFEC832362FAF800BD19C4 /* VVJSONSchemaValidation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
 		75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -33,7 +31,6 @@
 		752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
 		752DAC2D21CC42BC0065F874 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
-		752DAC2F21CC42BC0065F874 /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */; };
 		752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
 		752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		752DAC3221CC43C60065F874 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -85,7 +82,6 @@
 		75CAC41D21F2962E00271FB3 /* VVJSONSchemaValidation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
 		75CAC41E21F2962E00271FB3 /* SnowplowIgluClient.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
 		75CAC41F21F2962E00271FB3 /* Nocilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 750E7F1121F2735C0050A993 /* Nocilla.framework */; };
-		75CAC42021F2962E00271FB3 /* Reachability.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 752DAC0E21CC3EED0065F874 /* Reachability.framework */; };
 		75CAC42121F2962E00271FB3 /* FMDB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
 		75CAC42221F2962E00271FB3 /* CoreTelephony.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		75CAC42421F2967D00271FB3 /* SnowplowTracker.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
@@ -150,7 +146,6 @@
 		75F9C5D121FA2E8B00A5B8FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		75F9C5D221FA2E9F00A5B8FC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		75F9C5D321FA352800A5B8FC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
-		75F9C5D421FA352800A5B8FC /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0E21CC3EED0065F874 /* Reachability.framework */; };
 		75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
 		75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		75F9C5D721FA357100A5B8FC /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SPTracker.m */; };
@@ -164,7 +159,6 @@
 		75F9C5DF21FA357100A5B8FC /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
 		75F9C5E121FA357100A5B8FC /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEvent.m */; };
-		75F9C5E221FA357100A5B8FC /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */; };
 		75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5E521FA35BC00A5B8FC /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5E621FA35BC00A5B8FC /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -213,7 +207,6 @@
 				75CAC41D21F2962E00271FB3 /* VVJSONSchemaValidation.framework in CopyFiles */,
 				75CAC41E21F2962E00271FB3 /* SnowplowIgluClient.framework in CopyFiles */,
 				75CAC41F21F2962E00271FB3 /* Nocilla.framework in CopyFiles */,
-				75CAC42021F2962E00271FB3 /* Reachability.framework in CopyFiles */,
 				75CAC42121F2962E00271FB3 /* FMDB.framework in CopyFiles */,
 				75CAC42221F2962E00271FB3 /* CoreTelephony.framework in CopyFiles */,
 			);
@@ -266,7 +259,6 @@
 		752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snowplow_macOSTests.m; sourceTree = "<group>"; };
 		752DAC0421CC3B380065F874 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		752DAC0C21CC3EEA0065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
-		752DAC0E21CC3EED0065F874 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		752DAC1021CC3F010065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/watchOS/FMDB.framework; sourceTree = "<group>"; };
 		752DAC1221CC3F140065F874 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/Mac/Reachability.framework; sourceTree = "<group>"; };
 		752DAC1321CC3F140065F874 /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/Mac/FMDB.framework; sourceTree = "<group>"; };
@@ -296,7 +288,6 @@
 		75CAC40321F2955100271FB3 /* SnowplowTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SnowplowTests-Info.plist"; sourceTree = "<group>"; };
 		75CAC40421F2955100271FB3 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Bridging-Header.h"; sourceTree = "<group>"; };
-		75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityBridge.swift; sourceTree = "<group>"; };
 		75F9C5C821FA2E0F00A5B8FC /* libSnowplow-iOS-Static.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libSnowplow-iOS-Static.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AB0C27C0191B408200018557 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snowplow-Prefix.pch"; sourceTree = "<group>"; };
@@ -324,7 +315,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23DFEC7C2362FA9700BD19C4 /* Reachability.framework in Frameworks */,
 				23DFEC7B2362FA5D00BD19C4 /* FMDB.framework in Frameworks */,
 				752DAC4021CC4A830065F874 /* UIKit.framework in Frameworks */,
 				752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */,
@@ -338,7 +328,6 @@
 				ED26E6BA23842AB00096AF7C /* AdSupport.framework in Frameworks */,
 				23DFEC832362FAF800BD19C4 /* VVJSONSchemaValidation.framework in Frameworks */,
 				23DFEC822362FAED00BD19C4 /* SnowplowIgluClient.framework in Frameworks */,
-				23DFEC812362FAE200BD19C4 /* Reachability.framework in Frameworks */,
 				23DFEC802362FAD500BD19C4 /* FMDB.framework in Frameworks */,
 				23DFEC7F2362FAC700BD19C4 /* Nocilla.framework in Frameworks */,
 				75CAC41A21F2959800271FB3 /* CoreTelephony.framework in Frameworks */,
@@ -379,7 +368,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				75F9C5D321FA352800A5B8FC /* FMDB.framework in Frameworks */,
-				75F9C5D421FA352800A5B8FC /* Reachability.framework in Frameworks */,
 				75F9C5D221FA2E9F00A5B8FC /* CoreTelephony.framework in Frameworks */,
 				75F9C5D121FA2E8B00A5B8FC /* UIKit.framework in Frameworks */,
 			);
@@ -472,7 +460,6 @@
 				750E7F1121F2735C0050A993 /* Nocilla.framework */,
 				752DAC1021CC3F010065F874 /* FMDB.framework */,
 				752DAC1321CC3F140065F874 /* FMDB.framework */,
-				752DAC0E21CC3EED0065F874 /* Reachability.framework */,
 				752DAC0C21CC3EEA0065F874 /* FMDB.framework */,
 				752DAC1221CC3F140065F874 /* Reachability.framework */,
 				AB9E8213192DEC38006744C9 /* CoreTelephony.framework */,
@@ -511,7 +498,6 @@
 				0402EBEB1BA93CA5006C8818 /* SPEvent.h */,
 				0402EBED1BA93CCC006C8818 /* SPEvent.m */,
 				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
-				75D6061F21C9CA8B00C7B016 /* ReachabilityBridge.swift */,
 				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
 				754774BF2225FBB90043B814 /* SPScreenState.h */,
 				754774BB2225FBA60043B814 /* SPScreenState.m */,
@@ -850,7 +836,6 @@
 				752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */,
 				752DAC2D21CC42BC0065F874 /* SPEvent.m in Sources */,
 				754774BC2225FBA60043B814 /* SPScreenState.m in Sources */,
-				752DAC2F21CC42BC0065F874 /* ReachabilityBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -945,7 +930,6 @@
 				75F9C5DF21FA357100A5B8FC /* SPRequestResponse.m in Sources */,
 				75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */,
 				75F9C5E121FA357100A5B8FC /* SPEvent.m in Sources */,
-				75F9C5E221FA357100A5B8FC /* ReachabilityBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1119,11 +1103,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB-iOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nocilla-iOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-iOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/VVJSONSchemaValidation-iOS\"",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 				);
@@ -1174,11 +1153,6 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/FMDB-iOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/Nocilla-iOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/SnowplowIgluClient-iOS\"",
-					"\"${PODS_CONFIGURATION_BUILD_DIR}/VVJSONSchemaValidation-iOS\"",
 					"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
 				);
