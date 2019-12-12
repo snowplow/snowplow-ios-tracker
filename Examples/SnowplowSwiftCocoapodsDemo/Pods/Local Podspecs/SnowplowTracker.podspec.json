@@ -28,12 +28,7 @@
       "CoreTelephony",
       "UIKit",
       "Foundation"
-    ],
-    "dependencies": {
-      "ReachabilitySwift": [
-        "~> 4.3.1"
-      ]
-    }
+    ]
   },
   "osx": {
     "exclude_files": "Snowplow/UIViewController+SPScreenView_SWIZZLE.*",

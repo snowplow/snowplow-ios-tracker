@@ -1,13 +1,11 @@
-ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 HEADER_SEARCH_PATHS = $(inherited) "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/FMDB" "${PODS_ROOT}/Headers/Public/SnowplowTracker"
-LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/FMDB" "${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift" "${PODS_CONFIGURATION_BUILD_DIR}/SnowplowTracker"
-OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.modulemap" -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SnowplowTracker/SnowplowTracker.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/FMDB/FMDB.modulemap"
-OTHER_LDFLAGS = $(inherited) -ObjC -l"FMDB" -l"ReachabilitySwift" -l"SnowplowTracker" -l"sqlite3" -framework "CoreTelephony" -framework "Foundation" -framework "SystemConfiguration" -framework "UIKit"
-OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift/Reachability.modulemap" -Xcc -fmodule-map-file="${PODS_CONFIGURATION_BUILD_DIR}/SnowplowTracker/SnowplowTracker.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/FMDB/FMDB.modulemap"
+LIBRARY_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/FMDB" "${PODS_CONFIGURATION_BUILD_DIR}/SnowplowTracker"
+OTHER_CFLAGS = $(inherited) -fmodule-map-file="${PODS_ROOT}/Headers/Public/FMDB/FMDB.modulemap" -fmodule-map-file="${PODS_ROOT}/Headers/Public/SnowplowTracker/SnowplowTracker.modulemap"
+OTHER_LDFLAGS = $(inherited) -ObjC -l"FMDB" -l"SnowplowTracker" -l"sqlite3" -framework "CoreTelephony" -framework "Foundation" -framework "UIKit"
+OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/FMDB/FMDB.modulemap" -Xcc -fmodule-map-file="${PODS_ROOT}/Headers/Public/SnowplowTracker/SnowplowTracker.modulemap"
 PODS_BUILD_DIR = ${BUILD_DIR}
 PODS_CONFIGURATION_BUILD_DIR = ${PODS_BUILD_DIR}/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)
 PODS_PODFILE_DIR_PATH = ${SRCROOT}/.
 PODS_ROOT = ${SRCROOT}/Pods
-SWIFT_INCLUDE_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/ReachabilitySwift" "${PODS_CONFIGURATION_BUILD_DIR}/SnowplowTracker"
 USE_RECURSIVE_SCRIPT_INPUTS_IN_SCRIPT_PHASES = YES

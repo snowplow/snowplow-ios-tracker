@@ -7,93 +7,76 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01A8E39A21B187E3A8DF60EF2BD03005 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = FDFD8E0D49D1657FD9F46E1409DA9C58 /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		028098B08F7DE4D4F672C06041E8C437 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EACDF0C2299AFA07A6790887019E0823 /* SPEvent.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		059ECFAF653301723578B1E8A7A62CCA /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C1BA32E48822845880EBF1776C760D6 /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		0AE190F7D12ADC56A22C50BAB4D86F48 /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 23591119C70E495E03C9F14CA5B01C95 /* FMResultSet.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		0E6FA2E572C41BEEE5C9340E7F70F19B /* SnowplowTracker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 895B892A936229E1D4F7D0208090242F /* SnowplowTracker-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		12CFAFFC7B1F62419263EA4F1357C0E8 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = FCAC460D5942872C169CC850694B28BC /* OpenIDFA.m */; };
-		1357CFB5BA05CA315805437CA238A6F3 /* SPEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C8F539D3163EED9C5F433B6BE32491 /* SPEmitter.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		1884EC806DABF142A274D4175DC98707 /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 88CF8A494B9A16BDCCD7CF46EE9EB8BD /* SPEmitter.m */; };
-		1D4E0B54EB5C2DDFDE570B96BE460E11 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = 698E587028EFF0CEE959F25FC0EA898C /* Snowplow.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		1F957A48694DDDFE92E5E7C1371013EC /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FC37D3A62CE207B601B045CBB6C5A31 /* SPInstallTracker.m */; };
-		26D9C714DF5509AD9CA8EFC50BE811E6 /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = A17EC96413B6838CC9CA23F3E37E2A24 /* SPSubject.m */; };
-		26FC04231B07AA519CD0B01E8D802576 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = E11CA3ADFD619D472ACA818C14030403 /* SPSelfDescribingJson.m */; };
-		3063F0CC95F8CAA7C09FDD67063AC346 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D9C0C5E7284F756E2F738EC446C4D9A /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		30C2B770D8704AB15F42F58E37C36E0F /* SPSelfDescribingJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 08913B406BFD5253ED1BBE4D791BB403 /* SPSelfDescribingJson.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		363849AB1B3BD2D63590029D3410954C /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B9B13D688B41D83FCD4301CF2682D73 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		4618C803B30B343DC015BFB07B47DCC8 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = EBAD34F243E420821A2CB477E341D08A /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		4722CC020EF27585B97A46FFCCEE8355 /* SPTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = F6AA26D11A18927C92DDEC956DADDA32 /* SPTracker.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		47986C9842E13D37C33A5C3022D3FAFB /* SPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = FAB956A96CB0E526054C520C78792BC4 /* SPUtilities.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		49F8DD83E9EE96ADE8342FB27B6EBEDF /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 2C293B2F51D1D7BDC4FF7D8205BA5926 /* UIViewController+SPScreenView_SWIZZLE.m */; };
-		4A7BC2F5E8E69C1E12323B87444A46FD /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = CDBD5A56237C559F9A1027CD92BB387E /* SPTracker.m */; };
-		4E19C7095EDEB4A59C563A843A9BA6F3 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EFFD83638931AB26539970CE2608BE1 /* SPScreenState.m */; };
-		51AE929B8D2E2342F78D55B82E4AE397 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607D540EF73EA3C0361CD45DFA4D12E7 /* Reachability.swift */; };
-		52616B3B099494096EF0D9760C23A25C /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = C3F174379688E5A37CDE9CC1DD8F0DF7 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		565E1EAF78B568AFE8884940B69ACA9F /* SPPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 6C6698FB5A53ABDD6F81518D7879F5DF /* SPPayload.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		63B1E7F314286FA6C9A7768B4A1B3783 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EA5D575458D8775190168FECA948A4 /* SPWeakTimerTarget.m */; };
-		76B416477EBE01654AD0011955B793A4 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5EB6C43CE60341E9E0C4B2FF10968641 /* SPScreenState.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		7AAA97AAC6B15D114256726C981F9E3E /* SnowplowTracker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 03D06FF49B88003475D0B514FFEA684E /* SnowplowTracker-dummy.m */; };
-		7C8FE56A8BD02DD1A0833BE1D7510633 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 72205678E3108371C4648BE6193A7794 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		8387DEF784DF5E549805A043D426FFF1 /* SPSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 33454470CAAC22A3864CF9F1ED916C38 /* SPSubject.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8853664654668D626F1B3831E16FF685 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 9546633BD9274A4BF73ECB190E13D1A7 /* FMDatabase.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		8E247ED1EF775A739144EC4905E77ECB /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 90B51BB191FBE07149E99A4E02F5E1CF /* UIViewController+SPScreenView_SWIZZLE.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		93F87AFEB6E7F59674615966F3BDF616 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = FBCCA37AED10A719C9342EFC1CF1C88F /* FMDB.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		94A7BB48F2B59D7C4436A44BC1543552 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 59AEAFC352C11C76079E66B20C03F5C4 /* SPRequestResponse.m */; };
-		9EC385785151DC523129A82731C3D237 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 41A9E1EB2507B0C27995219A4E58A7A2 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		A0735A56A1DE15B0706C83B373B338C7 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EFD7E655164483BA6203AC03EA0726C /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		A3A5F36E45005171E71E32B40573AAD1 /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = C77262D3AEF01539260D178840122E92 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		B21B90595FF390131547DD84502E77D8 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 299156589780D04E88CAEEE0AC83F7E1 /* SPEventStore.m */; };
-		B30D805BC3F6195DCF782EFB70018EB3 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 53EB7EDF9977E6C6BF2A4A8681DCCEFB /* Snowplow.m */; };
-		B3AEB0CD30FFD8C432CA07AC2293252D /* Pods-SnowplowSwiftDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4EF79018B7EAED9F52140D3301B15A6F /* Pods-SnowplowSwiftDemo-dummy.m */; };
-		B3F7205D127D6A33D863C4E34143BCAF /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 56B9E27F1795DF024A4318637ADDBC44 /* SPSession.m */; };
-		B65D5A8EBA0AA84E3DD36210614EDFD8 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = EBAEFFEEACE5A3EB77018B776C9F1294 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		C3234BBAC80AAD438901A6CFE5A7DEC2 /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = 9FE9F0B4A5DFB11E19AE3C697A6DFA97 /* SPEventStore.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		C56A151180BF4D3F1A1ED0BA752E95A1 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = FED52785A9314E8698D65BEE0C9B5866 /* SPEvent.m */; };
-		D34CEBC62041D6E857D99B25FF2DC0A4 /* SPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 6123B525D091595AFA767C421326388C /* SPSession.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		DEBEC45A6B2308B8E7BADE99F2F30B02 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 70DF8DC0CD2D165913B5EBBDA1E28BD2 /* SPUtilities.m */; };
-		E24BD17D7ECA262A2EEBE18D8B836CEA /* ReachabilityBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = C54130BA4A623562E47391C44DE5D6C7 /* ReachabilityBridge.swift */; };
-		E842CDB0D0874413B533C58F4BDF4458 /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = C473FC27E89721FEFE26ADC2F41A0438 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		E94FBD4DE1C9E8289732EE148D9FF115 /* Pods-SnowplowSwiftDemo-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F1F7C7AFC8C6D909A636D50135056EBC /* Pods-SnowplowSwiftDemo-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		EA43DD27C41AD2D326CAFAB73B6CEB11 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CF5A0018EE282D8FF15AE9656D1F41 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
-		EBCFC63308B42E25B1BDE0A9B21D89F8 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 86BC911AD05E4249F60AA25722E62EA3 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		EFE1BB0FAD47BC728023A7E878519519 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = DDFB54DC4EDD1A534830A05C0CC2B7B4 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		F53D933009AFCA07D173983E941686DF /* ReachabilitySwift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = F98F37D2BC3084AE772FEA81631D65DA /* ReachabilitySwift-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FBDB19511F1BC0CB23908631EEBA1097 /* SPPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = A08B0B8D4D65FAA0475DE41A09A98762 /* SPPayload.m */; };
-		FD1412859B45BA049290F12051FC4E74 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = BB3756A47D29AA9DC52DFEFCF1ED1552 /* FMDB-dummy.m */; };
-		FEEC2F9DA31C11F447DE81335CEEF470 /* ReachabilitySwift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C9A8C8F859377C7D38B2C635ED17DC19 /* ReachabilitySwift-dummy.m */; };
+		00FB91697AB02F8A0360A957E1315ECE /* SnowplowTracker-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 80777A14005DD6134B73558D27369DEE /* SnowplowTracker-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		059ECFAF653301723578B1E8A7A62CCA /* FMDB-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = E7A3124836E6F80A38730B927D448CD1 /* FMDB-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		081815F2AB8DBD7CE551D8DAF31474B8 /* SPSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 872CF2FF06A3E5A5CD8D8C35EC8E5C66 /* SPSelfDescribingJson.m */; };
+		0AE190F7D12ADC56A22C50BAB4D86F48 /* FMResultSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 3BF17C0FF4D9D1CC7D62BE6D0670362A /* FMResultSet.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		0E1988F59E05B49B5143CC185EF821EF /* SPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F875B84F1C7F24D38C276C49D89FDE6 /* SPSession.m */; };
+		16A9E13F394535BD37C05375A0B24D83 /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CAFD6F8D1D04C6CCFD492A623A3D239 /* SPEmitter.m */; };
+		215BB5B37FC18F420750FBD632BF30EC /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = F25F8D191C8FAADAA561E6E5B4D907B1 /* Snowplow.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2229F842376CEC99F8C8E2E048C84ADB /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 752B7980514E83C67738BD80BD6AC085 /* SPEvent.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		243947A35F9CCCC64C95782F5E5DB8EA /* SNOWReachabilty.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F503F21AE82ED7F48C30BDB3B6356A2 /* SNOWReachabilty.m */; };
+		2A60A45FDB665C0ADF89188428F572D1 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A6486CC953CE4E9E9304B67BCB1E083 /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		3063F0CC95F8CAA7C09FDD67063AC346 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = D5B70FA9A72D367F3F272686422A3DBB /* FMDatabase.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		363849AB1B3BD2D63590029D3410954C /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1127D5BAA2F15597BA3E9827B8EC9B45 /* FMResultSet.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		3CD8BEC0B2961105DB8DE9C7DF93DA31 /* SPEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 928BA91496FC6BB84C8BFA463A4E776D /* SPEmitter.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		4E6B986F65A8B52F1089BA0D241C1269 /* SPEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 6711CC96C238AE2817713CAFC40C2A06 /* SPEvent.m */; };
+		567941C9FABA243E6490383A4B32AA8C /* SNOWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B7C4EC391A419BDA564F6C7CCA27FF1 /* SNOWReachability.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		56DCCEAA61742010479811770C4BAA66 /* SPSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 919412ED6B3E954A30BCB92A76FBE6C9 /* SPSubject.m */; };
+		6468A7E845E5B063B4CF900D60B9F3D9 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = F226EC9CB0AE5F4920436C121FBFF9A9 /* SPWeakTimerTarget.m */; };
+		685D657064A64C8A2DE25A60E298477D /* SPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = 968317E5A7A4AB8DE915489B241210E7 /* SPUtilities.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		7C8FE56A8BD02DD1A0833BE1D7510633 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A17C493776FB52CA2DF5ED37CB487181 /* FMDatabaseAdditions.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		81FC90FC4072EE82C5A91B3E9DD54649 /* SPPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 78A07AD470759BD92401CC9F43A648F8 /* SPPayload.m */; };
+		831C01899449A5A89CBD06F41FA539DF /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = F60E0BD324FBD80E1B5694D16D80F76D /* SPEventStore.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		88483D6566A640C8B60F8ADA2F743ED2 /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D84AB9B58DB5F5C0DD41232ABD7CE8A4 /* SPTracker.m */; };
+		8853664654668D626F1B3831E16FF685 /* FMDatabase.h in Headers */ = {isa = PBXBuildFile; fileRef = 622587474D0C758C5C8F714F7491AB14 /* FMDatabase.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		8A3BAE241359734BA8787D8DD52C2877 /* SPSubject.h in Headers */ = {isa = PBXBuildFile; fileRef = 58DB4A7DF4ABA3B0C38653F59DD000F2 /* SPSubject.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		900286F0A842C8589CDA2B27E2960025 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = 2397607D36582D962C151A38EBF0E229 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		93F87AFEB6E7F59674615966F3BDF616 /* FMDB.h in Headers */ = {isa = PBXBuildFile; fileRef = EAF6E7C6D5BF0EEFECD3CDDDDF19B7E7 /* FMDB.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		9BEC579ED27AA7F860D886E4DD7E5F09 /* SPScreenState.m in Sources */ = {isa = PBXBuildFile; fileRef = BB38DA80C16A878764E7D93DB97AB175 /* SPScreenState.m */; };
+		9EC385785151DC523129A82731C3D237 /* FMDatabaseQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = B107867D9B7B261DD43EF4F3E8F67725 /* FMDatabaseQueue.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A0735A56A1DE15B0706C83B373B338C7 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 766AF77715DA37E35FCC0573A325EE80 /* FMDatabaseQueue.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		A1508C0D2954601FE8A9EE1FE7327CE1 /* SPScreenState.h in Headers */ = {isa = PBXBuildFile; fileRef = 024BE15083CF7A9B07012FF4C772A479 /* SPScreenState.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A2601D0633D47F71B3622E20344B1F5E /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 884594ADB40CAA31F1E6157899886C06 /* UIViewController+SPScreenView_SWIZZLE.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		A68FB8EC385F94E6BECBE33D4391F86D /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = BF3D0C5160212C62A1767FE04A247817 /* UIViewController+SPScreenView_SWIZZLE.m */; };
+		B511428B9B1E269FF3ABA2ED9B0127BA /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 553F1A5434B81D2DCA812FDB7DE4D3F4 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B65D5A8EBA0AA84E3DD36210614EDFD8 /* FMDatabaseAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 8889519871D0897D30DFA089A8802C26 /* FMDatabaseAdditions.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		B86006442F9FBD0255DB9872A7EE0AA7 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = F197B46A68A4851895F16AFA9CE0645C /* SPUtilities.m */; };
+		B8735F52ACBBC4F99D9FF97FBD8A6BAE /* SnowplowTracker-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = F1494B01F78D50BBAB1A480167F6E782 /* SnowplowTracker-dummy.m */; };
+		BBD9185D9D919BE48E45A3C7AA68F9E4 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = D517772678537EC2FACF57311B6F1AA6 /* SPInstallTracker.m */; };
+		C419DDA4C4AF0F94B660AB158D4C33FC /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 7AAE755EECE7AB32E80487A9148ECE27 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		C9C56746A88DDFAD6EA543F10943E0C1 /* SPSelfDescribingJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 73DFB67D0B44FA2188087B11EE6A47E3 /* SPSelfDescribingJson.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		CC33F8A1423DAD674A7A4E77CE45260A /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C93424AEBCDD74EC03F601FCC3C1168 /* OpenIDFA.m */; };
+		CD1A7AB90826DC1E627A70671FA5F6C5 /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = EDC7D5726F355E88E9443A1FBC55DD24 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		CF017CEACAADD5FF89845822126F3407 /* SPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = 40579EEFCCCA2F2488E9E0166B192773 /* SPSession.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E599CF23C61503EB193A14BA4882D5B8 /* SPPayload.h in Headers */ = {isa = PBXBuildFile; fileRef = 466123225F5910EAF67A4FD8482D4C09 /* SPPayload.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E5BE3408294A3E55D4146675A4969BC7 /* Pods-SnowplowSwiftDemo-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = CADEA1B74A40DBF2E3BAD735E7C1F2E2 /* Pods-SnowplowSwiftDemo-dummy.m */; };
+		E67D71022CB5D9AD1401FB767C8E75DE /* SPTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F3DFE7AF31291F338E1916101D770F7 /* SPTracker.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		E842CDB0D0874413B533C58F4BDF4458 /* FMDatabasePool.h in Headers */ = {isa = PBXBuildFile; fileRef = 1B4663745B19B91A9D0214EF3F736148 /* FMDatabasePool.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		EA43DD27C41AD2D326CAFAB73B6CEB11 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D37B3E62021D3D57FCCCA285F14007 /* FMDatabasePool.m */; settings = {COMPILER_FLAGS = "-DOS_OBJECT_USE_OBJC=0"; }; };
+		F41EE251AE6EF22906AE9F73BDE08522 /* SPEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 478C93EDCD6A6A310914417F6468DF96 /* SPEventStore.m */; };
+		F694FD692BAB4C032689DF276C0616EE /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 88EEBBACF26587ECCBF010B500747037 /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		FD1412859B45BA049290F12051FC4E74 /* FMDB-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FBF0A5469CA6D1D510C519659BFAD3A4 /* FMDB-dummy.m */; };
+		FD1769524E347D50A818580269E37C1F /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = F19174801FC2C387308F3E879FC99013 /* SPRequestResponse.m */; };
+		FD4A2D3A697D9B94F75544C50659CDF0 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 7BBAA56BACB30EF9D6DE1942855E4AC8 /* Snowplow.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		1C827BF55046C57F768B40348526F795 /* PBXContainerItemProxy */ = {
+		534E057FDCA11D76D34B0E28355CEBB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8592E0E389D40AC17881400ADC67ABC0;
 			remoteInfo = FMDB;
 		};
-		82D22F8699384B07CAED241C0F409776 /* PBXContainerItemProxy */ = {
+		6F62B4A5E36D3F3B8B870D01DE227D3A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8592E0E389D40AC17881400ADC67ABC0;
 			remoteInfo = FMDB;
 		};
-		A3DE68111BFCD6EDCC6A0C01D796A74A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0B00B2C167CD783351BD1D00BD5AD1F8;
-			remoteInfo = ReachabilitySwift;
-		};
-		E2FB8D460C2870394DF9274F87872D99 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 0B00B2C167CD783351BD1D00BD5AD1F8;
-			remoteInfo = ReachabilitySwift;
-		};
-		E80A5E5601E177A310D33712099238F1 /* PBXContainerItemProxy */ = {
+		CF13BF047019F0D9F3C9BFD585025437 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
 			proxyType = 1;
@@ -103,101 +86,79 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		03D06FF49B88003475D0B514FFEA684E /* SnowplowTracker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnowplowTracker-dummy.m"; sourceTree = "<group>"; };
-		08913B406BFD5253ED1BBE4D791BB403 /* SPSelfDescribingJson.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPSelfDescribingJson.h; path = Snowplow/SPSelfDescribingJson.h; sourceTree = "<group>"; };
-		0FC37D3A62CE207B601B045CBB6C5A31 /* SPInstallTracker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPInstallTracker.m; path = Snowplow/SPInstallTracker.m; sourceTree = "<group>"; };
-		1077A7D2BFFE73DC589DF61717EC2551 /* ReachabilitySwift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ReachabilitySwift-prefix.pch"; sourceTree = "<group>"; };
-		18EA5D575458D8775190168FECA948A4 /* SPWeakTimerTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPWeakTimerTarget.m; path = Snowplow/SPWeakTimerTarget.m; sourceTree = "<group>"; };
-		1D32883E457C8CFCA4CF782D3D3EDA14 /* SnowplowTracker-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnowplowTracker-prefix.pch"; sourceTree = "<group>"; };
-		1DF342804497D72D80A52CCA2BB72375 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
-		1EFFD83638931AB26539970CE2608BE1 /* SPScreenState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPScreenState.m; path = Snowplow/SPScreenState.m; sourceTree = "<group>"; };
-		210EB48123CBFF81A78E4CC0E987331E /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
-		21B03CA622E690725A6626C088E1D09F /* libReachabilitySwift.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libReachabilitySwift.a; path = libReachabilitySwift.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		23591119C70E495E03C9F14CA5B01C95 /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
-		299156589780D04E88CAEEE0AC83F7E1 /* SPEventStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEventStore.m; path = Snowplow/SPEventStore.m; sourceTree = "<group>"; };
-		2C293B2F51D1D7BDC4FF7D8205BA5926 /* UIViewController+SPScreenView_SWIZZLE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+SPScreenView_SWIZZLE.m"; path = "Snowplow/UIViewController+SPScreenView_SWIZZLE.m"; sourceTree = "<group>"; };
-		33454470CAAC22A3864CF9F1ED916C38 /* SPSubject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPSubject.h; path = Snowplow/SPSubject.h; sourceTree = "<group>"; };
+		024BE15083CF7A9B07012FF4C772A479 /* SPScreenState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPScreenState.h; path = Snowplow/SPScreenState.h; sourceTree = "<group>"; };
+		1127D5BAA2F15597BA3E9827B8EC9B45 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
+		11981F02701A8B4AA502EC98A6E24B3A /* Pods-SnowplowSwiftDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowSwiftDemo-acknowledgements.plist"; sourceTree = "<group>"; };
+		1B4663745B19B91A9D0214EF3F736148 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
+		1C93424AEBCDD74EC03F601FCC3C1168 /* OpenIDFA.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OpenIDFA.m; path = Snowplow/OpenIDFA.m; sourceTree = "<group>"; };
+		2397607D36582D962C151A38EBF0E229 /* OpenIDFA.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OpenIDFA.h; path = Snowplow/OpenIDFA.h; sourceTree = "<group>"; };
+		30494652D7A6987E0CC6D07EF6E2DAD5 /* SnowplowTracker-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnowplowTracker-prefix.pch"; sourceTree = "<group>"; };
+		34322137037CB94A9B599E8875F57DE1 /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FMDB.modulemap; sourceTree = "<group>"; };
 		345B9337B92FA2FCDF53EF4F3FCA6750 /* libSnowplowTracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libSnowplowTracker.a; path = libSnowplowTracker.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		3AC731B603B51A559562489DF9129406 /* ReachabilitySwift.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ReachabilitySwift.xcconfig; sourceTree = "<group>"; };
-		41A9E1EB2507B0C27995219A4E58A7A2 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
-		4D9C0C5E7284F756E2F738EC446C4D9A /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
-		4EF79018B7EAED9F52140D3301B15A6F /* Pods-SnowplowSwiftDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SnowplowSwiftDemo-dummy.m"; sourceTree = "<group>"; };
-		50C8F539D3163EED9C5F433B6BE32491 /* SPEmitter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEmitter.h; path = Snowplow/SPEmitter.h; sourceTree = "<group>"; };
-		53EB7EDF9977E6C6BF2A4A8681DCCEFB /* Snowplow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Snowplow.m; path = Snowplow/Snowplow.m; sourceTree = "<group>"; };
-		54CF5A0018EE282D8FF15AE9656D1F41 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
-		56B9E27F1795DF024A4318637ADDBC44 /* SPSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPSession.m; path = Snowplow/SPSession.m; sourceTree = "<group>"; };
-		59AEAFC352C11C76079E66B20C03F5C4 /* SPRequestResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPRequestResponse.m; path = Snowplow/SPRequestResponse.m; sourceTree = "<group>"; };
-		5C1BA32E48822845880EBF1776C760D6 /* FMDB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-umbrella.h"; sourceTree = "<group>"; };
-		5EB6C43CE60341E9E0C4B2FF10968641 /* SPScreenState.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPScreenState.h; path = Snowplow/SPScreenState.h; sourceTree = "<group>"; };
-		607D540EF73EA3C0361CD45DFA4D12E7 /* Reachability.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Reachability.swift; path = Sources/Reachability.swift; sourceTree = "<group>"; };
-		6123B525D091595AFA767C421326388C /* SPSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPSession.h; path = Snowplow/SPSession.h; sourceTree = "<group>"; };
-		680FC18826ED4034A3FEA23098E6A456 /* Pods-SnowplowSwiftDemo.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-SnowplowSwiftDemo.modulemap"; sourceTree = "<group>"; };
-		698E587028EFF0CEE959F25FC0EA898C /* Snowplow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Snowplow.h; path = Snowplow/Snowplow.h; sourceTree = "<group>"; };
-		6C6698FB5A53ABDD6F81518D7879F5DF /* SPPayload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPPayload.h; path = Snowplow/SPPayload.h; sourceTree = "<group>"; };
-		6EFD7E655164483BA6203AC03EA0726C /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
-		6FE41BD5C38396B01E2F78C6897615D4 /* SnowplowTracker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnowplowTracker.xcconfig; sourceTree = "<group>"; };
-		70DF8DC0CD2D165913B5EBBDA1E28BD2 /* SPUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPUtilities.m; path = Snowplow/SPUtilities.m; sourceTree = "<group>"; };
-		72205678E3108371C4648BE6193A7794 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
-		7EC7578FEEE16A1E7D7F9240C09FFA2E /* ReachabilitySwift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = ReachabilitySwift.modulemap; sourceTree = "<group>"; };
-		807181806FBD4E7D39F540CE7DD6F6FA /* Pods-SnowplowSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
-		86BC911AD05E4249F60AA25722E62EA3 /* SPWeakTimerTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPWeakTimerTarget.h; path = Snowplow/SPWeakTimerTarget.h; sourceTree = "<group>"; };
-		88CF8A494B9A16BDCCD7CF46EE9EB8BD /* SPEmitter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEmitter.m; path = Snowplow/SPEmitter.m; sourceTree = "<group>"; };
-		895B892A936229E1D4F7D0208090242F /* SnowplowTracker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnowplowTracker-umbrella.h"; sourceTree = "<group>"; };
-		8B9B13D688B41D83FCD4301CF2682D73 /* FMResultSet.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMResultSet.m; path = src/fmdb/FMResultSet.m; sourceTree = "<group>"; };
-		90B51BB191FBE07149E99A4E02F5E1CF /* UIViewController+SPScreenView_SWIZZLE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+SPScreenView_SWIZZLE.h"; path = "Snowplow/UIViewController+SPScreenView_SWIZZLE.h"; sourceTree = "<group>"; };
-		93D1180393520A88D1CB71F2D92B6775 /* SnowplowTracker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SnowplowTracker.modulemap; sourceTree = "<group>"; };
-		9546633BD9274A4BF73ECB190E13D1A7 /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		3BF17C0FF4D9D1CC7D62BE6D0670362A /* FMResultSet.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMResultSet.h; path = src/fmdb/FMResultSet.h; sourceTree = "<group>"; };
+		3F503F21AE82ED7F48C30BDB3B6356A2 /* SNOWReachabilty.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SNOWReachabilty.m; path = Snowplow/SNOWReachabilty.m; sourceTree = "<group>"; };
+		40579EEFCCCA2F2488E9E0166B192773 /* SPSession.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPSession.h; path = Snowplow/SPSession.h; sourceTree = "<group>"; };
+		466123225F5910EAF67A4FD8482D4C09 /* SPPayload.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPPayload.h; path = Snowplow/SPPayload.h; sourceTree = "<group>"; };
+		478C93EDCD6A6A310914417F6468DF96 /* SPEventStore.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEventStore.m; path = Snowplow/SPEventStore.m; sourceTree = "<group>"; };
+		4B7C4EC391A419BDA564F6C7CCA27FF1 /* SNOWReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SNOWReachability.h; path = Snowplow/SNOWReachability.h; sourceTree = "<group>"; };
+		4F3DFE7AF31291F338E1916101D770F7 /* SPTracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPTracker.h; path = Snowplow/SPTracker.h; sourceTree = "<group>"; };
+		553F1A5434B81D2DCA812FDB7DE4D3F4 /* SPWeakTimerTarget.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPWeakTimerTarget.h; path = Snowplow/SPWeakTimerTarget.h; sourceTree = "<group>"; };
+		58DB4A7DF4ABA3B0C38653F59DD000F2 /* SPSubject.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPSubject.h; path = Snowplow/SPSubject.h; sourceTree = "<group>"; };
+		5ACE0A51EA9E22F687A1B39422AB54B5 /* Pods-SnowplowSwiftDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SnowplowSwiftDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
+		622587474D0C758C5C8F714F7491AB14 /* FMDatabase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabase.h; path = src/fmdb/FMDatabase.h; sourceTree = "<group>"; };
+		6711CC96C238AE2817713CAFC40C2A06 /* SPEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEvent.m; path = Snowplow/SPEvent.m; sourceTree = "<group>"; };
+		68178ED7DD08E554113008DE9AD3AEBD /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
+		6A6486CC953CE4E9E9304B67BCB1E083 /* SPRequestCallback.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPRequestCallback.h; path = Snowplow/SPRequestCallback.h; sourceTree = "<group>"; };
+		6EA96733EB5E0CF11D2434FDD61B29FC /* SnowplowTracker.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SnowplowTracker.xcconfig; sourceTree = "<group>"; };
+		73DFB67D0B44FA2188087B11EE6A47E3 /* SPSelfDescribingJson.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPSelfDescribingJson.h; path = Snowplow/SPSelfDescribingJson.h; sourceTree = "<group>"; };
+		752B7980514E83C67738BD80BD6AC085 /* SPEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEvent.h; path = Snowplow/SPEvent.h; sourceTree = "<group>"; };
+		766AF77715DA37E35FCC0573A325EE80 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseQueue.m; path = src/fmdb/FMDatabaseQueue.m; sourceTree = "<group>"; };
+		78A07AD470759BD92401CC9F43A648F8 /* SPPayload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPPayload.m; path = Snowplow/SPPayload.m; sourceTree = "<group>"; };
+		7AAE755EECE7AB32E80487A9148ECE27 /* SPRequestResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPRequestResponse.h; path = Snowplow/SPRequestResponse.h; sourceTree = "<group>"; };
+		7BBAA56BACB30EF9D6DE1942855E4AC8 /* Snowplow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = Snowplow.m; path = Snowplow/Snowplow.m; sourceTree = "<group>"; };
+		80777A14005DD6134B73558D27369DEE /* SnowplowTracker-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SnowplowTracker-umbrella.h"; sourceTree = "<group>"; };
+		872CF2FF06A3E5A5CD8D8C35EC8E5C66 /* SPSelfDescribingJson.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPSelfDescribingJson.m; path = Snowplow/SPSelfDescribingJson.m; sourceTree = "<group>"; };
+		884594ADB40CAA31F1E6157899886C06 /* UIViewController+SPScreenView_SWIZZLE.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "UIViewController+SPScreenView_SWIZZLE.h"; path = "Snowplow/UIViewController+SPScreenView_SWIZZLE.h"; sourceTree = "<group>"; };
+		8889519871D0897D30DFA089A8802C26 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		88EEBBACF26587ECCBF010B500747037 /* SPInstallTracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPInstallTracker.h; path = Snowplow/SPInstallTracker.h; sourceTree = "<group>"; };
+		8E0AC7AB5129A01E786A56017FDB6F81 /* SnowplowTracker.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SnowplowTracker.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		8E8B06F25859F389FC1D2F01C4CE342A /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
+		919412ED6B3E954A30BCB92A76FBE6C9 /* SPSubject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPSubject.m; path = Snowplow/SPSubject.m; sourceTree = "<group>"; };
+		928BA91496FC6BB84C8BFA463A4E776D /* SPEmitter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEmitter.h; path = Snowplow/SPEmitter.h; sourceTree = "<group>"; };
+		968317E5A7A4AB8DE915489B241210E7 /* SPUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUtilities.h; path = Snowplow/SPUtilities.h; sourceTree = "<group>"; };
+		9CAFD6F8D1D04C6CCFD492A623A3D239 /* SPEmitter.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEmitter.m; path = Snowplow/SPEmitter.m; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9FE9F0B4A5DFB11E19AE3C697A6DFA97 /* SPEventStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEventStore.h; path = Snowplow/SPEventStore.h; sourceTree = "<group>"; };
-		A08B0B8D4D65FAA0475DE41A09A98762 /* SPPayload.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPPayload.m; path = Snowplow/SPPayload.m; sourceTree = "<group>"; };
-		A175C1123954429EF23A385803E24797 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		A17EC96413B6838CC9CA23F3E37E2A24 /* SPSubject.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPSubject.m; path = Snowplow/SPSubject.m; sourceTree = "<group>"; };
+		9F875B84F1C7F24D38C276C49D89FDE6 /* SPSession.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPSession.m; path = Snowplow/SPSession.m; sourceTree = "<group>"; };
+		A17C493776FB52CA2DF5ED37CB487181 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabaseAdditions.m; path = src/fmdb/FMDatabaseAdditions.m; sourceTree = "<group>"; };
 		A3A80BA70CFB7F75C5391BEBBBA8C9DA /* libFMDB.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = libFMDB.a; path = libFMDB.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B06E55EBC5442FC16530E68D7E9E6F8F /* FMDB-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-prefix.pch"; sourceTree = "<group>"; };
+		B107867D9B7B261DD43EF4F3E8F67725 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseQueue.h; path = src/fmdb/FMDatabaseQueue.h; sourceTree = "<group>"; };
 		B3CC26F0EF114CEA1C05D68FF94000A1 /* libPods-SnowplowSwiftDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-SnowplowSwiftDemo.a"; path = "libPods-SnowplowSwiftDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B3E0C98A5407526A9355FD1F1C11BB76 /* FMDB.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = FMDB.xcconfig; sourceTree = "<group>"; };
-		BB3756A47D29AA9DC52DFEFCF1ED1552 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
-		C3F174379688E5A37CDE9CC1DD8F0DF7 /* SPRequestResponse.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPRequestResponse.h; path = Snowplow/SPRequestResponse.h; sourceTree = "<group>"; };
-		C473FC27E89721FEFE26ADC2F41A0438 /* FMDatabasePool.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabasePool.h; path = src/fmdb/FMDatabasePool.h; sourceTree = "<group>"; };
-		C54130BA4A623562E47391C44DE5D6C7 /* ReachabilityBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReachabilityBridge.swift; path = Snowplow/ReachabilityBridge.swift; sourceTree = "<group>"; };
-		C77262D3AEF01539260D178840122E92 /* Snowplow-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Snowplow-Bridging-Header.h"; path = "Snowplow/Snowplow-Bridging-Header.h"; sourceTree = "<group>"; };
-		C9A8C8F859377C7D38B2C635ED17DC19 /* ReachabilitySwift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ReachabilitySwift-dummy.m"; sourceTree = "<group>"; };
-		CDBD5A56237C559F9A1027CD92BB387E /* SPTracker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPTracker.m; path = Snowplow/SPTracker.m; sourceTree = "<group>"; };
-		DDFB54DC4EDD1A534830A05C0CC2B7B4 /* OpenIDFA.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = OpenIDFA.h; path = Snowplow/OpenIDFA.h; sourceTree = "<group>"; };
-		E11CA3ADFD619D472ACA818C14030403 /* SPSelfDescribingJson.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPSelfDescribingJson.m; path = Snowplow/SPSelfDescribingJson.m; sourceTree = "<group>"; };
-		EACDF0C2299AFA07A6790887019E0823 /* SPEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEvent.h; path = Snowplow/SPEvent.h; sourceTree = "<group>"; };
-		EBAD34F243E420821A2CB477E341D08A /* SPInstallTracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPInstallTracker.h; path = Snowplow/SPInstallTracker.h; sourceTree = "<group>"; };
-		EBAEFFEEACE5A3EB77018B776C9F1294 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDatabaseAdditions.h; path = src/fmdb/FMDatabaseAdditions.h; sourceTree = "<group>"; };
-		EF9D507252A5C5415516CABBA07DB2F7 /* Pods-SnowplowSwiftDemo-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SnowplowSwiftDemo-acknowledgements.markdown"; sourceTree = "<group>"; };
-		F13D13BDF98D5C86CC3C8CC60B9A71E9 /* SnowplowTracker.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = SnowplowTracker.podspec; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		F1F7C7AFC8C6D909A636D50135056EBC /* Pods-SnowplowSwiftDemo-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SnowplowSwiftDemo-umbrella.h"; sourceTree = "<group>"; };
-		F53EEDFD7CEA798CC79B9A0C7617E6CD /* Pods-SnowplowSwiftDemo-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SnowplowSwiftDemo-acknowledgements.plist"; sourceTree = "<group>"; };
-		F6AA26D11A18927C92DDEC956DADDA32 /* SPTracker.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPTracker.h; path = Snowplow/SPTracker.h; sourceTree = "<group>"; };
-		F98F37D2BC3084AE772FEA81631D65DA /* ReachabilitySwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "ReachabilitySwift-umbrella.h"; sourceTree = "<group>"; };
-		FAB956A96CB0E526054C520C78792BC4 /* SPUtilities.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPUtilities.h; path = Snowplow/SPUtilities.h; sourceTree = "<group>"; };
-		FBCCA37AED10A719C9342EFC1CF1C88F /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
-		FBD3D68B89716F7AD9B75B4B1321EE0B /* Pods-SnowplowSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
-		FCAC460D5942872C169CC850694B28BC /* OpenIDFA.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = OpenIDFA.m; path = Snowplow/OpenIDFA.m; sourceTree = "<group>"; };
-		FCCA0FAF8A6DF40015F035C99DBF6C78 /* FMDB.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = FMDB.modulemap; sourceTree = "<group>"; };
-		FDFD8E0D49D1657FD9F46E1409DA9C58 /* SPRequestCallback.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPRequestCallback.h; path = Snowplow/SPRequestCallback.h; sourceTree = "<group>"; };
-		FED52785A9314E8698D65BEE0C9B5866 /* SPEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPEvent.m; path = Snowplow/SPEvent.m; sourceTree = "<group>"; };
+		BACAED2828A3364C929B4E844543DD43 /* Pods-SnowplowSwiftDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowSwiftDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		BB38DA80C16A878764E7D93DB97AB175 /* SPScreenState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPScreenState.m; path = Snowplow/SPScreenState.m; sourceTree = "<group>"; };
+		BF3D0C5160212C62A1767FE04A247817 /* UIViewController+SPScreenView_SWIZZLE.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "UIViewController+SPScreenView_SWIZZLE.m"; path = "Snowplow/UIViewController+SPScreenView_SWIZZLE.m"; sourceTree = "<group>"; };
+		CADEA1B74A40DBF2E3BAD735E7C1F2E2 /* Pods-SnowplowSwiftDemo-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SnowplowSwiftDemo-dummy.m"; sourceTree = "<group>"; };
+		D517772678537EC2FACF57311B6F1AA6 /* SPInstallTracker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPInstallTracker.m; path = Snowplow/SPInstallTracker.m; sourceTree = "<group>"; };
+		D5B70FA9A72D367F3F272686422A3DBB /* FMDatabase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabase.m; path = src/fmdb/FMDatabase.m; sourceTree = "<group>"; };
+		D84AB9B58DB5F5C0DD41232ABD7CE8A4 /* SPTracker.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPTracker.m; path = Snowplow/SPTracker.m; sourceTree = "<group>"; };
+		DD7442F4EFE11CECF054BC92D8DBDAAB /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		E3D37B3E62021D3D57FCCCA285F14007 /* FMDatabasePool.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FMDatabasePool.m; path = src/fmdb/FMDatabasePool.m; sourceTree = "<group>"; };
+		E7A3124836E6F80A38730B927D448CD1 /* FMDB-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "FMDB-umbrella.h"; sourceTree = "<group>"; };
+		EAF6E7C6D5BF0EEFECD3CDDDDF19B7E7 /* FMDB.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FMDB.h; path = src/fmdb/FMDB.h; sourceTree = "<group>"; };
+		EDC7D5726F355E88E9443A1FBC55DD24 /* Snowplow-Bridging-Header.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Snowplow-Bridging-Header.h"; path = "Snowplow/Snowplow-Bridging-Header.h"; sourceTree = "<group>"; };
+		F1494B01F78D50BBAB1A480167F6E782 /* SnowplowTracker-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SnowplowTracker-dummy.m"; sourceTree = "<group>"; };
+		F19174801FC2C387308F3E879FC99013 /* SPRequestResponse.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPRequestResponse.m; path = Snowplow/SPRequestResponse.m; sourceTree = "<group>"; };
+		F197B46A68A4851895F16AFA9CE0645C /* SPUtilities.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPUtilities.m; path = Snowplow/SPUtilities.m; sourceTree = "<group>"; };
+		F226EC9CB0AE5F4920436C121FBFF9A9 /* SPWeakTimerTarget.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = SPWeakTimerTarget.m; path = Snowplow/SPWeakTimerTarget.m; sourceTree = "<group>"; };
+		F25F8D191C8FAADAA561E6E5B4D907B1 /* Snowplow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Snowplow.h; path = Snowplow/Snowplow.h; sourceTree = "<group>"; };
+		F34E2D91AEEB527C8371137F3E91D052 /* SnowplowTracker.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = SnowplowTracker.modulemap; sourceTree = "<group>"; };
+		F60E0BD324FBD80E1B5694D16D80F76D /* SPEventStore.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SPEventStore.h; path = Snowplow/SPEventStore.h; sourceTree = "<group>"; };
+		FB63AFEE1336C6EA8F049259DCE3E8E5 /* Pods-SnowplowSwiftDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SnowplowSwiftDemo.release.xcconfig"; sourceTree = "<group>"; };
+		FBF0A5469CA6D1D510C519659BFAD3A4 /* FMDB-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "FMDB-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1B67854F7189E997D88B100D48E3AC92 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		30E43BCACD207684ECE140EB3CF8254C /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		9F2B634D3EB6AD2938D6DA2A702D18BB /* Frameworks */ = {
+		BE70546347AFB4E4404C76B81D47E115 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -211,116 +172,160 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		F6BBD0833653990279AFD863B182E598 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		011D38C18945A06A0C1C0C3CA2B932FA /* Pods */ = {
+		3CF3EFB084D3FDFA1225657E1B7A345A /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				21C6AEB2E02664AE0871E681C1EEC915 /* FMDB */,
-				CDB78F884FA4DEA83C8DA768C7D509AC /* ReachabilitySwift */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		014A73694FC9F660EF65F7067F1F3DB4 /* Pod */ = {
-			isa = PBXGroup;
-			children = (
-				A175C1123954429EF23A385803E24797 /* LICENSE */,
-				1DF342804497D72D80A52CCA2BB72375 /* README.md */,
-				F13D13BDF98D5C86CC3C8CC60B9A71E9 /* SnowplowTracker.podspec */,
-			);
-			name = Pod;
-			sourceTree = "<group>";
-		};
-		21C6AEB2E02664AE0871E681C1EEC915 /* FMDB */ = {
-			isa = PBXGroup;
-			children = (
-				85C72010B6E47100960CA208421410C7 /* standard */,
-				E1549064E313CC615F7807AA51D9F6A4 /* Support Files */,
-			);
-			name = FMDB;
-			path = FMDB;
-			sourceTree = "<group>";
-		};
-		4D59567627E05C9063F8BB2018601B89 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A3A80BA70CFB7F75C5391BEBBBA8C9DA /* libFMDB.a */,
-				B3CC26F0EF114CEA1C05D68FF94000A1 /* libPods-SnowplowSwiftDemo.a */,
-				21B03CA622E690725A6626C088E1D09F /* libReachabilitySwift.a */,
-				345B9337B92FA2FCDF53EF4F3FCA6750 /* libSnowplowTracker.a */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		766932A3421D6367A8D0751195F561AC /* Development Pods */ = {
-			isa = PBXGroup;
-			children = (
-				FE501C16C8E7DFF0B4FA5B37ADF46B56 /* SnowplowTracker */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		85C72010B6E47100960CA208421410C7 /* standard */ = {
-			isa = PBXGroup;
-			children = (
-				9546633BD9274A4BF73ECB190E13D1A7 /* FMDatabase.h */,
-				4D9C0C5E7284F756E2F738EC446C4D9A /* FMDatabase.m */,
-				EBAEFFEEACE5A3EB77018B776C9F1294 /* FMDatabaseAdditions.h */,
-				72205678E3108371C4648BE6193A7794 /* FMDatabaseAdditions.m */,
-				C473FC27E89721FEFE26ADC2F41A0438 /* FMDatabasePool.h */,
-				54CF5A0018EE282D8FF15AE9656D1F41 /* FMDatabasePool.m */,
-				41A9E1EB2507B0C27995219A4E58A7A2 /* FMDatabaseQueue.h */,
-				6EFD7E655164483BA6203AC03EA0726C /* FMDatabaseQueue.m */,
-				FBCCA37AED10A719C9342EFC1CF1C88F /* FMDB.h */,
-				23591119C70E495E03C9F14CA5B01C95 /* FMResultSet.h */,
-				8B9B13D688B41D83FCD4301CF2682D73 /* FMResultSet.m */,
-			);
-			name = standard;
-			sourceTree = "<group>";
-		};
-		9662EB37F0514C5A8EFCBE5EFA8E96E7 /* Targets Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				D9D93FA50DC23FBA471FA8E9201DA173 /* Pods-SnowplowSwiftDemo */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		C86CFE3A4166C9577285C6AD0E1FAA75 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				93D1180393520A88D1CB71F2D92B6775 /* SnowplowTracker.modulemap */,
-				6FE41BD5C38396B01E2F78C6897615D4 /* SnowplowTracker.xcconfig */,
-				03D06FF49B88003475D0B514FFEA684E /* SnowplowTracker-dummy.m */,
-				1D32883E457C8CFCA4CF782D3D3EDA14 /* SnowplowTracker-prefix.pch */,
-				895B892A936229E1D4F7D0208090242F /* SnowplowTracker-umbrella.h */,
+				F34E2D91AEEB527C8371137F3E91D052 /* SnowplowTracker.modulemap */,
+				6EA96733EB5E0CF11D2434FDD61B29FC /* SnowplowTracker.xcconfig */,
+				F1494B01F78D50BBAB1A480167F6E782 /* SnowplowTracker-dummy.m */,
+				30494652D7A6987E0CC6D07EF6E2DAD5 /* SnowplowTracker-prefix.pch */,
+				80777A14005DD6134B73558D27369DEE /* SnowplowTracker-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Examples/SnowplowSwiftCocoapodsDemo/Pods/Target Support Files/SnowplowTracker";
 			sourceTree = "<group>";
 		};
-		CDB78F884FA4DEA83C8DA768C7D509AC /* ReachabilitySwift */ = {
+		3D14F518BBE6699D06478F4864BC8517 /* Development Pods */ = {
 			isa = PBXGroup;
 			children = (
-				607D540EF73EA3C0361CD45DFA4D12E7 /* Reachability.swift */,
-				EB03371DA761BB47355F684C8C4C71E0 /* Support Files */,
+				CFE38C3C6FB3F2F1B81885BBD1CBE747 /* SnowplowTracker */,
 			);
-			name = ReachabilitySwift;
-			path = ReachabilitySwift;
+			name = "Development Pods";
+			sourceTree = "<group>";
+		};
+		68DB21AE5492FC581291330CF6E902BA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BDD411BC9F97E90F152AD62DC5D055D3 /* FMDB */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		6EDB41D7C9759376051E750EC31C58C0 /* standard */ = {
+			isa = PBXGroup;
+			children = (
+				622587474D0C758C5C8F714F7491AB14 /* FMDatabase.h */,
+				D5B70FA9A72D367F3F272686422A3DBB /* FMDatabase.m */,
+				8889519871D0897D30DFA089A8802C26 /* FMDatabaseAdditions.h */,
+				A17C493776FB52CA2DF5ED37CB487181 /* FMDatabaseAdditions.m */,
+				1B4663745B19B91A9D0214EF3F736148 /* FMDatabasePool.h */,
+				E3D37B3E62021D3D57FCCCA285F14007 /* FMDatabasePool.m */,
+				B107867D9B7B261DD43EF4F3E8F67725 /* FMDatabaseQueue.h */,
+				766AF77715DA37E35FCC0573A325EE80 /* FMDatabaseQueue.m */,
+				EAF6E7C6D5BF0EEFECD3CDDDDF19B7E7 /* FMDB.h */,
+				3BF17C0FF4D9D1CC7D62BE6D0670362A /* FMResultSet.h */,
+				1127D5BAA2F15597BA3E9827B8EC9B45 /* FMResultSet.m */,
+			);
+			name = standard;
+			sourceTree = "<group>";
+		};
+		813BAA4DD322AC172E019BCCC024671C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A3A80BA70CFB7F75C5391BEBBBA8C9DA /* libFMDB.a */,
+				B3CC26F0EF114CEA1C05D68FF94000A1 /* libPods-SnowplowSwiftDemo.a */,
+				345B9337B92FA2FCDF53EF4F3FCA6750 /* libSnowplowTracker.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A12C1E4A5D5BF303AB65CF26B242D635 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				34322137037CB94A9B599E8875F57DE1 /* FMDB.modulemap */,
+				68178ED7DD08E554113008DE9AD3AEBD /* FMDB.xcconfig */,
+				FBF0A5469CA6D1D510C519659BFAD3A4 /* FMDB-dummy.m */,
+				B06E55EBC5442FC16530E68D7E9E6F8F /* FMDB-prefix.pch */,
+				E7A3124836E6F80A38730B927D448CD1 /* FMDB-umbrella.h */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/FMDB";
+			sourceTree = "<group>";
+		};
+		A219B4CF5D3D5E74102201E21906431F /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				E6BD96F648ADDC9737C75FEF083499C4 /* Pods-SnowplowSwiftDemo */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		BDD411BC9F97E90F152AD62DC5D055D3 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				6EDB41D7C9759376051E750EC31C58C0 /* standard */,
+				A12C1E4A5D5BF303AB65CF26B242D635 /* Support Files */,
+			);
+			name = FMDB;
+			path = FMDB;
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
 			isa = PBXGroup;
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
-				766932A3421D6367A8D0751195F561AC /* Development Pods */,
+				3D14F518BBE6699D06478F4864BC8517 /* Development Pods */,
 				D89477F20FB1DE18A04690586D7808C4 /* Frameworks */,
-				011D38C18945A06A0C1C0C3CA2B932FA /* Pods */,
-				4D59567627E05C9063F8BB2018601B89 /* Products */,
-				9662EB37F0514C5A8EFCBE5EFA8E96E7 /* Targets Support Files */,
+				68DB21AE5492FC581291330CF6E902BA /* Pods */,
+				813BAA4DD322AC172E019BCCC024671C /* Products */,
+				A219B4CF5D3D5E74102201E21906431F /* Targets Support Files */,
 			);
+			sourceTree = "<group>";
+		};
+		CFE38C3C6FB3F2F1B81885BBD1CBE747 /* SnowplowTracker */ = {
+			isa = PBXGroup;
+			children = (
+				2397607D36582D962C151A38EBF0E229 /* OpenIDFA.h */,
+				1C93424AEBCDD74EC03F601FCC3C1168 /* OpenIDFA.m */,
+				F25F8D191C8FAADAA561E6E5B4D907B1 /* Snowplow.h */,
+				7BBAA56BACB30EF9D6DE1942855E4AC8 /* Snowplow.m */,
+				EDC7D5726F355E88E9443A1FBC55DD24 /* Snowplow-Bridging-Header.h */,
+				4B7C4EC391A419BDA564F6C7CCA27FF1 /* SNOWReachability.h */,
+				3F503F21AE82ED7F48C30BDB3B6356A2 /* SNOWReachabilty.m */,
+				928BA91496FC6BB84C8BFA463A4E776D /* SPEmitter.h */,
+				9CAFD6F8D1D04C6CCFD492A623A3D239 /* SPEmitter.m */,
+				752B7980514E83C67738BD80BD6AC085 /* SPEvent.h */,
+				6711CC96C238AE2817713CAFC40C2A06 /* SPEvent.m */,
+				F60E0BD324FBD80E1B5694D16D80F76D /* SPEventStore.h */,
+				478C93EDCD6A6A310914417F6468DF96 /* SPEventStore.m */,
+				88EEBBACF26587ECCBF010B500747037 /* SPInstallTracker.h */,
+				D517772678537EC2FACF57311B6F1AA6 /* SPInstallTracker.m */,
+				466123225F5910EAF67A4FD8482D4C09 /* SPPayload.h */,
+				78A07AD470759BD92401CC9F43A648F8 /* SPPayload.m */,
+				6A6486CC953CE4E9E9304B67BCB1E083 /* SPRequestCallback.h */,
+				7AAE755EECE7AB32E80487A9148ECE27 /* SPRequestResponse.h */,
+				F19174801FC2C387308F3E879FC99013 /* SPRequestResponse.m */,
+				024BE15083CF7A9B07012FF4C772A479 /* SPScreenState.h */,
+				BB38DA80C16A878764E7D93DB97AB175 /* SPScreenState.m */,
+				73DFB67D0B44FA2188087B11EE6A47E3 /* SPSelfDescribingJson.h */,
+				872CF2FF06A3E5A5CD8D8C35EC8E5C66 /* SPSelfDescribingJson.m */,
+				40579EEFCCCA2F2488E9E0166B192773 /* SPSession.h */,
+				9F875B84F1C7F24D38C276C49D89FDE6 /* SPSession.m */,
+				58DB4A7DF4ABA3B0C38653F59DD000F2 /* SPSubject.h */,
+				919412ED6B3E954A30BCB92A76FBE6C9 /* SPSubject.m */,
+				4F3DFE7AF31291F338E1916101D770F7 /* SPTracker.h */,
+				D84AB9B58DB5F5C0DD41232ABD7CE8A4 /* SPTracker.m */,
+				968317E5A7A4AB8DE915489B241210E7 /* SPUtilities.h */,
+				F197B46A68A4851895F16AFA9CE0645C /* SPUtilities.m */,
+				553F1A5434B81D2DCA812FDB7DE4D3F4 /* SPWeakTimerTarget.h */,
+				F226EC9CB0AE5F4920436C121FBFF9A9 /* SPWeakTimerTarget.m */,
+				884594ADB40CAA31F1E6157899886C06 /* UIViewController+SPScreenView_SWIZZLE.h */,
+				BF3D0C5160212C62A1767FE04A247817 /* UIViewController+SPScreenView_SWIZZLE.m */,
+				DC02359C9B543AE46A893EFB93A6FA04 /* Pod */,
+				3CF3EFB084D3FDFA1225657E1B7A345A /* Support Files */,
+			);
+			name = SnowplowTracker;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		D89477F20FB1DE18A04690586D7808C4 /* Frameworks */ = {
@@ -330,90 +335,27 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D9D93FA50DC23FBA471FA8E9201DA173 /* Pods-SnowplowSwiftDemo */ = {
+		DC02359C9B543AE46A893EFB93A6FA04 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				680FC18826ED4034A3FEA23098E6A456 /* Pods-SnowplowSwiftDemo.modulemap */,
-				EF9D507252A5C5415516CABBA07DB2F7 /* Pods-SnowplowSwiftDemo-acknowledgements.markdown */,
-				F53EEDFD7CEA798CC79B9A0C7617E6CD /* Pods-SnowplowSwiftDemo-acknowledgements.plist */,
-				4EF79018B7EAED9F52140D3301B15A6F /* Pods-SnowplowSwiftDemo-dummy.m */,
-				F1F7C7AFC8C6D909A636D50135056EBC /* Pods-SnowplowSwiftDemo-umbrella.h */,
-				807181806FBD4E7D39F540CE7DD6F6FA /* Pods-SnowplowSwiftDemo.debug.xcconfig */,
-				FBD3D68B89716F7AD9B75B4B1321EE0B /* Pods-SnowplowSwiftDemo.release.xcconfig */,
+				8E8B06F25859F389FC1D2F01C4CE342A /* LICENSE */,
+				DD7442F4EFE11CECF054BC92D8DBDAAB /* README.md */,
+				8E0AC7AB5129A01E786A56017FDB6F81 /* SnowplowTracker.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
+		E6BD96F648ADDC9737C75FEF083499C4 /* Pods-SnowplowSwiftDemo */ = {
+			isa = PBXGroup;
+			children = (
+				5ACE0A51EA9E22F687A1B39422AB54B5 /* Pods-SnowplowSwiftDemo-acknowledgements.markdown */,
+				11981F02701A8B4AA502EC98A6E24B3A /* Pods-SnowplowSwiftDemo-acknowledgements.plist */,
+				CADEA1B74A40DBF2E3BAD735E7C1F2E2 /* Pods-SnowplowSwiftDemo-dummy.m */,
+				BACAED2828A3364C929B4E844543DD43 /* Pods-SnowplowSwiftDemo.debug.xcconfig */,
+				FB63AFEE1336C6EA8F049259DCE3E8E5 /* Pods-SnowplowSwiftDemo.release.xcconfig */,
 			);
 			name = "Pods-SnowplowSwiftDemo";
 			path = "Target Support Files/Pods-SnowplowSwiftDemo";
-			sourceTree = "<group>";
-		};
-		E1549064E313CC615F7807AA51D9F6A4 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				FCCA0FAF8A6DF40015F035C99DBF6C78 /* FMDB.modulemap */,
-				B3E0C98A5407526A9355FD1F1C11BB76 /* FMDB.xcconfig */,
-				BB3756A47D29AA9DC52DFEFCF1ED1552 /* FMDB-dummy.m */,
-				210EB48123CBFF81A78E4CC0E987331E /* FMDB-prefix.pch */,
-				5C1BA32E48822845880EBF1776C760D6 /* FMDB-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/FMDB";
-			sourceTree = "<group>";
-		};
-		EB03371DA761BB47355F684C8C4C71E0 /* Support Files */ = {
-			isa = PBXGroup;
-			children = (
-				7EC7578FEEE16A1E7D7F9240C09FFA2E /* ReachabilitySwift.modulemap */,
-				3AC731B603B51A559562489DF9129406 /* ReachabilitySwift.xcconfig */,
-				C9A8C8F859377C7D38B2C635ED17DC19 /* ReachabilitySwift-dummy.m */,
-				1077A7D2BFFE73DC589DF61717EC2551 /* ReachabilitySwift-prefix.pch */,
-				F98F37D2BC3084AE772FEA81631D65DA /* ReachabilitySwift-umbrella.h */,
-			);
-			name = "Support Files";
-			path = "../Target Support Files/ReachabilitySwift";
-			sourceTree = "<group>";
-		};
-		FE501C16C8E7DFF0B4FA5B37ADF46B56 /* SnowplowTracker */ = {
-			isa = PBXGroup;
-			children = (
-				DDFB54DC4EDD1A534830A05C0CC2B7B4 /* OpenIDFA.h */,
-				FCAC460D5942872C169CC850694B28BC /* OpenIDFA.m */,
-				C54130BA4A623562E47391C44DE5D6C7 /* ReachabilityBridge.swift */,
-				698E587028EFF0CEE959F25FC0EA898C /* Snowplow.h */,
-				53EB7EDF9977E6C6BF2A4A8681DCCEFB /* Snowplow.m */,
-				C77262D3AEF01539260D178840122E92 /* Snowplow-Bridging-Header.h */,
-				50C8F539D3163EED9C5F433B6BE32491 /* SPEmitter.h */,
-				88CF8A494B9A16BDCCD7CF46EE9EB8BD /* SPEmitter.m */,
-				EACDF0C2299AFA07A6790887019E0823 /* SPEvent.h */,
-				FED52785A9314E8698D65BEE0C9B5866 /* SPEvent.m */,
-				9FE9F0B4A5DFB11E19AE3C697A6DFA97 /* SPEventStore.h */,
-				299156589780D04E88CAEEE0AC83F7E1 /* SPEventStore.m */,
-				EBAD34F243E420821A2CB477E341D08A /* SPInstallTracker.h */,
-				0FC37D3A62CE207B601B045CBB6C5A31 /* SPInstallTracker.m */,
-				6C6698FB5A53ABDD6F81518D7879F5DF /* SPPayload.h */,
-				A08B0B8D4D65FAA0475DE41A09A98762 /* SPPayload.m */,
-				FDFD8E0D49D1657FD9F46E1409DA9C58 /* SPRequestCallback.h */,
-				C3F174379688E5A37CDE9CC1DD8F0DF7 /* SPRequestResponse.h */,
-				59AEAFC352C11C76079E66B20C03F5C4 /* SPRequestResponse.m */,
-				5EB6C43CE60341E9E0C4B2FF10968641 /* SPScreenState.h */,
-				1EFFD83638931AB26539970CE2608BE1 /* SPScreenState.m */,
-				08913B406BFD5253ED1BBE4D791BB403 /* SPSelfDescribingJson.h */,
-				E11CA3ADFD619D472ACA818C14030403 /* SPSelfDescribingJson.m */,
-				6123B525D091595AFA767C421326388C /* SPSession.h */,
-				56B9E27F1795DF024A4318637ADDBC44 /* SPSession.m */,
-				33454470CAAC22A3864CF9F1ED916C38 /* SPSubject.h */,
-				A17EC96413B6838CC9CA23F3E37E2A24 /* SPSubject.m */,
-				F6AA26D11A18927C92DDEC956DADDA32 /* SPTracker.h */,
-				CDBD5A56237C559F9A1027CD92BB387E /* SPTracker.m */,
-				FAB956A96CB0E526054C520C78792BC4 /* SPUtilities.h */,
-				70DF8DC0CD2D165913B5EBBDA1E28BD2 /* SPUtilities.m */,
-				86BC911AD05E4249F60AA25722E62EA3 /* SPWeakTimerTarget.h */,
-				18EA5D575458D8775190168FECA948A4 /* SPWeakTimerTarget.m */,
-				90B51BB191FBE07149E99A4E02F5E1CF /* UIViewController+SPScreenView_SWIZZLE.h */,
-				2C293B2F51D1D7BDC4FF7D8205BA5926 /* UIViewController+SPScreenView_SWIZZLE.m */,
-				014A73694FC9F660EF65F7067F1F3DB4 /* Pod */,
-				C86CFE3A4166C9577285C6AD0E1FAA75 /* Support Files */,
-			);
-			name = SnowplowTracker;
-			path = ../../..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -433,83 +375,55 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		353DDD0256C3614F2CA54E2408A88556 /* Headers */ = {
+		27A9D72AFA916B492CF962131DB0595C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F53D933009AFCA07D173983E941686DF /* ReachabilitySwift-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C479534AA1AE596E282188F45AF1F039 /* Headers */ = {
+		BB5EED7D9839632EF28509CAD7A9D3C4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EFE1BB0FAD47BC728023A7E878519519 /* OpenIDFA.h in Headers */,
-				A3A5F36E45005171E71E32B40573AAD1 /* Snowplow-Bridging-Header.h in Headers */,
-				1D4E0B54EB5C2DDFDE570B96BE460E11 /* Snowplow.h in Headers */,
-				0E6FA2E572C41BEEE5C9340E7F70F19B /* SnowplowTracker-umbrella.h in Headers */,
-				1357CFB5BA05CA315805437CA238A6F3 /* SPEmitter.h in Headers */,
-				028098B08F7DE4D4F672C06041E8C437 /* SPEvent.h in Headers */,
-				C3234BBAC80AAD438901A6CFE5A7DEC2 /* SPEventStore.h in Headers */,
-				4618C803B30B343DC015BFB07B47DCC8 /* SPInstallTracker.h in Headers */,
-				565E1EAF78B568AFE8884940B69ACA9F /* SPPayload.h in Headers */,
-				01A8E39A21B187E3A8DF60EF2BD03005 /* SPRequestCallback.h in Headers */,
-				52616B3B099494096EF0D9760C23A25C /* SPRequestResponse.h in Headers */,
-				76B416477EBE01654AD0011955B793A4 /* SPScreenState.h in Headers */,
-				30C2B770D8704AB15F42F58E37C36E0F /* SPSelfDescribingJson.h in Headers */,
-				D34CEBC62041D6E857D99B25FF2DC0A4 /* SPSession.h in Headers */,
-				8387DEF784DF5E549805A043D426FFF1 /* SPSubject.h in Headers */,
-				4722CC020EF27585B97A46FFCCEE8355 /* SPTracker.h in Headers */,
-				47986C9842E13D37C33A5C3022D3FAFB /* SPUtilities.h in Headers */,
-				EBCFC63308B42E25B1BDE0A9B21D89F8 /* SPWeakTimerTarget.h in Headers */,
-				8E247ED1EF775A739144EC4905E77ECB /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E2D96E7F0423BDFC935ED16C5AF3C69E /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E94FBD4DE1C9E8289732EE148D9FF115 /* Pods-SnowplowSwiftDemo-umbrella.h in Headers */,
+				900286F0A842C8589CDA2B27E2960025 /* OpenIDFA.h in Headers */,
+				CD1A7AB90826DC1E627A70671FA5F6C5 /* Snowplow-Bridging-Header.h in Headers */,
+				215BB5B37FC18F420750FBD632BF30EC /* Snowplow.h in Headers */,
+				00FB91697AB02F8A0360A957E1315ECE /* SnowplowTracker-umbrella.h in Headers */,
+				567941C9FABA243E6490383A4B32AA8C /* SNOWReachability.h in Headers */,
+				3CD8BEC0B2961105DB8DE9C7DF93DA31 /* SPEmitter.h in Headers */,
+				2229F842376CEC99F8C8E2E048C84ADB /* SPEvent.h in Headers */,
+				831C01899449A5A89CBD06F41FA539DF /* SPEventStore.h in Headers */,
+				F694FD692BAB4C032689DF276C0616EE /* SPInstallTracker.h in Headers */,
+				E599CF23C61503EB193A14BA4882D5B8 /* SPPayload.h in Headers */,
+				2A60A45FDB665C0ADF89188428F572D1 /* SPRequestCallback.h in Headers */,
+				C419DDA4C4AF0F94B660AB158D4C33FC /* SPRequestResponse.h in Headers */,
+				A1508C0D2954601FE8A9EE1FE7327CE1 /* SPScreenState.h in Headers */,
+				C9C56746A88DDFAD6EA543F10943E0C1 /* SPSelfDescribingJson.h in Headers */,
+				CF017CEACAADD5FF89845822126F3407 /* SPSession.h in Headers */,
+				8A3BAE241359734BA8787D8DD52C2877 /* SPSubject.h in Headers */,
+				E67D71022CB5D9AD1401FB767C8E75DE /* SPTracker.h in Headers */,
+				685D657064A64C8A2DE25A60E298477D /* SPUtilities.h in Headers */,
+				B511428B9B1E269FF3ABA2ED9B0127BA /* SPWeakTimerTarget.h in Headers */,
+				A2601D0633D47F71B3622E20344B1F5E /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		0B00B2C167CD783351BD1D00BD5AD1F8 /* ReachabilitySwift */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B2BBD63D347D64C3C30A3205B0D362AC /* Build configuration list for PBXNativeTarget "ReachabilitySwift" */;
-			buildPhases = (
-				353DDD0256C3614F2CA54E2408A88556 /* Headers */,
-				AA8FEAB6EAC81BAD3D783DE729C2E66C /* Sources */,
-				30E43BCACD207684ECE140EB3CF8254C /* Frameworks */,
-				5FA0C5D1479A7D156080B2C78460CE65 /* Copy generated compatibility header */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = ReachabilitySwift;
-			productName = ReachabilitySwift;
-			productReference = 21B03CA622E690725A6626C088E1D09F /* libReachabilitySwift.a */;
-			productType = "com.apple.product-type.library.static";
-		};
 		4DBA189AF01B5699C4ECEC25CBCCFA65 /* SnowplowTracker */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C6CF3B338A8B26A7A1FD8267D3678E69 /* Build configuration list for PBXNativeTarget "SnowplowTracker" */;
+			buildConfigurationList = 2A58655B422C28A81A9E599B00038EF4 /* Build configuration list for PBXNativeTarget "SnowplowTracker" */;
 			buildPhases = (
-				C479534AA1AE596E282188F45AF1F039 /* Headers */,
-				7F8AC332300BF22A4DF122AAAE6E4817 /* Sources */,
-				9F2B634D3EB6AD2938D6DA2A702D18BB /* Frameworks */,
-				951AEE1B8D148C816508A1D11E624219 /* Copy generated compatibility header */,
+				BB5EED7D9839632EF28509CAD7A9D3C4 /* Headers */,
+				B1FCD82FC6DA7F95AAB4EBF6531E5D66 /* Sources */,
+				BE70546347AFB4E4404C76B81D47E115 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				AB9E2265209877538C8DA36434EFEDFC /* PBXTargetDependency */,
-				14A99A7AF423759262F1D7666B0804D2 /* PBXTargetDependency */,
+				F6E0A4563B1981CA0808DA1CE1EDAEF8 /* PBXTargetDependency */,
 			);
 			name = SnowplowTracker;
 			productName = SnowplowTracker;
@@ -535,18 +449,17 @@
 		};
 		911D8C2230F8E5DEEB711E483BB3BBB7 /* Pods-SnowplowSwiftDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 06E9FC6D86988B677394271FC49AE5D9 /* Build configuration list for PBXNativeTarget "Pods-SnowplowSwiftDemo" */;
+			buildConfigurationList = 02728491BA752BE2177881A32B380491 /* Build configuration list for PBXNativeTarget "Pods-SnowplowSwiftDemo" */;
 			buildPhases = (
-				E2D96E7F0423BDFC935ED16C5AF3C69E /* Headers */,
-				593FD131D30A313C0561D233CEEA8883 /* Sources */,
-				1B67854F7189E997D88B100D48E3AC92 /* Frameworks */,
+				27A9D72AFA916B492CF962131DB0595C /* Headers */,
+				9E06ED8A99A26CF4D33F98B4DCF35D53 /* Sources */,
+				F6BBD0833653990279AFD863B182E598 /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				508E5878CB42C3DFABF7DA0017DB948F /* PBXTargetDependency */,
-				A5652FF255EFC459B98FDA678F1E51D7 /* PBXTargetDependency */,
-				5988A173A7405A08D1566F78A6748F2B /* PBXTargetDependency */,
+				C81BB3D4700758D68C4566BD340E5275 /* PBXTargetDependency */,
+				71363C9C280DEBBC2EA2F58AA569B4F0 /* PBXTargetDependency */,
 			);
 			name = "Pods-SnowplowSwiftDemo";
 			productName = "Pods-SnowplowSwiftDemo";
@@ -571,100 +484,23 @@
 				Base,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 4D59567627E05C9063F8BB2018601B89 /* Products */;
+			productRefGroup = 813BAA4DD322AC172E019BCCC024671C /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				8592E0E389D40AC17881400ADC67ABC0 /* FMDB */,
 				911D8C2230F8E5DEEB711E483BB3BBB7 /* Pods-SnowplowSwiftDemo */,
-				0B00B2C167CD783351BD1D00BD5AD1F8 /* ReachabilitySwift */,
 				4DBA189AF01B5699C4ECEC25CBCCFA65 /* SnowplowTracker */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		5FA0C5D1479A7D156080B2C78460CE65 /* Copy generated compatibility header */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h",
-				"${PODS_ROOT}/Headers/Public/Reachability/ReachabilitySwift.modulemap",
-				"${PODS_ROOT}/Headers/Public/Reachability/ReachabilitySwift-umbrella.h",
-			);
-			name = "Copy generated compatibility header";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift-umbrella.h",
-				"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/Reachability/ReachabilitySwift.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/Reachability/ReachabilitySwift-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
-		};
-		951AEE1B8D148C816508A1D11E624219 /* Copy generated compatibility header */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h",
-				"${PODS_ROOT}/Headers/Public/SnowplowTracker/SnowplowTracker.modulemap",
-				"${PODS_ROOT}/Headers/Public/SnowplowTracker/SnowplowTracker-umbrella.h",
-			);
-			name = "Copy generated compatibility header";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap",
-				"${BUILT_PRODUCTS_DIR}/SnowplowTracker-umbrella.h",
-				"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "COMPATIBILITY_HEADER_PATH=\"${BUILT_PRODUCTS_DIR}/Swift Compatibility Header/${PRODUCT_MODULE_NAME}-Swift.h\"\nMODULE_MAP_PATH=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_MODULE_NAME}.modulemap\"\n\nditto \"${DERIVED_SOURCES_DIR}/${PRODUCT_MODULE_NAME}-Swift.h\" \"${COMPATIBILITY_HEADER_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/SnowplowTracker/SnowplowTracker.modulemap\" \"${MODULE_MAP_PATH}\"\nditto \"${PODS_ROOT}/Headers/Public/SnowplowTracker/SnowplowTracker-umbrella.h\" \"${BUILT_PRODUCTS_DIR}\"\nprintf \"\\n\\nmodule ${PRODUCT_MODULE_NAME}.Swift {\\n  header \\\"${COMPATIBILITY_HEADER_PATH}\\\"\\n  requires objc\\n}\\n\" >> \"${MODULE_MAP_PATH}\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		593FD131D30A313C0561D233CEEA8883 /* Sources */ = {
+		9E06ED8A99A26CF4D33F98B4DCF35D53 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3AEB0CD30FFD8C432CA07AC2293252D /* Pods-SnowplowSwiftDemo-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7F8AC332300BF22A4DF122AAAE6E4817 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				12CFAFFC7B1F62419263EA4F1357C0E8 /* OpenIDFA.m in Sources */,
-				E24BD17D7ECA262A2EEBE18D8B836CEA /* ReachabilityBridge.swift in Sources */,
-				B30D805BC3F6195DCF782EFB70018EB3 /* Snowplow.m in Sources */,
-				7AAA97AAC6B15D114256726C981F9E3E /* SnowplowTracker-dummy.m in Sources */,
-				1884EC806DABF142A274D4175DC98707 /* SPEmitter.m in Sources */,
-				C56A151180BF4D3F1A1ED0BA752E95A1 /* SPEvent.m in Sources */,
-				B21B90595FF390131547DD84502E77D8 /* SPEventStore.m in Sources */,
-				1F957A48694DDDFE92E5E7C1371013EC /* SPInstallTracker.m in Sources */,
-				FBDB19511F1BC0CB23908631EEBA1097 /* SPPayload.m in Sources */,
-				94A7BB48F2B59D7C4436A44BC1543552 /* SPRequestResponse.m in Sources */,
-				4E19C7095EDEB4A59C563A843A9BA6F3 /* SPScreenState.m in Sources */,
-				26FC04231B07AA519CD0B01E8D802576 /* SPSelfDescribingJson.m in Sources */,
-				B3F7205D127D6A33D863C4E34143BCAF /* SPSession.m in Sources */,
-				26D9C714DF5509AD9CA8EFC50BE811E6 /* SPSubject.m in Sources */,
-				4A7BC2F5E8E69C1E12323B87444A46FD /* SPTracker.m in Sources */,
-				DEBEC45A6B2308B8E7BADE99F2F30B02 /* SPUtilities.m in Sources */,
-				63B1E7F314286FA6C9A7768B4A1B3783 /* SPWeakTimerTarget.m in Sources */,
-				49F8DD83E9EE96ADE8342FB27B6EBEDF /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
+				E5BE3408294A3E55D4146675A4969BC7 /* Pods-SnowplowSwiftDemo-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,54 +517,58 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA8FEAB6EAC81BAD3D783DE729C2E66C /* Sources */ = {
+		B1FCD82FC6DA7F95AAB4EBF6531E5D66 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				51AE929B8D2E2342F78D55B82E4AE397 /* Reachability.swift in Sources */,
-				FEEC2F9DA31C11F447DE81335CEEF470 /* ReachabilitySwift-dummy.m in Sources */,
+				CC33F8A1423DAD674A7A4E77CE45260A /* OpenIDFA.m in Sources */,
+				FD4A2D3A697D9B94F75544C50659CDF0 /* Snowplow.m in Sources */,
+				B8735F52ACBBC4F99D9FF97FBD8A6BAE /* SnowplowTracker-dummy.m in Sources */,
+				243947A35F9CCCC64C95782F5E5DB8EA /* SNOWReachabilty.m in Sources */,
+				16A9E13F394535BD37C05375A0B24D83 /* SPEmitter.m in Sources */,
+				4E6B986F65A8B52F1089BA0D241C1269 /* SPEvent.m in Sources */,
+				F41EE251AE6EF22906AE9F73BDE08522 /* SPEventStore.m in Sources */,
+				BBD9185D9D919BE48E45A3C7AA68F9E4 /* SPInstallTracker.m in Sources */,
+				81FC90FC4072EE82C5A91B3E9DD54649 /* SPPayload.m in Sources */,
+				FD1769524E347D50A818580269E37C1F /* SPRequestResponse.m in Sources */,
+				9BEC579ED27AA7F860D886E4DD7E5F09 /* SPScreenState.m in Sources */,
+				081815F2AB8DBD7CE551D8DAF31474B8 /* SPSelfDescribingJson.m in Sources */,
+				0E1988F59E05B49B5143CC185EF821EF /* SPSession.m in Sources */,
+				56DCCEAA61742010479811770C4BAA66 /* SPSubject.m in Sources */,
+				88483D6566A640C8B60F8ADA2F743ED2 /* SPTracker.m in Sources */,
+				B86006442F9FBD0255DB9872A7EE0AA7 /* SPUtilities.m in Sources */,
+				6468A7E845E5B063B4CF900D60B9F3D9 /* SPWeakTimerTarget.m in Sources */,
+				A68FB8EC385F94E6BECBE33D4391F86D /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		14A99A7AF423759262F1D7666B0804D2 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ReachabilitySwift;
-			target = 0B00B2C167CD783351BD1D00BD5AD1F8 /* ReachabilitySwift */;
-			targetProxy = A3DE68111BFCD6EDCC6A0C01D796A74A /* PBXContainerItemProxy */;
-		};
-		508E5878CB42C3DFABF7DA0017DB948F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = FMDB;
-			target = 8592E0E389D40AC17881400ADC67ABC0 /* FMDB */;
-			targetProxy = 1C827BF55046C57F768B40348526F795 /* PBXContainerItemProxy */;
-		};
-		5988A173A7405A08D1566F78A6748F2B /* PBXTargetDependency */ = {
+		71363C9C280DEBBC2EA2F58AA569B4F0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = SnowplowTracker;
 			target = 4DBA189AF01B5699C4ECEC25CBCCFA65 /* SnowplowTracker */;
-			targetProxy = E80A5E5601E177A310D33712099238F1 /* PBXContainerItemProxy */;
+			targetProxy = CF13BF047019F0D9F3C9BFD585025437 /* PBXContainerItemProxy */;
 		};
-		A5652FF255EFC459B98FDA678F1E51D7 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = ReachabilitySwift;
-			target = 0B00B2C167CD783351BD1D00BD5AD1F8 /* ReachabilitySwift */;
-			targetProxy = E2FB8D460C2870394DF9274F87872D99 /* PBXContainerItemProxy */;
-		};
-		AB9E2265209877538C8DA36434EFEDFC /* PBXTargetDependency */ = {
+		C81BB3D4700758D68C4566BD340E5275 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = FMDB;
 			target = 8592E0E389D40AC17881400ADC67ABC0 /* FMDB */;
-			targetProxy = 82D22F8699384B07CAED241C0F409776 /* PBXContainerItemProxy */;
+			targetProxy = 534E057FDCA11D76D34B0E28355CEBB3 /* PBXContainerItemProxy */;
+		};
+		F6E0A4563B1981CA0808DA1CE1EDAEF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = FMDB;
+			target = 8592E0E389D40AC17881400ADC67ABC0 /* FMDB */;
+			targetProxy = 6F62B4A5E36D3F3B8B870D01DE227D3A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		03A6A88C841C944EFB42CE3E41C227CE /* Debug */ = {
+		07869B0D1ED14FA7E01C605C4FE36722 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 807181806FBD4E7D39F540CE7DD6F6FA /* Pods-SnowplowSwiftDemo.debug.xcconfig */;
+			baseConfigurationReference = FB63AFEE1336C6EA8F049259DCE3E8E5 /* Pods-SnowplowSwiftDemo.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -737,7 +577,6 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SnowplowSwiftDemo/Pods-SnowplowSwiftDemo.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -745,37 +584,13 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
-			name = Debug;
-		};
-		2B5CA327E4D4C10C22861FB6761B3B5C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FE41BD5C38396B01E2F78C6897615D4 /* SnowplowTracker.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/SnowplowTracker/SnowplowTracker-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = Headers/Public/SnowplowTracker/SnowplowTracker.modulemap;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = SnowplowTracker;
-				PRODUCT_NAME = SnowplowTracker;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
+			name = Release;
 		};
 		2B60506DA3B1DDF81D51746D45C19DC1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3E0C98A5407526A9355FD1F1C11BB76 /* FMDB.xcconfig */;
+			baseConfigurationReference = 68178ED7DD08E554113008DE9AD3AEBD /* FMDB.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -800,45 +615,48 @@
 			};
 			name = Release;
 		};
-		33E028C749332DC94E25F6F541F5E543 /* Release */ = {
+		3326F080BFCB13CC7B5E213CE7F96C98 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FBD3D68B89716F7AD9B75B4B1321EE0B /* Pods-SnowplowSwiftDemo.release.xcconfig */;
+			baseConfigurationReference = 6EA96733EB5E0CF11D2434FDD61B29FC /* SnowplowTracker.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-SnowplowSwiftDemo/Pods-SnowplowSwiftDemo.modulemap";
+				GCC_PREFIX_HEADER = "Target Support Files/SnowplowTracker/SnowplowTracker-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MODULEMAP_FILE = Headers/Public/SnowplowTracker/SnowplowTracker.modulemap;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_MODULE_NAME = SnowplowTracker;
+				PRODUCT_NAME = SnowplowTracker;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		76EF2F04B5C7809D498C851BD9BC8A45 /* Debug */ = {
+		853D9E047AF4E4279C1A2BE2C56B7AAD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AC731B603B51A559562489DF9129406 /* ReachabilitySwift.xcconfig */;
+			baseConfigurationReference = 6EA96733EB5E0CF11D2434FDD61B29FC /* SnowplowTracker.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
+				GCC_PREFIX_HEADER = "Target Support Files/SnowplowTracker/SnowplowTracker-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = Headers/Public/Reachability/ReachabilitySwift.modulemap;
+				MODULEMAP_FILE = Headers/Public/SnowplowTracker/SnowplowTracker.modulemap;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = Reachability;
-				PRODUCT_NAME = ReachabilitySwift;
+				PRODUCT_MODULE_NAME = SnowplowTracker;
+				PRODUCT_NAME = SnowplowTracker;
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -908,32 +726,6 @@
 			};
 			name = Release;
 		};
-		9058A7EE314F49763757CB96684EE65F /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6FE41BD5C38396B01E2F78C6897615D4 /* SnowplowTracker.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/SnowplowTracker/SnowplowTracker-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = Headers/Public/SnowplowTracker/SnowplowTracker.modulemap;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = SnowplowTracker;
-				PRODUCT_NAME = SnowplowTracker;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 		916E0404255105F480DC4950B7625F7A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -998,9 +790,30 @@
 			};
 			name = Debug;
 		};
+		9E280EC92158C20B27333FFE56A74F27 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BACAED2828A3364C929B4E844543DD43 /* Pods-SnowplowSwiftDemo.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		A94F131FFD9D1711AFDB3E7B648F6768 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B3E0C98A5407526A9355FD1F1C11BB76 /* FMDB.xcconfig */;
+			baseConfigurationReference = 68178ED7DD08E554113008DE9AD3AEBD /* FMDB.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1024,40 +837,14 @@
 			};
 			name = Debug;
 		};
-		E76912DBE4B678D350E3A33A26C0A993 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AC731B603B51A559562489DF9129406 /* ReachabilitySwift.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				GCC_PREFIX_HEADER = "Target Support Files/ReachabilitySwift/ReachabilitySwift-prefix.pch";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				MODULEMAP_FILE = Headers/Public/Reachability/ReachabilitySwift.modulemap;
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PRIVATE_HEADERS_FOLDER_PATH = "";
-				PRODUCT_MODULE_NAME = Reachability;
-				PRODUCT_NAME = ReachabilitySwift;
-				PUBLIC_HEADERS_FOLDER_PATH = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		06E9FC6D86988B677394271FC49AE5D9 /* Build configuration list for PBXNativeTarget "Pods-SnowplowSwiftDemo" */ = {
+		02728491BA752BE2177881A32B380491 /* Build configuration list for PBXNativeTarget "Pods-SnowplowSwiftDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				03A6A88C841C944EFB42CE3E41C227CE /* Debug */,
-				33E028C749332DC94E25F6F541F5E543 /* Release */,
+				9E280EC92158C20B27333FFE56A74F27 /* Debug */,
+				07869B0D1ED14FA7E01C605C4FE36722 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1071,29 +858,20 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		2A58655B422C28A81A9E599B00038EF4 /* Build configuration list for PBXNativeTarget "SnowplowTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				853D9E047AF4E4279C1A2BE2C56B7AAD /* Debug */,
+				3326F080BFCB13CC7B5E213CE7F96C98 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				916E0404255105F480DC4950B7625F7A /* Debug */,
 				8F17DC3A99F99FBAD606CE6963886315 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B2BBD63D347D64C3C30A3205B0D362AC /* Build configuration list for PBXNativeTarget "ReachabilitySwift" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				76EF2F04B5C7809D498C851BD9BC8A45 /* Debug */,
-				E76912DBE4B678D350E3A33A26C0A993 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C6CF3B338A8B26A7A1FD8267D3678E69 /* Build configuration list for PBXNativeTarget "SnowplowTracker" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				2B5CA327E4D4C10C22861FB6761B3B5C /* Debug */,
-				9058A7EE314F49763757CB96684EE65F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
