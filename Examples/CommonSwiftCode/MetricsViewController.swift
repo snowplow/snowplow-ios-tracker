@@ -50,7 +50,6 @@ class MetricsViewController: UIViewController, UITextFieldDelegate, PageObserver
         sessionCountLabel.text = String(format: "Session Count: %lu", CUnsignedLong(self.tracker?.getSessionIndex() ?? 0))
         isRunningLabel.text = String(format: "Running: %@", self.tracker?.emitter.getSendingStatus() ?? false ? "yes" : "no")
         isBackgroundLabel.text = String(format: "Background: %@", self.tracker?.getInBackground() ?? false ? "yes" : "no")
-        isOnlineLabel.text = String(format: "Online: %@", SPUtilities.isOnline() ? "yes" : "no")
         sentLabel.text = String(format: "Sent: %lu", CUnsignedLong(parentPageViewController.sentCounter))
     }
 
