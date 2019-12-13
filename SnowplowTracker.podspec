@@ -41,5 +41,8 @@ Pod::Spec.new do |s|
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
   s.osx.frameworks = 'AppKit', 'Foundation'
   s.tvos.frameworks = 'UIKit', 'Foundation'
+
+  s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
+
   s.dependency 'FMDB', '~> 2.6.2'
 end
