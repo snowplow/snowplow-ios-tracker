@@ -18,7 +18,11 @@
 static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment) {
 #if kShouldPrintReachabilityFlags
     NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
+#if SNOWPLOW_TARGET_IOS
           (flags & kSCNetworkReachabilityFlagsIsWWAN)               ? 'W' : '-',
+#else
+          '-',
+#endif
           (flags & kSCNetworkReachabilityFlagsReachable)            ? 'R' : '-',
           
           (flags & kSCNetworkReachabilityFlagsTransientConnection)  ? 't' : '-',
@@ -78,15 +82,17 @@ static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
     BOOL isOnDemand = (flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0;
     BOOL isOnTraffic = (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0;
     BOOL isInterventionRequired = (flags & kSCNetworkReachabilityFlagsInterventionRequired) != 0;
-    BOOL isWWAN = (flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN;
     
     if (!isReachable) {
         return SNOWNetworkStatusOffline;
     }
 
+#if SNOWPLOW_TARGET_IOS
+    BOOL isWWAN = (flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN;
     if (isWWAN) {
         return SNOWNetworkStatusWWAN;
     }
+#endif
 
     SNOWNetworkStatus returnValue = SNOWNetworkStatusOffline;
     if (!isConnectionRequired) {

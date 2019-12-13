@@ -25,7 +25,6 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
-#import "SNOWReachability.h"
 #include <sys/sysctl.h>
 
 #if SNOWPLOW_TARGET_IOS
@@ -35,21 +34,13 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-
-#if SNOWPLOW_IOS_STATIC
-//    #import "Snowplow_iOS_Static-Swift.h"
-/*
-#elif __has_include("SnowplowTracker-Swift.h")
-    #import "SnowplowTracker-Swift.h"
-#else
-    #import <SnowplowTracker/SnowplowTracker-Swift.h>
-*/
-#endif
+#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_TV
 
