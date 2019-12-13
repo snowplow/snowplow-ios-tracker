@@ -58,6 +58,9 @@
     "Snowplow/SPSelfDescribingJson.h",
     "Snowplow/SPScreenState.h"
   ],
+  "pod_target_xcconfig": {
+    "DEFINES_MODULE": "YES"
+  },
   "dependencies": {
     "FMDB": [
       "~> 2.6.2"

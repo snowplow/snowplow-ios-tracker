@@ -257,13 +257,11 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SnowplowDemo/Pods-SnowplowDemo-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/FMDB/FMDB.framework",
-				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/SnowplowTracker/SnowplowTracker.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FMDB.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnowplowTracker.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
