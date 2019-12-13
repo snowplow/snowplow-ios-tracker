@@ -185,10 +185,6 @@
     XCTAssertEqualObjects([SPUtilities urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
 }
 
-- (void)testIsOnline {
-    XCTAssertEqual([SPUtilities isOnline], YES);
-}
-
 - (void)testCheckArgument {
     @try {
         [SPUtilities checkArgument:NO withMessage:@"This will throw an exception."];

@@ -181,7 +181,7 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) sendGuard {
-    if ([SPUtilities isOnline] && !_isSending) {
+    if (!_isSending) {
         _isSending = YES;
         [self sendEvents];
     }

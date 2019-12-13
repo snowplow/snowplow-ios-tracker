@@ -197,13 +197,6 @@
 + (NSInteger) getByteSizeWithString:(NSString *)str;
 
 /*!
- @brief Returns whether or not the device is currently online.
-
- @return The network status of the device.
- */
-+ (BOOL) isOnline;
-
-/*!
  @brief Checks an expression and will log if it is false.
 
  This allows for rudimentary Preconditions for object setup.

@@ -166,7 +166,7 @@
 				75699C9B200FB29C00FFC20D /* Sources */,
 				75699C9C200FB29C00FFC20D /* Frameworks */,
 				75699C9D200FB29C00FFC20D /* Resources */,
-				75866F87222C86740039A3E1 /* ShellScript */,
+				75866F87222C86740039A3E1 /* Run Script - Copy Frameworks (Carthage) */,
 			);
 			buildRules = (
 			);
@@ -289,7 +289,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		75866F87222C86740039A3E1 /* ShellScript */ = {
+		75866F87222C86740039A3E1 /* Run Script - Copy Frameworks (Carthage) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,6 +299,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script - Copy Frameworks (Carthage)";
 			outputFileListPaths = (
 				"$(SRCROOT)/outputFile.xcfilelist",
 			);
@@ -497,8 +498,8 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J4ZKH42DAT;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -532,8 +533,8 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J4ZKH42DAT;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

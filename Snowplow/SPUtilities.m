@@ -34,17 +34,13 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-
-#if SNOWPLOW_IOS_STATIC
-#import "Snowplow_iOS_Static-Swift.h"
-#else
-#import <SnowplowTracker/SnowplowTracker-Swift.h>
-#endif
+#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_TV
 
@@ -146,11 +142,18 @@
 }
 
 + (NSString *) getNetworkType {
-    NSString * type = @"offline";
 #if SNOWPLOW_TARGET_IOS
-    type = [ReachabilityBridge connectionType];
+    SNOWNetworkStatus networkStatus = [SNOWReachability reachabilityForInternetConnection].networkStatus;
+    switch (networkStatus) {
+        case SNOWNetworkStatusOffline:
+            return @"offline";
+        case SNOWNetworkStatusWifi:
+            return @"wifi";
+        case SNOWNetworkStatusWWAN:
+            return @"mobile";
+    }
 #endif
-    return type;
+    return @"offline";
 }
 
 + (NSString *) getNetworkTechnology {
@@ -272,14 +275,6 @@
 
 + (NSInteger) getByteSizeWithString:(NSString *)str {
     return [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-}
-
-+ (BOOL) isOnline {
-    BOOL online = YES;
-#if SNOWPLOW_TARGET_IOS
-    online = [ReachabilityBridge isOnline];
-#endif
-    return online;
 }
 
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {

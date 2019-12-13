@@ -1,4 +1,4 @@
-framework module SnowplowTracker {
+module SnowplowTracker {
   umbrella header "SnowplowTracker-umbrella.h"
 
   export *

@@ -4,47 +4,27 @@ osx_image: xcode11.2
 env:
   global:
     - secure: H45yyUlB0cXQrzTTcnmD3WrkCyqjUzaop2jHgmBF3bm8ue4XOcTWKDSDcAN39SG0FUeDC7GdDCtWAc3VCpLwN++5IznAnvBuZSGgxQ2lCxWMhdTtXtOWU2mivgVvs+uldS7/TuVlOjZ7inrTgetl+jgFjenwESOGIIZwn7SXpPo=
-    - BUILD_DEST="platform=iOS Simulator,OS=13.2.2,name=iPhone 8"
-    - BUILD_PROJECT_LIB="-project Snowplow.xcodeproj"
-    - BUILD_SCHEME_LIB="-scheme Snowplow-iOS"
-    - BUILD_WORKSPACE_OBJC_DEMO="-workspace SnowplowDemo.xcworkspace"
-    - BUILD_SCHEME_OBJC_DEMO="-scheme SnowplowDemo"
-    - BUILD_WORKSPACE_SWIFT_DEMO="-workspace SnowplowSwiftDemo.xcworkspace"
-    - BUILD_PROJECT_SWIFT_DEMO="-project SnowplowSwiftDemo.xcodeproj"
-    - BUILD_SCHEME_SWIFT_DEMO="-scheme SnowplowSwiftDemo"
 
-before_install:
-  - gem install slather
-  - gem install xcpretty -N --no-document
-  - gem install cocoapods -v '1.8.4'
+# The first dot is not a typo. It's needed to export the env variables to the current travis script
+before_install: . .travis/setup.sh 
 
 jobs:
   include:
     - name: "Test Snowplow framework [iOS]"
-      install:
-        - carthage bootstrap --platform iOS
-      script:
-        - set -o pipefail && xcodebuild -sdk iphonesimulator -destination "${BUILD_DEST}" ${BUILD_PROJECT_LIB} ${BUILD_SCHEME_LIB} clean test | xcpretty
+      script: .travis/test_framework.sh "${BUILD_DEST}" "${BUILD_PROJECT_LIB}" "${BUILD_SCHEME_LIB}"
       after_success: slather
 
     - name: "Test Snowplow ObjC demo app [iOS]"
-      install:
-        - cd Examples/SnowplowDemo
-        - pod update
-      script:
-        - set -o pipefail && xcodebuild -sdk iphonesimulator -destination "${BUILD_DEST}" ${BUILD_WORKSPACE_OBJC_DEMO} ${BUILD_SCHEME_OBJC_DEMO} clean build | xcpretty
-
-    - name: "Test Snowplow Swift demo app [iOS] using Cocoapods"
-      install:
-        - cd Examples/SnowplowSwiftCocoapodsDemo
-        - pod update
-      script:
-        - set -o pipefail && xcodebuild -sdk iphonesimulator -destination "${BUILD_DEST}" ${BUILD_WORKSPACE_SWIFT_DEMO} ${BUILD_SCHEME_SWIFT_DEMO} clean build | xcpretty
+      script: .travis/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_DEST}" "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_SCHEME_OBJC_DEMO}"
 
     - name: "Test Snowplow Swift demo app [iOS] using Carthage"
-      install:
-        - cd Examples/SnowplowSwiftCarthageDemo
-        - ./generateCartfile.sh
-        - carthage update --platform ios
-      script:
-        - set -o pipefail && xcodebuild -sdk iphonesimulator -destination "${BUILD_DEST}" ${BUILD_PROJECT_SWIFT_DEMO} ${BUILD_SCHEME_SWIFT_DEMO} clean build | xcpretty
+      script: .travis/test_ios_demo.sh SnowplowSwiftCarthageDemo Cartfile "${BUILD_DEST}" "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
+
+    - name: "Test Snowplow Swift demo app [iOS] using Cocoapods (no directive)"
+      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_simple "${BUILD_DEST}" "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
+
+    - name: "Test Snowplow Swift demo app [iOS] using Cocoapods (use_frameworks! directive)"
+      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_frameworks "${BUILD_DEST}" "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
+
+    - name: "Test Snowplow Swift demo app [iOS] using Cocoapods (use_modular_headers! directive)"
+      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_modular_headers "${BUILD_DEST}" "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
