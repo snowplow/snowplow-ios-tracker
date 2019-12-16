@@ -1,6 +1,0 @@
-framework module Pods_SnowplowSwiftWatch_Extension {
-  umbrella header "Pods-SnowplowSwiftWatch Extension-umbrella.h"
-
-  export *
-  module * { export * }
-}

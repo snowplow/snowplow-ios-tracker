@@ -1,1 +1,0 @@
-../../../Target Support Files/SnowplowTracker/SnowplowTracker-umbrella.h
