@@ -24,7 +24,10 @@ Pod::Spec.new do |s|
   s.ios.source_files = 'Snowplow/*.swift'
   s.osx.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
   s.tvos.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
-  s.watchos.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
+  s.watchos.exclude_files = [
+    'Snowplow/UIViewController+SPScreenView_SWIZZLE.*',
+    'Snowplow/SNOWReachability.*'
+  ]
 
   s.source_files = 'Snowplow/*.{m,h}'
   s.public_header_files = [
