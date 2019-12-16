@@ -30,6 +30,8 @@
 NSString * const kSPVersion               = @"ios-1.2.0";
 #elif SNOWPLOW_TARGET_TV
 NSString * const kSPVersion               = @"tvos-1.2.0";
+#elif SNOWPLOW_TARGET_WATCHOS
+NSString * const kSPVersion               = @"watchos-1.2.0";
 #else
 NSString * const kSPVersion               = @"osx-1.2.0";
 #endif

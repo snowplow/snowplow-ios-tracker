@@ -1,0 +1,2 @@
+$(SRCROOT)/Carthage/Build/watchOS/FMDB.framework
+$(SRCROOT)/Carthage/Build/watchOS/SnowplowTracker.framework
