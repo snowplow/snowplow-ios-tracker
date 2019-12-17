@@ -15,10 +15,11 @@ class InterfaceController: WKInterfaceController, SPRequestCallback {
     let kAppId     = "DemoAppId"
     let kNamespace = "DemoAppNamespace"
     
-    func getTracker(_ url: String, method: SPRequestOptions) -> SPTracker {
+    func getTracker(_ url: String, method: SPRequestOptions, protocol _protocol: SPProtocol) -> SPTracker {
         let emitter = SPEmitter.build({ (builder : SPEmitterBuilder?) -> Void in
             builder!.setUrlEndpoint(url)
             builder!.setHttpMethod(method)
+            builder!.setProtocol(_protocol)
             builder!.setCallback(self)
             builder!.setEmitRange(500)
             builder!.setEmitThreadPoolSize(20)
@@ -47,7 +48,7 @@ class InterfaceController: WKInterfaceController, SPRequestCallback {
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        self.tracker = self.getTracker("acme.fake.com", method: .post)
+        self.tracker = self.getTracker("acme.fake.com", method: .get, protocol: .http)
         // Configure interface objects here.
     }
     
@@ -63,9 +64,6 @@ class InterfaceController: WKInterfaceController, SPRequestCallback {
     
     @IBAction func sendEvent() {
         DispatchQueue.global(qos: .default).async {
-            self.tracker.emitter.setUrlEndpoint("127.0.0.1:8080")
-            self.tracker.emitter.setHttpMethod(SPRequestOptions.post)
-            self.tracker.emitter.setProtocol(SPProtocol.http)
             // Track all types of events
             DemoUtils.trackAll(self.tracker)
         }
