@@ -183,6 +183,14 @@
 		ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */; };
 		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED91CB6F23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED91CB7123AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
+		ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
+		ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
+		ED91CB7423AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -316,6 +324,8 @@
 		ED6AC5152369D42800A8F8A3 /* ios.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ios.modulemap; sourceTree = "<group>"; };
 		ED852B2E23A0E90E00F2DF6B /* SNOWReachabilty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWReachabilty.m; sourceTree = "<group>"; };
 		ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWReachability.h; sourceTree = "<group>"; };
+		ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDevicePlatform.h; sourceTree = "<group>"; };
+		ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDevicePlatform.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -485,6 +495,8 @@
 				AB0C27C3191B408200018557 /* Supporting Files */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				043EC5E61B8F224900294081 /* Snowplow.m */,
+				ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */,
+				ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */,
 				AB9E8210192DD336006744C9 /* SPTracker.h */,
 				AB9E8211192DD336006744C9 /* SPTracker.m */,
 				AB0C27E9191B43D600018557 /* SPEmitter.h */,
@@ -539,6 +551,7 @@
 			files = (
 				752DAC3221CC43C60065F874 /* Snowplow.h in Headers */,
 				752DAC3321CC43C70065F874 /* SPTracker.h in Headers */,
+				ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				ED852B3323A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
 				752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */,
 				752DAC3521CC43C70065F874 /* SPSubject.h in Headers */,
@@ -566,6 +579,7 @@
 				75CAC45821F2A21B00271FB3 /* Snowplow-Bridging-Header.h in Headers */,
 				75CAC45921F2A21B00271FB3 /* Snowplow.h in Headers */,
 				75CAC45A21F2A21B00271FB3 /* SPTracker.h in Headers */,
+				ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				75CAC45B21F2A21B00271FB3 /* SPEmitter.h in Headers */,
 				75CAC45C21F2A21B00271FB3 /* SPSubject.h in Headers */,
 				75CAC45E21F2A21B00271FB3 /* SPPayload.h in Headers */,
@@ -596,6 +610,7 @@
 				75CAC43621F2A0CC00271FB3 /* SPEvent.h in Headers */,
 				75CAC43721F2A0CC00271FB3 /* SPRequestCallback.h in Headers */,
 				754774C22225FBB90043B814 /* SPScreenState.h in Headers */,
+				ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				75CAC43821F2A0CC00271FB3 /* Snowplow-Bridging-Header.h in Headers */,
 				75CAC42F21F2A0CC00271FB3 /* SPSession.h in Headers */,
 				ED852B3423A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
@@ -612,6 +627,7 @@
 			files = (
 				75F9C5E521FA35BC00A5B8FC /* Snowplow-Bridging-Header.h in Headers */,
 				75F9C5E621FA35BC00A5B8FC /* Snowplow.h in Headers */,
+				ED91CB6F23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
 				75F9C5E721FA35BC00A5B8FC /* SPTracker.h in Headers */,
 				75F9C5E821FA35BC00A5B8FC /* SPEmitter.h in Headers */,
@@ -836,6 +852,7 @@
 				754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */,
 				752DAC1721CC42BC0065F874 /* Snowplow.m in Sources */,
+				ED91CB7123AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
 				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
 				75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */,
@@ -890,6 +907,7 @@
 				75CAC44221F2A17500271FB3 /* SPUtilities.m in Sources */,
 				75CAC44321F2A17500271FB3 /* SPRequestResponse.m in Sources */,
 				75CAC44421F2A17500271FB3 /* SPWeakTimerTarget.m in Sources */,
+				ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
 				75CAC44521F2A17500271FB3 /* SPEvent.m in Sources */,
 				75CAC44721F2A17500271FB3 /* Snowplow-Bridging-Header.h in Sources */,
 			);
@@ -904,6 +922,7 @@
 				75CAC44921F2A19500271FB3 /* SPTracker.m in Sources */,
 				ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */,
 				75CAC44A21F2A19500271FB3 /* SPEmitter.m in Sources */,
+				ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
 				75CAC44B21F2A19500271FB3 /* SPSubject.m in Sources */,
 				75CAC44C21F2A19500271FB3 /* SPSession.m in Sources */,
 				75CAC44D21F2A19500271FB3 /* SPPayload.m in Sources */,
@@ -932,6 +951,7 @@
 				7534D20122569BED00904EE5 /* SPScreenState.m in Sources */,
 				7534D20222569BED00904EE5 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				7534D20322569BED00904EE5 /* SPInstallTracker.m in Sources */,
+				ED91CB7423AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
 				75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */,
 				75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */,
 				75F9C5D721FA357100A5B8FC /* SPTracker.m in Sources */,

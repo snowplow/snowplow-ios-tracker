@@ -27,6 +27,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "SPDevicePlatform.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -90,6 +91,13 @@ void uncaughtExceptionHandler(NSException *exception);
  @param trackerNamespace The tracker's namespace.
  */
 - (void) setTrackerNamespace:(NSString *)trackerNamespace;
+
+/*!
+ @brief Tracker builder method to set the device platform the tracker is running on
+
+ @param devicePlatform The SPDevicePlatform enum indicating the current platform.
+ */
+- (void) setDevicePlatform:(SPDevicePlatform)devicePlatform;
 
 /*!
  @brief Tracker builder method to set whether events will include session context
@@ -183,6 +191,8 @@ void uncaughtExceptionHandler(NSException *exception);
 @property (readonly, nonatomic, strong) NSString * trackerNamespace;
 /*! @brief Whether to use Base64 encoding for events. */
 @property (readonly, nonatomic) BOOL base64Encoded;
+/*! @brief Whether to use Base64 encoding for events. */
+@property (readonly, nonatomic) SPDevicePlatform devicePlatform;
 /*! @brief Previous screen view state. */
 @property (readonly, nonatomic, strong) SPScreenState * previousScreenState;
 /*! @brief Current screen view state. */

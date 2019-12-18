@@ -70,7 +70,6 @@
 // Standard Dictionary
 
 - (void) setStandardDict {
-    [_standardDict addValueToPayload:[SPUtilities getPlatform]   forKey:kSPPlatform];
     [_standardDict addValueToPayload:[SPUtilities getResolution] forKey:kSPResolution];
     [_standardDict addValueToPayload:[SPUtilities getViewPort]   forKey:kSPViewPort];
     [_standardDict addValueToPayload:[SPUtilities getLanguage]   forKey:kSPLanguage];

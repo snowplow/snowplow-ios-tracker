@@ -126,6 +126,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (self) {
         _trackerNamespace = nil;
         _appId = nil;
+        _devicePlatform = [SPUtilities getPlatform];
         _base64Encoded = YES;
         _dataCollection = YES;
         _sessionContext = NO;
@@ -233,6 +234,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (_builderFinished && _trackerData != nil) {
         [self setTrackerData];
     }
+}
+
+- (void) setDevicePlatform:(SPDevicePlatform)devicePlatform {
+    _devicePlatform = devicePlatform;
 }
 
 - (void) setSessionContext:(BOOL)sessionContext {
@@ -504,9 +509,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     // Add Subject information
     if (_subject != nil) {
         [pb addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
-    } else {
-        [pb addValueToPayload:[SPUtilities getPlatform] forKey:kSPPlatform];
     }
+    [pb addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
 
     // Add the contexts
     SPSelfDescribingJson * context = [self getFinalContextWithContexts:contextArray andEventId:eventId];
