@@ -1,5 +1,6 @@
-Version 1.2.0 (2019-12-13)
+Version 1.2.0 (2019-12-19)
 --------------------------
+Allow overwriting of the 'platform' parameter (#476)
 ReachabilitySwift conflicts with Reachability (#437)
 
 Version 1.1.5 (2019-11-25)
