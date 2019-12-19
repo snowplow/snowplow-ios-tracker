@@ -21,6 +21,7 @@
 //
 
 #import "Snowplow.h"
+#import "SPDevicePlatform.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
@@ -59,11 +60,11 @@
     return [[NSLocale preferredLanguages] objectAtIndex:0];
 }
 
-+ (NSString *) getPlatform {
++ (SPDevicePlatform) getPlatform {
 #if SNOWPLOW_TARGET_IOS
-    return @"mob";
+    return SPDevicePlatformMobile;
 #else
-    return @"pc";
+    return SPDevicePlatformDesktop;
 #endif
 }
 

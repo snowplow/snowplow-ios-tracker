@@ -35,7 +35,8 @@ Pod::Spec.new do |s|
     'Snowplow/SPRequestResponse.h',
     'Snowplow/SPEvent.h', 
     'Snowplow/SPSelfDescribingJson.h',
-    'Snowplow/SPScreenState.h'
+    'Snowplow/SPScreenState.h',
+    'Snowplow/SPDevicePlatform.h'
   ]
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
@@ -46,3 +47,4 @@ Pod::Spec.new do |s|
 
   s.dependency 'FMDB', '~> 2.6.2'
 end
+
