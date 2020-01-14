@@ -1,5 +1,8 @@
-Version 1.2.0 (2019-12-19)
+Version 1.2.0 (2020-01-14)
 --------------------------
+Stop updating screen context when auto-tracking is disabled (#431)
+Fix valueForKey error in auto-tracking for screenviews (#428)
+Add Watchkit support (#465) (Contribute of: leoAsana)
 Allow overwriting of the 'platform' parameter (#476)
 ReachabilitySwift conflicts with Reachability (#437)
 
