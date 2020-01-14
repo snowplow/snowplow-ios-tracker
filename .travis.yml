@@ -1,5 +1,5 @@
 language: objective-c
-osx_image: xcode11.2
+osx_image: xcode11.3
 
 env:
   global:
@@ -10,21 +10,21 @@ before_install: . .travis/setup.sh
 
 jobs:
   include:
-    - name: "Test Snowplow framework [iOS]"
-      script: .travis/test_framework.sh "${BUILD_DEST}" "${BUILD_PROJECT_LIB}" "${BUILD_SCHEME_LIB}"
+    - name: "Test Snowplow framework"
+      script: .travis/test_framework.sh "${BUILD_PROJECT_LIB}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_LIB_IOS}" "${BUILD_DEST_WATCH}" "${BUILD_SCHEME_LIB_WATCH}"
       after_success: slather
 
-    - name: "Test Snowplow ObjC demo app [iOS]"
-      script: .travis/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_DEST}" "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_SCHEME_OBJC_DEMO}"
+    - name: "Test Snowplow ObjC demo app"
+      script: .travis/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
 
-    - name: "Test Snowplow Swift demo app [iOS] using Carthage"
-      script: .travis/test_ios_demo.sh SnowplowSwiftCarthageDemo Cartfile "${BUILD_DEST}" "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
+    - name: "Test Snowplow Swift demo app using Carthage"
+      script: .travis/test_ios_demo.sh SnowplowSwiftCarthageDemo Cartfile "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}"
 
-    - name: "Test Snowplow Swift demo app [iOS] using Cocoapods (no directive)"
-      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_simple "${BUILD_DEST}" "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
+    - name: "Test Snowplow Swift demo app using Cocoapods (no directive)"
+      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_simple "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
 
-    - name: "Test Snowplow Swift demo app [iOS] using Cocoapods (use_frameworks! directive)"
-      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_frameworks "${BUILD_DEST}" "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
+    - name: "Test Snowplow Swift demo app using Cocoapods (use_frameworks! directive)"
+      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_frameworks "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
 
-    - name: "Test Snowplow Swift demo app [iOS] using Cocoapods (use_modular_headers! directive)"
-      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_modular_headers "${BUILD_DEST}" "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_SCHEME_SWIFT_DEMO}"
+    - name: "Test Snowplow Swift demo app using Cocoapods (use_modular_headers! directive)"
+      script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_modular_headers "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
