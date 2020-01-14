@@ -21,6 +21,7 @@
 #import "SPEvent.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
+#import "SPDevicePlatform.h"
 
 FOUNDATION_EXPORT double SnowplowTrackerVersionNumber;
 FOUNDATION_EXPORT const unsigned char SnowplowTrackerVersionString[];
