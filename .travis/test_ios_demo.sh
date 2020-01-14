@@ -2,15 +2,17 @@
 
 APP=$1
 DEP_FILE=$2
-DEST=$3
-PROJECT=$4
-SCHEME=$5
+PROJECT=$3
+DEST_IOS=$4
+SCHEME_IOS=$5
+DEST_WATCH=$6
+SCHEME_WATCH=$7
 
 if [ $DEP_FILE == "Cartfile" ]; then
 	printf "\n\n Carthage update \n"
 	cd Examples/$APP
 	./generateCartfile.sh
-    carthage update --platform ios
+    carthage update
 elif [ $DEP_FILE == "Podfile" ]; then
 	printf "\n\n Pod update \n"
 	cd Examples/$APP
@@ -25,5 +27,10 @@ else
 	exit 1
 fi
 
-printf "\n\n Test ${APP} \n"
-set -o pipefail && xcodebuild -sdk iphonesimulator -destination "${DEST}" ${PROJECT} ${SCHEME} clean build | xcpretty
+printf "\n\n Build iOS ${APP} \n"
+set -o pipefail && xcodebuild -destination "${DEST_IOS}" ${PROJECT} ${SCHEME_IOS} clean build | xcpretty
+
+if [ ! -z "$SCHEME_WATCH" ]; then
+	printf "\n\n Build watchOS ${APP} \n"
+	set -o pipefail && xcodebuild -destination "${DEST_WATCH}" ${PROJECT} ${SCHEME_WATCH} clean build | xcpretty
+fi

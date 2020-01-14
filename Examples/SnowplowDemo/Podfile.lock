@@ -2,7 +2,7 @@ PODS:
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
   - FMDB/standard (2.6.2)
-  - SnowplowTracker (1.1.5):
+  - SnowplowTracker (1.2.0-M3):
     - FMDB (~> 2.6.2)
 
 DEPENDENCIES:
@@ -18,7 +18,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  SnowplowTracker: 51baa293052bd96d2326cb779e86ef1c8015942b
+  SnowplowTracker: 2ea78776f9f624eccf5e026db87bd915785f894e
 
 PODFILE CHECKSUM: 375b0f24567595e0cac8c9289ed3aea84854fdd6
 

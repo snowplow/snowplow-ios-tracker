@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "752DABE721CC3A090065F874"
-               BuildableName = "Snowplow_watchOS.framework"
+               BuildableName = "SnowplowTracker.framework"
                BlueprintName = "Snowplow-watchOS"
                ReferencedContainer = "container:Snowplow.xcodeproj">
             </BuildableReference>
@@ -44,7 +44,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "752DABE721CC3A090065F874"
-            BuildableName = "Snowplow_watchOS.framework"
+            BuildableName = "SnowplowTracker.framework"
             BlueprintName = "Snowplow-watchOS"
             ReferencedContainer = "container:Snowplow.xcodeproj">
          </BuildableReference>
@@ -60,7 +60,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "752DABE721CC3A090065F874"
-            BuildableName = "Snowplow_watchOS.framework"
+            BuildableName = "SnowplowTracker.framework"
             BlueprintName = "Snowplow-watchOS"
             ReferencedContainer = "container:Snowplow.xcodeproj">
          </BuildableReference>

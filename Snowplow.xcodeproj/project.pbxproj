@@ -141,7 +141,6 @@
 		75CAC46421F2A21B00271FB3 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC46621F2A22500271FB3 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		75CAC46721F2A25B00271FB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		75CAC46921F2A25B00271FB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		75F9C5D121FA2E8B00A5B8FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		75F9C5D221FA2E9F00A5B8FC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
@@ -175,14 +174,16 @@
 		75F9C5F121FA35BC00A5B8FC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED26E6BA23842AB00096AF7C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED26E6B923842AAF0096AF7C /* AdSupport.framework */; };
-		ED852B2F23A0E90E00F2DF6B /* SNOWReachabilty.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachabilty.m */; };
-		ED852B3023A0E90E00F2DF6B /* SNOWReachabilty.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachabilty.m */; };
-		ED852B3123A0E90E00F2DF6B /* SNOWReachabilty.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachabilty.m */; };
+		ED852B2F23A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
+		ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
+		ED852B3123A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
 		ED852B3323A0EEC600F2DF6B /* SNOWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */; };
 		ED852B3423A0EEC600F2DF6B /* SNOWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */; };
 		ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */; };
 		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -267,7 +268,7 @@
 		75264A31224E5DD2000E0E9B /* SPInstallTracker.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPInstallTracker.m; sourceTree = "<group>"; };
 		752DABCC21CC38550065F874 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABD421CC38560065F874 /* Snowplow-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Snowplow_watchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		752DABE821CC3A090065F874 /* SnowplowTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnowplowTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABF521CC3B380065F874 /* Snowplow_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Snowplow_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DABFD21CC3B380065F874 /* Snowplow-macOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snowplow-macOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		752DAC0221CC3B380065F874 /* Snowplow_macOSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Snowplow_macOSTests.m; sourceTree = "<group>"; };
@@ -320,9 +321,10 @@
 		ABB767AF194974D3006275D1 /* SPEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventStore.m; sourceTree = "<group>"; };
 		ABFCC3741922984A00FAE8FE /* SPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilities.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilities.m; sourceTree = "<group>"; };
+		B3D9BE0F237ACE0D009B310A /* watchos.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = watchos.modulemap; sourceTree = "<group>"; };
 		ED26E6B923842AAF0096AF7C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		ED6AC5152369D42800A8F8A3 /* ios.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ios.modulemap; sourceTree = "<group>"; };
-		ED852B2E23A0E90E00F2DF6B /* SNOWReachabilty.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWReachabilty.m; sourceTree = "<group>"; };
+		ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWReachability.m; sourceTree = "<group>"; };
 		ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWReachability.h; sourceTree = "<group>"; };
 		ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDevicePlatform.h; sourceTree = "<group>"; };
 		ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDevicePlatform.m; sourceTree = "<group>"; };
@@ -358,7 +360,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				23DFEC7D2362FAA500BD19C4 /* FMDB.framework in Frameworks */,
-				75CAC46721F2A25B00271FB3 /* CoreTelephony.framework in Frameworks */,
 				75CAC46921F2A25B00271FB3 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -460,7 +461,7 @@
 			children = (
 				752DABCC21CC38550065F874 /* SnowplowTracker.framework */,
 				752DABD421CC38560065F874 /* Snowplow-iOSTests.xctest */,
-				752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */,
+				752DABE821CC3A090065F874 /* SnowplowTracker.framework */,
 				752DABF521CC3B380065F874 /* Snowplow_macOS.framework */,
 				752DABFD21CC3B380065F874 /* Snowplow-macOSTests.xctest */,
 				75F9C5C821FA2E0F00A5B8FC /* libSnowplow-iOS-Static.a */,
@@ -490,8 +491,8 @@
 		AB0C27C2191B408200018557 /* Snowplow */ = {
 			isa = PBXGroup;
 			children = (
-				ED852B2E23A0E90E00F2DF6B /* SNOWReachabilty.m */,
 				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
+				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
 				AB0C27C3191B408200018557 /* Supporting Files */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				043EC5E61B8F224900294081 /* Snowplow.m */,
@@ -535,6 +536,7 @@
 			isa = PBXGroup;
 			children = (
 				ED6AC5152369D42800A8F8A3 /* ios.modulemap */,
+				B3D9BE0F237ACE0D009B310A /* watchos.modulemap */,
 				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
 				AB39617019530E850002F235 /* OpenIDFA.h */,
 				AB39617119530E850002F235 /* OpenIDFA.m */,
@@ -584,6 +586,7 @@
 				75CAC45C21F2A21B00271FB3 /* SPSubject.h in Headers */,
 				75CAC45E21F2A21B00271FB3 /* SPPayload.h in Headers */,
 				75CAC45F21F2A21B00271FB3 /* SPSelfDescribingJson.h in Headers */,
+				EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */,
 				754774C12225FBB90043B814 /* SPScreenState.h in Headers */,
 				75CAC46121F2A21B00271FB3 /* SPUtilities.h in Headers */,
 				75CAC46421F2A21B00271FB3 /* SPEvent.h in Headers */,
@@ -703,7 +706,7 @@
 			);
 			name = "Snowplow-watchOS";
 			productName = "Snowplow watchOS";
-			productReference = 752DABE821CC3A090065F874 /* Snowplow_watchOS.framework */;
+			productReference = 752DABE821CC3A090065F874 /* SnowplowTracker.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		752DABF421CC3B380065F874 /* Snowplow-macOS */ = {
@@ -862,7 +865,7 @@
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
 				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
 				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
-				ED852B2F23A0E90E00F2DF6B /* SNOWReachabilty.m in Sources */,
+				ED852B2F23A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
 				752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */,
 				752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */,
 				752DAC2D21CC42BC0065F874 /* SPEvent.m in Sources */,
@@ -906,6 +909,7 @@
 				75CAC44121F2A17500271FB3 /* SPEventStore.m in Sources */,
 				75CAC44221F2A17500271FB3 /* SPUtilities.m in Sources */,
 				75CAC44321F2A17500271FB3 /* SPRequestResponse.m in Sources */,
+				EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */,
 				75CAC44421F2A17500271FB3 /* SPWeakTimerTarget.m in Sources */,
 				ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
 				75CAC44521F2A17500271FB3 /* SPEvent.m in Sources */,
@@ -930,7 +934,7 @@
 				75CAC44F21F2A19500271FB3 /* SPEventStore.m in Sources */,
 				75CAC45021F2A19500271FB3 /* SPUtilities.m in Sources */,
 				75CAC45121F2A19500271FB3 /* SPRequestResponse.m in Sources */,
-				ED852B3023A0E90E00F2DF6B /* SNOWReachabilty.m in Sources */,
+				ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
 				75CAC45221F2A19500271FB3 /* SPWeakTimerTarget.m in Sources */,
 				75CAC45321F2A19500271FB3 /* SPEvent.m in Sources */,
 			);
@@ -961,7 +965,7 @@
 				75F9C5DB21FA357100A5B8FC /* SPPayload.m in Sources */,
 				75F9C5DC21FA357100A5B8FC /* SPSelfDescribingJson.m in Sources */,
 				75F9C5DD21FA357100A5B8FC /* SPEventStore.m in Sources */,
-				ED852B3123A0E90E00F2DF6B /* SNOWReachabilty.m in Sources */,
+				ED852B3123A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
 				75F9C5DE21FA357100A5B8FC /* SPUtilities.m in Sources */,
 				75F9C5DF21FA357100A5B8FC /* SPRequestResponse.m in Sources */,
 				75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */,
@@ -1227,7 +1231,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1242,11 +1245,12 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = Snowplow/watchos.modulemap;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-watchOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = SnowplowTracker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1282,7 +1286,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/watchOS",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PREPROCESSOR_DEFINITIONS = "SNOWPLOW_APP_EXTENSIONS=1";
@@ -1293,11 +1296,12 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				MODULEMAP_FILE = Snowplow/watchos.modulemap;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.snowplowanalytics.Snowplow-watchOS";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = SnowplowTracker;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
