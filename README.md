@@ -1,5 +1,5 @@
-iOS, OSX and tvOS Analytics for Snowplow
-========================================
+iOS, macOS, tvOS and watchOS Analytics for Snowplow
+===================================================
 
 [ ![Build Status][travis-image] ][travis]
 [ ![Coverage Status][coveralls-image] ][coveralls]
@@ -10,7 +10,7 @@ iOS, OSX and tvOS Analytics for Snowplow
 
 ## Overview
 
-Add analytics to your iOS, OSX and tvOS apps and games with the **[Snowplow][2]** event tracker for **[iOS 8.0+][3]**, **[OSX 10.9+][4]** and **[tvOS 9.0+][5]**.
+Add analytics to your iOS, macOS, tvOS and watchOS apps and games with the **[Snowplow][2]** event tracker for **[iOS 8.0+][3]**, **[macOS 10.9+][4]**, **[tvOS 9.0+][5]** and **[watchOS 2.0+][6]**
 
 With this tracker you can collect event data from your applications, games or frameworks.
 
@@ -68,8 +68,9 @@ limitations under the License.
 
 [2]: http://snowplowanalytics.com/
 [3]: https://www.apple.com/ios/
-[4]: https://www.apple.com/osx/
+[4]: https://www.apple.com/macos/
 [5]: https://www.apple.com/tv/
+[6]: https://www.apple.com/watchos/
 
 [travis]: https://travis-ci.org/snowplow/snowplow-objc-tracker
 [travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.svg?branch=master
@@ -91,7 +92,7 @@ limitations under the License.
 [roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
-[techdocs]: http://docs.snowplowanalytics.com/open-source/snowplow/trackers/objective-c-tracker/1.0.0
+[techdocs]: http://docs.snowplowanalytics.com/open-source/snowplow/trackers/objective-c-tracker
 [techdocs-old]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
 [setup]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup
 [roadmap]: https://github.com/snowplow/snowplow/wiki/Product-roadmap
