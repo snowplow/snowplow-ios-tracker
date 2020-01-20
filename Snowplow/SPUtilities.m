@@ -21,6 +21,7 @@
 //
 
 #import "Snowplow.h"
+#import "SPDevicePlatform.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
@@ -34,21 +35,21 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-
-#if SNOWPLOW_IOS_STATIC
-#import "Snowplow_iOS_Static-Swift.h"
-#else
-#import <SnowplowTracker/SnowplowTracker-Swift.h>
-#endif
+#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_TV
 
 #import <UIKit/UIScreen.h>
+
+#elif SNOWPLOW_TARGET_WATCHOS
+
+#import <WatchKit/WatchKit.h>
 
 #endif
 
@@ -63,11 +64,11 @@
     return [[NSLocale preferredLanguages] objectAtIndex:0];
 }
 
-+ (NSString *) getPlatform {
++ (SPDevicePlatform) getPlatform {
 #if SNOWPLOW_TARGET_IOS
-    return @"mob";
+    return SPDevicePlatformMobile;
 #else
-    return @"pc";
+    return SPDevicePlatformDesktop;
 #endif
 }
 
@@ -146,11 +147,18 @@
 }
 
 + (NSString *) getNetworkType {
-    NSString * type = @"offline";
 #if SNOWPLOW_TARGET_IOS
-    type = [ReachabilityBridge connectionType];
+    SNOWNetworkStatus networkStatus = [SNOWReachability reachabilityForInternetConnection].networkStatus;
+    switch (networkStatus) {
+        case SNOWNetworkStatusOffline:
+            return @"offline";
+        case SNOWNetworkStatusWifi:
+            return @"wifi";
+        case SNOWNetworkStatusWWAN:
+            return @"mobile";
+    }
 #endif
-    return type;
+    return @"offline";
 }
 
 + (NSString *) getNetworkTechnology {
@@ -175,6 +183,9 @@
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
     CGFloat screenScale = [[UIScreen mainScreen] scale];
+#elif SNOWPLOW_TARGET_WATCHOS
+    CGRect mainScreen = [[WKInterfaceDevice currentDevice] screenBounds];
+    CGFloat screenScale = [[WKInterfaceDevice currentDevice] screenScale];
 #else
     CGRect mainScreen = [[NSScreen mainScreen] frame];
     CGFloat screenScale = [[NSScreen mainScreen] backingScaleFactor];
@@ -210,6 +221,8 @@
 + (NSString *) getOSVersion {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     return [[UIDevice currentDevice] systemVersion];
+#elif SNOWPLOW_TARGET_WATCHOS
+    return [[WKInterfaceDevice currentDevice] systemVersion];
 #else
     SInt32 osxMajorVersion;
     SInt32 osxMinorVersion;
@@ -240,6 +253,8 @@
     return @"ios";
 #elif SNOWPLOW_TARGET_TV
     return @"tvos";
+#elif SNOWPLOW_TARGET_WATCHOS
+    return @"watchos";
 #else
     return @"osx";
 #endif
@@ -272,14 +287,6 @@
 
 + (NSInteger) getByteSizeWithString:(NSString *)str {
     return [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-}
-
-+ (BOOL) isOnline {
-    BOOL online = YES;
-#if SNOWPLOW_TARGET_IOS
-    online = [ReachabilityBridge isOnline];
-#endif
-    return online;
 }
 
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {

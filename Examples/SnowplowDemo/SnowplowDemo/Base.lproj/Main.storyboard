@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +23,7 @@
                                 <rect key="frame" x="4" y="44" width="592" height="522"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yc7-wk-Mus" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="551"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="501"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="iOS Tracker Demo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kcz-a8-oKS">
                                                 <rect key="frame" x="222" y="20" width="156" height="22"/>
@@ -106,14 +106,8 @@
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Online: no" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Odm-be-Xw2">
-                                                <rect key="frame" x="10" y="474" width="65.5" height="17"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background: no" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dzp-ZN-hce">
-                                                <rect key="frame" x="10" y="501" width="101.5" height="17"/>
+                                                <rect key="frame" x="10" y="474" width="101.5" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
@@ -177,7 +171,6 @@
                                             <constraint firstAttribute="trailing" secondItem="9d8-Em-uLN" secondAttribute="trailing" constant="10" id="GiU-7s-ns7"/>
                                             <constraint firstItem="13p-17-aOH" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="HP7-fS-rS3"/>
                                             <constraint firstItem="dJw-uw-KPe" firstAttribute="top" secondItem="YJs-US-k1D" secondAttribute="bottom" constant="20" id="HaP-z1-xzf"/>
-                                            <constraint firstItem="Odm-be-Xw2" firstAttribute="top" secondItem="6ZH-Ua-tU4" secondAttribute="bottom" constant="10" id="Iim-lh-Bx1"/>
                                             <constraint firstItem="YJs-US-k1D" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="JQY-Ry-9Am"/>
                                             <constraint firstItem="V4N-7y-Fav" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="Stt-84-hcg"/>
                                             <constraint firstItem="OMw-dX-iEA" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="WHg-cY-WIH"/>
@@ -190,15 +183,14 @@
                                             <constraint firstItem="qEZ-86-8Eo" firstAttribute="top" secondItem="9d8-Em-uLN" secondAttribute="bottom" constant="8" id="f7S-an-9w7"/>
                                             <constraint firstItem="fhh-Mt-Miq" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="ghu-pz-Jp0"/>
                                             <constraint firstItem="9d8-Em-uLN" firstAttribute="leading" secondItem="3Bf-dB-FjM" secondAttribute="trailing" constant="10" id="h5d-Pk-lmg"/>
-                                            <constraint firstAttribute="bottom" secondItem="dzp-ZN-hce" secondAttribute="bottom" constant="33" id="jSa-RH-7kg"/>
+                                            <constraint firstAttribute="bottom" secondItem="dzp-ZN-hce" secondAttribute="bottom" constant="10" id="jSa-RH-7kg"/>
+                                            <constraint firstItem="dzp-ZN-hce" firstAttribute="top" secondItem="6ZH-Ua-tU4" secondAttribute="bottom" constant="10" id="nQE-Nb-0o7"/>
                                             <constraint firstItem="mI7-Ah-DyE" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="p0j-n9-tx4"/>
                                             <constraint firstItem="KGJ-ww-yaN" firstAttribute="leading" secondItem="YJs-US-k1D" secondAttribute="trailing" constant="8" id="p7a-G3-4iB"/>
                                             <constraint firstItem="YJs-US-k1D" firstAttribute="top" secondItem="OMw-dX-iEA" secondAttribute="bottom" constant="19" id="ptM-Jo-uRX"/>
                                             <constraint firstItem="6ZH-Ua-tU4" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="sLp-a5-Bp3"/>
                                             <constraint firstItem="qEZ-86-8Eo" firstAttribute="leading" secondItem="JZd-3P-IWQ" secondAttribute="trailing" constant="13" id="ugx-BP-QEb"/>
                                             <constraint firstItem="mm3-Bt-PBB" firstAttribute="top" secondItem="qEZ-86-8Eo" secondAttribute="bottom" constant="8" id="vPX-RG-BOs"/>
-                                            <constraint firstItem="Odm-be-Xw2" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="veG-uu-d4D"/>
-                                            <constraint firstItem="dzp-ZN-hce" firstAttribute="top" secondItem="Odm-be-Xw2" secondAttribute="bottom" constant="10" id="vxM-t2-nkQ"/>
                                             <constraint firstItem="3Bf-dB-FjM" firstAttribute="top" secondItem="mI7-Ah-DyE" secondAttribute="bottom" constant="15" id="xew-2g-9CF"/>
                                             <constraint firstItem="l9H-k7-waj" firstAttribute="top" secondItem="fhh-Mt-Miq" secondAttribute="bottom" constant="10" id="zcF-em-fmE"/>
                                             <constraint firstItem="JZd-3P-IWQ" firstAttribute="leading" secondItem="yc7-wk-Mus" secondAttribute="leading" constant="10" id="zj3-gj-3rk"/>
@@ -227,7 +219,6 @@
                     <connections>
                         <outlet property="dbCountLabel" destination="O8k-EO-VzR" id="1qI-r8-PRF"/>
                         <outlet property="isBackgroundLabel" destination="dzp-ZN-hce" id="mbG-8Z-mc9"/>
-                        <outlet property="isOnlineLabel" destination="Odm-be-Xw2" id="YK0-Rc-wHq"/>
                         <outlet property="isRunningLabel" destination="6ZH-Ua-tU4" id="kFi-uj-8O7"/>
                         <outlet property="madeLabel" destination="l9H-k7-waj" id="rcD-vX-ytb"/>
                         <outlet property="methodType" destination="qEZ-86-8Eo" id="hoO-R1-5MP"/>

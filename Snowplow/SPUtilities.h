@@ -21,6 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#include "SPDevicePlatform.h"
 
 @class SPPayload;
 @class SPSelfDescribingJson;
@@ -53,11 +54,11 @@
 + (NSString *) getLanguage;
 
 /*!
- @brief Returns the platform type of the device. This is always going to be "mob".
+ @brief Returns the platform type of the device..
 
  @return A string of the platform type.
  */
-+ (NSString *) getPlatform;
++ (SPDevicePlatform) getPlatform;
 
 /*!
  @brief Returns a randomly generated UUID (type 4).
@@ -195,13 +196,6 @@
  @return The byte size of the string.
  */
 + (NSInteger) getByteSizeWithString:(NSString *)str;
-
-/*!
- @brief Returns whether or not the device is currently online.
-
- @return The network status of the device.
- */
-+ (BOOL) isOnline;
 
 /*!
  @brief Checks an expression and will log if it is false.

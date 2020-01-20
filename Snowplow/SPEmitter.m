@@ -181,7 +181,7 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) sendGuard {
-    if ([SPUtilities isOnline] && !_isSending) {
+    if (!_isSending) {
         _isSending = YES;
         [self sendEvents];
     }
@@ -326,22 +326,35 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) sendEventWithRequest:(NSMutableURLRequest *)request andIndex:(NSArray *)indexArray andResultArray:(NSMutableArray *)results andOversize:(BOOL)oversize {
-    [_dataOperationQueue addOperationWithBlock:^{
-        NSHTTPURLResponse *response = nil;
-        NSError *connectionError = nil;
-        [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&connectionError];
-        
-        @synchronized (results) {
-            if (oversize) {
-                [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
-            } else if ([response statusCode] >= 200 && [response statusCode] < 300) {
-                [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
-            } else {
-                NSLog(@"SPLog: Error: %@", connectionError);
-                [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
+       [_dataOperationQueue addOperationWithBlock:^{
+            //source: https://forums.developer.apple.com/thread/11519
+            __block NSHTTPURLResponse *httpResponse = nil;
+            __block NSError *connectionError = nil;
+            dispatch_semaphore_t    sem;
+            
+            sem = dispatch_semaphore_create(0);
+            
+            [[[NSURLSession sharedSession] dataTaskWithRequest:request
+                                             completionHandler:^(NSData *data, NSURLResponse *urlResponse, NSError *error) {
+                
+                connectionError = error;
+                httpResponse = (NSHTTPURLResponse*)urlResponse;
+                dispatch_semaphore_signal(sem);
+            }] resume];
+            
+            dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
+                    
+            @synchronized (results) {
+                if (oversize) {
+                    [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
+                } else if ([httpResponse statusCode] >= 200 && [httpResponse statusCode] < 300) {
+                    [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
+                } else {
+                    NSLog(@"SPLog: Error: %@", connectionError);
+                    [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
+                }
             }
-        }
-    }];
+        }];
 }
 
 - (void) processSuccessesWithResults:(NSArray *)indexArray {

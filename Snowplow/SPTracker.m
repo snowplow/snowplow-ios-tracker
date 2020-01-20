@@ -126,6 +126,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (self) {
         _trackerNamespace = nil;
         _appId = nil;
+        _devicePlatform = [SPUtilities getPlatform];
         _base64Encoded = YES;
         _dataCollection = YES;
         _sessionContext = NO;
@@ -235,6 +236,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
 }
 
+- (void) setDevicePlatform:(SPDevicePlatform)devicePlatform {
+    _devicePlatform = devicePlatform;
+}
+
 - (void) setSessionContext:(BOOL)sessionContext {
     _sessionContext = sessionContext;
     if (_session != nil && !sessionContext) {
@@ -333,9 +338,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString * topViewControllerClassName = [[notification userInfo] objectForKey:@"topViewControllerClassName"];
     NSString * viewControllerClassName = [[notification userInfo] objectForKey:@"viewControllerClassName"];
     SPScreenState * newScreenState = [[SPScreenState alloc] initWithName:name type:type topViewControllerClassName:topViewControllerClassName viewControllerClassName:viewControllerClassName];
-    [self populatePreviousScreenState];
-    self.currentScreenState = newScreenState;
     if (_autotrackScreenViews) {
+        [self populatePreviousScreenState];
+        self.currentScreenState = newScreenState;
         SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
             if (self.previousScreenState) {
                 [builder setWithPreviousState:self.previousScreenState];
@@ -504,9 +509,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     // Add Subject information
     if (_subject != nil) {
         [pb addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
-    } else {
-        [pb addValueToPayload:[SPUtilities getPlatform] forKey:kSPPlatform];
     }
+    [pb addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
 
     // Add the contexts
     SPSelfDescribingJson * context = [self getFinalContextWithContexts:contextArray andEventId:eventId];

@@ -9,6 +9,16 @@
 /* Begin PBXBuildFile section */
 		75699CBB200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CBA200FB29C00FFC20D /* SnowplowSwiftDemoTests.swift */; };
 		75699CC6200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75699CC5200FB29C00FFC20D /* SnowplowSwiftDemoUITests.swift */; };
+		B3D9BDE0237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = B3D9BDDF237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B3D9BDE6237AC0E3009B310A /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D9BDE4237AC0E3009B310A /* Interface.storyboard */; };
+		B3D9BDE8237AC0E5009B310A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D9BDE7237AC0E5009B310A /* Assets.xcassets */; };
+		B3D9BDEF237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = B3D9BDEE237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B3D9BDF4237AC0E5009B310A /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9BDF3237AC0E5009B310A /* InterfaceController.swift */; };
+		B3D9BDF6237AC0E5009B310A /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3D9BDF5237AC0E5009B310A /* ExtensionDelegate.swift */; };
+		B3D9BDF8237AC0E6009B310A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3D9BDF7237AC0E6009B310A /* Assets.xcassets */; };
+		B3D9BE0A237AC537009B310A /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D9BE09237AC50F009B310A /* FMDB.framework */; };
+		B3D9BE0E237AC6D4009B310A /* SnowplowTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D9BE0D237AC6D4009B310A /* SnowplowTracker.framework */; };
+		B3D9BE10237ACF14009B310A /* DemoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED523716C9300E51827 /* DemoUtils.swift */; };
 		ED8A3EDD23716C9300E51827 /* SnowplowSwiftDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED223716C9300E51827 /* SnowplowSwiftDemo.xcdatamodeld */; };
 		ED8A3EDF23716C9300E51827 /* DemoUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED523716C9300E51827 /* DemoUtils.swift */; };
 		ED8A3EE023716C9300E51827 /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8A3ED623716C9300E51827 /* DemoViewController.swift */; };
@@ -36,7 +46,46 @@
 			remoteGlobalIDString = 75699C9E200FB29C00FFC20D;
 			remoteInfo = SnowplowSwiftDemo;
 		};
+		B3D9BDE1237AC0E3009B310A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75699C97200FB29C00FFC20D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3D9BDDE237AC0E3009B310A;
+			remoteInfo = "SnowplowSwiftDemoWatch WatchKit App";
+		};
+		B3D9BDF0237AC0E5009B310A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75699C97200FB29C00FFC20D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B3D9BDED237AC0E5009B310A;
+			remoteInfo = "SnowplowSwiftDemoWatch WatchKit Extension";
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B3D9BDFC237AC0E6009B310A /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				B3D9BDE0237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D9BDFF237AC0E6009B310A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B3D9BDEF237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		75699C9F200FB29C00FFC20D /* SnowplowSwiftDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnowplowSwiftDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,6 +99,18 @@
 		75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnowplowTracker.framework; path = Carthage/Build/iOS/SnowplowTracker.framework; sourceTree = "<group>"; };
 		75F9C5F521FC004100A5B8FC /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		75F9C5F621FC004100A5B8FC /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/iOS/FMDB.framework; sourceTree = "<group>"; };
+		B3D9BDDC237AC0E3009B310A /* SnowplowSwiftDemoWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnowplowSwiftDemoWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D9BDDF237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SnowplowSwiftDemoWatch WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D9BDE5237AC0E3009B310A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		B3D9BDE7237AC0E5009B310A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B3D9BDE9237AC0E5009B310A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3D9BDEE237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SnowplowSwiftDemoWatch WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3D9BDF3237AC0E5009B310A /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterfaceController.swift; path = ../../CommonSwiftCode/InterfaceController.swift; sourceTree = "<group>"; };
+		B3D9BDF5237AC0E5009B310A /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExtensionDelegate.swift; path = ../../CommonSwiftCode/ExtensionDelegate.swift; sourceTree = "<group>"; };
+		B3D9BDF7237AC0E6009B310A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B3D9BDF9237AC0E6009B310A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3D9BE09237AC50F009B310A /* FMDB.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FMDB.framework; path = Carthage/Build/watchOS/FMDB.framework; sourceTree = "<group>"; };
+		B3D9BE0D237AC6D4009B310A /* SnowplowTracker.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnowplowTracker.framework; path = Carthage/Build/watchOS/SnowplowTracker.framework; sourceTree = "<group>"; };
 		ED8A3ED323716C9300E51827 /* SnowplowSwiftDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnowplowSwiftDemo.xcdatamodel; sourceTree = "<group>"; };
 		ED8A3ED523716C9300E51827 /* DemoUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoUtils.swift; path = ../../CommonSwiftCode/DemoUtils.swift; sourceTree = "<group>"; };
 		ED8A3ED623716C9300E51827 /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoViewController.swift; path = ../../CommonSwiftCode/DemoViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +146,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B3D9BDEB237AC0E5009B310A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D9BE0E237AC6D4009B310A /* SnowplowTracker.framework in Frameworks */,
+				B3D9BE0A237AC537009B310A /* FMDB.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -94,6 +164,8 @@
 				75699CA1200FB29C00FFC20D /* SnowplowSwiftDemo */,
 				75699CB9200FB29C00FFC20D /* SnowplowSwiftDemoTests */,
 				75699CC4200FB29C00FFC20D /* SnowplowSwiftDemoUITests */,
+				B3D9BDE3237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App */,
+				B3D9BDF2237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension */,
 				75699CA0200FB29C00FFC20D /* Products */,
 				75F9C5F321FC004100A5B8FC /* Frameworks */,
 			);
@@ -105,6 +177,9 @@
 				75699C9F200FB29C00FFC20D /* SnowplowSwiftDemo.app */,
 				75699CB6200FB29C00FFC20D /* SnowplowSwiftDemoTests.xctest */,
 				75699CC1200FB29C00FFC20D /* SnowplowSwiftDemoUITests.xctest */,
+				B3D9BDDC237AC0E3009B310A /* SnowplowSwiftDemoWatch.app */,
+				B3D9BDDF237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App.app */,
+				B3D9BDEE237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -150,10 +225,33 @@
 			isa = PBXGroup;
 			children = (
 				75F9C5F621FC004100A5B8FC /* FMDB.framework */,
+				B3D9BE09237AC50F009B310A /* FMDB.framework */,
 				75F9C5F521FC004100A5B8FC /* Reachability.framework */,
+				B3D9BE0D237AC6D4009B310A /* SnowplowTracker.framework */,
 				75F9C5F421FC004100A5B8FC /* SnowplowTracker.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B3D9BDE3237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				B3D9BDE4237AC0E3009B310A /* Interface.storyboard */,
+				B3D9BDE7237AC0E5009B310A /* Assets.xcassets */,
+				B3D9BDE9237AC0E5009B310A /* Info.plist */,
+			);
+			path = "SnowplowSwiftDemoWatch WatchKit App";
+			sourceTree = "<group>";
+		};
+		B3D9BDF2237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				B3D9BDF3237AC0E5009B310A /* InterfaceController.swift */,
+				B3D9BDF5237AC0E5009B310A /* ExtensionDelegate.swift */,
+				B3D9BDF7237AC0E6009B310A /* Assets.xcassets */,
+				B3D9BDF9237AC0E6009B310A /* Info.plist */,
+			);
+			path = "SnowplowSwiftDemoWatch WatchKit Extension";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -166,7 +264,7 @@
 				75699C9B200FB29C00FFC20D /* Sources */,
 				75699C9C200FB29C00FFC20D /* Frameworks */,
 				75699C9D200FB29C00FFC20D /* Resources */,
-				75866F87222C86740039A3E1 /* ShellScript */,
+				75866F87222C86740039A3E1 /* Run Script - Copy Frameworks (Carthage) */,
 			);
 			buildRules = (
 			);
@@ -213,13 +311,65 @@
 			productReference = 75699CC1200FB29C00FFC20D /* SnowplowSwiftDemoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		B3D9BDDB237AC0E3009B310A /* SnowplowSwiftDemoWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3D9BE04237AC0E6009B310A /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoWatch" */;
+			buildPhases = (
+				B3D9BDDA237AC0E3009B310A /* Resources */,
+				B3D9BDFC237AC0E6009B310A /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3D9BDE2237AC0E3009B310A /* PBXTargetDependency */,
+			);
+			name = SnowplowSwiftDemoWatch;
+			productName = SnowplowSwiftDemoWatch;
+			productReference = B3D9BDDC237AC0E3009B310A /* SnowplowSwiftDemoWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2-container";
+		};
+		B3D9BDDE237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3D9BE03237AC0E6009B310A /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoWatch WatchKit App" */;
+			buildPhases = (
+				B3D9BDDD237AC0E3009B310A /* Resources */,
+				B3D9BDFF237AC0E6009B310A /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B3D9BDF1237AC0E5009B310A /* PBXTargetDependency */,
+			);
+			name = "SnowplowSwiftDemoWatch WatchKit App";
+			productName = "SnowplowSwiftDemoWatch WatchKit App";
+			productReference = B3D9BDDF237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		B3D9BDED237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B3D9BE02237AC0E6009B310A /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoWatch WatchKit Extension" */;
+			buildPhases = (
+				B3D9BDEA237AC0E5009B310A /* Sources */,
+				B3D9BDEB237AC0E5009B310A /* Frameworks */,
+				B3D9BDEC237AC0E5009B310A /* Resources */,
+				B3D9BE05237AC161009B310A /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SnowplowSwiftDemoWatch WatchKit Extension";
+			productName = "SnowplowSwiftDemoWatch WatchKit Extension";
+			productReference = B3D9BDEE237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		75699C97200FB29C00FFC20D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 1120;
 				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = snowplowanalytics;
 				TargetAttributes = {
@@ -239,6 +389,15 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 75699C9E200FB29C00FFC20D;
 					};
+					B3D9BDDB237AC0E3009B310A = {
+						CreatedOnToolsVersion = 11.2;
+					};
+					B3D9BDDE237AC0E3009B310A = {
+						CreatedOnToolsVersion = 11.2;
+					};
+					B3D9BDED237AC0E5009B310A = {
+						CreatedOnToolsVersion = 11.2;
+					};
 				};
 			};
 			buildConfigurationList = 75699C9A200FB29C00FFC20D /* Build configuration list for PBXProject "SnowplowSwiftDemo" */;
@@ -257,6 +416,9 @@
 				75699C9E200FB29C00FFC20D /* SnowplowSwiftDemo */,
 				75699CB5200FB29C00FFC20D /* SnowplowSwiftDemoTests */,
 				75699CC0200FB29C00FFC20D /* SnowplowSwiftDemoUITests */,
+				B3D9BDDB237AC0E3009B310A /* SnowplowSwiftDemoWatch */,
+				B3D9BDDE237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App */,
+				B3D9BDED237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -286,10 +448,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B3D9BDDA237AC0E3009B310A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D9BDDD237AC0E3009B310A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D9BDE8237AC0E5009B310A /* Assets.xcassets in Resources */,
+				B3D9BDE6237AC0E3009B310A /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B3D9BDEC237AC0E5009B310A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D9BDF8237AC0E6009B310A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		75866F87222C86740039A3E1 /* ShellScript */ = {
+		75866F87222C86740039A3E1 /* Run Script - Copy Frameworks (Carthage) */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -299,6 +485,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script - Copy Frameworks (Carthage)";
 			outputFileListPaths = (
 				"$(SRCROOT)/outputFile.xcfilelist",
 			);
@@ -307,6 +494,25 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+		B3D9BE05237AC161009B310A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/inputFile_watch.xcfilelist",
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+				"$(SRCROOT)/outputFile_watch.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -341,6 +547,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B3D9BDEA237AC0E5009B310A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B3D9BE10237ACF14009B310A /* DemoUtils.swift in Sources */,
+				B3D9BDF6237AC0E5009B310A /* ExtensionDelegate.swift in Sources */,
+				B3D9BDF4237AC0E5009B310A /* InterfaceController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -354,9 +570,27 @@
 			target = 75699C9E200FB29C00FFC20D /* SnowplowSwiftDemo */;
 			targetProxy = 75699CC2200FB29C00FFC20D /* PBXContainerItemProxy */;
 		};
+		B3D9BDE2237AC0E3009B310A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3D9BDDE237AC0E3009B310A /* SnowplowSwiftDemoWatch WatchKit App */;
+			targetProxy = B3D9BDE1237AC0E3009B310A /* PBXContainerItemProxy */;
+		};
+		B3D9BDF1237AC0E5009B310A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B3D9BDED237AC0E5009B310A /* SnowplowSwiftDemoWatch WatchKit Extension */;
+			targetProxy = B3D9BDF0237AC0E5009B310A /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		B3D9BDE4237AC0E3009B310A /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B3D9BDE5237AC0E3009B310A /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		ED8A3EE623716C9B00E51827 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -495,10 +729,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J4ZKH42DAT;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -516,11 +751,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = (
-					"Pods/**",
-					Development,
-					"Pods/**",
-				);
+				USER_HEADER_SEARCH_PATHS = Development;
 			};
 			name = Debug;
 		};
@@ -530,10 +761,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J4ZKH42DAT;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -552,11 +784,7 @@
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "-fobjc-arc-exceptions";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				USER_HEADER_SEARCH_PATHS = (
-					"Pods/**",
-					Development,
-					"Pods/**",
-				);
+				USER_HEADER_SEARCH_PATHS = Development;
 			};
 			name = Release;
 		};
@@ -638,6 +866,139 @@
 			};
 			name = Release;
 		};
+		B3D9BDFA237AC0E6009B310A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemoWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		B3D9BDFB237AC0E6009B310A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemoWatch;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		B3D9BDFD237AC0E6009B310A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				IBSC_MODULE = SnowplowSwiftDemoWatch_WatchKit_Extension;
+				INFOPLIST_FILE = "SnowplowSwiftDemoWatch WatchKit App/Info.plist";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Debug;
+		};
+		B3D9BDFE237AC0E6009B310A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				IBSC_MODULE = SnowplowSwiftDemoWatch_WatchKit_Extension;
+				INFOPLIST_FILE = "SnowplowSwiftDemoWatch WatchKit App/Info.plist";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemo.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Release;
+		};
+		B3D9BE00237AC0E6009B310A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = "SnowplowSwiftDemoWatch WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemo.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Debug;
+		};
+		B3D9BE01237AC0E6009B310A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/watchOS",
+				);
+				INFOPLIST_FILE = "SnowplowSwiftDemoWatch WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snowplowanalytics.SnowplowSwiftDemo.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 4.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -673,6 +1034,33 @@
 			buildConfigurations = (
 				75699CD1200FB29C00FFC20D /* Debug */,
 				75699CD2200FB29C00FFC20D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3D9BE02237AC0E6009B310A /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoWatch WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D9BE00237AC0E6009B310A /* Debug */,
+				B3D9BE01237AC0E6009B310A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3D9BE03237AC0E6009B310A /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoWatch WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D9BDFD237AC0E6009B310A /* Debug */,
+				B3D9BDFE237AC0E6009B310A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B3D9BE04237AC0E6009B310A /* Build configuration list for PBXNativeTarget "SnowplowSwiftDemoWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B3D9BDFA237AC0E6009B310A /* Debug */,
+				B3D9BDFB237AC0E6009B310A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

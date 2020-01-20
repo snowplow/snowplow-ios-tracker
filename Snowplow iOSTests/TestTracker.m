@@ -25,6 +25,7 @@
 #import "SPEmitter.h"
 #import "SPPayload.h"
 #import "SPSubject.h"
+#import "SPDevicePlatform.h"
 
 @interface TestTracker : XCTestCase
 
@@ -67,6 +68,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     XCTAssertEqual([tracker emitter], emitter);
     XCTAssertNotNil([tracker subject]);
     XCTAssertEqual([tracker subject], subject);
+    XCTAssertEqual([tracker devicePlatform], [SPUtilities getPlatform]);
     XCTAssertTrue([tracker getSessionIndex] >= 1);
     XCTAssertEqual([tracker appId], @"anAppId");
     XCTAssertEqual([tracker trackerNamespace], @"aNamespace");
@@ -89,6 +91,8 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     XCTAssertEqual([tracker trackerNamespace], @"newNamespace");
     [tracker setBase64Encoded:YES];
     XCTAssertEqual([tracker base64Encoded], YES);
+    [tracker setDevicePlatform:SPDevicePlatformGeneral];
+    XCTAssertEqual([tracker devicePlatform], SPDevicePlatformGeneral);
     
     SPSubject * subject2 = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     [tracker setSubject:subject2];
@@ -130,6 +134,45 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Emitter cannot be nil.", exception.reason);
     }
+}
+
+- (void)testTrackerPayload {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:TEST_SERVER_TRACKER];
+    }];
+    
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
+    
+    SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+        [builder setEmitter:emitter];
+        [builder setSubject:subject];
+        [builder setDevicePlatform: SPDevicePlatformGeneral];
+        [builder setAppId:@"anAppId"];
+        [builder setBase64Encoded:NO];
+        [builder setTrackerNamespace:@"aNamespace"];
+        [builder setSessionContext:YES];
+        [builder setForegroundTimeout:300];
+        [builder setBackgroundTimeout:150];
+        [builder setCheckInterval:10];
+    }];
+    
+    SPPayload *payload = [tracker getFinalPayloadWithPayload:[[SPPayload alloc] init] andContext:[NSMutableArray array] andEventId:@"anEventId"];
+    NSDictionary *payloadDict = [payload getAsDictionary];
+    XCTAssertEqual(payloadDict[kSPPlatform], SPDevicePlatformToString(SPDevicePlatformGeneral));
+    XCTAssertEqual(payloadDict[kSPAppId], @"anAppId");
+    XCTAssertEqual(payloadDict[kSPNamespace], @"aNamespace");
+
+    // Test setting variables to new values
+
+    [tracker setDevicePlatform:-13];
+    [tracker setAppId:@"newAppId"];
+    [tracker setTrackerNamespace:@"newNamespace"];
+
+    payload = [tracker getFinalPayloadWithPayload:[[SPPayload alloc] init] andContext:[NSMutableArray array] andEventId:@"anEventId"];
+    payloadDict = [payload getAsDictionary];
+    XCTAssertEqual(payloadDict[kSPPlatform], nil);
+    XCTAssertEqual(payloadDict[kSPAppId], @"newAppId");
+    XCTAssertEqual(payloadDict[kSPNamespace], @"newNamespace");
 }
 
 @end

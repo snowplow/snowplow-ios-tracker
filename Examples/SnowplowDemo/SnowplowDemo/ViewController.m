@@ -32,7 +32,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *            madeLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            dbCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            isRunningLabel;
-@property (nonatomic, weak) IBOutlet UILabel *            isOnlineLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            sentCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            sessionCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *            isBackgroundLabel;
@@ -105,7 +104,6 @@
     [_sessionCountLabel setText:[NSString stringWithFormat:@"Session Count: %lu", (unsigned long)[_tracker getSessionIndex]]];
     [_isRunningLabel setText:[NSString stringWithFormat:@"Running: %s", [_tracker.emitter getSendingStatus] ? "yes" : "no"]];
     [_isBackgroundLabel setText:[NSString stringWithFormat:@"Background: %s", [_tracker getInBackground] ? "yes" : "no"]];
-    [_isOnlineLabel setText:[NSString stringWithFormat:@"Online: %s", [SPUtilities isOnline] ? "yes" : "no"]];
     [_sentCountLabel setText:[NSString stringWithFormat:@"Sent: %lu", (unsigned long)_sentCounter]];
 }
 

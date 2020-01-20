@@ -1,3 +1,12 @@
+Version 1.2.0 (2020-01-20)
+--------------------------
+Ensure addDictionaryToPayload enumeration over immutable dictionary (#480) (Contribute of Matt Robinson)
+Stop updating screen context when auto-tracking is disabled (#431)
+Fix valueForKey error in auto-tracking for screenviews (#428)
+Add Watchkit support (#465) (Contribute of Leo Mehlig)
+Allow overwriting of the 'platform' parameter (#476)
+ReachabilitySwift conflicts with Reachability (#437)
+
 Version 1.1.5 (2019-11-25)
 --------------------------
 Fix travis script not able to test on iOS 13.2 (#472)

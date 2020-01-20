@@ -60,13 +60,9 @@
 
 - (void)testGetPlatform {
 #if TARGET_OS_IPHONE
-    XCTAssertEqualObjects([SPUtilities getPlatform],
-                          @"mob",
-                          @"How could this fail?");
+    XCTAssertEqual([SPUtilities getPlatform], SPDevicePlatformMobile);
 #else
-    XCTAssertEqualObjects([SPUtilities getPlatform],
-                          @"pc",
-                          @"How could this fail?");
+    XCTAssertEqual([SPUtilities getPlatform], SPDevicePlatformDesktop);
 #endif
 }
 
@@ -183,10 +179,6 @@
 
     id encodedValues = @{@"a" : @" ", @"c" : @"=" };
     XCTAssertEqualObjects([SPUtilities urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
-}
-
-- (void)testIsOnline {
-    XCTAssertEqual([SPUtilities isOnline], YES);
 }
 
 - (void)testCheckArgument {
