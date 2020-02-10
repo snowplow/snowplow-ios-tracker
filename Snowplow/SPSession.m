@@ -78,7 +78,7 @@ NSString * const kSessionSavePath = @"session.dict";
 
         NSDictionary * maybeSessionDict = [self getSessionFromFile];
         if (maybeSessionDict == nil) {
-            _userId = [SPUtilities getEventId];
+            _userId = [SPUtilities getUUIDString];
             _currentSessionId = nil;
         } else {
             _userId = [maybeSessionDict valueForKey:kSPSessionUserId];
@@ -244,7 +244,7 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) updateSession {
     _previousSessionId = _currentSessionId;
-    _currentSessionId = [SPUtilities getEventId];
+    _currentSessionId = [SPUtilities getUUIDString];
     _sessionIndex++;
     _firstEventId = nil;
 }

@@ -78,7 +78,8 @@
 
 - (BOOL) isValid {
     return ([SPUtilities validateString:self.name] != nil) &&
-    ([SPUtilities validateString:self.screenId] != nil);
+    ([SPUtilities validateString:self.screenId] != nil) &&
+    [SPUtilities isUUIDString:self.screenId];
 }
 
 - (SPPayload *) getValidPayload {

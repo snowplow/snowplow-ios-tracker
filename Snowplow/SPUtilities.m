@@ -73,8 +73,16 @@
 }
 
 + (NSString *) getEventId {
+    return [SPUtilities getUUIDString];
+}
+
++ (NSString *) getUUIDString {
     // Generates type 4 UUID
     return [[NSUUID UUID] UUIDString].lowercaseString;
+}
+
++ (bool ) isUUIDString:(nonnull NSString *)uuidString {
+    return [[NSUUID alloc] initWithUUIDString:uuidString] != nil;
 }
 
 + (NSString *) getOpenIdfa {

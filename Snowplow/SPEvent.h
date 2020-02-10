@@ -211,11 +211,9 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  */
 - (void) setTransitionType:(NSString *)type;
 
-- (BOOL) setWithPreviousState:(SPScreenState *)previousState;
+- (void) setViewControllerClassName:(NSString *)className;
 
-- (BOOL) setWithCurrentState:(SPScreenState *)currentState previousState:(SPScreenState *)previousState;
-
-- (BOOL) setWithCurrentState:(SPScreenState *)currentState;
+- (void) setTopViewControllerClassName:(NSString *)className;
 
 @end
 
@@ -777,11 +775,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload;
 - (SPScreenState *) getScreenState;
-- (BOOL) definesPreviousState;
-- (SPScreenState *) getPreviousState;
-- (BOOL) setWithPreviousState:(SPScreenState *)previousState;
-- (BOOL) setWithCurrentState:(SPScreenState *)currentState;
-- (BOOL) setWithCurrentState:(SPScreenState *)currentState previousState:(SPScreenState *)previousState;
+- (BOOL) updateWithPreviousState:(SPScreenState *)previousState;
 @end
 
 /*!

@@ -72,7 +72,7 @@
 }
 
 - (void)testGetEventId {
-    NSString *sample_uuid = [SPUtilities getEventId];
+    NSString *sample_uuid = [SPUtilities getUUIDString];
 
     // For regex pattern matching to verify if it's of UUID type 4
     NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}";

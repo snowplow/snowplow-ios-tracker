@@ -37,9 +37,9 @@
 /** Screenview transition type */
 @property (nonatomic, copy, readonly) NSString * transitionType;
 /** Top view controller class name */
-@property (nonatomic, copy, readonly) NSString * topViewControllerClassName;
+@property (nonatomic, copy, readwrite) NSString * topViewControllerClassName;
 /** View controller class name */
-@property (nonatomic, copy, readonly) NSString * viewControllerClassName;
+@property (nonatomic, copy, readwrite) NSString * viewControllerClassName;
 
 - (id) init;
 
