@@ -50,7 +50,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     if (self) {
         _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getEventId];
+        _eventId = [SPUtilities getUUIDString];
     }
     return self;
 }
@@ -274,6 +274,8 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     NSString * _previousId;
     NSString * _previousType;
     NSString * _transitionType;
+    NSString * _viewControllerClassName;
+    NSString * _topViewControllerClassName;
 }
 
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock {
@@ -293,6 +295,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 - (void) preconditions {
     [SPUtilities checkArgument:([_name length] != 0) withMessage:@"Name cannot be empty."];
+    [SPUtilities checkArgument:([SPUtilities isUUIDString:_id]) withMessage:@"ScreenID has to be a valid UUID string."];
     [self basePreconditions];
 }
 
@@ -326,36 +329,12 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     _transitionType = type;
 }
 
-- (BOOL) setWithPreviousState:(SPScreenState *)previousState {
-    if (![previousState isValid]) {
-        return NO;
-    }
-    _previousName = previousState.name;
-    _previousId = previousState.screenId;
-    _previousType = previousState.type;
-    return YES;
+- (void) setViewControllerClassName:(NSString *)className {
+    _viewControllerClassName = className;
 }
 
-- (BOOL) setWithCurrentState:(SPScreenState *)currentState {
-    if (![currentState isValid]) {
-        return NO;
-    }
-    _name = currentState.name;
-    _id = currentState.screenId;
-    _type = currentState.type;
-    _transitionType = currentState.transitionType;
-    return YES;
-}
-
-- (BOOL) setWithCurrentState:(SPScreenState *)currentState previousState:(SPScreenState *)previousState {
-    BOOL success = NO;
-    success = [self setWithCurrentState:currentState];
-    if (!success) {
-        return NO;
-    }
-
-    success = [self setWithPreviousState:previousState];
-    return success;
+- (void) setTopViewControllerClassName:(NSString *)className {
+    _topViewControllerClassName = className;
 }
 
 // --- Public Methods
@@ -373,24 +352,22 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 }
 
 - (SPScreenState *) getScreenState {
-    SPScreenState * state = [[SPScreenState alloc] initWithName:_name
-                                                           type:_type
-                                                       screenId:_id
-                                                 transitionType:_transitionType];
-    return state;
+    return [[SPScreenState alloc] initWithName:_name
+                                          type:_type
+                                      screenId:_id
+                                transitionType:_transitionType
+                    topViewControllerClassName:_topViewControllerClassName
+                       viewControllerClassName:_viewControllerClassName];
 }
 
-- (BOOL) definesPreviousState {
-    // returns if valid previous state data exists in event
-    return ([self getPreviousState] != nil);
-}
-
-- (SPScreenState *) getPreviousState {
-    // returns valid previous state data in event
-    SPScreenState * previousState = [[SPScreenState alloc] initWithName:_previousName
-                                                                   type:_previousType
-                                                               screenId:_previousId];
-    return previousState;
+- (BOOL) updateWithPreviousState:(SPScreenState *)previousState {
+    if (![previousState isValid]) {
+        return NO;
+    }
+    _previousName = previousState.name;
+    _previousId = previousState.screenId;
+    _previousType = previousState.type;
+    return YES;
 }
 
 @end

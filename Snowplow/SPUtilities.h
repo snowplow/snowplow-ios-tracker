@@ -62,10 +62,25 @@
 
 /*!
  @brief Returns a randomly generated UUID (type 4).
+ 
+ @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
+ @deprecated Use `getUUIDString` instead`.
+ */
++ (NSString *) getEventId __deprecated_msg("Use `getUUIDString` instead.");
+
+/*!
+ @brief Returns a randomly generated UUID (type 4).
 
  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */
-+ (NSString *) getEventId;
++ (NSString *) getUUIDString;
+
+/*!
+ @brief Check if the value is a valid UUID (type 4).
+ @param uuidString UUID string to validate.
+ @return Weither is a valid UUID string.
+ */
++ (bool ) isUUIDString:(NSString *)uuidString;
 
 /*!
  @brief Returns a generated string unique to each device, used only for serving advertisements. This is similar to the native advertisingIdentifier supplied by Apple. If you do not want to use OpenIDFA, add the compiler flag <code>SNOWPLOW_NO_OPENIDFA</code> to your build settings.
