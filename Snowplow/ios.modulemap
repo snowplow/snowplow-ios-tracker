@@ -6,7 +6,7 @@ framework module SnowplowTracker {
     header "SPPayload.h"
     header "SPUtilities.h"
     header "SPRequestCallback.h"
-    header "SPEvent.h"
+    header "SPEvents.h"
     header "SPSelfDescribingJson.h"
     header "SPDevicePlatform.h"
     export *

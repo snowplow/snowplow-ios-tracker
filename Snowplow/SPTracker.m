@@ -28,7 +28,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSession.h"
-#import "SPEvent.h"
+#import "SPEvents.h"
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
 
