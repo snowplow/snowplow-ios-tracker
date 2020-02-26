@@ -48,14 +48,15 @@
 }
 
 - (void)testValidScreenState {
-    SPScreenState * screenState = [[SPScreenState alloc] initWithName:@"some name" type:@"some type" screenId:@"some id"];
+    NSString *uuid = [NSUUID UUID].UUIDString;
+    SPScreenState * screenState = [[SPScreenState alloc] initWithName:@"some name" type:@"some type" screenId:uuid];
     
     // Test builder
     XCTAssertEqual([screenState isValid], YES);
     XCTAssertNotNil([screenState getValidPayload]);
     
     // ID and name required
-    screenState = [[SPScreenState alloc] initWithName:@"some name" screenId:@"some id"];
+    screenState = [[SPScreenState alloc] initWithName:@"some name" screenId:uuid];
     
     // Test builder setting properly
     XCTAssertEqual([screenState isValid], YES);
@@ -63,7 +64,7 @@
     SPPayload * payload = [screenState getValidPayload];
     NSDictionary * dictionary = [payload getAsDictionary];
     XCTAssertEqual([dictionary objectForKey:kSPScreenName], @"some name");
-    XCTAssertEqual([dictionary objectForKey:kSPScreenId], @"some id");
+    XCTAssertEqual([dictionary objectForKey:kSPScreenId], uuid);
 }
 
 @end

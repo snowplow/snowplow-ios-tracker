@@ -1,9 +1,9 @@
 PODS:
-  - FMDB (2.6.2):
-    - FMDB/standard (= 2.6.2)
-  - FMDB/standard (2.6.2)
-  - SnowplowTracker (1.2.0-M3):
-    - FMDB (~> 2.6.2)
+  - FMDB (2.7.5):
+    - FMDB/standard (= 2.7.5)
+  - FMDB/standard (2.7.5)
+  - SnowplowTracker (1.3.0-M1):
+    - FMDB (~> 2.6)
 
 DEPENDENCIES:
   - SnowplowTracker (from `../../`)
@@ -17,8 +17,8 @@ EXTERNAL SOURCES:
     :path: "../../"
 
 SPEC CHECKSUMS:
-  FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
-  SnowplowTracker: 2ea78776f9f624eccf5e026db87bd915785f894e
+  FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
+  SnowplowTracker: e719d04c92cc4b14b76a3cfd67e1599112e1dadb
 
 PODFILE CHECKSUM: f3a4104d16d359e8732a719d55eac06c4e95744e
 
