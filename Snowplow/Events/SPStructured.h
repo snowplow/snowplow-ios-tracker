@@ -35,14 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param label The label of the structured event.
  */
-- (void) setLabel:(NSString *)label;
+- (void) setLabel:(nullable NSString *)label;
 
 /*!
  @brief Set the property of the structured event.
 
  @param property The property of the structured event.
  */
-- (void) setProperty:(NSString *)property;
+- (void) setProperty:(nullable NSString *)property;
 
 /*!
  @brief Set the value of the structured event.

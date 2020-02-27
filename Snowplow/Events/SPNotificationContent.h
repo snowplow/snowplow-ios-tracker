@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param subtitle Subtitle displayed.
  */
-- (void) setSubtitle:(NSString *)subtitle;
+- (void) setSubtitle:(nullable NSString *)subtitle;
 
 /*!
  @brief Set the body.
@@ -49,28 +49,28 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param sound Name of the notification sound.
  */
-- (void) setSound:(NSString *)sound;
+- (void) setSound:(nullable NSString *)sound;
 
 /*!
  @brief Set the launchImageName.
 
  @param name The launchImageName member of a UNNotificationContent object.
  */
-- (void) setLaunchImageName:(NSString *)name;
+- (void) setLaunchImageName:(nullable NSString *)name;
 
 /*!
  @brief Set the UserInfo dictionary.
 
  @param userInfo The UserInfo dictionary of a UNNotificationContent.
  */
-- (void) setUserInfo:(NSDictionary *)userInfo;
+- (void) setUserInfo:(nullable NSDictionary *)userInfo;
 
 /*!
  @brief Set attachments.
 
  @param attachments Attachments displayed with notification.
  */
-- (void) setAttachments:(NSArray *)attachments;
+- (void) setAttachments:(nullable NSArray *)attachments;
 @end
 
 /*!

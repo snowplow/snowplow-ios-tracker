@@ -54,10 +54,10 @@ class DemoUtils {
     
     static func trackPageViewWithTracker(_ tracker: SPTracker) {
         let data: NSDictionary = [ "targetUrl": "http://a-target-url.com"]
-        let sdj = SPSelfDescribingJson(schema: "iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1", andData: data);
+        let sdj = SPSelfDescribingJson(schema: "iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1", andData: data)!
 
         var event = SPUnstructured.build({ (builder : SPUnstructuredBuilder?) -> Void in
-            builder!.setEventData(sdj!)
+            builder!.setEventData(sdj)
         })
         tracker.trackUnstructuredEvent(event)
         
@@ -113,7 +113,7 @@ class DemoUtils {
             builder!.setPrice(0.75)
             builder!.setQuantity(1)
             builder!.setCurrency("USD")
-        })! ]
+        }) ]
         
         var event = SPEcommerce.build({ (builder : SPEcommTransactionBuilder?) -> Void in
             builder!.setOrderId(transactionID)

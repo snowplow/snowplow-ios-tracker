@@ -10,8 +10,13 @@
 
 @implementation SPTrackerEvent
 
-- (instancetype)initWithEvent:(SPEvent *)event {
-//    self.payload = event get
+- (instancetype)initWithBuiltInEvent:(SPBuiltIn *)event {
+//    self.payload = event
+    return nil;
+}
+
+- (instancetype)initWithSelfDescribingEvent:(SPSelfDescribing *)event {
+//    self.payload = event
     return nil;
 }
 

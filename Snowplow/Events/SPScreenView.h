@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param type The type for the screen.
  */
-- (void) setType:(NSString *)type;
+- (void) setType:(nullable NSString *)type;
 
 /*!
  @brief Set the ID of the screen.
@@ -41,32 +41,32 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param name The name of the previous screen.
  */
-- (void) setPreviousScreenName:(NSString *)name;
+- (void) setPreviousScreenName:(nullable NSString *)name;
 
 /*!
  @brief Set the type of the previous screen.
 
  @param type The type of the previous screen.
  */
-- (void) setPreviousScreenType:(NSString *)type;
+- (void) setPreviousScreenType:(nullable NSString *)type;
 
 /*!
  @brief Set the ID of the previous screen.
 
  @param screenId The ID for the previous screen.
  */
-- (void) setPreviousScreenId:(NSString *)screenId;
+- (void) setPreviousScreenId:(nullable NSString *)screenId;
 
 /*!
  @brief Set the type of the screen transition.
 
  @param type The type of the screen transition.
  */
-- (void) setTransitionType:(NSString *)type;
+- (void) setTransitionType:(nullable NSString *)type;
 
-- (void) setViewControllerClassName:(NSString *)className;
+- (void) setViewControllerClassName:(nullable NSString *)className;
 
-- (void) setTopViewControllerClassName:(NSString *)className;
+- (void) setTopViewControllerClassName:(nullable NSString *)className;
 
 @end
 

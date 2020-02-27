@@ -14,7 +14,7 @@
 #import "SPConsentDocument.h"
 
 @implementation SPConsentWithdrawn {
-    BOOL * _all;
+    BOOL _all;
     NSString * _documentId;
     NSString * _version;
     NSString * _name;
@@ -56,7 +56,7 @@
     _description = description;
 }
 
-- (void) setAll:(BOOL *)all {
+- (void) setAll:(BOOL)all {
     _all = all;
 }
 

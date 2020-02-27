@@ -35,14 +35,14 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param name Name of the consent document.
  */
-- (void) setName:(NSString *)name;
+- (void) setName:(nullable NSString *)name;
 
 /*!
  @brief Set the description of the consent document.
 
  @param description The consent document description.
  */
-- (void) setDescription:(NSString *)description;
+- (void) setDescription:(nullable NSString *)description;
 @end
 
 /*!

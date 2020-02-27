@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param label Optional description of this timing.
  */
-- (void) setLabel:(NSString *)label;
+- (void) setLabel:(nullable NSString *)label;
 @end
 
 /*!

@@ -186,7 +186,7 @@
         [SPUtilities checkArgument:NO withMessage:@"This will throw an exception."];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"IllegalArgumentException", exception.name);
+        XCTAssertEqualObjects(NSInvalidArgumentException, exception.name);
         XCTAssertEqualObjects(@"This will throw an exception.", exception.reason);
     }
 }

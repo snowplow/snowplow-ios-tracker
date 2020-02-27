@@ -7,21 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class SPPayload;
-@class SPEvent;
+#import "SPEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPTrackerEvent : NSObject
 
-@property (nonatomic) SPPayload *payload;
+@property (nonatomic) NSDictionary *payload;
+@property (nonatomic) NSString *schema;
+@property (nonatomic) NSString *eventName;
 @property (nonatomic) NSUUID *eventId;
 @property (nonatomic) NSTimeInterval timestamp;
-//@property (nonatomic) NSArray<SPContext *> contexts;
+//@property (nonatomic) NSArray<SPContext *> *contexts;
 @property (nonatomic) BOOL isServiceEvent;
 
-- (instancetype)initWithEvent:(SPEvent *)event;
+- (instancetype)initWithSelfDescribingEvent:(SPSelfDescribing *)event;
+- (instancetype)initWithBuiltInEvent:(SPBuiltIn *)event;
 
 @end
 

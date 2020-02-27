@@ -28,14 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param pageTitle The title of the page.
  */
-- (void) setPageTitle:(NSString *)pageTitle;
+- (void) setPageTitle:(nullable NSString *)pageTitle;
 
 /*!
  @brief Set the referrer of the pageview.
 
  @param referrer The pageview referrer.
  */
-- (void) setReferrer:(NSString *)referrer;
+- (void) setReferrer:(nullable NSString *)referrer;
 @end
 
 /*!

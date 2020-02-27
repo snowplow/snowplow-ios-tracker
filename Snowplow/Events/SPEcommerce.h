@@ -35,7 +35,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param affiliation Transaction affiliation.
  */
-- (void) setAffiliation:(NSString *)affiliation;
+- (void) setAffiliation:(nullable NSString *)affiliation;
 
 /*!
  @brief Set the tax value.
@@ -56,28 +56,28 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param city Delivery address city.
  */
-- (void) setCity:(NSString *)city;
+- (void) setCity:(nullable NSString *)city;
 
 /*!
  @brief Set the state.
 
  @param state Delivery address state.
  */
-- (void) setState:(NSString *)state;
+- (void) setState:(nullable NSString *)state;
 
 /*!
  @brief Set the country.
 
  @param country Delivery address country.
  */
-- (void) setCountry:(NSString *)country;
+- (void) setCountry:(nullable NSString *)country;
 
 /*!
  @brief Set the currency.
 
  @param currency Transaction currency.
  */
-- (void) setCurrency:(NSString *)currency;
+- (void) setCurrency:(nullable NSString *)currency;
 
 /*!
  @brief Set the items.

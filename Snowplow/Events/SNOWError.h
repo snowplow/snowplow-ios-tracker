@@ -28,14 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param stackTrace The stack trace of the exception.
  */
-- (void) setStackTrace:(NSString *)stackTrace;
+- (void) setStackTrace:(nullable NSString *)stackTrace;
 
 /*!
  @brief Set the exception name.
  
  @param name The exception name.
  */
-- (void) setName:(NSString *)name;
+- (void) setName:(nullable NSString *)name;
 
 @end
 

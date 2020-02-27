@@ -49,21 +49,21 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param name Item name.
  */
-- (void) setName:(NSString *)name;
+- (void) setName:(nullable NSString *)name;
 
 /*!
  @brief Set the category.
 
  @param category Item category.
  */
-- (void) setCategory:(NSString *)category;
+- (void) setCategory:(nullable NSString *)category;
 
 /*!
  @brief Set the currency.
 
  @param currency Transaction currency.
  */
-- (void) setCurrency:(NSString *)currency;
+- (void) setCurrency:(nullable NSString *)currency;
 @end
 
 /*!

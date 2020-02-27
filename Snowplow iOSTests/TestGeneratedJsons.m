@@ -280,7 +280,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 - (void)testScreenViewEventJson {
     SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
-        [builder setScreenId:@"DemoScreenId"];
+        [builder setScreenId:[NSUUID UUID].UUIDString];
     }];
     NSDictionary * sdj = [[event getPayload] getAsDictionary];
     

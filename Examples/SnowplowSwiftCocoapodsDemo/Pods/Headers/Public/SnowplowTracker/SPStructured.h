@@ -1,0 +1,1 @@
+../../../../../../Snowplow/Events/SPStructured.h

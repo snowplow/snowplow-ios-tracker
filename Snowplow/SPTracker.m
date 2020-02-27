@@ -28,9 +28,23 @@
 #import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSession.h"
-#import "SPEvents.h"
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
+
+#import "SNOWError.h"
+#import "SPStructured.h"
+#import "SPUnstructured.h"
+#import "SPScreenView.h"
+#import "SPPageView.h"
+#import "SPTiming.h"
+#import "SPEcommerce.h"
+#import "SPEcommerceItem.h"
+#import "SPConsentWithdrawn.h"
+#import "SPConsentGranted.h"
+#import "SPConsentDocument.h"
+#import "SPForeground.h"
+#import "SPBackground.h"
+#import "SPPushNotification.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()

@@ -49,7 +49,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param all Whether all consent is to be withdrawn.
  */
-- (void) setAll:(BOOL *)all;
+- (void) setAll:(BOOL)all;
 
 /*!
  @brief Set additional documents associated to the consent withdrawn event.

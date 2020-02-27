@@ -86,17 +86,39 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @property (nonatomic, readwrite) NSNumber *timestamp __deprecated_msg("The timestamp can be set only by the tracker.");
 
 /*! The contexts attached to the event. */
-@property (nonatomic, readwrite, retain) NSMutableArray* contexts __deprecated_msg("The context list is managed internally only by the tracker.");
+@property (nonatomic, readwrite, retain) NSMutableArray *contexts __deprecated_msg("The context list is managed internally only by the tracker.");
 
 /*! The UUID that identifies the event. */
-@property (nonatomic, readwrite, retain) NSString * eventId __deprecated_msg("The eventId can be specified only by the tracker.");
+@property (nonatomic, readwrite, retain) NSString *eventId __deprecated_msg("The eventId can be specified only by the tracker.");
 
 /*! The payload of the event. */
-@property (nonatomic, readonly) SPPayload *payload;
+@property (nonatomic, readonly) NSDictionary *payload;
 
 - (void) basePreconditions;
 - (NSMutableArray *) getContexts __deprecated_msg("The contexts are not inspectable.");
-- (NSNumber *) getTimestamp;
-- (NSString *) getEventId;
+- (NSNumber *) getTimestamp __deprecated_msg("Timestamp not inspectable.");
+- (NSString *) getEventId __deprecated_msg("EventId not inspectable.");
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb __deprecated_msg("The payload can be updated only by the tracker.");
+@end
+
+/*!
+ @interface SPSelfDescribing
+ @brief The properties for all the self-describing events.
+ */
+@interface SPSelfDescribing : SPEvent
+
+/*! The schema of the event. */
+@property (nonatomic, readonly) NSString *schema;
+
+@end
+
+/*!
+ @interface SPBuiltIn
+ @brief The properties for all the self-describing events.
+ */
+@interface SPBuiltIn : SPEvent
+
+/*! The name of the event. */
+@property (nonatomic, readonly) NSString *name;
+
 @end

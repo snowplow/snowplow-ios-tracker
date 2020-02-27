@@ -35,28 +35,28 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param name The associated consent document name.
  */
-- (void) setName:(NSString *)name;
+- (void) setName:(nullable NSString *)name;
 
 /*!
  @brief Set the description of the associated consent document.
 
  @param description The associated consent document description.
  */
-- (void) setDescription:(NSString *)description;
+- (void) setDescription:(nullable NSString *)description;
 
 /*!
  @brief Set the expiry of the associated consent document.
 
  @param expiry The associated consent document expiry.
  */
-- (void) setExpiry:(NSString *)expiry;
+- (void) setExpiry:(nullable NSString *)expiry;
 
 /*!
  @brief Set additional associated consent documents.
 
  @param documents An array of associated consent documents.
  */
-- (void) setDocuments:(NSArray *)documents;
+- (void) setDocuments:(nullable NSArray *)documents;
 @end
 
 /*!

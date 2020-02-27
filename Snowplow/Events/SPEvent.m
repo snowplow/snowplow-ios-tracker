@@ -87,6 +87,12 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     return _eventId;
 }
 
+- (NSDictionary *) payload {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
+}
+
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb {
     [pb addValueToPayload:[NSString stringWithFormat:@"%lld", _timestamp.longLongValue] forKey:kSPTimestamp];
     [pb addValueToPayload:_eventId forKey:kSPEid];
@@ -96,6 +102,30 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 - (void) basePreconditions {
     [SPUtilities checkArgument:(_contexts != nil) withMessage:@"Contexts cannot be nil."];
     [SPUtilities checkArgument:([_eventId length] != 0) withMessage:@"EventID cannot be nil or empty."];
+}
+
+@end
+
+// SelfDescribing base class
+
+@implementation SPSelfDescribing
+
+- (NSString *)schema {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
+}
+
+@end
+
+// BuiltIn base class
+
+@implementation SPBuiltIn
+
+- (NSString *)name {
+    @throw [NSException exceptionWithName:NSInternalInconsistencyException
+                                   reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
+                                 userInfo:nil];
 }
 
 @end
