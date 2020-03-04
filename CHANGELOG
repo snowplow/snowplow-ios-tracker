@@ -1,3 +1,8 @@
+Version 1.2.2 (2020-03-04)
+--------------------------
+Fix failing test about ScreenContext (#486)
+FMDB versions conflicts with other dependency (#432)
+
 Version 1.2.1 (2020-02-12)
 --------------------------
 Fix screen context not correctly updated on screenView events (#483)
