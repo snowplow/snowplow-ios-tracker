@@ -17,6 +17,8 @@ protocol PageObserver: class {
 }
 
 class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
+    private let keyUriField = "URL-Endpoint";
+
     @IBOutlet weak var uriField: UITextField!
     @IBOutlet weak var trackingSwitch: UISegmentedControl!
     @IBOutlet weak var protocolSwitch: UISegmentedControl!
@@ -50,6 +52,7 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
         self.uriField.delegate = self
         self.trackingSwitch.addTarget(self, action: #selector(action), for: .valueChanged)
         // Do any additional setup after loading the view, typically from a nib.
+        uriField.text = UserDefaults.standard.string(forKey: keyUriField) ?? ""
     }
 
     override func didReceiveMemoryWarning() {
@@ -72,6 +75,7 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
     }
     
     @IBAction func trackEvents(_ sender: UIButton) {
+        UserDefaults.standard.set(uriField.text ?? "", forKey: keyUriField);
         DispatchQueue.global(qos: .default).async {
             let url = self.parentPageViewController.getCollectorUrl()
             if url == "" {
