@@ -70,9 +70,9 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPEcommerceItem
  @brief An ecommerce item event.
  */
-@interface SPEcommerceItem : SPEvent <SPEcommTransactionItemBuilder>
+@interface SPEcommerceItem : SPBuiltIn <SPEcommTransactionItemBuilder>
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock;
-- (SPPayload *) getPayload;
+- (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 @end
 
 NS_ASSUME_NONNULL_END

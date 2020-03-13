@@ -52,6 +52,19 @@
 
 // --- Public Methods
 
+- (NSString *)schema {
+    return kSPErrorSchema;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_message forKey:kSPErrorMessage];
+    [payload setValue:_stackTrace forKey:kSPErrorStackTrace];
+    [payload setValue:_name forKey:kSPErrorName];
+    [payload setValue:@"OBJECTIVEC" forKey:kSPErrorLanguage];
+    return payload;
+}
+
 - (SPSelfDescribingJson *) getPayload {
     SPPayload * event = [[SPPayload alloc] init];
     [event addValueToPayload:_message forKey:kSPErrorMessage];
@@ -61,5 +74,7 @@
     
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPErrorSchema andPayload:event];
 }
+
+@synthesize schema;
 
 @end

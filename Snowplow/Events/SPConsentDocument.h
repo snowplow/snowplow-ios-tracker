@@ -51,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SPConsentDocument : NSObject <SPConsentDocumentBuilder>
 + (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+- (SPSelfDescribingJson *) getPayload;
 @end
 
 NS_ASSUME_NONNULL_END

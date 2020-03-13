@@ -74,9 +74,9 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPScreenView
  @brief A screenview event.
  */
-@interface SPScreenView : SPEvent <SPScreenViewBuilder>
+@interface SPScreenView : SPSelfDescribing <SPScreenViewBuilder>
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload;
+- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 - (SPScreenState *) getScreenState;
 - (BOOL) updateWithPreviousState:(SPScreenState *)previousState;
 @end

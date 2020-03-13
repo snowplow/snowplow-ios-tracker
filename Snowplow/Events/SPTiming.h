@@ -51,9 +51,9 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPTiming
  @brief A timing event.
  */
-@interface SPTiming : SPEvent <SPTimingBuilder>
+@interface SPTiming : SPSelfDescribing <SPTimingBuilder>
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload;
+- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 @end
 
 NS_ASSUME_NONNULL_END

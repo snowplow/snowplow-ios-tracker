@@ -28,9 +28,9 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPForeground
  @brief A foreground transition event.
  */
-@interface SPForeground : SPEvent <SPForegroundBuilder>
+@interface SPForeground : SPSelfDescribing <SPForegroundBuilder>
 + (instancetype) build:(void(^)(id<SPForegroundBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload;
+- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 @end
 
 NS_ASSUME_NONNULL_END

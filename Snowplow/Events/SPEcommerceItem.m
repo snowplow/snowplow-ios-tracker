@@ -74,17 +74,33 @@
 
 // --- Public Methods
 
+- (NSString *)name {
+    return kSPEventEcommItem;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_itemId forKey:kSPEcommItemId];
+    [payload setValue:_sku forKey:kSPEcommItemSku];
+    [payload setValue:_name forKey:kSPEcommItemName];
+    [payload setValue:_category forKey:kSPEcommItemCategory];
+    [payload setValue:_currency forKey:kSPEcommItemCurrency];
+    if (_price) [payload setObject:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
+    if (_quantity) [payload setObject:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
+    return payload;
+}
+
 - (SPPayload *) getPayload {
-    SPPayload *pb = [[SPPayload alloc] init];
-    [pb addValueToPayload:kSPEventEcommItem forKey:kSPEvent];
-    [pb addValueToPayload:_itemId forKey:kSPEcommItemId];
-    [pb addValueToPayload:_sku forKey:kSPEcommItemSku];
-    [pb addValueToPayload:_name forKey:kSPEcommItemName];
-    [pb addValueToPayload:_category forKey:kSPEcommItemCategory];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
-    [pb addValueToPayload:_currency forKey:kSPEcommItemCurrency];
-    return [self addDefaultParamsToPayload:pb];
+    SPPayload *payload = [SPPayload new];
+    [payload addValueToPayload:kSPEventEcommItem forKey:kSPEvent];
+    [payload addValueToPayload:_itemId forKey:kSPEcommItemId];
+    [payload addValueToPayload:_sku forKey:kSPEcommItemSku];
+    [payload addValueToPayload:_name forKey:kSPEcommItemName];
+    [payload addValueToPayload:_category forKey:kSPEcommItemCategory];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
+    [payload addValueToPayload:_currency forKey:kSPEcommItemCurrency];
+    return [self addDefaultParamsToPayload:payload];
 }
 
 @end

@@ -77,12 +77,12 @@
 
 - (NSDictionary *)payload {
     return @{
-        _notification.payload: kSPPushNotification,
-        _trigger: kSPPushTrigger,
-        _action: kSPPushAction,
-        _date: kSPPushDeliveryDate,
-        _category: kSPPushCategoryId,
-        _thread: kSPPushThreadId,
+        kSPPushNotification: _notification.payload,
+        kSPPushTrigger: _trigger,
+        kSPPushAction: _action,
+        kSPPushDeliveryDate: _date,
+        kSPPushCategoryId: _category,
+        kSPPushThreadId: _thread,
     };
 }
 

@@ -18,11 +18,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *eventName;
 @property (nonatomic) NSUUID *eventId;
 @property (nonatomic) NSTimeInterval timestamp;
-//@property (nonatomic) NSArray<SPContext *> *contexts;
-@property (nonatomic) BOOL isServiceEvent;
+@property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
-- (instancetype)initWithSelfDescribingEvent:(SPSelfDescribing *)event;
-- (instancetype)initWithBuiltInEvent:(SPBuiltIn *)event;
+@property (nonatomic) BOOL isBuiltIn;
+
++ (instancetype) new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
+
++ (instancetype)trackerEventWithSelfDescribing:(SPSelfDescribing *)event;
++ (instancetype)trackerEventWithBuiltIn:(SPBuiltIn *)event;
 
 @end
 

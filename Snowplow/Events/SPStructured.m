@@ -62,15 +62,30 @@
 
 // --- Public Methods
 
+- (NSString *)name {
+    return kSPEventStructured;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_category forKey:kSPStuctCategory];
+    [payload setValue:_action forKey:kSPStuctAction];
+    [payload setValue:_label forKey:kSPStuctLabel];
+    [payload setValue:_property forKey:kSPStuctProperty];
+    if (_value) [payload setObject:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
+    return payload;
+}
+
 - (SPPayload *) getPayload {
-    SPPayload *pb = [[SPPayload alloc] init];
-    [pb addValueToPayload:kSPEventStructured forKey:kSPEvent];
-    [pb addValueToPayload:_category forKey:kSPStuctCategory];
-    [pb addValueToPayload:_action forKey:kSPStuctAction];
-    [pb addValueToPayload:_label forKey:kSPStuctLabel];
-    [pb addValueToPayload:_property forKey:kSPStuctProperty];
-    [pb addValueToPayload:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
-    return [self addDefaultParamsToPayload:pb];
+    SPPayload *payload = [SPPayload new];
+    [payload addValueToPayload:kSPEventStructured forKey:kSPEvent];
+    [payload addValueToPayload:_category forKey:kSPStuctCategory];
+    [payload addValueToPayload:_action forKey:kSPStuctAction];
+    [payload addValueToPayload:_label forKey:kSPStuctLabel];
+    [payload addValueToPayload:_property forKey:kSPStuctProperty];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
+    [self addDefaultParamsToPayload:payload];
+    return payload;
 }
 
 @end

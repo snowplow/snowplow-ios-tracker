@@ -87,6 +87,21 @@
 
 // --- Public Methods
 
+- (NSString *)schema {
+    return kSPScreenViewSchema;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_name forKey:kSPSvName];
+    [payload setValue:_id forKey:kSPSvScreenId];
+    [payload setValue:_type forKey:kSPSvType];
+    [payload setValue:_previousName forKey:kSPSvPreviousName];
+    [payload setValue:_previousType forKey:kSPSvPreviousType];
+    [payload setValue:_previousId forKey:kSPSvPreviousScreenId];
+    return payload;
+}
+
 - (SPSelfDescribingJson *) getPayload {
     SPPayload * payload = [[SPPayload alloc] init];
     [payload addValueToPayload:_name forKey:kSPSvName];
@@ -96,7 +111,7 @@
     [payload addValueToPayload:_previousType forKey:kSPSvPreviousType];
     [payload addValueToPayload:_previousId forKey:kSPSvPreviousScreenId];
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenViewSchema
-                                                andPayload:payload];
+                                             andPayload:payload];
 }
 
 - (SPScreenState *) getScreenState {

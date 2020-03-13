@@ -58,6 +58,19 @@
 
 // --- Public Methods
 
+- (NSString *)schema {
+    return kSPUserTimingsSchema;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_category forKey:kSPUtCategory];
+    [payload setValue:_variable forKey:kSPUtVariable];
+    [payload setValue:_timing forKey:kSPUtTiming];
+    [payload setValue:_label forKey:kSPUtLabel];
+    return payload;
+}
+
 - (SPSelfDescribingJson *) getPayload {
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
     [event setObject:_category forKey:kSPUtCategory];

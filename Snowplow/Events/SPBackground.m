@@ -41,6 +41,17 @@
 
 // --- Public Methods
 
+- (NSString *)schema {
+    return kSPBackgroundSchema;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_index forKey:kSPBackgroundIndex];
+    return payload;
+
+}
+
 - (SPSelfDescribingJson *) getPayload {
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
 

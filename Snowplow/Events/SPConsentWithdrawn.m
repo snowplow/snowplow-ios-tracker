@@ -73,7 +73,7 @@
 
 - (NSDictionary *)payload {
     return @{
-        (_all ? @YES: @NO): KSPCwAll,
+        KSPCwAll: (_all ? @YES: @NO),
     };
 }
 

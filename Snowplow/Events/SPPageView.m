@@ -51,13 +51,25 @@
 
 // --- Public Methods
 
+- (NSString *)name {
+    return kSPEventPageView;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_pageUrl forKey:kSPPageUrl];
+    [payload setValue:_pageTitle forKey:kSPPageTitle];
+    [payload setValue:_referrer forKey:kSPPageRefr];
+    return payload;
+}
+
 - (SPPayload *) getPayload {
-    SPPayload *pb = [[SPPayload alloc] init];
-    [pb addValueToPayload:kSPEventPageView forKey:kSPEvent];
-    [pb addValueToPayload:_pageUrl forKey:kSPPageUrl];
-    [pb addValueToPayload:_pageTitle forKey:kSPPageTitle];
-    [pb addValueToPayload:_referrer forKey:kSPPageRefr];
-    return [self addDefaultParamsToPayload:pb];
+    SPPayload *payload = [SPPayload new];
+    [payload addValueToPayload:kSPEventPageView forKey:kSPEvent];
+    [payload addValueToPayload:_pageUrl forKey:kSPPageUrl];
+    [payload addValueToPayload:_pageTitle forKey:kSPPageTitle];
+    [payload addValueToPayload:_referrer forKey:kSPPageRefr];
+    return [self addDefaultParamsToPayload:payload];
 }
 
 @end

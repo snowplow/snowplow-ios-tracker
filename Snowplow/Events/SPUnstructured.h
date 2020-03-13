@@ -27,9 +27,9 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPUnstructured
  @brief An unstructured event.
  */
-@interface SPUnstructured : SPEvent <SPUnstructuredBuilder>
+@interface SPUnstructured : SPSelfDescribing <SPUnstructuredBuilder>
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock;
-- (SPPayload *) getPayloadWithEncoding:(BOOL)encoding;
+- (SPPayload *) getPayloadWithEncoding:(BOOL)encoding  __deprecated_msg("getPayloadWithEncoding is deprecated. Use `payload` instead.");
 @end
 
 NS_ASSUME_NONNULL_END

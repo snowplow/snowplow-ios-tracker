@@ -74,11 +74,9 @@
 }
 
 - (NSDictionary *)payload {
-    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-    if ([_expiry length] != 0) {
-        [data setObject:_expiry forKey:KSPCgExpiry];
-    }
-    return data;
+    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
+    [payload setValue:_expiry forKey:KSPCgExpiry];
+    return payload;
 }
 
 - (SPSelfDescribingJson *) getPayload{

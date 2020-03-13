@@ -56,9 +56,9 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPStructured
  @brief A structured event.
  */
-@interface SPStructured : SPEvent <SPStructuredBuilder>
+@interface SPStructured : SPBuiltIn <SPStructuredBuilder>
 + (instancetype) build:(void(^)(id<SPStructuredBuilder>builder))buildBlock;
-- (SPPayload *) getPayload;
+- (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 @end
 
 NS_ASSUME_NONNULL_END
