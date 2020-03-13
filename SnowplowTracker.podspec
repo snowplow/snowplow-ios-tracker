@@ -52,7 +52,6 @@ Pod::Spec.new do |s|
     'Snowplow/Events/SPTiming.h',
     'Snowplow/Events/SPEcommerce.h',
     'Snowplow/Events/SPEcommerceItem.h',
-    'Snowplow/Events/SPNotificationContent.h',
     'Snowplow/Events/SPPushNotification.h',
     'Snowplow/Events/SPForeground.h',
     'Snowplow/Events/SPBackground.h',

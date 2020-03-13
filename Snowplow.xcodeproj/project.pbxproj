@@ -262,14 +262,6 @@
 		ED843F3F23F717F900DB74B5 /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */; };
 		ED843F4023F717F900DB74B5 /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */; };
 		ED843F4123F717F900DB74B5 /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */; };
-		ED843F4423F718DB00DB74B5 /* SPNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4223F718DB00DB74B5 /* SPNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F4523F718DB00DB74B5 /* SPNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4223F718DB00DB74B5 /* SPNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F4623F718DB00DB74B5 /* SPNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4223F718DB00DB74B5 /* SPNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F4723F718DB00DB74B5 /* SPNotificationContent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4223F718DB00DB74B5 /* SPNotificationContent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F4823F718DB00DB74B5 /* SPNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4323F718DB00DB74B5 /* SPNotificationContent.m */; };
-		ED843F4923F718DB00DB74B5 /* SPNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4323F718DB00DB74B5 /* SPNotificationContent.m */; };
-		ED843F4A23F718DB00DB74B5 /* SPNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4323F718DB00DB74B5 /* SPNotificationContent.m */; };
-		ED843F4B23F718DB00DB74B5 /* SPNotificationContent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4323F718DB00DB74B5 /* SPNotificationContent.m */; };
 		ED843F4E23F7195D00DB74B5 /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED843F4F23F7195D00DB74B5 /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED843F5023F7195D00DB74B5 /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -474,8 +466,6 @@
 		ED843F2F23F7173000DB74B5 /* SPEcommerce.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEcommerce.m; sourceTree = "<group>"; };
 		ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEcommerceItem.h; sourceTree = "<group>"; };
 		ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEcommerceItem.m; sourceTree = "<group>"; };
-		ED843F4223F718DB00DB74B5 /* SPNotificationContent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNotificationContent.h; sourceTree = "<group>"; };
-		ED843F4323F718DB00DB74B5 /* SPNotificationContent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPNotificationContent.m; sourceTree = "<group>"; };
 		ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPushNotification.h; sourceTree = "<group>"; };
 		ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPushNotification.m; sourceTree = "<group>"; };
 		ED843F5623F719FF00DB74B5 /* SPForeground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPForeground.h; sourceTree = "<group>"; };
@@ -730,8 +720,6 @@
 				ED843F2F23F7173000DB74B5 /* SPEcommerce.m */,
 				ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */,
 				ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */,
-				ED843F4223F718DB00DB74B5 /* SPNotificationContent.h */,
-				ED843F4323F718DB00DB74B5 /* SPNotificationContent.m */,
 				ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */,
 				ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */,
 				ED843F5623F719FF00DB74B5 /* SPForeground.h */,
@@ -762,7 +750,6 @@
 				752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */,
 				752DAC3521CC43C70065F874 /* SPSubject.h in Headers */,
 				752DAC3721CC43C70065F874 /* SPPayload.h in Headers */,
-				ED843F4423F718DB00DB74B5 /* SPNotificationContent.h in Headers */,
 				752DAC3A21CC43C70065F874 /* SPUtilities.h in Headers */,
 				ED843F5823F719FF00DB74B5 /* SPForeground.h in Headers */,
 				ED843F3A23F717F900DB74B5 /* SPEcommerceItem.h in Headers */,
@@ -815,7 +802,6 @@
 				ED843F1323F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
 				ED843EEB23F7001D00DB74B5 /* SPStructured.h in Headers */,
 				75CAC46121F2A21B00271FB3 /* SPUtilities.h in Headers */,
-				ED843F4523F718DB00DB74B5 /* SPNotificationContent.h in Headers */,
 				75CAC46421F2A21B00271FB3 /* SPEvent.h in Headers */,
 				ED843F6323F71A6300DB74B5 /* SPBackground.h in Headers */,
 				75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */,
@@ -856,7 +842,6 @@
 				ED843F1423F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
 				ED843EEC23F7001D00DB74B5 /* SPStructured.h in Headers */,
 				ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
-				ED843F4623F718DB00DB74B5 /* SPNotificationContent.h in Headers */,
 				75CAC43821F2A0CC00271FB3 /* Snowplow-Bridging-Header.h in Headers */,
 				ED843F6423F71A6300DB74B5 /* SPBackground.h in Headers */,
 				75CAC42F21F2A0CC00271FB3 /* SPSession.h in Headers */,
@@ -887,7 +872,6 @@
 				75F9C5E721FA35BC00A5B8FC /* SPTracker.h in Headers */,
 				75F9C5E821FA35BC00A5B8FC /* SPEmitter.h in Headers */,
 				75F9C5E921FA35BC00A5B8FC /* SPSubject.h in Headers */,
-				ED843F4723F718DB00DB74B5 /* SPNotificationContent.h in Headers */,
 				75F9C5EB21FA35BC00A5B8FC /* SPPayload.h in Headers */,
 				ED843F5B23F719FF00DB74B5 /* SPForeground.h in Headers */,
 				ED843F3D23F717F900DB74B5 /* SPEcommerceItem.h in Headers */,
@@ -1137,7 +1121,6 @@
 				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
 				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
-				ED843F4823F718DB00DB74B5 /* SPNotificationContent.m in Sources */,
 				ED843F3423F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
 				ED843F7023F71B1900DB74B5 /* SNOWError.m in Sources */,
@@ -1183,7 +1166,6 @@
 				ED843F1723F70C9D00DB74B5 /* SPConsentDocument.m in Sources */,
 				754774BD2225FBA60043B814 /* SPScreenState.m in Sources */,
 				75CAC43B21F2A17500271FB3 /* SPTracker.m in Sources */,
-				ED843F4923F718DB00DB74B5 /* SPNotificationContent.m in Sources */,
 				75CAC43C21F2A17500271FB3 /* SPEmitter.m in Sources */,
 				75CAC43D21F2A17500271FB3 /* SPSubject.m in Sources */,
 				ED843ED523F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
@@ -1222,7 +1204,6 @@
 				ED843F1823F70C9D00DB74B5 /* SPConsentDocument.m in Sources */,
 				754774BE2225FBA60043B814 /* SPScreenState.m in Sources */,
 				75CAC44921F2A19500271FB3 /* SPTracker.m in Sources */,
-				ED843F4A23F718DB00DB74B5 /* SPNotificationContent.m in Sources */,
 				ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */,
 				75CAC44A21F2A19500271FB3 /* SPEmitter.m in Sources */,
 				ED843ED623F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
@@ -1285,7 +1266,6 @@
 				75F9C5DA21FA357100A5B8FC /* SPSession.m in Sources */,
 				75F9C5DB21FA357100A5B8FC /* SPPayload.m in Sources */,
 				75F9C5DC21FA357100A5B8FC /* SPSelfDescribingJson.m in Sources */,
-				ED843F4B23F718DB00DB74B5 /* SPNotificationContent.m in Sources */,
 				ED843F3723F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				75F9C5DD21FA357100A5B8FC /* SPEventStore.m in Sources */,
 				ED843F7323F71B1900DB74B5 /* SNOWError.m in Sources */,

@@ -60,12 +60,89 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 /*!
+ @protocol SPNotificationContentBuilder
+ @brief The protocol for building notification content.
+ */
+@protocol SPNotificationContentBuilder
+
+/*!
+ @brief Set the title.
+
+ @param title Title displayed in notification.
+ */
+- (void) setTitle:(NSString *)title;
+
+/*!
+ @brief Set the subtitle.
+
+ @param subtitle Subtitle displayed.
+ */
+- (void) setSubtitle:(nullable NSString *)subtitle;
+
+/*!
+ @brief Set the body.
+
+ @param body Body message.
+ */
+- (void) setBody:(NSString *)body;
+
+/*!
+ @brief Set the badge.
+
+ @param badge Badge count of the app.
+ */
+- (void) setBadge:(NSNumber *)badge;
+
+/*!
+ @brief Set the sound.
+
+ @param sound Name of the notification sound.
+ */
+- (void) setSound:(nullable NSString *)sound;
+
+/*!
+ @brief Set the launchImageName.
+
+ @param name The launchImageName member of a UNNotificationContent object.
+ */
+- (void) setLaunchImageName:(nullable NSString *)name;
+
+/*!
+ @brief Set the UserInfo dictionary.
+
+ @param userInfo The UserInfo dictionary of a UNNotificationContent.
+ */
+- (void) setUserInfo:(nullable NSDictionary *)userInfo;
+
+/*!
+ @brief Set attachments.
+
+ @param attachments Attachments displayed with notification.
+ */
+- (void) setAttachments:(nullable NSArray *)attachments;
+@end
+
+/*!
  @class SPPushNotification
  @brief A push notification event.
  */
-@interface SPPushNotification : SPEvent <SPPushNotificationBuilder>
+@interface SPPushNotification : SPSelfDescribing <SPPushNotificationBuilder>
 + (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload;
+- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+@end
+
+/*!
+ @class SPNotificationContent
+ @brief A notification content event.
+
+ This object is used to store information that supplements a push notification event.
+ */
+@interface SPNotificationContent : NSObject <SPNotificationContentBuilder>
+
+@property (nonatomic) NSDictionary *payload;
+
++ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock;
+- (NSDictionary *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 @end
 
 NS_ASSUME_NONNULL_END

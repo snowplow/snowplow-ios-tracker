@@ -20,7 +20,6 @@ framework module SnowplowTracker {
     header "SPTiming.h"
     header "SPEcommerce.h"
     header "SPEcommerceItem.h"
-    header "SPNotificationContent.h"
     header "SPPushNotification.h"
     header "SPForeground.h"
     header "SPBackground.h"
