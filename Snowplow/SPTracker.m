@@ -41,7 +41,6 @@
 #import "SPEcommerceItem.h"
 #import "SPConsentWithdrawn.h"
 #import "SPConsentGranted.h"
-#import "SPConsentDocument.h"
 #import "SPForeground.h"
 #import "SPBackground.h"
 #import "SPPushNotification.h"
@@ -434,7 +433,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event {
-    NSArray * documents = [event getDocuments];
+    NSArray<SPSelfDescribingJson *> * documents = [event getDocuments];
     NSMutableArray * contexts = [event getContexts];
     [contexts addObjectsFromArray:documents];
 
@@ -448,7 +447,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void) trackConsentGrantedEvent:(SPConsentGranted *)event {
-    NSArray * documents = [event getDocuments];
+    NSArray<SPSelfDescribingJson *> * documents = [event getDocuments];
     NSMutableArray * contexts = [event getContexts];
     [contexts addObjectsFromArray:documents];
     SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {

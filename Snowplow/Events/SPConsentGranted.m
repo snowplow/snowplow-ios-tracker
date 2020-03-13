@@ -20,7 +20,7 @@
     NSString * _name;
     NSString * _description;
     NSString * _expiry;
-    NSArray * _documents;
+    NSArray<SPSelfDescribingJson *> * _documents;
 }
 
 + (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock {
@@ -63,15 +63,23 @@
     _expiry = expiry;
 }
 
-- (void) setDocuments:(NSArray *)documents {
-    for (NSObject * sdj in documents) {
-        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
-                       withMessage:@"All documents must be SelfDescribingJson objects."];
-    }
+- (void) setDocuments:(NSArray<SPSelfDescribingJson *> *)documents {
     _documents = documents;
 }
 
 // --- Public Methods
+
+- (NSString *)schema {
+    return kSPConsentGrantedSchema;
+}
+
+- (NSDictionary *)payload {
+    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    if ([_expiry length] != 0) {
+        [data setObject:_expiry forKey:KSPCgExpiry];
+    }
+    return data;
+}
 
 - (SPSelfDescribingJson *) getPayload{
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
@@ -82,11 +90,11 @@
                                                 andData:event];
 }
 
-- (NSArray *) getDocuments {
+- (NSArray<SPSelfDescribingJson *> *) getDocuments {
     __weak __typeof__(self) weakSelf = self;
     
     // returns the result of appending document passed through {docId, version, name, description} to the documents data member
-    NSMutableArray * documents = [[NSMutableArray alloc] init];
+    NSMutableArray<SPSelfDescribingJson *> * documents = [NSMutableArray<SPSelfDescribingJson *> new];
     if (self == nil) {
         return documents;
     }

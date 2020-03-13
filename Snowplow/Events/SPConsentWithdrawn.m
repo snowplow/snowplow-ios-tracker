@@ -19,7 +19,7 @@
     NSString * _version;
     NSString * _name;
     NSString * _description;
-    NSArray * _documents;
+    NSArray<SPSelfDescribingJson *> * _documents;
 }
 
 + (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock {
@@ -61,15 +61,21 @@
 }
 
 // documents should be an array of consent SDJs
-- (void) setDocuments:(NSArray *)documents {
-    for (NSObject * sdj in documents) {
-        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
-                       withMessage:@"All documents must be SelfDescribingJson objects."];
-    }
+- (void) setDocuments:(NSArray<SPSelfDescribingJson *> *)documents {
     _documents = documents;
 }
 
 // --- Public Methods
+
+- (NSString *)schema {
+    return kSPConsentWithdrawnSchema;
+}
+
+- (NSDictionary *)payload {
+    return @{
+        (_all ? @YES: @NO): KSPCwAll,
+    };
+}
 
 - (SPSelfDescribingJson *) getPayload{
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
@@ -80,11 +86,11 @@
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentWithdrawnSchema andData:event];
 }
 
-- (NSArray *) getDocuments {
+- (NSArray<SPSelfDescribingJson *> *)getDocuments {
     __weak __typeof__(self) weakSelf = self;
     
     // returns the result of appending document passed through {docId, version, name, description} builder arguments to _documents
-    NSMutableArray * documents = [[NSMutableArray alloc] init];
+    NSMutableArray<SPSelfDescribingJson *> * documents = [NSMutableArray<SPSelfDescribingJson *> new];
     SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) return;

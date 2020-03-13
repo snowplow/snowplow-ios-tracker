@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentDocumentBuilder
  @brief The protocol for building consent documents.
  */
-@protocol SPConsentDocumentBuilder <SPEventBuilder>
+@protocol SPConsentDocumentBuilder
 
 /*!
  @brief Set the ID associated with a document that defines consent.
@@ -49,9 +49,9 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPConsentDocument
  @brief A consent document event.
  */
-@interface SPConsentDocument : SPEvent <SPConsentDocumentBuilder>
+@interface SPConsentDocument : NSObject <SPConsentDocumentBuilder>
 + (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload;
+- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 @end
 
 NS_ASSUME_NONNULL_END

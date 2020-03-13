@@ -56,17 +56,17 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param documents An array of associated consent documents.
  */
-- (void) setDocuments:(nullable NSArray *)documents;
+- (void) setDocuments:(nullable NSArray<SPSelfDescribingJson *> *)documents;
 @end
 
 /*!
  @class SPConsentGranted
  @brief A consent granted event.
  */
-@interface SPConsentGranted : SPEvent <SPConsentGrantedBuilder>
+@interface SPConsentGranted : SPSelfDescribing <SPConsentGrantedBuilder>
 + (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload;
-- (NSArray *) getDocuments;
+- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+- (NSArray<SPSelfDescribingJson *> *) getDocuments;
 @end
 
 NS_ASSUME_NONNULL_END
