@@ -29,6 +29,8 @@
 #import <Foundation/Foundation.h>
 #import "SPDevicePlatform.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 void uncaughtExceptionHandler(NSException *exception);
 
 @class SPEmitter;
@@ -263,7 +265,7 @@ void uncaughtExceptionHandler(NSException *exception);
  @param eventId The event's eventId which will be used to generate the session JSON.
  @return The final complete payload ready for sending.
  */
-- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId;
+- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId __deprecated_msg("getFinalPayloadWithPayload:andContext:andEventId: is deprecated and it will be removed in the next release.");
 
 /*!
  @brief Tracks a page view event.
@@ -359,3 +361,5 @@ void uncaughtExceptionHandler(NSException *exception);
 - (void) trackErrorEvent:(SNOWError *)event;
 
 @end
+
+NS_ASSUME_NONNULL_END
