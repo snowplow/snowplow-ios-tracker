@@ -29,8 +29,6 @@
 #import <Foundation/Foundation.h>
 #import "SPDevicePlatform.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 void uncaughtExceptionHandler(NSException *exception);
 
 @class SPEmitter;
@@ -361,5 +359,3 @@ void uncaughtExceptionHandler(NSException *exception);
 - (void) trackErrorEvent:(SNOWError *)event;
 
 @end
-
-NS_ASSUME_NONNULL_END

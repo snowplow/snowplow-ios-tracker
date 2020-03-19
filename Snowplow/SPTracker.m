@@ -507,7 +507,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)addSelfDescribingPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
-    [payload addValueToPayload:kSPUnstructured forKey:kSPEvent];
+    [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
     SPSelfDescribingJson *data = [[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload];
     NSDictionary *unstructuredEventPayload = @{
         kSPSchema: kSPUnstructSchema,
