@@ -92,7 +92,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @property (nonatomic, readwrite, retain) NSString *eventId __deprecated_msg("The eventId can be specified only by the tracker.");
 
 /*! The payload of the event. */
-@property (nonatomic, readonly) NSDictionary *payload;
+@property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
 - (void) basePreconditions;
 - (NSMutableArray *) getContexts __deprecated_msg("The contexts are not inspectable.");

@@ -92,7 +92,7 @@
     return kSPEventEcomm;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     if (_totalValue) [payload setObject:[NSString stringWithFormat:@"%.02f", [_totalValue doubleValue]] forKey:kSPEcommTotal];
     if (_taxValue) [payload setObject:[NSString stringWithFormat:@"%.02f", [_taxValue doubleValue]] forKey:kSPEcommTax];

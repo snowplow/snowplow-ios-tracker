@@ -71,7 +71,7 @@
     return kSPConsentWithdrawnSchema;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     return @{
         KSPCwAll: (_all ? @YES: @NO),
     };

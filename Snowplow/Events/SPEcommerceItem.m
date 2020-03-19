@@ -78,7 +78,7 @@
     return kSPEventEcommItem;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_itemId forKey:kSPEcommItemId];
     [payload setValue:_sku forKey:kSPEcommItemSku];

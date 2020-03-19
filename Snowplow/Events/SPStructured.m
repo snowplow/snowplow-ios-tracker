@@ -66,7 +66,7 @@
     return kSPEventStructured;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_category forKey:kSPStuctCategory];
     [payload setValue:_action forKey:kSPStuctAction];

@@ -55,7 +55,7 @@
     return kSPEventPageView;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_pageUrl forKey:kSPPageUrl];
     [payload setValue:_pageTitle forKey:kSPPageTitle];

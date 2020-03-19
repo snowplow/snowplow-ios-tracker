@@ -62,7 +62,7 @@
     return kSPUserTimingsSchema;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_category forKey:kSPUtCategory];
     [payload setValue:_variable forKey:kSPUtVariable];

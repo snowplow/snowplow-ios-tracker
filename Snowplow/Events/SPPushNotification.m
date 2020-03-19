@@ -75,7 +75,7 @@
     return kSPPushNotificationSchema;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     return @{
         kSPPushNotification: _notification.payload,
         kSPPushTrigger: _trigger,

@@ -73,7 +73,7 @@
     return kSPConsentGrantedSchema;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_expiry forKey:KSPCgExpiry];
     return payload;

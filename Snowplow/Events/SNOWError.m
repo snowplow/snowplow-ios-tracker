@@ -56,7 +56,7 @@
     return kSPErrorSchema;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_message forKey:kSPErrorMessage];
     [payload setValue:_stackTrace forKey:kSPErrorStackTrace];

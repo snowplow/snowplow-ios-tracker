@@ -43,13 +43,15 @@
 // --- Public Methods
 
 - (NSString *)schema {
-    return kSPUnstructSchema;
+    return _eventData.schema;
 }
 
-- (NSDictionary *)payload {
-    NSMutableDictionary *payload = [NSMutableDictionary dictionary];
-    if (_eventData) [payload setObject:[_eventData getAsDictionary] forKey:kSPData];
-    return payload;
+- (NSDictionary<NSString *, NSObject *> *)payload {
+    NSObject *data = [_eventData data];
+    if ([data isKindOfClass:[NSDictionary<NSString *, NSObject *> class]]) {
+        return data;
+    }
+    return nil;
 }
 
 /*

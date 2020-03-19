@@ -25,16 +25,28 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPSelfDescribingJson {
-    NSMutableDictionary * _payload;
-}
+@interface SPSelfDescribingJson ()
+
+@property (nonatomic, readwrite) NSObject *data;
+
+@end
+
+@implementation SPSelfDescribingJson
 
 - (id) initWithSchema:(NSString *)schema andData:(NSObject *)data {
     self = [super init];
     if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
         [self setSchema:schema];
         [self setDataWithObject:data];
+    }
+    return self;
+}
+
+- (id)initWithSchema:(NSString *)schema andDictionary:(NSDictionary<NSString *,NSObject *> *)data {
+    self = [super init];
+    if (self) {
+        [self setSchema:schema];
+        [self setDataWithDictionary:data];
     }
     return self;
 }
@@ -42,7 +54,6 @@
 - (id) initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
     self = [super init];
     if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
         [self setSchema:schema];
         [self setDataWithPayload:data];
     }
@@ -52,7 +63,6 @@
 - (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data {
     self = [super init];
     if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
         [self setSchema:schema];
         [self setDataWithSelfDescribingJson:data];
     }
@@ -61,25 +71,30 @@
 
 - (void) setSchema:(NSString *)schema {
     [SPUtilities checkArgument:([schema length] != 0) withMessage:@"Schema cannot be nil or empty."];
-    [_payload setObject:schema forKey:kSPSchema];
+    _schema = schema;
+}
+
+- (void)setDataWithDictionary:(NSDictionary<NSString *, NSObject *> *)data {
+    self.data = data;
 }
 
 - (void) setDataWithObject:(NSObject *)data {
-    if (data != nil) {
-        [_payload setObject:data forKey:kSPData];
-    }
+    self.data = data;
 }
 
 - (void) setDataWithPayload:(SPPayload *)data {
-    return [self setDataWithObject:[data getAsDictionary]];
+    return [self setDataWithDictionary:[data getAsDictionary]];
 }
 
 - (void) setDataWithSelfDescribingJson:(SPSelfDescribingJson *)data {
-    return [self setDataWithObject:[data getAsDictionary]];
+    return [self setDataWithDictionary:[data getAsDictionary]];
 }
 
-- (NSDictionary *) getAsDictionary {
-    return _payload;
+- (NSDictionary<NSString *, NSObject *> *) getAsDictionary {
+    return @{
+        kSPSchema: self.schema,
+        kSPData: self.data,
+    };
 }
 
 - (NSString *) description {

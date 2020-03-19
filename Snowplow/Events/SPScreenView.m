@@ -91,7 +91,7 @@
     return kSPScreenViewSchema;
 }
 
-- (NSDictionary *)payload {
+- (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_name forKey:kSPSvName];
     [payload setValue:_id forKey:kSPSvScreenId];

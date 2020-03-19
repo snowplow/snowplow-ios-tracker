@@ -34,6 +34,11 @@
  */
 @interface SPSelfDescribingJson : NSObject
 
+///  the schema URI for this self-describing JSON.
+@property (nonatomic) NSString *schema;
+/// Data of the self-describing JSON.
+@property (nonatomic, readonly) NSObject *data;
+
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
 
@@ -41,7 +46,16 @@
  @param data Data to set for data field of the self-describing JSON, should be an NSDictionary.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data;
+- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data __deprecated_msg("Deprecated. Use `initWithSchema:andDictionary` instead.");
+
+/*!
+ @brief Initializes a newly allocated SPSelfDescribingJson.
+
+ @param schema A valid schema string.
+ @param data Data to set for data field of the self-describing JSON.
+ @return An SPSelfDescribingJson.
+ */
+- (id) initWithSchema:(NSString *)schema andDictionary:(NSDictionary<NSString *, NSObject *> *)data;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -62,18 +76,18 @@
 - (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data;
 
 /*!
- @brief Sets the schema URI for this self-describing JSON.
-
- @param schema The schema URI.
- */
-- (void) setSchema:(NSString *)schema;
-
-/*!
  @brief Sets the data field of the self-describing JSON.
 
  @param data An NSObject to be nested into the data.
  */
-- (void) setDataWithObject:(NSObject *)data;
+- (void) setDataWithObject:(NSObject *)data __deprecated_msg("Deprecated. Use `setDataWithDictionary` instead.");
+
+/*!
+@brief Sets the data field of the self-describing JSON.
+
+@param data An NSDictionary to be nested into the data.
+*/
+- (void) setDataWithDictionary:(NSDictionary<NSString *, NSObject *> *)data;
 
 /*!
  @brief Sets the data field of the self-describing JSON.
@@ -94,7 +108,7 @@
 
  @return The self-describing JSON as an NSDictionary.
  */
-- (NSDictionary *) getAsDictionary;
+- (NSDictionary<NSString *, NSObject *> *) getAsDictionary;
 
 /*!
  @brief Returns a string description of the internal dictionary.

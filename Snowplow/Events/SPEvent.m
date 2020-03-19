@@ -87,7 +87,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     return _eventId;
 }
 
-- (NSDictionary *) payload {
+- (NSDictionary<NSString *,NSObject *> *)payload {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
