@@ -43,6 +43,7 @@ Pod::Spec.new do |s|
     'Snowplow/SPScreenState.h',
     'Snowplow/SPDevicePlatform.h',
     'Snowplow/Events/SPEvent.h',
+    'Snowplow/Events/SPEventBase.h',
     'Snowplow/Events/SPPageView.h',
     'Snowplow/Events/SPStructured.h',
     'Snowplow/Events/SPUnstructured.h',

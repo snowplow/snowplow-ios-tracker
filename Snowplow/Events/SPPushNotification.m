@@ -10,7 +10,6 @@
 
 #import "Snowplow.h"
 #import "SPUtilities.h"
-#import "SPSelfDescribingJson.h"
 
 @implementation SPPushNotification {
     NSString * _action;

@@ -1,5 +1,5 @@
 //
-//  SPEvent.m
+//  SPEventBase.m
 //  Snowplow
 //
 //  Copyright (c) 2018 Snowplow Analytics Ltd. All rights reserved.
@@ -21,7 +21,7 @@
 //
 
 #import "Snowplow.h"
-#import "SPEvent.h"
+#import "SPEventBase.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"

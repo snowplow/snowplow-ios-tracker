@@ -12,7 +12,7 @@
 #import "SPSelfDescribingJson.h"
 
 // Events
-#import "SPEvent.h"
+#import "SPEventBase.h"
 #import "SPPageView.h"
 #import "SPStructured.h"
 #import "SPUnstructured.h"

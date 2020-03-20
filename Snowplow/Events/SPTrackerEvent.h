@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPEvent.h"
+#import "SPEventBase.h"
+#import "SPSelfDescribingJson.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
