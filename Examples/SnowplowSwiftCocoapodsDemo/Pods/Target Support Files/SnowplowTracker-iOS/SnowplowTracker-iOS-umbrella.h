@@ -22,6 +22,7 @@
 #import "SPScreenState.h"
 #import "SPDevicePlatform.h"
 #import "SPEvent.h"
+#import "SPEventBase.h"
 #import "SPPageView.h"
 #import "SPStructured.h"
 #import "SPUnstructured.h"
