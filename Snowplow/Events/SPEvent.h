@@ -95,9 +95,9 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
 - (void) basePreconditions;
-- (NSMutableArray *) getContexts __deprecated_msg("The contexts are not inspectable.");
-- (NSNumber *) getTimestamp __deprecated_msg("Timestamp not inspectable.");
-- (NSString *) getEventId __deprecated_msg("EventId not inspectable.");
+- (NSMutableArray *) getContexts;
+- (NSNumber *) getTimestamp;
+- (NSString *) getEventId;
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb __deprecated_msg("The payload can be updated only by the tracker.");
 @end
 

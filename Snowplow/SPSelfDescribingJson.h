@@ -46,16 +46,7 @@
  @param data Data to set for data field of the self-describing JSON, should be an NSDictionary.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data __deprecated_msg("Deprecated. Use `initWithSchema:andDictionary` instead.");
-
-/*!
- @brief Initializes a newly allocated SPSelfDescribingJson.
-
- @param schema A valid schema string.
- @param data Data to set for data field of the self-describing JSON.
- @return An SPSelfDescribingJson.
- */
-- (id) initWithSchema:(NSString *)schema andDictionary:(NSDictionary<NSString *, NSObject *> *)data;
+- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -80,14 +71,7 @@
 
  @param data An NSObject to be nested into the data.
  */
-- (void) setDataWithObject:(NSObject *)data __deprecated_msg("Deprecated. Use `setDataWithDictionary` instead.");
-
-/*!
-@brief Sets the data field of the self-describing JSON.
-
-@param data An NSDictionary to be nested into the data.
-*/
-- (void) setDataWithDictionary:(NSDictionary<NSString *, NSObject *> *)data;
+- (void) setDataWithObject:(NSObject *)data;
 
 /*!
  @brief Sets the data field of the self-describing JSON.

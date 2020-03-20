@@ -53,10 +53,9 @@
     [_payload setObject:value forKey:key];
 }
 
-- (void)addDictionaryToPayload:(NSDictionary<NSString *, NSString *> *)dictionary {
+- (void)addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)dictionary {
     if (!dictionary) return;
     [dictionary.copy enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stop) {
-        // Type-check is needed because the compiler can't catch them (despite the generic spec in the argument).
         if ([value isKindOfClass:[NSString class]]) {
             [self addValueToPayload:(NSString *)value forKey:key];
         }

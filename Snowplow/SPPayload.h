@@ -46,9 +46,10 @@
 
 /**
  *  Adds a dictionary of attributes to be appended into the SPPayload instance. It does NOT overwrite the existing data in the object.
+ *  All attribute values must be NSString types to be added; all others are discarded.
  *  @param dict An object of NSDictionary.
  */
-- (void)addDictionaryToPayload:(NSDictionary<NSString *, NSString *> *)dict;
+- (void)addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)dict;
 
 /**
  *  Adds a dictionary of attributes to be appended into the SPPayload instance. Gives you the option to Base64 encode the data before adding it into the object.

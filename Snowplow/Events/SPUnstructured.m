@@ -49,7 +49,7 @@
 - (NSDictionary<NSString *, NSObject *> *)payload {
     NSObject *data = [_eventData data];
     if ([data isKindOfClass:[NSDictionary<NSString *, NSObject *> class]]) {
-        return data;
+        return (NSDictionary<NSString *, NSObject *> *)data;
     }
     return nil;
 }

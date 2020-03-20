@@ -186,9 +186,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setName:@"Name"];
     }];
 
-    NSDictionary * sdj = [[event getPayload] getAsDictionary];
-
-    // Test that the SelfDescribingJson passes validation
+    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
@@ -215,9 +213,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setName:@"Name"];
     }];
 
-    NSDictionary * sdj = [[event getPayload] getAsDictionary];
-
-    // Test that the SelfDescribingJson passes validation
+    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
@@ -292,9 +288,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setTiming:5];
         [builder setLabel:@"DemoTimingLabel"];
     }];
-    NSDictionary * sdj = [[event getPayload] getAsDictionary];
-    
-    // Test that the SelfDescribingJson passes validation
+    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
@@ -303,9 +297,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setName:@"DemoScreenName"];
         [builder setScreenId:[NSUUID UUID].UUIDString];
     }];
-    NSDictionary * sdj = [[event getPayload] getAsDictionary];
-    
-    // Test that the SelfDescribingJson passes validation
+    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
@@ -345,9 +337,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setThreadIdentifier:@"thread"];
         [builder setNotification:content];
     }];
-    NSDictionary * sdj = [[event getPayload] getAsDictionary];
-
-    // Test that the SelfDescribingJson passes validation
+    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
@@ -368,8 +358,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
         [builder setName:@"some exception name"];
         [builder setStackTrace:@"some stack trace"];
     }];
-    NSDictionary * sdj = [[event getPayload] getAsDictionary];
-
+    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 

@@ -42,15 +42,6 @@
     return self;
 }
 
-- (id)initWithSchema:(NSString *)schema andDictionary:(NSDictionary<NSString *,NSObject *> *)data {
-    self = [super init];
-    if (self) {
-        [self setSchema:schema];
-        [self setDataWithDictionary:data];
-    }
-    return self;
-}
-
 - (id) initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
     self = [super init];
     if(self) {
@@ -74,20 +65,16 @@
     _schema = schema;
 }
 
-- (void)setDataWithDictionary:(NSDictionary<NSString *, NSObject *> *)data {
-    self.data = data;
-}
-
 - (void) setDataWithObject:(NSObject *)data {
     self.data = data;
 }
 
 - (void) setDataWithPayload:(SPPayload *)data {
-    return [self setDataWithDictionary:[data getAsDictionary]];
+    return [self setDataWithObject:[data getAsDictionary]];
 }
 
 - (void) setDataWithSelfDescribingJson:(SPSelfDescribingJson *)data {
-    return [self setDataWithDictionary:[data getAsDictionary]];
+    return [self setDataWithObject:[data getAsDictionary]];
 }
 
 - (NSDictionary<NSString *, NSObject *> *) getAsDictionary {
