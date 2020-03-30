@@ -54,40 +54,6 @@
     return nil;
 }
 
-/*
-- (SPPayload *) getRenewed:(BOOL)encoding {
-    SPPayload *payload = [super payload];
-    [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
-
-    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-    [dict setObject:kSPUnstructSchema forKey:kSPSchema];
-    [dict setObject:[_eventData getAsDictionary] forKey:kSPData];
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
-    [payload addValueToPayload:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding] forKey:kSPUnstructured];
-    
-    if (encoding) {
-        NSMutableDictionary *dict = [NSMutableDictionary alloc] initWithDictionary:[payload getAsDictionary]];
-        NSString *dataString = (NSString *)[dict valueForKey:kSPUnstructured];
-        NSData *data = [dataString dataUsingEncoding:NSUTF8StringEncoding];
-        NSString *encodedString = [data base64EncodedStringWithOptions:0];
-
-        // We need URL safe with no padding. Since there is no built-in way to do this, we transform
-        // the encoded payload to make it URL safe by replacing chars that are different in the URL-safe
-        // alphabet. Namely, 62 is - instead of +, and 63 _ instead of /.
-        // See: https://tools.ietf.org/html/rfc4648#section-5
-        encodedString = [[encodedString stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
-                         stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
-
-        // There is also no padding since the length is implicitly known.
-        encodedString = [encodedString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"="]];
-        
-        [payload addValueToPayload:encodedString forKey:kSPUnstructuredEncoded];
-    }
-    
-    return payload;
-}
- */
-
 - (SPPayload *) getPayloadWithEncoding:(BOOL)encoding {
     SPPayload *payload = [SPPayload new];
     [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];

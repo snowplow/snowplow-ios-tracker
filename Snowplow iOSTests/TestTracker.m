@@ -162,12 +162,12 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setCheckInterval:10];
     }];
     
-    SPBuiltIn *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
         [builder setCategory:@"Category"];
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithBuiltIn:event];
+    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
     SPPayload *payload = [tracker payloadWithEvent:trackerEvent];
     NSDictionary *payloadDict = [payload getAsDictionary];
 

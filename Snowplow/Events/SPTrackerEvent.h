@@ -21,13 +21,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSTimeInterval timestamp;
 @property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
-@property (nonatomic) BOOL isBuiltIn;
+@property (nonatomic) BOOL isPrimitive;
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
 + (instancetype)trackerEventWithSelfDescribing:(SPSelfDescribing *)event;
-+ (instancetype)trackerEventWithBuiltIn:(SPBuiltIn *)event;
++ (instancetype)trackerEventWithPrimitive:(SPPrimitive *)event;
 
 @end
 

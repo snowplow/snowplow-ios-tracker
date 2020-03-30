@@ -365,12 +365,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) trackPageViewEvent:(SPPageView *)event {
     if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithBuiltIn:event]];
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 }
 
 - (void) trackStructuredEvent:(SPStructured *)event {
     if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithBuiltIn:event]];
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 }
 
 - (void) trackUnstructuredEvent:(SPUnstructured *)event {
@@ -403,7 +403,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) trackEcommerceEvent:(SPEcommerce *)event {
     if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithBuiltIn:event]];
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 
     NSNumber *tstamp = [event getTimestamp];
     for (SPEcommerceItem * item in [event getItems]) {
@@ -414,7 +414,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
     if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithBuiltIn:event]];
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 }
 
 - (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event {
@@ -479,8 +479,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     SPPayload *payload = [SPPayload new];
 
     [self addBasicPropertiesToPayload:payload event:event];
-    if (event.isBuiltIn) {
-        [self addBuiltInPropertiesToPayload:payload event:event];
+    if (event.isPrimitive) {
+        [self addPrimitivePropertiesToPayload:payload event:event];
     } else {
         [self addSelfDescribingPropertiesToPayload:payload event:event];
     }
@@ -501,7 +501,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [payload addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
 }
 
-- (void)addBuiltInPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
+- (void)addPrimitivePropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
     [payload addValueToPayload:event.eventName forKey:kSPEvent];
     [payload addDictionaryToPayload:event.payload];
 }

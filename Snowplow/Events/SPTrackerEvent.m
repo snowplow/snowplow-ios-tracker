@@ -7,7 +7,6 @@
 //
 
 #import "SPTrackerEvent.h"
-#import "SPUnstructured.h"
 #import "SPSelfDescribingJson.h"
 
 @implementation SPTrackerEvent
@@ -15,17 +14,17 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
 
-+ (instancetype)trackerEventWithBuiltIn:(SPBuiltIn *)event {
++ (instancetype)trackerEventWithPrimitive:(SPPrimitive *)event {
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     trackerEvent.eventName = event.name;
-    trackerEvent.isBuiltIn = true;
+    trackerEvent.isPrimitive = true;
     return trackerEvent;
 }
 
 + (instancetype)trackerEventWithSelfDescribing:(SPSelfDescribing *)event {
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     trackerEvent.schema = event.schema;
-    trackerEvent.isBuiltIn = false;
+    trackerEvent.isPrimitive = false;
     return trackerEvent;
 }
 

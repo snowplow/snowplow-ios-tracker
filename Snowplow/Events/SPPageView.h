@@ -42,7 +42,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPPageView
  @brief A pageview.
  */
-@interface SPPageView : SPBuiltIn <SPPageViewBuilder>
+@interface SPPageView : SPPrimitive <SPPageViewBuilder>
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock;
 - (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 @end

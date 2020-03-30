@@ -83,7 +83,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @property (nonatomic, readwrite) NSNumber *timestamp __deprecated_msg("The timestamp can be set only by the tracker.");
 
 /*! The contexts attached to the event. */
-@property (nonatomic, readwrite, retain) NSMutableArray *contexts __deprecated_msg("The context list is managed internally only by the tracker.");
+@property (nonatomic, readwrite, retain) NSMutableArray *contexts;
 
 /*! The UUID that identifies the event. */
 @property (nonatomic, readwrite, retain) NSString *eventId __deprecated_msg("The eventId can be specified only by the tracker.");
@@ -110,10 +110,10 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @end
 
 /*!
- @interface SPBuiltIn
+ @interface SPPrimitive
  @brief The properties for all the self-describing events.
  */
-@interface SPBuiltIn : SPEvent
+@interface SPPrimitive : SPEvent
 
 /*! The name of the event. */
 @property (nonatomic, readonly) NSString *name;

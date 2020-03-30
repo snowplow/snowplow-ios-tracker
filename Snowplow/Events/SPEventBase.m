@@ -118,9 +118,9 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 @end
 
-// BuiltIn base class
+// Primitive base class
 
-@implementation SPBuiltIn
+@implementation SPPrimitive
 
 - (NSString *)name {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
