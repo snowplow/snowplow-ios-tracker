@@ -52,6 +52,15 @@ void uncaughtExceptionHandler(NSException *exception);
 
 @class SPGlobalContext;
 
+typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
+    SPGdprProcessingBasisConsent = 0,
+    SPGdprProcessingBasisContract = 1,
+    SPGdprProcessingBasisLegalObligation = 2,
+    SPGdprProcessingBasisVitalInterest = 3,
+    SPGdprProcessingBasisPublicTask = 4,
+    SPGdprProcessingBasisLegitimateInterests = 5
+};
+
 /*!
  @brief The builder for SPTracker.
  */
@@ -178,6 +187,18 @@ void uncaughtExceptionHandler(NSException *exception);
  */
 - (void)setGlobalContextGenerators:(NSDictionary<NSString *, SPGlobalContext *> *)globalContexts;
 
+/*!
+ @brief Tracker builder method to set a GDPR context for the tracker
+ @param basisForProcessing Enum one of valid legal bases for processing.
+ @param documentId Document ID.
+ @param documentVersion Version of the document.
+ @param documentDescription Description of the document.
+ */
+- (void)setGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                     documentId:(NSString *)documentId
+                documentVersion:(NSString *)documentVersion
+            documentDescription:(NSString *)documentDescription;
+
 @end
 
 /*!
@@ -292,6 +313,23 @@ void uncaughtExceptionHandler(NSException *exception);
  @return The global context associated with the tag or `nil` in case of any entry with that string tag.
  */
 - (SPGlobalContext *)removeGlobalContext:(NSString *)tag;
+
+/*!
+ Enables GDPR context to be sent with every event.
+ @param basisForProcessing GDPR Basis for processing.
+ @param documentId ID of a GDPR basis document.
+ @param documentVersion Version of the document.
+ @param documentDescription Description of the document.
+ */
+- (void)enableGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                        documentId:(NSString *)documentId
+                   documentVersion:(NSString *)documentVersion
+               documentDescription:(NSString *)documentDescription;
+
+/// Disable GDPR context.
+- (void)disableGdprContext;
+
+#pragma mark - Events tracking methods
 
 /*!
  @brief Tracks a page view event.

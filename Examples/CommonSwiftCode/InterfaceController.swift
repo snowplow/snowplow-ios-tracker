@@ -39,6 +39,7 @@ class InterfaceController: WKInterfaceController, SPRequestCallback {
             builder!.setApplicationContext(true)
             builder!.setExceptionEvents(true)
             builder!.setInstallEvent(true)
+            builder!.setGdprContextWith(SPGdprProcessingBasis.consent, documentId: "id", documentVersion: "1.0", documentDescription: "description")
         })
         return newTracker!
     }

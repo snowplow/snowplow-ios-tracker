@@ -1,5 +1,5 @@
 //
-//  UIViewController+SPScreenView.h
+//  SPGdprContext.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -15,29 +15,33 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Michael Hadam
+//  Authors: Alex Benini
 //  Copyright © 2020 Snowplow Analytics. All rights reserved.
 //  License: Apache License Version 2.0
 //
 
-#import <UIKit/UIKit.h>
-
-@class UIViewController;
-typedef NS_ENUM(NSInteger, SPScreenType);
+#import <Foundation/Foundation.h>
+#import "SPTracker.h"
+#import "SPSelfDescribingJson.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (SPScreenView_SWIZZLE)
+@interface SPGdprContext : NSObject
 
-- (void) SP_viewDidAppear:(BOOL)animated;
-- (NSString *) _SP_getViewControllerName:(UIViewController *)viewController;
-- (SPScreenType) _SP_getViewControllerType:(UIViewController *)viewController;
-- (SPScreenType) _SP_getTopViewControllerType;
-- (UIViewController *) _SP_topViewController;
-- (UIViewController *) _SP_topViewController:(UIViewController *)rootViewController;
-- (NSString *) _SP_getViewControllerName;
-- (BOOL) _SP_validateString:(NSString *)string;
-- (NSString *) _SP_getSnowplowId;
+/*!
+ @brief Set a GDPR context for the tracker
+ @param basisForProcessing Enum one of valid legal bases for processing.
+ @param documentId Document ID.
+ @param documentVersion Version of the document.
+ @param documentDescription Description of the document.
+ */
+- (nullable instancetype)initWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                            documentId:(nullable NSString *)documentId
+                       documentVersion:(nullable NSString *)documentVersion
+                   documentDescription:(nullable NSString *)documentDescription;
+
+/// Return context with value stored about GDPR processing.
+- (SPSelfDescribingJson *)context;
 
 @end
 

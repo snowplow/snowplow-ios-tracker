@@ -27,6 +27,7 @@
 #import "SPTracker.h"
 #import "SPSession.h"
 #import "SPSubject.h"
+#import "SPGdprContext.h"
 #import "SPPayload.h"
 #import "SPEvent.h"
 #import "SPSelfDescribingJson.h"
@@ -98,6 +99,14 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     NSDictionary * data = [subject getGeoLocationDict];
     NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:data] getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
+}
+
+- (void)testGdprContextJson {
+    SPGdprContext *gdpr = [[SPGdprContext alloc] initWithBasis:SPGdprProcessingBasisConsent
+                                                    documentId:@"id"
+                                               documentVersion:@"version"
+                                           documentDescription:@"description"];
+    XCTAssertTrue([validator validateJson:[gdpr.context getAsDictionary]]);
 }
 
 - (void)testStructuredEventPayloadJson  {
