@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     builder!.setTitle(requestContent.title)
                     builder!.setSubtitle(requestContent.subtitle)
                     builder!.setBody(requestContent.body)
-                    builder!.setBadge(requestContent.badge)
+                    builder!.setBadge(requestContent.badge!)
                     builder!.setSound(sound)
                     builder!.setLaunchImageName(requestContent.launchImageName)
                     builder!.setUserInfo(userInfo)

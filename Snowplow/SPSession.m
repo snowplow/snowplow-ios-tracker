@@ -25,7 +25,9 @@
 #import "SPUtilities.h"
 #import "SPWeakTimerTarget.h"
 #import "SPTracker.h"
-#import "SPEvent.h"
+
+#import "SPBackground.h"
+#import "SPForeground.h"
 
 #if SNOWPLOW_TARGET_IOS
 #import <UIKit/UIKit.h>

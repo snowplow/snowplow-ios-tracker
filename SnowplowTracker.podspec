@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
     'Snowplow/SNOWReachability.*'
   ]
 
-  s.source_files = 'Snowplow/*.{m,h}'
+  s.source_files = 'Snowplow/*.{m,h}', 'Snowplow/Events/*.{m,h}'
   s.public_header_files = [
     'Snowplow/Snowplow.h', 
     'Snowplow/SPTracker.h', 
@@ -39,10 +39,24 @@ Pod::Spec.new do |s|
     'Snowplow/SPUtilities.h', 
     'Snowplow/SPRequestCallback.h', 
     'Snowplow/SPRequestResponse.h',
-    'Snowplow/SPEvent.h', 
     'Snowplow/SPSelfDescribingJson.h',
     'Snowplow/SPScreenState.h',
-    'Snowplow/SPDevicePlatform.h'
+    'Snowplow/SPDevicePlatform.h',
+    'Snowplow/Events/SPEvent.h',
+    'Snowplow/Events/SPEventBase.h',
+    'Snowplow/Events/SPPageView.h',
+    'Snowplow/Events/SPStructured.h',
+    'Snowplow/Events/SPUnstructured.h',
+    'Snowplow/Events/SPScreenView.h',
+    'Snowplow/Events/SPConsentWithdrawn.h',
+    'Snowplow/Events/SPConsentGranted.h',
+    'Snowplow/Events/SPTiming.h',
+    'Snowplow/Events/SPEcommerce.h',
+    'Snowplow/Events/SPEcommerceItem.h',
+    'Snowplow/Events/SPPushNotification.h',
+    'Snowplow/Events/SPForeground.h',
+    'Snowplow/Events/SPBackground.h',
+    'Snowplow/Events/SNOWError.h'
   ]
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'

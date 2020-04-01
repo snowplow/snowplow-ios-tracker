@@ -34,6 +34,11 @@
  */
 @interface SPSelfDescribingJson : NSObject
 
+///  the schema URI for this self-describing JSON.
+@property (nonatomic) NSString *schema;
+/// Data of the self-describing JSON.
+@property (nonatomic, readonly) NSObject *data;
+
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
 
@@ -62,13 +67,6 @@
 - (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data;
 
 /*!
- @brief Sets the schema URI for this self-describing JSON.
-
- @param schema The schema URI.
- */
-- (void) setSchema:(NSString *)schema;
-
-/*!
  @brief Sets the data field of the self-describing JSON.
 
  @param data An NSObject to be nested into the data.
@@ -94,7 +92,7 @@
 
  @return The self-describing JSON as an NSDictionary.
  */
-- (NSDictionary *) getAsDictionary;
+- (NSDictionary<NSString *, NSObject *> *) getAsDictionary;
 
 /*!
  @brief Returns a string description of the internal dictionary.

@@ -23,7 +23,6 @@
 #import <Foundation/Foundation.h>
 
 /** Forward declaration for SPScreenView */
-@class SPScreenView;
 @class SPPayload;
 
 @interface SPScreenState : NSObject <NSCopying>

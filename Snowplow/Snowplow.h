@@ -75,8 +75,6 @@ extern NSString * const kSPDesktopContextSchema;
 extern NSString * const kSPSessionContextSchema;
 extern NSString * const kSPScreenContextSchema;
 extern NSString * const kSPGeoContextSchema;
-extern NSString * const kSPConsentDocumentSchema;
-extern NSString * const kSPConsentGrantedSchema;
 extern NSString * const kSPConsentWithdrawnSchema;
 extern NSString * const kSPConsentDocumentSchema;
 extern NSString * const kSPConsentGrantedSchema;

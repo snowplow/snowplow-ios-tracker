@@ -300,6 +300,9 @@
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
     if (!argument) {
         SnowplowDLog(@"SPLog: Error occurred while checking argument: %@", message);
+         #if DEBUG
+            @throw [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
+         #endif
     }
 }
 

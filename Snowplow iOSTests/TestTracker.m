@@ -26,9 +26,16 @@
 #import "SPPayload.h"
 #import "SPSubject.h"
 #import "SPDevicePlatform.h"
+#import "SPTrackerEvent.h"
+
+
+/// Category needed to make the private methods testable.
+@interface SPTracker (Testing)
+- (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event;
+@end
+
 
 @interface TestTracker : XCTestCase
-
 @end
 
 @implementation TestTracker
@@ -120,7 +127,6 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     
     @try {
         tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-            [builder setEmitter:nil];
             [builder setSubject:subject];
             [builder setAppId:@"anAppId"];
             [builder setBase64Encoded:NO];
@@ -156,11 +162,20 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setCheckInterval:10];
     }];
     
-    SPPayload *payload = [tracker getFinalPayloadWithPayload:[[SPPayload alloc] init] andContext:[NSMutableArray array] andEventId:@"anEventId"];
+    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+        [builder setCategory:@"Category"];
+        [builder setAction:@"Action"];
+        [builder setLabel:@"Label"];
+    }];
+    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPPayload *payload = [tracker payloadWithEvent:trackerEvent];
     NSDictionary *payloadDict = [payload getAsDictionary];
+
     XCTAssertEqual(payloadDict[kSPPlatform], SPDevicePlatformToString(SPDevicePlatformGeneral));
     XCTAssertEqual(payloadDict[kSPAppId], @"anAppId");
     XCTAssertEqual(payloadDict[kSPNamespace], @"aNamespace");
+    
+    
 
     // Test setting variables to new values
 
@@ -168,8 +183,9 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     [tracker setAppId:@"newAppId"];
     [tracker setTrackerNamespace:@"newNamespace"];
 
-    payload = [tracker getFinalPayloadWithPayload:[[SPPayload alloc] init] andContext:[NSMutableArray array] andEventId:@"anEventId"];
+    payload = [tracker payloadWithEvent:trackerEvent];
     payloadDict = [payload getAsDictionary];
+
     XCTAssertEqual(payloadDict[kSPPlatform], nil);
     XCTAssertEqual(payloadDict[kSPAppId], @"newAppId");
     XCTAssertEqual(payloadDict[kSPNamespace], @"newNamespace");
