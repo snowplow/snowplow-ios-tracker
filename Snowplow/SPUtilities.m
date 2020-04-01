@@ -272,17 +272,12 @@
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 
-+ (NSString *)urlEncodeString:(NSString *)s {
-    if (!s) {
++ (NSString *)urlEncodeString:(NSString *)string {
+    if (!string) {
         return @"";   
     }
-    return (NSString *)CFBridgingRelease(
-            CFURLCreateStringByAddingPercentEscapes(
-                NULL, 
-                (CFStringRef) s, 
-                NULL, 
-                (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
-                CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
+    NSCharacterSet *allowedCharSet = [NSCharacterSet characterSetWithCharactersInString:@"{}!*'\\\"();:@&=+$,/?%#[]% "].invertedSet;
+    return [string stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
 }
 
 + (NSString *)urlEncodeDictionary:(NSDictionary *)d {
