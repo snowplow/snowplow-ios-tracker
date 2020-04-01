@@ -148,7 +148,18 @@
 }
 
 - (UIViewController *) _SP_topViewController {
-    return [self _SP_topViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+    UIWindow *keyWindow = nil;
+    NSArray<UIWindow *> *windows = [UIApplication sharedApplication].windows;
+    for (UIWindow *window in windows) {
+        if (window.isKeyWindow) {
+            keyWindow = window;
+            break;
+        }
+    }
+    if (!keyWindow) {
+        return nil;
+    }
+    return [self _SP_topViewController:keyWindow.rootViewController];
 }
 
 - (UIViewController *) _SP_topViewController:(UIViewController *)rootViewController {
