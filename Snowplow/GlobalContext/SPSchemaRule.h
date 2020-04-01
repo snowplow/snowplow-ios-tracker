@@ -1,6 +1,6 @@
 //
-//  SPTrackerEvent.h
-//  Snowplow
+//  SNOWSchemaRule.h
+//  Snowplow-iOS
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
@@ -21,27 +21,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPEventBase.h"
-#import "SPSelfDescribingJson.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPTrackerEvent : NSObject <SPInspectableEvent>
+@interface SPSchemaRule: NSObject <NSCopying>
 
-@property (nonatomic) NSDictionary<NSString *, NSObject *> *payload;
-@property (nonatomic) NSString *schema;
-@property (nonatomic) NSString *eventName;
-@property (nonatomic) NSUUID *eventId;
-@property (nonatomic) NSTimeInterval timestamp;
-@property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
-
-@property (nonatomic) BOOL isPrimitive;
+@property (nonatomic, copy, readonly) NSString *rule;
+@property (nonatomic, copy, readonly) NSArray<NSString *> *ruleParts;
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
-+ (instancetype)trackerEventWithSelfDescribing:(SPSelfDescribing *)event;
-+ (instancetype)trackerEventWithPrimitive:(SPPrimitive *)event;
+- (id)initWithRule:(NSString *)rule NS_DESIGNATED_INITIALIZER;
+
+/*!
+ Weather the `uri` match the stored rule.
+ @param uri URI to check.
+ @return Weather the uri is allowed.
+ */
+- (BOOL)matchWithUri:(NSString *)uri;
 
 @end
 

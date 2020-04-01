@@ -50,6 +50,8 @@ void uncaughtExceptionHandler(NSException *exception);
 @class SPScreenState;
 @class SNOWError;
 
+@class SPGlobalContext;
+
 /*!
  @brief The builder for SPTracker.
  */
@@ -169,6 +171,13 @@ void uncaughtExceptionHandler(NSException *exception);
  */
 - (void) setInstallEvent:(BOOL)installEvent;
 
+/*!
+ @brief Add global context generators to be used by tracker.
+ 
+ @param globalContexts The global context generators to be used and related string tag for identification.
+ */
+- (void)setGlobalContextGenerators:(NSDictionary<NSString *, SPGlobalContext *> *)globalContexts;
+
 @end
 
 /*!
@@ -197,6 +206,8 @@ void uncaughtExceptionHandler(NSException *exception);
 @property (readonly, nonatomic, strong) SPScreenState * previousScreenState;
 /*! @brief Current screen view state. */
 @property (readonly, nonatomic, strong) SPScreenState * currentScreenState;
+/*! @brief List of tags associated to global contexts. */
+@property (readonly, nonatomic) NSArray<NSString *> *globalContextTags;
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.
@@ -264,6 +275,23 @@ void uncaughtExceptionHandler(NSException *exception);
  @return The final complete payload ready for sending.
  */
 - (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId __deprecated_msg("getFinalPayloadWithPayload:andContext:andEventId: is deprecated and it will be removed in the next release.");
+
+/*!
+ Add new generator for global contexts associated with a string tag.
+ If the string tag has been already set the new global context is not assigned.
+ @param generator The global context generator.
+ @param tag The tag associated to the global context.
+ @return Weather the global context has been added.
+ */
+- (BOOL)addGlobalContext:(SPGlobalContext *)generator tag:(NSString *)tag;
+
+/*!
+ Remove the global context associated with the string tag.
+ If the string tag exist it returns the global context generator associated with.
+ @param tag The tag associated to the global context.
+ @return The global context associated with the tag or `nil` in case of any entry with that string tag.
+ */
+- (SPGlobalContext *)removeGlobalContext:(NSString *)tag;
 
 /*!
  @brief Tracks a page view event.

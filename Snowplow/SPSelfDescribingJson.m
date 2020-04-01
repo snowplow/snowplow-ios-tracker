@@ -33,31 +33,20 @@
 
 @implementation SPSelfDescribingJson
 
-- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data {
-    self = [super init];
-    if(self) {
+- (instancetype)initWithSchema:(NSString *)schema andData:(NSObject *)data {
+    if (self = [super init]) {
         [self setSchema:schema];
         [self setDataWithObject:data];
     }
     return self;
 }
 
-- (id) initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
-    self = [super init];
-    if(self) {
-        [self setSchema:schema];
-        [self setDataWithPayload:data];
-    }
-    return self;
+- (instancetype)initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
+    return [self initWithSchema:schema andData:[data getAsDictionary]];
 }
 
-- (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data {
-    self = [super init];
-    if(self) {
-        [self setSchema:schema];
-        [self setDataWithSelfDescribingJson:data];
-    }
-    return self;
+- (instancetype)initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data {
+    return [self initWithSchema:schema andData:[data getAsDictionary]];
 }
 
 - (void) setSchema:(NSString *)schema {

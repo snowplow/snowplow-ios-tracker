@@ -1,0 +1,1 @@
+../../../../../../Snowplow/GlobalContext/SPGlobalContext.h

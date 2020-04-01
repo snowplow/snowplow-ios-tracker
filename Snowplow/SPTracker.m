@@ -30,6 +30,7 @@
 #import "SPSession.h"
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
+#import "SPGlobalContext.h"
 
 #import "SNOWError.h"
 #import "SPStructured.h"
@@ -51,6 +52,8 @@
 
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
+
+@property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
 
 /*!
  @brief This method is called to send an auto-tracked screen view event.
@@ -307,6 +310,26 @@ void uncaughtExceptionHandler(NSException *exception) {
     _installEvent = installEvent;
 }
 
+- (void)setGlobalContextGenerators:(NSDictionary<NSString *, SPGlobalContext *> *)globalContexts {
+    _globalContextGenerators = globalContexts.mutableCopy ?: [NSMutableDictionary dictionary];
+}
+
+- (BOOL)addGlobalContext:(SPGlobalContext *)generator tag:(NSString *)tag {
+    if ([self.globalContextGenerators objectForKey:tag]) {
+        return NO;
+    }
+    [self.globalContextGenerators setObject:generator forKey:tag];
+    return YES;
+}
+
+- (SPGlobalContext *)removeGlobalContext:(NSString *)tag {
+    SPGlobalContext *toDelete = [self.globalContextGenerators objectForKey:tag];
+    if (toDelete) {
+        [self.globalContextGenerators removeObjectForKey:tag];
+    }
+    return toDelete;
+}
+
 #pragma mark - Extra Functions
 
 - (void) pauseEventTracking {
@@ -343,6 +366,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     return _lifecycleEvents;
 }
 
+- (NSArray<NSString *> *)globalContextTags {
+    return self.globalContextGenerators.allKeys;
+}
+
+#pragma mark - Notifications management
 
 - (void) receiveScreenViewNotification:(NSNotification *)notification {
     NSString * name = [[notification userInfo] objectForKey:@"name"];
@@ -486,6 +514,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
     NSMutableArray<SPSelfDescribingJson *> *contexts = event.contexts;
     [self addBasicContextsToContexts:contexts event:event];
+    [self addGlobalContextsToContexts:contexts event:event];
     [self wrapContexts:contexts toPayload:payload];
 
     return payload;
@@ -557,6 +586,12 @@ void uncaughtExceptionHandler(NSException *exception) {
             [contexts addObject:contextJson];
         }
     }
+}
+
+- (void)addGlobalContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(id<SPInspectableEvent>)event {
+    [self.globalContextGenerators enumerateKeysAndObjectsUsingBlock:^(NSString *key, SPGlobalContext *generator, BOOL *stop) {
+        [contexts addObjectsFromArray:[generator contextsFromEvent:event]];
+    }];
 }
 
 - (void)wrapContexts:(NSArray<SPSelfDescribingJson *> *)contexts toPayload:(SPPayload *)payload {

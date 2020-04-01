@@ -36,6 +36,9 @@
 #import "SPForeground.h"
 #import "SPBackground.h"
 #import "SNOWError.h"
+#import "SPSchemaRule.h"
+#import "SPSchemaRuleset.h"
+#import "SPGlobalContext.h"
 
 FOUNDATION_EXPORT double SnowplowTrackerVersionNumber;
 FOUNDATION_EXPORT const unsigned char SnowplowTrackerVersionString[];

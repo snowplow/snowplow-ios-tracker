@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
     'Snowplow/SNOWReachability.*'
   ]
 
-  s.source_files = 'Snowplow/*.{m,h}', 'Snowplow/Events/*.{m,h}'
+  s.source_files = 'Snowplow/*.{m,h}', 'Snowplow/Events/*.{m,h}', 'Snowplow/GlobalContext/*.{m,h}'
   s.public_header_files = [
     'Snowplow/Snowplow.h', 
     'Snowplow/SPTracker.h', 
@@ -56,7 +56,10 @@ Pod::Spec.new do |s|
     'Snowplow/Events/SPPushNotification.h',
     'Snowplow/Events/SPForeground.h',
     'Snowplow/Events/SPBackground.h',
-    'Snowplow/Events/SNOWError.h'
+    'Snowplow/Events/SNOWError.h',
+    'Snowplow/GlobalContext/SPSchemaRule.h',
+    'Snowplow/GlobalContext/SPSchemaRuleset.h',
+    'Snowplow/GlobalContext/SPGlobalContext.h'
   ]
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'

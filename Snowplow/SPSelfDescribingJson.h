@@ -34,10 +34,13 @@
  */
 @interface SPSelfDescribingJson : NSObject
 
-///  the schema URI for this self-describing JSON.
+/// the schema URI for this self-describing JSON.
 @property (nonatomic) NSString *schema;
 /// Data of the self-describing JSON.
 @property (nonatomic, readonly) NSObject *data;
+
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -46,7 +49,7 @@
  @param data Data to set for data field of the self-describing JSON, should be an NSDictionary.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data;
+- (instancetype)initWithSchema:(NSString *)schema andData:(NSObject *)data NS_DESIGNATED_INITIALIZER;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -55,7 +58,7 @@
  @param data Payload to set for data field of the self-describing JSON.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andPayload:(SPPayload *)data;
+- (instancetype)initWithSchema:(NSString *)schema andPayload:(SPPayload *)data;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -64,7 +67,7 @@
  @param data Self-describing JSON to set for data field of the self-describing JSON.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data;
+- (instancetype)initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data;
 
 /*!
  @brief Sets the data field of the self-describing JSON.
