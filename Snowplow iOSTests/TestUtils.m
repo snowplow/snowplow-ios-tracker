@@ -122,11 +122,6 @@
 #endif
 }
 
-- (void)testGetCarrierName {
-    NSLog(@"Carrier: %@", [SPUtilities getCarrierName]);
-    // No way to fake carrier in Travis simulator
-}
-
 - (void)testGetTransactionId {
     // Supressing deprecated warning only for tests
 #pragma clang diagnostic push
