@@ -17,13 +17,12 @@ let package = Package(
     ],
     dependencies: [
         .package(name: "Reachability", url: "https://github.com/ashleymills/Reachability.swift", from: "4.3.1"),
-        .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", .revision("9b100cc3dd83ff88a17a4da8718eab4b08e2fe67"))
+        .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", .revision("d68317fc0d7a986872ebf389f8d09b870fc88a7d"))
     ],
     targets: [
         .target(
             name: "SnowplowTracker",
             dependencies: ["FMDB", "Reachability"],
-            path: "Snowplow",
             publicHeadersPath: "Snowplow")
     ]
 )
