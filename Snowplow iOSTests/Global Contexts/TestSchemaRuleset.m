@@ -72,6 +72,38 @@
     XCTAssertTrue([ruleset matchWithUri:@"iglu:com.acme.marketing/event/jsonschema/1-0-0"]);
     XCTAssertTrue([ruleset matchWithUri:@"iglu:com.snowplow.marketing/event/jsonschema/1-0-0"]);
     XCTAssertFalse([ruleset matchWithUri:@"iglu:com.snowplow.test/event/jsonschema/1-0-0"]);
+    XCTAssertFalse([ruleset matchWithUri:@"iglu:com.brand/event/jsonschema/1-0-0"]);
+}
+
+- (void)testSchemaRulesetOnlyDenied {
+    NSString *snowplowTest = @"iglu:com.snowplow.test/*/jsonschema/*-*-*";
+    SPSchemaRuleset *ruleset = [SPSchemaRuleset rulesetWithDeniedList:@[snowplowTest]];
+    NSArray<NSString *> *allowed = @[];
+    XCTAssertEqualObjects(ruleset.allowed, allowed);
+    NSArray<NSString *> *denied = @[snowplowTest];
+    XCTAssertEqualObjects(ruleset.denied, denied);
+    
+    // matching
+    XCTAssertTrue([ruleset matchWithUri:@"iglu:com.acme.marketing/event/jsonschema/1-0-0"]);
+    XCTAssertTrue([ruleset matchWithUri:@"iglu:com.snowplow.marketing/event/jsonschema/1-0-0"]);
+    XCTAssertFalse([ruleset matchWithUri:@"iglu:com.snowplow.test/event/jsonschema/1-0-0"]);
+    XCTAssertTrue([ruleset matchWithUri:@"iglu:com.brand/event/jsonschema/1-0-0"]);
+}
+
+- (void)testSchemaRulesetOnlyAllowed {
+    NSString *acme = @"iglu:com.acme.*/*/jsonschema/*-*-*";
+    NSString *snowplow = @"iglu:com.snowplow.*/*/jsonschema/*-*-*";
+    SPSchemaRuleset *ruleset = [SPSchemaRuleset rulesetWithAllowedList:@[acme, snowplow]];
+    NSArray<NSString *> *allowed = @[acme, snowplow];
+    XCTAssertEqualObjects(ruleset.allowed, allowed);
+    NSArray<NSString *> *denied = @[];
+    XCTAssertEqualObjects(ruleset.denied, denied);
+    
+    // matching
+    XCTAssertTrue([ruleset matchWithUri:@"iglu:com.acme.marketing/event/jsonschema/1-0-0"]);
+    XCTAssertTrue([ruleset matchWithUri:@"iglu:com.snowplow.marketing/event/jsonschema/1-0-0"]);
+    XCTAssertTrue([ruleset matchWithUri:@"iglu:com.snowplow.test/event/jsonschema/1-0-0"]);
+    XCTAssertFalse([ruleset matchWithUri:@"iglu:com.brand/event/jsonschema/1-0-0"]);
 }
 
 @end

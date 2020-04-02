@@ -73,6 +73,9 @@ NS_ASSUME_NONNULL_BEGIN
             return NO;
         }
     }
+    if (!self.rulesAllowed.count) {
+        return YES;
+    }
     for (SPSchemaRule *rule in self.rulesAllowed) {
         if ([rule matchWithUri:uri]) {
             return YES;

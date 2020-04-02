@@ -26,6 +26,8 @@
 #import "SPEmitter.h"
 #import "SPUtilities.h"
 #import "SPSubject.h"
+#import "SPSchemaRuleset.h"
+#import "SPSelfDescribingJson.h"
 
 @interface ViewController ()
 
@@ -157,8 +159,22 @@ static NSString *const kNamespace = @"DemoAppNamespace";
         [builder setBase64Encoded:false];
         [builder setSessionContext:YES];
         [builder setSubject:subject];
+        [builder setGlobalContextGenerators:@{
+            @"globalContextTag1": [self getGlobalContext]
+        }];
     }];
     return tracker;
+}
+
+- (SPGlobalContext *)getGlobalContext {
+    SPSchemaRuleset *schemaRuleset = [SPSchemaRuleset rulesetWithAllowedList:@[@"iglu:com.snowplowanalytics.*/*/jsonschema/1-*-*"]
+                                                               andDeniedList:@[@"iglu:com.snowplowanalytics.mobile/*/jsonschema/1-*-*"]];
+    return [[SPGlobalContext alloc] initWithGenerator:^NSArray<SPSelfDescribingJson *> *(id<SPInspectableEvent> event) {
+        return @[
+            [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0" andData:@{@"key": @"staticValue"}],
+            [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0" andData:@{@"eventName": event.schema}],
+        ];
+    } ruleset:schemaRuleset];
 }
 
 // Define Callback Functions
