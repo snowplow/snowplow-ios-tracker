@@ -6,9 +6,7 @@
 //  Copyright © 2019 Snowplow Analytics. All rights reserved.
 //
 
-#if SWIFT_PACKAGE
-    #import <UIKit/UIKit.h>
-#endif
+#import <UIKit/UIKit.h>
 
 @class UIViewController;
 typedef NS_ENUM(NSInteger, SPScreenType);
