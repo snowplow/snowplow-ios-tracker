@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE39117F243CD84800DE5EC7 /* SnowplowTracker in Frameworks */ = {isa = PBXBuildFile; productRef = CE39117E243CD84800DE5EC7 /* SnowplowTracker */; };
 		CEF26A06243CC5630051C2EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF269F6243CC5630051C2EB /* LaunchScreen.storyboard */; };
 		CEF26A07243CC5630051C2EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF269F8243CC5630051C2EB /* Main.storyboard */; };
 		CEF26A08243CC5630051C2EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF269FA243CC5630051C2EB /* AppDelegate.swift */; };
@@ -15,13 +16,12 @@
 		CEF26A0B243CC5630051C2EB /* SnowplowSwiftDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEF269FD243CC5630051C2EB /* SnowplowSwiftDemo.xcdatamodeld */; };
 		CEF26A0C243CC5630051C2EB /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF269FF243CC5630051C2EB /* DemoViewController.swift */; };
 		CEF26A0D243CC5630051C2EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF26A00243CC5630051C2EB /* Assets.xcassets */; };
-		CEF26A0E243CC5630051C2EB /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF26A01243CC5630051C2EB /* InterfaceController.swift */; };
 		CEF26A0F243CC5630051C2EB /* MetricsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF26A02243CC5630051C2EB /* MetricsViewController.swift */; };
-		CEF26A10243CC5630051C2EB /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF26A03243CC5630051C2EB /* ExtensionDelegate.swift */; };
 		CEF26A11243CC5630051C2EB /* AdditionalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF26A05243CC5630051C2EB /* AdditionalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE39117D243CD83F00DE5EC7 /* snowplow-objc-tracker */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "snowplow-objc-tracker"; path = ../..; sourceTree = "<group>"; };
 		CEF269DD243CC5440051C2EB /* SnowplowSwiftSPMDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnowplowSwiftSPMDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF269EE243CC5450051C2EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF269F7243CC5630051C2EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -32,9 +32,7 @@
 		CEF269FE243CC5630051C2EB /* SnowplowSwiftDemo.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SnowplowSwiftDemo.xcdatamodel; sourceTree = "<group>"; };
 		CEF269FF243CC5630051C2EB /* DemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DemoViewController.swift; path = ../../CommonSwiftCode/DemoViewController.swift; sourceTree = "<group>"; };
 		CEF26A00243CC5630051C2EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../../CommonSwiftCode/Assets.xcassets; sourceTree = "<group>"; };
-		CEF26A01243CC5630051C2EB /* InterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InterfaceController.swift; path = ../../CommonSwiftCode/InterfaceController.swift; sourceTree = "<group>"; };
 		CEF26A02243CC5630051C2EB /* MetricsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetricsViewController.swift; path = ../../CommonSwiftCode/MetricsViewController.swift; sourceTree = "<group>"; };
-		CEF26A03243CC5630051C2EB /* ExtensionDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ExtensionDelegate.swift; path = ../../CommonSwiftCode/ExtensionDelegate.swift; sourceTree = "<group>"; };
 		CEF26A04243CC5630051C2EB /* SnowplowSwiftDemo.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = SnowplowSwiftDemo.entitlements; path = ../../CommonSwiftCode/SnowplowSwiftDemo.entitlements; sourceTree = "<group>"; };
 		CEF26A05243CC5630051C2EB /* AdditionalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AdditionalViewController.swift; path = ../../CommonSwiftCode/AdditionalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -44,17 +42,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE39117F243CD84800DE5EC7 /* SnowplowTracker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CE57B9D7243CD152004C4941 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CEF269D4243CC5440051C2EB = {
 			isa = PBXGroup;
 			children = (
+				CE39117D243CD83F00DE5EC7 /* snowplow-objc-tracker */,
 				CEF269DE243CC5440051C2EB /* Products */,
 				CEF269DF243CC5440051C2EB /* SnowplowSwiftSPMDemo */,
+				CE57B9D7243CD152004C4941 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,8 +83,6 @@
 				CEF269FA243CC5630051C2EB /* AppDelegate.swift */,
 				CEF269FB243CC5630051C2EB /* DemoUtils.swift */,
 				CEF269FF243CC5630051C2EB /* DemoViewController.swift */,
-				CEF26A03243CC5630051C2EB /* ExtensionDelegate.swift */,
-				CEF26A01243CC5630051C2EB /* InterfaceController.swift */,
 				CEF26A02243CC5630051C2EB /* MetricsViewController.swift */,
 				CEF269FC243CC5630051C2EB /* PageViewController.swift */,
 				CEF26A00243CC5630051C2EB /* Assets.xcassets */,
@@ -112,6 +118,9 @@
 			dependencies = (
 			);
 			name = SnowplowSwiftSPMDemo;
+			packageProductDependencies = (
+				CE39117E243CD84800DE5EC7 /* SnowplowTracker */,
+			);
 			productName = SnowplowSwiftSPMDemo;
 			productReference = CEF269DD243CC5440051C2EB /* SnowplowSwiftSPMDemo.app */;
 			productType = "com.apple.product-type.application";
@@ -141,6 +150,8 @@
 				Base,
 			);
 			mainGroup = CEF269D4243CC5440051C2EB;
+			packageReferences = (
+			);
 			productRefGroup = CEF269DE243CC5440051C2EB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -171,10 +182,8 @@
 				CEF26A11243CC5630051C2EB /* AdditionalViewController.swift in Sources */,
 				CEF26A0A243CC5630051C2EB /* PageViewController.swift in Sources */,
 				CEF26A0B243CC5630051C2EB /* SnowplowSwiftDemo.xcdatamodeld in Sources */,
-				CEF26A10243CC5630051C2EB /* ExtensionDelegate.swift in Sources */,
 				CEF26A09243CC5630051C2EB /* DemoUtils.swift in Sources */,
 				CEF26A0F243CC5630051C2EB /* MetricsViewController.swift in Sources */,
-				CEF26A0E243CC5630051C2EB /* InterfaceController.swift in Sources */,
 				CEF26A08243CC5630051C2EB /* AppDelegate.swift in Sources */,
 				CEF26A0C243CC5630051C2EB /* DemoViewController.swift in Sources */,
 			);
@@ -375,6 +384,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE39117E243CD84800DE5EC7 /* SnowplowTracker */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = SnowplowTracker;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CEF269FD243CC5630051C2EB /* SnowplowSwiftDemo.xcdatamodeld */ = {
