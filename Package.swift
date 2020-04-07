@@ -23,6 +23,10 @@ let package = Package(
             name: "SnowplowTracker",
             dependencies: ["FMDB"],
             path: "Snowplow",
-            publicHeadersPath: ".")
+            publicHeadersPath: "."),
+        .target(
+            name: "Snowplow-iOSTests",
+            dependencies: ["SnowplowTracker"],
+            path: "Snowplow iOSTests")
     ]
 )
