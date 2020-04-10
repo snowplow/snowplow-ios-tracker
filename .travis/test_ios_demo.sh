@@ -12,7 +12,10 @@ if [ $DEP_FILE == "Cartfile" ]; then
 	printf "\n\n Carthage update \n"
 	cd Examples/$APP
 	./generateCartfile.sh
-    carthage update
+	carthage update
+elif [ $DEP_FILE == "SPM" ]; then
+	printf "\n\n Swift Package Manager \n"
+	cd Examples/$APP	
 elif [ $DEP_FILE == "Podfile" ]; then
 	printf "\n\n Pod update \n"
 	cd Examples/$APP
@@ -34,3 +37,6 @@ if [ ! -z "$SCHEME_WATCH" ]; then
 	printf "\n\n Build watchOS ${APP} \n"
 	set -o pipefail && xcodebuild -destination "${DEST_WATCH}" ${PROJECT} ${SCHEME_WATCH} clean build | xcpretty
 fi
+
+
+
