@@ -42,6 +42,21 @@ typedef NS_ENUM(NSInteger, SPScreenType) {
 NSString * stringWithSPScreenType(SPScreenType screenType);
 
 /*!
+ @protocol SPInspectableEvent
+ @brief The inspectable properties of the event used to generate contexts.
+ */
+@protocol SPInspectableEvent <NSObject>
+
+/*! The schema of the event. */
+@property (nonatomic, readonly) NSString *schema;
+/*! The name of the event. */
+@property (nonatomic, readonly) NSString *eventName;
+/*! The payload of the event. */
+@property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
+
+@end
+
+/*!
  @protocol SPEventBuilder
  @brief The base protocol for all event builders.
 

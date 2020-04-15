@@ -25,5 +25,9 @@ framework module SnowplowTracker {
     header "SPBackground.h"
     header "SNOWError.h"
 
+    header "SPGlobalContext.h"
+    header "SPSchemaRuleset.h"
+    header "SPSchemaRule.h"
+
     export *
 }

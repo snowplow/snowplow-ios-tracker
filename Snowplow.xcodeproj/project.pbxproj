@@ -302,6 +302,8 @@
 		ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */; };
 		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		ED914EB52431FEE70068DA0A /* TestGlobalContexts.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */; };
+		ED914EB72432081F0068DA0A /* TestSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */; };
 		ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -314,6 +316,30 @@
 		EDD5828B242538860040F155 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD58289242538860040F155 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDD5828C242538860040F155 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD58289242538860040F155 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDD5828D242538860040F155 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD58289242538860040F155 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0BA242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0BB242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0BC242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0BD242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0BE242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
+		EDE8F0BF242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
+		EDE8F0C0242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
+		EDE8F0C1242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
+		EDE8F0CE2429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0CF2429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0D02429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0D12429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0DE2429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
+		EDE8F0DF2429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
+		EDE8F0E02429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
+		EDE8F0E12429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
+		EDE8F0EA2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0EB2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0EC2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0ED2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDE8F0F22429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
+		EDE8F0F32429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
+		EDE8F0F42429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
+		EDE8F0F52429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
 		EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 /* End PBXBuildFile section */
@@ -480,9 +506,17 @@
 		ED843F6B23F71B1900DB74B5 /* SNOWError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWError.m; sourceTree = "<group>"; };
 		ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWReachability.m; sourceTree = "<group>"; };
 		ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWReachability.h; sourceTree = "<group>"; };
+		ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestGlobalContexts.m; sourceTree = "<group>"; };
+		ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSchemaRuleset.m; sourceTree = "<group>"; };
 		ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDevicePlatform.h; sourceTree = "<group>"; };
 		ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDevicePlatform.m; sourceTree = "<group>"; };
 		EDD58289242538860040F155 /* SPEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
+		EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGlobalContext.h; sourceTree = "<group>"; };
+		EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGlobalContext.m; sourceTree = "<group>"; };
+		EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSchemaRuleset.h; sourceTree = "<group>"; };
+		EDE8F0C62429025200107F03 /* SPSchemaRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSchemaRule.m; sourceTree = "<group>"; };
+		EDE8F0C92429025200107F03 /* SPSchemaRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSchemaRule.h; sourceTree = "<group>"; };
+		EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSchemaRuleset.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -553,6 +587,7 @@
 		752DABD821CC38560065F874 /* Snowplow iOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				ED914EB02430D03A0068DA0A /* Global Contexts */,
 				75CAC3F721F2955000271FB3 /* en.lproj */,
 				75CAC40421F2955100271FB3 /* Info.plist */,
 				75CAC3FE21F2955100271FB3 /* Products */,
@@ -646,6 +681,7 @@
 		AB0C27C2191B408200018557 /* Snowplow */ = {
 			isa = PBXGroup;
 			children = (
+				EDE8F0B72429019600107F03 /* Global Contexts */,
 				ED843ECD23F5A8A100DB74B5 /* Events */,
 				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
 				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
@@ -738,6 +774,29 @@
 			path = Events;
 			sourceTree = "<group>";
 		};
+		ED914EB02430D03A0068DA0A /* Global Contexts */ = {
+			isa = PBXGroup;
+			children = (
+				ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */,
+				ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */,
+			);
+			path = "Global Contexts";
+			sourceTree = "<group>";
+		};
+		EDE8F0B72429019600107F03 /* Global Contexts */ = {
+			isa = PBXGroup;
+			children = (
+				EDE8F0C92429025200107F03 /* SPSchemaRule.h */,
+				EDE8F0C62429025200107F03 /* SPSchemaRule.m */,
+				EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */,
+				EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */,
+				EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */,
+				EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */,
+			);
+			name = "Global Contexts";
+			path = GlobalContext;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -754,6 +813,7 @@
 				ED852B3323A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
 				ED843EF423F700A000DB74B5 /* SPUnstructured.h in Headers */,
 				752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */,
+				EDE8F0CE2429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				752DAC3521CC43C70065F874 /* SPSubject.h in Headers */,
 				752DAC3721CC43C70065F874 /* SPPayload.h in Headers */,
 				752DAC3A21CC43C70065F874 /* SPUtilities.h in Headers */,
@@ -766,6 +826,7 @@
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
+				EDE8F0EA2429025300107F03 /* SPSchemaRule.h in Headers */,
 				ED843F6223F71A6300DB74B5 /* SPBackground.h in Headers */,
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
@@ -779,6 +840,7 @@
 				ED843F0823F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
 				ED843ED023F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
 				ED843EE023F6FED000DB74B5 /* SPPageView.h in Headers */,
+				EDE8F0BA242901FE00107F03 /* SPGlobalContext.h in Headers */,
 				752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */,
 				752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */,
 			);
@@ -799,12 +861,14 @@
 				ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				75CAC45B21F2A21B00271FB3 /* SPEmitter.h in Headers */,
 				ED843F1D23F7163400DB74B5 /* SPConsentGranted.h in Headers */,
+				EDE8F0EB2429025300107F03 /* SPSchemaRule.h in Headers */,
 				ED843F5923F719FF00DB74B5 /* SPForeground.h in Headers */,
 				75CAC45C21F2A21B00271FB3 /* SPSubject.h in Headers */,
 				75CAC45E21F2A21B00271FB3 /* SPPayload.h in Headers */,
 				75CAC45F21F2A21B00271FB3 /* SPSelfDescribingJson.h in Headers */,
 				ED843F6D23F71B1900DB74B5 /* SNOWError.h in Headers */,
 				ED843F4F23F7195D00DB74B5 /* SPPushNotification.h in Headers */,
+				EDE8F0CF2429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */,
 				754774C12225FBB90043B814 /* SPScreenState.h in Headers */,
 				ED843F1323F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
@@ -818,6 +882,7 @@
 				ED843EF523F700A000DB74B5 /* SPUnstructured.h in Headers */,
 				75CAC45D21F2A21B00271FB3 /* SPSession.h in Headers */,
 				ED843ED123F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
+				EDE8F0BB242901FE00107F03 /* SPGlobalContext.h in Headers */,
 				75CAC46021F2A21B00271FB3 /* SPEventStore.h in Headers */,
 				75CAC46221F2A21B00271FB3 /* SPRequestResponse.h in Headers */,
 				75CAC46321F2A21B00271FB3 /* SPWeakTimerTarget.h in Headers */,
@@ -840,12 +905,14 @@
 				75CAC42E21F2A0CC00271FB3 /* SPSubject.h in Headers */,
 				75CAC43021F2A0CC00271FB3 /* SPPayload.h in Headers */,
 				ED843F1E23F7163400DB74B5 /* SPConsentGranted.h in Headers */,
+				EDE8F0EC2429025300107F03 /* SPSchemaRule.h in Headers */,
 				ED843F5A23F719FF00DB74B5 /* SPForeground.h in Headers */,
 				75CAC43121F2A0CC00271FB3 /* SPSelfDescribingJson.h in Headers */,
 				75CAC43321F2A0CC00271FB3 /* SPUtilities.h in Headers */,
 				75CAC43621F2A0CC00271FB3 /* SPEventBase.h in Headers */,
 				ED843F6E23F71B1900DB74B5 /* SNOWError.h in Headers */,
 				ED843F5023F7195D00DB74B5 /* SPPushNotification.h in Headers */,
+				EDE8F0D02429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				75CAC43721F2A0CC00271FB3 /* SPRequestCallback.h in Headers */,
 				754774C22225FBB90043B814 /* SPScreenState.h in Headers */,
 				ED843F1423F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
@@ -859,6 +926,7 @@
 				ED843EF623F700A000DB74B5 /* SPUnstructured.h in Headers */,
 				75CAC43221F2A0CC00271FB3 /* SPEventStore.h in Headers */,
 				ED843ED223F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
+				EDE8F0BC242901FE00107F03 /* SPGlobalContext.h in Headers */,
 				75CAC43421F2A0CC00271FB3 /* SPRequestResponse.h in Headers */,
 				ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */,
 				75CAC43521F2A0CC00271FB3 /* SPWeakTimerTarget.h in Headers */,
@@ -879,6 +947,7 @@
 				ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
 				ED843EF723F700A000DB74B5 /* SPUnstructured.h in Headers */,
 				75F9C5E721FA35BC00A5B8FC /* SPTracker.h in Headers */,
+				EDE8F0D12429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				75F9C5E821FA35BC00A5B8FC /* SPEmitter.h in Headers */,
 				75F9C5E921FA35BC00A5B8FC /* SPSubject.h in Headers */,
 				75F9C5EB21FA35BC00A5B8FC /* SPPayload.h in Headers */,
@@ -891,6 +960,7 @@
 				7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */,
 				75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */,
 				75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */,
+				EDE8F0ED2429025300107F03 /* SPSchemaRule.h in Headers */,
 				ED843F6523F71A6300DB74B5 /* SPBackground.h in Headers */,
 				7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */,
 				7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
@@ -904,6 +974,7 @@
 				ED843F0B23F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
 				ED843ED323F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
 				ED843EE323F6FED000DB74B5 /* SPPageView.h in Headers */,
+				EDE8F0BD242901FE00107F03 /* SPGlobalContext.h in Headers */,
 				75F9C5EA21FA35BC00A5B8FC /* SPSession.h in Headers */,
 				75F9C5EF21FA35BC00A5B8FC /* SPRequestResponse.h in Headers */,
 			);
@@ -1036,6 +1107,7 @@
 					};
 					752DABD321CC38560065F874 = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1140;
 					};
 					752DABE721CC3A090065F874 = {
 						CreatedOnToolsVersion = 10.1;
@@ -1112,6 +1184,7 @@
 			files = (
 				ED843ED423F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
 				754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
+				EDE8F0F22429025300107F03 /* SPSchemaRuleset.m in Sources */,
 				752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */,
 				ED843F5C23F719FF00DB74B5 /* SPForeground.m in Sources */,
 				752DAC1721CC42BC0065F874 /* Snowplow.m in Sources */,
@@ -1123,6 +1196,7 @@
 				ED843F2023F7163500DB74B5 /* SPConsentGranted.m in Sources */,
 				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
+				EDE8F0DE2429025300107F03 /* SPSchemaRule.m in Sources */,
 				75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */,
 				752DAC1D21CC42BC0065F874 /* SPSubject.m in Sources */,
 				ED843EE423F6FED000DB74B5 /* SPPageView.m in Sources */,
@@ -1130,6 +1204,7 @@
 				ED843F2A23F716B500DB74B5 /* SPTiming.m in Sources */,
 				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
+				EDE8F0BE242901FE00107F03 /* SPGlobalContext.m in Sources */,
 				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
 				ED843F3423F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
@@ -1153,11 +1228,13 @@
 				75CAC40821F2955100271FB3 /* TestSubject.m in Sources */,
 				75CAC41221F2955100271FB3 /* TestRequest.m in Sources */,
 				75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */,
+				ED914EB72432081F0068DA0A /* TestSchemaRuleset.m in Sources */,
 				75CAC41121F2955100271FB3 /* TestTracker.m in Sources */,
 				75CAC40D21F2955100271FB3 /* TestEmitter.m in Sources */,
 				75CAC40721F2955100271FB3 /* TestPayload.m in Sources */,
 				75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */,
 				7534D20822569F3400904EE5 /* TestScreenState.m in Sources */,
+				ED914EB52431FEE70068DA0A /* TestGlobalContexts.m in Sources */,
 				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
 				75CAC40F21F2955100271FB3 /* SnowplowTests.m in Sources */,
 				75CAC41321F2955100271FB3 /* TestUtils.m in Sources */,
@@ -1190,7 +1267,9 @@
 				75CAC44221F2A17500271FB3 /* SPUtilities.m in Sources */,
 				ED843F3523F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				75CAC44321F2A17500271FB3 /* SPRequestResponse.m in Sources */,
+				EDE8F0F32429025300107F03 /* SPSchemaRuleset.m in Sources */,
 				ED843EE523F6FED000DB74B5 /* SPPageView.m in Sources */,
+				EDE8F0DF2429025300107F03 /* SPSchemaRule.m in Sources */,
 				EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */,
 				ED843F2B23F716B500DB74B5 /* SPTiming.m in Sources */,
 				ED843F5323F7195D00DB74B5 /* SPPushNotification.m in Sources */,
@@ -1201,6 +1280,7 @@
 				75CAC44521F2A17500271FB3 /* SPEventBase.m in Sources */,
 				ED843F5D23F719FF00DB74B5 /* SPForeground.m in Sources */,
 				ED843F3F23F717F900DB74B5 /* SPEcommerceItem.m in Sources */,
+				EDE8F0BF242901FE00107F03 /* SPGlobalContext.m in Sources */,
 				75CAC44721F2A17500271FB3 /* Snowplow-Bridging-Header.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1228,7 +1308,9 @@
 				75CAC44E21F2A19500271FB3 /* SPSelfDescribingJson.m in Sources */,
 				ED843F3623F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				75CAC44F21F2A19500271FB3 /* SPEventStore.m in Sources */,
+				EDE8F0F42429025300107F03 /* SPSchemaRuleset.m in Sources */,
 				ED843EE623F6FED000DB74B5 /* SPPageView.m in Sources */,
+				EDE8F0E02429025300107F03 /* SPSchemaRule.m in Sources */,
 				75CAC45021F2A19500271FB3 /* SPUtilities.m in Sources */,
 				ED843F2C23F716B500DB74B5 /* SPTiming.m in Sources */,
 				ED843F5423F7195D00DB74B5 /* SPPushNotification.m in Sources */,
@@ -1239,6 +1321,7 @@
 				75CAC45221F2A19500271FB3 /* SPWeakTimerTarget.m in Sources */,
 				ED843F5E23F719FF00DB74B5 /* SPForeground.m in Sources */,
 				ED843F4023F717F900DB74B5 /* SPEcommerceItem.m in Sources */,
+				EDE8F0C0242901FE00107F03 /* SPGlobalContext.m in Sources */,
 				75CAC45321F2A19500271FB3 /* SPEventBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1257,6 +1340,7 @@
 			files = (
 				ED843ED723F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
 				7534D20122569BED00904EE5 /* SPScreenState.m in Sources */,
+				EDE8F0F52429025300107F03 /* SPSchemaRuleset.m in Sources */,
 				7534D20222569BED00904EE5 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				ED843F5F23F719FF00DB74B5 /* SPForeground.m in Sources */,
 				7534D20322569BED00904EE5 /* SPInstallTracker.m in Sources */,
@@ -1268,6 +1352,7 @@
 				ED843F2323F7163500DB74B5 /* SPConsentGranted.m in Sources */,
 				75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */,
 				75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */,
+				EDE8F0E12429025300107F03 /* SPSchemaRule.m in Sources */,
 				75F9C5D721FA357100A5B8FC /* SPTracker.m in Sources */,
 				75F9C5D821FA357100A5B8FC /* SPEmitter.m in Sources */,
 				ED843EE723F6FED000DB74B5 /* SPPageView.m in Sources */,
@@ -1275,6 +1360,7 @@
 				ED843F2D23F716B500DB74B5 /* SPTiming.m in Sources */,
 				75F9C5DA21FA357100A5B8FC /* SPSession.m in Sources */,
 				75F9C5DB21FA357100A5B8FC /* SPPayload.m in Sources */,
+				EDE8F0C1242901FE00107F03 /* SPGlobalContext.m in Sources */,
 				75F9C5DC21FA357100A5B8FC /* SPSelfDescribingJson.m in Sources */,
 				ED843F3723F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				75F9C5DD21FA357100A5B8FC /* SPEventStore.m in Sources */,
@@ -1432,6 +1518,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1471,6 +1558,9 @@
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Snowplow iOSTests/Global Contexts/Snowplow-iOSTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1481,6 +1571,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -1521,6 +1612,8 @@
 				PRODUCT_MODULE_NAME = "$(PRODUCT_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Snowplow iOSTests/Global Contexts/Snowplow-iOSTests-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
