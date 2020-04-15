@@ -48,20 +48,29 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
             builder!.setApplicationContext(true)
             builder!.setExceptionEvents(true)
             builder!.setInstallEvent(true)
-            builder!.setGlobalContextGenerators(["globalContextTag1": self.getGlobalContext()])
+            builder!.setGlobalContextGenerators([
+                "ruleSetExampleTag": self.ruleSetGlobalContextExample(),
+                "staticExampleTag": self.staticGlobalContextExample(),
+            ])
         })
         return newTracker!
     }
     
-    func getGlobalContext() -> SPGlobalContext {
+    func ruleSetGlobalContextExample() -> SPGlobalContext {
         let schemaRuleset = SPSchemaRuleset(allowedList: ["iglu:com.snowplowanalytics.*/*/jsonschema/1-*-*"],
                                             andDeniedList: ["iglu:com.snowplowanalytics.mobile/*/jsonschema/1-*-*"])
         return SPGlobalContext(generator: { event -> [SPSelfDescribingJson]? in
             return [
-                SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["key": "staticValue"] as NSObject),
+                SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["key": "rulesetExample"] as NSObject),
                 SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["eventName": event.schema] as NSObject)
             ]
         }, ruleset: schemaRuleset)
+    }
+    
+    func staticGlobalContextExample() -> SPGlobalContext {
+        return SPGlobalContext(staticContexts: [
+            SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["key": "staticExample"] as NSObject),
+        ])
     }
 
     func updateToken(_ newToken: String) {
