@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright © 2020 Snowplow Analytics. All rights reserved.
+//  Copyright: Copyright © 2020 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
