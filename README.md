@@ -46,16 +46,14 @@ Your local endpoint will be `http://localhost:4545` which can be used in the dem
 To view sent events in your browser please navigate to `http://localhost:2525`.
 
 ## Find out more
-| Technical Docs                  | Setup Guide               | Roadmap                 | Contributing                      |
-|---------------------------------|---------------------------|-------------------------|-----------------------------------|
-| ![i1][techdocs-image]          | ![i2][setup-image]       | ![i3][roadmap-image]   | ![i4][contributing-image]        |
-| **[Technical Docs][techdocs]** | **[Setup Guide][setup]** | **[Roadmap][roadmap]** | **[Contributing][contributing]** |
-
-Older documentation can be found [here][techdocs-old].
+| Technical Docs                 |  Contributing                    |
+|--------------------------------|----------------------------------|
+| ![i1][techdocs-image]          | ![i2][contributing-image]        |
+| **[Technical Docs][techdocs]** | **[Contributing][contributing]** |
 
 ## Copyright and license
 
-The Snowplow iOS/OSX/tvOS Tracker is copyright 2013-2015 Snowplow Analytics Ltd.
+The Snowplow iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2020 Snowplow Analytics Ltd.
 
 Licensed under the **[Apache License, Version 2.0][license]** (the "License");
 you may not use this software except in compliance with the License.
@@ -88,14 +86,9 @@ limitations under the License.
 [carthage-badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
 
 [techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
-[setup-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
-[roadmap-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/roadmap.png
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
-[techdocs]: http://docs.snowplowanalytics.com/open-source/snowplow/trackers/objective-c-tracker
-[techdocs-old]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker
-[setup]: https://github.com/snowplow/snowplow/wiki/iOS-Tracker-Setup
-[roadmap]: https://github.com/snowplow/snowplow/wiki/Product-roadmap
+[techdocs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/
 [contributing]: https://github.com/snowplow/snowplow/wiki/Contributing
 
 [vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
