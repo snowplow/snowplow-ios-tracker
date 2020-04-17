@@ -84,6 +84,7 @@ extern NSString * const kSPBackgroundSchema;
 extern NSString * const kSPForegroundSchema;
 extern NSString * const kSPErrorSchema;
 extern NSString * const kSPApplicationInstallSchema;
+extern NSString * const kSPGdprContextSchema;
 
 // --- Event Keys
 
@@ -282,5 +283,12 @@ extern NSString * const kSPInstalledBefore;
 extern NSString * const kSPInstallTimestamp;
 extern NSString * const kSPPreviousInstallVersion;
 extern NSString * const kSPPreviousInstallBuild;
+
+// --- GDPR Context
+
+extern NSString * const kSPBasisForProcessing;
+extern NSString * const kSPDocumentId;
+extern NSString * const kSPDocumentVersion;
+extern NSString * const kSPDocumentDescription;
 
 @end

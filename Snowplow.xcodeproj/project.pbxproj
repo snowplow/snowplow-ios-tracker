@@ -304,6 +304,14 @@
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		ED914EB52431FEE70068DA0A /* TestGlobalContexts.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */; };
 		ED914EB72432081F0068DA0A /* TestSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */; };
+		ED914EBA24325AB40068DA0A /* SPGdprContext.h in Headers */ = {isa = PBXBuildFile; fileRef = ED914EB824325AB40068DA0A /* SPGdprContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		ED914EBB24325AB40068DA0A /* SPGdprContext.h in Headers */ = {isa = PBXBuildFile; fileRef = ED914EB824325AB40068DA0A /* SPGdprContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		ED914EBC24325AB40068DA0A /* SPGdprContext.h in Headers */ = {isa = PBXBuildFile; fileRef = ED914EB824325AB40068DA0A /* SPGdprContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		ED914EBD24325AB40068DA0A /* SPGdprContext.h in Headers */ = {isa = PBXBuildFile; fileRef = ED914EB824325AB40068DA0A /* SPGdprContext.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		ED914EBE24325AB40068DA0A /* SPGdprContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB924325AB40068DA0A /* SPGdprContext.m */; };
+		ED914EBF24325AB40068DA0A /* SPGdprContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB924325AB40068DA0A /* SPGdprContext.m */; };
+		ED914EC024325AB40068DA0A /* SPGdprContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB924325AB40068DA0A /* SPGdprContext.m */; };
+		ED914EC124325AB40068DA0A /* SPGdprContext.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB924325AB40068DA0A /* SPGdprContext.m */; };
 		ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -508,6 +516,8 @@
 		ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWReachability.h; sourceTree = "<group>"; };
 		ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestGlobalContexts.m; sourceTree = "<group>"; };
 		ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSchemaRuleset.m; sourceTree = "<group>"; };
+		ED914EB824325AB40068DA0A /* SPGdprContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPGdprContext.h; sourceTree = "<group>"; };
+		ED914EB924325AB40068DA0A /* SPGdprContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPGdprContext.m; sourceTree = "<group>"; };
 		ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDevicePlatform.h; sourceTree = "<group>"; };
 		ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDevicePlatform.m; sourceTree = "<group>"; };
 		EDD58289242538860040F155 /* SPEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
@@ -718,6 +728,8 @@
 				754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */,
 				75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */,
 				75264A31224E5DD2000E0E9B /* SPInstallTracker.m */,
+				ED914EB824325AB40068DA0A /* SPGdprContext.h */,
+				ED914EB924325AB40068DA0A /* SPGdprContext.m */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -838,6 +850,7 @@
 				ED843F4E23F7195D00DB74B5 /* SPPushNotification.h in Headers */,
 				752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */,
 				ED843F0823F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
+				ED914EBA24325AB40068DA0A /* SPGdprContext.h in Headers */,
 				ED843ED023F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
 				ED843EE023F6FED000DB74B5 /* SPPageView.h in Headers */,
 				EDE8F0BA242901FE00107F03 /* SPGlobalContext.h in Headers */,
@@ -870,6 +883,7 @@
 				ED843F4F23F7195D00DB74B5 /* SPPushNotification.h in Headers */,
 				EDE8F0CF2429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */,
+				ED914EBB24325AB40068DA0A /* SPGdprContext.h in Headers */,
 				754774C12225FBB90043B814 /* SPScreenState.h in Headers */,
 				ED843F1323F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
 				ED843EEB23F7001D00DB74B5 /* SPStructured.h in Headers */,
@@ -914,6 +928,7 @@
 				ED843F5023F7195D00DB74B5 /* SPPushNotification.h in Headers */,
 				EDE8F0D02429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				75CAC43721F2A0CC00271FB3 /* SPRequestCallback.h in Headers */,
+				ED914EBC24325AB40068DA0A /* SPGdprContext.h in Headers */,
 				754774C22225FBB90043B814 /* SPScreenState.h in Headers */,
 				ED843F1423F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
 				ED843EEC23F7001D00DB74B5 /* SPStructured.h in Headers */,
@@ -972,6 +987,7 @@
 				ED843F5123F7195D00DB74B5 /* SPPushNotification.h in Headers */,
 				75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */,
 				ED843F0B23F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
+				ED914EBD24325AB40068DA0A /* SPGdprContext.h in Headers */,
 				ED843ED323F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
 				ED843EE323F6FED000DB74B5 /* SPPageView.h in Headers */,
 				EDE8F0BD242901FE00107F03 /* SPGlobalContext.h in Headers */,
@@ -1194,6 +1210,7 @@
 				ED843EEE23F7001D00DB74B5 /* SPStructured.m in Sources */,
 				ED843EF823F700A000DB74B5 /* SPUnstructured.m in Sources */,
 				ED843F2023F7163500DB74B5 /* SPConsentGranted.m in Sources */,
+				ED914EBE24325AB40068DA0A /* SPGdprContext.m in Sources */,
 				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
 				EDE8F0DE2429025300107F03 /* SPSchemaRule.m in Sources */,
@@ -1257,6 +1274,7 @@
 				75CAC43D21F2A17500271FB3 /* SPSubject.m in Sources */,
 				ED843ED523F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
 				ED843F2123F7163500DB74B5 /* SPConsentGranted.m in Sources */,
+				ED914EBF24325AB40068DA0A /* SPGdprContext.m in Sources */,
 				75CAC43E21F2A17500271FB3 /* SPSession.m in Sources */,
 				ED843F6723F71A6300DB74B5 /* SPBackground.m in Sources */,
 				75CAC43F21F2A17500271FB3 /* SPPayload.m in Sources */,
@@ -1298,6 +1316,7 @@
 				75CAC44A21F2A19500271FB3 /* SPEmitter.m in Sources */,
 				ED843ED623F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
 				ED843F2223F7163500DB74B5 /* SPConsentGranted.m in Sources */,
+				ED914EC024325AB40068DA0A /* SPGdprContext.m in Sources */,
 				ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
 				ED843F6823F71A6300DB74B5 /* SPBackground.m in Sources */,
 				75CAC44B21F2A19500271FB3 /* SPSubject.m in Sources */,
@@ -1350,6 +1369,7 @@
 				ED843EF123F7001D00DB74B5 /* SPStructured.m in Sources */,
 				ED843EFB23F700A000DB74B5 /* SPUnstructured.m in Sources */,
 				ED843F2323F7163500DB74B5 /* SPConsentGranted.m in Sources */,
+				ED914EC124325AB40068DA0A /* SPGdprContext.m in Sources */,
 				75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */,
 				75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */,
 				EDE8F0E12429025300107F03 /* SPSchemaRule.m in Sources */,

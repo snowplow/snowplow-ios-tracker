@@ -31,6 +31,7 @@
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
 #import "SPGlobalContext.h"
+#import "SPGdprContext.h"
 
 #import "SNOWError.h"
 #import "SPStructured.h"
@@ -54,6 +55,8 @@
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
 
 @property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
+
+@property (nonatomic) SPGdprContext *gdpr;
 
 /*!
  @brief This method is called to send an auto-tracked screen view event.
@@ -310,6 +313,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     _installEvent = installEvent;
 }
 
+#pragma mark - Global Contexts methods
+
 - (void)setGlobalContextGenerators:(NSDictionary<NSString *, SPGlobalContext *> *)globalContexts {
     _globalContextGenerators = globalContexts.mutableCopy ?: [NSMutableDictionary dictionary];
 }
@@ -328,6 +333,34 @@ void uncaughtExceptionHandler(NSException *exception) {
         [self.globalContextGenerators removeObjectForKey:tag];
     }
     return toDelete;
+}
+
+#pragma mark - GDPR methods
+
+- (void)setGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                     documentId:(NSString *)documentId
+                documentVersion:(NSString *)documentVersion
+            documentDescription:(NSString *)documentDescription
+{
+    self.gdpr = [[SPGdprContext alloc] initWithBasis:basisForProcessing
+                                          documentId:documentId
+                                     documentVersion:documentVersion
+                                 documentDescription:documentDescription];
+}
+
+- (void)enableGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                        documentId:(NSString *)documentId
+                   documentVersion:(NSString *)documentVersion
+               documentDescription:(NSString *)documentDescription
+{
+    self.gdpr = [[SPGdprContext alloc] initWithBasis:basisForProcessing
+                                          documentId:documentId
+                                     documentVersion:documentVersion
+                                 documentDescription:documentDescription];
+}
+
+- (void)disableGdprContext {
+    self.gdpr = nil;
 }
 
 #pragma mark - Extra Functions
@@ -584,6 +617,14 @@ void uncaughtExceptionHandler(NSException *exception) {
         SPSelfDescribingJson * contextJson = [SPUtilities getScreenContextWithScreenState:_currentScreenState];
         if (contextJson != nil) {
             [contexts addObject:contextJson];
+        }
+    }
+    
+    // Add GDPR context
+    if (self.gdpr) {
+        SPSelfDescribingJson *gdprContext = self.gdpr.context;
+        if (gdprContext) {
+            [contexts addObject:gdprContext];
         }
     }
 }
