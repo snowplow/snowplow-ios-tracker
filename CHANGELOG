@@ -1,3 +1,15 @@
+Version 1.3.0 (2020-04-21)
+--------------------------
+Replace deprecated CTTelephonyNetworkInfo methods (#479)
+Fix deprecated CFURLCreateStringByAddingPercentEscapes (#493)
+Fix deprecated keyWindow (#492)
+Update Technical Docs link (#443)
+Update copyright (#499)
+Add GDPR context (#425)
+Add support for global contexts (#357)
+Add Swift Package Manager support (#474)
+Events processing refactoring (#489)
+
 Version 1.2.2 (2020-03-04)
 --------------------------
 Fix failing test about ScreenContext (#486)
