@@ -1,0 +1,33 @@
+framework module SnowplowTracker {
+    header "Snowplow.h"
+    header "SPTracker.h"
+    header "SPEmitter.h"
+    header "SPSubject.h"
+    header "SPPayload.h"
+    header "SPUtilities.h"
+    header "SPRequestCallback.h"
+    header "SPSelfDescribingJson.h"
+    header "SPDevicePlatform.h"
+    
+    header "Events/SPEventBase.h"
+    header "Events/SPPageView.h"
+    header "Events/SPStructured.h"
+    header "Events/SPUnstructured.h"
+    header "Events/SPScreenView.h"
+    header "Events/SPConsentWithdrawn.h"
+    header "Events/SPConsentDocument.h"
+    header "Events/SPConsentGranted.h"
+    header "Events/SPTiming.h"
+    header "Events/SPEcommerce.h"
+    header "Events/SPEcommerceItem.h"
+    header "Events/SPPushNotification.h"
+    header "Events/SPForeground.h"
+    header "Events/SPBackground.h"
+    header "Events/SNOWError.h"
+
+    header "GlobalContext/SPGlobalContext.h"
+    header "GlobalContext/SPSchemaRuleset.h"
+    header "GlobalContext/SPSchemaRule.h"
+
+    export *
+}
