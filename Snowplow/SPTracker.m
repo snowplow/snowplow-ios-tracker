@@ -32,7 +32,6 @@
 #import "SPInstallTracker.h"
 #import "SPGlobalContext.h"
 #import "SPGdprContext.h"
-#import "SPEventBase.h"
 
 #import "SNOWError.h"
 #import "SPStructured.h"
