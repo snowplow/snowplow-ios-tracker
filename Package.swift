@@ -19,8 +19,8 @@ let package = Package(
         .target(
             name: "SnowplowTracker",
             dependencies: ["FMDB"],
-            path: "Snowplow/",
-            publicHeadersPath: "Snowplow"),
+            path: "Snowplow",
+            publicHeadersPath: "Snowplow/"),
         .testTarget(
             name: "Snowplow-iOSTests",
             dependencies: ["SnowplowTracker"],
