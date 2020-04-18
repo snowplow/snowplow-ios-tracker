@@ -1,33 +1,37 @@
-framework module SnowplowTracker {
-    header "Snowplow.h"
-    header "SPTracker.h"
-    header "SPEmitter.h"
-    header "SPSubject.h"
-    header "SPPayload.h"
-    header "SPUtilities.h"
-    header "SPRequestCallback.h"
-    header "SPSelfDescribingJson.h"
-    header "SPDevicePlatform.h"
+#if SWIFT_PACKAGE
     
-    header "SPEventBase.h"
-    header "SPPageView.h"
-    header "SPStructured.h"
-    header "SPUnstructured.h"
-    header "SPScreenView.h"
-    header "SPConsentWithdrawn.h"
-    header "SPConsentDocument.h"
-    header "SPConsentGranted.h"
-    header "SPTiming.h"
-    header "SPEcommerce.h"
-    header "SPEcommerceItem.h"
-    header "SPPushNotification.h"
-    header "SPForeground.h"
-    header "SPBackground.h"
-    header "SNOWError.h"
+#else
+    framework module SnowplowTracker {
+        header "Snowplow.h"
+        header "SPTracker.h"
+        header "SPEmitter.h"
+        header "SPSubject.h"
+        header "SPPayload.h"
+        header "SPUtilities.h"
+        header "SPRequestCallback.h"
+        header "SPSelfDescribingJson.h"
+        header "SPDevicePlatform.h"
+        
+        header "SPEventBase.h"
+        header "SPPageView.h"
+        header "SPStructured.h"
+        header "SPUnstructured.h"
+        header "SPScreenView.h"
+        header "SPConsentWithdrawn.h"
+        header "SPConsentDocument.h"
+        header "SPConsentGranted.h"
+        header "SPTiming.h"
+        header "SPEcommerce.h"
+        header "SPEcommerceItem.h"
+        header "SPPushNotification.h"
+        header "SPForeground.h"
+        header "SPBackground.h"
+        header "SNOWError.h"
 
-    header "SPGlobalContext.h"
-    header "SPSchemaRuleset.h"
-    header "SPSchemaRule.h"
+        header "SPGlobalContext.h"
+        header "SPSchemaRuleset.h"
+        header "SPSchemaRule.h"
 
-    export *
-}
+        export *
+    }
+#endif
