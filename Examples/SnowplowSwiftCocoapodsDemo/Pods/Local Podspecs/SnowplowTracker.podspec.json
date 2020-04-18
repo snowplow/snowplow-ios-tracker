@@ -53,8 +53,8 @@
   },
   "source_files": [
     "Snowplow/*.{m,h}",
-    "Snowplow/Events/*.{m,h}",
-    "Snowplow/GlobalContext/*.{m,h}"
+    "Snowplow/*.{m,h}",
+    "Snowplow/*.{m,h}"
   ],
   "public_header_files": [
     "Snowplow/Snowplow.h",
@@ -68,24 +68,24 @@
     "Snowplow/SPSelfDescribingJson.h",
     "Snowplow/SPScreenState.h",
     "Snowplow/SPDevicePlatform.h",
-    "Snowplow/Events/SPEvent.h",
-    "Snowplow/Events/SPEventBase.h",
-    "Snowplow/Events/SPPageView.h",
-    "Snowplow/Events/SPStructured.h",
-    "Snowplow/Events/SPUnstructured.h",
-    "Snowplow/Events/SPScreenView.h",
-    "Snowplow/Events/SPConsentWithdrawn.h",
-    "Snowplow/Events/SPConsentGranted.h",
-    "Snowplow/Events/SPTiming.h",
-    "Snowplow/Events/SPEcommerce.h",
-    "Snowplow/Events/SPEcommerceItem.h",
-    "Snowplow/Events/SPPushNotification.h",
-    "Snowplow/Events/SPForeground.h",
-    "Snowplow/Events/SPBackground.h",
-    "Snowplow/Events/SNOWError.h",
-    "Snowplow/GlobalContext/SPSchemaRule.h",
-    "Snowplow/GlobalContext/SPSchemaRuleset.h",
-    "Snowplow/GlobalContext/SPGlobalContext.h"
+    "Snowplow/SPEvent.h",
+    "Snowplow/SPEventBase.h",
+    "Snowplow/SPPageView.h",
+    "Snowplow/SPStructured.h",
+    "Snowplow/SPUnstructured.h",
+    "Snowplow/SPScreenView.h",
+    "Snowplow/SPConsentWithdrawn.h",
+    "Snowplow/SPConsentGranted.h",
+    "Snowplow/SPTiming.h",
+    "Snowplow/SPEcommerce.h",
+    "Snowplow/SPEcommerceItem.h",
+    "Snowplow/SPPushNotification.h",
+    "Snowplow/SPForeground.h",
+    "Snowplow/SPBackground.h",
+    "Snowplow/SNOWError.h",
+    "Snowplow/SPSchemaRule.h",
+    "Snowplow/SPSchemaRuleset.h",
+    "Snowplow/SPGlobalContext.h"
   ],
   "pod_target_xcconfig": {
     "DEFINES_MODULE": "YES"
