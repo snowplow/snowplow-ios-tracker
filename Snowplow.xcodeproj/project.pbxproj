@@ -30,7 +30,6 @@
 		752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
-		752DAC2D21CC42BC0065F874 /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEventBase.m */; };
 		752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
 		752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		752DAC3221CC43C60065F874 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -44,7 +43,6 @@
 		752DAC3A21CC43C70065F874 /* SPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFCC3741922984A00FAE8FE /* SPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0413DD751B78D635000D2112 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		752DAC3D21CC43C70065F874 /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEventBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		752DAC3F21CC4A7B0065F874 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		752DAC4021CC4A830065F874 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
@@ -97,7 +95,6 @@
 		75CAC43321F2A0CC00271FB3 /* SPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFCC3741922984A00FAE8FE /* SPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC43421F2A0CC00271FB3 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0413DD751B78D635000D2112 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75CAC43521F2A0CC00271FB3 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		75CAC43621F2A0CC00271FB3 /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEventBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC43721F2A0CC00271FB3 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC43821F2A0CC00271FB3 /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC43A21F2A17500271FB3 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
@@ -111,7 +108,6 @@
 		75CAC44221F2A17500271FB3 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		75CAC44321F2A17500271FB3 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		75CAC44421F2A17500271FB3 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
-		75CAC44521F2A17500271FB3 /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEventBase.m */; };
 		75CAC44721F2A17500271FB3 /* Snowplow-Bridging-Header.h in Sources */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; };
 		75CAC44821F2A19500271FB3 /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		75CAC44921F2A19500271FB3 /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SPTracker.m */; };
@@ -124,7 +120,6 @@
 		75CAC45021F2A19500271FB3 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		75CAC45121F2A19500271FB3 /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		75CAC45221F2A19500271FB3 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
-		75CAC45321F2A19500271FB3 /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEventBase.m */; };
 		75CAC45621F2A1CC00271FB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		75CAC45821F2A21B00271FB3 /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC45921F2A21B00271FB3 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -138,7 +133,6 @@
 		75CAC46121F2A21B00271FB3 /* SPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFCC3741922984A00FAE8FE /* SPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC46221F2A21B00271FB3 /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0413DD751B78D635000D2112 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75CAC46321F2A21B00271FB3 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		75CAC46421F2A21B00271FB3 /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEventBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC46621F2A22500271FB3 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75CAC46921F2A25B00271FB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
@@ -157,7 +151,6 @@
 		75F9C5DE21FA357100A5B8FC /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		75F9C5DF21FA357100A5B8FC /* SPRequestResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResponse.m */; };
 		75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
-		75F9C5E121FA357100A5B8FC /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 0402EBED1BA93CCC006C8818 /* SPEventBase.m */; };
 		75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5E521FA35BC00A5B8FC /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5E621FA35BC00A5B8FC /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -171,129 +164,164 @@
 		75F9C5EE21FA35BC00A5B8FC /* SPUtilities.h in Headers */ = {isa = PBXBuildFile; fileRef = ABFCC3741922984A00FAE8FE /* SPUtilities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5EF21FA35BC00A5B8FC /* SPRequestResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = 0413DD751B78D635000D2112 /* SPRequestResponse.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		75F9C5F121FA35BC00A5B8FC /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 0402EBEB1BA93CA5006C8818 /* SPEventBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CE4F9C86244B066500968CFC /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C5F244B066400968CFC /* SPTiming.m */; };
+		CE4F9C87244B066500968CFC /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C5F244B066400968CFC /* SPTiming.m */; };
+		CE4F9C88244B066500968CFC /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C5F244B066400968CFC /* SPTiming.m */; };
+		CE4F9C89244B066500968CFC /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C5F244B066400968CFC /* SPTiming.m */; };
+		CE4F9C8A244B066500968CFC /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C60244B066400968CFC /* SPConsentDocument.m */; };
+		CE4F9C8B244B066500968CFC /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C60244B066400968CFC /* SPConsentDocument.m */; };
+		CE4F9C8C244B066500968CFC /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C60244B066400968CFC /* SPConsentDocument.m */; };
+		CE4F9C8D244B066500968CFC /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C60244B066400968CFC /* SPConsentDocument.m */; };
+		CE4F9C8E244B066500968CFC /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C61244B066400968CFC /* SPConsentWithdrawn.m */; };
+		CE4F9C8F244B066500968CFC /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C61244B066400968CFC /* SPConsentWithdrawn.m */; };
+		CE4F9C90244B066500968CFC /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C61244B066400968CFC /* SPConsentWithdrawn.m */; };
+		CE4F9C91244B066500968CFC /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C61244B066400968CFC /* SPConsentWithdrawn.m */; };
+		CE4F9C92244B066500968CFC /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C62244B066400968CFC /* SPForeground.m */; };
+		CE4F9C93244B066500968CFC /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C62244B066400968CFC /* SPForeground.m */; };
+		CE4F9C94244B066500968CFC /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C62244B066400968CFC /* SPForeground.m */; };
+		CE4F9C95244B066500968CFC /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C62244B066400968CFC /* SPForeground.m */; };
+		CE4F9C96244B066500968CFC /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C63244B066400968CFC /* SPEcommerceItem.m */; };
+		CE4F9C97244B066500968CFC /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C63244B066400968CFC /* SPEcommerceItem.m */; };
+		CE4F9C98244B066500968CFC /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C63244B066400968CFC /* SPEcommerceItem.m */; };
+		CE4F9C99244B066500968CFC /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C63244B066400968CFC /* SPEcommerceItem.m */; };
+		CE4F9C9A244B066500968CFC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C64244B066400968CFC /* SPEvent.h */; };
+		CE4F9C9B244B066500968CFC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C64244B066400968CFC /* SPEvent.h */; };
+		CE4F9C9C244B066500968CFC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C64244B066400968CFC /* SPEvent.h */; };
+		CE4F9C9D244B066500968CFC /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C64244B066400968CFC /* SPEvent.h */; };
+		CE4F9C9E244B066500968CFC /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C65244B066400968CFC /* SPSchemaRule.h */; };
+		CE4F9C9F244B066500968CFC /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C65244B066400968CFC /* SPSchemaRule.h */; };
+		CE4F9CA0244B066500968CFC /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C65244B066400968CFC /* SPSchemaRule.h */; };
+		CE4F9CA1244B066500968CFC /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C65244B066400968CFC /* SPSchemaRule.h */; };
+		CE4F9CA2244B066500968CFC /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C66244B066400968CFC /* SPPageView.h */; };
+		CE4F9CA3244B066500968CFC /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C66244B066400968CFC /* SPPageView.h */; };
+		CE4F9CA4244B066500968CFC /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C66244B066400968CFC /* SPPageView.h */; };
+		CE4F9CA5244B066500968CFC /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C66244B066400968CFC /* SPPageView.h */; };
+		CE4F9CA6244B066500968CFC /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C67244B066400968CFC /* SPTiming.h */; };
+		CE4F9CA7244B066500968CFC /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C67244B066400968CFC /* SPTiming.h */; };
+		CE4F9CA8244B066500968CFC /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C67244B066400968CFC /* SPTiming.h */; };
+		CE4F9CA9244B066500968CFC /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C67244B066400968CFC /* SPTiming.h */; };
+		CE4F9CAA244B066500968CFC /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C68244B066400968CFC /* SPTrackerEvent.h */; };
+		CE4F9CAB244B066500968CFC /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C68244B066400968CFC /* SPTrackerEvent.h */; };
+		CE4F9CAC244B066500968CFC /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C68244B066400968CFC /* SPTrackerEvent.h */; };
+		CE4F9CAD244B066500968CFC /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C68244B066400968CFC /* SPTrackerEvent.h */; };
+		CE4F9CAE244B066500968CFC /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C69244B066400968CFC /* SPConsentWithdrawn.h */; };
+		CE4F9CAF244B066500968CFC /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C69244B066400968CFC /* SPConsentWithdrawn.h */; };
+		CE4F9CB0244B066500968CFC /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C69244B066400968CFC /* SPConsentWithdrawn.h */; };
+		CE4F9CB1244B066500968CFC /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C69244B066400968CFC /* SPConsentWithdrawn.h */; };
+		CE4F9CB2244B066500968CFC /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6A244B066400968CFC /* SNOWError.h */; };
+		CE4F9CB3244B066500968CFC /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6A244B066400968CFC /* SNOWError.h */; };
+		CE4F9CB4244B066500968CFC /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6A244B066400968CFC /* SNOWError.h */; };
+		CE4F9CB5244B066500968CFC /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6A244B066400968CFC /* SNOWError.h */; };
+		CE4F9CB6244B066500968CFC /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6B244B066400968CFC /* SPUnstructured.h */; };
+		CE4F9CB7244B066500968CFC /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6B244B066400968CFC /* SPUnstructured.h */; };
+		CE4F9CB8244B066500968CFC /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6B244B066400968CFC /* SPUnstructured.h */; };
+		CE4F9CB9244B066500968CFC /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6B244B066400968CFC /* SPUnstructured.h */; };
+		CE4F9CBA244B066500968CFC /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6C244B066400968CFC /* SPUnstructured.m */; };
+		CE4F9CBB244B066500968CFC /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6C244B066400968CFC /* SPUnstructured.m */; };
+		CE4F9CBC244B066500968CFC /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6C244B066400968CFC /* SPUnstructured.m */; };
+		CE4F9CBD244B066500968CFC /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6C244B066400968CFC /* SPUnstructured.m */; };
+		CE4F9CBE244B066500968CFC /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6D244B066400968CFC /* SPForeground.h */; };
+		CE4F9CBF244B066500968CFC /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6D244B066400968CFC /* SPForeground.h */; };
+		CE4F9CC0244B066500968CFC /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6D244B066400968CFC /* SPForeground.h */; };
+		CE4F9CC1244B066500968CFC /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C6D244B066400968CFC /* SPForeground.h */; };
+		CE4F9CC2244B066500968CFC /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6E244B066400968CFC /* SPConsentGranted.m */; };
+		CE4F9CC3244B066500968CFC /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6E244B066400968CFC /* SPConsentGranted.m */; };
+		CE4F9CC4244B066500968CFC /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6E244B066400968CFC /* SPConsentGranted.m */; };
+		CE4F9CC5244B066500968CFC /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6E244B066400968CFC /* SPConsentGranted.m */; };
+		CE4F9CC6244B066500968CFC /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6F244B066400968CFC /* SPSchemaRuleset.m */; };
+		CE4F9CC7244B066500968CFC /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6F244B066400968CFC /* SPSchemaRuleset.m */; };
+		CE4F9CC8244B066500968CFC /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6F244B066400968CFC /* SPSchemaRuleset.m */; };
+		CE4F9CC9244B066500968CFC /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C6F244B066400968CFC /* SPSchemaRuleset.m */; };
+		CE4F9CCA244B066500968CFC /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C70244B066400968CFC /* SPGlobalContext.h */; };
+		CE4F9CCB244B066500968CFC /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C70244B066400968CFC /* SPGlobalContext.h */; };
+		CE4F9CCC244B066500968CFC /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C70244B066400968CFC /* SPGlobalContext.h */; };
+		CE4F9CCD244B066500968CFC /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C70244B066400968CFC /* SPGlobalContext.h */; };
+		CE4F9CCE244B066500968CFC /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C71244B066400968CFC /* SNOWError.m */; };
+		CE4F9CCF244B066500968CFC /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C71244B066400968CFC /* SNOWError.m */; };
+		CE4F9CD0244B066500968CFC /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C71244B066400968CFC /* SNOWError.m */; };
+		CE4F9CD1244B066500968CFC /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C71244B066400968CFC /* SNOWError.m */; };
+		CE4F9CD2244B066500968CFC /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C72244B066400968CFC /* SPTrackerEvent.m */; };
+		CE4F9CD3244B066500968CFC /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C72244B066400968CFC /* SPTrackerEvent.m */; };
+		CE4F9CD4244B066500968CFC /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C72244B066400968CFC /* SPTrackerEvent.m */; };
+		CE4F9CD5244B066500968CFC /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C72244B066400968CFC /* SPTrackerEvent.m */; };
+		CE4F9CD6244B066500968CFC /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C73244B066400968CFC /* SPScreenView.h */; };
+		CE4F9CD7244B066500968CFC /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C73244B066400968CFC /* SPScreenView.h */; };
+		CE4F9CD8244B066500968CFC /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C73244B066400968CFC /* SPScreenView.h */; };
+		CE4F9CD9244B066500968CFC /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C73244B066400968CFC /* SPScreenView.h */; };
+		CE4F9CDA244B066500968CFC /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C74244B066400968CFC /* SPPageView.m */; };
+		CE4F9CDB244B066500968CFC /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C74244B066400968CFC /* SPPageView.m */; };
+		CE4F9CDC244B066500968CFC /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C74244B066400968CFC /* SPPageView.m */; };
+		CE4F9CDD244B066500968CFC /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C74244B066400968CFC /* SPPageView.m */; };
+		CE4F9CDE244B066500968CFC /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C75244B066400968CFC /* SPStructured.m */; };
+		CE4F9CDF244B066500968CFC /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C75244B066400968CFC /* SPStructured.m */; };
+		CE4F9CE0244B066500968CFC /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C75244B066400968CFC /* SPStructured.m */; };
+		CE4F9CE1244B066500968CFC /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C75244B066400968CFC /* SPStructured.m */; };
+		CE4F9CE2244B066500968CFC /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C76244B066400968CFC /* SPConsentGranted.h */; };
+		CE4F9CE3244B066500968CFC /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C76244B066400968CFC /* SPConsentGranted.h */; };
+		CE4F9CE4244B066500968CFC /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C76244B066400968CFC /* SPConsentGranted.h */; };
+		CE4F9CE5244B066500968CFC /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C76244B066400968CFC /* SPConsentGranted.h */; };
+		CE4F9CE6244B066500968CFC /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C77244B066400968CFC /* SPPushNotification.h */; };
+		CE4F9CE7244B066500968CFC /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C77244B066400968CFC /* SPPushNotification.h */; };
+		CE4F9CE8244B066500968CFC /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C77244B066400968CFC /* SPPushNotification.h */; };
+		CE4F9CE9244B066500968CFC /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C77244B066400968CFC /* SPPushNotification.h */; };
+		CE4F9CEA244B066500968CFC /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C78244B066400968CFC /* SPPushNotification.m */; };
+		CE4F9CEB244B066500968CFC /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C78244B066400968CFC /* SPPushNotification.m */; };
+		CE4F9CEC244B066500968CFC /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C78244B066400968CFC /* SPPushNotification.m */; };
+		CE4F9CED244B066500968CFC /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C78244B066400968CFC /* SPPushNotification.m */; };
+		CE4F9CEE244B066500968CFC /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C79244B066400968CFC /* SPSchemaRule.m */; };
+		CE4F9CEF244B066500968CFC /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C79244B066400968CFC /* SPSchemaRule.m */; };
+		CE4F9CF0244B066500968CFC /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C79244B066400968CFC /* SPSchemaRule.m */; };
+		CE4F9CF1244B066500968CFC /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C79244B066400968CFC /* SPSchemaRule.m */; };
+		CE4F9CF2244B066500968CFC /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7A244B066400968CFC /* SPStructured.h */; };
+		CE4F9CF3244B066500968CFC /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7A244B066400968CFC /* SPStructured.h */; };
+		CE4F9CF4244B066500968CFC /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7A244B066400968CFC /* SPStructured.h */; };
+		CE4F9CF5244B066500968CFC /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7A244B066400968CFC /* SPStructured.h */; };
+		CE4F9CF6244B066500968CFC /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7B244B066400968CFC /* SPEventBase.m */; };
+		CE4F9CF7244B066500968CFC /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7B244B066400968CFC /* SPEventBase.m */; };
+		CE4F9CF8244B066500968CFC /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7B244B066400968CFC /* SPEventBase.m */; };
+		CE4F9CF9244B066500968CFC /* SPEventBase.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7B244B066400968CFC /* SPEventBase.m */; };
+		CE4F9CFA244B066500968CFC /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7C244B066400968CFC /* SPEventBase.h */; };
+		CE4F9CFB244B066500968CFC /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7C244B066400968CFC /* SPEventBase.h */; };
+		CE4F9CFC244B066500968CFC /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7C244B066400968CFC /* SPEventBase.h */; };
+		CE4F9CFD244B066500968CFC /* SPEventBase.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7C244B066400968CFC /* SPEventBase.h */; };
+		CE4F9CFE244B066500968CFC /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7D244B066500968CFC /* SPBackground.m */; };
+		CE4F9CFF244B066500968CFC /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7D244B066500968CFC /* SPBackground.m */; };
+		CE4F9D00244B066500968CFC /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7D244B066500968CFC /* SPBackground.m */; };
+		CE4F9D01244B066500968CFC /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C7D244B066500968CFC /* SPBackground.m */; };
+		CE4F9D02244B066500968CFC /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7E244B066500968CFC /* SPEcommerceItem.h */; };
+		CE4F9D03244B066500968CFC /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7E244B066500968CFC /* SPEcommerceItem.h */; };
+		CE4F9D04244B066500968CFC /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7E244B066500968CFC /* SPEcommerceItem.h */; };
+		CE4F9D05244B066500968CFC /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7E244B066500968CFC /* SPEcommerceItem.h */; };
+		CE4F9D06244B066500968CFC /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7F244B066500968CFC /* SPSchemaRuleset.h */; };
+		CE4F9D07244B066500968CFC /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7F244B066500968CFC /* SPSchemaRuleset.h */; };
+		CE4F9D08244B066500968CFC /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7F244B066500968CFC /* SPSchemaRuleset.h */; };
+		CE4F9D09244B066500968CFC /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C7F244B066500968CFC /* SPSchemaRuleset.h */; };
+		CE4F9D0A244B066500968CFC /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C80244B066500968CFC /* SPScreenView.m */; };
+		CE4F9D0B244B066500968CFC /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C80244B066500968CFC /* SPScreenView.m */; };
+		CE4F9D0C244B066500968CFC /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C80244B066500968CFC /* SPScreenView.m */; };
+		CE4F9D0D244B066500968CFC /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C80244B066500968CFC /* SPScreenView.m */; };
+		CE4F9D0E244B066500968CFC /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C81244B066500968CFC /* SPConsentDocument.h */; };
+		CE4F9D0F244B066500968CFC /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C81244B066500968CFC /* SPConsentDocument.h */; };
+		CE4F9D10244B066500968CFC /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C81244B066500968CFC /* SPConsentDocument.h */; };
+		CE4F9D11244B066500968CFC /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C81244B066500968CFC /* SPConsentDocument.h */; };
+		CE4F9D12244B066500968CFC /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C82244B066500968CFC /* SPBackground.h */; };
+		CE4F9D13244B066500968CFC /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C82244B066500968CFC /* SPBackground.h */; };
+		CE4F9D14244B066500968CFC /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C82244B066500968CFC /* SPBackground.h */; };
+		CE4F9D15244B066500968CFC /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C82244B066500968CFC /* SPBackground.h */; };
+		CE4F9D16244B066500968CFC /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C83244B066500968CFC /* SPGlobalContext.m */; };
+		CE4F9D17244B066500968CFC /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C83244B066500968CFC /* SPGlobalContext.m */; };
+		CE4F9D18244B066500968CFC /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C83244B066500968CFC /* SPGlobalContext.m */; };
+		CE4F9D19244B066500968CFC /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C83244B066500968CFC /* SPGlobalContext.m */; };
+		CE4F9D1A244B066500968CFC /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C84244B066500968CFC /* SPEcommerce.h */; };
+		CE4F9D1B244B066500968CFC /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C84244B066500968CFC /* SPEcommerce.h */; };
+		CE4F9D1C244B066500968CFC /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C84244B066500968CFC /* SPEcommerce.h */; };
+		CE4F9D1D244B066500968CFC /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = CE4F9C84244B066500968CFC /* SPEcommerce.h */; };
+		CE4F9D1E244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
+		CE4F9D1F244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
+		CE4F9D20244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
+		CE4F9D21244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
 		ED26E6BA23842AB00096AF7C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED26E6B923842AAF0096AF7C /* AdSupport.framework */; };
-		ED843ED023F5A91300DB74B5 /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843ECE23F5A91300DB74B5 /* SPTrackerEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843ED123F5A91300DB74B5 /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843ECE23F5A91300DB74B5 /* SPTrackerEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843ED223F5A91300DB74B5 /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843ECE23F5A91300DB74B5 /* SPTrackerEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843ED323F5A91300DB74B5 /* SPTrackerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843ECE23F5A91300DB74B5 /* SPTrackerEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843ED423F5A91300DB74B5 /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843ECF23F5A91300DB74B5 /* SPTrackerEvent.m */; };
-		ED843ED523F5A91300DB74B5 /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843ECF23F5A91300DB74B5 /* SPTrackerEvent.m */; };
-		ED843ED623F5A91300DB74B5 /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843ECF23F5A91300DB74B5 /* SPTrackerEvent.m */; };
-		ED843ED723F5A91300DB74B5 /* SPTrackerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843ECF23F5A91300DB74B5 /* SPTrackerEvent.m */; };
-		ED843EE023F6FED000DB74B5 /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EDE23F6FED000DB74B5 /* SPPageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EE123F6FED000DB74B5 /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EDE23F6FED000DB74B5 /* SPPageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EE223F6FED000DB74B5 /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EDE23F6FED000DB74B5 /* SPPageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EE323F6FED000DB74B5 /* SPPageView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EDE23F6FED000DB74B5 /* SPPageView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EE423F6FED000DB74B5 /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EDF23F6FED000DB74B5 /* SPPageView.m */; };
-		ED843EE523F6FED000DB74B5 /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EDF23F6FED000DB74B5 /* SPPageView.m */; };
-		ED843EE623F6FED000DB74B5 /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EDF23F6FED000DB74B5 /* SPPageView.m */; };
-		ED843EE723F6FED000DB74B5 /* SPPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EDF23F6FED000DB74B5 /* SPPageView.m */; };
-		ED843EEA23F7001D00DB74B5 /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EE823F7001D00DB74B5 /* SPStructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EEB23F7001D00DB74B5 /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EE823F7001D00DB74B5 /* SPStructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EEC23F7001D00DB74B5 /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EE823F7001D00DB74B5 /* SPStructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EED23F7001D00DB74B5 /* SPStructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EE823F7001D00DB74B5 /* SPStructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EEE23F7001D00DB74B5 /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EE923F7001D00DB74B5 /* SPStructured.m */; };
-		ED843EEF23F7001D00DB74B5 /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EE923F7001D00DB74B5 /* SPStructured.m */; };
-		ED843EF023F7001D00DB74B5 /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EE923F7001D00DB74B5 /* SPStructured.m */; };
-		ED843EF123F7001D00DB74B5 /* SPStructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EE923F7001D00DB74B5 /* SPStructured.m */; };
-		ED843EF423F700A000DB74B5 /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EF223F700A000DB74B5 /* SPUnstructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EF523F700A000DB74B5 /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EF223F700A000DB74B5 /* SPUnstructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EF623F700A000DB74B5 /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EF223F700A000DB74B5 /* SPUnstructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EF723F700A000DB74B5 /* SPUnstructured.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EF223F700A000DB74B5 /* SPUnstructured.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EF823F700A000DB74B5 /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EF323F700A000DB74B5 /* SPUnstructured.m */; };
-		ED843EF923F700A000DB74B5 /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EF323F700A000DB74B5 /* SPUnstructured.m */; };
-		ED843EFA23F700A000DB74B5 /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EF323F700A000DB74B5 /* SPUnstructured.m */; };
-		ED843EFB23F700A000DB74B5 /* SPUnstructured.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EF323F700A000DB74B5 /* SPUnstructured.m */; };
-		ED843EFE23F7091500DB74B5 /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EFC23F7091500DB74B5 /* SPScreenView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843EFF23F7091500DB74B5 /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EFC23F7091500DB74B5 /* SPScreenView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F0023F7091500DB74B5 /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EFC23F7091500DB74B5 /* SPScreenView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F0123F7091500DB74B5 /* SPScreenView.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843EFC23F7091500DB74B5 /* SPScreenView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F0223F7091500DB74B5 /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EFD23F7091500DB74B5 /* SPScreenView.m */; };
-		ED843F0323F7091500DB74B5 /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EFD23F7091500DB74B5 /* SPScreenView.m */; };
-		ED843F0423F7091500DB74B5 /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EFD23F7091500DB74B5 /* SPScreenView.m */; };
-		ED843F0523F7091500DB74B5 /* SPScreenView.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843EFD23F7091500DB74B5 /* SPScreenView.m */; };
-		ED843F0823F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F0623F70BEA00DB74B5 /* SPConsentWithdrawn.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F0923F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F0623F70BEA00DB74B5 /* SPConsentWithdrawn.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F0A23F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F0623F70BEA00DB74B5 /* SPConsentWithdrawn.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F0B23F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F0623F70BEA00DB74B5 /* SPConsentWithdrawn.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F0C23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F0723F70BEA00DB74B5 /* SPConsentWithdrawn.m */; };
-		ED843F0D23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F0723F70BEA00DB74B5 /* SPConsentWithdrawn.m */; };
-		ED843F0E23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F0723F70BEA00DB74B5 /* SPConsentWithdrawn.m */; };
-		ED843F0F23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F0723F70BEA00DB74B5 /* SPConsentWithdrawn.m */; };
-		ED843F1223F70C9D00DB74B5 /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1023F70C9D00DB74B5 /* SPConsentDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F1323F70C9D00DB74B5 /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1023F70C9D00DB74B5 /* SPConsentDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F1423F70C9D00DB74B5 /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1023F70C9D00DB74B5 /* SPConsentDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F1523F70C9D00DB74B5 /* SPConsentDocument.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1023F70C9D00DB74B5 /* SPConsentDocument.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F1623F70C9D00DB74B5 /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1123F70C9D00DB74B5 /* SPConsentDocument.m */; };
-		ED843F1723F70C9D00DB74B5 /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1123F70C9D00DB74B5 /* SPConsentDocument.m */; };
-		ED843F1823F70C9D00DB74B5 /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1123F70C9D00DB74B5 /* SPConsentDocument.m */; };
-		ED843F1923F70C9D00DB74B5 /* SPConsentDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1123F70C9D00DB74B5 /* SPConsentDocument.m */; };
-		ED843F1C23F7163400DB74B5 /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1A23F7163400DB74B5 /* SPConsentGranted.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F1D23F7163400DB74B5 /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1A23F7163400DB74B5 /* SPConsentGranted.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F1E23F7163400DB74B5 /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1A23F7163400DB74B5 /* SPConsentGranted.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F1F23F7163500DB74B5 /* SPConsentGranted.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F1A23F7163400DB74B5 /* SPConsentGranted.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F2023F7163500DB74B5 /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1B23F7163400DB74B5 /* SPConsentGranted.m */; };
-		ED843F2123F7163500DB74B5 /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1B23F7163400DB74B5 /* SPConsentGranted.m */; };
-		ED843F2223F7163500DB74B5 /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1B23F7163400DB74B5 /* SPConsentGranted.m */; };
-		ED843F2323F7163500DB74B5 /* SPConsentGranted.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F1B23F7163400DB74B5 /* SPConsentGranted.m */; };
-		ED843F2623F716B500DB74B5 /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2423F716B500DB74B5 /* SPTiming.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F2723F716B500DB74B5 /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2423F716B500DB74B5 /* SPTiming.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F2823F716B500DB74B5 /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2423F716B500DB74B5 /* SPTiming.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F2923F716B500DB74B5 /* SPTiming.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2423F716B500DB74B5 /* SPTiming.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F2A23F716B500DB74B5 /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2523F716B500DB74B5 /* SPTiming.m */; };
-		ED843F2B23F716B500DB74B5 /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2523F716B500DB74B5 /* SPTiming.m */; };
-		ED843F2C23F716B500DB74B5 /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2523F716B500DB74B5 /* SPTiming.m */; };
-		ED843F2D23F716B500DB74B5 /* SPTiming.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2523F716B500DB74B5 /* SPTiming.m */; };
-		ED843F3023F7173000DB74B5 /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2E23F7173000DB74B5 /* SPEcommerce.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3123F7173000DB74B5 /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2E23F7173000DB74B5 /* SPEcommerce.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3223F7173000DB74B5 /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2E23F7173000DB74B5 /* SPEcommerce.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3323F7173000DB74B5 /* SPEcommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F2E23F7173000DB74B5 /* SPEcommerce.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3423F7173000DB74B5 /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2F23F7173000DB74B5 /* SPEcommerce.m */; };
-		ED843F3523F7173000DB74B5 /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2F23F7173000DB74B5 /* SPEcommerce.m */; };
-		ED843F3623F7173000DB74B5 /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2F23F7173000DB74B5 /* SPEcommerce.m */; };
-		ED843F3723F7173000DB74B5 /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F2F23F7173000DB74B5 /* SPEcommerce.m */; };
-		ED843F3A23F717F900DB74B5 /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3B23F717F900DB74B5 /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3C23F717F900DB74B5 /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3D23F717F900DB74B5 /* SPEcommerceItem.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F3E23F717F900DB74B5 /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */; };
-		ED843F3F23F717F900DB74B5 /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */; };
-		ED843F4023F717F900DB74B5 /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */; };
-		ED843F4123F717F900DB74B5 /* SPEcommerceItem.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */; };
-		ED843F4E23F7195D00DB74B5 /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F4F23F7195D00DB74B5 /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F5023F7195D00DB74B5 /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F5123F7195D00DB74B5 /* SPPushNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F5223F7195D00DB74B5 /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */; };
-		ED843F5323F7195D00DB74B5 /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */; };
-		ED843F5423F7195D00DB74B5 /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */; };
-		ED843F5523F7195D00DB74B5 /* SPPushNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */; };
-		ED843F5823F719FF00DB74B5 /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F5623F719FF00DB74B5 /* SPForeground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F5923F719FF00DB74B5 /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F5623F719FF00DB74B5 /* SPForeground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F5A23F719FF00DB74B5 /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F5623F719FF00DB74B5 /* SPForeground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F5B23F719FF00DB74B5 /* SPForeground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F5623F719FF00DB74B5 /* SPForeground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F5C23F719FF00DB74B5 /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F5723F719FF00DB74B5 /* SPForeground.m */; };
-		ED843F5D23F719FF00DB74B5 /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F5723F719FF00DB74B5 /* SPForeground.m */; };
-		ED843F5E23F719FF00DB74B5 /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F5723F719FF00DB74B5 /* SPForeground.m */; };
-		ED843F5F23F719FF00DB74B5 /* SPForeground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F5723F719FF00DB74B5 /* SPForeground.m */; };
-		ED843F6223F71A6300DB74B5 /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6023F71A6300DB74B5 /* SPBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F6323F71A6300DB74B5 /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6023F71A6300DB74B5 /* SPBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F6423F71A6300DB74B5 /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6023F71A6300DB74B5 /* SPBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F6523F71A6300DB74B5 /* SPBackground.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6023F71A6300DB74B5 /* SPBackground.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F6623F71A6300DB74B5 /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6123F71A6300DB74B5 /* SPBackground.m */; };
-		ED843F6723F71A6300DB74B5 /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6123F71A6300DB74B5 /* SPBackground.m */; };
-		ED843F6823F71A6300DB74B5 /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6123F71A6300DB74B5 /* SPBackground.m */; };
-		ED843F6923F71A6300DB74B5 /* SPBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6123F71A6300DB74B5 /* SPBackground.m */; };
-		ED843F6C23F71B1900DB74B5 /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6A23F71B1800DB74B5 /* SNOWError.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F6D23F71B1900DB74B5 /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6A23F71B1800DB74B5 /* SNOWError.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F6E23F71B1900DB74B5 /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6A23F71B1800DB74B5 /* SNOWError.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F6F23F71B1900DB74B5 /* SNOWError.h in Headers */ = {isa = PBXBuildFile; fileRef = ED843F6A23F71B1800DB74B5 /* SNOWError.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED843F7023F71B1900DB74B5 /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6B23F71B1900DB74B5 /* SNOWError.m */; };
-		ED843F7123F71B1900DB74B5 /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6B23F71B1900DB74B5 /* SNOWError.m */; };
-		ED843F7223F71B1900DB74B5 /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6B23F71B1900DB74B5 /* SNOWError.m */; };
-		ED843F7323F71B1900DB74B5 /* SNOWError.m in Sources */ = {isa = PBXBuildFile; fileRef = ED843F6B23F71B1900DB74B5 /* SNOWError.m */; };
 		ED852B2F23A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
 		ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
 		ED852B3123A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
@@ -320,34 +348,6 @@
 		ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
 		ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
 		ED91CB7423AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
-		EDD5828A242538860040F155 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD58289242538860040F155 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDD5828B242538860040F155 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD58289242538860040F155 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDD5828C242538860040F155 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD58289242538860040F155 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDD5828D242538860040F155 /* SPEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD58289242538860040F155 /* SPEvent.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0BA242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0BB242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0BC242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0BD242901FE00107F03 /* SPGlobalContext.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0BE242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
-		EDE8F0BF242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
-		EDE8F0C0242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
-		EDE8F0C1242901FE00107F03 /* SPGlobalContext.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */; };
-		EDE8F0CE2429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0CF2429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0D02429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0D12429025300107F03 /* SPSchemaRuleset.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0DE2429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
-		EDE8F0DF2429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
-		EDE8F0E02429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
-		EDE8F0E12429025300107F03 /* SPSchemaRule.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0C62429025200107F03 /* SPSchemaRule.m */; };
-		EDE8F0EA2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0EB2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0EC2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0ED2429025300107F03 /* SPSchemaRule.h in Headers */ = {isa = PBXBuildFile; fileRef = EDE8F0C92429025200107F03 /* SPSchemaRule.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		EDE8F0F22429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
-		EDE8F0F32429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
-		EDE8F0F42429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
-		EDE8F0F52429025300107F03 /* SPSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */; };
 		EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 /* End PBXBuildFile section */
@@ -407,8 +407,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0402EBEB1BA93CA5006C8818 /* SPEventBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEventBase.h; sourceTree = "<group>"; };
-		0402EBED1BA93CCC006C8818 /* SPEventBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventBase.m; sourceTree = "<group>"; };
 		04062D741B8390710019B8D1 /* SPSubject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSubject.h; sourceTree = "<group>"; };
 		04062D751B8390870019B8D1 /* SPSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSubject.m; sourceTree = "<group>"; };
 		0413DD751B78D635000D2112 /* SPRequestResponse.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestResponse.h; sourceTree = "<group>"; };
@@ -480,38 +478,47 @@
 		ABFCC3741922984A00FAE8FE /* SPUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUtilities.h; sourceTree = "<group>"; };
 		ABFCC3751922984A00FAE8FE /* SPUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUtilities.m; sourceTree = "<group>"; };
 		B3D9BE0F237ACE0D009B310A /* watchos.modulemap */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.module-map"; path = watchos.modulemap; sourceTree = "<group>"; };
+		CE4F9C5F244B066400968CFC /* SPTiming.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTiming.m; sourceTree = "<group>"; };
+		CE4F9C60244B066400968CFC /* SPConsentDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPConsentDocument.m; sourceTree = "<group>"; };
+		CE4F9C61244B066400968CFC /* SPConsentWithdrawn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPConsentWithdrawn.m; sourceTree = "<group>"; };
+		CE4F9C62244B066400968CFC /* SPForeground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPForeground.m; sourceTree = "<group>"; };
+		CE4F9C63244B066400968CFC /* SPEcommerceItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEcommerceItem.m; sourceTree = "<group>"; };
+		CE4F9C64244B066400968CFC /* SPEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
+		CE4F9C65244B066400968CFC /* SPSchemaRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSchemaRule.h; sourceTree = "<group>"; };
+		CE4F9C66244B066400968CFC /* SPPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPageView.h; sourceTree = "<group>"; };
+		CE4F9C67244B066400968CFC /* SPTiming.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTiming.h; sourceTree = "<group>"; };
+		CE4F9C68244B066400968CFC /* SPTrackerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTrackerEvent.h; sourceTree = "<group>"; };
+		CE4F9C69244B066400968CFC /* SPConsentWithdrawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPConsentWithdrawn.h; sourceTree = "<group>"; };
+		CE4F9C6A244B066400968CFC /* SNOWError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNOWError.h; sourceTree = "<group>"; };
+		CE4F9C6B244B066400968CFC /* SPUnstructured.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPUnstructured.h; sourceTree = "<group>"; };
+		CE4F9C6C244B066400968CFC /* SPUnstructured.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPUnstructured.m; sourceTree = "<group>"; };
+		CE4F9C6D244B066400968CFC /* SPForeground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPForeground.h; sourceTree = "<group>"; };
+		CE4F9C6E244B066400968CFC /* SPConsentGranted.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPConsentGranted.m; sourceTree = "<group>"; };
+		CE4F9C6F244B066400968CFC /* SPSchemaRuleset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSchemaRuleset.m; sourceTree = "<group>"; };
+		CE4F9C70244B066400968CFC /* SPGlobalContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGlobalContext.h; sourceTree = "<group>"; };
+		CE4F9C71244B066400968CFC /* SNOWError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNOWError.m; sourceTree = "<group>"; };
+		CE4F9C72244B066400968CFC /* SPTrackerEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTrackerEvent.m; sourceTree = "<group>"; };
+		CE4F9C73244B066400968CFC /* SPScreenView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPScreenView.h; sourceTree = "<group>"; };
+		CE4F9C74244B066400968CFC /* SPPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPageView.m; sourceTree = "<group>"; };
+		CE4F9C75244B066400968CFC /* SPStructured.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPStructured.m; sourceTree = "<group>"; };
+		CE4F9C76244B066400968CFC /* SPConsentGranted.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPConsentGranted.h; sourceTree = "<group>"; };
+		CE4F9C77244B066400968CFC /* SPPushNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPushNotification.h; sourceTree = "<group>"; };
+		CE4F9C78244B066400968CFC /* SPPushNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPushNotification.m; sourceTree = "<group>"; };
+		CE4F9C79244B066400968CFC /* SPSchemaRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSchemaRule.m; sourceTree = "<group>"; };
+		CE4F9C7A244B066400968CFC /* SPStructured.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPStructured.h; sourceTree = "<group>"; };
+		CE4F9C7B244B066400968CFC /* SPEventBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEventBase.m; sourceTree = "<group>"; };
+		CE4F9C7C244B066400968CFC /* SPEventBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEventBase.h; sourceTree = "<group>"; };
+		CE4F9C7D244B066500968CFC /* SPBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPBackground.m; sourceTree = "<group>"; };
+		CE4F9C7E244B066500968CFC /* SPEcommerceItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEcommerceItem.h; sourceTree = "<group>"; };
+		CE4F9C7F244B066500968CFC /* SPSchemaRuleset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSchemaRuleset.h; sourceTree = "<group>"; };
+		CE4F9C80244B066500968CFC /* SPScreenView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPScreenView.m; sourceTree = "<group>"; };
+		CE4F9C81244B066500968CFC /* SPConsentDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPConsentDocument.h; sourceTree = "<group>"; };
+		CE4F9C82244B066500968CFC /* SPBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPBackground.h; sourceTree = "<group>"; };
+		CE4F9C83244B066500968CFC /* SPGlobalContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGlobalContext.m; sourceTree = "<group>"; };
+		CE4F9C84244B066500968CFC /* SPEcommerce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEcommerce.h; sourceTree = "<group>"; };
+		CE4F9C85244B066500968CFC /* SPEcommerce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEcommerce.m; sourceTree = "<group>"; };
 		ED26E6B923842AAF0096AF7C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		ED6AC5152369D42800A8F8A3 /* ios.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ios.modulemap; sourceTree = "<group>"; };
-		ED843ECE23F5A91300DB74B5 /* SPTrackerEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerEvent.h; sourceTree = "<group>"; };
-		ED843ECF23F5A91300DB74B5 /* SPTrackerEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTrackerEvent.m; sourceTree = "<group>"; };
-		ED843EDE23F6FED000DB74B5 /* SPPageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPageView.h; sourceTree = "<group>"; };
-		ED843EDF23F6FED000DB74B5 /* SPPageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPageView.m; sourceTree = "<group>"; };
-		ED843EE823F7001D00DB74B5 /* SPStructured.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPStructured.h; sourceTree = "<group>"; };
-		ED843EE923F7001D00DB74B5 /* SPStructured.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPStructured.m; sourceTree = "<group>"; };
-		ED843EF223F700A000DB74B5 /* SPUnstructured.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPUnstructured.h; sourceTree = "<group>"; };
-		ED843EF323F700A000DB74B5 /* SPUnstructured.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPUnstructured.m; sourceTree = "<group>"; };
-		ED843EFC23F7091500DB74B5 /* SPScreenView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPScreenView.h; sourceTree = "<group>"; };
-		ED843EFD23F7091500DB74B5 /* SPScreenView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPScreenView.m; sourceTree = "<group>"; };
-		ED843F0623F70BEA00DB74B5 /* SPConsentWithdrawn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConsentWithdrawn.h; sourceTree = "<group>"; };
-		ED843F0723F70BEA00DB74B5 /* SPConsentWithdrawn.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConsentWithdrawn.m; sourceTree = "<group>"; };
-		ED843F1023F70C9D00DB74B5 /* SPConsentDocument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConsentDocument.h; sourceTree = "<group>"; };
-		ED843F1123F70C9D00DB74B5 /* SPConsentDocument.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConsentDocument.m; sourceTree = "<group>"; };
-		ED843F1A23F7163400DB74B5 /* SPConsentGranted.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConsentGranted.h; sourceTree = "<group>"; };
-		ED843F1B23F7163400DB74B5 /* SPConsentGranted.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConsentGranted.m; sourceTree = "<group>"; };
-		ED843F2423F716B500DB74B5 /* SPTiming.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTiming.h; sourceTree = "<group>"; };
-		ED843F2523F716B500DB74B5 /* SPTiming.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTiming.m; sourceTree = "<group>"; };
-		ED843F2E23F7173000DB74B5 /* SPEcommerce.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEcommerce.h; sourceTree = "<group>"; };
-		ED843F2F23F7173000DB74B5 /* SPEcommerce.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEcommerce.m; sourceTree = "<group>"; };
-		ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEcommerceItem.h; sourceTree = "<group>"; };
-		ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEcommerceItem.m; sourceTree = "<group>"; };
-		ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPPushNotification.h; sourceTree = "<group>"; };
-		ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPPushNotification.m; sourceTree = "<group>"; };
-		ED843F5623F719FF00DB74B5 /* SPForeground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPForeground.h; sourceTree = "<group>"; };
-		ED843F5723F719FF00DB74B5 /* SPForeground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPForeground.m; sourceTree = "<group>"; };
-		ED843F6023F71A6300DB74B5 /* SPBackground.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPBackground.h; sourceTree = "<group>"; };
-		ED843F6123F71A6300DB74B5 /* SPBackground.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPBackground.m; sourceTree = "<group>"; };
-		ED843F6A23F71B1800DB74B5 /* SNOWError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWError.h; sourceTree = "<group>"; };
-		ED843F6B23F71B1900DB74B5 /* SNOWError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWError.m; sourceTree = "<group>"; };
 		ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWReachability.m; sourceTree = "<group>"; };
 		ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWReachability.h; sourceTree = "<group>"; };
 		ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestGlobalContexts.m; sourceTree = "<group>"; };
@@ -520,13 +527,6 @@
 		ED914EB924325AB40068DA0A /* SPGdprContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPGdprContext.m; sourceTree = "<group>"; };
 		ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDevicePlatform.h; sourceTree = "<group>"; };
 		ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDevicePlatform.m; sourceTree = "<group>"; };
-		EDD58289242538860040F155 /* SPEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEvent.h; sourceTree = "<group>"; };
-		EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPGlobalContext.h; sourceTree = "<group>"; };
-		EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGlobalContext.m; sourceTree = "<group>"; };
-		EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSchemaRuleset.h; sourceTree = "<group>"; };
-		EDE8F0C62429025200107F03 /* SPSchemaRule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSchemaRule.m; sourceTree = "<group>"; };
-		EDE8F0C92429025200107F03 /* SPSchemaRule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPSchemaRule.h; sourceTree = "<group>"; };
-		EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSchemaRuleset.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -691,45 +691,82 @@
 		AB0C27C2191B408200018557 /* Snowplow */ = {
 			isa = PBXGroup;
 			children = (
-				EDE8F0B72429019600107F03 /* Global Contexts */,
-				ED843ECD23F5A8A100DB74B5 /* Events */,
-				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
-				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
-				AB0C27C3191B408200018557 /* Supporting Files */,
+				CE4F9C6A244B066400968CFC /* SNOWError.h */,
+				CE4F9C71244B066400968CFC /* SNOWError.m */,
+				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				043EC5E61B8F224900294081 /* Snowplow.m */,
+				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
+				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
+				CE4F9C82244B066500968CFC /* SPBackground.h */,
+				CE4F9C7D244B066500968CFC /* SPBackground.m */,
+				CE4F9C81244B066500968CFC /* SPConsentDocument.h */,
+				CE4F9C60244B066400968CFC /* SPConsentDocument.m */,
+				CE4F9C76244B066400968CFC /* SPConsentGranted.h */,
+				CE4F9C6E244B066400968CFC /* SPConsentGranted.m */,
+				CE4F9C69244B066400968CFC /* SPConsentWithdrawn.h */,
+				CE4F9C61244B066400968CFC /* SPConsentWithdrawn.m */,
 				ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */,
 				ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */,
-				AB9E8210192DD336006744C9 /* SPTracker.h */,
-				AB9E8211192DD336006744C9 /* SPTracker.m */,
+				CE4F9C84244B066500968CFC /* SPEcommerce.h */,
+				CE4F9C85244B066500968CFC /* SPEcommerce.m */,
+				CE4F9C7E244B066500968CFC /* SPEcommerceItem.h */,
+				CE4F9C63244B066400968CFC /* SPEcommerceItem.m */,
 				AB0C27E9191B43D600018557 /* SPEmitter.h */,
 				AB0C27EA191B43D600018557 /* SPEmitter.m */,
-				04062D741B8390710019B8D1 /* SPSubject.h */,
-				04062D751B8390870019B8D1 /* SPSubject.m */,
-				043EC5DD1B8F048500294081 /* SPSession.h */,
-				043EC5DF1B8F049200294081 /* SPSession.m */,
-				AB0C27F3191C67CD00018557 /* SPPayload.h */,
-				AB0C27F4191C67CD00018557 /* SPPayload.m */,
-				0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */,
-				0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */,
+				CE4F9C64244B066400968CFC /* SPEvent.h */,
+				CE4F9C7C244B066400968CFC /* SPEventBase.h */,
+				CE4F9C7B244B066400968CFC /* SPEventBase.m */,
 				ABB767AE194974D3006275D1 /* SPEventStore.h */,
 				ABB767AF194974D3006275D1 /* SPEventStore.m */,
-				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
-				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
-				0413DD751B78D635000D2112 /* SPRequestResponse.h */,
-				0413DD761B78D643000D2112 /* SPRequestResponse.m */,
-				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
-				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
-				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
-				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
-				754774BF2225FBB90043B814 /* SPScreenState.h */,
-				754774BB2225FBA60043B814 /* SPScreenState.m */,
-				754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */,
-				754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */,
-				75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */,
-				75264A31224E5DD2000E0E9B /* SPInstallTracker.m */,
+				CE4F9C6D244B066400968CFC /* SPForeground.h */,
+				CE4F9C62244B066400968CFC /* SPForeground.m */,
 				ED914EB824325AB40068DA0A /* SPGdprContext.h */,
 				ED914EB924325AB40068DA0A /* SPGdprContext.m */,
+				CE4F9C70244B066400968CFC /* SPGlobalContext.h */,
+				CE4F9C83244B066500968CFC /* SPGlobalContext.m */,
+				75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */,
+				75264A31224E5DD2000E0E9B /* SPInstallTracker.m */,
+				CE4F9C66244B066400968CFC /* SPPageView.h */,
+				CE4F9C74244B066400968CFC /* SPPageView.m */,
+				AB0C27F3191C67CD00018557 /* SPPayload.h */,
+				AB0C27F4191C67CD00018557 /* SPPayload.m */,
+				CE4F9C77244B066400968CFC /* SPPushNotification.h */,
+				CE4F9C78244B066400968CFC /* SPPushNotification.m */,
+				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
+				0413DD751B78D635000D2112 /* SPRequestResponse.h */,
+				0413DD761B78D643000D2112 /* SPRequestResponse.m */,
+				CE4F9C65244B066400968CFC /* SPSchemaRule.h */,
+				CE4F9C79244B066400968CFC /* SPSchemaRule.m */,
+				CE4F9C7F244B066500968CFC /* SPSchemaRuleset.h */,
+				CE4F9C6F244B066400968CFC /* SPSchemaRuleset.m */,
+				754774BF2225FBB90043B814 /* SPScreenState.h */,
+				754774BB2225FBA60043B814 /* SPScreenState.m */,
+				CE4F9C73244B066400968CFC /* SPScreenView.h */,
+				CE4F9C80244B066500968CFC /* SPScreenView.m */,
+				0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */,
+				0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */,
+				043EC5DD1B8F048500294081 /* SPSession.h */,
+				043EC5DF1B8F049200294081 /* SPSession.m */,
+				CE4F9C7A244B066400968CFC /* SPStructured.h */,
+				CE4F9C75244B066400968CFC /* SPStructured.m */,
+				04062D741B8390710019B8D1 /* SPSubject.h */,
+				04062D751B8390870019B8D1 /* SPSubject.m */,
+				CE4F9C67244B066400968CFC /* SPTiming.h */,
+				CE4F9C5F244B066400968CFC /* SPTiming.m */,
+				AB9E8210192DD336006744C9 /* SPTracker.h */,
+				AB9E8211192DD336006744C9 /* SPTracker.m */,
+				CE4F9C68244B066400968CFC /* SPTrackerEvent.h */,
+				CE4F9C72244B066400968CFC /* SPTrackerEvent.m */,
+				CE4F9C6B244B066400968CFC /* SPUnstructured.h */,
+				CE4F9C6C244B066400968CFC /* SPUnstructured.m */,
+				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
+				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
+				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
+				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
+				AB0C27C3191B408200018557 /* Supporting Files */,
+				754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */,
+				754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */,
 			);
 			path = Snowplow;
 			sourceTree = "<group>";
@@ -746,46 +783,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		ED843ECD23F5A8A100DB74B5 /* Events */ = {
-			isa = PBXGroup;
-			children = (
-				EDD58289242538860040F155 /* SPEvent.h */,
-				0402EBEB1BA93CA5006C8818 /* SPEventBase.h */,
-				0402EBED1BA93CCC006C8818 /* SPEventBase.m */,
-				ED843ECE23F5A91300DB74B5 /* SPTrackerEvent.h */,
-				ED843ECF23F5A91300DB74B5 /* SPTrackerEvent.m */,
-				ED843EDE23F6FED000DB74B5 /* SPPageView.h */,
-				ED843EDF23F6FED000DB74B5 /* SPPageView.m */,
-				ED843EE823F7001D00DB74B5 /* SPStructured.h */,
-				ED843EE923F7001D00DB74B5 /* SPStructured.m */,
-				ED843EF223F700A000DB74B5 /* SPUnstructured.h */,
-				ED843EF323F700A000DB74B5 /* SPUnstructured.m */,
-				ED843EFC23F7091500DB74B5 /* SPScreenView.h */,
-				ED843EFD23F7091500DB74B5 /* SPScreenView.m */,
-				ED843F0623F70BEA00DB74B5 /* SPConsentWithdrawn.h */,
-				ED843F0723F70BEA00DB74B5 /* SPConsentWithdrawn.m */,
-				ED843F1023F70C9D00DB74B5 /* SPConsentDocument.h */,
-				ED843F1123F70C9D00DB74B5 /* SPConsentDocument.m */,
-				ED843F1A23F7163400DB74B5 /* SPConsentGranted.h */,
-				ED843F1B23F7163400DB74B5 /* SPConsentGranted.m */,
-				ED843F2423F716B500DB74B5 /* SPTiming.h */,
-				ED843F2523F716B500DB74B5 /* SPTiming.m */,
-				ED843F2E23F7173000DB74B5 /* SPEcommerce.h */,
-				ED843F2F23F7173000DB74B5 /* SPEcommerce.m */,
-				ED843F3823F717F900DB74B5 /* SPEcommerceItem.h */,
-				ED843F3923F717F900DB74B5 /* SPEcommerceItem.m */,
-				ED843F4C23F7195D00DB74B5 /* SPPushNotification.h */,
-				ED843F4D23F7195D00DB74B5 /* SPPushNotification.m */,
-				ED843F5623F719FF00DB74B5 /* SPForeground.h */,
-				ED843F5723F719FF00DB74B5 /* SPForeground.m */,
-				ED843F6023F71A6300DB74B5 /* SPBackground.h */,
-				ED843F6123F71A6300DB74B5 /* SPBackground.m */,
-				ED843F6A23F71B1800DB74B5 /* SNOWError.h */,
-				ED843F6B23F71B1900DB74B5 /* SNOWError.m */,
-			);
-			path = Events;
-			sourceTree = "<group>";
-		};
 		ED914EB02430D03A0068DA0A /* Global Contexts */ = {
 			isa = PBXGroup;
 			children = (
@@ -795,20 +792,6 @@
 			path = "Global Contexts";
 			sourceTree = "<group>";
 		};
-		EDE8F0B72429019600107F03 /* Global Contexts */ = {
-			isa = PBXGroup;
-			children = (
-				EDE8F0C92429025200107F03 /* SPSchemaRule.h */,
-				EDE8F0C62429025200107F03 /* SPSchemaRule.m */,
-				EDE8F0C22429025200107F03 /* SPSchemaRuleset.h */,
-				EDE8F0CB2429025300107F03 /* SPSchemaRuleset.m */,
-				EDE8F0B8242901FE00107F03 /* SPGlobalContext.h */,
-				EDE8F0B9242901FE00107F03 /* SPGlobalContext.m */,
-			);
-			name = "Global Contexts";
-			path = GlobalContext;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -816,46 +799,46 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED843EEA23F7001D00DB74B5 /* SPStructured.h in Headers */,
-				ED843EFE23F7091500DB74B5 /* SPScreenView.h in Headers */,
-				ED843F6C23F71B1900DB74B5 /* SNOWError.h in Headers */,
+				CE4F9CBE244B066500968CFC /* SPForeground.h in Headers */,
+				CE4F9D02244B066500968CFC /* SPEcommerceItem.h in Headers */,
 				752DAC3221CC43C60065F874 /* Snowplow.h in Headers */,
+				CE4F9CB6244B066500968CFC /* SPUnstructured.h in Headers */,
 				752DAC3321CC43C70065F874 /* SPTracker.h in Headers */,
+				CE4F9D12244B066500968CFC /* SPBackground.h in Headers */,
 				ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
+				CE4F9CA6244B066500968CFC /* SPTiming.h in Headers */,
 				ED852B3323A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
-				ED843EF423F700A000DB74B5 /* SPUnstructured.h in Headers */,
+				CE4F9CB2244B066500968CFC /* SNOWError.h in Headers */,
 				752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */,
-				EDE8F0CE2429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				752DAC3521CC43C70065F874 /* SPSubject.h in Headers */,
+				CE4F9CE2244B066500968CFC /* SPConsentGranted.h in Headers */,
+				CE4F9CFA244B066500968CFC /* SPEventBase.h in Headers */,
 				752DAC3721CC43C70065F874 /* SPPayload.h in Headers */,
 				752DAC3A21CC43C70065F874 /* SPUtilities.h in Headers */,
-				ED843F5823F719FF00DB74B5 /* SPForeground.h in Headers */,
-				ED843F3A23F717F900DB74B5 /* SPEcommerceItem.h in Headers */,
+				CE4F9CE6244B066500968CFC /* SPPushNotification.h in Headers */,
 				754774C02225FBB90043B814 /* SPScreenState.h in Headers */,
-				ED843F1C23F7163400DB74B5 /* SPConsentGranted.h in Headers */,
+				CE4F9D0E244B066500968CFC /* SPConsentDocument.h in Headers */,
+				CE4F9CAA244B066500968CFC /* SPTrackerEvent.h in Headers */,
+				CE4F9CF2244B066500968CFC /* SPStructured.h in Headers */,
 				752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */,
-				752DAC3D21CC43C70065F874 /* SPEventBase.h in Headers */,
+				CE4F9D06244B066500968CFC /* SPSchemaRuleset.h in Headers */,
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
-				EDE8F0EA2429025300107F03 /* SPSchemaRule.h in Headers */,
-				ED843F6223F71A6300DB74B5 /* SPBackground.h in Headers */,
+				CE4F9CCA244B066500968CFC /* SPGlobalContext.h in Headers */,
+				CE4F9CD6244B066500968CFC /* SPScreenView.h in Headers */,
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
-				EDD5828A242538860040F155 /* SPEvent.h in Headers */,
-				ED843F3023F7173000DB74B5 /* SPEcommerce.h in Headers */,
-				ED843F1223F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
-				ED843F2623F716B500DB74B5 /* SPTiming.h in Headers */,
+				CE4F9C9A244B066500968CFC /* SPEvent.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
-				ED843F4E23F7195D00DB74B5 /* SPPushNotification.h in Headers */,
 				752DAC3B21CC43C70065F874 /* SPRequestResponse.h in Headers */,
-				ED843F0823F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
 				ED914EBA24325AB40068DA0A /* SPGdprContext.h in Headers */,
-				ED843ED023F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
-				ED843EE023F6FED000DB74B5 /* SPPageView.h in Headers */,
-				EDE8F0BA242901FE00107F03 /* SPGlobalContext.h in Headers */,
 				752DAC3C21CC43C70065F874 /* SPWeakTimerTarget.h in Headers */,
+				CE4F9CA2244B066500968CFC /* SPPageView.h in Headers */,
+				CE4F9C9E244B066500968CFC /* SPSchemaRule.h in Headers */,
 				752DAC3921CC43C70065F874 /* SPEventStore.h in Headers */,
+				CE4F9D1A244B066500968CFC /* SPEcommerce.h in Headers */,
+				CE4F9CAE244B066500968CFC /* SPConsentWithdrawn.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -863,44 +846,44 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDD5828B242538860040F155 /* SPEvent.h in Headers */,
+				CE4F9CA3244B066500968CFC /* SPPageView.h in Headers */,
+				CE4F9D03244B066500968CFC /* SPEcommerceItem.h in Headers */,
 				75CAC45821F2A21B00271FB3 /* Snowplow-Bridging-Header.h in Headers */,
 				75CAC45921F2A21B00271FB3 /* Snowplow.h in Headers */,
-				ED843F3123F7173000DB74B5 /* SPEcommerce.h in Headers */,
-				ED843EFF23F7091500DB74B5 /* SPScreenView.h in Headers */,
-				ED843F2723F716B500DB74B5 /* SPTiming.h in Headers */,
 				75CAC45A21F2A21B00271FB3 /* SPTracker.h in Headers */,
-				ED843F3B23F717F900DB74B5 /* SPEcommerceItem.h in Headers */,
+				CE4F9CFB244B066500968CFC /* SPEventBase.h in Headers */,
 				ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				75CAC45B21F2A21B00271FB3 /* SPEmitter.h in Headers */,
-				ED843F1D23F7163400DB74B5 /* SPConsentGranted.h in Headers */,
-				EDE8F0EB2429025300107F03 /* SPSchemaRule.h in Headers */,
-				ED843F5923F719FF00DB74B5 /* SPForeground.h in Headers */,
+				CE4F9D1B244B066500968CFC /* SPEcommerce.h in Headers */,
 				75CAC45C21F2A21B00271FB3 /* SPSubject.h in Headers */,
+				CE4F9CB7244B066500968CFC /* SPUnstructured.h in Headers */,
 				75CAC45E21F2A21B00271FB3 /* SPPayload.h in Headers */,
 				75CAC45F21F2A21B00271FB3 /* SPSelfDescribingJson.h in Headers */,
-				ED843F6D23F71B1900DB74B5 /* SNOWError.h in Headers */,
-				ED843F4F23F7195D00DB74B5 /* SPPushNotification.h in Headers */,
-				EDE8F0CF2429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */,
 				ED914EBB24325AB40068DA0A /* SPGdprContext.h in Headers */,
+				CE4F9CD7244B066500968CFC /* SPScreenView.h in Headers */,
+				CE4F9CCB244B066500968CFC /* SPGlobalContext.h in Headers */,
+				CE4F9CE3244B066500968CFC /* SPConsentGranted.h in Headers */,
+				CE4F9CE7244B066500968CFC /* SPPushNotification.h in Headers */,
+				CE4F9CA7244B066500968CFC /* SPTiming.h in Headers */,
 				754774C12225FBB90043B814 /* SPScreenState.h in Headers */,
-				ED843F1323F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
-				ED843EEB23F7001D00DB74B5 /* SPStructured.h in Headers */,
 				75CAC46121F2A21B00271FB3 /* SPUtilities.h in Headers */,
-				75CAC46421F2A21B00271FB3 /* SPEventBase.h in Headers */,
-				ED843F6323F71A6300DB74B5 /* SPBackground.h in Headers */,
+				CE4F9C9B244B066500968CFC /* SPEvent.h in Headers */,
+				CE4F9CAF244B066500968CFC /* SPConsentWithdrawn.h in Headers */,
+				CE4F9D13244B066500968CFC /* SPBackground.h in Headers */,
 				75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */,
+				CE4F9CAB244B066500968CFC /* SPTrackerEvent.h in Headers */,
 				75CAC46621F2A22500271FB3 /* OpenIDFA.h in Headers */,
-				ED843EE123F6FED000DB74B5 /* SPPageView.h in Headers */,
-				ED843EF523F700A000DB74B5 /* SPUnstructured.h in Headers */,
+				CE4F9D07244B066500968CFC /* SPSchemaRuleset.h in Headers */,
 				75CAC45D21F2A21B00271FB3 /* SPSession.h in Headers */,
-				ED843ED123F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
-				EDE8F0BB242901FE00107F03 /* SPGlobalContext.h in Headers */,
+				CE4F9CB3244B066500968CFC /* SNOWError.h in Headers */,
+				CE4F9D0F244B066500968CFC /* SPConsentDocument.h in Headers */,
+				CE4F9C9F244B066500968CFC /* SPSchemaRule.h in Headers */,
+				CE4F9CBF244B066500968CFC /* SPForeground.h in Headers */,
+				CE4F9CF3244B066500968CFC /* SPStructured.h in Headers */,
 				75CAC46021F2A21B00271FB3 /* SPEventStore.h in Headers */,
 				75CAC46221F2A21B00271FB3 /* SPRequestResponse.h in Headers */,
 				75CAC46321F2A21B00271FB3 /* SPWeakTimerTarget.h in Headers */,
-				ED843F0923F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -908,44 +891,44 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDD5828C242538860040F155 /* SPEvent.h in Headers */,
+				CE4F9CA4244B066500968CFC /* SPPageView.h in Headers */,
+				CE4F9D04244B066500968CFC /* SPEcommerceItem.h in Headers */,
 				75CAC42B21F2A0CC00271FB3 /* Snowplow.h in Headers */,
 				75CAC42C21F2A0CC00271FB3 /* SPTracker.h in Headers */,
-				ED843F3223F7173000DB74B5 /* SPEcommerce.h in Headers */,
-				ED843F0023F7091500DB74B5 /* SPScreenView.h in Headers */,
-				ED843F2823F716B500DB74B5 /* SPTiming.h in Headers */,
 				75CAC42D21F2A0CC00271FB3 /* SPEmitter.h in Headers */,
-				ED843F3C23F717F900DB74B5 /* SPEcommerceItem.h in Headers */,
+				CE4F9CFC244B066500968CFC /* SPEventBase.h in Headers */,
 				75CAC42E21F2A0CC00271FB3 /* SPSubject.h in Headers */,
 				75CAC43021F2A0CC00271FB3 /* SPPayload.h in Headers */,
-				ED843F1E23F7163400DB74B5 /* SPConsentGranted.h in Headers */,
-				EDE8F0EC2429025300107F03 /* SPSchemaRule.h in Headers */,
-				ED843F5A23F719FF00DB74B5 /* SPForeground.h in Headers */,
+				CE4F9D1C244B066500968CFC /* SPEcommerce.h in Headers */,
 				75CAC43121F2A0CC00271FB3 /* SPSelfDescribingJson.h in Headers */,
+				CE4F9CB8244B066500968CFC /* SPUnstructured.h in Headers */,
 				75CAC43321F2A0CC00271FB3 /* SPUtilities.h in Headers */,
-				75CAC43621F2A0CC00271FB3 /* SPEventBase.h in Headers */,
-				ED843F6E23F71B1900DB74B5 /* SNOWError.h in Headers */,
-				ED843F5023F7195D00DB74B5 /* SPPushNotification.h in Headers */,
-				EDE8F0D02429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				75CAC43721F2A0CC00271FB3 /* SPRequestCallback.h in Headers */,
 				ED914EBC24325AB40068DA0A /* SPGdprContext.h in Headers */,
 				754774C22225FBB90043B814 /* SPScreenState.h in Headers */,
-				ED843F1423F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
-				ED843EEC23F7001D00DB74B5 /* SPStructured.h in Headers */,
+				CE4F9CD8244B066500968CFC /* SPScreenView.h in Headers */,
+				CE4F9CCC244B066500968CFC /* SPGlobalContext.h in Headers */,
+				CE4F9CE4244B066500968CFC /* SPConsentGranted.h in Headers */,
+				CE4F9CE8244B066500968CFC /* SPPushNotification.h in Headers */,
+				CE4F9CA8244B066500968CFC /* SPTiming.h in Headers */,
 				ED91CB6E23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				75CAC43821F2A0CC00271FB3 /* Snowplow-Bridging-Header.h in Headers */,
-				ED843F6423F71A6300DB74B5 /* SPBackground.h in Headers */,
+				CE4F9C9C244B066500968CFC /* SPEvent.h in Headers */,
+				CE4F9CB0244B066500968CFC /* SPConsentWithdrawn.h in Headers */,
+				CE4F9D14244B066500968CFC /* SPBackground.h in Headers */,
 				75CAC42F21F2A0CC00271FB3 /* SPSession.h in Headers */,
+				CE4F9CAC244B066500968CFC /* SPTrackerEvent.h in Headers */,
 				ED852B3423A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
-				ED843EE223F6FED000DB74B5 /* SPPageView.h in Headers */,
-				ED843EF623F700A000DB74B5 /* SPUnstructured.h in Headers */,
+				CE4F9D08244B066500968CFC /* SPSchemaRuleset.h in Headers */,
 				75CAC43221F2A0CC00271FB3 /* SPEventStore.h in Headers */,
-				ED843ED223F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
-				EDE8F0BC242901FE00107F03 /* SPGlobalContext.h in Headers */,
+				CE4F9CB4244B066500968CFC /* SNOWError.h in Headers */,
+				CE4F9D10244B066500968CFC /* SPConsentDocument.h in Headers */,
+				CE4F9CA0244B066500968CFC /* SPSchemaRule.h in Headers */,
+				CE4F9CC0244B066500968CFC /* SPForeground.h in Headers */,
+				CE4F9CF4244B066500968CFC /* SPStructured.h in Headers */,
 				75CAC43421F2A0CC00271FB3 /* SPRequestResponse.h in Headers */,
 				ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */,
 				75CAC43521F2A0CC00271FB3 /* SPWeakTimerTarget.h in Headers */,
-				ED843F0A23F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -953,46 +936,46 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED843EED23F7001D00DB74B5 /* SPStructured.h in Headers */,
-				ED843F0123F7091500DB74B5 /* SPScreenView.h in Headers */,
-				ED843F6F23F71B1900DB74B5 /* SNOWError.h in Headers */,
+				CE4F9CC1244B066500968CFC /* SPForeground.h in Headers */,
+				CE4F9D05244B066500968CFC /* SPEcommerceItem.h in Headers */,
 				75F9C5E521FA35BC00A5B8FC /* Snowplow-Bridging-Header.h in Headers */,
+				CE4F9CB9244B066500968CFC /* SPUnstructured.h in Headers */,
 				75F9C5E621FA35BC00A5B8FC /* Snowplow.h in Headers */,
+				CE4F9D15244B066500968CFC /* SPBackground.h in Headers */,
 				ED91CB6F23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
+				CE4F9CA9244B066500968CFC /* SPTiming.h in Headers */,
 				ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
-				ED843EF723F700A000DB74B5 /* SPUnstructured.h in Headers */,
+				CE4F9CB5244B066500968CFC /* SNOWError.h in Headers */,
 				75F9C5E721FA35BC00A5B8FC /* SPTracker.h in Headers */,
-				EDE8F0D12429025300107F03 /* SPSchemaRuleset.h in Headers */,
 				75F9C5E821FA35BC00A5B8FC /* SPEmitter.h in Headers */,
+				CE4F9CE5244B066500968CFC /* SPConsentGranted.h in Headers */,
+				CE4F9CFD244B066500968CFC /* SPEventBase.h in Headers */,
 				75F9C5E921FA35BC00A5B8FC /* SPSubject.h in Headers */,
 				75F9C5EB21FA35BC00A5B8FC /* SPPayload.h in Headers */,
-				ED843F5B23F719FF00DB74B5 /* SPForeground.h in Headers */,
-				ED843F3D23F717F900DB74B5 /* SPEcommerceItem.h in Headers */,
+				CE4F9CE9244B066500968CFC /* SPPushNotification.h in Headers */,
 				75F9C5EC21FA35BC00A5B8FC /* SPSelfDescribingJson.h in Headers */,
-				ED843F1F23F7163500DB74B5 /* SPConsentGranted.h in Headers */,
+				CE4F9D11244B066500968CFC /* SPConsentDocument.h in Headers */,
+				CE4F9CAD244B066500968CFC /* SPTrackerEvent.h in Headers */,
+				CE4F9CF5244B066500968CFC /* SPStructured.h in Headers */,
 				75F9C5EE21FA35BC00A5B8FC /* SPUtilities.h in Headers */,
-				75F9C5F121FA35BC00A5B8FC /* SPEventBase.h in Headers */,
+				CE4F9D09244B066500968CFC /* SPSchemaRuleset.h in Headers */,
 				7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */,
 				75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */,
 				75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */,
-				EDE8F0ED2429025300107F03 /* SPSchemaRule.h in Headers */,
-				ED843F6523F71A6300DB74B5 /* SPBackground.h in Headers */,
+				CE4F9CCD244B066500968CFC /* SPGlobalContext.h in Headers */,
+				CE4F9CD9244B066500968CFC /* SPScreenView.h in Headers */,
 				7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */,
 				7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
-				EDD5828D242538860040F155 /* SPEvent.h in Headers */,
-				ED843F3323F7173000DB74B5 /* SPEcommerce.h in Headers */,
-				ED843F1523F70C9D00DB74B5 /* SPConsentDocument.h in Headers */,
-				ED843F2923F716B500DB74B5 /* SPTiming.h in Headers */,
+				CE4F9C9D244B066500968CFC /* SPEvent.h in Headers */,
 				75F9C5ED21FA35BC00A5B8FC /* SPEventStore.h in Headers */,
-				ED843F5123F7195D00DB74B5 /* SPPushNotification.h in Headers */,
 				75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */,
-				ED843F0B23F70BEA00DB74B5 /* SPConsentWithdrawn.h in Headers */,
 				ED914EBD24325AB40068DA0A /* SPGdprContext.h in Headers */,
-				ED843ED323F5A91300DB74B5 /* SPTrackerEvent.h in Headers */,
-				ED843EE323F6FED000DB74B5 /* SPPageView.h in Headers */,
-				EDE8F0BD242901FE00107F03 /* SPGlobalContext.h in Headers */,
 				75F9C5EA21FA35BC00A5B8FC /* SPSession.h in Headers */,
+				CE4F9CA5244B066500968CFC /* SPPageView.h in Headers */,
+				CE4F9CA1244B066500968CFC /* SPSchemaRule.h in Headers */,
 				75F9C5EF21FA35BC00A5B8FC /* SPRequestResponse.h in Headers */,
+				CE4F9D1D244B066500968CFC /* SPEcommerce.h in Headers */,
+				CE4F9CB1244B066500968CFC /* SPConsentWithdrawn.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,43 +1181,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED843ED423F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
+				CE4F9CC6244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
-				EDE8F0F22429025300107F03 /* SPSchemaRuleset.m in Sources */,
+				CE4F9CDA244B066500968CFC /* SPPageView.m in Sources */,
+				CE4F9C96244B066500968CFC /* SPEcommerceItem.m in Sources */,
 				752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */,
-				ED843F5C23F719FF00DB74B5 /* SPForeground.m in Sources */,
 				752DAC1721CC42BC0065F874 /* Snowplow.m in Sources */,
-				ED843F3E23F717F900DB74B5 /* SPEcommerceItem.m in Sources */,
-				ED843F1623F70C9D00DB74B5 /* SPConsentDocument.m in Sources */,
+				CE4F9C92244B066500968CFC /* SPForeground.m in Sources */,
 				ED91CB7123AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
-				ED843EEE23F7001D00DB74B5 /* SPStructured.m in Sources */,
-				ED843EF823F700A000DB74B5 /* SPUnstructured.m in Sources */,
-				ED843F2023F7163500DB74B5 /* SPConsentGranted.m in Sources */,
+				CE4F9CBA244B066500968CFC /* SPUnstructured.m in Sources */,
+				CE4F9D16244B066500968CFC /* SPGlobalContext.m in Sources */,
+				CE4F9CDE244B066500968CFC /* SPStructured.m in Sources */,
 				ED914EBE24325AB40068DA0A /* SPGdprContext.m in Sources */,
 				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
+				CE4F9CC2244B066500968CFC /* SPConsentGranted.m in Sources */,
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
-				EDE8F0DE2429025300107F03 /* SPSchemaRule.m in Sources */,
 				75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */,
+				CE4F9C86244B066500968CFC /* SPTiming.m in Sources */,
+				CE4F9CF6244B066500968CFC /* SPEventBase.m in Sources */,
+				CE4F9D0A244B066500968CFC /* SPScreenView.m in Sources */,
 				752DAC1D21CC42BC0065F874 /* SPSubject.m in Sources */,
-				ED843EE423F6FED000DB74B5 /* SPPageView.m in Sources */,
 				752DAC1F21CC42BC0065F874 /* SPSession.m in Sources */,
-				ED843F2A23F716B500DB74B5 /* SPTiming.m in Sources */,
+				CE4F9D1E244B066500968CFC /* SPEcommerce.m in Sources */,
 				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
+				CE4F9CCE244B066500968CFC /* SNOWError.m in Sources */,
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
-				EDE8F0BE242901FE00107F03 /* SPGlobalContext.m in Sources */,
+				CE4F9CEE244B066500968CFC /* SPSchemaRule.m in Sources */,
+				CE4F9C8E244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
+				CE4F9CD2244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				752DAC2521CC42BC0065F874 /* SPEventStore.m in Sources */,
-				ED843F3423F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */,
-				ED843F7023F71B1900DB74B5 /* SNOWError.m in Sources */,
+				CE4F9CEA244B066500968CFC /* SPPushNotification.m in Sources */,
 				ED852B2F23A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
-				ED843F5223F7195D00DB74B5 /* SPPushNotification.m in Sources */,
 				752DAC2921CC42BC0065F874 /* SPRequestResponse.m in Sources */,
 				752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */,
-				752DAC2D21CC42BC0065F874 /* SPEventBase.m in Sources */,
+				CE4F9C8A244B066500968CFC /* SPConsentDocument.m in Sources */,
+				CE4F9CFE244B066500968CFC /* SPBackground.m in Sources */,
 				754774BC2225FBA60043B814 /* SPScreenState.m in Sources */,
-				ED843F0223F7091500DB74B5 /* SPScreenView.m in Sources */,
-				ED843F6623F71A6300DB74B5 /* SPBackground.m in Sources */,
-				ED843F0C23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1266,39 +1249,39 @@
 			buildActionMask = 2147483647;
 			files = (
 				75CAC43A21F2A17500271FB3 /* Snowplow.m in Sources */,
-				ED843F0323F7091500DB74B5 /* SPScreenView.m in Sources */,
-				ED843F1723F70C9D00DB74B5 /* SPConsentDocument.m in Sources */,
+				CE4F9CDF244B066500968CFC /* SPStructured.m in Sources */,
 				754774BD2225FBA60043B814 /* SPScreenState.m in Sources */,
 				75CAC43B21F2A17500271FB3 /* SPTracker.m in Sources */,
 				75CAC43C21F2A17500271FB3 /* SPEmitter.m in Sources */,
+				CE4F9CBB244B066500968CFC /* SPUnstructured.m in Sources */,
 				75CAC43D21F2A17500271FB3 /* SPSubject.m in Sources */,
-				ED843ED523F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
-				ED843F2123F7163500DB74B5 /* SPConsentGranted.m in Sources */,
 				ED914EBF24325AB40068DA0A /* SPGdprContext.m in Sources */,
+				CE4F9C8F244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
+				CE4F9D17244B066500968CFC /* SPGlobalContext.m in Sources */,
+				CE4F9CC3244B066500968CFC /* SPConsentGranted.m in Sources */,
+				CE4F9CF7244B066500968CFC /* SPEventBase.m in Sources */,
+				CE4F9C93244B066500968CFC /* SPForeground.m in Sources */,
+				CE4F9CFF244B066500968CFC /* SPBackground.m in Sources */,
+				CE4F9CEF244B066500968CFC /* SPSchemaRule.m in Sources */,
 				75CAC43E21F2A17500271FB3 /* SPSession.m in Sources */,
-				ED843F6723F71A6300DB74B5 /* SPBackground.m in Sources */,
+				CE4F9CEB244B066500968CFC /* SPPushNotification.m in Sources */,
 				75CAC43F21F2A17500271FB3 /* SPPayload.m in Sources */,
-				ED843EF923F700A000DB74B5 /* SPUnstructured.m in Sources */,
+				CE4F9CC7244B066500968CFC /* SPSchemaRuleset.m in Sources */,
+				CE4F9C8B244B066500968CFC /* SPConsentDocument.m in Sources */,
 				75CAC44021F2A17500271FB3 /* SPSelfDescribingJson.m in Sources */,
+				CE4F9CCF244B066500968CFC /* SNOWError.m in Sources */,
+				CE4F9C87244B066500968CFC /* SPTiming.m in Sources */,
+				CE4F9D1F244B066500968CFC /* SPEcommerce.m in Sources */,
 				75CAC44121F2A17500271FB3 /* SPEventStore.m in Sources */,
-				ED843F0D23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */,
+				CE4F9D0B244B066500968CFC /* SPScreenView.m in Sources */,
 				75CAC44221F2A17500271FB3 /* SPUtilities.m in Sources */,
-				ED843F3523F7173000DB74B5 /* SPEcommerce.m in Sources */,
+				CE4F9CDB244B066500968CFC /* SPPageView.m in Sources */,
 				75CAC44321F2A17500271FB3 /* SPRequestResponse.m in Sources */,
-				EDE8F0F32429025300107F03 /* SPSchemaRuleset.m in Sources */,
-				ED843EE523F6FED000DB74B5 /* SPPageView.m in Sources */,
-				EDE8F0DF2429025300107F03 /* SPSchemaRule.m in Sources */,
 				EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */,
-				ED843F2B23F716B500DB74B5 /* SPTiming.m in Sources */,
-				ED843F5323F7195D00DB74B5 /* SPPushNotification.m in Sources */,
-				ED843EEF23F7001D00DB74B5 /* SPStructured.m in Sources */,
-				ED843F7123F71B1900DB74B5 /* SNOWError.m in Sources */,
 				75CAC44421F2A17500271FB3 /* SPWeakTimerTarget.m in Sources */,
+				CE4F9CD3244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
-				75CAC44521F2A17500271FB3 /* SPEventBase.m in Sources */,
-				ED843F5D23F719FF00DB74B5 /* SPForeground.m in Sources */,
-				ED843F3F23F717F900DB74B5 /* SPEcommerceItem.m in Sources */,
-				EDE8F0BF242901FE00107F03 /* SPGlobalContext.m in Sources */,
+				CE4F9C97244B066500968CFC /* SPEcommerceItem.m in Sources */,
 				75CAC44721F2A17500271FB3 /* Snowplow-Bridging-Header.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1308,40 +1291,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				75CAC44821F2A19500271FB3 /* Snowplow.m in Sources */,
-				ED843F0423F7091500DB74B5 /* SPScreenView.m in Sources */,
-				ED843F1823F70C9D00DB74B5 /* SPConsentDocument.m in Sources */,
+				CE4F9CE0244B066500968CFC /* SPStructured.m in Sources */,
 				754774BE2225FBA60043B814 /* SPScreenState.m in Sources */,
 				75CAC44921F2A19500271FB3 /* SPTracker.m in Sources */,
 				ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */,
+				CE4F9CBC244B066500968CFC /* SPUnstructured.m in Sources */,
 				75CAC44A21F2A19500271FB3 /* SPEmitter.m in Sources */,
-				ED843ED623F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
-				ED843F2223F7163500DB74B5 /* SPConsentGranted.m in Sources */,
 				ED914EC024325AB40068DA0A /* SPGdprContext.m in Sources */,
+				CE4F9C90244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
+				CE4F9D18244B066500968CFC /* SPGlobalContext.m in Sources */,
+				CE4F9CC4244B066500968CFC /* SPConsentGranted.m in Sources */,
+				CE4F9CF8244B066500968CFC /* SPEventBase.m in Sources */,
+				CE4F9C94244B066500968CFC /* SPForeground.m in Sources */,
+				CE4F9D00244B066500968CFC /* SPBackground.m in Sources */,
+				CE4F9CF0244B066500968CFC /* SPSchemaRule.m in Sources */,
 				ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
-				ED843F6823F71A6300DB74B5 /* SPBackground.m in Sources */,
+				CE4F9CEC244B066500968CFC /* SPPushNotification.m in Sources */,
 				75CAC44B21F2A19500271FB3 /* SPSubject.m in Sources */,
-				ED843EFA23F700A000DB74B5 /* SPUnstructured.m in Sources */,
+				CE4F9CC8244B066500968CFC /* SPSchemaRuleset.m in Sources */,
+				CE4F9C8C244B066500968CFC /* SPConsentDocument.m in Sources */,
 				75CAC44C21F2A19500271FB3 /* SPSession.m in Sources */,
+				CE4F9CD0244B066500968CFC /* SNOWError.m in Sources */,
+				CE4F9C88244B066500968CFC /* SPTiming.m in Sources */,
+				CE4F9D20244B066500968CFC /* SPEcommerce.m in Sources */,
 				75CAC44D21F2A19500271FB3 /* SPPayload.m in Sources */,
-				ED843F0E23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */,
+				CE4F9D0C244B066500968CFC /* SPScreenView.m in Sources */,
 				75CAC44E21F2A19500271FB3 /* SPSelfDescribingJson.m in Sources */,
-				ED843F3623F7173000DB74B5 /* SPEcommerce.m in Sources */,
+				CE4F9CDC244B066500968CFC /* SPPageView.m in Sources */,
 				75CAC44F21F2A19500271FB3 /* SPEventStore.m in Sources */,
-				EDE8F0F42429025300107F03 /* SPSchemaRuleset.m in Sources */,
-				ED843EE623F6FED000DB74B5 /* SPPageView.m in Sources */,
-				EDE8F0E02429025300107F03 /* SPSchemaRule.m in Sources */,
 				75CAC45021F2A19500271FB3 /* SPUtilities.m in Sources */,
-				ED843F2C23F716B500DB74B5 /* SPTiming.m in Sources */,
-				ED843F5423F7195D00DB74B5 /* SPPushNotification.m in Sources */,
-				ED843EF023F7001D00DB74B5 /* SPStructured.m in Sources */,
-				ED843F7223F71B1900DB74B5 /* SNOWError.m in Sources */,
 				75CAC45121F2A19500271FB3 /* SPRequestResponse.m in Sources */,
+				CE4F9CD4244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
+				CE4F9C98244B066500968CFC /* SPEcommerceItem.m in Sources */,
 				75CAC45221F2A19500271FB3 /* SPWeakTimerTarget.m in Sources */,
-				ED843F5E23F719FF00DB74B5 /* SPForeground.m in Sources */,
-				ED843F4023F717F900DB74B5 /* SPEcommerceItem.m in Sources */,
-				EDE8F0C0242901FE00107F03 /* SPGlobalContext.m in Sources */,
-				75CAC45321F2A19500271FB3 /* SPEventBase.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1357,43 +1340,43 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED843ED723F5A91300DB74B5 /* SPTrackerEvent.m in Sources */,
+				CE4F9CC9244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				7534D20122569BED00904EE5 /* SPScreenState.m in Sources */,
-				EDE8F0F52429025300107F03 /* SPSchemaRuleset.m in Sources */,
+				CE4F9CDD244B066500968CFC /* SPPageView.m in Sources */,
+				CE4F9C99244B066500968CFC /* SPEcommerceItem.m in Sources */,
 				7534D20222569BED00904EE5 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
-				ED843F5F23F719FF00DB74B5 /* SPForeground.m in Sources */,
 				7534D20322569BED00904EE5 /* SPInstallTracker.m in Sources */,
-				ED843F4123F717F900DB74B5 /* SPEcommerceItem.m in Sources */,
-				ED843F1923F70C9D00DB74B5 /* SPConsentDocument.m in Sources */,
+				CE4F9C95244B066500968CFC /* SPForeground.m in Sources */,
 				ED91CB7423AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
-				ED843EF123F7001D00DB74B5 /* SPStructured.m in Sources */,
-				ED843EFB23F700A000DB74B5 /* SPUnstructured.m in Sources */,
-				ED843F2323F7163500DB74B5 /* SPConsentGranted.m in Sources */,
+				CE4F9CBD244B066500968CFC /* SPUnstructured.m in Sources */,
+				CE4F9D19244B066500968CFC /* SPGlobalContext.m in Sources */,
+				CE4F9CE1244B066500968CFC /* SPStructured.m in Sources */,
 				ED914EC124325AB40068DA0A /* SPGdprContext.m in Sources */,
 				75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */,
+				CE4F9CC5244B066500968CFC /* SPConsentGranted.m in Sources */,
 				75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */,
-				EDE8F0E12429025300107F03 /* SPSchemaRule.m in Sources */,
 				75F9C5D721FA357100A5B8FC /* SPTracker.m in Sources */,
+				CE4F9C89244B066500968CFC /* SPTiming.m in Sources */,
+				CE4F9CF9244B066500968CFC /* SPEventBase.m in Sources */,
+				CE4F9D0D244B066500968CFC /* SPScreenView.m in Sources */,
 				75F9C5D821FA357100A5B8FC /* SPEmitter.m in Sources */,
-				ED843EE723F6FED000DB74B5 /* SPPageView.m in Sources */,
 				75F9C5D921FA357100A5B8FC /* SPSubject.m in Sources */,
-				ED843F2D23F716B500DB74B5 /* SPTiming.m in Sources */,
+				CE4F9D21244B066500968CFC /* SPEcommerce.m in Sources */,
 				75F9C5DA21FA357100A5B8FC /* SPSession.m in Sources */,
+				CE4F9CD1244B066500968CFC /* SNOWError.m in Sources */,
 				75F9C5DB21FA357100A5B8FC /* SPPayload.m in Sources */,
-				EDE8F0C1242901FE00107F03 /* SPGlobalContext.m in Sources */,
+				CE4F9CF1244B066500968CFC /* SPSchemaRule.m in Sources */,
+				CE4F9C91244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
+				CE4F9CD5244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				75F9C5DC21FA357100A5B8FC /* SPSelfDescribingJson.m in Sources */,
-				ED843F3723F7173000DB74B5 /* SPEcommerce.m in Sources */,
 				75F9C5DD21FA357100A5B8FC /* SPEventStore.m in Sources */,
-				ED843F7323F71B1900DB74B5 /* SNOWError.m in Sources */,
+				CE4F9CED244B066500968CFC /* SPPushNotification.m in Sources */,
 				ED852B3123A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
-				ED843F5523F7195D00DB74B5 /* SPPushNotification.m in Sources */,
 				75F9C5DE21FA357100A5B8FC /* SPUtilities.m in Sources */,
 				75F9C5DF21FA357100A5B8FC /* SPRequestResponse.m in Sources */,
+				CE4F9C8D244B066500968CFC /* SPConsentDocument.m in Sources */,
+				CE4F9D01244B066500968CFC /* SPBackground.m in Sources */,
 				75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */,
-				75F9C5E121FA357100A5B8FC /* SPEventBase.m in Sources */,
-				ED843F0523F7091500DB74B5 /* SPScreenView.m in Sources */,
-				ED843F6923F71A6300DB74B5 /* SPBackground.m in Sources */,
-				ED843F0F23F70BEA00DB74B5 /* SPConsentWithdrawn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
