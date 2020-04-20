@@ -52,8 +52,6 @@
     ]
   },
   "source_files": [
-    "Snowplow/*.{m,h}",
-    "Snowplow/*.{m,h}",
     "Snowplow/*.{m,h}"
   ],
   "public_header_files": [
