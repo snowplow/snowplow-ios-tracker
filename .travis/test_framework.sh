@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 PROJECT=$1
 DEST_IOS=$2
