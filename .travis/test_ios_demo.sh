@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 APP=$1
 DEP_FILE=$2
