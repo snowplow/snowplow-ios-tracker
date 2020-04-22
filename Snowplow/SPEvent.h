@@ -28,6 +28,7 @@
 #import "SPUnstructured.h"
 #import "SPScreenView.h"
 #import "SPConsentWithdrawn.h"
+#import "SPConsentDocument.h"
 #import "SPConsentGranted.h"
 #import "SPTiming.h"
 #import "SPEcommerce.h"
