@@ -145,4 +145,10 @@
  */
 - (NSString*) getUserId;
 
+/**
+ * Returns the current session's id
+ * @return the current session's id
+ */
+- (NSString*) getSessionId;
+
 @end
