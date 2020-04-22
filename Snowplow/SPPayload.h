@@ -2,7 +2,7 @@
 //  SPPayload.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -35,7 +35,7 @@
  *  @param dict An object of NSDictionary.
  *  @return A SnowplowPayload.
  */
-- (id) initWithNSDictionary:(NSDictionary *)dict;
+- (id)initWithNSDictionary:(NSDictionary<NSString *, NSObject *> *)dict;
 
 /**
  *  Adds a simple name-value pair into the SPPayload intance.
@@ -49,7 +49,7 @@
  *  All attribute values must be NSString types to be added; all others are discarded.
  *  @param dict An object of NSDictionary.
  */
-- (void) addDictionaryToPayload:(NSDictionary *)dict;
+- (void)addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)dict;
 
 /**
  *  Adds a dictionary of attributes to be appended into the SPPayload instance. Gives you the option to Base64 encode the data before adding it into the object.
@@ -82,7 +82,7 @@
  *  @param typeEncoded If the data is to be encoded, the result will be a value of the key in typeEncoded.
  *  @param typeNotEncoded If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
  */
-- (void) addDictionaryToPayload:(NSDictionary *)json
+- (void) addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)json
                   base64Encoded:(Boolean)encode
                 typeWhenEncoded:(NSString *)typeEncoded
              typeWhenNotEncoded:(NSString *)typeNotEncoded;
@@ -91,7 +91,7 @@
  * Returns the payload of that particular SPPayload object.
  * @return NSDictionary of data in the object.
  */
-- (NSDictionary *) getAsDictionary;
+- (NSDictionary<NSString *, NSObject *> *) getAsDictionary;
 
 - (NSString *) description;
 

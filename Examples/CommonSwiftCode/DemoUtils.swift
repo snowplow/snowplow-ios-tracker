@@ -2,8 +2,22 @@
 //  DemoUtils.swift
 //  SnowplowSwiftDemo
 //
-//  Created by Michael Hadam on 1/19/18.
-//  Copyright © 2018 snowplowanalytics. All rights reserved.
+//  Copyright (c) 2015-2020 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Michael Hadam
+//  Copyright: Copyright (c) 2015-2020 Snowplow Analytics Ltd
+//  License: Apache License Version 2.0
 //
 
 import Foundation
@@ -54,10 +68,10 @@ class DemoUtils {
     
     static func trackPageViewWithTracker(_ tracker: SPTracker) {
         let data: NSDictionary = [ "targetUrl": "http://a-target-url.com"]
-        let sdj = SPSelfDescribingJson(schema: "iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1", andData: data);
+        let sdj = SPSelfDescribingJson(schema: "iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1", andData: data)!
 
         var event = SPUnstructured.build({ (builder : SPUnstructuredBuilder?) -> Void in
-            builder!.setEventData(sdj!)
+            builder!.setEventData(sdj)
         })
         tracker.trackUnstructuredEvent(event)
         
@@ -113,7 +127,7 @@ class DemoUtils {
             builder!.setPrice(0.75)
             builder!.setQuantity(1)
             builder!.setCurrency("USD")
-        })! ]
+        }) ]
         
         var event = SPEcommerce.build({ (builder : SPEcommTransactionBuilder?) -> Void in
             builder!.setOrderId(transactionID)

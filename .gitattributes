@@ -1,0 +1,4 @@
+# Cocoapods
+# Ignore Pods folder
+**/Pods/** linguist-generated
+

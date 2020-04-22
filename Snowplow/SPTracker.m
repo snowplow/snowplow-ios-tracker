@@ -2,7 +2,7 @@
 //  SPTracker.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -28,15 +28,35 @@
 #import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSession.h"
-#import "SPEvent.h"
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
+#import "SPGlobalContext.h"
+#import "SPGdprContext.h"
+
+#import "SNOWError.h"
+#import "SPStructured.h"
+#import "SPUnstructured.h"
+#import "SPScreenView.h"
+#import "SPPageView.h"
+#import "SPTiming.h"
+#import "SPEcommerce.h"
+#import "SPEcommerceItem.h"
+#import "SPConsentWithdrawn.h"
+#import "SPConsentGranted.h"
+#import "SPForeground.h"
+#import "SPBackground.h"
+#import "SPPushNotification.h"
+#import "SPTrackerEvent.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
 
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
+
+@property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
+
+@property (nonatomic) SPGdprContext *gdpr;
 
 /*!
  @brief This method is called to send an auto-tracked screen view event.
@@ -89,6 +109,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     });
 }
 
+#pragma mark - SPTracker implementation
+
 @implementation SPTracker {
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
@@ -106,8 +128,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _exceptionEvents;
     BOOL                   _installEvent;
 }
-
-// SnowplowTracker Builder
 
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
     SPTracker* tracker = [[SPTracker alloc] initWithDefaultValues];
@@ -204,7 +224,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                     _appId != nil ? _appId : [NSNull null], kSPAppId, nil];
 }
 
-// Required
+#pragma mark - Setter
 
 - (void) setEmitter:(SPEmitter *)emitter {
     if (emitter != nil) {
@@ -293,7 +313,57 @@ void uncaughtExceptionHandler(NSException *exception) {
     _installEvent = installEvent;
 }
 
-// Extra Functions
+#pragma mark - Global Contexts methods
+
+- (void)setGlobalContextGenerators:(NSDictionary<NSString *, SPGlobalContext *> *)globalContexts {
+    _globalContextGenerators = globalContexts.mutableCopy ?: [NSMutableDictionary dictionary];
+}
+
+- (BOOL)addGlobalContext:(SPGlobalContext *)generator tag:(NSString *)tag {
+    if ([self.globalContextGenerators objectForKey:tag]) {
+        return NO;
+    }
+    [self.globalContextGenerators setObject:generator forKey:tag];
+    return YES;
+}
+
+- (SPGlobalContext *)removeGlobalContext:(NSString *)tag {
+    SPGlobalContext *toDelete = [self.globalContextGenerators objectForKey:tag];
+    if (toDelete) {
+        [self.globalContextGenerators removeObjectForKey:tag];
+    }
+    return toDelete;
+}
+
+#pragma mark - GDPR methods
+
+- (void)setGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                     documentId:(NSString *)documentId
+                documentVersion:(NSString *)documentVersion
+            documentDescription:(NSString *)documentDescription
+{
+    self.gdpr = [[SPGdprContext alloc] initWithBasis:basisForProcessing
+                                          documentId:documentId
+                                     documentVersion:documentVersion
+                                 documentDescription:documentDescription];
+}
+
+- (void)enableGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                        documentId:(NSString *)documentId
+                   documentVersion:(NSString *)documentVersion
+               documentDescription:(NSString *)documentDescription
+{
+    self.gdpr = [[SPGdprContext alloc] initWithBasis:basisForProcessing
+                                          documentId:documentId
+                                     documentVersion:documentVersion
+                                 documentDescription:documentDescription];
+}
+
+- (void)disableGdprContext {
+    self.gdpr = nil;
+}
+
+#pragma mark - Extra Functions
 
 - (void) pauseEventTracking {
     _dataCollection = NO;
@@ -307,7 +377,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [_session startChecker];
 }
 
-// Getters
+#pragma mark - Getters
 
 - (NSInteger) getSessionIndex {
     return [_session getSessionIndex];
@@ -329,6 +399,11 @@ void uncaughtExceptionHandler(NSException *exception) {
     return _lifecycleEvents;
 }
 
+- (NSArray<NSString *> *)globalContextTags {
+    return self.globalContextGenerators.allKeys;
+}
+
+#pragma mark - Notifications management
 
 - (void) receiveScreenViewNotification:(NSNotification *)notification {
     NSString * name = [[notification userInfo] objectForKey:@"name"];
@@ -347,30 +422,25 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
 }
 
-// Event Tracking Functions
+#pragma mark - Event Tracking Functions
 
 - (void) trackPageViewEvent:(SPPageView *)event {
-    if (!_dataCollection) {
-        return;
-    }
-    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 }
 
 - (void) trackStructuredEvent:(SPStructured *)event {
-    if (!_dataCollection) {
-        return;
-    }
-    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 }
 
 - (void) trackUnstructuredEvent:(SPUnstructured *)event {
-    if (!_dataCollection) {
-        return;
-    }
-    [self addEventWithPayload:[event getPayloadWithEncoding:_base64Encoded] andContext:[event getContexts] andEventId:[event getEventId]];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
 }
 
 - (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
+    if (!event || !_dataCollection) return;
     SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData: event];
     }];
@@ -378,35 +448,23 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void) trackScreenViewEvent:(SPScreenView *)event {
+    if (!event || !_dataCollection) return;
     @synchronized (_currentScreenState) {
         _previousScreenState = _currentScreenState;
         _currentScreenState = [event getScreenState];
         [event updateWithPreviousState: _previousScreenState];
     }
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event getContexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
 }
 
 - (void) trackTimingEvent:(SPTiming *)event {
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event getContexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
 }
 
 - (void) trackEcommerceEvent:(SPEcommerce *)event {
-    if (!_dataCollection) {
-        return;
-    }
-    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 
     NSNumber *tstamp = [event getTimestamp];
     for (SPEcommerceItem * item in [event getItems]) {
@@ -416,83 +474,52 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
-    [self addEventWithPayload:[event getPayload] andContext:[event getContexts] andEventId:[event getEventId]];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
 }
 
 - (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event {
-    NSArray * documents = [event getDocuments];
-    NSMutableArray * contexts = [event getContexts];
-    [contexts addObjectsFromArray:documents];
-
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event contexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    if (!event || !_dataCollection) return;
+    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:event];
+    [trackerEvent.contexts addObjectsFromArray:[event getDocuments]];
+    [self processEvent:trackerEvent];
 }
 
 - (void) trackConsentGrantedEvent:(SPConsentGranted *)event {
-    NSArray * documents = [event getDocuments];
-    NSMutableArray * contexts = [event getContexts];
-    [contexts addObjectsFromArray:documents];
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event contexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    if (!event || !_dataCollection) return;
+    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:event];
+    [trackerEvent.contexts addObjectsFromArray:[event getDocuments]];
+    [self processEvent:trackerEvent];
 }
 
 - (void) trackPushNotificationEvent:(SPPushNotification *)event {
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event getContexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
 }
 
 - (void) trackForegroundEvent:(SPForeground *)event {
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event getContexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
 }
 
 - (void) trackBackgroundEvent:(SPBackground *)event {
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event getContexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
 }
 
 - (void) trackErrorEvent:(SNOWError *)event {
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:[event getPayload]];
-        [builder setTimestamp:[event getTimestamp]];
-        [builder setContexts:[event getContexts]];
-        [builder setEventId:[event getEventId]];
-    }];
-    [self trackUnstructuredEvent:unstruct];
+    if (!event || !_dataCollection) return;
+    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
 }
 
-// Event Decoration
+#pragma mark - Event Decoration
 
-- (void) addEventWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
-    [_emitter addPayloadToBuffer:[self getFinalPayloadWithPayload:pb andContext:contextArray andEventId:eventId]];
+- (void)processEvent:(SPTrackerEvent *)event {
+    SPPayload *payload = [self payloadWithEvent:event];
+    [_emitter addPayloadToBuffer:payload];
 }
 
-- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
+- (SPPayload *)getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
     [pb addDictionaryToPayload:_trackerData];
 
     // Add Subject information
@@ -502,36 +529,78 @@ void uncaughtExceptionHandler(NSException *exception) {
     [pb addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
 
     // Add the contexts
-    SPSelfDescribingJson * context = [self getFinalContextWithContexts:contextArray andEventId:eventId];
-    if (context != nil) {
-        [pb addDictionaryToPayload:[context getAsDictionary]
-                     base64Encoded:_base64Encoded
-                   typeWhenEncoded:kSPContextEncoded
-                typeWhenNotEncoded:kSPContext];
-    }
+    NSMutableArray<SPSelfDescribingJson *> *contexts = contextArray;
+    [self addBasicContextsToContexts:contexts eventId:eventId];
 
+    [self wrapContexts:contexts toPayload:pb];
     return pb;
 }
 
-- (SPSelfDescribingJson *) getFinalContextWithContexts:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
-    SPSelfDescribingJson * finalContext = nil;
+- (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
+    SPPayload *payload = [SPPayload new];
 
-    // Add contexts if populated
+    [self addBasicPropertiesToPayload:payload event:event];
+    if (event.isPrimitive) {
+        [self addPrimitivePropertiesToPayload:payload event:event];
+    } else {
+        [self addSelfDescribingPropertiesToPayload:payload event:event];
+    }
+    NSMutableArray<SPSelfDescribingJson *> *contexts = event.contexts;
+    [self addBasicContextsToContexts:contexts event:event];
+    [self addGlobalContextsToContexts:contexts event:event];
+    [self wrapContexts:contexts toPayload:payload];
+
+    return payload;
+}
+
+- (void)addBasicPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
+    [payload addValueToPayload:[NSString stringWithFormat:@"%lld", (long long)(event.timestamp * 1000)] forKey:kSPTimestamp];
+    [payload addValueToPayload:event.eventId.UUIDString forKey:kSPEid];
+    [payload addDictionaryToPayload:_trackerData];
+    if (_subject != nil) {
+        [payload addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
+    }
+    [payload addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
+}
+
+- (void)addPrimitivePropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
+    [payload addValueToPayload:event.eventName forKey:kSPEvent];
+    [payload addDictionaryToPayload:event.payload];
+}
+
+- (void)addSelfDescribingPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
+    [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
+    SPSelfDescribingJson *data = [[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload];
+    NSDictionary *unstructuredEventPayload = @{
+        kSPSchema: kSPUnstructSchema,
+        kSPData: [data getAsDictionary],
+    };
+    [payload addDictionaryToPayload:unstructuredEventPayload
+                      base64Encoded:_base64Encoded
+                    typeWhenEncoded:kSPUnstructuredEncoded
+                 typeWhenNotEncoded:kSPUnstructured];
+}
+
+- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(SPTrackerEvent *)event {
+    [self addBasicContextsToContexts:contexts eventId:event.eventId.UUIDString];
+}
+
+- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId {
     if (_subject != nil) {
         NSDictionary * platformDict = [[_subject getPlatformDict] getAsDictionary];
         if (platformDict != nil) {
-            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
+            [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
         }
         NSDictionary * geoLocationDict = [_subject getGeoLocationDict];
         if (geoLocationDict != nil) {
-            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:geoLocationDict]];
+            [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:geoLocationDict]];
         }
     }
 
     if (_applicationContext) {
         SPSelfDescribingJson * contextJson = [SPUtilities getApplicationContext];
         if (contextJson != nil) {
-            [contextArray addObject:contextJson];
+            [contexts addObject:contextJson];
         }
     }
 
@@ -539,7 +608,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (_session != nil) {
         NSDictionary * sessionDict = [_session getSessionDictWithEventId:eventId];
         if (sessionDict != nil) {
-            [contextArray addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
+            [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
         }
     }
     
@@ -547,20 +616,42 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (_screenContext && _currentScreenState) {
         SPSelfDescribingJson * contextJson = [SPUtilities getScreenContextWithScreenState:_currentScreenState];
         if (contextJson != nil) {
-            [contextArray addObject:contextJson];
+            [contexts addObject:contextJson];
         }
+    }
+    
+    // Add GDPR context
+    if (self.gdpr) {
+        SPSelfDescribingJson *gdprContext = self.gdpr.context;
+        if (gdprContext) {
+            [contexts addObject:gdprContext];
+        }
+    }
+}
+
+- (void)addGlobalContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(id<SPInspectableEvent>)event {
+    [self.globalContextGenerators enumerateKeysAndObjectsUsingBlock:^(NSString *key, SPGlobalContext *generator, BOOL *stop) {
+        [contexts addObjectsFromArray:[generator contextsFromEvent:event]];
+    }];
+}
+
+- (void)wrapContexts:(NSArray<SPSelfDescribingJson *> *)contexts toPayload:(SPPayload *)payload {
+    if (contexts.count == 0) {
+        return;
+    }
+    NSMutableArray<NSDictionary *> *data = [NSMutableArray new];
+    for (SPSelfDescribingJson *context in contexts) {
+        [data addObject:[context getAsDictionary]];
     }
 
-    // If some contexts are available...
-    if (contextArray.count > 0) {
-        NSMutableArray * contexts = [[NSMutableArray alloc] init];
-        for (SPSelfDescribingJson * context in contextArray) {
-            [contexts addObject:[context getAsDictionary]];
-        }
-        finalContext = [[SPSelfDescribingJson alloc] initWithSchema:kSPContextSchema andData:contexts];
+    SPSelfDescribingJson *finalContext = [[SPSelfDescribingJson alloc] initWithSchema:kSPContextSchema andData:data];
+    if (finalContext == nil) {
+        return;
     }
-    return finalContext;
+    [payload addDictionaryToPayload:[finalContext getAsDictionary]
+                      base64Encoded:_base64Encoded
+                    typeWhenEncoded:kSPContextEncoded
+                 typeWhenNotEncoded:kSPContext];
 }
 
 @end
-

@@ -2,12 +2,27 @@
 //  UIViewController+SPScreenView_SWIZZLE.m
 //  Snowplow
 //
-//  Created by Michael Hadam on 2/27/19.
-//  Copyright © 2019 Snowplow Analytics. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Michael Hadam
+//  Copyright © 2020 Snowplow Analytics. All rights reserved.
+//  License: Apache License Version 2.0
 //
 
 #import "SPTracker.h"
-#import "SPEvent.h"
+#import "SPEventBase.h"
+#import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "UIKit/UIKit.h"
 #import "UIViewController+SPScreenView_SWIZZLE.h"
@@ -133,7 +148,18 @@
 }
 
 - (UIViewController *) _SP_topViewController {
-    return [self _SP_topViewController:[UIApplication sharedApplication].keyWindow.rootViewController];
+    UIWindow *keyWindow = nil;
+    NSArray<UIWindow *> *windows = [UIApplication sharedApplication].windows;
+    for (UIWindow *window in windows) {
+        if (window.isKeyWindow) {
+            keyWindow = window;
+            break;
+        }
+    }
+    if (!keyWindow) {
+        return nil;
+    }
+    return [self _SP_topViewController:keyWindow.rootViewController];
 }
 
 - (UIViewController *) _SP_topViewController:(UIViewController *)rootViewController {

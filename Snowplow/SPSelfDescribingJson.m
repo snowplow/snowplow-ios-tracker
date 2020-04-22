@@ -2,7 +2,7 @@
 //  SPSelfDescribingJson.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -25,49 +25,37 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPSelfDescribingJson {
-    NSMutableDictionary * _payload;
-}
+@interface SPSelfDescribingJson ()
 
-- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data {
-    self = [super init];
-    if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
+@property (nonatomic, readwrite) NSObject *data;
+
+@end
+
+@implementation SPSelfDescribingJson
+
+- (instancetype)initWithSchema:(NSString *)schema andData:(NSObject *)data {
+    if (self = [super init]) {
         [self setSchema:schema];
         [self setDataWithObject:data];
     }
     return self;
 }
 
-- (id) initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
-    self = [super init];
-    if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
-        [self setSchema:schema];
-        [self setDataWithPayload:data];
-    }
-    return self;
+- (instancetype)initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
+    return [self initWithSchema:schema andData:[data getAsDictionary]];
 }
 
-- (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data {
-    self = [super init];
-    if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
-        [self setSchema:schema];
-        [self setDataWithSelfDescribingJson:data];
-    }
-    return self;
+- (instancetype)initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data {
+    return [self initWithSchema:schema andData:[data getAsDictionary]];
 }
 
 - (void) setSchema:(NSString *)schema {
     [SPUtilities checkArgument:([schema length] != 0) withMessage:@"Schema cannot be nil or empty."];
-    [_payload setObject:schema forKey:kSPSchema];
+    _schema = schema;
 }
 
 - (void) setDataWithObject:(NSObject *)data {
-    if (data != nil) {
-        [_payload setObject:data forKey:kSPData];
-    }
+    self.data = data;
 }
 
 - (void) setDataWithPayload:(SPPayload *)data {
@@ -78,8 +66,11 @@
     return [self setDataWithObject:[data getAsDictionary]];
 }
 
-- (NSDictionary *) getAsDictionary {
-    return _payload;
+- (NSDictionary<NSString *, NSObject *> *) getAsDictionary {
+    return @{
+        kSPSchema: self.schema,
+        kSPData: self.data,
+    };
 }
 
 - (NSString *) description {

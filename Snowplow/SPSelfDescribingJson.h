@@ -2,7 +2,7 @@
 //  SPSelfDescribingJson.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -34,6 +34,14 @@
  */
 @interface SPSelfDescribingJson : NSObject
 
+/// the schema URI for this self-describing JSON.
+@property (nonatomic) NSString *schema;
+/// Data of the self-describing JSON.
+@property (nonatomic, readonly) NSObject *data;
+
+- (instancetype)init NS_UNAVAILABLE;
++ (instancetype)new NS_UNAVAILABLE;
+
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
 
@@ -41,7 +49,7 @@
  @param data Data to set for data field of the self-describing JSON, should be an NSDictionary.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andData:(NSObject *)data;
+- (instancetype)initWithSchema:(NSString *)schema andData:(NSObject *)data NS_DESIGNATED_INITIALIZER;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -50,7 +58,7 @@
  @param data Payload to set for data field of the self-describing JSON.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andPayload:(SPPayload *)data;
+- (instancetype)initWithSchema:(NSString *)schema andPayload:(SPPayload *)data;
 
 /*!
  @brief Initializes a newly allocated SPSelfDescribingJson.
@@ -59,14 +67,7 @@
  @param data Self-describing JSON to set for data field of the self-describing JSON.
  @return An SPSelfDescribingJson.
  */
-- (id) initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data;
-
-/*!
- @brief Sets the schema URI for this self-describing JSON.
-
- @param schema The schema URI.
- */
-- (void) setSchema:(NSString *)schema;
+- (instancetype)initWithSchema:(NSString *)schema andSelfDescribingJson:(SPSelfDescribingJson *)data;
 
 /*!
  @brief Sets the data field of the self-describing JSON.
@@ -94,7 +95,7 @@
 
  @return The self-describing JSON as an NSDictionary.
  */
-- (NSDictionary *) getAsDictionary;
+- (NSDictionary<NSString *, NSObject *> *) getAsDictionary;
 
 /*!
  @brief Returns a string description of the internal dictionary.

@@ -1,1 +1,1 @@
-../../../../../../Snowplow/SPEvent.h
+../../../../../../Snowplow/Events/SPEvent.h

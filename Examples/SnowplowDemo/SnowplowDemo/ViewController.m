@@ -2,7 +2,7 @@
 //  ViewController.m
 //  SnowplowDemo
 //
-//  Copyright (c) 2015-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2015-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2015-2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2015-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -26,6 +26,8 @@
 #import "SPEmitter.h"
 #import "SPUtilities.h"
 #import "SPSubject.h"
+#import "SPSchemaRuleset.h"
+#import "SPSelfDescribingJson.h"
 
 @interface ViewController ()
 
@@ -157,8 +159,29 @@ static NSString *const kNamespace = @"DemoAppNamespace";
         [builder setBase64Encoded:false];
         [builder setSessionContext:YES];
         [builder setSubject:subject];
+        [builder setGlobalContextGenerators:@{
+            @"rulesetExampleTag": [self rulesetGlobalContextExample],
+            @"staticExampleTag": [self staticGlobalContextExample],
+        }];
     }];
     return tracker;
+}
+
+- (SPGlobalContext *)rulesetGlobalContextExample {
+    SPSchemaRuleset *schemaRuleset = [SPSchemaRuleset rulesetWithAllowedList:@[@"iglu:com.snowplowanalytics.*/*/jsonschema/1-*-*"]
+                                                               andDeniedList:@[@"iglu:com.snowplowanalytics.mobile/*/jsonschema/1-*-*"]];
+    return [[SPGlobalContext alloc] initWithGenerator:^NSArray<SPSelfDescribingJson *> *(id<SPInspectableEvent> event) {
+        return @[
+            [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0" andData:@{@"key": @"rulesetExample"}],
+            [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0" andData:@{@"eventName": event.schema}],
+        ];
+    } ruleset:schemaRuleset];
+}
+
+- (SPGlobalContext *)staticGlobalContextExample {
+    return [[SPGlobalContext alloc] initWithStaticContexts:@[
+        [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0" andData:@{@"key": @"staticExample"}],
+    ]];
 }
 
 // Define Callback Functions

@@ -2,7 +2,7 @@
 //  SPUtils.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -145,13 +145,56 @@
 }
 
 + (NSString *) getCarrierName {
-    NSString * carrierName = nil;
 #if SNOWPLOW_TARGET_IOS
-    CTTelephonyNetworkInfo *netinfo = [[CTTelephonyNetworkInfo alloc] init];
-    CTCarrier *carrier = [netinfo subscriberCellularProvider];
-    carrierName = [carrier carrierName];
+    CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
+    CTCarrier *carrier;
+    if (@available(iOS 12.1, *)) {
+        // `serviceSubscribersCellularProviders` has a bug in the iOS 12.0 so we use it from iOS 12.1
+        NSString *carrierKey = [SPUtilities carrierKey];
+        if (!carrierKey) {
+            return nil;
+        }
+        NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
+        carrier = services[carrierKey];
+    } else {
+        carrier = [networkInfo subscriberCellularProvider];
+    }
+    return [carrier carrierName];
 #endif
-    return carrierName;
+    return nil;
+}
+
++ (NSString *) getNetworkTechnology {
+#if SNOWPLOW_TARGET_IOS
+    CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
+    if (@available(iOS 12.1, *)) {
+        // `serviceCurrentRadioAccessTechnology` has a bug in the iOS 12.0 so we use it from iOS 12.1
+        NSString *carrierKey = [SPUtilities carrierKey];
+        if (!carrierKey) {
+            return nil;
+        }
+        NSDictionary<NSString *, NSString *> *services = [networkInfo serviceCurrentRadioAccessTechnology];
+        return services[carrierKey];
+    } else {
+        return [networkInfo currentRadioAccessTechnology];
+    }
+#endif
+    return nil;
+}
+
++ (NSString *)carrierKey {
+#if SNOWPLOW_TARGET_IOS
+    if (@available(iOS 12.1, *)) {
+        CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
+        // `serviceSubscribersCellularProviders` has a bug in the iOS 12.0 so we use it from iOS 12.1
+        NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
+        NSArray<NSString *> *carrierKeys = services.allKeys;
+        // From iOS 12, iPhones with eSIMs can return multiple carrier providers.
+        // We can't prefer anyone of them so we track the first reported.
+        return carrierKeys.firstObject;
+    }
+#endif
+    return nil;
 }
 
 + (NSString *) getNetworkType {
@@ -167,15 +210,6 @@
     }
 #endif
     return @"offline";
-}
-
-+ (NSString *) getNetworkTechnology {
-    NSString * netTech = nil;
-#if SNOWPLOW_TARGET_IOS
-    CTTelephonyNetworkInfo *netInfo = [[CTTelephonyNetworkInfo alloc] init];
-    netTech = [netInfo currentRadioAccessTechnology];
-#endif
-    return netTech;
 }
 
 + (int) getTransactionId {
@@ -272,17 +306,12 @@
     return [[NSBundle mainBundle] bundleIdentifier];
 }
 
-+ (NSString *)urlEncodeString:(NSString *)s {
-    if (!s) {
++ (NSString *)urlEncodeString:(NSString *)string {
+    if (!string) {
         return @"";   
     }
-    return (NSString *)CFBridgingRelease(
-            CFURLCreateStringByAddingPercentEscapes(
-                NULL, 
-                (CFStringRef) s, 
-                NULL, 
-                (CFStringRef)@"!*'\"();:@&=+$,/?%#[]% ",
-                CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding)));
+    NSCharacterSet *allowedCharSet = [NSCharacterSet characterSetWithCharactersInString:@"{}!*'\\\"();:@&=+$,/?%#[]% "].invertedSet;
+    return [string stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
 }
 
 + (NSString *)urlEncodeDictionary:(NSDictionary *)d {
@@ -300,6 +329,9 @@
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
     if (!argument) {
         SnowplowDLog(@"SPLog: Error occurred while checking argument: %@", message);
+         #if DEBUG
+            @throw [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
+         #endif
     }
 }
 

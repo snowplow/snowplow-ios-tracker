@@ -2,7 +2,7 @@
 //  SPTracker.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -49,6 +49,17 @@ void uncaughtExceptionHandler(NSException *exception);
 @class SPBackground;
 @class SPScreenState;
 @class SNOWError;
+
+@class SPGlobalContext;
+
+typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
+    SPGdprProcessingBasisConsent = 0,
+    SPGdprProcessingBasisContract = 1,
+    SPGdprProcessingBasisLegalObligation = 2,
+    SPGdprProcessingBasisVitalInterest = 3,
+    SPGdprProcessingBasisPublicTask = 4,
+    SPGdprProcessingBasisLegitimateInterests = 5
+};
 
 /*!
  @brief The builder for SPTracker.
@@ -169,6 +180,25 @@ void uncaughtExceptionHandler(NSException *exception);
  */
 - (void) setInstallEvent:(BOOL)installEvent;
 
+/*!
+ @brief Add global context generators to be used by tracker.
+ 
+ @param globalContexts The global context generators to be used and related string tag for identification.
+ */
+- (void)setGlobalContextGenerators:(NSDictionary<NSString *, SPGlobalContext *> *)globalContexts;
+
+/*!
+ @brief Tracker builder method to set a GDPR context for the tracker
+ @param basisForProcessing Enum one of valid legal bases for processing.
+ @param documentId Document ID.
+ @param documentVersion Version of the document.
+ @param documentDescription Description of the document.
+ */
+- (void)setGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                     documentId:(NSString *)documentId
+                documentVersion:(NSString *)documentVersion
+            documentDescription:(NSString *)documentDescription;
+
 @end
 
 /*!
@@ -197,6 +227,8 @@ void uncaughtExceptionHandler(NSException *exception);
 @property (readonly, nonatomic, strong) SPScreenState * previousScreenState;
 /*! @brief Current screen view state. */
 @property (readonly, nonatomic, strong) SPScreenState * currentScreenState;
+/*! @brief List of tags associated to global contexts. */
+@property (readonly, nonatomic) NSArray<NSString *> *globalContextTags;
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.
@@ -263,7 +295,41 @@ void uncaughtExceptionHandler(NSException *exception);
  @param eventId The event's eventId which will be used to generate the session JSON.
  @return The final complete payload ready for sending.
  */
-- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId;
+- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId __deprecated_msg("getFinalPayloadWithPayload:andContext:andEventId: is deprecated and it will be removed in the next release.");
+
+/*!
+ Add new generator for global contexts associated with a string tag.
+ If the string tag has been already set the new global context is not assigned.
+ @param generator The global context generator.
+ @param tag The tag associated to the global context.
+ @return Weather the global context has been added.
+ */
+- (BOOL)addGlobalContext:(SPGlobalContext *)generator tag:(NSString *)tag;
+
+/*!
+ Remove the global context associated with the string tag.
+ If the string tag exist it returns the global context generator associated with.
+ @param tag The tag associated to the global context.
+ @return The global context associated with the tag or `nil` in case of any entry with that string tag.
+ */
+- (SPGlobalContext *)removeGlobalContext:(NSString *)tag;
+
+/*!
+ Enables GDPR context to be sent with every event.
+ @param basisForProcessing GDPR Basis for processing.
+ @param documentId ID of a GDPR basis document.
+ @param documentVersion Version of the document.
+ @param documentDescription Description of the document.
+ */
+- (void)enableGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                        documentId:(NSString *)documentId
+                   documentVersion:(NSString *)documentVersion
+               documentDescription:(NSString *)documentDescription;
+
+/// Disable GDPR context.
+- (void)disableGdprContext;
+
+#pragma mark - Events tracking methods
 
 /*!
  @brief Tracks a page view event.

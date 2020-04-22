@@ -2,7 +2,7 @@
 //  SPPayload.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2018 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2018 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -35,11 +35,10 @@
     return self;
 }
 
-- (id) initWithNSDictionary:(NSDictionary *) dict {
+- (id)initWithNSDictionary:(NSDictionary<NSString *, NSObject *> *) dictionary {
     self = [super init];
-    if(self) {
-        _payload = [[NSMutableDictionary alloc] init];
-        [self addDictionaryToPayload:dict];
+    if (self) {
+        _payload = dictionary.mutableCopy ?: [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -54,14 +53,13 @@
     [_payload setObject:value forKey:key];
 }
 
-- (void) addDictionaryToPayload:(NSDictionary *)dict {
-    if (dict != nil) {
-        [dict.copy enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stop) {
-            if ([value isKindOfClass:[NSString class]]) {
-                [self addValueToPayload:(NSString *)value forKey:key];
-            }
-        }];
-    }
+- (void)addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)dictionary {
+    if (!dictionary) return;
+    [dictionary.copy enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stop) {
+        if ([value isKindOfClass:[NSString class]]) {
+            [self addValueToPayload:(NSString *)value forKey:key];
+        }
+    }];
 }
 
 - (void) addJsonToPayload:(NSData *)json
@@ -115,11 +113,11 @@
     
 }
 
-- (void) addDictionaryToPayload:(NSDictionary *)json
-                      base64Encoded:(Boolean)encode
-                    typeWhenEncoded:(NSString *)typeEncoded
-                 typeWhenNotEncoded:(NSString *)typeNotEncoded {
-    NSData *data = [NSJSONSerialization dataWithJSONObject:json options:0 error:nil];
+- (void)addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)dictionary
+                 base64Encoded:(Boolean)encode
+               typeWhenEncoded:(NSString *)typeEncoded
+            typeWhenNotEncoded:(NSString *)typeNotEncoded {
+    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:nil];
     
     [self addJsonToPayload:data
              base64Encoded:encode
@@ -127,7 +125,7 @@
         typeWhenNotEncoded:typeNotEncoded];
 }
 
-- (NSDictionary *) getAsDictionary {
+- (NSDictionary<NSString *, NSObject *> *) getAsDictionary {
     return _payload;
 }
 

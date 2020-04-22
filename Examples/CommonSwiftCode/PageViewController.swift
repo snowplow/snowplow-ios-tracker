@@ -2,8 +2,22 @@
 //  PageViewController.swift
 //  SnowplowSwiftDemo
 //
-//  Created by Michael Hadam on 3/4/19.
-//  Copyright © 2019 snowplowanalytics. All rights reserved.
+//  Copyright (c) 2015-2020 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Michael Hadam
+//  Copyright: Copyright (c) 2015-2020 Snowplow Analytics Ltd
+//  License: Apache License Version 2.0
 //
 
 import UIKit
@@ -48,8 +62,30 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
             builder!.setApplicationContext(true)
             builder!.setExceptionEvents(true)
             builder!.setInstallEvent(true)
+            builder!.setGlobalContextGenerators([
+                "ruleSetExampleTag": self.ruleSetGlobalContextExample(),
+                "staticExampleTag": self.staticGlobalContextExample(),
+            ])
+            builder!.setGdprContextWith(SPGdprProcessingBasis.consent, documentId: "id", documentVersion: "1.0", documentDescription: "description")
         })
         return newTracker!
+    }
+    
+    func ruleSetGlobalContextExample() -> SPGlobalContext {
+        let schemaRuleset = SPSchemaRuleset(allowedList: ["iglu:com.snowplowanalytics.*/*/jsonschema/1-*-*"],
+                                            andDeniedList: ["iglu:com.snowplowanalytics.mobile/*/jsonschema/1-*-*"])
+        return SPGlobalContext(generator: { event -> [SPSelfDescribingJson]? in
+            return [
+                SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["key": "rulesetExample"] as NSObject),
+                SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["eventName": event.schema] as NSObject)
+            ]
+        }, ruleset: schemaRuleset)
+    }
+    
+    func staticGlobalContextExample() -> SPGlobalContext {
+        return SPGlobalContext(staticContexts: [
+            SPSelfDescribingJson.init(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0", andData: ["key": "staticExample"] as NSObject),
+        ])
     }
 
     func updateToken(_ newToken: String) {
