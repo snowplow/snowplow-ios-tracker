@@ -395,6 +395,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     return [_session getUserId];
 }
 
+- (NSString*) getSessionId {
+    return [_session getSessionId];
+}
+
 - (BOOL) getLifecycleEvents {
     return _lifecycleEvents;
 }
