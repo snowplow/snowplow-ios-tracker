@@ -49,6 +49,7 @@ Pod::Spec.new do |s|
     'Snowplow/SPUnstructured.h',
     'Snowplow/SPScreenView.h',
     'Snowplow/SPConsentWithdrawn.h',
+    'Snowplow/SPConsentDocument.h',
     'Snowplow/SPConsentGranted.h',
     'Snowplow/SPTiming.h',
     'Snowplow/SPEcommerce.h',
