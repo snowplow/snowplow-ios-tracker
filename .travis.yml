@@ -29,7 +29,3 @@ jobs:
     - name: "Test Snowplow Swift demo app using Cocoapods (use_modular_headers! directive)"
       script: .travis/test_ios_demo.sh SnowplowSwiftCocoapodsDemo Podfile_modular_headers "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
 
-    - name: "Test Snowplow Swift demo app using Swift Package Manager"
-      script: .travis/test_ios_demo.sh SnowplowSwiftSPMDemo SPM "${BUILD_PROJECT_SWIFT_SPM_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_SPM_DEMO_IOS}"
-
-
