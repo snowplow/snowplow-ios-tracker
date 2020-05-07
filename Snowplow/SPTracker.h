@@ -279,6 +279,13 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
 - (NSString*) getSessionUserId;
 
 /*!
+ @brief Returns the current session's id.
+
+ @return UUID of the session.
+ */
+- (NSString*) getSessionId;
+
+/*!
  @brief Returns whether lifecyle events is enabled.
 
  @return Whether background and foreground events are sent.

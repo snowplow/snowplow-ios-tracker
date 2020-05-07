@@ -1,3 +1,10 @@
+Version 1.3.1 (2020-05-07)
+--------------------------
+Remove SPM demo app as it causes issues to Carthage (#513)
+Specifcy FMDB version instead of commit in Package.swift (#512) (Contribution of @BennetLinden)
+Adds public access to a tracker's current session id (#508) (Contribution of @ejensen)
+Add missing references to SPConsentDocument.h (#507) (Contribution of @ejensen)
+
 Version 1.3.0 (2020-04-21)
 --------------------------
 Swift Package Manager unable to find headers on subfolders (#503) (Contribution of @vauxhall)

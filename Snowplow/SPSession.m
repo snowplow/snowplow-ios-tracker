@@ -182,6 +182,10 @@ NSString * const kSessionSavePath = @"session.dict";
     return _userId;
 }
 
+- (NSString *)getSessionId {
+    return _currentSessionId;
+}
+
 - (NSInteger) getBackgroundIndex {
     return _backgroundIndex;
 }

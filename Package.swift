@@ -13,7 +13,7 @@ let package = Package(
             targets: ["SnowplowTracker"]),
     ],
     dependencies: [
-        .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", .revision("d68317fc0d7a986872ebf389f8d09b870fc88a7d"))
+        .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", from: "2.7.6")
     ],
     targets: [
         .target(
