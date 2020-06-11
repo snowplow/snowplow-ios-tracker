@@ -135,7 +135,7 @@
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
@@ -175,7 +175,7 @@
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
@@ -214,7 +214,7 @@
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:primitiveEvent];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:primitiveEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
@@ -223,7 +223,7 @@
         [builder setName:@"Name"];
         [builder setType:@"Type"];
     }];
-    trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:selfDescribingEvent];
+    trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
@@ -234,7 +234,7 @@
         [builder setCategory:@"Category"];
         [builder setVariable:@"Variable"];
     }];
-    trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:selfDescribingEvent];
+    trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 1);
     XCTAssertEqual(contexts[0].schema, @"schema");
@@ -265,7 +265,7 @@
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
@@ -296,7 +296,7 @@
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];

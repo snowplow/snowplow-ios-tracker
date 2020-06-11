@@ -23,6 +23,7 @@
 #import <Foundation/Foundation.h>
 
 @class SPPayload;
+@class SPTracker;
 
 /*!
  @brief An enum for screen types.
@@ -111,6 +112,18 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 - (NSNumber *) getTimestamp;
 - (NSString *) getEventId;
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb __deprecated_msg("The payload can be updated only by the tracker.");
+
+/**
+ * Hook method called just before the event processing in order to execute special operations.
+ * @note Internal use only - Don't use in production, it can change without notice.
+ */
+- (void)beginProcessingWithTracker:(SPTracker *)tracker;
+
+/**
+ * Hook method called just after the event processing in order to execute special operations.
+ * @note Internal use only - Don't use in production, it can change without notice.
+ */
+- (void)endProcessingWithTracker:(SPTracker *)tracker;
 @end
 
 /*!

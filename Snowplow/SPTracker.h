@@ -28,6 +28,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPDevicePlatform.h"
+#import "SPEventBase.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -430,5 +431,11 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
  @param event An error event.
  */
 - (void) trackErrorEvent:(SNOWError *)event;
+
+/*!
+ @brief Tracks an event despite its specific type.
+ @param event The event to track
+ */
+- (void)track:(SPEvent *)event;
 
 @end
