@@ -39,15 +39,17 @@
 }
 
 - (void)testEventBuilderConditions {
+    NSString *presetEventId = [NSUUID UUID].UUIDString;
+    
     // Valid construction
     SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setContexts:[self getCustomContext]];
-        [builder setEventId:@"an-event-id-string"];
+        [builder setEventId:presetEventId];
         [builder setTimestamp:@1234567890];
     }];
     XCTAssertNotNil(event);
-    XCTAssertEqualObjects([event getEventId], @"an-event-id-string");
+    XCTAssertEqualObjects([event getEventId], presetEventId);
     XCTAssertEqual([event getTimestamp].longLongValue, @(1234567890).longLongValue);
     event = nil;
     
@@ -76,16 +78,12 @@
     XCTAssertNil(event);
     
     // EventID is nil
-    @try {
-        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-            [builder setPageUrl:@"DemoPageUrl"];
-            [builder setEventId:nil];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventID cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
+    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setEventId:nil];
+    }];
+    XCTAssertNotNil(event);
+    event = nil;
     
     // EventID is empty
     @try {
@@ -95,7 +93,7 @@
         }];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventID cannot be nil or empty.", exception.reason);
+        XCTAssertEqualObjects(@"EventID has to be a valid UUID.", exception.reason);
     }
     XCTAssertNil(event);
 }

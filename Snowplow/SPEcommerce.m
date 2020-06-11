@@ -141,6 +141,9 @@
     return _items;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
+
 - (void)endProcessingWithTracker:(SPTracker *)tracker {
     // Track each item individually
     NSNumber *timestamp = [self getTimestamp];
@@ -149,5 +152,7 @@
         [tracker track:item];
     }
 }
+
+#pragma GCC diagnostic pop
 
 @end

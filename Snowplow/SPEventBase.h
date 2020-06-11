@@ -67,24 +67,23 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 
 /*!
  @brief Set the timestamp of the event.
-
  @param timestamp The timestamp of the event in milliseconds (epoch time)
+ @deprecated This method is for internal use only and will be removed in the next major version.
  */
-- (void) setTimestamp:(NSNumber *)timestamp;
+- (void) setTimestamp:(NSNumber *)timestamp __deprecated_msg("The timestamp will be set once the event is processed.");
 
 /*!
  @brief Set the contexts attached to the event.
-
  @param contexts An array of contexts (should be self-describing JSONs).
  */
 - (void) setContexts:(NSMutableArray *)contexts;
 
 /*!
  @brief Set the UUID associated with the event.
-
  @param eventId A UUID for the event.
+ @deprecated This method is for internal use only and will be removed in the next major version.
  */
-- (void) setEventId:(NSString *)eventId;
+- (void) setEventId:(NSString *)eventId __deprecated_msg("The eventId will be set once the event is processed.");
 @end
 
 /*!
@@ -108,9 +107,26 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
 - (void) basePreconditions;
+
+/*!
+ @brief Get the copy of the context list associated with the event.
+*/
 - (NSMutableArray *) getContexts;
-- (NSNumber *) getTimestamp;
-- (NSString *) getEventId;
+
+/*!
+ @brief Set the timestamp of the event.
+ @note If the timestamp is not set, it sets one as a side effect.
+ @deprecated This method is for internal use only and will be removed in the next major version.
+*/
+- (NSNumber *) getTimestamp __deprecated_msg("The timestamp is set only when the event is processed.");
+
+/*!
+ @brief Get the UUID associated with the event.
+ @note If the eventId is not set, it sets one as a side effect.
+ @deprecated This method is for internal use only and will be removed in the next major version.
+*/
+- (NSString *) getEventId __deprecated_msg("The eventId is set only when the event is processed.");
+
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb __deprecated_msg("The payload can be updated only by the tracker.");
 
 /**

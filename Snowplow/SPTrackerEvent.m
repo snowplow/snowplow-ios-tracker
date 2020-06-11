@@ -30,9 +30,17 @@
 
 - (instancetype)initWithEvent:(SPEvent *)event {
     if (self = [super init]) {
-        self.eventId = [[NSUUID alloc] initWithUUIDString:event.eventId]; // it has to be set in the TrackerEvent
-        self.contexts = event.contexts; // it has to be set in the TrackerEvent
-        self.timestamp = event.timestamp.doubleValue / 1000; // it has to be set in the TrackerEvent
+        if (event.eventId) {
+            self.eventId = [[NSUUID alloc] initWithUUIDString:event.eventId];
+        } else {
+            self.eventId = [NSUUID UUID];
+        }
+        if (event.timestamp) {
+            self.timestamp = event.timestamp.doubleValue / 1000;
+        } else {
+            self.timestamp = [[[NSDate alloc] init] timeIntervalSince1970];
+        }
+        self.contexts = event.contexts;
         self.payload = event.payload;
 
         if ([event isKindOfClass:SPPrimitive.class]) {

@@ -49,9 +49,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getUUIDString];
     }
     return self;
 }
@@ -81,10 +79,16 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 }
 
 - (NSNumber *) getTimestamp {
+    if (!_timestamp) {
+        _timestamp = [SPUtilities getTimestamp];
+    }
     return _timestamp;
 }
 
 - (NSString *) getEventId {
+    if (!_eventId) {
+        _eventId = [SPUtilities getUUIDString];
+    }
     return _eventId;
 }
 
@@ -102,7 +106,9 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 - (void) basePreconditions {
     [SPUtilities checkArgument:(_contexts != nil) withMessage:@"Contexts cannot be nil."];
-    [SPUtilities checkArgument:([_eventId length] != 0) withMessage:@"EventID cannot be nil or empty."];
+    if (_eventId) {
+        [SPUtilities checkArgument:([[NSUUID alloc] initWithUUIDString:_eventId] != nil) withMessage:@"EventID has to be a valid UUID."];
+    }
 }
 
 - (void)beginProcessingWithTracker:(SPTracker *)tracker {}
