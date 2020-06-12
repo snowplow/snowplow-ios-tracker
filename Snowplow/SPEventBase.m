@@ -60,6 +60,10 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     _timestamp = timestamp;
 }
 
+- (void)setTrueTimestamp:(NSNumber *)trueTimestamp {
+    _trueTimestamp = trueTimestamp;
+}
+
 - (void) setContexts:(NSMutableArray *)contexts {
     for (NSObject * sdj in contexts) {
         [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
@@ -83,6 +87,10 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
         _timestamp = [SPUtilities getTimestamp];
     }
     return _timestamp;
+}
+
+- (NSNumber *)getTrueTimestamp {
+    return _trueTimestamp;
 }
 
 - (NSString *) getEventId {

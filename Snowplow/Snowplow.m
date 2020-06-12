@@ -85,6 +85,7 @@ NSString * const kSPData                  = @"data";
 NSString * const kSPEvent                 = @"e";
 NSString * const kSPEid                   = @"eid";
 NSString * const kSPTimestamp             = @"dtm";
+NSString * const kSPTrueTimestamp         = @"ttm";
 NSString * const kSPSentTimestamp         = @"stm";
 NSString * const kSPTrackerVersion        = @"tv";
 NSString * const kSPAppId                 = @"aid";

@@ -553,8 +553,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)addBasicPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
-    [payload addValueToPayload:[NSString stringWithFormat:@"%lld", (long long)(event.timestamp * 1000)] forKey:kSPTimestamp];
     [payload addValueToPayload:event.eventId.UUIDString forKey:kSPEid];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%lld", (long long)(event.timestamp * 1000)] forKey:kSPTimestamp];
+    if (event.trueTimestamp) {
+        [payload addValueToPayload:[NSString stringWithFormat:@"%lld", (long long)(event.trueTimestamp.doubleValue * 1000)] forKey:kSPTrueTimestamp];
+    }
     [payload addDictionaryToPayload:_trackerData];
     if (_subject != nil) {
         [payload addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
