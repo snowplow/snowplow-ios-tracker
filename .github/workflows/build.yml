@@ -3,24 +3,99 @@ name: Build
 on: [push]
 
 jobs:
-  test:
+  test_framework:
+    name: "Test framework (iOS ${{ matrix.version.ios }})"
     runs-on: macos-latest
 
     strategy:
       fail-fast: false
       matrix:
-        ios-version:
-          - 13.4
+        version:
+          - {ios: 13.5, watchos: 6.2.1}
+          - {ios: 12.4, watchos: 5.3}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup environment
+      - name: Test
+        env:
+          IOS: ${{ matrix.version.ios }}
+          WATCHOS: ${{ matrix.version.watchos }}
         run: |
-          .scripts/setup.sh
+          . .scripts/setup.sh
+          .scripts/test_framework.sh "${BUILD_PROJECT_LIB}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_LIB_IOS}" "${BUILD_DEST_WATCH}" "${BUILD_SCHEME_LIB_WATCH}"  
 
-      - name: Test readable env var
+  build_objc_demo_app:
+    name: "Test ObjC demo (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ios_version:
+          - 13.5
+          - 12.4
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.ios_version }}
         run: |
-          echo ${{ env.BUILD_TEST1 }}
-          echo ${{ env.CI_TEST1 }}
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
+
+  build_swift_carthage_demo_app:
+    name: "Test Swift demo (Carthage) (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ios_version:
+          - 13.5
+          - 12.4
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.ios_version }}
+        run: |
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh SnowplowSwiftCarthageDemo Cartfile "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}"
+
+  build_swift_cocoapods_demo_app:
+    name: "Test Swift demo (Cocoapods ${{ matrix.podfile.type }}) (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - {ios: 13.5, watchos: 6.2.1}
+          - {ios: 12.4, watchos: 5.3}
+        podfile:
+          - {file: Podfile, type: "no directive"}
+          - {file: Podfile_frameworks, type: "use_frameworks! directive"}
+          - {file: Podfile_modular_headers, type: "use_modular_headers! directive"}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.version.ios }}
+          WATCHOS: ${{ matrix.version.watchos }}
+        run: |
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh SnowplowSwiftCocoapodsDemo ${{matrix.podfile.file}} "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
