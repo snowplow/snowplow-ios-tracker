@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flushbuffer',['flushBuffer',['../interface_s_p_emitter.html#aa4be9e04bfc0423517ed15c1fc6f63db',1,'SPEmitter']]]
+  ['enablegdprcontextwithbasis_3adocumentid_3adocumentversion_3adocumentdescription_3a_907',['enableGdprContextWithBasis:documentId:documentVersion:documentDescription:',['../interface_s_p_tracker.html#a10e48d61aad21258c88e4f3924401965',1,'SPTracker']]]
 ];

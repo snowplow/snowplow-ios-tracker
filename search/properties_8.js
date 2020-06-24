@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['screenid',['screenId',['../interface_s_p_screen_state.html#aee9144d75682935c9a51d00df414d317',1,'SPScreenState']]],
-  ['session',['session',['../interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899',1,'SPTracker']]],
-  ['subject',['subject',['../interface_s_p_tracker.html#a59099084083240184e72f41011390c59',1,'SPTracker']]]
+  ['isnewinstall_1441',['isNewInstall',['../interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312',1,'SPInstallTracker']]],
+  ['isprimitive_1442',['isPrimitive',['../interface_s_p_tracker_event.html#ad3692381fe60a1b58f1a904384a49610',1,'SPTrackerEvent']]]
 ];

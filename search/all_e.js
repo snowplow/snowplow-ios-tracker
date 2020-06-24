@@ -1,22 +1,9 @@
 var searchData=
 [
-  ['timerfired_3a',['timerFired:',['../interface_s_p_weak_timer_target.html#a93372c7e1b38e4e5c74225057228bcf8',1,'SPWeakTimerTarget']]],
-  ['timestamp',['timestamp',['../interface_s_p_event.html#a291499642e1caa1c735a524702a0490d',1,'SPEvent']]],
-  ['topviewcontrollerclassname',['topViewControllerClassName',['../interface_s_p_screen_state.html#a566cb5902a9d8d3cba663ddc013aad04',1,'SPScreenState']]],
-  ['trackbackgroundevent_3a',['trackBackgroundEvent:',['../interface_s_p_tracker.html#a232997424ba4f34ade01285892315f3a',1,'SPTracker']]],
-  ['trackconsentgrantedevent_3a',['trackConsentGrantedEvent:',['../interface_s_p_tracker.html#a4824c89c3751ba397d10abf6a42b32ad',1,'SPTracker']]],
-  ['trackconsentwithdrawnevent_3a',['trackConsentWithdrawnEvent:',['../interface_s_p_tracker.html#a7c84fd9222573dd31922c3332330dd10',1,'SPTracker']]],
-  ['trackecommerceevent_3a',['trackEcommerceEvent:',['../interface_s_p_tracker.html#a10c40905b07d88dc96d43849daf2731d',1,'SPTracker']]],
-  ['trackernamespace',['trackerNamespace',['../interface_s_p_tracker.html#a97987b98d675ea54a02798cc8f83145b',1,'SPTracker']]],
-  ['trackerrorevent_3a',['trackErrorEvent:',['../interface_s_p_tracker.html#a1daf40ce8ba985848d3d051b5d5315f8',1,'SPTracker']]],
-  ['trackforegroundevent_3a',['trackForegroundEvent:',['../interface_s_p_tracker.html#a4ddbfae8fbd4acd0da582554e91b4eff',1,'SPTracker']]],
-  ['trackpageviewevent_3a',['trackPageViewEvent:',['../interface_s_p_tracker.html#ae03001470a306bccdb3bc26f7ff325aa',1,'SPTracker']]],
-  ['trackpushnotificationevent_3a',['trackPushNotificationEvent:',['../interface_s_p_tracker.html#af670400248d31c0c0ce8c3db641b256b',1,'SPTracker']]],
-  ['trackscreenviewevent_3a',['trackScreenViewEvent:',['../interface_s_p_tracker.html#a58219310b1f4255eaf385c4ef12d6241',1,'SPTracker']]],
-  ['trackselfdescribingevent_3a',['trackSelfDescribingEvent:',['../interface_s_p_tracker.html#a893a16c55a79573f769e3faa39505a79',1,'SPTracker']]],
-  ['trackstructuredevent_3a',['trackStructuredEvent:',['../interface_s_p_tracker.html#a0fe8cba1340f09c91218439b06c463df',1,'SPTracker']]],
-  ['tracktimingevent_3a',['trackTimingEvent:',['../interface_s_p_tracker.html#a01333bc481c01a0fd116fd75bb41d93e',1,'SPTracker']]],
-  ['trackunstructuredevent_3a',['trackUnstructuredEvent:',['../interface_s_p_tracker.html#a0649b5a66f2a7a97af5b834134cbb971',1,'SPTracker']]],
-  ['transitiontype',['transitionType',['../interface_s_p_screen_state.html#a4d5628a2aed914d41b4d9a40cae234ff',1,'SPScreenState']]],
-  ['type',['type',['../interface_s_p_screen_state.html#abff6a04d71c2bba87e646615388a1f5c',1,'SPScreenState']]]
+  ['pauseeventtracking_417',['pauseEventTracking',['../interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125',1,'SPTracker']]],
+  ['payload_418',['payload',['../protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f',1,'SPInspectableEvent-p::payload()'],['../interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc',1,'SPEvent::payload()'],['../interface_s_p_notification_content.html#a0572db16dcfb3be5364f2451edb4c737',1,'SPNotificationContent::payload()'],['../interface_s_p_tracker_event.html#aa0f021eb5f64dbc10a95109ee06ac31f',1,'SPTrackerEvent::payload()']]],
+  ['post_5fstm_5fbytes_419',['POST_STM_BYTES',['../_s_p_emitter_8m.html#a7b35eb5cd4b781b4bb1cb7d9c1e6fa51',1,'SPEmitter.m']]],
+  ['post_5fwrapper_5fbytes_420',['POST_WRAPPER_BYTES',['../_s_p_emitter_8m.html#a34cb2fdc0f214a9144a37e504a8b0d59',1,'SPEmitter.m']]],
+  ['previousscreenstate_421',['previousScreenState',['../interface_s_p_tracker.html#aa67525cde5b8165a61548549fae7410a',1,'SPTracker::previousScreenState()'],['../category_s_p_tracker_07_08.html#aa67525cde5b8165a61548549fae7410a',1,'SPTracker()::previousScreenState()']]],
+  ['protocol_422',['protocol',['../interface_s_p_emitter.html#a2685bb05bd03555b988042d2d6774c28',1,'SPEmitter']]]
 ];

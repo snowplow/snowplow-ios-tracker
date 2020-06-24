@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pauseeventtracking',['pauseEventTracking',['../interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125',1,'SPTracker']]]
+  ['matchwithuri_3a_999',['matchWithUri:',['../interface_s_p_schema_rule.html#aa8f477f3b57cea031ad865f1507c8b43',1,'SPSchemaRule::matchWithUri:()'],['../interface_s_p_schema_ruleset.html#aa8f477f3b57cea031ad865f1507c8b43',1,'SPSchemaRuleset::matchWithUri:()']]]
 ];

@@ -1,4 +1,0 @@
-coverage_service: coveralls
-xcodeproj: Snowplow.xcodeproj
-workspace: Snowplow.xcworkspace
-scheme: Snowplow
