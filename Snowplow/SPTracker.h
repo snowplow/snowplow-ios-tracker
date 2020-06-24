@@ -345,21 +345,21 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A page view event.
  */
-- (void) trackPageViewEvent:(SPPageView *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackPageViewEvent:(SPPageView *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a structured event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A structured event.
  */
-- (void) trackStructuredEvent:(SPStructured *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackStructuredEvent:(SPStructured *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an unstructured event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event An unstructured event.
  */
-- (void) trackUnstructuredEvent:(SPUnstructured *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackUnstructuredEvent:(SPUnstructured *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an self-describing event.
@@ -375,63 +375,63 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A screenview event.
  */
-- (void) trackScreenViewEvent:(SPScreenView *) event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackScreenViewEvent:(SPScreenView *) event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a timing event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A timing event.
  */
-- (void) trackTimingEvent:(SPTiming *) event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackTimingEvent:(SPTiming *) event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an ecommerce event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event An ecommerce event.
  */
-- (void) trackEcommerceEvent:(SPEcommerce *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackEcommerceEvent:(SPEcommerce *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a consent withdrawn event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A consent withdrawn event.
  */
-- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a consent granted event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A consent granted event.
  */
-- (void) trackConsentGrantedEvent:(SPConsentGranted *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackConsentGrantedEvent:(SPConsentGranted *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a push notification event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A push notification event.
  */
-- (void) trackPushNotificationEvent:(SPPushNotification *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackPushNotificationEvent:(SPPushNotification *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a foreground event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A foreground event.
  */
-- (void) trackForegroundEvent:(SPForeground *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackForegroundEvent:(SPForeground *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a background event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A background event.
  */
-- (void) trackBackgroundEvent:(SPBackground *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackBackgroundEvent:(SPBackground *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an error event.
  @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event An error event.
  */
-- (void) trackErrorEvent:(SNOWError *)event __deprecated_msg("This method is deprecated and it will be removed in the version 2.0. Use `track:` method instead.");
+- (void) trackErrorEvent:(SNOWError *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an event despite its specific type.

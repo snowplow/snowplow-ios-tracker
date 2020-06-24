@@ -309,7 +309,7 @@ NSString * const kSessionSavePath = @"session.dict";
             if (strongSelf == nil) return;
             [builder setIndex:[NSNumber numberWithInteger:strongSelf->_backgroundIndex]];
         }];
-        [_tracker trackBackgroundEvent:backgroundEvent];
+        [_tracker track:backgroundEvent];
     }
 }
 
@@ -321,7 +321,7 @@ NSString * const kSessionSavePath = @"session.dict";
             if (strongSelf == nil) return;
             [builder setIndex:[NSNumber numberWithInteger:strongSelf->_foregroundIndex]];
         }];
-        [_tracker trackForegroundEvent:foregroundEvent];
+        [_tracker track:foregroundEvent];
     }
 }
 

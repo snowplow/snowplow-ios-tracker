@@ -104,7 +104,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                 [builder setStackTrace:stackTrace];
             }
         }];
-        [tracker trackErrorEvent:error];
+        [tracker track:error];
         [NSThread sleepForTimeInterval:2.0f];
     });
 }
@@ -201,7 +201,7 @@ void uncaughtExceptionHandler(NSException *exception) {
             SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
                 [builder setEventData:installEvent];
             }];
-            [self trackUnstructuredEvent:event];
+            [self track:event];
             if (previousTimestamp) {
                 [installTracker clearPreviousInstallTimestamp];
             }
@@ -211,7 +211,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                 [builder setEventData:installEvent];
                 [builder setTimestamp:previousTimestamp];
             }];
-            [self trackUnstructuredEvent:event];
+            [self track:event];
             [installTracker clearPreviousInstallTimestamp];
         }
     }
@@ -422,7 +422,7 @@ void uncaughtExceptionHandler(NSException *exception) {
             [builder setViewControllerClassName:viewControllerClassName];
             [builder setTopViewControllerClassName:topViewControllerClassName];
         }];
-        [self trackScreenViewEvent:event];
+        [self track:event];
     }
 }
 

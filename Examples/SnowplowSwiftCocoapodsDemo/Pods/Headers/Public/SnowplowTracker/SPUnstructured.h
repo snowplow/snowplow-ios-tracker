@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SPUnstructured.h
+../../../../../../Snowplow/SPUnstructured.h

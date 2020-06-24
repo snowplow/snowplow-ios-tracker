@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SPEcommerceItem.h
+../../../../../../Snowplow/SPEcommerceItem.h

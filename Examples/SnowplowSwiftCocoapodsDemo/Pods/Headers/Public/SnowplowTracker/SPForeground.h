@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SPForeground.h
+../../../../../../Snowplow/SPForeground.h

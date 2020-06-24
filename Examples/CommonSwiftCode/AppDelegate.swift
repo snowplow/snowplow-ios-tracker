@@ -80,7 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 })
                 
                 //print(String(data: try! JSONSerialization.data(withJSONObject: event!.getPayload().getAsDictionary(), options: .prettyPrinted), encoding: .utf8 )!)
-                rootViewController.tracker?.trackPushNotificationEvent(event)
+                rootViewController.tracker?.track(event)
             }
             completionHandler()
         default:
