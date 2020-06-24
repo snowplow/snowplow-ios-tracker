@@ -5,13 +5,16 @@ on: [push]
 jobs:
   test_framework:
     name: "Test framework (iOS ${{ matrix.version.ios }})"
-    runs-on: macos-latest
-
+    runs-on: macos-${{ matrix.version.macos }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
+      
     strategy:
       fail-fast: false
       matrix:
         version:
-          - {ios: 13.5, watchos: 6.2.1}
+          - {ios: 13.5, iphone: iPhone 11, watchos: 6.2.1,  watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
 
     steps:
       - name: Checkout
@@ -21,6 +24,8 @@ jobs:
         env:
           IOS: ${{ matrix.version.ios }}
           WATCHOS: ${{ matrix.version.watchos }}
+          IPHONE: ${{ matrix.version.iphone }}
+          WATCH: ${{ matrix.version.watch }}
         run: |
           . .scripts/setup.sh
           .scripts/test_framework.sh "${BUILD_PROJECT_LIB}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_LIB_IOS}" "${BUILD_DEST_WATCH}" "${BUILD_SCHEME_LIB_WATCH}"  
