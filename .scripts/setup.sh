@@ -20,9 +20,8 @@ BUILD_SCHEME_SWIFT_DEMO_WATCH="-scheme SnowplowSwiftWatch"
 BUILD_PROJECT_SWIFT_SPM_DEMO="-project SnowplowSwiftSPMDemo.xcodeproj"
 BUILD_SCHEME_SWIFT_SPM_DEMO_IOS="-scheme SnowplowSwiftSPMDemo"
 
-if [ "$CI" = true ]; then
-    # TODO: Once Slather is ready for GH Actions, add a call to `slather` as last command to upload code coverage data
-
-	# printf "\n\n Install Slather - Code coverage tool \n"
-	# gem install slather
-fi
+#if [ "$CI" = true ]; then
+#	printf "\n\n Install Slather - Code coverage tool \n"
+#	gem install slather
+#fi
+# TODO: Once Slather is ready for GH Actions, add a call to `slather` as last command to upload code coverage data

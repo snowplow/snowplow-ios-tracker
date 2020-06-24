@@ -12,7 +12,6 @@ jobs:
       matrix:
         version:
           - {ios: 13.5, watchos: 6.2.1}
-          - {ios: 12.4, watchos: 5.3}
 
     steps:
       - name: Checkout
@@ -27,7 +26,7 @@ jobs:
           .scripts/test_framework.sh "${BUILD_PROJECT_LIB}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_LIB_IOS}" "${BUILD_DEST_WATCH}" "${BUILD_SCHEME_LIB_WATCH}"  
 
   build_objc_demo_app:
-    name: "Test ObjC demo (iOS ${{ matrix.version.ios }})"
+    name: "Test ObjC demo (iOS ${{ matrix.ios_version }})"
     needs: test_framework
     runs-on: macos-latest
 
@@ -36,7 +35,6 @@ jobs:
       matrix:
         ios_version:
           - 13.5
-          - 12.4
 
     steps:
       - name: Checkout
@@ -50,7 +48,7 @@ jobs:
           .scripts/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
 
   build_swift_carthage_demo_app:
-    name: "Test Swift demo (Carthage) (iOS ${{ matrix.version.ios }})"
+    name: "Test Swift demo (Carthage) (iOS ${{ matrix.ios_version }})"
     needs: test_framework
     runs-on: macos-latest
 
@@ -59,7 +57,6 @@ jobs:
       matrix:
         ios_version:
           - 13.5
-          - 12.4
 
     steps:
       - name: Checkout
@@ -82,7 +79,6 @@ jobs:
       matrix:
         version:
           - {ios: 13.5, watchos: 6.2.1}
-          - {ios: 12.4, watchos: 5.3}
         podfile:
           - {file: Podfile, type: "no directive"}
           - {file: Podfile_frameworks, type: "use_frameworks! directive"}
