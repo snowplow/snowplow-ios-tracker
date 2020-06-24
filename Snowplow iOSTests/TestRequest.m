@@ -193,7 +193,7 @@ NSString *protocol = @"https";
         [builder setTimestamp:@1243567890];
         [builder setEventId:uuid];
     }];
-    [tracker_ trackStructuredEvent:event];
+    [tracker_ track:event];
 }
 
 - (void) trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
@@ -209,7 +209,7 @@ NSString *protocol = @"https";
         [builder setTimestamp:@1243567890];
         [builder setEventId:uuid];
     }];
-    [tracker_ trackUnstructuredEvent:event];
+    [tracker_ track:event];
 }
 
 - (void) trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
@@ -231,7 +231,7 @@ NSString *protocol = @"https";
         [builder setTimestamp:@1243567890];
         [builder setEventId:uuid];
     }];
-    [tracker_ trackPageViewEvent:event];
+    [tracker_ track:event];
 }
 
 - (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
@@ -244,7 +244,7 @@ NSString *protocol = @"https";
         [builder setTimestamp:@1243567890];
         [builder setEventId:eventId];
     }];
-    [tracker_ trackScreenViewEvent:event];
+    [tracker_ track:event];
 }
 
 - (void) trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
@@ -258,7 +258,7 @@ NSString *protocol = @"https";
         [builder setTimestamp:@1243567890];
         [builder setEventId:uuid];
     }];
-    [tracker_ trackTimingEvent:event];
+    [tracker_ track:event];
 }
 
 - (void) trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
@@ -296,7 +296,7 @@ NSString *protocol = @"https";
         [builder setTimestamp:@1243567890];
         [builder setEventId:uuid];
     }];
-    [tracker_ trackEcommerceEvent:event];
+    [tracker_ track:event];
 }
 
 - (NSMutableArray *) getCustomContext {

@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SPTiming.h
+../../../../../../Snowplow/SPTiming.h

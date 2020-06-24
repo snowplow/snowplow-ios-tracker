@@ -121,7 +121,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray * dataArray = [NSArray arrayWithObject:data];
@@ -143,7 +143,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray * dataArray = [NSArray arrayWithObject:data];
@@ -171,7 +171,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
 
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray * dataArray = [NSArray arrayWithObject:data];
@@ -235,7 +235,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
 
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray * dataArray = [NSArray arrayWithObject:data];
@@ -273,7 +273,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the main payload passes validation
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray * dataArray = [NSArray arrayWithObject:data];
@@ -380,7 +380,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     }];
     
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray * dataArray = [NSArray arrayWithObject:data];

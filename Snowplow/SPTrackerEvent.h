@@ -40,8 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
-+ (instancetype)trackerEventWithSelfDescribing:(SPSelfDescribing *)event;
-+ (instancetype)trackerEventWithPrimitive:(SPPrimitive *)event;
+- (instancetype) initWithEvent:(SPEvent *)event;
 
 @end
 

@@ -26,6 +26,7 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
+#import "SPTracker.h"
 
 NSString * stringWithSPScreenType(SPScreenType screenType) {
     NSArray * arr = @[
@@ -103,6 +104,9 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     [SPUtilities checkArgument:(_contexts != nil) withMessage:@"Contexts cannot be nil."];
     [SPUtilities checkArgument:([_eventId length] != 0) withMessage:@"EventID cannot be nil or empty."];
 }
+
+- (void)beginProcessingWithTracker:(SPTracker *)tracker {}
+- (void)endProcessingWithTracker:(SPTracker *)tracker {}
 
 @end
 

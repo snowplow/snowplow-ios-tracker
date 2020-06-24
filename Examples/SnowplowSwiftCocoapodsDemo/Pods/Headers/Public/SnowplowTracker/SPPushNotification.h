@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SPPushNotification.h
+../../../../../../Snowplow/SPPushNotification.h

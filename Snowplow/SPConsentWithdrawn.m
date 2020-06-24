@@ -129,5 +129,12 @@
     return documents;
 }
 
+- (void)beginProcessingWithTracker:(SPTracker *)tracker {
+    NSArray<SPSelfDescribingJson *> *documents = [self getDocuments];
+    if (documents) {
+        [self.contexts addObjectsFromArray:documents];
+    }
+}
+
 @end
 

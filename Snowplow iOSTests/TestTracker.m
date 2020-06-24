@@ -167,7 +167,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     SPPayload *payload = [tracker payloadWithEvent:trackerEvent];
     NSDictionary *payloadDict = [payload getAsDictionary];
 

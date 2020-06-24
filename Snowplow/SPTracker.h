@@ -28,6 +28,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPDevicePlatform.h"
+#import "SPEventBase.h"
 
 void uncaughtExceptionHandler(NSException *exception);
 
@@ -296,13 +297,14 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
  @brief Constructs the final event payload that is sent to the emitter.
 
  @warning This function is only used for testing purposes; should never be called in production.
+ @deprecated This function will be removed in the version 2.0.
 
  @param pb The event payload without any decoration.
  @param contextArray The array of SelfDescribingJsons to add to the context JSON.
  @param eventId The event's eventId which will be used to generate the session JSON.
  @return The final complete payload ready for sending.
  */
-- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId __deprecated_msg("getFinalPayloadWithPayload:andContext:andEventId: is deprecated and it will be removed in the next release.");
+- (SPPayload *) getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId __deprecated_msg("getFinalPayloadWithPayload:andContext:andEventId: is deprecated and it will be removed in the version 2.0.");
 
 /*!
  Add new generator for global contexts associated with a string tag.
@@ -340,24 +342,24 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
 
 /*!
  @brief Tracks a page view event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A page view event.
  */
-- (void) trackPageViewEvent:(SPPageView *)event;
+- (void) trackPageViewEvent:(SPPageView *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a structured event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A structured event.
  */
-- (void) trackStructuredEvent:(SPStructured *)event;
+- (void) trackStructuredEvent:(SPStructured *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an unstructured event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event An unstructured event.
  */
-- (void) trackUnstructuredEvent:(SPUnstructured *)event;
+- (void) trackUnstructuredEvent:(SPUnstructured *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an self-describing event.
@@ -370,65 +372,71 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
 
 /*!
  @brief Tracks an screenview event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A screenview event.
  */
-- (void) trackScreenViewEvent:(SPScreenView *) event;
+- (void) trackScreenViewEvent:(SPScreenView *) event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a timing event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A timing event.
  */
-- (void) trackTimingEvent:(SPTiming *) event;
+- (void) trackTimingEvent:(SPTiming *) event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an ecommerce event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event An ecommerce event.
  */
-- (void) trackEcommerceEvent:(SPEcommerce *)event;
+- (void) trackEcommerceEvent:(SPEcommerce *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a consent withdrawn event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A consent withdrawn event.
  */
-- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event;
+- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a consent granted event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A consent granted event.
  */
-- (void) trackConsentGrantedEvent:(SPConsentGranted *)event;
+- (void) trackConsentGrantedEvent:(SPConsentGranted *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a push notification event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A push notification event.
  */
-- (void) trackPushNotificationEvent:(SPPushNotification *)event;
+- (void) trackPushNotificationEvent:(SPPushNotification *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a foreground event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A foreground event.
  */
-- (void) trackForegroundEvent:(SPForeground *)event;
+- (void) trackForegroundEvent:(SPForeground *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks a background event.
-
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event A background event.
  */
-- (void) trackBackgroundEvent:(SPBackground *)event;
+- (void) trackBackgroundEvent:(SPBackground *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
 
 /*!
  @brief Tracks an error event.
- 
+ @deprecated This method will be removed in the version 2.0. Use `track:` method instead.
  @param event An error event.
  */
-- (void) trackErrorEvent:(SNOWError *)event;
+- (void) trackErrorEvent:(SNOWError *)event __deprecated_msg("It will be removed in the version 2.0. Use `track:` method instead.");
+
+/*!
+ @brief Tracks an event despite its specific type.
+ @param event The event to track
+ */
+- (void)track:(SPEvent *)event;
 
 @end

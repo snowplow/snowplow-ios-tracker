@@ -1,1 +1,1 @@
-../../../../../../Snowplow/GlobalContext/SPSchemaRule.h
+../../../../../../Snowplow/SPSchemaRule.h

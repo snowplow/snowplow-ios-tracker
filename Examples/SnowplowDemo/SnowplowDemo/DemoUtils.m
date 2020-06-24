@@ -48,7 +48,7 @@
         [builder setProperty:@"DemoProperty"];
         [builder setValue:5];
     }];
-    [tracker_ trackStructuredEvent:event];
+    [tracker_ track:event];
     event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
         [builder setCategory:@"DemoCategory"];
         [builder setAction:@"DemoAction"];
@@ -57,7 +57,7 @@
         [builder setValue:5];
         [builder setTimestamp:@1243567890];
     }];
-    [tracker_ trackStructuredEvent:event];
+    [tracker_ track:event];
 }
 
 + (void) trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
@@ -67,12 +67,12 @@
     SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:sdj];
     }];
-    [tracker_ trackUnstructuredEvent:event];
+    [tracker_ track:event];
     event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:sdj];
         [builder setTimestamp:@1243567890];
     }];
-    [tracker_ trackUnstructuredEvent:event];
+    [tracker_ track:event];
 }
 
 + (void) trackPageViewWithTracker:(SPTracker *)tracker_ {
@@ -81,14 +81,14 @@
         [builder setPageTitle:@"DemoPageTitle"];
         [builder setReferrer:@"DemoPageReferrer"];
     }];
-    [tracker_ trackPageViewEvent:event];
+    [tracker_ track:event];
     event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setPageTitle:@"DemoPageTitle"];
         [builder setReferrer:@"DemoPageReferrer"];
         [builder setTimestamp:@1243567890];
     }];
-    [tracker_ trackPageViewEvent:event];
+    [tracker_ track:event];
 }
 
 + (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
@@ -97,13 +97,13 @@
         [builder setName:@"DemoScreenName"];
         [builder setScreenId:screenId];
     }];
-    [tracker_ trackScreenViewEvent:event];
+    [tracker_ track:event];
     event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
         [builder setName:@"DemoScreenName"];
         [builder setScreenId:screenId];
         [builder setTimestamp:@1243567890];
     }];
-    [tracker_ trackScreenViewEvent:event];
+    [tracker_ track:event];
 }
 
 + (void) trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
@@ -113,7 +113,7 @@
         [builder setTiming:5];
         [builder setLabel:@"DemoTimingLabel"];
     }];
-    [tracker_ trackTimingEvent:event];
+    [tracker_ track:event];
     event = [SPTiming build:^(id<SPTimingBuilder> builder) {
         [builder setCategory:@"DemoTimingCategory"];
         [builder setVariable:@"DemoTimingVariable"];
@@ -121,7 +121,7 @@
         [builder setLabel:@"DemoTimingLabel"];
         [builder setTimestamp:@1243567890];
     }];
-    [tracker_ trackTimingEvent:event];
+    [tracker_ track:event];
 }
 
 + (void) trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
@@ -150,7 +150,7 @@
         [builder setCurrency:@"USD"];
         [builder setItems:itemArray];
     }];
-    [tracker_ trackEcommerceEvent:event];
+    [tracker_ track:event];
     event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
         [builder setOrderId:transactionID];
         [builder setTotalValue:350];
@@ -164,7 +164,7 @@
         [builder setItems:itemArray];
         [builder setTimestamp:@1243567890];
     }];
-    [tracker_ trackEcommerceEvent:event];
+    [tracker_ track:event];
 }
 
 + (void) trackPushNotificationWithTracker:(SPTracker *)tracker_ {
@@ -197,7 +197,7 @@
         [builder setNotification:content];
     }];
 
-    [tracker_ trackPushNotificationEvent:event];
+    [tracker_ track:event];
 }
 
 @end
