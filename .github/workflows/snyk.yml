@@ -1,0 +1,22 @@
+
+name: Snyk
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      
+    - name: Run Snyk to check for vulnerabilities in tracker
+      uses: snyk/actions/cocoapods@master
+      with:
+        command: monitor
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        COMMAND: cd Examples/SnowplowSwiftCocoapodsDemo
