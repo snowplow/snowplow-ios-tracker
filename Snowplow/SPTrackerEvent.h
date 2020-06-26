@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *eventName;
 @property (nonatomic) NSUUID *eventId;
 @property (nonatomic) NSTimeInterval timestamp;
+@property (nonatomic) NSNumber *trueTimestamp;
 @property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
 @property (nonatomic) BOOL isPrimitive;

@@ -40,6 +40,7 @@
         } else {
             self.timestamp = [[[NSDate alloc] init] timeIntervalSince1970];
         }
+        self.trueTimestamp = event.trueTimestamp;
         self.contexts = event.contexts;
         self.payload = event.payload;
 

@@ -76,9 +76,11 @@
         XCTAssertEqualObjects(@"All contexts must be SelfDescribingJson objects.", exception.reason);
     }
     XCTAssertNil(event);
-    
+}
+ 
+- (void)testEventIdNilOrEmpty {
     // EventID is nil
-    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+    SPEvent *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setEventId:nil];
     }];
@@ -96,6 +98,21 @@
         XCTAssertEqualObjects(@"EventID has to be a valid UUID.", exception.reason);
     }
     XCTAssertNil(event);
+}
+
+- (void)testTrueTimestamp {
+    // Set trueTimestamp
+    SPEvent *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+    }];
+    XCTAssertNil([event getTrueTimestamp]);
+
+    // Set trueTimestamp
+    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setTrueTimestamp:@(1234567890)];
+    }];
+    XCTAssertEqualObjects([event getTrueTimestamp], @(1234567890));
 }
 
 - (void)testPageViewBuilderConditions {

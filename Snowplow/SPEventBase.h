@@ -66,11 +66,17 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @protocol SPEventBuilder <NSObject>
 
 /*!
- @brief Set the timestamp of the event.
+ @brief Set the timestamp of when the event has been processed by the tracker.
  @param timestamp The timestamp of the event in milliseconds (epoch time)
- @deprecated This method is for internal use only and will be removed in the next major version.
+ @deprecated This method is for internal use only and will be removed in the next major version. Use `trueTimestamp` as alternative.
  */
 - (void) setTimestamp:(NSNumber *)timestamp __deprecated_msg("The timestamp will be set once the event is processed.");
+
+/*!
+ @brief Set the optional timestamp of the event.
+ @param timestamp The timestamp of the event in milliseconds (epoch time)
+ */
+- (void)setTrueTimestamp:(NSNumber *)timestamp;
 
 /*!
  @brief Set the contexts attached to the event.
@@ -94,8 +100,11 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  */
 @interface SPEvent : NSObject <SPEventBuilder>
 
-/*! The event timestamp in milliseconds (epoch time). */
+/*! The tracker event timestamp in milliseconds (epoch time). */
 @property (nonatomic, readwrite) NSNumber *timestamp __deprecated_msg("The timestamp can be set only by the tracker.");
+
+/*! The user event timestamp in milliseconds (epoch time). */
+@property (nonatomic, readwrite) NSNumber *trueTimestamp;
 
 /*! The contexts attached to the event. */
 @property (nonatomic, readwrite, retain) NSMutableArray *contexts;
@@ -114,11 +123,16 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 - (NSMutableArray *) getContexts;
 
 /*!
- @brief Set the timestamp of the event.
+ @brief Get the timestamp of the event.
  @note If the timestamp is not set, it sets one as a side effect.
  @deprecated This method is for internal use only and will be removed in the next major version.
 */
 - (NSNumber *) getTimestamp __deprecated_msg("The timestamp is set only when the event is processed.");
+
+/*!
+ @brief Get the user timestamp of the event if it has been set.
+*/
+- (NSNumber *)getTrueTimestamp;
 
 /*!
  @brief Get the UUID associated with the event.
