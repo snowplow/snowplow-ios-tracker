@@ -192,6 +192,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     _builderFinished = YES;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
+
 - (void) checkInstall {
     SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
     NSNumber * previousTimestamp = [installTracker getPreviousInstallTimestamp];
@@ -216,6 +219,8 @@ void uncaughtExceptionHandler(NSException *exception) {
         }
     }
 }
+
+#pragma GCC diagnostic pop
 
 - (void) setTrackerData {
     _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
