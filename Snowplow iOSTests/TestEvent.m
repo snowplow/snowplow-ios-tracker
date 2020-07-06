@@ -200,7 +200,7 @@
     XCTAssertNil(event);
 }
 
-- (void)testUnstructuredBuilderConditions {
+- (void)testUnstructuredBuilderEmptyCondition {
     // Valid construction
     NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
     [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
@@ -219,6 +219,25 @@
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"EventData cannot be nil.", exception.reason);
+    }
+    XCTAssertNil(event);
+}
+
+- (void)testUnstructuredBuilderWrongDataCondition {
+    // Invalid dictionary
+    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    [data setObject:[NSNumber numberWithInt:12] forKey:[NSNumber numberWithInt:12]];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:data];
+    // Data is wrong
+    SPUnstructured *event;
+    @try {
+        event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+            [builder setEventData:sdj];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"EventData has to be JSON serializable.", exception.reason);
     }
     XCTAssertNil(event);
 }
