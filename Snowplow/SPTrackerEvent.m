@@ -41,8 +41,8 @@
             self.timestamp = [[[NSDate alloc] init] timeIntervalSince1970];
         }
         self.trueTimestamp = event.trueTimestamp;
-        self.contexts = event.contexts;
-        self.payload = event.payload;
+        self.contexts = [event.contexts mutableCopy];
+        self.payload = [event.payload mutableCopy];
 
         if ([event isKindOfClass:SPPrimitive.class]) {
             self.eventName = [(SPPrimitive *)event name];
