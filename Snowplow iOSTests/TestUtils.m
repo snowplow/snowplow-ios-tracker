@@ -176,6 +176,20 @@
     XCTAssertEqualObjects([SPUtilities urlEncodeDictionary:encodedValues], @"a=%20&c=%3D");
 }
 
+- (void)testEscapedQueryString {
+    id testValues = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+                     [NSNull null], @"null_value_key",
+                     @"Not null", @"string_value_key",
+                     @"|!\" £$%&/()=?^ì§°ç*éùàò+{}◊∞Ç±¿≈ ⁄›‰¢’”»ıè¶#@][ˆ¡≠`´÷‹~~¥‘“«`", @"characters_key",
+                     nil];
+    NSString *now = [SPUtilities urlEncodeDictionary:testValues];
+    NSString *then = @"string_value_key=Not%20null&characters_key=%7C%21%22%20%C2%A3%24%25%26%2F%28%29%3D%3F%5E%C3%AC%C2%A7%C2%B0%C3%A7%2A%C3%A9%C3%B9%C3%A0%C3%B2%2B%7B%7D%E2%97%8A%E2%88%9E%C3%87%C2%B1%C2%BF%E2%89%88%20%EF%A3%BF%E2%81%84%E2%80%BA%E2%80%B0%C2%A2%E2%80%99%E2%80%9D%C2%BB%C4%B1%C3%A8%C2%B6%23%40%5D%5B%CB%86%C2%A1%E2%89%A0%60%C2%B4%C3%B7%E2%80%B9~~%C2%A5%E2%80%98%E2%80%9C%C2%AB%60&null_value_key=%3Cnull%3E";
+    XCTAssertEqualObjects(now, then);
+    NSString *urlString = [NSString stringWithFormat:@"%@?%@", @"http://www.snowplow.com", now];
+    NSURL *url = [NSURL URLWithString:urlString];
+    XCTAssertNotNil(url);
+}
+
 - (void)testCheckArgument {
     @try {
         [SPUtilities checkArgument:NO withMessage:@"This will throw an exception."];

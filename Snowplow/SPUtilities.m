@@ -310,7 +310,8 @@
     if (!string) {
         return @"";   
     }
-    NSCharacterSet *allowedCharSet = [NSCharacterSet characterSetWithCharactersInString:@"{}!*'\\\"();:@&=+$,/?%#[]% "].invertedSet;
+    NSMutableCharacterSet *allowedCharSet = [NSCharacterSet URLQueryAllowedCharacterSet].mutableCopy;
+    [allowedCharSet removeCharactersInString:@"!*'\"();:@&=+$,/?%#[]% "];
     return [string stringByAddingPercentEncodingWithAllowedCharacters:allowedCharSet];
 }
 
