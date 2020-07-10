@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.3.1</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -117,44 +117,45 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;- (void) preconditions {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:(_eventData != nil) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;EventData cannot be nil.&quot;];</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    [<span class="keyword">self</span> basePreconditions];</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// --- Builder Methods</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;- (void) setEventData:(<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)eventData {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    _eventData = eventData;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="comment">// --- Public Methods</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;- (NSString *)schema {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> _eventData.<a class="code" href="interface_s_p_self_describing_json.html#a08a5d4e46afe3ac80d613ed3b1071743">schema</a>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)payload {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    NSObject *data = [_eventData data];</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> ([data isKindOfClass:[NSDictionary&lt;NSString *, NSObject *&gt; <span class="keyword">class</span>]]) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">return</span> (NSDictionary&lt;NSString *, NSObject *&gt; *)data;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> nil;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;- (<a class="code" href="interface_s_p_payload.html">SPPayload</a> *) getPayloadWithEncoding:(BOOL)encoding {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="interface_s_p_payload.html">SPPayload</a> *payload = [<a class="code" href="interface_s_p_payload.html">SPPayload</a> new];</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    [payload <a class="code" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">addValueToPayload</a>:kSPEventUnstructured <a class="code" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">forKey</a>:kSPEvent];</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * sdj = [[<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> alloc] initWithSchema:kSPUnstructSchema</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                                                        andSelfDescribingJson:_eventData];</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    [payload <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">addDictionaryToPayload</a>:[sdj <a class="code" href="interface_s_p_self_describing_json.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                 <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">base64Encoded</a>:encoding</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;               <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">typeWhenEncoded</a>:kSPUnstructuredEncoded</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">typeWhenNotEncoded</a>:kSPUnstructured];</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> addDefaultParamsToPayload:payload];</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:[NSJSONSerialization isValidJSONObject:_eventData.data] <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;EventData has to be JSON serializable.&quot;];</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    [<span class="keyword">self</span> basePreconditions];</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">// --- Builder Methods</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;- (void) setEventData:(<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)eventData {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    _eventData = eventData;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// --- Public Methods</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;- (NSString *)schema {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> _eventData.<a class="code" href="interface_s_p_self_describing_json.html#a08a5d4e46afe3ac80d613ed3b1071743">schema</a>;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)payload {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    NSObject *data = [_eventData data];</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> ([data isKindOfClass:[NSDictionary&lt;NSString *, NSObject *&gt; <span class="keyword">class</span>]]) {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keywordflow">return</span> (NSDictionary&lt;NSString *, NSObject *&gt; *)data;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> nil;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;- (<a class="code" href="interface_s_p_payload.html">SPPayload</a> *) getPayloadWithEncoding:(BOOL)encoding {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="interface_s_p_payload.html">SPPayload</a> *payload = [<a class="code" href="interface_s_p_payload.html">SPPayload</a> new];</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    [payload <a class="code" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">addValueToPayload</a>:kSPEventUnstructured <a class="code" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">forKey</a>:kSPEvent];</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * sdj = [[<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> alloc] initWithSchema:kSPUnstructSchema</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                                        andSelfDescribingJson:_eventData];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    [payload <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">addDictionaryToPayload</a>:[sdj <a class="code" href="interface_s_p_self_describing_json.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                 <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">base64Encoded</a>:encoding</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;               <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">typeWhenEncoded</a>:kSPUnstructuredEncoded</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;            <a class="code" href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">typeWhenNotEncoded</a>:kSPUnstructured];</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> addDefaultParamsToPayload:payload];</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;}</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="keyword">@end</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <div class="ttc" id="ainterface_s_p_payload_html_aa596cf76631d7230d9a107a2e528aacb"><div class="ttname"><a href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">-[SPPayload addValueToPayload:forKey:]</a></div><div class="ttdeci">void addValueToPayload:forKey:(NSString *value,[forKey] NSString *key)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_payload_8m_source.html#l00001">SPPayload.m:46</a></div></div>
 <div class="ttc" id="ainterface_s_p_payload_html_a7465a34d243802e56de8e31079920817"><div class="ttname"><a href="interface_s_p_payload.html#a7465a34d243802e56de8e31079920817">-[SPPayload addDictionaryToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:]</a></div><div class="ttdeci">void addDictionaryToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:(NSDictionary&lt; NSString *, NSObject * &gt; *json,[base64Encoded] Boolean encode,[typeWhenEncoded] NSString *typeEncoded,[typeWhenNotEncoded] NSString *typeNotEncoded)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_payload_8m_source.html#l00001">SPPayload.m:116</a></div></div>

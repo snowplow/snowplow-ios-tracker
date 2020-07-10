@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['validatestring_3a_1155',['validateString:',['../interface_s_p_utilities.html#a06142c86ea1296ecbd2b3b2844596b01',1,'SPUtilities']]]
+  ['validatestring_3a_1165',['validateString:',['../interface_s_p_utilities.html#a06142c86ea1296ecbd2b3b2844596b01',1,'SPUtilities']]]
 ];

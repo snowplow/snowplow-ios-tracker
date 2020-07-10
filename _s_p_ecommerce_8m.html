@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.3.1</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -76,6 +76,8 @@ $(function() {
 <code>#import &quot;<a class="el" href="_snowplow_8h_source.html">Snowplow.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_payload_8h_source.html">SPPayload.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_ecommerce_item_8h_source.html">SPEcommerceItem.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>&quot;</code><br />
 </div>
 <p><a href="_s_p_ecommerce_8m_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -97,8 +99,8 @@ Variables</h2></td></tr>
 <tr class="separator:ae8c89305a872ea74ef52db2b7115d42d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a339cb27973c2b323b614980caa5aa638"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_ecommerce_8m.html#a339cb27973c2b323b614980caa5aa638">_currency</a></td></tr>
 <tr class="separator:a339cb27973c2b323b614980caa5aa638"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac54a259b455f574a89d9b30ad02ba27a"><td class="memItemLeft" align="right" valign="top">NSArray *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_ecommerce_8m.html#ac54a259b455f574a89d9b30ad02ba27a">_items</a></td></tr>
-<tr class="separator:ac54a259b455f574a89d9b30ad02ba27a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75baff1498bc3b7120de9bfd124f256e"><td class="memItemLeft" align="right" valign="top">NSArray&lt; <a class="el" href="interface_s_p_ecommerce_item.html">SPEcommerceItem</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_ecommerce_8m.html#a75baff1498bc3b7120de9bfd124f256e">_items</a></td></tr>
+<tr class="separator:a75baff1498bc3b7120de9bfd124f256e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="a3d2c2fc6fbb598ec8e2e493a0a74e2f1"></a>
@@ -113,7 +115,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00032">32</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00034">34</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
@@ -129,7 +131,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00035">35</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00037">37</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
@@ -145,7 +147,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00037">37</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00039">39</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
@@ -161,23 +163,23 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00038">38</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00040">40</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
-<a id="ac54a259b455f574a89d9b30ad02ba27a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac54a259b455f574a89d9b30ad02ba27a">&#9670;&nbsp;</a></span>_items</h2>
+<a id="a75baff1498bc3b7120de9bfd124f256e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75baff1498bc3b7120de9bfd124f256e">&#9670;&nbsp;</a></span>_items</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">NSArray* _items</td>
+          <td class="memname">NSArray&lt;<a class="el" href="interface_s_p_ecommerce_item.html">SPEcommerceItem</a> *&gt;* _items</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00039">39</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00041">41</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
@@ -193,7 +195,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00034">34</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00036">36</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
@@ -209,7 +211,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00036">36</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00038">38</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
@@ -225,7 +227,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00033">33</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00035">35</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>
@@ -243,7 +245,7 @@ Variables</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
 <div class="line">    NSString * _orderId</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_ecommerce_8m_source.html#l00033">33</a> of file <a class="el" href="_s_p_ecommerce_8m_source.html">SPEcommerce.m</a>.</p>
 
 </div>
 </div>

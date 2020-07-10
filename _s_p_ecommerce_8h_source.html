@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.3.1</span>
+   &#160;<span id="projectnumber">1.4.0</span>
    </div>
   </td>
  </tr>
@@ -122,20 +122,20 @@ $(function() {
 <div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="interface_s_p_ecommerce.html">  108</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_ecommerce.html">SPEcommerce</a> : <a class="code" href="interface_s_p_primitive.html">SPPrimitive</a> &lt;<a class="code" href="protocol_s_p_ecomm_transaction_builder-p.html">SPEcommTransactionBuilder</a>&gt;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;+ (instancetype) build:(<span class="keywordtype">void</span>(^)(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_ecomm_transaction_builder-p.html">SPEcommTransactionBuilder</a>&gt;builder))buildBlock;</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;- (<a class="code" href="interface_s_p_payload.html">SPPayload</a> *) getPayload <a class="code" href="interface_s_p_ecommerce.html#ab4a9574e66b0a58eafc8ef7a31bcd875">__deprecated_msg</a>(&quot;getPayload is deprecated. Use `<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a>` instead.&quot;);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;- (NSArray *) <a class="code" href="interface_s_p_ecommerce.html#a610c0d479faed60c1ac56fa8ef3bcd2f">getItems</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;- (NSArray *) <a class="code" href="interface_s_p_ecommerce.html#a1d07eb030c03db51724482bc38ea33bc">getItems</a>;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">@end</span></div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
 <div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="protocol_s_p_ecomm_transaction_builder-p.html#aaf579b7a3428c03fd456fe68e29af9ce">  114</a></span>&#160;NS_ASSUME_NONNULL_END</div>
 </div><!-- fragment --></div><!-- contents -->
+<div class="ttc" id="ainterface_s_p_ecommerce_html_a1d07eb030c03db51724482bc38ea33bc"><div class="ttname"><a href="interface_s_p_ecommerce.html#a1d07eb030c03db51724482bc38ea33bc">-[SPEcommerce getItems]</a></div><div class="ttdeci">NSArray * getItems()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_ecommerce_8m_source.html#l00041">SPEcommerce.m:140</a></div></div>
 <div class="ttc" id="a_s_p_event_base_8h_html"><div class="ttname"><a href="_s_p_event_base_8h.html">SPEventBase.h</a></div></div>
 <div class="ttc" id="aprotocol_s_p_ecomm_transaction_builder-p_html"><div class="ttname"><a href="protocol_s_p_ecomm_transaction_builder-p.html">SPEcommTransactionBuilder-p</a></div><div class="ttdoc">The protocol for building ecommerce transaction events.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_ecommerce_8h_source.html#l00031">SPEcommerce.h:31</a></div></div>
-<div class="ttc" id="aprotocol_s_p_event_builder-p_html"><div class="ttname"><a href="protocol_s_p_event_builder-p.html">SPEventBuilder-p</a></div><div class="ttdoc">The base protocol for all event builders.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00065">SPEventBase.h:65</a></div></div>
-<div class="ttc" id="ainterface_s_p_ecommerce_html_a610c0d479faed60c1ac56fa8ef3bcd2f"><div class="ttname"><a href="interface_s_p_ecommerce.html#a610c0d479faed60c1ac56fa8ef3bcd2f">-[SPEcommerce getItems]</a></div><div class="ttdeci">NSArray * getItems()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_ecommerce_8m_source.html#l00039">SPEcommerce.m:138</a></div></div>
+<div class="ttc" id="aprotocol_s_p_event_builder-p_html"><div class="ttname"><a href="protocol_s_p_event_builder-p.html">SPEventBuilder-p</a></div><div class="ttdoc">The base protocol for all event builders.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00066">SPEventBase.h:66</a></div></div>
 <div class="ttc" id="ainterface_s_p_ecommerce_html"><div class="ttname"><a href="interface_s_p_ecommerce.html">SPEcommerce</a></div><div class="ttdoc">An ecommerce event.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_ecommerce_8h_source.html#l00108">SPEcommerce.h:108</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00107">SPEventBase.h:107</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00116">SPEventBase.h:116</a></div></div>
 <div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_payload_8h_source.html#l00025">SPPayload.h:26</a></div></div>
-<div class="ttc" id="ainterface_s_p_ecommerce_html_ab4a9574e66b0a58eafc8ef7a31bcd875"><div class="ttname"><a href="interface_s_p_ecommerce.html#ab4a9574e66b0a58eafc8ef7a31bcd875">-[SPEcommerce __deprecated_msg]</a></div><div class="ttdeci">&quot;getPayload is deprecated. Use `payload` instead.&quot; __deprecated_msg()</div></div>
-<div class="ttc" id="ainterface_s_p_primitive_html"><div class="ttname"><a href="interface_s_p_primitive.html">SPPrimitive</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00131">SPEventBase.h:132</a></div></div>
+<div class="ttc" id="ainterface_s_p_ecommerce_html_ab4a9574e66b0a58eafc8ef7a31bcd875"><div class="ttname"><a href="interface_s_p_ecommerce.html#ab4a9574e66b0a58eafc8ef7a31bcd875">-[SPEcommerce __deprecated_msg]</a></div><div class="ttdeci">&quot;getPayload is deprecated. Use `payload` instead.&quot; __deprecated_msg()</div><div class="ttdoc">Get the timestamp of the event.</div></div>
+<div class="ttc" id="ainterface_s_p_primitive_html"><div class="ttname"><a href="interface_s_p_primitive.html">SPPrimitive</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00174">SPEventBase.h:175</a></div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by &#160;<a href="http://www.doxygen.org/index.html">

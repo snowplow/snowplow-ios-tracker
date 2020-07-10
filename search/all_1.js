@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['accessedlast_95',['accessedLast',['../category_s_p_session_07_08.html#a3a745a900d39c0f6081d324f50d90f6e',1,'SPSession()']]],
   ['adddefaultparamstopayload_3a_96',['addDefaultParamsToPayload:',['../interface_s_p_event.html#abce1b9a13eb32c13ff790fed2c48e0ce',1,'SPEvent']]],
   ['adddictionarytopayload_3a_97',['addDictionaryToPayload:',['../interface_s_p_payload.html#a277e68ac53e26db0a9379412a7277fa3',1,'SPPayload']]],
   ['adddictionarytopayload_3abase64encoded_3atypewhenencoded_3atypewhennotencoded_3a_98',['addDictionaryToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:',['../interface_s_p_payload.html#a7465a34d243802e56de8e31079920817',1,'SPPayload']]],
