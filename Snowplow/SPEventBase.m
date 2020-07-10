@@ -26,6 +26,7 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
+#import "SPTracker.h"
 
 NSString * stringWithSPScreenType(SPScreenType screenType) {
     NSArray * arr = @[
@@ -48,9 +49,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 - (id) init {
     self = [super init];
     if (self) {
-        _timestamp = [SPUtilities getTimestamp];
         _contexts = [[NSMutableArray alloc] init];
-        _eventId = [SPUtilities getUUIDString];
     }
     return self;
 }
@@ -59,6 +58,10 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 - (void) setTimestamp:(NSNumber *)timestamp {
     _timestamp = timestamp;
+}
+
+- (void)setTrueTimestamp:(NSNumber *)trueTimestamp {
+    _trueTimestamp = trueTimestamp;
 }
 
 - (void) setContexts:(NSMutableArray *)contexts {
@@ -80,10 +83,20 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 }
 
 - (NSNumber *) getTimestamp {
+    if (!_timestamp) {
+        _timestamp = [SPUtilities getTimestamp];
+    }
     return _timestamp;
 }
 
+- (NSNumber *)getTrueTimestamp {
+    return _trueTimestamp;
+}
+
 - (NSString *) getEventId {
+    if (!_eventId) {
+        _eventId = [SPUtilities getUUIDString];
+    }
     return _eventId;
 }
 
@@ -101,8 +114,13 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 - (void) basePreconditions {
     [SPUtilities checkArgument:(_contexts != nil) withMessage:@"Contexts cannot be nil."];
-    [SPUtilities checkArgument:([_eventId length] != 0) withMessage:@"EventID cannot be nil or empty."];
+    if (_eventId) {
+        [SPUtilities checkArgument:([[NSUUID alloc] initWithUUIDString:_eventId] != nil) withMessage:@"EventID has to be a valid UUID."];
+    }
 }
+
+- (void)beginProcessingWithTracker:(SPTracker *)tracker {}
+- (void)endProcessingWithTracker:(SPTracker *)tracker {}
 
 @end
 

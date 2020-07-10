@@ -38,25 +38,31 @@ NS_ASSUME_NONNULL_BEGIN
     return [SPSchemaRuleset rulesetWithAllowedList:self.allowed andDeniedList:self.denied];
 }
 
+- (instancetype)initWithAllowedList:(NSArray<NSString *> *)allowed andDeniedList:(NSArray<NSString *> *)denied {
+    self = [super init];
+    if (self) {
+        NSMutableArray<SPSchemaRule *> *rulesAllowed = [NSMutableArray array];
+        for (NSString *rule in allowed) {
+            SPSchemaRule *schemaRule = [[SPSchemaRule alloc] initWithRule:rule];
+            if (schemaRule) {
+                [rulesAllowed addObject:schemaRule];
+            }
+        }
+        self.rulesAllowed = rulesAllowed;
+        NSMutableArray<SPSchemaRule *> *rulesDenied = [NSMutableArray array];
+        for (NSString *rule in denied) {
+            SPSchemaRule *schemaRule = [[SPSchemaRule alloc] initWithRule:rule];
+            if (schemaRule) {
+                [rulesDenied addObject:schemaRule];
+            }
+        }
+        self.rulesDenied = rulesDenied;
+    }
+    return self;
+}
+
 + (SPSchemaRuleset *)rulesetWithAllowedList:(NSArray<NSString *> *)allowed andDeniedList:(NSArray<NSString *> *)denied {
-    SPSchemaRuleset *ruleset = [SPSchemaRuleset new];
-    NSMutableArray<SPSchemaRule *> *rulesAllowed = [NSMutableArray array];
-    for (NSString *rule in allowed) {
-        SPSchemaRule *schemaRule = [[SPSchemaRule alloc] initWithRule:rule];
-        if (schemaRule) {
-            [rulesAllowed addObject:schemaRule];
-        }
-    }
-    ruleset.rulesAllowed = rulesAllowed;
-    NSMutableArray<SPSchemaRule *> *rulesDenied = [NSMutableArray array];
-    for (NSString *rule in denied) {
-        SPSchemaRule *schemaRule = [[SPSchemaRule alloc] initWithRule:rule];
-        if (schemaRule) {
-            [rulesDenied addObject:schemaRule];
-        }
-    }
-    ruleset.rulesDenied = rulesDenied;
-    return ruleset;
+    return [[SPSchemaRuleset alloc] initWithAllowedList:allowed andDeniedList:denied];
 }
 
 + (SPSchemaRuleset *)rulesetWithAllowedList:(NSArray<NSString *> *)allowed {

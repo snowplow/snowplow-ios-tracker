@@ -167,15 +167,13 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setAction:@"Action"];
         [builder setLabel:@"Label"];
     }];
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithPrimitive:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     SPPayload *payload = [tracker payloadWithEvent:trackerEvent];
     NSDictionary *payloadDict = [payload getAsDictionary];
 
     XCTAssertEqual(payloadDict[kSPPlatform], SPDevicePlatformToString(SPDevicePlatformGeneral));
     XCTAssertEqual(payloadDict[kSPAppId], @"anAppId");
     XCTAssertEqual(payloadDict[kSPNamespace], @"aNamespace");
-    
-    
 
     // Test setting variables to new values
 
@@ -189,6 +187,19 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     XCTAssertEqual(payloadDict[kSPPlatform], nil);
     XCTAssertEqual(payloadDict[kSPAppId], @"newAppId");
     XCTAssertEqual(payloadDict[kSPNamespace], @"newNamespace");
+}
+
+- (void)testEventIdNotDuplicated {
+    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
+        [builder setCategory:@"Category"];
+        [builder setAction:@"Action"];
+        [builder setLabel:@"Label"];
+    }];
+    NSUUID *eventId = [[SPTrackerEvent alloc] initWithEvent:event].eventId;
+    XCTAssertNotNil(eventId);
+    NSUUID *newEventId = [[SPTrackerEvent alloc] initWithEvent:event].eventId;
+    XCTAssertNotNil(newEventId);
+    XCTAssertNotEqualObjects(eventId, newEventId);
 }
 
 @end

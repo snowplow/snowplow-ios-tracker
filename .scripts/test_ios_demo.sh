@@ -23,7 +23,7 @@ elif [ $DEP_FILE == "Podfile" ]; then
 	pod update
 elif [[ $DEP_FILE == Podfile* ]]; then
 	printf "\n\n Pod update with Podfile: " + $DEP_FILE + " \n"
-	cp -rf .travis/$DEP_FILE Examples/$APP/Podfile
+	cp -rf .scripts/$DEP_FILE Examples/$APP/Podfile
 	cd Examples/$APP
 	pod update
 else

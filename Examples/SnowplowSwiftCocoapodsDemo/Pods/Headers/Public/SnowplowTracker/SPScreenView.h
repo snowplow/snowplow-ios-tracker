@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SPScreenView.h
+../../../../../../Snowplow/SPScreenView.h

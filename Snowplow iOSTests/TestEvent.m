@@ -39,15 +39,17 @@
 }
 
 - (void)testEventBuilderConditions {
+    NSString *presetEventId = [NSUUID UUID].UUIDString;
+    
     // Valid construction
     SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setContexts:[self getCustomContext]];
-        [builder setEventId:@"an-event-id-string"];
+        [builder setEventId:presetEventId];
         [builder setTimestamp:@1234567890];
     }];
     XCTAssertNotNil(event);
-    XCTAssertEqualObjects([event getEventId], @"an-event-id-string");
+    XCTAssertEqualObjects([event getEventId], presetEventId);
     XCTAssertEqual([event getTimestamp].longLongValue, @(1234567890).longLongValue);
     event = nil;
     
@@ -74,18 +76,16 @@
         XCTAssertEqualObjects(@"All contexts must be SelfDescribingJson objects.", exception.reason);
     }
     XCTAssertNil(event);
-    
+}
+ 
+- (void)testEventIdNilOrEmpty {
     // EventID is nil
-    @try {
-        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-            [builder setPageUrl:@"DemoPageUrl"];
-            [builder setEventId:nil];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventID cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
+    SPEvent *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setEventId:nil];
+    }];
+    XCTAssertNotNil(event);
+    event = nil;
     
     // EventID is empty
     @try {
@@ -95,9 +95,24 @@
         }];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventID cannot be nil or empty.", exception.reason);
+        XCTAssertEqualObjects(@"EventID has to be a valid UUID.", exception.reason);
     }
     XCTAssertNil(event);
+}
+
+- (void)testTrueTimestamp {
+    // Set trueTimestamp
+    SPEvent *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+    }];
+    XCTAssertNil([event getTrueTimestamp]);
+
+    // Set trueTimestamp
+    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
+        [builder setPageUrl:@"DemoPageUrl"];
+        [builder setTrueTimestamp:@(1234567890)];
+    }];
+    XCTAssertEqualObjects([event getTrueTimestamp], @(1234567890));
 }
 
 - (void)testPageViewBuilderConditions {
@@ -185,7 +200,7 @@
     XCTAssertNil(event);
 }
 
-- (void)testUnstructuredBuilderConditions {
+- (void)testUnstructuredBuilderEmptyCondition {
     // Valid construction
     NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
     [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
@@ -204,6 +219,25 @@
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"EventData cannot be nil.", exception.reason);
+    }
+    XCTAssertNil(event);
+}
+
+- (void)testUnstructuredBuilderWrongDataCondition {
+    // Invalid dictionary
+    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
+    [data setObject:[NSNumber numberWithInt:12] forKey:[NSNumber numberWithInt:12]];
+    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                      andData:data];
+    // Data is wrong
+    SPUnstructured *event;
+    @try {
+        event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+            [builder setEventData:sdj];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"EventData has to be JSON serializable.", exception.reason);
     }
     XCTAssertNil(event);
 }

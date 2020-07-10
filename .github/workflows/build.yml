@@ -1,0 +1,119 @@
+name: Build
+
+on: [push]
+
+jobs:
+  test_framework:
+    name: "Framework (iOS ${{ matrix.version.ios }})"
+    runs-on: macos-${{ matrix.version.macos }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
+      
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - {ios: 13.5, iphone: iPhone 11, watchos: 6.2.1,  watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Test
+        env:
+          IOS: ${{ matrix.version.ios }}
+          WATCHOS: ${{ matrix.version.watchos }}
+          IPHONE: ${{ matrix.version.iphone }}
+          WATCH: ${{ matrix.version.watch }}
+        run: |
+          . .scripts/setup.sh
+          .scripts/test_framework.sh "${BUILD_PROJECT_LIB}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_LIB_IOS}" "${BUILD_DEST_WATCH}" "${BUILD_SCHEME_LIB_WATCH}"  
+
+  build_objc_demo_app:
+    name: "ObjC demo (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-${{ matrix.version.macos }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
+
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - {ios: 13.5, iphone: iPhone 11, watchos: 6.2.1,  watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.version.ios }}
+          WATCHOS: ${{ matrix.version.watchos }}
+          IPHONE: ${{ matrix.version.iphone }}
+          WATCH: ${{ matrix.version.watch }}
+        run: |
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
+
+  build_swift_carthage_demo_app:
+    name: "Swift demo (Carthage) (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-${{ matrix.version.macos }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
+
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - {ios: 13.5, iphone: iPhone 11, watchos: 6.2.1,  watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.version.ios }}
+          WATCHOS: ${{ matrix.version.watchos }}
+          IPHONE: ${{ matrix.version.iphone }}
+          WATCH: ${{ matrix.version.watch }}
+        run: |
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh SnowplowSwiftCarthageDemo Cartfile "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}"
+
+  build_swift_cocoapods_demo_app:
+    name: "Swift demo (Cocoapods ${{ matrix.podfile.type }}) (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-${{ matrix.version.macos }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
+
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - {ios: 13.5, iphone: iPhone 11 Pro, watchos: 6.2.1, watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: 12.4, iphone: iPhone Xs Max, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+        podfile:
+          - {file: Podfile, type: "no directive"}
+          - {file: Podfile_frameworks, type: "use_frameworks! directive"}
+          - {file: Podfile_modular_headers, type: "use_modular_headers! directive"}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.version.ios }}
+          WATCHOS: ${{ matrix.version.watchos }}
+          IPHONE: ${{ matrix.version.iphone }}
+          WATCH: ${{ matrix.version.watch }}
+        run: |
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh SnowplowSwiftCocoapodsDemo ${{matrix.podfile.file}} "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"

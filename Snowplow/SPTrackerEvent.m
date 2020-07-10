@@ -28,28 +28,29 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
 
-+ (instancetype)trackerEventWithPrimitive:(SPPrimitive *)event {
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
-    trackerEvent.eventName = event.name;
-    trackerEvent.isPrimitive = true;
-    return trackerEvent;
-}
-
-+ (instancetype)trackerEventWithSelfDescribing:(SPSelfDescribing *)event {
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
-    trackerEvent.schema = event.schema;
-    trackerEvent.isPrimitive = false;
-    return trackerEvent;
-}
-
-#pragma mark - private methods
-
 - (instancetype)initWithEvent:(SPEvent *)event {
     if (self = [super init]) {
-        self.eventId = [[NSUUID alloc] initWithUUIDString:event.eventId]; // it has to be set in the TrackerEvent
-        self.contexts = event.contexts; // it has to be set in the TrackerEvent
-        self.timestamp = event.timestamp.doubleValue / 1000; // it has to be set in the TrackerEvent
-        self.payload = event.payload;
+        if (event.eventId) {
+            self.eventId = [[NSUUID alloc] initWithUUIDString:event.eventId];
+        } else {
+            self.eventId = [NSUUID UUID];
+        }
+        if (event.timestamp) {
+            self.timestamp = event.timestamp.doubleValue / 1000;
+        } else {
+            self.timestamp = [[[NSDate alloc] init] timeIntervalSince1970];
+        }
+        self.trueTimestamp = event.trueTimestamp;
+        self.contexts = [event.contexts mutableCopy];
+        self.payload = [event.payload mutableCopy];
+
+        if ([event isKindOfClass:SPPrimitive.class]) {
+            self.eventName = [(SPPrimitive *)event name];
+            self.isPrimitive = true;
+        } else {
+            self.schema = [(SPSelfDescribing *)event schema];
+            self.isPrimitive = false;
+        }
     }
     return self;
 }

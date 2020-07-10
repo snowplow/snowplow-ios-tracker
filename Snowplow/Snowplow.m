@@ -27,13 +27,13 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-1.3.1";
+NSString * const kSPVersion               = @"ios-1.4.0";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-1.3.1";
+NSString * const kSPVersion               = @"tvos-1.4.0";
 #elif SNOWPLOW_TARGET_WATCHOS
-NSString * const kSPVersion               = @"watchos-1.3.1";
+NSString * const kSPVersion               = @"watchos-1.4.0";
 #else
-NSString * const kSPVersion               = @"osx-1.3.1";
+NSString * const kSPVersion               = @"osx-1.4.0";
 #endif
 
 // --- Emitter
@@ -49,7 +49,7 @@ NSString * const kSPEndpointGet           = @"/i";
 NSString * const kSPIglu                  = @"iglu";
 NSString * const kSPSnowplowVendor        = @"com.snowplowanalytics.snowplow";
 NSString * const kSPSchemaTag             = @"jsonschema";
-NSString * const kSPPayloadDataSchema     = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-3";
+NSString * const kSPPayloadDataSchema     = @"iglu:com.snowplowanalytics.snowplow/payload_data/jsonschema/1-0-4";
 NSString * const kSPUserTimingsSchema     = @"iglu:com.snowplowanalytics.snowplow/timing/jsonschema/1-0-0";
 NSString * const kSPScreenViewSchema      = @"iglu:com.snowplowanalytics.mobile/screen_view/jsonschema/1-0-0";
 NSString * const kSPUnstructSchema        = @"iglu:com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0";
@@ -85,6 +85,7 @@ NSString * const kSPData                  = @"data";
 NSString * const kSPEvent                 = @"e";
 NSString * const kSPEid                   = @"eid";
 NSString * const kSPTimestamp             = @"dtm";
+NSString * const kSPTrueTimestamp         = @"ttm";
 NSString * const kSPSentTimestamp         = @"stm";
 NSString * const kSPTrackerVersion        = @"tv";
 NSString * const kSPAppId                 = @"aid";

@@ -25,6 +25,8 @@
 #import "Snowplow.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
+#import "SPEcommerceItem.h"
+#import "SPTracker.h"
 
 @implementation SPEcommerce {
     NSString * _orderId;
@@ -36,7 +38,7 @@
     NSString * _state;
     NSString * _country;
     NSString * _currency;
-    NSArray *  _items;
+    NSArray<SPEcommerceItem *> *_items;
 }
 
 + (instancetype) build:(void(^)(id<SPEcommTransactionBuilder>builder))buildBlock {
@@ -96,7 +98,7 @@
     _currency = currency;
 }
 
-- (void) setItems:(NSArray *)items {
+- (void) setItems:(NSArray<SPEcommerceItem *> *)items {
     _items = items;
 }
 
@@ -135,8 +137,22 @@
     return [self addDefaultParamsToPayload:payload];
 }
 
-- (NSArray *) getItems {
+- (NSArray<SPEcommerceItem *> *) getItems {
     return _items;
 }
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
+
+- (void)endProcessingWithTracker:(SPTracker *)tracker {
+    // Track each item individually
+    NSNumber *timestamp = [self getTimestamp];
+    for (SPEcommerceItem *item in _items) {
+        [item setTimestamp:timestamp];
+        [tracker track:item];
+    }
+}
+
+#pragma GCC diagnostic pop
 
 @end

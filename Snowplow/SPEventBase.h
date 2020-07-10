@@ -23,6 +23,7 @@
 #import <Foundation/Foundation.h>
 
 @class SPPayload;
+@class SPTracker;
 
 /*!
  @brief An enum for screen types.
@@ -65,25 +66,30 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @protocol SPEventBuilder <NSObject>
 
 /*!
- @brief Set the timestamp of the event.
+ @brief Set the timestamp of when the event has been processed by the tracker.
+ @param timestamp The timestamp of the event in milliseconds (epoch time)
+ @deprecated This method is for internal use only and will be removed in the next major version. Use `trueTimestamp` as alternative.
+ */
+- (void) setTimestamp:(NSNumber *)timestamp __deprecated_msg("The timestamp will be set once the event is processed.");
 
+/*!
+ @brief Set the optional timestamp of the event.
  @param timestamp The timestamp of the event in milliseconds (epoch time)
  */
-- (void) setTimestamp:(NSNumber *)timestamp;
+- (void)setTrueTimestamp:(NSNumber *)timestamp;
 
 /*!
  @brief Set the contexts attached to the event.
-
  @param contexts An array of contexts (should be self-describing JSONs).
  */
 - (void) setContexts:(NSMutableArray *)contexts;
 
 /*!
  @brief Set the UUID associated with the event.
-
  @param eventId A UUID for the event.
+ @deprecated This method is for internal use only and will be removed in the next major version.
  */
-- (void) setEventId:(NSString *)eventId;
+- (void) setEventId:(NSString *)eventId __deprecated_msg("The eventId will be set once the event is processed.");
 @end
 
 /*!
@@ -94,8 +100,11 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  */
 @interface SPEvent : NSObject <SPEventBuilder>
 
-/*! The event timestamp in milliseconds (epoch time). */
+/*! The tracker event timestamp in milliseconds (epoch time). */
 @property (nonatomic, readwrite) NSNumber *timestamp __deprecated_msg("The timestamp can be set only by the tracker.");
+
+/*! The user event timestamp in milliseconds (epoch time). */
+@property (nonatomic, readwrite) NSNumber *trueTimestamp;
 
 /*! The contexts attached to the event. */
 @property (nonatomic, readwrite, retain) NSMutableArray *contexts;
@@ -107,10 +116,44 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
 - (void) basePreconditions;
+
+/*!
+ @brief Get the copy of the context list associated with the event.
+*/
 - (NSMutableArray *) getContexts;
-- (NSNumber *) getTimestamp;
-- (NSString *) getEventId;
+
+/*!
+ @brief Get the timestamp of the event.
+ @note If the timestamp is not set, it sets one as a side effect.
+ @deprecated This method is for internal use only and will be removed in the next major version.
+*/
+- (NSNumber *) getTimestamp __deprecated_msg("The timestamp is set only when the event is processed.");
+
+/*!
+ @brief Get the user timestamp of the event if it has been set.
+*/
+- (NSNumber *)getTrueTimestamp;
+
+/*!
+ @brief Get the UUID associated with the event.
+ @note If the eventId is not set, it sets one as a side effect.
+ @deprecated This method is for internal use only and will be removed in the next major version.
+*/
+- (NSString *) getEventId __deprecated_msg("The eventId is set only when the event is processed.");
+
 - (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb __deprecated_msg("The payload can be updated only by the tracker.");
+
+/**
+ * Hook method called just before the event processing in order to execute special operations.
+ * @note Internal use only - Don't use in production, it can change without notice.
+ */
+- (void)beginProcessingWithTracker:(SPTracker *)tracker;
+
+/**
+ * Hook method called just after the event processing in order to execute special operations.
+ * @note Internal use only - Don't use in production, it can change without notice.
+ */
+- (void)endProcessingWithTracker:(SPTracker *)tracker;
 @end
 
 /*!

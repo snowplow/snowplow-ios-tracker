@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SPConsentGranted.h
+../../../../../../Snowplow/SPConsentGranted.h

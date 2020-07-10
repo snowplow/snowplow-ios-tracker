@@ -33,6 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *eventName;
 @property (nonatomic) NSUUID *eventId;
 @property (nonatomic) NSTimeInterval timestamp;
+@property (nonatomic) NSNumber *trueTimestamp;
 @property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
 @property (nonatomic) BOOL isPrimitive;
@@ -40,8 +41,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
-+ (instancetype)trackerEventWithSelfDescribing:(SPSelfDescribing *)event;
-+ (instancetype)trackerEventWithPrimitive:(SPPrimitive *)event;
+- (instancetype) initWithEvent:(SPEvent *)event;
 
 @end
 

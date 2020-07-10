@@ -33,11 +33,16 @@
 #import <UIKit/UIKit.h>
 #endif
 
+@interface SPSession ()
+
+@property (atomic) NSNumber *accessedLast;
+
+@end
+
 @implementation SPSession {
     NSInteger   _foregroundTimeout;
     NSInteger   _backgroundTimeout;
     NSInteger   _checkInterval;
-    NSNumber *  _accessedLast;
     BOOL        _inBackground;
     NSString *  _userId;
     NSString *  _currentSessionId;
@@ -239,7 +244,7 @@ NSString * const kSessionSavePath = @"session.dict";
             range = strongSelf->_foregroundTimeout;
         }
         
-        if (![strongSelf isTimeInRangeWithStartTime:strongSelf->_accessedLast.longLongValue andCheckTime:checkTime.longLongValue andRange:range]) {
+        if (![strongSelf isTimeInRangeWithStartTime:strongSelf.accessedLast.longLongValue andCheckTime:checkTime.longLongValue andRange:range]) {
             [strongSelf updateSession];
             [strongSelf updateAccessedLast];
             [strongSelf updateSessionDict];
@@ -256,7 +261,7 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void) updateAccessedLast {
-    _accessedLast = [SPUtilities getTimestamp];
+    self.accessedLast = [SPUtilities getTimestamp];
 }
 
 - (void) updateSessionDict {
@@ -309,7 +314,7 @@ NSString * const kSessionSavePath = @"session.dict";
             if (strongSelf == nil) return;
             [builder setIndex:[NSNumber numberWithInteger:strongSelf->_backgroundIndex]];
         }];
-        [_tracker trackBackgroundEvent:backgroundEvent];
+        [_tracker track:backgroundEvent];
     }
 }
 
@@ -321,7 +326,7 @@ NSString * const kSessionSavePath = @"session.dict";
             if (strongSelf == nil) return;
             [builder setIndex:[NSNumber numberWithInteger:strongSelf->_foregroundIndex]];
         }];
-        [_tracker trackForegroundEvent:foregroundEvent];
+        [_tracker track:foregroundEvent];
     }
 }
 

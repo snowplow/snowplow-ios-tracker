@@ -1,3 +1,14 @@
+
+Version 1.4.0 (2020-07-10)
+--------------------------
+Validate EventData in Unstructured events (#526)
+Fix url percent escaping (#525)
+Fix contexts duplication (#524)
+Add method for setting true timestamp (#276)
+Renew event ID when event object is reused (#521)
+Move from Travis CI to GitHub Actions (#517)
+Add unified track method for all the events (#518)
+
 Version 1.3.1 (2020-05-07)
 --------------------------
 Remove SPM demo app as it causes issues to Carthage (#513)

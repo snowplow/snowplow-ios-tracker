@@ -1,1 +1,1 @@
-../../../../../../Snowplow/Events/SNOWError.h
+../../../../../../Snowplow/SNOWError.h

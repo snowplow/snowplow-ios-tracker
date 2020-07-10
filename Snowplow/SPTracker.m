@@ -104,7 +104,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                 [builder setStackTrace:stackTrace];
             }
         }];
-        [tracker trackErrorEvent:error];
+        [tracker track:error];
         [NSThread sleepForTimeInterval:2.0f];
     });
 }
@@ -192,6 +192,9 @@ void uncaughtExceptionHandler(NSException *exception) {
     _builderFinished = YES;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
+
 - (void) checkInstall {
     SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
     NSNumber * previousTimestamp = [installTracker getPreviousInstallTimestamp];
@@ -201,7 +204,7 @@ void uncaughtExceptionHandler(NSException *exception) {
             SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
                 [builder setEventData:installEvent];
             }];
-            [self trackUnstructuredEvent:event];
+            [self track:event];
             if (previousTimestamp) {
                 [installTracker clearPreviousInstallTimestamp];
             }
@@ -211,11 +214,13 @@ void uncaughtExceptionHandler(NSException *exception) {
                 [builder setEventData:installEvent];
                 [builder setTimestamp:previousTimestamp];
             }];
-            [self trackUnstructuredEvent:event];
+            [self track:event];
             [installTracker clearPreviousInstallTimestamp];
         }
     }
 }
+
+#pragma GCC diagnostic pop
 
 - (void) setTrackerData {
     _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -422,25 +427,22 @@ void uncaughtExceptionHandler(NSException *exception) {
             [builder setViewControllerClassName:viewControllerClassName];
             [builder setTopViewControllerClassName:topViewControllerClassName];
         }];
-        [self trackScreenViewEvent:event];
+        [self track:event];
     }
 }
 
 #pragma mark - Event Tracking Functions
 
 - (void) trackPageViewEvent:(SPPageView *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
+    [self track:event];
 }
 
 - (void) trackStructuredEvent:(SPStructured *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
+    [self track:event];
 }
 
 - (void) trackUnstructuredEvent:(SPUnstructured *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
+    [self track:event];
 }
 
 - (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
@@ -448,78 +450,71 @@ void uncaughtExceptionHandler(NSException *exception) {
     SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData: event];
     }];
-    [self trackUnstructuredEvent:unstruct];
+    [self track:unstruct];
 }
 
 - (void) trackScreenViewEvent:(SPScreenView *)event {
-    if (!event || !_dataCollection) return;
-    @synchronized (_currentScreenState) {
-        _previousScreenState = _currentScreenState;
-        _currentScreenState = [event getScreenState];
-        [event updateWithPreviousState: _previousScreenState];
-    }
-    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
+    [self track:event];
 }
 
 - (void) trackTimingEvent:(SPTiming *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
+    [self track:event];
 }
 
 - (void) trackEcommerceEvent:(SPEcommerce *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
-
-    NSNumber *tstamp = [event getTimestamp];
-    for (SPEcommerceItem * item in [event getItems]) {
-        [item setTimestamp:tstamp];
-        [self trackEcommerceItemEvent:item];
-    }
+    [self track:event];
 }
 
 - (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithPrimitive:event]];
+    [self track:event];
 }
 
 - (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event {
-    if (!event || !_dataCollection) return;
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:event];
-    [trackerEvent.contexts addObjectsFromArray:[event getDocuments]];
-    [self processEvent:trackerEvent];
+    [self track:event];
 }
 
 - (void) trackConsentGrantedEvent:(SPConsentGranted *)event {
-    if (!event || !_dataCollection) return;
-    SPTrackerEvent *trackerEvent = [SPTrackerEvent trackerEventWithSelfDescribing:event];
-    [trackerEvent.contexts addObjectsFromArray:[event getDocuments]];
-    [self processEvent:trackerEvent];
+    [self track:event];
 }
 
 - (void) trackPushNotificationEvent:(SPPushNotification *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
+    [self track:event];
 }
 
 - (void) trackForegroundEvent:(SPForeground *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
+    [self track:event];
 }
 
 - (void) trackBackgroundEvent:(SPBackground *)event {
-    if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
+    [self track:event];
 }
 
 - (void) trackErrorEvent:(SNOWError *)event {
+    [self track:event];
+}
+
+- (void)track:(SPEvent *)event {
     if (!event || !_dataCollection) return;
-    [self processEvent:[SPTrackerEvent trackerEventWithSelfDescribing:event]];
+    
+    if ([event isKindOfClass:SPScreenView.class]) {
+        @synchronized (_currentScreenState) {
+            SPScreenView *screenView = (SPScreenView *)event;
+            _previousScreenState = _currentScreenState;
+            _currentScreenState = [screenView getScreenState];
+            [screenView updateWithPreviousState: _previousScreenState];
+        }
+    }
+
+    [event beginProcessingWithTracker:self];
+    [self processEvent:event];
+    [event endProcessingWithTracker:self];
 }
 
 #pragma mark - Event Decoration
 
-- (void)processEvent:(SPTrackerEvent *)event {
-    SPPayload *payload = [self payloadWithEvent:event];
+- (void)processEvent:(SPEvent *)event {
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
 }
 
@@ -558,8 +553,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)addBasicPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
-    [payload addValueToPayload:[NSString stringWithFormat:@"%lld", (long long)(event.timestamp * 1000)] forKey:kSPTimestamp];
     [payload addValueToPayload:event.eventId.UUIDString forKey:kSPEid];
+    [payload addValueToPayload:[NSString stringWithFormat:@"%lld", (long long)(event.timestamp * 1000)] forKey:kSPTimestamp];
+    if (event.trueTimestamp) {
+        [payload addValueToPayload:[NSString stringWithFormat:@"%lld", (long long)(event.trueTimestamp.doubleValue * 1000)] forKey:kSPTrueTimestamp];
+    }
     [payload addDictionaryToPayload:_trackerData];
     if (_subject != nil) {
         [payload addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];

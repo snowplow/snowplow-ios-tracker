@@ -1,1 +1,1 @@
-../../../../../../Snowplow/GlobalContext/SPGlobalContext.h
+../../../../../../Snowplow/SPGlobalContext.h

@@ -101,6 +101,7 @@ extern NSString * const kSPData;
 extern NSString * const kSPEvent;
 extern NSString * const kSPEid;
 extern NSString * const kSPTimestamp;
+extern NSString * const kSPTrueTimestamp;
 extern NSString * const kSPSentTimestamp;
 extern NSString * const kSPTrackerVersion;
 extern NSString * const kSPAppId;
