@@ -1,12 +1,12 @@
-iOS, macOS, tvOS and watchOS Analytics for Snowplow
-===================================================
+# iOS, macOS, tvOS and watchOS Analytics for Snowplow
 
-[ ![Build Status][travis-image] ][travis]
-[ ![Coverage Status][coveralls-image] ][coveralls]
-[ ![Version][cocoa-version] ][cocoadocs]
-[ ![Platform][cocoa-plaform] ][cocoadocs]
-[ ![Carthage][carthage-badge] ][carthage]
-[ ![License][license-image] ][license]
+[![actively-maintained]][tracker-classificiation]
+[![Build Status][travis-image]][travis]
+[![Coverage Status][coveralls-image]][coveralls]
+[![Version][cocoa-version]][cocoadocs]
+[![Platform][cocoa-plaform]][cocoadocs]
+[![Carthage][carthage-badge]][carthage]
+[![License][license-image]][license]
 
 ## Overview
 
@@ -49,7 +49,7 @@ To view sent events in your browser please navigate to `http://localhost:2525`.
 | Technical Docs                 |  Contributing                    |
 |--------------------------------|----------------------------------|
 | ![i1][techdocs-image]          | ![i2][contributing-image]        |
-| **[Technical Docs][techdocs]** | **[Contributing][contributing]** |
+| **[Technical Docs][techdocs]** | **[Contributing](contributing.md)** |
 
 ## Copyright and license
 
@@ -64,7 +64,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[2]: http://snowplowanalytics.com/
+[2]: https://snowplowanalytics.com/
 [3]: https://www.apple.com/ios/
 [4]: https://www.apple.com/macos/
 [5]: https://www.apple.com/tv/
@@ -75,12 +75,12 @@ limitations under the License.
 
 [coveralls]: https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master
 [coveralls-image]: https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master
-[license]: http://www.apache.org/licenses/LICENSE-2.0
+[license]: https://www.apache.org/licenses/LICENSE-2.0
 [license-image]: https://img.shields.io/cocoapods/l/SnowplowTracker.svg
 
-[cocoadocs]: http://cocoadocs.org/docsets/SnowplowTracker
-[cocoa-version]: http://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
-[cocoa-plaform]: http://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png
+[cocoadocs]: https://cocoadocs.org/docsets/SnowplowTracker
+[cocoa-version]: https://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
+[cocoa-plaform]: https://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png
 
 [carthage]: https://github.com/Carthage/Carthage
 [carthage-badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
@@ -89,7 +89,9 @@ limitations under the License.
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
 [techdocs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/
-[contributing]: https://github.com/snowplow/snowplow/wiki/Contributing
 
-[vagrant-install]: http://docs.vagrantup.com/v2/installation/index.html
+[vagrant-install]: https://docs.vagrantup.com/v2/installation
 [virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
+
+[tracker-classificiation]: https://github.com/snowplow/snowplow/wiki/Tracker-Maintenance-Classification
+[actively-maintained]: https://img.shields.io/static/v1?style=flat&label=Snowplow&message=Actively%20Maintained&color=6638b8&labelColor=9ba0aa&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAeFBMVEVMaXGXANeYANeXANZbAJmXANeUANSQAM+XANeMAMpaAJhZAJeZANiXANaXANaOAM2WANVnAKWXANZ9ALtmAKVaAJmXANZaAJlXAJZdAJxaAJlZAJdbAJlbAJmQAM+UANKZANhhAJ+EAL+BAL9oAKZnAKVjAKF1ALNBd8J1AAAAKHRSTlMAa1hWXyteBTQJIEwRgUh2JjJon21wcBgNfmc+JlOBQjwezWF2l5dXzkW3/wAAAHpJREFUeNokhQOCA1EAxTL85hi7dXv/E5YPCYBq5DeN4pcqV1XbtW/xTVMIMAZE0cBHEaZhBmIQwCFofeprPUHqjmD/+7peztd62dWQRkvrQayXkn01f/gWp2CrxfjY7rcZ5V7DEMDQgmEozFpZqLUYDsNwOqbnMLwPAJEwCopZxKttAAAAAElFTkSuQmCC
