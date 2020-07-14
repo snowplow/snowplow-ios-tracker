@@ -66,13 +66,12 @@ $(function() {
 <div class="title">iOS, macOS, tvOS and watchOS Analytics for <a class="el" href="interface_snowplow.html">Snowplow</a> </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__github_workspace_README"></a></p>
-<p><a href="https://travis-ci.org/snowplow/snowplow-objc-tracker"><img src="https://travis-ci.org/snowplow/snowplow-objc-tracker.svg?branch=master" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master"><img src="https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master" alt="Coverage Status" style="pointer-events: none;" class="inline"/></a> <a href="http://cocoadocs.org/docsets/SnowplowTracker"><img src="http://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png" alt="Version" class="inline"/></a> <a href="http://cocoadocs.org/docsets/SnowplowTracker"><img src="http://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png" alt="Platform" class="inline"/></a> <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage" style="pointer-events: none;" class="inline"/></a> <a href="http://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/cocoapods/l/SnowplowTracker.svg" alt="License" style="pointer-events: none;" class="inline"/></a></p>
-<h1><a class="anchor" id="autotoc_md0"></a>
+<div class="textblock"><p><a class="anchor" id="md__github_workspace_README"></a> <a href="https://github.com/snowplow/snowplow/wiki/Tracker-Maintenance-Classification">![actively-maintained]</a> <a href="https://travis-ci.org/snowplow/snowplow-objc-tracker"><img src="https://travis-ci.org/snowplow/snowplow-objc-tracker.svg?branch=master" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master"><img src="https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master" alt="Coverage Status" style="pointer-events: none;" class="inline"/></a> <a href="https://cocoadocs.org/docsets/SnowplowTracker"><img src="https://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png" alt="Version" class="inline"/></a> <a href="https://cocoadocs.org/docsets/SnowplowTracker"><img src="https://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png" alt="Platform" class="inline"/></a> <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage" style="pointer-events: none;" class="inline"/></a> <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/cocoapods/l/SnowplowTracker.svg" alt="License" style="pointer-events: none;" class="inline"/></a></p>
+<h1><a class="anchor" id="autotoc_md1"></a>
 Overview</h1>
-<p>Add analytics to your iOS, macOS, tvOS and watchOS apps and games with the <b><a href="http://snowplowanalytics.com/">Snowplow</a></b> event tracker for <b><a href="https://www.apple.com/ios/">iOS 8.0+</a></b>, <b><a href="https://www.apple.com/macos/">macOS 10.9+</a></b>, <b><a href="https://www.apple.com/tv/">tvOS 9.0+</a></b> and <b><a href="https://www.apple.com/watchos/">watchOS 2.0+</a></b></p>
+<p>Add analytics to your iOS, macOS, tvOS and watchOS apps and games with the <b><a href="https://snowplowanalytics.com/">Snowplow</a></b> event tracker for <b><a href="https://www.apple.com/ios/">iOS 8.0+</a></b>, <b><a href="https://www.apple.com/macos/">macOS 10.9+</a></b>, <b><a href="https://www.apple.com/tv/">tvOS 9.0+</a></b> and <b><a href="https://www.apple.com/watchos/">watchOS 2.0+</a></b></p>
 <p>With this tracker you can collect event data from your applications, games or frameworks.</p>
-<h2><a class="anchor" id="autotoc_md1"></a>
+<h2><a class="anchor" id="autotoc_md2"></a>
 Building the Static Framework (iOS only)</h2>
 <ul>
 <li>Open <code>Snowplow.xcworkspace</code> in Xcode.</li>
@@ -80,7 +79,7 @@ Building the Static Framework (iOS only)</h2>
 <li>Run <code>Archive</code> from the Product menu.</li>
 <li>Finder should open and show you where <code>SnowplowTracker.framework</code> is stored.</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md2"></a>
+<h2><a class="anchor" id="autotoc_md3"></a>
 Running the Demo Application (iOS only)</h2>
 <ul>
 <li>Open <code>SnowplowDemo.xcworkspace</code> in Xcode.</li>
@@ -88,9 +87,9 @@ Running the Demo Application (iOS only)</h2>
 <li>Hit run and the demo will be installed and launched in the emulator window.</li>
 <li>Simply enter a valid endpoint to send events to!</li>
 </ul>
-<h2><a class="anchor" id="autotoc_md3"></a>
+<h2><a class="anchor" id="autotoc_md4"></a>
 Setting up a local testing endpoint</h2>
-<p>Assuming git, <b><a href="http://docs.vagrantup.com/v2/installation/index.html">Vagrant</a></b> and <b><a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a></b> installed:</p>
+<p>Assuming git, <b><a href="https://docs.vagrantup.com/v2/installation">Vagrant</a></b> and <b><a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a></b> installed:</p>
 <div class="fragment"><div class="line"> host$ git clone https://github.com/snowplow/snowplow-objc-tracker.git</div>
 <div class="line"> host$ cd snowplow-objc-tracker</div>
 <div class="line"> host$ vagrant up &amp;&amp; vagrant ssh</div>
@@ -99,7 +98,7 @@ Setting up a local testing endpoint</h2>
 <div class="line">guest$ curl -X POST -d @/vagrant/integration-tests/imposter.json http://localhost:2525/imposters</div>
 </div><!-- fragment --><p>Your local endpoint will be <code><a href="http://localhost:4545">http://localhost:4545</a></code> which can be used in the demonstration application.</p>
 <p>To view sent events in your browser please navigate to <code><a href="http://localhost:2525">http://localhost:2525</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md4"></a>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Find out more</h1>
 <table class="markdownTable">
 <tr class="markdownTableHead">
@@ -107,12 +106,12 @@ Find out more</h1>
 <tr class="markdownTableRowOdd">
 <td class="markdownTableBodyNone"><img src="https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png" alt="i1" class="inline"/> </td><td class="markdownTableBodyNone"><img src="https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png" alt="i2" class="inline"/>  </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b><a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/">Technical Docs</a></b> </td><td class="markdownTableBodyNone"><b><a href="https://github.com/snowplow/snowplow/wiki/Contributing">Contributing</a></b>  </td></tr>
+<td class="markdownTableBodyNone"><b><a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/">Technical Docs</a></b> </td><td class="markdownTableBodyNone"><b>Contributing</b>  </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md5"></a>
+<h1><a class="anchor" id="autotoc_md6"></a>
 Copyright and license</h1>
 <p>The <a class="el" href="interface_snowplow.html">Snowplow</a> iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2020 <a class="el" href="interface_snowplow.html">Snowplow</a> Analytics Ltd.</p>
-<p>Licensed under the <b><a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></b> (the "License"); you may not use this software except in compliance with the License.</p>
+<p>Licensed under the <b><a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></b> (the "License"); you may not use this software except in compliance with the License.</p>
 <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </p>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
