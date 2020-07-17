@@ -22,6 +22,7 @@
 
 #import "SPTrackerEvent.h"
 #import "SPSelfDescribingJson.h"
+#import "SPTrackerError.h"
 
 @implementation SPTrackerEvent
 
@@ -44,6 +45,7 @@
         self.contexts = [event.contexts mutableCopy];
         self.payload = [event.payload mutableCopy];
 
+        self.isService = [event isKindOfClass:SPTrackerError.class];
         if ([event isKindOfClass:SPPrimitive.class]) {
             self.eventName = [(SPPrimitive *)event name];
             self.isPrimitive = true;

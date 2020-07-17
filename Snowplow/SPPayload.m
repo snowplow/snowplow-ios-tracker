@@ -22,6 +22,7 @@
 
 #import "Snowplow.h"
 #import "SPPayload.h"
+#import "SPLogger.h"
 
 @implementation SPPayload {
     NSMutableDictionary * _payload;
@@ -68,35 +69,37 @@
        typeWhenNotEncoded:(NSString *)typeNotEncoded {
     NSError *error = nil;
     NSDictionary *object = nil;
-    
     @try {
         object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     }
     @catch (NSException *exception) {
-        SnowplowDLog(@"SPLog: addJsonToPayload error, %@", error.localizedDescription);
+        SPLogError(@"Json to payload exception, %@", exception);
         return;
     }
-    
-    // Checks if it conforms to NSDictionary type
-    if ([object isKindOfClass:[NSDictionary class]]) {
-        NSString *encodedString = nil;
-        if (encode) {
-            encodedString = [json base64EncodedStringWithOptions:0];
-
-            // We need URL safe with no padding. Since there is no built-in way to do this, we transform
-            // the encoded payload to make it URL safe by replacing chars that are different in the URL-safe
-            // alphabet. Namely, 62 is - instead of +, and 63 _ instead of /.
-            // See: https://tools.ietf.org/html/rfc4648#section-5
-            encodedString = [[encodedString stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
-                             stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
-
-            // There is also no padding since the length is implicitly known.
-            encodedString = [encodedString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"="]];
-            
-            [self addValueToPayload:encodedString forKey:typeEncoded];
-        } else {
-            [self addValueToPayload:[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] forKey:typeNotEncoded];
-        }
+    if (error) {
+        SPLogError(@"Json to payload error, %@", error);
+        return;
+    }
+    if (![object isKindOfClass:[NSDictionary class]]) {
+        SPLogError(@"Serialized json isn't a NSDictionary type");
+        return;
+    }
+    if (encode) {
+        NSString *encodedString = [json base64EncodedStringWithOptions:0];
+        
+        // We need URL safe with no padding. Since there is no built-in way to do this, we transform
+        // the encoded payload to make it URL safe by replacing chars that are different in the URL-safe
+        // alphabet. Namely, 62 is - instead of +, and 63 _ instead of /.
+        // See: https://tools.ietf.org/html/rfc4648#section-5
+        encodedString = [[encodedString stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
+                         stringByReplacingOccurrencesOfString:@"+" withString:@"-"];
+        
+        // There is also no padding since the length is implicitly known.
+        encodedString = [encodedString stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"="]];
+        
+        [self addValueToPayload:encodedString forKey:typeEncoded];
+    } else {
+        [self addValueToPayload:[[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] forKey:typeNotEncoded];
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  SPInstallTracker.h
+//  SPDiagnosticLogger.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -15,24 +15,17 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Michael Hadam
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Authors: Alex Benini
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
-#import <Foundation/Foundation.h>
+NS_ASSUME_NONNULL_BEGIN
 
-@interface SPInstallTracker : NSObject
+@protocol SPDiagnosticLogger <NSObject>
 
-/** Installation status */
-@property (nonatomic) BOOL isNewInstall;
-
-- (id) init;
-
-- (NSNumber *) getPreviousInstallTimestamp;
-
-- (void) clearPreviousInstallTimestamp;
-
-- (void) saveBuildAndVersion;
+- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(nullable NSError *)error exception:(nullable NSException *)exception;
 
 @end
+
+NS_ASSUME_NONNULL_END

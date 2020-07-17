@@ -22,6 +22,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SPEvent.h"
+#import "SPTrackerError.h"
 #import "SPSelfDescribingJson.h"
 
 @interface TestEvent : XCTestCase
@@ -816,6 +817,19 @@
     }];
     
     XCTAssertNotNil(error);
+}
+
+- (void)testTrackerErrorContainsStacktrace {
+    @try {
+        @throw([NSException exceptionWithName:@"CustomException" reason:@"reason" userInfo:nil]);
+    } @catch (NSException *exception) {
+        SPTrackerError *trackerError = [[SPTrackerError alloc] initWithSource:@"classname" message:@"message" error:nil exception:exception];
+        NSDictionary<NSString *, NSObject *> *payload = trackerError.payload;
+        XCTAssertEqualObjects(payload[@"message"], @"message");
+        XCTAssertEqualObjects(payload[@"className"], @"classname");
+        XCTAssertEqualObjects(payload[@"exceptionName"], @"CustomException");
+        XCTAssertTrue([(NSString *)payload[@"stackTrace"] length]);
+    }
 }
 
 // --- Helpers

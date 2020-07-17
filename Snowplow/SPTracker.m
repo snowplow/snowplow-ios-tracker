@@ -47,9 +47,12 @@
 #import "SPBackground.h"
 #import "SPPushNotification.h"
 #import "SPTrackerEvent.h"
+#import "SPTrackerError.h"
+#import "SPDiagnosticLogger.h"
+#import "SPLogger.h"
 
 /** A class extension that makes the screen view states mutable internally. */
-@interface SPTracker ()
+@interface SPTracker () <SPDiagnosticLogger>
 
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
@@ -188,7 +191,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (_exceptionEvents) {
         NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     }
-
+    
     _builderFinished = YES;
 }
 
@@ -263,6 +266,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     _devicePlatform = devicePlatform;
 }
 
+- (void)setLogLevel:(SPLogLevel)logLevel {
+    [SPLogger setLogLevel:logLevel];
+}
+
 - (void) setSessionContext:(BOOL)sessionContext {
     _sessionContext = sessionContext;
     if (_session != nil && !sessionContext) {
@@ -316,6 +323,20 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) setInstallEvent:(BOOL)installEvent {
     _installEvent = installEvent;
+}
+
+- (void)setTrackerDiagnostic:(BOOL)trackerDiagnostic {
+    if (_builderFinished) {
+        id<SPDiagnosticLogger> diagnosticLogger = trackerDiagnostic ? self : nil;
+        [SPLogger setDiagnosticLogger:diagnosticLogger];
+    }
+}
+
+#pragma mark - Diagnostic
+
+- (void)logWithTag:(NSString *)source message:(NSString *)message error:(NSError *)error exception:(NSException *)exception {
+    SPTrackerError *event = [[SPTrackerError alloc] initWithSource:source message:message error:error exception:exception];
+    [self track:event];
 }
 
 #pragma mark - Global Contexts methods
