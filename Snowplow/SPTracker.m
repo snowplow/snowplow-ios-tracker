@@ -550,7 +550,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
     // Add the contexts
     NSMutableArray<SPSelfDescribingJson *> *contexts = contextArray;
-    [self addBasicContextsToContexts:contexts eventId:eventId];
+    [self addBasicContextsToContexts:contexts eventId:eventId isService:NO]; // isService = NO is just the default - this method will be removed in the version 2.0
 
     [self wrapContexts:contexts toPayload:pb];
     return pb;
@@ -558,6 +558,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
     SPPayload *payload = [SPPayload new];
+    payload.allowDiagnostic = !event.isService;
 
     [self addBasicPropertiesToPayload:payload event:event];
     if (event.isPrimitive) {
@@ -605,11 +606,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(SPTrackerEvent *)event {
-    [self addBasicContextsToContexts:contexts eventId:event.eventId.UUIDString];
+    [self addBasicContextsToContexts:contexts eventId:event.eventId.UUIDString isService:event.isService];
 }
 
-- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId {
-    if (_subject != nil) {
+- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId isService:(BOOL)isService {
+    if (_subject) {
         NSDictionary * platformDict = [[_subject getPlatformDict] getAsDictionary];
         if (platformDict != nil) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
@@ -626,9 +627,13 @@ void uncaughtExceptionHandler(NSException *exception) {
             [contexts addObject:contextJson];
         }
     }
+    
+    if (isService) {
+        return;
+    }
 
-    // Add session if active
-    if (_session != nil) {
+    // Add session
+    if (_session) {
         NSDictionary * sessionDict = [_session getSessionDictWithEventId:eventId];
         if (sessionDict != nil) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];

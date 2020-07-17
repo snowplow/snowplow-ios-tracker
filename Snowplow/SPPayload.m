@@ -24,6 +24,8 @@
 #import "SPPayload.h"
 #import "SPLogger.h"
 
+#define SPLogPayloadError(issue, format, ...) if (self.allowDiagnostic) SPLogTrack(issue, format, ##__VA_ARGS__); else SPLogError(format, ##__VA_ARGS__)
+
 @implementation SPPayload {
     NSMutableDictionary * _payload;
 }
@@ -32,6 +34,7 @@
     self = [super init];
     if(self) {
         _payload = [[NSMutableDictionary alloc] init];
+        self.allowDiagnostic = YES;
     }
     return self;
 }
@@ -40,6 +43,7 @@
     self = [super init];
     if (self) {
         _payload = dictionary.mutableCopy ?: [NSMutableDictionary dictionary];
+        self.allowDiagnostic = YES;
     }
     return self;
 }
@@ -73,15 +77,15 @@
         object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
     }
     @catch (NSException *exception) {
-        SPLogError(@"Json to payload exception, %@", exception);
+        SPLogPayloadError(exception, @"Json to payload exception, %@", exception.name);
         return;
     }
     if (error) {
-        SPLogError(@"Json to payload error, %@", error);
+        SPLogPayloadError(error, @"Json to payload error, %@", error);
         return;
     }
     if (![object isKindOfClass:[NSDictionary class]]) {
-        SPLogError(@"Serialized json isn't a NSDictionary type");
+        SPLogPayloadError(nil, @"Serialized json isn't a NSDictionary type");
         return;
     }
     if (encode) {
