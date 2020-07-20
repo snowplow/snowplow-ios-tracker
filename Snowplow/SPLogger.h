@@ -33,7 +33,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPLogger : NSObject
 
-+ (void)setDiagnosticLogger:(id<SPDiagnosticLogger>)diagnosticLogger;
++ (void)setDelegate:(nullable id<SPLoggerDelegate>)delegate;
++ (void)setDiagnosticLogger:(nullable id<SPDiagnosticLogger>)diagnosticLogger;
 + (void)setLogLevel:(SPLogLevel)logLevel;
 
 + (void)diagnostic:(NSString *)tag message:(NSString *)message errorOrException:(nullable id)errorOrException;

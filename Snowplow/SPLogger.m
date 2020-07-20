@@ -23,11 +23,17 @@
 #import "SPLogger.h"
 
 @interface SPLogger ()
+@property (nonatomic, weak) id<SPLoggerDelegate> delegate;
 @property (nonatomic, weak) id<SPDiagnosticLogger> errorLogger;
 @property (nonatomic) SPLogLevel logLevel;
 @end
 
 @implementation SPLogger
+
++ (void)setDelegate:(id<SPLoggerDelegate>)delegate {
+    SPLogger *logger = [SPLogger shared];
+    logger.delegate = delegate;
+}
 
 + (void)setDiagnosticLogger:(id<SPDiagnosticLogger>)diagnosticLogger {
     SPLogger *logger = [SPLogger shared];
@@ -84,6 +90,20 @@
 
 - (void)log:(SPLogLevel)level tag:(NSString *)tag message:(NSString *)message {
     if (level > self.logLevel) {
+        return;
+    }
+    if (self.delegate) {
+        switch (level) {
+            case SPLogLevelError:
+                [self.delegate error:tag message:message];
+                break;
+            case SPLogLevelDebug:
+                [self.delegate debug:tag message:message];
+                break;
+            case SPLogLevelVerbose:
+                [self.delegate verbose:tag message:message];
+                break;
+        }
         return;
     }
     #if SNOWPLOW_TEST

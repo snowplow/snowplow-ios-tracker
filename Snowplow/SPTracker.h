@@ -70,6 +70,15 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 };
 
 /*!
+ @brief Logger delegate to implement in oder to receive logs from the tracker.
+*/
+@protocol SPLoggerDelegate <NSObject>
+- (void)error:(NSString *)tag message:(NSString *)message;
+- (void)debug:(NSString *)tag message:(NSString *)message;
+- (void)verbose:(NSString *)tag message:(NSString *)message;
+@end
+
+/*!
  @brief The builder for SPTracker.
  */
 @protocol SPTrackerBuilder <NSObject>
