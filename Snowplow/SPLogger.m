@@ -57,15 +57,15 @@
     [logger trackErrorWithTag:tag message:message errorOrException:errorOrException];
 }
 
-+ (void)error:(NSString *)tag message:(NSString *)message, ... {
++ (void)error:(NSString *)tag message:(NSString *)message {
     [[SPLogger shared] log:SPLogLevelError tag:tag message:message];
 }
 
-+ (void)debug:(NSString *)tag message:(NSString *)message, ... {
++ (void)debug:(NSString *)tag message:(NSString *)message {
     [[SPLogger shared] log:SPLogLevelDebug tag:tag message:message];
 }
 
-+ (void)verbose:(NSString *)tag message:(NSString *)message, ... {
++ (void)verbose:(NSString *)tag message:(NSString *)message {
     [[SPLogger shared] log:SPLogLevelVerbose tag:tag message:message];
 }
 
