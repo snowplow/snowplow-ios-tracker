@@ -94,6 +94,9 @@
     }
     if (self.delegate) {
         switch (level) {
+            case SPLogLevelOff:
+                // do nothing.
+                break;
             case SPLogLevelError:
                 [self.delegate error:tag message:message];
                 break;

@@ -270,6 +270,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [SPLogger setLogLevel:logLevel];
 }
 
+- (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate {
+    [SPLogger setDelegate:delegate];
+}
+
 - (void) setSessionContext:(BOOL)sessionContext {
     _sessionContext = sessionContext;
     if (_session != nil && !sessionContext) {

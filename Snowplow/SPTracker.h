@@ -135,6 +135,13 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 - (void) setLogLevel:(SPLogLevel)logLevel;
 
 /*!
+ @brief Tracker builder method to set the delegate for log messages tracker's generated.
+
+ @param delegate The logger delegate that received logs from the tracker.
+*/
+- (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate;
+
+/*!
  @brief Tracker builder method to set whether events will include session context
 
  @param sessionContext Whether session context is enabled.
