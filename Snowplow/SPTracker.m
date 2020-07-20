@@ -634,9 +634,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 
     // Add session
     if (_session) {
-        NSDictionary * sessionDict = [_session getSessionDictWithEventId:eventId];
-        if (sessionDict != nil) {
+        NSDictionary *sessionDict = [_session getSessionDictWithEventId:eventId];
+        if (sessionDict) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
+        } else {
+            SPLogTrack(nil, @"Unable to get session context for eventId: %@", eventId);
         }
     }
     
