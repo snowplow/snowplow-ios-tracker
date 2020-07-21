@@ -1,4 +1,9 @@
 
+Version 1.4.1 (2020-07-22)
+--------------------------
+TrueTimestamp has to be set in seconds. (#532)
+ScreenView event doesn't track transitionType (#516) 
+
 Version 1.4.0 (2020-07-10)
 --------------------------
 Validate EventData in Unstructured events (#526)
