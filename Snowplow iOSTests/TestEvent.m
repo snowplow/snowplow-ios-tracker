@@ -108,11 +108,14 @@
     XCTAssertNil([event getTrueTimestamp]);
 
     // Set trueTimestamp
+    NSNumber *testDate = @([[NSDate date] timeIntervalSince1970]);
     event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
-        [builder setTrueTimestamp:@(1234567890)];
+        [builder setTrueTimestamp:testDate];
     }];
-    XCTAssertEqualObjects([event getTrueTimestamp], @(1234567890));
+    long long expected = (long long)(testDate.doubleValue * 1000);
+    long long testing = (long long)([event getTrueTimestamp].doubleValue * 1000);
+    XCTAssertEqual(testing, expected);
 }
 
 - (void)testPageViewBuilderConditions {

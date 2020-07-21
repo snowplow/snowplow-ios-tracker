@@ -61,7 +61,8 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 }
 
 - (void)setTrueTimestamp:(NSNumber *)trueTimestamp {
-    _trueTimestamp = trueTimestamp;
+    long long tt = trueTimestamp.doubleValue * 1000;
+    _trueTimestamp = @(tt);
 }
 
 - (void) setContexts:(NSMutableArray *)contexts {
@@ -90,7 +91,10 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 }
 
 - (NSNumber *)getTrueTimestamp {
-    return _trueTimestamp;
+    if (!_trueTimestamp) {
+        return nil;
+    }
+    return @(_trueTimestamp.longLongValue / (double)1000);
 }
 
 - (NSString *) getEventId {
