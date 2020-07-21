@@ -113,6 +113,7 @@
     [payload setValue:_previousName forKey:kSPSvPreviousName];
     [payload setValue:_previousType forKey:kSPSvPreviousType];
     [payload setValue:_previousId forKey:kSPSvPreviousScreenId];
+    [payload setValue:_transitionType forKey:kSPSvTransitionType];
     return payload;
 }
 
@@ -124,6 +125,7 @@
     [payload addValueToPayload:_previousName forKey:kSPSvPreviousName];
     [payload addValueToPayload:_previousType forKey:kSPSvPreviousType];
     [payload addValueToPayload:_previousId forKey:kSPSvPreviousScreenId];
+    [payload addValueToPayload:_transitionType forKey:kSPSvTransitionType];
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenViewSchema
                                              andPayload:payload];
 }
