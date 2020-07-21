@@ -74,7 +74,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 
 /*!
  @brief Set the optional timestamp of the event.
- @param timestamp The timestamp of the event in milliseconds (epoch time)
+ @param timestamp The timestamp of the event in seconds (epoch time)
  */
 - (void)setTrueTimestamp:(NSNumber *)timestamp;
 
@@ -123,14 +123,14 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 - (NSMutableArray *) getContexts;
 
 /*!
- @brief Get the timestamp of the event.
+ @brief Get the timestamp of the event in milliseconds (epoch time).
  @note If the timestamp is not set, it sets one as a side effect.
  @deprecated This method is for internal use only and will be removed in the next major version.
 */
 - (NSNumber *) getTimestamp __deprecated_msg("The timestamp is set only when the event is processed.");
 
 /*!
- @brief Get the user timestamp of the event if it has been set.
+ @brief Get the user timestamp of the event in seconds (epoch time) if it has been set.
 */
 - (NSNumber *)getTrueTimestamp;
 
