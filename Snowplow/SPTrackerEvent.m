@@ -36,9 +36,9 @@
             self.eventId = [NSUUID UUID];
         }
         if (event.timestamp) {
-            self.timestamp = event.timestamp.doubleValue / 1000;
+            self.timestamp = event.timestamp.longLongValue;
         } else {
-            self.timestamp = [[[NSDate alloc] init] timeIntervalSince1970];
+            self.timestamp = (long long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);
         }
         self.trueTimestamp = event.trueTimestamp;
         self.contexts = [event.contexts mutableCopy];
