@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.4.0</span>
+   &#160;<span id="projectnumber">1.4.1</span>
    </div>
   </td>
  </tr>
@@ -108,9 +108,9 @@ $(function() {
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="keyword">self</span>.eventId = [NSUUID UUID];</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (event.timestamp) {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">self</span>.timestamp = <span class="keyword">event</span>.timestamp.doubleValue / 1000;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keyword">self</span>.timestamp = <span class="keyword">event</span>.timestamp.longLongValue;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keyword">self</span>.timestamp = [[[NSDate alloc] init] timeIntervalSince1970];</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keyword">self</span>.timestamp = (<span class="keywordtype">long</span> long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_event.html#a7f0c9ef70bde9cfeb90915ad73d5f131">trueTimestamp</a> = <span class="keyword">event</span>.trueTimestamp;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">self</span>.contexts = [event.contexts mutableCopy];</div>
