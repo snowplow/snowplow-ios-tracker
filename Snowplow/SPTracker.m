@@ -334,8 +334,8 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark - Diagnostic
 
-- (void)logWithTag:(NSString *)source message:(NSString *)message error:(NSError *)error exception:(NSException *)exception {
-    SPTrackerError *event = [[SPTrackerError alloc] initWithSource:source message:message error:error exception:exception];
+- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(NSError *)error exception:(NSException *)exception {
+    SPTrackerError *event = [[SPTrackerError alloc] initWithSource:tag message:message error:error exception:exception];
     [self track:event];
 }
 
