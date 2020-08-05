@@ -70,6 +70,15 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 };
 
 /*!
+ @brief Logger delegate to implement in oder to receive logs from the tracker.
+*/
+@protocol SPLoggerDelegate <NSObject>
+- (void)error:(NSString *)tag message:(NSString *)message;
+- (void)debug:(NSString *)tag message:(NSString *)message;
+- (void)verbose:(NSString *)tag message:(NSString *)message;
+@end
+
+/*!
  @brief The builder for SPTracker.
  */
 @protocol SPTrackerBuilder <NSObject>
@@ -124,6 +133,13 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
  @param logLevel The SPLogLevel enum indicating the current log level.
  */
 - (void) setLogLevel:(SPLogLevel)logLevel;
+
+/*!
+ @brief Tracker builder method to set the delegate for log messages tracker's generated.
+
+ @param delegate The logger delegate that received logs from the tracker.
+*/
+- (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate;
 
 /*!
  @brief Tracker builder method to set whether events will include session context

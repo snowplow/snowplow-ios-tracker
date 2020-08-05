@@ -62,11 +62,16 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
             builder!.setApplicationContext(true)
             builder!.setExceptionEvents(true)
             builder!.setInstallEvent(true)
+            // set global context generators
             builder!.setGlobalContextGenerators([
                 "ruleSetExampleTag": self.ruleSetGlobalContextExample(),
                 "staticExampleTag": self.staticGlobalContextExample(),
             ])
             builder!.setGdprContextWith(SPGdprProcessingBasis.consent, documentId: "id", documentVersion: "1.0", documentDescription: "description")
+            // set diagnostic and logger delegate
+            builder?.setTrackerDiagnostic(true)
+            builder?.setLogLevel(.verbose)
+            builder?.setLoggerDelegate(self)
         })
         return newTracker!
     }
@@ -197,4 +202,18 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     }
     */
 
+}
+
+extension PageViewController: SPLoggerDelegate {
+    func error(_ tag: String!, message: String!) {
+        print("[Error] \(tag!): \(message!)")
+    }
+    
+    func debug(_ tag: String!, message: String!) {
+        print("[Debug] \(tag!): \(message!)")
+    }
+    
+    func verbose(_ tag: String!, message: String!) {
+        print("[Verbose] \(tag!): \(message!)")
+    }
 }
