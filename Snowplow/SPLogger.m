@@ -30,7 +30,7 @@
 
 @implementation SPLogger
 
-+ (void)setDelegate:(id<SPLoggerDelegate>)delegate {
++ (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate {
     SPLogger *logger = [SPLogger shared];
     logger.delegate = delegate;
 }

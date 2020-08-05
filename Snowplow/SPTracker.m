@@ -271,7 +271,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate {
-    [SPLogger setDelegate:delegate];
+    [SPLogger setLoggerDelegate:delegate];
 }
 
 - (void) setSessionContext:(BOOL)sessionContext {
