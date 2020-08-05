@@ -24,6 +24,8 @@
 
 @interface SPPayload : NSObject
 
+@property (nonatomic) BOOL allowDiagnostic;
+
 /**
  *  Initializes a newly allocated SPPayload
  *  @return A SnowplowPayload.

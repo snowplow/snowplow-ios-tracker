@@ -62,6 +62,13 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
     SPGdprProcessingBasisLegitimateInterests = 5
 };
 
+typedef NS_ENUM(NSInteger, SPLogLevel) {
+    SPLogLevelOff = 0,
+    SPLogLevelError,
+    SPLogLevelDebug,
+    SPLogLevelVerbose,
+};
+
 /*!
  @brief The builder for SPTracker.
  */
@@ -110,6 +117,13 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
  @param devicePlatform The SPDevicePlatform enum indicating the current platform.
  */
 - (void) setDevicePlatform:(SPDevicePlatform)devicePlatform;
+
+/*!
+ @brief Tracker builder method to set the log level desired for logging.
+
+ @param logLevel The SPLogLevel enum indicating the current log level.
+ */
+- (void) setLogLevel:(SPLogLevel)logLevel;
 
 /*!
  @brief Tracker builder method to set whether events will include session context
@@ -180,6 +194,13 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
  @param installEvent Whether to autotrack application installs.
  */
 - (void) setInstallEvent:(BOOL)installEvent;
+
+/*!
+ @brief Tracker builder method to set whether tracker should send tracker diagnostic events.
+ 
+ @param trackerDiagnostic Whether to enable tracker diagnostic.
+ */
+- (void) setTrackerDiagnostic:(BOOL)trackerDiagnostic;
 
 /*!
  @brief Add global context generators to be used by tracker.

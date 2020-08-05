@@ -24,6 +24,7 @@
 #import "SPEventStore.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
+#import "SPLogger.h"
 
 #if SWIFT_PACKAGE
     #import <FMDB.h>
@@ -98,7 +99,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     __block BOOL res = false;
     [_queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
-            SnowplowDLog(@"SPLog: Removing %@ from database now.", [@(id_) stringValue]);
+            SPLogDebug(@"Removing %@ from database now.", [@(id_) stringValue]);
             res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
         }
     }];
@@ -139,8 +140,8 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
                 NSData * data = [s dataForColumn:@"eventData"];
-                SnowplowDLog(@"SPLog: Item: %d %@ %@",
-                     [s intForColumn:@"ID"],
+                SPLogDebug(@"Item: %@ %@ %@",
+                     [NSNumber numberWithInt:[s intForColumn:@"ID"]],
                      [s dateForColumn:@"dateCreated"],
                      [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                 dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
@@ -169,7 +170,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
                 long long int index = [s longLongIntForColumn:@"ID"];
                 NSData * data =[s dataForColumn:@"eventData"];
                 NSDate * date = [s dateForColumn:@"dateCreated"];
-                SnowplowDLog(@"SPLog: Item: %@ %@ %@",
+                SPLogDebug(@"Item: %@ %@ %@",
                      [@(index) stringValue],
                      [date description],
                      [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);

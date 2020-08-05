@@ -69,6 +69,7 @@ NSString * const kSPBackgroundSchema = @"iglu:com.snowplowanalytics.snowplow/app
 NSString * const kSPErrorSchema = @"iglu:com.snowplowanalytics.snowplow/application_error/jsonschema/1-0-2";
 NSString * const kSPApplicationInstallSchema = @"iglu:com.snowplowanalytics.mobile/application_install/jsonschema/1-0-0";
 NSString * const kSPGdprContextSchema     = @"iglu:com.snowplowanalytics.snowplow/gdpr/jsonschema/1-0-0";
+NSString * const kSPDiagnosticErrorSchema = @"iglu:com.snowplowanalytics.snowplow/diagnostic_error/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -279,5 +280,12 @@ NSString * const kSPBasisForProcessing  = @"basisForProcessing";
 NSString * const kSPDocumentId          = @"documentId";
 NSString * const kSPDocumentVersion     = @"documentVersion";
 NSString * const kSPDocumentDescription = @"documentDescription";
+
+// --- Tracker Diagnostic
+
+NSString * const kSPDiagnosticErrorMessage       = @"message";
+NSString * const kSPDiagnosticErrorStack         = @"stackTrace";
+NSString * const kSPDiagnosticErrorClassName     = @"className";
+NSString * const kSPDiagnosticErrorExceptionName = @"exceptionName";
 
 @end

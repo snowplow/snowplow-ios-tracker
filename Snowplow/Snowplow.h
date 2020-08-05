@@ -38,14 +38,6 @@
 #define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
 #endif
 
-// Macros for Logging
-#ifdef SNOWPLOW_DEBUG
-#   define SnowplowDLog(...) NSLog(__VA_ARGS__)
-#else
-#   define SnowplowDLog(...)
-#endif
-#define ALog(...) NSLog(__VA_ARGS__)
-
 @interface Snowplow : NSObject
 
 // --- Version
@@ -85,6 +77,7 @@ extern NSString * const kSPForegroundSchema;
 extern NSString * const kSPErrorSchema;
 extern NSString * const kSPApplicationInstallSchema;
 extern NSString * const kSPGdprContextSchema;
+extern NSString * const kSPDiagnosticErrorSchema;
 
 // --- Event Keys
 
@@ -291,5 +284,12 @@ extern NSString * const kSPBasisForProcessing;
 extern NSString * const kSPDocumentId;
 extern NSString * const kSPDocumentVersion;
 extern NSString * const kSPDocumentDescription;
+
+// --- Tracker Diagnostic
+
+extern NSString * const kSPDiagnosticErrorMessage;
+extern NSString * const kSPDiagnosticErrorStack;
+extern NSString * const kSPDiagnosticErrorClassName;
+extern NSString * const kSPDiagnosticErrorExceptionName;
 
 @end

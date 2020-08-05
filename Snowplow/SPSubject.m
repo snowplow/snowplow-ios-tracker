@@ -24,6 +24,7 @@
 #import "SPSubject.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
+#import "SPLogger.h"
 
 @implementation SPSubject {
     SPPayload *           _standardDict;
@@ -62,7 +63,7 @@
     if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
         return _geoLocationDict;
     } else {
-        SnowplowDLog(@"SPLog: GeoLocation missing required fields; cannot get.");
+        SPLogDebug(@"GeoLocation missing required fields; cannot get.");
         return nil;
     }
 }

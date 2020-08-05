@@ -29,6 +29,7 @@
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
 #import "SPRequestCallback.h"
+#import "SPLogger.h"
 
 @implementation SPEmitter {
     SPEventStore *     _db;
@@ -88,13 +89,13 @@ const NSInteger POST_STM_BYTES = 22;
     _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _url, urlSuffix]];
     
     if (_urlEndpoint && _urlEndpoint.scheme && _urlEndpoint.host) {
-        SnowplowDLog(@"SPLog: Emitter URL created successfully '%@'", _urlEndpoint);
+        SPLogDebug(@"Emitter URL created successfully '%@'", _urlEndpoint);
         NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:_url forKey:kSPErrorTrackerUrl];
         [userDefaults setObject:urlSuffix forKey:kSPErrorTrackerProtocol];
         [userDefaults setObject:urlPrefix forKey:kSPErrorTrackerMethod];
     } else {
-        SnowplowDLog(@"SPLog: Invalid emitter URL: '%@'", _urlEndpoint);
+        SPLogDebug(@"Invalid emitter URL: '%@'", _urlEndpoint);
         NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
         [userDefaults setObject:@"acme.com" forKey:kSPErrorTrackerUrl];
         [userDefaults setObject:kSPEndpointPost forKey:kSPErrorTrackerProtocol];
@@ -188,10 +189,10 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) sendEvents {
-    SnowplowDLog(@"SPLog: Sending events...");
+    SPLogDebug(@"Sending events...", nil);
     
     if ([self getDbCount] == 0) {
-        SnowplowDLog(@"SPLog: Database empty. Returning..");
+        SPLogDebug(@"Database empty. Returning..", nil);
         _isSending = NO;
         return;
     }
@@ -302,8 +303,8 @@ const NSInteger POST_STM_BYTES = 22;
     
     [_dataOperationQueue waitUntilAllOperationsAreFinished];
     
-    SnowplowDLog(@"SPLog: Emitter Success Count: %@", [@(success) stringValue]);
-    SnowplowDLog(@"SPLog: Emitter Failure Count: %@", [@(failure) stringValue]);
+    SPLogDebug(@"Emitter Success Count: %@", [@(success) stringValue]);
+    SPLogDebug(@"Emitter Failure Count: %@", [@(failure) stringValue]);
     
     if (_callback != nil) {
         if (failure == 0) {
@@ -316,7 +317,7 @@ const NSInteger POST_STM_BYTES = 22;
     [sendResults removeAllObjects];
     
     if (success == 0 && failure > 0) {
-        SnowplowDLog(@"SPLog: Ending emitter run as all requests failed...");
+        SPLogDebug(@"Ending emitter run as all requests failed...", nil);
         [NSThread sleepForTimeInterval:5];
         _isSending = NO;
         return;
@@ -350,7 +351,7 @@ const NSInteger POST_STM_BYTES = 22;
                 } else if ([httpResponse statusCode] >= 200 && [httpResponse statusCode] < 300) {
                     [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
                 } else {
-                    NSLog(@"SPLog: Error: %@", connectionError);
+                    SPLogError(@"Connection error: %@", connectionError);
                     [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
                 }
             }
@@ -365,7 +366,7 @@ const NSInteger POST_STM_BYTES = 22;
         if (strongSelf == nil) return;
         
         for (int i = 0; i < indexArray.count;  i++) {
-            SnowplowDLog(@"SPLog: Removing event at index: %@", [@(i) stringValue]);
+            SPLogDebug(@"Removing event at index: %@", [@(i) stringValue]);
             [strongSelf->_db removeEventWithId:[[indexArray objectAtIndex:i] longLongValue]];
         }
     }];
