@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "SPPayload.h"
+#import "SPEmitterEvent.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -51,7 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param queryLimit is the maximum number of events returned.
  * @return EmitterEvent objects containing storeIds and event payloads.
  */
-- (NSArray *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit;
+- (NSArray<SPEmitterEvent *> *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit;
 
 @end
 

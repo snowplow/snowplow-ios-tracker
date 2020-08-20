@@ -198,7 +198,7 @@ const NSInteger POST_STM_BYTES = 22;
         return;
     }
     
-    NSArray *listValues = [[NSArray alloc] initWithArray:[_db emittableEventsWithQueryLimit:_emitRange]];
+    NSArray<SPEmitterEvent *> *listValues = [[NSArray alloc] initWithArray:[_db emittableEventsWithQueryLimit:_emitRange]];
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
     if (_httpMethod == SPRequestPost) {
@@ -206,10 +206,10 @@ const NSInteger POST_STM_BYTES = 22;
         NSMutableArray *indexArray = [[NSMutableArray alloc] init];
         NSInteger totalByteSize = 0;
         
-        for (int i = 0; i < listValues.count; i ++) {
+        for (SPEmitterEvent *event in listValues) {
             
             // Get the event payload
-            NSMutableDictionary *eventPayload = [[listValues[i] objectForKey:@"eventData"] mutableCopy];
+            NSMutableDictionary<NSString *, NSObject *> *eventPayload = [[event.payload getAsDictionary] mutableCopy];
             
             // Convert to NSData and check the byte size
             NSData *data = [NSJSONSerialization dataWithJSONObject:eventPayload options:0 error:nil];
@@ -218,12 +218,12 @@ const NSInteger POST_STM_BYTES = 22;
             
             if ((payloadByteSize + POST_WRAPPER_BYTES) > _byteLimitPost) {
                 // Single event exceeds the byte limit so must be sent individually.
-                NSMutableArray *singleEventArray = [[NSMutableArray alloc] init];
-                NSMutableArray *singleIndexArray = [[NSMutableArray alloc] init];
+                NSMutableArray<NSDictionary<NSString *, NSObject *> *> *singleEventArray = [[NSMutableArray alloc] init];
+                NSMutableArray<NSNumber *> *singleIndexArray = [[NSMutableArray alloc] init];
                 
                 // Build and Send the event!
                 [singleEventArray addObject:eventPayload];
-                [singleIndexArray addObject:[listValues[i] objectForKey:@"ID"]];
+                [singleIndexArray addObject:[NSNumber numberWithLongLong:event.storeId]];
                 
                 // Add the STM to the event
                 [self addStmToEventPayloadsWithArray:singleEventArray];
@@ -246,14 +246,14 @@ const NSInteger POST_STM_BYTES = 22;
                 
                 // Add event to collections
                 [eventArray addObject:eventPayload];
-                [indexArray addObject:[listValues[i] objectForKey:@"ID"]];
+                [indexArray addObject:[NSNumber numberWithLongLong:event.storeId]];
                 
                 // Update byte count
                 totalByteSize = payloadByteSize;
             } else {
                 // Add event to collections
                 [eventArray addObject:eventPayload];
-                [indexArray addObject:[listValues[i] objectForKey:@"ID"]];
+                [indexArray addObject:[NSNumber numberWithLongLong:event.storeId]];
                 
                 // Update byte count
                 totalByteSize += payloadByteSize;
@@ -271,9 +271,10 @@ const NSInteger POST_STM_BYTES = 22;
             [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
         }
     } else {
-        for (NSDictionary * eventWithMetaData in listValues) {
-            NSArray *indexArray = [NSArray arrayWithObject:[eventWithMetaData objectForKey:@"ID"]];
-            NSMutableDictionary *eventPayload = [[eventWithMetaData objectForKey:@"eventData"] mutableCopy];
+        for (SPEmitterEvent *event in listValues) {
+            NSNumber *storeId = [NSNumber numberWithLongLong:event.storeId];
+            NSArray *indexArray = [NSArray arrayWithObject:storeId];
+            NSMutableDictionary<NSString *, NSObject *> *eventPayload = [[event.payload getAsDictionary] mutableCopy];
             [eventPayload setValue:[NSString stringWithFormat:@"%lld", [[SPUtilities getTimestamp] longLongValue]] forKey:kSPSentTimestamp];
             
             // Make GET URL to send

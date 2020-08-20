@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPEventStore.h"
+#import "SPEmitterEvent.h"
 
 @class SPPayload;
 @class FMDatabaseQueue;
@@ -38,31 +39,31 @@
  *  @param payload A SnowplowPayload instance to be inserted into the database.
  *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
  */
-- (long long int) insertEvent:(SPPayload *)payload;
+- (long long int)insertEvent:(SPPayload *)payload;
 
 /**
  *  Finds the row in the event table with the supplied ID.
  *  @param id_ Unique ID of the row in the events table to be returned.
  *  @return A dictionary containing data with keys: 'ID', 'eventData', and 'dateCreated'.
  */
-- (NSDictionary *) getEventWithId:(long long int)id_;
+- (SPEmitterEvent *)getEventWithId:(long long int)id_;
 
 /**
  *  Returns all the events in an array of dictionaries.
  *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
  */
-- (NSArray *) getAllEvents;
+- (NSArray<SPEmitterEvent *> *)getAllEvents;
 
 /**
  *  Returns limited number the events that are NOT pending in an array of dictionaries.
  *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
  */
-- (NSArray *) getAllEventsLimited:(NSUInteger)limit;
+- (NSArray<SPEmitterEvent *> *)getAllEventsLimited:(NSUInteger)limit;
 
 /**
  *  The row ID of the last insert made.
  *  @return The row ID of the last insert made.
  */
-- (long long int) getLastInsertedRowId;
+- (long long int)getLastInsertedRowId;
 
 @end

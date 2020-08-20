@@ -128,7 +128,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     return num;
 }
 
-- (NSArray *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit {
+- (NSArray<SPEmitterEvent *> *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit {
     return [self getAllEventsLimited:self.sendLimit];
 }
 
@@ -163,53 +163,44 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     return res;
 }
 
-- (NSDictionary *) getEventWithId:(long long int)id_ {
-    __block NSDictionary *dict = nil;
+- (SPEmitterEvent *) getEventWithId:(long long int)id_ {
+    __block SPEmitterEvent *event = nil;
     [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
                 NSData * data = [s dataForColumn:@"eventData"];
-                SPLogDebug(@"Item: %@ %@ %@",
-                     [NSNumber numberWithInt:[s intForColumn:@"ID"]],
-                     [s dateForColumn:@"dateCreated"],
-                     [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+                SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:dict];
+                event = [[SPEmitterEvent alloc] initWithPayload:payload storeId:id_];
             }
             [s close];
         }
     }];
-    return dict;
+    return event;
 }
 
-- (NSArray *) getAllEvents {
+- (NSArray<SPEmitterEvent *> *)getAllEvents {
     return [self getAllEventsWithQuery:_querySelectAll];
 }
 
-- (NSArray *) getAllEventsLimited:(NSUInteger)limit {
+- (NSArray<SPEmitterEvent *> *)getAllEventsLimited:(NSUInteger)limit {
     NSString *query = [NSString stringWithFormat:@"%@ LIMIT %@", _querySelectAll, [@(limit) stringValue]];
     return [self getAllEventsWithQuery:query];
 }
 
-- (NSArray *) getAllEventsWithQuery:(NSString *)query {
+- (NSArray<SPEmitterEvent *> *) getAllEventsWithQuery:(NSString *)query {
     __block NSMutableArray *res = [[NSMutableArray alloc] init];
     [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             FMResultSet *s = [db executeQuery:query];
             while ([s next]) {
                 long long int index = [s longLongIntForColumn:@"ID"];
-                NSData * data =[s dataForColumn:@"eventData"];
-                NSDate * date = [s dateForColumn:@"dateCreated"];
-                SPLogDebug(@"Item: %@ %@ %@",
-                     [@(index) stringValue],
-                     [date description],
-                     [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                NSData *data = [s dataForColumn:@"eventData"];
                 NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
-                NSMutableDictionary * eventWithSqlMetadata = [[NSMutableDictionary alloc] init];
-                [eventWithSqlMetadata setValue:dict forKey:@"eventData"];
-                [eventWithSqlMetadata setValue:[NSNumber numberWithLongLong:index] forKey:@"ID"];
-                [eventWithSqlMetadata setValue:date forKey:@"dateCreated"];
-                [res addObject:eventWithSqlMetadata];
+                SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:dict];
+                SPEmitterEvent *event = [[SPEmitterEvent alloc] initWithPayload:payload storeId:index];
+                [res addObject:event];
             }
             [s close];
         }

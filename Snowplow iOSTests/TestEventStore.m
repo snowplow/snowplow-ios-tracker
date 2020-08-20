@@ -58,7 +58,7 @@
     [eventStore insertEvent:payload];
     
     XCTAssertEqual([eventStore count], 1);
-    XCTAssertEqualObjects([eventStore getEventWithId:1], [payload getAsDictionary]);
+    XCTAssertEqualObjects([[eventStore getEventWithId:1].payload getAsDictionary], [payload getAsDictionary]);
     XCTAssertEqual([eventStore getLastInsertedRowId], 1);
     [eventStore removeEventWithId:1];
     
