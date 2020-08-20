@@ -30,7 +30,7 @@
 
 @protocol SPRequestCallback;
 @class SPPayload;
-@class SPEventStore;
+@class SPDefaultEventStore;
 
 /*!
  @brief An enum for HTTP method types.

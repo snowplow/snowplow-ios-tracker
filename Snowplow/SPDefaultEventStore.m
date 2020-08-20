@@ -1,5 +1,5 @@
 //
-//  SPEventStore.h
+//  SPDefaultEventStore.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -21,7 +21,7 @@
 //
 
 #import "Snowplow.h"
-#import "SPEventStore.h"
+#import "SPDefaultEventStore.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
 #import "SPLogger.h"
@@ -32,10 +32,15 @@
     #import <fmdb/FMDB.h>
 #endif
 
-@implementation SPEventStore {
-    NSString *        _dbPath;
-    FMDatabaseQueue * _queue;
-}
+@interface SPDefaultEventStore ()
+
+@property (nonatomic) NSString *dbPath;
+@property (nonatomic) FMDatabaseQueue *queue;
+@property NSUInteger sendLimit;
+
+@end
+
+@implementation SPDefaultEventStore
 
 static NSString * const _queryCreateTable = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 static NSString * const _querySelectAll   = @"SELECT * FROM 'events'";
@@ -44,31 +49,94 @@ static NSString * const _queryInsertEvent = @"INSERT INTO 'events' (eventData) V
 static NSString * const _querySelectId    = @"SELECT * FROM 'events' WHERE id=?";
 static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 
-- (id) init {
-    self = [super init];
-    NSString *libraryPath = nil;
-    
+- (instancetype)init {
+    return [self initWithLimit:250];
+}
+
+- (instancetype)initWithLimit:(NSUInteger)limit {
+    if (self = [super init]) {
 #if SNOWPLOW_TARGET_TV
-    libraryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 #else
-    libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 #endif
-    _dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
-    
-    if (self){
-        _queue = [FMDatabaseQueue databaseQueueWithPath:_dbPath];
+        self.dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+        self.queue = [FMDatabaseQueue databaseQueueWithPath:self.dbPath];
+        self.sendLimit = limit;
         [self createTable];
     }
     return self;
 }
 
 - (void) dealloc {
-    [_queue close];
+    [self.queue close];
 }
 
+// MARK: SPEventStore implementation methods
+
+- (void)addEvent:(SPPayload *)payload {
+    [self insertDictionaryData:[payload getAsDictionary]];
+}
+
+- (BOOL)removeEvent:(long long int)storeId {
+    __block BOOL res = NO;
+    [self.queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            SPLogDebug(@"Removing %@ from database now.", [@(storeId) stringValue]);
+            res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:storeId]];
+        }
+    }];
+    return res;
+}
+
+- (BOOL)removeEvents:(NSArray<NSNumber *> *)storeIds {
+    BOOL result = YES;
+    for (NSNumber *storeId in storeIds) {
+        BOOL localResult = [self removeEventWithId:storeId.longLongValue];
+        result &= localResult;
+    }
+    return result;
+}
+
+- (BOOL)removeAllEvents {
+    __block BOOL result = NO;
+    [self.queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectAll];
+            while ([s next]) {
+                long long int index = [s longLongIntForColumn:@"ID"];
+                [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:index]];
+            }
+            [s close];
+            result = YES;
+        }
+    }];
+    return result;
+}
+
+- (NSUInteger)count {
+    __block NSUInteger num = 0;
+    [self.queue inDatabase:^(FMDatabase *db) {
+        if ([db open]) {
+            FMResultSet *s = [db executeQuery:_querySelectCount];
+            while ([s next]) {
+                num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
+            }
+            [s close];
+        }
+    }];
+    return num;
+}
+
+- (NSArray *)emittableEvents {
+    return [self getAllEventsLimited:self.sendLimit];
+}
+
+// MARK: SPDefaultEventStore methods
+
 - (BOOL) createTable {
-    __block BOOL res = false;
-    [_queue inDatabase:^(FMDatabase *db) {
+    __block BOOL res = NO;
+    [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             res = [db executeStatements:_queryCreateTable];
         }
@@ -85,7 +153,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     if (!dict) {
       return res;
     }
-    [_queue inDatabase:^(FMDatabase *db) {
+    [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
             [db executeUpdate:_queryInsertEvent, data];
@@ -96,8 +164,8 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 }
 
 - (BOOL) removeEventWithId:(long long int)id_ {
-    __block BOOL res = false;
-    [_queue inDatabase:^(FMDatabase *db) {
+    __block BOOL res = NO;
+    [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             SPLogDebug(@"Removing %@ from database now.", [@(id_) stringValue]);
             res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
@@ -106,36 +174,9 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     return res;
 }
 
-- (void) removeAllEvents {
-    [_queue inDatabase:^(FMDatabase *db) {
-        if ([db open]) {
-            FMResultSet *s = [db executeQuery:_querySelectAll];
-            while ([s next]) {
-                long long int index = [s longLongIntForColumn:@"ID"];
-                [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:index]];
-            }
-            [s close];
-        }
-    }];
-}
-
-- (NSUInteger) count {
-    __block NSUInteger num = 0;
-    [_queue inDatabase:^(FMDatabase *db) {
-        if ([db open]) {
-            FMResultSet *s = [db executeQuery:_querySelectCount];
-            while ([s next]) {
-                num = [[NSNumber numberWithInt:[s intForColumnIndex:0]] integerValue];
-            }
-            [s close];
-        }
-    }];
-    return num;
-}
-
 - (NSDictionary *) getEventWithId:(long long int)id_ {
     __block NSDictionary *dict = nil;
-    [_queue inDatabase:^(FMDatabase *db) {
+    [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
@@ -163,7 +204,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 
 - (NSArray *) getAllEventsWithQuery:(NSString *)query {
     __block NSMutableArray *res = [[NSMutableArray alloc] init];
-    [_queue inDatabase:^(FMDatabase *db) {
+    [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
             FMResultSet *s = [db executeQuery:query];
             while ([s next]) {
@@ -189,7 +230,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 
 - (long long int) getLastInsertedRowId {
     __block long long int res = -1;
-    [_queue inDatabase:^(FMDatabase *db) {
+    [self.queue inDatabase:^(FMDatabase *db) {
         res = [db lastInsertRowId];
     }];
     return res;

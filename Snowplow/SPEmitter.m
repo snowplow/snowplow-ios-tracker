@@ -22,7 +22,7 @@
 
 #import "Snowplow.h"
 #import "SPEmitter.h"
-#import "SPEventStore.h"
+#import "SPDefaultEventStore.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
@@ -32,7 +32,7 @@
 #import "SPLogger.h"
 
 @implementation SPEmitter {
-    SPEventStore *     _db;
+    SPDefaultEventStore *_db;
     NSString *         _url;
     NSTimer *          _timer;
     BOOL               _isSending;
@@ -65,7 +65,7 @@ const NSInteger POST_STM_BYTES = 22;
         _byteLimitGet = 40000;
         _byteLimitPost = 40000;
         _isSending = NO;
-        _db = [[SPEventStore alloc] init];
+        _db = [[SPDefaultEventStore alloc] init];
         _dataOperationQueue = [[NSOperationQueue alloc] init];
         _builderFinished = NO;
         _customPostPath = nil;

@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "SPEventStore.h"
+#import "SPDefaultEventStore.h"
 #import "SPPayload.h"
 
 @interface TestEventStore : XCTestCase
@@ -39,12 +39,12 @@
 }
 
 - (void)testInit {
-    SPEventStore * eventStore = [[SPEventStore alloc] init];
+    SPDefaultEventStore * eventStore = [[SPDefaultEventStore alloc] init];
     XCTAssertNotNil(eventStore);
 }
 
 - (void)testInsertPayload {
-    SPEventStore * eventStore = [[SPEventStore alloc] init];
+    SPDefaultEventStore * eventStore = [[SPDefaultEventStore alloc] init];
     [eventStore removeAllEvents];
     
     // Build an event
@@ -66,7 +66,7 @@
 }
 
 - (void)testInsertManyPayloads {
-    SPEventStore * eventStore = [[SPEventStore alloc] init];
+    SPDefaultEventStore * eventStore = [[SPDefaultEventStore alloc] init];
     [eventStore removeAllEvents];
     
     // Build an event
