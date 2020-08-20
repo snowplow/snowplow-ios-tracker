@@ -23,6 +23,7 @@
 #import "Snowplow.h"
 #import "SPEmitter.h"
 #import "SPDefaultEventStore.h"
+#import "SPEventStore.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
@@ -32,7 +33,7 @@
 #import "SPLogger.h"
 
 @implementation SPEmitter {
-    SPDefaultEventStore *_db;
+    NSObject<SPEventStore> *_db;
     NSString *         _url;
     NSTimer *          _timer;
     BOOL               _isSending;
@@ -166,7 +167,7 @@ const NSInteger POST_STM_BYTES = 22;
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) return;
         
-        [strongSelf->_db insertEvent:spPayload];
+        [strongSelf->_db addEvent:spPayload];
         [strongSelf flushBuffer];
     });
 }
@@ -197,7 +198,7 @@ const NSInteger POST_STM_BYTES = 22;
         return;
     }
     
-    NSArray *listValues = [[NSArray alloc] initWithArray:[_db getAllEventsLimited:_emitRange]];
+    NSArray *listValues = [[NSArray alloc] initWithArray:[_db emittableEventsWithQueryLimit:_emitRange]];
     NSMutableArray *sendResults = [[NSMutableArray alloc] init];
     
     if (_httpMethod == SPRequestPost) {

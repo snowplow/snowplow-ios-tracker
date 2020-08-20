@@ -25,14 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
  * @param storeId the identifier of the event in the store.
  * @return a boolean of success to remove.
  */
-- (BOOL)removeEvent:(long long int)storeId;
+- (BOOL)removeEventWithId:(long long int)storeId;
 
 /**
  * Removes a range of events from the store.
  * @param storeIds the events' identifiers in the store.
  * @return a boolean of success to remove.
  */
-- (BOOL)removeEvents:(NSArray<NSNumber *> *)storeIds;
+- (BOOL)removeEventsWithIds:(NSArray<NSNumber *> *)storeIds;
 
 /**
  * Empties the store of all the events.
@@ -48,9 +48,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 /**
  * Returns a list of EmitterEvent objects which contains events and related ids.
+ * @param queryLimit is the maximum number of events returned.
  * @return EmitterEvent objects containing storeIds and event payloads.
  */
-- (NSArray *)emittableEvents;
+- (NSArray *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit;
 
 @end
 

@@ -78,7 +78,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     [self insertDictionaryData:[payload getAsDictionary]];
 }
 
-- (BOOL)removeEvent:(long long int)storeId {
+- (BOOL)removeEventWithId:(long long)storeId {
     __block BOOL res = NO;
     [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
@@ -89,7 +89,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     return res;
 }
 
-- (BOOL)removeEvents:(NSArray<NSNumber *> *)storeIds {
+- (BOOL)removeEventsWithIds:(NSArray<NSNumber *> *)storeIds {
     BOOL result = YES;
     for (NSNumber *storeId in storeIds) {
         BOOL localResult = [self removeEventWithId:storeId.longLongValue];
@@ -128,7 +128,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     return num;
 }
 
-- (NSArray *)emittableEvents {
+- (NSArray *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit {
     return [self getAllEventsLimited:self.sendLimit];
 }
 
@@ -158,17 +158,6 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
             NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
             [db executeUpdate:_queryInsertEvent, data];
             res = (long long int) [db lastInsertRowId];
-        }
-    }];
-    return res;
-}
-
-- (BOOL) removeEventWithId:(long long int)id_ {
-    __block BOOL res = NO;
-    [self.queue inDatabase:^(FMDatabase *db) {
-        if ([db open]) {
-            SPLogDebug(@"Removing %@ from database now.", [@(id_) stringValue]);
-            res = [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:id_]];
         }
     }];
     return res;

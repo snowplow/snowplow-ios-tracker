@@ -21,7 +21,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "SPEventStore.h"
 
 @class SPPayload;
@@ -35,24 +34,11 @@
 - (instancetype)init;
 
 /**
- * Initializer that creates a database event table (if one does not exist) and then closes the connection.
- * @param limit is the maximum number of events the store returns in a single query.
- */
-- (instancetype)initWithLimit:(NSUInteger)limit;
-
-/**
  *  Inserts events into the sqlite table for the app identified with it's bundleId (appId).
  *  @param payload A SnowplowPayload instance to be inserted into the database.
  *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
  */
 - (long long int) insertEvent:(SPPayload *)payload;
-
-/**
- *  Removes an event from the table with the supplied id.
- *  @param id_ Unique ID of the row in the events table to be deleted.
- *  @return Returns the status of the SQL query sent.
- */
-- (BOOL) removeEventWithId:(long long int)id_;
 
 /**
  *  Finds the row in the event table with the supplied ID.
