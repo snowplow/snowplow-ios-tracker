@@ -30,6 +30,7 @@
 #import "SPRequestResponse.h"
 #import "SPWeakTimerTarget.h"
 #import "SPRequestCallback.h"
+#import "SPRequest.h"
 #import "SPLogger.h"
 
 @implementation SPEmitter {
@@ -41,8 +42,7 @@
     BOOL               _builderFinished;
 }
 
-const NSInteger POST_WRAPPER_BYTES = 88;
-const NSInteger POST_STM_BYTES = 22;
+const NSUInteger POST_WRAPPER_BYTES = 88;
 
 // SnowplowEmitter Builder
 
@@ -183,161 +183,161 @@ const NSInteger POST_STM_BYTES = 22;
 }
 
 - (void) sendGuard {
-    if (!_isSending) {
-        _isSending = YES;
-        [self sendEvents];
+    if (_isSending) {
+        return;
+    }
+    @synchronized (self) {
+        if (!_isSending) {  //$ does it make sense the use of isSending? rather than a serial dispatcher
+            _isSending = YES;
+            [self attemptEmit];
+        }
     }
 }
 
-- (void) sendEvents {
-    SPLogDebug(@"Sending events...", nil);
-    
-    if ([self getDbCount] == 0) {
-        SPLogDebug(@"Database empty. Returning..", nil);
+- (void)attemptEmit {
+    if (!_db.count) {
+        SPLogDebug(@"Database empty. Returning..", nil);  //$ empty limit not implemented?
         _isSending = NO;
         return;
     }
     
-    NSArray<SPEmitterEvent *> *listValues = [[NSArray alloc] initWithArray:[_db emittableEventsWithQueryLimit:_emitRange]];
-    NSMutableArray *sendResults = [[NSMutableArray alloc] init];
+    NSArray<SPEmitterEvent *> *events = [_db emittableEventsWithQueryLimit:_emitRange]; //$ rename listValues to events
+    NSArray<SPRequest *> *requests = [self buildRequestsFromEvents:events];
+    NSArray<SPRequestResponse *> *sendResults = [self sendRequests:requests];
     
-    if (_httpMethod == SPRequestPost) {
-        NSMutableArray *eventArray = [[NSMutableArray alloc] init];
-        NSMutableArray *indexArray = [[NSMutableArray alloc] init];
-        NSInteger totalByteSize = 0;
-        
-        for (SPEmitterEvent *event in listValues) {
-            
-            // Get the event payload
-            NSMutableDictionary<NSString *, NSObject *> *eventPayload = [[event.payload getAsDictionary] mutableCopy];
-            
-            // Convert to NSData and check the byte size
-            NSData *data = [NSJSONSerialization dataWithJSONObject:eventPayload options:0 error:nil];
-            NSInteger payloadByteSize = [SPUtilities getByteSizeWithString:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
-            payloadByteSize += POST_STM_BYTES;
-            
-            if ((payloadByteSize + POST_WRAPPER_BYTES) > _byteLimitPost) {
-                // Single event exceeds the byte limit so must be sent individually.
-                NSMutableArray<NSDictionary<NSString *, NSObject *> *> *singleEventArray = [[NSMutableArray alloc] init];
-                NSMutableArray<NSNumber *> *singleIndexArray = [[NSMutableArray alloc] init];
-                
-                // Build and Send the event!
-                [singleEventArray addObject:eventPayload];
-                [singleIndexArray addObject:[NSNumber numberWithLongLong:event.storeId]];
-                
-                // Add the STM to the event
-                [self addStmToEventPayloadsWithArray:singleEventArray];
-                
-                SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
-                                                                                     andData:singleEventArray];
-                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:singleIndexArray andResultArray:sendResults andOversize:YES];
-            } else if ((totalByteSize + payloadByteSize + POST_WRAPPER_BYTES + (eventArray.count - 1)) > _byteLimitPost) {
-                // Add the STM to each event
-                [self addStmToEventPayloadsWithArray:eventArray];
-                
-                // Adding this event to the accumulated array would exceed the limit.
-                SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
-                                                                                     andData:eventArray];
-                [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
-                
-                // Reset collections and STM
-                eventArray = [[NSMutableArray alloc] init];
-                indexArray = [[NSMutableArray alloc] init];
-                
-                // Add event to collections
-                [eventArray addObject:eventPayload];
-                [indexArray addObject:[NSNumber numberWithLongLong:event.storeId]];
-                
-                // Update byte count
-                totalByteSize = payloadByteSize;
-            } else {
-                // Add event to collections
-                [eventArray addObject:eventPayload];
-                [indexArray addObject:[NSNumber numberWithLongLong:event.storeId]];
-                
-                // Update byte count
-                totalByteSize += payloadByteSize;
-            }
-        }
-            
-        // If we have not sent all of the events...
-        if (eventArray.count > 0) {
-            // Add the STM to each event
-            [self addStmToEventPayloadsWithArray:eventArray];
-            
-            // Send the event!
-            SPSelfDescribingJson *payload = [[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema
-                                                                                 andData:eventArray];
-            [self sendEventWithRequest:[self getRequestPostWithData:payload] andIndex:indexArray andResultArray:sendResults andOversize:NO];
-        }
-    } else {
-        for (SPEmitterEvent *event in listValues) {
-            NSNumber *storeId = [NSNumber numberWithLongLong:event.storeId];
-            NSArray *indexArray = [NSArray arrayWithObject:storeId];
-            NSMutableDictionary<NSString *, NSObject *> *eventPayload = [[event.payload getAsDictionary] mutableCopy];
-            [eventPayload setValue:[NSString stringWithFormat:@"%lld", [[SPUtilities getTimestamp] longLongValue]] forKey:kSPSentTimestamp];
-            
-            // Make GET URL to send
-            NSString *url = [NSString stringWithFormat:@"%@?%@", [_urlEndpoint absoluteString], [SPUtilities urlEncodeDictionary:eventPayload]];
-            BOOL oversize = ([SPUtilities getByteSizeWithString:url] > _byteLimitGet);
-            
-            // Send the request
-            [self sendEventWithRequest:[self getRequestGetWithString:url] andIndex:indexArray andResultArray:sendResults andOversize:oversize];
-        }
-    }
+    SPLogVerbose(@"Processing emitter results.");
     
-    [_dataOperationQueue waitUntilAllOperationsAreFinished];
+    NSInteger successCount = 0;
+    NSInteger failureCount = 0;
+    NSMutableArray<NSNumber *> *removableEvents = [NSMutableArray new];
     
-    NSInteger success = 0;
-    NSInteger failure = 0;
-    
-    for (int i = 0; i < sendResults.count; i++) {
-        SPRequestResponse * result = [sendResults objectAtIndex:i];
-        NSArray * resultIndexArray = [result getIndexArray];
-        
+    for (SPRequestResponse *result in sendResults) {
+        NSArray<NSNumber *> *resultIndexArray = [result getIndexArray];
         if ([result getSuccess]) {
-            success += resultIndexArray.count;
-            [self processSuccessesWithResults:resultIndexArray];
+            successCount += resultIndexArray.count;
+            [removableEvents addObjectsFromArray:resultIndexArray];
         } else {
-            failure += resultIndexArray.count;
+            failureCount += resultIndexArray.count;
         }
     }
+
+    [self processSuccessesWithResults:removableEvents];
     
-    [_dataOperationQueue waitUntilAllOperationsAreFinished];
-    
-    SPLogDebug(@"Emitter Success Count: %@", [@(success) stringValue]);
-    SPLogDebug(@"Emitter Failure Count: %@", [@(failure) stringValue]);
+    SPLogDebug(@"Success Count: %@", [@(successCount) stringValue]);
+    SPLogDebug(@"Failure Count: %@", [@(failureCount) stringValue]);
     
     if (_callback != nil) {
-        if (failure == 0) {
-            [_callback onSuccessWithCount:success];
+        if (failureCount == 0) {
+            [_callback onSuccessWithCount:successCount];
         } else {
-            [_callback onFailureWithCount:failure successCount:success];
+            [_callback onFailureWithCount:failureCount successCount:successCount];
         }
     }
     
-    [sendResults removeAllObjects];
-    
-    if (success == 0 && failure > 0) {
-        SPLogDebug(@"Ending emitter run as all requests failed...", nil);
+    if (failureCount > 0 && successCount == 0) {
+        SPLogDebug(@"Ending emitter run as all requests failed...", nil);  //$ Create a uniform approach for both Android and iOS!
         [NSThread sleepForTimeInterval:5];
         _isSending = NO;
         return;
     } else {
-        [self sendEvents];
+        [self attemptEmit];
     }
 }
 
-- (void) sendEventWithRequest:(NSMutableURLRequest *)request andIndex:(NSArray *)indexArray andResultArray:(NSMutableArray *)results andOversize:(BOOL)oversize {
-       [_dataOperationQueue addOperationWithBlock:^{
+- (NSArray<SPRequest *> *)buildRequestsFromEvents:(NSArray<SPEmitterEvent *> *)events {
+    NSMutableArray<SPRequest *> *requests = [NSMutableArray new];
+    NSNumber *sendingTime = [SPUtilities getTimestamp];
+    
+    if (_httpMethod == SPRequestGet) {
+        for (SPEmitterEvent *event in events) {
+            SPPayload *payload = event.payload;
+            [self addSendingTimeToPayload:payload timestamp:sendingTime];
+            BOOL oversize = [self isOversize:payload];
+            SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:event.storeId oversize:oversize];
+            [requests addObject:request];
+        }
+    } else {
+        int bufferOption = 1000; //$ temporary - Add bufferOption as new feature!
+
+        for (int i = 0; i < events.count; i += bufferOption) {
+            NSMutableArray<SPPayload *> *eventArray = [NSMutableArray new];
+            NSMutableArray<NSNumber *> *indexArray = [NSMutableArray new];
+
+            for (int j = i; j < (i + bufferOption) && j < events.count; j++) {
+                SPEmitterEvent *event = events[j];
+                
+                SPPayload *payload = event.payload;
+                NSNumber *emitterEventId = @(event.storeId);
+                [self addSendingTimeToPayload:payload timestamp:sendingTime];
+
+                if ([self isOversize:payload]) {
+                    SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:emitterEventId.longLongValue oversize:YES];
+                    [requests addObject:request];
+
+                } else if ([self isOversize:payload previousPayloads:eventArray]) {
+                    SPRequest *request = [[SPRequest alloc] initWithPayloads:eventArray emitterEventIds:indexArray];
+                    [requests addObject:request];
+
+                    // Clear collection and build a new POST
+                    eventArray = [NSMutableArray new];
+                    indexArray = [NSMutableArray new];
+                    
+                    // Build and store the request
+                    [eventArray addObject:payload];
+                    [indexArray addObject:emitterEventId];
+                    
+                } else {
+                    // Add event to collections
+                    [eventArray addObject:payload];
+                    [indexArray addObject:emitterEventId];
+                }
+            }
+            
+            // Check if all payloads have been processed
+            if (eventArray.count) {
+                SPRequest *request = [[SPRequest alloc] initWithPayloads:eventArray emitterEventIds:indexArray];
+                [requests addObject:request];
+            }
+        }
+    }
+    return requests;
+}
+
+- (BOOL)isOversize:(SPPayload *)payload {
+    return [self isOversize:payload previousPayloads:[NSArray array]];
+}
+
+- (BOOL)isOversize:(SPPayload *)payload previousPayloads:(NSArray<SPPayload *> *)previousPayloads {
+    NSUInteger byteLimit = _httpMethod == SPRequestGet ? _byteLimitGet : _byteLimitPost;
+    return [self isOversize:payload byteLimit:byteLimit previousPayloads:previousPayloads];
+}
+
+- (BOOL)isOversize:(SPPayload *)payload byteLimit:(NSUInteger)byteLimit previousPayloads:(NSArray<SPPayload *> *)previousPayloads {
+    NSUInteger totalByteSize = payload.byteSize;
+    for (SPPayload *previousPayload in previousPayloads) {
+        totalByteSize += previousPayload.byteSize;
+    }
+    NSUInteger wrapperBytes = previousPayloads.count > 0 ? (previousPayloads.count + POST_WRAPPER_BYTES) : 0;
+    return totalByteSize + wrapperBytes > byteLimit;
+}
+
+- (NSArray<SPRequestResponse *> *)sendRequests:(NSArray<SPRequest *> *)requests {
+    NSMutableArray<SPRequestResponse *> *results = [NSMutableArray new];
+    
+    for (SPRequest *request in requests) {
+        NSMutableURLRequest *urlRequest = _httpMethod == SPRequestGet
+        ? [self buildGetRequest:request]
+        : [self buildPostRequest:request];
+
+        [_dataOperationQueue addOperationWithBlock:^{
             //source: https://forums.developer.apple.com/thread/11519
             __block NSHTTPURLResponse *httpResponse = nil;
             __block NSError *connectionError = nil;
-            dispatch_semaphore_t    sem;
+            dispatch_semaphore_t sem;
             
             sem = dispatch_semaphore_create(0);
             
-            [[[NSURLSession sharedSession] dataTaskWithRequest:request
+            [[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest
                                              completionHandler:^(NSData *data, NSURLResponse *urlResponse, NSError *error) {
                 
                 connectionError = error;
@@ -346,57 +346,55 @@ const NSInteger POST_STM_BYTES = 22;
             }] resume];
             
             dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
-                    
+
+            BOOL isSuccessful = [httpResponse statusCode] >= 200 && [httpResponse statusCode] < 300;
+            if (!isSuccessful) {
+                SPLogError(@"Connection error: %@", connectionError);
+            }
+            SPRequestResponse *result = [[SPRequestResponse alloc] initWithBool:isSuccessful withIndex:request.emitterEventIds];
+
             @synchronized (results) {
-                if (oversize) {
-                    [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
-                } else if ([httpResponse statusCode] >= 200 && [httpResponse statusCode] < 300) {
-                    [results addObject:[[SPRequestResponse alloc] initWithBool:true withIndex:indexArray]];
-                } else {
-                    SPLogError(@"Connection error: %@", connectionError);
-                    [results addObject:[[SPRequestResponse alloc] initWithBool:false withIndex:indexArray]];
-                }
+                [results addObject:result];
             }
         }];
+    }
+    [_dataOperationQueue waitUntilAllOperationsAreFinished];
+    return results;
 }
 
-- (void) processSuccessesWithResults:(NSArray *)indexArray {
+- (void) processSuccessesWithResults:(NSArray *)indexArray { //$ To move in the SQLiteEventStore !?
     __weak __typeof__(self) weakSelf = self;
-    
     [_dataOperationQueue addOperationWithBlock:^{
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) return;
-        
-        for (int i = 0; i < indexArray.count;  i++) {
-            SPLogDebug(@"Removing event at index: %@", [@(i) stringValue]);
-            [strongSelf->_db removeEventWithId:[[indexArray objectAtIndex:i] longLongValue]];
-        }
+        SPLogDebug(@"Removing event at index: %@", indexArray);
+        [strongSelf->_db removeEventsWithIds:indexArray];
     }];
+    [_dataOperationQueue waitUntilAllOperationsAreFinished]; //$ Do we need this if the FMDatabaseQueue is serial?
 }
 
-- (NSMutableURLRequest *) getRequestPostWithData:(SPSelfDescribingJson *)data {
-    NSData *requestData = [NSJSONSerialization dataWithJSONObject:[data getAsDictionary] options:0 error:nil];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[_urlEndpoint absoluteString]]];
-    [request setValue:[NSString stringWithFormat:@"%@", [@([requestData length]) stringValue]] forHTTPHeaderField:@"Content-Length"];
-    [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
-    [request setValue:kSPContentTypeHeader forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPMethod:@"POST"];
-    [request setHTTPBody:requestData];
-    return request;
+- (NSMutableURLRequest *)buildPostRequest:(SPRequest *)request {
+    NSData *requestData = [NSJSONSerialization dataWithJSONObject:[request.payload getAsDictionary] options:0 error:nil];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:_urlEndpoint.absoluteString]];
+    [urlRequest setValue:[NSString stringWithFormat:@"%@", @(requestData.length).stringValue] forHTTPHeaderField:@"Content-Length"];
+    [urlRequest setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
+    [urlRequest setValue:kSPContentTypeHeader forHTTPHeaderField:@"Content-Type"];
+    [urlRequest setHTTPMethod:@"POST"];
+    [urlRequest setHTTPBody:requestData];
+    return urlRequest;
 }
 
-- (NSMutableURLRequest *) getRequestGetWithString:(NSString *)url {
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
-    request.HTTPMethod = @"GET";
-    [request setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
-    return request;
+- (NSMutableURLRequest *)buildGetRequest:(SPRequest *)request {
+    NSDictionary<NSString *, NSObject *> *payload = [request.payload getAsDictionary];
+    NSString *url = [NSString stringWithFormat:@"%@?%@", _urlEndpoint.absoluteString, [SPUtilities urlEncodeDictionary:payload]];
+    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+    [urlRequest setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
+    [urlRequest setHTTPMethod:@"GET"];
+    return urlRequest;
 }
 
-- (void) addStmToEventPayloadsWithArray:(NSArray *)eventArray {
-    NSNumber *stm = [SPUtilities getTimestamp];
-    for (NSMutableDictionary * event in eventArray) {
-        [event setValue:[NSString stringWithFormat:@"%lld", stm.longLongValue] forKey:kSPSentTimestamp];
-    }
+- (void)addSendingTimeToPayload:(SPPayload *)payload timestamp:(NSNumber *)timestamp {
+    [payload addValueToPayload:[NSString stringWithFormat:@"%lld", timestamp.longLongValue] forKey:kSPSentTimestamp];
 }
 
 // Extra functions
@@ -427,6 +425,7 @@ const NSInteger POST_STM_BYTES = 22;
 
 // Getters
 
+//$ to remove as unused
 - (NSUInteger) getDbCount {
     return [_db count];
 }

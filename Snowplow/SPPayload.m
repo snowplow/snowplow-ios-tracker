@@ -136,7 +136,15 @@
     return _payload;
 }
 
-- (NSString *) description {
+- (NSUInteger)byteSize {
+    if (!_payload) {
+        return 0;
+    }
+    NSData *data = [NSJSONSerialization dataWithJSONObject:_payload options:0 error:nil];
+    return data.length;
+}
+
+- (NSString *)description {
     return [[self getAsDictionary] description];
 }
 
