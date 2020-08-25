@@ -35,6 +35,27 @@
 @class SPSQLiteEventStore;
 
 /*!
+ @brief An enum for buffer options.
+ */
+typedef NS_ENUM(NSUInteger, SPBufferOption) {
+    /**
+     * Sends both GET and POST requests with only a single event.  Can cause a spike in
+     * network traffic if used in correlation with a large amount of events.
+     */
+    SPBufferOptionSingle = 1,
+    /**
+     * Sends POST requests in groups of 10 events.  This is the default amount of events too
+     * package into a POST.  All GET requests will still emit one at a time.
+     */
+    SPBufferOptionDefaultGroup = 10,
+    /**
+     * Sends POST requests in groups of 25 events.  Useful for situations where many events
+     * need to be sent.  All GET requests will still emit one at a time.
+     */
+    SPBufferOptionHeavyGroup = 25
+};
+
+/*!
  @brief The builder for SPEmitter.
  */
 @protocol SPEmitterBuilder <NSObject>
@@ -59,6 +80,13 @@
  @param protocol Should be SPHttp or SPHttps.
  */
 - (void) setProtocol:(SPProtocol)protocol;
+
+/*!
+ @brief Emitter builder method to set the buffer option.
+ 
+ @param bufferOption the buffer option for the emitter.
+ */
+- (void) setBufferOption:(SPBufferOption)bufferOption;
 
 /*!
  @brief Emitter builder method to set callbacks.
@@ -125,6 +153,8 @@
 @property (readonly, nonatomic) SPRequestOptions httpMethod;
 /*! @brief Security of requests - SPHttp or SPHttps.  */
 @property (readonly, nonatomic) SPProtocol protocol;
+/*! @brief Buffer option */
+@property (readonly, nonatomic) SPBufferOption bufferOption;
 /*! @brief Collector endpoint. */
 @property (readonly, nonatomic, retain) NSURL *urlEndpoint;
 /*! @brief Number of events retrieved from the database when needed. */

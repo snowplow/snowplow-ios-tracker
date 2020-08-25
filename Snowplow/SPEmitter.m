@@ -37,6 +37,7 @@
 @implementation SPEmitter {
     id<SPEventStore> _eventStore;
     id<SPNetworkConnection> _networkConnection;
+    SPBufferOption     _bufferOption;
     NSString *         _url;
     NSTimer *          _timer;
     BOOL               _isSending;
@@ -62,6 +63,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     if (self) {
         _httpMethod = SPRequestPost;
         _protocol = SPHttps;
+        _bufferOption = SPBufferOptionDefaultGroup;
         _callback = nil;
         _emitRange = 150;
         _emitThreadPoolSize = 15;
@@ -123,6 +125,12 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     _protocol = protocol;
     if (_builderFinished && _networkConnection) {
         [self setupNetworkConnection];
+    }
+}
+
+- (void) setBufferOption:(SPBufferOption)bufferOption {
+    if (![self getSendingStatus]) {
+        _bufferOption = bufferOption;
     }
 }
 
@@ -282,13 +290,11 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
             [requests addObject:request];
         }
     } else {
-        int bufferOption = 1000; //$ temporary - Add bufferOption as new feature!
-
-        for (int i = 0; i < events.count; i += bufferOption) {
+        for (int i = 0; i < events.count; i += _bufferOption) {
             NSMutableArray<SPPayload *> *eventArray = [NSMutableArray new];
             NSMutableArray<NSNumber *> *indexArray = [NSMutableArray new];
 
-            for (int j = i; j < (i + bufferOption) && j < events.count; j++) {
+            for (int j = i; j < (i + _bufferOption) && j < events.count; j++) {
                 SPEmitterEvent *event = events[j];
                 
                 SPPayload *payload = event.payload;
