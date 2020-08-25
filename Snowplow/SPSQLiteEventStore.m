@@ -21,7 +21,7 @@
 //
 
 #import "Snowplow.h"
-#import "SPDefaultEventStore.h"
+#import "SPSQLiteEventStore.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
 #import "SPLogger.h"
@@ -32,7 +32,7 @@
     #import <fmdb/FMDB.h>
 #endif
 
-@interface SPDefaultEventStore ()
+@interface SPSQLiteEventStore ()
 
 @property (nonatomic) NSString *dbPath;
 @property (nonatomic) FMDatabaseQueue *queue;
@@ -40,7 +40,7 @@
 
 @end
 
-@implementation SPDefaultEventStore
+@implementation SPSQLiteEventStore
 
 static NSString * const _queryCreateTable = @"CREATE TABLE IF NOT EXISTS 'events' (id INTEGER PRIMARY KEY, eventData BLOB, dateCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
 static NSString * const _querySelectAll   = @"SELECT * FROM 'events'";
@@ -100,7 +100,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 
 - (BOOL)removeAllEvents {
     __block BOOL result = NO;
-    [self.queue inDatabase:^(FMDatabase *db) {
+    [self.queue inDatabase:^(FMDatabase *db) { //$ Check if it's serial or concurrent -> it has implication in the emitter queue
         if ([db open]) {
             FMResultSet *s = [db executeQuery:_querySelectAll];
             while ([s next]) {
@@ -132,7 +132,7 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
     return [self getAllEventsLimited:self.sendLimit];
 }
 
-// MARK: SPDefaultEventStore methods
+// MARK: SPSQLiteEventStore methods
 
 - (BOOL) createTable {
     __block BOOL res = NO;

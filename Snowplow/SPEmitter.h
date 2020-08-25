@@ -27,30 +27,12 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "SPNetworkConnection.h"
+#import "SPEventStore.h"
 
 @protocol SPRequestCallback;
 @class SPPayload;
-@class SPDefaultEventStore;
-
-/*!
- @brief An enum for HTTP method types.
- */
-typedef NS_ENUM(NSInteger, SPRequestOptions) {
-    /*! GET request. */
-    SPRequestGet,
-    /*! POST request. */
-    SPRequestPost
-};
-
-/*!
- @brief An enum for HTTP security.
- */
-typedef NS_ENUM(NSInteger, SPProtocol) {
-    /*! Use HTTP. */
-    SPHttp,
-    /*! Use HTTP over TLS. */
-    SPHttps
-};
+@class SPSQLiteEventStore;
 
 /*!
  @brief The builder for SPEmitter.
@@ -117,6 +99,18 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
  */
 - (void) setCustomPostPath:(NSString *)customPath;
 
+/*!
+ @brief Emitter builder method to set SPNetworkConnection component.
+ @param networkConnection The component in charge for sending events to the collector.
+ */
+- (void) setNetworkConnection:(id<SPNetworkConnection>)networkConnection;
+
+/*!
+ @brief Emitter builder method to set SPEventStore component.
+ @param eventStore The component in charge for persisting events before sending.
+ */
+- (void) setEventStore:(id<SPEventStore>)eventStore;
+
 @end
 
 /*!
@@ -128,23 +122,23 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
 /*! @brief Chosen HTTP method - SPRequestGet or SPRequestPost. */
-@property (readonly, nonatomic) SPRequestOptions              httpMethod;
+@property (readonly, nonatomic) SPRequestOptions httpMethod;
 /*! @brief Security of requests - SPHttp or SPHttps.  */
-@property (readonly, nonatomic) SPProtocol                    protocol;
+@property (readonly, nonatomic) SPProtocol protocol;
 /*! @brief Collector endpoint. */
-@property (readonly, nonatomic, retain) NSURL *               urlEndpoint;
+@property (readonly, nonatomic, retain) NSURL *urlEndpoint;
 /*! @brief Number of events retrieved from the database when needed. */
-@property (readonly, nonatomic)         NSInteger             emitRange;
+@property (readonly, nonatomic) NSInteger emitRange;
 /*! @brief Number of threads used for emitting events. */
-@property (readonly, nonatomic)         NSInteger             emitThreadPoolSize;
+@property (readonly, nonatomic) NSInteger emitThreadPoolSize;
 /*! @brief Byte limit for GET requests. */
-@property (readonly, nonatomic)         NSInteger             byteLimitGet;
+@property (readonly, nonatomic) NSInteger byteLimitGet;
 /*! @brief Byte limit for POST requests. */
-@property (readonly, nonatomic)         NSInteger             byteLimitPost;
+@property (readonly, nonatomic) NSInteger byteLimitPost;
 /*! @brief Callbacks supplied with number of failures and successes of sent events. */
-@property (readonly, nonatomic, weak)   id<SPRequestCallback> callback;
+@property (readonly, nonatomic, weak) id<SPRequestCallback> callback;
 /*! @brief Custom endpoint path for POST requests. */
-@property (readonly, nonatomic) NSString * customPostPath;
+@property (readonly, nonatomic) NSString *customPostPath;
 
 /*!
  @brief Builds the emitter using a build block of functions.

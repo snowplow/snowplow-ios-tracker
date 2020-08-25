@@ -1,5 +1,5 @@
 //
-//  SPDefaultEventStore.h
+//  SPSQLiteEventStore.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -27,7 +27,7 @@
 @class SPPayload;
 @class FMDatabaseQueue;
 
-@interface SPDefaultEventStore :NSObject <SPEventStore>
+@interface SPSQLiteEventStore :NSObject <SPEventStore>
 
 /**
  *  Basic initializer that creates a database event table (if one does not exist) and then closes the connection.

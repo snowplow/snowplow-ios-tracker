@@ -7,6 +7,14 @@ framework module SnowplowTracker {
     header "SPUtilities.h"
     header "SPRequestCallback.h"
     header "SPSelfDescribingJson.h"
+    
+    header "SPEventStore.h"
+    header "SPSQLiteEventStore.h"
+    header "SPNetworkConnection.h"
+    header "SPDefaultNetworkConnection.h"
+    header "SPRequest.h"
+    header "SPRequestResponse.h"
+    header "SPEmitterEvent.h"
 
     header "SPEventBase.h"
     header "SPPageView.h"
