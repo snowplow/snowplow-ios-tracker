@@ -26,12 +26,12 @@
 }
 
 + (instancetype)build:(void(^)(id<SPDefaultNetworkConnectionBuilder>builder))buildBlock {
-    SPDefaultNetworkConnection* emitter = [[SPDefaultNetworkConnection alloc] initWithDefaultValues];
+    SPDefaultNetworkConnection* connection = [[SPDefaultNetworkConnection alloc] initWithDefaultValues];
     if (buildBlock) {
-        buildBlock(emitter);
+        buildBlock(connection);
     }
-    [emitter setup];
-    return emitter;
+    [connection setup];
+    return connection;
 }
 
 - (instancetype)initWithDefaultValues {

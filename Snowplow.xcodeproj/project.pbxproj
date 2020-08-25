@@ -348,6 +348,7 @@
 		ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
 		ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
 		ED91CB7423AA8AD50078E75F /* SPDevicePlatform.m in Sources */ = {isa = PBXBuildFile; fileRef = ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */; };
+		EDCBD0D824F5084900D39DD2 /* TestNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */; };
 		EDD8540C24EE786900661F6B /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD8540A24EE786900661F6B /* SPEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDD8540D24EE786900661F6B /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD8540A24EE786900661F6B /* SPEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDD8540E24EE786900661F6B /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD8540A24EE786900661F6B /* SPEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -580,6 +581,7 @@
 		ED914EB924325AB40068DA0A /* SPGdprContext.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPGdprContext.m; sourceTree = "<group>"; };
 		ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDevicePlatform.h; sourceTree = "<group>"; };
 		ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDevicePlatform.m; sourceTree = "<group>"; };
+		EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestNetworkConnection.m; sourceTree = "<group>"; };
 		EDD8540A24EE786900661F6B /* SPEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEventStore.h; sourceTree = "<group>"; };
 		EDD8541424EEC25000661F6B /* SPEmitterEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEmitterEvent.h; sourceTree = "<group>"; };
 		EDD8541524EEC25100661F6B /* SPEmitterEvent.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEmitterEvent.m; sourceTree = "<group>"; };
@@ -671,6 +673,7 @@
 				75CAC40321F2955100271FB3 /* SnowplowTests-Info.plist */,
 				75CAC3FD21F2955100271FB3 /* SnowplowTests.m */,
 				75CAC3FB21F2955100271FB3 /* TestEmitter.m */,
+				EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */,
 				75CAC3FA21F2955000271FB3 /* TestEvent.m */,
 				75CAC3F221F2955000271FB3 /* TestEventStore.m */,
 				75CAC3F621F2955000271FB3 /* TestGeneratedJsons.m */,
@@ -1353,6 +1356,7 @@
 				75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */,
 				7534D20822569F3400904EE5 /* TestScreenState.m in Sources */,
 				ED914EB52431FEE70068DA0A /* TestGlobalContexts.m in Sources */,
+				EDCBD0D824F5084900D39DD2 /* TestNetworkConnection.m in Sources */,
 				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
 				75CAC40F21F2955100271FB3 /* SnowplowTests.m in Sources */,
 				EDEE836324C0C318000B8530 /* TestLogger.m in Sources */,

@@ -74,7 +74,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         _builderFinished = NO;
         _customPostPath = nil;
         _eventStore = nil;
-        _networkConnection = nil;;
+        _networkConnection = nil;
     }
     return self;
 }
@@ -219,16 +219,21 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         return;
     }
     @synchronized (self) {
-        if (!_isSending) {  //$ does it make sense the use of isSending? rather than a serial dispatcher
+        if (!_isSending) {
             _isSending = YES;
-            [self attemptEmit];
+            @try {
+                [self attemptEmit];
+            } @catch (NSException *exception) {
+                SPLogError(@"Received exception during emission process: %@", exception);
+                _isSending = NO;
+            }
         }
     }
 }
 
 - (void)attemptEmit {
     if (!_eventStore.count) {
-        SPLogDebug(@"Database empty. Returning..", nil);  //$ empty limit not implemented?
+        SPLogDebug(@"Database empty. Returning.", nil);
         _isSending = NO;
         return;
     }
@@ -267,7 +272,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     }
     
     if (failureCount > 0 && successCount == 0) {
-        SPLogDebug(@"Ending emitter run as all requests failed...", nil);  //$ Create a uniform approach for both Android and iOS!
+        SPLogDebug(@"Ending emitter run as all requests failed.", nil);
         [NSThread sleepForTimeInterval:5];
         _isSending = NO;
         return;
