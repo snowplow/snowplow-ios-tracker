@@ -65,9 +65,9 @@ Pod::Spec.new do |s|
     'Snowplow/SPSQLiteEventStore.h',
     'Snowplow/SPNetworkConnection.h',
     'Snowplow/SPDefaultNetworkConnection.h',
-    'Snowplow/SPRequest',
-    'Snowplow/SPRequestResponse',
-    'Snowplow/SPEmitterEvent'
+    'Snowplow/SPRequest.h',
+    'Snowplow/SPRequestResult.h',
+    'Snowplow/SPEmitterEvent.h'
   ]
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
