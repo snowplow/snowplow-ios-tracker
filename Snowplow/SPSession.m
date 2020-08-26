@@ -36,6 +36,7 @@
 @interface SPSession ()
 
 @property (atomic) NSNumber *accessedLast;
+@property (weak) SPTracker *tracker;
 
 @end
 
@@ -55,7 +56,6 @@
     dispatch_queue_t _sessionQueue;
     NSInteger   _foregroundIndex;
     NSInteger   _backgroundIndex;
-    SPTracker * _tracker;
 }
 
 NSString * const kSessionSavePath = @"session.dict";
@@ -200,7 +200,7 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (SPTracker *) getTracker {
-    return _tracker;
+    return self.tracker;
 }
 
 // --- Private
@@ -290,7 +290,7 @@ NSString * const kSessionSavePath = @"session.dict";
     if (!_inBackground) {
         _backgroundIndex += 1;
         _inBackground = YES;
-        if ([_tracker getLifecycleEvents]) {
+        if ([self.tracker getLifecycleEvents]) {
             [self sendBackgroundEvent];
         }
     }
@@ -300,33 +300,33 @@ NSString * const kSessionSavePath = @"session.dict";
     if (_inBackground) {
         _foregroundIndex += 1;
         _inBackground = NO;
-        if ([_tracker getLifecycleEvents]) {
+        if ([self.tracker getLifecycleEvents]) {
             [self sendForegroundEvent];
         }
     }
 }
 
 - (void) sendBackgroundEvent {
-    if (_tracker) {
+    if (self.tracker) {
         __weak __typeof__(self) weakSelf = self;
         SPBackground * backgroundEvent = [SPBackground build:^(id<SPBackgroundBuilder> builder) {
             __typeof__(self) strongSelf = weakSelf;
             if (strongSelf == nil) return;
             [builder setIndex:[NSNumber numberWithInteger:strongSelf->_backgroundIndex]];
         }];
-        [_tracker track:backgroundEvent];
+        [self.tracker track:backgroundEvent];
     }
 }
 
 - (void) sendForegroundEvent {
-    if (_tracker) {
+    if (self.tracker) {
         __weak __typeof__(self) weakSelf = self;
         SPForeground * foregroundEvent = [SPForeground build:^(id<SPForegroundBuilder> builder) {
             __typeof__(self) strongSelf = weakSelf;
             if (strongSelf == nil) return;
             [builder setIndex:[NSNumber numberWithInteger:strongSelf->_foregroundIndex]];
         }];
-        [_tracker track:foregroundEvent];
+        [self.tracker track:foregroundEvent];
     }
 }
 
