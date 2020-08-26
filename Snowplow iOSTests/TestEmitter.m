@@ -31,7 +31,7 @@
 
 @implementation SPBrokenNetworkConnection
 
-- (NSArray<SPRequestResponse *> *)sendRequests:(NSArray<SPRequest *> *)requests {
+- (NSArray<SPRequestResult *> *)sendRequests:(NSArray<SPRequest *> *)requests {
     [NSException raise:@"BrokenNetworkConnection" format:@"Fake exception on network connection."];
     return nil;
 }
@@ -53,7 +53,7 @@
 
 @property (nonatomic) BOOL successfulConnection;
 @property (nonatomic) SPRequestOptions httpMethod;
-@property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResponse *> *> *previousResults;
+@property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResult *> *> *previousResults;
 
 @end
 
@@ -68,11 +68,11 @@
     return self;
 }
 
-- (nonnull NSArray<SPRequestResponse *> *)sendRequests:(nonnull NSArray<SPRequest *> *)requests {
-    NSMutableArray<SPRequestResponse *> *requestResults = [NSMutableArray new];
+- (nonnull NSArray<SPRequestResult *> *)sendRequests:(nonnull NSArray<SPRequest *> *)requests {
+    NSMutableArray<SPRequestResult *> *requestResults = [NSMutableArray new];
     for (SPRequest *request in requests) {
         BOOL isSuccessful = request.oversize || self.successfulConnection;
-        SPRequestResponse *result = [[SPRequestResponse alloc] initWithBool:isSuccessful withIndex:request.emitterEventIds];
+        SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccessful storeIds:request.emitterEventIds];
         SPLogVerbose(@"Sent %@ with success %@", request.emitterEventIds, isSuccessful ? @"YES" : @"NO");
         [requestResults addObject:result];
     }
@@ -279,7 +279,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 
     XCTAssertEqual(1, networkConnection.previousResults.count);
     XCTAssertEqual(1, networkConnection.previousResults.firstObject.count);
-    XCTAssertTrue([networkConnection.previousResults.firstObject.firstObject getSuccess]);
+    XCTAssertTrue([networkConnection.previousResults.firstObject.firstObject isSuccessful]);
     XCTAssertEqual(0, [emitter getDbCount]);
     
     [emitter flushBuffer];
@@ -296,7 +296,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 
     XCTAssertEqual(1, networkConnection.previousResults.count);
     XCTAssertEqual(1, networkConnection.previousResults.firstObject.count);
-    XCTAssertFalse([networkConnection.previousResults.firstObject.firstObject getSuccess]);
+    XCTAssertFalse([networkConnection.previousResults.firstObject.firstObject isSuccessful]);
     XCTAssertEqual(1, [emitter getDbCount]);
     
     [emitter flushBuffer];
@@ -316,10 +316,10 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 
     XCTAssertEqual(0, [emitter getDbCount]);
     int totEvents = 0;
-    for (NSArray<SPRequestResponse *> *results in networkConnection.previousResults) {
-        for (SPRequestResponse *result in results) {
-            XCTAssertTrue([result getSuccess]);
-            totEvents += [result getIndexArray].count;
+    for (NSArray<SPRequestResult *> *results in networkConnection.previousResults) {
+        for (SPRequestResult *result in results) {
+            XCTAssertTrue(result.isSuccessful);
+            totEvents += result.storeIds.count;
         }
     }
     XCTAssertEqual(2, totEvents);
@@ -340,9 +340,9 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     }
 
     XCTAssertEqual(2, [emitter getDbCount]);
-    for (NSArray<SPRequestResponse *> *results in networkConnection.previousResults) {
-        for (SPRequestResponse *result in results) {
-            XCTAssertFalse([result getSuccess]);
+    for (NSArray<SPRequestResult *> *results in networkConnection.previousResults) {
+        for (SPRequestResult *result in results) {
+            XCTAssertFalse(result.isSuccessful);
         }
     }
     
@@ -361,7 +361,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 
     XCTAssertEqual(1, networkConnection.previousResults.count);
     XCTAssertEqual(1, networkConnection.previousResults.firstObject.count);
-    XCTAssertTrue([networkConnection.previousResults.firstObject.firstObject getSuccess]);
+    XCTAssertTrue([networkConnection.previousResults.firstObject.firstObject isSuccessful]);
     XCTAssertEqual(0, [emitter getDbCount]);
     
     [emitter flushBuffer];
@@ -392,12 +392,12 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertEqual(0, [emitter getDbCount]);
     int totEvents = 0;
     BOOL areGrouped = NO;
-    NSArray<NSArray<SPRequestResponse *> *> *prevResults =
+    NSArray<NSArray<SPRequestResult *> *> *prevResults =
     [networkConnection.previousResults subarrayWithRange:NSMakeRange(prevSendingCount, networkConnection.previousResults.count - prevSendingCount)];
-    for (NSArray<SPRequestResponse *> *results in prevResults) {
-        for (SPRequestResponse *result in results) {
-            XCTAssertTrue([result getSuccess]);
-            NSUInteger ids = [result getIndexArray].count;
+    for (NSArray<SPRequestResult *> *results in prevResults) {
+        for (SPRequestResult *result in results) {
+            XCTAssertTrue(result.isSuccessful);
+            NSUInteger ids = result.storeIds.count;
             totEvents += ids;
             areGrouped = areGrouped || ids > 1;
         }

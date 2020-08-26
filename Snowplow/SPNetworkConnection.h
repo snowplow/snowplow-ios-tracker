@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPRequest.h"
-#import "SPRequestResponse.h"
+#import "SPRequestResult.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -43,7 +43,7 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
  * @param requests to send,
  * @return results of the sending operation.
  */
-- (NSArray<SPRequestResponse *> *)sendRequests:(NSArray<SPRequest *> *)requests;
+- (NSArray<SPRequestResult *> *)sendRequests:(NSArray<SPRequest *> *)requests;
 
 /**
  * @return http method used to send requests to the collector.

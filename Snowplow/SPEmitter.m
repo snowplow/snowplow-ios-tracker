@@ -28,7 +28,7 @@
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
-#import "SPRequestResponse.h"
+#import "SPRequestResult.h"
 #import "SPWeakTimerTarget.h"
 #import "SPRequestCallback.h"
 #import "SPRequest.h"
@@ -240,7 +240,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     
     NSArray<SPEmitterEvent *> *events = [_eventStore emittableEventsWithQueryLimit:_emitRange];
     NSArray<SPRequest *> *requests = [self buildRequestsFromEvents:events];
-    NSArray<SPRequestResponse *> *sendResults = [_networkConnection sendRequests:requests];
+    NSArray<SPRequestResult *> *sendResults = [_networkConnection sendRequests:requests];
     
     SPLogVerbose(@"Processing emitter results.");
     
@@ -248,9 +248,9 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     NSInteger failureCount = 0;
     NSMutableArray<NSNumber *> *removableEvents = [NSMutableArray new];
     
-    for (SPRequestResponse *result in sendResults) {
-        NSArray<NSNumber *> *resultIndexArray = [result getIndexArray];
-        if ([result getSuccess]) {
+    for (SPRequestResult *result in sendResults) {
+        NSArray<NSNumber *> *resultIndexArray = result.storeIds;
+        if (result.isSuccessful) {
             successCount += resultIndexArray.count;
             [removableEvents addObjectsFromArray:resultIndexArray];
         } else {

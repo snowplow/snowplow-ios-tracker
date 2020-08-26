@@ -1,5 +1,5 @@
 //
-//  SPRequestResponse.h
+//  SPRequestResult.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -22,30 +22,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SPRequestResponse : NSObject
+@interface SPRequestResult : NSObject
+
+/// Returns the success of the request operation.
+@property (nonatomic, readonly) BOOL isSuccessful;
+/// Returns the stored index array, needed to remove the events after sending.
+@property (nonatomic, readonly) NSArray<NSNumber *> *storeIds;
 
 /**
- * Creates a request response object
- */
-- (id) init;
-
-/**
- * Creates a request response object
+ * Creates a request result object
  * @param success whether the operation was a success or not
- * @param index the event indexes in the database
+ * @param eventIds the event indexes in the database
  */
-- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index;
-
-/**
- * Returns the success of the request operation.
- * @return the success state
- */
-- (BOOL) getSuccess;
-
-/**
- * Returns the stored index array, needed to remove the events after sending.
- * @return the index array to be used while removing sent event
- */
-- (NSMutableArray *) getIndexArray;
+- (instancetype)initWithSuccess:(BOOL)success storeIds:(NSArray<NSNumber *> *)storeIds;
 
 @end

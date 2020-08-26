@@ -16,7 +16,7 @@
 #import "SPNetworkConnection.h"
 #import "SPDefaultNetworkConnection.h"
 #import "SPRequest.h"
-#import "SPRequestResponse.h"
+#import "SPRequestResult.h"
 #import "SPEmitterEvent.h"
 
 // Events

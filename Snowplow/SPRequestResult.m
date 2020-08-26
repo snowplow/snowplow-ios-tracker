@@ -1,5 +1,5 @@
 //
-//  SPRequestResponse.m
+//  SPRequestResult.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -21,32 +21,27 @@
 //
 
 #import "Snowplow.h"
-#import "SPRequestResponse.h"
+#import "SPRequestResult.h"
 
-@implementation SPRequestResponse {
-    BOOL      _isSuccess;
-    NSArray * _indexArray;
+@interface SPRequestResult ()
+
+@property (nonatomic, readwrite) BOOL isSuccessful;
+@property (nonatomic, readwrite) NSArray<NSNumber *> *storeIds;
+
+@end
+
+@implementation SPRequestResult
+
+- (instancetype)init {
+    return [self initWithSuccess:NO storeIds:@[]];
 }
 
-- (id) init {
-    return [self initWithBool:NO withIndex:nil];
-}
-
-- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index {
-    self = [super init];
-    if (self) {
-        _isSuccess = success;
-        _indexArray = index;
+- (instancetype)initWithSuccess:(BOOL)success storeIds:(NSArray<NSNumber *> *)storeIds {
+    if (self = [super init]) {
+        self.isSuccessful = success;
+        self.storeIds = storeIds;
     }
     return self;
-}
-
-- (BOOL) getSuccess {
-    return _isSuccess;
-}
-
-- (NSArray *) getIndexArray {
-    return _indexArray;
 }
 
 @end

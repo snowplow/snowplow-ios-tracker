@@ -14,7 +14,7 @@ framework module SnowplowTracker {
     header "SPNetworkConnection.h"
     header "SPDefaultNetworkConnection.h"
     header "SPRequest.h"
-    header "SPRequestResponse.h"
+    header "SPRequestResult.h"
     header "SPEmitterEvent.h"
     
     header "SPEventBase.h"

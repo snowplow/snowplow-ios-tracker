@@ -41,12 +41,12 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPPayload *payload = [SPPayload new];
     [payload addValueToPayload:@"value" forKey:@"key"];
     SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:1];
-    NSArray<SPRequestResponse *> *results = [connection sendRequests:@[request]];
+    NSArray<SPRequestResult *> *results = [connection sendRequests:@[request]];
     
     // Check successful result
-    SPRequestResponse *result = [results objectAtIndex:0];
-    XCTAssertTrue([result getSuccess]);
-    XCTAssertEqualObjects(@1, [[result getIndexArray] objectAtIndex:0]);
+    SPRequestResult *result = [results objectAtIndex:0];
+    XCTAssertTrue(result.isSuccessful);
+    XCTAssertEqualObjects(@1, result.storeIds[0]);
 }
 
 - (void)testGetRequestWithNoSuccess {
@@ -61,12 +61,12 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPPayload *payload = [SPPayload new];
     [payload addValueToPayload:@"value" forKey:@"key"];
     SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:1];
-    NSArray<SPRequestResponse *> *results = [connection sendRequests:@[request]];
+    NSArray<SPRequestResult *> *results = [connection sendRequests:@[request]];
     
     // Check unsuccessful result
-    SPRequestResponse *result = [results objectAtIndex:0];
-    XCTAssertFalse([result getSuccess]);
-    XCTAssertEqualObjects(@1, [[result getIndexArray] objectAtIndex:0]);
+    SPRequestResult *result = [results objectAtIndex:0];
+    XCTAssertFalse(result.isSuccessful);
+    XCTAssertEqualObjects(@1, [result.storeIds objectAtIndex:0]);
 }
 
 - (void)testPostRequestWithSuccess {
@@ -81,12 +81,12 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPPayload *payload = [SPPayload new];
     [payload addValueToPayload:@"value" forKey:@"key"];
     SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:1];
-    NSArray<SPRequestResponse *> *results = [connection sendRequests:@[request]];
+    NSArray<SPRequestResult *> *results = [connection sendRequests:@[request]];
     
     // Check successful result
-    SPRequestResponse *result = [results objectAtIndex:0];
-    XCTAssertTrue([result getSuccess]);
-    XCTAssertEqualObjects(@1, [[result getIndexArray] objectAtIndex:0]);
+    SPRequestResult *result = [results objectAtIndex:0];
+    XCTAssertTrue(result.isSuccessful);
+    XCTAssertEqualObjects(@1, [result.storeIds objectAtIndex:0]);
 }
 
 - (void)testPostRequestWithNoSuccess {
@@ -101,12 +101,12 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPPayload *payload = [SPPayload new];
     [payload addValueToPayload:@"value" forKey:@"key"];
     SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:1];
-    NSArray<SPRequestResponse *> *results = [connection sendRequests:@[request]];
+    NSArray<SPRequestResult *> *results = [connection sendRequests:@[request]];
     
     // Check unsuccessful result
-    SPRequestResponse *result = [results objectAtIndex:0];
-    XCTAssertFalse([result getSuccess]);
-    XCTAssertEqualObjects(@1, [[result getIndexArray] objectAtIndex:0]);
+    SPRequestResult *result = [results objectAtIndex:0];
+    XCTAssertFalse(result.isSuccessful);
+    XCTAssertEqualObjects(@1, [result.storeIds objectAtIndex:0]);
 }
 
 @end

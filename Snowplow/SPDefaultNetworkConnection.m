@@ -125,8 +125,8 @@
     return _urlEndpoint.copy;
 }
 
-- (NSArray<SPRequestResponse *> *)sendRequests:(NSArray<SPRequest *> *)requests {
-    NSMutableArray<SPRequestResponse *> *results = [NSMutableArray new];
+- (NSArray<SPRequestResult *> *)sendRequests:(NSArray<SPRequest *> *)requests {
+    NSMutableArray<SPRequestResult *> *results = [NSMutableArray new];
     
     for (SPRequest *request in requests) {
         NSMutableURLRequest *urlRequest = _httpMethod == SPRequestGet
@@ -155,7 +155,7 @@
             if (!isSuccessful) {
                 SPLogError(@"Connection error: %@", connectionError);
             }
-            SPRequestResponse *result = [[SPRequestResponse alloc] initWithBool:isSuccessful withIndex:request.emitterEventIds];
+            SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccessful storeIds:request.emitterEventIds];
 
             @synchronized (results) {
                 [results addObject:result];

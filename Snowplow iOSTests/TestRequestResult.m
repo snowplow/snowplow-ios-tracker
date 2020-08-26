@@ -47,7 +47,7 @@
     XCTAssertEqual(result.isSuccessful, YES);
     XCTAssertEqual(result.storeIds, emitterEventIds);
     
-    result = [[SPRequestResult alloc] init];
+    result = [SPRequestResult new];
     
     XCTAssertNotNil(result);
     XCTAssertEqual(result.isSuccessful, NO);
