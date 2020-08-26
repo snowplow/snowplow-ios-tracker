@@ -97,7 +97,8 @@ static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
         if ([db open] && storeIds.count) {
             NSString *ids = [storeIds componentsJoinedByString:@","];
             SPLogDebug(@"Removing [%@] from database now.", ids);
-            res = [db executeUpdateWithFormat:_queryDeleteIds, ids];
+            NSString *query = [NSString stringWithFormat:_queryDeleteIds, ids];
+            res = [db executeUpdate:query];
         }
     }];
     return res;
