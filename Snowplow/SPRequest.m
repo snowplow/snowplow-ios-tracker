@@ -69,7 +69,7 @@
 // MARK: Private methods
 
 - (NSString *)userAgentFromPayload:(SPPayload *)payload {
-    return (NSString *)[[payload getAsDictionary] valueForKey:kSPUseragent];  //$ Check if it works - On Android too!
+    return (NSString *)[[payload getAsDictionary] valueForKey:kSPUseragent];
 }
 
 @end
