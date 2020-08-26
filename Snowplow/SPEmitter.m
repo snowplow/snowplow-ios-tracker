@@ -258,7 +258,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         }
     }
 
-    [self processSuccessesWithResults:removableEvents];
+    [_eventStore removeEventsWithIds:removableEvents];
     
     SPLogDebug(@"Success Count: %@", [@(successCount) stringValue]);
     SPLogDebug(@"Failure Count: %@", [@(failureCount) stringValue]);
@@ -355,17 +355,6 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     }
     NSUInteger wrapperBytes = previousPayloads.count > 0 ? (previousPayloads.count + POST_WRAPPER_BYTES) : 0;
     return totalByteSize + wrapperBytes > byteLimit;
-}
-
-- (void) processSuccessesWithResults:(NSArray *)indexArray { //$ To move in the SQLiteEventStore !?
-    __weak __typeof__(self) weakSelf = self;
-    [_dataOperationQueue addOperationWithBlock:^{
-        __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) return;
-        SPLogDebug(@"Removing event at index: %@", indexArray);
-        [strongSelf->_eventStore removeEventsWithIds:indexArray];
-    }];
-    [_dataOperationQueue waitUntilAllOperationsAreFinished]; //$ Do we need this if the FMDatabaseQueue is serial?
 }
 
 - (void)addSendingTimeToPayload:(SPPayload *)payload timestamp:(NSNumber *)timestamp {

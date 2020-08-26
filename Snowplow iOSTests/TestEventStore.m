@@ -25,18 +25,9 @@
 #import "SPPayload.h"
 
 @interface TestEventStore : XCTestCase
-
 @end
 
 @implementation TestEventStore
-
-- (void)setUp {
-    [super setUp];
-}
-
-- (void)tearDown {
-    [super tearDown];
-}
 
 - (void)testInit {
     SPSQLiteEventStore * eventStore = [[SPSQLiteEventStore alloc] init];
@@ -84,6 +75,9 @@
     XCTAssertEqual([eventStore getAllEventsLimited:600].count, 250);
     XCTAssertEqual([eventStore getAllEventsLimited:150].count, 150);
     XCTAssertEqual([eventStore getAllEvents].count, 250);
+    
+    [eventStore removeAllEvents];
+    XCTAssertEqual([eventStore count], 0);
 }
 
 @end

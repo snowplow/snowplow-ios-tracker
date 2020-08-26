@@ -51,7 +51,7 @@
     
     XCTAssertNotNil(result);
     XCTAssertEqual(result.isSuccessful, NO);
-    XCTAssertNil(result.storeIds);
+    XCTAssertEqual(result.storeIds.count, 0);
 }
 
 @end

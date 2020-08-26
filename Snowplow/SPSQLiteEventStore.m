@@ -48,6 +48,8 @@ static NSString * const _querySelectCount = @"SELECT Count(*) FROM 'events'";
 static NSString * const _queryInsertEvent = @"INSERT INTO 'events' (eventData) VALUES (?)";
 static NSString * const _querySelectId    = @"SELECT * FROM 'events' WHERE id=?";
 static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
+static NSString * const _queryDeleteIds   = @"DELETE FROM 'events' WHERE id IN (%@)";
+static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
 
 - (instancetype)init {
     return [self initWithLimit:250];
@@ -90,28 +92,26 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 }
 
 - (BOOL)removeEventsWithIds:(NSArray<NSNumber *> *)storeIds {
-    BOOL result = YES;
-    for (NSNumber *storeId in storeIds) {
-        BOOL localResult = [self removeEventWithId:storeId.longLongValue];
-        result &= localResult;
-    }
-    return result;
+    __block BOOL res = NO;
+    [self.queue inDatabase:^(FMDatabase *db) {
+        if ([db open] && storeIds.count) {
+            NSString *ids = [storeIds componentsJoinedByString:@","];
+            SPLogDebug(@"Removing [%@] from database now.", ids);
+            res = [db executeUpdateWithFormat:_queryDeleteIds, ids];
+        }
+    }];
+    return res;
 }
 
 - (BOOL)removeAllEvents {
-    __block BOOL result = NO;
-    [self.queue inDatabase:^(FMDatabase *db) { //$ Check if it's serial or concurrent -> it has implication in the emitter queue
+    __block BOOL res = NO;
+    [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
-            FMResultSet *s = [db executeQuery:_querySelectAll];
-            while ([s next]) {
-                long long int index = [s longLongIntForColumn:@"ID"];
-                [db executeUpdate:_queryDeleteId, [NSNumber numberWithLongLong:index]];
-            }
-            [s close];
-            result = YES;
+            SPLogDebug(@"Removing all events from database now.");
+            res = [db executeUpdate:_queryDeleteAll];
         }
     }];
-    return result;
+    return res;
 }
 
 - (NSUInteger)count {
