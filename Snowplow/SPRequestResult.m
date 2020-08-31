@@ -1,5 +1,5 @@
 //
-//  TestRequestResult.m
+//  SPRequestResult.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -20,38 +20,28 @@
 //  License: Apache License Version 2.0
 //
 
-#import <XCTest/XCTest.h>
 #import "Snowplow.h"
 #import "SPRequestResult.h"
 
-@interface TestRequestResult : XCTestCase
+@interface SPRequestResult ()
+
+@property (nonatomic, readwrite) BOOL isSuccessful;
+@property (nonatomic, readwrite) NSArray<NSNumber *> *storeIds;
 
 @end
 
-@implementation TestRequestResult
+@implementation SPRequestResult
 
-- (void)setUp {
-    [super setUp];
+- (instancetype)init {
+    return [self initWithSuccess:NO storeIds:@[]];
 }
 
-- (void)tearDown {
-    [super tearDown];
-}
-
-- (void)testInit {
-    NSMutableArray<NSNumber *> *emitterEventIds = [NSMutableArray new];
-    [emitterEventIds addObject:@1];
-    SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:YES storeIds:emitterEventIds];
-    
-    XCTAssertNotNil(result);
-    XCTAssertEqual(result.isSuccessful, YES);
-    XCTAssertEqual(result.storeIds, emitterEventIds);
-    
-    result = [[SPRequestResult alloc] init];
-    
-    XCTAssertNotNil(result);
-    XCTAssertEqual(result.isSuccessful, NO);
-    XCTAssertNil(result.storeIds);
+- (instancetype)initWithSuccess:(BOOL)success storeIds:(NSArray<NSNumber *> *)storeIds {
+    if (self = [super init]) {
+        self.isSuccessful = success;
+        self.storeIds = storeIds;
+    }
+    return self;
 }
 
 @end

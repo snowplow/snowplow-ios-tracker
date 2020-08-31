@@ -15,72 +15,59 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Jonathan Almeida, Joshua Beemster
+//  Authors: Alex Benini
 //  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 
-@class SPPayload;
-@class FMDatabaseQueue;
+#import "SPPayload.h"
+#import "SPEmitterEvent.h"
 
-@interface SPEventStore : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
-/**
- *  Basic initializer that creates a database event table (if one does not exist) and then closes the connection.
- *  @return A SnowplowEventStore object.
- */
-- (id) init;
+@protocol SPEventStore <NSObject>
 
 /**
- *  Inserts events into the sqlite table for the app identified with it's bundleId (appId).
- *  @param payload A SnowplowPayload instance to be inserted into the database.
- *  @return If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals.
+ * Adds an event to the store.
+ * @param payload the payload to be added
  */
-- (long long int) insertEvent:(SPPayload *)payload;
+- (void)addEvent:(SPPayload *)payload;
 
 /**
- *  Removes an event from the table with the supplied id.
- *  @param id_ Unique ID of the row in the events table to be deleted.
- *  @return Returns the status of the SQL query sent.
+ * Removes an event from the store.
+ * @param storeId the identifier of the event in the store.
+ * @return a boolean of success to remove.
  */
-- (BOOL) removeEventWithId:(long long int)id_;
+- (BOOL)removeEventWithId:(long long int)storeId;
 
 /**
- *  Finds the row in the event table with the supplied ID.
- *  @param id_ Unique ID of the row in the events table to be returned.
- *  @return A dictionary containing data with keys: 'ID', 'eventData', and 'dateCreated'.
+ * Removes a range of events from the store.
+ * @param storeIds the events' identifiers in the store.
+ * @return a boolean of success to remove.
  */
-- (NSDictionary *) getEventWithId:(long long int)id_;
+- (BOOL)removeEventsWithIds:(NSArray<NSNumber *> *)storeIds;
 
 /**
- *  Removes ALL events in the database. USE WITH CARE!
+ * Empties the store of all the events.
+ * @return a boolean of success to remove.
  */
-- (void) removeAllEvents;
+- (BOOL)removeAllEvents;
 
 /**
- *  Number of events in the database.
- *  @return An integer of the number of events currently in the database.
+ * Returns amount of events currently in the store.
+ * @return the count of events in the store.
  */
-- (NSUInteger) count;
+- (NSUInteger)count;
 
 /**
- *  Returns all the events in an array of dictionaries.
- *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
+ * Returns a list of EmitterEvent objects which contains events and related ids.
+ * @param queryLimit is the maximum number of events returned.
+ * @return EmitterEvent objects containing storeIds and event payloads.
  */
-- (NSArray *) getAllEvents;
-
-/**
- *  Returns limited number the events that are NOT pending in an array of dictionaries.
- *  @return An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'.
- */
-- (NSArray *) getAllEventsLimited:(NSUInteger)limit;
-
-/**
- *  The row ID of the last insert made.
- *  @return The row ID of the last insert made.
- */
-- (long long int) getLastInsertedRowId;
+- (NSArray<SPEmitterEvent *> *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit;
 
 @end
+
+NS_ASSUME_NONNULL_END

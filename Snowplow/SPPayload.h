@@ -95,7 +95,11 @@
  */
 - (NSDictionary<NSString *, NSObject *> *) getAsDictionary;
 
-- (NSString *) description;
+/**
+ * Returns the byte size of a payload.
+ * @return A long representing the byte size of the payload.
+ */
+- (NSUInteger)byteSize;
 
 @end
 

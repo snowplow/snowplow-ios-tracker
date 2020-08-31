@@ -1,5 +1,5 @@
 //
-//  TestRequestResult.m
+//  SPRequestResult.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -20,38 +20,20 @@
 //  License: Apache License Version 2.0
 //
 
-#import <XCTest/XCTest.h>
-#import "Snowplow.h"
-#import "SPRequestResult.h"
+#import <Foundation/Foundation.h>
 
-@interface TestRequestResult : XCTestCase
+@interface SPRequestResult : NSObject
 
-@end
+/// Returns the success of the request operation.
+@property (nonatomic, readonly) BOOL isSuccessful;
+/// Returns the stored index array, needed to remove the events after sending.
+@property (nonatomic, readonly) NSArray<NSNumber *> *storeIds;
 
-@implementation TestRequestResult
-
-- (void)setUp {
-    [super setUp];
-}
-
-- (void)tearDown {
-    [super tearDown];
-}
-
-- (void)testInit {
-    NSMutableArray<NSNumber *> *emitterEventIds = [NSMutableArray new];
-    [emitterEventIds addObject:@1];
-    SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:YES storeIds:emitterEventIds];
-    
-    XCTAssertNotNil(result);
-    XCTAssertEqual(result.isSuccessful, YES);
-    XCTAssertEqual(result.storeIds, emitterEventIds);
-    
-    result = [[SPRequestResult alloc] init];
-    
-    XCTAssertNotNil(result);
-    XCTAssertEqual(result.isSuccessful, NO);
-    XCTAssertNil(result.storeIds);
-}
+/**
+ * Creates a request result object
+ * @param success whether the operation was a success or not
+ * @param storeIds the event indexes in the database
+ */
+- (instancetype)initWithSuccess:(BOOL)success storeIds:(NSArray<NSNumber *> *)storeIds;
 
 @end

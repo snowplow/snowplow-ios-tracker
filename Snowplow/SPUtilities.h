@@ -210,7 +210,7 @@
  @param str A string.
  @return The byte size of the string.
  */
-+ (NSInteger) getByteSizeWithString:(NSString *)str;
++ (NSInteger) getByteSizeWithString:(NSString *)str __deprecated_msg("getByteSizeWithString is deprecated. Use NSString method instead.");
 
 /*!
  @brief Checks an expression and will log if it is false.

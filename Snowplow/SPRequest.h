@@ -1,5 +1,5 @@
 //
-//  SPRequestResponse.h
+//  SPRequest.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -15,37 +15,29 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Authors: Alex Benini
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
+#import "SPPayload.h"
 
-@interface SPRequestResponse : NSObject
+NS_ASSUME_NONNULL_BEGIN
 
-/**
- * Creates a request response object
- */
-- (id) init;
+@interface SPRequest : NSObject
 
-/**
- * Creates a request response object
- * @param success whether the operation was a success or not
- * @param index the event indexes in the database
- */
-- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index;
+@property (nonatomic,readonly) SPPayload *payload;
+@property (nonatomic,readonly) NSArray<NSNumber *> *emitterEventIds;
+@property (nonatomic,readonly) BOOL oversize;
+@property (nonatomic,readonly) NSString *customUserAgent;
 
-/**
- * Returns the success of the request operation.
- * @return the success state
- */
-- (BOOL) getSuccess;
+- (instancetype)initWithPayload:(SPPayload *)payload emitterEventId:(long long)emitterEventId;
 
-/**
- * Returns the stored index array, needed to remove the events after sending.
- * @return the index array to be used while removing sent event
- */
-- (NSMutableArray *) getIndexArray;
+- (instancetype)initWithPayload:(SPPayload *)payload emitterEventId:(long long)emitterEventId oversize:(BOOL)oversize;
+
+- (instancetype)initWithPayloads:(NSArray<SPPayload *> *)payloads emitterEventIds:(NSArray<NSNumber *> *)emitterEventIds;
 
 @end
+
+NS_ASSUME_NONNULL_END
