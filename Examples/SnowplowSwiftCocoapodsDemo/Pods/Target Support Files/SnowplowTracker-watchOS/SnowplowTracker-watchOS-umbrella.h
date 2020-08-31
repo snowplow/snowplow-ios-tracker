@@ -17,7 +17,6 @@
 #import "SPPayload.h"
 #import "SPUtilities.h"
 #import "SPRequestCallback.h"
-#import "SPRequestResponse.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
 #import "SPDevicePlatform.h"
@@ -40,6 +39,13 @@
 #import "SPSchemaRule.h"
 #import "SPSchemaRuleset.h"
 #import "SPGlobalContext.h"
+#import "SPEventStore.h"
+#import "SPSQLiteEventStore.h"
+#import "SPNetworkConnection.h"
+#import "SPDefaultNetworkConnection.h"
+#import "SPRequest.h"
+#import "SPRequestResult.h"
+#import "SPEmitterEvent.h"
 
 FOUNDATION_EXPORT double SnowplowTrackerVersionNumber;
 FOUNDATION_EXPORT const unsigned char SnowplowTrackerVersionString[];

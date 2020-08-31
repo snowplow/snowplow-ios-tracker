@@ -29,9 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SPEmitterEvent : NSObject
 
 @property (nonatomic, readonly) SPPayload *payload;
-@property (nonatomic, readonly) long storeId;
+@property (nonatomic, readonly) long long storeId;
 
-- (instancetype)initWithPayload:(SPPayload *)payload storeId:(long)storeId;
+- (instancetype)initWithPayload:(SPPayload *)payload storeId:(long long)storeId;
 
 @end
 

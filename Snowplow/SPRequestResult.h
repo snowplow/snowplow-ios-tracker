@@ -32,7 +32,7 @@
 /**
  * Creates a request result object
  * @param success whether the operation was a success or not
- * @param eventIds the event indexes in the database
+ * @param storeIds the event indexes in the database
  */
 - (instancetype)initWithSuccess:(BOOL)success storeIds:(NSArray<NSNumber *> *)storeIds;
 

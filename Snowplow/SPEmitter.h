@@ -32,7 +32,6 @@
 
 @protocol SPRequestCallback;
 @class SPPayload;
-@class SPSQLiteEventStore;
 
 /*!
  @brief An enum for buffer options.

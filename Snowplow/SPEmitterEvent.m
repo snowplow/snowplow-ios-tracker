@@ -25,13 +25,13 @@
 @interface SPEmitterEvent ()
 
 @property (nonatomic, readwrite) SPPayload *payload;
-@property (nonatomic, readwrite) long storeId;
+@property (nonatomic, readwrite) long long storeId;
 
 @end
 
 @implementation SPEmitterEvent
 
-- (instancetype)initWithPayload:(SPPayload *)payload storeId:(long)storeId {
+- (instancetype)initWithPayload:(SPPayload *)payload storeId:(long long)storeId {
     if (self = [super init]) {
         self.payload = payload;
         self.storeId = storeId;
@@ -40,7 +40,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"EmitterEvent{ %ld }", self.storeId];
+    return [NSString stringWithFormat:@"EmitterEvent{ %lld }", self.storeId];
 }
 
 @end

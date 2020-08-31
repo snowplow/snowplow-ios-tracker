@@ -43,7 +43,9 @@ class AdditionalViewController: UIViewController, UITextFieldDelegate, PageObser
     }
     
     @IBAction func crashTheApp () {
-        NSException(name:NSExceptionName(rawValue: "name"), reason:"reason", userInfo:nil).raise()
+        let array = NSArray()
+        let _ = array[99]
+        //$ NSException(name:NSExceptionName(rawValue: "name"), reason:"reason", userInfo:nil).raise()
     }
     /*
      // MARK: - Navigation

@@ -1,0 +1,1 @@
+../../../../../../Snowplow/SPEmitterEvent.h

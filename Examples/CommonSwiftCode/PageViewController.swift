@@ -40,13 +40,18 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     // Tracker setup and init
 
     func getTracker(_ url: String, method: SPRequestOptions) -> SPTracker {
+        let eventStore = SPSQLiteEventStore();
+        let network = SPDefaultNetworkConnection.build { (builder) in
+            builder.setUrlEndpoint(url)
+            builder.setHttpMethod(method)
+            builder.setEmitThreadPoolSize(20)
+            builder.setByteLimitPost(52000)
+        }
         let emitter = SPEmitter.build({ (builder : SPEmitterBuilder?) -> Void in
-            builder!.setUrlEndpoint(url)
-            builder!.setHttpMethod(method)
             builder!.setCallback(self)
             builder!.setEmitRange(500)
-            builder!.setEmitThreadPoolSize(20)
-            builder!.setByteLimitPost(52000)
+            builder!.setEventStore(eventStore)
+            builder!.setNetworkConnection(network)
         })
         let subject = SPSubject(platformContext: true, andGeoContext: false)
         let newTracker = SPTracker.build({ (builder : SPTrackerBuilder?) -> Void in
