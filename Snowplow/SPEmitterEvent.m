@@ -1,5 +1,5 @@
 //
-//  SPRequestResponse.m
+//  SPEmitterEvent.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -15,38 +15,32 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Authors: Alex Benini
+//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
-#import "SPRequestResponse.h"
+#import "SPEmitterEvent.h"
 
-@implementation SPRequestResponse {
-    BOOL      _isSuccess;
-    NSArray * _indexArray;
-}
+@interface SPEmitterEvent ()
 
-- (id) init {
-    return [self initWithBool:NO withIndex:nil];
-}
+@property (nonatomic, readwrite) SPPayload *payload;
+@property (nonatomic, readwrite) long long storeId;
 
-- (id) initWithBool:(BOOL)success withIndex:(NSArray *)index {
-    self = [super init];
-    if (self) {
-        _isSuccess = success;
-        _indexArray = index;
+@end
+
+@implementation SPEmitterEvent
+
+- (instancetype)initWithPayload:(SPPayload *)payload storeId:(long long)storeId {
+    if (self = [super init]) {
+        self.payload = payload;
+        self.storeId = storeId;
     }
     return self;
 }
 
-- (BOOL) getSuccess {
-    return _isSuccess;
-}
-
-- (NSArray *) getIndexArray {
-    return _indexArray;
+- (NSString *)description {
+    return [NSString stringWithFormat:@"EmitterEvent{ %lld }", self.storeId];
 }
 
 @end

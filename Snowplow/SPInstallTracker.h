@@ -1,5 +1,5 @@
 //
-//  SPScreenViewState.h
+//  SPInstallTracker.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.

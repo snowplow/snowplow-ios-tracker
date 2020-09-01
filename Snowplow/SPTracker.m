@@ -47,9 +47,12 @@
 #import "SPBackground.h"
 #import "SPPushNotification.h"
 #import "SPTrackerEvent.h"
+#import "SPTrackerError.h"
+#import "SPDiagnosticLogger.h"
+#import "SPLogger.h"
 
 /** A class extension that makes the screen view states mutable internally. */
-@interface SPTracker ()
+@interface SPTracker () <SPDiagnosticLogger>
 
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
@@ -188,7 +191,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (_exceptionEvents) {
         NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     }
-
+    
     _builderFinished = YES;
 }
 
@@ -263,6 +266,14 @@ void uncaughtExceptionHandler(NSException *exception) {
     _devicePlatform = devicePlatform;
 }
 
+- (void)setLogLevel:(SPLogLevel)logLevel {
+    [SPLogger setLogLevel:logLevel];
+}
+
+- (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate {
+    [SPLogger setLoggerDelegate:delegate];
+}
+
 - (void) setSessionContext:(BOOL)sessionContext {
     _sessionContext = sessionContext;
     if (_session != nil && !sessionContext) {
@@ -316,6 +327,20 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) setInstallEvent:(BOOL)installEvent {
     _installEvent = installEvent;
+}
+
+- (void)setTrackerDiagnostic:(BOOL)trackerDiagnostic {
+    if (_builderFinished) {
+        id<SPDiagnosticLogger> diagnosticLogger = trackerDiagnostic ? self : nil;
+        [SPLogger setDiagnosticLogger:diagnosticLogger];
+    }
+}
+
+#pragma mark - Diagnostic
+
+- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(NSError *)error exception:(NSException *)exception {
+    SPTrackerError *event = [[SPTrackerError alloc] initWithSource:tag message:message error:error exception:exception];
+    [self track:event];
 }
 
 #pragma mark - Global Contexts methods
@@ -529,7 +554,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
     // Add the contexts
     NSMutableArray<SPSelfDescribingJson *> *contexts = contextArray;
-    [self addBasicContextsToContexts:contexts eventId:eventId];
+    [self addBasicContextsToContexts:contexts eventId:eventId isService:NO]; // isService = NO is just the default - this method will be removed in the version 2.0
 
     [self wrapContexts:contexts toPayload:pb];
     return pb;
@@ -537,6 +562,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
     SPPayload *payload = [SPPayload new];
+    payload.allowDiagnostic = !event.isService;
 
     [self addBasicPropertiesToPayload:payload event:event];
     if (event.isPrimitive) {
@@ -584,11 +610,11 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(SPTrackerEvent *)event {
-    [self addBasicContextsToContexts:contexts eventId:event.eventId.UUIDString];
+    [self addBasicContextsToContexts:contexts eventId:event.eventId.UUIDString isService:event.isService];
 }
 
-- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId {
-    if (_subject != nil) {
+- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId isService:(BOOL)isService {
+    if (_subject) {
         NSDictionary * platformDict = [[_subject getPlatformDict] getAsDictionary];
         if (platformDict != nil) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
@@ -605,12 +631,18 @@ void uncaughtExceptionHandler(NSException *exception) {
             [contexts addObject:contextJson];
         }
     }
+    
+    if (isService) {
+        return;
+    }
 
-    // Add session if active
-    if (_session != nil) {
-        NSDictionary * sessionDict = [_session getSessionDictWithEventId:eventId];
-        if (sessionDict != nil) {
+    // Add session
+    if (_session) {
+        NSDictionary *sessionDict = [_session getSessionDictWithEventId:eventId];
+        if (sessionDict) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
+        } else {
+            SPLogTrack(nil, @"Unable to get session context for eventId: %@", eventId);
         }
     }
     

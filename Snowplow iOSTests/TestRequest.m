@@ -69,7 +69,7 @@ NSString *protocol = @"https";
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     
-    XCTAssertEqual(_successCount, 7);
+    XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -80,7 +80,7 @@ NSString *protocol = @"https";
     SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_successCount, 7);
+    XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -91,8 +91,8 @@ NSString *protocol = @"https";
     SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_failureCount, 7);
-    XCTAssertEqual([tracker.emitter getDbCount], 7);
+    XCTAssertEqual(_failureCount, 8);
+    XCTAssertEqual([tracker.emitter getDbCount], 8);
     
     // Update the URL and flush
     [[tracker emitter] setUrlEndpoint:TEST_SERVER_REQUEST];
@@ -102,7 +102,7 @@ NSString *protocol = @"https";
     
     [[tracker emitter] flushBuffer];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_successCount, 7);
+    XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -113,7 +113,7 @@ NSString *protocol = @"https";
     [tracker setSubject:nil];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_successCount, 7);
+    XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -174,6 +174,7 @@ NSString *protocol = @"https";
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self trackStructuredEventWithTracker:tracker];
         [self trackUnstructuredEventWithTracker:tracker];
+        [self trackSelfDescribingJsonEventWithTracker:tracker];
         [self trackPageViewWithTracker:tracker];
         [self trackScreenViewWithTracker:tracker];
         [self trackTimingWithCategoryWithTracker:tracker];

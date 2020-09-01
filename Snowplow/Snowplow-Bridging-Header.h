@@ -11,6 +11,14 @@
 #import "SPRequestCallback.h"
 #import "SPSelfDescribingJson.h"
 
+#import "SPEventStore.h"
+#import "SPSQLiteEventStore.h"
+#import "SPNetworkConnection.h"
+#import "SPDefaultNetworkConnection.h"
+#import "SPRequest.h"
+#import "SPRequestResult.h"
+#import "SPEmitterEvent.h"
+
 // Events
 #import "SPEventBase.h"
 #import "SPPageView.h"

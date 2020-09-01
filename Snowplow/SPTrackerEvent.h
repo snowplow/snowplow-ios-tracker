@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
 @property (nonatomic) BOOL isPrimitive;
+@property (nonatomic) BOOL isService;
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;

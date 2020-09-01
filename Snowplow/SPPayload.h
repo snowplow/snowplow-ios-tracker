@@ -24,6 +24,8 @@
 
 @interface SPPayload : NSObject
 
+@property (nonatomic) BOOL allowDiagnostic;
+
 /**
  *  Initializes a newly allocated SPPayload
  *  @return A SnowplowPayload.
@@ -93,7 +95,11 @@
  */
 - (NSDictionary<NSString *, NSObject *> *) getAsDictionary;
 
-- (NSString *) description;
+/**
+ * Returns the byte size of a payload.
+ * @return A long representing the byte size of the payload.
+ */
+- (NSUInteger)byteSize;
 
 @end
 

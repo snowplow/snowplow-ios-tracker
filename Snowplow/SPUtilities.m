@@ -27,6 +27,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
 #include <sys/sysctl.h>
+#import "SPLogger.h"
 
 #if SNOWPLOW_TARGET_IOS
 
@@ -329,7 +330,7 @@
 
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
     if (!argument) {
-        SnowplowDLog(@"SPLog: Error occurred while checking argument: %@", message);
+        SPLogDebug(@"Error occurred while checking argument: %@", message);
          #if DEBUG
             @throw [NSException exceptionWithName:NSInvalidArgumentException reason:message userInfo:nil];
          #endif
@@ -417,11 +418,11 @@
     while (![scanner isAtEnd]) {
         [scanner scanUpToString:@"-" intoString:&scannedWord];
         [words addObject:scannedWord];
-        NSLog(@"scanned word: %@", scannedWord);
+        SPLogVerbose(@"scanned word: %@", scannedWord);
         [scanner scanString:@"-" intoString:nil];
     }
 
-    NSLog(@"%@", words);
+    SPLogVerbose(@"%@", words);
     if ([words count] == 0) {
         return @"";
     } else if ([words count] == 1) {

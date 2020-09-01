@@ -27,13 +27,13 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-1.4.1";
+NSString * const kSPVersion               = @"ios-1.5.0";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-1.4.1";
+NSString * const kSPVersion               = @"tvos-1.5.0";
 #elif SNOWPLOW_TARGET_WATCHOS
-NSString * const kSPVersion               = @"watchos-1.4.1";
+NSString * const kSPVersion               = @"watchos-1.5.0";
 #else
-NSString * const kSPVersion               = @"osx-1.4.1";
+NSString * const kSPVersion               = @"osx-1.5.0";
 #endif
 
 // --- Emitter
@@ -69,6 +69,7 @@ NSString * const kSPBackgroundSchema = @"iglu:com.snowplowanalytics.snowplow/app
 NSString * const kSPErrorSchema = @"iglu:com.snowplowanalytics.snowplow/application_error/jsonschema/1-0-2";
 NSString * const kSPApplicationInstallSchema = @"iglu:com.snowplowanalytics.mobile/application_install/jsonschema/1-0-0";
 NSString * const kSPGdprContextSchema     = @"iglu:com.snowplowanalytics.snowplow/gdpr/jsonschema/1-0-0";
+NSString * const kSPDiagnosticErrorSchema = @"iglu:com.snowplowanalytics.snowplow/diagnostic_error/jsonschema/1-0-0";
 
 // --- Event Keys
 
@@ -279,5 +280,12 @@ NSString * const kSPBasisForProcessing  = @"basisForProcessing";
 NSString * const kSPDocumentId          = @"documentId";
 NSString * const kSPDocumentVersion     = @"documentVersion";
 NSString * const kSPDocumentDescription = @"documentDescription";
+
+// --- Tracker Diagnostic
+
+NSString * const kSPDiagnosticErrorMessage       = @"message";
+NSString * const kSPDiagnosticErrorStack         = @"stackTrace";
+NSString * const kSPDiagnosticErrorClassName     = @"className";
+NSString * const kSPDiagnosticErrorExceptionName = @"exceptionName";
 
 @end

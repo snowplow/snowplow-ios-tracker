@@ -40,13 +40,18 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     // Tracker setup and init
 
     func getTracker(_ url: String, method: SPRequestOptions) -> SPTracker {
+        let eventStore = SPSQLiteEventStore();
+        let network = SPDefaultNetworkConnection.build { (builder) in
+            builder.setUrlEndpoint(url)
+            builder.setHttpMethod(method)
+            builder.setEmitThreadPoolSize(20)
+            builder.setByteLimitPost(52000)
+        }
         let emitter = SPEmitter.build({ (builder : SPEmitterBuilder?) -> Void in
-            builder!.setUrlEndpoint(url)
-            builder!.setHttpMethod(method)
             builder!.setCallback(self)
             builder!.setEmitRange(500)
-            builder!.setEmitThreadPoolSize(20)
-            builder!.setByteLimitPost(52000)
+            builder!.setEventStore(eventStore)
+            builder!.setNetworkConnection(network)
         })
         let subject = SPSubject(platformContext: true, andGeoContext: false)
         let newTracker = SPTracker.build({ (builder : SPTrackerBuilder?) -> Void in
@@ -62,11 +67,16 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
             builder!.setApplicationContext(true)
             builder!.setExceptionEvents(true)
             builder!.setInstallEvent(true)
+            // set global context generators
             builder!.setGlobalContextGenerators([
                 "ruleSetExampleTag": self.ruleSetGlobalContextExample(),
                 "staticExampleTag": self.staticGlobalContextExample(),
             ])
             builder!.setGdprContextWith(SPGdprProcessingBasis.consent, documentId: "id", documentVersion: "1.0", documentDescription: "description")
+            // set diagnostic and logger delegate
+            builder?.setTrackerDiagnostic(true)
+            builder?.setLogLevel(.verbose)
+            builder?.setLoggerDelegate(self)
         })
         return newTracker!
     }
@@ -197,4 +207,18 @@ class PageViewController:  UIPageViewController, UIPageViewControllerDelegate, U
     }
     */
 
+}
+
+extension PageViewController: SPLoggerDelegate {
+    func error(_ tag: String!, message: String!) {
+        print("[Error] \(tag!): \(message!)")
+    }
+    
+    func debug(_ tag: String!, message: String!) {
+        print("[Debug] \(tag!): \(message!)")
+    }
+    
+    func verbose(_ tag: String!, message: String!) {
+        print("[Verbose] \(tag!): \(message!)")
+    }
 }

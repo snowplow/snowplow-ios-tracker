@@ -102,7 +102,7 @@ class DemoViewController: UIViewController, UITextFieldDelegate, PageObserver {
             self.tracker?.emitter.setProtocol(self.parentPageViewController.getProtocolType())
             
             // Iterate the made counter
-            self.parentPageViewController.madeCounter += 28;
+            self.parentPageViewController.madeCounter += 14;
             
             // Track all types of events
             DemoUtils.trackAll(self.parentPageViewController.tracker)

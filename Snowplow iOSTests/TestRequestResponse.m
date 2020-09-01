@@ -1,5 +1,5 @@
 //
-//  TestRequestResponse.m
+//  TestRequestResult.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -22,13 +22,13 @@
 
 #import <XCTest/XCTest.h>
 #import "Snowplow.h"
-#import "SPRequestResponse.h"
+#import "SPRequestResult.h"
 
-@interface TestRequestResponse : XCTestCase
+@interface TestRequestResult : XCTestCase
 
 @end
 
-@implementation TestRequestResponse
+@implementation TestRequestResult
 
 - (void)setUp {
     [super setUp];
@@ -39,19 +39,19 @@
 }
 
 - (void)testInit {
-    NSMutableArray * array = [[NSMutableArray alloc] init];
-    [array addObject:[NSNumber numberWithInteger:1]];
-    SPRequestResponse * response = [[SPRequestResponse alloc] initWithBool:YES withIndex:array];
+    NSMutableArray<NSNumber *> *emitterEventIds = [NSMutableArray new];
+    [emitterEventIds addObject:@1];
+    SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:YES storeIds:emitterEventIds];
     
-    XCTAssertNotNil(response);
-    XCTAssertEqual([response getSuccess], YES);
-    XCTAssertEqual([response getIndexArray], array);
+    XCTAssertNotNil(result);
+    XCTAssertEqual(result.isSuccessful, YES);
+    XCTAssertEqual(result.storeIds, emitterEventIds);
     
-    response = [[SPRequestResponse alloc] init];
+    result = [[SPRequestResult alloc] init];
     
-    XCTAssertNotNil(response);
-    XCTAssertEqual([response getSuccess], NO);
-    XCTAssertNil([response getIndexArray]);
+    XCTAssertNotNil(result);
+    XCTAssertEqual(result.isSuccessful, NO);
+    XCTAssertNil(result.storeIds);
 }
 
 @end
