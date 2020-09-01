@@ -1,9 +1,6 @@
 var searchData=
 [
-  ['timestamp_1467',['timestamp',['../interface_s_p_tracker_event.html#a4a4dd79aa33066114eeebd2a450d52d2',1,'SPTrackerEvent']]],
-  ['topviewcontrollerclassname_1468',['topViewControllerClassName',['../interface_s_p_screen_state.html#a566cb5902a9d8d3cba663ddc013aad04',1,'SPScreenState']]],
-  ['trackernamespace_1469',['trackerNamespace',['../interface_s_p_tracker.html#a97987b98d675ea54a02798cc8f83145b',1,'SPTracker']]],
-  ['transitiontype_1470',['transitionType',['../interface_s_p_screen_state.html#a4d5628a2aed914d41b4d9a40cae234ff',1,'SPScreenState']]],
-  ['truetimestamp_1471',['trueTimestamp',['../interface_s_p_event.html#a7f0c9ef70bde9cfeb90915ad73d5f131',1,'SPEvent::trueTimestamp()'],['../interface_s_p_tracker_event.html#a7f0c9ef70bde9cfeb90915ad73d5f131',1,'SPTrackerEvent::trueTimestamp()']]],
-  ['type_1472',['type',['../interface_s_p_screen_state.html#abff6a04d71c2bba87e646615388a1f5c',1,'SPScreenState']]]
+  ['payload_1622',['payload',['../interface_s_p_emitter_event.html#a8815e44ac439b5f786761dc2554a1639',1,'SPEmitterEvent::payload()'],['../category_s_p_emitter_event_07_08.html#a8815e44ac439b5f786761dc2554a1639',1,'SPEmitterEvent()::payload()'],['../protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f',1,'SPInspectableEvent-p::payload()'],['../interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc',1,'SPEvent::payload()'],['../interface_s_p_notification_content.html#a0572db16dcfb3be5364f2451edb4c737',1,'SPNotificationContent::payload()'],['../interface_s_p_request.html#a8815e44ac439b5f786761dc2554a1639',1,'SPRequest::payload()'],['../category_s_p_request_07_08.html#a8815e44ac439b5f786761dc2554a1639',1,'SPRequest()::payload()'],['../interface_s_p_tracker_event.html#aa0f021eb5f64dbc10a95109ee06ac31f',1,'SPTrackerEvent::payload()']]],
+  ['previousscreenstate_1623',['previousScreenState',['../interface_s_p_tracker.html#aa67525cde5b8165a61548549fae7410a',1,'SPTracker::previousScreenState()'],['../category_s_p_tracker_07_08.html#aa67525cde5b8165a61548549fae7410a',1,'SPTracker()::previousScreenState()']]],
+  ['protocol_1624',['protocol',['../interface_s_p_emitter.html#a2685bb05bd03555b988042d2d6774c28',1,'SPEmitter']]]
 ];

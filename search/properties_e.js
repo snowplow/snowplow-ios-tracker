@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['urlendpoint_1473',['urlEndpoint',['../interface_s_p_emitter.html#a8a74e26d18337a1acf81f5b6bb7ad580',1,'SPEmitter']]]
+  ['queue_1625',['queue',['../category_s_p_s_q_lite_event_store_07_08.html#ad9f75fcf2b2c0b90d6d736740fedd57a',1,'SPSQLiteEventStore()']]]
 ];
