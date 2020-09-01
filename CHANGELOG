@@ -1,4 +1,11 @@
 
+Version 1.5.0 (2020-09-01)
+--------------------------
+Crash connected with method writeSessionToFile in SPSession (#515)
+Emitter refactoring (#540)
+Report logs to the app (#534)
+Add diagnostic feature (#533)
+
 Version 1.4.1 (2020-07-22)
 --------------------------
 TrueTimestamp has to be set in seconds. (#532)
