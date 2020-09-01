@@ -209,8 +209,8 @@ NSString * const kSessionSavePath = @"session.dict";
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     BOOL result = NO;
     if ([paths count] > 0) {
-        NSString * savePath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
-        NSMutableDictionary * sessionDict = [NSMutableDictionary dictionaryWithDictionary:[_sessionDict copy]];
+        NSString *savePath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
+        NSMutableDictionary *sessionDict = [_sessionDict mutableCopy];
         [sessionDict removeObjectForKey:kSPSessionPreviousId];
         [sessionDict removeObjectForKey:kSPSessionStorage];
         result = [sessionDict writeToFile:savePath atomically:YES];
@@ -244,7 +244,18 @@ NSString * const kSessionSavePath = @"session.dict";
             range = strongSelf->_foregroundTimeout;
         }
         
-        if (![strongSelf isTimeInRangeWithStartTime:strongSelf.accessedLast.longLongValue andCheckTime:checkTime.longLongValue andRange:range]) {
+        long long accessedLast = strongSelf.accessedLast.longLongValue;
+        if ([strongSelf isTimeInRangeWithStartTime:accessedLast andCheckTime:checkTime.longLongValue andRange:range]) {
+            // return because last access within the timeout
+            return;
+        }
+        @synchronized (strongSelf) {
+            if (accessedLast != strongSelf.accessedLast.longLongValue
+                && [strongSelf isTimeInRangeWithStartTime:strongSelf.accessedLast.longLongValue andCheckTime:checkTime.longLongValue andRange:range])
+            {
+                // return because last access changed but within the timeout
+                return;
+            }
             [strongSelf updateSession];
             [strongSelf updateAccessedLast];
             [strongSelf updateSessionDict];
