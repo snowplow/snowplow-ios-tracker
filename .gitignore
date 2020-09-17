@@ -17,6 +17,7 @@ xcuserdata
 *.xccheckout
 *.moved-aside
 DerivedData
+.derivedData
 *.xcuserstate
 *.gcda
 *.gcno
@@ -39,3 +40,6 @@ Frameworks/
 
 # Documentation
 /docs/html/
+
+# Swift Package Manager
+.swiftpm
