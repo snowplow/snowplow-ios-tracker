@@ -87,7 +87,7 @@ NSString * const kSessionSavePath = @"session.dict";
         _backgroundTimeout = backgroundTimeout * 1000;
         _inBackground = NO;
         _isNewSession = YES;
-        _sessionStorage = @"SQLITE";
+        _sessionStorage = @"LOCAL_STORAGE";
         _tracker = tracker;
 
         NSDictionary * storedSessionDict = [self getSessionFromFile];
