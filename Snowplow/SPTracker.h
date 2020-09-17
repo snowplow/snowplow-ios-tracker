@@ -164,10 +164,11 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 
 /*!
  @brief Tracker builder method to set the interval of session checking.
-
+ 
  @param checkInterval Length of time in seconds that session checks for timeout.
+ @deprecated This function will be removed in the version 2.0.
  */
-- (void) setCheckInterval:(NSInteger)checkInterval;
+- (void) setCheckInterval:(NSInteger)checkInterval __deprecated_msg("setCheckInterval is deprecated as no longer has any effect.");
 
 /*!
  @brief Tracker builder method to set whether events will include application context.

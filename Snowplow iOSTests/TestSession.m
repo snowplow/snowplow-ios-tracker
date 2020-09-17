@@ -22,6 +22,15 @@
 
 #import <XCTest/XCTest.h>
 #import "SPSession.h"
+#import "Snowplow.h"
+
+/// Category needed to make the private methods testable.
+@interface SPSession (Testing)
+
+- (void)updateInBackground;
+- (void)updateInForeground;
+
+@end
 
 @interface TestSession : XCTestCase
 
@@ -41,42 +50,220 @@
     SPSession * session = [[SPSession alloc] init];
     XCTAssertNil([session getTracker]);
     XCTAssertTrue(![session getInBackground]);
-    XCTAssertTrue([session getSessionIndex] >= 1);
+    XCTAssertTrue([session getSessionIndex] >= -1);
     XCTAssertNotNil([session getSessionDictWithEventId:@"eventid-1"]);
     XCTAssertEqual([session getForegroundTimeout], 600000);
     XCTAssertEqual([session getBackgroundTimeout], 300000);
-    XCTAssertEqual([session getCheckInterval], 15);
 }
 
 - (void)testInitWithOptions {
-    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:5 andBackgroundTimeout:300 andCheckInterval:2 andTracker:nil];
+    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:5 andBackgroundTimeout:300 andTracker:nil];
     XCTAssertEqual([session getForegroundTimeout], 5000);
     XCTAssertEqual([session getBackgroundTimeout], 300000);
-    XCTAssertEqual([session getCheckInterval], 2);
     
-    [session setCheckInterval:20];
     [session setBackgroundTimeout:5];
     [session setForegroundTimeout:10];
     
     XCTAssertEqual([session getForegroundTimeout], 10);
     XCTAssertEqual([session getBackgroundTimeout], 5);
-    XCTAssertEqual([session getCheckInterval], 20);
 }
 
 - (void)testInitInBgThread {
     __block SPSession * session = nil;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andCheckInterval:1 andTracker:nil];
+        session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andTracker:nil];
     });
     [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
     [NSThread sleepForTimeInterval:1];
     XCTAssertNotNil(session);
 }
 
-- (void)testSessionFunction {
-    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:1 andCheckInterval:1 andTracker:nil];
-    NSInteger count = [session getSessionIndex];
-    XCTAssertTrue(count > 0);
+- (void)testFirstSession {
+    SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
+    NSInteger oldSessionIndex = [session getSessionIndex];
+    
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
+    NSInteger sessionIndex = [session getSessionIndex];
+    XCTAssertEqual(1, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+}
+
+- (void)testEventsOnSameSession {
+    SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
+    NSInteger oldSessionIndex = [session getSessionIndex];
+    
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
+    NSInteger sessionIndex = [session getSessionIndex];
+    NSString *sessionId = [sessionContext objectForKey:kSPSessionId];
+    XCTAssertEqual(1, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    oldSessionIndex = sessionIndex;
+    
+    [NSThread sleepForTimeInterval:1];
+
+    sessionContext = [session getSessionDictWithEventId:@"event_2"];
+    sessionIndex = [session getSessionIndex];
+    XCTAssertEqual(0, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
+    oldSessionIndex = sessionIndex;
+    
+    [NSThread sleepForTimeInterval:1];
+
+    sessionContext = [session getSessionDictWithEventId:@"event_3"];
+    sessionIndex = [session getSessionIndex];
+    XCTAssertEqual(0, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
+    oldSessionIndex = sessionIndex;
+
+    [NSThread sleepForTimeInterval:3.1];
+
+    sessionContext = [session getSessionDictWithEventId:@"event_4"];
+    sessionIndex = [session getSessionIndex];
+    XCTAssertEqual(1, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_4", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertNotEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
+}
+
+- (void)testBackgroundEventsOnSameSession {
+    SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:2 andTracker:nil];
+    NSInteger oldSessionIndex = [session getSessionIndex];
+    
+    [session updateInBackground];
+    
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
+    NSInteger sessionIndex = [session getSessionIndex];
+    NSString *sessionId = [sessionContext objectForKey:kSPSessionId];
+    XCTAssertEqual(1, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertTrue([session getInBackground]);
+    XCTAssertEqual(1, [session getBackgroundIndex]);
+    oldSessionIndex = sessionIndex;
+    
+    [NSThread sleepForTimeInterval:1];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_2"];
+    sessionIndex = [session getSessionIndex];
+    XCTAssertEqual(0, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
+    XCTAssertTrue([session getInBackground]);
+    XCTAssertEqual(1, [session getBackgroundIndex]);
+    oldSessionIndex = sessionIndex;
+    
+    [NSThread sleepForTimeInterval:1];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_3"];
+    sessionIndex = [session getSessionIndex];
+    XCTAssertEqual(0, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
+    XCTAssertTrue([session getInBackground]);
+    XCTAssertEqual(1, [session getBackgroundIndex]);
+    oldSessionIndex = sessionIndex;
+    
+    [NSThread sleepForTimeInterval:2.1];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_4"];
+    sessionIndex = [session getSessionIndex];
+    XCTAssertEqual(1, sessionIndex - oldSessionIndex);
+    XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_4", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertNotEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
+    XCTAssertTrue([session getInBackground]);
+    XCTAssertEqual(1, [session getBackgroundIndex]);
+}
+
+- (void)testMixedEventsOnManySessions {
+    SPSession *session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andTracker:nil];
+    
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertFalse([session getInBackground]);
+    XCTAssertEqual(0, [session getBackgroundIndex]);
+    XCTAssertEqual(0, [session getForegroundIndex]);
+    NSString *oldSessionId = [sessionContext objectForKey:kSPSessionId];
+    
+    [session updateInBackground];
+    [NSThread sleepForTimeInterval:1.1];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_2"];
+    XCTAssertEqualObjects(oldSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
+    XCTAssertEqualObjects(@"event_2", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertTrue([session getInBackground]);
+    XCTAssertEqual(1, [session getBackgroundIndex]);
+    XCTAssertEqual(0, [session getForegroundIndex]);
+    oldSessionId = [sessionContext objectForKey:kSPSessionId];
+
+    [session updateInForeground];
+    [NSThread sleepForTimeInterval:1.1];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_3"];
+    XCTAssertEqualObjects(oldSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
+    XCTAssertEqualObjects(@"event_3", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertFalse([session getInBackground]);
+    XCTAssertEqual(1, [session getBackgroundIndex]);
+    XCTAssertEqual(1, [session getForegroundIndex]);
+    oldSessionId = [sessionContext objectForKey:kSPSessionId];
+
+    [session updateInBackground];
+    [NSThread sleepForTimeInterval:1.1];
+
+    sessionContext = [session getSessionDictWithEventId:@"event_4"];
+    XCTAssertEqualObjects(oldSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
+    XCTAssertEqualObjects(@"event_4", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    XCTAssertTrue([session getInBackground]);
+    XCTAssertEqual(2, [session getBackgroundIndex]);
+    XCTAssertEqual(1, [session getForegroundIndex]);
+}
+
+- (void)testTimeoutSessionWhenPauseAndResume {
+    SPSession *session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andTracker:nil];
+    
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
+    NSInteger oldSessionIndex = [session getSessionIndex];
+    NSString *prevSessionId = [sessionContext objectForKey:kSPSessionId];
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    
+    [session stopChecker];
+    [NSThread sleepForTimeInterval:2];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_2"];
+    XCTAssertEqual(oldSessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(prevSessionId, [sessionContext objectForKey:kSPSessionId]);
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    oldSessionIndex = [session getSessionIndex];
+    prevSessionId = [sessionContext objectForKey:kSPSessionId];
+    
+    [session startChecker];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_3"];
+    XCTAssertEqual(oldSessionIndex + 1, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(prevSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
+    XCTAssertEqualObjects(@"event_3", [sessionContext objectForKey:kSPSessionFirstEventId]);
+}
+
+- (void)testNoEventsForLongTimeDontIncreaseSessionIndexMultipleTimes {
+    SPSession *session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andTracker:nil];
+    
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
+    NSInteger oldSessionIndex = [session getSessionIndex];
+    XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
+    
+    [NSThread sleepForTimeInterval:4];
+    
+    sessionContext = [session getSessionDictWithEventId:@"event_2"];
+    XCTAssertEqual(oldSessionIndex + 1, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
+    XCTAssertEqualObjects(@"event_2", [sessionContext objectForKey:kSPSessionFirstEventId]);
 }
 
 @end
