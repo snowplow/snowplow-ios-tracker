@@ -4,9 +4,6 @@ import PackageDescription
 
 let package = Package(
     name: "SnowplowTracker",
-    platforms: [
-        .iOS(.v9)
-    ],
     products: [
         .library(
             name: "SnowplowTracker",
