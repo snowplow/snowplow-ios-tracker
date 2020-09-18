@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Set testing environment variables
-BUILD_DEST_IOS="platform=iOS Simulator,OS=${IOS:-13.4},name=${IPHONE:-iPhone 11 Pro}"
-BUILD_DEST_PAIRED="platform=iOS Simulator,OS=${IOS:-13.4},name=${IPHONE:-iPhone 11 Pro}"
-BUILD_DEST_WATCH="platform=watchOS Simulator,OS=${WATCHOS:-6.2},name=${WATCH:-Apple Watch Series 5 - 44mm}"
+BUILD_DEST_IOS="platform=iOS Simulator,OS=${IOS:-14.0},name=${IPHONE:-iPhone 11 Pro}"
+BUILD_DEST_PAIRED="platform=iOS Simulator,OS=${IOS:-14.0},name=${IPHONE:-iPhone 11 Pro}"
+BUILD_DEST_WATCH="platform=watchOS Simulator,OS=${WATCHOS:-7.0},name=${WATCH:-Apple Watch Series 5 - 44mm}"
 
 BUILD_PROJECT_LIB="-project Snowplow.xcodeproj"
 BUILD_SCHEME_LIB_IOS="-scheme Snowplow-iOS"
