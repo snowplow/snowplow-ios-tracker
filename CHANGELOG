@@ -1,4 +1,11 @@
 
+Version 1.6.0 (2020-09-21)
+--------------------------
+Update GitHub Actions to test on iOS 14 (#545)
+Enable Xcode 12 support for Swift Package Manager (#544) (Contribution of @lunij)
+Session storageMechanism is marked SQLITE but it's not (#482)
+Make session uuid rotation dependant on events being tracked (#497)
+
 Version 1.5.0 (2020-09-01)
 --------------------------
 Crash connected with method writeSessionToFile in SPSession (#515)
