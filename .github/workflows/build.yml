@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 13.5, iphone: iPhone 11, watchos: 6.2.1,  watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: '14.0', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
           - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
 
     steps:
@@ -41,7 +41,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 13.5, iphone: iPhone 11, watchos: 6.2.1,  watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: '14.0', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
           - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
 
     steps:
@@ -69,7 +69,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 13.5, iphone: iPhone 11, watchos: 6.2.1,  watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: '14.0', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
           - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
 
     steps:
@@ -97,7 +97,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 13.5, iphone: iPhone 11 Pro, watchos: 6.2.1, watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 11.5}
+          - {ios: '14.0', iphone: iPhone 11 Pro, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
           - {ios: 12.4, iphone: iPhone Xs Max, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
         podfile:
           - {file: Podfile, type: "no directive"}

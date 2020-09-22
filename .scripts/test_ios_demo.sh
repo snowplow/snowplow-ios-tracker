@@ -10,6 +10,7 @@ DEST_WATCH=$6
 SCHEME_WATCH=$7
 
 if [ $DEP_FILE == "Cartfile" ]; then
+	. .scripts/carthage-workaround.sh # to remove when fixed https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
 	printf "\n\n Carthage update \n"
 	cd Examples/$APP
 	./generateCartfile.sh

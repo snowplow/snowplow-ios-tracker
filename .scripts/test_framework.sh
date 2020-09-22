@@ -8,6 +8,7 @@ DEST_WATCH=$4
 SCHEME_WATCH=$5
 
 printf "\n\n Carthage bootstrap \n"
+. .scripts/carthage-workaround.sh # to remove when fixed https://github.com/Carthage/Carthage/issues/3019#issuecomment-665136323
 carthage bootstrap
 
 printf "\n\n Test framework on iOS \n"

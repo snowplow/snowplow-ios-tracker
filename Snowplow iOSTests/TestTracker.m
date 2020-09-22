@@ -66,7 +66,6 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setSessionContext:YES];
         [builder setForegroundTimeout:300];
         [builder setBackgroundTimeout:150];
-        [builder setCheckInterval:10];
     }];
     
     // Test builder setting properly
@@ -76,7 +75,6 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     XCTAssertNotNil([tracker subject]);
     XCTAssertEqual([tracker subject], subject);
     XCTAssertEqual([tracker devicePlatform], [SPUtilities getPlatform]);
-    XCTAssertTrue([tracker getSessionIndex] >= 1);
     XCTAssertEqual([tracker appId], @"anAppId");
     XCTAssertEqual([tracker trackerNamespace], @"aNamespace");
     XCTAssertEqual([tracker base64Encoded], NO);
@@ -115,15 +113,15 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     
     // Test Session Switch on/off
     
+    SPSession *oldSessionManager = tracker.session;
     [tracker setSessionContext:NO];
-    XCTAssertTrue([tracker getSessionIndex] == 0);
+    XCTAssertNil(tracker.session);
     
     [tracker setSessionContext:YES];
-    XCTAssertTrue([tracker getSessionIndex] > 0);
-    
-    [tracker setForegroundTimeout:10];
-    [tracker setBackgroundTimeout:20];
-    [tracker setCheckInterval:15];
+    XCTAssertNotNil(tracker.session);
+    XCTAssertNotEqual(oldSessionManager, tracker.session);
+
+    // Test Emitter nil
     
     @try {
         tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
@@ -134,7 +132,6 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
             [builder setSessionContext:YES];
             [builder setForegroundTimeout:300];
             [builder setBackgroundTimeout:150];
-            [builder setCheckInterval:10];
         }];
     }
     @catch (NSException *exception) {
@@ -159,7 +156,6 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setSessionContext:YES];
         [builder setForegroundTimeout:300];
         [builder setBackgroundTimeout:150];
-        [builder setCheckInterval:10];
     }];
     
     SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
