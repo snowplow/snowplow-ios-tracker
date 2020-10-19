@@ -1,1 +1,0 @@
-../../../Target Support Files/SnowplowTracker-iOS/SnowplowTracker-iOS-umbrella.h

@@ -1,7 +1,0 @@
-module SnowplowTracker {
-  umbrella header "SnowplowTracker-iOS-umbrella.h"
-  exclude header "SnowplowTracker-watchOS-umbrella.h"
-
-  export *
-  module * { export * }
-}

@@ -1,1 +1,0 @@
-../../../../../../Snowplow/SPSchemaRule.h

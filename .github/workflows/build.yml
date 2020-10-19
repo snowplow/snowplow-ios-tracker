@@ -48,6 +48,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Checkout demo app
+        uses: actions/checkout@v2
+        with:
+          repository: snowplow-incubator/snowplow-objc-tracker-examples
+          path: examples
+
       - name: Build
         env:
           IOS: ${{ matrix.version.ios }}
@@ -55,6 +61,7 @@ jobs:
           IPHONE: ${{ matrix.version.iphone }}
           WATCH: ${{ matrix.version.watch }}
         run: |
+          cd examples/demo/ 
           . .scripts/setup.sh
           .scripts/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
 
@@ -76,6 +83,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Checkout demo app
+        uses: actions/checkout@v2
+        with:
+          repository: snowplow-incubator/snowplow-objc-tracker-examples
+          path: examples
+
       - name: Build
         env:
           IOS: ${{ matrix.version.ios }}
@@ -83,6 +96,7 @@ jobs:
           IPHONE: ${{ matrix.version.iphone }}
           WATCH: ${{ matrix.version.watch }}
         run: |
+          cd examples/demo/ 
           . .scripts/setup.sh
           .scripts/test_ios_demo.sh SnowplowSwiftCarthageDemo Cartfile "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}"
 
@@ -108,6 +122,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
+      - name: Checkout demo app
+        uses: actions/checkout@v2
+        with:
+          repository: snowplow-incubator/snowplow-objc-tracker-examples
+          path: examples
+
       - name: Build
         env:
           IOS: ${{ matrix.version.ios }}
@@ -115,5 +135,6 @@ jobs:
           IPHONE: ${{ matrix.version.iphone }}
           WATCH: ${{ matrix.version.watch }}
         run: |
+          cd examples/demo/ 
           . .scripts/setup.sh
           .scripts/test_ios_demo.sh SnowplowSwiftCocoapodsDemo ${{matrix.podfile.file}} "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
