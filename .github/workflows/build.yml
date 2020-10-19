@@ -2,7 +2,7 @@ name: Build
 
 on: [push]
 
-jobs:
+jobs:  
   test_framework:
     name: "Framework (iOS ${{ matrix.version.ios }})"
     runs-on: macos-${{ matrix.version.macos }}
@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.0', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
+          - {ios: '14.1', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
           - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
 
     steps:
@@ -41,7 +41,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.0', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
+          - {ios: '14.1', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
           - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
 
     steps:
@@ -63,7 +63,7 @@ jobs:
         run: |
           cd examples/demo/ 
           . .scripts/setup.sh
-          .scripts/test_ios_demo.sh SnowplowDemo Podfile "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
+          .scripts/test_ios_demo.sh -app SnowplowDemo -podfile Podfile -ios "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
 
   build_swift_carthage_demo_app:
     name: "Swift demo (Carthage) (iOS ${{ matrix.version.ios }})"
@@ -76,7 +76,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.0', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
+          - {ios: '14.1', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
           - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
 
     steps:
@@ -98,7 +98,14 @@ jobs:
         run: |
           cd examples/demo/ 
           . .scripts/setup.sh
-          .scripts/test_ios_demo.sh SnowplowSwiftCarthageDemo Cartfile "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}"
+          .scripts/test_ios_demo.sh -app SnowplowSwiftCarthageDemo -carthage -log $GITHUB_WORKSPACE/cart.log -ios "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}"
+
+      - name: Load logs if failed
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v2
+        with: 
+          name: carthage-demo-log-${{ matrix.version.ios }}
+          path: cart.log
 
   build_swift_cocoapods_demo_app:
     name: "Swift demo (Cocoapods ${{ matrix.podfile.type }}) (iOS ${{ matrix.version.ios }})"
@@ -111,7 +118,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.0', iphone: iPhone 11 Pro, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.0}
+          - {ios: '14.1', iphone: iPhone 12 Pro, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
           - {ios: 12.4, iphone: iPhone Xs Max, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
         podfile:
           - {file: Podfile, type: "no directive"}
@@ -137,4 +144,54 @@ jobs:
         run: |
           cd examples/demo/ 
           . .scripts/setup.sh
-          .scripts/test_ios_demo.sh SnowplowSwiftCocoapodsDemo ${{matrix.podfile.file}} "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
+          .scripts/test_ios_demo.sh -app SnowplowSwiftCocoapodsDemo -podfile ${{matrix.podfile.file}} -ios "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" -watch "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
+
+  build_swift_spm_demo_app:
+    name: "Swift demo (SPM) (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-${{ matrix.version.macos }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
+
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - {ios: '14.1', iphone: iPhone 11 Pro, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Get branch name
+        id: branch
+        run: |
+          # Set git branch or git tag as slug
+          if [[ ${GITHUB_REF} =~ ^refs\/tags\/ ]]; then
+            GIT_BRANCH=master
+          else
+            if [ -n "${GITHUB_HEAD_REF}" ]; then
+              GIT_BRANCH="${GITHUB_HEAD_REF}"
+            else
+              GIT_BRANCH="${GITHUB_REF/refs\/heads\//}"
+            fi
+          fi
+          echo ::set-output name=name::${GIT_BRANCH}
+
+      - name: Checkout demo app
+        uses: actions/checkout@v2
+        with:
+          repository: snowplow-incubator/snowplow-objc-tracker-examples
+          path: examples
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.version.ios }}
+          WATCHOS: ${{ matrix.version.watchos }}
+          IPHONE: ${{ matrix.version.iphone }}
+          WATCH: ${{ matrix.version.watch }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        run: |
+          cd examples/demo/
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh -app SnowplowSwiftSPMDemo -spm ${BRANCH} -ios "${BUILD_WORKSPACE_SWIFT_SPM_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_SPM_DEMO_IOS}"
