@@ -10,7 +10,7 @@
 
 ## Overview
 
-Add analytics to your iOS, macOS, tvOS and watchOS apps and games with the **[Snowplow][2]** event tracker for **[iOS 8.0+][3]**, **[macOS 10.9+][4]**, **[tvOS 9.0+][5]** and **[watchOS 2.0+][6]**
+Add analytics to your iOS, macOS, tvOS and watchOS apps and games with the **[Snowplow][2]** event tracker for **[iOS 9.0+][3]**, **[macOS 10.9+][4]**, **[tvOS 9.0+][5]** and **[watchOS 2.0+][6]**
 
 With this tracker you can collect event data from your applications, games or frameworks.
 
