@@ -1,1 +1,0 @@
-../../../Target Support Files/SnowplowTracker-watchOS/SnowplowTracker-watchOS-umbrella.h

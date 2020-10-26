@@ -1,1 +1,0 @@
-../../../../../../Snowplow/SPStructured.h
