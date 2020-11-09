@@ -762,9 +762,39 @@
 		AB0C27C2191B408200018557 /* Snowplow */ = {
 			isa = PBXGroup;
 			children = (
+				EDD53F7E25473C430000E57D /* Internal */,
+				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
+				AB0C27C3191B408200018557 /* Supporting Files */,
+			);
+			path = Snowplow;
+			sourceTree = "<group>";
+		};
+		AB0C27C3191B408200018557 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				ED6AC5152369D42800A8F8A3 /* ios.modulemap */,
+				B3D9BE0F237ACE0D009B310A /* watchos.modulemap */,
+				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
+				AB39617019530E850002F235 /* OpenIDFA.h */,
+				AB39617119530E850002F235 /* OpenIDFA.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ED914EB02430D03A0068DA0A /* Global Contexts */ = {
+			isa = PBXGroup;
+			children = (
+				ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */,
+				ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */,
+			);
+			path = "Global Contexts";
+			sourceTree = "<group>";
+		};
+		EDD53F7E25473C430000E57D /* Internal */ = {
+			isa = PBXGroup;
+			children = (
 				CE4F9C6A244B066400968CFC /* SNOWError.h */,
 				CE4F9C71244B066400968CFC /* SNOWError.m */,
-				75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				043EC5E61B8F224900294081 /* Snowplow.m */,
 				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
@@ -848,32 +878,10 @@
 				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
 				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
 				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
-				AB0C27C3191B408200018557 /* Supporting Files */,
 				754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */,
 				754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */,
 			);
-			path = Snowplow;
-			sourceTree = "<group>";
-		};
-		AB0C27C3191B408200018557 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				ED6AC5152369D42800A8F8A3 /* ios.modulemap */,
-				B3D9BE0F237ACE0D009B310A /* watchos.modulemap */,
-				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
-				AB39617019530E850002F235 /* OpenIDFA.h */,
-				AB39617119530E850002F235 /* OpenIDFA.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		ED914EB02430D03A0068DA0A /* Global Contexts */ = {
-			isa = PBXGroup;
-			children = (
-				ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */,
-				ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */,
-			);
-			path = "Global Contexts";
+			path = Internal;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
