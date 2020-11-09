@@ -775,8 +775,6 @@
 				ED6AC5152369D42800A8F8A3 /* ios.modulemap */,
 				B3D9BE0F237ACE0D009B310A /* watchos.modulemap */,
 				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
-				AB39617019530E850002F235 /* OpenIDFA.h */,
-				AB39617119530E850002F235 /* OpenIDFA.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -793,6 +791,8 @@
 		EDD53F7E25473C430000E57D /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				AB39617019530E850002F235 /* OpenIDFA.h */,
+				AB39617119530E850002F235 /* OpenIDFA.m */,
 				CE4F9C6A244B066400968CFC /* SNOWError.h */,
 				CE4F9C71244B066400968CFC /* SNOWError.m */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,

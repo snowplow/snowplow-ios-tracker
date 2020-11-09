@@ -22,14 +22,14 @@ Pod::Spec.new do |s|
   s.requires_arc = true
 
   s.ios.source_files = 'Snowplow/*.swift'
-  s.osx.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
-  s.tvos.exclude_files = 'Snowplow/UIViewController+SPScreenView_SWIZZLE.*'
+  s.osx.exclude_files = 'Snowplow/internal/UIViewController+SPScreenView_SWIZZLE.*'
+  s.tvos.exclude_files = 'Snowplow/internal/UIViewController+SPScreenView_SWIZZLE.*'
   s.watchos.exclude_files = [
-    'Snowplow/UIViewController+SPScreenView_SWIZZLE.*',
-    'Snowplow/SNOWReachability.*'
+    'Snowplow/internal/UIViewController+SPScreenView_SWIZZLE.*',
+    'Snowplow/internal/SNOWReachability.*'
   ]
 
-  s.source_files = 'Snowplow/*.{m,h}'
+  s.source_files = 'Snowplow/internal/*.{m,h}'
   s.public_header_files = [
     'Snowplow/Snowplow.h', 
     'Snowplow/SPTracker.h', 
