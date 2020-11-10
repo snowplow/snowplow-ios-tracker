@@ -1,1 +1,1 @@
-./internal/SPSelfDescribingJson.h
+./internal/payload/SPSelfDescribingJson.h

@@ -1,1 +1,1 @@
-./internal/SPNetworkConnection.h
+./internal/networkConnection/SPNetworkConnection.h

@@ -1,1 +1,1 @@
-./internal/SPTrackerEvent.h
+./internal/tracker/SPTrackerEvent.h

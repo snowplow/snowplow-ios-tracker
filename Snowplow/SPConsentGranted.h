@@ -1,1 +1,1 @@
-./internal/SPConsentGranted.h
+./internal/events/SPConsentGranted.h

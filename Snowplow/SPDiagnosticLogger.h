@@ -1,1 +1,1 @@
-./internal/SPDiagnosticLogger.h
+./internal/logger/SPDiagnosticLogger.h

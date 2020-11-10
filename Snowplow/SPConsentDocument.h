@@ -1,1 +1,1 @@
-./internal/SPConsentDocument.h
+./internal/events/SPConsentDocument.h

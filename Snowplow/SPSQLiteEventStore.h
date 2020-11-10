@@ -1,1 +1,1 @@
-./internal/SPSQLiteEventStore.h
+./internal/storage/SPSQLiteEventStore.h

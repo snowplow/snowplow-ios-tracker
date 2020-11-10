@@ -788,17 +788,13 @@
 			path = "Global Contexts";
 			sourceTree = "<group>";
 		};
-		EDD53F7E25473C430000E57D /* Internal */ = {
+		EDC9B346255ACF5100F4136D /* Events */ = {
 			isa = PBXGroup;
 			children = (
-				AB39617019530E850002F235 /* OpenIDFA.h */,
-				AB39617119530E850002F235 /* OpenIDFA.m */,
+				EDEE834924BDB326000B8530 /* SPTrackerError.h */,
+				EDEE834A24BDB326000B8530 /* SPTrackerError.m */,
 				CE4F9C6A244B066400968CFC /* SNOWError.h */,
 				CE4F9C71244B066400968CFC /* SNOWError.m */,
-				AB0C27C5191B408200018557 /* Snowplow.h */,
-				043EC5E61B8F224900294081 /* Snowplow.m */,
-				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
-				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
 				CE4F9C82244B066500968CFC /* SPBackground.h */,
 				CE4F9C7D244B066500968CFC /* SPBackground.m */,
 				CE4F9C81244B066500968CFC /* SPConsentDocument.h */,
@@ -807,73 +803,141 @@
 				CE4F9C6E244B066400968CFC /* SPConsentGranted.m */,
 				CE4F9C69244B066400968CFC /* SPConsentWithdrawn.h */,
 				CE4F9C61244B066400968CFC /* SPConsentWithdrawn.m */,
-				EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */,
-				ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */,
-				ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */,
 				CE4F9C84244B066500968CFC /* SPEcommerce.h */,
 				CE4F9C85244B066500968CFC /* SPEcommerce.m */,
 				CE4F9C7E244B066500968CFC /* SPEcommerceItem.h */,
 				CE4F9C63244B066400968CFC /* SPEcommerceItem.m */,
+				CE4F9C64244B066400968CFC /* SPEvent.h */,
+				CE4F9C7C244B066400968CFC /* SPEventBase.h */,
+				CE4F9C7B244B066400968CFC /* SPEventBase.m */,
+				CE4F9C6D244B066400968CFC /* SPForeground.h */,
+				CE4F9C62244B066400968CFC /* SPForeground.m */,
+				CE4F9C66244B066400968CFC /* SPPageView.h */,
+				CE4F9C74244B066400968CFC /* SPPageView.m */,
+				CE4F9C77244B066400968CFC /* SPPushNotification.h */,
+				CE4F9C78244B066400968CFC /* SPPushNotification.m */,
+				CE4F9C73244B066400968CFC /* SPScreenView.h */,
+				CE4F9C80244B066500968CFC /* SPScreenView.m */,
+				CE4F9C7A244B066400968CFC /* SPStructured.h */,
+				CE4F9C75244B066400968CFC /* SPStructured.m */,
+				CE4F9C67244B066400968CFC /* SPTiming.h */,
+				CE4F9C5F244B066400968CFC /* SPTiming.m */,
+				CE4F9C6B244B066400968CFC /* SPUnstructured.h */,
+				CE4F9C6C244B066400968CFC /* SPUnstructured.m */,
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		EDC9B34D255AE46300F4136D /* Emitter */ = {
+			isa = PBXGroup;
+			children = (
 				AB0C27E9191B43D600018557 /* SPEmitter.h */,
 				AB0C27EA191B43D600018557 /* SPEmitter.m */,
 				EDD8543224EFFFB300661F6B /* SPRequest.h */,
 				EDD8543324EFFFB300661F6B /* SPRequest.m */,
-				EDD8542824EFEFE600661F6B /* SPNetworkConnection.h */,
-				EDD8541E24EFEFB900661F6B /* SPDefaultNetworkConnection.h */,
-				EDD8541F24EFEFB900661F6B /* SPDefaultNetworkConnection.m */,
-				CE4F9C64244B066400968CFC /* SPEvent.h */,
-				CE4F9C7C244B066400968CFC /* SPEventBase.h */,
-				CE4F9C7B244B066400968CFC /* SPEventBase.m */,
-				EDD8540A24EE786900661F6B /* SPEventStore.h */,
 				EDD8541424EEC25000661F6B /* SPEmitterEvent.h */,
 				EDD8541524EEC25100661F6B /* SPEmitterEvent.m */,
-				ABB767AE194974D3006275D1 /* SPSQLiteEventStore.h */,
-				ABB767AF194974D3006275D1 /* SPSQLiteEventStore.m */,
-				CE4F9C6D244B066400968CFC /* SPForeground.h */,
-				CE4F9C62244B066400968CFC /* SPForeground.m */,
-				ED914EB824325AB40068DA0A /* SPGdprContext.h */,
-				ED914EB924325AB40068DA0A /* SPGdprContext.m */,
-				CE4F9C70244B066400968CFC /* SPGlobalContext.h */,
-				CE4F9C83244B066500968CFC /* SPGlobalContext.m */,
-				75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */,
-				75264A31224E5DD2000E0E9B /* SPInstallTracker.m */,
-				EDEE835824BE0944000B8530 /* SPLogger.h */,
-				EDEE835924BE0944000B8530 /* SPLogger.m */,
-				CE4F9C66244B066400968CFC /* SPPageView.h */,
-				CE4F9C74244B066400968CFC /* SPPageView.m */,
-				AB0C27F3191C67CD00018557 /* SPPayload.h */,
-				AB0C27F4191C67CD00018557 /* SPPayload.m */,
-				CE4F9C77244B066400968CFC /* SPPushNotification.h */,
-				CE4F9C78244B066400968CFC /* SPPushNotification.m */,
 				049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */,
 				0413DD751B78D635000D2112 /* SPRequestResult.h */,
 				0413DD761B78D643000D2112 /* SPRequestResult.m */,
+			);
+			path = Emitter;
+			sourceTree = "<group>";
+		};
+		EDC9B34E255AE66D00F4136D /* GlobalContext */ = {
+			isa = PBXGroup;
+			children = (
+				CE4F9C70244B066400968CFC /* SPGlobalContext.h */,
+				CE4F9C83244B066500968CFC /* SPGlobalContext.m */,
 				CE4F9C65244B066400968CFC /* SPSchemaRule.h */,
 				CE4F9C79244B066400968CFC /* SPSchemaRule.m */,
 				CE4F9C7F244B066500968CFC /* SPSchemaRuleset.h */,
 				CE4F9C6F244B066400968CFC /* SPSchemaRuleset.m */,
-				754774BF2225FBB90043B814 /* SPScreenState.h */,
-				754774BB2225FBA60043B814 /* SPScreenState.m */,
-				CE4F9C73244B066400968CFC /* SPScreenView.h */,
-				CE4F9C80244B066500968CFC /* SPScreenView.m */,
+			);
+			path = GlobalContext;
+			sourceTree = "<group>";
+		};
+		EDC9B34F255AEC7E00F4136D /* Logger */ = {
+			isa = PBXGroup;
+			children = (
+				EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */,
+				EDEE835824BE0944000B8530 /* SPLogger.h */,
+				EDEE835924BE0944000B8530 /* SPLogger.m */,
+			);
+			path = Logger;
+			sourceTree = "<group>";
+		};
+		EDC9B350255AEDF000F4136D /* Payload */ = {
+			isa = PBXGroup;
+			children = (
+				AB0C27F3191C67CD00018557 /* SPPayload.h */,
+				AB0C27F4191C67CD00018557 /* SPPayload.m */,
 				0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */,
 				0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */,
-				043EC5DD1B8F048500294081 /* SPSession.h */,
-				043EC5DF1B8F049200294081 /* SPSession.m */,
-				CE4F9C7A244B066400968CFC /* SPStructured.h */,
-				CE4F9C75244B066400968CFC /* SPStructured.m */,
-				04062D741B8390710019B8D1 /* SPSubject.h */,
-				04062D751B8390870019B8D1 /* SPSubject.m */,
-				CE4F9C67244B066400968CFC /* SPTiming.h */,
-				CE4F9C5F244B066400968CFC /* SPTiming.m */,
+			);
+			path = Payload;
+			sourceTree = "<group>";
+		};
+		EDC9B351255AEEBC00F4136D /* Tracker */ = {
+			isa = PBXGroup;
+			children = (
+				75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */,
+				75264A31224E5DD2000E0E9B /* SPInstallTracker.m */,
 				AB9E8210192DD336006744C9 /* SPTracker.h */,
 				AB9E8211192DD336006744C9 /* SPTracker.m */,
-				EDEE834924BDB326000B8530 /* SPTrackerError.h */,
-				EDEE834A24BDB326000B8530 /* SPTrackerError.m */,
 				CE4F9C68244B066400968CFC /* SPTrackerEvent.h */,
 				CE4F9C72244B066400968CFC /* SPTrackerEvent.m */,
-				CE4F9C6B244B066400968CFC /* SPUnstructured.h */,
-				CE4F9C6C244B066400968CFC /* SPUnstructured.m */,
+			);
+			path = Tracker;
+			sourceTree = "<group>";
+		};
+		EDC9B352255B027E00F4136D /* NetworkConnection */ = {
+			isa = PBXGroup;
+			children = (
+				EDD8542824EFEFE600661F6B /* SPNetworkConnection.h */,
+				EDD8541E24EFEFB900661F6B /* SPDefaultNetworkConnection.h */,
+				EDD8541F24EFEFB900661F6B /* SPDefaultNetworkConnection.m */,
+			);
+			path = NetworkConnection;
+			sourceTree = "<group>";
+		};
+		EDC9B353255B02AB00F4136D /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				EDD8540A24EE786900661F6B /* SPEventStore.h */,
+				ABB767AE194974D3006275D1 /* SPSQLiteEventStore.h */,
+				ABB767AF194974D3006275D1 /* SPSQLiteEventStore.m */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
+		EDD53F7E25473C430000E57D /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				EDC9B353255B02AB00F4136D /* Storage */,
+				EDC9B352255B027E00F4136D /* NetworkConnection */,
+				EDC9B351255AEEBC00F4136D /* Tracker */,
+				EDC9B350255AEDF000F4136D /* Payload */,
+				EDC9B34F255AEC7E00F4136D /* Logger */,
+				EDC9B34E255AE66D00F4136D /* GlobalContext */,
+				EDC9B34D255AE46300F4136D /* Emitter */,
+				EDC9B346255ACF5100F4136D /* Events */,
+				AB39617019530E850002F235 /* OpenIDFA.h */,
+				AB39617119530E850002F235 /* OpenIDFA.m */,
+				AB0C27C5191B408200018557 /* Snowplow.h */,
+				043EC5E61B8F224900294081 /* Snowplow.m */,
+				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
+				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
+				ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */,
+				ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */,
+				ED914EB824325AB40068DA0A /* SPGdprContext.h */,
+				ED914EB924325AB40068DA0A /* SPGdprContext.m */,
+				754774BF2225FBB90043B814 /* SPScreenState.h */,
+				754774BB2225FBA60043B814 /* SPScreenState.m */,
+				043EC5DD1B8F048500294081 /* SPSession.h */,
+				043EC5DF1B8F049200294081 /* SPSession.m */,
+				04062D741B8390710019B8D1 /* SPSubject.h */,
+				04062D751B8390870019B8D1 /* SPSubject.m */,
 				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
 				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
 				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
