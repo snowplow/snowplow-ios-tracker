@@ -29,7 +29,7 @@ Pod::Spec.new do |s|
     'Snowplow/internal/SNOWReachability.*'
   ]
 
-  s.source_files = 'Snowplow/internal/*.{m,h}'
+  s.source_files = 'Snowplow/internal/**/*.{m,h}'
   s.public_header_files = [
     'Snowplow/Snowplow.h', 
     'Snowplow/SPTracker.h', 
