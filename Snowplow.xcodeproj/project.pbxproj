@@ -911,9 +911,61 @@
 			path = Storage;
 			sourceTree = "<group>";
 		};
+		EDC9B35A255C3B9700F4136D /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				AB39617019530E850002F235 /* OpenIDFA.h */,
+				AB39617119530E850002F235 /* OpenIDFA.m */,
+				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
+				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
+				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
+				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
+				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
+				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		EDC9B36D255C3C8A00F4136D /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				043EC5DD1B8F048500294081 /* SPSession.h */,
+				043EC5DF1B8F049200294081 /* SPSession.m */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
+		EDC9B37A255C3D3700F4136D /* ScreenViewTracking */ = {
+			isa = PBXGroup;
+			children = (
+				754774BF2225FBB90043B814 /* SPScreenState.h */,
+				754774BB2225FBA60043B814 /* SPScreenState.m */,
+				754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */,
+				754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */,
+			);
+			path = ScreenViewTracking;
+			sourceTree = "<group>";
+		};
+		EDC9B37B255C3DC600F4136D /* Contexts */ = {
+			isa = PBXGroup;
+			children = (
+				ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */,
+				ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */,
+				ED914EB824325AB40068DA0A /* SPGdprContext.h */,
+				ED914EB924325AB40068DA0A /* SPGdprContext.m */,
+				04062D741B8390710019B8D1 /* SPSubject.h */,
+				04062D751B8390870019B8D1 /* SPSubject.m */,
+			);
+			path = Contexts;
+			sourceTree = "<group>";
+		};
 		EDD53F7E25473C430000E57D /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				EDC9B37B255C3DC600F4136D /* Contexts */,
+				EDC9B37A255C3D3700F4136D /* ScreenViewTracking */,
+				EDC9B36D255C3C8A00F4136D /* Session */,
+				EDC9B35A255C3B9700F4136D /* Utils */,
 				EDC9B353255B02AB00F4136D /* Storage */,
 				EDC9B352255B027E00F4136D /* NetworkConnection */,
 				EDC9B351255AEEBC00F4136D /* Tracker */,
@@ -922,28 +974,8 @@
 				EDC9B34E255AE66D00F4136D /* GlobalContext */,
 				EDC9B34D255AE46300F4136D /* Emitter */,
 				EDC9B346255ACF5100F4136D /* Events */,
-				AB39617019530E850002F235 /* OpenIDFA.h */,
-				AB39617119530E850002F235 /* OpenIDFA.m */,
 				AB0C27C5191B408200018557 /* Snowplow.h */,
 				043EC5E61B8F224900294081 /* Snowplow.m */,
-				ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */,
-				ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */,
-				ED91CB6B23AA715B0078E75F /* SPDevicePlatform.h */,
-				ED91CB7023AA8AD50078E75F /* SPDevicePlatform.m */,
-				ED914EB824325AB40068DA0A /* SPGdprContext.h */,
-				ED914EB924325AB40068DA0A /* SPGdprContext.m */,
-				754774BF2225FBB90043B814 /* SPScreenState.h */,
-				754774BB2225FBA60043B814 /* SPScreenState.m */,
-				043EC5DD1B8F048500294081 /* SPSession.h */,
-				043EC5DF1B8F049200294081 /* SPSession.m */,
-				04062D741B8390710019B8D1 /* SPSubject.h */,
-				04062D751B8390870019B8D1 /* SPSubject.m */,
-				ABFCC3741922984A00FAE8FE /* SPUtilities.h */,
-				ABFCC3751922984A00FAE8FE /* SPUtilities.m */,
-				044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */,
-				044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */,
-				754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */,
-				754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */,
 			);
 			path = Internal;
 			sourceTree = "<group>";

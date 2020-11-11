@@ -1,1 +1,1 @@
-./internal/UIViewController+SPScreenView_SWIZZLE.h
+./internal/screenViewTracking/UIViewController+SPScreenView_SWIZZLE.h

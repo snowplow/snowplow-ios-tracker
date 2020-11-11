@@ -1,1 +1,1 @@
-./internal/SPScreenState.h
+./internal/screenViewTracking/SPScreenState.h
