@@ -151,6 +151,7 @@ static SPTracker *_sharedInstance = nil;
         _backgroundTimeout = 300;
         _checkInterval = 15;
         _builderFinished = NO;
+        self.globalContextGenerators = [NSMutableDictionary dictionary];
         self.previousScreenState = nil;
         self.currentScreenState = nil;
         _exceptionEvents = NO;
