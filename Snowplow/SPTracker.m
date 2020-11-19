@@ -54,6 +54,8 @@
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker () <SPDiagnosticLogger>
 
+@property (class, readwrite, atomic, weak) SPTracker * sharedInstance;
+
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
 
@@ -75,29 +77,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString * stackTrace = [NSString stringWithFormat:@"Stacktrace:\n%@", symbols];
     NSString * message = [exception reason];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // Load values
-        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString * url = [userDefaults objectForKey:kSPErrorTrackerUrl];
-        NSString * protocolString = [userDefaults objectForKey:kSPErrorTrackerProtocol];
-        NSString * methodString = [userDefaults objectForKey:kSPErrorTrackerMethod];
-        SPProtocol protocol = SPHttps;
-        if (protocolString && [protocolString isEqual:@"http://"]) {
-            protocol = SPHttp;
-        }
-        SPRequestOptions method = SPRequestPost;
-        if (methodString && [methodString isEqual:@"/i"]) {
-            method = SPRequestGet;
-        }
-        // Send notification to tracker
-        SPEmitter * emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-            [builder setUrlEndpoint:url];
-            [builder setProtocol:protocol];
-            [builder setHttpMethod:method];
-        }];
-        SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-            [builder setEmitter:emitter];
-        }];
-        
         if (message == nil || [message length] == 0) {
             return;
         }
@@ -107,7 +86,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                 [builder setStackTrace:stackTrace];
             }
         }];
-        [tracker track:error];
+        [SPTracker.sharedInstance track:error];
         [NSThread sleepForTimeInterval:2.0f];
     });
 }
@@ -132,14 +111,27 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _installEvent;
 }
 
+static SPTracker *_sharedInstance = nil;
+
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
-    SPTracker* tracker = [[SPTracker alloc] initWithDefaultValues];
+    SPTracker *tracker = [[SPTracker alloc] initWithDefaultValues];
     if (buildBlock) {
         buildBlock(tracker);
     }
     [tracker setup];
     [tracker checkInstall];
+    SPTracker.sharedInstance = tracker;
     return tracker;
+}
+
++ (void)setSharedInstance:(SPTracker *)sharedInstance {
+    if (sharedInstance != _sharedInstance) {
+        _sharedInstance = sharedInstance;
+    }
+}
+
++ (SPTracker *)sharedInstance {
+    return _sharedInstance;
 }
 
 - (instancetype) initWithDefaultValues {
