@@ -112,6 +112,42 @@
     XCTAssertTrue([result isEqualToSet:expected]);
 }
 
+- (void)testAddRemoveGlobalContexts {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:@"com.acme.fake"];
+    }];
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
+    
+    SPGlobalContext *staticGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]];
+    
+    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+        [builder setEmitter:emitter];
+        [builder setSubject:subject];
+        [builder setAppId:[NSUUID UUID].UUIDString];
+    }];
+    
+    NSSet *result = [NSSet setWithArray:tracker.globalContextTags];
+    NSSet *expected = [NSSet setWithArray:@[]];
+    XCTAssertTrue([result isEqualToSet:expected]);
+    
+    // Can't remove a not existing tag
+    SPGlobalContext *removedGC = [tracker removeGlobalContext:@"notExistingTag"];
+    XCTAssertNil(removedGC);
+    
+    // Add a not existing tag
+    XCTAssertTrue([tracker addGlobalContext:staticGC tag:@"static"]);
+    result = [NSSet setWithArray:tracker.globalContextTags];
+    expected = [NSSet setWithArray:@[@"static"]];
+    XCTAssertTrue([result isEqualToSet:expected]);
+    
+    // Remove an existing tag
+    removedGC = [tracker removeGlobalContext:@"static"];
+    XCTAssertNotNil(removedGC);
+    result = [NSSet setWithArray:tracker.globalContextTags];
+    expected = [NSSet setWithArray:@[]];
+    XCTAssertTrue([result isEqualToSet:expected]);
+}
+
 - (void)testStaticGenerator {
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:@"com.acme.fake"];
