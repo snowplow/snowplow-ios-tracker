@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentGrantedBuilder
  @brief The protocol for building consent granted events.
  */
+NS_SWIFT_NAME(ConsentGranted.Builder)
 @protocol SPConsentGrantedBuilder <SPEventBuilder>
 
 /*!
@@ -78,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPConsentGranted
  @brief A consent granted event.
  */
+NS_SWIFT_NAME(ConsentGranted)
 @interface SPConsentGranted : SPSelfDescribing <SPConsentGrantedBuilder>
 + (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

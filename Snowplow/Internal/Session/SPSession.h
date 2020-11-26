@@ -24,6 +24,7 @@
 
 @class SPTracker;
 
+NS_SWIFT_NAME(Session)
 @interface SPSession : NSObject
 
 /**

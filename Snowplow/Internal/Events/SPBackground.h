@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPBackgroundBuilder
  @brief The protocol for building background events.
  */
+NS_SWIFT_NAME(Background.Builder)
 @protocol SPBackgroundBuilder <SPEventBuilder>
 
 /*!
@@ -43,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPBackground
  @brief A background transition event.
  */
+NS_SWIFT_NAME(Background)
 @interface SPBackground : SPSelfDescribing <SPBackgroundBuilder>
 + (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

@@ -27,6 +27,7 @@
 @class SPPayload;
 @class FMDatabaseQueue;
 
+NS_SWIFT_NAME(SQLiteEventStore)
 @interface SPSQLiteEventStore :NSObject <SPEventStore>
 
 /**

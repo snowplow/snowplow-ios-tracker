@@ -26,6 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(SchemaRuleset)
 @interface SPSchemaRuleset : NSObject <NSCopying>
 
 @property (readonly, copy) NSArray<NSString *> *denied;

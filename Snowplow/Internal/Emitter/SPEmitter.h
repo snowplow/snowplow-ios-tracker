@@ -57,6 +57,7 @@ typedef NS_ENUM(NSUInteger, SPBufferOption) {
 /*!
  @brief The builder for SPEmitter.
  */
+NS_SWIFT_NAME(Emitter.Builder)
 @protocol SPEmitterBuilder <NSObject>
 
 /*!
@@ -146,6 +147,7 @@ typedef NS_ENUM(NSUInteger, SPBufferOption) {
 
  This class sends events to the collector.
  */
+NS_SWIFT_NAME(Emitter)
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
 /*! @brief Chosen HTTP method - SPRequestGet or SPRequestPost. */

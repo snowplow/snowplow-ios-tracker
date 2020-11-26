@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentWithdrawnBuilder
  @brief The protocol for building consent withdrawn events.
  */
+NS_SWIFT_NAME(ConsentWithdrawn.Builder)
 @protocol SPConsentWithdrawnBuilder <SPEventBuilder>
 
 /*!
@@ -78,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPConsentWithdrawn
  @brief A consent withdrawn event.
  */
+NS_SWIFT_NAME(ConsentWithdrawn)
 @interface SPConsentWithdrawn : SPSelfDescribing <SPConsentWithdrawnBuilder>
 + (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

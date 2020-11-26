@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPTimingBuilder
  @brief The protocol for building timing events.
  */
+NS_SWIFT_NAME(Timing.Builder)
 @protocol SPTimingBuilder <SPEventBuilder>
 
 /*!
@@ -66,6 +67,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPTiming
  @brief A timing event.
  */
+NS_SWIFT_NAME(Timing)
 @interface SPTiming : SPSelfDescribing <SPTimingBuilder>
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

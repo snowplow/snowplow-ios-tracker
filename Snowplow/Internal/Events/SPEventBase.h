@@ -46,6 +46,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  @protocol SPInspectableEvent
  @brief The inspectable properties of the event used to generate contexts.
  */
+NS_SWIFT_NAME(InspectableEvent)
 @protocol SPInspectableEvent <NSObject>
 
 /*! The schema of the event. */
@@ -63,6 +64,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 
  This protocol defines basic functionality needed to build all events.
  */
+NS_SWIFT_NAME(Event.Builder)
 @protocol SPEventBuilder <NSObject>
 
 /*!
@@ -98,6 +100,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
 
  This class has the basic functionality needed to represent all events.
  */
+NS_SWIFT_NAME(Event)
 @interface SPEvent : NSObject <SPEventBuilder>
 
 /*! The tracker event timestamp in milliseconds (epoch time). */
@@ -160,6 +163,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  @interface SPSelfDescribing
  @brief The properties for all the self-describing events.
  */
+NS_SWIFT_NAME(SelfDescribing)
 @interface SPSelfDescribing : SPEvent
 
 /*! The schema of the event. */
@@ -171,6 +175,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  @interface SPPrimitive
  @brief The properties for all the self-describing events.
  */
+NS_SWIFT_NAME(Primitive)
 @interface SPPrimitive : SPEvent
 
 /*! The name of the event. */

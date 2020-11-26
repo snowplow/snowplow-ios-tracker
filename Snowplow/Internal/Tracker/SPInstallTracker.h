@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_SWIFT_NAME(InstallTracker)
 @interface SPInstallTracker : NSObject
 
 /** Installation status */

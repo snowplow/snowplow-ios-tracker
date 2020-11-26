@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPUnstructuredBuilder
  @brief The protocol for building unstructured events.
  */
+NS_SWIFT_NAME(Unstructured.Builder)
 @protocol SPUnstructuredBuilder <SPEventBuilder>
 /*!
  @brief Set the data field of the unstructured event.
@@ -42,6 +43,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPUnstructured
  @brief An unstructured event.
  */
+NS_SWIFT_NAME(Unstructured)
 @interface SPUnstructured : SPSelfDescribing <SPUnstructuredBuilder>
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock;
 - (SPPayload *) getPayloadWithEncoding:(BOOL)encoding  __deprecated_msg("getPayloadWithEncoding is deprecated. Use `payload` instead.");

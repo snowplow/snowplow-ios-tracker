@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPPushNotificationBuilder
  @brief The protocol for building push notification events.
  */
+NS_SWIFT_NAME(PushNotification.Builder)
 @protocol SPPushNotificationBuilder <SPEventBuilder>
 
 /*!
@@ -80,6 +81,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPNotificationContentBuilder
  @brief The protocol for building notification content.
  */
+NS_SWIFT_NAME(NotificationContent.Builder)
 @protocol SPNotificationContentBuilder
 
 /*!
@@ -143,6 +145,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPPushNotification
  @brief A push notification event.
  */
+NS_SWIFT_NAME(PushNotification)
 @interface SPPushNotification : SPSelfDescribing <SPPushNotificationBuilder>
 + (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
@@ -154,6 +157,7 @@ NS_ASSUME_NONNULL_BEGIN
 
  This object is used to store information that supplements a push notification event.
  */
+NS_SWIFT_NAME(NotificationContent)
 @interface SPNotificationContent : NSObject <SPNotificationContentBuilder>
 
 @property (nonatomic) NSDictionary *payload;

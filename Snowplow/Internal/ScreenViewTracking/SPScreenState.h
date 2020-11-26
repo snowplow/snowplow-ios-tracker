@@ -25,6 +25,7 @@
 /** Forward declaration for SPScreenView */
 @class SPPayload;
 
+NS_SWIFT_NAME(ScreenState)
 @interface SPScreenState : NSObject <NSCopying>
 
 /** Screenview name */

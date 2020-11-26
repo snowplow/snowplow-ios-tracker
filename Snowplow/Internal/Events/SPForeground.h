@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPForegroundBuilder
  @brief The protocol for building foreground events.
  */
+NS_SWIFT_NAME(Foreground.Builder)
 @protocol SPForegroundBuilder <SPEventBuilder>
 
 /*!
@@ -43,6 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPForeground
  @brief A foreground transition event.
  */
+NS_SWIFT_NAME(Foreground)
 @interface SPForeground : SPSelfDescribing <SPForegroundBuilder>
 + (instancetype) build:(void(^)(id<SPForegroundBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

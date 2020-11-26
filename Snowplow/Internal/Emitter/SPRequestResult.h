@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_SWIFT_NAME(RequestResult)
 @interface SPRequestResult : NSObject
 
 /// Returns the success of the request operation.

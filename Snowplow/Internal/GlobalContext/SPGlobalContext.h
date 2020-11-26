@@ -48,6 +48,7 @@ typedef BOOL (^SPFilterBlock)(id<SPInspectableEvent> event);
  @protocol SPContextGenerator
  @brief A context generator used to generate global contexts.
  */
+NS_SWIFT_NAME(ContextGenerator)
 @protocol SPContextGenerator <NSObject>
 
 /*!
@@ -68,6 +69,7 @@ typedef BOOL (^SPFilterBlock)(id<SPInspectableEvent> event);
 
 #pragma mark - SPGlobalContext
 
+NS_SWIFT_NAME(GlobalContext)
 @interface SPGlobalContext : NSObject
 
 + (instancetype) new NS_UNAVAILABLE;

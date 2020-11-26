@@ -50,6 +50,7 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
  * Interface for the component that
  * sends events to the collector.
  */
+NS_SWIFT_NAME(NetworkConnection)
 @protocol SPNetworkConnection <NSObject>
 
 /**

@@ -26,6 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(EmitterEvent)
 @interface SPEmitterEvent : NSObject
 
 @property (nonatomic, readonly) SPPayload *payload;

@@ -32,6 +32,7 @@
 
  @see SPPayload
  */
+NS_SWIFT_NAME(SelfDescribingJson)
 @interface SPSelfDescribingJson : NSObject
 
 /// the schema URI for this self-describing JSON.

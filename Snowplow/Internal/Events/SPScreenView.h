@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPScreenViewBuilder
  @brief The protocol for building screenview events.
  */
+NS_SWIFT_NAME(ScreenView.Builder)
 @protocol SPScreenViewBuilder <SPEventBuilder>
 /*!
  @brief Set the name of the screen.
@@ -91,6 +92,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPScreenView
  @brief A screenview event.
  */
+NS_SWIFT_NAME(ScreenView)
 @interface SPScreenView : SPSelfDescribing <SPScreenViewBuilder>
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

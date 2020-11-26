@@ -22,6 +22,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(DiagnosticLogger)
 @protocol SPDiagnosticLogger <NSObject>
 
 - (void)logWithTag:(NSString *)tag message:(NSString *)message error:(nullable NSError *)error exception:(nullable NSException *)exception;

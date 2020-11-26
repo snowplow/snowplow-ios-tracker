@@ -72,6 +72,7 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 /*!
  @brief Logger delegate to implement in oder to receive logs from the tracker.
 */
+NS_SWIFT_NAME(Logger.Delegate)
 @protocol SPLoggerDelegate <NSObject>
 - (void)error:(NSString *)tag message:(NSString *)message;
 - (void)debug:(NSString *)tag message:(NSString *)message;
@@ -81,6 +82,7 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 /*!
  @brief The builder for SPTracker.
  */
+NS_SWIFT_NAME(Tracker.Builder)
 @protocol SPTrackerBuilder <NSObject>
 
 /*!
@@ -246,6 +248,7 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 
  This class is used for tracking events, and delegates them to other classes responsible for sending, storage, etc.
  */
+NS_SWIFT_NAME(Tracker)
 @interface SPTracker : NSObject <SPTrackerBuilder>
 
 /*! @brief The emitter used to send events. */

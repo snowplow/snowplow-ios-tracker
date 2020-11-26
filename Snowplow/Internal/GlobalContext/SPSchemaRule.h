@@ -24,6 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(SchemaRule)
 @interface SPSchemaRule: NSObject <NSCopying>
 
 @property (nonatomic, copy, readonly) NSString *rule;

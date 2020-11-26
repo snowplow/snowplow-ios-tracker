@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_SWIFT_NAME(Payload)
 @interface SPPayload : NSObject
 
 @property (nonatomic) BOOL allowDiagnostic;

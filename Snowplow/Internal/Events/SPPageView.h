@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPPageViewBuilder
  @brief The protocol for building pageview events.
  */
+NS_SWIFT_NAME(PageView.Builder)
 @protocol SPPageViewBuilder <SPEventBuilder>
 
 /*!
@@ -56,6 +57,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPPageView
  @brief A pageview.
  */
+NS_SWIFT_NAME(PageView)
 @interface SPPageView : SPPrimitive <SPPageViewBuilder>
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock;
 - (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

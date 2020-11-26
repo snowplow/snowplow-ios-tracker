@@ -26,6 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(GDPRContext)
 @interface SPGdprContext : NSObject
 
 /*!

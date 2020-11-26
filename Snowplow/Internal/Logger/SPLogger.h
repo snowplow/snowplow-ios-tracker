@@ -31,6 +31,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(Logger)
 @interface SPLogger : NSObject
 
 + (void)setLoggerDelegate:(nullable id<SPLoggerDelegate>)delegate;

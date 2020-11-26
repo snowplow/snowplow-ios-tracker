@@ -30,6 +30,7 @@
 
  This class is used to access and persist user information, it represents the current user being tracked.
  */
+NS_SWIFT_NAME(Subject)
 @interface SPSubject : NSObject
 
 /*!

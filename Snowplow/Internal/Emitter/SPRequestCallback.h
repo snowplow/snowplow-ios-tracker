@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 
+NS_SWIFT_NAME(RequestCallback)
 @protocol SPRequestCallback <NSObject>
 
 - (void) onSuccessWithCount:(NSInteger)successCount;

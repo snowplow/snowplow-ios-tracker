@@ -25,6 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(Request)
 @interface SPRequest : NSObject
 
 @property (nonatomic,readonly) SPPayload *payload;

@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentDocumentBuilder
  @brief The protocol for building consent documents.
  */
+NS_SWIFT_NAME(ConsentDocument.Builder)
 @protocol SPConsentDocumentBuilder
 
 /*!
@@ -64,6 +65,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPConsentDocument
  @brief A consent document event.
  */
+NS_SWIFT_NAME(ConsentDocument)
 @interface SPConsentDocument : NSObject <SPConsentDocumentBuilder>
 + (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock;
 - (SPSelfDescribingJson *) getPayload;

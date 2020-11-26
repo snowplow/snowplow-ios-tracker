@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPEcommTransactionItemBuilder
  @brief The protocol for building ecommerce transaction item events.
  */
+NS_SWIFT_NAME(EcommTransactionItem.Builder)
 @protocol SPEcommTransactionItemBuilder <SPEventBuilder>
 
 /*!
@@ -84,6 +85,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SPEcommerceItem
  @brief An ecommerce item event.
  */
+NS_SWIFT_NAME(EcommerceItem)
 @interface SPEcommerceItem : SPPrimitive <SPEcommTransactionItemBuilder>
 + (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock;
 - (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");

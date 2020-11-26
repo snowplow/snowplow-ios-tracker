@@ -25,6 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(DefaultNetworkConnection.Builder)
 @protocol SPDefaultNetworkConnectionBuilder <NSObject>
 
 /*!
@@ -71,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+NS_SWIFT_NAME(DefaultNetworkConnection)
 @interface SPDefaultNetworkConnection : NSObject <SPNetworkConnection, SPDefaultNetworkConnectionBuilder>
 
 /*!
