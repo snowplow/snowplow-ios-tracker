@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPConfiguration.h"
 #import "SPDevicePlatform.h"
 #import "SPLoggerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(TrackerConfiguration)
-@interface SPTrackerConfiguration : NSObject
+@interface SPTrackerConfiguration : SPConfiguration
 
 @property () NSString *namespace;
 @property () NSString *appId;
@@ -24,8 +25,10 @@ NS_SWIFT_NAME(TrackerConfiguration)
 @property () SPLogLevel logLevel;
 @property (nullable) id<SPLoggerDelegate> loggerDelegate;
 
-@property () BOOL sessionContext;
 @property () BOOL applicationContext;
+@property () BOOL platformContext;
+@property () BOOL geoLocationContext;
+@property () BOOL sessionContext;
 @property () BOOL screenContext;
 @property () BOOL screenViewAutotracking;
 @property () BOOL lifecycleAutotracking;

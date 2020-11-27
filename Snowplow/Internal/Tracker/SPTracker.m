@@ -51,6 +51,8 @@
 #import "SPDiagnosticLogger.h"
 #import "SPLogger.h"
 
+#import "SPSubjectConfiguration.h"
+
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker () <SPDiagnosticLogger>
 
@@ -113,14 +115,26 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 static SPTracker *_sharedInstance = nil;
 
-+ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
++ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
+    SPSubjectConfiguration *subjectConfiguration = nil;
+    for (SPConfiguration *configuration in configurations) {
+        if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
+            subjectConfiguration = configuration;
+            continue;
+        }
+    }
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setHttpMethod:networkConfiguration.method];
         [builder setProtocol:networkConfiguration.protocol];
         [builder setUrlEndpoint:networkConfiguration.endpoint];
     }];
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:trackerConfiguration.platformContext
+                                                 geoLocationContext:trackerConfiguration.geoLocationContext
+                                               subjectConfiguration:subjectConfiguration
+                          ];
     SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setEmitter:emitter];
+        [builder setSubject:subject];
         [builder setAppId:trackerConfiguration.appId];
         [builder setTrackerNamespace:trackerConfiguration.namespace];
         [builder setBase64Encoded:trackerConfiguration.base64Encoding];
@@ -137,6 +151,10 @@ static SPTracker *_sharedInstance = nil;
         [builder setTrackerDiagnostic:trackerConfiguration.diagnosticAutotracking];
     }];
     return tracker;
+}
+
++ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
+    return [SPTracker setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:@[]];
 }
 
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {

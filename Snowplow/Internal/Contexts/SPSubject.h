@@ -21,6 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPSubjectConfiguration.h"
 
 @class SPPayload;
 
@@ -30,6 +31,7 @@
 
  This class is used to access and persist user information, it represents the current user being tracked.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(Subject)
 @interface SPSubject : NSObject
 
@@ -48,6 +50,11 @@ NS_SWIFT_NAME(Subject)
  @return A new SPSubject.
  */
 - (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext;
+
+/*!
+ @warning Internal method - do not use in production
+ */
+- (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)configuration;
 
 /*!
  @brief Gets all standard dictionary pairs to decorate the event with.

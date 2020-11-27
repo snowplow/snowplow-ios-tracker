@@ -23,6 +23,8 @@
 
         self.sessionContext = YES;
         self.applicationContext = YES;
+        self.platformContext = YES;
+        self.geoLocationContext = NO;
         self.screenContext = YES;
         self.screenViewAutotracking = YES;
         self.lifecycleAutotracking = YES;

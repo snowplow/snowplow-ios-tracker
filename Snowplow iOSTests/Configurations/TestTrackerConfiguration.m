@@ -27,6 +27,7 @@
 - (void)testBasicInitialization {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" protocol:SPProtocolHttps method:SPRequestOptionsPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    trackerConfig.platformContext = YES;
     SPTracker *tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
 
     XCTAssertNotNil(tracker);
@@ -40,8 +41,11 @@
     
     XCTAssertEqualObjects(networkConfig.endpoint, host);
     XCTAssertEqualObjects(protocol, scheme);
+    
     XCTAssertEqual(trackerConfig.appId, tracker.appId);
     XCTAssertEqual(trackerConfig.namespace, tracker.trackerNamespace);
+    
+    XCTAssertNotNil(tracker.subject);
 }
 
 @end

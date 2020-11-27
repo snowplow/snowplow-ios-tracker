@@ -89,7 +89,7 @@ NS_SWIFT_NAME(Tracker.Builder)
 
  @param subject An associated subject
  */
-- (void) setSubject:(SPSubject *)subject;
+- (void) setSubject:(nullable SPSubject *)subject;
 
 /*!
  @brief Tracker builder method to set the app ID.
@@ -262,8 +262,12 @@ NS_SWIFT_NAME(Tracker)
 /*! @brief List of tags associated to global contexts. */
 @property (readonly, nonatomic) NSArray<NSString *> *globalContextTags;
 
+/// MARK: - Setup methods
+
 /// DOC
 + (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
+
++ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
 
 // TODO: Add other setup methods
 

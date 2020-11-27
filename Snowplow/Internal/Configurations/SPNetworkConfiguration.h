@@ -7,12 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPConfiguration.h"
 #import "SPNetworkConnection.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(NetworkConfiguration)
-@interface SPNetworkConfiguration : NSObject
+@interface SPNetworkConfiguration : SPConfiguration
 
 @property () NSString *endpoint;
 @property () SPRequestOptions method;

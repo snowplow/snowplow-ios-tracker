@@ -37,8 +37,11 @@
 }
 
 - (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext {
-    self = [super init];
-    if (self) {
+    return [self initWithPlatformContext:platformContext geoLocationContext:geoContext subjectConfiguration:nil];
+}
+
+- (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)config {
+    if (self = [super init]) {
         _standardDict = [[SPPayload alloc] init];
         [self setStandardDict];
         if (platformContext) {
@@ -47,8 +50,33 @@
         if (geoContext) {
             [self setGeoDict];
         }
+        if (config) {
+            if (config.userId) [self setUserId:config.userId];
+            if (config.networkUserId) [self setNetworkUserId:config.networkUserId];
+            if (config.domainUserId) [self setDomainUserId:config.domainUserId];
+            if (config.useragent) [self setUseragent:config.useragent];
+            if (config.ipAddress) [self setIpAddress:config.ipAddress];
+            if (config.timezone) [self setTimezone:config.timezone];
+            if (config.language) [self setLanguage:config.language];
+            if (!CGSizeEqualToSize(CGSizeZero, config.screenResolution)) {
+                CGSize size = config.screenResolution;
+                NSInteger w = (NSInteger)(floor(size.width));
+                NSInteger h = (NSInteger)(floor(size.height));
+                [self setResolutionWithWidth:w andHeight:h];
+            }
+            if (!CGSizeEqualToSize(CGSizeZero, config.screenViewPort)) {
+                CGSize size = config.screenViewPort;
+                NSInteger w = (NSInteger)(floor(size.width));
+                NSInteger h = (NSInteger)(floor(size.height));
+                [self setResolutionWithWidth:w andHeight:h];
+            }
+            if (config.colorDepth != 0) {
+                [self setColorDepth:config.colorDepth];
+            }
+        }
     }
     return self;
+
 }
 
 - (SPPayload *) getStandardDict {
@@ -68,7 +96,7 @@
     }
 }
 
-// Standard Dictionary
+// MARK: - Standard Dictionary
 
 - (void) setStandardDict {
     [_standardDict addValueToPayload:[SPUtilities getResolution] forKey:kSPResolution];
@@ -123,7 +151,7 @@
     [_standardDict addValueToPayload:duid forKey:kSPDomainUid];
 }
 
-// Platform Dictionary
+// MARK: - Platform Dictionary
 
 - (void) setPlatformDict {
     _platformDict = [[SPPayload alloc] init];
@@ -145,7 +173,7 @@
     [_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
 }
 
-// Geo-Location Dictionary
+// MARK: - GeoLocation Dictionary
 
 - (void) setGeoDict {
     _geoLocationDict = [[NSMutableDictionary alloc] init];
