@@ -48,8 +48,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestGet];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsGet];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -68,8 +68,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestGet];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsGet];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -88,8 +88,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestPost];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsPost];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -108,8 +108,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestPost];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsPost];
     }];
     
     SPPayload *payload = [SPPayload new];

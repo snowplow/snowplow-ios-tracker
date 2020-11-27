@@ -61,8 +61,8 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 - (instancetype) initWithDefaultValues {
     self = [super init];
     if (self) {
-        _httpMethod = SPRequestPost;
-        _protocol = SPHttps;
+        _httpMethod = SPRequestOptionsPost;
+        _protocol = SPProtocolHttps;
         _bufferOption = SPBufferOptionDefaultGroup;
         _callback = nil;
         _emitRange = 150;
@@ -286,7 +286,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     NSNumber *sendingTime = [SPUtilities getTimestamp];
     SPRequestOptions httpMethod = _networkConnection.httpMethod;
     
-    if (httpMethod == SPRequestGet) {
+    if (httpMethod == SPRequestOptionsGet) {
         for (SPEmitterEvent *event in events) {
             SPPayload *payload = event.payload;
             [self addSendingTimeToPayload:payload timestamp:sendingTime];
@@ -344,7 +344,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 }
 
 - (BOOL)isOversize:(SPPayload *)payload previousPayloads:(NSArray<SPPayload *> *)previousPayloads {
-    NSUInteger byteLimit = _networkConnection.httpMethod == SPRequestGet ? _byteLimitGet : _byteLimitPost;
+    NSUInteger byteLimit = _networkConnection.httpMethod == SPRequestOptionsGet ? _byteLimitGet : _byteLimitPost;
     return [self isOversize:payload byteLimit:byteLimit previousPayloads:previousPayloads];
 }
 

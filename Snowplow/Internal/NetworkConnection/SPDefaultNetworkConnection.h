@@ -36,13 +36,13 @@ NS_SWIFT_NAME(DefaultNetworkConnection.Builder)
 
 /*!
  @brief Builder method to set HTTP method.
- @param method Should be SPRequestGet or SPRequestPost.
+ @param method Should be SPRequestOptionsGet or SPRequestOptionsPost.
  */
 - (void) setHttpMethod:(SPRequestOptions)method;
 
 /*!
  @brief Builder method to set HTTP security.
- @param protocol Should be SPHttp or SPHttps.
+ @param protocol Should be SPProtocolHttp or SPProtocolHttps.
  */
 - (void) setProtocol:(SPProtocol)protocol;
 

@@ -65,7 +65,7 @@ NSString *protocol = @"https";
 - (void)testRequestSendWithPost {
     stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsPost];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     
@@ -77,7 +77,7 @@ NSString *protocol = @"https";
 - (void)testRequestSendWithGet {
     stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsGet];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     XCTAssertEqual(_successCount, 8);
@@ -88,7 +88,7 @@ NSString *protocol = @"https";
     stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(404);
     
     // Send all events with a bad URL
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsPost];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
     XCTAssertEqual(_failureCount, 8);
@@ -109,7 +109,7 @@ NSString *protocol = @"https";
 - (void)testRequestSendWithoutSubject {
     stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsGet];
     [tracker setSubject:nil];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];
@@ -120,7 +120,7 @@ NSString *protocol = @"https";
 - (void)testRequestSendWithCollectionOff {
     stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
+    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsPost];
     [tracker pauseEventTracking];
     [self sendAll:tracker];
     [self emitterSleep:[tracker emitter]];

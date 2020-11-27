@@ -70,14 +70,14 @@ NS_SWIFT_NAME(Emitter.Builder)
 /*!
  @brief Emitter builder method to set HTTP method.
 
- @param method Should be SPRequestGet or SPRequestPost.
+ @param method Should be SPRequestOptionsGet or SPRequestOptionsPost.
  */
 - (void) setHttpMethod:(SPRequestOptions)method;
 
 /*!
  @brief Emitter builder method to set HTTP security.
 
- @param protocol Should be SPHttp or SPHttps.
+ @param protocol Should be SPProtocolHttp or SPProtocolHttps.
  */
 - (void) setProtocol:(SPProtocol)protocol;
 
@@ -150,9 +150,9 @@ NS_SWIFT_NAME(Emitter.Builder)
 NS_SWIFT_NAME(Emitter)
 @interface SPEmitter : NSObject <SPEmitterBuilder>
 
-/*! @brief Chosen HTTP method - SPRequestGet or SPRequestPost. */
+/*! @brief Chosen HTTP method - SPRequestOptionsGet or SPRequestOptionsPost. */
 @property (readonly, nonatomic) SPRequestOptions httpMethod;
-/*! @brief Security of requests - SPHttp or SPHttps.  */
+/*! @brief Security of requests - SPProtocolHttp or SPProtocolHttps.  */
 @property (readonly, nonatomic) SPProtocol protocol;
 /*! @brief Buffer option */
 @property (readonly, nonatomic) SPBufferOption bufferOption;

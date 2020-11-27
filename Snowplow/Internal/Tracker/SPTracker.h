@@ -27,6 +27,9 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "SPNetworkConfiguration.h"
+#import "SPTrackerConfiguration.h"
+
 #import "SPDevicePlatform.h"
 #import "SPEventBase.h"
 
@@ -271,6 +274,11 @@ NS_SWIFT_NAME(Tracker)
 @property (readonly, nonatomic, strong) SPScreenState * currentScreenState;
 /*! @brief List of tags associated to global contexts. */
 @property (readonly, nonatomic) NSArray<NSString *> *globalContextTags;
+
+/// DOC
++ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration;
+
+// TODO: Add other setup methods
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.

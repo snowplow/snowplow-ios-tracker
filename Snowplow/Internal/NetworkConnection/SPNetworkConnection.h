@@ -31,9 +31,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSInteger, SPRequestOptions) {
     /*! GET request. */
-    SPRequestGet,
+    SPRequestOptionsGet,
     /*! POST request. */
-    SPRequestPost
+    SPRequestOptionsPost
 };
 
 /*!
@@ -41,9 +41,9 @@ typedef NS_ENUM(NSInteger, SPRequestOptions) {
  */
 typedef NS_ENUM(NSInteger, SPProtocol) {
     /*! Use HTTP. */
-    SPHttp,
+    SPProtocolHttp,
     /*! Use HTTP over TLS. */
-    SPHttps
+    SPProtocolHttps
 };
 
 /**

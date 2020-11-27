@@ -113,6 +113,30 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 static SPTracker *_sharedInstance = nil;
 
++ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setHttpMethod:networkConfiguration.method];
+        [builder setProtocol:networkConfiguration.protocol];
+        [builder setUrlEndpoint:networkConfiguration.endpoint];
+    }];
+    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+        [builder setEmitter:emitter];
+        [builder setAppId:trackerConfiguration.appId];
+        [builder setTrackerNamespace:trackerConfiguration.namespace];
+        [builder setBase64Encoded:trackerConfiguration.base64Encoding];
+        [builder setDevicePlatform:trackerConfiguration.devicePlatform];
+        [builder setSessionContext:trackerConfiguration.sessionContext];
+        [builder setApplicationContext:trackerConfiguration.applicationContext];
+        [builder setScreenContext:trackerConfiguration.screenContext];
+        [builder setAutotrackScreenViews:trackerConfiguration.screenViewAutotracking];
+        [builder setLifecycleEvents:trackerConfiguration.lifecycleAutotracking];
+        [builder setInstallEvent:trackerConfiguration.installAutotracking];
+        [builder setExceptionEvents:trackerConfiguration.exceptionAutotracking];
+        [builder setTrackerDiagnostic:trackerConfiguration.diagnosticAutotracking];
+    }];
+    return tracker;
+}
+
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
     SPTracker *tracker = [[SPTracker alloc] initWithDefaultValues];
     if (buildBlock) {

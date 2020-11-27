@@ -3,6 +3,9 @@
 //
 
 #import "Snowplow.h"
+#import "SPTrackerConfiguration.h"
+#import "SPNetworkConfiguration.h"
+
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
