@@ -6,6 +6,8 @@
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
 
+#import "SPLoggerDelegate.h"
+
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPDevicePlatform.h"
+#import "SPLoggerDelegate.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,6 +20,9 @@ NS_SWIFT_NAME(TrackerConfiguration)
 
 @property () SPDevicePlatform devicePlatform;
 @property () BOOL base64Encoding;
+
+@property () SPLogLevel logLevel;
+@property (nullable) id<SPLoggerDelegate> loggerDelegate;
 
 @property () BOOL sessionContext;
 @property () BOOL applicationContext;

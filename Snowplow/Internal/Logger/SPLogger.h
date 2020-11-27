@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPDiagnosticLogger.h"
-#import "SPTracker.h"
+#import "SPLoggerDelegate.h"
 
 #define SPLogTrack(optionalErrorOrException, format, ...) [SPLogger diagnostic:NSStringFromClass(self.class) message:[[NSString alloc] initWithFormat:format, ##__VA_ARGS__] errorOrException:optionalErrorOrException]
 #define SPLogError(format, ...) [SPLogger error:NSStringFromClass(self.class) message:[[NSString alloc] initWithFormat:format, ##__VA_ARGS__]]

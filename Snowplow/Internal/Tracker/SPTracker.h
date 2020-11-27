@@ -32,8 +32,9 @@
 
 #import "SPDevicePlatform.h"
 #import "SPEventBase.h"
+#import "SPLoggerDelegate.h"
 
-void uncaughtExceptionHandler(NSException *exception);
+void uncaughtExceptionHandler(NSException * _Nullable exception);
 
 @class SPEmitter;
 @class SPPayload;
@@ -66,23 +67,6 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
     SPGdprProcessingBasisPublicTask = 4,
     SPGdprProcessingBasisLegitimateInterests = 5
 };
-
-typedef NS_ENUM(NSInteger, SPLogLevel) {
-    SPLogLevelOff = 0,
-    SPLogLevelError,
-    SPLogLevelDebug,
-    SPLogLevelVerbose,
-};
-
-/*!
- @brief Logger delegate to implement in oder to receive logs from the tracker.
-*/
-NS_SWIFT_NAME(Logger.Delegate)
-@protocol SPLoggerDelegate <NSObject>
-- (void)error:(NSString *)tag message:(NSString *)message;
-- (void)debug:(NSString *)tag message:(NSString *)message;
-- (void)verbose:(NSString *)tag message:(NSString *)message;
-@end
 
 /*!
  @brief The builder for SPTracker.
@@ -147,7 +131,7 @@ NS_SWIFT_NAME(Tracker.Builder)
 
  @param delegate The logger delegate that received logs from the tracker.
 */
-- (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate;
+- (void)setLoggerDelegate:(nullable id<SPLoggerDelegate>)delegate;
 
 /*!
  @brief Tracker builder method to set whether events will include session context

@@ -2,6 +2,8 @@ framework module SnowplowTracker {
     header "Snowplow.h"
     header "SPTrackerConfiguration.h"
     header "SPNetworkConfiguration.h"
+    
+    header "SPLoggerDelegate.h"
 
     header "SPTracker.h"
     header "SPEmitter.h"

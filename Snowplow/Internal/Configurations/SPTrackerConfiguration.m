@@ -17,6 +17,9 @@
 
         self.devicePlatform = SPDevicePlatformMobile;
         self.base64Encoding = YES;
+        
+        self.logLevel = SPLogLevelOff;
+        self.loggerDelegate = nil;
 
         self.sessionContext = YES;
         self.applicationContext = YES;

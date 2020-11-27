@@ -31,6 +31,6 @@ typedef NS_CLOSED_ENUM(NSUInteger, SPDevicePlatform) {
     SPDevicePlatformConnectedTV,
     SPDevicePlatformGameConsole,
     SPDevicePlatformInternetOfThings,
-};
+} NS_SWIFT_NAME(DevicePlatform);
 
 NSString *SPDevicePlatformToString(SPDevicePlatform devicePlatform);

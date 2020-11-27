@@ -1,5 +1,5 @@
 //
-//  SPDiagnosticLogger.h
+//  SPLoggerDelegate.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -22,11 +22,21 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(DiagnosticLogger)
-@protocol SPDiagnosticLogger <NSObject>
+typedef NS_ENUM(NSInteger, SPLogLevel) {
+    SPLogLevelOff = 0,
+    SPLogLevelError,
+    SPLogLevelDebug,
+    SPLogLevelVerbose,
+} NS_SWIFT_NAME(LogLevel);
 
-- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(nullable NSError *)error exception:(nullable NSException *)exception NS_SWIFT_NAME(log(tag:message:error:exception:));
-
+/*!
+ @brief Logger delegate to implement in oder to receive logs from the tracker.
+*/
+NS_SWIFT_NAME(Logger.Delegate)
+@protocol SPLoggerDelegate <NSObject>
+- (void)error:(NSString *)tag message:(NSString *)message;
+- (void)debug:(NSString *)tag message:(NSString *)message;
+- (void)verbose:(NSString *)tag message:(NSString *)message;
 @end
 
 NS_ASSUME_NONNULL_END

@@ -124,6 +124,8 @@ static SPTracker *_sharedInstance = nil;
         [builder setAppId:trackerConfiguration.appId];
         [builder setTrackerNamespace:trackerConfiguration.namespace];
         [builder setBase64Encoded:trackerConfiguration.base64Encoding];
+        [builder setLogLevel:trackerConfiguration.logLevel];
+        [builder setLoggerDelegate:trackerConfiguration.loggerDelegate];
         [builder setDevicePlatform:trackerConfiguration.devicePlatform];
         [builder setSessionContext:trackerConfiguration.sessionContext];
         [builder setApplicationContext:trackerConfiguration.applicationContext];
