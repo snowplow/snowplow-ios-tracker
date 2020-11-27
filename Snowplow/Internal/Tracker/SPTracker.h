@@ -56,6 +56,8 @@ void uncaughtExceptionHandler(NSException *exception);
 
 @class SPGlobalContext;
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
     SPGdprProcessingBasisConsent = 0,
     SPGdprProcessingBasisContract = 1,
@@ -85,6 +87,7 @@ NS_SWIFT_NAME(Logger.Delegate)
 /*!
  @brief The builder for SPTracker.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(Tracker.Builder)
 @protocol SPTrackerBuilder <NSObject>
 
@@ -276,14 +279,14 @@ NS_SWIFT_NAME(Tracker)
 @property (readonly, nonatomic) NSArray<NSString *> *globalContextTags;
 
 /// DOC
-+ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration;
++ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
 
 // TODO: Add other setup methods
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.
  */
-+ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Tracker.setup(...)` instead.");
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
@@ -489,3 +492,5 @@ NS_SWIFT_NAME(Tracker)
 - (void)track:(SPEvent *)event;
 
 @end
+
+NS_ASSUME_NONNULL_END
