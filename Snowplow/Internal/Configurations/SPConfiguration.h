@@ -8,10 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
+#ifndef SP_STR_PROP
+    #define SP_STR_PROP( prop ) NSStringFromSelector(@selector(prop))
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Configuration)
-@interface SPConfiguration : NSObject
+@interface SPConfiguration : NSObject <NSCopying, NSCoding>
 
 @end
 

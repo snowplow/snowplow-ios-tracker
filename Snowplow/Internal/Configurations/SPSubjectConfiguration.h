@@ -12,6 +12,17 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+
+@interface SPSize : NSObject <NSCoding>
+
+@property (readonly) NSInteger width;
+@property (readonly) NSInteger height;
+
+- initWithWidth:(NSInteger)width height:(NSInteger)height;
+
+@end
+
+
 NS_SWIFT_NAME(SubjectConfiguration)
 @interface SPSubjectConfiguration : SPConfiguration
 
@@ -24,10 +35,9 @@ NS_SWIFT_NAME(SubjectConfiguration)
 @property (nullable) NSString *timezone;
 @property (nullable) NSString *language;
 
-// TODO: assuming that zero is like nil could be wrong in these cases.
-@property () CGSize screenResolution;
-@property () CGSize screenViewPort;
-@property () NSInteger colorDepth;
+@property (nullable) SPSize *screenResolution;
+@property (nullable) SPSize *screenViewPort;
+@property (nullable) NSNumber *colorDepth;
 
 @end
 

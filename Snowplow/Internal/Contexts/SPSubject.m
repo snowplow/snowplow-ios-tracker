@@ -58,20 +58,16 @@
             if (config.ipAddress) [self setIpAddress:config.ipAddress];
             if (config.timezone) [self setTimezone:config.timezone];
             if (config.language) [self setLanguage:config.language];
-            if (!CGSizeEqualToSize(CGSizeZero, config.screenResolution)) {
-                CGSize size = config.screenResolution;
-                NSInteger w = (NSInteger)(floor(size.width));
-                NSInteger h = (NSInteger)(floor(size.height));
-                [self setResolutionWithWidth:w andHeight:h];
+            if (config.screenResolution) {
+                SPSize *size = config.screenResolution;
+                [self setResolutionWithWidth:size.width andHeight:size.height];
             }
-            if (!CGSizeEqualToSize(CGSizeZero, config.screenViewPort)) {
-                CGSize size = config.screenViewPort;
-                NSInteger w = (NSInteger)(floor(size.width));
-                NSInteger h = (NSInteger)(floor(size.height));
-                [self setResolutionWithWidth:w andHeight:h];
+            if (config.screenViewPort) {
+                SPSize *size = config.screenViewPort;
+                [self setViewPortWithWidth:size.width andHeight:size.height];
             }
-            if (config.colorDepth != 0) {
-                [self setColorDepth:config.colorDepth];
+            if (config.colorDepth) {
+                [self setColorDepth:config.colorDepth.integerValue];
             }
         }
     }

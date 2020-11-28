@@ -10,4 +10,15 @@
 
 @implementation SPConfiguration
 
+- (nonnull instancetype)copyWithZone:(nullable NSZone *)zone {
+    return [[SPConfiguration allocWithZone:zone] init];
+}
+
+- (void)encodeWithCoder:(nonnull NSCoder *)coder {
+}
+
+- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
+    return [[SPConfiguration alloc] init];
+}
+
 @end
