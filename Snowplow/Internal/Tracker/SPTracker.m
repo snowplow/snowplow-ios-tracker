@@ -499,64 +499,12 @@ static SPTracker *_sharedInstance = nil;
 
 #pragma mark - Event Tracking Functions
 
-- (void) trackPageViewEvent:(SPPageView *)event {
-    [self track:event];
-}
-
-- (void) trackStructuredEvent:(SPStructured *)event {
-    [self track:event];
-}
-
-- (void) trackUnstructuredEvent:(SPUnstructured *)event {
-    [self track:event];
-}
-
 - (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
     if (!event || !_dataCollection) return;
     SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData: event];
     }];
     [self track:unstruct];
-}
-
-- (void) trackScreenViewEvent:(SPScreenView *)event {
-    [self track:event];
-}
-
-- (void) trackTimingEvent:(SPTiming *)event {
-    [self track:event];
-}
-
-- (void) trackEcommerceEvent:(SPEcommerce *)event {
-    [self track:event];
-}
-
-- (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
-    [self track:event];
-}
-
-- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event {
-    [self track:event];
-}
-
-- (void) trackConsentGrantedEvent:(SPConsentGranted *)event {
-    [self track:event];
-}
-
-- (void) trackPushNotificationEvent:(SPPushNotification *)event {
-    [self track:event];
-}
-
-- (void) trackForegroundEvent:(SPForeground *)event {
-    [self track:event];
-}
-
-- (void) trackBackgroundEvent:(SPBackground *)event {
-    [self track:event];
-}
-
-- (void) trackErrorEvent:(SNOWError *)event {
-    [self track:event];
 }
 
 - (void)track:(SPEvent *)event {
@@ -582,23 +530,6 @@ static SPTracker *_sharedInstance = nil;
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
-}
-
-- (SPPayload *)getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
-    [pb addDictionaryToPayload:_trackerData];
-
-    // Add Subject information
-    if (_subject != nil) {
-        [pb addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
-    }
-    [pb addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
-
-    // Add the contexts
-    NSMutableArray<SPSelfDescribingJson *> *contexts = contextArray;
-    [self addBasicContextsToContexts:contexts eventId:eventId isService:NO]; // isService = NO is just the default - this method will be removed in the version 2.0
-
-    [self wrapContexts:contexts toPayload:pb];
-    return pb;
 }
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
