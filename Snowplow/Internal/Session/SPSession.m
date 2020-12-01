@@ -43,7 +43,6 @@
 @implementation SPSession {
     NSInteger   _foregroundTimeout;
     NSInteger   _backgroundTimeout;
-    NSInteger   _checkInterval;
     BOOL        _inBackground;
     BOOL        _isNewSession;
     BOOL        _isSessionCheckerEnabled;
@@ -69,20 +68,11 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout {
-    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout andCheckInterval:15];
+    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout];
 }
 
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andTracker:(SPTracker *)tracker {
-    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout andCheckInterval:15 andTracker:tracker];
-}
-
-- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15 andTracker:nil];
-}
-
-- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval andTracker:(SPTracker *)tracker{
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         _foregroundTimeout = foregroundTimeout * 1000;
         _backgroundTimeout = backgroundTimeout * 1000;
         _inBackground = NO;
@@ -137,10 +127,6 @@ NSString * const kSessionSavePath = @"session.dict";
     _backgroundTimeout = backgroundTimeout;
 }
 
-- (void) setCheckInterval:(NSInteger)checkInterval {
-    _checkInterval = checkInterval;
-}
-
 - (NSDictionary *) getSessionDictWithEventId:(NSString *)eventId {
     if (!_isSessionCheckerEnabled) {
         return [_sessionDict copy];
@@ -160,10 +146,6 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (NSInteger) getBackgroundTimeout {
     return _backgroundTimeout;
-}
-
-- (NSInteger) getCheckInterval {
-    return _checkInterval;
 }
 
 - (NSInteger) getSessionIndex {

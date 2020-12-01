@@ -7,6 +7,7 @@
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
 #import "SPSubjectConfiguration.h"
+#import "SPSessionConfiguration.h"
 
 #import "SPLoggerDelegate.h"
 
@@ -47,3 +48,4 @@
 #import "SPGlobalContext.h"
 #import "SPSchemaRuleset.h"
 #import "SPSchemaRule.h"
+

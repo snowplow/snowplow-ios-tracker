@@ -61,34 +61,6 @@ NS_SWIFT_NAME(Session)
                                andTracker:(SPTracker *)tracker;
 
 /**
- * Initializes a newly allocated SnowplowSession
- * @param foregroundTimeout the session timeout while it is in the foreground
- * @param backgroundTimeout the session timeout while it is in the background
- * @param checkInterval how often to query for if the session has timed out
- * @return a SnowplowSession
- * @deprecated The session timeout calculation no longer need the checkInterval value. Use `initWithForegroundTimeout:andBackgroundTimeout:` instead.
- */
-- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout
-            andBackgroundTimeout:(NSInteger)backgroundTimeout
-                andCheckInterval:(NSInteger)checkInterval
-__deprecated_msg("Use `initWithForegroundTimeout:andBackgroundTimeout:` instead.");
-
-/**
- * Initializes a newly allocated SnowplowSession
- * @param foregroundTimeout the session timeout while it is in the foreground
- * @param backgroundTimeout the session timeout while it is in the background
- * @param checkInterval how often to query for if the session has timed out
- * @param tracker reference to the associated tracker of the session
- * @return a SnowplowSession
- * @deprecated The session timeout calculation no longer need the checkInterval value. Use `initWithForegroundTimeout:andBackgroundTimeout:andTracker:` instead.
- */
-- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout
-            andBackgroundTimeout:(NSInteger)backgroundTimeout
-                andCheckInterval:(NSInteger)checkInterval
-                      andTracker:(SPTracker *)tracker
-__deprecated_msg("Use `initWithForegroundTimeout:andBackgroundTimeout:andTracker:` instead.");
-
-/**
  * Starts the recurring timer check for sessions
  */
 - (void) startChecker;
@@ -109,12 +81,6 @@ __deprecated_msg("Use `initWithForegroundTimeout:andBackgroundTimeout:andTracker
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;
 
 /**
- * Sets a new check interval and restarts the timer
- * @deprecated The session timeout calculation no longer need the checkInterval value.
- */
-- (void) setCheckInterval:(NSInteger)checkInterval __deprecated_msg("setCheckInterval is deprecated as checkInterval no longer has any effect.");
-
-/**
  * Returns the currently set Foreground Timeout
  */
 - (NSInteger) getForegroundTimeout;
@@ -123,12 +89,6 @@ __deprecated_msg("Use `initWithForegroundTimeout:andBackgroundTimeout:andTracker
  * Returns the currently set Background Timeout
  */
 - (NSInteger) getBackgroundTimeout;
-
-/**
- * Returns the currently set Check Interval
- * @deprecated The session timeout calculation no longer need the checkInterval value.
- */
-- (NSInteger) getCheckInterval __deprecated_msg("getCheckInterval is deprecated as checkInterval no longer has any effect.");
 
 /**
  * Returns the current tracker associated with the session

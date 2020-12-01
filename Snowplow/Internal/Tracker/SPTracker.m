@@ -52,6 +52,7 @@
 #import "SPLogger.h"
 
 #import "SPSubjectConfiguration.h"
+#import "SPSessionConfiguration.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker () <SPDiagnosticLogger>
@@ -117,9 +118,14 @@ static SPTracker *_sharedInstance = nil;
 
 + (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     SPSubjectConfiguration *subjectConfiguration = nil;
+    SPSessionConfiguration *sessionConfiguration = nil;
     for (SPConfiguration *configuration in configurations) {
         if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
-            subjectConfiguration = configuration;
+            subjectConfiguration = (SPSubjectConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPSessionConfiguration.class]) {
+            sessionConfiguration = (SPSessionConfiguration *)configuration;
             continue;
         }
     }
@@ -149,6 +155,10 @@ static SPTracker *_sharedInstance = nil;
         [builder setInstallEvent:trackerConfiguration.installAutotracking];
         [builder setExceptionEvents:trackerConfiguration.exceptionAutotracking];
         [builder setTrackerDiagnostic:trackerConfiguration.diagnosticAutotracking];
+        if (sessionConfiguration) {
+            [builder setBackgroundTimeout:sessionConfiguration.backgroundTimeoutInSeconds];
+            [builder setForegroundTimeout:sessionConfiguration.foregroundTimeoutInSeconds];
+        }
     }];
     return tracker;
 }
@@ -216,7 +226,6 @@ static SPTracker *_sharedInstance = nil;
     if (_sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
                                            andBackgroundTimeout:_backgroundTimeout
-                                               andCheckInterval:_checkInterval
                                                      andTracker:self];
     }
 
@@ -317,7 +326,9 @@ static SPTracker *_sharedInstance = nil;
         [_session stopChecker];
         _session = nil;
     } else if (_builderFinished && _session == nil && sessionContext) {
-        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval andTracker:self];
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
+                                           andBackgroundTimeout:_backgroundTimeout
+                                                     andTracker:self];
     }
 }
 
@@ -344,13 +355,6 @@ static SPTracker *_sharedInstance = nil;
     _backgroundTimeout = backgroundTimeout;
     if (_builderFinished && _session != nil) {
         [_session setBackgroundTimeout:backgroundTimeout];
-    }
-}
-
-- (void) setCheckInterval:(NSInteger)checkInterval {
-    _checkInterval = checkInterval;
-    if (_builderFinished && _session != nil) {
-        [_session setCheckInterval:checkInterval];
     }
 }
 

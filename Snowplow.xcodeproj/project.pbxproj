@@ -348,6 +348,14 @@
 		ED88670325715DD600DB53BB /* SPConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8866FD25715DD600DB53BB /* SPConfiguration.m */; };
 		ED88670425715DD600DB53BB /* SPConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8866FD25715DD600DB53BB /* SPConfiguration.m */; };
 		ED88670525715DD600DB53BB /* SPConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8866FD25715DD600DB53BB /* SPConfiguration.m */; };
+		ED88672B2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88672C2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88672D2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88672E2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88672F2573C1F200DB53BB /* SPSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */; };
+		ED8867302573C1F200DB53BB /* SPSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */; };
+		ED8867312573C1F200DB53BB /* SPSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */; };
+		ED8867322573C1F200DB53BB /* SPSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */; };
 		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED8BF8B325700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8BF8B125700B3F001DFDD9 /* SPTrackerConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -617,6 +625,8 @@
 		ED8866E12571445300DB53BB /* SPSubjectConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSubjectConfiguration.m; sourceTree = "<group>"; };
 		ED8866FC25715DD600DB53BB /* SPConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConfiguration.h; sourceTree = "<group>"; };
 		ED8866FD25715DD600DB53BB /* SPConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConfiguration.m; sourceTree = "<group>"; };
+		ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSessionConfiguration.h; sourceTree = "<group>"; };
+		ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSessionConfiguration.m; sourceTree = "<group>"; };
 		ED8BF8B125700B3F001DFDD9 /* SPTrackerConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerConfiguration.h; sourceTree = "<group>"; };
 		ED8BF8B225700B3F001DFDD9 /* SPTrackerConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTrackerConfiguration.m; sourceTree = "<group>"; };
 		ED8BF8C925701853001DFDD9 /* SPNetworkConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNetworkConfiguration.h; sourceTree = "<group>"; };
@@ -838,6 +848,8 @@
 				ED8BF8CA25701853001DFDD9 /* SPNetworkConfiguration.m */,
 				ED8866E02571445300DB53BB /* SPSubjectConfiguration.h */,
 				ED8866E12571445300DB53BB /* SPSubjectConfiguration.m */,
+				ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */,
+				ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1093,6 +1105,7 @@
 				752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */,
 				CE4F9D06244B066500968CFC /* SPSchemaRuleset.h in Headers */,
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
+				ED88672B2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */,
 				EDD8543424EFFFB300661F6B /* SPRequest.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
@@ -1169,6 +1182,7 @@
 				EDD8542124EFEFB900661F6B /* SPDefaultNetworkConnection.h in Headers */,
 				ED8866FF25715DD600DB53BB /* SPConfiguration.h in Headers */,
 				75CAC46021F2A21B00271FB3 /* SPSQLiteEventStore.h in Headers */,
+				ED88672C2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */,
 				75CAC46221F2A21B00271FB3 /* SPRequestResult.h in Headers */,
 				75CAC46321F2A21B00271FB3 /* SPWeakTimerTarget.h in Headers */,
 			);
@@ -1227,6 +1241,7 @@
 				EDD8542224EFEFB900661F6B /* SPDefaultNetworkConnection.h in Headers */,
 				ED88670025715DD600DB53BB /* SPConfiguration.h in Headers */,
 				75CAC43421F2A0CC00271FB3 /* SPRequestResult.h in Headers */,
+				ED88672D2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */,
 				ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */,
 				75CAC43521F2A0CC00271FB3 /* SPWeakTimerTarget.h in Headers */,
 			);
@@ -1269,6 +1284,7 @@
 				75F9C5EE21FA35BC00A5B8FC /* SPUtilities.h in Headers */,
 				CE4F9D09244B066500968CFC /* SPSchemaRuleset.h in Headers */,
 				7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */,
+				ED88672E2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */,
 				EDD8543724EFFFB300661F6B /* SPRequest.h in Headers */,
 				75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */,
 				75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */,
@@ -1558,6 +1574,7 @@
 				752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */,
 				CE4F9C8A244B066500968CFC /* SPConsentDocument.m in Sources */,
 				CE4F9CFE244B066500968CFC /* SPBackground.m in Sources */,
+				ED88672F2573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
 				EDEE834F24BDB326000B8530 /* SPTrackerError.m in Sources */,
 				ED8BF8CF25701853001DFDD9 /* SPNetworkConfiguration.m in Sources */,
 				754774BC2225FBA60043B814 /* SPScreenState.m in Sources */,
@@ -1610,6 +1627,7 @@
 				CE4F9C8F244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
 				CE4F9D17244B066500968CFC /* SPGlobalContext.m in Sources */,
 				ED88670325715DD600DB53BB /* SPConfiguration.m in Sources */,
+				ED8867302573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
 				CE4F9CC3244B066500968CFC /* SPConsentGranted.m in Sources */,
 				CE4F9CF7244B066500968CFC /* SPEventBase.m in Sources */,
 				EDEE835024BDB326000B8530 /* SPTrackerError.m in Sources */,
@@ -1661,6 +1679,7 @@
 				CE4F9C90244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
 				CE4F9D18244B066500968CFC /* SPGlobalContext.m in Sources */,
 				ED88670425715DD600DB53BB /* SPConfiguration.m in Sources */,
+				ED8867312573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
 				CE4F9CC4244B066500968CFC /* SPConsentGranted.m in Sources */,
 				CE4F9CF8244B066500968CFC /* SPEventBase.m in Sources */,
 				EDEE835124BDB326000B8530 /* SPTrackerError.m in Sources */,
@@ -1747,6 +1766,7 @@
 				75F9C5DF21FA357100A5B8FC /* SPRequestResult.m in Sources */,
 				CE4F9C8D244B066500968CFC /* SPConsentDocument.m in Sources */,
 				CE4F9D01244B066500968CFC /* SPBackground.m in Sources */,
+				ED8867322573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
 				EDEE835224BDB326000B8530 /* SPTrackerError.m in Sources */,
 				ED8BF8D225701853001DFDD9 /* SPNetworkConfiguration.m in Sources */,
 				75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */,
