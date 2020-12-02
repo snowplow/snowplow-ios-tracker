@@ -28,8 +28,8 @@
 
 #import <Foundation/Foundation.h>
 #import "SPNetworkConfiguration.h"
-#import "SPTrackerConfiguration.h"
 
+#import "SPTrackerControlling.h"
 #import "SPSessionControlling.h"
 
 #import "SPDevicePlatform.h"
@@ -74,7 +74,7 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
  @brief The builder for SPTracker.
  */
 __attribute__ ((deprecated))
-NS_SWIFT_NAME(Tracker.Builder)
+NS_SWIFT_NAME(TrackerBuilder)
 @protocol SPTrackerBuilder <NSObject>
 
 /*!
@@ -265,12 +265,20 @@ NS_SWIFT_NAME(Tracker)
 /*! @brief List of tags associated to global contexts. */
 @property (readonly, nonatomic) NSArray<NSString *> *globalContextTags;
 
-/// MARK: - Setup methods
+// MARK: - New methods
 
-/// DOC
-+ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
++ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
 
-+ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
++ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
+
+- (BOOL)applicationContext;
+- (BOOL)exceptionEvents;
+- (BOOL)installEvent;
+- (BOOL)screenContext;
+- (BOOL)autoTrackScreenView;
+- (BOOL)sessionContext;
+
+// MARK: - Old methods
 
 // TODO: Add other setup methods
 

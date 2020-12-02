@@ -34,9 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(Logger)
 @interface SPLogger : NSObject
 
-+ (void)setLoggerDelegate:(nullable id<SPLoggerDelegate>)delegate;
-+ (void)setDiagnosticLogger:(nullable id<SPDiagnosticLogger>)diagnosticLogger;
-+ (void)setLogLevel:(SPLogLevel)logLevel;
+@property (class, nonatomic) SPLogLevel logLevel;
+@property (class, nonatomic, nullable) id<SPLoggerDelegate> delegate;
+@property (class, nonatomic, nullable) id<SPDiagnosticLogger> diagnosticLogger;
 
 + (void)diagnostic:(NSString *)tag message:(NSString *)message errorOrException:(nullable id)errorOrException;
 + (void)error:(NSString *)tag message:(NSString *)message;

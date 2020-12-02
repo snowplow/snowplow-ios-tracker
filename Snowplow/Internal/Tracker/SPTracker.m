@@ -54,7 +54,9 @@
 #import "SPSubjectConfiguration.h"
 #import "SPSessionConfiguration.h"
 
+#import "SPTrackerController.h"
 #import "SPSessionController.h"
+
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker () <SPDiagnosticLogger>
@@ -120,56 +122,43 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 static SPTracker *_sharedInstance = nil;
 
-+ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
-    SPSubjectConfiguration *subjectConfiguration = nil;
-    SPSessionConfiguration *sessionConfiguration = nil;
-    for (SPConfiguration *configuration in configurations) {
-        if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
-            subjectConfiguration = (SPSubjectConfiguration *)configuration;
-            continue;
-        }
-        if ([configuration isKindOfClass:SPSessionConfiguration.class]) {
-            sessionConfiguration = (SPSessionConfiguration *)configuration;
-            continue;
-        }
-    }
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setHttpMethod:networkConfiguration.method];
-        [builder setProtocol:networkConfiguration.protocol];
-        [builder setUrlEndpoint:networkConfiguration.endpoint];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:trackerConfiguration.platformContext
-                                                 geoLocationContext:trackerConfiguration.geoLocationContext
-                                               subjectConfiguration:subjectConfiguration
-                          ];
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setAppId:trackerConfiguration.appId];
-        [builder setTrackerNamespace:trackerConfiguration.namespace];
-        [builder setBase64Encoded:trackerConfiguration.base64Encoding];
-        [builder setLogLevel:trackerConfiguration.logLevel];
-        [builder setLoggerDelegate:trackerConfiguration.loggerDelegate];
-        [builder setDevicePlatform:trackerConfiguration.devicePlatform];
-        [builder setSessionContext:trackerConfiguration.sessionContext];
-        [builder setApplicationContext:trackerConfiguration.applicationContext];
-        [builder setScreenContext:trackerConfiguration.screenContext];
-        [builder setAutotrackScreenViews:trackerConfiguration.screenViewAutotracking];
-        [builder setLifecycleEvents:trackerConfiguration.lifecycleAutotracking];
-        [builder setInstallEvent:trackerConfiguration.installAutotracking];
-        [builder setExceptionEvents:trackerConfiguration.exceptionAutotracking];
-        [builder setTrackerDiagnostic:trackerConfiguration.diagnosticAutotracking];
-        if (sessionConfiguration) {
-            [builder setBackgroundTimeout:sessionConfiguration.backgroundTimeoutInSeconds];
-            [builder setForegroundTimeout:sessionConfiguration.foregroundTimeoutInSeconds];
-        }
-    }];
-    return tracker;
+// MARK: - Setup methods
+
++ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
+    return [SPTrackerController setupWithNetwork:networkConfiguration tracker:trackerConfiguration];
 }
 
-+ (SPTracker *)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
-    return [SPTracker setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:@[]];
++ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
+    return [SPTrackerController setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
 }
+
+// MARK: - Added property methods
+
+- (BOOL)applicationContext {
+    return _applicationContext;
+}
+
+- (BOOL)exceptionEvents {
+    return _exceptionEvents;
+}
+
+- (BOOL)installEvent {
+    return _installEvent;
+}
+
+- (BOOL)screenContext {
+    return _screenContext;
+}
+
+- (BOOL)autoTrackScreenView {
+    return _autotrackScreenViews;
+}
+
+- (BOOL)sessionContext {
+    return _sessionContext;
+}
+
+// MARK: - Methods
 
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
     SPTracker *tracker = [[SPTracker alloc] initWithDefaultValues];
@@ -322,7 +311,7 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate {
-    [SPLogger setLoggerDelegate:delegate];
+    [SPLogger setDelegate:delegate];
 }
 
 - (void) setSessionContext:(BOOL)sessionContext {

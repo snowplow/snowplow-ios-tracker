@@ -26,6 +26,13 @@
 #import "SPUtilities.h"
 #import "SPLogger.h"
 
+@interface SPSubject ()
+
+@property (nonatomic, readwrite) BOOL platformContext;
+@property (nonatomic, readwrite) BOOL geoLocationContext;
+
+@end
+
 @implementation SPSubject {
     SPPayload *           _standardDict;
     SPPayload *           _platformDict;
@@ -42,6 +49,8 @@
 
 - (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)config {
     if (self = [super init]) {
+        self.platformContext = platformContext;
+        self.geoLocationContext = geoContext;
         _standardDict = [[SPPayload alloc] init];
         [self setStandardDict];
         if (platformContext) {
@@ -72,7 +81,6 @@
         }
     }
     return self;
-
 }
 
 - (SPPayload *) getStandardDict {

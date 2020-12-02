@@ -30,9 +30,14 @@
 
 @implementation SPLogger
 
-+ (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate {
++ (void)setDelegate:(id<SPLoggerDelegate>)delegate {
     SPLogger *logger = [SPLogger shared];
     logger.delegate = delegate;
+}
+
++ (id<SPLoggerDelegate>)delegate {
+    SPLogger *logger = [SPLogger shared];
+    return logger.delegate;
 }
 
 + (void)setDiagnosticLogger:(id<SPDiagnosticLogger>)diagnosticLogger {
@@ -41,6 +46,11 @@
     if (diagnosticLogger && logger.logLevel == SPLogLevelOff) {
         logger.logLevel = SPLogLevelError;
     }
+}
+
++ (id<SPDiagnosticLogger>)diagnosticLogger {
+    SPLogger *logger = [SPLogger shared];
+    return logger.errorLogger;
 }
 
 + (void)setLogLevel:(SPLogLevel)logLevel {
@@ -55,6 +65,11 @@
             logger.logLevel = SPLogLevelOff;
         #endif
     }
+}
+
++ (SPLogLevel)logLevel {
+    SPLogger *logger = [SPLogger shared];
+    return logger.logLevel ?: SPLogLevelOff;
 }
 
 + (void)diagnostic:(NSString *)tag message:(NSString *)message errorOrException:(id)errorOrException {

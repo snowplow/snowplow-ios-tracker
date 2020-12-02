@@ -13,7 +13,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(TrackerConfiguration.Protocol)
+NS_SWIFT_NAME(TrackerConfigurationProtocol)
 @protocol SPTrackerConfigurationProtocol
 
 @property () NSString *namespace;

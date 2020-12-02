@@ -9,6 +9,7 @@
 #import "SPSubjectConfiguration.h"
 #import "SPSessionConfiguration.h"
 
+#import "SPTrackerControlling.h"
 #import "SPSessionControlling.h"
 
 #import "SPLoggerDelegate.h"
