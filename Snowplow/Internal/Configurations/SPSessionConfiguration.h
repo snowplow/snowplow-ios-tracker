@@ -11,14 +11,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(SessionConfiguration)
-@interface SPSessionConfiguration : SPConfiguration
+NS_SWIFT_NAME(SessionConfiguration.Protocol)
+@protocol SPSessionConfigurationProtocol
 
 @property NSInteger foregroundTimeoutInSeconds;
 @property NSInteger backgroundTimeoutInSeconds;
 
 @property NSMeasurement<NSUnitDuration *> *foregroundTimeout API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0));
 @property NSMeasurement<NSUnitDuration *> *backgroundTimeout API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0));
+
+@end
+
+NS_SWIFT_NAME(SessionConfiguration)
+@interface SPSessionConfiguration : SPConfiguration <SPSessionConfigurationProtocol>
 
 - (instancetype)initWithForegroundTimeoutInSeconds:(NSInteger)foregroundTimeout backgroundTimeoutInSeconds:(NSInteger)backgroundTimeout;
 

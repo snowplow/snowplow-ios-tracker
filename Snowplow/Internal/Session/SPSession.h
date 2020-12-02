@@ -70,23 +70,26 @@ NS_SWIFT_NAME(Session)
  */
 - (void) stopChecker;
 
+/// Expires the current session and starts a new one
+- (void)startNewSession;
+
 /**
- * Sets a new foreground timeout
+ * Sets a new foreground timeout in milliseconds
  */
 - (void) setForegroundTimeout:(NSInteger)foregroundTimeout;
 
 /**
- * Sets a new background timeout
+ * Sets a new background timeout in milliseconds
  */
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;
 
 /**
- * Returns the currently set Foreground Timeout
+ * Returns the currently set Foreground Timeout in milliseconds
  */
 - (NSInteger) getForegroundTimeout;
 
 /**
- * Returns the currently set Background Timeout
+ * Returns the currently set Background Timeout in milliseconds
  */
 - (NSInteger) getBackgroundTimeout;
 

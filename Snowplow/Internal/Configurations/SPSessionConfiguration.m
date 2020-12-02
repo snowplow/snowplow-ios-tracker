@@ -10,6 +10,9 @@
 
 @implementation SPSessionConfiguration
 
+@synthesize foregroundTimeoutInSeconds;
+@synthesize backgroundTimeoutInSeconds;
+
 - (instancetype)init {
     return [self initWithForegroundTimeoutInSeconds:1800 backgroundTimeoutInSeconds:1800];
 }
@@ -30,21 +33,29 @@
     return self;
 }
 
-- (void)setForegroundTimeout:(NSMeasurement<NSUnitDuration *> *)foregroundTimeout {
+- (void)setForegroundTimeout:(NSMeasurement<NSUnitDuration *> *)foregroundTimeout
+API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
+{
     NSMeasurement<NSUnitDuration *> *foreground = [foregroundTimeout measurementByConvertingToUnit:NSUnitDuration.seconds];
     self.foregroundTimeoutInSeconds = floor(foreground.doubleValue);
 }
 
-- (void)setBackgroundTimeout:(NSMeasurement<NSUnitDuration *> *)backgroundTimeout {
+- (void)setBackgroundTimeout:(NSMeasurement<NSUnitDuration *> *)backgroundTimeout
+API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
+{
     NSMeasurement<NSUnitDuration *> *background = [backgroundTimeout measurementByConvertingToUnit:NSUnitDuration.seconds];
     self.backgroundTimeoutInSeconds = floor(background.doubleValue);
 }
 
-- (NSMeasurement<NSUnitDuration *> *)foregroundTimeout {
+- (NSMeasurement<NSUnitDuration *> *)foregroundTimeout
+API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
+{
     return [[NSMeasurement alloc] initWithDoubleValue:self.foregroundTimeoutInSeconds unit:NSUnitDuration.seconds];
 }
 
-- (NSMeasurement<NSUnitDuration *> *)backgroundTimeout {
+- (NSMeasurement<NSUnitDuration *> *)backgroundTimeout
+API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
+{
     return [[NSMeasurement alloc] initWithDoubleValue:self.backgroundTimeoutInSeconds unit:NSUnitDuration.seconds];
 }
 

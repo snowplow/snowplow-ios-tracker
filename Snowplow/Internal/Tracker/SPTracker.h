@@ -30,6 +30,8 @@
 #import "SPNetworkConfiguration.h"
 #import "SPTrackerConfiguration.h"
 
+#import "SPSessionControlling.h"
+
 #import "SPDevicePlatform.h"
 #import "SPEventBase.h"
 #import "SPLoggerDelegate.h"
@@ -246,7 +248,8 @@ NS_SWIFT_NAME(Tracker)
 /*! @brief The subject used to represent the current user and persist user information. */
 @property (readonly, nonatomic, strong) SPSubject * subject;
 /*! @brief The object used for sessionization, i.e. it characterizes user activity. */
-@property (nonatomic, retain) SPSession * session;
+@property (nonatomic, retain) SPSession * session_v1 __deprecated_msg("Use `session` instead. It will be removed in the version 3.0");
+@property (readonly) id<SPSessionControlling> session;
 /*! @brief A unique identifier for an application. */
 @property (readonly, nonatomic, strong) NSString * appId;
 /*! @brief The identifier for the current tracker. */

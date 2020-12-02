@@ -109,7 +109,7 @@ NSString * const kSessionSavePath = @"session.dict";
     return self;
 }
 
-// --- Public
+// MARK: - Public
 
 - (void) startChecker {
     _isSessionCheckerEnabled = YES;
@@ -117,6 +117,11 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) stopChecker {
     _isSessionCheckerEnabled = NO;
+}
+
+- (void)startNewSession {
+    // TODO: we should track in the session context that the session has been renewed programmatically.
+    _isNewSession = YES;
 }
 
 - (void) setForegroundTimeout:(NSInteger)foregroundTimeout {
@@ -176,7 +181,7 @@ NSString * const kSessionSavePath = @"session.dict";
     return self.tracker;
 }
 
-// --- Private
+// MARK: - Private
 
 - (BOOL) writeSessionToFile {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

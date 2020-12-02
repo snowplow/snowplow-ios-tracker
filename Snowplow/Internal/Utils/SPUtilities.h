@@ -132,7 +132,7 @@
 + (int) getTransactionId __deprecated;
 
 /*!
- @brief Returns the timestamp generated at the point it was called.
+ @brief Returns the timestamp (in milliseconds) generated at the point it was called.
 
  @return A double of the timestamp from when the method was called.
  */
