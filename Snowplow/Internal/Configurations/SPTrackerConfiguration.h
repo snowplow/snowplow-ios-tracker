@@ -13,8 +13,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(TrackerConfiguration)
-@interface SPTrackerConfiguration : SPConfiguration
+NS_SWIFT_NAME(TrackerConfiguration.Protocol)
+@protocol SPTrackerConfigurationProtocol
 
 @property () NSString *namespace;
 @property () NSString *appId;
@@ -35,6 +35,11 @@ NS_SWIFT_NAME(TrackerConfiguration)
 @property () BOOL installAutotracking;
 @property () BOOL exceptionAutotracking;
 @property () BOOL diagnosticAutotracking;
+
+@end
+
+NS_SWIFT_NAME(TrackerConfiguration)
+@interface SPTrackerConfiguration : SPConfiguration <SPTrackerConfigurationProtocol>
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;

@@ -12,8 +12,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(NetworkConfiguration)
-@interface SPNetworkConfiguration : SPConfiguration
+NS_SWIFT_NAME(NetworkConfiguration.Protocol)
+@protocol SPNetworkConfigurationProtocol
 
 @property () NSString *endpoint;
 @property () SPRequestOptions method;
@@ -21,6 +21,12 @@ NS_SWIFT_NAME(NetworkConfiguration)
 
 @property (nullable) NSString *customPostPath;
 @property () NSInteger timeout;
+
+@end
+
+
+NS_SWIFT_NAME(NetworkConfiguration)
+@interface SPNetworkConfiguration : SPConfiguration <SPNetworkConfigurationProtocol>
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;

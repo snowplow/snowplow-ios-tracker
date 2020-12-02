@@ -10,6 +10,12 @@
 
 @implementation SPNetworkConfiguration
 
+@synthesize endpoint;
+@synthesize method;
+@synthesize protocol;
+@synthesize customPostPath;
+@synthesize timeout;
+
 - (instancetype)initWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method {
     if (self = [super init]) {
         self.endpoint = endpoint;

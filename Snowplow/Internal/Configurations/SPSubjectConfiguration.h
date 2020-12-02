@@ -12,7 +12,6 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-
 @interface SPSize : NSObject <NSCoding>
 
 @property (readonly) NSInteger width;
@@ -23,8 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-NS_SWIFT_NAME(SubjectConfiguration)
-@interface SPSubjectConfiguration : SPConfiguration
+NS_SWIFT_NAME(SubjectConfiguration.Protocol)
+@protocol SPSubjectConfigurationProtocol
 
 @property (nullable) NSString *userId;
 @property (nullable) NSString *networkUserId;
@@ -38,6 +37,11 @@ NS_SWIFT_NAME(SubjectConfiguration)
 @property (nullable) SPSize *screenResolution;
 @property (nullable) SPSize *screenViewPort;
 @property (nullable) NSNumber *colorDepth;
+
+@end
+
+NS_SWIFT_NAME(SubjectConfiguration)
+@interface SPSubjectConfiguration : SPConfiguration <SPSubjectConfigurationProtocol>
 
 @end
 

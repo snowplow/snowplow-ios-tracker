@@ -44,6 +44,17 @@
 
 @implementation SPSubjectConfiguration
 
+@synthesize userId;
+@synthesize networkUserId;
+@synthesize domainUserId;
+@synthesize useragent;
+@synthesize ipAddress;
+@synthesize timezone;
+@synthesize language;
+@synthesize screenResolution;
+@synthesize screenViewPort;
+@synthesize colorDepth;
+
 /// MARK: - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {

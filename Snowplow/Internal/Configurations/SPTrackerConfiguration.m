@@ -10,6 +10,23 @@
 
 @implementation SPTrackerConfiguration
 
+@synthesize namespace;
+@synthesize appId;
+@synthesize devicePlatform;
+@synthesize base64Encoding;
+@synthesize logLevel;
+@synthesize loggerDelegate;
+@synthesize applicationContext;
+@synthesize platformContext;
+@synthesize geoLocationContext;
+@synthesize sessionContext;
+@synthesize screenContext;
+@synthesize screenViewAutotracking;
+@synthesize lifecycleAutotracking;
+@synthesize installAutotracking;
+@synthesize exceptionAutotracking;
+@synthesize diagnosticAutotracking;
+
 - (instancetype)initWithNamespace:(NSString *)namespace appId:(NSString *)appId {
     if (self = [super init]) {
         self.namespace = namespace;
