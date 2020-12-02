@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPForegroundBuilder
  @brief The protocol for building foreground events.
  */
-NS_SWIFT_NAME(Foreground.Builder)
+NS_SWIFT_NAME(ForegroundBuilder)
 @protocol SPForegroundBuilder <SPEventBuilder>
 
 /*!

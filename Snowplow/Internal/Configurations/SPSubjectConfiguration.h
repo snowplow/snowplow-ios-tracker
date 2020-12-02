@@ -22,7 +22,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-NS_SWIFT_NAME(SubjectConfiguration.Protocol)
+NS_SWIFT_NAME(SubjectConfigurationProtocol)
 @protocol SPSubjectConfigurationProtocol
 
 @property (nullable) NSString *userId;

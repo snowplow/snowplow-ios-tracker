@@ -57,7 +57,7 @@ typedef NS_ENUM(NSUInteger, SPBufferOption) {
 /*!
  @brief The builder for SPEmitter.
  */
-NS_SWIFT_NAME(Emitter.Builder)
+NS_SWIFT_NAME(EmitterBuilder)
 @protocol SPEmitterBuilder <NSObject>
 
 /*!

@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPUnstructuredBuilder
  @brief The protocol for building unstructured events.
  */
-NS_SWIFT_NAME(Unstructured.Builder)
+NS_SWIFT_NAME(UnstructuredBuilder)
 @protocol SPUnstructuredBuilder <SPEventBuilder>
 /*!
  @brief Set the data field of the unstructured event.

@@ -64,7 +64,7 @@ NS_SWIFT_NAME(InspectableEvent)
 
  This protocol defines basic functionality needed to build all events.
  */
-NS_SWIFT_NAME(Event.Builder)
+NS_SWIFT_NAME(EventBuilder)
 @protocol SPEventBuilder <NSObject>
 
 /*!

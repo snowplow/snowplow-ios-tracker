@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(SessionConfiguration.Protocol)
+NS_SWIFT_NAME(SessionConfigurationProtocol)
 @protocol SPSessionConfigurationProtocol
 
 @property NSInteger foregroundTimeoutInSeconds;

@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPStructuredBuilder
  @brief The protocol for building structured events.
  */
-NS_SWIFT_NAME(Structured.Builder)
+NS_SWIFT_NAME(StructuredBuilder)
 @protocol SPStructuredBuilder <SPEventBuilder>
 
 /*!

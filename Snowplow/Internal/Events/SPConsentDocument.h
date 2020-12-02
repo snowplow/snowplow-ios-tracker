@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentDocumentBuilder
  @brief The protocol for building consent documents.
  */
-NS_SWIFT_NAME(ConsentDocument.Builder)
+NS_SWIFT_NAME(ConsentDocumentBuilder)
 @protocol SPConsentDocumentBuilder
 
 /*!

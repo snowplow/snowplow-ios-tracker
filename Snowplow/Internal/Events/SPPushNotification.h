@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPPushNotificationBuilder
  @brief The protocol for building push notification events.
  */
-NS_SWIFT_NAME(PushNotification.Builder)
+NS_SWIFT_NAME(PushNotificationBuilder)
 @protocol SPPushNotificationBuilder <SPEventBuilder>
 
 /*!
@@ -81,7 +81,7 @@ NS_SWIFT_NAME(PushNotification.Builder)
  @protocol SPNotificationContentBuilder
  @brief The protocol for building notification content.
  */
-NS_SWIFT_NAME(NotificationContent.Builder)
+NS_SWIFT_NAME(NotificationContentBuilder)
 @protocol SPNotificationContentBuilder
 
 /*!
