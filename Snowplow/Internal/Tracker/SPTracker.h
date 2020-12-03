@@ -28,6 +28,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPNetworkConfiguration.h"
+#import "SPGDPRConfiguration.h"
 
 #import "SPTrackerControlling.h"
 #import "SPSessionControlling.h"
@@ -60,15 +61,6 @@ void uncaughtExceptionHandler(NSException * _Nullable exception);
 @class SPGlobalContext;
 
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
-    SPGdprProcessingBasisConsent = 0,
-    SPGdprProcessingBasisContract = 1,
-    SPGdprProcessingBasisLegalObligation = 2,
-    SPGdprProcessingBasisVitalInterest = 3,
-    SPGdprProcessingBasisPublicTask = 4,
-    SPGdprProcessingBasisLegitimateInterests = 5
-} NS_SWIFT_NAME(GdprProcessingBasis);
 
 /*!
  @brief The builder for SPTracker.
@@ -155,14 +147,6 @@ NS_SWIFT_NAME(TrackerBuilder)
  @param backgroundTimeout Length of timeout in the foreground in seconds.
  */
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;
-
-/*!
- @brief Tracker builder method to set the interval of session checking.
- 
- @param checkInterval Length of time in seconds that session checks for timeout.
- @deprecated This function will be removed in the version 2.0.
- */
-- (void) setCheckInterval:(NSInteger)checkInterval __deprecated_msg("setCheckInterval is deprecated as no longer has any effect.");
 
 /*!
  @brief Tracker builder method to set whether events will include application context.

@@ -8,6 +8,7 @@
 
 #import "SPTrackerController.h"
 #import "SPEmitterController.h"
+#import "SPGDPRController.h"
 
 #import "SPSubjectConfiguration.h"
 #import "SPNetworkConfiguration.h"
@@ -21,6 +22,7 @@
 @interface SPTrackerController ()
 
 @property (readwrite, nonatomic, nullable) id<SPEmitterControlling> emitter;
+@property (readwrite, nonatomic, nullable) id<SPGDPRControlling> gdpr;
 
 @property (nonatomic) SPTracker *tracker;
 
@@ -29,6 +31,7 @@
 
 @implementation SPTrackerController
 
+// TODO: Check these two contexts can be edited at runtime. Legacy wants not editable (I guess)
 @synthesize platformContext;
 @synthesize geoLocationContext;
 
@@ -36,6 +39,7 @@
     if (self = [super init]) {
         self.tracker = tracker;
         self.emitter = [[SPEmitterController alloc] initWithEmitter:tracker.emitter];
+        self.gdpr = [[SPGDPRController alloc] initWithTracker:tracker];
     }
     return self;
 }

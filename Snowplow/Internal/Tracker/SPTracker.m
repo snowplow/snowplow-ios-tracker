@@ -114,7 +114,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _lifecycleEvents;
     NSInteger              _foregroundTimeout;
     NSInteger              _backgroundTimeout;
-    NSInteger              _checkInterval;
     BOOL                   _builderFinished;
     BOOL                   _exceptionEvents;
     BOOL                   _installEvent;
@@ -196,7 +195,6 @@ static SPTracker *_sharedInstance = nil;
         _autotrackScreenViews = NO;
         _foregroundTimeout = 600;
         _backgroundTimeout = 300;
-        _checkInterval = 15;
         _builderFinished = NO;
         self.globalContextGenerators = [NSMutableDictionary dictionary];
         self.previousScreenState = nil;

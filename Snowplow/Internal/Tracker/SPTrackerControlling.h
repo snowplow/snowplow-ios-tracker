@@ -11,6 +11,7 @@
 #import "SPNetworkConfiguration.h"
 #import "SPSessionControlling.h"
 #import "SPEmitterControlling.h"
+#import "SPGDPRControlling.h"
 #import "SPSelfDescribingJson.h"
 #import "SPEventBase.h"
 
@@ -24,6 +25,7 @@ NS_SWIFT_NAME(TrackerControlling)
 
 @property (readonly, nonatomic, nullable) id<SPSessionControlling> session;
 @property (readonly, nonatomic) id<SPEmitterControlling> emitter;
+@property (readonly, nonatomic) id<SPGDPRControlling> gdpr;
 
 - (void)trackSelfDescribingEvent:(SPSelfDescribingJson *)event;
 - (void)track:(SPEvent *)event;
