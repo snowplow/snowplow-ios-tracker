@@ -7,9 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Snowplow.h"
 
 #ifndef SP_STR_PROP
-    #define SP_STR_PROP( prop ) NSStringFromSelector(@selector(prop))
+    #define SP_STR_PROP(prop) NSStringFromSelector(@selector(prop))
 #endif
 
 NS_ASSUME_NONNULL_BEGIN

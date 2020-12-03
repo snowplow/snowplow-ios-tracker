@@ -55,7 +55,20 @@
 @synthesize screenViewPort;
 @synthesize colorDepth;
 
-/// MARK: - NSCopying
+// MARK: - Builder
+
+SP_BUILDER_METHOD(NSString *, userId)
+SP_BUILDER_METHOD(NSString *, networkUserId)
+SP_BUILDER_METHOD(NSString *, domainUserId)
+SP_BUILDER_METHOD(NSString *, useragent)
+SP_BUILDER_METHOD(NSString *, ipAddress)
+SP_BUILDER_METHOD(NSString *, timezone)
+SP_BUILDER_METHOD(NSString *, language)
+SP_BUILDER_METHOD(NSString *, screenResolution)
+SP_BUILDER_METHOD(NSString *, screenViewPort)
+SP_BUILDER_METHOD(NSString *, colorDepth)
+
+// MARK: - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
     SPSubjectConfiguration *copy = [[SPSubjectConfiguration allocWithZone:zone] init];
@@ -72,7 +85,7 @@
     return copy;
 }
 
-/// MARK: - NSCoding
+// MARK: - NSCoding
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.userId forKey:SP_STR_PROP(userId)];

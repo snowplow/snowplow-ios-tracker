@@ -33,6 +33,9 @@ NS_SWIFT_NAME(NetworkConfiguration)
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method;
 
+SP_BUILDER_DECLARE_NULLABLE(NSString *, customPostPath)
+SP_BUILDER_DECLARE(NSInteger, timeout)
+
 @end
 
 NS_ASSUME_NONNULL_END

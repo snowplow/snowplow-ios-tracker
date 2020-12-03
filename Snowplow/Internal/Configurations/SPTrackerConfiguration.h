@@ -46,6 +46,21 @@ NS_SWIFT_NAME(TrackerConfiguration)
 
 - (instancetype)initWithNamespace:(NSString *)namespace appId:(NSString *)appId;
 
+SP_BUILDER_DECLARE(SPDevicePlatform, devicePlatform)
+SP_BUILDER_DECLARE(BOOL, base64Encoding)
+SP_BUILDER_DECLARE(SPLogLevel, logLevel)
+SP_BUILDER_DECLARE_NULLABLE(id<SPLoggerDelegate>, loggerDelegate)
+SP_BUILDER_DECLARE(BOOL, applicationContext)
+SP_BUILDER_DECLARE(BOOL, platformContext)
+SP_BUILDER_DECLARE(BOOL, geoLocationContext)
+SP_BUILDER_DECLARE(BOOL, sessionContext)
+SP_BUILDER_DECLARE(BOOL, screenContext)
+SP_BUILDER_DECLARE(BOOL, screenViewAutotracking)
+SP_BUILDER_DECLARE(BOOL, lifecycleAutotracking)
+SP_BUILDER_DECLARE(BOOL, installAutotracking)
+SP_BUILDER_DECLARE(BOOL, exceptionAutotracking)
+SP_BUILDER_DECLARE(BOOL, diagnosticAutotracking)
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -38,6 +38,13 @@
 #define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
 #endif
 
+// Macros for builder pattern
+#ifndef SP_BUILDER_DECLARE
+    #define SP_BUILDER_DECLARE(type, prop) - (instancetype)prop:(type)value NS_SWIFT_NAME(prop(_:));
+    #define SP_BUILDER_DECLARE_NULLABLE(type, prop) - (instancetype)prop:(nullable type)value NS_SWIFT_NAME(prop(_:));
+    #define SP_BUILDER_METHOD(type, prop) - (instancetype)prop:(type)value { self.prop = value; return self; }
+#endif
+
 @interface Snowplow : NSObject
 
 // --- Version

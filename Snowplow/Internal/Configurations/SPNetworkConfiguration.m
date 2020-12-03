@@ -28,7 +28,12 @@
     return self;
 }
 
-/// MARK: - NSCopying
+// MARK: - Builder
+
+SP_BUILDER_METHOD(NSString *, customPostPath)
+SP_BUILDER_METHOD(NSInteger, timeout)
+
+// MARK: - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
     SPNetworkConfiguration *copy = [[SPNetworkConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint protocol:self.protocol method:self.method];
@@ -37,7 +42,7 @@
     return copy;
 }
 
-/// MARK: - NSCoding
+// MARK: - NSCoding
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.endpoint forKey:SP_STR_PROP(endpoint)];

@@ -32,7 +32,7 @@ typedef NS_ENUM(NSInteger, SPLogLevel) {
 /*!
  @brief Logger delegate to implement in oder to receive logs from the tracker.
 */
-NS_SWIFT_NAME(Logger.Delegate)
+NS_SWIFT_NAME(LoggerDelegate)
 @protocol SPLoggerDelegate <NSObject>
 - (void)error:(NSString *)tag message:(NSString *)message;
 - (void)debug:(NSString *)tag message:(NSString *)message;

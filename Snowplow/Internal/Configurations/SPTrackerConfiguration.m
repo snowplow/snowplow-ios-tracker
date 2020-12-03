@@ -52,7 +52,24 @@
     return self;
 }
 
-/// MARK: - NSCopying
+// MARK: - Builder
+
+SP_BUILDER_METHOD(SPDevicePlatform, devicePlatform)
+SP_BUILDER_METHOD(BOOL, base64Encoding)
+SP_BUILDER_METHOD(SPLogLevel, logLevel)
+SP_BUILDER_METHOD(id<SPLoggerDelegate>, loggerDelegate)
+SP_BUILDER_METHOD(BOOL, applicationContext)
+SP_BUILDER_METHOD(BOOL, platformContext)
+SP_BUILDER_METHOD(BOOL, geoLocationContext)
+SP_BUILDER_METHOD(BOOL, sessionContext)
+SP_BUILDER_METHOD(BOOL, screenContext)
+SP_BUILDER_METHOD(BOOL, screenViewAutotracking)
+SP_BUILDER_METHOD(BOOL, lifecycleAutotracking)
+SP_BUILDER_METHOD(BOOL, installAutotracking)
+SP_BUILDER_METHOD(BOOL, exceptionAutotracking)
+SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
+
+// MARK: - NSCopying
 
 - (id)copyWithZone:(NSZone *)zone {
     SPTrackerConfiguration *copy = [[SPTrackerConfiguration allocWithZone:zone] initWithNamespace:self.namespace appId:self.appId];
@@ -73,7 +90,7 @@
     return copy;
 }
 
-/// MARK: - NSCoding
+// MARK: - NSCoding
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.namespace forKey:SP_STR_PROP(namespace)];

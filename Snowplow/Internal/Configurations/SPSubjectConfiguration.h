@@ -43,6 +43,17 @@ NS_SWIFT_NAME(SubjectConfigurationProtocol)
 NS_SWIFT_NAME(SubjectConfiguration)
 @interface SPSubjectConfiguration : SPConfiguration <SPSubjectConfigurationProtocol>
 
+SP_BUILDER_DECLARE_NULLABLE(NSString *, userId)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, networkUserId)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, domainUserId)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, useragent)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, ipAddress)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, timezone)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, language)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, screenResolution)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, screenViewPort)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, colorDepth)
+
 @end
 
 NS_ASSUME_NONNULL_END
