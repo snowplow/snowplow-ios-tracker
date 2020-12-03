@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, SPScreenType) {
     SPScreenTypePopoverPresentation,
     SPScreenTypeModal,
     SPScreenTypeCombined
-};
+} NS_SWIFT_NAME(ScreenType);
 
 NSString * stringWithSPScreenType(SPScreenType screenType);
 

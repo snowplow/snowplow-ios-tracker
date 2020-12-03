@@ -68,7 +68,7 @@ typedef NS_ENUM(NSInteger, SPGdprProcessingBasis) {
     SPGdprProcessingBasisVitalInterest = 3,
     SPGdprProcessingBasisPublicTask = 4,
     SPGdprProcessingBasisLegitimateInterests = 5
-};
+} NS_SWIFT_NAME(GdprProcessingBasis);
 
 /*!
  @brief The builder for SPTracker.

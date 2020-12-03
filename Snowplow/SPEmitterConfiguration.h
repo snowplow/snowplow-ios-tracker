@@ -1,0 +1,1 @@
+./internal/Configurations/SPEmitterConfiguration.h

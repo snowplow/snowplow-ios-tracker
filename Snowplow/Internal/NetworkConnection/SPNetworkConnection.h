@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger, SPRequestOptions) {
     SPRequestOptionsGet,
     /*! POST request. */
     SPRequestOptionsPost
-};
+} NS_SWIFT_NAME(RequestOptions);
 
 /*!
  @brief An enum for HTTP security.
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
     SPProtocolHttp,
     /*! Use HTTP over TLS. */
     SPProtocolHttps
-};
+} NS_SWIFT_NAME(Protocol);
 
 /**
  * Interface for the component that

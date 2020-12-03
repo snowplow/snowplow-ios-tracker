@@ -381,6 +381,26 @@
 		ED8867302573C1F200DB53BB /* SPSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */; };
 		ED8867312573C1F200DB53BB /* SPSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */; };
 		ED8867322573C1F200DB53BB /* SPSessionConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */; };
+		ED88B5692578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5672578F8820048FAD1 /* SPEmitterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B56A2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5672578F8820048FAD1 /* SPEmitterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B56B2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5672578F8820048FAD1 /* SPEmitterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B56C2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5672578F8820048FAD1 /* SPEmitterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B56D2578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5682578F8820048FAD1 /* SPEmitterConfiguration.m */; };
+		ED88B56E2578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5682578F8820048FAD1 /* SPEmitterConfiguration.m */; };
+		ED88B56F2578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5682578F8820048FAD1 /* SPEmitterConfiguration.m */; };
+		ED88B5702578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5682578F8820048FAD1 /* SPEmitterConfiguration.m */; };
+		ED88B58F257922490048FAD1 /* SPEmitterControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B58E257922490048FAD1 /* SPEmitterControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B590257922490048FAD1 /* SPEmitterControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B58E257922490048FAD1 /* SPEmitterControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B591257922490048FAD1 /* SPEmitterControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B58E257922490048FAD1 /* SPEmitterControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B592257922490048FAD1 /* SPEmitterControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B58E257922490048FAD1 /* SPEmitterControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B5A725792C620048FAD1 /* SPEmitterController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5A525792C620048FAD1 /* SPEmitterController.h */; };
+		ED88B5A825792C620048FAD1 /* SPEmitterController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5A525792C620048FAD1 /* SPEmitterController.h */; };
+		ED88B5A925792C620048FAD1 /* SPEmitterController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5A525792C620048FAD1 /* SPEmitterController.h */; };
+		ED88B5AA25792C620048FAD1 /* SPEmitterController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B5A525792C620048FAD1 /* SPEmitterController.h */; };
+		ED88B5AB25792C620048FAD1 /* SPEmitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5A625792C620048FAD1 /* SPEmitterController.m */; };
+		ED88B5AC25792C620048FAD1 /* SPEmitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5A625792C620048FAD1 /* SPEmitterController.m */; };
+		ED88B5AD25792C620048FAD1 /* SPEmitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5A625792C620048FAD1 /* SPEmitterController.m */; };
+		ED88B5AE25792C620048FAD1 /* SPEmitterController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B5A625792C620048FAD1 /* SPEmitterController.m */; };
 		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED8BF8B325700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8BF8B125700B3F001DFDD9 /* SPTrackerConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -659,6 +679,11 @@
 		ED8866FD25715DD600DB53BB /* SPConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConfiguration.m; sourceTree = "<group>"; };
 		ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSessionConfiguration.h; sourceTree = "<group>"; };
 		ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSessionConfiguration.m; sourceTree = "<group>"; };
+		ED88B5672578F8820048FAD1 /* SPEmitterConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEmitterConfiguration.h; sourceTree = "<group>"; };
+		ED88B5682578F8820048FAD1 /* SPEmitterConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEmitterConfiguration.m; sourceTree = "<group>"; };
+		ED88B58E257922490048FAD1 /* SPEmitterControlling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEmitterControlling.h; sourceTree = "<group>"; };
+		ED88B5A525792C620048FAD1 /* SPEmitterController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEmitterController.h; sourceTree = "<group>"; };
+		ED88B5A625792C620048FAD1 /* SPEmitterController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPEmitterController.m; sourceTree = "<group>"; };
 		ED8BF8B125700B3F001DFDD9 /* SPTrackerConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerConfiguration.h; sourceTree = "<group>"; };
 		ED8BF8B225700B3F001DFDD9 /* SPTrackerConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTrackerConfiguration.m; sourceTree = "<group>"; };
 		ED8BF8C925701853001DFDD9 /* SPNetworkConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNetworkConfiguration.h; sourceTree = "<group>"; };
@@ -882,6 +907,8 @@
 				ED8866E12571445300DB53BB /* SPSubjectConfiguration.m */,
 				ED8867292573C1EF00DB53BB /* SPSessionConfiguration.h */,
 				ED88672A2573C1EF00DB53BB /* SPSessionConfiguration.m */,
+				ED88B5672578F8820048FAD1 /* SPEmitterConfiguration.h */,
+				ED88B5682578F8820048FAD1 /* SPEmitterConfiguration.m */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -947,6 +974,9 @@
 		EDC9B34D255AE46300F4136D /* Emitter */ = {
 			isa = PBXGroup;
 			children = (
+				ED88B58E257922490048FAD1 /* SPEmitterControlling.h */,
+				ED88B5A525792C620048FAD1 /* SPEmitterController.h */,
+				ED88B5A625792C620048FAD1 /* SPEmitterController.m */,
 				AB0C27E9191B43D600018557 /* SPEmitter.h */,
 				AB0C27EA191B43D600018557 /* SPEmitter.m */,
 				EDD8543224EFFFB300661F6B /* SPRequest.h */,
@@ -1121,6 +1151,7 @@
 				EDEE835424BDD269000B8530 /* SPDiagnosticLogger.h in Headers */,
 				ED8866BE25711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				CE4F9CB6244B066500968CFC /* SPUnstructured.h in Headers */,
+				ED88B5A725792C620048FAD1 /* SPEmitterController.h in Headers */,
 				752DAC3321CC43C70065F874 /* SPTracker.h in Headers */,
 				CE4F9D12244B066500968CFC /* SPBackground.h in Headers */,
 				ED91CB6C23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
@@ -1150,6 +1181,7 @@
 				752DAC3821CC43C70065F874 /* SPSelfDescribingJson.h in Headers */,
 				ED88672B2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */,
 				EDD8543424EFFFB300661F6B /* SPRequest.h in Headers */,
+				ED88B5692578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */,
 				754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				ED8866E22571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
@@ -1158,6 +1190,7 @@
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
 				CE4F9C9A244B066500968CFC /* SPEvent.h in Headers */,
+				ED88B58F257922490048FAD1 /* SPEmitterControlling.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
 				752DAC3B21CC43C70065F874 /* SPRequestResult.h in Headers */,
 				ED914EBA24325AB40068DA0A /* SPGdprContext.h in Headers */,
@@ -1224,13 +1257,16 @@
 				CE4F9C9F244B066500968CFC /* SPSchemaRule.h in Headers */,
 				ED87A42F2577ADFF000C54EB /* SPTrackerController.h in Headers */,
 				CE4F9CBF244B066500968CFC /* SPForeground.h in Headers */,
+				ED88B56A2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */,
 				CE4F9CF3244B066500968CFC /* SPStructured.h in Headers */,
 				EDD8542124EFEFB900661F6B /* SPDefaultNetworkConnection.h in Headers */,
 				ED8866FF25715DD600DB53BB /* SPConfiguration.h in Headers */,
+				ED88B5A825792C620048FAD1 /* SPEmitterController.h in Headers */,
 				75CAC46021F2A21B00271FB3 /* SPSQLiteEventStore.h in Headers */,
 				ED87A3DA25765DAE000C54EB /* SPSessionControlling.h in Headers */,
 				ED88672C2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */,
 				75CAC46221F2A21B00271FB3 /* SPRequestResult.h in Headers */,
+				ED88B590257922490048FAD1 /* SPEmitterControlling.h in Headers */,
 				75CAC46321F2A21B00271FB3 /* SPWeakTimerTarget.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1287,13 +1323,16 @@
 				CE4F9CA0244B066500968CFC /* SPSchemaRule.h in Headers */,
 				ED87A4302577ADFF000C54EB /* SPTrackerController.h in Headers */,
 				CE4F9CC0244B066500968CFC /* SPForeground.h in Headers */,
+				ED88B56B2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */,
 				CE4F9CF4244B066500968CFC /* SPStructured.h in Headers */,
 				EDD8542224EFEFB900661F6B /* SPDefaultNetworkConnection.h in Headers */,
 				ED88670025715DD600DB53BB /* SPConfiguration.h in Headers */,
+				ED88B5A925792C620048FAD1 /* SPEmitterController.h in Headers */,
 				75CAC43421F2A0CC00271FB3 /* SPRequestResult.h in Headers */,
 				ED87A3DB25765DAE000C54EB /* SPSessionControlling.h in Headers */,
 				ED88672D2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */,
 				ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */,
+				ED88B591257922490048FAD1 /* SPEmitterControlling.h in Headers */,
 				75CAC43521F2A0CC00271FB3 /* SPWeakTimerTarget.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1312,6 +1351,7 @@
 				EDEE835724BDD269000B8530 /* SPDiagnosticLogger.h in Headers */,
 				ED8866C125711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				CE4F9CB9244B066500968CFC /* SPUnstructured.h in Headers */,
+				ED88B5AA25792C620048FAD1 /* SPEmitterController.h in Headers */,
 				75F9C5E621FA35BC00A5B8FC /* Snowplow.h in Headers */,
 				CE4F9D15244B066500968CFC /* SPBackground.h in Headers */,
 				ED91CB6F23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
@@ -1341,6 +1381,7 @@
 				7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */,
 				ED88672E2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */,
 				EDD8543724EFFFB300661F6B /* SPRequest.h in Headers */,
+				ED88B56C2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */,
 				75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */,
 				75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */,
 				ED8866E52571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
@@ -1349,6 +1390,7 @@
 				7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */,
 				7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				CE4F9C9D244B066500968CFC /* SPEvent.h in Headers */,
+				ED88B592257922490048FAD1 /* SPEmitterControlling.h in Headers */,
 				75F9C5ED21FA35BC00A5B8FC /* SPSQLiteEventStore.h in Headers */,
 				75F9C5F021FA35BC00A5B8FC /* SPWeakTimerTarget.h in Headers */,
 				ED914EBD24325AB40068DA0A /* SPGdprContext.h in Headers */,
@@ -1586,6 +1628,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED88B5AB25792C620048FAD1 /* SPEmitterController.m in Sources */,
 				CE4F9CC6244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				CE4F9CDA244B066500968CFC /* SPPageView.m in Sources */,
@@ -1600,6 +1643,7 @@
 				ED87A3EF25766BB4000C54EB /* SPSessionController.m in Sources */,
 				ED8BF8B725700B40001DFDD9 /* SPTrackerConfiguration.m in Sources */,
 				EDEE835E24BE0944000B8530 /* SPLogger.m in Sources */,
+				ED88B56D2578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */,
 				CE4F9CDE244B066500968CFC /* SPStructured.m in Sources */,
 				ED914EBE24325AB40068DA0A /* SPGdprContext.m in Sources */,
 				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
@@ -1687,6 +1731,7 @@
 				CE4F9D17244B066500968CFC /* SPGlobalContext.m in Sources */,
 				ED88670325715DD600DB53BB /* SPConfiguration.m in Sources */,
 				ED8867302573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
+				ED88B5AC25792C620048FAD1 /* SPEmitterController.m in Sources */,
 				CE4F9CC3244B066500968CFC /* SPConsentGranted.m in Sources */,
 				CE4F9CF7244B066500968CFC /* SPEventBase.m in Sources */,
 				EDEE835024BDB326000B8530 /* SPTrackerError.m in Sources */,
@@ -1709,6 +1754,7 @@
 				75CAC44221F2A17500271FB3 /* SPUtilities.m in Sources */,
 				ED87A3F025766BB4000C54EB /* SPSessionController.m in Sources */,
 				CE4F9CDB244B066500968CFC /* SPPageView.m in Sources */,
+				ED88B56E2578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */,
 				75CAC44321F2A17500271FB3 /* SPRequestResult.m in Sources */,
 				EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */,
 				75CAC44421F2A17500271FB3 /* SPWeakTimerTarget.m in Sources */,
@@ -1741,6 +1787,7 @@
 				CE4F9D18244B066500968CFC /* SPGlobalContext.m in Sources */,
 				ED88670425715DD600DB53BB /* SPConfiguration.m in Sources */,
 				ED8867312573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
+				ED88B5AD25792C620048FAD1 /* SPEmitterController.m in Sources */,
 				CE4F9CC4244B066500968CFC /* SPConsentGranted.m in Sources */,
 				CE4F9CF8244B066500968CFC /* SPEventBase.m in Sources */,
 				EDEE835124BDB326000B8530 /* SPTrackerError.m in Sources */,
@@ -1763,6 +1810,7 @@
 				75CAC44E21F2A19500271FB3 /* SPSelfDescribingJson.m in Sources */,
 				ED87A3F125766BB4000C54EB /* SPSessionController.m in Sources */,
 				CE4F9CDC244B066500968CFC /* SPPageView.m in Sources */,
+				ED88B56F2578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */,
 				75CAC44F21F2A19500271FB3 /* SPSQLiteEventStore.m in Sources */,
 				75CAC45021F2A19500271FB3 /* SPUtilities.m in Sources */,
 				75CAC45121F2A19500271FB3 /* SPRequestResult.m in Sources */,
@@ -1785,6 +1833,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED88B5AE25792C620048FAD1 /* SPEmitterController.m in Sources */,
 				CE4F9CC9244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				7534D20122569BED00904EE5 /* SPScreenState.m in Sources */,
 				CE4F9CDD244B066500968CFC /* SPPageView.m in Sources */,
@@ -1799,6 +1848,7 @@
 				ED87A3F225766BB4000C54EB /* SPSessionController.m in Sources */,
 				ED8BF8BA25700B40001DFDD9 /* SPTrackerConfiguration.m in Sources */,
 				EDEE836124BE0944000B8530 /* SPLogger.m in Sources */,
+				ED88B5702578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */,
 				CE4F9CE1244B066500968CFC /* SPStructured.m in Sources */,
 				ED914EC124325AB40068DA0A /* SPGdprContext.m in Sources */,
 				75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */,

@@ -8,9 +8,11 @@
 #import "SPNetworkConfiguration.h"
 #import "SPSubjectConfiguration.h"
 #import "SPSessionConfiguration.h"
+#import "SPEmitterConfiguration.h"
 
 #import "SPTrackerControlling.h"
 #import "SPSessionControlling.h"
+#import "SPEmitterControlling.h"
 
 #import "SPLoggerDelegate.h"
 

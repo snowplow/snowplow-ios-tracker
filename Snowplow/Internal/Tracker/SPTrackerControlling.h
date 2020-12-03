@@ -10,6 +10,7 @@
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
 #import "SPSessionControlling.h"
+#import "SPEmitterControlling.h"
 #import "SPSelfDescribingJson.h"
 #import "SPEventBase.h"
 
@@ -22,6 +23,7 @@ NS_SWIFT_NAME(TrackerControlling)
 @property (readonly, nonatomic, readonly) BOOL isTracking;
 
 @property (readonly, nonatomic, nullable) id<SPSessionControlling> session;
+@property (readonly, nonatomic) id<SPEmitterControlling> emitter;
 
 - (void)trackSelfDescribingEvent:(SPSelfDescribingJson *)event;
 - (void)track:(SPEvent *)event;

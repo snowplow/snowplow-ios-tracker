@@ -64,9 +64,9 @@ SP_BUILDER_METHOD(NSString *, useragent)
 SP_BUILDER_METHOD(NSString *, ipAddress)
 SP_BUILDER_METHOD(NSString *, timezone)
 SP_BUILDER_METHOD(NSString *, language)
-SP_BUILDER_METHOD(NSString *, screenResolution)
-SP_BUILDER_METHOD(NSString *, screenViewPort)
-SP_BUILDER_METHOD(NSString *, colorDepth)
+SP_BUILDER_METHOD(SPSize *, screenResolution)
+SP_BUILDER_METHOD(SPSize *, screenViewPort)
+SP_BUILDER_METHOD(NSNumber *, colorDepth)
 
 // MARK: - NSCopying
 

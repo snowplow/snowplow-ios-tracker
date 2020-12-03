@@ -7,8 +7,11 @@
 //
 
 #import "SPTrackerController.h"
+#import "SPEmitterController.h"
+
 #import "SPSubjectConfiguration.h"
 #import "SPNetworkConfiguration.h"
+
 #import "Snowplow.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
@@ -17,7 +20,9 @@
 
 @interface SPTrackerController ()
 
-@property () SPTracker *tracker;
+@property (readwrite, nonatomic, nullable) id<SPEmitterControlling> emitter;
+
+@property (nonatomic) SPTracker *tracker;
 
 @end
 
@@ -30,6 +35,7 @@
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {
         self.tracker = tracker;
+        self.emitter = [[SPEmitterController alloc] initWithEmitter:tracker.emitter];
     }
     return self;
 }
@@ -37,6 +43,7 @@
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     SPSubjectConfiguration *subjectConfiguration = nil;
     SPSessionConfiguration *sessionConfiguration = nil;
+    SPEmitterConfiguration *emitterConfiguration = nil;
     for (SPConfiguration *configuration in configurations) {
         if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
             subjectConfiguration = (SPSubjectConfiguration *)configuration;
@@ -46,11 +53,23 @@
             sessionConfiguration = (SPSessionConfiguration *)configuration;
             continue;
         }
+        if ([configuration isKindOfClass:SPEmitterConfiguration.class]) {
+            emitterConfiguration = (SPEmitterConfiguration *)configuration;
+            continue;
+        }
     }
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setHttpMethod:networkConfiguration.method];
         [builder setProtocol:networkConfiguration.protocol];
         [builder setUrlEndpoint:networkConfiguration.endpoint];
+        [builder setCustomPostPath:networkConfiguration.customPostPath];
+        [builder setEmitRange:emitterConfiguration.emitRange];
+        [builder setBufferOption:emitterConfiguration.bufferOption];
+        [builder setEventStore:emitterConfiguration.eventStore];
+        [builder setNetworkConnection:emitterConfiguration.networkConnection];
+        [builder setByteLimitPost:emitterConfiguration.byteLimitPost];
+        [builder setByteLimitGet:emitterConfiguration.byteLimitGet];
+        [builder setEmitThreadPoolSize:emitterConfiguration.emitThreadPoolSize];
     }];
     SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:trackerConfiguration.platformContext
                                                  geoLocationContext:trackerConfiguration.geoLocationContext
