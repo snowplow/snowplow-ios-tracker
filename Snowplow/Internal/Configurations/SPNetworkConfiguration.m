@@ -35,7 +35,7 @@ SP_BUILDER_METHOD(NSInteger, timeout)
 
 // MARK: - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(nullable NSZone *)zone {
     SPNetworkConfiguration *copy = [[SPNetworkConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint protocol:self.protocol method:self.method];
     copy.customPostPath = self.customPostPath;
     copy.timeout = self.timeout;

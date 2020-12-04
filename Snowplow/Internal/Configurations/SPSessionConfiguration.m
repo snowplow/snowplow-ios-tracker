@@ -61,7 +61,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 
 // MARK: - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(nullable NSZone *)zone {
     SPSessionConfiguration *copy = [[SPSessionConfiguration allocWithZone:zone] init];
     copy.backgroundTimeoutInSeconds = self.backgroundTimeoutInSeconds;
     copy.foregroundTimeoutInSeconds = self.foregroundTimeoutInSeconds;

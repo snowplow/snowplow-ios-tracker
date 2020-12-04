@@ -68,8 +68,6 @@
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
 
-@property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
-
 @property (nonatomic) SPGdprContext *gdpr;
 
 /*!

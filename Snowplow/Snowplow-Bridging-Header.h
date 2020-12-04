@@ -10,11 +10,13 @@
 #import "SPSessionConfiguration.h"
 #import "SPEmitterConfiguration.h"
 #import "SPGDPRConfiguration.h"
+#import "SPGlobalContextsConfiguration.h"
 
 #import "SPTrackerControlling.h"
 #import "SPSessionControlling.h"
 #import "SPEmitterControlling.h"
 #import "SPGDPRControlling.h"
+#import "SPGlobalContextsControlling.h"
 
 #import "SPLoggerDelegate.h"
 

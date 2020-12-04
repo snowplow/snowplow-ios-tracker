@@ -9,6 +9,7 @@
 #import "SPTrackerController.h"
 #import "SPEmitterController.h"
 #import "SPGDPRController.h"
+#import "SPGlobalContextsController.h"
 
 #import "SPSubjectConfiguration.h"
 #import "SPNetworkConfiguration.h"
@@ -21,8 +22,9 @@
 
 @interface SPTrackerController ()
 
-@property (readwrite, nonatomic, nullable) id<SPEmitterControlling> emitter;
-@property (readwrite, nonatomic, nullable) id<SPGDPRControlling> gdpr;
+@property (readwrite, nonatomic) id<SPEmitterControlling> emitter;
+@property (readwrite, nonatomic) id<SPGDPRControlling> gdpr;
+@property (readwrite, nonatomic) id<SPGlobalContextsControlling> globalContexts;
 
 @property (nonatomic) SPTracker *tracker;
 
@@ -40,6 +42,7 @@
         self.tracker = tracker;
         self.emitter = [[SPEmitterController alloc] initWithEmitter:tracker.emitter];
         self.gdpr = [[SPGDPRController alloc] initWithTracker:tracker];
+        self.globalContexts = [[SPGlobalContextsController alloc] initWithTracker:tracker];
     }
     return self;
 }

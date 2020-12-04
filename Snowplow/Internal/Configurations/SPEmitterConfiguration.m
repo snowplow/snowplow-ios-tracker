@@ -42,7 +42,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
 
 // MARK: - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(nullable NSZone *)zone {
     SPEmitterConfiguration *copy = [[SPEmitterConfiguration allocWithZone:zone] init];
     copy.bufferOption = self.bufferOption;
     copy.emitRange = self.emitRange;

@@ -70,7 +70,7 @@ SP_BUILDER_METHOD(NSNumber *, colorDepth)
 
 // MARK: - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(nullable NSZone *)zone {
     SPSubjectConfiguration *copy = [[SPSubjectConfiguration allocWithZone:zone] init];
     copy.userId = self.userId;
     copy.networkUserId = self.networkUserId;

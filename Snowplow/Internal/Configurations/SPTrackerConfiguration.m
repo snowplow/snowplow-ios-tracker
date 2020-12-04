@@ -71,7 +71,7 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
 
 // MARK: - NSCopying
 
-- (id)copyWithZone:(NSZone *)zone {
+- (id)copyWithZone:(nullable NSZone *)zone {
     SPTrackerConfiguration *copy = [[SPTrackerConfiguration allocWithZone:zone] initWithNamespace:self.namespace appId:self.appId];
     copy.devicePlatform = self.devicePlatform;
     copy.base64Encoding = self.base64Encoding;

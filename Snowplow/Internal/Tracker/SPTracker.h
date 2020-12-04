@@ -248,6 +248,8 @@ NS_SWIFT_NAME(Tracker)
 @property (readonly, nonatomic, strong) SPScreenState * currentScreenState;
 /*! @brief List of tags associated to global contexts. */
 @property (readonly, nonatomic) NSArray<NSString *> *globalContextTags;
+/*! @brief Dictionary of global contexts generators. */
+@property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
 
 // MARK: - New methods
 

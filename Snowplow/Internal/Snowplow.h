@@ -39,11 +39,10 @@
 #endif
 
 // Macros for builder pattern
-#ifndef SP_BUILDER_DECLARE
-    #define SP_BUILDER_DECLARE(type, prop) - (instancetype)prop:(type)value NS_SWIFT_NAME(prop(_:));
-    #define SP_BUILDER_DECLARE_NULLABLE(type, prop) - (instancetype)prop:(nullable type)value NS_SWIFT_NAME(prop(_:));
-    #define SP_BUILDER_METHOD(type, prop) - (instancetype)prop:(type)value { self.prop = value; return self; }
-#endif
+#define SP_ESCAPE(...) __VA_ARGS__
+#define SP_BUILDER_DECLARE(type, prop) - (instancetype)prop:(type)value NS_SWIFT_NAME(prop(_:));
+#define SP_BUILDER_DECLARE_NULLABLE(type, prop) - (instancetype)prop:(nullable type)value NS_SWIFT_NAME(prop(_:));
+#define SP_BUILDER_METHOD(type, prop) - (instancetype)prop:(type)value { self.prop = value; return self; }
 
 @interface Snowplow : NSObject
 
