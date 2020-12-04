@@ -18,6 +18,10 @@ NS_SWIFT_NAME(SessionControlling)
 @property (readonly) NSString *sessionId;
 @property (readonly) NSString *userId;
 
+@property (readonly) BOOL isInBackground;
+@property (readonly) NSInteger backgroundIndex;
+@property (readonly) NSInteger foregroundIndex;
+
 - (void)pause;
 - (void)resume;
 - (void)startNewSession;

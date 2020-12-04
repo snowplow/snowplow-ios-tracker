@@ -96,4 +96,16 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
     return self.sessionManager.getUserId;
 }
 
+- (BOOL)isInBackground {
+    return self.sessionManager.getInBackground;
+}
+
+- (NSInteger)backgroundIndex {
+    return self.sessionManager.getBackgroundIndex;
+}
+
+- (NSInteger)foregroundIndex {
+    return self.sessionManager.getForegroundIndex;
+}
+
 @end
