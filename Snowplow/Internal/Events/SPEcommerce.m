@@ -122,21 +122,6 @@
     return payload;
 }
 
-- (SPPayload *) getPayload {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventEcomm forKey:kSPEvent];
-    [payload addValueToPayload:_orderId forKey:kSPEcommId];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.02f", [_totalValue doubleValue]] forKey:kSPEcommTotal];
-    [payload addValueToPayload:_affiliation forKey:kSPEcommAffiliation];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.02f", [_taxValue doubleValue]] forKey:kSPEcommTax];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.02f", [_shipping doubleValue]] forKey:kSPEcommShipping];
-    [payload addValueToPayload:_city forKey:kSPEcommCity];
-    [payload addValueToPayload:_state forKey:kSPEcommState];
-    [payload addValueToPayload:_country forKey:kSPEcommCountry];
-    [payload addValueToPayload:_currency forKey:kSPEcommCurrency];
-    return [self addDefaultParamsToPayload:payload];
-}
-
 - (NSArray<SPEcommerceItem *> *) getItems {
     return _items;
 }
@@ -145,10 +130,7 @@
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
 
 - (void)endProcessingWithTracker:(SPTracker *)tracker {
-    // Track each item individually
-    NSNumber *timestamp = [self getTimestamp];
     for (SPEcommerceItem *item in _items) {
-        [item setTimestamp:timestamp];
         [tracker track:item];
     }
 }

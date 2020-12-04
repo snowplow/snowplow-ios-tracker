@@ -79,16 +79,6 @@
     return payload;
 }
 
-- (SPSelfDescribingJson *) getPayload {
-    SPPayload * event = [[SPPayload alloc] init];
-    [event addValueToPayload:_message forKey:kSPErrorMessage];
-    [event addValueToPayload:_stackTrace forKey:kSPErrorStackTrace];
-    [event addValueToPayload:_name forKey:kSPErrorName];
-    [event addValueToPayload:@"OBJECTIVEC" forKey:kSPErrorLanguage];
-    
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPErrorSchema andPayload:event];
-}
-
 @synthesize schema;
 
 @end

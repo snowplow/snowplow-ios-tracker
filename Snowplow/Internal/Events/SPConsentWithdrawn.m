@@ -91,15 +91,6 @@
     };
 }
 
-- (SPSelfDescribingJson *) getPayload{
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-
-    // set event
-    [event setObject:(_all ? @YES: @NO) forKey:KSPCwAll];
-
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentWithdrawnSchema andData:event];
-}
-
 - (NSArray<SPSelfDescribingJson *> *)getDocuments {
     __weak __typeof__(self) weakSelf = self;
     

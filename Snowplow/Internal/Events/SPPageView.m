@@ -77,13 +77,4 @@
     return payload;
 }
 
-- (SPPayload *) getPayload {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventPageView forKey:kSPEvent];
-    [payload addValueToPayload:_pageUrl forKey:kSPPageUrl];
-    [payload addValueToPayload:_pageTitle forKey:kSPPageTitle];
-    [payload addValueToPayload:_referrer forKey:kSPPageRefr];
-    return [self addDefaultParamsToPayload:payload];
-}
-
 @end

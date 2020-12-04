@@ -69,18 +69,4 @@
     return nil;
 }
 
-- (SPPayload *) getPayloadWithEncoding:(BOOL)encoding {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
-
-    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:kSPUnstructSchema
-                                                        andSelfDescribingJson:_eventData];
-
-    [payload addDictionaryToPayload:[sdj getAsDictionary]
-                 base64Encoded:encoding
-               typeWhenEncoded:kSPUnstructuredEncoded
-            typeWhenNotEncoded:kSPUnstructured];
-    return [self addDefaultParamsToPayload:payload];
-}
-
 @end

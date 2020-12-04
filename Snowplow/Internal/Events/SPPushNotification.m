@@ -99,17 +99,6 @@
     };
 }
 
-- (SPSelfDescribingJson *) getPayload {
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-    [event setObject:_notification.payload forKey:kSPPushNotification];
-    [event setObject:_trigger forKey:kSPPushTrigger];
-    [event setObject:_action forKey:kSPPushAction];
-    [event setObject:_date forKey:kSPPushDeliveryDate];
-    [event setObject:_category forKey:kSPPushCategoryId];
-    [event setObject:_thread forKey:kSPPushThreadId];
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPPushNotificationSchema andData:event];
-}
-
 @end
 
 // MARK:- SPNotificationContent
@@ -220,10 +209,6 @@
     }
 
     return [[NSDictionary alloc] initWithDictionary:event copyItems:YES];
-}
-
-- (NSDictionary *) getPayload {
-    return self.payload;
 }
 
 @end

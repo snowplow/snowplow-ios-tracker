@@ -69,8 +69,9 @@ NS_SWIFT_NAME(TimingBuilder)
  */
 NS_SWIFT_NAME(Timing)
 @interface SPTiming : SPSelfDescribing <SPTimingBuilder>
+
 + (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -108,9 +108,10 @@ NS_SWIFT_NAME(EcommTransactionBuilder)
  */
 NS_SWIFT_NAME(Ecommerce)
 @interface SPEcommerce : SPPrimitive <SPEcommTransactionBuilder>
+
 + (instancetype) build:(void(^)(id<SPEcommTransactionBuilder>builder))buildBlock;
-- (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 - (NSArray *) getItems;
+
 @end
 
 NS_ASSUME_NONNULL_END

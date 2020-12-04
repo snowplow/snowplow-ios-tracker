@@ -81,9 +81,10 @@ NS_SWIFT_NAME(ConsentWithdrawnBuilder)
  */
 NS_SWIFT_NAME(ConsentWithdrawn)
 @interface SPConsentWithdrawn : SPSelfDescribing <SPConsentWithdrawnBuilder>
+
 + (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 - (NSArray<SPSelfDescribingJson *> *) getDocuments;
+
 @end
 
 NS_ASSUME_NONNULL_END

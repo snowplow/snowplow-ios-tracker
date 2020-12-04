@@ -90,16 +90,4 @@
     return payload;
 }
 
-- (SPPayload *) getPayload {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventStructured forKey:kSPEvent];
-    [payload addValueToPayload:_category forKey:kSPStuctCategory];
-    [payload addValueToPayload:_action forKey:kSPStuctAction];
-    [payload addValueToPayload:_label forKey:kSPStuctLabel];
-    [payload addValueToPayload:_property forKey:kSPStuctProperty];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.17g", [_value doubleValue]] forKey:kSPStuctValue];
-    [self addDefaultParamsToPayload:payload];
-    return payload;
-}
-
 @end

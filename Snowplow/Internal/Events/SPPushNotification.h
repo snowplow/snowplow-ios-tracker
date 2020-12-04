@@ -147,8 +147,9 @@ NS_SWIFT_NAME(NotificationContentBuilder)
  */
 NS_SWIFT_NAME(PushNotification)
 @interface SPPushNotification : SPSelfDescribing <SPPushNotificationBuilder>
+
 + (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
 @end
 
 /*!
@@ -163,7 +164,7 @@ NS_SWIFT_NAME(NotificationContent)
 @property (nonatomic) NSDictionary *payload;
 
 + (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock;
-- (NSDictionary *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
 @end
 
 NS_ASSUME_NONNULL_END

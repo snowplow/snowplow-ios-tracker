@@ -81,9 +81,10 @@ NS_SWIFT_NAME(ConsentGrantedBuilder)
  */
 NS_SWIFT_NAME(ConsentGranted)
 @interface SPConsentGranted : SPSelfDescribing <SPConsentGrantedBuilder>
+
 + (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 - (NSArray<SPSelfDescribingJson *> *) getDocuments;
+
 @end
 
 NS_ASSUME_NONNULL_END

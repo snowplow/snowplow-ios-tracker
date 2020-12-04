@@ -104,17 +104,4 @@
     return payload;
 }
 
-- (SPPayload *) getPayload {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventEcommItem forKey:kSPEvent];
-    [payload addValueToPayload:_itemId forKey:kSPEcommItemId];
-    [payload addValueToPayload:_sku forKey:kSPEcommItemSku];
-    [payload addValueToPayload:_name forKey:kSPEcommItemName];
-    [payload addValueToPayload:_category forKey:kSPEcommItemCategory];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
-    [payload addValueToPayload:_currency forKey:kSPEcommItemCurrency];
-    return [self addDefaultParamsToPayload:payload];
-}
-
 @end

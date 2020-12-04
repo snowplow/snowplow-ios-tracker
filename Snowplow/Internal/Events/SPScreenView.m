@@ -117,19 +117,6 @@
     return payload;
 }
 
-- (SPSelfDescribingJson *) getPayload {
-    SPPayload * payload = [[SPPayload alloc] init];
-    [payload addValueToPayload:_name forKey:kSPSvName];
-    [payload addValueToPayload:_type forKey:kSPSvType];
-    [payload addValueToPayload:_id forKey:kSPSvScreenId];
-    [payload addValueToPayload:_previousName forKey:kSPSvPreviousName];
-    [payload addValueToPayload:_previousType forKey:kSPSvPreviousType];
-    [payload addValueToPayload:_previousId forKey:kSPSvPreviousScreenId];
-    [payload addValueToPayload:_transitionType forKey:kSPSvTransitionType];
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenViewSchema
-                                             andPayload:payload];
-}
-
 - (SPScreenState *) getScreenState {
     return [[SPScreenState alloc] initWithName:_name
                                           type:_type

@@ -94,10 +94,11 @@ NS_SWIFT_NAME(ScreenViewBuilder)
  */
 NS_SWIFT_NAME(ScreenView)
 @interface SPScreenView : SPSelfDescribing <SPScreenViewBuilder>
+
 + (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
 - (SPScreenState *) getScreenState;
 - (BOOL) updateWithPreviousState:(SPScreenState *)previousState;
+
 @end
 
 

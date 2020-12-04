@@ -59,8 +59,9 @@ NS_SWIFT_NAME(PageViewBuilder)
  */
 NS_SWIFT_NAME(PageView)
 @interface SPPageView : SPPrimitive <SPPageViewBuilder>
+
 + (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock;
-- (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
 @end
 
 NS_ASSUME_NONNULL_END

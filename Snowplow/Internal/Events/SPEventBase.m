@@ -56,10 +56,6 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 // --- Builder Methods
 
-- (void) setTimestamp:(NSNumber *)timestamp {
-    _timestamp = timestamp;
-}
-
 - (void)setTrueTimestamp:(NSNumber *)trueTimestamp {
     long long tt = trueTimestamp.doubleValue * 1000;
     _trueTimestamp = @(tt);
@@ -73,21 +69,10 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     _contexts = contexts;
 }
 
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
-}
-
 // --- Public Methods
 
 - (NSMutableArray *) getContexts {
     return [NSMutableArray arrayWithArray:_contexts];
-}
-
-- (NSNumber *) getTimestamp {
-    if (!_timestamp) {
-        _timestamp = [SPUtilities getTimestamp];
-    }
-    return _timestamp;
 }
 
 - (NSNumber *)getTrueTimestamp {
@@ -97,30 +82,14 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
     return @(_trueTimestamp.longLongValue / (double)1000);
 }
 
-- (NSString *) getEventId {
-    if (!_eventId) {
-        _eventId = [SPUtilities getUUIDString];
-    }
-    return _eventId;
-}
-
 - (NSDictionary<NSString *,NSObject *> *)payload {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
 }
 
-- (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb {
-    [pb addValueToPayload:[NSString stringWithFormat:@"%lld", _timestamp.longLongValue] forKey:kSPTimestamp];
-    [pb addValueToPayload:_eventId forKey:kSPEid];
-    return pb;
-}
-
 - (void) basePreconditions {
     [SPUtilities checkArgument:(_contexts != nil) withMessage:@"Contexts cannot be nil."];
-    if (_eventId) {
-        [SPUtilities checkArgument:([[NSUUID alloc] initWithUUIDString:_eventId] != nil) withMessage:@"EventID has to be a valid UUID."];
-    }
 }
 
 - (void)beginProcessingWithTracker:(SPTracker *)tracker {}

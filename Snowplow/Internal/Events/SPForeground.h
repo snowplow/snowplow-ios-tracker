@@ -46,8 +46,9 @@ NS_SWIFT_NAME(ForegroundBuilder)
  */
 NS_SWIFT_NAME(Foreground)
 @interface SPForeground : SPSelfDescribing <SPForegroundBuilder>
+
 + (instancetype) build:(void(^)(id<SPForegroundBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -93,15 +93,6 @@
     return payload;
 }
 
-- (SPSelfDescribingJson *) getPayload{
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-    if ([_expiry length] != 0) {
-        [event setObject:_expiry forKey:KSPCgExpiry];
-    }
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentGrantedSchema
-                                                andData:event];
-}
-
 - (NSArray<SPSelfDescribingJson *> *) getDocuments {
     __weak __typeof__(self) weakSelf = self;
     

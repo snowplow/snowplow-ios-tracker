@@ -251,7 +251,7 @@ static SPTracker *_sharedInstance = nil;
             SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
             SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
                 [builder setEventData:installEvent];
-                [builder setTimestamp:previousTimestamp];
+                [builder setTrueTimestamp:previousTimestamp];
             }];
             [self track:event];
             [installTracker clearPreviousInstallTimestamp];

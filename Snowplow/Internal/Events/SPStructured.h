@@ -73,8 +73,9 @@ NS_SWIFT_NAME(StructuredBuilder)
  */
 NS_SWIFT_NAME(Structured)
 @interface SPStructured : SPPrimitive <SPStructuredBuilder>
+
 + (instancetype) build:(void(^)(id<SPStructuredBuilder>builder))buildBlock;
-- (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
 @end
 
 NS_ASSUME_NONNULL_END

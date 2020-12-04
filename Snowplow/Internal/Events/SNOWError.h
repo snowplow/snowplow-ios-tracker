@@ -59,8 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
  @brief An error event.
  */
 @interface SNOWError : SPSelfDescribing <SPErrorBuilder>
+
 + (instancetype) build:(void(^)(id<SPErrorBuilder>builder))buildBlock;
-- (SPSelfDescribingJson *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
 @end
 
 

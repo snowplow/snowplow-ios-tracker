@@ -85,17 +85,4 @@
     return payload;
 }
 
-- (SPSelfDescribingJson *) getPayload {
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-    [event setObject:_category forKey:kSPUtCategory];
-    [event setObject:_variable forKey:kSPUtVariable];
-    [event setObject:_timing forKey:kSPUtTiming];
-    if (_label != nil) {
-        [event setObject:_label forKey:kSPUtLabel];
-    }
-
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPUserTimingsSchema
-                                                andData:event];
-}
-
 @end

@@ -65,11 +65,4 @@
     return payload;
 }
 
-- (SPSelfDescribingJson *) getPayload {
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-
-    [event setObject:_index forKey:kSPForegroundIndex];
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPForegroundSchema andData:event];
-}
-
 @end

@@ -45,8 +45,9 @@ NS_SWIFT_NAME(UnstructuredBuilder)
  */
 NS_SWIFT_NAME(Unstructured)
 @interface SPUnstructured : SPSelfDescribing <SPUnstructuredBuilder>
+
 + (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock;
-- (SPPayload *) getPayloadWithEncoding:(BOOL)encoding  __deprecated_msg("getPayloadWithEncoding is deprecated. Use `payload` instead.");
+
 @end
 
 NS_ASSUME_NONNULL_END
