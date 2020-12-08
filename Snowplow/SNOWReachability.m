@@ -123,4 +123,9 @@ static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char*
     return returnValue;
 }
 
+
+- (void)dealloc {
+    CFRelease(_reachabilityRef);
+}
+
 @end
