@@ -32,18 +32,18 @@
     NSString * _documentId;
     NSString * _version;
     NSString * _name;
-    NSString * _description;
+    NSString * _documentDescription;
     NSArray<SPSelfDescribingJson *> * _documents;
 }
 
-+ (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPConsentWithdrawnBuilder> builder))buildBlock {
     SPConsentWithdrawn* event = [SPConsentWithdrawn new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
     return self;
 }
@@ -53,6 +53,13 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(BOOL, all)
+SP_BUILDER_METHOD(NSString *, documentId)
+SP_BUILDER_METHOD(NSString *, version)
+SP_BUILDER_METHOD(NSString *, name)
+SP_BUILDER_METHOD(NSString *, documentDescription)
+SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
 
 - (void) setDocumentId:(NSString *)dId {
     _documentId = dId;
@@ -67,7 +74,7 @@
 }
 
 - (void) setDescription:(NSString *)description {
-    _description = description;
+    _documentDescription = description;
 }
 
 - (void) setAll:(BOOL)all {
@@ -109,8 +116,8 @@
         if ([strongSelf->_name length] != 0) {
             [builder setName:strongSelf->_name];
         }
-        if ([strongSelf->_description length] != 0) {
-            [builder setDescription:strongSelf->_description];
+        if ([strongSelf->_documentDescription length] != 0) {
+            [builder setDescription:strongSelf->_documentDescription];
         }
     }];
     [documents addObject:[document getPayload]];

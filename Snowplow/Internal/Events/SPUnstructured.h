@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPUnstructuredBuilder
  @brief The protocol for building unstructured events.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(UnstructuredBuilder)
 @protocol SPUnstructuredBuilder <SPEventBuilder>
 /*!
@@ -36,7 +37,7 @@ NS_SWIFT_NAME(UnstructuredBuilder)
 
  @param eventData A self-describing JSON of an unstructured event.
  */
-- (void) setEventData:(SPSelfDescribingJson *)eventData;
+- (void) setEventData:(SPSelfDescribingJson *)eventData __deprecated_msg("Use `eventData` of `Unstructured` class instead.");
 @end
 
 /*!
@@ -46,7 +47,11 @@ NS_SWIFT_NAME(UnstructuredBuilder)
 NS_SWIFT_NAME(Unstructured)
 @interface SPUnstructured : SPSelfDescribing <SPUnstructuredBuilder>
 
-+ (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock;
++ (instancetype)build:(void(^)(id<SPUnstructuredBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithEventData:(SPSelfDescribingJson *)eventData NS_SWIFT_NAME(init(eventData:));
 
 @end
 

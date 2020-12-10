@@ -32,15 +32,23 @@
     NSString * _referrer;
 }
 
-+ (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPPageViewBuilder> builder))buildBlock {
     SPPageView* event = [SPPageView new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithPageUrl:(NSString *)pageUrl {
+    if (self = [super init]) {
+        _pageUrl = pageUrl;
+        [SPUtilities checkArgument:([_pageUrl length] != 0) withMessage:@"PageURL cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -50,6 +58,9 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, pageTitle)
+SP_BUILDER_METHOD(NSString *, referrer)
 
 - (void) setPageUrl:(NSString *)pageUrl {
     _pageUrl = pageUrl;

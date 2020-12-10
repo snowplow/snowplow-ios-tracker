@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPForegroundBuilder
  @brief The protocol for building foreground events.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(ForegroundBuilder)
 @protocol SPForegroundBuilder <SPEventBuilder>
 
@@ -37,7 +38,7 @@ NS_SWIFT_NAME(ForegroundBuilder)
 
  @param index The transition event index.
  */
-- (void) setIndex:(NSNumber *)index;
+- (void) setIndex:(NSNumber *)index __deprecated_msg("Use initializer of `Foreground` class instead.");
 @end
 
 /*!
@@ -47,7 +48,11 @@ NS_SWIFT_NAME(ForegroundBuilder)
 NS_SWIFT_NAME(Foreground)
 @interface SPForeground : SPSelfDescribing <SPForegroundBuilder>
 
-+ (instancetype) build:(void(^)(id<SPForegroundBuilder>builder))buildBlock;
++ (instancetype)build:(void(^)(id<SPForegroundBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithIndex:(NSNumber *)index NS_SWIFT_NAME(init(index:));
 
 @end
 

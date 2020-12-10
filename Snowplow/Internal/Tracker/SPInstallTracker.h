@@ -28,12 +28,12 @@ NS_SWIFT_NAME(InstallTracker)
 /** Installation status */
 @property (nonatomic) BOOL isNewInstall;
 
+@property (nonatomic, readonly) NSDate *previousInstallTimestamp;
+
 - (id) init;
 
-- (NSNumber *) getPreviousInstallTimestamp;
+- (void)clearPreviousInstallTimestamp;
 
-- (void) clearPreviousInstallTimestamp;
-
-- (void) saveBuildAndVersion;
+- (void)saveBuildAndVersion;
 
 @end

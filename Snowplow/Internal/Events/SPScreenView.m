@@ -30,7 +30,7 @@
 
 @implementation SPScreenView {
     NSString * _name;
-    NSString * _id;
+    NSString * _screenId;
     NSString * _type;
     NSString * _previousName;
     NSString * _previousId;
@@ -40,35 +40,53 @@
     NSString * _topViewControllerClassName;
 }
 
-+ (instancetype) build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPScreenViewBuilder>builder))buildBlock {
     SPScreenView* event = [SPScreenView new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
-    if (!_id) {
-        _id = [[NSUUID UUID] UUIDString];
+    if (!_screenId) {
+        _screenId = [[NSUUID UUID] UUIDString];
+    }
+    return self;
+}
+
+- (instancetype)initWithName:(NSString *)name screenId:(nullable NSUUID *)screenId {
+    if (self = [super init]) {
+        _screenId = [(screenId ?: [NSUUID UUID]) UUIDString];
+        _name = name;
+        [SPUtilities checkArgument:([_name length] != 0) withMessage:@"Name cannot be empty."];
+        [SPUtilities checkArgument:([SPUtilities isUUIDString:_screenId]) withMessage:@"ScreenID has to be a valid UUID string."];
     }
     return self;
 }
 
 - (void) preconditions {
     [SPUtilities checkArgument:([_name length] != 0) withMessage:@"Name cannot be empty."];
-    [SPUtilities checkArgument:([SPUtilities isUUIDString:_id]) withMessage:@"ScreenID has to be a valid UUID string."];
+    [SPUtilities checkArgument:([SPUtilities isUUIDString:_screenId]) withMessage:@"ScreenID has to be a valid UUID string."];
     [self basePreconditions];
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, type)
+SP_BUILDER_METHOD(NSString *, previousName)
+SP_BUILDER_METHOD(NSString *, previousId)
+SP_BUILDER_METHOD(NSString *, previousType)
+SP_BUILDER_METHOD(NSString *, transitionType)
+SP_BUILDER_METHOD(NSString *, viewControllerClassName)
+SP_BUILDER_METHOD(NSString *, topViewControllerClassName)
 
 - (void) setName:(NSString *)name {
     _name = name;
 }
 
 - (void) setScreenId:(NSString *)screenId {
-    _id = screenId;
+    _screenId = screenId;
 }
 
 - (void) setType:(NSString *)type {
@@ -108,7 +126,7 @@
 - (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_name forKey:kSPSvName];
-    [payload setValue:_id forKey:kSPSvScreenId];
+    [payload setValue:_screenId forKey:kSPSvScreenId];
     [payload setValue:_type forKey:kSPSvType];
     [payload setValue:_previousName forKey:kSPSvPreviousName];
     [payload setValue:_previousType forKey:kSPSvPreviousType];
@@ -120,7 +138,7 @@
 - (SPScreenState *) getScreenState {
     return [[SPScreenState alloc] initWithName:_name
                                           type:_type
-                                      screenId:_id
+                                      screenId:_screenId
                                 transitionType:_transitionType
                     topViewControllerClassName:_topViewControllerClassName
                        viewControllerClassName:_viewControllerClassName];

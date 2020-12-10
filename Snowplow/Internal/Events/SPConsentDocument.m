@@ -34,15 +34,23 @@
     NSString * _description;
 }
 
-+ (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPConsentDocumentBuilder> builder))buildBlock {
     SPConsentDocument* document = [SPConsentDocument new];
     if (buildBlock) { buildBlock(document); }
     [document preconditions];
     return document;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version {
+    if (self = [super init]) {
+        _documentId = documentId;
+        _version = version;
+    }
     return self;
 }
 
@@ -52,6 +60,9 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, name)
+SP_BUILDER_METHOD(NSString *, description)
 
 - (void) setDocumentId:(NSString *)dId {
     _documentId = dId;

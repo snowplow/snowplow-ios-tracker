@@ -21,13 +21,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPSelfDescribingJson.h"
+#import "Snowplow.h"
 
 @class SPPayload;
 @class SPTracker;
 
-/*!
- @brief An enum for screen types.
- */
+/// An enum for screen types.
 typedef NS_ENUM(NSInteger, SPScreenType) {
     // sourced from `View Controller Catalog for iOS`
     SPScreenTypeDefault,
@@ -40,30 +40,26 @@ typedef NS_ENUM(NSInteger, SPScreenType) {
     SPScreenTypeCombined
 } NS_SWIFT_NAME(ScreenType);
 
-NSString * stringWithSPScreenType(SPScreenType screenType);
+NSString * _Nullable stringWithSPScreenType(SPScreenType screenType);
 
-/*!
- @protocol SPInspectableEvent
- @brief The inspectable properties of the event used to generate contexts.
- */
+NS_ASSUME_NONNULL_BEGIN
+
+/// The inspectable properties of the event used to generate contexts.
 NS_SWIFT_NAME(InspectableEvent)
 @protocol SPInspectableEvent <NSObject>
 
-/*! The schema of the event. */
-@property (nonatomic, readonly) NSString *schema;
-/*! The name of the event. */
-@property (nonatomic, readonly) NSString *eventName;
-/*! The payload of the event. */
+/// The schema of the event
+@property (nonatomic, readonly, nullable) NSString *schema;
+/// The name of the event
+@property (nonatomic, readonly, nullable) NSString *eventName;
+/// The payload of the event
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
 @end
 
-/*!
- @protocol SPEventBuilder
- @brief The base protocol for all event builders.
 
- This protocol defines basic functionality needed to build all events.
- */
+/// This protocol defines basic functionality needed to build all events
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(EventBuilder)
 @protocol SPEventBuilder <NSObject>
 
@@ -71,45 +67,40 @@ NS_SWIFT_NAME(EventBuilder)
  @brief Set the optional timestamp of the event.
  @param timestamp The timestamp of the event in seconds (epoch time)
  */
-- (void)setTrueTimestamp:(NSNumber *)timestamp;
+- (void)setTrueTimestamp:(NSDate *)timestamp __deprecated_msg("Use `trueTimestamp` of event class instead.");
 
 /*!
  @brief Set the contexts attached to the event.
  @param contexts An array of contexts (should be self-describing JSONs).
  */
-- (void) setContexts:(NSMutableArray *)contexts;
+- (void) setContexts:(NSMutableArray *)contexts __deprecated_msg("Use `contexts` of event class instead.");
 
 @end
 
-/*!
- @class SPEvent
- @brief The base object for all events.
 
- This class has the basic functionality needed to represent all events.
- */
+/// This class has the basic functionality needed to represent all events
 NS_SWIFT_NAME(Event)
-@interface SPEvent : NSObject <SPEventBuilder>
+@interface SPEvent : NSObject
 
 /*! The user event timestamp in milliseconds (epoch time). */
-@property (nonatomic, readwrite) NSNumber *trueTimestamp;
+@property (nonatomic, nullable) NSDate *trueTimestamp;
 
 /*! The contexts attached to the event. */
-@property (nonatomic, readwrite, retain) NSMutableArray *contexts;
+@property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
 /*! The payload of the event. */
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
-- (void) basePreconditions;
+SP_BUILDER_DECLARE_NULLABLE(NSDate *, trueTimestamp)
+SP_BUILDER_DECLARE(NSMutableArray<SPSelfDescribingJson *> *, contexts)
+
+- (void) basePreconditions __deprecated_msg("Preconditions should be checked in the initializers.");
 
 /*!
  @brief Get the copy of the context list associated with the event.
+ @deprecated Use `contexts` property instead.
 */
-- (NSMutableArray *) getContexts;
-
-/*!
- @brief Get the user timestamp of the event in seconds (epoch time) if it has been set.
-*/
-- (NSNumber *)getTrueTimestamp;
+- (NSMutableArray *) getContexts __deprecated_msg("Use `contexts` property instead.");
 
 /**
  * Hook method called just before the event processing in order to execute special operations.
@@ -147,3 +138,5 @@ NS_SWIFT_NAME(Primitive)
 @property (nonatomic, readonly) NSString *name;
 
 @end
+
+NS_ASSUME_NONNULL_END

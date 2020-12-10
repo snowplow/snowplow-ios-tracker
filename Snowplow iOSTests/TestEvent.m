@@ -31,27 +31,13 @@
 
 @implementation TestEvent
 
-- (void)setUp {
-    [super setUp];
-}
-
-- (void)tearDown {
-    [super tearDown];
-}
-
 - (void)testEventBuilderConditions {
-    NSString *presetEventId = [NSUUID UUID].UUIDString;
-    
     // Valid construction
     SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setContexts:[self getCustomContext]];
-        [builder setEventId:presetEventId];
-        [builder setTimestamp:@1234567890];
     }];
     XCTAssertNotNil(event);
-    XCTAssertEqualObjects([event getEventId], presetEventId);
-    XCTAssertEqual([event getTimestamp].longLongValue, @(1234567890).longLongValue);
     event = nil;
     
     // Context is nil
@@ -79,44 +65,19 @@
     XCTAssertNil(event);
 }
  
-- (void)testEventIdNilOrEmpty {
-    // EventID is nil
-    SPEvent *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-        [builder setEventId:nil];
-    }];
-    XCTAssertNotNil(event);
-    event = nil;
-    
-    // EventID is empty
-    @try {
-        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-            [builder setPageUrl:@"DemoPageUrl"];
-            [builder setEventId:@""];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventID has to be a valid UUID.", exception.reason);
-    }
-    XCTAssertNil(event);
-}
-
 - (void)testTrueTimestamp {
-    // Set trueTimestamp
     SPEvent *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
     }];
-    XCTAssertNil([event getTrueTimestamp]);
+    XCTAssertNil(event.trueTimestamp);
 
     // Set trueTimestamp
-    NSNumber *testDate = @([[NSDate date] timeIntervalSince1970]);
+    NSDate *testDate = [NSDate date];
     event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
         [builder setPageUrl:@"DemoPageUrl"];
         [builder setTrueTimestamp:testDate];
     }];
-    long long expected = (long long)(testDate.doubleValue * 1000);
-    long long testing = (long long)([event getTrueTimestamp].doubleValue * 1000);
-    XCTAssertEqual(testing, expected);
+    XCTAssertEqual(event.trueTimestamp, testDate);
 }
 
 - (void)testPageViewBuilderConditions {
@@ -439,7 +400,7 @@
     // Valid construction
     SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
         [builder setOrderId:@"orderid"];
-        [builder setTotalValue:5];
+        [builder setTotalValue:@5];
         [builder setItems:[[NSArray alloc] init]]; // This is valid as we don't check for count of items. Should we?
     }];
     XCTAssertNotNil(event);
@@ -449,7 +410,7 @@
     @try {
         event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
             [builder setOrderId:@""];
-            [builder setTotalValue:5];
+            [builder setTotalValue:@5];
             [builder setItems:[[NSArray alloc] init]];
         }];
     }
@@ -461,7 +422,7 @@
     // OrderID is nil
     @try {
         event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-            [builder setTotalValue:5];
+            [builder setTotalValue:@5];
             [builder setItems:[[NSArray alloc] init]];
         }];
     }
@@ -474,7 +435,7 @@
     @try {
         event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
             [builder setOrderId:@"orderid"];
-            [builder setTotalValue:5];
+            [builder setTotalValue:@5];
         }];
     }
     @catch (NSException *exception) {

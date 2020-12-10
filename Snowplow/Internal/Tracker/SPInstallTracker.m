@@ -26,13 +26,13 @@
 
 @implementation SPInstallTracker
 
-- (id) init {
+- (id)init {
     if (self = [super init]) {
         NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
         if ([userDefaults objectForKey:kSPInstalledBefore] == nil) {
             // mark the install if there's no value in userDefaults
             [userDefaults setObject:@YES forKey:kSPInstalledBefore];
-            [userDefaults setObject:[SPUtilities getTimestamp] forKey:kSPInstallTimestamp];
+            [userDefaults setObject:[NSDate new] forKey:kSPInstallTimestamp];
             // since the value was missing in userDefaults, we're assuming this is a new install
             self.isNewInstall = YES;
         } else {
@@ -44,17 +44,17 @@
     return nil;
 }
 
-- (NSNumber *) getPreviousInstallTimestamp {
-    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
+- (NSDate *)previousInstallTimestamp {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     return [userDefaults objectForKey:kSPInstallTimestamp];
 }
 
-- (void) clearPreviousInstallTimestamp {
+- (void)clearPreviousInstallTimestamp {
     NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
     [userDefaults removeObjectForKey:kSPInstallTimestamp];
 }
 
-- (void) saveBuildAndVersion {
+- (void)saveBuildAndVersion {
     NSString * build = [SPUtilities getAppBuild];
     NSString * version = [SPUtilities getAppVersion];
     if (build && version) {

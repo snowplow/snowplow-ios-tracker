@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPBackgroundBuilder
  @brief The protocol for building background events.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(BackgroundBuilder)
 @protocol SPBackgroundBuilder <SPEventBuilder>
 
@@ -37,7 +38,7 @@ NS_SWIFT_NAME(BackgroundBuilder)
 
  @param index The transition event index.
  */
-- (void) setIndex:(NSNumber *)index;
+- (void) setIndex:(NSNumber *)index __deprecated_msg("Use initializer of `Background` class instead.");
 @end
 
 /*!
@@ -47,7 +48,11 @@ NS_SWIFT_NAME(BackgroundBuilder)
 NS_SWIFT_NAME(Background)
 @interface SPBackground : SPSelfDescribing <SPBackgroundBuilder>
 
-+ (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithIndex:(NSNumber *)index NS_SWIFT_NAME(init(index:));
 
 @end
 

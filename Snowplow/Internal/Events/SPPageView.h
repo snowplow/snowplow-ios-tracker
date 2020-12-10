@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPPageViewBuilder
  @brief The protocol for building pageview events.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(PageViewBuilder)
 @protocol SPPageViewBuilder <SPEventBuilder>
 
@@ -36,21 +37,21 @@ NS_SWIFT_NAME(PageViewBuilder)
 
  @param pageUrl The URL of the page.
  */
-- (void) setPageUrl:(NSString *)pageUrl;
+- (void) setPageUrl:(NSString *)pageUrl __deprecated_msg("Use initializer of `PageView` class instead.");
 
 /*!
  @brief Set the title of the page.
 
  @param pageTitle The title of the page.
  */
-- (void) setPageTitle:(nullable NSString *)pageTitle;
+- (void) setPageTitle:(nullable NSString *)pageTitle __deprecated_msg("Use `pageTitle` of `PageView` class instead.");
 
 /*!
  @brief Set the referrer of the pageview.
 
  @param referrer The pageview referrer.
  */
-- (void) setReferrer:(nullable NSString *)referrer;
+- (void) setReferrer:(nullable NSString *)referrer __deprecated_msg("Use `referrer` of `PageView` class instead.");
 @end
 
 /*!
@@ -60,7 +61,18 @@ NS_SWIFT_NAME(PageViewBuilder)
 NS_SWIFT_NAME(PageView)
 @interface SPPageView : SPPrimitive <SPPageViewBuilder>
 
-+ (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock;
+@property (nonatomic, readonly) NSString *pageUrl;
+@property (nonatomic, nullable) NSString *pageTitle;
+@property (nonatomic, nullable) NSString *referrer;
+
++ (instancetype)build:(void(^)(id<SPPageViewBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithPageUrl:(NSString *)pageUrl NS_SWIFT_NAME(init(pageUrl:));
+
+SP_BUILDER_DECLARE_NULLABLE(NSString *, pageTitle)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, referrer)
 
 @end
 

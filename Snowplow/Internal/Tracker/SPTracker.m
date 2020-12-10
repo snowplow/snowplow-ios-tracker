@@ -236,7 +236,7 @@ static SPTracker *_sharedInstance = nil;
 
 - (void) checkInstall {
     SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
-    NSNumber * previousTimestamp = [installTracker getPreviousInstallTimestamp];
+    NSDate *previousTimestamp = installTracker.previousInstallTimestamp;
     if (_installEvent) {
         if (installTracker.isNewInstall) {
             SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
@@ -546,7 +546,8 @@ static SPTracker *_sharedInstance = nil;
     [payload addValueToPayload:event.eventId.UUIDString forKey:kSPEid];
     [payload addValueToPayload:[NSString stringWithFormat:@"%lld", event.timestamp] forKey:kSPTimestamp];
     if (event.trueTimestamp) {
-        [payload addValueToPayload:[NSString stringWithFormat:@"%lld", event.trueTimestamp.longLongValue] forKey:kSPTrueTimestamp];
+        long long ttInMilliSeconds = event.trueTimestamp.timeIntervalSince1970 * 1000;
+        [payload addValueToPayload:[NSString stringWithFormat:@"%lld", ttInMilliSeconds] forKey:kSPTrueTimestamp];
     }
     [payload addDictionaryToPayload:_trackerData];
     if (_subject != nil) {

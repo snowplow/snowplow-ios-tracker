@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentGrantedBuilder
  @brief The protocol for building consent granted events.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(ConsentGrantedBuilder)
 @protocol SPConsentGrantedBuilder <SPEventBuilder>
 
@@ -37,42 +38,42 @@ NS_SWIFT_NAME(ConsentGrantedBuilder)
 
  @param documentId The associated consent document description.
  */
-- (void) setDocumentId:(NSString *)documentId;
+- (void) setDocumentId:(NSString *)documentId __deprecated_msg("Use initializer of `ConsentGranted` class instead.");
 
 /*!
  @brief Set the version of the associated consent document.
 
  @param version The associated consent document version.
  */
-- (void) setVersion:(NSString *)version;
+- (void) setVersion:(NSString *)version __deprecated_msg("Use initializer of `ConsentGranted` class instead.");
 
 /*!
  @brief Set the name of the associated consent document.
 
  @param name The associated consent document name.
  */
-- (void) setName:(nullable NSString *)name;
+- (void) setName:(nullable NSString *)name __deprecated_msg("Use `name` of `ConsentGranted` class instead.");
 
 /*!
  @brief Set the description of the associated consent document.
 
  @param description The associated consent document description.
  */
-- (void) setDescription:(nullable NSString *)description;
+- (void) setDescription:(nullable NSString *)description __deprecated_msg("Use `description` of `ConsentGranted` class instead.");
 
 /*!
  @brief Set the expiry of the associated consent document.
 
  @param expiry The associated consent document expiry.
  */
-- (void) setExpiry:(nullable NSString *)expiry;
+- (void) setExpiry:(nullable NSString *)expiry __deprecated_msg("Use `expiry` of `ConsentGranted` class instead.");
 
 /*!
  @brief Set additional associated consent documents.
 
  @param documents An array of associated consent documents.
  */
-- (void) setDocuments:(nullable NSArray<SPSelfDescribingJson *> *)documents;
+- (void) setDocuments:(nullable NSArray<SPSelfDescribingJson *> *)documents __deprecated_msg("Use `documents` of `ConsentGranted` class instead.");
 @end
 
 /*!
@@ -82,8 +83,25 @@ NS_SWIFT_NAME(ConsentGrantedBuilder)
 NS_SWIFT_NAME(ConsentGranted)
 @interface SPConsentGranted : SPSelfDescribing <SPConsentGrantedBuilder>
 
-+ (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock;
-- (NSArray<SPSelfDescribingJson *> *) getDocuments;
+@property (nonatomic, readonly) NSString *documentId;
+@property (nonatomic, readonly) NSString *version;
+@property (nonatomic, nullable) NSString *name;
+@property (nonatomic, nullable) NSString *documentDescription;
+@property (nonatomic, nullable) NSString *expiry;
+@property (nonatomic, nullable) NSArray<SPSelfDescribingJson *> *documents;
+
++ (instancetype)build:(void(^)(id<SPConsentGrantedBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version NS_SWIFT_NAME(init(documentId:version:));
+
+- (NSArray<SPSelfDescribingJson *> *)getDocuments;
+
+SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, documentDescription)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, expiry)
+SP_BUILDER_DECLARE_NULLABLE(NSArray<SPSelfDescribingJson *> *, documents)
 
 @end
 

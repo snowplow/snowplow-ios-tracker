@@ -36,15 +36,27 @@
     NSString * _currency;
 }
 
-+ (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPEcommTransactionItemBuilder> builder))buildBlock {
     SPEcommerceItem* event = [SPEcommerceItem new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithItemId:(NSString *)itemId sku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity {
+    if (self = [super init]) {
+        _itemId = itemId;
+        _sku = sku;
+        _price = price;
+        _quantity = quantity;
+        [SPUtilities checkArgument:([_itemId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
+        [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -57,6 +69,10 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, name)
+SP_BUILDER_METHOD(NSString *, category)
+SP_BUILDER_METHOD(NSString *, currency)
 
 - (void) setItemId:(NSString *)itemId {
     _itemId = itemId;

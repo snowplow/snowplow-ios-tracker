@@ -34,15 +34,32 @@
     SPNotificationContent * _notification;
 }
 
-+ (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPPushNotificationBuilder> builder))buildBlock {
     SPPushNotification* event = [SPPushNotification new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithDate:(NSString *)date action:(NSString *)action trigger:(NSString *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification {
+    if (self = [super init]) {
+        _date = date;
+        _action = action;
+        _trigger = trigger;
+        _category = category;
+        _thread = thread;
+        _notification = notification;
+        [SPUtilities checkArgument:([_date length] != 0) withMessage:@"Delivery date cannot be nil or empty."];
+        [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
+        [SPUtilities checkArgument:([_trigger length] != 0) withMessage:@"Trigger cannot be nil or empty."];
+        [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
+        [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -114,15 +131,26 @@
     NSArray * _attachments;
 }
 
-+ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock {
     SPNotificationContent* event = [SPNotificationContent new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title body:(NSString *)body badge:(NSNumber *)badge {
+    if (self = [super init]) {
+        _title = title;
+        _body = body;
+        _badge = badge;
+        [SPUtilities checkArgument:([_title length] != 0) withMessage:@"Title cannot be nil or empty."];
+        [SPUtilities checkArgument:([_body length] != 0) withMessage:@"Body cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -133,6 +161,12 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, subtitle)
+SP_BUILDER_METHOD(NSString *, sound)
+SP_BUILDER_METHOD(NSString *, launchImageName)
+SP_BUILDER_METHOD(NSDictionary *, userInfo)
+SP_BUILDER_METHOD(NSArray *, attachments)
 
 - (void) setTitle:(NSString *)title {
     _title = title;

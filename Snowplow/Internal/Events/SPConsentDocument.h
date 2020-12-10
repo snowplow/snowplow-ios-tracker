@@ -37,28 +37,28 @@ NS_SWIFT_NAME(ConsentDocumentBuilder)
 
  @param documentId The document ID.
  */
-- (void) setDocumentId:(NSString *)documentId;
+- (void) setDocumentId:(NSString *)documentId __deprecated_msg("Use initializer of `ConsentDocument` class instead.");
 
 /*!
  @brief Set the version of the consent document.
 
  @param version The version of the document.
  */
-- (void) setVersion:(NSString *)version;
+- (void) setVersion:(NSString *)version __deprecated_msg("Use `version` of `ConsentDocument` class instead.");
 
 /*!
  @brief Set the name of the consent document.
 
  @param name Name of the consent document.
  */
-- (void) setName:(nullable NSString *)name;
+- (void) setName:(nullable NSString *)name __deprecated_msg("Use `name` of `ConsentDocument` class instead.");
 
 /*!
  @brief Set the description of the consent document.
 
  @param description The consent document description.
  */
-- (void) setDescription:(nullable NSString *)description;
+- (void) setDescription:(nullable NSString *)description __deprecated_msg("Use `description` of `ConsentDocument` class instead.");
 @end
 
 /*!
@@ -67,8 +67,23 @@ NS_SWIFT_NAME(ConsentDocumentBuilder)
  */
 NS_SWIFT_NAME(ConsentDocument)
 @interface SPConsentDocument : NSObject <SPConsentDocumentBuilder>
-+ (instancetype) build:(void(^)(id<SPConsentDocumentBuilder>builder))buildBlock;
+
+@property (nonatomic, readonly) NSString *documentId;
+@property (nonatomic, readonly) NSString *version;
+@property (nonatomic, nullable) NSString *name;
+@property (nonatomic, nullable) NSString *description;
+
++ (instancetype)build:(void(^)(id<SPConsentDocumentBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version NS_SWIFT_NAME(init(documentId:version:));
+
 - (SPSelfDescribingJson *) getPayload;
+
+SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, description)
+
 @end
 
 NS_ASSUME_NONNULL_END

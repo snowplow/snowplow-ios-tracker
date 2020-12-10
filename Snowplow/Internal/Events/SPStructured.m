@@ -34,15 +34,25 @@
     NSNumber * _value;
 }
 
-+ (instancetype) build:(void(^)(id<SPStructuredBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPStructuredBuilder> builder))buildBlock {
     SPStructured* event = [SPStructured new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithCategory:(NSString *)category action:(NSString *)action {
+    if (self = [super init]) {
+        _category = category;
+        _action = action;
+        [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
+        [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -53,6 +63,10 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, label)
+SP_BUILDER_METHOD(NSString *, property)
+SP_BUILDER_METHOD(NSNumber *, value)
 
 - (void) setCategory:(NSString *)category {
     _category = category;
@@ -70,8 +84,8 @@
     _property = property;
 }
 
-- (void) setValue:(double)value {
-    _value = [NSNumber numberWithDouble:value];
+- (void) setValue:(NSNumber *)value {
+    _value = value;
 }
 
 // --- Public Methods

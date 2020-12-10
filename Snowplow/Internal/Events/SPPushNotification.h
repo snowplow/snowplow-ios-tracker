@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPPushNotificationBuilder
  @brief The protocol for building push notification events.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(PushNotificationBuilder)
 @protocol SPPushNotificationBuilder <SPEventBuilder>
 
@@ -39,48 +40,49 @@ NS_SWIFT_NAME(PushNotificationBuilder)
 
  @param action Action taken by the user.
  */
-- (void) setAction:(NSString *)action;
+- (void) setAction:(NSString *)action __deprecated_msg("Use initializer of `PushNotification` class instead.");
 
 /*!
  @brief Set the delivery date.
 
  @param date The date the notification was delivered.
  */
-- (void) setDeliveryDate:(NSString *)date;
+- (void) setDeliveryDate:(NSString *)date __deprecated_msg("Use initializer of `PushNotification` class instead.");
 
 /*!
  @brief Set the trigger.
 
  @param trigger Event trigger (i.e. push or local trigger).
  */
-- (void) setTrigger:(NSString *)trigger;
+- (void) setTrigger:(NSString *)trigger __deprecated_msg("Use initializer of `PushNotification` class instead.");
 
 /*!
  @brief Set the category ID.
 
  @param category Category Id of the notification.
  */
-- (void) setCategoryIdentifier:(NSString *)category;
+- (void) setCategoryIdentifier:(NSString *)category __deprecated_msg("Use initializer of `PushNotification` class instead.");
 
 /*!
  @brief Set the thread ID.
 
  @param thread Thread Id of the notification.
  */
-- (void) setThreadIdentifier:(NSString *)thread;
+- (void) setThreadIdentifier:(NSString *)thread __deprecated_msg("Use initializer of `PushNotification` class instead.");
 
 /*!
  @brief Set the notification content.
 
  @param content Notification content event.
  */
-- (void) setNotification:(SPNotificationContent *)content;
+- (void) setNotification:(SPNotificationContent *)content __deprecated_msg("Use initializer of `PushNotification` class instead.");
 @end
 
 /*!
  @protocol SPNotificationContentBuilder
  @brief The protocol for building notification content.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(NotificationContentBuilder)
 @protocol SPNotificationContentBuilder
 
@@ -89,56 +91,56 @@ NS_SWIFT_NAME(NotificationContentBuilder)
 
  @param title Title displayed in notification.
  */
-- (void) setTitle:(NSString *)title;
+- (void) setTitle:(NSString *)title __deprecated_msg("Use `title` of `NotificationContent` class instead.");
 
 /*!
  @brief Set the subtitle.
 
  @param subtitle Subtitle displayed.
  */
-- (void) setSubtitle:(nullable NSString *)subtitle;
+- (void) setSubtitle:(nullable NSString *)subtitle __deprecated_msg("Use `subtitle` of `NotificationContent` class instead.");
 
 /*!
  @brief Set the body.
 
  @param body Body message.
  */
-- (void) setBody:(NSString *)body;
+- (void) setBody:(NSString *)body __deprecated_msg("Use `body` of `NotificationContent` class instead.");
 
 /*!
  @brief Set the badge.
 
  @param badge Badge count of the app.
  */
-- (void) setBadge:(NSNumber *)badge;
+- (void) setBadge:(NSNumber *)badge __deprecated_msg("Use `badge` of `NotificationContent` class instead.");
 
 /*!
  @brief Set the sound.
 
  @param sound Name of the notification sound.
  */
-- (void) setSound:(nullable NSString *)sound;
+- (void) setSound:(nullable NSString *)sound __deprecated_msg("Use `sound` of `NotificationContent` class instead.");
 
 /*!
  @brief Set the launchImageName.
 
  @param name The launchImageName member of a UNNotificationContent object.
  */
-- (void) setLaunchImageName:(nullable NSString *)name;
+- (void) setLaunchImageName:(nullable NSString *)name __deprecated_msg("Use `imageName` of `NotificationContent` class instead.");
 
 /*!
  @brief Set the UserInfo dictionary.
 
  @param userInfo The UserInfo dictionary of a UNNotificationContent.
  */
-- (void) setUserInfo:(nullable NSDictionary *)userInfo;
+- (void) setUserInfo:(nullable NSDictionary *)userInfo __deprecated_msg("Use `userInfo` of `NotificationContent` class instead.");
 
 /*!
  @brief Set attachments.
 
  @param attachments Attachments displayed with notification.
  */
-- (void) setAttachments:(nullable NSArray *)attachments;
+- (void) setAttachments:(nullable NSArray *)attachments __deprecated_msg("Use `attachments` of `NotificationContent` class instead.");
 @end
 
 /*!
@@ -148,7 +150,11 @@ NS_SWIFT_NAME(NotificationContentBuilder)
 NS_SWIFT_NAME(PushNotification)
 @interface SPPushNotification : SPSelfDescribing <SPPushNotificationBuilder>
 
-+ (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock;
++ (instancetype)build:(void(^)(id<SPPushNotificationBuilder> builder))buildBlock;
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithDate:(NSString *)date action:(NSString *)action trigger:(NSString *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification NS_SWIFT_NAME(init(date:action:trigger:category:thread:notification:));
 
 @end
 
@@ -161,9 +167,28 @@ NS_SWIFT_NAME(PushNotification)
 NS_SWIFT_NAME(NotificationContent)
 @interface SPNotificationContent : NSObject <SPNotificationContentBuilder>
 
+@property (nonatomic, readonly) NSString *title;
+@property (nonatomic, readonly) NSString *body;
+@property (nonatomic, readonly) NSNumber *badge;
+@property (nonatomic, nullable) NSString *subtitle;
+@property (nonatomic, nullable) NSString *sound;
+@property (nonatomic, nullable) NSString *launchImageName;
+@property (nonatomic, nullable) NSDictionary *userInfo;
+@property (nonatomic, nullable) NSArray *attachments;
+
 @property (nonatomic) NSDictionary *payload;
 
-+ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithTitle:(NSString *)title body:(NSString *)body badge:(NSNumber *)badge NS_SWIFT_NAME(init(title:body:badge:));
+
+SP_BUILDER_DECLARE_NULLABLE(NSString *, subtitle)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, sound)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, launchImageName)
+SP_BUILDER_DECLARE_NULLABLE(NSDictionary *, userInfo)
+SP_BUILDER_DECLARE_NULLABLE(NSArray *, attachments)
 
 @end
 

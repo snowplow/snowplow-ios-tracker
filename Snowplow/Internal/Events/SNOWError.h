@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPErrorBuilder
  @brief The protocol for building error events.
  */
+__attribute__ ((deprecated))
 @protocol SPErrorBuilder <SPEventBuilder>
 
 /*!
@@ -36,21 +37,21 @@ NS_ASSUME_NONNULL_BEGIN
  
  @param message The error message.
  */
-- (void) setMessage:(NSString *)message;
+- (void) setMessage:(NSString *)message __deprecated_msg("Use initializer of `SNOWError` class instead.");
 
 /*!
  @brief Set the exception stack trace.
  
  @param stackTrace The stack trace of the exception.
  */
-- (void) setStackTrace:(nullable NSString *)stackTrace;
+- (void) setStackTrace:(nullable NSString *)stackTrace __deprecated_msg("Use `stackTrace` of `SNOWError` class instead.");
 
 /*!
  @brief Set the exception name.
  
  @param name The exception name.
  */
-- (void) setName:(nullable NSString *)name;
+- (void) setName:(nullable NSString *)name __deprecated_msg("Use name of `SNOWError` class instead.");
 
 @end
 
@@ -60,7 +61,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface SNOWError : SPSelfDescribing <SPErrorBuilder>
 
-+ (instancetype) build:(void(^)(id<SPErrorBuilder>builder))buildBlock;
+@property (nonatomic, nullable) NSString *name;
+@property (nonatomic, nullable) NSString *stackTrace;
+@property (nonatomic, readonly) NSString *message;
+
++ (instancetype)build:(void(^)(id<SPErrorBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithMessage:(NSString *)message NS_SWIFT_NAME(init(message:));
+
+SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, stackTrace)
 
 @end
 

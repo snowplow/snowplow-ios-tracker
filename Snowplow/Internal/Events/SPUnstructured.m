@@ -31,15 +31,23 @@
     SPSelfDescribingJson * _eventData;
 }
 
-+ (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock {
++ (instancetype) build:(void(^)(id<SPUnstructuredBuilder> builder))buildBlock {
     SPUnstructured* event = [SPUnstructured new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithEventData:(SPSelfDescribingJson *)eventData {
+    if (self = [super init]) {
+        _eventData = eventData;
+        [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_eventData.data] withMessage:@"EventData has to be JSON serializable."];
+    }
     return self;
 }
 

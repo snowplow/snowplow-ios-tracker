@@ -30,15 +30,22 @@
     NSNumber * _index;
 }
 
-+ (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPBackgroundBuilder> builder))buildBlock {
     SPBackground* event = [SPBackground new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithIndex:(NSNumber *)index {
+    if (self = [super init]) {
+        _index = index;
+    }
     return self;
 }
 

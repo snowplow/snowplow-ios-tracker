@@ -191,8 +191,6 @@ NSString *protocol = @"https";
         [builder setProperty:@"DemoProperty"];
         [builder setValue:5];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
     }];
     [tracker_ track:event];
 }
@@ -207,8 +205,6 @@ NSString *protocol = @"https";
     SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
         [builder setEventData:sdj];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
     }];
     [tracker_ track:event];
 }
@@ -229,8 +225,6 @@ NSString *protocol = @"https";
         [builder setPageTitle:@"DemoPageTitle"];
         [builder setReferrer:@"DemoPageReferrer"];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
     }];
     [tracker_ track:event];
 }
@@ -242,8 +236,6 @@ NSString *protocol = @"https";
         [builder setName:@"DemoScreenName"];
         [builder setScreenId:screenId];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:eventId];
     }];
     [tracker_ track:event];
 }
@@ -256,8 +248,6 @@ NSString *protocol = @"https";
         [builder setTiming:5];
         [builder setLabel:@"DemoTimingLabel"];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
     }];
     [tracker_ track:event];
 }
@@ -276,8 +266,6 @@ NSString *protocol = @"https";
         [builder setQuantity:1];
         [builder setCurrency:@"USD"];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1234657890];
-        [builder setEventId:uuid];
     }];
     
     [itemArray addObject:item];
@@ -294,8 +282,6 @@ NSString *protocol = @"https";
         [builder setCurrency:@"USD"];
         [builder setItems:itemArray];
         [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
     }];
     [tracker_ track:event];
 }

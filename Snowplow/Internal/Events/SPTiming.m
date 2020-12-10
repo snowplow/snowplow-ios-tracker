@@ -33,15 +33,26 @@
     NSString * _label;
 }
 
-+ (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPTimingBuilder> builder))buildBlock {
     SPTiming* event = [SPTiming new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithCategory:(NSString *)category variable:(NSString *)variable timing:(NSNumber *)timing {
+    if (self = [super init]) {
+        _category = category;
+        _variable = variable;
+        _timing = timing;
+        [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
+        [SPUtilities checkArgument:([_variable length] != 0) withMessage:@"Variable cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -53,6 +64,8 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, label)
 
 - (void) setCategory:(NSString *)category {
     _category = category;

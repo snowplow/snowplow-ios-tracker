@@ -33,15 +33,22 @@
     NSString * _message;
 }
 
-+ (instancetype) build:(void(^)(id<SPErrorBuilder>builder))buildBlock {
++ (instancetype) build:(void(^)(id<SPErrorBuilder> builder))buildBlock {
     SNOWError * event = [SNOWError new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithMessage:(NSString *)message {
+    if (self = [super init]) {
+        _message = message;
+    }
     return self;
 }
 
@@ -51,6 +58,9 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, name)
+SP_BUILDER_METHOD(NSString *, stackTrace)
 
 - (void) setMessage:(NSString *)message {
     _message = message;

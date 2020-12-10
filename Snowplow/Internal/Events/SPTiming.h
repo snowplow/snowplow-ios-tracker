@@ -29,6 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPTimingBuilder
  @brief The protocol for building timing events.
  */
+__attribute__ ((deprecated))
 NS_SWIFT_NAME(TimingBuilder)
 @protocol SPTimingBuilder <SPEventBuilder>
 
@@ -39,28 +40,28 @@ NS_SWIFT_NAME(TimingBuilder)
 
  @param category A logical group name for variables.
  */
-- (void) setCategory:(NSString *)category;
+- (void) setCategory:(NSString *)category __deprecated_msg("Use `category` of `Timing` class instead.");
 
 /*!
  @brief Set the variable of the timing event.
 
  @param variable Identify the timing being recorded.
  */
-- (void) setVariable:(NSString *)variable;
+- (void) setVariable:(NSString *)variable __deprecated_msg("Use `variable` of `Timing` class instead.");
 
 /*!
  @brief Set the timing.
 
  @param timing The number of milliseconds in elapsed time to report.
  */
-- (void) setTiming:(NSInteger)timing;
+- (void) setTiming:(NSInteger)timing __deprecated_msg("Use `timing` of `Timing` class instead.");
 
 /*!
  @brief Set the label.
 
  @param label Optional description of this timing.
  */
-- (void) setLabel:(nullable NSString *)label;
+- (void) setLabel:(nullable NSString *)label __deprecated_msg("Use `label` of `Timing` class instead.");
 @end
 
 /*!
@@ -70,7 +71,18 @@ NS_SWIFT_NAME(TimingBuilder)
 NS_SWIFT_NAME(Timing)
 @interface SPTiming : SPSelfDescribing <SPTimingBuilder>
 
-+ (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock;
+@property (nonatomic, readonly) NSString *category;
+@property (nonatomic, readonly) NSString *variable;
+@property (nonatomic, readonly) NSNumber *timing;
+@property (nonatomic, nullable) NSString *label;
+
++ (instancetype)build:(void(^)(id<SPTimingBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithCategory:(NSString *)category variable:(NSString *)variable timing:(NSNumber *)timing NS_SWIFT_NAME(init(category:variable:timing:));
+
+SP_BUILDER_DECLARE_NULLABLE(NSString *, label)
 
 @end
 
