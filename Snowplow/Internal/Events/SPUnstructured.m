@@ -54,7 +54,6 @@
 - (void) preconditions {
     [SPUtilities checkArgument:(_eventData != nil) withMessage:@"EventData cannot be nil."];
     [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_eventData.data] withMessage:@"EventData has to be JSON serializable."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

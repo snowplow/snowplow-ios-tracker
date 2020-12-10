@@ -54,7 +54,6 @@
 
 - (void) preconditions {
     [SPUtilities checkArgument:([_pageUrl length] != 0) withMessage:@"PageURL cannot be nil or empty."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

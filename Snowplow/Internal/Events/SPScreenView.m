@@ -68,7 +68,6 @@
 - (void) preconditions {
     [SPUtilities checkArgument:([_name length] != 0) withMessage:@"Name cannot be empty."];
     [SPUtilities checkArgument:([SPUtilities isUUIDString:_screenId]) withMessage:@"ScreenID has to be a valid UUID string."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

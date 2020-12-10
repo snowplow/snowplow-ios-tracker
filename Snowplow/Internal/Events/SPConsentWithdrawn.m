@@ -39,17 +39,12 @@
 + (instancetype)build:(void(^)(id<SPConsentWithdrawnBuilder> builder))buildBlock {
     SPConsentWithdrawn* event = [SPConsentWithdrawn new];
     if (buildBlock) { buildBlock(event); }
-    [event preconditions];
     return event;
 }
 
 - (instancetype)init {
     self = [super init];
     return self;
-}
-
-- (void) preconditions {
-    [self basePreconditions];
 }
 
 // --- Builder Methods

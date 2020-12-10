@@ -60,7 +60,6 @@
 - (void) preconditions {
     [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
     [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

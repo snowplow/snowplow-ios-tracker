@@ -54,7 +54,6 @@
 
 - (void) preconditions {
     [SPUtilities checkArgument:(_message != nil) withMessage:@"Message cannot be nil or empty."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

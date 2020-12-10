@@ -60,7 +60,6 @@
     [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
     [SPUtilities checkArgument:([_variable length] != 0) withMessage:@"Variable cannot be nil or empty."];
     [SPUtilities checkArgument:(_timing != nil) withMessage:@"Timing cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

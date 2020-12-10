@@ -70,7 +70,6 @@
     [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
     [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
     [SPUtilities checkArgument:(_notification != nil) withMessage:@"Notification cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

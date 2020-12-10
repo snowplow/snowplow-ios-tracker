@@ -65,7 +65,6 @@
     [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
     [SPUtilities checkArgument:(_price != nil) withMessage:@"Price cannot be nil."];
     [SPUtilities checkArgument:(_quantity != nil) withMessage:@"Quantity cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

@@ -51,7 +51,6 @@
 
 - (void) preconditions {
     [SPUtilities checkArgument:(_index != nil) withMessage:@"Index cannot be nil or empty."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

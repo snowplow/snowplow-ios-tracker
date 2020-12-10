@@ -66,7 +66,6 @@
     [SPUtilities checkArgument:([_orderId length] != 0) withMessage:@"OrderId cannot be nil or empty."];
     [SPUtilities checkArgument:(_items != nil) withMessage:@"Items cannot be nil."];
     [SPUtilities checkArgument:(_totalValue != nil) withMessage:@"TotalValue cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods

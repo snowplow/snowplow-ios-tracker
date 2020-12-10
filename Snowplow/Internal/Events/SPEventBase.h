@@ -94,8 +94,6 @@ NS_SWIFT_NAME(Event)
 SP_BUILDER_DECLARE_NULLABLE(NSDate *, trueTimestamp)
 SP_BUILDER_DECLARE(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 
-- (void) basePreconditions __deprecated_msg("Preconditions should be checked in the initializers.");
-
 /*!
  @brief Get the copy of the context list associated with the event.
  @deprecated Use `contexts` property instead.

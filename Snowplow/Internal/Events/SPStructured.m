@@ -59,7 +59,6 @@
 - (void) preconditions {
     [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
     [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
