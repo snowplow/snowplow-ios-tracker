@@ -1,5 +1,5 @@
 //
-//  TestEmitter.m
+//  LegacyTestEmitter.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -170,12 +170,14 @@
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-@interface TestEmitter : XCTestCase
+@interface LegacyTestEmitter : XCTestCase
 
 @end
 
-@implementation TestEmitter
+@implementation LegacyTestEmitter
 
 NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 
@@ -472,3 +474,5 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 @end
+
+#pragma clang diagnostic pop

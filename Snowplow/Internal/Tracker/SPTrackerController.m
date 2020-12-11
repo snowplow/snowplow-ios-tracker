@@ -47,6 +47,9 @@
     return self;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     SPSubjectConfiguration *subjectConfiguration = nil;
     SPSessionConfiguration *sessionConfiguration = nil;
@@ -108,6 +111,8 @@
     SPTrackerController *trackerController = [[SPTrackerController alloc] initWithTracker:tracker];
     return trackerController;
 }
+
+#pragma clang diagnostic pop
 
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
     return [SPTrackerController setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:@[]];

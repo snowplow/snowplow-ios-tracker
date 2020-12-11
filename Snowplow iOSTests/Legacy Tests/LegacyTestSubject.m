@@ -1,5 +1,5 @@
 //
-//  TestSubject.m
+//  LegacyTestSubject.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -25,11 +25,14 @@
 #import "SPSubject.h"
 #import "SPPayload.h"
 
-@interface TestSubject : XCTestCase
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
+@interface LegacyTestSubject : XCTestCase
 
 @end
 
-@implementation TestSubject
+@implementation LegacyTestSubject
 
 - (void)setUp {
     [super setUp];
@@ -111,3 +114,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

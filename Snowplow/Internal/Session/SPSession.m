@@ -260,7 +260,6 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) sendBackgroundEvent {
     if (self.tracker) {
-        __weak __typeof__(self) weakSelf = self;
         SPBackground *backgroundEvent = [[SPBackground alloc] initWithIndex:@(_backgroundIndex)];
         [self.tracker track:backgroundEvent];
     }
@@ -268,7 +267,6 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) sendForegroundEvent {
     if (self.tracker) {
-        __weak __typeof__(self) weakSelf = self;
         SPForeground *foregroundEvent = [[SPForeground alloc] initWithIndex:@(_foregroundIndex)];
         [self.tracker track:foregroundEvent];
     }

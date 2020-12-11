@@ -39,6 +39,9 @@
     NSMutableDictionary * _geoLocationDict;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (id) init {
     return [self initWithPlatformContext:false andGeoContext:false];
 }
@@ -82,6 +85,8 @@
     }
     return self;
 }
+
+#pragma clang diagnostic pop
 
 - (SPPayload *) getStandardDict {
     return _standardDict;

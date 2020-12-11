@@ -65,7 +65,6 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief The builder for SPTracker.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(TrackerBuilder)
 @protocol SPTrackerBuilder <NSObject>
 
@@ -217,6 +216,7 @@ NS_SWIFT_NAME(TrackerBuilder)
             documentDescription:(NSString *)documentDescription;
 
 @end
+
 
 /*!
  @class SPTracker

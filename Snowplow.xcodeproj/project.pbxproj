@@ -66,14 +66,13 @@
 		75CAC40521F2955100271FB3 /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F121F2955000271FB3 /* TestSession.m */; };
 		75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F221F2955000271FB3 /* TestEventStore.m */; };
 		75CAC40721F2955100271FB3 /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F321F2955000271FB3 /* TestPayload.m */; };
-		75CAC40821F2955100271FB3 /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F421F2955000271FB3 /* TestSubject.m */; };
+		75CAC40821F2955100271FB3 /* LegacyTestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F421F2955000271FB3 /* LegacyTestSubject.m */; };
 		75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F521F2955000271FB3 /* TestSelfDescribingJson.m */; };
 		75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F621F2955000271FB3 /* TestGeneratedJsons.m */; };
 		75CAC40C21F2955100271FB3 /* LegacyTestEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FA21F2955000271FB3 /* LegacyTestEvent.m */; };
-		75CAC40D21F2955100271FB3 /* TestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FB21F2955100271FB3 /* TestEmitter.m */; };
+		75CAC40D21F2955100271FB3 /* LegacyTestEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FB21F2955100271FB3 /* LegacyTestEmitter.m */; };
 		75CAC40E21F2955100271FB3 /* TestRequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FC21F2955100271FB3 /* TestRequestResult.m */; };
-		75CAC40F21F2955100271FB3 /* SnowplowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3FD21F2955100271FB3 /* SnowplowTests.m */; };
-		75CAC41121F2955100271FB3 /* TestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40021F2955100271FB3 /* TestTracker.m */; };
+		75CAC41121F2955100271FB3 /* LegacyTestTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40021F2955100271FB3 /* LegacyTestTracker.m */; };
 		75CAC41221F2955100271FB3 /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40121F2955100271FB3 /* TestRequest.m */; };
 		75CAC41321F2955100271FB3 /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40221F2955100271FB3 /* TestUtils.m */; };
 		75CAC41A21F2959800271FB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
@@ -629,16 +628,15 @@
 		75CAC3F121F2955000271FB3 /* TestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSession.m; sourceTree = "<group>"; };
 		75CAC3F221F2955000271FB3 /* TestEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEventStore.m; sourceTree = "<group>"; };
 		75CAC3F321F2955000271FB3 /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
-		75CAC3F421F2955000271FB3 /* TestSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSubject.m; sourceTree = "<group>"; };
+		75CAC3F421F2955000271FB3 /* LegacyTestSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyTestSubject.m; sourceTree = "<group>"; };
 		75CAC3F521F2955000271FB3 /* TestSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSelfDescribingJson.m; sourceTree = "<group>"; };
 		75CAC3F621F2955000271FB3 /* TestGeneratedJsons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestGeneratedJsons.m; sourceTree = "<group>"; };
 		75CAC3F921F2955000271FB3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		75CAC3FA21F2955000271FB3 /* LegacyTestEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyTestEvent.m; sourceTree = "<group>"; };
-		75CAC3FB21F2955100271FB3 /* TestEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEmitter.m; sourceTree = "<group>"; };
+		75CAC3FB21F2955100271FB3 /* LegacyTestEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyTestEmitter.m; sourceTree = "<group>"; };
 		75CAC3FC21F2955100271FB3 /* TestRequestResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequestResult.m; sourceTree = "<group>"; };
-		75CAC3FD21F2955100271FB3 /* SnowplowTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SnowplowTests.m; sourceTree = "<group>"; };
 		75CAC3FF21F2955100271FB3 /* iglu_resolver.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = iglu_resolver.json; sourceTree = "<group>"; };
-		75CAC40021F2955100271FB3 /* TestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestTracker.m; sourceTree = "<group>"; };
+		75CAC40021F2955100271FB3 /* LegacyTestTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyTestTracker.m; sourceTree = "<group>"; };
 		75CAC40121F2955100271FB3 /* TestRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestRequest.m; sourceTree = "<group>"; };
 		75CAC40221F2955100271FB3 /* TestUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestUtils.m; sourceTree = "<group>"; };
 		75CAC40321F2955100271FB3 /* SnowplowTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SnowplowTests-Info.plist"; sourceTree = "<group>"; };
@@ -832,16 +830,14 @@
 		752DABD821CC38560065F874 /* Snowplow iOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				ED88B6C62583A3770048FAD1 /* Legacy Tests */,
 				ED8BF8EB2570FAFB001DFDD9 /* Configurations */,
 				ED914EB02430D03A0068DA0A /* Global Contexts */,
 				75CAC3F721F2955000271FB3 /* en.lproj */,
 				75CAC40421F2955100271FB3 /* Info.plist */,
 				75CAC3FE21F2955100271FB3 /* Products */,
 				75CAC40321F2955100271FB3 /* SnowplowTests-Info.plist */,
-				75CAC3FD21F2955100271FB3 /* SnowplowTests.m */,
-				75CAC3FB21F2955100271FB3 /* TestEmitter.m */,
 				EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */,
-				75CAC3FA21F2955000271FB3 /* LegacyTestEvent.m */,
 				ED88B6B2258253F20048FAD1 /* TestEvents.m */,
 				75CAC3F221F2955000271FB3 /* TestEventStore.m */,
 				75CAC3F621F2955000271FB3 /* TestGeneratedJsons.m */,
@@ -850,8 +846,6 @@
 				75CAC3FC21F2955100271FB3 /* TestRequestResult.m */,
 				75CAC3F521F2955000271FB3 /* TestSelfDescribingJson.m */,
 				75CAC3F121F2955000271FB3 /* TestSession.m */,
-				75CAC3F421F2955000271FB3 /* TestSubject.m */,
-				75CAC40021F2955100271FB3 /* TestTracker.m */,
 				75CAC40221F2955100271FB3 /* TestUtils.m */,
 				7534D20722569F3400904EE5 /* TestScreenState.m */,
 				EDEE836224C0C317000B8530 /* TestLogger.m */,
@@ -957,6 +951,17 @@
 				ED914EB924325AB40068DA0A /* SPGdprContext.m */,
 			);
 			path = GDPR;
+			sourceTree = "<group>";
+		};
+		ED88B6C62583A3770048FAD1 /* Legacy Tests */ = {
+			isa = PBXGroup;
+			children = (
+				75CAC3FA21F2955000271FB3 /* LegacyTestEvent.m */,
+				75CAC3F421F2955000271FB3 /* LegacyTestSubject.m */,
+				75CAC40021F2955100271FB3 /* LegacyTestTracker.m */,
+				75CAC3FB21F2955100271FB3 /* LegacyTestEmitter.m */,
+			);
+			path = "Legacy Tests";
 			sourceTree = "<group>";
 		};
 		ED8BF8B0256FFEA4001DFDD9 /* Configurations */ = {
@@ -1785,13 +1790,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				75CAC40821F2955100271FB3 /* TestSubject.m in Sources */,
+				75CAC40821F2955100271FB3 /* LegacyTestSubject.m in Sources */,
 				ED8BF8ED2570FB2F001DFDD9 /* TestTrackerConfiguration.m in Sources */,
 				75CAC41221F2955100271FB3 /* TestRequest.m in Sources */,
 				75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */,
 				ED914EB72432081F0068DA0A /* TestSchemaRuleset.m in Sources */,
-				75CAC41121F2955100271FB3 /* TestTracker.m in Sources */,
-				75CAC40D21F2955100271FB3 /* TestEmitter.m in Sources */,
+				75CAC41121F2955100271FB3 /* LegacyTestTracker.m in Sources */,
+				75CAC40D21F2955100271FB3 /* LegacyTestEmitter.m in Sources */,
 				75CAC40721F2955100271FB3 /* TestPayload.m in Sources */,
 				75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */,
 				7534D20822569F3400904EE5 /* TestScreenState.m in Sources */,
@@ -1799,7 +1804,6 @@
 				EDCBD0D824F5084900D39DD2 /* TestNetworkConnection.m in Sources */,
 				ED88B6B3258253F20048FAD1 /* TestEvents.m in Sources */,
 				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
-				75CAC40F21F2955100271FB3 /* SnowplowTests.m in Sources */,
 				ED87A43D2577E441000C54EB /* TestTrackerController.m in Sources */,
 				EDEE836324C0C318000B8530 /* TestLogger.m in Sources */,
 				75CAC41321F2955100271FB3 /* TestUtils.m in Sources */,

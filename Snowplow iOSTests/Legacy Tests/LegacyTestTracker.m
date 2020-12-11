@@ -1,5 +1,5 @@
 //
-//  TestTracker.m
+//  LegacyTestTracker.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
@@ -28,6 +28,8 @@
 #import "SPDevicePlatform.h"
 #import "SPTrackerEvent.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 /// Category needed to make the private methods testable.
 @interface SPTracker (Testing)
@@ -35,19 +37,32 @@
 @end
 
 
-@interface TestTracker : XCTestCase
+@interface LegacyTestTracker : XCTestCase
 @end
 
-@implementation TestTracker
+@implementation LegacyTestTracker
 
 NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
 
-- (void)setUp {
-    [super setUp];
-}
-
-- (void)tearDown {
-    [super tearDown];
+- (void)testTrackerSetup {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:@"not-real.com"];
+    }];
+    
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
+    
+    SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
+        [builder setEmitter:emitter];
+        [builder setSubject:subject];
+        [builder setAppId:@"anAppId"];
+        [builder setBase64Encoded:NO];
+        [builder setTrackerNamespace:@"aNamespace"];
+        [builder setSessionContext:YES];
+    }];
+    
+    XCTAssertNotNil(subject);
+    XCTAssertNotNil(emitter);
+    XCTAssertNotNil(tracker);
 }
 
 - (void)testTrackerBuilderAndOptions {
@@ -191,3 +206,5 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
 }
 
 @end
+
+#pragma clang diagnostic pop
