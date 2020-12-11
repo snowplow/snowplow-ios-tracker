@@ -74,6 +74,9 @@
 
 // --- Builder Methods
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setAction:(NSString *)action {
     _action = action;
 }
@@ -97,6 +100,8 @@
 - (void) setNotification:(SPNotificationContent *)content {
     _notification = content;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -167,6 +172,9 @@ SP_BUILDER_METHOD(NSString *, launchImageName)
 SP_BUILDER_METHOD(NSDictionary *, userInfo)
 SP_BUILDER_METHOD(NSArray *, attachments)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setTitle:(NSString *)title {
     _title = title;
 }
@@ -198,6 +206,8 @@ SP_BUILDER_METHOD(NSArray *, attachments)
 - (void) setAttachments:(NSArray *)attachments {
     _attachments = attachments;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

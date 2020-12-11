@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentWithdrawnBuilder
  @brief The protocol for building consent withdrawn events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(ConsentWithdrawnBuilder)
 @protocol SPConsentWithdrawnBuilder <SPEventBuilder>
 

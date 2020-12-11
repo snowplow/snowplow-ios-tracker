@@ -55,9 +55,14 @@
 
 // --- Builder Methods
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setIndex:(NSNumber *)index {
     _index = index;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

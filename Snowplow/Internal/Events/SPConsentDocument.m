@@ -31,7 +31,7 @@
     NSString * _documentId;
     NSString * _version;
     NSString * _name;
-    NSString * _description;
+    NSString * _documentDescription;
 }
 
 + (instancetype)build:(void(^)(id<SPConsentDocumentBuilder> builder))buildBlock {
@@ -62,7 +62,10 @@
 // --- Builder Methods
 
 SP_BUILDER_METHOD(NSString *, name)
-SP_BUILDER_METHOD(NSString *, description)
+SP_BUILDER_METHOD(NSString *, documentDescription)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setDocumentId:(NSString *)dId {
     _documentId = dId;
@@ -77,8 +80,10 @@ SP_BUILDER_METHOD(NSString *, description)
 }
 
 - (void) setDescription:(NSString *)description {
-    _description = description;
+    _documentDescription = description;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -90,8 +95,8 @@ SP_BUILDER_METHOD(NSString *, description)
     if ([_name length] != 0) {
         [event setObject:_name forKey:kSPCdName];
     }
-    if ([_description length] != 0) {
-        [event setObject:_description forKey:KSPCdDescription];
+    if ([_documentDescription length] != 0) {
+        [event setObject:_documentDescription forKey:KSPCdDescription];
     }
 
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentDocumentSchema

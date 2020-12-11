@@ -69,6 +69,9 @@ SP_BUILDER_METHOD(NSString *, documentDescription)
 SP_BUILDER_METHOD(NSString *, expiry)
 SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setDocumentId:(NSString *)dId {
     _documentId = dId;
 }
@@ -93,6 +96,8 @@ SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
     _documents = documents;
 }
 
+#pragma clang diagnostic pop
+
 // --- Public Methods
 
 - (NSString *)schema {
@@ -106,28 +111,19 @@ SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
 }
 
 - (NSArray<SPSelfDescribingJson *> *) getDocuments {
-    __weak __typeof__(self) weakSelf = self;
-    
-    // returns the result of appending document passed through {docId, version, name, description} to the documents data member
-    NSMutableArray<SPSelfDescribingJson *> * documents = [NSMutableArray<SPSelfDescribingJson *> new];
-    if (self == nil) {
-        return documents;
+    NSMutableArray<SPSelfDescribingJson *> *documents = [NSMutableArray<SPSelfDescribingJson *> new];
+
+    SPConsentDocument *document = [[SPConsentDocument alloc] initWithDocumentId:_documentId version:_version];
+    if (_name.length != 0) {
+        document.name = _name;
     }
-    SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) return;
-        [builder setDocumentId:strongSelf->_documentId];
-        [builder setVersion:strongSelf->_version];
-        if ([strongSelf->_name length] != 0) {
-            [builder setName:strongSelf->_name];
-        }
-        if ([strongSelf->_documentDescription length] != 0) {
-            [builder setDescription:strongSelf->_documentDescription];
-        }
-    }];
+    if (_documentDescription != 0) {
+        document.documentDescription = _documentDescription;
+    }
+
     [documents addObject:[document getPayload]];
-    if ([self->_documents count] > 0) {
-        [documents addObjectsFromArray:self->_documents];
+    if (_documents.count > 0) {
+        [documents addObjectsFromArray:_documents];
     }
     return documents;
 }

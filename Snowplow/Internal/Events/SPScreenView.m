@@ -80,6 +80,9 @@ SP_BUILDER_METHOD(NSString *, transitionType)
 SP_BUILDER_METHOD(NSString *, viewControllerClassName)
 SP_BUILDER_METHOD(NSString *, topViewControllerClassName)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setName:(NSString *)name {
     _name = name;
 }
@@ -115,6 +118,8 @@ SP_BUILDER_METHOD(NSString *, topViewControllerClassName)
 - (void) setTopViewControllerClassName:(NSString *)className {
     _topViewControllerClassName = className;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

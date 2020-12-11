@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPUnstructuredBuilder
  @brief The protocol for building unstructured events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(UnstructuredBuilder)
 @protocol SPUnstructuredBuilder <SPEventBuilder>
 /*!

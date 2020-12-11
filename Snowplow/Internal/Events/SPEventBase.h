@@ -59,7 +59,6 @@ NS_SWIFT_NAME(InspectableEvent)
 
 
 /// This protocol defines basic functionality needed to build all events
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(EventBuilder)
 @protocol SPEventBuilder <NSObject>
 
@@ -67,13 +66,13 @@ NS_SWIFT_NAME(EventBuilder)
  @brief Set the optional timestamp of the event.
  @param timestamp The timestamp of the event in seconds (epoch time)
  */
-- (void)setTrueTimestamp:(NSDate *)timestamp __deprecated_msg("Use `trueTimestamp` of event class instead.");
+- (void)setTrueTimestamp:(NSDate *)timestamp;
 
 /*!
  @brief Set the contexts attached to the event.
  @param contexts An array of contexts (should be self-describing JSONs).
  */
-- (void) setContexts:(NSMutableArray *)contexts __deprecated_msg("Use `contexts` of event class instead.");
+- (void) setContexts:(NSMutableArray *)contexts;
 
 @end
 

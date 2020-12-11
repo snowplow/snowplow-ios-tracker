@@ -61,6 +61,9 @@
 SP_BUILDER_METHOD(NSString *, pageTitle)
 SP_BUILDER_METHOD(NSString *, referrer)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setPageUrl:(NSString *)pageUrl {
     _pageUrl = pageUrl;
 }
@@ -72,6 +75,8 @@ SP_BUILDER_METHOD(NSString *, referrer)
 - (void) setReferrer:(NSString *)referrer {
     _referrer = referrer;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

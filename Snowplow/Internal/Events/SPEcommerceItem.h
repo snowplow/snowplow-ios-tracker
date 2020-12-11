@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPEcommTransactionItemBuilder
  @brief The protocol for building ecommerce transaction item events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(EcommTransactionItemBuilder)
 @protocol SPEcommTransactionItemBuilder <SPEventBuilder>
 

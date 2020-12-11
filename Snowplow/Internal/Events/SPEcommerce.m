@@ -78,6 +78,9 @@ SP_BUILDER_METHOD(NSString *, state)
 SP_BUILDER_METHOD(NSString *, country)
 SP_BUILDER_METHOD(NSString *, currency)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setOrderId:(NSString *)orderId {
     _orderId = orderId;
 }
@@ -117,6 +120,8 @@ SP_BUILDER_METHOD(NSString *, currency)
 - (void) setItems:(NSArray<SPEcommerceItem *> *)items {
     _items = items;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPBackgroundBuilder
  @brief The protocol for building background events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(BackgroundBuilder)
 @protocol SPBackgroundBuilder <SPEventBuilder>
 

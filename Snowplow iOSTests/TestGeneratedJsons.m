@@ -112,13 +112,10 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 - (void)testStructuredEventPayloadJson  {
     SPTracker * tracker = [self getTracker:@"acme.fake.url"];
     [tracker setBase64Encoded:false];
-    SPStructured *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"DemoCategory"];
-        [builder setAction:@"DemoAction"];
-        [builder setLabel:@"DemoLabel"];
-        [builder setProperty:@"DemoProperty"];
-        [builder setValue:5];
-    }];
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"DemoCategory" action:@"DemoAction"];
+    event.label = @"DemoLabel";
+    event.property = @"DemoProperty";
+    event.value = @5;
     
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
@@ -136,24 +133,22 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     NSMutableDictionary * input = [[NSMutableDictionary alloc] init];
     [input setObject:[NSNumber numberWithInt:23] forKey:@"level"];
     [input setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
-    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+    SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:input];
-    SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:sdj];
-    }];
+    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
     
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
-    NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
+    NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
-    NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    NSArray *dataArray = [NSArray arrayWithObject:data];
+    NSDictionary<NSString *, NSObject *> *json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
 
     XCTAssertTrue([validator validateJson:json]);
     
     // Check that the nested unstructured event passes validation
-    NSString * ue_pr = [data objectForKey:@"ue_pr"];
-    NSDictionary * unstructDictionary = [NSJSONSerialization JSONObjectWithData:[ue_pr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    NSString * ue_pr = (NSString *)[data objectForKey:@"ue_pr"];
+    NSDictionary *unstructDictionary = [NSJSONSerialization JSONObjectWithData:[ue_pr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     
     XCTAssertTrue([validator validateJson:unstructDictionary]);
 }
@@ -166,80 +161,67 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [input setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:input];
-    SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData: sdj];
-    }];
+    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
 
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
-    NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
+    NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
-    NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    NSArray *dataArray = [NSArray arrayWithObject:data];
+    NSDictionary<NSString *, NSObject *> *json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
 
     XCTAssertTrue([validator validateJson:json]);
 
     // Check that the nested unstructured event passes validation
-    NSString * ue_pr = [data objectForKey:@"ue_pr"];
-    NSDictionary * unstructDictionary = [NSJSONSerialization JSONObjectWithData:[ue_pr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    NSString *ue_pr = (NSString *)[data objectForKey:@"ue_pr"];
+    NSDictionary *unstructDictionary = [NSJSONSerialization JSONObjectWithData:[ue_pr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
 
     XCTAssertTrue([validator validateJson:unstructDictionary]);
 }
 
 - (void)testConsentWithdrawnEventPayloadJson {
-    SPConsentWithdrawn * event = [SPConsentWithdrawn build:^(id<SPConsentWithdrawnBuilder> builder) {
-        [builder setDescription:@"Description"];
-        [builder setDocumentId:@"1234"];
-        [builder setVersion:@"10"];
-        [builder setAll:false];
-        [builder setName:@"Name"];
-    }];
+    SPConsentWithdrawn *event = [[SPConsentWithdrawn alloc] init];
+    [event documentDescription:@"Description"];
+    [event documentId:@"1234"];
+    [event version:@"10"];
+    [event all:false];
+    [event name:@"Name"];
 
-    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    NSDictionary<NSString *, NSObject *> *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testConsentDocumentEventPayloadJson {
-    SPConsentDocument *event = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        [builder setDescription:@"Description"];
-        [builder setDocumentId:@"1234"];
-        [builder setVersion:@"10"];
-        [builder setName:@"Name"];
-    }];
-
-    NSDictionary * sdj = [[event getPayload] getAsDictionary];
-
-    // Test that the SelfDescribingJson passes validation
+    SPConsentDocument *event = [[SPConsentDocument alloc] initWithDocumentId:@"1234" version:@"10"];
+    [event documentDescription:@"Description"];
+    [event name:@"Name"];
+    
+    NSDictionary<NSString *, NSObject *> *sdj = [[event getPayload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testConsentGrantedEventPayloadJson {
-    SPConsentGranted *event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-        [builder setDescription:@"Description"];
-        [builder setDocumentId:@"1234"];
-        [builder setVersion:@"10"];
-        [builder setExpiry:@"2012-04-23T18:25:43.511Z"];
-        [builder setName:@"Name"];
-    }];
-
-    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithDocumentId:@"1234" version:@"10"];
+    [event documentDescription:@"Description"];
+    [event expiry:@"2012-04-23T18:25:43.511Z"];
+    [event name:@"Name"];
+    
+    NSDictionary<NSString *, NSObject *> *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testPageViewEventPayloadJson {
-    SPTracker * tracker = [self getTracker:@"acme.fake.url"];
-    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-        [builder setPageTitle:@"DemoPageTitle"];
-        [builder setReferrer:@"DemoPageReferrer"];
-    }];
+    SPTracker *tracker = [self getTracker:@"acme.fake.url"];
+    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
+    event.pageTitle = @"DemoPageTitle";
+    event.referrer = @"DemoPageReferrer";
 
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
-    NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
+    NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
-    NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    NSArray *dataArray = [NSArray arrayWithObject:data];
+    NSDictionary<NSString *, NSObject *> *json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
     
     XCTAssertTrue([validator validateJson:json]);
 }
@@ -249,35 +231,27 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
-    SPEcommerceItem * item = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-        [builder setItemId:transactionID];
-        [builder setSku:@"DemoItemSku"];
-        [builder setName:@"DemoItemName"];
-        [builder setCategory:@"DemoItemCategory"];
-        [builder setPrice:0.75F];
-        [builder setQuantity:1];
-        [builder setCurrency:@"USD"];
-    }];
-    [itemArray addObject:item];
-    SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-        [builder setOrderId:transactionID];
-        [builder setTotalValue:350];
-        [builder setAffiliation:@"DemoTranAffiliation"];
-        [builder setTaxValue:10];
-        [builder setShipping:15];
-        [builder setCity:@"Boston"];
-        [builder setState:@"Massachusetts"];
-        [builder setCountry:@"USA"];
-        [builder setCurrency:@"USD"];
-        [builder setItems:itemArray];
-    }];
+    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithItemId:transactionID sku:@"DemoItemSku" price:@0.75F quantity:@1];
+    [item name:@"DemoItemName"];
+    [item category:@"DemoItemCategory"];
+    [item currency:@"USD"];
     
+    [itemArray addObject:item];
+    SPEcommerce *event = [[SPEcommerce alloc] initWithOrderId:transactionID totalValue:@350 items:itemArray];
+    [event affiliation:@"DemoTranAffiliation"];
+    [event taxValue:@10];
+    [event shipping:@15];
+    [event city:@"Boston"];
+    [event state:@"Massachusetts"];
+    [event country:@"USA"];
+    [event currency:@"USD"];
+
     // Check that the main payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
-    NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
+    NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
-    NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    NSArray *dataArray = [NSArray arrayWithObject:data];
+    NSDictionary<NSString *, NSObject *> *json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
     
     XCTAssertTrue([validator validateJson:json]);
     
@@ -291,33 +265,25 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void)testTimingEventJson {
-    SPTiming *event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-        [builder setCategory:@"DemoTimingCategory"];
-        [builder setVariable:@"DemoTimingVariable"];
-        [builder setTiming:5];
-        [builder setLabel:@"DemoTimingLabel"];
-    }];
-    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    SPTiming *event = [[SPTiming alloc] initWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:@5];
+    NSDictionary<NSString *, NSObject *> *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testScreenViewEventJson {
-    SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-        [builder setName:@"DemoScreenName"];
-        [builder setScreenId:[NSUUID UUID].UUIDString];
-    }];
-    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    SPScreenView *event = [[SPScreenView alloc] initWithName:@"DemoScreenName" screenId:[NSUUID UUID]];
+    NSDictionary<NSString *, NSObject *> *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testPushNotificationEventJson {
-    NSMutableArray * attachments = [[NSMutableArray alloc] init];
+    NSMutableArray *attachments = [[NSMutableArray alloc] init];
     [attachments addObject:@{ kSPPnAttachmentId : @"identifier",
                               kSPPnAttachmentUrl : @"url",
                               kSPPnAttachmentType : @"type"
                               }];
 
-    NSDictionary * userInfo = @{@"aps":
+    NSDictionary *userInfo = @{@"aps":
                                     @{@"alert":
                                           @{@"title": @"test title",
                                             @"body": @"test",
@@ -327,69 +293,54 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
                                           }
                                     };
 
-    SPNotificationContent * content = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
-        [builder setTitle:@"title"];
-        [builder setSubtitle:@"subtitle"];
-        [builder setBody:@"body"];
-        [builder setBadge:[NSNumber numberWithInt:5]];
-        [builder setSound:@"sound"];
-        [builder setLaunchImageName:@"launchImageName"];
-        [builder setUserInfo: userInfo];
-        //[builder setAttachments: [NSArray arrayWithArray:attachments]];
-    }];
+    SPNotificationContent *content = [[SPNotificationContent alloc] initWithTitle:@"title" body:@"body" badge:@5];
+    [content subtitle:@"subtitle"];
+    [content sound:@"sound"];
+    [content launchImageName:@"launchImageName"];
+    [content userInfo: userInfo];
 
-    SPPushNotification * event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-        [builder setTrigger:@"PUSH"];
-        [builder setAction:@"action"];
-        [builder setDeliveryDate:@"date"];
-        [builder setCategoryIdentifier:@"category"];
-        [builder setThreadIdentifier:@"thread"];
-        [builder setNotification:content];
-    }];
-    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    SPPushNotification *event = [[SPPushNotification alloc] initWithDate:@"date" action:@"action" trigger:@"PUSH" category:@"category" thread:@"thread" notification:content];
+    
+    NSDictionary *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testApplicationInstallJson {
-    SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-    NSDictionary * json = [installEvent getAsDictionary];
+    SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
+    NSDictionary<NSString *, NSObject *> *json = [installEvent getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
 }
 
 - (void)testApplicationContextJson {
-    SPSelfDescribingJson * json = [SPUtilities getApplicationContextWithVersion:@"testversion" andBuild:@"testbuild"];
+    SPSelfDescribingJson *json = [SPUtilities getApplicationContextWithVersion:@"testversion" andBuild:@"testbuild"];
     XCTAssertTrue([validator validateJson:[json getAsDictionary]]);
 }
 
 - (void)testErrorEventJson {
-    SNOWError *event = [SNOWError build:^(id<SPErrorBuilder> builder) {
-        [builder setMessage:@"some error message"];
-        [builder setName:@"some exception name"];
-        [builder setStackTrace:@"some stack trace"];
-    }];
-    NSDictionary * sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    SNOWError *event = [[SNOWError alloc] initWithMessage:@"some error message"];
+    event.name = @"some exception name";
+    event.stackTrace = @"some stack trace";
+    NSDictionary<NSString *, NSObject *> *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
 - (void)testFinalEventPayloadJson {
-    SPTracker * tracker = [self getTracker:@"acme.fake.url"];
-    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-        [builder setPageTitle:@"DemoPageTitle"];
-        [builder setReferrer:@"DemoPageReferrer"];
-    }];
+    SPTracker *tracker = [self getTracker:@"acme.fake.url"];
+    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
+    [event pageTitle:@"DemoPageTitle"];
+    [event referrer:@"DemoPageReferrer"];
     
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
-    NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
+    NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
-    NSArray * dataArray = [NSArray arrayWithObject:data];
-    NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
+    NSArray *dataArray = [NSArray arrayWithObject:data];
+    NSDictionary<NSString *, NSObject *> *json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPPayloadDataSchema andData:dataArray] getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
     
     // Check that the nested context json passes validation
-    NSString * contextsJson = [data objectForKey:@"co"];
-    NSDictionary * contextDictionary = [NSJSONSerialization JSONObjectWithData:[contextsJson dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    NSString *contextsJson = (NSString *)[data objectForKey:@"co"];
+    NSDictionary *contextDictionary = [NSJSONSerialization JSONObjectWithData:[contextsJson dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     XCTAssertTrue([validator validateJson:contextDictionary]);
 }
 

@@ -166,11 +166,7 @@
         }];
     }];
     
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
@@ -206,11 +202,7 @@
         }];
     }];
     
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:stringToMatch];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitive *event = [[SPStructured alloc] initWithCategory:stringToMatch action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
@@ -245,31 +237,19 @@
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
 
     // Not matching primitive event
-    SPPrimitive *primitiveEvent = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitive *primitiveEvent = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:primitiveEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
     // Not matching self-describing event with mobile schema
-    SPSelfDescribing *selfDescribingEvent = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-        [builder setName:@"Name"];
-        [builder setType:@"Type"];
-    }];
+    SPSelfDescribing *selfDescribingEvent = [[[SPScreenView alloc] initWithName:@"Name" screenId:nil] type:@"Type"];
     trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
     // Matching self-describing event with general schema
-    selfDescribingEvent = [SPTiming build:^(id<SPTimingBuilder>  _Nonnull builder) {
-        [builder setTiming:123];
-        [builder setLabel:@"Label"];
-        [builder setCategory:@"Category"];
-        [builder setVariable:@"Variable"];
-    }];
+    selfDescribingEvent = [[[SPTiming alloc] initWithCategory:@"Category" variable:@"Variable" timing:@123] label:@"Label"];
     trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 1);
@@ -295,12 +275,8 @@
             @"generator": generatorGC,
         }];
     }];
-    
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+
+    SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
@@ -327,11 +303,7 @@
         }];
     }];
     
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"StringToMatch"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"StringToMatch" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];

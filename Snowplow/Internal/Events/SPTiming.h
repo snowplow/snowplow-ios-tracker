@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPTimingBuilder
  @brief The protocol for building timing events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(TimingBuilder)
 @protocol SPTimingBuilder <SPEventBuilder>
 

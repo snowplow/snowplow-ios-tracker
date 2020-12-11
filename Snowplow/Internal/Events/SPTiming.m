@@ -66,6 +66,9 @@
 
 SP_BUILDER_METHOD(NSString *, label)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setCategory:(NSString *)category {
     _category = category;
 }
@@ -81,6 +84,8 @@ SP_BUILDER_METHOD(NSString *, label)
 - (void) setLabel:(NSString *)label {
     _label = label;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

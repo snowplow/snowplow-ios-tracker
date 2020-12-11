@@ -61,6 +61,9 @@
 SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, stackTrace)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setMessage:(NSString *)message {
     _message = message;
 }
@@ -72,6 +75,8 @@ SP_BUILDER_METHOD(NSString *, stackTrace)
 - (void) setName:(NSString *)name {
     _name = name;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

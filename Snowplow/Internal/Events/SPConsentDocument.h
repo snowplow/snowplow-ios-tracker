@@ -71,7 +71,7 @@ NS_SWIFT_NAME(ConsentDocument)
 @property (nonatomic, readonly) NSString *documentId;
 @property (nonatomic, readonly) NSString *version;
 @property (nonatomic, nullable) NSString *name;
-@property (nonatomic, nullable) NSString *description;
+@property (nonatomic, nullable) NSString *documentDescription;
 
 + (instancetype)build:(void(^)(id<SPConsentDocumentBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
@@ -82,7 +82,7 @@ NS_SWIFT_NAME(ConsentDocument)
 - (SPSelfDescribingJson *) getPayload;
 
 SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
-SP_BUILDER_DECLARE_NULLABLE(NSString *, description)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, documentDescription)
 
 @end
 

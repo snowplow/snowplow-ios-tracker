@@ -261,11 +261,7 @@ NSString * const kSessionSavePath = @"session.dict";
 - (void) sendBackgroundEvent {
     if (self.tracker) {
         __weak __typeof__(self) weakSelf = self;
-        SPBackground * backgroundEvent = [SPBackground build:^(id<SPBackgroundBuilder> builder) {
-            __typeof__(self) strongSelf = weakSelf;
-            if (strongSelf == nil) return;
-            [builder setIndex:[NSNumber numberWithInteger:strongSelf->_backgroundIndex]];
-        }];
+        SPBackground *backgroundEvent = [[SPBackground alloc] initWithIndex:@(_backgroundIndex)];
         [self.tracker track:backgroundEvent];
     }
 }
@@ -273,11 +269,7 @@ NSString * const kSessionSavePath = @"session.dict";
 - (void) sendForegroundEvent {
     if (self.tracker) {
         __weak __typeof__(self) weakSelf = self;
-        SPForeground * foregroundEvent = [SPForeground build:^(id<SPForegroundBuilder> builder) {
-            __typeof__(self) strongSelf = weakSelf;
-            if (strongSelf == nil) return;
-            [builder setIndex:[NSNumber numberWithInteger:strongSelf->_foregroundIndex]];
-        }];
+        SPForeground *foregroundEvent = [[SPForeground alloc] initWithIndex:@(_foregroundIndex)];
         [self.tracker track:foregroundEvent];
     }
 }

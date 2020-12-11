@@ -58,9 +58,14 @@
 
 // --- Builder Methods
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setEventData:(SPSelfDescribingJson *)eventData {
     _eventData = eventData;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

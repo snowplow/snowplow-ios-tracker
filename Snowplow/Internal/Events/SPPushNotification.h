@@ -31,7 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPPushNotificationBuilder
  @brief The protocol for building push notification events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(PushNotificationBuilder)
 @protocol SPPushNotificationBuilder <SPEventBuilder>
 
@@ -82,7 +81,6 @@ NS_SWIFT_NAME(PushNotificationBuilder)
  @protocol SPNotificationContentBuilder
  @brief The protocol for building notification content.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(NotificationContentBuilder)
 @protocol SPNotificationContentBuilder
 
@@ -91,7 +89,7 @@ NS_SWIFT_NAME(NotificationContentBuilder)
 
  @param title Title displayed in notification.
  */
-- (void) setTitle:(NSString *)title __deprecated_msg("Use `title` of `NotificationContent` class instead.");
+- (void) setTitle:(NSString *)title __deprecated_msg("Use initializer of `NotificationContent` class instead.");
 
 /*!
  @brief Set the subtitle.

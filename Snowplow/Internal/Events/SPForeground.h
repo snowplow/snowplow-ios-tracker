@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPForegroundBuilder
  @brief The protocol for building foreground events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(ForegroundBuilder)
 @protocol SPForegroundBuilder <SPEventBuilder>
 

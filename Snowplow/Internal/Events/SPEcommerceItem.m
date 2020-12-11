@@ -73,6 +73,9 @@ SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, category)
 SP_BUILDER_METHOD(NSString *, currency)
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setItemId:(NSString *)itemId {
     _itemId = itemId;
 }
@@ -100,6 +103,8 @@ SP_BUILDER_METHOD(NSString *, currency)
 - (void) setCurrency:(NSString *)currency {
     _currency = currency;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 

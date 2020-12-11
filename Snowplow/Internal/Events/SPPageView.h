@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPPageViewBuilder
  @brief The protocol for building pageview events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(PageViewBuilder)
 @protocol SPPageViewBuilder <SPEventBuilder>
 

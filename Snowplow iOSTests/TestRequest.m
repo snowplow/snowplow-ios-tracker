@@ -170,7 +170,7 @@ NSString *protocol = @"https";
 
 // Pre-Built Events for sending!
 
-- (void) sendAll:(SPTracker *)tracker {
+- (void)sendAll:(SPTracker *)tracker {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self trackStructuredEventWithTracker:tracker];
         [self trackUnstructuredEventWithTracker:tracker];
@@ -182,114 +182,84 @@ NSString *protocol = @"https";
     });
 }
 
-- (void) trackStructuredEventWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    SPStructured *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"DemoCategory"];
-        [builder setAction:@"DemoAction"];
-        [builder setLabel:@"DemoLabel"];
-        [builder setProperty:@"DemoProperty"];
-        [builder setValue:5];
-        [builder setContexts:[self getCustomContext]];
-    }];
+- (void)trackStructuredEventWithTracker:(SPTracker *)tracker_ {
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"DemoCategory" action:@"DemoAction"];
+    event.label = @"DemoLabel";
+    event.property = @"DemoProperty";
+    event.value = @5;
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
-    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
+- (void)trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    [data setObject:@23 forKey:@"level"];
+    [data setObject:@56473 forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:sdj];
-        [builder setContexts:[self getCustomContext]];
-    }];
+    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
-    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
-    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
-    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
-                                                                      andData:data];
+- (void)trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    [data setObject:@23 forKey:@"level"];
+    [data setObject:@56473 forKey:@"score"];
+    SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                     andData:data];
     [tracker_ trackSelfDescribingEvent:sdj];
 }
 
-- (void) trackPageViewWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-        [builder setPageTitle:@"DemoPageTitle"];
-        [builder setReferrer:@"DemoPageReferrer"];
-        [builder setContexts:[self getCustomContext]];
-    }];
+- (void)trackPageViewWithTracker:(SPTracker *)tracker_ {
+    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
+    event.pageTitle = @"DemoPageTitle";
+    event.referrer = @"DemoPageReferrer";
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
-    NSString *eventId = [NSUUID UUID].UUIDString;
-    NSString *screenId = [NSUUID UUID].UUIDString;
-    SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-        [builder setName:@"DemoScreenName"];
-        [builder setScreenId:screenId];
-        [builder setContexts:[self getCustomContext]];
-    }];
+- (void)trackScreenViewWithTracker:(SPTracker *)tracker_ {
+    SPScreenView *event = [[SPScreenView alloc] initWithName:@"DemoScreenName" screenId:nil];
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    SPTiming *event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-        [builder setCategory:@"DemoTimingCategory"];
-        [builder setVariable:@"DemoTimingVariable"];
-        [builder setTiming:5];
-        [builder setLabel:@"DemoTimingLabel"];
-        [builder setContexts:[self getCustomContext]];
-    }];
+- (void)trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
+    SPTiming *event = [[SPTiming alloc] initWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:@5];
+    event.label = @"DemoTimingLabel";
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
+- (void)trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
     
-    SPEcommerceItem * item = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-        [builder setItemId:transactionID];
-        [builder setSku:@"DemoItemSku"];
-        [builder setName:@"DemoItemName"];
-        [builder setCategory:@"DemoItemCategory"];
-        [builder setPrice:0.75F];
-        [builder setQuantity:1];
-        [builder setCurrency:@"USD"];
-        [builder setContexts:[self getCustomContext]];
-    }];
-    
+    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithItemId:transactionID sku:@"DemoItemSku" price:@0.75F quantity:@1];
+    [item name:@"DemoItemName"];
+    [item category:@"DemoItemCategory"];
+    [item currency:@"USD"];
+    [item contexts:self.customContext];
+
     [itemArray addObject:item];
     
-    SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-        [builder setOrderId:transactionID];
-        [builder setTotalValue:350];
-        [builder setAffiliation:@"DemoTranAffiliation"];
-        [builder setTaxValue:10];
-        [builder setShipping:15];
-        [builder setCity:@"Boston"];
-        [builder setState:@"Massachusetts"];
-        [builder setCountry:@"USA"];
-        [builder setCurrency:@"USD"];
-        [builder setItems:itemArray];
-        [builder setContexts:[self getCustomContext]];
-    }];
+    SPEcommerce *event = [[SPEcommerce alloc] initWithOrderId:transactionID totalValue:@350 items:itemArray];
+    [event affiliation:@"DemoTranAffiliation"];
+    [event taxValue:@10];
+    [event shipping:@15];
+    [event city:@"Boston"];
+    [event state:@"Massachusetts"];
+    [event country:@"USA"];
+    [event currency:@"USD"];
+    [event contexts:self.customContext];
     [tracker_ track:event];
 }
 
-- (NSMutableArray *) getCustomContext {
-    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
-    SPSelfDescribingJson * context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
-                                                                          andData:data];
+- (NSMutableArray *)customContext {
+    NSDictionary *data = @{@"snowplow": @"demo-tracker"};
+    SPSelfDescribingJson *context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
+                                                                         andData:data];
     return [NSMutableArray arrayWithArray:@[context]];
 }
 

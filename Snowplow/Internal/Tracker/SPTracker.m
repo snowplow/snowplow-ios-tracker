@@ -87,12 +87,8 @@ void uncaughtExceptionHandler(NSException *exception) {
         if (message == nil || [message length] == 0) {
             return;
         }
-        SNOWError * error = [SNOWError build:^(id<SPErrorBuilder> builder) {
-            [builder setMessage:message];
-            if (stackTrace != nil && [stackTrace length] > 0) {
-                [builder setStackTrace:stackTrace];
-            }
-        }];
+        SNOWError *error = [[[SNOWError alloc] initWithMessage:message]
+                            stackTrace:stackTrace];
         [SPTracker.sharedInstance track:error];
         [NSThread sleepForTimeInterval:2.0f];
     });
@@ -231,35 +227,21 @@ static SPTracker *_sharedInstance = nil;
     _builderFinished = YES;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
-
-- (void) checkInstall {
-    SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
-    NSDate *previousTimestamp = installTracker.previousInstallTimestamp;
+- (void)checkInstall {
     if (_installEvent) {
-        if (installTracker.isNewInstall) {
-            SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-            SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-                [builder setEventData:installEvent];
-            }];
-            [self track:event];
-            if (previousTimestamp) {
-                [installTracker clearPreviousInstallTimestamp];
-            }
-        } else if (previousTimestamp) {
-            SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-            SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-                [builder setEventData:installEvent];
-                [builder setTrueTimestamp:previousTimestamp];
-            }];
-            [self track:event];
-            [installTracker clearPreviousInstallTimestamp];
+        SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
+        NSDate *previousTimestamp = installTracker.previousInstallTimestamp;
+        [installTracker clearPreviousInstallTimestamp];
+        
+        SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
+        SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:installEvent];
+        if (!installTracker.isNewInstall && previousTimestamp == nil) {
+            return;
         }
+        event.trueTimestamp = previousTimestamp; // it can be nil
+        [self track:event];
     }
 }
-
-#pragma GCC diagnostic pop
 
 - (void) setTrackerData {
     _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -473,18 +455,16 @@ static SPTracker *_sharedInstance = nil;
 #pragma mark - Notifications management
 
 - (void) receiveScreenViewNotification:(NSNotification *)notification {
-    NSString * name = [[notification userInfo] objectForKey:@"name"];
-    NSString * type = stringWithSPScreenType([[[notification userInfo] objectForKey:@"type"] integerValue]);
-    NSString * topViewControllerClassName = [[notification userInfo] objectForKey:@"topViewControllerClassName"];
-    NSString * viewControllerClassName = [[notification userInfo] objectForKey:@"viewControllerClassName"];
+    NSString *name = [[notification userInfo] objectForKey:@"name"];
+    NSString *type = stringWithSPScreenType([[[notification userInfo] objectForKey:@"type"] integerValue]);
+    NSString *topViewControllerClassName = [[notification userInfo] objectForKey:@"topViewControllerClassName"];
+    NSString *viewControllerClassName = [[notification userInfo] objectForKey:@"viewControllerClassName"];
 
     if (_autotrackScreenViews) {
-        SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-            [builder setName:name];
-            [builder setType:type];
-            [builder setViewControllerClassName:viewControllerClassName];
-            [builder setTopViewControllerClassName:topViewControllerClassName];
-        }];
+        SPScreenView *event = [[SPScreenView alloc] initWithName:name screenId:nil];
+        event.type = type;
+        event.viewControllerClassName = viewControllerClassName;
+        event.topViewControllerClassName = topViewControllerClassName;
         [self track:event];
     }
 }
@@ -493,9 +473,7 @@ static SPTracker *_sharedInstance = nil;
 
 - (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
     if (!event || !_dataCollection) return;
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData: event];
-    }];
+    SPUnstructured *unstruct = [[SPUnstructured alloc] initWithEventData:event];
     [self track:unstruct];
 }
 

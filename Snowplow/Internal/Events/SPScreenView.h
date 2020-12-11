@@ -31,7 +31,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPScreenViewBuilder
  @brief The protocol for building screenview events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(ScreenViewBuilder)
 @protocol SPScreenViewBuilder <SPEventBuilder>
 /*!

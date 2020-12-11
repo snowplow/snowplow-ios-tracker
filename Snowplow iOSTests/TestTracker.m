@@ -158,11 +158,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
         [builder setBackgroundTimeout:150];
     }];
     
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     SPPayload *payload = [tracker payloadWithEvent:trackerEvent];
     NSDictionary *payloadDict = [payload getAsDictionary];
@@ -186,11 +182,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
 }
 
 - (void)testEventIdNotDuplicated {
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     NSUUID *eventId = [[SPTrackerEvent alloc] initWithEvent:event].eventId;
     XCTAssertNotNil(eventId);
     NSUUID *newEventId = [[SPTrackerEvent alloc] initWithEvent:event].eventId;

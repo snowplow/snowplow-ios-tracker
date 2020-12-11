@@ -25,11 +25,14 @@
 #import "SPTrackerError.h"
 #import "SPSelfDescribingJson.h"
 
-@interface TestEvent : XCTestCase
+@interface LegacyTestEvent : XCTestCase
 
 @end
 
-@implementation TestEvent
+@implementation LegacyTestEvent
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 - (void)testEventBuilderConditions {
     // Valid construction
@@ -39,18 +42,6 @@
     }];
     XCTAssertNotNil(event);
     event = nil;
-    
-    // Context is nil
-    @try {
-        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-            [builder setPageUrl:@"DemoPageUrl"];
-            [builder setContexts:nil];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Contexts cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
     
     // Context is not SelfDescribingJson
     @try {
@@ -231,7 +222,7 @@
     XCTAssertNotNil(event);
     event = nil;
 
-    // documentId is empty
+    // documentId is nil
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
             [builder setVersion:@"3"];
@@ -242,7 +233,7 @@
     }
     XCTAssertNil(event);
 
-    // Version is empty
+    // Version is nil
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
             [builder setDocumentId:@"1000"];
@@ -806,5 +797,7 @@
     NSDictionary * data = @{@"snowplow": @"demo-tracker"};
     return [NSMutableArray arrayWithArray:@[data]];
 }
+
+#pragma clang diagnostic pop
 
 @end

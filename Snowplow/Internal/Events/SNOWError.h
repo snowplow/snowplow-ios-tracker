@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPErrorBuilder
  @brief The protocol for building error events.
  */
-__attribute__ ((deprecated))
 @protocol SPErrorBuilder <SPEventBuilder>
 
 /*!

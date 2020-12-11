@@ -29,7 +29,6 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPConsentGrantedBuilder
  @brief The protocol for building consent granted events.
  */
-__attribute__ ((deprecated))
 NS_SWIFT_NAME(ConsentGrantedBuilder)
 @protocol SPConsentGrantedBuilder <SPEventBuilder>
 
