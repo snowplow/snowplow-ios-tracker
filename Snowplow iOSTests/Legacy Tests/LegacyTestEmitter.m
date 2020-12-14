@@ -268,7 +268,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     XCTAssertFalse([emitter getSendingStatus]);
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 - (void)testEmitSingleGetEventWithSuccess {
@@ -285,7 +285,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertTrue([networkConnection.previousResults.firstObject.firstObject isSuccessful]);
     XCTAssertEqual(0, [emitter getDbCount]);
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 - (void)testEmitSingleGetEventWithNoSuccess {
@@ -302,7 +302,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertFalse([networkConnection.previousResults.firstObject.firstObject isSuccessful]);
     XCTAssertEqual(1, [emitter getDbCount]);
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 - (void)testEmitTwoGetEventsWithSuccess {
@@ -327,7 +327,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     }
     XCTAssertEqual(2, totEvents);
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 - (void)testEmitTwoGetEventsWithNoSuccess {
@@ -349,7 +349,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
         }
     }
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 - (void)testEmitSinglePostEventWithSuccess {
@@ -367,7 +367,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertTrue([networkConnection.previousResults.firstObject.firstObject isSuccessful]);
     XCTAssertEqual(0, [emitter getDbCount]);
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 - (void)testEmitEventsPostAsGroup {
@@ -408,7 +408,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     XCTAssertEqual(15, totEvents);
     XCTAssertTrue(areGrouped);
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 - (void)testEmitOversizeEventsPostAsGroup {
@@ -438,7 +438,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 
     XCTAssertEqual(0, [emitter getDbCount]);
     
-    [emitter flushBuffer];
+    [emitter flush];
 }
 
 // MARK: - Emitter builder

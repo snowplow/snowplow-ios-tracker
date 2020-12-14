@@ -100,7 +100,7 @@ NSString *protocol = @"https";
     [[LSNocilla sharedInstance] clearStubs];
     stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
     
-    [[tracker emitter] flushBuffer];
+    [[tracker emitter] flush];
     [self emitterSleep:[tracker emitter]];
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
@@ -131,22 +131,17 @@ NSString *protocol = @"https";
 
 // Helpers
 
-- (SPTracker *)getTracker:(NSString *)url requestType:(enum SPRequestOptions)type {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:url];
-        [builder setCallback:self];
-        [builder setHttpMethod:type];
-    }];
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
-    SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setAppId:@"anAppId"];
-        [builder setBase64Encoded:NO];
-        [builder setTrackerNamespace:@"aNamespace"];
-        [builder setSessionContext:YES];
-    }];
-    return tracker;
+- (SPTracker *)getTracker:(NSString *)url requestType:(SPRequestOptions)type {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:url protocol:SPProtocolHttps method:type];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
+    trackerConfig.platformContext = YES;
+    trackerConfig.geoLocationContext = YES;
+    trackerConfig.base64Encoding = NO;
+    trackerConfig.sessionContext = YES;
+    SPEmitterConfiguration *emitterConfig = [[SPEmitterConfiguration alloc] init];
+    emitterConfig.requestCallback = self;
+    SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig tracker:trackerConfig configurations:@[emitterConfig]];
+    return serviceProvider.tracker;
 }
 
 - (void)emitterSleep:(SPEmitter *)emitter {

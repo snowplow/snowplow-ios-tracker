@@ -33,6 +33,8 @@
 #import "SPTrackerControlling.h"
 #import "SPSessionControlling.h"
 
+#import "SPEmitterEventProcessing.h"
+
 #import "SPDevicePlatform.h"
 #import "SPEventBase.h"
 #import "SPLoggerDelegate.h"

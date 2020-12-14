@@ -83,7 +83,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     _eventStore = _eventStore ?: [[SPSQLiteEventStore alloc] init];
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupNetworkConnection];
-    [self startTimerFlush];
+    [self resume];
     _builderFinished = YES;
 }
 
@@ -105,7 +105,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     }];
 }
 
-// Required
+// MARK: - Builder methods
 
 - (void) setUrlEndpoint:(NSString *)urlEndpoint {
     _url = urlEndpoint;
@@ -190,21 +190,57 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     }
 }
 
-// Builder Finished
+// MARK: - Pause/Resume methods
 
-- (void) addPayloadToBuffer:(SPPayload *)spPayload {
+- (void)startTimerFlush {
+    [self resume];
+}
+
+- (void)resume {
+    __weak __typeof__(self) weakSelf = self;
+    
+    if (_timer != nil) {
+        [self pause];
+    }
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        __typeof__(self) strongSelf = weakSelf;
+        if (strongSelf == nil) return;
+        
+        strongSelf->_timer = [NSTimer scheduledTimerWithTimeInterval:kSPDefaultBufferTimeout
+                                                              target:[[SPWeakTimerTarget alloc] initWithTarget:strongSelf andSelector:@selector(flush)]
+                                                            selector:@selector(timerFired:)
+                                                            userInfo:nil
+                                                             repeats:YES];
+    });
+}
+
+- (void) stopTimerFlush {
+    [self pause];
+}
+
+- (void)pause {
+    [_timer invalidate];
+    _timer = nil;
+}
+
+- (void)addPayloadToBuffer:(SPPayload *)eventPayload {
     __weak __typeof__(self) weakSelf = self;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __typeof__(self) strongSelf = weakSelf;
         if (strongSelf == nil) return;
         
-        [strongSelf->_eventStore addEvent:spPayload];
-        [strongSelf flushBuffer];
+        [strongSelf->_eventStore addEvent:eventPayload];
+        [strongSelf flush];
     });
 }
 
-- (void) flushBuffer {
+- (void)flushBuffer {
+    [self flush];
+}
+
+- (void)flush {
     if ([NSThread isMainThread]) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             [self sendGuard];
@@ -213,6 +249,8 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         [self sendGuard];
     }
 }
+
+// MARK: - Control methods
 
 - (void) sendGuard {
     if (_isSending) {
@@ -257,7 +295,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
             failureCount += resultIndexArray.count;
         }
     }
-
+    
     [_eventStore removeEventsWithIds:removableEvents];
     
     SPLogDebug(@"Success Count: %@", [@(successCount) stringValue]);
@@ -298,7 +336,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         for (int i = 0; i < events.count; i += _bufferOption) {
             NSMutableArray<SPPayload *> *eventArray = [NSMutableArray new];
             NSMutableArray<NSNumber *> *indexArray = [NSMutableArray new];
-
+            
             for (int j = i; j < (i + _bufferOption) && j < events.count; j++) {
                 SPEmitterEvent *event = events[j];
                 
@@ -361,33 +399,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     [payload addValueToPayload:[NSString stringWithFormat:@"%lld", timestamp.longLongValue] forKey:kSPSentTimestamp];
 }
 
-// Extra functions
-
-- (void) startTimerFlush {
-    __weak __typeof__(self) weakSelf = self;
-    
-    if (_timer != nil) {
-        [self stopTimerFlush];
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) return;
-        
-        strongSelf->_timer = [NSTimer scheduledTimerWithTimeInterval:kSPDefaultBufferTimeout
-                                                  target:[[SPWeakTimerTarget alloc] initWithTarget:strongSelf andSelector:@selector(flushBuffer)]
-                                                selector:@selector(timerFired:)
-                                                userInfo:nil
-                                                 repeats:YES];
-    });
-}
-
-- (void) stopTimerFlush {
-    [_timer invalidate];
-    _timer = nil;
-}
-
-// Getters
+// MARK: - Getters
 
 - (NSURL *)urlEndpoint {
     return _networkConnection.url;
@@ -402,7 +414,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 }
 
 - (void) dealloc {
-    [self stopTimerFlush];
+    [self pause];
 }
 
 @end

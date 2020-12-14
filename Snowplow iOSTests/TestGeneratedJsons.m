@@ -74,6 +74,9 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     XCTAssertTrue([validator validateJson:json]);
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 - (void)testPlatformContextJson {
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
     NSDictionary * data = [[subject getPlatformDict] getAsDictionary];
@@ -100,6 +103,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPGeoContextSchema andData:data] getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
 }
+
+#pragma clang diagnostic pop
 
 - (void)testGdprContextJson {
     SPGdprContext *gdpr = [[SPGdprContext alloc] initWithBasis:SPGdprProcessingBasisConsent
@@ -356,19 +361,14 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (SPTracker *)getTracker:(NSString *)url {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:url];
-    }];
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
-    SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setAppId:@"anAppId"];
-        [builder setTrackerNamespace:@"aNamespace"];
-        [builder setBase64Encoded:NO];
-        [builder setSessionContext:YES];
-    }];
-    return tracker;
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:url protocol:SPProtocolHttp method:SPRequestOptionsPost];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
+    trackerConfig.platformContext = YES;
+    trackerConfig.geoLocationContext = YES;
+    trackerConfig.base64Encoding = NO;
+    trackerConfig.sessionContext = YES;
+    SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig tracker:trackerConfig configurations:@[]];
+    return serviceProvider.tracker;
 }
 
 @end

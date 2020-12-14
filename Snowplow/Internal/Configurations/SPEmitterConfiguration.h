@@ -10,6 +10,7 @@
 #import "SPConfiguration.h"
 #import "SPNetworkConnection.h"
 #import "SPEventStore.h"
+#import "SPRequestCallback.h"
 
 /*!
  @brief An enum for buffer options.
@@ -43,6 +44,7 @@ NS_SWIFT_NAME(EmitterConfigurationProtocol)
 @property () NSInteger emitThreadPoolSize;
 @property () NSInteger byteLimitGet;
 @property () NSInteger byteLimitPost;
+@property (nullable) id<SPRequestCallback> requestCallback;
 
 @end
 
@@ -57,6 +59,7 @@ SP_BUILDER_DECLARE(NSInteger, emitRange)
 SP_BUILDER_DECLARE(NSInteger, emitThreadPoolSize)
 SP_BUILDER_DECLARE(NSInteger, byteLimitGet)
 SP_BUILDER_DECLARE(NSInteger, byteLimitPost)
+SP_BUILDER_DECLARE_NULLABLE(id<SPRequestCallback>, requestCallback)
 
 SP_BUILDER_DECLARE_NULLABLE(id<SPNetworkConnection>, networkConnection)
 SP_BUILDER_DECLARE_NULLABLE(id<SPEventStore>, eventStore)

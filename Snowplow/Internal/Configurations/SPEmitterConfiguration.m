@@ -15,6 +15,7 @@
 @synthesize byteLimitPost;
 @synthesize emitRange;
 @synthesize emitThreadPoolSize;
+@synthesize requestCallback;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -25,6 +26,7 @@
         self.byteLimitPost = 40000;
         self.networkConnection = nil;
         self.eventStore = nil;
+        self.requestCallback = nil;
     }
     return self;
 }
@@ -36,6 +38,7 @@ SP_BUILDER_METHOD(NSInteger, emitRange)
 SP_BUILDER_METHOD(NSInteger, emitThreadPoolSize)
 SP_BUILDER_METHOD(NSInteger, byteLimitGet)
 SP_BUILDER_METHOD(NSInteger, byteLimitPost)
+SP_BUILDER_METHOD(id<SPRequestCallback>, requestCallback)
 
 SP_BUILDER_METHOD(id<SPNetworkConnection>, networkConnection)
 SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
@@ -49,6 +52,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     copy.emitThreadPoolSize = self.emitThreadPoolSize;
     copy.byteLimitGet = self.byteLimitGet;
     copy.byteLimitPost = self.byteLimitPost;
+    copy.requestCallback = self.requestCallback;
     copy.networkConnection = self.networkConnection;
     copy.eventStore = self.eventStore;
     return copy;

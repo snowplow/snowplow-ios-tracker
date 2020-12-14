@@ -17,6 +17,10 @@ framework module SnowplowTracker {
     
     header "SPLoggerDelegate.h"
 
+    header "SPServiceProvider.h"
+    
+    header "SPEmitterEventProcessing.h"
+
     header "SPTracker.h"
     header "SPEmitter.h"
     header "SPSubject.h"

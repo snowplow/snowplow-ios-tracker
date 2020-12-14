@@ -15,7 +15,9 @@
 @end
 
 
-@implementation SPEmitterController
+@implementation SPEmitterController {
+    id<SPRequestCallback> _requestCallback;
+}
 
 @synthesize bufferOption;
 @synthesize byteLimitGet;
@@ -72,10 +74,19 @@
     return [self.emitter emitThreadPoolSize];
 }
 
+- (void)setRequestCallback:(id<SPRequestCallback>)requestCallback {
+    _requestCallback = requestCallback;
+    [self.emitter setCallback:requestCallback];
+}
+
+- (id<SPRequestCallback>)requestCallback {
+    return _requestCallback;
+}
+
 // MARK: - Methods
 
 - (void)flush {
-    [self.emitter flushBuffer];
+    [self.emitter flush];
 }
 
 @end

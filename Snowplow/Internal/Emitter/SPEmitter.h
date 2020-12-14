@@ -30,6 +30,7 @@
 #import "SPNetworkConnection.h"
 #import "SPEventStore.h"
 #import "SPEmitterConfiguration.h"
+#import "SPEmitterEventProcessing.h"
 
 @protocol SPRequestCallback;
 @class SPPayload;
@@ -128,7 +129,7 @@ NS_SWIFT_NAME(EmitterBuilder)
  This class sends events to the collector.
  */
 NS_SWIFT_NAME(Emitter)
-@interface SPEmitter : NSObject <SPEmitterBuilder>
+@interface SPEmitter : NSObject <SPEmitterBuilder, SPEmitterEventProcessing>
 
 /*! @brief Chosen HTTP method - SPRequestOptionsGet or SPRequestOptionsPost. */
 @property (readonly, nonatomic) SPRequestOptions httpMethod;
@@ -160,27 +161,33 @@ NS_SWIFT_NAME(Emitter)
 - (instancetype) init NS_UNAVAILABLE;
 
 /*!
- @brief Insert a SPPayload object into the buffer to be sent to collector.
+ @brief Insert a Payload object into the buffer to be sent to collector.
 
  This method will add the payload to the database and flush (send all events).
- @param spPayload An SPPayload containing a completed event to be added into the buffer.
+ @param eventPayload A Payload containing a completed event to be added into the buffer.
  */
-- (void) addPayloadToBuffer:(SPPayload *)spPayload;
+- (void)addPayloadToBuffer:(SPPayload *)eventPayload;
 
 /*!
  @brief Empties the buffer of events using the respective HTTP request method.
  */
-- (void) flushBuffer;
+- (void)flush;
+
+- (void)flushBuffer __deprecated_msg("Use `flush` instead.");
 
 /*!
- @brief Sets up a timer to automatically initiate sending of events at pre-determined intervals.
+ @brief Allowes sending of events to collector.
  */
-- (void) startTimerFlush;
+- (void)resume;
+
+- (void)startTimerFlush __deprecated_msg("Use `resume` instead.");
 
 /*!
- @brief Suspends the timer so flush will not be called.
+ @brief Suspends sending of events to collector.
  */
-- (void) stopTimerFlush;
+- (void)pause;
+
+- (void)stopTimerFlush __deprecated_msg("Use `pause` instead.");
 
 /*!
  @brief Returns the number of events in the DB.

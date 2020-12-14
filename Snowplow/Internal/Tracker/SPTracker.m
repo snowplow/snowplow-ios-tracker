@@ -54,9 +54,12 @@
 #import "SPSubjectConfiguration.h"
 #import "SPSessionConfiguration.h"
 
+#import "SPServiceProvider.h"
+
 #import "SPTrackerController.h"
 #import "SPSessionController.h"
 
+#import "SPEmitterEventProcessing.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker () <SPDiagnosticLogger>
@@ -118,11 +121,11 @@ static SPTracker *_sharedInstance = nil;
 // MARK: - Setup methods
 
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
-    return [SPTrackerController setupWithNetwork:networkConfiguration tracker:trackerConfiguration];
+    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration];
 }
 
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
-    return [SPTrackerController setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
+    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
 }
 
 // MARK: - Added property methods
@@ -412,13 +415,13 @@ static SPTracker *_sharedInstance = nil;
 
 - (void) pauseEventTracking {
     _dataCollection = NO;
-    [_emitter stopTimerFlush];
+    [_emitter pause];
     [_session_v1 stopChecker];
 }
 
 - (void) resumeEventTracking {
     _dataCollection = YES;
-    [_emitter startTimerFlush];
+    [_emitter resume];
     [_session_v1 startChecker];
 }
 
