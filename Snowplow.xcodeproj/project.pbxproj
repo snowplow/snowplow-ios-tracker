@@ -453,6 +453,18 @@
 		ED88B7352587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED88B7362587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED88B7372587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B76D2587B4EF0048FAD1 /* SPNetworkControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B76C2587B4EF0048FAD1 /* SPNetworkControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B76E2587B4F00048FAD1 /* SPNetworkControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B76C2587B4EF0048FAD1 /* SPNetworkControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B76F2587B4F00048FAD1 /* SPNetworkControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B76C2587B4EF0048FAD1 /* SPNetworkControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B7702587B4F00048FAD1 /* SPNetworkControlling.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B76C2587B4EF0048FAD1 /* SPNetworkControlling.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B7912587B5620048FAD1 /* SPNetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B78F2587B5620048FAD1 /* SPNetworkController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B7922587B5620048FAD1 /* SPNetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B78F2587B5620048FAD1 /* SPNetworkController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B7932587B5620048FAD1 /* SPNetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B78F2587B5620048FAD1 /* SPNetworkController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B7942587B5620048FAD1 /* SPNetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B78F2587B5620048FAD1 /* SPNetworkController.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B7952587B5620048FAD1 /* SPNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B7902587B5620048FAD1 /* SPNetworkController.m */; };
+		ED88B7962587B5620048FAD1 /* SPNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B7902587B5620048FAD1 /* SPNetworkController.m */; };
+		ED88B7972587B5620048FAD1 /* SPNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B7902587B5620048FAD1 /* SPNetworkController.m */; };
+		ED88B7982587B5620048FAD1 /* SPNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B7902587B5620048FAD1 /* SPNetworkController.m */; };
 		ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 75264A31224E5DD2000E0E9B /* SPInstallTracker.m */; };
 		ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 75264A2F224E5DBC000E0E9B /* SPInstallTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED8BF8B325700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8BF8B125700B3F001DFDD9 /* SPTrackerConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -749,6 +761,9 @@
 		ED88B6D92583DFC70048FAD1 /* SPServiceProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPServiceProvider.h; sourceTree = "<group>"; };
 		ED88B6DA2583DFC70048FAD1 /* SPServiceProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPServiceProvider.m; sourceTree = "<group>"; };
 		ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEmitterEventProcessing.h; sourceTree = "<group>"; };
+		ED88B76C2587B4EF0048FAD1 /* SPNetworkControlling.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNetworkControlling.h; sourceTree = "<group>"; };
+		ED88B78F2587B5620048FAD1 /* SPNetworkController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNetworkController.h; sourceTree = "<group>"; };
+		ED88B7902587B5620048FAD1 /* SPNetworkController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPNetworkController.m; sourceTree = "<group>"; };
 		ED8BF8B125700B3F001DFDD9 /* SPTrackerConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerConfiguration.h; sourceTree = "<group>"; };
 		ED8BF8B225700B3F001DFDD9 /* SPTrackerConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTrackerConfiguration.m; sourceTree = "<group>"; };
 		ED8BF8C925701853001DFDD9 /* SPNetworkConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNetworkConfiguration.h; sourceTree = "<group>"; };
@@ -1139,6 +1154,9 @@
 		EDC9B352255B027E00F4136D /* NetworkConnection */ = {
 			isa = PBXGroup;
 			children = (
+				ED88B76C2587B4EF0048FAD1 /* SPNetworkControlling.h */,
+				ED88B78F2587B5620048FAD1 /* SPNetworkController.h */,
+				ED88B7902587B5620048FAD1 /* SPNetworkController.m */,
 				EDD8542824EFEFE600661F6B /* SPNetworkConnection.h */,
 				EDD8541E24EFEFB900661F6B /* SPDefaultNetworkConnection.h */,
 				EDD8541F24EFEFB900661F6B /* SPDefaultNetworkConnection.m */,
@@ -1274,6 +1292,7 @@
 				CE4F9CAA244B066500968CFC /* SPTrackerEvent.h in Headers */,
 				CE4F9CF2244B066500968CFC /* SPStructured.h in Headers */,
 				EDD8542A24EFEFE600661F6B /* SPNetworkConnection.h in Headers */,
+				ED88B7912587B5620048FAD1 /* SPNetworkController.h in Headers */,
 				ED8BF8CB25701853001DFDD9 /* SPNetworkConfiguration.h in Headers */,
 				752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */,
 				ED87A42E2577ADFF000C54EB /* SPTrackerController.h in Headers */,
@@ -1291,6 +1310,7 @@
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
 				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
 				CE4F9C9A244B066500968CFC /* SPEvent.h in Headers */,
+				ED88B76D2587B4EF0048FAD1 /* SPNetworkControlling.h in Headers */,
 				ED88B5DF257950210048FAD1 /* SPGDPRConfiguration.h in Headers */,
 				ED88B58F257922490048FAD1 /* SPEmitterControlling.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
@@ -1318,11 +1338,13 @@
 				75CAC45921F2A21B00271FB3 /* Snowplow.h in Headers */,
 				ED8BF8B425700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */,
 				ED88B62A257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
+				ED88B7922587B5620048FAD1 /* SPNetworkController.h in Headers */,
 				ED88B60E257956490048FAD1 /* SPGDPRController.h in Headers */,
 				75CAC45A21F2A21B00271FB3 /* SPTracker.h in Headers */,
 				CE4F9CFB244B066500968CFC /* SPEventBase.h in Headers */,
 				ED88B64B257A57F80048FAD1 /* SPGlobalContextsControlling.h in Headers */,
 				ED87A3EC25766BB4000C54EB /* SPSessionController.h in Headers */,
+				ED88B76E2587B4F00048FAD1 /* SPNetworkControlling.h in Headers */,
 				ED91CB6D23AA715B0078E75F /* SPDevicePlatform.h in Headers */,
 				75CAC45B21F2A21B00271FB3 /* SPEmitter.h in Headers */,
 				CE4F9D1B244B066500968CFC /* SPEcommerce.h in Headers */,
@@ -1392,11 +1414,13 @@
 				75CAC42C21F2A0CC00271FB3 /* SPTracker.h in Headers */,
 				ED8BF8B525700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */,
 				ED88B62B257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
+				ED88B7932587B5620048FAD1 /* SPNetworkController.h in Headers */,
 				ED88B60F257956490048FAD1 /* SPGDPRController.h in Headers */,
 				75CAC42D21F2A0CC00271FB3 /* SPEmitter.h in Headers */,
 				CE4F9CFC244B066500968CFC /* SPEventBase.h in Headers */,
 				ED88B64C257A57F80048FAD1 /* SPGlobalContextsControlling.h in Headers */,
 				ED87A3ED25766BB4000C54EB /* SPSessionController.h in Headers */,
+				ED88B76F2587B4F00048FAD1 /* SPNetworkControlling.h in Headers */,
 				75CAC42E21F2A0CC00271FB3 /* SPSubject.h in Headers */,
 				75CAC43021F2A0CC00271FB3 /* SPPayload.h in Headers */,
 				CE4F9D1C244B066500968CFC /* SPEcommerce.h in Headers */,
@@ -1498,6 +1522,7 @@
 				CE4F9CAD244B066500968CFC /* SPTrackerEvent.h in Headers */,
 				CE4F9CF5244B066500968CFC /* SPStructured.h in Headers */,
 				EDD8542D24EFEFE600661F6B /* SPNetworkConnection.h in Headers */,
+				ED88B7942587B5620048FAD1 /* SPNetworkController.h in Headers */,
 				ED8BF8CE25701853001DFDD9 /* SPNetworkConfiguration.h in Headers */,
 				75F9C5EE21FA35BC00A5B8FC /* SPUtilities.h in Headers */,
 				ED87A4312577ADFF000C54EB /* SPTrackerController.h in Headers */,
@@ -1515,6 +1540,7 @@
 				7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */,
 				7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				CE4F9C9D244B066500968CFC /* SPEvent.h in Headers */,
+				ED88B7702587B4F00048FAD1 /* SPNetworkControlling.h in Headers */,
 				ED88B5E2257950210048FAD1 /* SPGDPRConfiguration.h in Headers */,
 				ED88B592257922490048FAD1 /* SPEmitterControlling.h in Headers */,
 				75F9C5ED21FA35BC00A5B8FC /* SPSQLiteEventStore.h in Headers */,
@@ -1758,6 +1784,7 @@
 				CE4F9CC6244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				CE4F9CDA244B066500968CFC /* SPPageView.m in Sources */,
+				ED88B7952587B5620048FAD1 /* SPNetworkController.m in Sources */,
 				ED88670225715DD600DB53BB /* SPConfiguration.m in Sources */,
 				ED88B6DF2583DFC90048FAD1 /* SPServiceProvider.m in Sources */,
 				CE4F9C96244B066500968CFC /* SPEcommerceItem.m in Sources */,
@@ -1850,6 +1877,7 @@
 				75CAC43A21F2A17500271FB3 /* Snowplow.m in Sources */,
 				CE4F9CDF244B066500968CFC /* SPStructured.m in Sources */,
 				EDD8543924EFFFB300661F6B /* SPRequest.m in Sources */,
+				ED88B7962587B5620048FAD1 /* SPNetworkController.m in Sources */,
 				ED8866E72571445300DB53BB /* SPSubjectConfiguration.m in Sources */,
 				754774BD2225FBA60043B814 /* SPScreenState.m in Sources */,
 				75CAC43B21F2A17500271FB3 /* SPTracker.m in Sources */,
@@ -1911,6 +1939,7 @@
 				75CAC44821F2A19500271FB3 /* Snowplow.m in Sources */,
 				CE4F9CE0244B066500968CFC /* SPStructured.m in Sources */,
 				EDD8543A24EFFFB300661F6B /* SPRequest.m in Sources */,
+				ED88B7972587B5620048FAD1 /* SPNetworkController.m in Sources */,
 				ED8866E82571445300DB53BB /* SPSubjectConfiguration.m in Sources */,
 				754774BE2225FBA60043B814 /* SPScreenState.m in Sources */,
 				75CAC44921F2A19500271FB3 /* SPTracker.m in Sources */,
@@ -1978,6 +2007,7 @@
 				CE4F9CC9244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				7534D20122569BED00904EE5 /* SPScreenState.m in Sources */,
 				CE4F9CDD244B066500968CFC /* SPPageView.m in Sources */,
+				ED88B7982587B5620048FAD1 /* SPNetworkController.m in Sources */,
 				ED88670525715DD600DB53BB /* SPConfiguration.m in Sources */,
 				ED88B6E22583DFC90048FAD1 /* SPServiceProvider.m in Sources */,
 				CE4F9C99244B066500968CFC /* SPEcommerceItem.m in Sources */,

@@ -16,8 +16,7 @@
 @end
 
 @implementation TestTrackerConfiguration
-// TODO: to fix
-/*
+
 - (void)testBasicInitialization {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" protocol:SPProtocolHttps method:SPRequestOptionsPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
@@ -26,7 +25,7 @@
 
     XCTAssertNotNil(tracker);
     XCTAssertNotNil(tracker.emitter);
-    NSURL *url = tracker.emitter.urlEndpoint;
+    NSURL *url = [NSURL URLWithString:tracker.network.endpoint];
     XCTAssertNotNil(url);
     NSString *host = url.host;
     NSString *scheme = url.scheme;
@@ -37,9 +36,7 @@
     XCTAssertEqualObjects(protocol, scheme);
     
     XCTAssertEqual(trackerConfig.appId, tracker.appId);
-    XCTAssertEqual(trackerConfig.namespace, tracker.trackerNamespace);
-    
-    XCTAssertNotNil(tracker.subject);
+    XCTAssertEqual(trackerConfig.namespace, tracker.namespace);
 }
 
 - (void)testSessionInitialization {
@@ -51,13 +48,8 @@
                                                                                     backgroundTimeoutInSeconds:expectedBackground];
     id<SPTrackerControlling> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig configurations:@[sessionConfig]];
 
-    NSInteger foreground = [tracker.session_v1 getForegroundTimeout] / 1000;
-    NSInteger background = [tracker.session_v1 getBackgroundTimeout] / 1000;
-    XCTAssertEqual(expectedForeground, foreground);
-    XCTAssertEqual(expectedBackground, background);
-
-    foreground = [tracker.session foregroundTimeoutInSeconds];
-    background = [tracker.session backgroundTimeoutInSeconds];
+    NSInteger foreground = tracker.session.foregroundTimeoutInSeconds;
+    NSInteger background = tracker.session.backgroundTimeoutInSeconds;
     XCTAssertEqual(expectedForeground, foreground);
     XCTAssertEqual(expectedBackground, background);
     
@@ -66,7 +58,6 @@
     XCTAssertEqualObjects([[NSMeasurement alloc] initWithDoubleValue:expectedForeground unit:NSUnitDuration.seconds], foregroundMeasure);
     XCTAssertEqualObjects([[NSMeasurement alloc] initWithDoubleValue:expectedBackground unit:NSUnitDuration.seconds], backgroundMeasure);
 }
-*/
 
 - (void)testSessionControllerUnavailableWhenContextTurnedOff {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" protocol:SPProtocolHttps method:SPRequestOptionsPost];

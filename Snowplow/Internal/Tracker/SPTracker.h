@@ -255,6 +255,8 @@ NS_SWIFT_NAME(Tracker)
 
 // MARK: - New methods
 
++ (id<SPTrackerControlling>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId NS_SWIFT_NAME(setup(endpoint:protocol:method:namespace:appId:));
+
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
 
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
@@ -267,8 +269,6 @@ NS_SWIFT_NAME(Tracker)
 - (BOOL)sessionContext;
 
 // MARK: - Old methods
-
-// TODO: Add other setup methods
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.

@@ -120,7 +120,7 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (void)startNewSession {
-    // TODO: In the session context we should report that the sesssion has been renewed programmatically.
+    // TODO: when the sesssion has been renewed programmatically, it has to be reported in the session context to the collector.
     _isNewSession = YES;
 }
 

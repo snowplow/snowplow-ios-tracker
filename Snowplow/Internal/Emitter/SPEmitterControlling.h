@@ -8,11 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "SPEmitterConfiguration.h"
-#import "SPNetworkConfiguration.h"
-#import "SPSessionControlling.h"
-#import "SPEmitterControlling.h"
-#import "SPSelfDescribingJson.h"
-#import "SPEventBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 

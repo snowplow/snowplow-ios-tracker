@@ -14,6 +14,7 @@
 
 #import "SPTrackerControlling.h"
 #import "SPSessionControlling.h"
+#import "SPNetworkControlling.h"
 #import "SPEmitterControlling.h"
 #import "SPGDPRControlling.h"
 #import "SPGlobalContextsControlling.h"
