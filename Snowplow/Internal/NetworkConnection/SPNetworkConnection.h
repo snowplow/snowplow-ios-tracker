@@ -44,7 +44,7 @@ typedef NS_ENUM(NSInteger, SPProtocol) {
     SPProtocolHttp,
     /*! Use HTTP over TLS. */
     SPProtocolHttps
-} NS_SWIFT_NAME(Protocol);
+} NS_SWIFT_NAME(ProtocolOptions);
 
 /**
  * Interface for the component that
