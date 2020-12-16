@@ -8,6 +8,7 @@
 
 #import "SPServiceProvider.h"
 #import "SPTrackerController.h"
+#import "SPDefaultNetworkConnection.h"
 
 @interface SPServiceProvider ()
 
@@ -114,14 +115,17 @@
     SPNetworkConfiguration *networkConfig = self.networkConfiguration;
     SPEmitterConfiguration *emitterConfig = self.emitterConfiguration;
     return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setHttpMethod:networkConfig.method];
-        [builder setProtocol:networkConfig.protocol];
-        [builder setUrlEndpoint:networkConfig.endpoint];
+        if (networkConfig.networkConnection) {
+            [builder setNetworkConnection:networkConfig.networkConnection];
+        } else {
+            [builder setHttpMethod:networkConfig.method];
+            [builder setProtocol:networkConfig.protocol];
+            [builder setUrlEndpoint:networkConfig.endpoint];
+        }
         [builder setCustomPostPath:networkConfig.customPostPath];
         [builder setEmitRange:emitterConfig.emitRange];
         [builder setBufferOption:emitterConfig.bufferOption];
         [builder setEventStore:emitterConfig.eventStore];
-        [builder setNetworkConnection:emitterConfig.networkConnection];
         [builder setByteLimitPost:emitterConfig.byteLimitPost];
         [builder setByteLimitGet:emitterConfig.byteLimitGet];
         [builder setEmitThreadPoolSize:emitterConfig.emitThreadPoolSize];

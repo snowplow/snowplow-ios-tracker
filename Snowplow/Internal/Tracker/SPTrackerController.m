@@ -18,6 +18,7 @@
 #import "Snowplow.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
+#import "SPDefaultNetworkConnection.h"
 #import "SPSubject.h"
 #import "SPLogger.h"
 
@@ -42,10 +43,12 @@
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {
         self.tracker = tracker;
-        self.network = [[SPNetworkController alloc] initWithEmitter:tracker.emitter];
         self.emitter = [[SPEmitterController alloc] initWithEmitter:tracker.emitter];
         self.gdpr = [[SPGDPRController alloc] initWithTracker:tracker];
         self.globalContexts = [[SPGlobalContextsController alloc] initWithTracker:tracker];
+        if (!tracker.emitter.networkConnection || [tracker.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class]) {
+            self.network = [[SPNetworkController alloc] initWithEmitter:tracker.emitter];
+        }
     }
     return self;
 }

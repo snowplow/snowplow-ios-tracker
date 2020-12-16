@@ -89,4 +89,12 @@
     [self.emitter flush];
 }
 
+- (NSInteger)dbCount {
+    return [self.emitter getDbCount];
+}
+
+- (BOOL)isSending {
+    return [self.emitter getSendingStatus];
+}
+
 @end

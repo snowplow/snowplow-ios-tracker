@@ -12,7 +12,13 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(NetworkControlling)
-@protocol SPNetworkControlling <SPNetworkConfigurationProtocol>
+@protocol SPNetworkControlling
+
+@property (nonatomic, nullable) NSString *endpoint;
+@property (nonatomic) SPRequestOptions method;
+@property (nonatomic) SPProtocol protocol;
+
+@property (nonatomic, nullable) NSString *customPostPath;
 
 @end
 

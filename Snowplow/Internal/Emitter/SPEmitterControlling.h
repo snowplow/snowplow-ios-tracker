@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(EmitterControlling)
 @protocol SPEmitterControlling <SPEmitterConfigurationProtocol>
 
+@property (nonatomic, readonly) NSInteger dbCount;
+@property (nonatomic, readonly) BOOL isSending;
+
 - (void)flush;
 
 @end

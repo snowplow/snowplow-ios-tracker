@@ -151,6 +151,8 @@ NS_SWIFT_NAME(Emitter)
 @property (readonly, nonatomic, weak) id<SPRequestCallback> callback;
 /*! @brief Custom endpoint path for POST requests. */
 @property (readonly, nonatomic) NSString *customPostPath;
+/*! @brief Custom NetworkConnection istance to handle connection outside the emitter. */
+@property (readonly, nonatomic) id<SPNetworkConnection> networkConnection;
 
 /*!
  @brief Builds the emitter using a build block of functions.

@@ -28,7 +28,7 @@ NS_SWIFT_NAME(TrackerControlling)
 @property (readonly, nonatomic, readonly) BOOL isTracking;
 
 @property (readonly, nonatomic, nullable) id<SPSessionControlling> session;
-@property (readonly, nonatomic) id<SPNetworkControlling> network;
+@property (readonly, nonatomic, nullable) id<SPNetworkControlling> network;
 @property (readonly, nonatomic) id<SPEmitterControlling> emitter;
 @property (readonly, nonatomic) id<SPGDPRControlling> gdpr;
 @property (readonly, nonatomic) id<SPGlobalContextsControlling> globalContexts;

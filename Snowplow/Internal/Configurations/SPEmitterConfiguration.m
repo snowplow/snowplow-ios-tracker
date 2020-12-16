@@ -24,7 +24,6 @@
         self.emitThreadPoolSize = 15;
         self.byteLimitGet = 40000;
         self.byteLimitPost = 40000;
-        self.networkConnection = nil;
         self.eventStore = nil;
         self.requestCallback = nil;
     }
@@ -40,7 +39,6 @@ SP_BUILDER_METHOD(NSInteger, byteLimitGet)
 SP_BUILDER_METHOD(NSInteger, byteLimitPost)
 SP_BUILDER_METHOD(id<SPRequestCallback>, requestCallback)
 
-SP_BUILDER_METHOD(id<SPNetworkConnection>, networkConnection)
 SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
 
 // MARK: - NSCopying
@@ -53,7 +51,6 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     copy.byteLimitGet = self.byteLimitGet;
     copy.byteLimitPost = self.byteLimitPost;
     copy.requestCallback = self.requestCallback;
-    copy.networkConnection = self.networkConnection;
     copy.eventStore = self.eventStore;
     return copy;
 }

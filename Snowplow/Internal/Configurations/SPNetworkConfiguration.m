@@ -8,11 +8,16 @@
 
 #import "SPNetworkConfiguration.h"
 
+@interface SPNetworkConfiguration ()
+
+@property (nonatomic, nullable) NSString *endpoint;
+@property (nonatomic) SPRequestOptions method;
+@property (nonatomic) SPProtocol protocol;
+
+@end
+
 @implementation SPNetworkConfiguration
 
-@synthesize endpoint;
-@synthesize method;
-@synthesize protocol;
 @synthesize customPostPath;
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method {
@@ -20,7 +25,22 @@
         self.endpoint = endpoint;
         self.protocol = protocol;
         self.method = method;
-        
+        self.networkConnection = nil;
+        self.customPostPath = nil;
+    }
+    return self;
+}
+
+- (instancetype)initWithEndpoint:(NSString *)endpoint {
+    return [self initWithEndpoint:endpoint protocol:SPProtocolHttps method:SPRequestOptionsPost];
+}
+
+- (instancetype)initWithNetworkConnection:(id<SPNetworkConnection>)networkConnection {
+    if (self = [super init]) {
+        self.endpoint = nil;
+        self.protocol = 0;
+        self.method = 0;
+        self.networkConnection = networkConnection;
         self.customPostPath = nil;
     }
     return self;
@@ -33,7 +53,13 @@ SP_BUILDER_METHOD(NSString *, customPostPath)
 // MARK: - NSCopying
 
 - (id)copyWithZone:(nullable NSZone *)zone {
-    SPNetworkConfiguration *copy = [[SPNetworkConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint protocol:self.protocol method:self.method];
+    SPNetworkConfiguration *copy;
+    if (self.networkConnection) {
+        copy = [[SPNetworkConfiguration alloc] initWithNetworkConnection:self.networkConnection];
+        
+    } else {
+        copy = [[SPNetworkConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint protocol:self.protocol method:self.method];
+    }
     copy.customPostPath = self.customPostPath;
     return copy;
 }

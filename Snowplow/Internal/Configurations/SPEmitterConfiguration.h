@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "SPConfiguration.h"
-#import "SPNetworkConnection.h"
 #import "SPEventStore.h"
 #import "SPRequestCallback.h"
 
@@ -51,7 +50,6 @@ NS_SWIFT_NAME(EmitterConfigurationProtocol)
 NS_SWIFT_NAME(EmitterConfiguration)
 @interface SPEmitterConfiguration : SPConfiguration <SPEmitterConfigurationProtocol>
 
-@property (nullable) id<SPNetworkConnection> networkConnection;
 @property (nullable) id<SPEventStore> eventStore;
 
 SP_BUILDER_DECLARE(SPBufferOption, bufferOption)
@@ -61,7 +59,6 @@ SP_BUILDER_DECLARE(NSInteger, byteLimitGet)
 SP_BUILDER_DECLARE(NSInteger, byteLimitPost)
 SP_BUILDER_DECLARE_NULLABLE(id<SPRequestCallback>, requestCallback)
 
-SP_BUILDER_DECLARE_NULLABLE(id<SPNetworkConnection>, networkConnection)
 SP_BUILDER_DECLARE_NULLABLE(id<SPEventStore>, eventStore)
 
 @end
