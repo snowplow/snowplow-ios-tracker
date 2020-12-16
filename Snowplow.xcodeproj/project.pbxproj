@@ -76,10 +76,6 @@
 		75CAC41221F2955100271FB3 /* TestRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40121F2955100271FB3 /* TestRequest.m */; };
 		75CAC41321F2955100271FB3 /* TestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC40221F2955100271FB3 /* TestUtils.m */; };
 		75CAC41A21F2959800271FB3 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
-		75CAC41D21F2962E00271FB3 /* VVJSONSchemaValidation.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
-		75CAC41E21F2962E00271FB3 /* SnowplowIgluClient.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
-		75CAC41F21F2962E00271FB3 /* Nocilla.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 750E7F1121F2735C0050A993 /* Nocilla.framework */; };
-		75CAC42121F2962E00271FB3 /* FMDB.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
 		75CAC42221F2962E00271FB3 /* CoreTelephony.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		75CAC42421F2967D00271FB3 /* SnowplowTracker.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 752DABCC21CC38550065F874 /* SnowplowTracker.framework */; };
 		75CAC42A21F29E6C00271FB3 /* iglu_resolver.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 75CAC3FF21F2955100271FB3 /* iglu_resolver.json */; };
@@ -585,10 +581,6 @@
 			dstSubfolderSpec = 16;
 			files = (
 				75CAC42421F2967D00271FB3 /* SnowplowTracker.framework in CopyFiles */,
-				75CAC41D21F2962E00271FB3 /* VVJSONSchemaValidation.framework in CopyFiles */,
-				75CAC41E21F2962E00271FB3 /* SnowplowIgluClient.framework in CopyFiles */,
-				75CAC41F21F2962E00271FB3 /* Nocilla.framework in CopyFiles */,
-				75CAC42121F2962E00271FB3 /* FMDB.framework in CopyFiles */,
 				75CAC42221F2962E00271FB3 /* CoreTelephony.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1587,6 +1579,7 @@
 				752DABD121CC38560065F874 /* Frameworks */,
 				75CAC41C21F2960F00271FB3 /* CopyFiles */,
 				75CAC42921F29E5900271FB3 /* CopyFiles */,
+				ED8EA918258A7118008E292C /* Run Script - Copy Frameworks (Carthage) */,
 			);
 			buildRules = (
 			);
@@ -1772,6 +1765,32 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\n\nfunction check_link {\n    # 1. Store the first parameter to the script in a variable.\n    path=\"$1\"\n\n    # 2. Now that we expect a parameter, lets check if it was provided.\n    if [[ -z \"$path\" ]]; then\n        echo \"Script expects a parameter\"\n        exit 1\n    fi\n\n    # 3. Check if the parameter is a symlink.\n    if [[ -L \"$path\" ]]; then\n        # 4. Check if it links to a valid path.\n        if [[ -e \"$path\" ]]; then\n            echo \"$path is a valid link!\"\n        else\n            unlink \"$path\"\n            echo \"Cleaned up broken link: $path\"\n        fi\n    else\n        echo \"$path is not a symlink.\"\n    fi\n}\n\nfor i in $SRCROOT/Snowplow/*.h; do check_link $i ; done \n";
+		};
+		ED8EA918258A7118008E292C /* Run Script - Copy Frameworks (Carthage) */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/VVJSONSchemaValidation.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SnowplowIgluClient.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Nocilla.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FMDB.framework",
+			);
+			name = "Run Script - Copy Frameworks (Carthage)";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/VVJSONSchemaValidation.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SnowplowIgluClient.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Nocilla.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/FMDB.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
