@@ -29,7 +29,116 @@
 #import "SPSelfDescribingJson.h"
 #import "SPRequestCallback.h"
 #import "SPEvent.h"
-#import <Nocilla/Nocilla.h>
+
+// MARK: - Mocks
+
+@interface SPMockStore : NSObject <SPEventStore>
+
+@property (nonatomic) NSMutableDictionary<NSNumber *, SPPayload *> *db;
+@property (nonatomic) long lastInsertedRow;
+
+@end
+
+@implementation SPMockStore
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.db = [NSMutableDictionary new];
+        self.lastInsertedRow = -1;
+    }
+    return self;
+}
+
+- (void)addEvent:(nonnull SPPayload *)payload {
+    @synchronized (self) {
+        self.lastInsertedRow++;
+        [self.db setObject:payload forKey:@(self.lastInsertedRow)];
+    }
+}
+
+- (BOOL)removeEventWithId:(long long)storeId {
+    @synchronized (self) {
+        BOOL exist = [self.db objectForKey:@(storeId)];
+        [self.db removeObjectForKey:@(storeId)];
+        return exist;
+    }
+}
+
+- (BOOL)removeEventsWithIds:(nonnull NSArray<NSNumber *> *)storeIds {
+    BOOL result = YES;
+    for (NSNumber *storeId in storeIds) {
+        result = [self.db objectForKey:storeId];
+        [self.db removeObjectForKey:storeId];
+    }
+    return result;
+}
+
+- (BOOL)removeAllEvents {
+    @synchronized (self) {
+        [self.db removeAllObjects];
+        self.lastInsertedRow = -1;
+    }
+    return YES;
+}
+
+- (NSUInteger)count {
+    return self.db.count;
+}
+
+- (nonnull NSArray<SPEmitterEvent *> *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit {
+    @synchronized (self) {
+        NSMutableArray<NSNumber *> *eventIds = [NSMutableArray new];
+        NSMutableArray<SPEmitterEvent *> *events = [NSMutableArray new];
+        [self.db enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, SPPayload *obj, BOOL *stop) {
+            SPPayload *payloadCopy = [[SPPayload alloc] initWithNSDictionary:[obj getAsDictionary]];
+            SPEmitterEvent *event = [[SPEmitterEvent alloc] initWithPayload:payloadCopy storeId:key.longLongValue];
+            [events addObject:event];
+            [eventIds addObject:@(event.storeId)];
+        }];
+        if (queryLimit < events.count) {
+            events = [events subarrayWithRange:NSMakeRange(0, queryLimit)].mutableCopy;
+        }
+        return events;
+    }
+}
+
+@end
+
+
+@interface SPMockConnection: NSObject <SPNetworkConnection>
+
+@property NSInteger resultCode;
+@property SPRequestOptions httpMethod;
+@property NSURL *url;
+
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url;
+
+@end
+
+@implementation SPMockConnection
+
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url {
+    if (self = [super init]) {
+        self.resultCode = resultCode;
+        self.httpMethod = httpMethod;
+        self.url = [NSURL URLWithString:url];
+    }
+    return self;
+}
+
+- (NSArray<SPRequestResult *> *)sendRequests:(NSArray<SPRequest *> *)requests {
+    BOOL isSuccess = self.resultCode == 200;
+    NSMutableArray<SPRequestResult *> *results = [NSMutableArray new];
+    for (SPRequest *request in requests) {
+        SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccess storeIds:request.emitterEventIds];
+        [results addObject:result];
+    }
+    return results;
+}
+
+@end
+
+// MARK: - Tests
 
 @interface TestRequest : XCTestCase <SPRequestCallback>
 
@@ -40,90 +149,75 @@
     NSInteger _failureCount;
 }
 
-NSString *const TEST_SERVER_REQUEST = @"acme.test.url.com";
-NSString *protocol = @"https";
-
 - (void)setUp {
     [super setUp];
-    [[LSNocilla sharedInstance] start];
-#if TARGET_OS_IPHONE
-    if (SNOWPLOW_iOS_9_OR_LATER) {
-        protocol = @"https";
-    }
-#else
-    protocol = @"https";
-#endif
+    _successCount = 0;
+    _failureCount = 0;
 }
 
 - (void)tearDown {
     [super tearDown];
-    [[LSNocilla sharedInstance] clearStubs];
 }
 
 // Tests
 
 - (void)testRequestSendWithPost {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsPost];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
-    
+    [self forceFlushes:2 emitter:tracker.emitter];
+
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 
 - (void)testRequestSendWithGet {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsGet];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithBadUrl {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(404);
-    
+    SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:404
+                                                                             method:SPRequestOptionsPost
+                                                                                url:@"https://acme.test.url.com/tp2"];
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+
     // Send all events with a bad URL
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsPost];
+    SPTracker *tracker = [self getTrackerWithConnection:mockConnection eventStore:mockStore];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_failureCount, 8);
+    [self forceFlushes:2 emitter:tracker.emitter];
+    XCTAssertGreaterThan(_failureCount, 0);
+    XCTAssertEqual(_successCount, 0);
     XCTAssertEqual([tracker.emitter getDbCount], 8);
     
     // Update the URL and flush
-    [[tracker emitter] setUrlEndpoint:TEST_SERVER_REQUEST];
+    [tracker pauseEventTracking];
+    [NSThread sleepForTimeInterval:5];
+    mockConnection.resultCode = 200;
+    [tracker resumeEventTracking];
     
-    [[LSNocilla sharedInstance] clearStubs];
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
-    
-    [[tracker emitter] flush];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithoutSubject {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsGet];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200];
     [tracker setSubject:nil];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithCollectionOff {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestOptionsPost];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200];
     [tracker pauseEventTracking];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_failureCount, 0);
     XCTAssertEqual(_successCount, 0);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
@@ -131,8 +225,8 @@ NSString *protocol = @"https";
 
 // Helpers
 
-- (SPTracker *)getTracker:(NSString *)url requestType:(SPRequestOptions)type {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:url protocol:SPProtocolHttps method:type];
+- (SPTracker *)getTrackerWithConnection:(id<SPNetworkConnection>)mockNetworkConnection eventStore:(id<SPEventStore>)mockEventStore {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithNetworkConnection:mockNetworkConnection];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
     trackerConfig.platformContext = YES;
     trackerConfig.geoLocationContext = YES;
@@ -140,13 +234,22 @@ NSString *protocol = @"https";
     trackerConfig.sessionContext = YES;
     SPEmitterConfiguration *emitterConfig = [[SPEmitterConfiguration alloc] init];
     emitterConfig.requestCallback = self;
+    emitterConfig.eventStore = mockEventStore;
     SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig tracker:trackerConfig configurations:@[emitterConfig]];
     return serviceProvider.tracker;
 }
 
-- (void)emitterSleep:(SPEmitter *)emitter {
+- (SPTracker *)getTrackerWithRequestType:(SPRequestOptions)type resultCode:(NSInteger)resultCode {
+    SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:resultCode method:type url:@"https://acme.test.url.com/tp2"];
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+
+    return [self getTrackerWithConnection:mockConnection eventStore:mockStore];
+}
+
+- (void)forceFlushes:(NSInteger)count emitter:(SPEmitter *)emitter {
     [NSThread sleepForTimeInterval:3];
-    while ([emitter getSendingStatus]) {
+    for (int i = 0; i < count; i++) {
+        [emitter flush];
         [NSThread sleepForTimeInterval:5];
     }
     [NSThread sleepForTimeInterval:3];
