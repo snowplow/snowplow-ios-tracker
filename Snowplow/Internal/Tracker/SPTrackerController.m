@@ -25,6 +25,7 @@
 #import "SPNetworkController.h"
 #import "SPGDPRController.h"
 #import "SPGlobalContextsController.h"
+#import "SPSessionController.h"
 
 #import "SPSubjectConfiguration.h"
 #import "SPNetworkConfiguration.h"
@@ -43,6 +44,8 @@
 @property (readwrite, nonatomic) id<SPGDPRControlling> gdpr;
 @property (readwrite, nonatomic) id<SPGlobalContextsControlling> globalContexts;
 
+@property (nonatomic) SPSessionController *sessionController;
+
 @property (nonatomic) SPTracker *tracker;
 
 @end
@@ -57,6 +60,7 @@
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {
         self.tracker = tracker;
+        self.sessionController = [[SPSessionController alloc] initWithTracker:tracker];
         self.emitter = [[SPEmitterController alloc] initWithEmitter:tracker.emitter];
         self.gdpr = [[SPGDPRController alloc] initWithTracker:tracker];
         self.globalContexts = [[SPGlobalContextsController alloc] initWithTracker:tracker];
@@ -143,8 +147,6 @@
     return [self.tracker applicationContext];
 }
 
-
-
 - (void)setDiagnosticAutotracking:(BOOL)diagnosticAutotracking {
     [self.tracker setTrackerDiagnostic:diagnosticAutotracking];
 }
@@ -202,7 +204,7 @@
 }
 
 - (nullable id<SPSessionControlling>)session {
-    return self.tracker.session;
+    return self.sessionController.isEnabled ? self.sessionController : nil;
 }
 
 - (BOOL)isTracking {

@@ -38,8 +38,8 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(TrackerControlling)
 @protocol SPTrackerControlling <SPTrackerConfigurationProtocol>
 
-@property (readonly, nonatomic, readonly) NSString *version;
-@property (readonly, nonatomic, readonly) BOOL isTracking;
+@property (readonly, nonatomic) NSString *version;
+@property (readonly, nonatomic) BOOL isTracking;
 
 @property (readonly, nonatomic, nullable) id<SPSessionControlling> session;
 @property (readonly, nonatomic, nullable) id<SPNetworkControlling> network;

@@ -22,14 +22,16 @@
 
 #import <Foundation/Foundation.h>
 #import "SPSessionControlling.h"
-#import "SPSession.h"
+#import "SPTracker.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(SessionController)
 @interface SPSessionController : NSObject <SPSessionControlling>
 
-- (instancetype)initWithSession:(SPSession *)sessionManager;
+@property (readonly, nonatomic) BOOL isEnabled;
+
+- (instancetype)initWithTracker:(SPTracker *)tracker;
 
 @end
 

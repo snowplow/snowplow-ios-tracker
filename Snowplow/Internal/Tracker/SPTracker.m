@@ -57,7 +57,6 @@
 #import "SPServiceProvider.h"
 
 #import "SPTrackerController.h"
-#import "SPSessionController.h"
 
 #import "SPEmitterEventProcessing.h"
 
@@ -65,8 +64,6 @@
 @interface SPTracker () <SPDiagnosticLogger>
 
 @property (class, readwrite, weak) SPTracker *sharedInstance;
-
-@property (readwrite) id<SPSessionControlling> session;
 
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
@@ -103,7 +100,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSMutableDictionary *  _trackerData;
     NSString *             _platformContextSchema;
     BOOL                   _dataCollection;
-    SPSession *            _session_v1;
+    SPSession *            _session;
     BOOL                   _sessionContext;
     BOOL                   _screenContext;
     BOOL                   _applicationContext;
@@ -216,10 +213,9 @@ static SPTracker *_sharedInstance = nil;
 
     [self setTrackerData];
     if (_sessionContext) {
-        _session_v1 = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
                                            andBackgroundTimeout:_backgroundTimeout
                                                      andTracker:self];
-        self.session = [[SPSessionController alloc] initWithSession:_session_v1];
     }
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -301,15 +297,13 @@ static SPTracker *_sharedInstance = nil;
 
 - (void) setSessionContext:(BOOL)sessionContext {
     _sessionContext = sessionContext;
-    if (_session_v1 != nil && !sessionContext) {
-        [_session_v1 stopChecker];
-        _session_v1 = nil;
-        self.session = nil;
-    } else if (_builderFinished && _session_v1 == nil && sessionContext) {
-        _session_v1 = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
+    if (_session != nil && !sessionContext) {
+        [_session stopChecker];
+        _session = nil;
+    } else if (_builderFinished && _session == nil && sessionContext) {
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
                                            andBackgroundTimeout:_backgroundTimeout
                                                      andTracker:self];
-        self.session = [[SPSessionController alloc] initWithSession:_session_v1];
     }
 }
 
@@ -327,15 +321,15 @@ static SPTracker *_sharedInstance = nil;
 
 - (void) setForegroundTimeout:(NSInteger)foregroundTimeout {
     _foregroundTimeout = foregroundTimeout;
-    if (_builderFinished && _session_v1 != nil) {
-        [_session_v1 setForegroundTimeout:foregroundTimeout];
+    if (_builderFinished && _session != nil) {
+        [_session setForegroundTimeout:foregroundTimeout];
     }
 }
 
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout {
     _backgroundTimeout = backgroundTimeout;
-    if (_builderFinished && _session_v1 != nil) {
-        [_session_v1 setBackgroundTimeout:backgroundTimeout];
+    if (_builderFinished && _session != nil) {
+        [_session setBackgroundTimeout:backgroundTimeout];
     }
 }
 
@@ -420,23 +414,23 @@ static SPTracker *_sharedInstance = nil;
 - (void) pauseEventTracking {
     _dataCollection = NO;
     [_emitter pause];
-    [_session_v1 stopChecker];
+    [_session stopChecker];
 }
 
 - (void) resumeEventTracking {
     _dataCollection = YES;
     [_emitter resume];
-    [_session_v1 startChecker];
+    [_session startChecker];
 }
 
 #pragma mark - Getters
 
 - (NSInteger) getSessionIndex __deprecated {
-    return [_session_v1 getSessionIndex];
+    return [_session getSessionIndex];
 }
 
 - (BOOL) getInBackground {
-    return [_session_v1 getInBackground];
+    return [_session getInBackground];
 }
 
 - (BOOL) getIsTracking {
@@ -444,11 +438,11 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (NSString*) getSessionUserId {
-    return [_session_v1 getUserId];
+    return [_session getUserId];
 }
 
 - (NSString*) getSessionId {
-    return [_session_v1 getSessionId];
+    return [_session getSessionId];
 }
 
 - (BOOL) getLifecycleEvents {
@@ -587,8 +581,8 @@ static SPTracker *_sharedInstance = nil;
     }
 
     // Add session
-    if (_session_v1) {
-        NSDictionary *sessionDict = [_session_v1 getSessionDictWithEventId:eventId];
+    if (_session) {
+        NSDictionary *sessionDict = [_session getSessionDictWithEventId:eventId];
         if (sessionDict) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
         } else {

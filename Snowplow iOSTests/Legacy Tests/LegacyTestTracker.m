@@ -130,13 +130,13 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     
     // Test Session Switch on/off
     
-    SPSession *oldSessionManager = tracker.session_v1;
+    SPSession *oldSessionManager = tracker.session;
     [tracker setSessionContext:NO];
     XCTAssertNil(tracker.session);
     
     [tracker setSessionContext:YES];
     XCTAssertNotNil(tracker.session);
-    XCTAssertNotEqual(oldSessionManager, tracker.session_v1);
+    XCTAssertNotEqual(oldSessionManager, tracker.session);
 
     // Test Emitter nil
     
