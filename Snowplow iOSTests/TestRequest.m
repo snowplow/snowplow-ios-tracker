@@ -84,28 +84,6 @@ NSString *protocol = @"https";
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
-- (void)testRequestSendWithBadUrl {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(404);
-    
-    // Send all events with a bad URL
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
-    [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_failureCount, 8);
-    XCTAssertEqual([tracker.emitter getDbCount], 8);
-    
-    // Update the URL and flush
-    [[tracker emitter] setUrlEndpoint:TEST_SERVER_REQUEST];
-    
-    [[LSNocilla sharedInstance] clearStubs];
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
-    
-    [[tracker emitter] flushBuffer];
-    [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_successCount, 8);
-    XCTAssertEqual([tracker.emitter getDbCount], 0);
-}
-
 - (void)testRequestSendWithoutSubject {
     stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
     
