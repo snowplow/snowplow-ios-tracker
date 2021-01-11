@@ -64,7 +64,7 @@
             [[SPSelfDescribingJson alloc] initWithSchema:@"schemaBlock" andData:@{@"key": @"value"}],
         ];
     }];
-    SPTracker *tracker = [self getTrackerWithGenerators:@{
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{
         @"static": staticGC,
         @"generator": generatorGC,
         @"block": blockGC,
@@ -103,7 +103,7 @@
 
 - (void)testAddRemoveGlobalContexts {
     SPGlobalContext *staticGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]];
-    SPTracker *tracker = [self getTrackerWithGenerators:nil];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:nil];
 
     NSSet *result = [NSSet setWithArray:tracker.globalContextTags];
     NSSet *expected = [NSSet setWithArray:@[]];
@@ -129,7 +129,7 @@
 
 - (void)testStaticGenerator {
     SPGlobalContext *staticGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]];
-    SPTracker *tracker = [self getTrackerWithGenerators:@{@"static": staticGC}.mutableCopy];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"static": staticGC}.mutableCopy];
     
     SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
@@ -149,7 +149,7 @@
     SPGlobalContext *filterNotMatchingGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schemaNotMatching" andData:@{@"key": @"value"}]] filter:^BOOL(id<SPInspectableEvent> event) {
         return NO;
     }];
-    SPTracker *tracker = [self getTrackerWithGenerators:@{
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{
         @"matching": filterMatchingGC,
         @"notMatching": filterNotMatchingGC,
     }.mutableCopy];
@@ -169,7 +169,7 @@
     SPSchemaRuleset *ruleset = [SPSchemaRuleset rulesetWithAllowedList:@[allowed] andDeniedList:@[denied]];
     
     SPGlobalContext *rulesetGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]] ruleset:ruleset];
-    SPTracker *tracker = [self getTrackerWithGenerators:@{@"ruleset": rulesetGC}.mutableCopy];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"ruleset": rulesetGC}.mutableCopy];
 
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
 
@@ -197,7 +197,7 @@
     SPGlobalContext *generatorGC = [[SPGlobalContext alloc] initWithGenerator:^NSArray<SPSelfDescribingJson *> *(id<SPInspectableEvent> event) {
         return @[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]];
     }];
-    SPTracker *tracker = [self getTrackerWithGenerators:@{@"generator": generatorGC}.mutableCopy];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"generator": generatorGC}.mutableCopy];
 
     SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
@@ -210,7 +210,7 @@
 
 - (void)testContextGenerator {
     SPGlobalContext *contextGeneratorGC = [[SPGlobalContext alloc] initWithContextGenerator:[GlobalContextGenerator new]];
-    SPTracker *tracker = [self getTrackerWithGenerators:@{@"contextGenerator": contextGeneratorGC}.mutableCopy];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"contextGenerator": contextGeneratorGC}.mutableCopy];
     
     SPPrimitive *event = [[SPStructured alloc] initWithCategory:@"StringToMatch" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
@@ -223,7 +223,7 @@
 
 // MARK: - Utility function
 
-- (SPTracker *)getTrackerWithGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
+- (SPTracker *)getTrackerWithGlobalContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"com.acme.fake"
                                                                                     protocol:SPProtocolHttps
                                                                                       method:SPRequestOptionsPost];

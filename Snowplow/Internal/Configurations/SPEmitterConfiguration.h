@@ -43,7 +43,8 @@ typedef NS_ENUM(NSUInteger, SPBufferOption) {
      * Sends POST requests in groups of 25 events.  Useful for situations where many events
      * need to be sent.  All GET requests will still emit one at a time.
      */
-    SPBufferOptionHeavyGroup = 25
+    SPBufferOptionLargeGroup = 25,
+    SPBufferOptionHeavyGroup __deprecated_enum_msg("Use BufferOption.largeGroup instead.") = SPBufferOptionLargeGroup
 } NS_SWIFT_NAME(BufferOption);
 
 
