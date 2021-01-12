@@ -1,4 +1,9 @@
 
+Version 1.6.2 (2021-01-12)
+--------------------------
+Fix internal Carthage issues with Xcode 12.3 (#561)
+Fix leak on SNOWReachability (#559) (Contribution of @i-dama)
+
 Version 1.6.1 (2020-11-24)
 --------------------------
 Fix AddGlobalContext unable to work when GlobalContexts not initialized (#553)
