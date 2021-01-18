@@ -2,7 +2,7 @@
 //  SPTrackerEvent.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -31,16 +31,8 @@
 
 - (instancetype)initWithEvent:(SPEvent *)event {
     if (self = [super init]) {
-        if (event.eventId) {
-            self.eventId = [[NSUUID alloc] initWithUUIDString:event.eventId];
-        } else {
-            self.eventId = [NSUUID UUID];
-        }
-        if (event.timestamp) {
-            self.timestamp = event.timestamp.longLongValue;
-        } else {
-            self.timestamp = (long long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);
-        }
+        self.eventId = [NSUUID UUID];
+        self.timestamp = (long long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);
         self.trueTimestamp = event.trueTimestamp;
         self.contexts = [event.contexts mutableCopy];
         self.payload = [event.payload mutableCopy];

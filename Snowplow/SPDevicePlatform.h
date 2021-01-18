@@ -1,1 +1,1 @@
-./internal/contexts/SPDevicePlatform.h
+./internal/Subject/SPDevicePlatform.h

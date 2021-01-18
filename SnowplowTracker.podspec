@@ -21,54 +21,57 @@ Pod::Spec.new do |s|
 
   s.requires_arc = true
 
+  s.source_files = 'Snowplow/**/*.{m,h}'
+  s.public_header_files = 'Snowplow/*.{h}'
+
   s.ios.source_files = 'Snowplow/*.swift'
-  s.osx.exclude_files = 'Snowplow/internal/screenViewTracking/UIViewController+SPScreenView_SWIZZLE.*'
-  s.tvos.exclude_files = 'Snowplow/screenViewTracking/internal/UIViewController+SPScreenView_SWIZZLE.*'
+  s.osx.exclude_files = 'Snowplow/Internal/ScreenViewTracking/UIViewController+SPScreenView_SWIZZLE.*'
+  s.tvos.exclude_files = 'Snowplow/Internal/ScreenViewTracking/UIViewController+SPScreenView_SWIZZLE.*'
   s.watchos.exclude_files = [
-    'Snowplow/internal/screenViewTracking/UIViewController+SPScreenView_SWIZZLE.*',
-    'Snowplow/internal/utils/SNOWReachability.*'
+    'Snowplow/**/SNOWReachability.*',
+    'Snowplow/**/UIViewController+SPScreenView_SWIZZLE.*'
   ]
 
-  s.source_files = 'Snowplow/internal/**/*.{m,h}'
-  s.public_header_files = [
-    'Snowplow/Snowplow.h', 
-    'Snowplow/SPTracker.h', 
-    'Snowplow/SPEmitter.h', 
-    'Snowplow/SPSubject.h', 
-    'Snowplow/SPPayload.h', 
-    'Snowplow/SPUtilities.h', 
-    'Snowplow/SPRequestCallback.h', 
-    'Snowplow/SPRequestResponse.h',
-    'Snowplow/SPSelfDescribingJson.h',
-    'Snowplow/SPScreenState.h',
-    'Snowplow/SPDevicePlatform.h',
-    'Snowplow/SPEvent.h',
-    'Snowplow/SPEventBase.h',
-    'Snowplow/SPPageView.h',
-    'Snowplow/SPStructured.h',
-    'Snowplow/SPUnstructured.h',
-    'Snowplow/SPScreenView.h',
-    'Snowplow/SPConsentWithdrawn.h',
-    'Snowplow/SPConsentDocument.h',
-    'Snowplow/SPConsentGranted.h',
-    'Snowplow/SPTiming.h',
-    'Snowplow/SPEcommerce.h',
-    'Snowplow/SPEcommerceItem.h',
-    'Snowplow/SPPushNotification.h',
-    'Snowplow/SPForeground.h',
-    'Snowplow/SPBackground.h',
-    'Snowplow/SNOWError.h',
-    'Snowplow/SPSchemaRule.h',
-    'Snowplow/SPSchemaRuleset.h',
-    'Snowplow/SPGlobalContext.h',
-    'Snowplow/SPEventStore.h',
-    'Snowplow/SPSQLiteEventStore.h',
-    'Snowplow/SPNetworkConnection.h',
-    'Snowplow/SPDefaultNetworkConnection.h',
-    'Snowplow/SPRequest.h',
-    'Snowplow/SPRequestResult.h',
-    'Snowplow/SPEmitterEvent.h'
-  ]
+
+#  s.public_header_files = [
+#    'Snowplow/Snowplow.h', 
+#    'Snowplow/SPTracker.h', 
+#    'Snowplow/SPEmitter.h', 
+#    'Snowplow/SPSubject.h', 
+#    'Snowplow/SPPayload.h', 
+#    'Snowplow/SPUtilities.h', 
+#    'Snowplow/SPRequestCallback.h', 
+#    'Snowplow/SPRequestResponse.h',
+#    'Snowplow/SPSelfDescribingJson.h',
+#    'Snowplow/SPScreenState.h',
+#    'Snowplow/SPDevicePlatform.h',
+#    'Snowplow/SPEvent.h',
+#    'Snowplow/SPEventBase.h',
+#    'Snowplow/SPPageView.h',
+#    'Snowplow/SPStructured.h',
+#    'Snowplow/SPUnstructured.h',
+#    'Snowplow/SPScreenView.h',
+#    'Snowplow/SPConsentWithdrawn.h',
+#    'Snowplow/SPConsentDocument.h',
+#    'Snowplow/SPConsentGranted.h',
+#    'Snowplow/SPTiming.h',
+#    'Snowplow/SPEcommerce.h',
+#    'Snowplow/SPEcommerceItem.h',
+#    'Snowplow/SPPushNotification.h',
+#    'Snowplow/SPForeground.h',
+#    'Snowplow/SPBackground.h',
+#    'Snowplow/SNOWError.h',
+#    'Snowplow/SPSchemaRule.h',
+#    'Snowplow/SPSchemaRuleset.h',
+#    'Snowplow/SPGlobalContext.h',
+#    'Snowplow/SPEventStore.h',
+#    'Snowplow/SPSQLiteEventStore.h',
+#    'Snowplow/SPNetworkConnection.h',
+#    'Snowplow/SPDefaultNetworkConnection.h',
+#    'Snowplow/SPRequest.h',
+#    'Snowplow/SPRequestResult.h',
+#    'Snowplow/SPEmitterEvent.h'
+#  ]
 
   s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
   s.osx.frameworks = 'AppKit', 'Foundation'

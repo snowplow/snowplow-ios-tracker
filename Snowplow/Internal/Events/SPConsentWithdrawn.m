@@ -2,7 +2,7 @@
 //  SPConsentWithdrawn.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -32,27 +32,32 @@
     NSString * _documentId;
     NSString * _version;
     NSString * _name;
-    NSString * _description;
+    NSString * _documentDescription;
     NSArray<SPSelfDescribingJson *> * _documents;
 }
 
-+ (instancetype) build:(void(^)(id<SPConsentWithdrawnBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPConsentWithdrawnBuilder> builder))buildBlock {
     SPConsentWithdrawn* event = [SPConsentWithdrawn new];
     if (buildBlock) { buildBlock(event); }
-    [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
     return self;
 }
 
-- (void) preconditions {
-    [self basePreconditions];
-}
-
 // --- Builder Methods
+
+SP_BUILDER_METHOD(BOOL, all)
+SP_BUILDER_METHOD(NSString *, documentId)
+SP_BUILDER_METHOD(NSString *, version)
+SP_BUILDER_METHOD(NSString *, name)
+SP_BUILDER_METHOD(NSString *, documentDescription)
+SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setDocumentId:(NSString *)dId {
     _documentId = dId;
@@ -67,7 +72,7 @@
 }
 
 - (void) setDescription:(NSString *)description {
-    _description = description;
+    _documentDescription = description;
 }
 
 - (void) setAll:(BOOL)all {
@@ -78,6 +83,8 @@
 - (void) setDocuments:(NSArray<SPSelfDescribingJson *> *)documents {
     _documents = documents;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -91,40 +98,20 @@
     };
 }
 
-- (SPSelfDescribingJson *) getPayload{
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-
-    // set event
-    [event setObject:(_all ? @YES: @NO) forKey:KSPCwAll];
-
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentWithdrawnSchema andData:event];
-}
-
 - (NSArray<SPSelfDescribingJson *> *)getDocuments {
-    __weak __typeof__(self) weakSelf = self;
-    
-    // returns the result of appending document passed through {docId, version, name, description} builder arguments to _documents
-    NSMutableArray<SPSelfDescribingJson *> * documents = [NSMutableArray<SPSelfDescribingJson *> new];
-    SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) return;
+    NSMutableArray<SPSelfDescribingJson *> *documents = [NSMutableArray<SPSelfDescribingJson *> new];
 
-        if (strongSelf->_documentId != nil) {
-            [builder setDocumentId:strongSelf->_documentId];
-        }
-        if (strongSelf->_version != nil) {
-            [builder setVersion:strongSelf->_version];
-        }
-        if ([strongSelf->_name length] != 0) {
-            [builder setName:strongSelf->_name];
-        }
-        if ([strongSelf->_description length] != 0) {
-            [builder setDescription:strongSelf->_description];
-        }
-    }];
+    SPConsentDocument *document = [[SPConsentDocument alloc] initWithDocumentId:_documentId version:_version];
+    if (_name.length != 0) {
+        document.name = _name;
+    }
+    if (_documentDescription != 0) {
+        document.documentDescription = _documentDescription;
+    }
+
     [documents addObject:[document getPayload]];
-    if ([self->_documents count] > 0) {
-        [documents addObjectsFromArray:self->_documents];
+    if (_documents.count > 0) {
+        [documents addObjectsFromArray:_documents];
     }
     return documents;
 }

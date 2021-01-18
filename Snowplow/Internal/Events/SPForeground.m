@@ -2,7 +2,7 @@
 //  SPForeground.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -30,28 +30,39 @@
     NSNumber * _index;
 }
 
-+ (instancetype) build:(void(^)(id<SPForegroundBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPForegroundBuilder> builder))buildBlock {
     SPForeground* event = [SPForeground new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithIndex:(NSNumber *)index {
+    if (self = [super init]) {
+        _index = index;
+    }
     return self;
 }
 
 - (void) preconditions {
     [SPUtilities checkArgument:(_index != nil) withMessage:@"Index cannot be nil or empty."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setIndex:(NSNumber *)index {
     _index = index;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -63,13 +74,6 @@
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
     [payload setValue:_index forKey:kSPForegroundIndex];
     return payload;
-}
-
-- (SPSelfDescribingJson *) getPayload {
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-
-    [event setObject:_index forKey:kSPForegroundIndex];
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPForegroundSchema andData:event];
 }
 
 @end

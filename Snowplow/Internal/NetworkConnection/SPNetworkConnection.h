@@ -2,7 +2,7 @@
 //  SPNetworkConnection.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -31,25 +31,26 @@ NS_ASSUME_NONNULL_BEGIN
  */
 typedef NS_ENUM(NSInteger, SPRequestOptions) {
     /*! GET request. */
-    SPRequestGet,
+    SPRequestOptionsGet,
     /*! POST request. */
-    SPRequestPost
-};
+    SPRequestOptionsPost
+} NS_SWIFT_NAME(RequestOptions);
 
 /*!
  @brief An enum for HTTP security.
  */
 typedef NS_ENUM(NSInteger, SPProtocol) {
     /*! Use HTTP. */
-    SPHttp,
+    SPProtocolHttp,
     /*! Use HTTP over TLS. */
-    SPHttps
-};
+    SPProtocolHttps
+} NS_SWIFT_NAME(ProtocolOptions);
 
 /**
  * Interface for the component that
  * sends events to the collector.
  */
+NS_SWIFT_NAME(NetworkConnection)
 @protocol SPNetworkConnection <NSObject>
 
 /**

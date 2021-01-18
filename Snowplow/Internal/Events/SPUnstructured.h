@@ -2,7 +2,7 @@
 //  SPUnstructured.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -29,22 +29,29 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPUnstructuredBuilder
  @brief The protocol for building unstructured events.
  */
+NS_SWIFT_NAME(UnstructuredBuilder)
 @protocol SPUnstructuredBuilder <SPEventBuilder>
 /*!
  @brief Set the data field of the unstructured event.
 
  @param eventData A self-describing JSON of an unstructured event.
  */
-- (void) setEventData:(SPSelfDescribingJson *)eventData;
+- (void) setEventData:(SPSelfDescribingJson *)eventData __deprecated_msg("Use `eventData` of `Unstructured` class instead.");
 @end
 
 /*!
  @class SPUnstructured
  @brief An unstructured event.
  */
+NS_SWIFT_NAME(Unstructured)
 @interface SPUnstructured : SPSelfDescribing <SPUnstructuredBuilder>
-+ (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock;
-- (SPPayload *) getPayloadWithEncoding:(BOOL)encoding  __deprecated_msg("getPayloadWithEncoding is deprecated. Use `payload` instead.");
+
++ (instancetype)build:(void(^)(id<SPUnstructuredBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithEventData:(SPSelfDescribingJson *)eventData NS_SWIFT_NAME(init(eventData:));
+
 @end
 
 NS_ASSUME_NONNULL_END

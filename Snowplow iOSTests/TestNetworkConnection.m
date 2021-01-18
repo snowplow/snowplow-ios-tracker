@@ -2,7 +2,7 @@
 //  TestNetworkConnection.m
 //  Snowplow-iOSTests
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -48,8 +48,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestGet];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsGet];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -68,8 +68,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestGet];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsGet];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -88,8 +88,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestPost];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsPost];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -108,8 +108,8 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPHttps];
-        [builder setHttpMethod:SPRequestPost];
+        [builder setProtocol:SPProtocolHttps];
+        [builder setHttpMethod:SPRequestOptionsPost];
     }];
     
     SPPayload *payload = [SPPayload new];

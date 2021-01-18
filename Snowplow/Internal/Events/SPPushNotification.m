@@ -2,7 +2,7 @@
 //  SPPushNotification.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -34,15 +34,32 @@
     SPNotificationContent * _notification;
 }
 
-+ (instancetype) build:(void(^)(id<SPPushNotificationBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPPushNotificationBuilder> builder))buildBlock {
     SPPushNotification* event = [SPPushNotification new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithDate:(NSString *)date action:(NSString *)action trigger:(NSString *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification {
+    if (self = [super init]) {
+        _date = date;
+        _action = action;
+        _trigger = trigger;
+        _category = category;
+        _thread = thread;
+        _notification = notification;
+        [SPUtilities checkArgument:([_date length] != 0) withMessage:@"Delivery date cannot be nil or empty."];
+        [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
+        [SPUtilities checkArgument:([_trigger length] != 0) withMessage:@"Trigger cannot be nil or empty."];
+        [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
+        [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -53,10 +70,12 @@
     [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
     [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
     [SPUtilities checkArgument:(_notification != nil) withMessage:@"Notification cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setAction:(NSString *)action {
     _action = action;
@@ -82,6 +101,8 @@
     _notification = content;
 }
 
+#pragma clang diagnostic pop
+
 // --- Public Methods
 
 - (NSString *)schema {
@@ -99,17 +120,6 @@
     };
 }
 
-- (SPSelfDescribingJson *) getPayload {
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-    [event setObject:_notification.payload forKey:kSPPushNotification];
-    [event setObject:_trigger forKey:kSPPushTrigger];
-    [event setObject:_action forKey:kSPPushAction];
-    [event setObject:_date forKey:kSPPushDeliveryDate];
-    [event setObject:_category forKey:kSPPushCategoryId];
-    [event setObject:_thread forKey:kSPPushThreadId];
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPPushNotificationSchema andData:event];
-}
-
 @end
 
 // MARK:- SPNotificationContent
@@ -125,15 +135,26 @@
     NSArray * _attachments;
 }
 
-+ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock {
     SPNotificationContent* event = [SPNotificationContent new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithTitle:(NSString *)title body:(NSString *)body badge:(NSNumber *)badge {
+    if (self = [super init]) {
+        _title = title;
+        _body = body;
+        _badge = badge;
+        [SPUtilities checkArgument:([_title length] != 0) withMessage:@"Title cannot be nil or empty."];
+        [SPUtilities checkArgument:([_body length] != 0) withMessage:@"Body cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -144,6 +165,15 @@
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, subtitle)
+SP_BUILDER_METHOD(NSString *, sound)
+SP_BUILDER_METHOD(NSString *, launchImageName)
+SP_BUILDER_METHOD(NSDictionary *, userInfo)
+SP_BUILDER_METHOD(NSArray *, attachments)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setTitle:(NSString *)title {
     _title = title;
@@ -176,6 +206,8 @@
 - (void) setAttachments:(NSArray *)attachments {
     _attachments = attachments;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -220,10 +252,6 @@
     }
 
     return [[NSDictionary alloc] initWithDictionary:event copyItems:YES];
-}
-
-- (NSDictionary *) getPayload {
-    return self.payload;
 }
 
 @end

@@ -2,7 +2,7 @@
 //  SPTiming.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -33,15 +33,26 @@
     NSString * _label;
 }
 
-+ (instancetype) build:(void(^)(id<SPTimingBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPTimingBuilder> builder))buildBlock {
     SPTiming* event = [SPTiming new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithCategory:(NSString *)category variable:(NSString *)variable timing:(NSNumber *)timing {
+    if (self = [super init]) {
+        _category = category;
+        _variable = variable;
+        _timing = timing;
+        [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
+        [SPUtilities checkArgument:([_variable length] != 0) withMessage:@"Variable cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -49,10 +60,14 @@
     [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
     [SPUtilities checkArgument:([_variable length] != 0) withMessage:@"Variable cannot be nil or empty."];
     [SPUtilities checkArgument:(_timing != nil) withMessage:@"Timing cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, label)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setCategory:(NSString *)category {
     _category = category;
@@ -70,6 +85,8 @@
     _label = label;
 }
 
+#pragma clang diagnostic pop
+
 // --- Public Methods
 
 - (NSString *)schema {
@@ -83,19 +100,6 @@
     [payload setValue:_timing forKey:kSPUtTiming];
     [payload setValue:_label forKey:kSPUtLabel];
     return payload;
-}
-
-- (SPSelfDescribingJson *) getPayload {
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-    [event setObject:_category forKey:kSPUtCategory];
-    [event setObject:_variable forKey:kSPUtVariable];
-    [event setObject:_timing forKey:kSPUtTiming];
-    if (_label != nil) {
-        [event setObject:_label forKey:kSPUtLabel];
-    }
-
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPUserTimingsSchema
-                                                andData:event];
 }
 
 @end

@@ -2,7 +2,7 @@
 //  SPDefaultNetworkConnection.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -50,8 +50,8 @@
 
 - (instancetype)initWithDefaultValues {
     if (self = [super init]) {
-        _httpMethod = SPRequestPost;
-        _protocol = SPHttps;
+        _httpMethod = SPRequestOptionsPost;
+        _protocol = SPProtocolHttps;
         _emitThreadPoolSize = 15;
         _byteLimitGet = 40000;
         _byteLimitPost = 40000;
@@ -64,9 +64,9 @@
 
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
-    NSString *urlPrefix = _protocol == SPHttp ? @"http://" : @"https://";
-    NSString *urlSuffix = _httpMethod == SPRequestGet ? kSPEndpointGet : kSPEndpointPost;
-    if (_customPostPath && _httpMethod == SPRequestPost) {
+    NSString *urlPrefix = _protocol == SPProtocolHttp ? @"http://" : @"https://";
+    NSString *urlSuffix = _httpMethod == SPRequestOptionsGet ? kSPEndpointGet : kSPEndpointPost;
+    if (_customPostPath && _httpMethod == SPRequestOptionsPost) {
         urlSuffix = _customPostPath;
     }
     _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _urlString, urlSuffix]];
@@ -143,7 +143,7 @@
     NSMutableArray<SPRequestResult *> *results = [NSMutableArray new];
     
     for (SPRequest *request in requests) {
-        NSMutableURLRequest *urlRequest = _httpMethod == SPRequestGet
+        NSMutableURLRequest *urlRequest = _httpMethod == SPRequestOptionsGet
         ? [self buildGetRequest:request]
         : [self buildPostRequest:request];
 

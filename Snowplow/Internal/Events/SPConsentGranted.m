@@ -2,7 +2,7 @@
 //  SPConsentGranted.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -32,30 +32,45 @@
     NSString * _documentId;
     NSString * _version;
     NSString * _name;
-    NSString * _description;
+    NSString * _documentDescription;
     NSString * _expiry;
     NSArray<SPSelfDescribingJson *> * _documents;
 }
 
-+ (instancetype) build:(void(^)(id<SPConsentGrantedBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPConsentGrantedBuilder> builder))buildBlock {
     SPConsentGranted* event = [SPConsentGranted new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version {
+    if (self = [super init]) {
+        _documentId = documentId;
+        _version = version;
+    }
     return self;
 }
 
 - (void) preconditions {
     [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
     [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, name)
+SP_BUILDER_METHOD(NSString *, documentDescription)
+SP_BUILDER_METHOD(NSString *, expiry)
+SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setDocumentId:(NSString *)dId {
     _documentId = dId;
@@ -70,7 +85,7 @@
 }
 
 - (void) setDescription:(NSString *)description {
-    _description = description;
+    _documentDescription = description;
 }
 
 - (void) setExpiry:(NSString *)expiry {
@@ -80,6 +95,8 @@
 - (void) setDocuments:(NSArray<SPSelfDescribingJson *> *)documents {
     _documents = documents;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -93,38 +110,20 @@
     return payload;
 }
 
-- (SPSelfDescribingJson *) getPayload{
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
-    if ([_expiry length] != 0) {
-        [event setObject:_expiry forKey:KSPCgExpiry];
-    }
-    return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentGrantedSchema
-                                                andData:event];
-}
-
 - (NSArray<SPSelfDescribingJson *> *) getDocuments {
-    __weak __typeof__(self) weakSelf = self;
-    
-    // returns the result of appending document passed through {docId, version, name, description} to the documents data member
-    NSMutableArray<SPSelfDescribingJson *> * documents = [NSMutableArray<SPSelfDescribingJson *> new];
-    if (self == nil) {
-        return documents;
+    NSMutableArray<SPSelfDescribingJson *> *documents = [NSMutableArray<SPSelfDescribingJson *> new];
+
+    SPConsentDocument *document = [[SPConsentDocument alloc] initWithDocumentId:_documentId version:_version];
+    if (_name.length != 0) {
+        document.name = _name;
     }
-    SPConsentDocument * document = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        __typeof__(self) strongSelf = weakSelf;
-        if (strongSelf == nil) return;
-        [builder setDocumentId:strongSelf->_documentId];
-        [builder setVersion:strongSelf->_version];
-        if ([strongSelf->_name length] != 0) {
-            [builder setName:strongSelf->_name];
-        }
-        if ([strongSelf->_description length] != 0) {
-            [builder setDescription:strongSelf->_description];
-        }
-    }];
+    if (_documentDescription != 0) {
+        document.documentDescription = _documentDescription;
+    }
+
     [documents addObject:[document getPayload]];
-    if ([self->_documents count] > 0) {
-        [documents addObjectsFromArray:self->_documents];
+    if (_documents.count > 0) {
+        [documents addObjectsFromArray:_documents];
     }
     return documents;
 }
