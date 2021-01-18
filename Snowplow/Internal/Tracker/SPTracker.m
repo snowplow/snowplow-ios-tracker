@@ -2,7 +2,7 @@
 //  SPTracker.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -51,13 +51,22 @@
 #import "SPDiagnosticLogger.h"
 #import "SPLogger.h"
 
+#import "SPSubjectConfiguration.h"
+#import "SPSessionConfiguration.h"
+
+#import "SPServiceProvider.h"
+
+#import "SPTrackerController.h"
+
+#import "SPEmitterEventProcessing.h"
+
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker () <SPDiagnosticLogger>
 
+@property (class, readwrite, weak) SPTracker *sharedInstance;
+
 @property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
 @property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
-
-@property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
 
 @property (nonatomic) SPGdprContext *gdpr;
 
@@ -75,39 +84,12 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString * stackTrace = [NSString stringWithFormat:@"Stacktrace:\n%@", symbols];
     NSString * message = [exception reason];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        // Load values
-        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString * url = [userDefaults objectForKey:kSPErrorTrackerUrl];
-        NSString * protocolString = [userDefaults objectForKey:kSPErrorTrackerProtocol];
-        NSString * methodString = [userDefaults objectForKey:kSPErrorTrackerMethod];
-        SPProtocol protocol = SPHttps;
-        if (protocolString && [protocolString isEqual:@"http://"]) {
-            protocol = SPHttp;
-        }
-        SPRequestOptions method = SPRequestPost;
-        if (methodString && [methodString isEqual:@"/i"]) {
-            method = SPRequestGet;
-        }
-        // Send notification to tracker
-        SPEmitter * emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-            [builder setUrlEndpoint:url];
-            [builder setProtocol:protocol];
-            [builder setHttpMethod:method];
-        }];
-        SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-            [builder setEmitter:emitter];
-        }];
-        
         if (message == nil || [message length] == 0) {
             return;
         }
-        SNOWError * error = [SNOWError build:^(id<SPErrorBuilder> builder) {
-            [builder setMessage:message];
-            if (stackTrace != nil && [stackTrace length] > 0) {
-                [builder setStackTrace:stackTrace];
-            }
-        }];
-        [tracker track:error];
+        SNOWError *error = [[[SNOWError alloc] initWithMessage:message]
+                            stackTrace:stackTrace];
+        [SPTracker.sharedInstance track:error];
         [NSThread sleepForTimeInterval:2.0f];
     });
 }
@@ -126,20 +108,74 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _lifecycleEvents;
     NSInteger              _foregroundTimeout;
     NSInteger              _backgroundTimeout;
-    NSInteger              _checkInterval;
     BOOL                   _builderFinished;
     BOOL                   _exceptionEvents;
     BOOL                   _installEvent;
 }
 
+static SPTracker *_sharedInstance = nil;
+
+// MARK: - Setup methods
+
++ (id<SPTrackerControlling>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId {
+    return [SPServiceProvider setupWithEndpoint:endpoint protocol:protocol method:method namespace:namespace appId:appId];
+}
+
++ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
+    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration];
+}
+
++ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
+    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
+}
+
+// MARK: - Added property methods
+
+- (BOOL)applicationContext {
+    return _applicationContext;
+}
+
+- (BOOL)exceptionEvents {
+    return _exceptionEvents;
+}
+
+- (BOOL)installEvent {
+    return _installEvent;
+}
+
+- (BOOL)screenContext {
+    return _screenContext;
+}
+
+- (BOOL)autoTrackScreenView {
+    return _autotrackScreenViews;
+}
+
+- (BOOL)sessionContext {
+    return _sessionContext;
+}
+
+// MARK: - Methods
+
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
-    SPTracker* tracker = [[SPTracker alloc] initWithDefaultValues];
+    SPTracker *tracker = [[SPTracker alloc] initWithDefaultValues];
     if (buildBlock) {
         buildBlock(tracker);
     }
     [tracker setup];
     [tracker checkInstall];
+    SPTracker.sharedInstance = tracker;
     return tracker;
+}
+
++ (void)setSharedInstance:(SPTracker *)sharedInstance {
+    if (sharedInstance != _sharedInstance) {
+        _sharedInstance = sharedInstance;
+    }
+}
+
++ (SPTracker *)sharedInstance {
+    return _sharedInstance;
 }
 
 - (instancetype) initWithDefaultValues {
@@ -157,8 +193,8 @@ void uncaughtExceptionHandler(NSException *exception) {
         _autotrackScreenViews = NO;
         _foregroundTimeout = 600;
         _backgroundTimeout = 300;
-        _checkInterval = 15;
         _builderFinished = NO;
+        self.globalContextGenerators = [NSMutableDictionary dictionary];
         self.previousScreenState = nil;
         self.currentScreenState = nil;
         _exceptionEvents = NO;
@@ -179,7 +215,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     if (_sessionContext) {
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
                                            andBackgroundTimeout:_backgroundTimeout
-                                               andCheckInterval:_checkInterval
                                                      andTracker:self];
     }
 
@@ -195,35 +230,21 @@ void uncaughtExceptionHandler(NSException *exception) {
     _builderFinished = YES;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
-
-- (void) checkInstall {
-    SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
-    NSNumber * previousTimestamp = [installTracker getPreviousInstallTimestamp];
+- (void)checkInstall {
     if (_installEvent) {
-        if (installTracker.isNewInstall) {
-            SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-            SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-                [builder setEventData:installEvent];
-            }];
-            [self track:event];
-            if (previousTimestamp) {
-                [installTracker clearPreviousInstallTimestamp];
-            }
-        } else if (previousTimestamp) {
-            SPSelfDescribingJson * installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-            SPUnstructured * event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-                [builder setEventData:installEvent];
-                [builder setTimestamp:previousTimestamp];
-            }];
-            [self track:event];
-            [installTracker clearPreviousInstallTimestamp];
+        SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
+        NSDate *previousTimestamp = installTracker.previousInstallTimestamp;
+        [installTracker clearPreviousInstallTimestamp];
+        
+        SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
+        SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:installEvent];
+        if (!installTracker.isNewInstall && previousTimestamp == nil) {
+            return;
         }
+        event.trueTimestamp = previousTimestamp; // it can be nil
+        [self track:event];
     }
 }
-
-#pragma GCC diagnostic pop
 
 - (void) setTrackerData {
     _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
@@ -271,7 +292,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)setLoggerDelegate:(id<SPLoggerDelegate>)delegate {
-    [SPLogger setLoggerDelegate:delegate];
+    [SPLogger setDelegate:delegate];
 }
 
 - (void) setSessionContext:(BOOL)sessionContext {
@@ -280,7 +301,9 @@ void uncaughtExceptionHandler(NSException *exception) {
         [_session stopChecker];
         _session = nil;
     } else if (_builderFinished && _session == nil && sessionContext) {
-        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout andBackgroundTimeout:_backgroundTimeout andCheckInterval:_checkInterval andTracker:self];
+        _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
+                                           andBackgroundTimeout:_backgroundTimeout
+                                                     andTracker:self];
     }
 }
 
@@ -307,13 +330,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     _backgroundTimeout = backgroundTimeout;
     if (_builderFinished && _session != nil) {
         [_session setBackgroundTimeout:backgroundTimeout];
-    }
-}
-
-- (void) setCheckInterval:(NSInteger)checkInterval {
-    _checkInterval = checkInterval;
-    if (_builderFinished && _session != nil) {
-        [_session setCheckInterval:checkInterval];
     }
 }
 
@@ -397,19 +413,19 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) pauseEventTracking {
     _dataCollection = NO;
-    [_emitter stopTimerFlush];
+    [_emitter pause];
     [_session stopChecker];
 }
 
 - (void) resumeEventTracking {
     _dataCollection = YES;
-    [_emitter startTimerFlush];
+    [_emitter resume];
     [_session startChecker];
 }
 
 #pragma mark - Getters
 
-- (NSInteger) getSessionIndex {
+- (NSInteger) getSessionIndex __deprecated {
     return [_session getSessionIndex];
 }
 
@@ -440,82 +456,26 @@ void uncaughtExceptionHandler(NSException *exception) {
 #pragma mark - Notifications management
 
 - (void) receiveScreenViewNotification:(NSNotification *)notification {
-    NSString * name = [[notification userInfo] objectForKey:@"name"];
-    NSString * type = stringWithSPScreenType([[[notification userInfo] objectForKey:@"type"] integerValue]);
-    NSString * topViewControllerClassName = [[notification userInfo] objectForKey:@"topViewControllerClassName"];
-    NSString * viewControllerClassName = [[notification userInfo] objectForKey:@"viewControllerClassName"];
+    NSString *name = [[notification userInfo] objectForKey:@"name"];
+    NSString *type = stringWithSPScreenType([[[notification userInfo] objectForKey:@"type"] integerValue]);
+    NSString *topViewControllerClassName = [[notification userInfo] objectForKey:@"topViewControllerClassName"];
+    NSString *viewControllerClassName = [[notification userInfo] objectForKey:@"viewControllerClassName"];
 
     if (_autotrackScreenViews) {
-        SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-            [builder setName:name];
-            [builder setType:type];
-            [builder setViewControllerClassName:viewControllerClassName];
-            [builder setTopViewControllerClassName:topViewControllerClassName];
-        }];
+        SPScreenView *event = [[SPScreenView alloc] initWithName:name screenId:nil];
+        event.type = type;
+        event.viewControllerClassName = viewControllerClassName;
+        event.topViewControllerClassName = topViewControllerClassName;
         [self track:event];
     }
 }
 
 #pragma mark - Event Tracking Functions
 
-- (void) trackPageViewEvent:(SPPageView *)event {
-    [self track:event];
-}
-
-- (void) trackStructuredEvent:(SPStructured *)event {
-    [self track:event];
-}
-
-- (void) trackUnstructuredEvent:(SPUnstructured *)event {
-    [self track:event];
-}
-
 - (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
     if (!event || !_dataCollection) return;
-    SPUnstructured * unstruct = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData: event];
-    }];
+    SPUnstructured *unstruct = [[SPUnstructured alloc] initWithEventData:event];
     [self track:unstruct];
-}
-
-- (void) trackScreenViewEvent:(SPScreenView *)event {
-    [self track:event];
-}
-
-- (void) trackTimingEvent:(SPTiming *)event {
-    [self track:event];
-}
-
-- (void) trackEcommerceEvent:(SPEcommerce *)event {
-    [self track:event];
-}
-
-- (void) trackEcommerceItemEvent:(SPEcommerceItem *)event {
-    [self track:event];
-}
-
-- (void) trackConsentWithdrawnEvent:(SPConsentWithdrawn *)event {
-    [self track:event];
-}
-
-- (void) trackConsentGrantedEvent:(SPConsentGranted *)event {
-    [self track:event];
-}
-
-- (void) trackPushNotificationEvent:(SPPushNotification *)event {
-    [self track:event];
-}
-
-- (void) trackForegroundEvent:(SPForeground *)event {
-    [self track:event];
-}
-
-- (void) trackBackgroundEvent:(SPBackground *)event {
-    [self track:event];
-}
-
-- (void) trackErrorEvent:(SNOWError *)event {
-    [self track:event];
 }
 
 - (void)track:(SPEvent *)event {
@@ -543,23 +503,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     [_emitter addPayloadToBuffer:payload];
 }
 
-- (SPPayload *)getFinalPayloadWithPayload:(SPPayload *)pb andContext:(NSMutableArray *)contextArray andEventId:(NSString *)eventId {
-    [pb addDictionaryToPayload:_trackerData];
-
-    // Add Subject information
-    if (_subject != nil) {
-        [pb addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
-    }
-    [pb addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
-
-    // Add the contexts
-    NSMutableArray<SPSelfDescribingJson *> *contexts = contextArray;
-    [self addBasicContextsToContexts:contexts eventId:eventId isService:NO]; // isService = NO is just the default - this method will be removed in the version 2.0
-
-    [self wrapContexts:contexts toPayload:pb];
-    return pb;
-}
-
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
     SPPayload *payload = [SPPayload new];
     payload.allowDiagnostic = !event.isService;
@@ -582,7 +525,8 @@ void uncaughtExceptionHandler(NSException *exception) {
     [payload addValueToPayload:event.eventId.UUIDString forKey:kSPEid];
     [payload addValueToPayload:[NSString stringWithFormat:@"%lld", event.timestamp] forKey:kSPTimestamp];
     if (event.trueTimestamp) {
-        [payload addValueToPayload:[NSString stringWithFormat:@"%lld", event.trueTimestamp.longLongValue] forKey:kSPTrueTimestamp];
+        long long ttInMilliSeconds = event.trueTimestamp.timeIntervalSince1970 * 1000;
+        [payload addValueToPayload:[NSString stringWithFormat:@"%lld", ttInMilliSeconds] forKey:kSPTrueTimestamp];
     }
     [payload addDictionaryToPayload:_trackerData];
     if (_subject != nil) {

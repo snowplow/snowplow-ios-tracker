@@ -2,7 +2,7 @@
 //  SPDiagnosticLogger.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,15 +16,16 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(DiagnosticLogger)
 @protocol SPDiagnosticLogger <NSObject>
 
-- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(nullable NSError *)error exception:(nullable NSException *)exception;
+- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(nullable NSError *)error exception:(nullable NSException *)exception NS_SWIFT_NAME(log(tag:message:error:exception:));
 
 @end
 

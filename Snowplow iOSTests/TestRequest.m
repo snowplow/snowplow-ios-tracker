@@ -2,7 +2,7 @@
 //  TestRequest.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -29,7 +29,116 @@
 #import "SPSelfDescribingJson.h"
 #import "SPRequestCallback.h"
 #import "SPEvent.h"
-#import <Nocilla/Nocilla.h>
+
+// MARK: - Mocks
+
+@interface SPMockStore : NSObject <SPEventStore>
+
+@property (nonatomic) NSMutableDictionary<NSNumber *, SPPayload *> *db;
+@property (nonatomic) long lastInsertedRow;
+
+@end
+
+@implementation SPMockStore
+
+- (instancetype)init {
+    if (self = [super init]) {
+        self.db = [NSMutableDictionary new];
+        self.lastInsertedRow = -1;
+    }
+    return self;
+}
+
+- (void)addEvent:(nonnull SPPayload *)payload {
+    @synchronized (self) {
+        self.lastInsertedRow++;
+        [self.db setObject:payload forKey:@(self.lastInsertedRow)];
+    }
+}
+
+- (BOOL)removeEventWithId:(long long)storeId {
+    @synchronized (self) {
+        BOOL exist = [self.db objectForKey:@(storeId)];
+        [self.db removeObjectForKey:@(storeId)];
+        return exist;
+    }
+}
+
+- (BOOL)removeEventsWithIds:(nonnull NSArray<NSNumber *> *)storeIds {
+    BOOL result = YES;
+    for (NSNumber *storeId in storeIds) {
+        result = [self.db objectForKey:storeId];
+        [self.db removeObjectForKey:storeId];
+    }
+    return result;
+}
+
+- (BOOL)removeAllEvents {
+    @synchronized (self) {
+        [self.db removeAllObjects];
+        self.lastInsertedRow = -1;
+    }
+    return YES;
+}
+
+- (NSUInteger)count {
+    return self.db.count;
+}
+
+- (nonnull NSArray<SPEmitterEvent *> *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit {
+    @synchronized (self) {
+        NSMutableArray<NSNumber *> *eventIds = [NSMutableArray new];
+        NSMutableArray<SPEmitterEvent *> *events = [NSMutableArray new];
+        [self.db enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, SPPayload *obj, BOOL *stop) {
+            SPPayload *payloadCopy = [[SPPayload alloc] initWithNSDictionary:[obj getAsDictionary]];
+            SPEmitterEvent *event = [[SPEmitterEvent alloc] initWithPayload:payloadCopy storeId:key.longLongValue];
+            [events addObject:event];
+            [eventIds addObject:@(event.storeId)];
+        }];
+        if (queryLimit < events.count) {
+            events = [events subarrayWithRange:NSMakeRange(0, queryLimit)].mutableCopy;
+        }
+        return events;
+    }
+}
+
+@end
+
+
+@interface SPMockConnection: NSObject <SPNetworkConnection>
+
+@property NSInteger resultCode;
+@property SPRequestOptions httpMethod;
+@property NSURL *url;
+
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url;
+
+@end
+
+@implementation SPMockConnection
+
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url {
+    if (self = [super init]) {
+        self.resultCode = resultCode;
+        self.httpMethod = httpMethod;
+        self.url = [NSURL URLWithString:url];
+    }
+    return self;
+}
+
+- (NSArray<SPRequestResult *> *)sendRequests:(NSArray<SPRequest *> *)requests {
+    BOOL isSuccess = self.resultCode == 200;
+    NSMutableArray<SPRequestResult *> *results = [NSMutableArray new];
+    for (SPRequest *request in requests) {
+        SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccess storeIds:request.emitterEventIds];
+        [results addObject:result];
+    }
+    return results;
+}
+
+@end
+
+// MARK: - Tests
 
 @interface TestRequest : XCTestCase <SPRequestCallback>
 
@@ -40,90 +149,75 @@
     NSInteger _failureCount;
 }
 
-NSString *const TEST_SERVER_REQUEST = @"acme.test.url.com";
-NSString *protocol = @"https";
-
 - (void)setUp {
     [super setUp];
-    [[LSNocilla sharedInstance] start];
-#if TARGET_OS_IPHONE
-    if (SNOWPLOW_iOS_9_OR_LATER) {
-        protocol = @"https";
-    }
-#else
-    protocol = @"https";
-#endif
+    _successCount = 0;
+    _failureCount = 0;
 }
 
 - (void)tearDown {
     [super tearDown];
-    [[LSNocilla sharedInstance] clearStubs];
 }
 
 // Tests
 
 - (void)testRequestSendWithPost {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
-    
+    [self forceFlushes:2 emitter:tracker.emitter];
+
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 
 - (void)testRequestSendWithGet {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithBadUrl {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(404);
-    
+    SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:404
+                                                                             method:SPRequestOptionsPost
+                                                                                url:@"https://acme.test.url.com/tp2"];
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+
     // Send all events with a bad URL
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
+    SPTracker *tracker = [self getTrackerWithConnection:mockConnection eventStore:mockStore];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
-    XCTAssertEqual(_failureCount, 8);
+    [self forceFlushes:2 emitter:tracker.emitter];
+    XCTAssertGreaterThan(_failureCount, 0);
+    XCTAssertEqual(_successCount, 0);
     XCTAssertEqual([tracker.emitter getDbCount], 8);
     
     // Update the URL and flush
-    [[tracker emitter] setUrlEndpoint:TEST_SERVER_REQUEST];
+    [tracker pauseEventTracking];
+    [NSThread sleepForTimeInterval:5];
+    mockConnection.resultCode = 200;
+    [tracker resumeEventTracking];
     
-    [[LSNocilla sharedInstance] clearStubs];
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
-    
-    [[tracker emitter] flushBuffer];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithoutSubject {
-    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", protocol, TEST_SERVER_REQUEST].regex).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestGet];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200];
     [tracker setSubject:nil];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_successCount, 8);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
 - (void)testRequestSendWithCollectionOff {
-    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"%@://%@/com.snowplowanalytics.snowplow/tp2", protocol, TEST_SERVER_REQUEST]).andReturn(200);
-    
-    SPTracker * tracker = [self getTracker:TEST_SERVER_REQUEST requestType:SPRequestPost];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200];
     [tracker pauseEventTracking];
     [self sendAll:tracker];
-    [self emitterSleep:[tracker emitter]];
+    [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertEqual(_failureCount, 0);
     XCTAssertEqual(_successCount, 0);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
@@ -131,27 +225,31 @@ NSString *protocol = @"https";
 
 // Helpers
 
-- (SPTracker *)getTracker:(NSString *)url requestType:(enum SPRequestOptions)type {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:url];
-        [builder setCallback:self];
-        [builder setHttpMethod:type];
-    }];
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
-    SPTracker * tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setAppId:@"anAppId"];
-        [builder setBase64Encoded:NO];
-        [builder setTrackerNamespace:@"aNamespace"];
-        [builder setSessionContext:YES];
-    }];
-    return tracker;
+- (SPTracker *)getTrackerWithConnection:(id<SPNetworkConnection>)mockNetworkConnection eventStore:(id<SPEventStore>)mockEventStore {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithNetworkConnection:mockNetworkConnection];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
+    trackerConfig.platformContext = YES;
+    trackerConfig.geoLocationContext = YES;
+    trackerConfig.base64Encoding = NO;
+    trackerConfig.sessionContext = YES;
+    SPEmitterConfiguration *emitterConfig = [[SPEmitterConfiguration alloc] init];
+    emitterConfig.requestCallback = self;
+    emitterConfig.eventStore = mockEventStore;
+    SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig tracker:trackerConfig configurations:@[emitterConfig]];
+    return serviceProvider.tracker;
 }
 
-- (void)emitterSleep:(SPEmitter *)emitter {
+- (SPTracker *)getTrackerWithRequestType:(SPRequestOptions)type resultCode:(NSInteger)resultCode {
+    SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:resultCode method:type url:@"https://acme.test.url.com/tp2"];
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+
+    return [self getTrackerWithConnection:mockConnection eventStore:mockStore];
+}
+
+- (void)forceFlushes:(NSInteger)count emitter:(SPEmitter *)emitter {
     [NSThread sleepForTimeInterval:3];
-    while ([emitter getSendingStatus]) {
+    for (int i = 0; i < count; i++) {
+        [emitter flush];
         [NSThread sleepForTimeInterval:5];
     }
     [NSThread sleepForTimeInterval:3];
@@ -170,7 +268,7 @@ NSString *protocol = @"https";
 
 // Pre-Built Events for sending!
 
-- (void) sendAll:(SPTracker *)tracker {
+- (void)sendAll:(SPTracker *)tracker {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self trackStructuredEventWithTracker:tracker];
         [self trackUnstructuredEventWithTracker:tracker];
@@ -182,128 +280,84 @@ NSString *protocol = @"https";
     });
 }
 
-- (void) trackStructuredEventWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    SPStructured *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"DemoCategory"];
-        [builder setAction:@"DemoAction"];
-        [builder setLabel:@"DemoLabel"];
-        [builder setProperty:@"DemoProperty"];
-        [builder setValue:5];
-        [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
-    }];
+- (void)trackStructuredEventWithTracker:(SPTracker *)tracker_ {
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"DemoCategory" action:@"DemoAction"];
+    event.label = @"DemoLabel";
+    event.property = @"DemoProperty";
+    event.value = @5;
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
-    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
+- (void)trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    [data setObject:@23 forKey:@"level"];
+    [data setObject:@56473 forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
-        [builder setEventData:sdj];
-        [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
-    }];
+    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
-    NSMutableDictionary * data = [[NSMutableDictionary alloc] init];
-    [data setObject:[NSNumber numberWithInt:23] forKey:@"level"];
-    [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
-    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
-                                                                      andData:data];
+- (void)trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
+    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
+    [data setObject:@23 forKey:@"level"];
+    [data setObject:@56473 forKey:@"score"];
+    SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
+                                                                     andData:data];
     [tracker_ trackSelfDescribingEvent:sdj];
 }
 
-- (void) trackPageViewWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-        [builder setPageTitle:@"DemoPageTitle"];
-        [builder setReferrer:@"DemoPageReferrer"];
-        [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
-    }];
+- (void)trackPageViewWithTracker:(SPTracker *)tracker_ {
+    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
+    event.pageTitle = @"DemoPageTitle";
+    event.referrer = @"DemoPageReferrer";
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackScreenViewWithTracker:(SPTracker *)tracker_ {
-    NSString *eventId = [NSUUID UUID].UUIDString;
-    NSString *screenId = [NSUUID UUID].UUIDString;
-    SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-        [builder setName:@"DemoScreenName"];
-        [builder setScreenId:screenId];
-        [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:eventId];
-    }];
+- (void)trackScreenViewWithTracker:(SPTracker *)tracker_ {
+    SPScreenView *event = [[SPScreenView alloc] initWithName:@"DemoScreenName" screenId:nil];
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
-    SPTiming *event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-        [builder setCategory:@"DemoTimingCategory"];
-        [builder setVariable:@"DemoTimingVariable"];
-        [builder setTiming:5];
-        [builder setLabel:@"DemoTimingLabel"];
-        [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
-    }];
+- (void)trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
+    SPTiming *event = [[SPTiming alloc] initWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:@5];
+    event.label = @"DemoTimingLabel";
+    event.contexts = self.customContext;
     [tracker_ track:event];
 }
 
-- (void) trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
-    NSString *uuid = [NSUUID UUID].UUIDString;
+- (void)trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
     
-    SPEcommerceItem * item = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-        [builder setItemId:transactionID];
-        [builder setSku:@"DemoItemSku"];
-        [builder setName:@"DemoItemName"];
-        [builder setCategory:@"DemoItemCategory"];
-        [builder setPrice:0.75F];
-        [builder setQuantity:1];
-        [builder setCurrency:@"USD"];
-        [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1234657890];
-        [builder setEventId:uuid];
-    }];
-    
+    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithItemId:transactionID sku:@"DemoItemSku" price:@0.75F quantity:@1];
+    [item name:@"DemoItemName"];
+    [item category:@"DemoItemCategory"];
+    [item currency:@"USD"];
+    [item contexts:self.customContext];
+
     [itemArray addObject:item];
     
-    SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-        [builder setOrderId:transactionID];
-        [builder setTotalValue:350];
-        [builder setAffiliation:@"DemoTranAffiliation"];
-        [builder setTaxValue:10];
-        [builder setShipping:15];
-        [builder setCity:@"Boston"];
-        [builder setState:@"Massachusetts"];
-        [builder setCountry:@"USA"];
-        [builder setCurrency:@"USD"];
-        [builder setItems:itemArray];
-        [builder setContexts:[self getCustomContext]];
-        [builder setTimestamp:@1243567890];
-        [builder setEventId:uuid];
-    }];
+    SPEcommerce *event = [[SPEcommerce alloc] initWithOrderId:transactionID totalValue:@350 items:itemArray];
+    [event affiliation:@"DemoTranAffiliation"];
+    [event taxValue:@10];
+    [event shipping:@15];
+    [event city:@"Boston"];
+    [event state:@"Massachusetts"];
+    [event country:@"USA"];
+    [event currency:@"USD"];
+    [event contexts:self.customContext];
     [tracker_ track:event];
 }
 
-- (NSMutableArray *) getCustomContext {
-    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
-    SPSelfDescribingJson * context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
-                                                                          andData:data];
+- (NSMutableArray *)customContext {
+    NSDictionary *data = @{@"snowplow": @"demo-tracker"};
+    SPSelfDescribingJson *context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
+                                                                         andData:data];
     return [NSMutableArray arrayWithArray:@[context]];
 }
 

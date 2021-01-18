@@ -1,4 +1,9 @@
 
+Version 1.6.1 (2020-11-24)
+--------------------------
+Fix AddGlobalContext unable to work when GlobalContexts not initialized (#553)
+Let Crash reporting to add contexts and AppID (#555)
+
 Version 1.6.0 (2020-09-21)
 --------------------------
 Update GitHub Actions to test on iOS 14 (#545)

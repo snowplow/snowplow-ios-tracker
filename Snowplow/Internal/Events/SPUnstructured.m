@@ -2,7 +2,7 @@
 //  SPUnstructured.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -31,29 +31,41 @@
     SPSelfDescribingJson * _eventData;
 }
 
-+ (instancetype) build:(void(^)(id<SPUnstructuredBuilder>builder))buildBlock {
++ (instancetype) build:(void(^)(id<SPUnstructuredBuilder> builder))buildBlock {
     SPUnstructured* event = [SPUnstructured new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithEventData:(SPSelfDescribingJson *)eventData {
+    if (self = [super init]) {
+        _eventData = eventData;
+        [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_eventData.data] withMessage:@"EventData has to be JSON serializable."];
+    }
     return self;
 }
 
 - (void) preconditions {
     [SPUtilities checkArgument:(_eventData != nil) withMessage:@"EventData cannot be nil."];
     [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_eventData.data] withMessage:@"EventData has to be JSON serializable."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
 - (void) setEventData:(SPSelfDescribingJson *)eventData {
     _eventData = eventData;
 }
+
+#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -67,20 +79,6 @@
         return (NSDictionary<NSString *, NSObject *> *)data;
     }
     return nil;
-}
-
-- (SPPayload *) getPayloadWithEncoding:(BOOL)encoding {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
-
-    SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:kSPUnstructSchema
-                                                        andSelfDescribingJson:_eventData];
-
-    [payload addDictionaryToPayload:[sdj getAsDictionary]
-                 base64Encoded:encoding
-               typeWhenEncoded:kSPUnstructuredEncoded
-            typeWhenNotEncoded:kSPUnstructured];
-    return [self addDefaultParamsToPayload:payload];
 }
 
 @end

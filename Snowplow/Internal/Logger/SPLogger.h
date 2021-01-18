@@ -2,7 +2,7 @@
 //  SPLogger.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPDiagnosticLogger.h"
-#import "SPTracker.h"
+#import "SPLoggerDelegate.h"
 
 #define SPLogTrack(optionalErrorOrException, format, ...) [SPLogger diagnostic:NSStringFromClass(self.class) message:[[NSString alloc] initWithFormat:format, ##__VA_ARGS__] errorOrException:optionalErrorOrException]
 #define SPLogError(format, ...) [SPLogger error:NSStringFromClass(self.class) message:[[NSString alloc] initWithFormat:format, ##__VA_ARGS__]]
@@ -31,11 +31,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(Logger)
 @interface SPLogger : NSObject
 
-+ (void)setLoggerDelegate:(nullable id<SPLoggerDelegate>)delegate;
-+ (void)setDiagnosticLogger:(nullable id<SPDiagnosticLogger>)diagnosticLogger;
-+ (void)setLogLevel:(SPLogLevel)logLevel;
+@property (class, nonatomic) SPLogLevel logLevel;
+@property (class, nonatomic, nullable) id<SPLoggerDelegate> delegate;
+@property (class, nonatomic, nullable) id<SPDiagnosticLogger> diagnosticLogger;
 
 + (void)diagnostic:(NSString *)tag message:(NSString *)message errorOrException:(nullable id)errorOrException;
 + (void)error:(NSString *)tag message:(NSString *)message;

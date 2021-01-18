@@ -2,7 +2,7 @@
 //  SPTrackerEvent.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSString *eventName;
 @property (nonatomic) NSUUID *eventId;
 @property (nonatomic) long long timestamp;
-@property (nonatomic) NSNumber *trueTimestamp;
+@property (nonatomic) NSDate *trueTimestamp;
 @property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
 @property (nonatomic) BOOL isPrimitive;

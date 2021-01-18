@@ -2,7 +2,7 @@
 //  Snowplow.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -37,6 +37,12 @@
 #define SNOWPLOW_iOS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
 #define SNOWPLOW_iOS_9_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0)
 #endif
+
+// Macros for builder pattern
+#define SP_ESCAPE(...) __VA_ARGS__
+#define SP_BUILDER_DECLARE(type, prop) - (instancetype)prop:(type)value NS_SWIFT_NAME(prop(_:));
+#define SP_BUILDER_DECLARE_NULLABLE(type, prop) - (instancetype)prop:(nullable type)value NS_SWIFT_NAME(prop(_:));
+#define SP_BUILDER_METHOD(type, prop) - (instancetype)prop:(type)value { self.prop = value; return self; }
 
 @interface Snowplow : NSObject
 

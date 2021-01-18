@@ -21,13 +21,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPSelfDescribingJson.h"
+#import "Snowplow.h"
 
 @class SPPayload;
 @class SPTracker;
 
-/*!
- @brief An enum for screen types.
- */
+/// An enum for screen types.
 typedef NS_ENUM(NSInteger, SPScreenType) {
     // sourced from `View Controller Catalog for iOS`
     SPScreenTypeDefault,
@@ -38,45 +38,35 @@ typedef NS_ENUM(NSInteger, SPScreenType) {
     SPScreenTypePopoverPresentation,
     SPScreenTypeModal,
     SPScreenTypeCombined
-};
+} NS_SWIFT_NAME(ScreenType);
 
-NSString * stringWithSPScreenType(SPScreenType screenType);
+NSString * _Nullable stringWithSPScreenType(SPScreenType screenType);
 
-/*!
- @protocol SPInspectableEvent
- @brief The inspectable properties of the event used to generate contexts.
- */
+NS_ASSUME_NONNULL_BEGIN
+
+/// The inspectable properties of the event used to generate contexts.
+NS_SWIFT_NAME(InspectableEvent)
 @protocol SPInspectableEvent <NSObject>
 
-/*! The schema of the event. */
-@property (nonatomic, readonly) NSString *schema;
-/*! The name of the event. */
-@property (nonatomic, readonly) NSString *eventName;
-/*! The payload of the event. */
+/// The schema of the event
+@property (nonatomic, readonly, nullable) NSString *schema;
+/// The name of the event
+@property (nonatomic, readonly, nullable) NSString *eventName;
+/// The payload of the event
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
 @end
 
-/*!
- @protocol SPEventBuilder
- @brief The base protocol for all event builders.
 
- This protocol defines basic functionality needed to build all events.
- */
+/// This protocol defines basic functionality needed to build all events
+NS_SWIFT_NAME(EventBuilder)
 @protocol SPEventBuilder <NSObject>
-
-/*!
- @brief Set the timestamp of when the event has been processed by the tracker.
- @param timestamp The timestamp of the event in milliseconds (epoch time)
- @deprecated This method is for internal use only and will be removed in the next major version. Use `trueTimestamp` as alternative.
- */
-- (void) setTimestamp:(NSNumber *)timestamp __deprecated_msg("The timestamp will be set once the event is processed.");
 
 /*!
  @brief Set the optional timestamp of the event.
  @param timestamp The timestamp of the event in seconds (epoch time)
  */
-- (void)setTrueTimestamp:(NSNumber *)timestamp;
+- (void)setTrueTimestamp:(NSDate *)timestamp;
 
 /*!
  @brief Set the contexts attached to the event.
@@ -84,64 +74,30 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  */
 - (void) setContexts:(NSMutableArray *)contexts;
 
-/*!
- @brief Set the UUID associated with the event.
- @param eventId A UUID for the event.
- @deprecated This method is for internal use only and will be removed in the next major version.
- */
-- (void) setEventId:(NSString *)eventId __deprecated_msg("The eventId will be set once the event is processed.");
 @end
 
-/*!
- @class SPEvent
- @brief The base object for all events.
 
- This class has the basic functionality needed to represent all events.
- */
-@interface SPEvent : NSObject <SPEventBuilder>
-
-/*! The tracker event timestamp in milliseconds (epoch time). */
-@property (nonatomic, readwrite) NSNumber *timestamp __deprecated_msg("The timestamp can be set only by the tracker.");
+/// This class has the basic functionality needed to represent all events
+NS_SWIFT_NAME(Event)
+@interface SPEvent : NSObject
 
 /*! The user event timestamp in milliseconds (epoch time). */
-@property (nonatomic, readwrite) NSNumber *trueTimestamp;
+@property (nonatomic, nullable) NSDate *trueTimestamp;
 
 /*! The contexts attached to the event. */
-@property (nonatomic, readwrite, retain) NSMutableArray *contexts;
-
-/*! The UUID that identifies the event. */
-@property (nonatomic, readwrite, retain) NSString *eventId __deprecated_msg("The eventId can be specified only by the tracker.");
+@property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
 /*! The payload of the event. */
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
-- (void) basePreconditions;
+SP_BUILDER_DECLARE_NULLABLE(NSDate *, trueTimestamp)
+SP_BUILDER_DECLARE(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 
 /*!
  @brief Get the copy of the context list associated with the event.
+ @deprecated Use `contexts` property instead.
 */
-- (NSMutableArray *) getContexts;
-
-/*!
- @brief Get the timestamp of the event in milliseconds (epoch time).
- @note If the timestamp is not set, it sets one as a side effect.
- @deprecated This method is for internal use only and will be removed in the next major version.
-*/
-- (NSNumber *) getTimestamp __deprecated_msg("The timestamp is set only when the event is processed.");
-
-/*!
- @brief Get the user timestamp of the event in seconds (epoch time) if it has been set.
-*/
-- (NSNumber *)getTrueTimestamp;
-
-/*!
- @brief Get the UUID associated with the event.
- @note If the eventId is not set, it sets one as a side effect.
- @deprecated This method is for internal use only and will be removed in the next major version.
-*/
-- (NSString *) getEventId __deprecated_msg("The eventId is set only when the event is processed.");
-
-- (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb __deprecated_msg("The payload can be updated only by the tracker.");
+- (NSMutableArray *) getContexts __deprecated_msg("Use `contexts` property instead.");
 
 /**
  * Hook method called just before the event processing in order to execute special operations.
@@ -160,6 +116,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  @interface SPSelfDescribing
  @brief The properties for all the self-describing events.
  */
+NS_SWIFT_NAME(SelfDescribing)
 @interface SPSelfDescribing : SPEvent
 
 /*! The schema of the event. */
@@ -171,9 +128,12 @@ NSString * stringWithSPScreenType(SPScreenType screenType);
  @interface SPPrimitive
  @brief The properties for all the self-describing events.
  */
+NS_SWIFT_NAME(Primitive)
 @interface SPPrimitive : SPEvent
 
 /*! The name of the event. */
 @property (nonatomic, readonly) NSString *name;
 
 @end
+
+NS_ASSUME_NONNULL_END

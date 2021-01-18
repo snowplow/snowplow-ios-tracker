@@ -2,7 +2,7 @@
 //  SPPageView.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -32,24 +32,37 @@
     NSString * _referrer;
 }
 
-+ (instancetype) build:(void(^)(id<SPPageViewBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPPageViewBuilder> builder))buildBlock {
     SPPageView* event = [SPPageView new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithPageUrl:(NSString *)pageUrl {
+    if (self = [super init]) {
+        _pageUrl = pageUrl;
+        [SPUtilities checkArgument:([_pageUrl length] != 0) withMessage:@"PageURL cannot be nil or empty."];
+    }
     return self;
 }
 
 - (void) preconditions {
     [SPUtilities checkArgument:([_pageUrl length] != 0) withMessage:@"PageURL cannot be nil or empty."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, pageTitle)
+SP_BUILDER_METHOD(NSString *, referrer)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setPageUrl:(NSString *)pageUrl {
     _pageUrl = pageUrl;
@@ -63,6 +76,8 @@
     _referrer = referrer;
 }
 
+#pragma clang diagnostic pop
+
 // --- Public Methods
 
 - (NSString *)name {
@@ -75,15 +90,6 @@
     [payload setValue:_pageTitle forKey:kSPPageTitle];
     [payload setValue:_referrer forKey:kSPPageRefr];
     return payload;
-}
-
-- (SPPayload *) getPayload {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventPageView forKey:kSPEvent];
-    [payload addValueToPayload:_pageUrl forKey:kSPPageUrl];
-    [payload addValueToPayload:_pageTitle forKey:kSPPageTitle];
-    [payload addValueToPayload:_referrer forKey:kSPPageRefr];
-    return [self addDefaultParamsToPayload:payload];
 }
 
 @end

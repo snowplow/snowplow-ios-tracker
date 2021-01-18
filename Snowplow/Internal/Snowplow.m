@@ -2,7 +2,7 @@
 //  Snowplow.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -27,13 +27,13 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-1.6.0";
+NSString * const kSPVersion               = @"ios-1.6.1";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-1.6.0";
+NSString * const kSPVersion               = @"tvos-1.6.1";
 #elif SNOWPLOW_TARGET_WATCHOS
-NSString * const kSPVersion               = @"watchos-1.6.0";
+NSString * const kSPVersion               = @"watchos-1.6.1";
 #else
-NSString * const kSPVersion               = @"osx-1.6.0";
+NSString * const kSPVersion               = @"osx-1.6.1";
 #endif
 
 // --- Emitter

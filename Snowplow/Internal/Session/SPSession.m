@@ -43,7 +43,6 @@
 @implementation SPSession {
     NSInteger   _foregroundTimeout;
     NSInteger   _backgroundTimeout;
-    NSInteger   _checkInterval;
     BOOL        _inBackground;
     BOOL        _isNewSession;
     BOOL        _isSessionCheckerEnabled;
@@ -69,20 +68,11 @@ NSString * const kSessionSavePath = @"session.dict";
 }
 
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout {
-    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout andCheckInterval:15];
+    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout];
 }
 
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andTracker:(SPTracker *)tracker {
-    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout andCheckInterval:15 andTracker:tracker];
-}
-
-- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andCheckInterval:15 andTracker:nil];
-}
-
-- (id) initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andCheckInterval:(NSInteger)checkInterval andTracker:(SPTracker *)tracker{
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         _foregroundTimeout = foregroundTimeout * 1000;
         _backgroundTimeout = backgroundTimeout * 1000;
         _inBackground = NO;
@@ -119,7 +109,7 @@ NSString * const kSessionSavePath = @"session.dict";
     return self;
 }
 
-// --- Public
+// MARK: - Public
 
 - (void) startChecker {
     _isSessionCheckerEnabled = YES;
@@ -129,16 +119,17 @@ NSString * const kSessionSavePath = @"session.dict";
     _isSessionCheckerEnabled = NO;
 }
 
+- (void)startNewSession {
+    // TODO: when the sesssion has been renewed programmatically, it has to be reported in the session context to the collector.
+    _isNewSession = YES;
+}
+
 - (void) setForegroundTimeout:(NSInteger)foregroundTimeout {
     _foregroundTimeout = foregroundTimeout;
 }
 
 - (void) setBackgroundTimeout:(NSInteger)backgroundTimeout {
     _backgroundTimeout = backgroundTimeout;
-}
-
-- (void) setCheckInterval:(NSInteger)checkInterval {
-    _checkInterval = checkInterval;
 }
 
 - (NSDictionary *) getSessionDictWithEventId:(NSString *)eventId {
@@ -160,10 +151,6 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (NSInteger) getBackgroundTimeout {
     return _backgroundTimeout;
-}
-
-- (NSInteger) getCheckInterval {
-    return _checkInterval;
 }
 
 - (NSInteger) getSessionIndex {
@@ -194,7 +181,7 @@ NSString * const kSessionSavePath = @"session.dict";
     return self.tracker;
 }
 
-// --- Private
+// MARK: - Private
 
 - (BOOL) writeSessionToFile {
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -273,24 +260,14 @@ NSString * const kSessionSavePath = @"session.dict";
 
 - (void) sendBackgroundEvent {
     if (self.tracker) {
-        __weak __typeof__(self) weakSelf = self;
-        SPBackground * backgroundEvent = [SPBackground build:^(id<SPBackgroundBuilder> builder) {
-            __typeof__(self) strongSelf = weakSelf;
-            if (strongSelf == nil) return;
-            [builder setIndex:[NSNumber numberWithInteger:strongSelf->_backgroundIndex]];
-        }];
+        SPBackground *backgroundEvent = [[SPBackground alloc] initWithIndex:@(_backgroundIndex)];
         [self.tracker track:backgroundEvent];
     }
 }
 
 - (void) sendForegroundEvent {
     if (self.tracker) {
-        __weak __typeof__(self) weakSelf = self;
-        SPForeground * foregroundEvent = [SPForeground build:^(id<SPForegroundBuilder> builder) {
-            __typeof__(self) strongSelf = weakSelf;
-            if (strongSelf == nil) return;
-            [builder setIndex:[NSNumber numberWithInteger:strongSelf->_foregroundIndex]];
-        }];
+        SPForeground *foregroundEvent = [[SPForeground alloc] initWithIndex:@(_foregroundIndex)];
         [self.tracker track:foregroundEvent];
     }
 }

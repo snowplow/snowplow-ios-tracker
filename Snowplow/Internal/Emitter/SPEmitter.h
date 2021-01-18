@@ -2,7 +2,7 @@
 //  SPEmitter.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -29,34 +29,16 @@
 #import <Foundation/Foundation.h>
 #import "SPNetworkConnection.h"
 #import "SPEventStore.h"
+#import "SPEmitterConfiguration.h"
+#import "SPEmitterEventProcessing.h"
 
 @protocol SPRequestCallback;
 @class SPPayload;
 
 /*!
- @brief An enum for buffer options.
- */
-typedef NS_ENUM(NSUInteger, SPBufferOption) {
-    /**
-     * Sends both GET and POST requests with only a single event.  Can cause a spike in
-     * network traffic if used in correlation with a large amount of events.
-     */
-    SPBufferOptionSingle = 1,
-    /**
-     * Sends POST requests in groups of 10 events.  This is the default amount of events too
-     * package into a POST.  All GET requests will still emit one at a time.
-     */
-    SPBufferOptionDefaultGroup = 10,
-    /**
-     * Sends POST requests in groups of 25 events.  Useful for situations where many events
-     * need to be sent.  All GET requests will still emit one at a time.
-     */
-    SPBufferOptionHeavyGroup = 25
-};
-
-/*!
  @brief The builder for SPEmitter.
  */
+NS_SWIFT_NAME(EmitterBuilder)
 @protocol SPEmitterBuilder <NSObject>
 
 /*!
@@ -69,14 +51,14 @@ typedef NS_ENUM(NSUInteger, SPBufferOption) {
 /*!
  @brief Emitter builder method to set HTTP method.
 
- @param method Should be SPRequestGet or SPRequestPost.
+ @param method Should be SPRequestOptionsGet or SPRequestOptionsPost.
  */
 - (void) setHttpMethod:(SPRequestOptions)method;
 
 /*!
  @brief Emitter builder method to set HTTP security.
 
- @param protocol Should be SPHttp or SPHttps.
+ @param protocol Should be SPProtocolHttp or SPProtocolHttps.
  */
 - (void) setProtocol:(SPProtocol)protocol;
 
@@ -146,11 +128,12 @@ typedef NS_ENUM(NSUInteger, SPBufferOption) {
 
  This class sends events to the collector.
  */
-@interface SPEmitter : NSObject <SPEmitterBuilder>
+NS_SWIFT_NAME(Emitter)
+@interface SPEmitter : NSObject <SPEmitterBuilder, SPEmitterEventProcessing>
 
-/*! @brief Chosen HTTP method - SPRequestGet or SPRequestPost. */
+/*! @brief Chosen HTTP method - SPRequestOptionsGet or SPRequestOptionsPost. */
 @property (readonly, nonatomic) SPRequestOptions httpMethod;
-/*! @brief Security of requests - SPHttp or SPHttps.  */
+/*! @brief Security of requests - SPProtocolHttp or SPProtocolHttps.  */
 @property (readonly, nonatomic) SPProtocol protocol;
 /*! @brief Buffer option */
 @property (readonly, nonatomic) SPBufferOption bufferOption;
@@ -168,37 +151,45 @@ typedef NS_ENUM(NSUInteger, SPBufferOption) {
 @property (readonly, nonatomic, weak) id<SPRequestCallback> callback;
 /*! @brief Custom endpoint path for POST requests. */
 @property (readonly, nonatomic) NSString *customPostPath;
+/*! @brief Custom NetworkConnection istance to handle connection outside the emitter. */
+@property (readonly, nonatomic) id<SPNetworkConnection> networkConnection;
 
 /*!
  @brief Builds the emitter using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock;
++ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Tracker.setup(...)` instead.");
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
 /*!
- @brief Insert a SPPayload object into the buffer to be sent to collector.
+ @brief Insert a Payload object into the buffer to be sent to collector.
 
  This method will add the payload to the database and flush (send all events).
- @param spPayload An SPPayload containing a completed event to be added into the buffer.
+ @param eventPayload A Payload containing a completed event to be added into the buffer.
  */
-- (void) addPayloadToBuffer:(SPPayload *)spPayload;
+- (void)addPayloadToBuffer:(SPPayload *)eventPayload;
 
 /*!
  @brief Empties the buffer of events using the respective HTTP request method.
  */
-- (void) flushBuffer;
+- (void)flush;
+
+- (void)flushBuffer __deprecated_msg("Use `flush` instead.");
 
 /*!
- @brief Sets up a timer to automatically initiate sending of events at pre-determined intervals.
+ @brief Allowes sending of events to collector.
  */
-- (void) startTimerFlush;
+- (void)resume;
+
+- (void)startTimerFlush __deprecated_msg("Use `resume` instead.");
 
 /*!
- @brief Suspends the timer so flush will not be called.
+ @brief Suspends sending of events to collector.
  */
-- (void) stopTimerFlush;
+- (void)pause;
+
+- (void)stopTimerFlush __deprecated_msg("Use `pause` instead.");
 
 /*!
  @brief Returns the number of events in the DB.

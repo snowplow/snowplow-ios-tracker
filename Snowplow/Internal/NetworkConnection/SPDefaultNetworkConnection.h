@@ -2,7 +2,7 @@
 //  SPDefaultNetworkConnection.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -25,6 +25,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+NS_SWIFT_NAME(DefaultNetworkConnectionBuilder)
 @protocol SPDefaultNetworkConnectionBuilder <NSObject>
 
 /*!
@@ -35,13 +36,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief Builder method to set HTTP method.
- @param method Should be SPRequestGet or SPRequestPost.
+ @param method Should be SPRequestOptionsGet or SPRequestOptionsPost.
  */
 - (void) setHttpMethod:(SPRequestOptions)method;
 
 /*!
  @brief Builder method to set HTTP security.
- @param protocol Should be SPHttp or SPHttps.
+ @param protocol Should be SPProtocolHttp or SPProtocolHttps.
  */
 - (void) setProtocol:(SPProtocol)protocol;
 
@@ -71,6 +72,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+NS_SWIFT_NAME(DefaultNetworkConnection)
 @interface SPDefaultNetworkConnection : NSObject <SPNetworkConnection, SPDefaultNetworkConnectionBuilder>
 
 /*!

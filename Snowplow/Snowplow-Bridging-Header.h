@@ -3,6 +3,24 @@
 //
 
 #import "Snowplow.h"
+#import "SPConfiguration.h"
+#import "SPTrackerConfiguration.h"
+#import "SPNetworkConfiguration.h"
+#import "SPSubjectConfiguration.h"
+#import "SPSessionConfiguration.h"
+#import "SPEmitterConfiguration.h"
+#import "SPGDPRConfiguration.h"
+#import "SPGlobalContextsConfiguration.h"
+
+#import "SPTrackerControlling.h"
+#import "SPSessionControlling.h"
+#import "SPNetworkControlling.h"
+#import "SPEmitterControlling.h"
+#import "SPGDPRControlling.h"
+#import "SPGlobalContextsControlling.h"
+
+#import "SPLoggerDelegate.h"
+
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -40,3 +58,4 @@
 #import "SPGlobalContext.h"
 #import "SPSchemaRuleset.h"
 #import "SPSchemaRule.h"
+

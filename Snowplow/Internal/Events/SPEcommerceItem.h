@@ -2,7 +2,7 @@
 //  SPEcommerceItem.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
  @protocol SPEcommTransactionItemBuilder
  @brief The protocol for building ecommerce transaction item events.
  */
+NS_SWIFT_NAME(EcommTransactionItemBuilder)
 @protocol SPEcommTransactionItemBuilder <SPEventBuilder>
 
 /*!
@@ -35,58 +36,76 @@ NS_ASSUME_NONNULL_BEGIN
 
  @param itemId ID of the eCommerce transaction.
  */
-- (void) setItemId:(NSString *)itemId;
+- (void) setItemId:(NSString *)itemId __deprecated_msg("Use initializer of `EcommerceItem` class instead.");
 
 /*!
  @brief Set the Sku.
 
  @param sku Item SKU.
  */
-- (void) setSku:(NSString *)sku;
+- (void) setSku:(NSString *)sku __deprecated_msg("Use initializer of `EcommerceItem` class instead.");
 
 /*!
  @brief Set the price.
 
  @param price Item price.
  */
-- (void) setPrice:(double)price;
+- (void) setPrice:(double)price __deprecated_msg("Use initializer of `EcommerceItem` class instead.");
 
 /*!
  @brief Set the quantity.
 
  @param quantity Item quantity.
  */
-- (void) setQuantity:(NSInteger)quantity;
+- (void) setQuantity:(NSInteger)quantity __deprecated_msg("Use initializer of `EcommerceItem` class instead.");
 
 /*!
  @brief Set the name.
 
  @param name Item name.
  */
-- (void) setName:(nullable NSString *)name;
+- (void) setName:(nullable NSString *)name __deprecated_msg("Use `name` of `EcommerceItem` class instead.");
 
 /*!
  @brief Set the category.
 
  @param category Item category.
  */
-- (void) setCategory:(nullable NSString *)category;
+- (void) setCategory:(nullable NSString *)category __deprecated_msg("Use `category` of `EcommerceItem` class instead.");
 
 /*!
  @brief Set the currency.
 
  @param currency Transaction currency.
  */
-- (void) setCurrency:(nullable NSString *)currency;
+- (void) setCurrency:(nullable NSString *)currency __deprecated_msg("Use `currency` of `EcommerceItem` class instead.");
 @end
 
 /*!
  @class SPEcommerceItem
  @brief An ecommerce item event.
  */
+NS_SWIFT_NAME(EcommerceItem)
 @interface SPEcommerceItem : SPPrimitive <SPEcommTransactionItemBuilder>
-+ (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock;
-- (SPPayload *) getPayload __deprecated_msg("getPayload is deprecated. Use `payload` instead.");
+
+@property (nonatomic, readonly) NSString *itemId;
+@property (nonatomic, readonly) NSString *sku;
+@property (nonatomic, readonly) NSNumber *price;
+@property (nonatomic, readonly) NSNumber *quantity;
+@property (nonatomic, nullable) NSString *name;
+@property (nonatomic, nullable) NSString *category;
+@property (nonatomic, nullable) NSString *currency;
+
++ (instancetype)build:(void(^)(id<SPEcommTransactionItemBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+
+- (instancetype)init NS_UNAVAILABLE;
+
+- (instancetype)initWithItemId:(NSString *)itemId sku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity NS_SWIFT_NAME(init(itemId:sku:price:quantity:));
+
+SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, category)
+SP_BUILDER_DECLARE_NULLABLE(NSString *, currency)
+
 @end
 
 NS_ASSUME_NONNULL_END

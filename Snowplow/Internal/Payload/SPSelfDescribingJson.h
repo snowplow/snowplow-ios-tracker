@@ -2,7 +2,7 @@
 //  SPSelfDescribingJson.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -32,6 +32,7 @@
 
  @see SPPayload
  */
+NS_SWIFT_NAME(SelfDescribingJson)
 @interface SPSelfDescribingJson : NSObject
 
 /// the schema URI for this self-describing JSON.

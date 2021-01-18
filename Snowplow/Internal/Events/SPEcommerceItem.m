@@ -2,7 +2,7 @@
 //  SPEcommerceItem.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -36,15 +36,27 @@
     NSString * _currency;
 }
 
-+ (instancetype) build:(void(^)(id<SPEcommTransactionItemBuilder>builder))buildBlock {
++ (instancetype)build:(void(^)(id<SPEcommTransactionItemBuilder> builder))buildBlock {
     SPEcommerceItem* event = [SPEcommerceItem new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
 }
 
-- (id) init {
+- (instancetype)init {
     self = [super init];
+    return self;
+}
+
+- (instancetype)initWithItemId:(NSString *)itemId sku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity {
+    if (self = [super init]) {
+        _itemId = itemId;
+        _sku = sku;
+        _price = price;
+        _quantity = quantity;
+        [SPUtilities checkArgument:([_itemId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
+        [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
+    }
     return self;
 }
 
@@ -53,10 +65,16 @@
     [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
     [SPUtilities checkArgument:(_price != nil) withMessage:@"Price cannot be nil."];
     [SPUtilities checkArgument:(_quantity != nil) withMessage:@"Quantity cannot be nil."];
-    [self basePreconditions];
 }
 
 // --- Builder Methods
+
+SP_BUILDER_METHOD(NSString *, name)
+SP_BUILDER_METHOD(NSString *, category)
+SP_BUILDER_METHOD(NSString *, currency)
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-implementations"
 
 - (void) setItemId:(NSString *)itemId {
     _itemId = itemId;
@@ -86,6 +104,8 @@
     _currency = currency;
 }
 
+#pragma clang diagnostic pop
+
 // --- Public Methods
 
 - (NSString *)name {
@@ -102,19 +122,6 @@
     if (_price) [payload setObject:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
     if (_quantity) [payload setObject:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
     return payload;
-}
-
-- (SPPayload *) getPayload {
-    SPPayload *payload = [SPPayload new];
-    [payload addValueToPayload:kSPEventEcommItem forKey:kSPEvent];
-    [payload addValueToPayload:_itemId forKey:kSPEcommItemId];
-    [payload addValueToPayload:_sku forKey:kSPEcommItemSku];
-    [payload addValueToPayload:_name forKey:kSPEcommItemName];
-    [payload addValueToPayload:_category forKey:kSPEcommItemCategory];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%.02f", [_price doubleValue]] forKey:kSPEcommItemPrice];
-    [payload addValueToPayload:[NSString stringWithFormat:@"%ld", [_quantity longValue]] forKey:kSPEcommItemQuantity];
-    [payload addValueToPayload:_currency forKey:kSPEcommItemCurrency];
-    return [self addDefaultParamsToPayload:payload];
 }
 
 @end

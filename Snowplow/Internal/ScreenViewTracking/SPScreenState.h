@@ -2,7 +2,7 @@
 //  SPScreenViewState.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,6 +25,7 @@
 /** Forward declaration for SPScreenView */
 @class SPPayload;
 
+NS_SWIFT_NAME(ScreenState)
 @interface SPScreenState : NSObject <NSCopying>
 
 /** Screenview name */

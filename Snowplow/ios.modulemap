@@ -1,5 +1,27 @@
 framework module SnowplowTracker {
     header "Snowplow.h"
+    header "SPConfiguration.h"
+    header "SPTrackerConfiguration.h"
+    header "SPNetworkConfiguration.h"
+    header "SPSubjectConfiguration.h"
+    header "SPSessionConfiguration.h"
+    header "SPEmitterConfiguration.h"
+    header "SPGDPRConfiguration.h"
+    header "SPGlobalContextsConfiguration.h"
+
+    header "SPTrackerControlling.h"
+    header "SPSessionControlling.h"
+    header "SPNetworkControlling.h"
+    header "SPEmitterControlling.h"
+    header "SPGDPRControlling.h"
+    header "SPGlobalContextsControlling.h"
+    
+    header "SPLoggerDelegate.h"
+
+    header "SPServiceProvider.h"
+    
+    header "SPEmitterEventProcessing.h"
+    
     header "SPTracker.h"
     header "SPEmitter.h"
     header "SPSubject.h"
@@ -36,6 +58,6 @@ framework module SnowplowTracker {
     header "SPGlobalContext.h"
     header "SPSchemaRuleset.h"
     header "SPSchemaRule.h"
-
+    
     export *
 }

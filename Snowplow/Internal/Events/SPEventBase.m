@@ -24,7 +24,6 @@
 #import "SPEventBase.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
-#import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
 #import "SPTracker.h"
 
@@ -44,83 +43,42 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 // Base Event
 
-@implementation SPEvent
+@implementation SPEvent {
+    NSMutableArray<SPSelfDescribingJson *> *_contexts;
+}
 
-- (id) init {
-    self = [super init];
-    if (self) {
-        _contexts = [[NSMutableArray alloc] init];
+- (instancetype)init {
+    if (self = [super init]) {
+        self.contexts = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
-// --- Builder Methods
+SP_BUILDER_METHOD(NSDate *, trueTimestamp)
+SP_BUILDER_METHOD(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 
-- (void) setTimestamp:(NSNumber *)timestamp {
-    _timestamp = timestamp;
-}
+// --- Public Methods
 
-- (void)setTrueTimestamp:(NSNumber *)trueTimestamp {
-    long long tt = trueTimestamp.doubleValue * 1000;
-    _trueTimestamp = @(tt);
-}
-
-- (void) setContexts:(NSMutableArray *)contexts {
-    for (NSObject * sdj in contexts) {
+- (void)setContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts {
+    for (NSObject *sdj in contexts) {
         [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
                        withMessage:@"All contexts must be SelfDescribingJson objects."];
     }
     _contexts = contexts;
 }
 
-- (void) setEventId:(NSString *)eventId {
-    _eventId = eventId;
+- (NSMutableArray<SPSelfDescribingJson *> *)contexts {
+    return _contexts;
 }
 
-// --- Public Methods
-
-- (NSMutableArray *) getContexts {
-    return [NSMutableArray arrayWithArray:_contexts];
-}
-
-- (NSNumber *) getTimestamp {
-    if (!_timestamp) {
-        _timestamp = [SPUtilities getTimestamp];
-    }
-    return _timestamp;
-}
-
-- (NSNumber *)getTrueTimestamp {
-    if (!_trueTimestamp) {
-        return nil;
-    }
-    return @(_trueTimestamp.longLongValue / (double)1000);
-}
-
-- (NSString *) getEventId {
-    if (!_eventId) {
-        _eventId = [SPUtilities getUUIDString];
-    }
-    return _eventId;
+- (NSMutableArray<SPSelfDescribingJson *> *)getContexts {
+    return self.contexts;
 }
 
 - (NSDictionary<NSString *,NSObject *> *)payload {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
-}
-
-- (SPPayload *) addDefaultParamsToPayload:(SPPayload *)pb {
-    [pb addValueToPayload:[NSString stringWithFormat:@"%lld", _timestamp.longLongValue] forKey:kSPTimestamp];
-    [pb addValueToPayload:_eventId forKey:kSPEid];
-    return pb;
-}
-
-- (void) basePreconditions {
-    [SPUtilities checkArgument:(_contexts != nil) withMessage:@"Contexts cannot be nil."];
-    if (_eventId) {
-        [SPUtilities checkArgument:([[NSUUID alloc] initWithUUIDString:_eventId] != nil) withMessage:@"EventID has to be a valid UUID."];
-    }
 }
 
 - (void)beginProcessingWithTracker:(SPTracker *)tracker {}
