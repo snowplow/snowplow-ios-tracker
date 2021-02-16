@@ -25,7 +25,8 @@
 
 @interface SPGdprContext ()
 
-@property (nonatomic) NSString *basis;
+@property (nonatomic) NSString *basisString;
+@property (nonatomic) SPGdprProcessingBasis basis;
 @property (nonatomic) NSString *documentId;
 @property (nonatomic) NSString *documentVersion;
 @property (nonatomic) NSString *documentDescription;
@@ -40,10 +41,11 @@
           documentDescription:(NSString *)documentDescription
 {
     if (self = [super init]) {
-        self.basis = [self stringFromProcessingBasis:basisForProcessing];
-        if (!self.basis) {
+        self.basisString = [self stringFromProcessingBasis:basisForProcessing];
+        if (!self.basisString) {
             return nil;
         }
+        self.basis = basisForProcessing;
         self.documentId = documentId;
         self.documentVersion = documentVersion;
         self.documentDescription = documentDescription;
@@ -53,7 +55,7 @@
 
 - (SPSelfDescribingJson *)context {
     NSMutableDictionary<NSString *, NSString *> *data = [NSMutableDictionary dictionary];
-    [data setValue:self.basis forKey:kSPBasisForProcessing];
+    [data setValue:self.basisString forKey:kSPBasisForProcessing];
     [data setValue:self.documentId forKey:kSPDocumentId];
     [data setValue:self.documentVersion forKey:kSPDocumentVersion];
     [data setValue:self.documentDescription forKey:kSPDocumentDescription];

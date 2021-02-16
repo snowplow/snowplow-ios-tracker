@@ -40,9 +40,9 @@ NS_SWIFT_NAME(GDPRConfigurationProtocol)
 @protocol SPGDPRConfigurationProtocol
 
 @property (nonatomic, readonly) SPGdprProcessingBasis basisForProcessing;
-@property (nonatomic, readonly) NSString *documentId;
-@property (nonatomic, readonly) NSString *documentVersion;
-@property (nonatomic, readonly) NSString *documentDescription;
+@property (nonatomic, readonly, nullable) NSString *documentId;
+@property (nonatomic, readonly, nullable) NSString *documentVersion;
+@property (nonatomic, readonly, nullable) NSString *documentDescription;
 
 @end
 
@@ -50,9 +50,9 @@ NS_SWIFT_NAME(GDPRConfiguration)
 @interface SPGDPRConfiguration : SPConfiguration <SPGDPRConfigurationProtocol>
 
 - (instancetype)initWithBasis:(SPGdprProcessingBasis)basisForProcessing
-                   documentId:(NSString *)documentId
-              documentVersion:(NSString *)documentVersion
-          documentDescription:(NSString *)documentDescription
+                   documentId:(nullable NSString *)documentId
+              documentVersion:(nullable NSString *)documentVersion
+          documentDescription:(nullable NSString *)documentDescription
 NS_SWIFT_NAME(init(basis:documentId:documentVersion:documentDescription:));
 
 @end

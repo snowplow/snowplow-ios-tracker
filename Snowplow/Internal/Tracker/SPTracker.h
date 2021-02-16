@@ -38,6 +38,8 @@
 #import "SPDevicePlatform.h"
 #import "SPEventBase.h"
 #import "SPLoggerDelegate.h"
+#import "SPGdprContext.h"
+
 
 void uncaughtExceptionHandler(NSException * _Nullable exception);
 
@@ -213,9 +215,9 @@ NS_SWIFT_NAME(TrackerBuilder)
  @param documentDescription Description of the document.
  */
 - (void)setGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
-                     documentId:(NSString *)documentId
-                documentVersion:(NSString *)documentVersion
-            documentDescription:(NSString *)documentDescription;
+                     documentId:(nullable NSString *)documentId
+                documentVersion:(nullable NSString *)documentVersion
+            documentDescription:(nullable NSString *)documentDescription;
 
 @end
 
@@ -356,12 +358,15 @@ NS_SWIFT_NAME(Tracker)
  @param documentDescription Description of the document.
  */
 - (void)enableGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
-                        documentId:(NSString *)documentId
-                   documentVersion:(NSString *)documentVersion
-               documentDescription:(NSString *)documentDescription;
+                        documentId:(nullable NSString *)documentId
+                   documentVersion:(nullable NSString *)documentVersion
+               documentDescription:(nullable NSString *)documentDescription;
 
 /// Disable GDPR context.
 - (void)disableGdprContext;
+
+/// Return GDPR context
+- (nullable SPGdprContext *)gdprContext;
 
 #pragma mark - Events tracking methods
 

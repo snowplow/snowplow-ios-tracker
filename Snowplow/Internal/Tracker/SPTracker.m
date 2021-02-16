@@ -31,7 +31,6 @@
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
 #import "SPGlobalContext.h"
-#import "SPGdprContext.h"
 
 #import "SNOWError.h"
 #import "SPStructured.h"
@@ -407,6 +406,10 @@ static SPTracker *_sharedInstance = nil;
 
 - (void)disableGdprContext {
     self.gdpr = nil;
+}
+
+- (SPGdprContext *)gdprContext {
+    return self.gdpr;
 }
 
 #pragma mark - Extra Functions

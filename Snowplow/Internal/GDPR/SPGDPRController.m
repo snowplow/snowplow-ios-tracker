@@ -21,28 +21,21 @@
 //
 
 #import "SPGDPRController.h"
+#import "SPGdprContext.h"
 
 @interface SPGDPRController ()
 
-@property (nonatomic, readwrite) SPGdprProcessingBasis basisForProcessing;
-@property (nonatomic, readwrite) NSString *documentId;
-@property (nonatomic, readwrite) NSString *documentVersion;
-@property (nonatomic, readwrite) NSString *documentDescription;
-
-@property SPTracker *tracker;
+@property (nonatomic) SPTracker *tracker;
+@property (nonatomic) SPGdprContext *gdpr;
 
 @end
 
 @implementation SPGDPRController
 
-@synthesize basisForProcessing;
-@synthesize documentId;
-@synthesize documentVersion;
-@synthesize documentDescription;
-
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {
         self.tracker = tracker;
+        self.gdpr = tracker.gdprContext;
     }
     return self;
 }
@@ -50,33 +43,50 @@
 // MARK: - Methods
 
 - (void)resetWithBasis:(SPGdprProcessingBasis)basisForProcessing
-            documentId:(NSString *)documentId
-       documentVersion:(NSString *)documentVersion
-   documentDescription:(NSString *)documentDescription
+            documentId:(nullable NSString *)documentId
+       documentVersion:(nullable NSString *)documentVersion
+   documentDescription:(nullable NSString *)documentDescription
 {
-    self.basisForProcessing = basisForProcessing;
-    self.documentId = documentId;
-    self.documentVersion = documentVersion;
-    self.documentDescription = documentDescription;
     [self.tracker setGdprContextWithBasis:basisForProcessing
                                documentId:documentId
                           documentVersion:documentVersion
                       documentDescription:documentDescription];
+    self.gdpr = self.tracker.gdprContext;
 }
 
 - (void)disable {
     [self.tracker disableGdprContext];
 }
 
+- (BOOL)isEnabled {
+    return self.tracker.gdprContext != nil;
+}
+
 - (BOOL)enable {
-    if (self.documentId && self.documentVersion && self.documentDescription) {
-        [self.tracker enableGdprContextWithBasis:self.basisForProcessing
-                                      documentId:self.documentId
-                                 documentVersion:self.documentVersion
-                             documentDescription:self.documentDescription];
-        return YES;
+    if (!self.gdpr) {
+        return NO;
     }
-    return NO;
+    [self.tracker enableGdprContextWithBasis:self.gdpr.basis
+                                  documentId:self.gdpr.documentId
+                             documentVersion:self.gdpr.documentVersion
+                         documentDescription:self.gdpr.documentDescription];
+    return YES;
+}
+
+- (SPGdprProcessingBasis)basisForProcessing {
+    return [self.gdpr basis];
+}
+
+- (NSString *)documentId {
+    return [self.gdpr documentId];
+}
+
+- (NSString *)documentVersion {
+    return [self.gdpr documentVersion];
+}
+
+- (NSString *)documentDescription {
+    return [self.gdpr documentDescription];
 }
 
 @end

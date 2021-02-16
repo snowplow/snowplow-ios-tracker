@@ -59,5 +59,7 @@ framework module SnowplowTracker {
     header "SPSchemaRuleset.h"
     header "SPSchemaRule.h"
     
+    header "SPGdprContext.h"
+    
     export *
 }

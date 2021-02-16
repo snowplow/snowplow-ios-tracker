@@ -28,10 +28,12 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(GDPRControlling)
 @protocol SPGDPRControlling <SPGDPRConfigurationProtocol>
 
+@property (nonatomic, readonly) BOOL isEnabled;
+
 - (void)resetWithBasis:(SPGdprProcessingBasis)basisForProcessing
-                             documentId:(NSString *)documentId
-                        documentVersion:(NSString *)documentVersion
-                    documentDescription:(NSString *)documentDescription
+                             documentId:(nullable NSString *)documentId
+                        documentVersion:(nullable NSString *)documentVersion
+                    documentDescription:(nullable NSString *)documentDescription
 NS_SWIFT_NAME(reset(basis:documentId:documentVersion:documentDescription:));
 
 - (BOOL)enable;

@@ -59,3 +59,6 @@
 #import "SPSchemaRuleset.h"
 #import "SPSchemaRule.h"
 
+// GDPR
+#import "SPGdprContext.h"
+
