@@ -152,6 +152,7 @@ SP_BUILDER_METHOD(NSString *, currency)
 
 - (void)endProcessingWithTracker:(SPTracker *)tracker {
     for (SPEcommerceItem *item in _items) {
+        [item setOrderId:_orderId];
         [tracker track:item];
     }
 }

@@ -334,7 +334,7 @@
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
     
-    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithItemId:transactionID sku:@"DemoItemSku" price:@0.75F quantity:@1];
+    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithSku:@"DemoItemSku" price:@0.75F quantity:@1];
     [item name:@"DemoItemName"];
     [item category:@"DemoItemCategory"];
     [item currency:@"USD"];

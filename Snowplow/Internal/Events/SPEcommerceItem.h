@@ -88,7 +88,6 @@ NS_SWIFT_NAME(EcommTransactionItemBuilder)
 NS_SWIFT_NAME(EcommerceItem)
 @interface SPEcommerceItem : SPPrimitive <SPEcommTransactionItemBuilder>
 
-@property (nonatomic, readonly) NSString *itemId;
 @property (nonatomic, readonly) NSString *sku;
 @property (nonatomic, readonly) NSNumber *price;
 @property (nonatomic, readonly) NSNumber *quantity;
@@ -100,11 +99,13 @@ NS_SWIFT_NAME(EcommerceItem)
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithItemId:(NSString *)itemId sku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity NS_SWIFT_NAME(init(itemId:sku:price:quantity:));
+- (instancetype)initWithSku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity NS_SWIFT_NAME(init(sku:price:quantity:));
 
 SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
 SP_BUILDER_DECLARE_NULLABLE(NSString *, category)
 SP_BUILDER_DECLARE_NULLABLE(NSString *, currency)
+
+- (void)setOrderId:(NSString *)orderId;
 
 @end
 

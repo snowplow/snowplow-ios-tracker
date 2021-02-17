@@ -27,7 +27,7 @@
 #import "SPPayload.h"
 
 @implementation SPEcommerceItem {
-    NSString * _itemId;
+    NSString * _orderId;
     NSString * _sku;
     NSNumber * _price;
     NSNumber * _quantity;
@@ -48,20 +48,17 @@
     return self;
 }
 
-- (instancetype)initWithItemId:(NSString *)itemId sku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity {
+- (instancetype)initWithISku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity {
     if (self = [super init]) {
-        _itemId = itemId;
         _sku = sku;
         _price = price;
         _quantity = quantity;
-        [SPUtilities checkArgument:([_itemId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
         [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
     }
     return self;
 }
 
 - (void) preconditions {
-    [SPUtilities checkArgument:([_itemId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
     [SPUtilities checkArgument:([_sku length] != 0) withMessage:@"SKU cannot be nil or empty."];
     [SPUtilities checkArgument:(_price != nil) withMessage:@"Price cannot be nil."];
     [SPUtilities checkArgument:(_quantity != nil) withMessage:@"Quantity cannot be nil."];
@@ -75,10 +72,6 @@ SP_BUILDER_METHOD(NSString *, currency)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setItemId:(NSString *)itemId {
-    _itemId = itemId;
-}
 
 - (void) setSku:(NSString *)sku {
     _sku = sku;
@@ -108,13 +101,18 @@ SP_BUILDER_METHOD(NSString *, currency)
 
 // --- Public Methods
 
+- (void)setOrderId:(NSString *)orderId {
+    [SPUtilities checkArgument:([orderId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
+    _orderId = orderId;
+}
+
 - (NSString *)name {
     return kSPEventEcommItem;
 }
 
 - (NSDictionary<NSString *, NSObject *> *)payload {
     NSMutableDictionary *payload = [NSMutableDictionary dictionary];
-    [payload setValue:_itemId forKey:kSPEcommItemId];
+    [payload setValue:_orderId forKey:kSPEcommItemId];
     [payload setValue:_sku forKey:kSPEcommItemSku];
     [payload setValue:_name forKey:kSPEcommItemName];
     [payload setValue:_category forKey:kSPEcommItemCategory];

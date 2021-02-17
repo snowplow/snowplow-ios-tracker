@@ -202,13 +202,13 @@
 
 - (void)testEcommerceItem {
     // Valid construction
-    SPEcommerceItem *event = [[SPEcommerceItem alloc] initWithItemId:@"id" sku:@"sku" price:@5.3 quantity:@5];
+    SPEcommerceItem *event = [[SPEcommerceItem alloc] initWithSku:@"sku" price:@5.3 quantity:@5];
     XCTAssertNotNil(event);
     event = nil;
     
     // Item is empty
     @try {
-        event = [[SPEcommerceItem alloc] initWithItemId:@"" sku:@"sku" price:@5.3 quantity:@5];
+        event = [[SPEcommerceItem alloc] initWithSku:@"sku" price:@5.3 quantity:@5];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"ItemId cannot be nil or empty.", exception.reason);
@@ -217,7 +217,7 @@
     
     // Sku is empty
     @try {
-        event = [[SPEcommerceItem alloc] initWithItemId:@"id" sku:@"" price:@5.3 quantity:@5];
+        event = [[SPEcommerceItem alloc] initWithSku:@"" price:@5.3 quantity:@5];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"SKU cannot be nil or empty.", exception.reason);
