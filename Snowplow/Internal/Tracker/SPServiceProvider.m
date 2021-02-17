@@ -83,7 +83,6 @@
     return serviceProvider.trackerController;
 }
 
-
 + (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
     return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:@[]];
 }
@@ -137,13 +136,15 @@
             [builder setUrlEndpoint:networkConfig.endpoint];
         }
         [builder setCustomPostPath:networkConfig.customPostPath];
-        [builder setEmitRange:emitterConfig.emitRange];
-        [builder setBufferOption:emitterConfig.bufferOption];
-        [builder setEventStore:emitterConfig.eventStore];
-        [builder setByteLimitPost:emitterConfig.byteLimitPost];
-        [builder setByteLimitGet:emitterConfig.byteLimitGet];
-        [builder setEmitThreadPoolSize:emitterConfig.emitThreadPoolSize];
-        [builder setCallback:emitterConfig.requestCallback];
+        if (emitterConfig) {
+            [builder setEmitRange:emitterConfig.emitRange];
+            [builder setBufferOption:emitterConfig.bufferOption];
+            [builder setEventStore:emitterConfig.eventStore];
+            [builder setByteLimitPost:emitterConfig.byteLimitPost];
+            [builder setByteLimitGet:emitterConfig.byteLimitGet];
+            [builder setEmitThreadPoolSize:emitterConfig.threadPoolSize];
+            [builder setCallback:emitterConfig.requestCallback];
+        }
     }];
 }
 

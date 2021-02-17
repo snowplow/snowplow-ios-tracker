@@ -55,7 +55,7 @@ NS_SWIFT_NAME(EmitterConfigurationProtocol)
 
 @property () SPBufferOption bufferOption;
 @property () NSInteger emitRange;
-@property () NSInteger emitThreadPoolSize;
+@property () NSInteger threadPoolSize;
 @property () NSInteger byteLimitGet;
 @property () NSInteger byteLimitPost;
 @property (nullable) id<SPRequestCallback> requestCallback;

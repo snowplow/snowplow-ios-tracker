@@ -37,7 +37,7 @@
 @synthesize byteLimitGet;
 @synthesize byteLimitPost;
 @synthesize emitRange;
-@synthesize emitThreadPoolSize;
+@synthesize threadPoolSize;
 
 - (instancetype)initWithEmitter:(SPEmitter *)emitter {
     if (self = [super init]) {
@@ -80,11 +80,11 @@
     return [self.emitter emitRange];
 }
 
-- (void)setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize {
+- (void)setThreadPoolSize:(NSInteger)emitThreadPoolSize {
     [self.emitter setEmitThreadPoolSize:emitThreadPoolSize];
 }
 
-- (NSInteger)emitThreadPoolSize {
+- (NSInteger)threadPoolSize {
     return [self.emitter emitThreadPoolSize];
 }
 
