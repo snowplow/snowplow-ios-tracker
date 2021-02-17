@@ -223,21 +223,21 @@
 
 // MARK: - Utility function
 
-- (SPTracker *)getTrackerWithGlobalContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"com.acme.fake"
-                                                                                    protocol:SPProtocolHttps
-                                                                                      method:SPRequestOptionsPost];
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
-    trackerConfig.platformContext = YES;
-    trackerConfig.geoLocationContext = NO;
-    trackerConfig.base64Encoding = NO;
-    trackerConfig.sessionContext = YES;
-    SPGlobalContextsConfiguration *gcConfig = [[SPGlobalContextsConfiguration alloc] init];
-    gcConfig.contextGenerators = generators;
-    SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig
-                                                                            tracker:trackerConfig
-                                                                     configurations:@[gcConfig]];
-    return serviceProvider.tracker;
-}
+    - (SPTracker *)getTrackerWithGlobalContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
+        SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"com.acme.fake"
+                                                                                        protocol:SPProtocolHttps
+                                                                                          method:SPRequestOptionsPost];
+        SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
+        trackerConfig.platformContext = YES;
+        trackerConfig.geoLocationContext = NO;
+        trackerConfig.base64Encoding = NO;
+        trackerConfig.sessionContext = YES;
+        SPGlobalContextsConfiguration *gcConfig = [[SPGlobalContextsConfiguration alloc] init];
+        gcConfig.contextGenerators = generators;
+        SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig
+                                                                                tracker:trackerConfig
+                                                                         configurations:@[gcConfig]];
+        return serviceProvider.tracker;
+    }
 
 @end

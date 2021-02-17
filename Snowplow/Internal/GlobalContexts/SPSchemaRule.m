@@ -141,6 +141,9 @@ static NSString * const kUriPattern = @"^iglu:((?:(?:[a-zA-Z0-9-_]+)\\.)+(?:[a-z
 #pragma mark - Overriden methods
 
 - (BOOL)isEqual:(id)object {
+    if (self == object) {
+        return YES;
+    }
     return [object isKindOfClass:SPSchemaRule.class] && [self.rule isEqualToString:[(SPSchemaRule *)object rule]];
 }
 

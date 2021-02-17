@@ -29,6 +29,8 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(GlobalContextsControlling)
 @protocol SPGlobalContextsControlling <SPGlobalContextsConfigurationProtocol>
 
+@property (nonatomic, nonnull, readonly) NSArray<NSString *> *tags;
+
 @end
 
 NS_ASSUME_NONNULL_END

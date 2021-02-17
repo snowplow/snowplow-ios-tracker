@@ -53,4 +53,8 @@
     return [self.tracker removeGlobalContext:tag];
 }
 
+- (NSArray<NSString *> *)tags {
+    return [self.tracker globalContextTags];
+}
+
 @end

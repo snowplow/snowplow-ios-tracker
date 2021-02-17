@@ -348,7 +348,7 @@ NS_SWIFT_NAME(Tracker)
  @param tag The tag associated to the global context.
  @return The global context associated with the tag or `nil` in case of any entry with that string tag.
  */
-- (SPGlobalContext *)removeGlobalContext:(NSString *)tag;
+- (nullable SPGlobalContext *)removeGlobalContext:(NSString *)tag;
 
 /*!
  Enables GDPR context to be sent with every event.
