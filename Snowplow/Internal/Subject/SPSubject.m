@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
@@ -52,6 +52,7 @@
 
 - (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)config {
     if (self = [super init]) {
+        // TODO: Add default timezone, language and screenResolution (like on Android)
         self.platformContext = platformContext;
         self.geoLocationContext = geoContext;
         _standardDict = [[SPPayload alloc] init];

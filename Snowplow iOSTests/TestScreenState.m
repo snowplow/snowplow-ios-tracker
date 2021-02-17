@@ -26,7 +26,7 @@
 #import "SPPayload.h"
 #import "SPSubject.h"
 #import "SPScreenState.h"
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 
 @interface TestScreenState : XCTestCase
 

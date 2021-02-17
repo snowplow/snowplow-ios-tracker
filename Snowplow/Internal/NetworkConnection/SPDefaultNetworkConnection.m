@@ -21,7 +21,7 @@
 //
 
 #import "SPDefaultNetworkConnection.h"
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPLogger.h"
 

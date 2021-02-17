@@ -22,7 +22,7 @@
 
 #import "SPConsentGranted.h"
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
@@ -131,7 +131,7 @@ SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
 - (void)beginProcessingWithTracker:(SPTracker *)tracker {
     NSArray<SPSelfDescribingJson *> *documents = [self getDocuments];
     if (documents) {
-        [self.contexts addObjectsFromArray:documents];
+        [self.contexts addObjectsFromArray:documents];  // TODO: Only the user should modify the public contexts property
     }
 }
 

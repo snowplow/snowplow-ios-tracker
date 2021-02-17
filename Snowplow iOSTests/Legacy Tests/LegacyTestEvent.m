@@ -163,7 +163,7 @@
     [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPUnstructured *event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+    SPSelfDescribing *event = [SPSelfDescribing build:^(id<SPSelfDescribingBuilder> builder) {
         [builder setEventData:sdj];
     }];
     XCTAssertNotNil(event);
@@ -171,7 +171,7 @@
     
     // Category is empty
     @try {
-        event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {}];
+        event = [SPSelfDescribing build:^(id<SPSelfDescribingBuilder> builder) {}];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"EventData cannot be nil.", exception.reason);
@@ -186,9 +186,9 @@
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
     // Data is wrong
-    SPUnstructured *event;
+    SPSelfDescribing *event;
     @try {
-        event = [SPUnstructured build:^(id<SPUnstructuredBuilder> builder) {
+        event = [SPSelfDescribing build:^(id<SPSelfDescribingBuilder> builder) {
             [builder setEventData:sdj];
         }];
     }

@@ -20,19 +20,21 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPUnstructured.h"
+#import "SPSelfDescribing.h"
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPUnstructured {
+@implementation SPSelfDescribing {
     SPSelfDescribingJson * _eventData;
+    NSString * _schema;
+    NSDictionary<NSString *, NSObject *> * _payload;
 }
 
-+ (instancetype) build:(void(^)(id<SPUnstructuredBuilder> builder))buildBlock {
-    SPUnstructured* event = [SPUnstructured new];
++ (instancetype) build:(void(^)(id<SPSelfDescribingBuilder> builder))buildBlock {
+    SPSelfDescribing* event = [SPSelfDescribing new];
     if (buildBlock) { buildBlock(event); }
     [event preconditions];
     return event;
@@ -45,8 +47,23 @@
 
 - (instancetype)initWithEventData:(SPSelfDescribingJson *)eventData {
     if (self = [super init]) {
+        [SPUtilities checkArgument:(eventData != nil) withMessage:@"EventData cannot be nil."];
+        _schema = eventData.schema;
+        [SPUtilities checkArgument:(_schema != nil) withMessage:@"EventData schema cannot be nil."];
+        [SPUtilities checkArgument:([eventData.data isKindOfClass:[NSDictionary<NSString *, NSObject *> class]]) withMessage:@"EventData payload is not correctly formatted."];
+        _payload = eventData.data;
+        [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_payload] withMessage:@"EventData payload has to be JSON serializable."];
         _eventData = eventData;
-        [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_eventData.data] withMessage:@"EventData has to be JSON serializable."];
+    }
+    return self;
+}
+
+- (instancetype)initWithSchema:(NSString *)schema payload:(NSDictionary<NSString *,NSObject *> *)payload {
+    if (self = [super init]) {
+        _schema = schema;
+        [SPUtilities checkArgument:(_schema != nil) withMessage:@"EventData schema cannot be nil."];
+        _payload = payload;
+        [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_payload] withMessage:@"EventData payload has to be JSON serializable."];
     }
     return self;
 }
@@ -70,15 +87,11 @@
 // --- Public Methods
 
 - (NSString *)schema {
-    return _eventData.schema;
+    return _schema;
 }
 
 - (NSDictionary<NSString *, NSObject *> *)payload {
-    NSObject *data = [_eventData data];
-    if ([data isKindOfClass:[NSDictionary<NSString *, NSObject *> class]]) {
-        return (NSDictionary<NSString *, NSObject *> *)data;
-    }
-    return nil;
+    return _payload;
 }
 
 @end

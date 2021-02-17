@@ -1,5 +1,5 @@
 framework module SnowplowTracker {
-    header "Snowplow.h"
+    header "TrackerConstants.h"
     header "SPConfiguration.h"
     header "SPTrackerConfiguration.h"
     header "SPNetworkConfiguration.h"
@@ -41,7 +41,7 @@ framework module SnowplowTracker {
     header "SPEventBase.h"
     header "SPPageView.h"
     header "SPStructured.h"
-    header "SPUnstructured.h"
+    header "SPSelfDescribing.h"
     header "SPScreenView.h"
     header "SPConsentWithdrawn.h"
     header "SPConsentDocument.h"

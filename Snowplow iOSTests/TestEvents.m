@@ -92,7 +92,7 @@
     [data setObject:@56473 forKey:@"score"];
     SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     XCTAssertNotNil(event);
 }
 
@@ -103,9 +103,9 @@
     SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
     // Data is wrong
-    SPUnstructured *event;
+    SPSelfDescribing *event;
     @try {
-        event = [[SPUnstructured alloc] initWithEventData:sdj];
+        event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"EventData has to be JSON serializable.", exception.reason);

@@ -20,7 +20,7 @@
 //  - the author or APPSFIRE may not be held liable in any way for any issue arising from the use of OpenIDFA
 //
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 
 #if SNOWPLOW_TARGET_IOS
 

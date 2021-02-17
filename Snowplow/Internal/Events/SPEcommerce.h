@@ -108,7 +108,7 @@ NS_SWIFT_NAME(EcommTransactionBuilder)
  @brief An ecommerce event.
  */
 NS_SWIFT_NAME(Ecommerce)
-@interface SPEcommerce : SPPrimitive <SPEcommTransactionBuilder>
+@interface SPEcommerce : SPPrimitiveAbstract <SPEcommTransactionBuilder>
 
 @property (nonatomic, readonly) NSString *orderId;
 @property (nonatomic, readonly) NSNumber *totalValue;

@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPEventBase.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
@@ -88,7 +88,7 @@ SP_BUILDER_METHOD(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 
 // SelfDescribing base class
 
-@implementation SPSelfDescribing
+@implementation SPSelfDescribingAbstract
 
 - (NSString *)schema {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -100,7 +100,7 @@ SP_BUILDER_METHOD(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 
 // Primitive base class
 
-@implementation SPPrimitive
+@implementation SPPrimitiveAbstract
 
 - (NSString *)name {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException

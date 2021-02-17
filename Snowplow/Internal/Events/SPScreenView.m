@@ -22,7 +22,7 @@
 
 #import "SPScreenView.h"
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"

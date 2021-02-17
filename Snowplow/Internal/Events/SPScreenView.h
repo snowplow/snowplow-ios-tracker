@@ -93,7 +93,7 @@ NS_SWIFT_NAME(ScreenViewBuilder)
  @brief A screenview event.
  */
 NS_SWIFT_NAME(ScreenView)
-@interface SPScreenView : SPSelfDescribing <SPScreenViewBuilder>
+@interface SPScreenView : SPSelfDescribingAbstract <SPScreenViewBuilder>
 
 @property (nonatomic, readonly) NSString *name;
 @property (nonatomic, readonly) NSString *screenId;

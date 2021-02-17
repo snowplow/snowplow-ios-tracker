@@ -80,7 +80,7 @@ NS_SWIFT_NAME(ConsentWithdrawnBuilder)
  @brief A consent withdrawn event.
  */
 NS_SWIFT_NAME(ConsentWithdrawn)
-@interface SPConsentWithdrawn : SPSelfDescribing <SPConsentWithdrawnBuilder>
+@interface SPConsentWithdrawn : SPSelfDescribingAbstract <SPConsentWithdrawnBuilder>
 
 @property (nonatomic) BOOL all;
 @property (nonatomic, nullable) NSString *documentId;

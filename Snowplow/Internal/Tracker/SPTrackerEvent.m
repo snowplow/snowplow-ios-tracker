@@ -38,11 +38,11 @@
         self.payload = [event.payload mutableCopy];
 
         self.isService = [event isKindOfClass:SPTrackerError.class];
-        if ([event isKindOfClass:SPPrimitive.class]) {
-            self.eventName = [(SPPrimitive *)event name];
+        if ([event isKindOfClass:SPPrimitiveAbstract.class]) {
+            self.eventName = [(SPPrimitiveAbstract *)event name];
             self.isPrimitive = true;
         } else {
-            self.schema = [(SPSelfDescribing *)event schema];
+            self.schema = [(SPSelfDescribingAbstract *)event schema];
             self.isPrimitive = false;
         }
     }

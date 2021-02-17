@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPSQLiteEventStore.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"

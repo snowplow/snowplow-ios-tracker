@@ -22,7 +22,7 @@
 
 #import <XCTest/XCTest.h>
 #import <SnowplowIgluClient/IGLUClient.h>
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPEmitter.h"
 #import "SPTracker.h"
 #import "SPSession.h"
@@ -140,7 +140,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [input setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
     SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:input];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
@@ -166,7 +166,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [input setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:input];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
 
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];

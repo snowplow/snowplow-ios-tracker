@@ -86,7 +86,7 @@ NS_SWIFT_NAME(EcommTransactionItemBuilder)
  @brief An ecommerce item event.
  */
 NS_SWIFT_NAME(EcommerceItem)
-@interface SPEcommerceItem : SPPrimitive <SPEcommTransactionItemBuilder>
+@interface SPEcommerceItem : SPPrimitiveAbstract <SPEcommTransactionItemBuilder>
 
 @property (nonatomic, readonly) NSString *sku;
 @property (nonatomic, readonly) NSNumber *price;

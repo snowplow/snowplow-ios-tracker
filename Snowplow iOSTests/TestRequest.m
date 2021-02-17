@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -295,7 +295,7 @@
     [data setObject:@56473 forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     event.contexts = self.customContext;
     [tracker_ track:event];
 }

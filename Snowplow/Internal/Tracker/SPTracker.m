@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -34,7 +34,7 @@
 
 #import "SNOWError.h"
 #import "SPStructured.h"
-#import "SPUnstructured.h"
+#import "SPSelfDescribing.h"
 #import "SPScreenView.h"
 #import "SPPageView.h"
 #import "SPTiming.h"
@@ -236,7 +236,7 @@ static SPTracker *_sharedInstance = nil;
         [installTracker clearPreviousInstallTimestamp];
         
         SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-        SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:installEvent];
+        SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:installEvent];
         if (!installTracker.isNewInstall && previousTimestamp == nil) {
             return;
         }
@@ -475,9 +475,9 @@ static SPTracker *_sharedInstance = nil;
 
 #pragma mark - Event Tracking Functions
 
-- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
+- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event __deprecated {
     if (!event || !_dataCollection) return;
-    SPUnstructured *unstruct = [[SPUnstructured alloc] initWithEventData:event];
+    SPSelfDescribing *unstruct = [[SPSelfDescribing alloc] initWithEventData:event];
     [self track:unstruct];
 }
 

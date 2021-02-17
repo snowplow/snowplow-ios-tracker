@@ -49,7 +49,7 @@ void uncaughtExceptionHandler(NSException * _Nullable exception);
 @class SPSession;
 @class SPPageView;
 @class SPStructured;
-@class SPUnstructured;
+@class SPSelfDescribing;
 @class SPScreenView;
 @class SPTiming;
 @class SPEcommerce;
@@ -377,7 +377,7 @@ NS_SWIFT_NAME(Tracker)
 
  @param event An self-describing JSON.
  */
-- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event;
+- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event __deprecated_msg("Will be removed in the next major version. Use `track(...)` passing a `SelfDescribing` event instead.");
 
 /*!
  @brief Tracks an event despite its specific type.

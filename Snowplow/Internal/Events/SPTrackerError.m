@@ -21,7 +21,7 @@
 //
 
 #import "SPTrackerError.h"
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 
 const int kMaxMessageLength = 2048;
 const int kMaxStackLength = 8192;

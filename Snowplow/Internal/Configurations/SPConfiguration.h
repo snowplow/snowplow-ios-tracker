@@ -21,7 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 
 #ifndef SP_STR_PROP
     #define SP_STR_PROP(prop) NSStringFromSelector(@selector(prop))

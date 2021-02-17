@@ -2,7 +2,7 @@
 //  Use this file to import your target's public headers that you would like to expose to Swift.
 //
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPConfiguration.h"
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
@@ -41,7 +41,7 @@
 #import "SPEventBase.h"
 #import "SPPageView.h"
 #import "SPStructured.h"
-#import "SPUnstructured.h"
+#import "SPSelfDescribing.h"
 #import "SPScreenView.h"
 #import "SPConsentWithdrawn.h"
 #import "SPConsentDocument.h"

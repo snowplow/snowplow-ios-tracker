@@ -30,7 +30,7 @@
 #import "SPSubjectConfiguration.h"
 #import "SPNetworkConfiguration.h"
 
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPDefaultNetworkConnection.h"

@@ -45,7 +45,7 @@ NS_SWIFT_NAME(ForegroundBuilder)
  @brief A foreground transition event.
  */
 NS_SWIFT_NAME(Foreground)
-@interface SPForeground : SPSelfDescribing <SPForegroundBuilder>
+@interface SPForeground : SPSelfDescribingAbstract <SPForegroundBuilder>
 
 + (instancetype)build:(void(^)(id<SPForegroundBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 

@@ -21,7 +21,7 @@
 //
 
 #import "SPGdprContext.h"
-#import "Snowplow.h"
+#import "TrackerConstants.h"
 
 @interface SPGdprContext ()
 

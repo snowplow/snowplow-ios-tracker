@@ -80,7 +80,7 @@ NS_SWIFT_NAME(ConsentGrantedBuilder)
  @brief A consent granted event.
  */
 NS_SWIFT_NAME(ConsentGranted)
-@interface SPConsentGranted : SPSelfDescribing <SPConsentGrantedBuilder>
+@interface SPConsentGranted : SPSelfDescribingAbstract <SPConsentGrantedBuilder>
 
 @property (nonatomic, readonly) NSString *documentId;
 @property (nonatomic, readonly) NSString *version;
