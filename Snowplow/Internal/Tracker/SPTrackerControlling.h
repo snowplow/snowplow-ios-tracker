@@ -47,7 +47,6 @@ NS_SWIFT_NAME(TrackerControlling)
 @property (readonly, nonatomic) id<SPGDPRControlling> gdpr;
 @property (readonly, nonatomic) id<SPGlobalContextsControlling> globalContexts;
 
-- (void)trackSelfDescribingEvent:(SPSelfDescribingJson *)event;
 - (void)track:(SPEvent *)event;
 - (void)pause;
 - (void)resume;

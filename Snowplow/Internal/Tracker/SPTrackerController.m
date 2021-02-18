@@ -85,10 +85,6 @@
     [self.tracker track:event];
 }
 
-- (void)trackSelfDescribingEvent:(nonnull SPSelfDescribingJson *)event {
-    [self.tracker trackSelfDescribingEvent:event];
-}
-
 // MARK: - Properties' setters and getters
 
 - (void)setAppId:(NSString *)appId {
