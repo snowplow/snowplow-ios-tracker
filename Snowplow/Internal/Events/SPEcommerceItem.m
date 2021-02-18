@@ -48,7 +48,7 @@
     return self;
 }
 
-- (instancetype)initWithISku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity {
+- (instancetype)initWithSku:(NSString *)sku price:(NSNumber *)price quantity:(NSNumber *)quantity {
     if (self = [super init]) {
         _sku = sku;
         _price = price;
@@ -72,6 +72,10 @@ SP_BUILDER_METHOD(NSString *, currency)
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-implementations"
+
+- (void) setItemId:(NSString *)itemId __deprecated {
+    [self setOrderId:itemId];
+}
 
 - (void) setSku:(NSString *)sku {
     _sku = sku;
@@ -102,7 +106,7 @@ SP_BUILDER_METHOD(NSString *, currency)
 // --- Public Methods
 
 - (void)setOrderId:(NSString *)orderId {
-    [SPUtilities checkArgument:([orderId length] != 0) withMessage:@"ItemId cannot be nil or empty."];
+    [SPUtilities checkArgument:([orderId length] != 0) withMessage:@"OrderId cannot be nil or empty."];
     _orderId = orderId;
 }
 

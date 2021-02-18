@@ -206,9 +206,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void)testConsentGrantedEventPayloadJson {
-    SPConsentGranted *event = [[SPConsentGranted alloc] initWithDocumentId:@"1234" version:@"10"];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithExpiry:@"2012-04-23T18:25:43.511Z" documentId:@"1234" version:@"10"];
     [event documentDescription:@"Description"];
-    [event expiry:@"2012-04-23T18:25:43.511Z"];
     [event name:@"Name"];
     
     NSDictionary<NSString *, NSObject *> *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];

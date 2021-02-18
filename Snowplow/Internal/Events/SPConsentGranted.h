@@ -82,24 +82,23 @@ NS_SWIFT_NAME(ConsentGrantedBuilder)
 NS_SWIFT_NAME(ConsentGranted)
 @interface SPConsentGranted : SPSelfDescribingAbstract <SPConsentGrantedBuilder>
 
+@property (nonatomic, readonly) NSString *expiry;
 @property (nonatomic, readonly) NSString *documentId;
 @property (nonatomic, readonly) NSString *version;
 @property (nonatomic, nullable) NSString *name;
 @property (nonatomic, nullable) NSString *documentDescription;
-@property (nonatomic, nullable) NSString *expiry;
 @property (nonatomic, nullable) NSArray<SPSelfDescribingJson *> *documents;
 
 + (instancetype)build:(void(^)(id<SPConsentGrantedBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version NS_SWIFT_NAME(init(documentId:version:));
+- (instancetype)initWithExpiry:(NSString *)expiry documentId:(NSString *)documentId version:(NSString *)version NS_SWIFT_NAME(init(expiry:documentId:version:));
 
 - (NSArray<SPSelfDescribingJson *> *)getDocuments;
 
 SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
 SP_BUILDER_DECLARE_NULLABLE(NSString *, documentDescription)
-SP_BUILDER_DECLARE_NULLABLE(NSString *, expiry)
 SP_BUILDER_DECLARE_NULLABLE(NSArray<SPSelfDescribingJson *> *, documents)
 
 @end

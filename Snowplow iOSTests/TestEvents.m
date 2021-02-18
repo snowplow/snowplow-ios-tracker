@@ -108,7 +108,7 @@
         event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventData has to be JSON serializable.", exception.reason);
+        XCTAssertEqualObjects(@"EventData payload has to be JSON serializable.", exception.reason);
     }
     XCTAssertNil(event);
 }
@@ -126,18 +126,16 @@
 
 - (void)testConsentGranted {
     // Valid construction
-    SPConsentGranted *event = [[SPConsentGranted alloc] initWithDocumentId:@"1000" version:@"3"];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithExpiry:@"expiry" documentId:@"1000" version:@"3"];
     event.name = @"name";
-    event.expiry = @"expiry";
     event.documentDescription = @"description";
     XCTAssertNotNil(event);
 }
 
 - (void)testConsentDocument {
     // Valid construction
-    SPConsentGranted *event = [[SPConsentGranted alloc] initWithDocumentId:@"1000" version:@"3"];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithExpiry:@"expiry" documentId:@"1000" version:@"3"];
     event.name = @"name";
-    event.expiry = @"expiry";
     event.documentDescription = @"description";
     XCTAssertNotNil(event);
 }
@@ -205,15 +203,6 @@
     SPEcommerceItem *event = [[SPEcommerceItem alloc] initWithSku:@"sku" price:@5.3 quantity:@5];
     XCTAssertNotNil(event);
     event = nil;
-    
-    // Item is empty
-    @try {
-        event = [[SPEcommerceItem alloc] initWithSku:@"sku" price:@5.3 quantity:@5];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"ItemId cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
     
     // Sku is empty
     @try {

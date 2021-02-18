@@ -222,44 +222,22 @@
     XCTAssertNotNil(event);
     event = nil;
 
-    // documentId is nil
+    // expiry is empty
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+            [builder setDocumentId:@"3"];
             [builder setVersion:@"3"];
         }];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Document ID cannot be nil.", exception.reason);
+        XCTAssertEqualObjects(@"Expiry cannot be nil.", exception.reason);
     }
     XCTAssertNil(event);
-
-    // Version is nil
-    @try {
-        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-            [builder setDocumentId:@"1000"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Version cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
-}
-
-- (void)testConsentDocumentBuilderConditions {
-    // Valid construction
-    SPConsentGranted *event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-        [builder setName:@"name"];
-        [builder setExpiry:@"expiry"];
-        [builder setVersion:@"3"];
-        [builder setDocumentId:@"1000"];
-        [builder setDescription:@"description"];
-    }];
-    XCTAssertNotNil(event);
-    event = nil;
 
     // documentId is empty
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+            [builder setExpiry:@"expiry"];
             [builder setVersion:@"3"];
         }];
     }
@@ -271,6 +249,41 @@
     // Version is empty
     @try {
         event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
+            [builder setExpiry:@"expiry"];
+            [builder setDocumentId:@"3"];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Version cannot be nil.", exception.reason);
+    }
+    XCTAssertNil(event);
+}
+
+- (void)testConsentDocumentBuilderConditions {
+    // Valid construction
+    SPConsentDocument *event = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
+        [builder setName:@"name"];
+        [builder setVersion:@"3"];
+        [builder setDocumentId:@"1000"];
+        [builder setDescription:@"description"];
+    }];
+    XCTAssertNotNil(event);
+    event = nil;
+
+    // documentId is empty
+    @try {
+        event = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
+            [builder setVersion:@"3"];
+        }];
+    }
+    @catch (NSException *exception) {
+        XCTAssertEqualObjects(@"Document ID cannot be nil.", exception.reason);
+    }
+    XCTAssertNil(event);
+
+    // Version is empty
+    @try {
+        event = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
             [builder setDocumentId:@"3"];
         }];
     }
@@ -468,20 +481,7 @@
         }];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"ItemId cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Item is nil
-    @try {
-        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-            [builder setSku:@"sku"];
-            [builder setPrice:5];
-            [builder setQuantity:1];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"ItemId cannot be nil or empty.", exception.reason);
+        XCTAssertEqualObjects(@"OrderId cannot be nil or empty.", exception.reason);
     }
     XCTAssertNil(event);
     
