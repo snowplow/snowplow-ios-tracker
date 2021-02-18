@@ -55,7 +55,7 @@
 
 #import "SPServiceProvider.h"
 
-#import "SPTrackerController.h"
+#import "SPTrackerControllerImpl.h"
 
 #import "SPEmitterEventProcessing.h"
 
@@ -116,15 +116,15 @@ static SPTracker *_sharedInstance = nil;
 
 // MARK: - Setup methods
 
-+ (id<SPTrackerControlling>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId {
++ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId {
     return [SPServiceProvider setupWithEndpoint:endpoint protocol:protocol method:method namespace:namespace appId:appId];
 }
 
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
     return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration];
 }
 
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
 }
 

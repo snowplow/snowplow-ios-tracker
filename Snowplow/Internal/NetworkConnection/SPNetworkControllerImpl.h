@@ -1,5 +1,5 @@
 //
-//  SPSessionControlling.h
+//  SPNetworkControllerImpl.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,25 +21,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPSessionConfiguration.h"
+#import "SPNetworkController.h"
+#import "SPEmitter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(SessionControlling)
-@protocol SPSessionControlling <SPSessionConfigurationProtocol>
+NS_SWIFT_NAME(NetworkController)
+@interface SPNetworkControllerImpl : NSObject <SPNetworkController>
 
-@property (readonly) NSInteger sessionIndex;
-@property (readonly) NSString *sessionId;
-@property (readonly) NSString *userId;
-
-@property (readonly) BOOL isInBackground;
-@property (readonly) NSInteger backgroundIndex;
-@property (readonly) NSInteger foregroundIndex;
-
-- (void)pause;
-- (void)resume;
-- (void)startNewSession;
+- (instancetype)initWithEmitter:(SPEmitter *)emitter;
 
 @end
 
 NS_ASSUME_NONNULL_END
+

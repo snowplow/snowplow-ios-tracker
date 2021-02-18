@@ -1,5 +1,5 @@
 //
-//  SPGDPRController.m
+//  SPGDPRControllerImpl.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,17 +20,17 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPGDPRController.h"
+#import "SPGDPRControllerImpl.h"
 #import "SPGdprContext.h"
 
-@interface SPGDPRController ()
+@interface SPGDPRControllerImpl ()
 
 @property (nonatomic) SPTracker *tracker;
 @property (nonatomic) SPGdprContext *gdpr;
 
 @end
 
-@implementation SPGDPRController
+@implementation SPGDPRControllerImpl
 
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {

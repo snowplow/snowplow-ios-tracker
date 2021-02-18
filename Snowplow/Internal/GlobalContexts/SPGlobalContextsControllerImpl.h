@@ -1,5 +1,5 @@
 //
-//  SPGlobalContextsControlling.h
+//  SPGlobalContextsControllerImpl.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,15 +21,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPGlobalContextsConfiguration.h"
-#import "SPGlobalContext.h"
+#import "SPGlobalContextsController.h"
+#import "SPTracker.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(GlobalContextsControlling)
-@protocol SPGlobalContextsControlling <SPGlobalContextsConfigurationProtocol>
+NS_SWIFT_NAME(GlobalContextsControllerImpl)
+@interface SPGlobalContextsControllerImpl : NSObject <SPGlobalContextsController>
 
-@property (nonatomic, nonnull, readonly) NSArray<NSString *> *tags;
+- (instancetype)initWithTracker:(SPTracker *)tracker;
 
 @end
 

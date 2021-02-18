@@ -1,5 +1,5 @@
 //
-//  SPNetworkControlling.h
+//  SPEmitterControllerImpl.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,18 +21,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPNetworkConfiguration.h"
+#import "SPEmitterController.h"
+#import "SPEmitter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(NetworkControlling)
-@protocol SPNetworkControlling
+NS_SWIFT_NAME(EmitterControllerImpl)
+@interface SPEmitterControllerImpl : NSObject <SPEmitterController>
 
-@property (nonatomic, nullable) NSString *endpoint;
-@property (nonatomic) SPRequestOptions method;
-@property (nonatomic) SPProtocol protocol;
-
-@property (nonatomic, nullable) NSString *customPostPath;
+- (instancetype)initWithEmitter:(SPEmitter *)emitter;
 
 @end
 

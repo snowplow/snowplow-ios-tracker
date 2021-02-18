@@ -1,5 +1,5 @@
 //
-//  SPTrackerControlling.h
+//  SPSessionControllerImpl.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,35 +21,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPTrackerConfiguration.h"
-#import "SPNetworkConfiguration.h"
-
-#import "SPSessionControlling.h"
-#import "SPEmitterControlling.h"
-#import "SPNetworkControlling.h"
-#import "SPGDPRControlling.h"
-#import "SPGlobalContextsControlling.h"
-
-#import "SPSelfDescribingJson.h"
-#import "SPEventBase.h"
+#import "SPSessionController.h"
+#import "SPTracker.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(TrackerControlling)
-@protocol SPTrackerControlling <SPTrackerConfigurationProtocol>
+NS_SWIFT_NAME(SessionControllerImpl)
+@interface SPSessionControllerImpl : NSObject <SPSessionController>
 
-@property (readonly, nonatomic) NSString *version;
-@property (readonly, nonatomic) BOOL isTracking;
+@property (readonly, nonatomic) BOOL isEnabled;
 
-@property (readonly, nonatomic, nullable) id<SPSessionControlling> session;
-@property (readonly, nonatomic, nullable) id<SPNetworkControlling> network;
-@property (readonly, nonatomic) id<SPEmitterControlling> emitter;
-@property (readonly, nonatomic) id<SPGDPRControlling> gdpr;
-@property (readonly, nonatomic) id<SPGlobalContextsControlling> globalContexts;
-
-- (void)track:(SPEvent *)event;
-- (void)pause;
-- (void)resume;
+- (instancetype)initWithTracker:(SPTracker *)tracker;
 
 @end
 

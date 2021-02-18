@@ -23,7 +23,7 @@
 #import <XCTest/XCTest.h>
 #import "SPNetworkConfiguration.h"
 #import "SPTrackerConfiguration.h"
-#import "SPTrackerControlling.h"
+#import "SPTrackerController.h"
 #import "SPTracker.h"
 #import "SPSession.h"
 
@@ -36,7 +36,7 @@
 - (void)testSessionAccessibilityWhenEnabledAndDisabled {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" protocol:SPProtocolHttps method:SPRequestOptionsPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerControlling> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
+    id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
     XCTAssertNotNil(tracker.session);
     
     tracker.sessionContext = NO;

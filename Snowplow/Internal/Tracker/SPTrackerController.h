@@ -21,14 +21,35 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPTrackerControlling.h"
+#import "SPTrackerConfiguration.h"
+#import "SPNetworkConfiguration.h"
+
+#import "SPSessionController.h"
+#import "SPEmitterController.h"
+#import "SPNetworkController.h"
+#import "SPGDPRController.h"
+#import "SPGlobalContextsController.h"
+
+#import "SPSelfDescribingJson.h"
+#import "SPEventBase.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(TrackerController)
-@interface SPTrackerController : NSObject <SPTrackerControlling>
+@protocol SPTrackerController <SPTrackerConfigurationProtocol>
 
-- (instancetype)initWithTracker:(SPTracker *)tracker;
+@property (readonly, nonatomic) NSString *version;
+@property (readonly, nonatomic) BOOL isTracking;
+
+@property (readonly, nonatomic, nullable) id<SPSessionController> session;
+@property (readonly, nonatomic, nullable) id<SPNetworkController> network;
+@property (readonly, nonatomic) id<SPEmitterController> emitter;
+@property (readonly, nonatomic) id<SPGDPRController> gdpr;
+@property (readonly, nonatomic) id<SPGlobalContextsController> globalContexts;
+
+- (void)track:(SPEvent *)event;
+- (void)pause;
+- (void)resume;
 
 @end
 

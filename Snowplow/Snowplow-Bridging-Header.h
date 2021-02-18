@@ -12,12 +12,12 @@
 #import "SPGDPRConfiguration.h"
 #import "SPGlobalContextsConfiguration.h"
 
-#import "SPTrackerControlling.h"
-#import "SPSessionControlling.h"
-#import "SPNetworkControlling.h"
-#import "SPEmitterControlling.h"
-#import "SPGDPRControlling.h"
-#import "SPGlobalContextsControlling.h"
+#import "SPTrackerController.h"
+#import "SPSessionController.h"
+#import "SPNetworkController.h"
+#import "SPEmitterController.h"
+#import "SPGDPRController.h"
+#import "SPGlobalContextsController.h"
 
 #import "SPLoggerDelegate.h"
 

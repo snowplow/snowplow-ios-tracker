@@ -20,12 +20,12 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPTrackerController.h"
-#import "SPEmitterController.h"
-#import "SPNetworkController.h"
-#import "SPGDPRController.h"
-#import "SPGlobalContextsController.h"
-#import "SPSessionController.h"
+#import "SPTrackerControllerImpl.h"
+#import "SPEmitterControllerImpl.h"
+#import "SPNetworkControllerImpl.h"
+#import "SPGDPRControllerImpl.h"
+#import "SPGlobalContextsControllerImpl.h"
+#import "SPSessionControllerImpl.h"
 
 #import "SPSubjectConfiguration.h"
 #import "SPNetworkConfiguration.h"
@@ -37,21 +37,21 @@
 #import "SPSubject.h"
 #import "SPLogger.h"
 
-@interface SPTrackerController ()
+@interface SPTrackerControllerImpl ()
 
-@property (readwrite, nonatomic) id<SPNetworkControlling> network;
-@property (readwrite, nonatomic) id<SPEmitterControlling> emitter;
-@property (readwrite, nonatomic) id<SPGDPRControlling> gdpr;
-@property (readwrite, nonatomic) id<SPGlobalContextsControlling> globalContexts;
+@property (readwrite, nonatomic) id<SPNetworkController> network;
+@property (readwrite, nonatomic) id<SPEmitterController> emitter;
+@property (readwrite, nonatomic) id<SPGDPRController> gdpr;
+@property (readwrite, nonatomic) id<SPGlobalContextsController> globalContexts;
 
-@property (nonatomic) SPSessionController *sessionController;
+@property (nonatomic) SPSessionControllerImpl *sessionController;
 
 @property (nonatomic) SPTracker *tracker;
 
 @end
 
 
-@implementation SPTrackerController
+@implementation SPTrackerControllerImpl
 
 // TODO: Check these two contexts can be edited at runtime. Legacy wants not editable (I guess)
 @synthesize platformContext;
@@ -60,12 +60,12 @@
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {
         self.tracker = tracker;
-        self.sessionController = [[SPSessionController alloc] initWithTracker:tracker];
-        self.emitter = [[SPEmitterController alloc] initWithEmitter:tracker.emitter];
-        self.gdpr = [[SPGDPRController alloc] initWithTracker:tracker];
-        self.globalContexts = [[SPGlobalContextsController alloc] initWithTracker:tracker];
+        self.sessionController = [[SPSessionControllerImpl alloc] initWithTracker:tracker];
+        self.emitter = [[SPEmitterControllerImpl alloc] initWithEmitter:tracker.emitter];
+        self.gdpr = [[SPGDPRControllerImpl alloc] initWithTracker:tracker];
+        self.globalContexts = [[SPGlobalContextsControllerImpl alloc] initWithTracker:tracker];
         if (!tracker.emitter.networkConnection || [tracker.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class]) {
-            self.network = [[SPNetworkController alloc] initWithEmitter:tracker.emitter];
+            self.network = [[SPNetworkControllerImpl alloc] initWithEmitter:tracker.emitter];
         }
     }
     return self;
@@ -199,7 +199,7 @@
     return [self.tracker sessionContext];
 }
 
-- (nullable id<SPSessionControlling>)session {
+- (nullable id<SPSessionController>)session {
     return self.sessionController.isEnabled ? self.sessionController : nil;
 }
 

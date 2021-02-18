@@ -1,5 +1,5 @@
 //
-//  SPEmitterControlling.h
+//  SPGDPRControllerImpl.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,17 +21,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPEmitterConfiguration.h"
+#import "SPGDPRController.h"
+#import "SPTracker.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(EmitterControlling)
-@protocol SPEmitterControlling <SPEmitterConfigurationProtocol>
+NS_SWIFT_NAME(GDPRControllerImpl)
+@interface SPGDPRControllerImpl : NSObject <SPGDPRController>
 
-@property (nonatomic, readonly) NSInteger dbCount;
-@property (nonatomic, readonly) BOOL isSending;
-
-- (void)flush;
+- (instancetype)initWithTracker:(SPTracker *)tracker;
 
 @end
 

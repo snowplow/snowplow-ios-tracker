@@ -1,5 +1,5 @@
 //
-//  SPGlobalContextsController.m
+//  SPGlobalContextsControllerImpl.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,15 +20,15 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPGlobalContextsController.h"
+#import "SPGlobalContextsControllerImpl.h"
 
-@interface SPGlobalContextsController ()
+@interface SPGlobalContextsControllerImpl ()
 
 @property (nonatomic) SPTracker *tracker;
 
 @end
 
-@implementation SPGlobalContextsController
+@implementation SPGlobalContextsControllerImpl
 
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {

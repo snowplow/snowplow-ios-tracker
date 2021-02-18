@@ -1,5 +1,5 @@
 //
-//  SPGDPRControlling.h
+//  SPTrackerController.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,25 +21,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPGDPRConfiguration.h"
+#import "SPTrackerController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(GDPRControlling)
-@protocol SPGDPRControlling <SPGDPRConfigurationProtocol>
+NS_SWIFT_NAME(TrackerControllerImpl)
+@interface SPTrackerControllerImpl : NSObject <SPTrackerController>
 
-@property (nonatomic, readonly) BOOL isEnabled;
-
-- (void)resetWithBasis:(SPGdprProcessingBasis)basisForProcessing
-                             documentId:(nullable NSString *)documentId
-                        documentVersion:(nullable NSString *)documentVersion
-                    documentDescription:(nullable NSString *)documentDescription
-NS_SWIFT_NAME(reset(basis:documentId:documentVersion:documentDescription:));
-
-- (BOOL)enable;
-- (void)disable;
+- (instancetype)initWithTracker:(SPTracker *)tracker;
 
 @end
 
 NS_ASSUME_NONNULL_END
-

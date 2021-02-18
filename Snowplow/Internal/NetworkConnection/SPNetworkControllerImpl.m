@@ -1,5 +1,5 @@
 //
-//  SPNetworkController.m
+//  SPNetworkControllerImpl.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,16 +20,16 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPNetworkController.h"
+#import "SPNetworkControllerImpl.h"
 
-@interface SPNetworkController ()
+@interface SPNetworkControllerImpl ()
 
 @property SPEmitter *emitter;
 
 @end
 
 
-@implementation SPNetworkController {
+@implementation SPNetworkControllerImpl {
     id<SPRequestCallback> _requestCallback;
 }
 

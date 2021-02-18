@@ -1,5 +1,5 @@
 //
-//  SPSessionController.m
+//  SPSessionControllerImpl.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,18 +20,18 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPSessionController.h"
+#import "SPSessionControllerImpl.h"
 #import "SPSession.h"
 #import "SPLogger.h"
 
-@interface SPSessionController ()
+@interface SPSessionControllerImpl ()
 
 @property (weak, nonatomic) SPTracker *tracker;
 
 @end
 
 
-@implementation SPSessionController
+@implementation SPSessionControllerImpl
 
 @synthesize backgroundTimeoutInSeconds;
 @synthesize foregroundTimeoutInSeconds;

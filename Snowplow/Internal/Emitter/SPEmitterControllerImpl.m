@@ -1,5 +1,5 @@
 //
-//  SPEmitterController.m
+//  SPEmitterControllerImpl.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,16 +20,16 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPEmitterController.h"
+#import "SPEmitterControllerImpl.h"
 
-@interface SPEmitterController ()
+@interface SPEmitterControllerImpl ()
 
 @property SPEmitter *emitter;
 
 @end
 
 
-@implementation SPEmitterController {
+@implementation SPEmitterControllerImpl {
     id<SPRequestCallback> _requestCallback;
 }
 
