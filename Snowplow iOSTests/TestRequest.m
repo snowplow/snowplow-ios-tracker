@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -29,6 +29,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPRequestCallback.h"
 #import "SPEvent.h"
+#import "SPServiceProvider.h"
 
 // MARK: - Mocks
 
@@ -166,7 +167,7 @@
     [self sendAll:tracker];
     [self forceFlushes:2 emitter:tracker.emitter];
 
-    XCTAssertEqual(_successCount, 8);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -175,7 +176,7 @@
     SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200];
     [self sendAll:tracker];
     [self forceFlushes:2 emitter:tracker.emitter];
-    XCTAssertEqual(_successCount, 8);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -191,7 +192,7 @@
     [self forceFlushes:2 emitter:tracker.emitter];
     XCTAssertGreaterThan(_failureCount, 0);
     XCTAssertEqual(_successCount, 0);
-    XCTAssertEqual([tracker.emitter getDbCount], 8);
+    XCTAssertEqual([tracker.emitter getDbCount], 7);
     
     // Update the URL and flush
     [tracker pauseEventTracking];
@@ -200,7 +201,7 @@
     [tracker resumeEventTracking];
     
     [self forceFlushes:2 emitter:tracker.emitter];
-    XCTAssertEqual(_successCount, 8);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -209,7 +210,7 @@
     [tracker setSubject:nil];
     [self sendAll:tracker];
     [self forceFlushes:2 emitter:tracker.emitter];
-    XCTAssertEqual(_successCount, 8);
+    XCTAssertEqual(_successCount, 7);
     XCTAssertEqual([tracker.emitter getDbCount], 0);
 }
 
@@ -272,7 +273,6 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [self trackStructuredEventWithTracker:tracker];
         [self trackUnstructuredEventWithTracker:tracker];
-        [self trackSelfDescribingJsonEventWithTracker:tracker];
         [self trackPageViewWithTracker:tracker];
         [self trackScreenViewWithTracker:tracker];
         [self trackTimingWithCategoryWithTracker:tracker];
@@ -298,15 +298,6 @@
     SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     event.contexts = self.customContext;
     [tracker_ track:event];
-}
-
-- (void)trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-    [data setObject:@23 forKey:@"level"];
-    [data setObject:@56473 forKey:@"score"];
-    SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
-                                                                     andData:data];
-    [tracker_ trackSelfDescribingEvent:sdj];
 }
 
 - (void)trackPageViewWithTracker:(SPTracker *)tracker_ {

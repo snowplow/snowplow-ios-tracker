@@ -1,1 +1,1 @@
-./internal/Configurations/SPGDPRConfiguration.h
+./Internal/Configurations/SPGDPRConfiguration.h

@@ -1,1 +1,1 @@
-./internal/storage/SPEventStore.h
+./Internal/Storage/SPEventStore.h

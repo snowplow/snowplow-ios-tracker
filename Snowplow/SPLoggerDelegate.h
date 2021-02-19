@@ -1,1 +1,1 @@
-./internal/Logger/SPLoggerDelegate.h
+./Internal/Logger/SPLoggerDelegate.h

@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPRequestResult.h"
 
 @interface TestRequestResult : XCTestCase

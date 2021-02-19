@@ -1,1 +1,1 @@
-./internal/events/SPStructured.h
+./Internal/Events/SPStructured.h

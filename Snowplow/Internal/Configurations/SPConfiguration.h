@@ -21,7 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 
 #ifndef SP_STR_PROP
     #define SP_STR_PROP(prop) NSStringFromSelector(@selector(prop))

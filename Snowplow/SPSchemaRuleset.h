@@ -1,1 +1,1 @@
-./internal/GlobalContexts/SPSchemaRuleset.h
+./Internal/GlobalContexts/SPSchemaRuleset.h

@@ -1,1 +1,1 @@
-./internal/Emitter/SPEmitterEventProcessing.h
+./Internal/Emitter/SPEmitterEventProcessing.h

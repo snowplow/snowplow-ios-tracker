@@ -22,7 +22,7 @@
 
 #import "SPSelfDescribing.h"
 
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
@@ -51,7 +51,7 @@
         _schema = eventData.schema;
         [SPUtilities checkArgument:(_schema != nil) withMessage:@"EventData schema cannot be nil."];
         [SPUtilities checkArgument:([eventData.data isKindOfClass:[NSDictionary<NSString *, NSObject *> class]]) withMessage:@"EventData payload is not correctly formatted."];
-        _payload = eventData.data;
+        _payload = (NSDictionary<NSString *, NSObject *> *) eventData.data;
         [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_payload] withMessage:@"EventData payload has to be JSON serializable."];
         _eventData = eventData;
     }

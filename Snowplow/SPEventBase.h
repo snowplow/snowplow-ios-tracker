@@ -1,1 +1,1 @@
-./internal/events/SPEventBase.h
+./Internal/Events/SPEventBase.h

@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPSelfDescribingJson.h"
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 
 @class SPPayload;
 @class SPTracker;

@@ -1,1 +1,1 @@
-./internal/Configurations/SPTrackerConfiguration.h
+./Internal/Configurations/SPTrackerConfiguration.h

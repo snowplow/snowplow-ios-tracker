@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPEmitter.h"
 #import "SPLogger.h"
 

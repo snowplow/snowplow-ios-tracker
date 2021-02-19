@@ -1,1 +1,1 @@
-./internal/Configurations/SPSubjectConfiguration.h
+./Internal/Configurations/SPSubjectConfiguration.h

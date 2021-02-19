@@ -1,1 +1,1 @@
-./internal/Session/SPSessionController.h
+./Internal/Session/SPSessionController.h

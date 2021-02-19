@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPSession.h"
 #import "SPUtilities.h"
 #import "SPWeakTimerTarget.h"

@@ -21,7 +21,7 @@
 //
 
 #import "SPTrackerError.h"
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 
 const int kMaxMessageLength = 2048;
 const int kMaxStackLength = 8192;

@@ -1,1 +1,1 @@
-./internal/events/SPConsentWithdrawn.h
+./Internal/Events/SPConsentWithdrawn.h

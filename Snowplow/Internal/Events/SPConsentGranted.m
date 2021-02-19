@@ -22,7 +22,7 @@
 
 #import "SPConsentGranted.h"
 
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"

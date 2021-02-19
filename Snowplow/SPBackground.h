@@ -1,1 +1,1 @@
-./internal/events/SPBackground.h
+./Internal/Events/SPBackground.h

@@ -22,7 +22,7 @@
 
 #import "SPPageView.h"
 
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 

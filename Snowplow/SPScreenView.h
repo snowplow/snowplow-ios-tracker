@@ -1,1 +1,1 @@
-./internal/events/SPScreenView.h
+./Internal/Events/SPScreenView.h

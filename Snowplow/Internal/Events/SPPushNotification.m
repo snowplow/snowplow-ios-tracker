@@ -22,7 +22,7 @@
 
 #import "SPPushNotification.h"
 
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 
 @implementation SPPushNotification {

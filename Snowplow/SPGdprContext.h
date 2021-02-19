@@ -1,1 +1,1 @@
-./internal/GDPR/SPGDPRContext.h
+./Internal/GDPR/SPGdprContext.h

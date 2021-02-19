@@ -1,1 +1,1 @@
-./internal/events/SPPushNotification.h
+./Internal/Events/SPPushNotification.h

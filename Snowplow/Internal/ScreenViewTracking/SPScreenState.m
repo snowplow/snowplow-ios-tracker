@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPScreenState.h"
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 

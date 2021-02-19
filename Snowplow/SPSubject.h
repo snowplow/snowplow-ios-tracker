@@ -1,1 +1,1 @@
-./internal/Subject/SPSubject.h
+./Internal/Subject/SPSubject.h

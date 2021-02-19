@@ -1,1 +1,1 @@
-./internal/events/SPForeground.h
+./Internal/Events/SPForeground.h

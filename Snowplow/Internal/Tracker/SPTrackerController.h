@@ -30,7 +30,6 @@
 #import "SPGDPRController.h"
 #import "SPGlobalContextsController.h"
 
-#import "SPSelfDescribingJson.h"
 #import "SPEventBase.h"
 
 NS_ASSUME_NONNULL_BEGIN

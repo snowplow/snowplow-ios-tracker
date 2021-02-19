@@ -1,8 +1,5 @@
-//
-//  Use this file to import your target's public headers that you would like to expose to Swift.
-//
 
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPConfiguration.h"
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
@@ -21,21 +18,12 @@
 
 #import "SPLoggerDelegate.h"
 
-#import "SPTracker.h"
-#import "SPEmitter.h"
-#import "SPSubject.h"
-#import "SPPayload.h"
-#import "SPUtilities.h"
-#import "SPRequestCallback.h"
-#import "SPSelfDescribingJson.h"
-
 #import "SPEventStore.h"
-#import "SPSQLiteEventStore.h"
 #import "SPNetworkConnection.h"
-#import "SPDefaultNetworkConnection.h"
 #import "SPRequest.h"
 #import "SPRequestResult.h"
 #import "SPEmitterEvent.h"
+#import "SPRequestCallback.h"
 
 // Events
 #import "SPEventBase.h"
@@ -59,6 +47,14 @@
 #import "SPSchemaRuleset.h"
 #import "SPSchemaRule.h"
 
-// GDPR
-#import "SPGdprContext.h"
+// Classe to restrict visibility
 
+#import "SPTracker.h"
+#import "SPEmitter.h"
+#import "SPSubject.h"
+#import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
+#import "SPUtilities.h"
+#import "SPSQLiteEventStore.h"
+#import "SPDefaultNetworkConnection.h"
+#import "SPGdprContext.h"

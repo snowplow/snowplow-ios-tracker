@@ -1,1 +1,1 @@
-./internal/events/SPEcommerceItem.h
+./Internal/Events/SPEcommerceItem.h

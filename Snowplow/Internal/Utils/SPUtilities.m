@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPDevicePlatform.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"

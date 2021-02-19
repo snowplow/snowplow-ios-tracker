@@ -74,7 +74,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeInteger:self.bufferOption forKey:SP_STR_PROP(bufferOption)];
     [coder encodeInteger:self.emitRange forKey:SP_STR_PROP(emitRange)];
-    [coder encodeInteger:self.threadPoolSize forKey:SP_STR_PROP(emitThreadPoolSize)];
+    [coder encodeInteger:self.threadPoolSize forKey:SP_STR_PROP(threadPoolSize)];
     [coder encodeInteger:self.byteLimitGet forKey:SP_STR_PROP(byteLimitGet)];
     [coder encodeInteger:self.byteLimitPost forKey:SP_STR_PROP(byteLimitPost)];
 }
@@ -83,7 +83,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     if (self = [super init]) {
         self.bufferOption = [coder decodeIntegerForKey:SP_STR_PROP(bufferOption)];
         self.emitRange = [coder decodeIntegerForKey:SP_STR_PROP(emitRange)];
-        self.threadPoolSize = [coder decodeIntegerForKey:SP_STR_PROP(emitThreadPoolSize)];
+        self.threadPoolSize = [coder decodeIntegerForKey:SP_STR_PROP(threadPoolSize)];
         self.byteLimitGet = [coder decodeIntegerForKey:SP_STR_PROP(byteLimitGet)];
         self.byteLimitPost = [coder decodeIntegerForKey:SP_STR_PROP(byteLimitPost)];
     }

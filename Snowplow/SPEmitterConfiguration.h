@@ -1,1 +1,1 @@
-./internal/Configurations/SPEmitterConfiguration.h
+./Internal/Configurations/SPEmitterConfiguration.h

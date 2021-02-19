@@ -1,1 +1,1 @@
-./internal/Emitter/SPEmitterController.h
+./Internal/Emitter/SPEmitterController.h

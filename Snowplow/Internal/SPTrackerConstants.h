@@ -44,7 +44,7 @@
 #define SP_BUILDER_DECLARE_NULLABLE(type, prop) - (instancetype)prop:(nullable type)value NS_SWIFT_NAME(prop(_:));
 #define SP_BUILDER_METHOD(type, prop) - (instancetype)prop:(type)value { self.prop = value; return self; }
 
-@interface TrackerConstants : NSObject
+@interface SPTrackerConstants : NSObject
 
 // --- Version
 

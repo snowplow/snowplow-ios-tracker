@@ -22,7 +22,7 @@
 
 #import <XCTest/XCTest.h>
 #import <SnowplowIgluClient/IGLUClient.h>
-#import "TrackerConstants.h"
+#import "SPTrackerConstants.h"
 #import "SPEmitter.h"
 #import "SPTracker.h"
 #import "SPSession.h"
@@ -34,6 +34,7 @@
 #import "SPScreenState.h"
 #import "SPUtilities.h"
 #import "SPTrackerEvent.h"
+#import "SPServiceProvider.h"
 
 
 /// Category needed to make the private methods testable.

@@ -1,1 +1,1 @@
-./internal/GDPR/SPGDPRController.h
+./Internal/GDPR/SPGDPRController.h

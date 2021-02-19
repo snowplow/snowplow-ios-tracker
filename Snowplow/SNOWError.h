@@ -1,1 +1,1 @@
-./internal/events/SNOWError.h
+./Internal/Events/SNOWError.h

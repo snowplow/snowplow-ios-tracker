@@ -1,1 +1,1 @@
-./internal/GlobalContexts/SPGlobalContext.h
+./Internal/GlobalContexts/SPGlobalContext.h
