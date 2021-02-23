@@ -1766,7 +1766,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh .scripts/copy_public_headers.sh\n";
+			shellScript = "sh ./Snowplow/buildPhaseScript/copy_public_headers.sh\n";
 		};
 		ED8C8D0825E4FC4500BF6D14 /* Run Script - Copy public headers */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1784,7 +1784,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh .scripts/copy_public_headers.sh\n";
+			shellScript = "sh ./Snowplow/buildPhaseScript/copy_public_headers.sh\n";
 		};
 		ED8C8D0925E4FCF000BF6D14 /* Run Script - Copy public headers */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1802,7 +1802,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh .scripts/copy_public_headers.sh\n";
+			shellScript = "sh ./Snowplow/buildPhaseScript/copy_public_headers.sh\n";
 		};
 		ED8C8D0A25E4FD1100BF6D14 /* Run Script - Copy public headers */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1820,7 +1820,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "sh .scripts/copy_public_headers.sh\n";
+			shellScript = "sh ./Snowplow/buildPhaseScript/copy_public_headers.sh\n";
 		};
 		ED8EA918258A7118008E292C /* Run Script - Copy Frameworks (Carthage) */ = {
 			isa = PBXShellScriptBuildPhase;

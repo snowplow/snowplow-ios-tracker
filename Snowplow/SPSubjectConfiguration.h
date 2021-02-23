@@ -1,1 +1,0 @@
-./Internal/Configurations/SPSubjectConfiguration.h
