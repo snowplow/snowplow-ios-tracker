@@ -35,12 +35,16 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
 
 - (void)setUp {
     [super setUp];
+    if ([[LSNocilla sharedInstance] isStarted]) {
+        [[LSNocilla sharedInstance] stop];
+    }
     [[LSNocilla sharedInstance] start];
 }
 
 - (void)tearDown {
     [super tearDown];
     [[LSNocilla sharedInstance] clearStubs];
+    [[LSNocilla sharedInstance] stop];
 }
 
 - (void)testGetRequestWithSuccess {

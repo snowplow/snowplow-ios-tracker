@@ -97,8 +97,8 @@
 
 @interface SPMockEventStore : NSObject <SPEventStore>
 
-@property (nonatomic) NSMutableDictionary<NSNumber *, SPPayload *> *db;
-@property (nonatomic) long lastInsertedRow;
+@property (atomic) NSMutableDictionary<NSNumber *, SPPayload *> *db;
+@property (atomic) long lastInsertedRow;
 
 @end
 
@@ -147,7 +147,9 @@
 }
 
 - (NSUInteger)count {
-    return self.db.count;
+    @synchronized (self) {
+        return self.db.count;
+    }
 }
 
 - (nonnull NSArray<SPEmitterEvent *> *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit {
