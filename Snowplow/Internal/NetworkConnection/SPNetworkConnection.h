@@ -29,12 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @brief An enum for HTTP method types.
  */
-typedef NS_ENUM(NSInteger, SPRequestOptions) {
+typedef NS_ENUM(NSInteger, SPHttpMethod) {
     /*! GET request. */
-    SPRequestOptionsGet,
+    SPHttpMethodGet,
     /*! POST request. */
-    SPRequestOptionsPost
-} NS_SWIFT_NAME(RequestOptions);
+    SPHttpMethodPost
+} NS_SWIFT_NAME(HttpMethodOptions);
 
 /*!
  @brief An enum for HTTP security.
@@ -63,7 +63,7 @@ NS_SWIFT_NAME(NetworkConnection)
 /**
  * @return http method used to send requests to the collector.
  */
-- (SPRequestOptions)httpMethod;
+- (SPHttpMethod)httpMethod;
 
 /**
  * @return URL of the collector.

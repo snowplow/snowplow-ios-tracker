@@ -25,7 +25,7 @@
 @interface SPNetworkConfiguration ()
 
 @property (nonatomic, nullable) NSString *endpoint;
-@property (nonatomic) SPRequestOptions method;
+@property (nonatomic) SPHttpMethod method;
 @property (nonatomic) SPProtocol protocol;
 
 @end
@@ -34,7 +34,7 @@
 
 @synthesize customPostPath;
 
-- (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPRequestOptions)method {
+- (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method {
     if (self = [super init]) {
         NSURL *url = [[NSURL alloc] initWithString:endpoint];
         if ([url.scheme isEqualToString:@"https"]) {
@@ -55,7 +55,7 @@
 }
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint {
-    return [self initWithEndpoint:endpoint method:SPRequestOptionsPost];
+    return [self initWithEndpoint:endpoint method:SPHttpMethodPost];
 }
 
 - (instancetype)initWithNetworkConnection:(id<SPNetworkConnection>)networkConnection {

@@ -50,11 +50,11 @@
     return [self.emitter urlEndpoint].absoluteString;
 }
 
-- (void)setMethod:(SPRequestOptions)method {
+- (void)setMethod:(SPHttpMethod)method {
     [self.emitter setHttpMethod:method];
 }
 
-- (SPRequestOptions)method {
+- (SPHttpMethod)method {
     return [self.emitter httpMethod];
 }
 

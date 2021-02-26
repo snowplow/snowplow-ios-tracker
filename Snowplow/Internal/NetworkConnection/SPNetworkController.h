@@ -29,7 +29,7 @@ NS_SWIFT_NAME(NetworkController)
 @protocol SPNetworkController
 
 @property (nonatomic, nullable) NSString *endpoint;
-@property (nonatomic) SPRequestOptions method;
+@property (nonatomic) SPHttpMethod method;
 @property (nonatomic) SPProtocol protocol;
 
 @property (nonatomic, nullable) NSString *customPostPath;

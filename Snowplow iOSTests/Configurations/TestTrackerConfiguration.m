@@ -83,7 +83,7 @@
     
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
     id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
-    XCTAssertNil(tracker);
+    XCTAssertNotNil(tracker);
 }
 
 - (void)testNetworkConfiguration_EndpointWithOnlyProtocol_UseItAsEndpoint {
@@ -94,7 +94,7 @@
     
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
     id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
-    XCTAssertNil(tracker);
+    XCTAssertNotNil(tracker);
 }
 
 - (void)testBasicInitialization {

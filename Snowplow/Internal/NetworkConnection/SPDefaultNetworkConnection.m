@@ -26,7 +26,7 @@
 #import "SPLogger.h"
 
 @implementation SPDefaultNetworkConnection {
-    SPRequestOptions _httpMethod;
+    SPHttpMethod _httpMethod;
     SPProtocol _protocol;
     NSString *_urlString;
     NSUInteger _emitThreadPoolSize;
@@ -50,7 +50,7 @@
 
 - (instancetype)initWithDefaultValues {
     if (self = [super init]) {
-        _httpMethod = SPRequestOptionsPost;
+        _httpMethod = SPHttpMethodPost;
         _protocol = SPProtocolHttps;
         _emitThreadPoolSize = 15;
         _byteLimitGet = 40000;
@@ -65,8 +65,8 @@
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     NSString *urlPrefix = _protocol == SPProtocolHttp ? @"http://" : @"https://";
-    NSString *urlSuffix = _httpMethod == SPRequestOptionsGet ? kSPEndpointGet : kSPEndpointPost;
-    if (_customPostPath && _httpMethod == SPRequestOptionsPost) {
+    NSString *urlSuffix = _httpMethod == SPHttpMethodGet ? kSPEndpointGet : kSPEndpointPost;
+    if (_customPostPath && _httpMethod == SPHttpMethodPost) {
         urlSuffix = _customPostPath;
     }
     _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _urlString, urlSuffix]];
@@ -96,7 +96,7 @@
     }
 }
 
-- (void)setHttpMethod:(SPRequestOptions)method {
+- (void)setHttpMethod:(SPHttpMethod)method {
     _httpMethod = method;
     if (_builderFinished && _urlEndpoint != nil) {
         [self setup];
@@ -131,7 +131,7 @@
 
 // MARK: - Implement SPNetworkConnection protocol
 
-- (SPRequestOptions)httpMethod {
+- (SPHttpMethod)httpMethod {
     return _httpMethod;
 }
 
@@ -143,7 +143,7 @@
     NSMutableArray<SPRequestResult *> *results = [NSMutableArray new];
     
     for (SPRequest *request in requests) {
-        NSMutableURLRequest *urlRequest = _httpMethod == SPRequestOptionsGet
+        NSMutableURLRequest *urlRequest = _httpMethod == SPHttpMethodGet
         ? [self buildGetRequest:request]
         : [self buildPostRequest:request];
 

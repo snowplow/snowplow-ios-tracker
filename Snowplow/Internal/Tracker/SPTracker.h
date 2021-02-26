@@ -256,7 +256,7 @@ NS_SWIFT_NAME(Tracker)
 
 // MARK: - New methods
 
-+ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId NS_SWIFT_NAME(setup(endpoint:protocol:method:namespace:appId:));
++ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId NS_SWIFT_NAME(setup(endpoint:protocol:method:namespace:appId:));
 
 + (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
 

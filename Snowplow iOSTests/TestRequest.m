@@ -111,16 +111,16 @@
 @interface SPMockConnection: NSObject <SPNetworkConnection>
 
 @property NSInteger resultCode;
-@property SPRequestOptions httpMethod;
+@property SPHttpMethod httpMethod;
 @property NSURL *url;
 
-- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url;
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPHttpMethod)httpMethod url:(NSString *)url;
 
 @end
 
 @implementation SPMockConnection
 
-- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url {
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPHttpMethod)httpMethod url:(NSString *)url {
     if (self = [super init]) {
         self.resultCode = resultCode;
         self.httpMethod = httpMethod;
@@ -166,7 +166,7 @@
 
 - (void)testRequestSendWithPost {
     SPMockStore *mockStore = [[SPMockStore alloc] init];
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200 eventStore:mockStore];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodPost resultCode:200 eventStore:mockStore];
     int sentEventsCount = [self sendAll:tracker];
     [self forceFlushes:5 emitter:tracker.emitter];
 
@@ -177,7 +177,7 @@
 
 - (void)testRequestSendWithGet {
     SPMockStore *mockStore = [[SPMockStore alloc] init];
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200 eventStore:mockStore];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodGet resultCode:200 eventStore:mockStore];
     int sentEventsCount = [self sendAll:tracker];
     [self forceFlushes:5 emitter:tracker.emitter];
     XCTAssertEqual(_successCount, sentEventsCount);
@@ -186,7 +186,7 @@
 
 - (void)testRequestSendWithBadUrl {
     SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:404
-                                                                             method:SPRequestOptionsPost
+                                                                             method:SPHttpMethodPost
                                                                                 url:@"https://acme.test.url.com/tp2"];
     SPMockStore *mockStore = [[SPMockStore alloc] init];
 
@@ -211,7 +211,7 @@
 
 - (void)testRequestSendWithoutSubject {
     SPMockStore *mockStore = [[SPMockStore alloc] init];
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200 eventStore:mockStore];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodGet resultCode:200 eventStore:mockStore];
     [tracker setSubject:nil];
     int sentEventsCount = [self sendAll:tracker];
     [self forceFlushes:5 emitter:tracker.emitter];
@@ -221,7 +221,7 @@
 
 - (void)testRequestSendWithCollectionOff {
     SPMockStore *mockStore = [[SPMockStore alloc] init];
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200 eventStore:mockStore];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodPost resultCode:200 eventStore:mockStore];
     [tracker pauseEventTracking];
     [self sendAll:tracker];
     [self forceFlushes:5 emitter:tracker.emitter];
@@ -246,7 +246,7 @@
     return serviceProvider.tracker;
 }
 
-- (SPTracker *)getTrackerWithRequestType:(SPRequestOptions)type resultCode:(NSInteger)resultCode eventStore:(id<SPEventStore>)mockEventStore {
+- (SPTracker *)getTrackerWithRequestType:(SPHttpMethod)type resultCode:(NSInteger)resultCode eventStore:(id<SPEventStore>)mockEventStore {
     SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:resultCode method:type url:@"https://acme.test.url.com/tp2"];
     return [self getTrackerWithConnection:mockConnection eventStore:mockEventStore];
 }

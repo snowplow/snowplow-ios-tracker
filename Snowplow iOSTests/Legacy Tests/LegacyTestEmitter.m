@@ -41,9 +41,9 @@
     return nil;
 }
 
-- (SPRequestOptions)httpMethod {
+- (SPHttpMethod)httpMethod {
     [NSException raise:@"BrokenNetworkConnection" format:@"Fake exception on network connection."];
-    return SPRequestOptionsGet;
+    return SPHttpMethodGet;
 }
 
 @end
@@ -52,14 +52,14 @@
 @interface SPMockNetworkConnection : NSObject <SPNetworkConnection>
 
 @property (nonatomic) BOOL successfulConnection;
-@property (nonatomic) SPRequestOptions httpMethod;
+@property (nonatomic) SPHttpMethod httpMethod;
 @property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResult *> *> *previousResults;
 
 @end
 
 @implementation SPMockNetworkConnection
 
-- initWithRequestOption:(SPRequestOptions)httpMethod successfulConnection:(BOOL)successfulConnection {
+- initWithRequestOption:(SPHttpMethod)httpMethod successfulConnection:(BOOL)successfulConnection {
     if (self = [super init]) {
         self.httpMethod = httpMethod;
         self.successfulConnection = successfulConnection;
@@ -80,7 +80,7 @@
     return requestResults;
 }
 
-- (SPRequestOptions)httpMethod {
+- (SPHttpMethod)httpMethod {
     return _httpMethod;
 }
 
@@ -197,7 +197,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:TEST_SERVER_EMITTER];
-        [builder setHttpMethod:SPRequestOptionsPost];
+        [builder setHttpMethod:SPHttpMethodPost];
         [builder setEmitRange:500];
         [builder setEmitThreadPoolSize:30];
         [builder setByteLimitGet:30000];
@@ -211,7 +211,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     XCTAssertNil([emitter callback]);
     XCTAssertTrue([[[emitter urlEndpoint] absoluteString] isEqualToString:url]);
-    XCTAssertEqual([emitter httpMethod], SPRequestOptionsPost);
+    XCTAssertEqual([emitter httpMethod], SPHttpMethodPost);
     XCTAssertEqual([emitter emitRange], 500);
     XCTAssertEqual([emitter emitThreadPoolSize], 30);
     XCTAssertEqual([emitter byteLimitGet], 30000);
@@ -220,7 +220,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     SPEmitter * customPathEmitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         [builder setUrlEndpoint:TEST_SERVER_EMITTER];
-        [builder setHttpMethod:SPRequestOptionsPost];
+        [builder setHttpMethod:SPHttpMethodPost];
         [builder setCustomPostPath:@"/com.acme.company/tpx"];
         [builder setEmitRange:500];
         [builder setEmitThreadPoolSize:30];
@@ -237,8 +237,8 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     [emitter setUrlEndpoint:@"www.test.com"];
     url = [[NSString alloc] initWithFormat:@"%@://www.test.com/com.snowplowanalytics.snowplow/tp2", protocol];
     XCTAssertTrue([[[emitter urlEndpoint] absoluteString] isEqualToString:url]);
-    [emitter setHttpMethod:SPRequestOptionsGet];
-    XCTAssertEqual([emitter httpMethod], SPRequestOptionsGet);
+    [emitter setHttpMethod:SPHttpMethodGet];
+    XCTAssertEqual([emitter httpMethod], SPHttpMethodGet);
     url = [[NSString alloc] initWithFormat:@"%@://www.test.com/i", protocol];
     XCTAssertTrue([[[emitter urlEndpoint] absoluteString] isEqualToString:url]);
     [emitter setEmitRange:1000];
@@ -274,7 +274,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitSingleGetEventWithSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPRequestOptionsGet successfulConnection:YES];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:YES];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
     
@@ -291,7 +291,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitSingleGetEventWithNoSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPRequestOptionsGet successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:NO];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
     
@@ -308,7 +308,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitTwoGetEventsWithSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPRequestOptionsGet successfulConnection:YES];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:YES];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     
     for (SPPayload *payload in [self generatePayloads:2]) {
@@ -333,7 +333,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitTwoGetEventsWithNoSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPRequestOptionsGet successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:NO];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
 
     for (SPPayload *payload in [self generatePayloads:2]) {
@@ -355,7 +355,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitSinglePostEventWithSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPRequestOptionsPost successfulConnection:YES];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost successfulConnection:YES];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     
     [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
@@ -373,7 +373,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitEventsPostAsGroup {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPRequestOptionsPost successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost successfulConnection:NO];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionDefaultGroup];
     
     NSArray<SPPayload *> *payloads = [self generatePayloads:15];
@@ -414,7 +414,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitOversizeEventsPostAsGroup {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPRequestOptionsPost successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost successfulConnection:NO];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection build:^(id<SPEmitterBuilder> builder) {
         [builder setBufferOption:SPBufferOptionDefaultGroup];
         [builder setByteLimitPost:5];
