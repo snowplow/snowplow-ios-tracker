@@ -72,8 +72,8 @@
 
 // MARK: - Setup
 
-+ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId {
-    SPNetworkConfiguration *network = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint protocol:protocol method:method];
++ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId {
+    SPNetworkConfiguration *network = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint method:method];
     SPTrackerConfiguration *tracker = [[SPTrackerConfiguration alloc] initWithNamespace:namespace appId:appId];
     return [SPServiceProvider setupWithNetwork:network tracker:tracker];
 }

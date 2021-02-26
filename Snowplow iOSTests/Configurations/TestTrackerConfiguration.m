@@ -31,8 +31,74 @@
 
 @implementation TestTrackerConfiguration
 
+- (void)testNetworkConfiguration_EmptyEndpoint_Fails {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"" method:SPRequestOptionsPost];
+    XCTAssertEqualObjects(@"", networkConfig.endpoint);
+    XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
+    XCTAssertEqual(SPRequestOptionsPost, networkConfig.method);
+    
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
+    XCTAssertNotNil(tracker);
+}
+
+- (void)testNetworkConfiguration_EndpointWithoutProtocol_SuccessWithHttps {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url.com" method:SPRequestOptionsGet];
+    XCTAssertEqualObjects(@"fake-url.com", networkConfig.endpoint);
+    XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
+    XCTAssertEqual(SPRequestOptionsGet, networkConfig.method);
+    
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
+    XCTAssertNotNil(tracker);
+}
+
+- (void)testNetworkConfiguration_EndpointWithHttpsProtocol_SuccessWithHttps {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url.com" method:SPRequestOptionsGet];
+    XCTAssertEqualObjects(@"fake-url.com", networkConfig.endpoint);
+    XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
+    XCTAssertEqual(SPRequestOptionsGet, networkConfig.method);
+    
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
+    XCTAssertNotNil(tracker);
+}
+
+- (void)testNetworkConfiguration_EndpointWithHttpProtocol_SuccessWithHttps {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"http://fake-url.com" method:SPRequestOptionsGet];
+    XCTAssertEqualObjects(@"fake-url.com", networkConfig.endpoint);
+    XCTAssertEqual(SPProtocolHttp, networkConfig.protocol);
+    XCTAssertEqual(SPRequestOptionsGet, networkConfig.method);
+    
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
+    XCTAssertNotNil(tracker);
+}
+
+- (void)testNetworkConfiguration_EndpointWithWrongProtocol_UseItAsEndpoint {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"wrong://fake-url.com" method:SPRequestOptionsGet];
+    XCTAssertEqualObjects(@"wrong://fake-url.com", networkConfig.endpoint);
+    XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
+    XCTAssertEqual(SPRequestOptionsGet, networkConfig.method);
+    
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
+    XCTAssertNil(tracker);
+}
+
+- (void)testNetworkConfiguration_EndpointWithOnlyProtocol_UseItAsEndpoint {
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"http://" method:SPRequestOptionsGet];
+    XCTAssertEqualObjects(@"", networkConfig.endpoint);
+    XCTAssertEqual(SPProtocolHttp, networkConfig.protocol);
+    XCTAssertEqual(SPRequestOptionsGet, networkConfig.method);
+    
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
+    XCTAssertNil(tracker);
+}
+
 - (void)testBasicInitialization {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" protocol:SPProtocolHttps method:SPRequestOptionsPost];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPRequestOptionsPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
     trackerConfig.platformContext = YES;
     id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
@@ -56,7 +122,7 @@
 - (void)testSessionInitialization {
     NSInteger expectedForeground = 42;
     NSInteger expectedBackground = 24;
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" protocol:SPProtocolHttps method:SPRequestOptionsPost];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPRequestOptionsPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
     SPSessionConfiguration *sessionConfig = [[SPSessionConfiguration alloc] initWithForegroundTimeoutInSeconds:expectedForeground
                                                                                     backgroundTimeoutInSeconds:expectedBackground];
@@ -74,7 +140,7 @@
 }
 
 - (void)testSessionControllerUnavailableWhenContextTurnedOff {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" protocol:SPProtocolHttps method:SPRequestOptionsPost];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPRequestOptionsPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
     trackerConfig.sessionContext = YES;
     id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];

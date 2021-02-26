@@ -361,7 +361,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (SPTracker *)getTracker:(NSString *)url {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:url protocol:SPProtocolHttp method:SPRequestOptionsPost];
+    NSString *endpoint = [NSString stringWithFormat:@"https://%@", url];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint method:SPRequestOptionsPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
     trackerConfig.platformContext = YES;
     trackerConfig.geoLocationContext = YES;

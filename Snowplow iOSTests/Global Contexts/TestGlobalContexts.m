@@ -225,8 +225,7 @@
 // MARK: - Utility function
 
     - (SPTracker *)getTrackerWithGlobalContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
-        SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"com.acme.fake"
-                                                                                        protocol:SPProtocolHttps
+        SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://com.acme.fake"
                                                                                           method:SPRequestOptionsPost];
         SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
         trackerConfig.platformContext = YES;

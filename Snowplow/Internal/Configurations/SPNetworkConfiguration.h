@@ -42,7 +42,7 @@ NS_SWIFT_NAME(NetworkConfiguration)
 - (instancetype) init NS_UNAVAILABLE;
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint;
-- (instancetype)initWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method;
+- (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPRequestOptions)method;
 
 - (instancetype)initWithNetworkConnection:(id<SPNetworkConnection>)networkConnection;
 
