@@ -254,13 +254,7 @@ NS_SWIFT_NAME(Tracker)
 /*! @brief Dictionary of global contexts generators. */
 @property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
 
-// MARK: - New methods
-
-+ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId NS_SWIFT_NAME(setup(endpoint:protocol:method:namespace:appId:));
-
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
-
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
+// MARK: - Added property methods
 
 - (BOOL)applicationContext;
 - (BOOL)exceptionEvents;
@@ -269,12 +263,12 @@ NS_SWIFT_NAME(Tracker)
 - (BOOL)autoTrackScreenView;
 - (BOOL)sessionContext;
 
-// MARK: - Old methods
+// MARK: - methods
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.
  */
-+ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Tracker.setup(...)` instead.");
++ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;

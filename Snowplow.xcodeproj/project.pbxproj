@@ -316,6 +316,14 @@
 		CE4F9D20244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
 		CE4F9D21244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
 		ED26E6BA23842AB00096AF7C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED26E6B923842AAF0096AF7C /* AdSupport.framework */; };
+		ED8122AA25E9578500AE7FE8 /* SPSnowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8122A825E9578500AE7FE8 /* SPSnowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED8122AB25E9578600AE7FE8 /* SPSnowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8122A825E9578500AE7FE8 /* SPSnowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED8122AC25E9578600AE7FE8 /* SPSnowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8122A825E9578500AE7FE8 /* SPSnowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED8122AD25E9578600AE7FE8 /* SPSnowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = ED8122A825E9578500AE7FE8 /* SPSnowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED8122AE25E9578600AE7FE8 /* SPSnowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8122A925E9578500AE7FE8 /* SPSnowplow.m */; };
+		ED8122AF25E9578600AE7FE8 /* SPSnowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8122A925E9578500AE7FE8 /* SPSnowplow.m */; };
+		ED8122B025E9578600AE7FE8 /* SPSnowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8122A925E9578500AE7FE8 /* SPSnowplow.m */; };
+		ED8122B125E9578600AE7FE8 /* SPSnowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8122A925E9578500AE7FE8 /* SPSnowplow.m */; };
 		ED852B2F23A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
 		ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
 		ED852B3123A0E90E00F2DF6B /* SNOWReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */; };
@@ -716,6 +724,8 @@
 		CE4F9C85244B066500968CFC /* SPEcommerce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEcommerce.m; sourceTree = "<group>"; };
 		ED26E6B923842AAF0096AF7C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
 		ED6AC5152369D42800A8F8A3 /* ios.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ios.modulemap; sourceTree = "<group>"; };
+		ED8122A825E9578500AE7FE8 /* SPSnowplow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSnowplow.h; sourceTree = "<group>"; };
+		ED8122A925E9578500AE7FE8 /* SPSnowplow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPSnowplow.m; sourceTree = "<group>"; };
 		ED852B2E23A0E90E00F2DF6B /* SNOWReachability.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SNOWReachability.m; sourceTree = "<group>"; };
 		ED852B3223A0EEC600F2DF6B /* SNOWReachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SNOWReachability.h; sourceTree = "<group>"; };
 		ED87A3D825765DAE000C54EB /* SPSessionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSessionController.h; sourceTree = "<group>"; };
@@ -1232,6 +1242,8 @@
 				EDC9B346255ACF5100F4136D /* Events */,
 				AB0C27C5191B408200018557 /* SPTrackerConstants.h */,
 				043EC5E61B8F224900294081 /* SPTrackerConstants.m */,
+				ED8122A825E9578500AE7FE8 /* SPSnowplow.h */,
+				ED8122A925E9578500AE7FE8 /* SPSnowplow.m */,
 			);
 			path = Internal;
 			sourceTree = "<group>";
@@ -1265,6 +1277,7 @@
 				ED852B3323A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
 				CE4F9CB2244B066500968CFC /* SNOWError.h in Headers */,
 				ED8866FE25715DD600DB53BB /* SPConfiguration.h in Headers */,
+				ED8122AA25E9578500AE7FE8 /* SPSnowplow.h in Headers */,
 				ED8BF8B325700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */,
 				752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */,
 				752DAC3521CC43C70065F874 /* SPSubject.h in Headers */,
@@ -1387,6 +1400,7 @@
 				ED87A3DA25765DAE000C54EB /* SPSessionController.h in Headers */,
 				ED88672C2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */,
 				75CAC46221F2A21B00271FB3 /* SPRequestResult.h in Headers */,
+				ED8122AB25E9578600AE7FE8 /* SPSnowplow.h in Headers */,
 				ED88B590257922490048FAD1 /* SPEmitterController.h in Headers */,
 				75CAC46321F2A21B00271FB3 /* SPWeakTimerTarget.h in Headers */,
 				ED88B5FC257954370048FAD1 /* SPGDPRController.h in Headers */,
@@ -1463,6 +1477,7 @@
 				ED87A3DB25765DAE000C54EB /* SPSessionController.h in Headers */,
 				ED88672D2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */,
 				ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */,
+				ED8122AC25E9578600AE7FE8 /* SPSnowplow.h in Headers */,
 				ED88B591257922490048FAD1 /* SPEmitterController.h in Headers */,
 				75CAC43521F2A0CC00271FB3 /* SPWeakTimerTarget.h in Headers */,
 				ED88B5FD257954370048FAD1 /* SPGDPRController.h in Headers */,
@@ -1495,6 +1510,7 @@
 				ED852B3523A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
 				CE4F9CB5244B066500968CFC /* SNOWError.h in Headers */,
 				ED88670125715DD600DB53BB /* SPConfiguration.h in Headers */,
+				ED8122AD25E9578600AE7FE8 /* SPSnowplow.h in Headers */,
 				ED8BF8B625700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */,
 				75F9C5E721FA35BC00A5B8FC /* SPTracker.h in Headers */,
 				75F9C5E821FA35BC00A5B8FC /* SPEmitter.h in Headers */,
@@ -1884,6 +1900,7 @@
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
 				75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */,
 				ED88B66C257A5A520048FAD1 /* SPGlobalContextsControllerImpl.m in Sources */,
+				ED8122AE25E9578600AE7FE8 /* SPSnowplow.m in Sources */,
 				ED8866E62571445300DB53BB /* SPSubjectConfiguration.m in Sources */,
 				CE4F9C86244B066500968CFC /* SPTiming.m in Sources */,
 				EDD8541A24EEC25100661F6B /* SPEmitterEvent.m in Sources */,
@@ -1973,6 +1990,7 @@
 				EDEE835024BDB326000B8530 /* SPTrackerError.m in Sources */,
 				CE4F9C93244B066500968CFC /* SPForeground.m in Sources */,
 				CE4F9CFF244B066500968CFC /* SPBackground.m in Sources */,
+				ED8122AF25E9578600AE7FE8 /* SPSnowplow.m in Sources */,
 				EDEE835F24BE0944000B8530 /* SPLogger.m in Sources */,
 				CE4F9CEF244B066500968CFC /* SPSchemaRule.m in Sources */,
 				75CAC43E21F2A17500271FB3 /* SPSession.m in Sources */,
@@ -2035,6 +2053,7 @@
 				EDEE835124BDB326000B8530 /* SPTrackerError.m in Sources */,
 				CE4F9C94244B066500968CFC /* SPForeground.m in Sources */,
 				CE4F9D00244B066500968CFC /* SPBackground.m in Sources */,
+				ED8122B025E9578600AE7FE8 /* SPSnowplow.m in Sources */,
 				EDEE836024BE0944000B8530 /* SPLogger.m in Sources */,
 				CE4F9CF0244B066500968CFC /* SPSchemaRule.m in Sources */,
 				ED91CB7323AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
@@ -2107,6 +2126,7 @@
 				75F9C5D621FA357100A5B8FC /* SPTrackerConstants.m in Sources */,
 				75F9C5D721FA357100A5B8FC /* SPTracker.m in Sources */,
 				ED88B66F257A5A520048FAD1 /* SPGlobalContextsControllerImpl.m in Sources */,
+				ED8122B125E9578600AE7FE8 /* SPSnowplow.m in Sources */,
 				ED8866E92571445300DB53BB /* SPSubjectConfiguration.m in Sources */,
 				CE4F9C89244B066500968CFC /* SPTiming.m in Sources */,
 				EDD8541D24EEC25100661F6B /* SPEmitterEvent.m in Sources */,

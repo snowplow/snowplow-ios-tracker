@@ -1,6 +1,6 @@
 //
-//  TestTrackerController.m
-//  Snowplow-iOSTests
+//  SPSnowplow.h
+//  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
@@ -20,28 +20,21 @@
 //  License: Apache License Version 2.0
 //
 
-#import <XCTest/XCTest.h>
-#import "SPSnowplow.h"
+#import <Foundation/Foundation.h>
 #import "SPNetworkConfiguration.h"
-#import "SPTrackerConfiguration.h"
 #import "SPTrackerController.h"
-#import "SPTracker.h"
-#import "SPSession.h"
 
-@interface TestTrackerController : XCTestCase
+NS_ASSUME_NONNULL_BEGIN
 
-@end
+NS_SWIFT_NAME(Snowplow)
+@interface SPSnowplow : NSObject
 
-@implementation TestTrackerController
++ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId NS_SWIFT_NAME(setup(endpoint:protocol:method:namespace:appId:));
 
-- (void)testSessionAccessibilityWhenEnabledAndDisabled {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
-    XCTAssertNotNil(tracker.session);
-    
-    tracker.sessionContext = NO;
-    XCTAssertNil(tracker.session);
-}
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
+
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
 
 @end
+
+NS_ASSUME_NONNULL_END

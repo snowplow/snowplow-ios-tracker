@@ -114,20 +114,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 static SPTracker *_sharedInstance = nil;
 
-// MARK: - Setup methods
-
-+ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId {
-    return [SPServiceProvider setupWithEndpoint:endpoint protocol:protocol method:method namespace:namespace appId:appId];
-}
-
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
-    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration];
-}
-
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
-    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
-}
-
 // MARK: - Added property methods
 
 - (BOOL)applicationContext {

@@ -157,7 +157,7 @@ NS_SWIFT_NAME(Emitter)
 /*!
  @brief Builds the emitter using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Tracker.setup(...)` instead.");
++ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
