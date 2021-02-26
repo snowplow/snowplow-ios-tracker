@@ -53,7 +53,7 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
         [builder setProtocol:SPProtocolHttps];
-        [builder setHttpMethod:SPRequestOptionsGet];
+        [builder setHttpMethod:SPHttpMethodGet];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -73,7 +73,7 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
         [builder setProtocol:SPProtocolHttps];
-        [builder setHttpMethod:SPRequestOptionsGet];
+        [builder setHttpMethod:SPHttpMethodGet];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -93,7 +93,7 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
         [builder setProtocol:SPProtocolHttps];
-        [builder setHttpMethod:SPRequestOptionsPost];
+        [builder setHttpMethod:SPHttpMethodPost];
     }];
     
     SPPayload *payload = [SPPayload new];
@@ -113,7 +113,7 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
         [builder setProtocol:SPProtocolHttps];
-        [builder setHttpMethod:SPRequestOptionsPost];
+        [builder setHttpMethod:SPHttpMethodPost];
     }];
     
     SPPayload *payload = [SPPayload new];

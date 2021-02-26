@@ -34,7 +34,7 @@
 @implementation TestTrackerController
 
 - (void)testSessionAccessibilityWhenEnabledAndDisabled {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPRequestOptionsPost];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
     id<SPTrackerController> tracker = [SPTracker setupWithNetwork:networkConfig tracker:trackerConfig];
     XCTAssertNotNil(tracker.session);

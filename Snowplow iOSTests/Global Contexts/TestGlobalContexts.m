@@ -226,7 +226,7 @@
 
     - (SPTracker *)getTrackerWithGlobalContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
         SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://com.acme.fake"
-                                                                                          method:SPRequestOptionsPost];
+                                                                                          method:SPHttpMethodPost];
         SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
         trackerConfig.platformContext = YES;
         trackerConfig.geoLocationContext = NO;
