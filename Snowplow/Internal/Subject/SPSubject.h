@@ -34,8 +34,8 @@
 NS_SWIFT_NAME(Subject)
 @interface SPSubject : NSObject
 
-@property (nonatomic, readonly) BOOL platformContext;
-@property (nonatomic, readonly) BOOL geoLocationContext;
+@property (nonatomic) BOOL platformContext;
+@property (nonatomic) BOOL geoLocationContext;
 
 /*!
  @brief Initializes a newly allocated SPSubject object.

@@ -53,10 +53,6 @@
 
 @implementation SPTrackerControllerImpl
 
-// TODO: Check these two contexts can be edited at runtime. Legacy wants not editable (I guess)
-@synthesize platformContext;
-@synthesize geoLocationContext;
-
 - (instancetype)initWithTracker:(SPTracker *)tracker {
     if (self = [super init]) {
         self.tracker = tracker;
@@ -141,6 +137,26 @@
 
 - (BOOL)applicationContext {
     return [self.tracker applicationContext];
+}
+
+- (void)setPlatformContext:(BOOL)platformContext {
+    if (self.tracker.subject) {
+        self.tracker.subject.platformContext = platformContext;
+    }
+}
+
+- (BOOL)platformContext {
+    return self.tracker.subject.platformContext;
+}
+
+- (void)setGeoLocationContext:(BOOL)geoLocationContext {
+    if (self.tracker.subject) {
+        self.tracker.subject.geoLocationContext = geoLocationContext;
+    }
+}
+
+- (BOOL)geoLocationContext {
+    return self.tracker.subject.geoLocationContext;
 }
 
 - (void)setDiagnosticAutotracking:(BOOL)diagnosticAutotracking {
