@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable) id<SPTrackerController> trackerController;
 
-+ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId;
++ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId;
 
 + (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration;
 
