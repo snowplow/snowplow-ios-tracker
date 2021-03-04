@@ -12,7 +12,7 @@
 @implementation SPSnowplow
 
 + (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId {
-    return [SPServiceProvider setupWithEndpoint:endpoint protocol:protocol method:method namespace:namespace appId:appId];
+    return [SPServiceProvider setupWithEndpoint:endpoint method:method namespace:namespace appId:appId];
 }
 
 + (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
