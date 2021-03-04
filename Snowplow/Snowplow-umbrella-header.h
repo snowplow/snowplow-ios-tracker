@@ -1,5 +1,4 @@
 
-#import "SPSnowplow.h"
 #import "SPTrackerConstants.h"
 #import "SPConfiguration.h"
 #import "SPTrackerConfiguration.h"
@@ -25,6 +24,7 @@
 #import "SPRequestResult.h"
 #import "SPEmitterEvent.h"
 #import "SPRequestCallback.h"
+#import "SPSnowplow.h"
 
 // Events
 #import "SPEventBase.h"

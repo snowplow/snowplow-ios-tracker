@@ -21,7 +21,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPDiagnosticLogger.h"
 #import "SPLoggerDelegate.h"
 
 #define SPLogTrack(optionalErrorOrException, format, ...) [SPLogger diagnostic:NSStringFromClass(self.class) message:[[NSString alloc] initWithFormat:format, ##__VA_ARGS__] errorOrException:optionalErrorOrException]
@@ -36,7 +35,6 @@ NS_SWIFT_NAME(Logger)
 
 @property (class, nonatomic) SPLogLevel logLevel;
 @property (class, nonatomic, nullable) id<SPLoggerDelegate> delegate;
-@property (class, nonatomic, nullable) id<SPDiagnosticLogger> diagnosticLogger;
 
 + (void)diagnostic:(NSString *)tag message:(NSString *)message errorOrException:(nullable id)errorOrException;
 + (void)error:(NSString *)tag message:(NSString *)message;

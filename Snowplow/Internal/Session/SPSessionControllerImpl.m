@@ -26,7 +26,7 @@
 
 @interface SPSessionControllerImpl ()
 
-@property (weak, nonatomic) SPTracker *tracker;
+@property (nonatomic, weak) SPTracker *tracker;
 
 @end
 

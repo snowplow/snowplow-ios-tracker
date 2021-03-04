@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(TrackerControllerImpl)
 @interface SPTrackerControllerImpl : NSObject <SPTrackerController>
 
-- (instancetype)initWithTracker:(SPTracker *)tracker;
+- (void)resetWithTracker:(SPTracker *)tracker;
 
 @end
 

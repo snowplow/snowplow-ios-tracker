@@ -47,7 +47,6 @@
 #import "SPPushNotification.h"
 #import "SPTrackerEvent.h"
 #import "SPTrackerError.h"
-#import "SPDiagnosticLogger.h"
 #import "SPLogger.h"
 
 #import "SPSubjectConfiguration.h"
@@ -60,7 +59,7 @@
 #import "SPEmitterEventProcessing.h"
 
 /** A class extension that makes the screen view states mutable internally. */
-@interface SPTracker () <SPDiagnosticLogger>
+@interface SPTracker ()
 
 @property (class, readwrite, weak) SPTracker *sharedInstance;
 
@@ -80,15 +79,24 @@
 
 void uncaughtExceptionHandler(NSException *exception) {
     NSArray* symbols = [exception callStackSymbols];
-    NSString * stackTrace = [NSString stringWithFormat:@"Stacktrace:\n%@", symbols];
+    NSString * stacktrace = [NSString stringWithFormat:@"Stacktrace:\n%@", symbols];
     NSString * message = [exception reason];
     dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         if (message == nil || [message length] == 0) {
             return;
         }
-        SNOWError *error = [[[SNOWError alloc] initWithMessage:message]
-                            stackTrace:stackTrace];
-        [SPTracker.sharedInstance track:error];
+        
+        // Construct userInfo
+        NSMutableDictionary<NSString *, NSObject *> *userInfo = [NSMutableDictionary new];
+        userInfo[@"message"] = message;
+        userInfo[@"stacktrace"] = stacktrace;
+        
+        // Send notification to tracker
+        [[NSNotificationCenter defaultCenter]
+         postNotificationName:@"SPCrashReporting"
+         object:nil
+         userInfo:userInfo];
+        
         [NSThread sleepForTimeInterval:2.0f];
     });
 }
@@ -110,6 +118,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _builderFinished;
     BOOL                   _exceptionEvents;
     BOOL                   _installEvent;
+    BOOL                   _trackerDiagnostic;
 }
 
 static SPTracker *_sharedInstance = nil;
@@ -138,6 +147,10 @@ static SPTracker *_sharedInstance = nil;
 
 - (BOOL)sessionContext {
     return _sessionContext;
+}
+
+- (BOOL)trackerDiagnostic {
+    return _trackerDiagnostic;
 }
 
 // MARK: - Methods
@@ -184,6 +197,7 @@ static SPTracker *_sharedInstance = nil;
         self.currentScreenState = nil;
         _exceptionEvents = NO;
         _installEvent = NO;
+        _trackerDiagnostic = NO;
 #if SNOWPLOW_TARGET_IOS
         _platformContextSchema = kSPMobileContextSchema;
 #else
@@ -195,6 +209,8 @@ static SPTracker *_sharedInstance = nil;
 
 - (void) setup {
     [SPUtilities checkArgument:(_emitter != nil) withMessage:@"Emitter cannot be nil."];
+    _trackerNamespace = _trackerNamespace ?: @"default";
+    [_emitter setNamespace:_trackerNamespace]; // Needed to correctly send events to the right EventStore
 
     [self setTrackerData];
     if (_sessionContext) {
@@ -206,6 +222,16 @@ static SPTracker *_sharedInstance = nil;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(receiveScreenViewNotification:)
                                                  name:@"SPScreenViewDidAppear"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveDiagnosticNotification:)
+                                                 name:@"SPTrackerDiagnostic"
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveCrashReportingNotification:)
+                                                 name:@"SPCrashReporting"
                                                object:nil];
     
     if (_exceptionEvents) {
@@ -234,7 +260,7 @@ static SPTracker *_sharedInstance = nil;
 - (void) setTrackerData {
     _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                     kSPVersion, kSPTrackerVersion,
-                    _trackerNamespace != nil ? _trackerNamespace : [NSNull null], kSPNamespace,
+                    _trackerNamespace, kSPNamespace,
                     _appId != nil ? _appId : [NSNull null], kSPAppId, nil];
 }
 
@@ -331,17 +357,7 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (void)setTrackerDiagnostic:(BOOL)trackerDiagnostic {
-    if (_builderFinished) {
-        id<SPDiagnosticLogger> diagnosticLogger = trackerDiagnostic ? self : nil;
-        [SPLogger setDiagnosticLogger:diagnosticLogger];
-    }
-}
-
-#pragma mark - Diagnostic
-
-- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(NSError *)error exception:(NSException *)exception {
-    SPTrackerError *event = [[SPTrackerError alloc] initWithSource:tag message:message error:error exception:exception];
-    [self track:event];
+    _trackerDiagnostic = trackerDiagnostic;
 }
 
 #pragma mark - Global Contexts methods
@@ -455,6 +471,31 @@ static SPTracker *_sharedInstance = nil;
         event.type = type;
         event.viewControllerClassName = viewControllerClassName;
         event.topViewControllerClassName = topViewControllerClassName;
+        [self track:event];
+    }
+}
+
+- (void)receiveDiagnosticNotification:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    NSString *tag = [userInfo objectForKey:@"tag"];
+    NSString *message = [userInfo objectForKey:@"message"];
+    NSError *error = [userInfo objectForKey:@"error"];
+    NSException *exception = [userInfo objectForKey:@"exception"];
+
+    if (_trackerDiagnostic) {
+        SPTrackerError *event = [[SPTrackerError alloc] initWithSource:tag message:message error:error exception:exception];
+        [self track:event];
+    }
+}
+
+- (void)receiveCrashReportingNotification:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    NSString *message = [userInfo objectForKey:@"message"];
+    NSString *stacktrace = [userInfo objectForKey:@"stacktrace"];
+    
+    
+    if (_exceptionEvents) {
+        SNOWError *event = [[[SNOWError alloc] initWithMessage:message] stackTrace:stacktrace];
         [self track:event];
     }
 }
@@ -619,6 +660,10 @@ static SPTracker *_sharedInstance = nil;
                       base64Encoded:_base64Encoded
                     typeWhenEncoded:kSPContextEncoded
                  typeWhenNotEncoded:kSPContext];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end

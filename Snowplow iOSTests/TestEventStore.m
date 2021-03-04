@@ -30,12 +30,12 @@
 @implementation TestEventStore
 
 - (void)testInit {
-    SPSQLiteEventStore * eventStore = [[SPSQLiteEventStore alloc] init];
+    SPSQLiteEventStore * eventStore = [[SPSQLiteEventStore alloc] initWithNamespace:@"aNamespace"];
     XCTAssertNotNil(eventStore);
 }
 
 - (void)testInsertPayload {
-    SPSQLiteEventStore * eventStore = [[SPSQLiteEventStore alloc] init];
+    SPSQLiteEventStore * eventStore = [[SPSQLiteEventStore alloc] initWithNamespace:@"aNamespace"];
     [eventStore removeAllEvents];
     
     // Build an event
@@ -57,7 +57,7 @@
 }
 
 - (void)testInsertManyPayloads {
-    SPSQLiteEventStore * eventStore = [[SPSQLiteEventStore alloc] init];
+    SPSQLiteEventStore * eventStore = [[SPSQLiteEventStore alloc] initWithNamespace:@"aNamespace"];
     [eventStore removeAllEvents];
     
     // Build an event

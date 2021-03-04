@@ -262,6 +262,7 @@ NS_SWIFT_NAME(Tracker)
 - (BOOL)screenContext;
 - (BOOL)autoTrackScreenView;
 - (BOOL)sessionContext;
+- (BOOL)trackerDiagnostic;
 
 // MARK: - methods
 

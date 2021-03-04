@@ -21,19 +21,33 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPNetworkConfiguration.h"
 #import "SPTrackerController.h"
+#import "SPNetworkConfiguration.h"
+#import "SPTrackerConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Snowplow)
 @interface SPSnowplow : NSObject
 
-+ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId NS_SWIFT_NAME(setup(endpoint:protocol:method:namespace:appId:));
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)new NS_UNAVAILABLE;
 
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
++ (id<SPTrackerController>)createTrackerWithNamespace:(NSString *)namespace endpoint:(NSString *)endpoint method:(SPHttpMethod)method NS_SWIFT_NAME(createTracker(namespace:endpoint:method:));
 
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
++ (id<SPTrackerController>)createTrackerWithNamespace:(NSString *)namespace network:(SPNetworkConfiguration *)networkConfiguration NS_SWIFT_NAME(createTracker(namespace:network:));
+
++ (id<SPTrackerController>)createTrackerWithNamespace:(NSString *)namespace network:(SPNetworkConfiguration *)networkConfiguration configurations:(NSArray<SPConfiguration *> *)configurations NS_SWIFT_NAME(createTracker(namespace:network:configurations:));
+
++ (nullable id<SPTrackerController>)defaultTracker;
+
++ (BOOL)setTrackerAsDefault:(id<SPTrackerController>)trackerController NS_SWIFT_NAME(setAsDefault(tracker:));
+
++ (BOOL)removeTracker:(id<SPTrackerController>)trackerController NS_SWIFT_NAME(remove(tracker:));
+
++ (void)removeAllTrackers NS_SWIFT_NAME(removeAllTrackers());
+
++ (NSArray<NSString *> *)instancedTrackerNamespaces;
 
 @end
 

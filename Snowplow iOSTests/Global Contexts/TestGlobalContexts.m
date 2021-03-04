@@ -227,16 +227,17 @@
     - (SPTracker *)getTrackerWithGlobalContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
         SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://com.acme.fake"
                                                                                           method:SPHttpMethodPost];
-        SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
+        SPTrackerConfiguration *trackerConfig = [SPTrackerConfiguration new];
+        trackerConfig.appId = @"anAppId";
         trackerConfig.platformContext = YES;
         trackerConfig.geoLocationContext = NO;
         trackerConfig.base64Encoding = NO;
         trackerConfig.sessionContext = YES;
         SPGlobalContextsConfiguration *gcConfig = [[SPGlobalContextsConfiguration alloc] init];
         gcConfig.contextGenerators = generators;
-        SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig
-                                                                                tracker:trackerConfig
-                                                                         configurations:@[gcConfig]];
+        SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNamespace:@"aNamespace"
+                                                                                  network:networkConfig
+                                                                           configurations:@[gcConfig]];
         return serviceProvider.tracker;
     }
 

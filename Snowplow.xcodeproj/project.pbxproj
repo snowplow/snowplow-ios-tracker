@@ -538,6 +538,7 @@
 		EDD8543924EFFFB300661F6B /* SPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD8543324EFFFB300661F6B /* SPRequest.m */; };
 		EDD8543A24EFFFB300661F6B /* SPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD8543324EFFFB300661F6B /* SPRequest.m */; };
 		EDD8543B24EFFFB300661F6B /* SPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = EDD8543324EFFFB300661F6B /* SPRequest.m */; };
+		EDE54F4825EFA38D0073947D /* TestMultipleInstances.m in Sources */ = {isa = PBXBuildFile; fileRef = EDE54F4725EFA38D0073947D /* TestMultipleInstances.m */; };
 		EDEE834B24BDB326000B8530 /* SPTrackerError.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE834924BDB326000B8530 /* SPTrackerError.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EDEE834C24BDB326000B8530 /* SPTrackerError.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE834924BDB326000B8530 /* SPTrackerError.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EDEE834D24BDB326000B8530 /* SPTrackerError.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE834924BDB326000B8530 /* SPTrackerError.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -546,10 +547,6 @@
 		EDEE835024BDB326000B8530 /* SPTrackerError.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEE834A24BDB326000B8530 /* SPTrackerError.m */; };
 		EDEE835124BDB326000B8530 /* SPTrackerError.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEE834A24BDB326000B8530 /* SPTrackerError.m */; };
 		EDEE835224BDB326000B8530 /* SPTrackerError.m in Sources */ = {isa = PBXBuildFile; fileRef = EDEE834A24BDB326000B8530 /* SPTrackerError.m */; };
-		EDEE835424BDD269000B8530 /* SPDiagnosticLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EDEE835524BDD269000B8530 /* SPDiagnosticLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EDEE835624BDD269000B8530 /* SPDiagnosticLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		EDEE835724BDD269000B8530 /* SPDiagnosticLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EDEE835A24BE0944000B8530 /* SPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE835824BE0944000B8530 /* SPLogger.h */; };
 		EDEE835B24BE0944000B8530 /* SPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE835824BE0944000B8530 /* SPLogger.h */; };
 		EDEE835C24BE0944000B8530 /* SPLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = EDEE835824BE0944000B8530 /* SPLogger.h */; };
@@ -784,9 +781,9 @@
 		EDD8542824EFEFE600661F6B /* SPNetworkConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNetworkConnection.h; sourceTree = "<group>"; };
 		EDD8543224EFFFB300661F6B /* SPRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequest.h; sourceTree = "<group>"; };
 		EDD8543324EFFFB300661F6B /* SPRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPRequest.m; sourceTree = "<group>"; };
+		EDE54F4725EFA38D0073947D /* TestMultipleInstances.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestMultipleInstances.m; sourceTree = "<group>"; };
 		EDEE834924BDB326000B8530 /* SPTrackerError.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerError.h; sourceTree = "<group>"; };
 		EDEE834A24BDB326000B8530 /* SPTrackerError.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTrackerError.m; sourceTree = "<group>"; };
-		EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDiagnosticLogger.h; sourceTree = "<group>"; };
 		EDEE835824BE0944000B8530 /* SPLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPLogger.h; sourceTree = "<group>"; };
 		EDEE835924BE0944000B8530 /* SPLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPLogger.m; sourceTree = "<group>"; };
 		EDEE836224C0C317000B8530 /* TestLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestLogger.m; sourceTree = "<group>"; };
@@ -1022,6 +1019,7 @@
 			children = (
 				ED8BF8EC2570FB2F001DFDD9 /* TestTrackerConfiguration.m */,
 				ED87A43C2577E440000C54EB /* TestTrackerController.m */,
+				EDE54F4725EFA38D0073947D /* TestMultipleInstances.m */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1117,7 +1115,6 @@
 				ED8866BD25711EC000DB53BB /* SPLoggerDelegate.h */,
 				EDEE835824BE0944000B8530 /* SPLogger.h */,
 				EDEE835924BE0944000B8530 /* SPLogger.m */,
-				EDEE835324BDD269000B8530 /* SPDiagnosticLogger.h */,
 			);
 			path = Logger;
 			sourceTree = "<group>";
@@ -1265,7 +1262,6 @@
 				EDD8541624EEC25100661F6B /* SPEmitterEvent.h in Headers */,
 				752DAC3221CC43C60065F874 /* SPTrackerConstants.h in Headers */,
 				ED87A3EB25766BB4000C54EB /* SPSessionControllerImpl.h in Headers */,
-				EDEE835424BDD269000B8530 /* SPDiagnosticLogger.h in Headers */,
 				ED8866BE25711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				CE4F9CB6244B066500968CFC /* SPSelfDescribing.h in Headers */,
 				ED88B5A725792C620048FAD1 /* SPEmitterControllerImpl.h in Headers */,
@@ -1364,7 +1360,6 @@
 				ED8866E32571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
 				CE4F9CD7244B066500968CFC /* SPScreenView.h in Headers */,
 				CE4F9CCB244B066500968CFC /* SPGlobalContext.h in Headers */,
-				EDEE835524BDD269000B8530 /* SPDiagnosticLogger.h in Headers */,
 				CE4F9CE3244B066500968CFC /* SPConsentGranted.h in Headers */,
 				CE4F9CE7244B066500968CFC /* SPPushNotification.h in Headers */,
 				CE4F9CA7244B066500968CFC /* SPTiming.h in Headers */,
@@ -1441,7 +1436,6 @@
 				ED8866E42571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
 				CE4F9CD8244B066500968CFC /* SPScreenView.h in Headers */,
 				CE4F9CCC244B066500968CFC /* SPGlobalContext.h in Headers */,
-				EDEE835624BDD269000B8530 /* SPDiagnosticLogger.h in Headers */,
 				CE4F9CE4244B066500968CFC /* SPConsentGranted.h in Headers */,
 				CE4F9CE8244B066500968CFC /* SPPushNotification.h in Headers */,
 				CE4F9CA8244B066500968CFC /* SPTiming.h in Headers */,
@@ -1498,7 +1492,6 @@
 				EDD8541924EEC25100661F6B /* SPEmitterEvent.h in Headers */,
 				75F9C5E521FA35BC00A5B8FC /* Snowplow-umbrella-header.h in Headers */,
 				ED87A3EE25766BB4000C54EB /* SPSessionControllerImpl.h in Headers */,
-				EDEE835724BDD269000B8530 /* SPDiagnosticLogger.h in Headers */,
 				ED8866C125711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				CE4F9CB9244B066500968CFC /* SPSelfDescribing.h in Headers */,
 				ED88B5AA25792C620048FAD1 /* SPEmitterControllerImpl.h in Headers */,
@@ -1956,6 +1949,7 @@
 				75CAC40521F2955100271FB3 /* TestSession.m in Sources */,
 				75CAC40E21F2955100271FB3 /* TestRequestResult.m in Sources */,
 				75CAC40C21F2955100271FB3 /* LegacyTestEvent.m in Sources */,
+				EDE54F4825EFA38D0073947D /* TestMultipleInstances.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -34,6 +34,8 @@
 
 @interface SPSQLiteEventStore ()
 
+@property (nonatomic) NSString *namespace;
+@property (nonatomic) NSString *sqliteFilename;
 @property (nonatomic) NSString *dbPath;
 @property (nonatomic) FMDatabaseQueue *queue;
 @property NSUInteger sendLimit;
@@ -51,20 +53,63 @@ static NSString * const _queryDeleteId    = @"DELETE FROM 'events' WHERE id=?";
 static NSString * const _queryDeleteIds   = @"DELETE FROM 'events' WHERE id IN (%@)";
 static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
 
-- (instancetype)init {
-    return [self initWithLimit:250];
++ (NSArray<NSString *> *)removeUnsentEventsExceptForNamespaces:(NSArray<NSString *> *)allowedNamespaces {
+#if SNOWPLOW_TARGET_TV
+    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+#else
+    NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+#endif
+    NSString *snowplowDirPath = [libraryPath stringByAppendingPathComponent:@"snowplow"];
+    NSArray<NSString *> *paths = [NSFileManager.defaultManager contentsOfDirectoryAtPath:snowplowDirPath error:nil];
+    NSMutableArray<NSString *> *allowedPaths = [NSMutableArray new];
+    for (NSString *namespace in allowedNamespaces) {
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
+        NSString *sqliteSuffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
+        NSString *sqliteFilename = [NSString stringWithFormat:@"snowplowEvents-%@.sqlite", sqliteSuffix];
+        [allowedPaths addObject:[snowplowDirPath stringByAppendingPathComponent:sqliteFilename]];
+    }
+    NSMutableArray<NSString *> *removedPaths = [NSMutableArray new];
+    for (NSString *path in paths) {
+        if (![allowedPaths containsObject:path]) {
+            [NSFileManager.defaultManager removeItemAtPath:path error:nil];
+            [removedPaths addObject:path];
+        }
+    }
+    return removedPaths.copy;
 }
 
-- (instancetype)initWithLimit:(NSUInteger)limit {
+- (instancetype)initWithNamespace:(NSString *)namespace {
+    return [self initWithNamespace:namespace limit:250];
+}
+
+- (instancetype)initWithNamespace:(NSString *)namespace limit:(NSUInteger)limit {
     if (self = [super init]) {
+        self.namespace = namespace;
+        self.sendLimit = limit;
+
 #if SNOWPLOW_TARGET_TV
         NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 #else
         NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 #endif
-        self.dbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+        // Create snowplow subdirectory if it doesn't exist
+        NSString *snowplowDirPath = [libraryPath stringByAppendingPathComponent:@"snowplow"];
+        [[NSFileManager defaultManager] createDirectoryAtPath:snowplowDirPath withIntermediateDirectories:YES attributes:nil error:nil];
+        
+        // Create path for the database
+        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
+        NSString *sqliteSuffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
+        self.sqliteFilename = [NSString stringWithFormat:@"snowplowEvents-%@.sqlite", sqliteSuffix];
+        self.dbPath = [snowplowDirPath stringByAppendingPathComponent:self.sqliteFilename];
+
+        // Migrate old database if it exists
+        NSString *oldDbPath = [libraryPath stringByAppendingPathComponent:@"snowplowEvents.sqlite"];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:oldDbPath]) {
+            [[NSFileManager defaultManager] moveItemAtPath:oldDbPath toPath:self.dbPath error:nil];
+        }
+
+        // Create database
         self.queue = [FMDatabaseQueue databaseQueueWithPath:self.dbPath];
-        self.sendLimit = limit;
         [self createTable];
     }
     return self;
