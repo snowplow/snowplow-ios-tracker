@@ -60,22 +60,23 @@ static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
     NSString *libraryPath = [NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0];
 #endif
     NSString *snowplowDirPath = [libraryPath stringByAppendingPathComponent:@"snowplow"];
-    NSArray<NSString *> *paths = [NSFileManager.defaultManager contentsOfDirectoryAtPath:snowplowDirPath error:nil];
-    NSMutableArray<NSString *> *allowedPaths = [NSMutableArray new];
+    NSArray<NSString *> *files = [NSFileManager.defaultManager contentsOfDirectoryAtPath:snowplowDirPath error:nil];
+    NSMutableArray<NSString *> *allowedFiles = [NSMutableArray new];
     for (NSString *namespace in allowedNamespaces) {
         NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
         NSString *sqliteSuffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
         NSString *sqliteFilename = [NSString stringWithFormat:@"snowplowEvents-%@.sqlite", sqliteSuffix];
-        [allowedPaths addObject:[snowplowDirPath stringByAppendingPathComponent:sqliteFilename]];
+        [allowedFiles addObject:sqliteFilename];
     }
-    NSMutableArray<NSString *> *removedPaths = [NSMutableArray new];
-    for (NSString *path in paths) {
-        if (![allowedPaths containsObject:path]) {
-            [NSFileManager.defaultManager removeItemAtPath:path error:nil];
-            [removedPaths addObject:path];
+    NSMutableArray<NSString *> *removedFiles = [NSMutableArray new];
+    for (NSString *file in files) {
+        if (![allowedFiles containsObject:file]) {
+            NSString *pathToRemove = [snowplowDirPath stringByAppendingPathComponent:file];
+            [NSFileManager.defaultManager removeItemAtPath:pathToRemove error:nil];
+            [removedFiles addObject:file];
         }
     }
-    return removedPaths.copy;
+    return removedFiles.copy;
 }
 
 - (instancetype)initWithNamespace:(NSString *)namespace {
