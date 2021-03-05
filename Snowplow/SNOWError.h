@@ -1,1 +1,0 @@
-./internal/events/SNOWError.h

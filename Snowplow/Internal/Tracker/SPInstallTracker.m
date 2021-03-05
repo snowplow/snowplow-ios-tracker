@@ -22,7 +22,7 @@
 
 #import "SPInstallTracker.h"
 #import "SPUtilities.h"
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 
 @implementation SPInstallTracker
 

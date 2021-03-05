@@ -24,7 +24,7 @@
 #import "SPSubject.h"
 #import "SPEmitter.h"
 #import "SPTracker.h"
-#import "SPTrackerControlling.h"
+#import "SPTrackerController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -34,13 +34,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) SPSubject *subject;
 @property (nonatomic, nullable) SPTracker *tracker;
 
-@property (nonatomic, nullable) id<SPTrackerControlling> trackerController;
+@property (nonatomic, nullable) id<SPTrackerController> trackerController;
 
-+ (id<SPTrackerControlling>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId;
++ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId;
 
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration;
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration;
 
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations;
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations;
 
 - (instancetype)initWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations;
 

@@ -22,7 +22,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SPSession.h"
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 
 /// Category needed to make the private methods testable.
 @interface SPSession (Testing)

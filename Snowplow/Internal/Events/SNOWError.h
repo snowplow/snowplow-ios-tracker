@@ -58,7 +58,7 @@ NS_ASSUME_NONNULL_BEGIN
  @class SNOWError
  @brief An error event.
  */
-@interface SNOWError : SPSelfDescribing <SPErrorBuilder>
+@interface SNOWError : SPSelfDescribingAbstract <SPErrorBuilder>
 
 @property (nonatomic, nullable) NSString *name;
 @property (nonatomic, nullable) NSString *stackTrace;

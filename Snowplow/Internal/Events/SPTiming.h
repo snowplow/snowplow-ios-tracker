@@ -68,7 +68,7 @@ NS_SWIFT_NAME(TimingBuilder)
  @brief A timing event.
  */
 NS_SWIFT_NAME(Timing)
-@interface SPTiming : SPSelfDescribing <SPTimingBuilder>
+@interface SPTiming : SPSelfDescribingAbstract <SPTimingBuilder>
 
 @property (nonatomic, readonly) NSString *category;
 @property (nonatomic, readonly) NSString *variable;

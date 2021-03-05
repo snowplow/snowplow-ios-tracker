@@ -21,17 +21,24 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPSessionControlling.h"
-#import "SPTracker.h"
+#import "SPSessionConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(SessionController)
-@interface SPSessionController : NSObject <SPSessionControlling>
+@protocol SPSessionController <SPSessionConfigurationProtocol>
 
-@property (readonly, nonatomic) BOOL isEnabled;
+@property (readonly) NSInteger sessionIndex;
+@property (readonly) NSString *sessionId;
+@property (readonly) NSString *userId;
 
-- (instancetype)initWithTracker:(SPTracker *)tracker;
+@property (readonly) BOOL isInBackground;
+@property (readonly) NSInteger backgroundIndex;
+@property (readonly) NSInteger foregroundIndex;
+
+- (void)pause;
+- (void)resume;
+- (void)startNewSession;
 
 @end
 

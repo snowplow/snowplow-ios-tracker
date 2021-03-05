@@ -21,13 +21,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPTracker.h"
+#import "SPGDPRConfiguration.h"
 #import "SPSelfDescribingJson.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(GDPRContext)
 @interface SPGdprContext : NSObject
+
+@property (nonatomic, readonly) SPGdprProcessingBasis basis;
+@property (nonatomic, readonly, nullable) NSString *documentId;
+@property (nonatomic, readonly, nullable) NSString *documentVersion;
+@property (nonatomic, readonly, nullable) NSString *documentDescription;
 
 /*!
  @brief Set a GDPR context for the tracker

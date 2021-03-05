@@ -58,7 +58,7 @@ NS_SWIFT_NAME(PageViewBuilder)
  @brief A pageview.
  */
 NS_SWIFT_NAME(PageView)
-@interface SPPageView : SPPrimitive <SPPageViewBuilder>
+@interface SPPageView : SPPrimitiveAbstract <SPPageViewBuilder>
 
 @property (nonatomic, readonly) NSString *pageUrl;
 @property (nonatomic, nullable) NSString *pageTitle;

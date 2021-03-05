@@ -21,14 +21,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPGlobalContextsControlling.h"
-#import "SPTracker.h"
+#import "SPGlobalContextsConfiguration.h"
+#import "SPGlobalContext.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPGlobalContextsController : NSObject <SPGlobalContextsControlling>
+NS_SWIFT_NAME(GlobalContextsController)
+@protocol SPGlobalContextsController <SPGlobalContextsConfigurationProtocol>
 
-- (instancetype)initWithTracker:(SPTracker *)tracker;
+@property (nonatomic, nonnull, readonly) NSArray<NSString *> *tags;
 
 @end
 

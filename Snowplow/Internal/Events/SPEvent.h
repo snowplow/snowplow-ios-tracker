@@ -25,7 +25,7 @@
 
 #import "SPPageView.h"
 #import "SPStructured.h"
-#import "SPUnstructured.h"
+#import "SPSelfDescribing.h"
 #import "SPScreenView.h"
 #import "SPConsentWithdrawn.h"
 #import "SPConsentDocument.h"

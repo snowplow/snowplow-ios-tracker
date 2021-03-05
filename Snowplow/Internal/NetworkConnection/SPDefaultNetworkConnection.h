@@ -36,9 +36,9 @@ NS_SWIFT_NAME(DefaultNetworkConnectionBuilder)
 
 /*!
  @brief Builder method to set HTTP method.
- @param method Should be SPRequestOptionsGet or SPRequestOptionsPost.
+ @param method Should be SPHttpMethodGet or SPHttpMethodPost.
  */
-- (void) setHttpMethod:(SPRequestOptions)method;
+- (void) setHttpMethod:(SPHttpMethod)method;
 
 /*!
  @brief Builder method to set HTTP security.

@@ -34,8 +34,8 @@
 NS_SWIFT_NAME(Subject)
 @interface SPSubject : NSObject
 
-@property (nonatomic, readonly) BOOL platformContext;
-@property (nonatomic, readonly) BOOL geoLocationContext;
+@property (nonatomic) BOOL platformContext;
+@property (nonatomic) BOOL geoLocationContext;
 
 /*!
  @brief Initializes a newly allocated SPSubject object.
@@ -51,12 +51,12 @@ NS_SWIFT_NAME(Subject)
  @param geoContext Whether to enabled the geolocation context.
  @return A new SPSubject.
  */
-- (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext __deprecated_msg("Subject will be removed in the next major version. Use `Tracker.setup(...)` instead.");
+- (id) initWithPlatformContext:(BOOL)platformContext andGeoContext:(BOOL)geoContext __deprecated_msg("Subject will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
 
 /*!
  @warning Internal method - do not use in production
  */
-- (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)configuration __deprecated_msg("Subject will be removed in the next major version. Use `Tracker.setup(...)` instead.");
+- (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)configuration __deprecated_msg("Subject will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
 
 /*!
  @brief Gets all standard dictionary pairs to decorate the event with.

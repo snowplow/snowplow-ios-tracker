@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -29,6 +29,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPRequestCallback.h"
 #import "SPEvent.h"
+#import "SPServiceProvider.h"
 
 // MARK: - Mocks
 
@@ -82,7 +83,9 @@
 }
 
 - (NSUInteger)count {
-    return self.db.count;
+    @synchronized (self) {
+        return self.db.count;
+    }
 }
 
 - (nonnull NSArray<SPEmitterEvent *> *)emittableEventsWithQueryLimit:(NSUInteger)queryLimit {
@@ -108,16 +111,16 @@
 @interface SPMockConnection: NSObject <SPNetworkConnection>
 
 @property NSInteger resultCode;
-@property SPRequestOptions httpMethod;
+@property SPHttpMethod httpMethod;
 @property NSURL *url;
 
-- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url;
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPHttpMethod)httpMethod url:(NSString *)url;
 
 @end
 
 @implementation SPMockConnection
 
-- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPRequestOptions)httpMethod url:(NSString *)url {
+- (instancetype)initWithResultCode:(NSInteger)resultCode method:(SPHttpMethod)httpMethod url:(NSString *)url {
     if (self = [super init]) {
         self.resultCode = resultCode;
         self.httpMethod = httpMethod;
@@ -162,36 +165,38 @@
 // Tests
 
 - (void)testRequestSendWithPost {
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200];
-    [self sendAll:tracker];
-    [self forceFlushes:2 emitter:tracker.emitter];
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodPost resultCode:200 eventStore:mockStore];
+    int sentEventsCount = [self sendAll:tracker];
+    [self forceFlushes:5 emitter:tracker.emitter];
 
-    XCTAssertEqual(_successCount, 8);
-    XCTAssertEqual([tracker.emitter getDbCount], 0);
+    XCTAssertEqual(_successCount, sentEventsCount);
+    XCTAssertEqual([tracker.emitter getDbCount], 0, @"Error on mockStore db: %@", mockStore.db);
 }
 
 
 - (void)testRequestSendWithGet {
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200];
-    [self sendAll:tracker];
-    [self forceFlushes:2 emitter:tracker.emitter];
-    XCTAssertEqual(_successCount, 8);
-    XCTAssertEqual([tracker.emitter getDbCount], 0);
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodGet resultCode:200 eventStore:mockStore];
+    int sentEventsCount = [self sendAll:tracker];
+    [self forceFlushes:5 emitter:tracker.emitter];
+    XCTAssertEqual(_successCount, sentEventsCount);
+    XCTAssertEqual([tracker.emitter getDbCount], 0, @"Error on mockStore db: %@", mockStore.db);
 }
 
 - (void)testRequestSendWithBadUrl {
     SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:404
-                                                                             method:SPRequestOptionsPost
+                                                                             method:SPHttpMethodPost
                                                                                 url:@"https://acme.test.url.com/tp2"];
     SPMockStore *mockStore = [[SPMockStore alloc] init];
 
     // Send all events with a bad URL
     SPTracker *tracker = [self getTrackerWithConnection:mockConnection eventStore:mockStore];
-    [self sendAll:tracker];
-    [self forceFlushes:2 emitter:tracker.emitter];
+    int sentEventsCount = [self sendAll:tracker];
+    [self forceFlushes:5 emitter:tracker.emitter];
     XCTAssertGreaterThan(_failureCount, 0);
     XCTAssertEqual(_successCount, 0);
-    XCTAssertEqual([tracker.emitter getDbCount], 8);
+    XCTAssertEqual([tracker.emitter getDbCount], sentEventsCount, @"Error on mockStore db: %@", mockStore.db);
     
     // Update the URL and flush
     [tracker pauseEventTracking];
@@ -199,28 +204,30 @@
     mockConnection.resultCode = 200;
     [tracker resumeEventTracking];
     
-    [self forceFlushes:2 emitter:tracker.emitter];
-    XCTAssertEqual(_successCount, 8);
-    XCTAssertEqual([tracker.emitter getDbCount], 0);
+    [self forceFlushes:5 emitter:tracker.emitter];
+    XCTAssertEqual(_successCount, 7);
+    XCTAssertEqual([tracker.emitter getDbCount], 0, @"Error on mockStore db: %@", mockStore.db);
 }
 
 - (void)testRequestSendWithoutSubject {
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsGet resultCode:200];
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodGet resultCode:200 eventStore:mockStore];
     [tracker setSubject:nil];
-    [self sendAll:tracker];
-    [self forceFlushes:2 emitter:tracker.emitter];
-    XCTAssertEqual(_successCount, 8);
-    XCTAssertEqual([tracker.emitter getDbCount], 0);
+    int sentEventsCount = [self sendAll:tracker];
+    [self forceFlushes:5 emitter:tracker.emitter];
+    XCTAssertEqual(_successCount, sentEventsCount);
+    XCTAssertEqual([tracker.emitter getDbCount], 0, @"Error on mockStore db: %@", mockStore.db);
 }
 
 - (void)testRequestSendWithCollectionOff {
-    SPTracker * tracker = [self getTrackerWithRequestType:SPRequestOptionsPost resultCode:200];
+    SPMockStore *mockStore = [[SPMockStore alloc] init];
+    SPTracker * tracker = [self getTrackerWithRequestType:SPHttpMethodPost resultCode:200 eventStore:mockStore];
     [tracker pauseEventTracking];
     [self sendAll:tracker];
-    [self forceFlushes:2 emitter:tracker.emitter];
+    [self forceFlushes:5 emitter:tracker.emitter];
     XCTAssertEqual(_failureCount, 0);
     XCTAssertEqual(_successCount, 0);
-    XCTAssertEqual([tracker.emitter getDbCount], 0);
+    XCTAssertEqual([tracker.emitter getDbCount], 0, @"Error on mockStore db: %@", mockStore.db);
 }
 
 // Helpers
@@ -239,16 +246,17 @@
     return serviceProvider.tracker;
 }
 
-- (SPTracker *)getTrackerWithRequestType:(SPRequestOptions)type resultCode:(NSInteger)resultCode {
+- (SPTracker *)getTrackerWithRequestType:(SPHttpMethod)type resultCode:(NSInteger)resultCode eventStore:(id<SPEventStore>)mockEventStore {
     SPMockConnection *mockConnection = [[SPMockConnection alloc] initWithResultCode:resultCode method:type url:@"https://acme.test.url.com/tp2"];
-    SPMockStore *mockStore = [[SPMockStore alloc] init];
-
-    return [self getTrackerWithConnection:mockConnection eventStore:mockStore];
+    return [self getTrackerWithConnection:mockConnection eventStore:mockEventStore];
 }
 
 - (void)forceFlushes:(NSInteger)count emitter:(SPEmitter *)emitter {
     [NSThread sleepForTimeInterval:3];
     for (int i = 0; i < count; i++) {
+        if ([emitter getDbCount] == 0) {
+            break;
+        }
         [emitter flush];
         [NSThread sleepForTimeInterval:5];
     }
@@ -268,73 +276,66 @@
 
 // Pre-Built Events for sending!
 
-- (void)sendAll:(SPTracker *)tracker {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        [self trackStructuredEventWithTracker:tracker];
-        [self trackUnstructuredEventWithTracker:tracker];
-        [self trackSelfDescribingJsonEventWithTracker:tracker];
-        [self trackPageViewWithTracker:tracker];
-        [self trackScreenViewWithTracker:tracker];
-        [self trackTimingWithCategoryWithTracker:tracker];
-        [self trackEcommerceTransactionWithTracker:tracker];
-    });
+- (int)sendAll:(SPTracker *)tracker {
+    return  [self trackStructuredEventWithTracker:tracker]
+    + [self trackUnstructuredEventWithTracker:tracker]
+    + [self trackPageViewWithTracker:tracker]
+    + [self trackScreenViewWithTracker:tracker]
+    + [self trackTimingWithCategoryWithTracker:tracker]
+    + [self trackEcommerceTransactionWithTracker:tracker];
 }
 
-- (void)trackStructuredEventWithTracker:(SPTracker *)tracker_ {
+- (int)trackStructuredEventWithTracker:(SPTracker *)tracker_ {
     SPStructured *event = [[SPStructured alloc] initWithCategory:@"DemoCategory" action:@"DemoAction"];
     event.label = @"DemoLabel";
     event.property = @"DemoProperty";
     event.value = @5;
     event.contexts = self.customContext;
     [tracker_ track:event];
+    return 1;
 }
 
-- (void)trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
+- (int)trackUnstructuredEventWithTracker:(SPTracker *)tracker_ {
     NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
     [data setObject:@23 forKey:@"level"];
     [data setObject:@56473 forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     event.contexts = self.customContext;
     [tracker_ track:event];
+    return 1;
 }
 
-- (void)trackSelfDescribingJsonEventWithTracker:(SPTracker *)tracker_ {
-    NSMutableDictionary *data = [[NSMutableDictionary alloc] init];
-    [data setObject:@23 forKey:@"level"];
-    [data setObject:@56473 forKey:@"score"];
-    SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
-                                                                     andData:data];
-    [tracker_ trackSelfDescribingEvent:sdj];
-}
-
-- (void)trackPageViewWithTracker:(SPTracker *)tracker_ {
+- (int)trackPageViewWithTracker:(SPTracker *)tracker_ {
     SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
     event.pageTitle = @"DemoPageTitle";
     event.referrer = @"DemoPageReferrer";
     event.contexts = self.customContext;
     [tracker_ track:event];
+    return 1;
 }
 
-- (void)trackScreenViewWithTracker:(SPTracker *)tracker_ {
+- (int)trackScreenViewWithTracker:(SPTracker *)tracker_ {
     SPScreenView *event = [[SPScreenView alloc] initWithName:@"DemoScreenName" screenId:nil];
     event.contexts = self.customContext;
     [tracker_ track:event];
+    return 1;
 }
 
-- (void)trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
+- (int)trackTimingWithCategoryWithTracker:(SPTracker *)tracker_ {
     SPTiming *event = [[SPTiming alloc] initWithCategory:@"DemoTimingCategory" variable:@"DemoTimingVariable" timing:@5];
     event.label = @"DemoTimingLabel";
     event.contexts = self.customContext;
     [tracker_ track:event];
+    return 1;
 }
 
-- (void)trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
+- (int)trackEcommerceTransactionWithTracker:(SPTracker *)tracker_ {
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
     
-    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithItemId:transactionID sku:@"DemoItemSku" price:@0.75F quantity:@1];
+    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithSku:@"DemoItemSku" price:@0.75F quantity:@1];
     [item name:@"DemoItemName"];
     [item category:@"DemoItemCategory"];
     [item currency:@"USD"];
@@ -352,6 +353,7 @@
     [event currency:@"USD"];
     [event contexts:self.customContext];
     [tracker_ track:event];
+    return 2;
 }
 
 - (NSMutableArray *)customContext {

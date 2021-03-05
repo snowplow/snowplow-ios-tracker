@@ -21,7 +21,6 @@
 //
 
 #import "SPEventBase.h"
-#import "SPSelfDescribingJson.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -45,7 +44,7 @@ NS_SWIFT_NAME(BackgroundBuilder)
  @brief A background transition event.
  */
 NS_SWIFT_NAME(Background)
-@interface SPBackground : SPSelfDescribing <SPBackgroundBuilder>
+@interface SPBackground : SPSelfDescribingAbstract <SPBackgroundBuilder>
 
 + (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock __deprecated_msg("Use initializer instead.");
 

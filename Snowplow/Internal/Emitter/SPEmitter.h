@@ -51,9 +51,9 @@ NS_SWIFT_NAME(EmitterBuilder)
 /*!
  @brief Emitter builder method to set HTTP method.
 
- @param method Should be SPRequestOptionsGet or SPRequestOptionsPost.
+ @param method Should be SPHttpMethodGet or SPHttpMethodPost.
  */
-- (void) setHttpMethod:(SPRequestOptions)method;
+- (void) setHttpMethod:(SPHttpMethod)method;
 
 /*!
  @brief Emitter builder method to set HTTP security.
@@ -131,8 +131,8 @@ NS_SWIFT_NAME(EmitterBuilder)
 NS_SWIFT_NAME(Emitter)
 @interface SPEmitter : NSObject <SPEmitterBuilder, SPEmitterEventProcessing>
 
-/*! @brief Chosen HTTP method - SPRequestOptionsGet or SPRequestOptionsPost. */
-@property (readonly, nonatomic) SPRequestOptions httpMethod;
+/*! @brief Chosen HTTP method - SPHttpMethodGet or SPHttpMethodPost. */
+@property (readonly, nonatomic) SPHttpMethod httpMethod;
 /*! @brief Security of requests - SPProtocolHttp or SPProtocolHttps.  */
 @property (readonly, nonatomic) SPProtocol protocol;
 /*! @brief Buffer option */
@@ -157,7 +157,7 @@ NS_SWIFT_NAME(Emitter)
 /*!
  @brief Builds the emitter using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Tracker.setup(...)` instead.");
++ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;

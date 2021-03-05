@@ -21,16 +21,25 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPGDPRControlling.h"
-#import "SPTracker.h"
+#import "SPGDPRConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(GDPRController)
-@interface SPGDPRController : NSObject <SPGDPRControlling>
+@protocol SPGDPRController <SPGDPRConfigurationProtocol>
 
-- (instancetype)initWithTracker:(SPTracker *)tracker;
+@property (nonatomic, readonly) BOOL isEnabled;
+
+- (void)resetWithBasis:(SPGdprProcessingBasis)basisForProcessing
+                             documentId:(nullable NSString *)documentId
+                        documentVersion:(nullable NSString *)documentVersion
+                    documentDescription:(nullable NSString *)documentDescription
+NS_SWIFT_NAME(reset(basis:documentId:documentVersion:documentDescription:));
+
+- (BOOL)enable;
+- (void)disable;
 
 @end
 
 NS_ASSUME_NONNULL_END
+

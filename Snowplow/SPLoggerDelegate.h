@@ -1,1 +1,0 @@
-./internal/Logger/SPLoggerDelegate.h

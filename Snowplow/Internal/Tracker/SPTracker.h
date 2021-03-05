@@ -30,14 +30,16 @@
 #import "SPNetworkConfiguration.h"
 #import "SPGDPRConfiguration.h"
 
-#import "SPTrackerControlling.h"
-#import "SPSessionControlling.h"
+#import "SPTrackerController.h"
+#import "SPSessionController.h"
 
 #import "SPEmitterEventProcessing.h"
 
 #import "SPDevicePlatform.h"
 #import "SPEventBase.h"
 #import "SPLoggerDelegate.h"
+#import "SPGdprContext.h"
+
 
 void uncaughtExceptionHandler(NSException * _Nullable exception);
 
@@ -47,7 +49,7 @@ void uncaughtExceptionHandler(NSException * _Nullable exception);
 @class SPSession;
 @class SPPageView;
 @class SPStructured;
-@class SPUnstructured;
+@class SPSelfDescribing;
 @class SPScreenView;
 @class SPTiming;
 @class SPEcommerce;
@@ -213,9 +215,9 @@ NS_SWIFT_NAME(TrackerBuilder)
  @param documentDescription Description of the document.
  */
 - (void)setGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
-                     documentId:(NSString *)documentId
-                documentVersion:(NSString *)documentVersion
-            documentDescription:(NSString *)documentDescription;
+                     documentId:(nullable NSString *)documentId
+                documentVersion:(nullable NSString *)documentVersion
+            documentDescription:(nullable NSString *)documentDescription;
 
 @end
 
@@ -252,13 +254,7 @@ NS_SWIFT_NAME(Tracker)
 /*! @brief Dictionary of global contexts generators. */
 @property (nonatomic) NSMutableDictionary<NSString *, SPGlobalContext *> *globalContextGenerators;
 
-// MARK: - New methods
-
-+ (id<SPTrackerControlling>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId NS_SWIFT_NAME(setup(endpoint:protocol:method:namespace:appId:));
-
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration NS_SWIFT_NAME(setup(network:tracker:));
-
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations  NS_SWIFT_NAME(setup(network:tracker:configurations:));
+// MARK: - Added property methods
 
 - (BOOL)applicationContext;
 - (BOOL)exceptionEvents;
@@ -267,12 +263,12 @@ NS_SWIFT_NAME(Tracker)
 - (BOOL)autoTrackScreenView;
 - (BOOL)sessionContext;
 
-// MARK: - Old methods
+// MARK: - methods
 
 /*!
  @brief Method that allows for builder pattern in creating the tracker.
  */
-+ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Tracker.setup(...)` instead.");
++ (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
@@ -346,7 +342,7 @@ NS_SWIFT_NAME(Tracker)
  @param tag The tag associated to the global context.
  @return The global context associated with the tag or `nil` in case of any entry with that string tag.
  */
-- (SPGlobalContext *)removeGlobalContext:(NSString *)tag;
+- (nullable SPGlobalContext *)removeGlobalContext:(NSString *)tag;
 
 /*!
  Enables GDPR context to be sent with every event.
@@ -356,12 +352,15 @@ NS_SWIFT_NAME(Tracker)
  @param documentDescription Description of the document.
  */
 - (void)enableGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
-                        documentId:(NSString *)documentId
-                   documentVersion:(NSString *)documentVersion
-               documentDescription:(NSString *)documentDescription;
+                        documentId:(nullable NSString *)documentId
+                   documentVersion:(nullable NSString *)documentVersion
+               documentDescription:(nullable NSString *)documentDescription;
 
 /// Disable GDPR context.
 - (void)disableGdprContext;
+
+/// Return GDPR context
+- (nullable SPGdprContext *)gdprContext;
 
 #pragma mark - Events tracking methods
 
@@ -372,7 +371,7 @@ NS_SWIFT_NAME(Tracker)
 
  @param event An self-describing JSON.
  */
-- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event;
+- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event __deprecated_msg("Will be removed in the next major version. Use `track(...)` passing a `SelfDescribing` event instead.");
 
 /*!
  @brief Tracks an event despite its specific type.

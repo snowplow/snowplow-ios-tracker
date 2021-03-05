@@ -22,7 +22,7 @@
 
 #import <XCTest/XCTest.h>
 #import <SnowplowIgluClient/IGLUClient.h>
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPEmitter.h"
 #import "SPTracker.h"
 #import "SPSession.h"
@@ -34,6 +34,7 @@
 #import "SPScreenState.h"
 #import "SPUtilities.h"
 #import "SPTrackerEvent.h"
+#import "SPServiceProvider.h"
 
 
 /// Category needed to make the private methods testable.
@@ -140,7 +141,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [input setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
     SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:input];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
@@ -166,7 +167,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [input setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:input];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
 
     // Check that the final payload passes validation
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
@@ -206,9 +207,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void)testConsentGrantedEventPayloadJson {
-    SPConsentGranted *event = [[SPConsentGranted alloc] initWithDocumentId:@"1234" version:@"10"];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithExpiry:@"2012-04-23T18:25:43.511Z" documentId:@"1234" version:@"10"];
     [event documentDescription:@"Description"];
-    [event expiry:@"2012-04-23T18:25:43.511Z"];
     [event name:@"Name"];
     
     NSDictionary<NSString *, NSObject *> *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
@@ -236,7 +236,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     
     NSString *transactionID = @"6a8078be";
     NSMutableArray *itemArray = [NSMutableArray array];
-    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithItemId:transactionID sku:@"DemoItemSku" price:@0.75F quantity:@1];
+    SPEcommerceItem *item = [[SPEcommerceItem alloc] initWithSku:@"DemoItemSku" price:@0.75F quantity:@1];
     [item name:@"DemoItemName"];
     [item category:@"DemoItemCategory"];
     [item currency:@"USD"];
@@ -361,7 +361,8 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (SPTracker *)getTracker:(NSString *)url {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:url protocol:SPProtocolHttp method:SPRequestOptionsPost];
+    NSString *endpoint = [NSString stringWithFormat:@"https://%@", url];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodPost];
     SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
     trackerConfig.platformContext = YES;
     trackerConfig.geoLocationContext = YES;

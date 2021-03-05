@@ -74,6 +74,9 @@ NS_ASSUME_NONNULL_BEGIN
 }
 
 - (BOOL)matchWithUri:(NSString *)uri {
+    if (!uri) {
+        return NO;
+    }
     for (SPSchemaRule *rule in self.rulesDenied) {
         if ([rule matchWithUri:uri]) {
             return NO;

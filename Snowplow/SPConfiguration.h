@@ -1,1 +1,0 @@
-./internal/Configurations/SPConfiguration.h

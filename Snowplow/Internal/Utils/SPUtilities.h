@@ -22,6 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #include "SPDevicePlatform.h"
+#import "SPTrackerConstants.h"
 
 @class SPPayload;
 @class SPSelfDescribingJson;

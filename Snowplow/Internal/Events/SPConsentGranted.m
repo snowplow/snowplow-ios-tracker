@@ -22,7 +22,7 @@
 
 #import "SPConsentGranted.h"
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
@@ -49,8 +49,9 @@
     return self;
 }
 
-- (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version {
+- (instancetype)initWithExpiry:(NSString *)expiry documentId:(NSString *)documentId version:(NSString *)version {
     if (self = [super init]) {
+        _expiry = expiry;
         _documentId = documentId;
         _version = version;
     }
@@ -58,6 +59,7 @@
 }
 
 - (void) preconditions {
+    [SPUtilities checkArgument:(_expiry != nil) withMessage:@"Expiry cannot be nil."];
     [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
     [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
 }
@@ -66,7 +68,6 @@
 
 SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, documentDescription)
-SP_BUILDER_METHOD(NSString *, expiry)
 SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
 
 #pragma clang diagnostic push
@@ -131,7 +132,7 @@ SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
 - (void)beginProcessingWithTracker:(SPTracker *)tracker {
     NSArray<SPSelfDescribingJson *> *documents = [self getDocuments];
     if (documents) {
-        [self.contexts addObjectsFromArray:documents];
+        [self.contexts addObjectsFromArray:documents];  // TODO: Only the user should modify the public contexts property
     }
 }
 

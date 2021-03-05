@@ -79,13 +79,16 @@ NS_ASSUME_NONNULL_END
 }
 
 - (NSArray<SPSelfDescribingJson *> *)contextsFromEvent:(id<SPInspectableEvent>)event {
+    if (!event) {
+        return @[];
+    }
     if (!self.generator) {
-        return nil;
+        return @[];
     }
     if (self.filter && !self.filter(event)) {
-        return nil;
+        return @[];
     }
-    return self.generator(event);
+    return self.generator(event) ?: @[];
 }
 
 @end

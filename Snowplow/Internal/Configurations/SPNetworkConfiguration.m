@@ -25,7 +25,7 @@
 @interface SPNetworkConfiguration ()
 
 @property (nonatomic, nullable) NSString *endpoint;
-@property (nonatomic) SPRequestOptions method;
+@property (nonatomic) SPHttpMethod method;
 @property (nonatomic) SPProtocol protocol;
 
 @end
@@ -34,10 +34,19 @@
 
 @synthesize customPostPath;
 
-- (instancetype)initWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method {
+- (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method {
     if (self = [super init]) {
-        self.endpoint = endpoint;
-        self.protocol = protocol;
+        NSURL *url = [[NSURL alloc] initWithString:endpoint];
+        if ([url.scheme isEqualToString:@"https"]) {
+            self.protocol = SPProtocolHttps;
+            self.endpoint = [endpoint substringFromIndex:8];
+        } else if ([url.scheme isEqualToString:@"http"]) {
+            self.protocol = SPProtocolHttp;
+            self.endpoint = [endpoint substringFromIndex:7];
+        } else {
+            self.protocol = SPProtocolHttps;
+            self.endpoint = endpoint;
+        }
         self.method = method;
         self.networkConnection = nil;
         self.customPostPath = nil;
@@ -46,7 +55,7 @@
 }
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint {
-    return [self initWithEndpoint:endpoint protocol:SPProtocolHttps method:SPRequestOptionsPost];
+    return [self initWithEndpoint:endpoint method:SPHttpMethodPost];
 }
 
 - (instancetype)initWithNetworkConnection:(id<SPNetworkConnection>)networkConnection {
@@ -72,7 +81,7 @@ SP_BUILDER_METHOD(NSString *, customPostPath)
         copy = [[SPNetworkConfiguration alloc] initWithNetworkConnection:self.networkConnection];
         
     } else {
-        copy = [[SPNetworkConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint protocol:self.protocol method:self.method];
+        copy = [[SPNetworkConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint method:self.method];
     }
     copy.customPostPath = self.customPostPath;
     return copy;

@@ -22,7 +22,7 @@
 
 #import "SPConsentWithdrawn.h"
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 #import "SPSelfDescribingJson.h"
 #import "SPConsentDocument.h"

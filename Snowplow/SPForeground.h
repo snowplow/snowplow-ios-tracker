@@ -1,1 +1,0 @@
-./internal/events/SPForeground.h

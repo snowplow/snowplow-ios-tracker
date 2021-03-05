@@ -21,7 +21,7 @@
 //
 
 #import "SPRequest.h"
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPSelfDescribingJson.h"
 
 @interface SPRequest ()

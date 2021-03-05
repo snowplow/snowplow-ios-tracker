@@ -146,7 +146,7 @@ NS_SWIFT_NAME(NotificationContentBuilder)
  @brief A push notification event.
  */
 NS_SWIFT_NAME(PushNotification)
-@interface SPPushNotification : SPSelfDescribing <SPPushNotificationBuilder>
+@interface SPPushNotification : SPSelfDescribingAbstract <SPPushNotificationBuilder>
 
 + (instancetype)build:(void(^)(id<SPPushNotificationBuilder> builder))buildBlock;
 
