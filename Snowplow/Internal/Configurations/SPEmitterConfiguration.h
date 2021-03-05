@@ -55,7 +55,7 @@ NS_SWIFT_NAME(EmitterConfigurationProtocol)
 
 @property () SPBufferOption bufferOption;
 @property () NSInteger emitRange;
-@property () NSInteger emitThreadPoolSize;
+@property () NSInteger threadPoolSize;
 @property () NSInteger byteLimitGet;
 @property () NSInteger byteLimitPost;
 @property (nullable) id<SPRequestCallback> requestCallback;
@@ -69,7 +69,7 @@ NS_SWIFT_NAME(EmitterConfiguration)
 
 SP_BUILDER_DECLARE(SPBufferOption, bufferOption)
 SP_BUILDER_DECLARE(NSInteger, emitRange)
-SP_BUILDER_DECLARE(NSInteger, emitThreadPoolSize)
+SP_BUILDER_DECLARE(NSInteger, threadPoolSize)
 SP_BUILDER_DECLARE(NSInteger, byteLimitGet)
 SP_BUILDER_DECLARE(NSInteger, byteLimitPost)
 SP_BUILDER_DECLARE_NULLABLE(id<SPRequestCallback>, requestCallback)

@@ -22,7 +22,7 @@
 
 #import "SPPushNotification.h"
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 
 @implementation SPPushNotification {

@@ -20,18 +20,12 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
 #import "SPLogger.h"
 
-@interface SPSubject ()
-
-@property (nonatomic, readwrite) BOOL platformContext;
-@property (nonatomic, readwrite) BOOL geoLocationContext;
-
-@end
 
 @implementation SPSubject {
     SPPayload *           _standardDict;
@@ -56,20 +50,18 @@
         self.geoLocationContext = geoContext;
         _standardDict = [[SPPayload alloc] init];
         [self setStandardDict];
-        if (platformContext) {
-            [self setPlatformDict];
-        }
-        if (geoContext) {
-            [self setGeoDict];
-        }
+        [self setPlatformDict];
+        [self setGeoDict];
         if (config) {
             if (config.userId) [self setUserId:config.userId];
             if (config.networkUserId) [self setNetworkUserId:config.networkUserId];
             if (config.domainUserId) [self setDomainUserId:config.domainUserId];
             if (config.useragent) [self setUseragent:config.useragent];
             if (config.ipAddress) [self setIpAddress:config.ipAddress];
-            if (config.timezone) [self setTimezone:config.timezone];
-            if (config.language) [self setLanguage:config.language];
+            NSString *timezone = config.timezone ?: [NSTimeZone localTimeZone].name;
+            if (timezone) [self setTimezone:timezone];
+            NSString *language = config.language ?: [NSLocale preferredLanguages].firstObject;
+            if (config.language) [self setLanguage:language];
             if (config.screenResolution) {
                 SPSize *size = config.screenResolution;
                 [self setResolutionWithWidth:size.width andHeight:size.height];

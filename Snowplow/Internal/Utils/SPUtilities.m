@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPDevicePlatform.h"
 #import "SPUtilities.h"
 #import "SPPayload.h"
@@ -271,20 +271,10 @@
     SInt32 osxMinorVersion;
     SInt32 osxPatchFixVersion;
     NSProcessInfo *info = [NSProcessInfo processInfo];
-    if (@available(macOS 10.10, *)) {
-        NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
-        osxMajorVersion = (int)systemVersion.majorVersion;
-        osxMinorVersion = (int)systemVersion.minorVersion;
-        osxPatchFixVersion = (int)systemVersion.patchVersion;
-    } else {
-        // TODO eliminate this block once minimum version is OS X 10+
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        Gestalt(gestaltSystemVersionMajor, &osxMajorVersion);
-        Gestalt(gestaltSystemVersionMinor, &osxMinorVersion);
-        Gestalt(gestaltSystemVersionBugFix, &osxPatchFixVersion);
-#pragma clang diagnostic pop
-    }
+    NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
+    osxMajorVersion = (int)systemVersion.majorVersion;
+    osxMinorVersion = (int)systemVersion.minorVersion;
+    osxPatchFixVersion = (int)systemVersion.patchVersion;
     NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
                                osxMinorVersion, osxPatchFixVersion];
     return versionString;

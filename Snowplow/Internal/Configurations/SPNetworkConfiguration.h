@@ -30,7 +30,7 @@ NS_SWIFT_NAME(NetworkConfiguration)
 @interface SPNetworkConfiguration : SPConfiguration
 
 @property (nonatomic, nullable, readonly) NSString *endpoint;
-@property (nonatomic, readonly) SPRequestOptions method;
+@property (nonatomic, readonly) SPHttpMethod method;
 @property (nonatomic, readonly) SPProtocol protocol;
 
 @property (nonatomic, nullable) id<SPNetworkConnection> networkConnection;
@@ -42,7 +42,7 @@ NS_SWIFT_NAME(NetworkConfiguration)
 - (instancetype) init NS_UNAVAILABLE;
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint;
-- (instancetype)initWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method;
+- (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method;
 
 - (instancetype)initWithNetworkConnection:(id<SPNetworkConnection>)networkConnection;
 

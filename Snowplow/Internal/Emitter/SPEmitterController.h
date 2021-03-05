@@ -21,15 +21,17 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPEmitterControlling.h"
-#import "SPEmitter.h"
+#import "SPEmitterConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(EmitterController)
-@interface SPEmitterController : NSObject <SPEmitterControlling>
+@protocol SPEmitterController <SPEmitterConfigurationProtocol>
 
-- (instancetype)initWithEmitter:(SPEmitter *)emitter;
+@property (nonatomic, readonly) NSInteger dbCount;
+@property (nonatomic, readonly) BOOL isSending;
+
+- (void)flush;
 
 @end
 

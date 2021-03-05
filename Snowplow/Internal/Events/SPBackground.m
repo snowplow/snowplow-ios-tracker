@@ -22,9 +22,8 @@
 
 #import "SPBackground.h"
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPUtilities.h"
-#import "SPSelfDescribingJson.h"
 
 @implementation SPBackground {
     NSNumber * _index;

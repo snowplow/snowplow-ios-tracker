@@ -24,7 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(EmitterControlling)
+NS_SWIFT_NAME(EmitterEventProcessing)
 @protocol SPEmitterEventProcessing
 
 - (void)addPayloadToBuffer:(SPPayload *)eventPayload;

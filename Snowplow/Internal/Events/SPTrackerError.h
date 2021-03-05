@@ -25,7 +25,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(TrackerError)
-@interface SPTrackerError : SPSelfDescribing
+@interface SPTrackerError : SPSelfDescribingAbstract
 
 - (instancetype)initWithSource:(NSString *)source message:(NSString *)message;
 

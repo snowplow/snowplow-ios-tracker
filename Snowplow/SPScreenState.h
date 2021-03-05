@@ -1,1 +1,0 @@
-./internal/screenViewTracking/SPScreenState.h

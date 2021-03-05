@@ -21,17 +21,19 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPNetworkControlling.h"
-#import "SPEmitter.h"
+#import "SPNetworkConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(NetworkController)
-@interface SPNetworkController : NSObject <SPNetworkControlling>
+@protocol SPNetworkController
 
-- (instancetype)initWithEmitter:(SPEmitter *)emitter;
+@property (nonatomic, nullable) NSString *endpoint;
+@property (nonatomic) SPHttpMethod method;
+@property (nonatomic) SPProtocol protocol;
+
+@property (nonatomic, nullable) NSString *customPostPath;
 
 @end
 
 NS_ASSUME_NONNULL_END
-

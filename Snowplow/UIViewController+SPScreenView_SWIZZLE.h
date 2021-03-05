@@ -1,1 +1,0 @@
-./internal/screenViewTracking/UIViewController+SPScreenView_SWIZZLE.h

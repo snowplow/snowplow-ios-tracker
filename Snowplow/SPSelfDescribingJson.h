@@ -1,1 +1,0 @@
-./internal/payload/SPSelfDescribingJson.h

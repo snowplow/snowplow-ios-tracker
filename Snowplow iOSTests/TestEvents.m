@@ -92,7 +92,7 @@
     [data setObject:@56473 forKey:@"score"];
     SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:sdj];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     XCTAssertNotNil(event);
 }
 
@@ -103,12 +103,12 @@
     SPSelfDescribingJson *sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
     // Data is wrong
-    SPUnstructured *event;
+    SPSelfDescribing *event;
     @try {
-        event = [[SPUnstructured alloc] initWithEventData:sdj];
+        event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventData has to be JSON serializable.", exception.reason);
+        XCTAssertEqualObjects(@"EventData payload has to be JSON serializable.", exception.reason);
     }
     XCTAssertNil(event);
 }
@@ -126,18 +126,16 @@
 
 - (void)testConsentGranted {
     // Valid construction
-    SPConsentGranted *event = [[SPConsentGranted alloc] initWithDocumentId:@"1000" version:@"3"];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithExpiry:@"expiry" documentId:@"1000" version:@"3"];
     event.name = @"name";
-    event.expiry = @"expiry";
     event.documentDescription = @"description";
     XCTAssertNotNil(event);
 }
 
 - (void)testConsentDocument {
     // Valid construction
-    SPConsentGranted *event = [[SPConsentGranted alloc] initWithDocumentId:@"1000" version:@"3"];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithExpiry:@"expiry" documentId:@"1000" version:@"3"];
     event.name = @"name";
-    event.expiry = @"expiry";
     event.documentDescription = @"description";
     XCTAssertNotNil(event);
 }
@@ -202,22 +200,13 @@
 
 - (void)testEcommerceItem {
     // Valid construction
-    SPEcommerceItem *event = [[SPEcommerceItem alloc] initWithItemId:@"id" sku:@"sku" price:@5.3 quantity:@5];
+    SPEcommerceItem *event = [[SPEcommerceItem alloc] initWithSku:@"sku" price:@5.3 quantity:@5];
     XCTAssertNotNil(event);
     event = nil;
     
-    // Item is empty
-    @try {
-        event = [[SPEcommerceItem alloc] initWithItemId:@"" sku:@"sku" price:@5.3 quantity:@5];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"ItemId cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
     // Sku is empty
     @try {
-        event = [[SPEcommerceItem alloc] initWithItemId:@"id" sku:@"" price:@5.3 quantity:@5];
+        event = [[SPEcommerceItem alloc] initWithSku:@"" price:@5.3 quantity:@5];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"SKU cannot be nil or empty.", exception.reason);

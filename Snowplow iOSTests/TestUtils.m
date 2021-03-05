@@ -23,7 +23,7 @@
 #import <XCTest/XCTest.h>
 #import <AdSupport/AdSupport.h>
 #import "SPUtilities.h"
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 
 @interface TestUtils : XCTestCase
 

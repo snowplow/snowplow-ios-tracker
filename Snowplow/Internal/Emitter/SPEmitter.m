@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPEmitter.h"
 #import "SPSQLiteEventStore.h"
 #import "SPDefaultNetworkConnection.h"
@@ -61,7 +61,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 - (instancetype) initWithDefaultValues {
     self = [super init];
     if (self) {
-        _httpMethod = SPRequestOptionsPost;
+        _httpMethod = SPHttpMethodPost;
         _protocol = SPProtocolHttps;
         _bufferOption = SPBufferOptionDefaultGroup;
         _callback = nil;
@@ -114,7 +114,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     }
 }
 
-- (void) setHttpMethod:(SPRequestOptions)method {
+- (void) setHttpMethod:(SPHttpMethod)method {
     _httpMethod = method;
     if (_builderFinished && _networkConnection) {
         [self setupNetworkConnection];
@@ -322,9 +322,9 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 - (NSArray<SPRequest *> *)buildRequestsFromEvents:(NSArray<SPEmitterEvent *> *)events {
     NSMutableArray<SPRequest *> *requests = [NSMutableArray new];
     NSNumber *sendingTime = [SPUtilities getTimestamp];
-    SPRequestOptions httpMethod = _networkConnection.httpMethod;
+    SPHttpMethod httpMethod = _networkConnection.httpMethod;
     
-    if (httpMethod == SPRequestOptionsGet) {
+    if (httpMethod == SPHttpMethodGet) {
         for (SPEmitterEvent *event in events) {
             SPPayload *payload = event.payload;
             [self addSendingTimeToPayload:payload timestamp:sendingTime];
@@ -382,7 +382,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 }
 
 - (BOOL)isOversize:(SPPayload *)payload previousPayloads:(NSArray<SPPayload *> *)previousPayloads {
-    NSUInteger byteLimit = _networkConnection.httpMethod == SPRequestOptionsGet ? _byteLimitGet : _byteLimitPost;
+    NSUInteger byteLimit = _networkConnection.httpMethod == SPHttpMethodGet ? _byteLimitGet : _byteLimitPost;
     return [self isOversize:payload byteLimit:byteLimit previousPayloads:previousPayloads];
 }
 

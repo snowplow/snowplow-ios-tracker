@@ -72,7 +72,7 @@ NS_SWIFT_NAME(StructuredBuilder)
  @brief A structured event.
  */
 NS_SWIFT_NAME(Structured)
-@interface SPStructured : SPPrimitive <SPStructuredBuilder>
+@interface SPStructured : SPPrimitiveAbstract <SPStructuredBuilder>
 
 @property (nonatomic, readonly) NSString *category;
 @property (nonatomic, readonly) NSString *action;

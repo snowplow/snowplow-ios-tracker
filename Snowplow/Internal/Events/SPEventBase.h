@@ -22,7 +22,7 @@
 
 #import <Foundation/Foundation.h>
 #import "SPSelfDescribingJson.h"
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 
 @class SPPayload;
 @class SPTracker;
@@ -113,11 +113,11 @@ SP_BUILDER_DECLARE(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 @end
 
 /*!
- @interface SPSelfDescribing
+ @interface SPSelfDescribingAbstract
  @brief The properties for all the self-describing events.
  */
 NS_SWIFT_NAME(SelfDescribing)
-@interface SPSelfDescribing : SPEvent
+@interface SPSelfDescribingAbstract : SPEvent
 
 /*! The schema of the event. */
 @property (nonatomic, readonly) NSString *schema;
@@ -125,11 +125,11 @@ NS_SWIFT_NAME(SelfDescribing)
 @end
 
 /*!
- @interface SPPrimitive
+ @interface SPPrimitiveAbstract
  @brief The properties for all the self-describing events.
  */
 NS_SWIFT_NAME(Primitive)
-@interface SPPrimitive : SPEvent
+@interface SPPrimitiveAbstract : SPEvent
 
 /*! The name of the event. */
 @property (nonatomic, readonly) NSString *name;

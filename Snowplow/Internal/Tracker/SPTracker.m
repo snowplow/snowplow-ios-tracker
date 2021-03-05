@@ -20,7 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -31,11 +31,10 @@
 #import "SPScreenState.h"
 #import "SPInstallTracker.h"
 #import "SPGlobalContext.h"
-#import "SPGdprContext.h"
 
 #import "SNOWError.h"
 #import "SPStructured.h"
-#import "SPUnstructured.h"
+#import "SPSelfDescribing.h"
 #import "SPScreenView.h"
 #import "SPPageView.h"
 #import "SPTiming.h"
@@ -56,7 +55,7 @@
 
 #import "SPServiceProvider.h"
 
-#import "SPTrackerController.h"
+#import "SPTrackerControllerImpl.h"
 
 #import "SPEmitterEventProcessing.h"
 
@@ -114,20 +113,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 static SPTracker *_sharedInstance = nil;
-
-// MARK: - Setup methods
-
-+ (id<SPTrackerControlling>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId {
-    return [SPServiceProvider setupWithEndpoint:endpoint protocol:protocol method:method namespace:namespace appId:appId];
-}
-
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
-    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration];
-}
-
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
-    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
-}
 
 // MARK: - Added property methods
 
@@ -237,7 +222,7 @@ static SPTracker *_sharedInstance = nil;
         [installTracker clearPreviousInstallTimestamp];
         
         SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-        SPUnstructured *event = [[SPUnstructured alloc] initWithEventData:installEvent];
+        SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:installEvent];
         if (!installTracker.isNewInstall && previousTimestamp == nil) {
             return;
         }
@@ -409,6 +394,10 @@ static SPTracker *_sharedInstance = nil;
     self.gdpr = nil;
 }
 
+- (SPGdprContext *)gdprContext {
+    return self.gdpr;
+}
+
 #pragma mark - Extra Functions
 
 - (void) pauseEventTracking {
@@ -472,9 +461,9 @@ static SPTracker *_sharedInstance = nil;
 
 #pragma mark - Event Tracking Functions
 
-- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event {
+- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event __deprecated {
     if (!event || !_dataCollection) return;
-    SPUnstructured *unstruct = [[SPUnstructured alloc] initWithEventData:event];
+    SPSelfDescribing *unstruct = [[SPSelfDescribing alloc] initWithEventData:event];
     [self track:unstruct];
 }
 

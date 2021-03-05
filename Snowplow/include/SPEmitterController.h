@@ -1,0 +1,1 @@
+../Internal/Emitter/SPEmitterController.h

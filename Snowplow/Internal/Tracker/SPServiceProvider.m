@@ -21,7 +21,7 @@
 //
 
 #import "SPServiceProvider.h"
-#import "SPTrackerController.h"
+#import "SPTrackerControllerImpl.h"
 #import "SPDefaultNetworkConnection.h"
 
 @interface SPServiceProvider ()
@@ -72,19 +72,18 @@
 
 // MARK: - Setup
 
-+ (id<SPTrackerControlling>)setupWithEndpoint:(NSString *)endpoint protocol:(SPProtocol)protocol method:(SPRequestOptions)method namespace:(NSString *)namespace appId:(NSString *)appId {
-    SPNetworkConfiguration *network = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint protocol:protocol method:method];
++ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId {
+    SPNetworkConfiguration *network = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint method:method];
     SPTrackerConfiguration *tracker = [[SPTrackerConfiguration alloc] initWithNamespace:namespace appId:appId];
     return [SPServiceProvider setupWithNetwork:network tracker:tracker];
 }
 
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
     return serviceProvider.trackerController;
 }
 
-
-+ (id<SPTrackerControlling>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
++ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
     return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:@[]];
 }
 
@@ -108,7 +107,7 @@
     return _tracker;
 }
 
-- (id<SPTrackerControlling>)trackerController {
+- (id<SPTrackerController>)trackerController {
     if (_trackerController) return _trackerController;
     _trackerController = [self makeTrackerController];
     return _trackerController;
@@ -137,13 +136,15 @@
             [builder setUrlEndpoint:networkConfig.endpoint];
         }
         [builder setCustomPostPath:networkConfig.customPostPath];
-        [builder setEmitRange:emitterConfig.emitRange];
-        [builder setBufferOption:emitterConfig.bufferOption];
-        [builder setEventStore:emitterConfig.eventStore];
-        [builder setByteLimitPost:emitterConfig.byteLimitPost];
-        [builder setByteLimitGet:emitterConfig.byteLimitGet];
-        [builder setEmitThreadPoolSize:emitterConfig.emitThreadPoolSize];
-        [builder setCallback:emitterConfig.requestCallback];
+        if (emitterConfig) {
+            [builder setEmitRange:emitterConfig.emitRange];
+            [builder setBufferOption:emitterConfig.bufferOption];
+            [builder setEventStore:emitterConfig.eventStore];
+            [builder setByteLimitPost:emitterConfig.byteLimitPost];
+            [builder setByteLimitGet:emitterConfig.byteLimitGet];
+            [builder setEmitThreadPoolSize:emitterConfig.threadPoolSize];
+            [builder setCallback:emitterConfig.requestCallback];
+        }
     }];
 }
 
@@ -184,8 +185,8 @@
     }];
 }
 
-- (SPTrackerController *)makeTrackerController {
-    return [[SPTrackerController alloc] initWithTracker:self.tracker];
+- (SPTrackerControllerImpl *)makeTrackerController {
+    return [[SPTrackerControllerImpl alloc] initWithTracker:self.tracker];
 }
 
 #pragma clang diagnostic pop

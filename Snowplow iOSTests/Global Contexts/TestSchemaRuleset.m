@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPSchemaRule.h"
 #import "SPSchemaRuleset.h"
 

@@ -21,7 +21,7 @@
 //
 
 #import <XCTest/XCTest.h>
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 #import "SPSubject.h"
 #import "SPPayload.h"
 
@@ -44,12 +44,12 @@
 
 - (void)testSubjectInit {
     SPSubject * subject = [[SPSubject alloc] init];
-    XCTAssertNil([subject getPlatformDict]);
+    XCTAssertNotNil([subject getPlatformDict]);
     XCTAssertNotNil([subject getStandardDict]);
 }
 
 - (void)testSubjectInitWithOptions {
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
     XCTAssertNotNil([subject getPlatformDict]);
     XCTAssertNotNil([subject getStandardDict]);
 }
