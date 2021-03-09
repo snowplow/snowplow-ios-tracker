@@ -21,14 +21,14 @@
 //
 
 #import "SPServiceProvider.h"
-#import "SPTrackerControllerImpl.h"
 #import "SPDefaultNetworkConnection.h"
 
 @interface SPServiceProvider ()
 
-@property (nonatomic) SPNetworkConfiguration *networkConfiguration;
+@property (nonatomic, nonnull, readwrite) NSString *namespace;
+@property (nonatomic, nonnull) SPNetworkConfiguration *networkConfiguration;
+@property (nonatomic, nonnull) SPTrackerConfiguration *trackerConfiguration;
 @property (nonatomic) SPEmitterConfiguration *emitterConfiguration;
-@property (nonatomic) SPTrackerConfiguration *trackerConfiguration;
 @property (nonatomic) SPSubjectConfiguration *subjectConfiguration;
 @property (nonatomic) SPSessionConfiguration *sessionConfiguration;
 @property (nonatomic) SPGDPRConfiguration *gdprConfiguration;
@@ -40,51 +40,75 @@
 
 // MARK: - Init
 
-- (instancetype)initWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
+- (instancetype)initWithNamespace:(NSString *)namespace network:(SPNetworkConfiguration *)networkConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     if (self = [super init]) {
+        self.namespace = namespace;
         self.networkConfiguration = networkConfiguration;
-        self.trackerConfiguration = trackerConfiguration;
-        for (SPConfiguration *configuration in configurations) {
-            if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
-                self.subjectConfiguration = (SPSubjectConfiguration *)configuration;
-                continue;
-            }
-            if ([configuration isKindOfClass:SPSessionConfiguration.class]) {
-                self.sessionConfiguration = (SPSessionConfiguration *)configuration;
-                continue;
-            }
-            if ([configuration isKindOfClass:SPEmitterConfiguration.class]) {
-                self.emitterConfiguration = (SPEmitterConfiguration *)configuration;
-                continue;
-            }
-            if ([configuration isKindOfClass:SPGDPRConfiguration.class]) {
-                self.gdprConfiguration = (SPGDPRConfiguration *)configuration;
-                continue;
-            }
-            if ([configuration isKindOfClass:SPGlobalContextsConfiguration.class]) {
-                self.globalContextConfiguration = (SPGlobalContextsConfiguration *)configuration;
-                continue;
-            }
+        [self processConfigurations:configurations];
+        if (!self.trackerConfiguration) {
+            self.trackerConfiguration = [SPTrackerConfiguration new];
         }
     }
     return self;
 }
 
-// MARK: - Setup
-
-+ (id<SPTrackerController>)setupWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method namespace:(NSString *)namespace appId:(NSString *)appId {
-    SPNetworkConfiguration *network = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint method:method];
-    SPTrackerConfiguration *tracker = [[SPTrackerConfiguration alloc] initWithNamespace:namespace appId:appId];
-    return [SPServiceProvider setupWithNetwork:network tracker:tracker];
+- (void)resetWithConfigurations:(NSArray<SPConfiguration *> *)configurations {
+    [self stopServices];
+    [self processConfigurations:configurations];
+    [self resetServices];
+    [_trackerController resetWithTracker:self.tracker];
 }
 
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
-    SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:configurations];
-    return serviceProvider.trackerController;
+- (void)shutdown {
+    [_tracker pauseEventTracking];
+    [self stopServices];
+    [self resetServices];
+    _trackerController = nil;
 }
 
-+ (id<SPTrackerController>)setupWithNetwork:(SPNetworkConfiguration *)networkConfiguration tracker:(SPTrackerConfiguration *)trackerConfiguration {
-    return [SPServiceProvider setupWithNetwork:networkConfiguration tracker:trackerConfiguration configurations:@[]];
+// MARK: - Private methods
+
+- (void)processConfigurations:(NSArray<SPConfiguration *> *)configurations {
+    for (SPConfiguration *configuration in configurations) {
+        if ([configuration isKindOfClass:SPNetworkConfiguration.class]) {
+            self.networkConfiguration = (SPNetworkConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPTrackerConfiguration.class]) {
+            self.trackerConfiguration = (SPTrackerConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
+            self.subjectConfiguration = (SPSubjectConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPSessionConfiguration.class]) {
+            self.sessionConfiguration = (SPSessionConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPEmitterConfiguration.class]) {
+            self.emitterConfiguration = (SPEmitterConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPGDPRConfiguration.class]) {
+            self.gdprConfiguration = (SPGDPRConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPGlobalContextsConfiguration.class]) {
+            self.globalContextConfiguration = (SPGlobalContextsConfiguration *)configuration;
+            continue;
+        }
+    }
+}
+
+- (void)stopServices {
+    [_emitter pause];
+}
+
+- (void)resetServices {
+    _emitter = nil;
+    _subject = nil;
+    _tracker = nil;
 }
 
 // MARK: - Getters
@@ -107,7 +131,7 @@
     return _tracker;
 }
 
-- (id<SPTrackerController>)trackerController {
+- (SPTrackerControllerImpl *)trackerController {
     if (_trackerController) return _trackerController;
     _trackerController = [self makeTrackerController];
     return _trackerController;
@@ -156,10 +180,10 @@
     SPGlobalContextsConfiguration *gcConfig = self.globalContextConfiguration;
     SPGDPRConfiguration *gdprConfig = self.gdprConfiguration;
     return [SPTracker build:^(id<SPTrackerBuilder> builder) {
+        [builder setTrackerNamespace:self.namespace];
         [builder setEmitter:emitter];
         [builder setSubject:subject];
         [builder setAppId:trackerConfig.appId];
-        [builder setTrackerNamespace:trackerConfig.namespace];
         [builder setBase64Encoded:trackerConfig.base64Encoding];
         [builder setLogLevel:trackerConfig.logLevel];
         [builder setLoggerDelegate:trackerConfig.loggerDelegate];
@@ -186,7 +210,9 @@
 }
 
 - (SPTrackerControllerImpl *)makeTrackerController {
-    return [[SPTrackerControllerImpl alloc] initWithTracker:self.tracker];
+    SPTrackerControllerImpl *trackerController = [SPTrackerControllerImpl new];
+    [trackerController resetWithTracker:self.tracker];
+    return trackerController;
 }
 
 #pragma clang diagnostic pop

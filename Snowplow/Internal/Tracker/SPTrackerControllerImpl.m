@@ -46,25 +46,22 @@
 
 @property (nonatomic) SPSessionControllerImpl *sessionController;
 
-@property (nonatomic) SPTracker *tracker;
+@property (nonatomic, weak) SPTracker *tracker;
 
 @end
 
 
 @implementation SPTrackerControllerImpl
 
-- (instancetype)initWithTracker:(SPTracker *)tracker {
-    if (self = [super init]) {
-        self.tracker = tracker;
-        self.sessionController = [[SPSessionControllerImpl alloc] initWithTracker:tracker];
-        self.emitter = [[SPEmitterControllerImpl alloc] initWithEmitter:tracker.emitter];
-        self.gdpr = [[SPGDPRControllerImpl alloc] initWithTracker:tracker];
-        self.globalContexts = [[SPGlobalContextsControllerImpl alloc] initWithTracker:tracker];
-        if (!tracker.emitter.networkConnection || [tracker.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class]) {
-            self.network = [[SPNetworkControllerImpl alloc] initWithEmitter:tracker.emitter];
-        }
+- (void)resetWithTracker:(SPTracker *)tracker {
+    self.tracker = tracker;
+    self.sessionController = [[SPSessionControllerImpl alloc] initWithTracker:tracker];
+    self.emitter = [[SPEmitterControllerImpl alloc] initWithEmitter:tracker.emitter];
+    self.gdpr = [[SPGDPRControllerImpl alloc] initWithTracker:tracker];
+    self.globalContexts = [[SPGlobalContextsControllerImpl alloc] initWithTracker:tracker];
+    if (!tracker.emitter.networkConnection || [tracker.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class]) {
+        self.network = [[SPNetworkControllerImpl alloc] initWithEmitter:tracker.emitter];
     }
-    return self;
 }
 
 // MARK: - Control methods
@@ -89,10 +86,6 @@
 
 - (NSString *)appId {
     return [self.tracker appId];
-}
-
-- (void)setNamespace:(NSString *)namespace {
-    [self.tracker setTrackerNamespace:namespace];
 }
 
 - (NSString *)namespace {
@@ -164,7 +157,7 @@
 }
 
 - (BOOL)diagnosticAutotracking {
-    return [SPLogger diagnosticLogger] != nil;
+    return self.tracker.trackerDiagnostic;
 }
 
 - (void)setExceptionAutotracking:(BOOL)exceptionAutotracking {

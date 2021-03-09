@@ -39,6 +39,7 @@ NS_SWIFT_NAME(TrackerController)
 
 @property (readonly, nonatomic) NSString *version;
 @property (readonly, nonatomic) BOOL isTracking;
+@property (readonly, nonatomic) NSString *namespace;
 
 @property (readonly, nonatomic, nullable) id<SPSessionController> session;
 @property (readonly, nonatomic, nullable) id<SPNetworkController> network;

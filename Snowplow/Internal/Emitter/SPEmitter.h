@@ -41,6 +41,8 @@
 NS_SWIFT_NAME(EmitterBuilder)
 @protocol SPEmitterBuilder <NSObject>
 
+- (void) setNamespace:(NSString *)namespace;
+
 /*!
  @brief Emitter builder method to set the collector endpoint.
 
@@ -131,6 +133,7 @@ NS_SWIFT_NAME(EmitterBuilder)
 NS_SWIFT_NAME(Emitter)
 @interface SPEmitter : NSObject <SPEmitterBuilder, SPEmitterEventProcessing>
 
+@property (readonly, nonatomic) NSString *namespace;
 /*! @brief Chosen HTTP method - SPHttpMethodGet or SPHttpMethodPost. */
 @property (readonly, nonatomic) SPHttpMethod httpMethod;
 /*! @brief Security of requests - SPProtocolHttp or SPProtocolHttps.  */

@@ -24,7 +24,6 @@
 
 @interface SPLogger ()
 @property (nonatomic, weak) id<SPLoggerDelegate> delegate;
-@property (nonatomic, weak) id<SPDiagnosticLogger> errorLogger;
 @property (nonatomic) SPLogLevel logLevel;
 @end
 
@@ -40,23 +39,10 @@
     return logger.delegate;
 }
 
-+ (void)setDiagnosticLogger:(id<SPDiagnosticLogger>)diagnosticLogger {
-    SPLogger *logger = [SPLogger shared];
-    logger.errorLogger = diagnosticLogger;
-    if (diagnosticLogger && logger.logLevel == SPLogLevelOff) {
-        logger.logLevel = SPLogLevelError;
-    }
-}
-
-+ (id<SPDiagnosticLogger>)diagnosticLogger {
-    SPLogger *logger = [SPLogger shared];
-    return logger.errorLogger;
-}
-
 + (void)setLogLevel:(SPLogLevel)logLevel {
     SPLogger *logger = [SPLogger shared];
     logger.logLevel = logLevel;
-    if (logger.errorLogger && logLevel == SPLogLevelOff) {
+    if (logLevel == SPLogLevelOff) {
         #ifdef SNOWPLOW_DEBUG
             logger.logLevel = SPLogLevelDebug;
         #elif DEBUG
@@ -135,16 +121,26 @@
 }
 
 - (void)trackErrorWithTag:(NSString *)tag message:(NSString *)message errorOrException:(id)errorOrException {
-    if (self.errorLogger) {
-        NSError *error;
-        NSException *exception;
-        if ([errorOrException isKindOfClass:NSError.class]) {
-            error = (NSError *)errorOrException;
-        } else if ([errorOrException isKindOfClass:NSException.class]) {
-            exception = (NSException *)errorOrException;
-        }
-        [self.errorLogger logWithTag:tag message:message error:error exception:exception];
+    NSError *error;
+    NSException *exception;
+    if ([errorOrException isKindOfClass:NSError.class]) {
+        error = (NSError *)errorOrException;
+    } else if ([errorOrException isKindOfClass:NSException.class]) {
+        exception = (NSException *)errorOrException;
     }
+    
+    // Construct userInfo
+    NSMutableDictionary<NSString *, NSObject *> *userInfo = [NSMutableDictionary new];
+    userInfo[@"tag"] = tag;
+    userInfo[@"message"] = message;
+    userInfo[@"error"] = error;
+    userInfo[@"exception"] = exception;
+
+    // Send notification to tracker
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"SPTrackerDiagnostic"
+     object:self
+     userInfo:userInfo];
 }
 
 @end

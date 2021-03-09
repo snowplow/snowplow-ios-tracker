@@ -38,8 +38,8 @@
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodPost, networkConfig.method);
     
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNotNil(tracker);
 }
 
@@ -49,8 +49,8 @@
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNotNil(tracker);
 }
 
@@ -60,8 +60,8 @@
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNotNil(tracker);
 }
 
@@ -71,8 +71,8 @@
     XCTAssertEqual(SPProtocolHttp, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNotNil(tracker);
 }
 
@@ -82,8 +82,8 @@
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNotNil(tracker);
 }
 
@@ -93,16 +93,16 @@
     XCTAssertEqual(SPProtocolHttp, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNotNil(tracker);
 }
 
 - (void)testBasicInitialization {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
     trackerConfig.platformContext = YES;
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
 
     XCTAssertNotNil(tracker);
     XCTAssertNotNil(tracker.emitter);
@@ -117,17 +117,17 @@
     XCTAssertEqualObjects(protocol, scheme);
     
     XCTAssertEqual(trackerConfig.appId, tracker.appId);
-    XCTAssertEqual(trackerConfig.namespace, tracker.namespace);
+    XCTAssertEqual(@"namespace", tracker.namespace);
 }
 
 - (void)testSessionInitialization {
     NSInteger expectedForeground = 42;
     NSInteger expectedBackground = 24;
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
     SPSessionConfiguration *sessionConfig = [[SPSessionConfiguration alloc] initWithForegroundTimeoutInSeconds:expectedForeground
                                                                                     backgroundTimeoutInSeconds:expectedBackground];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig configurations:@[sessionConfig]];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig, sessionConfig]];
 
     NSInteger foreground = tracker.session.foregroundTimeoutInSeconds;
     NSInteger background = tracker.session.backgroundTimeoutInSeconds;
@@ -142,13 +142,13 @@
 
 - (void)testSessionControllerUnavailableWhenContextTurnedOff {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
     trackerConfig.sessionContext = YES;
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNotNil(tracker.session);
 
     trackerConfig.sessionContext = NO;
-    tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNil(tracker.session);
 }
 

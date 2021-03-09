@@ -35,9 +35,7 @@
 @implementation TestTrackerController
 
 - (void)testSessionAccessibilityWhenEnabledAndDisabled {
-    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"namespace" appId:@"appid"];
-    id<SPTrackerController> tracker = [SPSnowplow setupWithNetwork:networkConfig tracker:trackerConfig];
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" endpoint:@"https://fake-url" method:SPHttpMethodPost];
     XCTAssertNotNil(tracker.session);
     
     tracker.sessionContext = NO;

@@ -30,10 +30,14 @@
 NS_SWIFT_NAME(SQLiteEventStore)
 @interface SPSQLiteEventStore :NSObject <SPEventStore>
 
++ (NSArray<NSString *> *)removeUnsentEventsExceptForNamespaces:(NSArray<NSString *> *)allowedNamespace;
+
+- (instancetype)init NS_UNAVAILABLE;
+
 /**
  *  Basic initializer that creates a database event table (if one does not exist) and then closes the connection.
  */
-- (instancetype)init;
+- (instancetype)initWithNamespace:(NSString *)namespace;
 
 /**
  *  Inserts events into the sqlite table for the app identified with it's bundleId (appId).
