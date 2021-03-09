@@ -30,7 +30,6 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(TrackerConfigurationProtocol)
 @protocol SPTrackerConfigurationProtocol
 
-@property () NSString *namespace;
 @property () NSString *appId;
 
 @property () SPDevicePlatform devicePlatform;
@@ -55,11 +54,7 @@ NS_SWIFT_NAME(TrackerConfigurationProtocol)
 NS_SWIFT_NAME(TrackerConfiguration)
 @interface SPTrackerConfiguration : SPConfiguration <SPTrackerConfigurationProtocol>
 
-+ (instancetype) new NS_UNAVAILABLE;
-- (instancetype) init NS_UNAVAILABLE;
-
-- (instancetype)initWithNamespace:(NSString *)namespace appId:(NSString *)appId;
-
+SP_BUILDER_DECLARE(NSString *, appId)
 SP_BUILDER_DECLARE(SPDevicePlatform, devicePlatform)
 SP_BUILDER_DECLARE(BOOL, base64Encoding)
 SP_BUILDER_DECLARE(SPLogLevel, logLevel)

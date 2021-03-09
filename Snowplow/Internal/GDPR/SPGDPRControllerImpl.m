@@ -25,7 +25,7 @@
 
 @interface SPGDPRControllerImpl ()
 
-@property (nonatomic) SPTracker *tracker;
+@property (nonatomic, weak) SPTracker *tracker;
 @property (nonatomic) SPGdprContext *gdpr;
 
 @end

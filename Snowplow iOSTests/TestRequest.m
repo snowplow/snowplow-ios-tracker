@@ -234,7 +234,7 @@
 
 - (SPTracker *)getTrackerWithConnection:(id<SPNetworkConnection>)mockNetworkConnection eventStore:(id<SPEventStore>)mockEventStore {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithNetworkConnection:mockNetworkConnection];
-    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] initWithNamespace:@"aNamespace" appId:@"anAppId"];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"anAppId"];
     trackerConfig.platformContext = YES;
     trackerConfig.geoLocationContext = YES;
     trackerConfig.base64Encoding = NO;
@@ -242,7 +242,7 @@
     SPEmitterConfiguration *emitterConfig = [[SPEmitterConfiguration alloc] init];
     emitterConfig.requestCallback = self;
     emitterConfig.eventStore = mockEventStore;
-    SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNetwork:networkConfig tracker:trackerConfig configurations:@[emitterConfig]];
+    SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNamespace:@"aNamespace" network:networkConfig configurations:@[trackerConfig, emitterConfig]];
     return serviceProvider.tracker;
 }
 

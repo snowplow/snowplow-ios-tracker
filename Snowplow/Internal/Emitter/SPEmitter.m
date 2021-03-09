@@ -43,6 +43,7 @@
     BOOL               _isSending;
     NSOperationQueue * _dataOperationQueue;
     BOOL               _builderFinished;
+    NSString *         _namespace;
 }
 
 const NSUInteger POST_WRAPPER_BYTES = 88;
@@ -61,6 +62,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 - (instancetype) initWithDefaultValues {
     self = [super init];
     if (self) {
+        _namespace = nil;
         _httpMethod = SPHttpMethodPost;
         _protocol = SPProtocolHttps;
         _bufferOption = SPBufferOptionDefaultGroup;
@@ -80,7 +82,6 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 }
 
 - (void) setup {
-    _eventStore = _eventStore ?: [[SPSQLiteEventStore alloc] init];
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupNetworkConnection];
     [self resume];
@@ -106,6 +107,13 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 }
 
 // MARK: - Builder methods
+
+- (void)setNamespace:(NSString *)namespace {
+    _namespace = namespace;
+    if (_builderFinished) {
+        _eventStore = _eventStore ?: [[SPSQLiteEventStore alloc] initWithNamespace:_namespace];
+    }
+}
 
 - (void) setUrlEndpoint:(NSString *)urlEndpoint {
     _url = urlEndpoint;

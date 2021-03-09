@@ -24,7 +24,7 @@
 
 @interface SPEmitterControllerImpl ()
 
-@property SPEmitter *emitter;
+@property (nonatomic, weak) SPEmitter *emitter;
 
 @end
 

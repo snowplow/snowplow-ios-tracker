@@ -24,7 +24,6 @@
 
 @implementation SPTrackerConfiguration
 
-@synthesize namespace;
 @synthesize appId;
 @synthesize devicePlatform;
 @synthesize base64Encoding;
@@ -41,10 +40,9 @@
 @synthesize exceptionAutotracking;
 @synthesize diagnosticAutotracking;
 
-- (instancetype)initWithNamespace:(NSString *)namespace appId:(NSString *)appId {
+- (instancetype)init {
     if (self = [super init]) {
-        self.namespace = namespace;
-        self.appId = appId;
+        self.appId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
 
         self.devicePlatform = SPDevicePlatformMobile;
         self.base64Encoding = YES;
@@ -68,6 +66,7 @@
 
 // MARK: - Builder
 
+SP_BUILDER_METHOD(NSString *, appId)
 SP_BUILDER_METHOD(SPDevicePlatform, devicePlatform)
 SP_BUILDER_METHOD(BOOL, base64Encoding)
 SP_BUILDER_METHOD(SPLogLevel, logLevel)
@@ -86,7 +85,8 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
 // MARK: - NSCopying
 
 - (id)copyWithZone:(nullable NSZone *)zone {
-    SPTrackerConfiguration *copy = [[SPTrackerConfiguration allocWithZone:zone] initWithNamespace:self.namespace appId:self.appId];
+    SPTrackerConfiguration *copy = [[SPTrackerConfiguration allocWithZone:zone] init];
+    copy.appId = self.appId;
     copy.devicePlatform = self.devicePlatform;
     copy.base64Encoding = self.base64Encoding;
     copy.logLevel = self.logLevel;
@@ -107,7 +107,6 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
 // MARK: - NSCoding
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
-    [coder encodeObject:self.namespace forKey:SP_STR_PROP(namespace)];
     [coder encodeObject:self.appId forKey:SP_STR_PROP(appId)];
     [coder encodeInteger:self.logLevel forKey:SP_STR_PROP(logLevel)];
     [coder encodeObject:self.loggerDelegate forKey:SP_STR_PROP(loggerDelegate)];
@@ -125,7 +124,6 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
     if (self = [super init]) {
-        self.namespace = [coder decodeObjectForKey:SP_STR_PROP(namespace)];
         self.appId = [coder decodeObjectForKey:SP_STR_PROP(appId)];
         self.logLevel = [coder decodeIntegerForKey:SP_STR_PROP(logLevel)];
         self.loggerDelegate = [coder decodeObjectForKey:SP_STR_PROP(loggerDelegate)];
