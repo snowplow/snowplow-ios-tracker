@@ -28,7 +28,14 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(EmitterController)
 @protocol SPEmitterController <SPEmitterConfigurationProtocol>
 
+/**
+ * Number of events recorded in the EventStore.
+ */
 @property (nonatomic, readonly) NSInteger dbCount;
+
+/**
+ * Whether the emitter is currently sending events.
+ */
 @property (nonatomic, readonly) BOOL isSending;
 
 - (void)flush;

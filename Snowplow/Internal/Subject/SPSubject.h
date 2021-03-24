@@ -28,9 +28,10 @@
 /*!
  @class SPSubject
  @brief The subject class.
-
+ @deprecated It will be removed in the next major version, please use `Snowplow` methods.
  This class is used to access and persist user information, it represents the current user being tracked.
  */
+DEPRECATED_ATTRIBUTE
 NS_SWIFT_NAME(Subject)
 @interface SPSubject : NSObject
 
@@ -39,7 +40,6 @@ NS_SWIFT_NAME(Subject)
 
 /*!
  @brief Initializes a newly allocated SPSubject object.
-
  @return A new SPSubject.
  */
 - (id) init;
@@ -81,75 +81,77 @@ NS_SWIFT_NAME(Subject)
 
 /*!
  @brief Sets the user ID.
-
+ @deprecated Use `userId(String)` on `SubjectConfiguration`.
  @param uid The user's ID.
  */
-- (void) setUserId:(NSString *)uid;
+- (void) setUserId:(NSString *)uid DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the screen resolution.
+ @deprecated Use `screenResolution(Size)` on `SubjectConfiguration`.
 
  @param width The screen resolution width in pixels.
  @param height The screen resolution height in pixels.
  */
-- (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height;
+- (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the viewport dimensions.
-
+ @deprecated Use `screenViewPort(Size)` on `SubjectConfiguration`.
+ 
  @param width The viewport width in pixels.
  @param height The viewport height in pixels.
  */
-- (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height;
+- (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the color depth.
-
+ @deprecated Use `colorDepth(int)` on `SubjectConfiguration`.
  @param depth The user's color depth.
  */
-- (void) setColorDepth:(NSInteger)depth;
+- (void) setColorDepth:(NSInteger)depth DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the timezone.
-
+ @deprecated Use `timezone(String)` on `SubjectConfiguration`.
  @param timezone The user's timezone.
  */
-- (void) setTimezone:(NSString *)timezone;
+- (void) setTimezone:(NSString *)timezone DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the language.
-
+ @deprecated Use `language(String)` on `SubjectConfiguration`.
  @param lang The user's language.
  */
-- (void) setLanguage:(NSString *)lang;
+- (void) setLanguage:(NSString *)lang DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the IP Address.
-
+ @deprecated Use `ipAddress(String)` on `SubjectConfiguration`.
  @param ip The user's IP address.
  */
-- (void) setIpAddress:(NSString *)ip;
+- (void) setIpAddress:(NSString *)ip DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the user agent (also known as browser string).
-
+ @deprecated Use `useragent(String)` on `SubjectConfiguration`.
  @param useragent The user agent (also known as browser string).
  */
-- (void) setUseragent:(NSString *)useragent;
+- (void) setUseragent:(NSString *)useragent DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the Network User ID.
-
+ @deprecated Use `networkUserId(String)` on `SubjectConfiguration`.
  @param nuid The network UID.
  */
-- (void) setNetworkUserId:(NSString *)nuid;
+- (void) setNetworkUserId:(NSString *)nuid DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the Domain User ID.
-
+ @deprecated Use `domainUserId(String)` on `SubjectConfiguration`.
  @param duid The domain UID.
  */
-- (void) setDomainUserId:(NSString *)duid;
+- (void) setDomainUserId:(NSString *)duid DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Sets the standard pairs for the Subject, called automatically on object creation.
