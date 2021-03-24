@@ -41,6 +41,10 @@
     return self;
 }
 
+- (instancetype)initWithSchema:(NSString *)schema andDictionary:(NSDictionary *)data {
+    return [self initWithSchema:schema andData:data];
+}
+
 - (instancetype)initWithSchema:(NSString *)schema andPayload:(SPPayload *)data {
     return [self initWithSchema:schema andData:[data getAsDictionary]];
 }

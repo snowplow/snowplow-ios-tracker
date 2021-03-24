@@ -56,6 +56,15 @@ NS_SWIFT_NAME(SelfDescribingJson)
  @brief Initializes a newly allocated SPSelfDescribingJson.
 
  @param schema A valid schema string.
+ @param data Dictionary to set for data field of the self-describing JSON.
+ @return An SPSelfDescribingJson.
+ */
+- (instancetype)initWithSchema:(NSString *)schema andDictionary:(NSDictionary *)data;
+
+/*!
+ @brief Initializes a newly allocated SPSelfDescribingJson.
+
+ @param schema A valid schema string.
  @param data Payload to set for data field of the self-describing JSON.
  @return An SPSelfDescribingJson.
  */
