@@ -266,4 +266,60 @@
     XCTAssertEqualObjects(@"event_2", [sessionContext objectForKey:kSPSessionFirstEventId]);
 }
 
+- (void)testMultipleTrackersUpdateDifferentSessions {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {}];
+    SPTracker *tracker1 = [SPTracker build:^(id<SPTrackerBuilder>  _Nonnull builder) {
+        [builder setTrackerNamespace:@"tracker1"];
+        [builder setEmitter:emitter];
+        [builder setSessionContext:YES];
+        [builder setForegroundTimeout:10];
+        [builder setBackgroundTimeout:10];
+    }];
+    SPTracker *tracker2 = [SPTracker build:^(id<SPTrackerBuilder>  _Nonnull builder) {
+        [builder setTrackerNamespace:@"tracker2"];
+        [builder setEmitter:emitter];
+        [builder setSessionContext:YES];
+        [builder setForegroundTimeout:10];
+        [builder setBackgroundTimeout:10];
+    }];
+    SPEvent *event = [[SPStructured alloc] initWithCategory:@"c" action:@"a"];
+    [tracker1 track:event];
+    [tracker2 track:event];
+
+    NSInteger initialValue1 = [tracker1.session getSessionIndex];
+    NSString *id1 = [tracker1.session getSessionId];
+    NSInteger initialValue2 = [tracker2.session getSessionIndex];
+    NSString *id2 = [tracker2.session getSessionId];
+
+    // Retrigger session in tracker1
+    [NSThread sleepForTimeInterval:7];
+    [tracker1 track:event];
+    [NSThread sleepForTimeInterval:5];
+
+    // Send event to force update of session on tracker2
+    [tracker2 track:event];
+    id2 = [tracker2.session getSessionId];
+
+    // Check sessions have the correct state
+    XCTAssertEqual(0, [tracker1.session getSessionIndex] - initialValue1); // retriggered
+    XCTAssertEqual(1, [tracker2.session getSessionIndex] - initialValue2); // timed out
+    
+    //Recreate tracker2
+    SPTracker *tracker2b = [SPTracker build:^(id<SPTrackerBuilder> _Nonnull builder) {
+        [builder setTrackerNamespace:@"tracker2"];
+        [builder setEmitter:emitter];
+        [builder setSessionContext:YES];
+        [builder setForegroundTimeout:5];
+        [builder setBackgroundTimeout:5];
+    }];
+    [tracker2b track:event];
+    NSInteger initialValue2b = [tracker2b.session getSessionIndex];
+    NSString *previousId2b = [tracker2b.session getPreviousSessionId];
+
+    // Check the new tracker session gets the data from the old tracker2 session
+    XCTAssertEqual(initialValue2 + 2, initialValue2b);
+    XCTAssertEqualObjects(id2, previousId2b);
+    XCTAssertNotEqualObjects(id1, previousId2b);
+}
+
 @end

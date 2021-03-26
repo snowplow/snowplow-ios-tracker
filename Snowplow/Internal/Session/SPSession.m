@@ -37,6 +37,7 @@
 
 @property (atomic) NSNumber *lastSessionCheck;
 @property (weak) SPTracker *tracker;
+@property (nonatomic) NSString *sessionFilename;
 
 @end
 
@@ -57,7 +58,9 @@
     NSInteger   _backgroundIndex;
 }
 
-NSString * const kSessionSavePath = @"session.dict";
+NSString * const kLegacyFilename = @"session.dict";
+NSString * const kFilenamePrefix = @"session";
+NSString * const kFilenameExt = @"dict";
 
 - (id) init {
     return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andTracker:nil];
@@ -78,7 +81,14 @@ NSString * const kSessionSavePath = @"session.dict";
         _inBackground = NO;
         _isNewSession = YES;
         _sessionStorage = @"LOCAL_STORAGE";
-        _tracker = tracker;
+        self.sessionFilename = kLegacyFilename;
+        self.tracker = tracker;
+        if (tracker.trackerNamespace) {
+            NSString *namespace = tracker.trackerNamespace;
+            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
+            NSString *suffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
+            self.sessionFilename = [NSString stringWithFormat:@"%@_%@.%@", kFilenamePrefix, suffix, kFilenameExt];
+        }
 
         NSDictionary * storedSessionDict = [self getSessionFromFile];
         if (storedSessionDict) {
@@ -169,6 +179,10 @@ NSString * const kSessionSavePath = @"session.dict";
     return _currentSessionId;
 }
 
+- (NSString *)getPreviousSessionId {
+    return _previousSessionId;
+}
+
 - (NSInteger) getBackgroundIndex {
     return _backgroundIndex;
 }
@@ -187,7 +201,7 @@ NSString * const kSessionSavePath = @"session.dict";
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     BOOL result = NO;
     if ([paths count] > 0) {
-        NSString *savePath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
+        NSString *savePath = [[paths lastObject] stringByAppendingPathComponent:self.sessionFilename];
         NSMutableDictionary *sessionDict = [_sessionDict mutableCopy];
         [sessionDict removeObjectForKey:kSPSessionPreviousId];
         [sessionDict removeObjectForKey:kSPSessionStorage];
@@ -200,8 +214,21 @@ NSString * const kSessionSavePath = @"session.dict";
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSDictionary *sessionDict = nil;
     if ([paths count] > 0) {
-        NSString * readPath = [[paths lastObject] stringByAppendingPathComponent:kSessionSavePath];
+        NSString * readPath = [[paths lastObject] stringByAppendingPathComponent:self.sessionFilename];
         sessionDict = [NSDictionary dictionaryWithContentsOfFile:readPath];
+        if (!sessionDict) {
+            @synchronized (SPSession.class) {
+                sessionDict = [NSDictionary dictionaryWithContentsOfFile:readPath];
+                if (!sessionDict) {
+                    readPath = [[paths lastObject] stringByAppendingPathComponent:kLegacyFilename];
+                    sessionDict = [NSDictionary dictionaryWithContentsOfFile:readPath];
+                    if (sessionDict) {
+                        [self writeSessionToFile];
+                        [[NSFileManager defaultManager] removeItemAtPath:readPath error:nil];
+                    }
+                }
+            }
+        }
     }
     return sessionDict;
 }
