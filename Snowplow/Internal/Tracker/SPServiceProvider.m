@@ -160,6 +160,7 @@
             [builder setUrlEndpoint:networkConfig.endpoint];
         }
         [builder setCustomPostPath:networkConfig.customPostPath];
+        [builder setRequestHeaders:networkConfig.requestHeaders];
         if (emitterConfig) {
             [builder setEmitRange:emitterConfig.emitRange];
             [builder setBufferOption:emitterConfig.bufferOption];

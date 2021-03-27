@@ -58,6 +58,12 @@ NS_SWIFT_NAME(NetworkConfiguration)
  * complete URL of the collector when paired with the POST method.
  */
 @property (nonatomic, nullable) NSString *customPostPath;
+
+/**
+ *  Custom headers for http requests.
+ */
+@property (nonatomic, nullable) NSDictionary<NSString *, NSString *> *requestHeaders;
+
 // TODO: add -> @property () NSInteger timeout;
 
 
@@ -88,6 +94,7 @@ NS_SWIFT_NAME(NetworkConfiguration)
 - (instancetype)initWithNetworkConnection:(id<SPNetworkConnection>)networkConnection;
 
 SP_BUILDER_DECLARE_NULLABLE(NSString *, customPostPath)
+SP_BUILDER_DECLARE_NULLABLE(NSDictionary *, requestHeaders)
 
 @end
 

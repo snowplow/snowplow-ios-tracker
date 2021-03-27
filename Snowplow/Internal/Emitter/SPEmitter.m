@@ -75,6 +75,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         _dataOperationQueue = [[NSOperationQueue alloc] init];
         _builderFinished = NO;
         _customPostPath = nil;
+        _requestHeaders = nil;
         _eventStore = nil;
         _networkConnection = nil;
     }
@@ -100,6 +101,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         [builder setProtocol:strongSelf->_protocol];
         [builder setUrlEndpoint:strongSelf->_url];
         [builder setCustomPostPath:strongSelf->_customPostPath];
+        [builder setRequestHeaders:strongSelf->_requestHeaders];
         [builder setEmitThreadPoolSize:strongSelf->_emitThreadPoolSize];
         [builder setByteLimitGet:strongSelf->_byteLimitGet];
         [builder setByteLimitPost:strongSelf->_byteLimitPost];
@@ -180,6 +182,13 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 
 - (void) setCustomPostPath:(NSString *)customPath {
     _customPostPath = customPath;
+    if (_builderFinished && _networkConnection) {
+        [self setupNetworkConnection];
+    }
+}
+
+- (void) setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeaders {
+    _requestHeaders = requestHeaders;
     if (_builderFinished && _networkConnection) {
         [self setupNetworkConnection];
     }
