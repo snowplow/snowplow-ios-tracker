@@ -72,14 +72,14 @@ NS_SWIFT_NAME(SessionConfiguration)
 @interface SPSessionConfiguration : SPConfiguration <SPSessionConfigurationProtocol>
 
 /**
- * It setup the behaviour of sessions in the tracker.
+ * This will setup the session behaviour of the tracker.
  * @param foregroundTimeout The timeout set for the inactivity of app when in foreground.
  * @param backgroundTimeout The timeout set for the inactivity of app when in background.
  */
 - (instancetype)initWithForegroundTimeoutInSeconds:(NSInteger)foregroundTimeout backgroundTimeoutInSeconds:(NSInteger)backgroundTimeout;
 
 /**
- * It setup the behaviour of sessions in the tracker.
+ * This will setup the session behaviour of the tracker.
  * @param foregroundTimeout The timeout set for the inactivity of app when in foreground.
  * @param backgroundTimeout The timeout set for the inactivity of app when in background.
  */

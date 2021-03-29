@@ -29,7 +29,7 @@ NS_SWIFT_NAME(GDPRController)
 @protocol SPGDPRController <SPGDPRConfigurationProtocol>
 
 /**
- * Whether the recorded GDPR context is enabled and so attachable as context.
+ * Whether the recorded GDPR context is enabled and will be attached as context.
  */
 @property (nonatomic, readonly) BOOL isEnabled;
 
