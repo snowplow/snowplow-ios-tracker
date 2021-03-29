@@ -37,7 +37,9 @@
 
 /*!
  @brief The builder for SPEmitter.
+ @deprecated It will be removed in the next major version, please use `Snowplow` class methods.
  */
+DEPRECATED_ATTRIBUTE
 NS_SWIFT_NAME(EmitterBuilder)
 @protocol SPEmitterBuilder <NSObject>
 
@@ -45,82 +47,87 @@ NS_SWIFT_NAME(EmitterBuilder)
 
 /*!
  @brief Emitter builder method to set the collector endpoint.
-
  @param urlEndpoint The collector endpoint.
+ @deprecated Use `NetworkConfiguration(String, HttpMethod)`.
  */
-- (void) setUrlEndpoint:(NSString *)urlEndpoint;
+- (void) setUrlEndpoint:(NSString *)urlEndpoint DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set HTTP method.
-
  @param method Should be SPHttpMethodGet or SPHttpMethodPost.
+ @deprecated Use `NetworkConfiguration(String, HttpMethod)`.
  */
-- (void) setHttpMethod:(SPHttpMethod)method;
+- (void) setHttpMethod:(SPHttpMethod)method DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set HTTP security.
-
  @param protocol Should be SPProtocolHttp or SPProtocolHttps.
+ @deprecated Use `NetworkConfiguration(String, HttpMethod)`.
  */
-- (void) setProtocol:(SPProtocol)protocol;
+- (void) setProtocol:(SPProtocol)protocol DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set the buffer option.
- 
  @param bufferOption the buffer option for the emitter.
+ @deprecated Use `EmitterConfiguration.bufferOption(BufferOption)`.
  */
-- (void) setBufferOption:(SPBufferOption)bufferOption;
+- (void) setBufferOption:(SPBufferOption)bufferOption DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set callbacks.
-
  @param callback Called on when events have sent.
+ @deprecated Use `EmitterConfiguration.requestCallback(RequestCallback)`.
  */
-- (void) setCallback:(id<SPRequestCallback>)callback;
+- (void) setCallback:(id<SPRequestCallback>)callback DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set emit range.
-
  @param emitRange Number of events to pull from database.
+ @deprecated Use `EmitterConfiguration.threadPoolSize(int)`.
  */
-- (void) setEmitRange:(NSInteger)emitRange;
+- (void) setEmitRange:(NSInteger)emitRange DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set thread pool size.
-
  @param emitThreadPoolSize The number of threads used by the emitter.
+ @deprecated Use `EmitterConfiguration.threadPoolSize(int)`.
  */
-- (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
+- (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set byte limit for GET requests.
  @param byteLimitGet Maximum event size for a GET request.
+ @deprecated Use `EmitterConfiguration.byteLimitGet(int)`.
  */
-- (void) setByteLimitGet:(NSInteger)byteLimitGet;
+- (void) setByteLimitGet:(NSInteger)byteLimitGet DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set byte limit for POST requests.
  @param byteLimitPost Maximum event size for a POST request.
- */
-- (void) setByteLimitPost:(NSInteger)byteLimitPost;
+ @deprecated Use `EmitterConfiguration.byteLimitPost(int)`.
+x\ */
+- (void) setByteLimitPost:(NSInteger)byteLimitPost DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set a custom POST path.
  @param customPath A custom path that is used on the endpoint to send requests.
+ @deprecated Use `NetworkConfiguration.customPostPath(String)`.
  */
-- (void) setCustomPostPath:(NSString *)customPath;
+- (void) setCustomPostPath:(NSString *)customPath DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set SPNetworkConnection component.
  @param networkConnection The component in charge for sending events to the collector.
+ @deprecated Use `NetworkConfiguration(NetworkConnection)`.
  */
-- (void) setNetworkConnection:(id<SPNetworkConnection>)networkConnection;
+- (void) setNetworkConnection:(id<SPNetworkConnection>)networkConnection DEPRECATED_ATTRIBUTE;
 
 /*!
  @brief Emitter builder method to set SPEventStore component.
  @param eventStore The component in charge for persisting events before sending.
+ @deprecated Use `EmitterConfiguration.eventStore(EventStore)`.
  */
-- (void) setEventStore:(id<SPEventStore>)eventStore;
+- (void) setEventStore:(id<SPEventStore>)eventStore DEPRECATED_ATTRIBUTE;
 
 @end
 

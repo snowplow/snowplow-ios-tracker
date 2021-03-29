@@ -37,18 +37,62 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(TrackerController)
 @protocol SPTrackerController <SPTrackerConfigurationProtocol>
 
+/** Version of the tracker. */
 @property (readonly, nonatomic) NSString *version;
+/**
+ * Whether the tracker is running and able to collect/send events.
+ * See `pause()` and `resume()`.
+ */
 @property (readonly, nonatomic) BOOL isTracking;
+/**
+ * Namespace of the tracker.
+ * It is used to identify the tracker among multiple trackers running in the same app.
+ */
 @property (readonly, nonatomic) NSString *namespace;
 
+/**
+ * SessionController.
+ * @apiNote Don't retain the reference. It may change on tracker reconfiguration.
+ */
 @property (readonly, nonatomic, nullable) id<SPSessionController> session;
+/**
+ * NetworkController.
+ * @apiNote Don't retain the reference. It may change on tracker reconfiguration.
+ */
 @property (readonly, nonatomic, nullable) id<SPNetworkController> network;
+/**
+ * EmitterController.
+ * @apiNote Don't retain the reference. It may change on tracker reconfiguration.
+ */
 @property (readonly, nonatomic) id<SPEmitterController> emitter;
+/**
+ * GdprController.
+ * @apiNote Don't retain the reference. It may change on tracker reconfiguration.
+ */
 @property (readonly, nonatomic) id<SPGDPRController> gdpr;
+/**
+ * GlobalContextsController.
+ * @apiNote Don't retain the reference. It may change on tracker reconfiguration.
+ */
 @property (readonly, nonatomic) id<SPGlobalContextsController> globalContexts;
 
+/**
+ * Track the event.
+ * The tracker will take care to process and send the event assigning `event_id` and `device_timestamp`.
+ * @param event The event to track.
+ */
 - (void)track:(SPEvent *)event;
+/**
+ * Pause the tracker.
+ * The tracker will stop any new activity tracking but it will continue to send remaining events
+ * already tracked but not sent yet.
+ * Calling a track method will not have any effect and event tracked will be lost.
+ */
 - (void)pause;
+/**
+ * Resume the tracker.
+ * The tracker will start tracking again.
+ */
 - (void)resume;
 
 @end

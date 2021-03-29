@@ -31,11 +31,25 @@ NS_SWIFT_NAME(GlobalContextsConfigurationProtocol)
 
 @property NSMutableDictionary<NSString *, SPGlobalContext *> *contextGenerators;
 
+/**
+ * Add a GlobalContext generator to the configuration of the tracker.
+ * @param tag The label identifying the generator in the tracker.
+ * @param generator The GlobalContext generator.
+ * @return Whether the adding operation has succeeded.
+ */
 - (BOOL)addWithTag:(NSString *)tag contextGenerator:(SPGlobalContext *)generator NS_SWIFT_NAME(add(tag:contextGenerator:));
+/**
+ * Remove a GlobalContext generator from the configuration of the tracker.
+ * @param tag The label identifying the generator in the tracker.
+ * @return Whether the removing operation has succeded.
+ */
 - (nullable SPGlobalContext *)removeWithTag:(NSString *)tag NS_SWIFT_NAME(remove(tag:));
 
 @end
 
+/**
+ * This class allows the setup of Global Contexts which are attached to selected events.
+ */
 NS_SWIFT_NAME(GlobalContextsConfiguration)
 @interface SPGlobalContextsConfiguration : SPConfiguration <SPGlobalContextsConfigurationProtocol>
 
