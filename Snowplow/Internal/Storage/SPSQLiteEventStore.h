@@ -30,7 +30,17 @@
 NS_SWIFT_NAME(SQLiteEventStore)
 @interface SPSQLiteEventStore :NSObject <SPEventStore>
 
-+ (NSArray<NSString *> *)removeUnsentEventsExceptForNamespaces:(NSArray<NSString *> *)allowedNamespace;
+/**
+ * IMPORTANT: This method is for internal use only. It's signature and behaviour might change in any
+ * future tracker release.
+ *
+ * Clears all the EventStores not associated at any of the namespaces passed as parameter.
+ *
+ * @param allowedNamespaces The namespace allowed. All the EventStores not associated at any of
+ *                          the allowedNamespaces will be cleared.
+ * @return The list of namespaces that have been found with EventStores and have been cleared out.
+ */
++ (NSArray<NSString *> *)removeUnsentEventsExceptForNamespaces:(NSArray<NSString *> *)allowedNamespaces;
 
 - (instancetype)init NS_UNAVAILABLE;
 

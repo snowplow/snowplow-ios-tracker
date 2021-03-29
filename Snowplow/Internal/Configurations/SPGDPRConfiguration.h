@@ -39,16 +39,30 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(GDPRConfigurationProtocol)
 @protocol SPGDPRConfigurationProtocol
 
+/** Basis for processing. */
 @property (nonatomic, readonly) SPGdprProcessingBasis basisForProcessing;
+/** ID of a GDPR basis document. */
 @property (nonatomic, readonly, nullable) NSString *documentId;
+/** Version of the document. */
 @property (nonatomic, readonly, nullable) NSString *documentVersion;
+/** Description of the document. */
 @property (nonatomic, readonly, nullable) NSString *documentDescription;
 
 @end
 
+/**
+ * This class allows the GDPR configuration of the tracker.
+ */
 NS_SWIFT_NAME(GDPRConfiguration)
 @interface SPGDPRConfiguration : SPConfiguration <SPGDPRConfigurationProtocol>
 
+/**
+ * Enables GDPR context to be sent with each event.
+ * @param basisForProcessing GDPR Basis for processing.
+ * @param documentId ID of a GDPR basis document.
+ * @param documentVersion Version of the document.
+ * @param documentDescription Description of the document.
+ */
 - (instancetype)initWithBasis:(SPGdprProcessingBasis)basisForProcessing
                    documentId:(nullable NSString *)documentId
               documentVersion:(nullable NSString *)documentVersion

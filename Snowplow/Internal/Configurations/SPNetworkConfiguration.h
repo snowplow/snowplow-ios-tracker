@@ -26,14 +26,37 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ * Represents the network communication configuration
+ * allowing the tracker to be able to send events to the Snowplow collector.
+ */
 NS_SWIFT_NAME(NetworkConfiguration)
 @interface SPNetworkConfiguration : SPConfiguration
 
+/**
+ * URL (without schema/protocol) used to send events to the collector.
+ */
 @property (nonatomic, nullable, readonly) NSString *endpoint;
+
+/**
+ * Method used to send events to the collector.
+ */
 @property (nonatomic, readonly) SPHttpMethod method;
+
+/**
+ * Protocol used to send events to the collector.
+ */
 @property (nonatomic, readonly) SPProtocol protocol;
 
+/**
+ * See `NetworkConfiguration(NetworkConnection)`
+ */
 @property (nonatomic, nullable) id<SPNetworkConnection> networkConnection;
+
+/**
+ * A custom path which will be added to the endpoint URL to specify the
+ * complete URL of the collector when paired with the POST method.
+ */
 @property (nonatomic, nullable) NSString *customPostPath;
 // TODO: add -> @property () NSInteger timeout;
 
@@ -41,9 +64,27 @@ NS_SWIFT_NAME(NetworkConfiguration)
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
+/**
+ * @param endpoint URL of the collector that is going to receive the events tracked by the tracker.
+ *                 The URL can include the schema/protocol (e.g.: `http://collector-url.com`).
+ *                 In case the URL doesn't include the schema/protocol, the HTTPS protocol is
+ *                 automatically selected.
+ */
 - (instancetype)initWithEndpoint:(NSString *)endpoint;
+
+/**
+ * @param endpoint URL of the collector that is going to receive the events tracked by the tracker.
+ *                 The URL can include the schema/protocol (e.g.: `http://collector-url.com`).
+ *                 In case the URL doesn't include the schema/protocol, the HTTPS protocol is
+ *                 automatically selected.
+ * @param method The method used to send the requests (GET or POST).
+ */
 - (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method;
 
+/**
+ * @param networkConnection The NetworkConnection component which will control the
+ *                          communication between the tracker and the collector.
+ */
 - (instancetype)initWithNetworkConnection:(id<SPNetworkConnection>)networkConnection;
 
 SP_BUILDER_DECLARE_NULLABLE(NSString *, customPostPath)

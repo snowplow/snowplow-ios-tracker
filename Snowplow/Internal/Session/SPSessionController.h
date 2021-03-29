@@ -28,16 +28,49 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(SessionController)
 @protocol SPSessionController <SPSessionConfigurationProtocol>
 
+/**
+ * The session index.
+ * An increasing number which helps to order the sequence of sessions.
+ */
 @property (readonly) NSInteger sessionIndex;
+/**
+ * The session identifier.
+ * A unique identifier which is used to identify the session.
+ */
 @property (readonly) NSString *sessionId;
+/**
+ * The session user identifier.
+ * It identifies this app installation and it doesn't change for the life of the app.
+ * It will change only when the app is uninstalled and installed again.
+ * An app update doesn't change the value.
+ */
 @property (readonly) NSString *userId;
 
+/**
+ * Whether the app is currently in background state or in foreground state.
+ */
 @property (readonly) BOOL isInBackground;
+/**
+ * Count the number of background transitions in the current session.
+ */
 @property (readonly) NSInteger backgroundIndex;
+/**
+ * Count the number of foreground transitions in the current session.
+ */
 @property (readonly) NSInteger foregroundIndex;
 
+/**
+ * Pause the session tracking.
+ * Meanwhile the session is paused it can't expire and can't be updated.
+ */
 - (void)pause;
+/**
+ * Resume the session tracking.
+ */
 - (void)resume;
+/**
+ * Expire the current session also if the timeout is not triggered.
+ */
 - (void)startNewSession;
 
 @end

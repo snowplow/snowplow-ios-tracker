@@ -246,12 +246,11 @@ static SPTracker *_sharedInstance = nil;
         SPInstallTracker * installTracker = [[SPInstallTracker alloc] init];
         NSDate *previousTimestamp = installTracker.previousInstallTimestamp;
         [installTracker clearPreviousInstallTimestamp];
-        
-        SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
-        SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:installEvent];
         if (!installTracker.isNewInstall && previousTimestamp == nil) {
             return;
         }
+        SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
+        SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:installEvent];
         event.trueTimestamp = previousTimestamp; // it can be nil
         [self track:event];
     }

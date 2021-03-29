@@ -28,15 +28,32 @@ NS_ASSUME_NONNULL_BEGIN
 NS_SWIFT_NAME(GDPRController)
 @protocol SPGDPRController <SPGDPRConfigurationProtocol>
 
+/**
+ * Whether the recorded GDPR context is enabled and will be attached as context.
+ */
 @property (nonatomic, readonly) BOOL isEnabled;
 
+/**
+ * Reset GDPR context to be sent with each event.
+ * @param basisForProcessing GDPR Basis for processing.
+ * @param documentId ID of a GDPR basis document.
+ * @param documentVersion Version of the document.
+ * @param documentDescription Description of the document.
+ */
 - (void)resetWithBasis:(SPGdprProcessingBasis)basisForProcessing
                              documentId:(nullable NSString *)documentId
                         documentVersion:(nullable NSString *)documentVersion
                     documentDescription:(nullable NSString *)documentDescription
 NS_SWIFT_NAME(reset(basis:documentId:documentVersion:documentDescription:));
 
+/**
+ * Enable the GDPR context recorded.
+ */
 - (BOOL)enable;
+
+/**
+ * Disable the GDPR context recorded.
+ */
 - (void)disable;
 
 @end

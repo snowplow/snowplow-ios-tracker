@@ -68,7 +68,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*!
  @brief The builder for SPTracker.
+ @deprecated It will be removed in the next major version, please use Snowplow.createTracker methods.
  */
+DEPRECATED_ATTRIBUTE
 NS_SWIFT_NAME(TrackerBuilder)
 @protocol SPTrackerBuilder <NSObject>
 
@@ -81,9 +83,8 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set a subject.
-
  The subject represents a current user, and holds associated information
-
+ @deprecated Use `SubjectConfiguration`.
  @param subject An associated subject
  */
 - (void) setSubject:(nullable SPSubject *)subject;
@@ -97,6 +98,7 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set whether events will be sent Base64 encoded.
+ @deprecated Use `TrackerConfiguration` `base64Encoding(boolean)`.
 
  @param base64Encoded Whether events are Base64 encoded
  */
@@ -111,6 +113,7 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set the device platform the tracker is running on
+ @deprecated Use `TrackerConfiguration` `devicePlatform(DevicePlatform)`.
 
  @param devicePlatform The SPDevicePlatform enum indicating the current platform.
  */
@@ -118,6 +121,7 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set the log level desired for logging.
+ @deprecated Use `TrackerConfiguration` `logLevel(LogLevel)`.
 
  @param logLevel The SPLogLevel enum indicating the current log level.
  */
@@ -125,6 +129,7 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set the delegate for log messages tracker's generated.
+ @deprecated Use `TrackerConfiguration` `loggerDelegate(LoggerDelegate)`.
 
  @param delegate The logger delegate that received logs from the tracker.
 */
@@ -132,6 +137,7 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set whether events will include session context
+ @deprecated Use `TrackerConfiguration` `sessionContext(boolean)`.
 
  @param sessionContext Whether session context is enabled.
  */
@@ -153,20 +159,22 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set whether events will include application context.
-
+ @deprecated Use `TrackerConfiguration` `applicationContext(boolean)`.
  @param applicationContext Whether application context is enabled.
  */
 - (void) setApplicationContext:(BOOL)applicationContext;
 
 /*!
  @brief Tracker builder method to set whether screen contexts will be added to all events.
- 
+ @deprecated Use `TrackerConfiguration` `screenContext(boolean)`.
+
  @param screenContext Whether screen contexts are enabled.
  */
 - (void) setScreenContext:(BOOL)screenContext;
 
 /*!
  @brief Tracker builder method to set whether foreground and background events are sent on app suspend and resume.
+ @deprecated Use `TrackerConfiguration` `lifecycleAutotracking(boolean)`.
 
  @param lifecycleEvents Whether foreground and background events are enabled.
  */
@@ -174,13 +182,15 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set whether exceptions should be autotracked.
- 
+ @deprecated Use `TrackerConfiguration` `exceptionAutotracking(boolean)`.
+
  @param exceptionEvents Whether to autotrack exceptions.
  */
 - (void) setExceptionEvents:(BOOL)exceptionEvents;
 
 /*!
  @brief Tracker builder method to set whether screenviews will be autotracked.
+ @deprecated Use `TrackerConfiguration` `screenViewAutotracking(boolean)`.
 
  @param autotrackScreenViews Whether to autotrack screenviews.
  */
@@ -188,14 +198,16 @@ NS_SWIFT_NAME(TrackerBuilder)
 
 /*!
  @brief Tracker builder method to set whether application install should be autotracked.
- 
+ @deprecated Use `TrackerConfiguration` `installAutotracking(boolean)`.
+
  @param installEvent Whether to autotrack application installs.
  */
 - (void) setInstallEvent:(BOOL)installEvent;
 
 /*!
  @brief Tracker builder method to set whether tracker should send tracker diagnostic events.
- 
+ @deprecated Use `TrackerConfiguration` `diagnosticAutotracking(boolean)`.
+
  @param trackerDiagnostic Whether to enable tracker diagnostic.
  */
 - (void) setTrackerDiagnostic:(BOOL)trackerDiagnostic;
@@ -351,6 +363,7 @@ NS_SWIFT_NAME(Tracker)
  @param documentId ID of a GDPR basis document.
  @param documentVersion Version of the document.
  @param documentDescription Description of the document.
+ @deprecated Use `GdprConfiguration` or `GdprController`.
  */
 - (void)enableGdprContextWithBasis:(SPGdprProcessingBasis)basisForProcessing
                         documentId:(nullable NSString *)documentId
@@ -358,9 +371,11 @@ NS_SWIFT_NAME(Tracker)
                documentDescription:(nullable NSString *)documentDescription;
 
 /// Disable GDPR context.
+/// @deprecated Use `GdprConfiguration` or `GdprController`.
 - (void)disableGdprContext;
 
 /// Return GDPR context
+/// @deprecated Use `GdprConfiguration` or `GdprController`.
 - (nullable SPGdprContext *)gdprContext;
 
 #pragma mark - Events tracking methods
