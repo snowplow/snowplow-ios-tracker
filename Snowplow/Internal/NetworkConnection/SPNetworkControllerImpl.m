@@ -58,14 +58,6 @@
     return [self.emitter httpMethod];
 }
 
-- (void)setProtocol:(SPProtocol)protocol {
-    [self.emitter setProtocol:protocol];
-}
-
-- (SPProtocol)protocol {
-    return [self.emitter protocol];
-}
-
 - (void)setCustomPostPath:(NSString *)customPostPath {
     [self.emitter setCustomPostPath:customPostPath];
 }

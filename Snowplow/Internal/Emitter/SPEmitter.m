@@ -97,10 +97,15 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     _networkConnection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         __typeof__(self) strongSelf = weakSelf;
         if (!strongSelf) return;
-        [builder setHttpMethod:strongSelf->_httpMethod];
-        [builder setProtocol:strongSelf->_protocol];
-        [builder setUrlEndpoint:strongSelf->_url];
+        NSString *endpoint = strongSelf->_url;
+        NSURL *url = [[NSURL alloc] initWithString:endpoint];
+        if (![endpoint hasPrefix:@"http"]) {
+            NSString *protocol = strongSelf->_protocol == SPProtocolHttps ? @"https://" : @"http://";
+            endpoint = [protocol stringByAppendingString:endpoint];
+        }
+        [builder setUrlEndpoint:endpoint];
         [builder setCustomPostPath:strongSelf->_customPostPath];
+        [builder setHttpMethod:strongSelf->_httpMethod];
         [builder setRequestHeaders:strongSelf->_requestHeaders];
         [builder setEmitThreadPoolSize:strongSelf->_emitThreadPoolSize];
         [builder setByteLimitGet:strongSelf->_byteLimitGet];

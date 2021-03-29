@@ -41,12 +41,6 @@ NS_SWIFT_NAME(DefaultNetworkConnectionBuilder)
 - (void) setHttpMethod:(SPHttpMethod)method;
 
 /*!
- @brief Builder method to set HTTP security.
- @param protocol Should be SPProtocolHttp or SPProtocolHttps.
- */
-- (void) setProtocol:(SPProtocol)protocol;
-
-/*!
  @brief Builder method to set thread pool size.
  @param emitThreadPoolSize The number of threads used by the emitter.
  */

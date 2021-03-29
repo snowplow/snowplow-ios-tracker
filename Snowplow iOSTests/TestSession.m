@@ -267,7 +267,9 @@
 }
 
 - (void)testMultipleTrackersUpdateDifferentSessions {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {}];
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:@""];
+    }];
     SPTracker *tracker1 = [SPTracker build:^(id<SPTrackerBuilder>  _Nonnull builder) {
         [builder setTrackerNamespace:@"tracker1"];
         [builder setEmitter:emitter];
