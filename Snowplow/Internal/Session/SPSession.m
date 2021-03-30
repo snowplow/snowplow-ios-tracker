@@ -25,6 +25,7 @@
 #import "SPUtilities.h"
 #import "SPWeakTimerTarget.h"
 #import "SPTracker.h"
+#import "SPLogger.h"
 
 #import "SPBackground.h"
 #import "SPForeground.h"
@@ -38,6 +39,7 @@
 @property (atomic) NSNumber *lastSessionCheck;
 @property (weak) SPTracker *tracker;
 @property (nonatomic) NSString *sessionFilename;
+@property (nonatomic) NSURL *sessionFileUrl;
 
 @end
 
@@ -89,7 +91,19 @@ NSString * const kFilenameExt = @"dict";
             NSString *suffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
             self.sessionFilename = [NSString stringWithFormat:@"%@_%@.%@", kFilenamePrefix, suffix, kFilenameExt];
         }
-
+        
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSURL *url = [fm URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
+        url = [url URLByAppendingPathComponent:@"snowplow"];
+        NSError *error = nil;
+        BOOL result = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+        if (!result) {
+            SPLogError(@"Unable to create file for sessions: %@", error.localizedDescription);
+            return NO;
+        }
+        url = [url URLByAppendingPathComponent:self.sessionFilename];
+        self.sessionFileUrl = url;
+        
         NSDictionary * storedSessionDict = [self getSessionFromFile];
         if (storedSessionDict) {
             _userId = [storedSessionDict valueForKey:kSPSessionUserId];
@@ -198,36 +212,37 @@ NSString * const kFilenameExt = @"dict";
 // MARK: - Private
 
 - (BOOL) writeSessionToFile {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSError *error = nil;
+    NSMutableDictionary *sessionDict = [_sessionDict mutableCopy];
+    [sessionDict removeObjectForKey:kSPSessionPreviousId];
+    [sessionDict removeObjectForKey:kSPSessionStorage];
+    
     BOOL result = NO;
-    if ([paths count] > 0) {
-        NSString *savePath = [[paths lastObject] stringByAppendingPathComponent:self.sessionFilename];
-        NSMutableDictionary *sessionDict = [_sessionDict mutableCopy];
-        [sessionDict removeObjectForKey:kSPSessionPreviousId];
-        [sessionDict removeObjectForKey:kSPSessionStorage];
-        result = [sessionDict writeToFile:savePath atomically:YES];
+    if (@available(iOS 11.0, macOS 10.13, watchOS 4.0, *)) {
+        result = [sessionDict writeToURL:self.sessionFileUrl error:&error];
+    } else {
+        result = [sessionDict writeToURL:self.sessionFileUrl atomically:YES];
     }
-    return result;
+    if (!result) {
+        SPLogError(@"Unable to write file for sessions: %@", error.localizedDescription ?: @"-");
+        return NO;
+    }
+    return YES;
 }
 
 - (NSDictionary *) getSessionFromFile {
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSDictionary *sessionDict = nil;
-    if ([paths count] > 0) {
-        NSString * readPath = [[paths lastObject] stringByAppendingPathComponent:self.sessionFilename];
-        sessionDict = [NSDictionary dictionaryWithContentsOfFile:readPath];
+    sessionDict = [NSDictionary dictionaryWithContentsOfURL:self.sessionFileUrl];
+    if (sessionDict) {
+        return sessionDict;
+    }
+    // Load legacy stored session (tracker v.1.x)
+    @synchronized (SPSession.class) {
+        sessionDict = [NSDictionary dictionaryWithContentsOfURL:self.sessionFileUrl];
         if (!sessionDict) {
-            @synchronized (SPSession.class) {
-                sessionDict = [NSDictionary dictionaryWithContentsOfFile:readPath];
-                if (!sessionDict) {
-                    readPath = [[paths lastObject] stringByAppendingPathComponent:kLegacyFilename];
-                    sessionDict = [NSDictionary dictionaryWithContentsOfFile:readPath];
-                    if (sessionDict) {
-                        [self writeSessionToFile];
-                        [[NSFileManager defaultManager] removeItemAtPath:readPath error:nil];
-                    }
-                }
-            }
+            NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
+            path = [path stringByAppendingPathComponent:kLegacyFilename];
+            sessionDict = [NSDictionary dictionaryWithContentsOfFile:path];
         }
     }
     return sessionDict;
