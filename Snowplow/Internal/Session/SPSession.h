@@ -147,4 +147,10 @@ NS_SWIFT_NAME(Session)
  */
 - (NSString*) getSessionId;
 
+/**
+ * Returns the current session's id
+ * @return the previous session's id
+ */
+- (NSString*) getPreviousSessionId;
+
 @end
