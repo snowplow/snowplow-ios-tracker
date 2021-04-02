@@ -29,17 +29,13 @@ NS_SWIFT_NAME(NetworkController)
 @protocol SPNetworkController
 
 /**
- * URL (without schema/protocol) used to send events to the collector.
+ * URL used to send events to the collector.
  */
 @property (nonatomic, nullable) NSString *endpoint;
 /**
  * Method used to send events to the collector.
  */
 @property (nonatomic) SPHttpMethod method;
-/**
- * Protocol used to send events to the collector.
- */
-@property (nonatomic) SPProtocol protocol;
 
 /**
  * A custom path which will be added to the endpoint URL to specify the

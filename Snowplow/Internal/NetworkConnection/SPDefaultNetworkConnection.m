@@ -65,27 +65,37 @@
 }
 
 - (void) setup {
-    _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
+    // Decode url to extract protocol
+    NSURL *url = [[NSURL alloc] initWithString:_urlString];
+    NSString *endpoint = _urlString;
+    if ([url.scheme isEqualToString:@"https"]) {
+        _protocol = SPProtocolHttps;
+    } else if ([url.scheme isEqualToString:@"http"]) {
+        _protocol = SPProtocolHttp;
+    } else {
+        _protocol = SPProtocolHttps;
+        endpoint = [NSString stringWithFormat:@"https://%@", _urlString];
+    }
+    
+    // Configure
     NSString *urlPrefix = _protocol == SPProtocolHttp ? @"http://" : @"https://";
     NSString *urlSuffix = _httpMethod == SPHttpMethodGet ? kSPEndpointGet : kSPEndpointPost;
     if (_customPostPath && _httpMethod == SPHttpMethodPost) {
         urlSuffix = _customPostPath;
     }
-    _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@%@", urlPrefix, _urlString, urlSuffix]];
+    _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", endpoint, urlSuffix]];
     
+    // Log
     if ([_urlEndpoint scheme] && [_urlEndpoint host]) {
         SPLogDebug(@"Emitter URL created successfully '%@'", _urlEndpoint);
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:_urlString forKey:kSPErrorTrackerUrl];
-        [userDefaults setObject:urlSuffix forKey:kSPErrorTrackerProtocol];
-        [userDefaults setObject:urlPrefix forKey:kSPErrorTrackerMethod];
     } else {
         SPLogDebug(@"Invalid emitter URL: '%@'", _urlEndpoint);
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:@"acme.com" forKey:kSPErrorTrackerUrl];
-        [userDefaults setObject:kSPEndpointPost forKey:kSPErrorTrackerProtocol];
-        [userDefaults setObject:@"http://" forKey:kSPErrorTrackerMethod];
     }
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:endpoint forKey:kSPErrorTrackerUrl];
+    [userDefaults setObject:urlSuffix forKey:kSPErrorTrackerProtocol];
+    [userDefaults setObject:urlPrefix forKey:kSPErrorTrackerMethod];
+    
     _builderFinished = YES;
 }
 
@@ -100,13 +110,6 @@
 
 - (void)setHttpMethod:(SPHttpMethod)method {
     _httpMethod = method;
-    if (_builderFinished && _urlEndpoint != nil) {
-        [self setup];
-    }
-}
-
-- (void)setProtocol:(SPProtocol)protocol {
-    _protocol = protocol;
     if (_builderFinished && _urlEndpoint != nil) {
         [self setup];
     }

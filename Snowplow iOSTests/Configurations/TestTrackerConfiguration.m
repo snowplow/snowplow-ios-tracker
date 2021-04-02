@@ -34,7 +34,7 @@
 
 - (void)testNetworkConfiguration_EmptyEndpoint_Fails {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"" method:SPHttpMethodPost];
-    XCTAssertEqualObjects(@"", networkConfig.endpoint);
+    XCTAssertEqualObjects(@"https://", networkConfig.endpoint);
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodPost, networkConfig.method);
     
@@ -45,7 +45,7 @@
 
 - (void)testNetworkConfiguration_EndpointWithoutProtocol_SuccessWithHttps {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url.com" method:SPHttpMethodGet];
-    XCTAssertEqualObjects(@"fake-url.com", networkConfig.endpoint);
+    XCTAssertEqualObjects(@"https://fake-url.com", networkConfig.endpoint);
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
@@ -56,7 +56,7 @@
 
 - (void)testNetworkConfiguration_EndpointWithHttpsProtocol_SuccessWithHttps {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url.com" method:SPHttpMethodGet];
-    XCTAssertEqualObjects(@"fake-url.com", networkConfig.endpoint);
+    XCTAssertEqualObjects(@"https://fake-url.com", networkConfig.endpoint);
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
@@ -67,7 +67,7 @@
 
 - (void)testNetworkConfiguration_EndpointWithHttpProtocol_SuccessWithHttps {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"http://fake-url.com" method:SPHttpMethodGet];
-    XCTAssertEqualObjects(@"fake-url.com", networkConfig.endpoint);
+    XCTAssertEqualObjects(@"http://fake-url.com", networkConfig.endpoint);
     XCTAssertEqual(SPProtocolHttp, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
@@ -78,7 +78,7 @@
 
 - (void)testNetworkConfiguration_EndpointWithWrongProtocol_UseItAsEndpoint {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"wrong://fake-url.com" method:SPHttpMethodGet];
-    XCTAssertEqualObjects(@"wrong://fake-url.com", networkConfig.endpoint);
+    XCTAssertEqualObjects(@"https://wrong://fake-url.com", networkConfig.endpoint);
     XCTAssertEqual(SPProtocolHttps, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
@@ -89,7 +89,7 @@
 
 - (void)testNetworkConfiguration_EndpointWithOnlyProtocol_UseItAsEndpoint {
     SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"http://" method:SPHttpMethodGet];
-    XCTAssertEqualObjects(@"", networkConfig.endpoint);
+    XCTAssertEqualObjects(@"http://", networkConfig.endpoint);
     XCTAssertEqual(SPProtocolHttp, networkConfig.protocol);
     XCTAssertEqual(SPHttpMethodGet, networkConfig.method);
     
@@ -110,10 +110,11 @@
     XCTAssertNotNil(url);
     NSString *host = url.host;
     NSString *scheme = url.scheme;
+    NSString *derivedEndpoint = [NSString stringWithFormat:@"%@://%@", scheme, host];
 
     NSString *protocol = networkConfig.protocol == SPProtocolHttp ? @"http" : networkConfig.protocol == SPProtocolHttps ? @"https" : nil;
     
-    XCTAssertEqualObjects(networkConfig.endpoint, host);
+    XCTAssertEqualObjects(networkConfig.endpoint, derivedEndpoint);
     XCTAssertEqualObjects(protocol, scheme);
     
     XCTAssertEqual(trackerConfig.appId, tracker.appId);

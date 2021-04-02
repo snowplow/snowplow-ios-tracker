@@ -52,7 +52,6 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPProtocolHttps];
         [builder setHttpMethod:SPHttpMethodGet];
     }];
     
@@ -72,7 +71,6 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPProtocolHttps];
         [builder setHttpMethod:SPHttpMethodGet];
     }];
     
@@ -92,7 +90,6 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPProtocolHttps];
         [builder setHttpMethod:SPHttpMethodPost];
     }];
     
@@ -112,7 +109,6 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     
     SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         [builder setUrlEndpoint:TEST_URL_ENDPOINT];
-        [builder setProtocol:SPProtocolHttps];
         [builder setHttpMethod:SPHttpMethodPost];
     }];
     
@@ -125,6 +121,30 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     SPRequestResult *result = [results objectAtIndex:0];
     XCTAssertFalse(result.isSuccessful);
     XCTAssertEqualObjects(@1, [result.storeIds objectAtIndex:0]);
+}
+
+- (void)testFreeEndpoint_GetHttpsUrl {
+    SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
+        [builder setUrlEndpoint:@"acme.test.url.com"];
+        [builder setHttpMethod:SPHttpMethodPost];
+    }];
+    XCTAssertTrue([connection.url.absoluteString hasPrefix:@"https://acme.test.url.com"]);
+}
+
+- (void)testHttpsEndpoint_GetHttpsUrl {
+    SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
+        [builder setUrlEndpoint:@"https://acme.test.url.com"];
+        [builder setHttpMethod:SPHttpMethodPost];
+    }];
+    XCTAssertTrue([connection.url.absoluteString hasPrefix:@"https://acme.test.url.com"]);
+}
+
+- (void)testHttpEndpoint_GetHttpUrl {
+    SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
+        [builder setUrlEndpoint:@"http://acme.test.url.com"];
+        [builder setHttpMethod:SPHttpMethodPost];
+    }];
+    XCTAssertTrue([connection.url.absoluteString hasPrefix:@"http://acme.test.url.com"]);
 }
 
 @end

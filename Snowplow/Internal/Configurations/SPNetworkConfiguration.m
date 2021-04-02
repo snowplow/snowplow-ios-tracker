@@ -40,13 +40,13 @@
         NSURL *url = [[NSURL alloc] initWithString:endpoint];
         if ([url.scheme isEqualToString:@"https"]) {
             self.protocol = SPProtocolHttps;
-            self.endpoint = [endpoint substringFromIndex:8];
+            self.endpoint = endpoint;
         } else if ([url.scheme isEqualToString:@"http"]) {
             self.protocol = SPProtocolHttp;
-            self.endpoint = [endpoint substringFromIndex:7];
+            self.endpoint = endpoint;
         } else {
             self.protocol = SPProtocolHttps;
-            self.endpoint = endpoint;
+            self.endpoint = [NSString stringWithFormat:@"https://%@", endpoint];
         }
         self.method = method;
         self.networkConnection = nil;
