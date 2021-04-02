@@ -47,6 +47,11 @@ NS_SWIFT_NAME(NetworkController)
  */
 @property (nonatomic, nullable) NSString *customPostPath;
 
+/**
+ * Custom headers for http requests.
+ */
+@property (nonatomic, nullable) NSDictionary<NSString *, NSString *> *requestHeaders;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -33,6 +33,7 @@
 @implementation SPNetworkConfiguration
 
 @synthesize customPostPath;
+@synthesize requestHeaders;
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method {
     if (self = [super init]) {
@@ -72,6 +73,7 @@
 // MARK: - Builder
 
 SP_BUILDER_METHOD(NSString *, customPostPath)
+SP_BUILDER_METHOD(NSDictionary *, requestHeaders)
 
 // MARK: - NSCopying
 
@@ -79,7 +81,6 @@ SP_BUILDER_METHOD(NSString *, customPostPath)
     SPNetworkConfiguration *copy;
     if (self.networkConnection) {
         copy = [[SPNetworkConfiguration alloc] initWithNetworkConnection:self.networkConnection];
-        
     } else {
         copy = [[SPNetworkConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint method:self.method];
     }
@@ -94,6 +95,7 @@ SP_BUILDER_METHOD(NSString *, customPostPath)
     [coder encodeInteger:self.protocol forKey:SP_STR_PROP(protocol)];
     [coder encodeInteger:self.method forKey:SP_STR_PROP(method)];
     [coder encodeObject:self.customPostPath forKey:SP_STR_PROP(customPostPath)];
+    [coder encodeObject:self.requestHeaders forKey:SP_STR_PROP(requestHeaders)];
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
@@ -102,6 +104,7 @@ SP_BUILDER_METHOD(NSString *, customPostPath)
         self.protocol = [coder decodeIntegerForKey:SP_STR_PROP(protocol)];
         self.method = [coder decodeIntegerForKey:SP_STR_PROP(method)];
         self.customPostPath = [coder decodeObjectForKey:SP_STR_PROP(customPostPath)];
+        self.requestHeaders = [coder decodeObjectForKey:SP_STR_PROP(requestHeaders)];
     }
     return self;
 }

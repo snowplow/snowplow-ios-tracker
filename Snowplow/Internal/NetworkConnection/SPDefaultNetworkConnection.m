@@ -33,6 +33,7 @@
     NSUInteger _byteLimitGet;
     NSUInteger _byteLimitPost;
     NSString *_customPostPath;
+    NSDictionary<NSString *, NSString *> *_requestHeaders;
 
     NSOperationQueue *_dataOperationQueue;
     NSURL *_urlEndpoint;
@@ -56,6 +57,7 @@
         _byteLimitGet = 40000;
         _byteLimitPost = 40000;
         _customPostPath = nil;
+        _requestHeaders = nil;
         _dataOperationQueue = [[NSOperationQueue alloc] init];
         _builderFinished = NO;
     }
@@ -129,6 +131,10 @@
     _customPostPath = customPath;
 }
 
+- (void)setRequestHeaders:(NSDictionary<NSString *,NSString *> *)requestHeadersKeyValue {
+    _requestHeaders = requestHeadersKeyValue;
+}
+
 // MARK: - Implement SPNetworkConnection protocol
 
 - (SPHttpMethod)httpMethod {
@@ -188,6 +194,7 @@
     [urlRequest setValue:[NSString stringWithFormat:@"%@", @(requestData.length).stringValue] forHTTPHeaderField:@"Content-Length"];
     [urlRequest setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
     [urlRequest setValue:kSPContentTypeHeader forHTTPHeaderField:@"Content-Type"];
+    [self applyValuesAndHeaderFields:_requestHeaders toRequest:urlRequest];
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest setHTTPBody:requestData];
     return urlRequest;
@@ -198,8 +205,15 @@
     NSString *url = [NSString stringWithFormat:@"%@?%@", _urlEndpoint.absoluteString, [SPUtilities urlEncodeDictionary:payload]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [urlRequest setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
+    [self applyValuesAndHeaderFields:_requestHeaders toRequest:urlRequest];
     [urlRequest setHTTPMethod:@"GET"];
     return urlRequest;
+}
+
+- (void)applyValuesAndHeaderFields:(NSDictionary<NSString *, NSString *> *)requestHeaders toRequest:(NSMutableURLRequest *)request {
+    [requestHeaders enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSString * _Nonnull obj, BOOL * _Nonnull stop) {
+        [request setValue:obj forHTTPHeaderField:key];
+    }];
 }
 
 @end
