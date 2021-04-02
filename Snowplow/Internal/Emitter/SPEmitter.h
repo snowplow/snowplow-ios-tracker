@@ -116,6 +116,13 @@ x\ */
 - (void) setCustomPostPath:(NSString *)customPath DEPRECATED_ATTRIBUTE;
 
 /*!
+ @brief Builder method to set request headers.
+ @param requestHeadersKeyValue custom headers (key, value) for http requests.
+ @deprecated Use `NetworkConfiguration.requestHeaders(Dictionary)`.
+ */
+- (void) setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeadersKeyValue DEPRECATED_ATTRIBUTE;
+
+/*!
  @brief Emitter builder method to set SPNetworkConnection component.
  @param networkConnection The component in charge for sending events to the collector.
  @deprecated Use `NetworkConfiguration(NetworkConnection)`.
@@ -161,6 +168,8 @@ NS_SWIFT_NAME(Emitter)
 @property (readonly, nonatomic, weak) id<SPRequestCallback> callback;
 /*! @brief Custom endpoint path for POST requests. */
 @property (readonly, nonatomic) NSString *customPostPath;
+/*! @brief Custom header requests. */
+@property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *requestHeaders;
 /*! @brief Custom NetworkConnection istance to handle connection outside the emitter. */
 @property (readonly, nonatomic) id<SPNetworkConnection> networkConnection;
 

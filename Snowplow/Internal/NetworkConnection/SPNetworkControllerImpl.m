@@ -74,4 +74,12 @@
     return [self.emitter customPostPath];
 }
 
+- (void)setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeaders {
+    [self.emitter setRequestHeaders:requestHeaders];
+}
+
+- (NSDictionary<NSString *, NSString *> *)requestHeaders {
+    return [self.emitter requestHeaders];
+}
+
 @end

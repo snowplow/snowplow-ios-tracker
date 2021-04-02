@@ -70,6 +70,12 @@ NS_SWIFT_NAME(DefaultNetworkConnectionBuilder)
  */
 - (void) setCustomPostPath:(NSString *)customPath;
 
+/*!
+ @brief Builder method to set request headers.
+ @param requestHeadersKeyValue custom headers (key, value) for http requests.
+ */
+- (void) setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeadersKeyValue;
+
 @end
 
 NS_SWIFT_NAME(DefaultNetworkConnection)
