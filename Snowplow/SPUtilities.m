@@ -31,7 +31,6 @@
 
 #if SNOWPLOW_TARGET_IOS
 
-#import "OpenIDFA.h"
 #import <UIKit/UIScreen.h>
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
@@ -86,31 +85,19 @@
     return [[NSUUID alloc] initWithUUIDString:uuidString] != nil;
 }
 
-+ (NSString *) getOpenIdfa {
-    NSString * idfa = nil;
-#if SNOWPLOW_TARGET_IOS
-#ifndef SNOWPLOW_NO_OPENIDFA
-    if (!SNOWPLOW_iOS_9_OR_LATER) {
-        idfa = [OpenIDFA sameDayOpenIDFA];
-    }
-#endif
-#endif
-    return idfa;
-}
-
 /*
  The IDFA can be retrieved using selectors rather than proper instance methods because
  the compiler would complain about the missing AdSupport framework.
  As stated in the header file, this only works if you have the AdSupport library in your project.
- If you have it, but do not want to use IDFA, add the compiler flag <code>SNOWPLOW_NO_IFA</code> to your build settings.
- If you haven't AdSupport framework in your project it just compiles returning a nil advertisingIdentifier.
+ If you have it and you want to use IDFA, add the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
+ If you haven't AdSupport framework in your project or SNOWPLOW_IDFA_ENABLED it's not set, it just compiles returning a nil advertisingIdentifier.
  
  Note that `advertisingIdentifier` returns a sequence of 0s when used in the simulator.
  Use a real device if you want a proper IDFA.
  */
 + (NSString *) getAppleIdfa {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-#ifndef SNOWPLOW_NO_IFA
+#ifdef SNOWPLOW_IDFA_ENABLED
     Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
     if (!ASIdentifierManagerClass) return nil;
 

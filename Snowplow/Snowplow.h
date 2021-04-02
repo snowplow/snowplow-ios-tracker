@@ -128,7 +128,6 @@ extern NSString * const kSPPlatformDeviceModel;
 // --- Mobile Context
 
 extern NSString * const kSPMobileCarrier;
-extern NSString * const kSPMobileOpenIdfa;
 extern NSString * const kSPMobileAppleIdfa;
 extern NSString * const kSPMobileAppleIdfv;
 extern NSString * const kSPMobileNetworkType;

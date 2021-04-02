@@ -85,46 +85,6 @@
                    @"UUID generated doesn't match the type 4 UUID RFC");
 }
 
-// TODO: Fix AppleIdfa test
-/*
-- (void)testGetAppleIdfa {
-    // The simulator running the test must have "limit ad tracking" disabled.
-    // (You can find it in the Simulator: Settings > Privacy > Advertising > Limit Ad Tracking > Set to False)
-    NSString *sample_uuid = [SPUtilities getAppleIdfa];
-    
-    // For regex pattern matching to verify if it's of UUID type 4
-    NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-    NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-    NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
-    
-    XCTAssertEqual([matches count], (NSUInteger)1,
-                   @"UUID generated doesn't match the type 4 UUID RFC");
-}
-*/
-
-- (void)testGetOpenIdfa {
-    NSString *sample_uuid = [SPUtilities getOpenIdfa];
-#if TARGET_OS_IPHONE
-    if (SNOWPLOW_iOS_9_OR_LATER) {
-        XCTAssertNil(sample_uuid);
-    } else {
-        // For regex pattern matching to verify if it's of UUID type 4
-        NSString *pattern = @"[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}";
-        NSRange searchRange = NSMakeRange(0, [sample_uuid length]);
-        NSError *error = NULL;
-        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-        NSArray *matches = [regex matchesInString:sample_uuid options:0 range:searchRange];
-        NSLog(@"UUID generated: %@", sample_uuid);
-        XCTAssertEqual([matches count], (NSUInteger)1,
-                       @"UUID generated doesn't match the type 4 UUID RFC");
-    }
-#else
-    XCTAssertNil(sample_uuid);
-#endif
-}
-
 - (void)testGetTransactionId {
     // Supressing deprecated warning only for tests
 #pragma clang diagnostic push

@@ -120,7 +120,6 @@ NSString * const kSPPlatformDeviceModel   = @"deviceModel";
 // --- Mobile Context
 
 NSString * const kSPMobileCarrier         = @"carrier";
-NSString * const kSPMobileOpenIdfa        = @"openIdfa";
 NSString * const kSPMobileAppleIdfa       = @"appleIdfa";
 NSString * const kSPMobileAppleIdfv       = @"appleIdfv";
 NSString * const kSPMobileNetworkType     = @"networkType";
