@@ -1,4 +1,8 @@
 
+Version 1.7.0 (2021-04-03)
+--------------------------
+Fix issue of OpenIDFA causing App Rejection (#575)
+
 Version 1.6.2 (2021-01-12)
 --------------------------
 Fix internal Carthage issues with Xcode 12.3 (#561)

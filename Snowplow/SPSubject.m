@@ -138,7 +138,6 @@
 
 - (void) setMobileDict {
     [_platformDict addValueToPayload:[SPUtilities getCarrierName]       forKey:kSPMobileCarrier];
-    [_platformDict addValueToPayload:[SPUtilities getOpenIdfa]          forKey:kSPMobileOpenIdfa];
     [_platformDict addValueToPayload:[SPUtilities getAppleIdfa]         forKey:kSPMobileAppleIdfa];
     [_platformDict addValueToPayload:[SPUtilities getAppleIdfv]         forKey:kSPMobileAppleIdfv];
     [_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];

@@ -29,8 +29,6 @@
 		752DAC2721CC42BC0065F874 /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		752DAC2921CC42BC0065F874 /* SPRequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResult.m */; };
 		752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
-		752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
-		752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		752DAC3221CC43C60065F874 /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		752DAC3321CC43C70065F874 /* SPTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = AB9E8210192DD336006744C9 /* SPTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		752DAC3421CC43C70065F874 /* SPEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27E9191B43D600018557 /* SPEmitter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -129,12 +127,10 @@
 		75CAC46221F2A21B00271FB3 /* SPRequestResult.h in Headers */ = {isa = PBXBuildFile; fileRef = 0413DD751B78D635000D2112 /* SPRequestResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75CAC46321F2A21B00271FB3 /* SPWeakTimerTarget.h in Headers */ = {isa = PBXBuildFile; fileRef = 044CA88B1B94791E000EA3B1 /* SPWeakTimerTarget.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		75CAC46621F2A22500271FB3 /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75CAC46921F2A25B00271FB3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB0C27C0191B408200018557 /* Foundation.framework */; };
 		75F9C5D121FA2E8B00A5B8FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB67D8C192D9552009A1ECE /* UIKit.framework */; };
 		75F9C5D221FA2E9F00A5B8FC /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AB9E8213192DEC38006744C9 /* CoreTelephony.framework */; };
 		75F9C5D321FA352800A5B8FC /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
-		75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */ = {isa = PBXBuildFile; fileRef = AB39617119530E850002F235 /* OpenIDFA.m */; };
 		75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */ = {isa = PBXBuildFile; fileRef = 043EC5E61B8F224900294081 /* Snowplow.m */; };
 		75F9C5D721FA357100A5B8FC /* SPTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = AB9E8211192DD336006744C9 /* SPTracker.m */; };
 		75F9C5D821FA357100A5B8FC /* SPEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0C27EA191B43D600018557 /* SPEmitter.m */; };
@@ -146,7 +142,6 @@
 		75F9C5DE21FA357100A5B8FC /* SPUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = ABFCC3751922984A00FAE8FE /* SPUtilities.m */; };
 		75F9C5DF21FA357100A5B8FC /* SPRequestResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413DD761B78D643000D2112 /* SPRequestResult.m */; };
 		75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */ = {isa = PBXBuildFile; fileRef = 044CA88C1B94792B000EA3B1 /* SPWeakTimerTarget.m */; };
-		75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */ = {isa = PBXBuildFile; fileRef = AB39617019530E850002F235 /* OpenIDFA.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		75F9C5E521FA35BC00A5B8FC /* Snowplow-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 75D6061E21C9CA8A00C7B016 /* Snowplow-Bridging-Header.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5E621FA35BC00A5B8FC /* Snowplow.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0C27C5191B408200018557 /* Snowplow.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		75F9C5E721FA35BC00A5B8FC /* SPTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = AB9E8210192DD336006744C9 /* SPTracker.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -512,8 +507,6 @@
 		AB0C27EA191B43D600018557 /* SPEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEmitter.m; sourceTree = "<group>"; };
 		AB0C27F3191C67CD00018557 /* SPPayload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPPayload.h; sourceTree = "<group>"; };
 		AB0C27F4191C67CD00018557 /* SPPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPPayload.m; sourceTree = "<group>"; };
-		AB39617019530E850002F235 /* OpenIDFA.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenIDFA.h; sourceTree = "<group>"; };
-		AB39617119530E850002F235 /* OpenIDFA.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenIDFA.m; sourceTree = "<group>"; };
 		AB9E8210192DD336006744C9 /* SPTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPTracker.h; sourceTree = "<group>"; };
 		AB9E8211192DD336006744C9 /* SPTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPTracker.m; sourceTree = "<group>"; };
 		AB9E8213192DEC38006744C9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -851,8 +844,6 @@
 				ED6AC5152369D42800A8F8A3 /* ios.modulemap */,
 				B3D9BE0F237ACE0D009B310A /* watchos.modulemap */,
 				AB0C27C4191B408200018557 /* Snowplow-Prefix.pch */,
-				AB39617019530E850002F235 /* OpenIDFA.h */,
-				AB39617119530E850002F235 /* OpenIDFA.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -908,7 +899,6 @@
 				CE4F9CCA244B066500968CFC /* SPGlobalContext.h in Headers */,
 				CE4F9CD6244B066500968CFC /* SPScreenView.h in Headers */,
 				752DAC4221CC60F20065F874 /* Snowplow-Bridging-Header.h in Headers */,
-				752DAC3121CC43C60065F874 /* OpenIDFA.h in Headers */,
 				CE4F9C9A244B066500968CFC /* SPEvent.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
 				752DAC3B21CC43C70065F874 /* SPRequestResult.h in Headers */,
@@ -958,7 +948,6 @@
 				CE4F9D13244B066500968CFC /* SPBackground.h in Headers */,
 				75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */,
 				CE4F9CAB244B066500968CFC /* SPTrackerEvent.h in Headers */,
-				75CAC46621F2A22500271FB3 /* OpenIDFA.h in Headers */,
 				EDD8540D24EE786900661F6B /* SPEventStore.h in Headers */,
 				CE4F9D07244B066500968CFC /* SPSchemaRuleset.h in Headers */,
 				75CAC45D21F2A21B00271FB3 /* SPSession.h in Headers */,
@@ -1065,7 +1054,6 @@
 				7534D20422569BFF00904EE5 /* SPScreenState.h in Headers */,
 				EDD8543724EFFFB300661F6B /* SPRequest.h in Headers */,
 				75F9C5F221FA35BC00A5B8FC /* SPRequestCallback.h in Headers */,
-				75F9C5E421FA35BC00A5B8FC /* OpenIDFA.h in Headers */,
 				CE4F9CCD244B066500968CFC /* SPGlobalContext.h in Headers */,
 				CE4F9CD9244B066500968CFC /* SPScreenView.h in Headers */,
 				7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */,
@@ -1321,7 +1309,6 @@
 				754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				CE4F9CDA244B066500968CFC /* SPPageView.m in Sources */,
 				CE4F9C96244B066500968CFC /* SPEcommerceItem.m in Sources */,
-				752DAC3021CC431C0065F874 /* OpenIDFA.m in Sources */,
 				752DAC1721CC42BC0065F874 /* Snowplow.m in Sources */,
 				CE4F9C92244B066500968CFC /* SPForeground.m in Sources */,
 				ED91CB7123AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
@@ -1506,7 +1493,6 @@
 				EDEE836124BE0944000B8530 /* SPLogger.m in Sources */,
 				CE4F9CE1244B066500968CFC /* SPStructured.m in Sources */,
 				ED914EC124325AB40068DA0A /* SPGdprContext.m in Sources */,
-				75F9C5D521FA357100A5B8FC /* OpenIDFA.m in Sources */,
 				EDD8543B24EFFFB300661F6B /* SPRequest.m in Sources */,
 				CE4F9CC5244B066500968CFC /* SPConsentGranted.m in Sources */,
 				75F9C5D621FA357100A5B8FC /* Snowplow.m in Sources */,

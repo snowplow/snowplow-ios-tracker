@@ -83,14 +83,7 @@
 + (bool ) isUUIDString:(NSString *)uuidString;
 
 /*!
- @brief Returns a generated string unique to each device, used only for serving advertisements. This is similar to the native advertisingIdentifier supplied by Apple. If you do not want to use OpenIDFA, add the compiler flag <code>SNOWPLOW_NO_OPENIDFA</code> to your build settings.
-
- @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
- */
-+ (NSString *) getOpenIdfa;
-
-/*!
- @brief Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project. If you have it, but do not want to use IDFA, add the compiler flag <code>SNOWPLOW_NO_IFA</code> to your build settings.
+ @brief Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project and you enable the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
 
  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */

@@ -27,13 +27,13 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-1.6.2";
+NSString * const kSPVersion               = @"ios-1.7.0";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-1.6.2";
+NSString * const kSPVersion               = @"tvos-1.7.0";
 #elif SNOWPLOW_TARGET_WATCHOS
-NSString * const kSPVersion               = @"watchos-1.6.2";
+NSString * const kSPVersion               = @"watchos-1.7.0";
 #else
-NSString * const kSPVersion               = @"osx-1.6.2";
+NSString * const kSPVersion               = @"osx-1.7.0";
 #endif
 
 // --- Emitter
@@ -120,7 +120,6 @@ NSString * const kSPPlatformDeviceModel   = @"deviceModel";
 // --- Mobile Context
 
 NSString * const kSPMobileCarrier         = @"carrier";
-NSString * const kSPMobileOpenIdfa        = @"openIdfa";
 NSString * const kSPMobileAppleIdfa       = @"appleIdfa";
 NSString * const kSPMobileAppleIdfv       = @"appleIdfv";
 NSString * const kSPMobileNetworkType     = @"networkType";
