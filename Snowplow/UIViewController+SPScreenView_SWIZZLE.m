@@ -20,6 +20,10 @@
 //  License: Apache License Version 2.0
 //
 
+#import <TargetConditionals.h>
+
+#if !TARGET_OS_OSX
+
 #import "SPTracker.h"
 #import "SPEventBase.h"
 #import "SPSelfDescribingJson.h"
@@ -182,3 +186,5 @@
 }
 
 @end
+
+#endif
