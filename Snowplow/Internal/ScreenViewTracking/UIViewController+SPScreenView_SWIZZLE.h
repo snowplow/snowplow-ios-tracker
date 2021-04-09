@@ -20,6 +20,9 @@
 //  License: Apache License Version 2.0
 //
 
+#import <TargetConditionals.h>
+
+#if !TARGET_OS_OSX
 #import <UIKit/UIKit.h>
 
 @class UIViewController;
@@ -42,3 +45,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif
