@@ -7,26 +7,54 @@
 //
 
 #import "SPConfigurationProvider.h"
+#import "SPConfigurationCache.h"
+#import "SPConfigurationFetcher.h"
 
 @interface SPConfigurationProvider()
 
-@property (nonatomic, nonnull) NSMutableDictionary<NSString *, SPRemoteConfiguration *> *remoteSourceMap;
-@property (nonatomic, nonnull) NSMutableDictionary<NSString *, OnFetchCallback> *onFetchMap;
-@property (nonatomic, nonnull) NSMutableDictionary<NSString *, NSArray<SPConfiguration *> *> *cachedMap;
+@property (nonatomic, nonnull) SPRemoteConfiguration *remoteConfiguration;
+@property (nonatomic, nonnull) SPConfigurationCache *cache;
+@property (nonatomic, nullable) SPConfigurationFetcher *fetcher;
+@property (nonatomic, nonnull) SPFetchedConfigurationBundle *cacheBundle;
 
 @end
 
 @implementation SPConfigurationProvider
 
-- (void)registerRemoteSource:(SPRemoteConfiguration *)remoteConfig namespace:(NSString *)namespace onFetchCallback:(OnFetchCallback)onFetchCallback {
-    if (![self.remoteSourceMap objectForKey:namespace]) {
-        [self.remoteSourceMap setObject:remoteConfig forKey:namespace];
-        [self.onFetchMap setObject:onFetchCallback forKey:namespace];
+- (instancetype)initWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration {
+    if (self = [super init]) {
+        self.remoteConfiguration = remoteConfiguration;
+        self.cache = [SPConfigurationCache new];
+    }
+    return self;
+}
+
+- (void)retrieveConfiguration:(OnFetchCallback)onFetchCallback {
+    @synchronized (self) {
+        self.cacheBundle = [self.cache readCache];
+        if (self.cacheBundle) {
+            onFetchCallback(self.cacheBundle);
+        }
+        self.fetcher = [[SPConfigurationFetcher alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+            if (![self versionCompatibility:fetchedConfigurationBundle.formatVersion]) {
+                return;
+            }
+            @synchronized (self) {
+                if (self.cacheBundle && self.cacheBundle.configurationVersion >= fetchedConfigurationBundle.configurationVersion) {
+                    return;
+                }
+                [self.cache writeCache:fetchedConfigurationBundle];
+                self.cacheBundle = fetchedConfigurationBundle;
+                onFetchCallback(fetchedConfigurationBundle);
+            }
+        }];
     }
 }
 
-- (NSArray<SPConfiguration *> *)configurationsForNamespace:(NSString *)namespace {
-    return [self.cachedMap objectForKey:namespace];
+// Private methods
+
+- (BOOL)versionCompatibility:(NSString *)version {
+    return [version hasPrefix:@"1."];
 }
 
 @end

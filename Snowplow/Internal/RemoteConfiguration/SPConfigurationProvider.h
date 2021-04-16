@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "SPRemoteConfiguration.h"
+#import "SPFetchedConfigurationBundle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^OnFetchCallback)(NSArray<SPConfiguration*>*_Nonnull);
+typedef void(^OnFetchCallback)(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle);
 
 /*!
  This class fetch a configuration from a remote source otherwise it provides a cached configuration.
@@ -19,9 +20,9 @@ typedef void(^OnFetchCallback)(NSArray<SPConfiguration*>*_Nonnull);
  */
 @interface SPConfigurationProvider : NSObject
 
-- (void)registerRemoteSource:(SPRemoteConfiguration *)remoteConfig onFetchCallback:(OnFetchCallback)onFetchCallback;
+- (instancetype)initWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration;
 
-- (NSArray<SPConfiguration *> *)configurationsForNamespace:(NSString *)namespace;
+- (void)retrieveConfiguration:(OnFetchCallback)onFetchCallback;
 
 @end
 
