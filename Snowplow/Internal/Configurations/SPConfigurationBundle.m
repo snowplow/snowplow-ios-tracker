@@ -2,15 +2,41 @@
 //  SPConfigurationBundle.m
 //  Snowplow
 //
-//  Created by Alex Benini on 13/04/2021.
-//  Copyright © 2021 Snowplow Analytics. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Alex Benini
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
+//  License: Apache License Version 2.0
 //
 
 #import "SPConfigurationBundle.h"
 #import "NSDictionary+SP_TypeMethods.h"
 #import "SPLogger.h"
 
+@interface SPConfigurationBundle ()
+@property (nonatomic, nonnull) NSString *namespace;
+@end
+
 @implementation SPConfigurationBundle
+
+- (instancetype)initWithNamespace:(NSString *)namespace networkConfiguration:(SPNetworkConfiguration *)networkConfiguration {
+    if (self = [super init]) {
+        self.namespace = namespace;
+        self.networkConfiguration = networkConfiguration;
+    }
+    return self;
+}
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
     if (self = [super init]) {
@@ -26,6 +52,7 @@
     }
     return self;
 }
+
 
 // MARK: - NSCopying
 

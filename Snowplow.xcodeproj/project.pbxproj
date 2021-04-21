@@ -318,10 +318,10 @@
 		ED34672F26415C1D0018BA61 /* SPJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = ED34672926415C1D0018BA61 /* SPJSONSerialization.m */; };
 		ED34673026415C1D0018BA61 /* SPJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = ED34672926415C1D0018BA61 /* SPJSONSerialization.m */; };
 		ED34673126415C1D0018BA61 /* SPJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = ED34672926415C1D0018BA61 /* SPJSONSerialization.m */; };
-		ED277BD22625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; };
-		ED277BD32625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; };
-		ED277BD42625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; };
-		ED277BD52625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; };
+		ED277BD22625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED277BD32625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED277BD42625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED277BD52625F220002C7B6D /* SPConfigurationBundle.h in Headers */ = {isa = PBXBuildFile; fileRef = ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED277BD62625F220002C7B6D /* SPConfigurationBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = ED277BD12625F220002C7B6D /* SPConfigurationBundle.m */; };
 		ED277BD72625F220002C7B6D /* SPConfigurationBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = ED277BD12625F220002C7B6D /* SPConfigurationBundle.m */; };
 		ED277BD82625F220002C7B6D /* SPConfigurationBundle.m in Sources */ = {isa = PBXBuildFile; fileRef = ED277BD12625F220002C7B6D /* SPConfigurationBundle.m */; };
@@ -342,10 +342,10 @@
 		ED7F081926190E00005D377E /* SPConfigurationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7F081426190E00005D377E /* SPConfigurationProvider.m */; };
 		ED7F081A26190E00005D377E /* SPConfigurationProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7F081426190E00005D377E /* SPConfigurationProvider.m */; };
 		ED7F082126191108005D377E /* SPConfigurationProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F081326190E00005D377E /* SPConfigurationProvider.h */; };
-		ED7F082A2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; };
-		ED7F082B2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; };
-		ED7F082C2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; };
-		ED7F082D2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; };
+		ED7F082A2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED7F082B2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED7F082C2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED7F082D2619199D005D377E /* SPRemoteConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = ED7F08282619199D005D377E /* SPRemoteConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED7F082E2619199D005D377E /* SPRemoteConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7F08292619199D005D377E /* SPRemoteConfiguration.m */; };
 		ED7F082F2619199D005D377E /* SPRemoteConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7F08292619199D005D377E /* SPRemoteConfiguration.m */; };
 		ED7F08302619199D005D377E /* SPRemoteConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED7F08292619199D005D377E /* SPRemoteConfiguration.m */; };
@@ -1062,8 +1062,6 @@
 				ED7F081426190E00005D377E /* SPConfigurationProvider.m */,
 				ED7F083E261924BF005D377E /* SPConfigurationFetcher.h */,
 				ED7F083F261924BF005D377E /* SPConfigurationFetcher.m */,
-				ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */,
-				ED277BD12625F220002C7B6D /* SPConfigurationBundle.m */,
 				ED277BE02625F5C5002C7B6D /* SPFetchedConfigurationBundle.h */,
 				ED277BE12625F5C5002C7B6D /* SPFetchedConfigurationBundle.m */,
 				ED98972426287F7900145157 /* SPConfigurationCache.h */,
@@ -1100,6 +1098,8 @@
 			children = (
 				ED8866FC25715DD600DB53BB /* SPConfiguration.h */,
 				ED8866FD25715DD600DB53BB /* SPConfiguration.m */,
+				ED277BD02625F220002C7B6D /* SPConfigurationBundle.h */,
+				ED277BD12625F220002C7B6D /* SPConfigurationBundle.m */,
 				ED8BF8B125700B3F001DFDD9 /* SPTrackerConfiguration.h */,
 				ED8BF8B225700B3F001DFDD9 /* SPTrackerConfiguration.m */,
 				ED8BF8C925701853001DFDD9 /* SPNetworkConfiguration.h */,

@@ -2,8 +2,22 @@
 //  TestRemoteConfiguration.m
 //  Snowplow-iOSTests
 //
-//  Created by Alex Benini on 03/04/2021.
-//  Copyright © 2021 Snowplow Analytics. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//
+//  This program is licensed to you under the Apache License Version 2.0,
+//  and you may not use this file except in compliance with the Apache License
+//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at
+//  http://www.apache.org/licenses/LICENSE-2.0.
+//
+//  Unless required by applicable law or agreed to in writing,
+//  software distributed under the Apache License Version 2.0 is distributed on
+//  an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+//  express or implied. See the Apache License Version 2.0 for the specific
+//  language governing permissions and limitations there under.
+//
+//  Authors: Alex Benini
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
+//  License: Apache License Version 2.0
 //
 
 #import <XCTest/XCTest.h>
@@ -63,7 +77,7 @@
 }
 
 - (void)testDownloadConfiguration {
-    NSString *endpoint = @"https://snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
 
     [[LSNocilla sharedInstance] start];
     stubRequest(@"GET", endpoint)
@@ -112,7 +126,7 @@
 
 - (void)testConfigurationProvider_notDownloading_fails {
     // prepare test
-    NSString *endpoint = @"https://snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
     SPConfigurationCache *cache = [SPConfigurationCache new];
     [cache clearCache];
     [[LSNocilla sharedInstance] start];
@@ -123,7 +137,7 @@
     XCTestExpectation *expectation = [XCTestExpectation new];
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
-    [provider retrieveConfiguration:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
         XCTFail();
     }];
     XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
@@ -136,7 +150,7 @@
 
 - (void)testConfigurationProvider_downloadOfWrongFormatVersion_fails {
     // prepare test
-    NSString *endpoint = @"https://snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
     SPConfigurationCache *cache = [SPConfigurationCache new];
     [cache clearCache];
     [[LSNocilla sharedInstance] start];
@@ -149,7 +163,7 @@
     XCTestExpectation *expectation = [XCTestExpectation new];
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
-    [provider retrieveConfiguration:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
         XCTFail();
     }];
     XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
@@ -162,7 +176,7 @@
 
 - (void)testConfigurationProvider_downloadSameConfigVersionThanCached_dontUpdate {
     // prepare test
-    NSString *endpoint = @"https://snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
     
     SPConfigurationCache *cache = [SPConfigurationCache new];
     [cache clearCache];
@@ -186,7 +200,7 @@
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     __block int i = 0;
-    [provider retrieveConfiguration:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
         if (i == 1 || [fetchedConfigurationBundle.formatVersion isEqualToString:@"1.1"]) {
             XCTFail();
         }
@@ -205,7 +219,7 @@
 
 - (void)testConfigurationProvider_downloadHigherConfigVersionThanCached_doUpdate {
     // prepare test
-    NSString *endpoint = @"https://snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
     
     SPConfigurationCache *cache = [SPConfigurationCache new];
     [cache clearCache];
@@ -229,7 +243,7 @@
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     __block int i = 0;
-    [provider retrieveConfiguration:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
         if (i == 1 && [fetchedConfigurationBundle.formatVersion isEqualToString:@"1.1"]) {
             i++;
         }
@@ -240,6 +254,94 @@
     XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
     XCTAssertEqual(XCTWaiterResultTimedOut, result);
     XCTAssertEqual(2, i);
+
+    // close test
+    [[LSNocilla sharedInstance] clearStubs];
+    [[LSNocilla sharedInstance] stop];
+}
+
+- (void)testConfigurationProvider_justRefresh_downloadSameConfigVersionThanCached_dontUpdate {
+    // prepare test
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    
+    SPConfigurationCache *cache = [SPConfigurationCache new];
+    [cache clearCache];
+    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
+    bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
+    SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
+    cached.formatVersion = @"1.0";
+    cached.configurationVersion = 1;
+    cached.configurationBundle = @[bundle];
+    [cache writeCache:cached];
+    [NSThread sleepForTimeInterval:5]; // wait to write on cache
+    
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
+    SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
+    XCTestExpectation *expectation = [XCTestExpectation new];
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        [expectation fulfill];
+    }];
+    [self waitForExpectations:@[expectation] timeout:5];
+    
+    [[LSNocilla sharedInstance] start];
+    stubRequest(@"GET", endpoint)
+    .andReturn(200)
+    .withHeaders(@{@"Content-Type": @"application/json"})
+    .withBody(@"{\"formatVersion\":\"1.1\",\"configurationVersion\":1,\"configurationBundle\":[]}");
+    
+    // test
+    expectation = [XCTestExpectation new];
+    [provider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        XCTFail();
+    }];
+    XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual(XCTWaiterResultTimedOut, result);
+
+    // close test
+    [[LSNocilla sharedInstance] clearStubs];
+    [[LSNocilla sharedInstance] stop];
+}
+
+- (void)testConfigurationProvider_justRefresh_downloadHigherConfigVersionThanCached_doUpdate {
+    // prepare test
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    
+    SPConfigurationCache *cache = [SPConfigurationCache new];
+    [cache clearCache];
+    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
+    bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
+    SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
+    cached.formatVersion = @"1.0";
+    cached.configurationVersion = 1;
+    cached.configurationBundle = @[bundle];
+    [cache writeCache:cached];
+    [NSThread sleepForTimeInterval:5]; // wait to write on cache
+    
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
+    SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
+    XCTestExpectation *expectation = [XCTestExpectation new];
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        [expectation fulfill];
+    }];
+    [self waitForExpectations:@[expectation] timeout:5];
+    
+    [[LSNocilla sharedInstance] start];
+    stubRequest(@"GET", endpoint)
+    .andReturn(200)
+    .withHeaders(@{@"Content-Type": @"application/json"})
+    .withBody(@"{\"formatVersion\":\"1.1\",\"configurationVersion\":2,\"configurationBundle\":[]}");
+    
+    // test
+    expectation = [XCTestExpectation new];
+    __block int i = 0;
+    [provider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        if ([fetchedConfigurationBundle.formatVersion isEqualToString:@"1.1"]) {
+            i++;
+        }
+    }];
+    XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
+    XCTAssertEqual(XCTWaiterResultTimedOut, result);
+    XCTAssertEqual(1, i);
 
     // close test
     [[LSNocilla sharedInstance] clearStubs];

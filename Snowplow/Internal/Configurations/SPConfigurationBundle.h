@@ -1,5 +1,5 @@
 //
-//  NSDictionary+SP_TypeMethods.h
+//  SPConfigurationBundle.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,20 +20,29 @@
 //  License: Apache License Version 2.0
 //
 
-#import <Foundation/Foundation.h>
 #import "SPConfiguration.h"
+#import "SPNetworkConfiguration.h"
+#import "SPTrackerConfiguration.h"
+#import "SPSubjectConfiguration.h"
+#import "SPSessionConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSDictionary (SP_TypeMethods)
+/**
+ * This class represents the default configuration applied in place of the remote configuration.
+ */
+NS_SWIFT_NAME(ConfigurationBundle)
+@interface SPConfigurationBundle : SPConfiguration
 
-- (nullable NSString *)sp_stringForKey:(NSString *)key defaultValue:(nullable NSString *)defaultValue;
-- (nullable NSNumber *)sp_numberForKey:(NSString *)key defaultValue:(nullable NSNumber *)defaultValue;
-- (BOOL)sp_boolForKey:(NSString *)key defaultValue:(BOOL)defaultValue;
-- (nullable NSDictionary *)sp_dictionaryForKey:(NSString *)key defaultValue:(nullable NSDictionary *)defaultValue;
-- (nullable NSArray *)sp_arrayForKey:(NSString *)key itemClass:(nullable Class)itemClass defaultValue:(nullable NSArray *)defaultValue;
-- (nullable NSObject *)sp_objectForKey:(NSString *)key objectClass:(nullable Class)objectClass defaultValue:(nullable NSArray *)defaultValue;
-- (nullable SPConfiguration *)sp_configurationForKey:(NSString *)key configurationClass:(Class)configurationClass defaultValue:(nullable SPConfiguration *)defaultValue;
+@property (nonatomic, nonnull, readonly) NSString *namespace;
+@property (nonatomic, nullable) SPNetworkConfiguration *networkConfiguration;
+@property (nonatomic, nullable) SPTrackerConfiguration *trackerConfiguration;
+@property (nonatomic, nullable) SPSubjectConfiguration *subjectConfiguration;
+@property (nonatomic, nullable) SPSessionConfiguration *sessionConfiguration;
+
+@property (nonatomic, nonnull, readonly) NSArray<SPConfiguration *> *configurations;
+
+- (instancetype)initWithNamespace:(NSString *)namespace networkConfiguration:(SPNetworkConfiguration *)networkConfiguration;
 
 @end
 

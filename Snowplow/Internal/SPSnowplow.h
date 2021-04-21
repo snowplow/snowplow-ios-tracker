@@ -24,6 +24,8 @@
 #import "SPTrackerController.h"
 #import "SPNetworkConfiguration.h"
 #import "SPTrackerConfiguration.h"
+#import "SPRemoteConfiguration.h"
+#import "SPConfigurationBundle.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -35,6 +37,57 @@ NS_SWIFT_NAME(Snowplow)
 
 - (instancetype)init NS_UNAVAILABLE;
 - (instancetype)new NS_UNAVAILABLE;
+
+/// Remote Configuration
+
+/**
+ * Setup a single or a set of tracker instances which will be used inside the app to track events.
+ * The app can run multiple tracker instances which will be identified by string `namespaces`.
+ * The trackers configuration is automatically download from the endpoint indicated in the `RemoteConfiguration`
+ * passed as argument. For more details see `RemoteConfiguration`.
+ *
+ * The method is asynchronous and you can receive the list of the created trackers in the callbacks once the trackers are created.
+ * The callback can be called multiple times in case a cached configuration is ready and later a fetched configuration is available.
+ * You can also pass as argument a default configuration in case there isn't a cached configuration and it's not able to download
+ * a new one. The downloaded configuration updates the cached one only if the configuration version is greater than the cached one.
+ * Otherwise the cached one is kept and the callback is not called.
+ *
+ * IMPORTANT: The EventStore will persist all the events that have been tracked but not yet sent.
+ * Those events are attached to the namespace.
+ * If the tracker is removed or the app relaunched with a different namespace, those events can't
+ * be sent to the collector and they remain in a zombie state inside the EventStore.
+ * To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+ * which will delete all the EventStores instanced with namespaces not listed in the passed list.
+ *
+ * @param remoteConfiguration The remote configuration used to indicate where to download the configuration from.
+ * @param defaultBundles The default configuration passed by default in case there isn't a cached version and it's able to download a new one.
+ * @param onSuccess The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated
+ *                  to the created trackers.
+ */
++ (void)setupWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(nullable NSArray<SPConfigurationBundle *> *)defaultBundles onSuccess:(void(^)(NSArray<NSString *> * _Nullable namespaces))onSuccess NS_SWIFT_NAME(setup(remoteConfiguration:defaultConfiguration:onSuccess:));
+
+/**
+ * Reconfigure, create or delete the trackers based on the configuration downloaded remotely.
+ * The trackers configuration is automatically download from the endpoint indicated in the `RemoteConfiguration`
+ * previously used to setup the trackers.
+ *
+ * The method is asynchronous and you can receive the list of the created trackers in the callbacks once the trackers are created.
+ * The downloaded configuration updates the cached one only if the configuration version is greater than the cached one.
+ * Otherwise the cached one is kept and the callback is not called.
+ *
+ * IMPORTANT: The EventStore will persist all the events that have been tracked but not yet sent.
+ * Those events are attached to the namespace.
+ * If the tracker is removed or the app relaunched with a different namespace, those events can't
+ * be sent to the collector and they remain in a zombie state inside the EventStore.
+ * To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+ * which will delete all the EventStores instanced with namespaces not listed in the passed list.
+ *
+ * @param onSuccess The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated
+ *                  to the created trackers.
+ */
++ (void)refreshIfRemoteUpdate:(void(^)(NSArray<NSString *> * _Nullable namespaces))onSuccess NS_SWIFT_NAME(refresh(onSuccess:));
+
+/// Standard Configuration
 
 /**
  * Create a new tracker instance which will be used inside the app to track events.
@@ -118,6 +171,14 @@ NS_SWIFT_NAME(Snowplow)
  * calling `setTrackerAsDefault(TrackerController)`.
  */
 + (nullable id<SPTrackerController>)defaultTracker;
+
+/**
+ * Using the namespace identifier is possible to get the trackerController if already instanced.
+ *
+ * @param namespace The namespace that identifies the tracker.
+ * @return The tracker if it exist with that namespace.
+ */
++ (nullable id<SPTrackerController>)trackerByNamespace:(NSString *)namespace NS_SWIFT_NAME(tracker(namespace:));
 
 /**
  * Set the passed tracker as default tracker if it's registered as an active tracker in the app.
