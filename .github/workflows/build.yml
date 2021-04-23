@@ -2,7 +2,7 @@ name: Build
 
 on: [push]
 
-jobs:  
+jobs:
   test_framework:
     name: "Framework (iOS ${{ matrix.version.ios }})"
     runs-on: macos-${{ matrix.version.macos }}
@@ -13,8 +13,8 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.1', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
-          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+          - {ios: 14.4, iphone: iPhone 11, watchos: 7.2, watch: Apple Watch Series 5 - 44mm, macos: '10.15', xcode: 12.4}
+          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.15, xcode: 10.3}
 
     steps:
       - name: Checkout
@@ -41,8 +41,8 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.1', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
-          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+          - {ios: '14.4', iphone: iPhone 11, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '10.15', xcode: 12.4}
+          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.15, xcode: 10.3}
 
     steps:
       - name: Checkout
@@ -83,8 +83,8 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.1', iphone: iPhone 11, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
-          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+          - {ios: '14.4', iphone: iPhone 11, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '10.15', xcode: 12.4}
+          - {ios: 12.4, iphone: iPhone 5s, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.15, xcode: 10.3}
 
     steps:
       - name: Checkout
@@ -132,8 +132,8 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.1', iphone: iPhone 12 Pro, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
-          - {ios: 12.4, iphone: iPhone Xs Max, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.14, xcode: 10.3}
+          - {ios: '14.4', iphone: iPhone 12 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '10.15', xcode: 12.4}
+          - {ios: 12.4, iphone: iPhone Xs Max, watchos: 5.3, watch: Apple Watch Series 2 - 38mm, macos: 10.15, xcode: 10.3}
         podfile:
           - {file: Podfile, type: "no directive"}
           - {file: Podfile_frameworks, type: "use_frameworks! directive"}
@@ -178,7 +178,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.1', iphone: iPhone 11 Pro, watchos: '7.0', watch: Apple Watch Series 5 - 44mm, macos: 10.15, xcode: 12.1}
+          - {ios: '14.4', iphone: iPhone 11 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '10.15', xcode: 12.4}
 
     steps:
       - name: Checkout
