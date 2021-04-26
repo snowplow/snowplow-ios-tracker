@@ -99,7 +99,7 @@ NSString * const kFilenameExt = @"dict";
         BOOL result = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
         if (!result) {
             SPLogError(@"Unable to create file for sessions: %@", error.localizedDescription);
-            return NO;
+            return nil;
         }
         url = [url URLByAppendingPathComponent:self.sessionFilename];
         self.sessionFileUrl = url;
@@ -281,22 +281,18 @@ NSString * const kFilenameExt = @"dict";
 }
 
 - (void) updateInBackground {
-    if (!_inBackground) {
+    if (!_inBackground && [self.tracker getLifecycleEvents]) {
         _backgroundIndex += 1;
         _inBackground = YES;
-        if ([self.tracker getLifecycleEvents]) {
-            [self sendBackgroundEvent];
-        }
+        [self sendBackgroundEvent];
     }
 }
 
 - (void) updateInForeground {
-    if (_inBackground) {
+    if (_inBackground && [self.tracker getLifecycleEvents]) {
         _foregroundIndex += 1;
         _inBackground = NO;
-        if ([self.tracker getLifecycleEvents]) {
-            [self sendForegroundEvent];
-        }
+        [self sendForegroundEvent];
     }
 }
 

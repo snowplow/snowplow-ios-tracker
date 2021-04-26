@@ -56,7 +56,7 @@
         self.geoLocationContext = NO;
         self.screenContext = YES;
         self.screenViewAutotracking = YES;
-        self.lifecycleAutotracking = YES;
+        self.lifecycleAutotracking = NO;
         self.installAutotracking = YES;
         self.exceptionAutotracking = YES;
         self.diagnosticAutotracking = NO;
