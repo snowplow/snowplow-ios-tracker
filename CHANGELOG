@@ -1,4 +1,20 @@
 
+Version 2.0.0 (2021-04-27)
+--------------------------
+Set lifecycle tracking off by default (#587)
+Update README (#502)
+Fix GitHub Actions failures due to redirection to macos-10.15 (#583)
+Remove protocol from NetworkController and NetworkConnection (#573)
+Add custom headers for requests (#364)
+Store sessions info separately per tracker namespace (#570)
+Add API reference documentation for configurations and controllers (#568)
+Add NSDictionary as explicit argument in SPSelfDescribingJson (#274)
+Allow multiple instances of the tracker (#566)
+Import corrections from Android tracker (#563)
+Create API for v.2.0 (#558)
+Restructure project source tree (#552)
+Bump deployment target to iOS 9 (#550)
+
 Version 1.7.0 (2021-04-03)
 --------------------------
 Fix issue of OpenIDFA causing App Rejection (#575)
@@ -12,6 +28,8 @@ Version 1.6.1 (2020-11-24)
 --------------------------
 Fix AddGlobalContext unable to work when GlobalContexts not initialized (#553)
 Let Crash reporting to add contexts and AppID (#555)
+Fix Snyk script (#549)
+Move demo apps to snowplow-objc-tracker-examples (#547)
 
 Version 1.6.0 (2020-09-21)
 --------------------------

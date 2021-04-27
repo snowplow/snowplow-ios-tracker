@@ -2,7 +2,7 @@
 //  TestScreenState.m
 //  Snowplow-iOSTests
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -26,7 +26,7 @@
 #import "SPPayload.h"
 #import "SPSubject.h"
 #import "SPScreenState.h"
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 
 @interface TestScreenState : XCTestCase
 

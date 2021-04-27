@@ -2,7 +2,7 @@
 //  TestUtils.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,14 +16,14 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <XCTest/XCTest.h>
 #import <AdSupport/AdSupport.h>
 #import "SPUtilities.h"
-#import "Snowplow.h"
+#import "SPTrackerConstants.h"
 
 @interface TestUtils : XCTestCase
 

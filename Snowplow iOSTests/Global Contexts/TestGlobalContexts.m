@@ -2,7 +2,7 @@
 //  TestGlobalContexts.m
 //  Snowplow-iOSTests
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -24,6 +24,7 @@
 #import "SPTracker.h"
 #import "SPTrackerEvent.h"
 #import "SPSelfDescribingJson.h"
+#import "SPServiceProvider.h"
 
 /// Category needed to make the private methods testable.
 @interface SPTracker (Testing)
@@ -57,11 +58,6 @@
 @implementation TestGlobalContexts
 
 - (void)testGlobalContexts {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:@"com.acme.fake"];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    
     SPGlobalContext *staticGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]];
     SPGlobalContext *generatorGC = [[SPGlobalContext alloc] initWithContextGenerator:[GlobalContextGenerator new]];
     SPGlobalContext *blockGC = [[SPGlobalContext alloc] initWithGenerator:^NSArray<SPSelfDescribingJson *> *(id<SPInspectableEvent> event) {
@@ -69,17 +65,11 @@
             [[SPSelfDescribingJson alloc] initWithSchema:@"schemaBlock" andData:@{@"key": @"value"}],
         ];
     }];
-    
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setAppId:[NSUUID UUID].UUIDString];
-        [builder setGlobalContextGenerators:@{
-            @"static": staticGC,
-            @"generator": generatorGC,
-            @"block": blockGC,
-        }];
-    }];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{
+        @"static": staticGC,
+        @"generator": generatorGC,
+        @"block": blockGC,
+    }.mutableCopy];
     
     NSSet *result = [NSSet setWithArray:tracker.globalContextTags];
     NSSet *expected = [NSSet setWithArray:@[@"static", @"generator", @"block"]];
@@ -113,19 +103,9 @@
 }
 
 - (void)testAddRemoveGlobalContexts {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:@"com.acme.fake"];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    
     SPGlobalContext *staticGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]];
-    
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setAppId:[NSUUID UUID].UUIDString];
-    }];
-    
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:nil];
+
     NSSet *result = [NSSet setWithArray:tracker.globalContextTags];
     NSSet *expected = [NSSet setWithArray:@[]];
     XCTAssertTrue([result isEqualToSet:expected]);
@@ -149,28 +129,10 @@
 }
 
 - (void)testStaticGenerator {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:@"com.acme.fake"];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    
     SPGlobalContext *staticGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"static": staticGC}.mutableCopy];
     
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setBase64Encoded:NO];
-        [builder setAppId:[NSUUID UUID].UUIDString];
-        [builder setGlobalContextGenerators:@{
-            @"static": staticGC,
-        }];
-    }];
-    
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
@@ -180,37 +142,20 @@
 }
 
 - (void)testStaticGeneratortWithFilter {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:@"com.acme.fake"];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    
     NSString *stringToMatch = @"StringToMatch";
     SPGlobalContext *filterMatchingGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]
                                                                                  filter:^BOOL(id<SPInspectableEvent> event) {
         return [stringToMatch isEqualToString:(NSString *)event.payload[kSPStuctCategory]];
     }];
-    SPGlobalContext *filterNotMatchingGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schemaNotMatching" andData:@{@"key": @"value"}]]
-                                                                                    filter:^BOOL(id<SPInspectableEvent> event) {
+    SPGlobalContext *filterNotMatchingGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schemaNotMatching" andData:@{@"key": @"value"}]] filter:^BOOL(id<SPInspectableEvent> event) {
         return NO;
     }];
-    
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setBase64Encoded:NO];
-        [builder setAppId:[NSUUID UUID].UUIDString];
-        [builder setGlobalContextGenerators:@{
-            @"matching": filterMatchingGC,
-            @"notMatching": filterNotMatchingGC,
-        }];
-    }];
-    
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:stringToMatch];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{
+        @"matching": filterMatchingGC,
+        @"notMatching": filterNotMatchingGC,
+    }.mutableCopy];
+
+    SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:stringToMatch action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
@@ -220,56 +165,29 @@
 }
 
 - (void)testStaticGeneratorWithRuleset {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:@"com.acme.fake"];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    
     NSString *allowed = @"iglu:com.snowplowanalytics.*/*/jsonschema/*-*-*";
     NSString *denied = @"iglu:com.snowplowanalytics.mobile/*/jsonschema/*-*-*";
     SPSchemaRuleset *ruleset = [SPSchemaRuleset rulesetWithAllowedList:@[allowed] andDeniedList:@[denied]];
     
-    SPGlobalContext *rulesetGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]]
-                                                                                 ruleset:ruleset];
-    
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setBase64Encoded:NO];
-        [builder setAppId:[NSUUID UUID].UUIDString];
-        [builder setGlobalContextGenerators:@{
-            @"ruleset": rulesetGC,
-        }];
-    }];
-    
+    SPGlobalContext *rulesetGC = [[SPGlobalContext alloc] initWithStaticContexts:@[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]] ruleset:ruleset];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"ruleset": rulesetGC}.mutableCopy];
+
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
 
     // Not matching primitive event
-    SPPrimitive *primitiveEvent = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitiveAbstract *primitiveEvent = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:primitiveEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
     // Not matching self-describing event with mobile schema
-    SPSelfDescribing *selfDescribingEvent = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-        [builder setName:@"Name"];
-        [builder setType:@"Type"];
-    }];
+    SPSelfDescribingAbstract *selfDescribingEvent = [[[SPScreenView alloc] initWithName:@"Name" screenId:nil] type:@"Type"];
     trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
     // Matching self-describing event with general schema
-    selfDescribingEvent = [SPTiming build:^(id<SPTimingBuilder>  _Nonnull builder) {
-        [builder setTiming:123];
-        [builder setLabel:@"Label"];
-        [builder setCategory:@"Category"];
-        [builder setVariable:@"Variable"];
-    }];
+    selfDescribingEvent = [[[SPTiming alloc] initWithCategory:@"Category" variable:@"Variable" timing:@123] label:@"Label"];
     trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 1);
@@ -277,30 +195,12 @@
 }
 
 - (void)testBlockGenerator {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:@"com.acme.fake"];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    
     SPGlobalContext *generatorGC = [[SPGlobalContext alloc] initWithGenerator:^NSArray<SPSelfDescribingJson *> *(id<SPInspectableEvent> event) {
         return @[[[SPSelfDescribingJson alloc] initWithSchema:@"schema" andData:@{@"key": @"value"}]];
     }];
-    
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setBase64Encoded:NO];
-        [builder setAppId:[NSUUID UUID].UUIDString];
-        [builder setGlobalContextGenerators:@{
-            @"generator": generatorGC,
-        }];
-    }];
-    
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"Category"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"generator": generatorGC}.mutableCopy];
+
+    SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
@@ -310,28 +210,10 @@
 }
 
 - (void)testContextGenerator {
-    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
-        [builder setUrlEndpoint:@"com.acme.fake"];
-    }];
-    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    
     SPGlobalContext *contextGeneratorGC = [[SPGlobalContext alloc] initWithContextGenerator:[GlobalContextGenerator new]];
+    SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"contextGenerator": contextGeneratorGC}.mutableCopy];
     
-    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
-        [builder setEmitter:emitter];
-        [builder setSubject:subject];
-        [builder setBase64Encoded:NO];
-        [builder setAppId:[NSUUID UUID].UUIDString];
-        [builder setGlobalContextGenerators:@{
-            @"contextGenerator": contextGeneratorGC,
-        }];
-    }];
-    
-    SPPrimitive *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"StringToMatch"];
-        [builder setAction:@"Action"];
-        [builder setLabel:@"Label"];
-    }];
+    SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:@"StringToMatch" action:@"Action"];
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
@@ -339,5 +221,24 @@
     XCTAssertTrue(contexts.count == 1);
     XCTAssertEqual(contexts[0].schema, @"schema");
 }
+
+// MARK: - Utility function
+
+    - (SPTracker *)getTrackerWithGlobalContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)generators {
+        SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://com.acme.fake"
+                                                                                          method:SPHttpMethodPost];
+        SPTrackerConfiguration *trackerConfig = [SPTrackerConfiguration new];
+        trackerConfig.appId = @"anAppId";
+        trackerConfig.platformContext = YES;
+        trackerConfig.geoLocationContext = NO;
+        trackerConfig.base64Encoding = NO;
+        trackerConfig.sessionContext = YES;
+        SPGlobalContextsConfiguration *gcConfig = [[SPGlobalContextsConfiguration alloc] init];
+        gcConfig.contextGenerators = generators;
+        SPServiceProvider *serviceProvider = [[SPServiceProvider alloc] initWithNamespace:@"aNamespace"
+                                                                                  network:networkConfig
+                                                                           configurations:@[gcConfig]];
+        return serviceProvider.tracker;
+    }
 
 @end

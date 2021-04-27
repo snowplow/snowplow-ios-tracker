@@ -2,7 +2,7 @@
 //  TestLogger.m
 //  Snowplow-iOSTests
 //
-//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,22 +16,37 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <XCTest/XCTest.h>
 #import "SPLogger.h"
 
-@interface MockDiagnosticLogger : NSObject <SPDiagnosticLogger>
+@interface MockDiagnosticLogger : NSObject
 @property (nonatomic) void (^callback)(NSString *tag, NSString *message, NSError *error, NSException *exception);
-- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(NSError *)error exception:(NSException *)exception;
 @end
 
 @implementation MockDiagnosticLogger
 
-- (void)logWithTag:(NSString *)tag message:(NSString *)message error:(NSError *)error exception:(NSException *)exception {
+- (instancetype)init {
+    if (self = [super init]) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logDiagnosticError:) name:@"SPTrackerDiagnostic" object:nil];
+    }
+    return self;
+}
+
+- (void)logDiagnosticError:(NSNotification *)notification {
+    NSDictionary *userInfo = [notification userInfo];
+    NSString *tag = [userInfo objectForKey:@"tag"];
+    NSString *message = [userInfo objectForKey:@"message"];
+    NSError *error = [userInfo objectForKey:@"error"];
+    NSException *exception = [userInfo objectForKey:@"exception"];
     self.callback(tag, message, error, exception);
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 @end
@@ -51,18 +66,21 @@
 }
 
 - (void)testDiagnosticTracking {
+    XCTestExpectation *expectation = [XCTestExpectation new];
     MockDiagnosticLogger *diagnostic = [[MockDiagnosticLogger alloc] init];
     diagnostic.callback = ^(NSString *tag, NSString *message, NSError *error, NSException *exception) {
         XCTAssertEqualObjects(tag, NSStringFromClass(self.class));
         NSString *expectedMessage = [NSString stringWithFormat:@"Error test %d %@", 1, @12.3];
         XCTAssertEqualObjects(message, expectedMessage);
+        [expectation fulfill];
     };
-    [SPLogger setDiagnosticLogger:diagnostic];
 
     SPLogTrack(nil, @"Error test %d %@", 1, @12.3);
+    [self waitForExpectations:@[expectation] timeout:10];
 }
 
 - (void)testDiagnosticTrackingWithError {
+    XCTestExpectation *expectation = [XCTestExpectation new];
     NSError *raisedError = [NSError errorWithDomain:NSURLErrorDomain code:400 userInfo:nil];
 
     MockDiagnosticLogger *diagnostic = [[MockDiagnosticLogger alloc] init];
@@ -70,13 +88,15 @@
         XCTAssertEqualObjects(tag, NSStringFromClass(self.class));
         XCTAssertEqualObjects(message, @"Error test");
         XCTAssertEqual(error, raisedError);
+        [expectation fulfill];
     };
-    [SPLogger setDiagnosticLogger:diagnostic];
 
     SPLogTrack(raisedError, @"Error test");
+    [self waitForExpectations:@[expectation] timeout:10];
 }
 
 - (void)testDiagnosticTrackingWithException {
+    XCTestExpectation *expectation = [XCTestExpectation new];
     NSException *raisedException = [NSException exceptionWithName:NSInvalidArgumentException reason:nil userInfo:nil];
 
     MockDiagnosticLogger *diagnostic = [[MockDiagnosticLogger alloc] init];
@@ -84,10 +104,11 @@
         XCTAssertEqualObjects(tag, NSStringFromClass(self.class));
         XCTAssertEqualObjects(message, @"Exception test");
         XCTAssertEqual(exception, raisedException);
+        [expectation fulfill];
     };
-    [SPLogger setDiagnosticLogger:diagnostic];
 
     SPLogTrack(raisedException, @"Exception test");
+    [self waitForExpectations:@[expectation] timeout:10];
 }
 
 @end

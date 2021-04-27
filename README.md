@@ -1,59 +1,48 @@
 # iOS, macOS, tvOS and watchOS Analytics for Snowplow
 
 [![actively-maintained]][tracker-classificiation]
-[![Build Status][travis-image]][travis]
+[![Build Status][gh-actions-image]][gh-actions]
 [![Coverage Status][coveralls-image]][coveralls]
-[![Version][cocoa-version]][cocoadocs]
 [![Platform][cocoa-plaform]][cocoadocs]
+[![Version][cocoa-version]][cocoadocs]
 [![Carthage][carthage-badge]][carthage]
 [![License][license-image]][license]
 
-## Overview
+![snowplow-logo](.github/media/snowplow_logo.png)
 
-Add analytics to your iOS, macOS, tvOS and watchOS apps and games with the **[Snowplow][2]** event tracker for **[iOS 8.0+][3]**, **[macOS 10.9+][4]**, **[tvOS 9.0+][5]** and **[watchOS 2.0+][6]**
+Snowplow is a scalable open-source platform for rich, high quality, low-latency data collection. It is designed to collect high quality, complete behavioral data for enterprise business.
+
+**To find out more, please check out the [Snowplow website][website] and our [documentation][docs].**
+
+## Snowplow iOS Tracker Overview
+
+The Snowplow iOS Tracker allows you to add analytics to your mobile apps when using a [Snowplow][snowplow] pipeline.
 
 With this tracker you can collect event data from your applications, games or frameworks.
 
-### Building the Static Framework (iOS only)
+**Technical documentation can be found for each tracker in our [Documentation][mobile-docs].**
 
-* Open `Snowplow.xcworkspace` in Xcode.
-* Select the `SnowplowTracker-iOS-Static` scheme and set device to `iOS Device`.
-* Run `Archive` from the Product menu.
-* Finder should open and show you where `SnowplowTracker.framework` is stored.
+### Demo apps using the Snowplow iOS Tracker
 
-### Running the Demo Application (iOS only)
+Some examples of demo apps instrumented with our iOS Tracker can be found in the [snowplow-objc-tracker-examples](https://github.com/snowplow-incubator/snowplow-objc-tracker-examples) repository.
 
-* Open `SnowplowDemo.xcworkspace` in Xcode.
-* Select the `SnowplowDemo` scheme and set device to any emulator.
-* Hit run and the demo will be installed and launched in the emulator window.
-* Simply enter a valid endpoint to send events to!
+### Instrument the iOS Tracker
 
-### Setting up a local testing endpoint
+| Technical Docs                      | Setup Guide                           | API Docs                            |
+|-------------------------------------|---------------------------------------|-------------------------------------|
+| [![i1][tech-docs-image]][tech-docs] | [![i2][setup-docs-image]][setup-docs] | [![i3][setup-docs-image]][api-docs] |
+| [Technical Docs][tech-docs]         | [Setup Guide][setup-docs]             | [API Docs][api-docs]                | 
 
-Assuming git, **[Vagrant][vagrant-install]** and **[VirtualBox][virtualbox-install]** installed:
+## Maintainers 
 
-```bash
- host$ git clone https://github.com/snowplow/snowplow-objc-tracker.git
- host$ cd snowplow-objc-tracker
- host$ vagrant up && vagrant ssh
-guest$ cd /vagrant
-guest$ mb &
-guest$ curl -X POST -d @/vagrant/integration-tests/imposter.json http://localhost:2525/imposters
-```
-
-Your local endpoint will be `http://localhost:4545` which can be used in the demonstration application.
-
-To view sent events in your browser please navigate to `http://localhost:2525`.
-
-## Find out more
-| Technical Docs                 |  Contributing                    |
-|--------------------------------|----------------------------------|
-| ![i1][techdocs-image]          | ![i2][contributing-image]        |
-| **[Technical Docs][techdocs]** | **[Contributing](contributing.md)** |
+| Contributing                                 |
+|----------------------------------------------|
+| [![i4][contributing-image]](CONTRIBUTING.md) |
+| [Contributing](CONTRIBUTING.md)              |
 
 ## Copyright and license
 
-The Snowplow iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2020 Snowplow Analytics Ltd.
+The Snowplow iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2021 Snowplow Analytics Ltd.
 
 Licensed under the **[Apache License, Version 2.0][license]** (the "License");
 you may not use this software except in compliance with the License.
@@ -64,19 +53,19 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-[2]: https://snowplowanalytics.com/
-[3]: https://www.apple.com/ios/
-[4]: https://www.apple.com/macos/
-[5]: https://www.apple.com/tv/
-[6]: https://www.apple.com/watchos/
+[website]: https://snowplowanalytics.com
+[snowplow]: https://github.com/snowplow/snowplow
+[docs]: https://docs.snowplowanalytics.com/
+[mobile-docs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/
 
-[travis]: https://travis-ci.org/snowplow/snowplow-objc-tracker
-[travis-image]: https://travis-ci.org/snowplow/snowplow-objc-tracker.svg?branch=master
+[gh-actions]: https://github.com/snowplow/snowplow-objc-tracker/actions
+[gh-actions-image]: https://github.com/snowplow/snowplow-objc-tracker/workflows/Build/badge.svg
 
 [coveralls]: https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master
 [coveralls-image]: https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master
+
 [license]: https://www.apache.org/licenses/LICENSE-2.0
-[license-image]: https://img.shields.io/cocoapods/l/SnowplowTracker.svg
+[license-image]: https://img.shields.io/github/license/snowplow/snowplow-objc-tracker
 
 [cocoadocs]: https://cocoadocs.org/docsets/SnowplowTracker
 [cocoa-version]: https://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
@@ -85,13 +74,15 @@ limitations under the License.
 [carthage]: https://github.com/Carthage/Carthage
 [carthage-badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
 
-[techdocs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
+[setup-docs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/quick-start-guide/#tab-ios-tracker
+[setup-docs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
+
+[tech-docs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/introduction/
+[tech-docs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
+
+[api-docs]: https://snowplow.github.io/snowplow-objc-tracker/
+
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
-
-[techdocs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/
-
-[vagrant-install]: https://docs.vagrantup.com/v2/installation
-[virtualbox-install]: https://www.virtualbox.org/wiki/Downloads
 
 [tracker-classificiation]: https://github.com/snowplow/snowplow/wiki/Tracker-Maintenance-Classification
 [actively-maintained]: https://img.shields.io/static/v1?style=flat&label=Snowplow&message=Actively%20Maintained&color=6638b8&labelColor=9ba0aa&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAeFBMVEVMaXGXANeYANeXANZbAJmXANeUANSQAM+XANeMAMpaAJhZAJeZANiXANaXANaOAM2WANVnAKWXANZ9ALtmAKVaAJmXANZaAJlXAJZdAJxaAJlZAJdbAJlbAJmQAM+UANKZANhhAJ+EAL+BAL9oAKZnAKVjAKF1ALNBd8J1AAAAKHRSTlMAa1hWXyteBTQJIEwRgUh2JjJon21wcBgNfmc+JlOBQjwezWF2l5dXzkW3/wAAAHpJREFUeNokhQOCA1EAxTL85hi7dXv/E5YPCYBq5DeN4pcqV1XbtW/xTVMIMAZE0cBHEaZhBmIQwCFofeprPUHqjmD/+7peztd62dWQRkvrQayXkn01f/gWp2CrxfjY7rcZ5V7DEMDQgmEozFpZqLUYDsNwOqbnMLwPAJEwCopZxKttAAAAAElFTkSuQmCC
