@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -63,7 +63,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-static-methods">Class Methods</a>  </div>
+<a href="#pub-static-methods">Class Methods</a> &#124;
+<a href="#properties">Properties</a>  </div>
   <div class="headertitle">
 <div class="title">SPLogger Class Reference</div>  </div>
 </div><!--header-->
@@ -79,12 +80,6 @@ Inheritance diagram for SPLogger:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Class Methods</h2></td></tr>
-<tr class="memitem:a898f0e4d5559af473293e07327282688"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_logger.html#a898f0e4d5559af473293e07327282688">setLoggerDelegate:</a></td></tr>
-<tr class="separator:a898f0e4d5559af473293e07327282688"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34868a1bb6fadafa1f427c54ad3eefda"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_logger.html#a34868a1bb6fadafa1f427c54ad3eefda">setDiagnosticLogger:</a></td></tr>
-<tr class="separator:a34868a1bb6fadafa1f427c54ad3eefda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87fc8e501fa8506d344fac38f1b8af86"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_logger.html#a87fc8e501fa8506d344fac38f1b8af86">setLogLevel:</a></td></tr>
-<tr class="separator:a87fc8e501fa8506d344fac38f1b8af86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d545afaac963331161b72b43931219c"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_logger.html#a3d545afaac963331161b72b43931219c">diagnostic:message:errorOrException:</a></td></tr>
 <tr class="separator:a3d545afaac963331161b72b43931219c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84f0df91ad9afa9b09d46ce9fa306425"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_logger.html#a84f0df91ad9afa9b09d46ce9fa306425">error:message:</a></td></tr>
@@ -93,6 +88,13 @@ Class Methods</h2></td></tr>
 <tr class="separator:a51196afe5683f55e04f461c574651c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad48636075feefff2a2523f4b61fb57f7"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_logger.html#ad48636075feefff2a2523f4b61fb57f7">verbose:message:</a></td></tr>
 <tr class="separator:ad48636075feefff2a2523f4b61fb57f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
+Properties</h2></td></tr>
+<tr class="memitem:a647c2a5be3658264a07df976583beee2"><td class="memItemLeft" align="right" valign="top">SPLogLevel&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_logger.html#a647c2a5be3658264a07df976583beee2">logLevel</a></td></tr>
+<tr class="separator:a647c2a5be3658264a07df976583beee2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ba5771a5320961342645035f378f652"><td class="memItemLeft" align="right" valign="top">id&lt; <a class="el" href="protocol_s_p_logger_delegate-p.html">SPLoggerDelegate</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_logger.html#a4ba5771a5320961342645035f378f652">delegate</a></td></tr>
+<tr class="separator:a4ba5771a5320961342645035f378f652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -124,7 +126,7 @@ Class Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_logger_8m_source.html#l00028">28</a> of file <a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_logger_8m_source.html#l00027">27</a> of file <a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a>.</p>
 
 </div>
 </div>
@@ -188,63 +190,7 @@ Class Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_logger_8m_source.html#l00028">28</a> of file <a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a>.</p>
-
-</div>
-</div>
-<a id="a34868a1bb6fadafa1f427c54ad3eefda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34868a1bb6fadafa1f427c54ad3eefda">&#9670;&nbsp;</a></span>setDiagnosticLogger:</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (void) setDiagnosticLogger: </td>
-          <td></td>
-          <td class="paramtype">(nullable id&lt; <a class="el" href="protocol_s_p_diagnostic_logger-p.html">SPDiagnosticLogger</a> &gt;)&#160;</td>
-          <td class="paramname"><em>diagnosticLogger</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a898f0e4d5559af473293e07327282688"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a898f0e4d5559af473293e07327282688">&#9670;&nbsp;</a></span>setLoggerDelegate:</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (void) setLoggerDelegate: </td>
-          <td></td>
-          <td class="paramtype">(nullable id&lt; <a class="el" href="protocol_s_p_logger_delegate-p.html">SPLoggerDelegate</a> &gt;)&#160;</td>
-          <td class="paramname"><em>delegate</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a87fc8e501fa8506d344fac38f1b8af86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87fc8e501fa8506d344fac38f1b8af86">&#9670;&nbsp;</a></span>setLogLevel:</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (void) setLogLevel: </td>
-          <td></td>
-          <td class="paramtype">(SPLogLevel)&#160;</td>
-          <td class="paramname"><em>logLevel</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_logger_8m_source.html#l00028">28</a> of file <a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_logger_8m_source.html#l00027">27</a> of file <a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a>.</p>
 
 </div>
 </div>
@@ -274,13 +220,62 @@ Class Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_logger_8m_source.html#l00028">28</a> of file <a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_logger_8m_source.html#l00027">27</a> of file <a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Property Documentation</h2>
+<a id="a4ba5771a5320961342645035f378f652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ba5771a5320961342645035f378f652">&#9670;&nbsp;</a></span>delegate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (id&lt; <a class="el" href="protocol_s_p_logger_delegate-p.html">SPLoggerDelegate</a> &gt;) delegate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_logger_8h_source.html#l00037">37</a> of file <a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a>.</p>
+
+</div>
+</div>
+<a id="a647c2a5be3658264a07df976583beee2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a647c2a5be3658264a07df976583beee2">&#9670;&nbsp;</a></span>logLevel</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (SPLogLevel) logLevel</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_logger_8h_source.html#l00036">36</a> of file <a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a></li>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a></li>
+<li>/github/workspace/Snowplow/Internal/Logger/<a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a></li>
+<li>/github/workspace/Snowplow/Internal/Logger/<a class="el" href="_s_p_logger_8m_source.html">SPLogger.m</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

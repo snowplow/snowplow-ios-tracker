@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -72,7 +72,7 @@ $(function() {
 <p>A class of utility functions.  
  <a href="interface_s_p_utilities.html#details">More...</a></p>
 
-<p><code>#import &lt;<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="include_2_s_p_utilities_8h_source.html">SPUtilities.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SPUtilities:</div>
 <div class="dyncontent">
@@ -119,7 +119,99 @@ Class Methods</h2></td></tr>
 <tr class="memdesc:ad824c11732016577882972a4fca73ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a randomly generated 6-digit integer.  <a href="interface_s_p_utilities.html#ad824c11732016577882972a4fca73ec5">More...</a><br /></td></tr>
 <tr class="separator:ad824c11732016577882972a4fca73ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab647eb87a22c5930fe25820e6d3ed3b7"><td class="memItemLeft" align="right" valign="top">(NSNumber *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7">getTimestamp</a></td></tr>
-<tr class="memdesc:ab647eb87a22c5930fe25820e6d3ed3b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestamp generated at the point it was called.  <a href="interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7">More...</a><br /></td></tr>
+<tr class="memdesc:ab647eb87a22c5930fe25820e6d3ed3b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestamp (in milliseconds) generated at the point it was called.  <a href="interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7">More...</a><br /></td></tr>
+<tr class="separator:ab647eb87a22c5930fe25820e6d3ed3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa7689e8f358b7fc15e35b833b94fbf"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a4fa7689e8f358b7fc15e35b833b94fbf">getResolution</a></td></tr>
+<tr class="memdesc:a4fa7689e8f358b7fc15e35b833b94fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.  <a href="interface_s_p_utilities.html#a4fa7689e8f358b7fc15e35b833b94fbf">More...</a><br /></td></tr>
+<tr class="separator:a4fa7689e8f358b7fc15e35b833b94fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c45f71f793a05bd6b1802d21cefd321"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a3c45f71f793a05bd6b1802d21cefd321">getViewPort</a></td></tr>
+<tr class="memdesc:a3c45f71f793a05bd6b1802d21cefd321"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the viewport of the app as it is on the screen. Currently, returns the same value as getResolution.  <a href="interface_s_p_utilities.html#a3c45f71f793a05bd6b1802d21cefd321">More...</a><br /></td></tr>
+<tr class="separator:a3c45f71f793a05bd6b1802d21cefd321"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5a638565c245039080a94d4fea2c6ebd"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a5a638565c245039080a94d4fea2c6ebd">getDeviceVendor</a></td></tr>
+<tr class="memdesc:a5a638565c245039080a94d4fea2c6ebd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current device's vendor in the form of a string.  <a href="interface_s_p_utilities.html#a5a638565c245039080a94d4fea2c6ebd">More...</a><br /></td></tr>
+<tr class="separator:a5a638565c245039080a94d4fea2c6ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1255385f100436df335bb7029c90a9ea"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a1255385f100436df335bb7029c90a9ea">getDeviceModel</a></td></tr>
+<tr class="memdesc:a1255385f100436df335bb7029c90a9ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current device's model in the form of a string.  <a href="interface_s_p_utilities.html#a1255385f100436df335bb7029c90a9ea">More...</a><br /></td></tr>
+<tr class="separator:a1255385f100436df335bb7029c90a9ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a86103ba9d51acf1c2c281f9fcceef488"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a86103ba9d51acf1c2c281f9fcceef488">getOSVersion</a></td></tr>
+<tr class="memdesc:a86103ba9d51acf1c2c281f9fcceef488"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is to detect what the version of mobile OS of the current device.  <a href="interface_s_p_utilities.html#a86103ba9d51acf1c2c281f9fcceef488">More...</a><br /></td></tr>
+<tr class="separator:a86103ba9d51acf1c2c281f9fcceef488"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ee9ad346c90c1d17ddcecf8cc4ba221"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a4ee9ad346c90c1d17ddcecf8cc4ba221">getOSType</a></td></tr>
+<tr class="memdesc:a4ee9ad346c90c1d17ddcecf8cc4ba221"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is to detect what the type of mobile OS of the current device.  <a href="interface_s_p_utilities.html#a4ee9ad346c90c1d17ddcecf8cc4ba221">More...</a><br /></td></tr>
+<tr class="separator:a4ee9ad346c90c1d17ddcecf8cc4ba221"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b6e2fe861aa88acb7ae65edaa290d09"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a0b6e2fe861aa88acb7ae65edaa290d09">getAppId</a></td></tr>
+<tr class="memdesc:a0b6e2fe861aa88acb7ae65edaa290d09"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Application ID.  <a href="interface_s_p_utilities.html#a0b6e2fe861aa88acb7ae65edaa290d09">More...</a><br /></td></tr>
+<tr class="separator:a0b6e2fe861aa88acb7ae65edaa290d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1629333ccb7465240de35e3113007694"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a1629333ccb7465240de35e3113007694">urlEncodeString:</a></td></tr>
+<tr class="memdesc:a1629333ccb7465240de35e3113007694"><td class="mdescLeft">&#160;</td><td class="mdescRight">URL encodes a string so that it is suitable to use in a query-string. A nil s returns "".  <a href="interface_s_p_utilities.html#a1629333ccb7465240de35e3113007694">More...</a><br /></td></tr>
+<tr class="separator:a1629333ccb7465240de35e3113007694"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3addae2d94dd2aa4a5f7b8c502adc97"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ad3addae2d94dd2aa4a5f7b8c502adc97">urlEncodeDictionary:</a></td></tr>
+<tr class="memdesc:ad3addae2d94dd2aa4a5f7b8c502adc97"><td class="mdescLeft">&#160;</td><td class="mdescRight">URL encodes a dictionary as key=value pairs separated by &amp;, so that it can be used in a query-string.  <a href="interface_s_p_utilities.html#ad3addae2d94dd2aa4a5f7b8c502adc97">More...</a><br /></td></tr>
+<tr class="separator:ad3addae2d94dd2aa4a5f7b8c502adc97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf510cdb1c433b6edf537f54eb818e3"><td class="memItemLeft" align="right" valign="top">(NSInteger)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#aaaf510cdb1c433b6edf537f54eb818e3">getByteSizeWithString:</a></td></tr>
+<tr class="memdesc:aaaf510cdb1c433b6edf537f54eb818e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the byte size of a string.  <a href="interface_s_p_utilities.html#aaaf510cdb1c433b6edf537f54eb818e3">More...</a><br /></td></tr>
+<tr class="separator:aaaf510cdb1c433b6edf537f54eb818e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94047629677589574ead1a1373f03e47"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument:withMessage:</a></td></tr>
+<tr class="memdesc:a94047629677589574ead1a1373f03e47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks an expression and will log if it is false.  <a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">More...</a><br /></td></tr>
+<tr class="separator:a94047629677589574ead1a1373f03e47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8db5d17d6b14b396ec7d3f9d598d2363"><td class="memItemLeft" align="right" valign="top">(NSDictionary *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a8db5d17d6b14b396ec7d3f9d598d2363">removeNullValuesFromDictWithDict:</a></td></tr>
+<tr class="memdesc:a8db5d17d6b14b396ec7d3f9d598d2363"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes all entries which have a value of NSNull from the dictionary.  <a href="interface_s_p_utilities.html#a8db5d17d6b14b396ec7d3f9d598d2363">More...</a><br /></td></tr>
+<tr class="separator:a8db5d17d6b14b396ec7d3f9d598d2363"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c205b9f5849d02d0526873b5aff1c04"><td class="memItemLeft" align="right" valign="top">(NSDictionary *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a9c205b9f5849d02d0526873b5aff1c04">replaceHyphenatedKeysWithCamelcase:</a></td></tr>
+<tr class="memdesc:a9c205b9f5849d02d0526873b5aff1c04"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps a trigger object to the corresponding simplified string.  <a href="interface_s_p_utilities.html#a9c205b9f5849d02d0526873b5aff1c04">More...</a><br /></td></tr>
+<tr class="separator:a9c205b9f5849d02d0526873b5aff1c04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab261c0eac0dc36aea8bc680e73788abe"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ab261c0eac0dc36aea8bc680e73788abe">camelcaseParsedKey:</a></td></tr>
+<tr class="separator:ab261c0eac0dc36aea8bc680e73788abe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06142c86ea1296ecbd2b3b2844596b01"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a06142c86ea1296ecbd2b3b2844596b01">validateString:</a></td></tr>
+<tr class="separator:a06142c86ea1296ecbd2b3b2844596b01"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8513474ba478a5c12d55b12d7c7b5560"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a8513474ba478a5c12d55b12d7c7b5560">getScreenContextWithScreenState:</a></td></tr>
+<tr class="separator:a8513474ba478a5c12d55b12d7c7b5560"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2137fc87f6963308d0fc128f36f827b"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ae2137fc87f6963308d0fc128f36f827b">getAppVersion</a></td></tr>
+<tr class="separator:ae2137fc87f6963308d0fc128f36f827b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae23ed71460453a1498dff63997a79b82"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ae23ed71460453a1498dff63997a79b82">getAppBuild</a></td></tr>
+<tr class="separator:ae23ed71460453a1498dff63997a79b82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38da29ab4302a0474a2508c3dfcfbf85"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a38da29ab4302a0474a2508c3dfcfbf85">getApplicationContext</a></td></tr>
+<tr class="separator:a38da29ab4302a0474a2508c3dfcfbf85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a262cbc18aa23ce400b46293969446098"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a262cbc18aa23ce400b46293969446098">getApplicationContextWithVersion:andBuild:</a></td></tr>
+<tr class="separator:a262cbc18aa23ce400b46293969446098"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98a87af2df9d8db803b1416c267a2fe3"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a98a87af2df9d8db803b1416c267a2fe3">getTimezone</a></td></tr>
+<tr class="memdesc:a98a87af2df9d8db803b1416c267a2fe3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the system timezone region.  <a href="interface_s_p_utilities.html#a98a87af2df9d8db803b1416c267a2fe3">More...</a><br /></td></tr>
+<tr class="separator:a98a87af2df9d8db803b1416c267a2fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca0071e1700007ea672a54652ada4a7"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a6ca0071e1700007ea672a54652ada4a7">getLanguage</a></td></tr>
+<tr class="memdesc:a6ca0071e1700007ea672a54652ada4a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the system language currently used on the device.  <a href="interface_s_p_utilities.html#a6ca0071e1700007ea672a54652ada4a7">More...</a><br /></td></tr>
+<tr class="separator:a6ca0071e1700007ea672a54652ada4a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad71e1769188a6c096446395e917438bd"><td class="memItemLeft" align="right" valign="top">(SPDevicePlatform)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ad71e1769188a6c096446395e917438bd">getPlatform</a></td></tr>
+<tr class="memdesc:ad71e1769188a6c096446395e917438bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the platform type of the device..  <a href="interface_s_p_utilities.html#ad71e1769188a6c096446395e917438bd">More...</a><br /></td></tr>
+<tr class="separator:ad71e1769188a6c096446395e917438bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85c1f71bfa1f307b99bcc70062b6e443"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_utilities.html#a80c09e713c74f587fc48af55d4984c4c">getUUIDString</a>` instead.&quot;)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a85c1f71bfa1f307b99bcc70062b6e443">__deprecated_msg</a></td></tr>
+<tr class="memdesc:a85c1f71bfa1f307b99bcc70062b6e443"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a randomly generated UUID (type 4).  <a href="interface_s_p_utilities.html#a85c1f71bfa1f307b99bcc70062b6e443">More...</a><br /></td></tr>
+<tr class="separator:a85c1f71bfa1f307b99bcc70062b6e443"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80c09e713c74f587fc48af55d4984c4c"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a80c09e713c74f587fc48af55d4984c4c">getUUIDString</a></td></tr>
+<tr class="memdesc:a80c09e713c74f587fc48af55d4984c4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a randomly generated UUID (type 4).  <a href="interface_s_p_utilities.html#a80c09e713c74f587fc48af55d4984c4c">More...</a><br /></td></tr>
+<tr class="separator:a80c09e713c74f587fc48af55d4984c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afedff29058e66fca587b7a272deeec5a"><td class="memItemLeft" align="right" valign="top">(bool)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a">isUUIDString:</a></td></tr>
+<tr class="memdesc:afedff29058e66fca587b7a272deeec5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the value is a valid UUID (type 4).  <a href="interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a">More...</a><br /></td></tr>
+<tr class="separator:afedff29058e66fca587b7a272deeec5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a325981fc009d3391aaeef66781bfc9f5"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a325981fc009d3391aaeef66781bfc9f5">getAppleIdfa</a></td></tr>
+<tr class="memdesc:a325981fc009d3391aaeef66781bfc9f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project and you enable the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.  <a href="interface_s_p_utilities.html#a325981fc009d3391aaeef66781bfc9f5">More...</a><br /></td></tr>
+<tr class="separator:a325981fc009d3391aaeef66781bfc9f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfd2664b710496eb9606968ed103cd79"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#acfd2664b710496eb9606968ed103cd79">getAppleIdfv</a></td></tr>
+<tr class="memdesc:acfd2664b710496eb9606968ed103cd79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.  <a href="interface_s_p_utilities.html#acfd2664b710496eb9606968ed103cd79">More...</a><br /></td></tr>
+<tr class="separator:acfd2664b710496eb9606968ed103cd79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3558aa318e7aad03d5b666368ef95f88"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a3558aa318e7aad03d5b666368ef95f88">getCarrierName</a></td></tr>
+<tr class="memdesc:a3558aa318e7aad03d5b666368ef95f88"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the carrier of the SIM inserted in the device.  <a href="interface_s_p_utilities.html#a3558aa318e7aad03d5b666368ef95f88">More...</a><br /></td></tr>
+<tr class="separator:a3558aa318e7aad03d5b666368ef95f88"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a034cd71ede230824710adf24534e6180"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a034cd71ede230824710adf24534e6180">getNetworkType</a></td></tr>
+<tr class="memdesc:a034cd71ede230824710adf24534e6180"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Network Type the device is connected to.  <a href="interface_s_p_utilities.html#a034cd71ede230824710adf24534e6180">More...</a><br /></td></tr>
+<tr class="separator:a034cd71ede230824710adf24534e6180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a306f66ee016bad77032358fc5350ec07"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a306f66ee016bad77032358fc5350ec07">getNetworkTechnology</a></td></tr>
+<tr class="memdesc:a306f66ee016bad77032358fc5350ec07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the Network Technology the device is using.  <a href="interface_s_p_utilities.html#a306f66ee016bad77032358fc5350ec07">More...</a><br /></td></tr>
+<tr class="separator:a306f66ee016bad77032358fc5350ec07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad824c11732016577882972a4fca73ec5"><td class="memItemLeft" align="right" valign="top">(int)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ad824c11732016577882972a4fca73ec5">__deprecated</a></td></tr>
+<tr class="memdesc:ad824c11732016577882972a4fca73ec5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a randomly generated 6-digit integer.  <a href="interface_s_p_utilities.html#ad824c11732016577882972a4fca73ec5">More...</a><br /></td></tr>
+<tr class="separator:ad824c11732016577882972a4fca73ec5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab647eb87a22c5930fe25820e6d3ed3b7"><td class="memItemLeft" align="right" valign="top">(NSNumber *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7">getTimestamp</a></td></tr>
+<tr class="memdesc:ab647eb87a22c5930fe25820e6d3ed3b7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the timestamp (in milliseconds) generated at the point it was called.  <a href="interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7">More...</a><br /></td></tr>
 <tr class="separator:ab647eb87a22c5930fe25820e6d3ed3b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fa7689e8f358b7fc15e35b833b94fbf"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_utilities.html#a4fa7689e8f358b7fc15e35b833b94fbf">getResolution</a></td></tr>
 <tr class="memdesc:a4fa7689e8f358b7fc15e35b833b94fbf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.  <a href="interface_s_p_utilities.html#a4fa7689e8f358b7fc15e35b833b94fbf">More...</a><br /></td></tr>
@@ -178,10 +270,28 @@ Class Methods</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This is a class that contains utility functions used throughout the tracker. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_utilities_8h_source.html#l00040">40</a> of file <a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_utilities_8h_source.html#l00041">41</a> of file <a class="el" href="include_2_s_p_utilities_8h_source.html">SPUtilities.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="ad824c11732016577882972a4fca73ec5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad824c11732016577882972a4fca73ec5">&#9670;&nbsp;</a></span>__deprecated</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad824c11732016577882972a4fca73ec5">&#9670;&nbsp;</a></span>__deprecated <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (int) __deprecated </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A random 6-digit int. </dd></dl>
+
+</div>
+</div>
+<a id="ad824c11732016577882972a4fca73ec5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad824c11732016577882972a4fca73ec5">&#9670;&nbsp;</a></span>__deprecated <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,7 +309,7 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a85c1f71bfa1f307b99bcc70062b6e443"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a85c1f71bfa1f307b99bcc70062b6e443">&#9670;&nbsp;</a></span>__deprecated_msg</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a85c1f71bfa1f307b99bcc70062b6e443">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -213,12 +323,56 @@ Class Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F. </dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000023">Deprecated:</a></b></dt><dd>Use <code>getUUIDString</code> instead`. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000044">Deprecated:</a></b></dt><dd>Use <code>getUUIDString</code> instead`. </dd></dl>
+
+</div>
+</div>
+<a id="a85c1f71bfa1f307b99bcc70062b6e443"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85c1f71bfa1f307b99bcc70062b6e443">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (&quot;Use `<a class="el" href="interface_s_p_utilities.html#a80c09e713c74f587fc48af55d4984c4c">getUUIDString</a>` instead.&quot;) __deprecated_msg </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F. </dd></dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000090">Deprecated:</a></b></dt><dd>Use <code>getUUIDString</code> instead`. </dd></dl>
 
 </div>
 </div>
 <a id="ab261c0eac0dc36aea8bc680e73788abe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab261c0eac0dc36aea8bc680e73788abe">&#9670;&nbsp;</a></span>camelcaseParsedKey:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab261c0eac0dc36aea8bc680e73788abe">&#9670;&nbsp;</a></span>camelcaseParsedKey: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) camelcaseParsedKey: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>key</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Converts a kebab-case string into a camel-case string. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>A kebab-case key. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A camel-case string. </dd></dl>
+
+</div>
+</div>
+<a id="ab261c0eac0dc36aea8bc680e73788abe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab261c0eac0dc36aea8bc680e73788abe">&#9670;&nbsp;</a></span>camelcaseParsedKey: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +397,43 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a94047629677589574ead1a1373f03e47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94047629677589574ead1a1373f03e47">&#9670;&nbsp;</a></span>checkArgument:withMessage:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a94047629677589574ead1a1373f03e47">&#9670;&nbsp;</a></span>checkArgument:withMessage: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (void) checkArgument: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>argument</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">withMessage:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This allows for rudimentary Preconditions for object setup.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">argument</td><td>The argument to check. </td></tr>
+    <tr><td class="paramname">message</td><td>The message to log. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a94047629677589574ead1a1373f03e47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94047629677589574ead1a1373f03e47">&#9670;&nbsp;</a></span>checkArgument:withMessage: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -279,7 +469,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="ae23ed71460453a1498dff63997a79b82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae23ed71460453a1498dff63997a79b82">&#9670;&nbsp;</a></span>getAppBuild</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae23ed71460453a1498dff63997a79b82">&#9670;&nbsp;</a></span>getAppBuild <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getAppBuild </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the app build. </p><dl class="section return"><dt>Returns</dt><dd>App build string. </dd></dl>
+
+</div>
+</div>
+<a id="ae23ed71460453a1498dff63997a79b82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae23ed71460453a1498dff63997a79b82">&#9670;&nbsp;</a></span>getAppBuild <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -297,7 +505,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a0b6e2fe861aa88acb7ae65edaa290d09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b6e2fe861aa88acb7ae65edaa290d09">&#9670;&nbsp;</a></span>getAppId</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b6e2fe861aa88acb7ae65edaa290d09">&#9670;&nbsp;</a></span>getAppId <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getAppId </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The device bundle application id </dd></dl>
+
+</div>
+</div>
+<a id="a0b6e2fe861aa88acb7ae65edaa290d09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b6e2fe861aa88acb7ae65edaa290d09">&#9670;&nbsp;</a></span>getAppId <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -315,7 +541,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a325981fc009d3391aaeef66781bfc9f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a325981fc009d3391aaeef66781bfc9f5">&#9670;&nbsp;</a></span>getAppleIdfa</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a325981fc009d3391aaeef66781bfc9f5">&#9670;&nbsp;</a></span>getAppleIdfa <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getAppleIdfa </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F. </dd></dl>
+
+</div>
+</div>
+<a id="a325981fc009d3391aaeef66781bfc9f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a325981fc009d3391aaeef66781bfc9f5">&#9670;&nbsp;</a></span>getAppleIdfa <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -333,7 +577,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="acfd2664b710496eb9606968ed103cd79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfd2664b710496eb9606968ed103cd79">&#9670;&nbsp;</a></span>getAppleIdfv</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acfd2664b710496eb9606968ed103cd79">&#9670;&nbsp;</a></span>getAppleIdfv <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getAppleIdfv </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F. </dd></dl>
+
+</div>
+</div>
+<a id="acfd2664b710496eb9606968ed103cd79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfd2664b710496eb9606968ed103cd79">&#9670;&nbsp;</a></span>getAppleIdfv <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -351,7 +613,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a38da29ab4302a0474a2508c3dfcfbf85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38da29ab4302a0474a2508c3dfcfbf85">&#9670;&nbsp;</a></span>getApplicationContext</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a38da29ab4302a0474a2508c3dfcfbf85">&#9670;&nbsp;</a></span>getApplicationContext <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *) getApplicationContext </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the application build and version as a payload to be used in the application context. </p><dl class="section return"><dt>Returns</dt><dd>A context SDJ. </dd></dl>
+
+</div>
+</div>
+<a id="a38da29ab4302a0474a2508c3dfcfbf85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38da29ab4302a0474a2508c3dfcfbf85">&#9670;&nbsp;</a></span>getApplicationContext <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -369,7 +649,43 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a262cbc18aa23ce400b46293969446098"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a262cbc18aa23ce400b46293969446098">&#9670;&nbsp;</a></span>getApplicationContextWithVersion:andBuild:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a262cbc18aa23ce400b46293969446098">&#9670;&nbsp;</a></span>getApplicationContextWithVersion:andBuild: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *) getApplicationContextWithVersion: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>version</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">andBuild:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>build</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the application build and version as a payload to be used in the application context. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">version</td><td>The application version </td></tr>
+    <tr><td class="paramname">build</td><td>The application build </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A context SDJ. </dd></dl>
+
+</div>
+</div>
+<a id="a262cbc18aa23ce400b46293969446098"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a262cbc18aa23ce400b46293969446098">&#9670;&nbsp;</a></span>getApplicationContextWithVersion:andBuild: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +721,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="ae2137fc87f6963308d0fc128f36f827b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2137fc87f6963308d0fc128f36f827b">&#9670;&nbsp;</a></span>getAppVersion</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2137fc87f6963308d0fc128f36f827b">&#9670;&nbsp;</a></span>getAppVersion <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getAppVersion </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns the app version. </p><dl class="section return"><dt>Returns</dt><dd>App version string. </dd></dl>
+
+</div>
+</div>
+<a id="ae2137fc87f6963308d0fc128f36f827b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2137fc87f6963308d0fc128f36f827b">&#9670;&nbsp;</a></span>getAppVersion <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -423,7 +757,32 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="aaaf510cdb1c433b6edf537f54eb818e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaaf510cdb1c433b6edf537f54eb818e3">&#9670;&nbsp;</a></span>getByteSizeWithString:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaf510cdb1c433b6edf537f54eb818e3">&#9670;&nbsp;</a></span>getByteSizeWithString: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSInteger) getByteSizeWithString: </td>
+          <td></td>
+          <td class="paramtype">(&quot;getByteSizeWithString is deprecated. Use NSString method instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str</td><td>A string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The byte size of the string. </dd></dl>
+
+</div>
+</div>
+<a id="aaaf510cdb1c433b6edf537f54eb818e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaf510cdb1c433b6edf537f54eb818e3">&#9670;&nbsp;</a></span>getByteSizeWithString: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -448,7 +807,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a3558aa318e7aad03d5b666368ef95f88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3558aa318e7aad03d5b666368ef95f88">&#9670;&nbsp;</a></span>getCarrierName</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3558aa318e7aad03d5b666368ef95f88">&#9670;&nbsp;</a></span>getCarrierName <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getCarrierName </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string containing the carrier name of the service provider. </dd></dl>
+
+</div>
+</div>
+<a id="a3558aa318e7aad03d5b666368ef95f88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3558aa318e7aad03d5b666368ef95f88">&#9670;&nbsp;</a></span>getCarrierName <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -466,7 +843,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a1255385f100436df335bb7029c90a9ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1255385f100436df335bb7029c90a9ea">&#9670;&nbsp;</a></span>getDeviceModel</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1255385f100436df335bb7029c90a9ea">&#9670;&nbsp;</a></span>getDeviceModel <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getDeviceModel </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string with device model. </dd></dl>
+
+</div>
+</div>
+<a id="a1255385f100436df335bb7029c90a9ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1255385f100436df335bb7029c90a9ea">&#9670;&nbsp;</a></span>getDeviceModel <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -484,7 +879,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a5a638565c245039080a94d4fea2c6ebd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a638565c245039080a94d4fea2c6ebd">&#9670;&nbsp;</a></span>getDeviceVendor</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a638565c245039080a94d4fea2c6ebd">&#9670;&nbsp;</a></span>getDeviceVendor <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getDeviceVendor </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string with vendor, i.e. "Apple Inc." </dd></dl>
+
+</div>
+</div>
+<a id="a5a638565c245039080a94d4fea2c6ebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5a638565c245039080a94d4fea2c6ebd">&#9670;&nbsp;</a></span>getDeviceVendor <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -502,7 +915,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a6ca0071e1700007ea672a54652ada4a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ca0071e1700007ea672a54652ada4a7">&#9670;&nbsp;</a></span>getLanguage</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca0071e1700007ea672a54652ada4a7">&#9670;&nbsp;</a></span>getLanguage <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getLanguage </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string of the current language. </dd></dl>
+
+</div>
+</div>
+<a id="a6ca0071e1700007ea672a54652ada4a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca0071e1700007ea672a54652ada4a7">&#9670;&nbsp;</a></span>getLanguage <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -520,7 +951,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a306f66ee016bad77032358fc5350ec07"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a306f66ee016bad77032358fc5350ec07">&#9670;&nbsp;</a></span>getNetworkTechnology</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a306f66ee016bad77032358fc5350ec07">&#9670;&nbsp;</a></span>getNetworkTechnology <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getNetworkTechnology </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string containing the Network Technology. </dd></dl>
+
+</div>
+</div>
+<a id="a306f66ee016bad77032358fc5350ec07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a306f66ee016bad77032358fc5350ec07">&#9670;&nbsp;</a></span>getNetworkTechnology <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -538,7 +987,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a034cd71ede230824710adf24534e6180"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a034cd71ede230824710adf24534e6180">&#9670;&nbsp;</a></span>getNetworkType</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a034cd71ede230824710adf24534e6180">&#9670;&nbsp;</a></span>getNetworkType <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getNetworkType </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string containing the Network Type. </dd></dl>
+
+</div>
+</div>
+<a id="a034cd71ede230824710adf24534e6180"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a034cd71ede230824710adf24534e6180">&#9670;&nbsp;</a></span>getNetworkType <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -556,7 +1023,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a4ee9ad346c90c1d17ddcecf8cc4ba221"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4ee9ad346c90c1d17ddcecf8cc4ba221">&#9670;&nbsp;</a></span>getOSType</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee9ad346c90c1d17ddcecf8cc4ba221">&#9670;&nbsp;</a></span>getOSType <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getOSType </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The current device's OS type as a string. </dd></dl>
+
+</div>
+</div>
+<a id="a4ee9ad346c90c1d17ddcecf8cc4ba221"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ee9ad346c90c1d17ddcecf8cc4ba221">&#9670;&nbsp;</a></span>getOSType <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -574,7 +1059,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a86103ba9d51acf1c2c281f9fcceef488"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86103ba9d51acf1c2c281f9fcceef488">&#9670;&nbsp;</a></span>getOSVersion</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a86103ba9d51acf1c2c281f9fcceef488">&#9670;&nbsp;</a></span>getOSVersion <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getOSVersion </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The current device's OS version type as a string. </dd></dl>
+
+</div>
+</div>
+<a id="a86103ba9d51acf1c2c281f9fcceef488"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a86103ba9d51acf1c2c281f9fcceef488">&#9670;&nbsp;</a></span>getOSVersion <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -592,7 +1095,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="ad71e1769188a6c096446395e917438bd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad71e1769188a6c096446395e917438bd">&#9670;&nbsp;</a></span>getPlatform</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad71e1769188a6c096446395e917438bd">&#9670;&nbsp;</a></span>getPlatform <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (SPDevicePlatform) getPlatform </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string of the platform type. </dd></dl>
+
+</div>
+</div>
+<a id="ad71e1769188a6c096446395e917438bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad71e1769188a6c096446395e917438bd">&#9670;&nbsp;</a></span>getPlatform <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -610,7 +1131,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a4fa7689e8f358b7fc15e35b833b94fbf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fa7689e8f358b7fc15e35b833b94fbf">&#9670;&nbsp;</a></span>getResolution</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa7689e8f358b7fc15e35b833b94fbf">&#9670;&nbsp;</a></span>getResolution <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getResolution </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A formatted string with resolution 'width' and 'height'. </dd></dl>
+
+</div>
+</div>
+<a id="a4fa7689e8f358b7fc15e35b833b94fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa7689e8f358b7fc15e35b833b94fbf">&#9670;&nbsp;</a></span>getResolution <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -628,7 +1167,32 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a8513474ba478a5c12d55b12d7c7b5560"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8513474ba478a5c12d55b12d7c7b5560">&#9670;&nbsp;</a></span>getScreenContextWithScreenState:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8513474ba478a5c12d55b12d7c7b5560">&#9670;&nbsp;</a></span>getScreenContextWithScreenState: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *) getScreenContextWithScreenState: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *)&#160;</td>
+          <td class="paramname"><em>screenState</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns a screen context SDJ given a screen state object. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">screenState</td><td>Some screen state </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A context SDJ. </dd></dl>
+
+</div>
+</div>
+<a id="a8513474ba478a5c12d55b12d7c7b5560"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8513474ba478a5c12d55b12d7c7b5560">&#9670;&nbsp;</a></span>getScreenContextWithScreenState: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -653,7 +1217,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="ab647eb87a22c5930fe25820e6d3ed3b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab647eb87a22c5930fe25820e6d3ed3b7">&#9670;&nbsp;</a></span>getTimestamp</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab647eb87a22c5930fe25820e6d3ed3b7">&#9670;&nbsp;</a></span>getTimestamp <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSNumber *) getTimestamp </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A double of the timestamp from when the method was called. </dd></dl>
+
+</div>
+</div>
+<a id="ab647eb87a22c5930fe25820e6d3ed3b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab647eb87a22c5930fe25820e6d3ed3b7">&#9670;&nbsp;</a></span>getTimestamp <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -671,7 +1253,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a98a87af2df9d8db803b1416c267a2fe3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98a87af2df9d8db803b1416c267a2fe3">&#9670;&nbsp;</a></span>getTimezone</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a87af2df9d8db803b1416c267a2fe3">&#9670;&nbsp;</a></span>getTimezone <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getTimezone </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string of the timezone region (e.g. 'Toronto/Canada'). </dd></dl>
+
+</div>
+</div>
+<a id="a98a87af2df9d8db803b1416c267a2fe3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98a87af2df9d8db803b1416c267a2fe3">&#9670;&nbsp;</a></span>getTimezone <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -689,7 +1289,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a80c09e713c74f587fc48af55d4984c4c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80c09e713c74f587fc48af55d4984c4c">&#9670;&nbsp;</a></span>getUUIDString</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a80c09e713c74f587fc48af55d4984c4c">&#9670;&nbsp;</a></span>getUUIDString <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getUUIDString </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F. </dd></dl>
+
+</div>
+</div>
+<a id="a80c09e713c74f587fc48af55d4984c4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80c09e713c74f587fc48af55d4984c4c">&#9670;&nbsp;</a></span>getUUIDString <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -707,7 +1325,25 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a3c45f71f793a05bd6b1802d21cefd321"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c45f71f793a05bd6b1802d21cefd321">&#9670;&nbsp;</a></span>getViewPort</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c45f71f793a05bd6b1802d21cefd321">&#9670;&nbsp;</a></span>getViewPort <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) getViewPort </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A formatted string with viewport width and height. </dd></dl>
+
+</div>
+</div>
+<a id="a3c45f71f793a05bd6b1802d21cefd321"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c45f71f793a05bd6b1802d21cefd321">&#9670;&nbsp;</a></span>getViewPort <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -725,7 +1361,32 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="afedff29058e66fca587b7a272deeec5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afedff29058e66fca587b7a272deeec5a">&#9670;&nbsp;</a></span>isUUIDString:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afedff29058e66fca587b7a272deeec5a">&#9670;&nbsp;</a></span>isUUIDString: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (bool) isUUIDString: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>uuidString</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">uuidString</td><td>UUID string to validate. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Weither is a valid UUID string. </dd></dl>
+
+</div>
+</div>
+<a id="afedff29058e66fca587b7a272deeec5a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afedff29058e66fca587b7a272deeec5a">&#9670;&nbsp;</a></span>isUUIDString: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -750,7 +1411,32 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a8db5d17d6b14b396ec7d3f9d598d2363"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8db5d17d6b14b396ec7d3f9d598d2363">&#9670;&nbsp;</a></span>removeNullValuesFromDictWithDict:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db5d17d6b14b396ec7d3f9d598d2363">&#9670;&nbsp;</a></span>removeNullValuesFromDictWithDict: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSDictionary *) removeNullValuesFromDictWithDict: </td>
+          <td></td>
+          <td class="paramtype">(NSDictionary *)&#160;</td>
+          <td class="paramname"><em>dict</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dict</td><td>An NSDictionary to be cleaned. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The same NSDictionary without any Null values. </dd></dl>
+
+</div>
+</div>
+<a id="a8db5d17d6b14b396ec7d3f9d598d2363"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8db5d17d6b14b396ec7d3f9d598d2363">&#9670;&nbsp;</a></span>removeNullValuesFromDictWithDict: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -775,7 +1461,46 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a9c205b9f5849d02d0526873b5aff1c04"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c205b9f5849d02d0526873b5aff1c04">&#9670;&nbsp;</a></span>replaceHyphenatedKeysWithCamelcase:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c205b9f5849d02d0526873b5aff1c04">&#9670;&nbsp;</a></span>replaceHyphenatedKeysWithCamelcase: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSDictionary *) replaceHyphenatedKeysWithCamelcase: </td>
+          <td></td>
+          <td class="paramtype">(NSDictionary *)&#160;</td>
+          <td class="paramname"><em>dict</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">trigger</td><td>A UNNotificationTrigger object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string describing the type of trigger.</dd></dl>
+<p>Converts a UNNotificationAttachment array into an array of string dictionaries. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attachments</td><td>An array of UNNotificationAttachment. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An array of string dictionaries.</dd></dl>
+<p>Converts a kebab-case string keys into a camel-case string keys. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dict</td><td>The dictionary to convert. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dictionary. </dd></dl>
+
+</div>
+</div>
+<a id="a9c205b9f5849d02d0526873b5aff1c04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c205b9f5849d02d0526873b5aff1c04">&#9670;&nbsp;</a></span>replaceHyphenatedKeysWithCamelcase: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -814,7 +1539,27 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="ad3addae2d94dd2aa4a5f7b8c502adc97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad3addae2d94dd2aa4a5f7b8c502adc97">&#9670;&nbsp;</a></span>urlEncodeDictionary:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3addae2d94dd2aa4a5f7b8c502adc97">&#9670;&nbsp;</a></span>urlEncodeDictionary: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) urlEncodeDictionary: </td>
+          <td></td>
+          <td class="paramtype">(NSDictionary *)&#160;</td>
+          <td class="paramname"><em>d</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>This method can encode string, numbers, and bool values, and not embedded arrays or dictionaries. It encodes bool as 1 and 0.</p>
+<dl class="section return"><dt>Returns</dt><dd>The url encoded string of the dictionary. </dd></dl>
+
+</div>
+</div>
+<a id="ad3addae2d94dd2aa4a5f7b8c502adc97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3addae2d94dd2aa4a5f7b8c502adc97">&#9670;&nbsp;</a></span>urlEncodeDictionary: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -834,7 +1579,26 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a1629333ccb7465240de35e3113007694"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1629333ccb7465240de35e3113007694">&#9670;&nbsp;</a></span>urlEncodeString:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1629333ccb7465240de35e3113007694">&#9670;&nbsp;</a></span>urlEncodeString: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) urlEncodeString: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>s</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The url encoded string </dd></dl>
+
+</div>
+</div>
+<a id="a1629333ccb7465240de35e3113007694"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1629333ccb7465240de35e3113007694">&#9670;&nbsp;</a></span>urlEncodeString: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -853,7 +1617,32 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <a id="a06142c86ea1296ecbd2b3b2844596b01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06142c86ea1296ecbd2b3b2844596b01">&#9670;&nbsp;</a></span>validateString:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a06142c86ea1296ecbd2b3b2844596b01">&#9670;&nbsp;</a></span>validateString: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSString *) validateString: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>aString</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Return nil if value is nil or empty string, otherwise return string. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">aString</td><td>Some string </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string or nil </dd></dl>
+
+</div>
+</div>
+<a id="a06142c86ea1296ecbd2b3b2844596b01"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06142c86ea1296ecbd2b3b2844596b01">&#9670;&nbsp;</a></span>validateString: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -878,7 +1667,7 @@ Class Methods</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a></li>
+<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_utilities_8h_source.html">SPUtilities.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

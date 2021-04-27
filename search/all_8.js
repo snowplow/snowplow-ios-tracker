@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['httpmethod_224',['httpMethod',['../interface_s_p_emitter.html#aeb34e0431f0a7decbd490a2579c78b31',1,'SPEmitter::httpMethod()'],['../protocol_s_p_network_connection-p.html#a3eda1e871e62172110f8c4db9b60b782',1,'SPNetworkConnection-p::httpMethod()']]]
+  ['height_266',['height',['../interface_s_p_size.html#a1cdeaaebe1687fd7b3237fd45e3d5740',1,'SPSize::height()'],['../category_s_p_size_07_08.html#a1cdeaaebe1687fd7b3237fd45e3d5740',1,'SPSize()::height()']]],
+  ['httpmethod_267',['httpMethod',['../interface_s_p_emitter.html#aaf466749ffb27c61ed781274b3f98e34',1,'SPEmitter::httpMethod()'],['../protocol_s_p_network_connection-p.html#a952fd608e4a4893c8b1705c6be20d31e',1,'SPNetworkConnection-p::httpMethod()'],['../protocol_s_p_network_connection-p.html#a952fd608e4a4893c8b1705c6be20d31e',1,'SPNetworkConnection-p::httpMethod()']]]
 ];

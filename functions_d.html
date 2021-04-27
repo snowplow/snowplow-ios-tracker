@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -67,7 +67,10 @@ $(function() {
 <h3><a id="index_d"></a>- d -</h3><ul>
 <li>data
 : <a class="el" href="category_s_p_self_describing_json_07_08.html#a2b280c2cebc1a103da97f7ed38e6a1da">SPSelfDescribingJson()</a>
-, <a class="el" href="interface_s_p_self_describing_json.html#a2b280c2cebc1a103da97f7ed38e6a1da">SPSelfDescribingJson</a>
+, <a class="el" href="interface_s_p_self_describing_json.html#a08e15f1e98e6943b32ae8e172fa9ec0b">SPSelfDescribingJson</a>
+</li>
+<li>dbCount
+: <a class="el" href="protocol_s_p_emitter_controller-p.html#a5343864a4f56195164c24c6473b7d6e5">&lt;SPEmitterController&gt;</a>
 </li>
 <li>dbPath
 : <a class="el" href="category_s_p_s_q_lite_event_store_07_08.html#af988232886b1d5a943bf1ffff11fb44a">SPSQLiteEventStore()</a>
@@ -76,32 +79,71 @@ $(function() {
 : <a class="el" href="interface_s_p_logger.html#a51196afe5683f55e04f461c574651c52">SPLogger</a>
 , <a class="el" href="protocol_s_p_logger_delegate-p.html#a51196afe5683f55e04f461c574651c52">&lt;SPLoggerDelegate&gt;</a>
 </li>
+<li>defaultServiceProvider
+: <a class="el" href="category_s_p_snowplow_07_08.html#accde7e30fd657ad89590fce8d0433a95">SPSnowplow()</a>
+</li>
+<li>defaultTracker
+: <a class="el" href="interface_s_p_snowplow.html#a66d4188c04dc962de2883ccfcf9fd386">SPSnowplow</a>
+</li>
 <li>delegate
 : <a class="el" href="category_s_p_logger_07_08.html#af8663a7a0fc137158964a6b3eeef532f">SPLogger()</a>
+, <a class="el" href="interface_s_p_logger.html#a4ba5771a5320961342645035f378f652">SPLogger</a>
 </li>
 <li>denied
 : <a class="el" href="interface_s_p_schema_ruleset.html#ab88f1dcc29bfd1ce804ddb50011ff17b">SPSchemaRuleset</a>
+</li>
+<li>DEPRECATED_ATTRIBUTE
+: <a class="el" href="interface_s_p_session.html#ae9bde39a296cb7d8fd8a988fd22a5805">SPSession</a>
 </li>
 <li>description
 : <a class="el" href="interface_s_p_self_describing_json.html#a0920dc7935061bc57daab91706be5934">SPSelfDescribingJson</a>
 </li>
 <li>devicePlatform
 : <a class="el" href="interface_s_p_tracker.html#a606cc5a8cc75395474e895b6575c22d1">SPTracker</a>
+, <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a606cc5a8cc75395474e895b6575c22d1">&lt;SPTrackerConfigurationProtocol&gt;</a>
 </li>
 <li>diagnostic:message:errorOrException:
 : <a class="el" href="interface_s_p_logger.html#a3d545afaac963331161b72b43931219c">SPLogger</a>
+</li>
+<li>diagnosticAutotracking
+: <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a83ee43d0a3875bd50e016e534491b264">&lt;SPTrackerConfigurationProtocol&gt;</a>
+</li>
+<li>disable
+: <a class="el" href="protocol_s_p_g_d_p_r_controller-p.html#a8cfbbe53c1cf6e3054736daea3044c0f">&lt;SPGDPRController&gt;</a>
 </li>
 <li>disableGdprContext
 : <a class="el" href="interface_s_p_tracker.html#a53a79fba45cd3d29e99cac2ce5f21234">SPTracker</a>
 </li>
 <li>documentDescription
-: <a class="el" href="category_s_p_gdpr_context_07_08.html#a64eb47b62bbb1859ef569d9ba2af47e0">SPGdprContext()</a>
+: <a class="el" href="interface_s_p_consent_document.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPConsentDocument</a>
+, <a class="el" href="interface_s_p_consent_granted.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPConsentGranted</a>
+, <a class="el" href="interface_s_p_consent_withdrawn.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPConsentWithdrawn</a>
+, <a class="el" href="category_s_p_g_d_p_r_configuration_07_08.html#a64eb47b62bbb1859ef569d9ba2af47e0">SPGDPRConfiguration()</a>
+, <a class="el" href="protocol_s_p_g_d_p_r_configuration_protocol-p.html#a64eb47b62bbb1859ef569d9ba2af47e0">&lt;SPGDPRConfigurationProtocol&gt;</a>
+, <a class="el" href="category_s_p_gdpr_context_07_08.html#a64eb47b62bbb1859ef569d9ba2af47e0">SPGdprContext()</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPGdprContext</a>
 </li>
 <li>documentId
-: <a class="el" href="category_s_p_gdpr_context_07_08.html#ae44e6b200e862c07209b87cb42f9deec">SPGdprContext()</a>
+: <a class="el" href="interface_s_p_consent_document.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentDocument</a>
+, <a class="el" href="interface_s_p_consent_granted.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentGranted</a>
+, <a class="el" href="interface_s_p_consent_withdrawn.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentWithdrawn</a>
+, <a class="el" href="category_s_p_g_d_p_r_configuration_07_08.html#ae44e6b200e862c07209b87cb42f9deec">SPGDPRConfiguration()</a>
+, <a class="el" href="protocol_s_p_g_d_p_r_configuration_protocol-p.html#ae44e6b200e862c07209b87cb42f9deec">&lt;SPGDPRConfigurationProtocol&gt;</a>
+, <a class="el" href="category_s_p_gdpr_context_07_08.html#ae44e6b200e862c07209b87cb42f9deec">SPGdprContext()</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#ae8e7d37e01479eab475ab8395d1e138c">SPGdprContext</a>
+</li>
+<li>documents
+: <a class="el" href="interface_s_p_consent_granted.html#ac04eadf04876e55d5d380255bf3cbbbe">SPConsentGranted</a>
+, <a class="el" href="interface_s_p_consent_withdrawn.html#ac04eadf04876e55d5d380255bf3cbbbe">SPConsentWithdrawn</a>
 </li>
 <li>documentVersion
-: <a class="el" href="category_s_p_gdpr_context_07_08.html#aa0fa004d2853700050646cf210ddab47">SPGdprContext()</a>
+: <a class="el" href="category_s_p_g_d_p_r_configuration_07_08.html#aa0fa004d2853700050646cf210ddab47">SPGDPRConfiguration()</a>
+, <a class="el" href="protocol_s_p_g_d_p_r_configuration_protocol-p.html#aa0fa004d2853700050646cf210ddab47">&lt;SPGDPRConfigurationProtocol&gt;</a>
+, <a class="el" href="category_s_p_gdpr_context_07_08.html#aa0fa004d2853700050646cf210ddab47">SPGdprContext()</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#ae9f4b5d0e8efd40efb5fdad768870c2d">SPGdprContext</a>
+</li>
+<li>domainUserId
+: <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#aaa87f2ab7d80af27d2d688ea3f0d8a0e">&lt;SPSubjectConfigurationProtocol&gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

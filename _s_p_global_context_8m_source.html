@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPGlobalContext.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/GlobalContexts/SPGlobalContext.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_643252336e3fef86ca54d7d907de6706.html">GlobalContexts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPContextGenerator.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -92,15 +92,15 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_global_context_8h.html">SPGlobalContext.h</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_schema_ruleset_8h.html">SPSchemaRuleset.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_global_contexts_2_s_p_global_context_8h.html">SPGlobalContext.h</a>&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_global_contexts_2_s_p_schema_ruleset_8h.html">SPSchemaRuleset.h</a>&quot;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;NS_ASSUME_NONNULL_BEGIN</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="category_s_p_global_context_07_08.html">   28</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_global_context.html">SPGlobalContext</a> ()</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="category_s_p_global_context_07_08.html#a8b80ec007372f37a574719ca3a38f50a">   30</a></span>&#160;<span class="keyword">@property</span> (nonatomic) <a class="code" href="_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a> generator;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="interface_s_p_global_context.html#a83ec9ab1112a410943218279e8b91013">   31</a></span>&#160;<span class="keyword">@property</span> (nonatomic, nullable) <a class="code" href="_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a> filter;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="category_s_p_global_context_07_08.html#a8b80ec007372f37a574719ca3a38f50a">   30</a></span>&#160;<span class="keyword">@property</span> (nonatomic) <a class="code" href="include_2_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a> generator;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="interface_s_p_global_context.html#a83ec9ab1112a410943218279e8b91013">   31</a></span>&#160;<span class="keyword">@property</span> (nonatomic, nullable) <a class="code" href="include_2_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a> filter;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">@end</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
@@ -122,7 +122,7 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }];</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;- (instancetype)initWithGenerator:(<a class="code" href="_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a>)generator {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;- (instancetype)initWithGenerator:(<a class="code" href="include_2_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a>)generator {</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithGenerator:generator filter:nil];</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
@@ -132,17 +132,17 @@ $(function() {
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    } filter:ruleset.filterBlock];</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;- (instancetype)initWithGenerator:(<a class="code" href="_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a>)generator ruleset:(<a class="code" href="interface_s_p_schema_ruleset.html">SPSchemaRuleset</a> *)ruleset {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;- (instancetype)initWithGenerator:(<a class="code" href="include_2_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a>)generator ruleset:(<a class="code" href="interface_s_p_schema_ruleset.html">SPSchemaRuleset</a> *)ruleset {</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithGenerator:generator filter:ruleset.filterBlock];</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;- (instancetype)initWithStaticContexts:(NSArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)staticContexts filter:(<a class="code" href="_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a>)filter {</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;- (instancetype)initWithStaticContexts:(NSArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)staticContexts filter:(<a class="code" href="include_2_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a>)filter {</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithGenerator:^NSArray&lt;SPSelfDescribingJson *&gt; *(id&lt;SPInspectableEvent&gt; event) {</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        return staticContexts;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    } filter:filter];</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;- (instancetype)initWithGenerator:(<a class="code" href="_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a>)generator filter:(<a class="code" href="_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a>)filter {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;- (instancetype)initWithGenerator:(<a class="code" href="include_2_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a>)generator filter:(<a class="code" href="include_2_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a>)filter {</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keyword">self</span>.generator = generator;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">self</span>.filter = filter;</div>
@@ -151,28 +151,31 @@ $(function() {
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;- (NSArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)contextsFromEvent:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent</a>&gt;)event {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> (!<span class="keyword">self</span>.generator) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> nil;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> (!event) {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> @[];</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span>.filter &amp;&amp; !<span class="keyword">self</span>.filter(event)) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> nil;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> (!<span class="keyword">self</span>.generator) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> @[];</div>
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>.generator(event);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="a_s_p_global_context_8h_html"><div class="ttname"><a href="_s_p_global_context_8h.html">SPGlobalContext.h</a></div></div>
-<div class="ttc" id="a_s_p_global_context_8h_html_a960a92f6349fdc8723072a8e31bbe139"><div class="ttname"><a href="_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a></div><div class="ttdeci">BOOL(^ SPFilterBlock)(id&lt; SPInspectableEvent &gt; event)</div><div class="ttdoc">Block signature for context filtering, takes event information and decide if the context needs to be ...</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_global_context_8h_source.html#l00043">SPGlobalContext.h:43</a></div></div>
-<div class="ttc" id="a_s_p_global_context_8h_html_abc07870cf3e025d2a5c0ba9339f7b3f6"><div class="ttname"><a href="_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a></div><div class="ttdeci">NS_ASSUME_NONNULL_BEGIN typedef NSArray&lt; SPSelfDescribingJson * &gt; *_Nullable(^ SPGeneratorBlock)(id&lt; SPInspectableEvent &gt; event)</div><div class="ttdoc">Block signature for context generators, takes event information and generates a context.</div></div>
-<div class="ttc" id="a_s_p_schema_ruleset_8h_html"><div class="ttname"><a href="_s_p_schema_ruleset_8h.html">SPSchemaRuleset.h</a></div></div>
-<div class="ttc" id="ainterface_s_p_global_context_html"><div class="ttname"><a href="interface_s_p_global_context.html">SPGlobalContext</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_global_context_8h_source.html#l00071">SPGlobalContext.h:72</a></div></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span>.filter &amp;&amp; !<span class="keyword">self</span>.filter(event)) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordflow">return</span> @[];</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>.generator(event) ?: @[];</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="a_internal_2_global_contexts_2_s_p_global_context_8h_html"><div class="ttname"><a href="_internal_2_global_contexts_2_s_p_global_context_8h.html">SPGlobalContext.h</a></div></div>
+<div class="ttc" id="a_internal_2_global_contexts_2_s_p_schema_ruleset_8h_html"><div class="ttname"><a href="_internal_2_global_contexts_2_s_p_schema_ruleset_8h.html">SPSchemaRuleset.h</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_global_context_8h_html_a960a92f6349fdc8723072a8e31bbe139"><div class="ttname"><a href="include_2_s_p_global_context_8h.html#a960a92f6349fdc8723072a8e31bbe139">SPFilterBlock</a></div><div class="ttdeci">BOOL(^ SPFilterBlock)(id&lt; SPInspectableEvent &gt; event)</div><div class="ttdoc">Block signature for context filtering, takes event information and decide if the context needs to be ...</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_global_context_8h_source.html#l00043">SPGlobalContext.h:43</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_global_context_8h_html_abc07870cf3e025d2a5c0ba9339f7b3f6"><div class="ttname"><a href="include_2_s_p_global_context_8h.html#abc07870cf3e025d2a5c0ba9339f7b3f6">SPGeneratorBlock</a></div><div class="ttdeci">NS_ASSUME_NONNULL_BEGIN typedef NSArray&lt; SPSelfDescribingJson * &gt; *_Nullable(^ SPGeneratorBlock)(id&lt; SPInspectableEvent &gt; event)</div><div class="ttdoc">Block signature for context generators, takes event information and generates a context.</div></div>
+<div class="ttc" id="ainterface_s_p_global_context_html"><div class="ttname"><a href="interface_s_p_global_context.html">SPGlobalContext</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_global_context_8h_source.html#l00073">SPGlobalContext.h:74</a></div></div>
 <div class="ttc" id="ainterface_s_p_global_context_html_a4b34d7db100d3b8dee060b7a47927b19"><div class="ttname"><a href="interface_s_p_global_context.html#a4b34d7db100d3b8dee060b7a47927b19">-[SPGlobalContext initWithGenerator:filter:]</a></div><div class="ttdeci">instancetype initWithGenerator:filter:(SPGeneratorBlock generator,[filter] nullable SPFilterBlock NS_DESIGNATED_INITIALIZER)</div></div>
-<div class="ttc" id="ainterface_s_p_schema_ruleset_html"><div class="ttname"><a href="interface_s_p_schema_ruleset.html">SPSchemaRuleset</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_schema_ruleset_8h_source.html#l00029">SPSchemaRuleset.h:29</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html"><div class="ttname"><a href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a></div><div class="ttdoc">The class that represents self-describing JSONs.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8h_source.html#l00035">SPSelfDescribingJson.h:36</a></div></div>
-<div class="ttc" id="aprotocol_s_p_context_generator-p_html"><div class="ttname"><a href="protocol_s_p_context_generator-p.html">SPContextGenerator-p</a></div><div class="ttdoc">A context generator used to generate global contexts.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_global_context_8h_source.html#l00051">SPGlobalContext.h:51</a></div></div>
+<div class="ttc" id="ainterface_s_p_schema_ruleset_html"><div class="ttname"><a href="interface_s_p_schema_ruleset.html">SPSchemaRuleset</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_schema_ruleset_8h_source.html#l00030">SPSchemaRuleset.h:30</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_json_html"><div class="ttname"><a href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a></div><div class="ttdoc">The class that represents self-describing JSONs.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_self_describing_json_8h_source.html#l00036">SPSelfDescribingJson.h:37</a></div></div>
+<div class="ttc" id="aprotocol_s_p_context_generator-p_html"><div class="ttname"><a href="protocol_s_p_context_generator-p.html">SPContextGenerator-p</a></div><div class="ttdoc">A context generator used to generate global contexts.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_global_context_8h_source.html#l00052">SPGlobalContext.h:52</a></div></div>
 <div class="ttc" id="aprotocol_s_p_context_generator-p_html_a065a46470650100030996e24d3ad7298"><div class="ttname"><a href="protocol_s_p_context_generator-p.html#a065a46470650100030996e24d3ad7298">-[SPContextGenerator-p filterFromEvent:]</a></div><div class="ttdeci">BOOL filterFromEvent:(id&lt; SPInspectableEvent &gt; event)</div><div class="ttdoc">Takes event information and decide if the context needs to be generated.</div></div>
 <div class="ttc" id="aprotocol_s_p_context_generator-p_html_a20451b82eddf63350481d377d129ed83"><div class="ttname"><a href="protocol_s_p_context_generator-p.html#a20451b82eddf63350481d377d129ed83">-[SPContextGenerator-p generatorFromEvent:]</a></div><div class="ttdeci">nullable NSArray&lt; SPSelfDescribingJson * &gt; * generatorFromEvent:(id&lt; SPInspectableEvent &gt; event)</div><div class="ttdoc">Takes event information and generates a context.</div></div>
-<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent-p</a></div><div class="ttdoc">The inspectable properties of the event used to generate contexts.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00049">SPEventBase.h:49</a></div></div>
+<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent-p</a></div><div class="ttdoc">The inspectable properties of the event used to generate contexts.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00049">SPEventBase.h:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -72,65 +72,92 @@ $(function() {
 <p>The protocol for building screenview events.  
  <a href="protocol_s_p_screen_view_builder-p.html#details">More...</a></p>
 
-<p><code>#import &lt;<a class="el" href="_s_p_screen_view_8h_source.html">SPScreenView.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="include_2_s_p_screen_view_8h_source.html">SPScreenView.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for &lt;SPScreenViewBuilder&gt;:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="protocol_s_p_screen_view_builder-p.png" usemap="#_3CSPScreenViewBuilder_3E_map" alt=""/>
   <map id="_3CSPScreenViewBuilder_3E_map" name="_3CSPScreenViewBuilder_3E_map">
-<area href="protocol_s_p_event_builder-p.html" title="The base protocol for all event builders." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="0,56,151,80"/>
-<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="0,168,151,192"/>
+<area href="protocol_s_p_event_builder-p.html" title="This protocol defines basic functionality needed to build all events." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="80,56,231,80"/>
+<area href="protocol_s_p_event_builder-p.html" title="This protocol defines basic functionality needed to build all events." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="402,56,553,80"/>
+<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="161,168,312,192"/>
+<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="322,168,473,192"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:a9ee5517d51908f1d712a4e2d984c2eec"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">setName:</a></td></tr>
-<tr class="memdesc:a9ee5517d51908f1d712a4e2d984c2eec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">More...</a><br /></td></tr>
-<tr class="separator:a9ee5517d51908f1d712a4e2d984c2eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7a97b6bf3922db6bb1b4072ea5d6b96"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#ac7a97b6bf3922db6bb1b4072ea5d6b96">setType:</a></td></tr>
-<tr class="memdesc:ac7a97b6bf3922db6bb1b4072ea5d6b96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#ac7a97b6bf3922db6bb1b4072ea5d6b96">More...</a><br /></td></tr>
-<tr class="separator:ac7a97b6bf3922db6bb1b4072ea5d6b96"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d0f88516e60181543e9bd19c45f9e87"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3d0f88516e60181543e9bd19c45f9e87">setScreenId:</a></td></tr>
-<tr class="memdesc:a3d0f88516e60181543e9bd19c45f9e87"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#a3d0f88516e60181543e9bd19c45f9e87">More...</a><br /></td></tr>
-<tr class="separator:a3d0f88516e60181543e9bd19c45f9e87"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87cea56c68be791c5f097557aa05273e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a87cea56c68be791c5f097557aa05273e">setPreviousScreenName:</a></td></tr>
-<tr class="memdesc:a87cea56c68be791c5f097557aa05273e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a87cea56c68be791c5f097557aa05273e">More...</a><br /></td></tr>
-<tr class="separator:a87cea56c68be791c5f097557aa05273e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a319538bf922e762c9859ad10ec749309"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a319538bf922e762c9859ad10ec749309">setPreviousScreenType:</a></td></tr>
-<tr class="memdesc:a319538bf922e762c9859ad10ec749309"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a319538bf922e762c9859ad10ec749309">More...</a><br /></td></tr>
-<tr class="separator:a319538bf922e762c9859ad10ec749309"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd2faa27d62c86d304ed5e1886fc6bd5"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#abd2faa27d62c86d304ed5e1886fc6bd5">setPreviousScreenId:</a></td></tr>
-<tr class="memdesc:abd2faa27d62c86d304ed5e1886fc6bd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#abd2faa27d62c86d304ed5e1886fc6bd5">More...</a><br /></td></tr>
-<tr class="separator:abd2faa27d62c86d304ed5e1886fc6bd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9a43d7d84443afa7228b3ce4f2bc85b0"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a9a43d7d84443afa7228b3ce4f2bc85b0">setTransitionType:</a></td></tr>
-<tr class="memdesc:a9a43d7d84443afa7228b3ce4f2bc85b0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen transition.  <a href="protocol_s_p_screen_view_builder-p.html#a9a43d7d84443afa7228b3ce4f2bc85b0">More...</a><br /></td></tr>
-<tr class="separator:a9a43d7d84443afa7228b3ce4f2bc85b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa54b4b1306ee7c8d019b75612632ba09"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#aa54b4b1306ee7c8d019b75612632ba09">setViewControllerClassName:</a></td></tr>
-<tr class="separator:aa54b4b1306ee7c8d019b75612632ba09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e3333a1495b125249a147cbf9805cab"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a1e3333a1495b125249a147cbf9805cab">setTopViewControllerClassName:</a></td></tr>
-<tr class="separator:a1e3333a1495b125249a147cbf9805cab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0003408ccb536bee0e6cb757713960e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#af0003408ccb536bee0e6cb757713960e">setName:</a></td></tr>
+<tr class="memdesc:af0003408ccb536bee0e6cb757713960e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#af0003408ccb536bee0e6cb757713960e">More...</a><br /></td></tr>
+<tr class="separator:af0003408ccb536bee0e6cb757713960e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ab80be5ed1b78c3beab9bd3d323432"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#ac4ab80be5ed1b78c3beab9bd3d323432">setType:</a></td></tr>
+<tr class="memdesc:ac4ab80be5ed1b78c3beab9bd3d323432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#ac4ab80be5ed1b78c3beab9bd3d323432">More...</a><br /></td></tr>
+<tr class="separator:ac4ab80be5ed1b78c3beab9bd3d323432"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37ecec5554fafe23e625c67b7f4012b8"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a37ecec5554fafe23e625c67b7f4012b8">setScreenId:</a></td></tr>
+<tr class="memdesc:a37ecec5554fafe23e625c67b7f4012b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#a37ecec5554fafe23e625c67b7f4012b8">More...</a><br /></td></tr>
+<tr class="separator:a37ecec5554fafe23e625c67b7f4012b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857ba369ecb35fce7809f7d1b0d58795"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a857ba369ecb35fce7809f7d1b0d58795">setPreviousScreenName:</a></td></tr>
+<tr class="memdesc:a857ba369ecb35fce7809f7d1b0d58795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a857ba369ecb35fce7809f7d1b0d58795">More...</a><br /></td></tr>
+<tr class="separator:a857ba369ecb35fce7809f7d1b0d58795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72c01583f98ce9af0921d1f2c9b31b8a"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a72c01583f98ce9af0921d1f2c9b31b8a">setPreviousScreenType:</a></td></tr>
+<tr class="memdesc:a72c01583f98ce9af0921d1f2c9b31b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a72c01583f98ce9af0921d1f2c9b31b8a">More...</a><br /></td></tr>
+<tr class="separator:a72c01583f98ce9af0921d1f2c9b31b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e90512857cc645754830b8e42e08fe5"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3e90512857cc645754830b8e42e08fe5">setPreviousScreenId:</a></td></tr>
+<tr class="memdesc:a3e90512857cc645754830b8e42e08fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a3e90512857cc645754830b8e42e08fe5">More...</a><br /></td></tr>
+<tr class="separator:a3e90512857cc645754830b8e42e08fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebe90e5bf024ec9b25c65577a6c6d9e1"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#aebe90e5bf024ec9b25c65577a6c6d9e1">setTransitionType:</a></td></tr>
+<tr class="memdesc:aebe90e5bf024ec9b25c65577a6c6d9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen transition.  <a href="protocol_s_p_screen_view_builder-p.html#aebe90e5bf024ec9b25c65577a6c6d9e1">More...</a><br /></td></tr>
+<tr class="separator:aebe90e5bf024ec9b25c65577a6c6d9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d31598d5129eeba8aaf9acdaac7c918"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a8d31598d5129eeba8aaf9acdaac7c918">setViewControllerClassName:</a></td></tr>
+<tr class="separator:a8d31598d5129eeba8aaf9acdaac7c918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a153d9f7252636b234535cf203616e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#aa4a153d9f7252636b234535cf203616e">setTopViewControllerClassName:</a></td></tr>
+<tr class="separator:aa4a153d9f7252636b234535cf203616e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0003408ccb536bee0e6cb757713960e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#af0003408ccb536bee0e6cb757713960e">setName:</a></td></tr>
+<tr class="memdesc:af0003408ccb536bee0e6cb757713960e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#af0003408ccb536bee0e6cb757713960e">More...</a><br /></td></tr>
+<tr class="separator:af0003408ccb536bee0e6cb757713960e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4ab80be5ed1b78c3beab9bd3d323432"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#ac4ab80be5ed1b78c3beab9bd3d323432">setType:</a></td></tr>
+<tr class="memdesc:ac4ab80be5ed1b78c3beab9bd3d323432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#ac4ab80be5ed1b78c3beab9bd3d323432">More...</a><br /></td></tr>
+<tr class="separator:ac4ab80be5ed1b78c3beab9bd3d323432"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37ecec5554fafe23e625c67b7f4012b8"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a37ecec5554fafe23e625c67b7f4012b8">setScreenId:</a></td></tr>
+<tr class="memdesc:a37ecec5554fafe23e625c67b7f4012b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the screen.  <a href="protocol_s_p_screen_view_builder-p.html#a37ecec5554fafe23e625c67b7f4012b8">More...</a><br /></td></tr>
+<tr class="separator:a37ecec5554fafe23e625c67b7f4012b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a857ba369ecb35fce7809f7d1b0d58795"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a857ba369ecb35fce7809f7d1b0d58795">setPreviousScreenName:</a></td></tr>
+<tr class="memdesc:a857ba369ecb35fce7809f7d1b0d58795"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the name of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a857ba369ecb35fce7809f7d1b0d58795">More...</a><br /></td></tr>
+<tr class="separator:a857ba369ecb35fce7809f7d1b0d58795"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72c01583f98ce9af0921d1f2c9b31b8a"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a72c01583f98ce9af0921d1f2c9b31b8a">setPreviousScreenType:</a></td></tr>
+<tr class="memdesc:a72c01583f98ce9af0921d1f2c9b31b8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a72c01583f98ce9af0921d1f2c9b31b8a">More...</a><br /></td></tr>
+<tr class="separator:a72c01583f98ce9af0921d1f2c9b31b8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e90512857cc645754830b8e42e08fe5"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3e90512857cc645754830b8e42e08fe5">setPreviousScreenId:</a></td></tr>
+<tr class="memdesc:a3e90512857cc645754830b8e42e08fe5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the ID of the previous screen.  <a href="protocol_s_p_screen_view_builder-p.html#a3e90512857cc645754830b8e42e08fe5">More...</a><br /></td></tr>
+<tr class="separator:a3e90512857cc645754830b8e42e08fe5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aebe90e5bf024ec9b25c65577a6c6d9e1"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#aebe90e5bf024ec9b25c65577a6c6d9e1">setTransitionType:</a></td></tr>
+<tr class="memdesc:aebe90e5bf024ec9b25c65577a6c6d9e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the type of the screen transition.  <a href="protocol_s_p_screen_view_builder-p.html#aebe90e5bf024ec9b25c65577a6c6d9e1">More...</a><br /></td></tr>
+<tr class="separator:aebe90e5bf024ec9b25c65577a6c6d9e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d31598d5129eeba8aaf9acdaac7c918"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#a8d31598d5129eeba8aaf9acdaac7c918">setViewControllerClassName:</a></td></tr>
+<tr class="separator:a8d31598d5129eeba8aaf9acdaac7c918"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4a153d9f7252636b234535cf203616e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_screen_view_builder-p.html#aa4a153d9f7252636b234535cf203616e">setTopViewControllerClassName:</a></td></tr>
+<tr class="separator:aa4a153d9f7252636b234535cf203616e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_protocol_s_p_event_builder-p"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_protocol_s_p_event_builder-p')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="protocol_s_p_event_builder-p.html">&lt;SPEventBuilder&gt;</a></td></tr>
-<tr class="memitem:abdd813376e78879ea53893d82f1581b1 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#abdd813376e78879ea53893d82f1581b1">setTimestamp:</a></td></tr>
-<tr class="memdesc:abdd813376e78879ea53893d82f1581b1 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the timestamp of when the event has been processed by the tracker.  <a href="protocol_s_p_event_builder-p.html#abdd813376e78879ea53893d82f1581b1">More...</a><br /></td></tr>
-<tr class="separator:abdd813376e78879ea53893d82f1581b1 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4161cc260bfdf1f798e09a502751ed93 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a4161cc260bfdf1f798e09a502751ed93">setTrueTimestamp:</a></td></tr>
-<tr class="memdesc:a4161cc260bfdf1f798e09a502751ed93 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the optional timestamp of the event.  <a href="protocol_s_p_event_builder-p.html#a4161cc260bfdf1f798e09a502751ed93">More...</a><br /></td></tr>
-<tr class="separator:a4161cc260bfdf1f798e09a502751ed93 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">setTrueTimestamp:</a></td></tr>
+<tr class="memdesc:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the optional timestamp of the event.  <a href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">More...</a><br /></td></tr>
+<tr class="separator:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">setContexts:</a></td></tr>
 <tr class="memdesc:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the contexts attached to the event.  <a href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">More...</a><br /></td></tr>
 <tr class="separator:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e56391bf1267c23056b493c17f57954 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a7e56391bf1267c23056b493c17f57954">setEventId:</a></td></tr>
-<tr class="memdesc:a7e56391bf1267c23056b493c17f57954 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the UUID associated with the event.  <a href="protocol_s_p_event_builder-p.html#a7e56391bf1267c23056b493c17f57954">More...</a><br /></td></tr>
-<tr class="separator:a7e56391bf1267c23056b493c17f57954 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">setTrueTimestamp:</a></td></tr>
+<tr class="memdesc:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the optional timestamp of the event.  <a href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">More...</a><br /></td></tr>
+<tr class="separator:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">setContexts:</a></td></tr>
+<tr class="memdesc:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the contexts attached to the event.  <a href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">More...</a><br /></td></tr>
+<tr class="separator:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_s_p_screen_view_8h_source.html#l00034">34</a> of file <a class="el" href="_s_p_screen_view_8h_source.html">SPScreenView.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_screen_view_8h_source.html#l00035">35</a> of file <a class="el" href="include_2_s_p_screen_view_8h_source.html">SPScreenView.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="a9ee5517d51908f1d712a4e2d984c2eec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ee5517d51908f1d712a4e2d984c2eec">&#9670;&nbsp;</a></span>setName:</h2>
+<a id="af0003408ccb536bee0e6cb757713960e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0003408ccb536bee0e6cb757713960e">&#9670;&nbsp;</a></span>setName: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,8 +165,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setName: </td>
           <td></td>
-          <td class="paramtype">(NSString *)&#160;</td>
-          <td class="paramname"><em>name</em></td>
+          <td class="paramtype">(&quot;Use `name` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -153,8 +180,32 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="abd2faa27d62c86d304ed5e1886fc6bd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd2faa27d62c86d304ed5e1886fc6bd5">&#9670;&nbsp;</a></span>setPreviousScreenId:</h2>
+<a id="af0003408ccb536bee0e6cb757713960e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0003408ccb536bee0e6cb757713960e">&#9670;&nbsp;</a></span>setName: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setName: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `name` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the screen. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a3e90512857cc645754830b8e42e08fe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e90512857cc645754830b8e42e08fe5">&#9670;&nbsp;</a></span>setPreviousScreenId: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,8 +213,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setPreviousScreenId: </td>
           <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>screenId</em></td>
+          <td class="paramtype">(&quot;Use `previousId` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -177,8 +228,32 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="a87cea56c68be791c5f097557aa05273e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a87cea56c68be791c5f097557aa05273e">&#9670;&nbsp;</a></span>setPreviousScreenName:</h2>
+<a id="a3e90512857cc645754830b8e42e08fe5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e90512857cc645754830b8e42e08fe5">&#9670;&nbsp;</a></span>setPreviousScreenId: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setPreviousScreenId: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `previousId` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">screenId</td><td>The ID for the previous screen. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a857ba369ecb35fce7809f7d1b0d58795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a857ba369ecb35fce7809f7d1b0d58795">&#9670;&nbsp;</a></span>setPreviousScreenName: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -186,8 +261,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setPreviousScreenName: </td>
           <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>name</em></td>
+          <td class="paramtype">(&quot;Use `previousName` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -201,8 +276,32 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="a319538bf922e762c9859ad10ec749309"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a319538bf922e762c9859ad10ec749309">&#9670;&nbsp;</a></span>setPreviousScreenType:</h2>
+<a id="a857ba369ecb35fce7809f7d1b0d58795"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a857ba369ecb35fce7809f7d1b0d58795">&#9670;&nbsp;</a></span>setPreviousScreenName: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setPreviousScreenName: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `previousName` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the previous screen. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a72c01583f98ce9af0921d1f2c9b31b8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72c01583f98ce9af0921d1f2c9b31b8a">&#9670;&nbsp;</a></span>setPreviousScreenType: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,8 +309,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setPreviousScreenType: </td>
           <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>type</em></td>
+          <td class="paramtype">(&quot;Use `previousType` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -225,8 +324,32 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="a3d0f88516e60181543e9bd19c45f9e87"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d0f88516e60181543e9bd19c45f9e87">&#9670;&nbsp;</a></span>setScreenId:</h2>
+<a id="a72c01583f98ce9af0921d1f2c9b31b8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72c01583f98ce9af0921d1f2c9b31b8a">&#9670;&nbsp;</a></span>setPreviousScreenType: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setPreviousScreenType: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `previousType` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of the previous screen. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a37ecec5554fafe23e625c67b7f4012b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37ecec5554fafe23e625c67b7f4012b8">&#9670;&nbsp;</a></span>setScreenId: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,8 +357,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setScreenId: </td>
           <td></td>
-          <td class="paramtype">(NSString *)&#160;</td>
-          <td class="paramname"><em>screenId</em></td>
+          <td class="paramtype">(&quot;Use `screenId` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -249,8 +372,32 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="a1e3333a1495b125249a147cbf9805cab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e3333a1495b125249a147cbf9805cab">&#9670;&nbsp;</a></span>setTopViewControllerClassName:</h2>
+<a id="a37ecec5554fafe23e625c67b7f4012b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37ecec5554fafe23e625c67b7f4012b8">&#9670;&nbsp;</a></span>setScreenId: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setScreenId: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `screenId` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">screenId</td><td>The ID for the screen. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa4a153d9f7252636b234535cf203616e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a153d9f7252636b234535cf203616e">&#9670;&nbsp;</a></span>setTopViewControllerClassName: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,8 +405,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setTopViewControllerClassName: </td>
           <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>className</em></td>
+          <td class="paramtype">(&quot;Use `topViewControllerClassName` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -267,8 +414,26 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="a9a43d7d84443afa7228b3ce4f2bc85b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a43d7d84443afa7228b3ce4f2bc85b0">&#9670;&nbsp;</a></span>setTransitionType:</h2>
+<a id="aa4a153d9f7252636b234535cf203616e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4a153d9f7252636b234535cf203616e">&#9670;&nbsp;</a></span>setTopViewControllerClassName: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setTopViewControllerClassName: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `topViewControllerClassName` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aebe90e5bf024ec9b25c65577a6c6d9e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebe90e5bf024ec9b25c65577a6c6d9e1">&#9670;&nbsp;</a></span>setTransitionType: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,8 +441,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setTransitionType: </td>
           <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>type</em></td>
+          <td class="paramtype">(&quot;Use `transitionType` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -291,8 +456,32 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="ac7a97b6bf3922db6bb1b4072ea5d6b96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7a97b6bf3922db6bb1b4072ea5d6b96">&#9670;&nbsp;</a></span>setType:</h2>
+<a id="aebe90e5bf024ec9b25c65577a6c6d9e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aebe90e5bf024ec9b25c65577a6c6d9e1">&#9670;&nbsp;</a></span>setTransitionType: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setTransitionType: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `transitionType` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of the screen transition. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ac4ab80be5ed1b78c3beab9bd3d323432"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ab80be5ed1b78c3beab9bd3d323432">&#9670;&nbsp;</a></span>setType: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,8 +489,8 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setType: </td>
           <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>type</em></td>
+          <td class="paramtype">(&quot;Use `type` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -315,8 +504,32 @@ Instance Methods</h2></td></tr>
 
 </div>
 </div>
-<a id="aa54b4b1306ee7c8d019b75612632ba09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa54b4b1306ee7c8d019b75612632ba09">&#9670;&nbsp;</a></span>setViewControllerClassName:</h2>
+<a id="ac4ab80be5ed1b78c3beab9bd3d323432"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac4ab80be5ed1b78c3beab9bd3d323432">&#9670;&nbsp;</a></span>setType: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setType: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `type` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type for the screen. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8d31598d5129eeba8aaf9acdaac7c918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d31598d5129eeba8aaf9acdaac7c918">&#9670;&nbsp;</a></span>setViewControllerClassName: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -324,8 +537,26 @@ Instance Methods</h2></td></tr>
         <tr>
           <td class="memname">- (void) setViewControllerClassName: </td>
           <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>className</em></td>
+          <td class="paramtype">(&quot;Use `viewControllerClassName` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d31598d5129eeba8aaf9acdaac7c918"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d31598d5129eeba8aaf9acdaac7c918">&#9670;&nbsp;</a></span>setViewControllerClassName: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setViewControllerClassName: </td>
+          <td></td>
+          <td class="paramtype">(&quot;Use `viewControllerClassName` of `ScreenView` class instead.&quot;)&#160;</td>
+          <td class="paramname"><em>__deprecated_msg</em></td>
           <td></td>
         </tr>
       </table>
@@ -334,7 +565,7 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this protocol was generated from the following file:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_screen_view_8h_source.html">SPScreenView.h</a></li>
+<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_screen_view_8h_source.html">SPScreenView.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -69,7 +69,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p><code>#import &lt;<a class="el" href="_s_p_network_connection_8h_source.html">SPNetworkConnection.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="include_2_s_p_network_connection_8h_source.html">SPNetworkConnection.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for &lt;SPNetworkConnection&gt;:</div>
 <div class="dyncontent">
@@ -77,6 +77,7 @@ Inheritance diagram for &lt;SPNetworkConnection&gt;:</div>
   <img src="protocol_s_p_network_connection-p.png" usemap="#_3CSPNetworkConnection_3E_map" alt=""/>
   <map id="_3CSPNetworkConnection_3E_map" name="_3CSPNetworkConnection_3E_map">
 <area href="interface_s_p_default_network_connection.html" alt="SPDefaultNetworkConnection" shape="rect" coords="0,112,178,136"/>
+<area href="interface_s_p_default_network_connection.html" alt="SPDefaultNetworkConnection" shape="rect" coords="188,112,366,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -84,24 +85,48 @@ Inheritance diagram for &lt;SPNetworkConnection&gt;:</div>
 Instance Methods</h2></td></tr>
 <tr class="memitem:aa35359e7157ed1cc389347c63975b8b1"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interface_s_p_request_result.html">SPRequestResult</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_network_connection-p.html#aa35359e7157ed1cc389347c63975b8b1">sendRequests:</a></td></tr>
 <tr class="separator:aa35359e7157ed1cc389347c63975b8b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3eda1e871e62172110f8c4db9b60b782"><td class="memItemLeft" align="right" valign="top">(SPRequestOptions)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_network_connection-p.html#a3eda1e871e62172110f8c4db9b60b782">httpMethod</a></td></tr>
-<tr class="separator:a3eda1e871e62172110f8c4db9b60b782"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952fd608e4a4893c8b1705c6be20d31e"><td class="memItemLeft" align="right" valign="top">(SPHttpMethod)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_network_connection-p.html#a952fd608e4a4893c8b1705c6be20d31e">httpMethod</a></td></tr>
+<tr class="separator:a952fd608e4a4893c8b1705c6be20d31e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1759b44c3d3471c58b4f516968e44a8c"><td class="memItemLeft" align="right" valign="top">(NSURL *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_network_connection-p.html#a1759b44c3d3471c58b4f516968e44a8c">url</a></td></tr>
+<tr class="separator:a1759b44c3d3471c58b4f516968e44a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa35359e7157ed1cc389347c63975b8b1"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interface_s_p_request_result.html">SPRequestResult</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_network_connection-p.html#aa35359e7157ed1cc389347c63975b8b1">sendRequests:</a></td></tr>
+<tr class="separator:aa35359e7157ed1cc389347c63975b8b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952fd608e4a4893c8b1705c6be20d31e"><td class="memItemLeft" align="right" valign="top">(SPHttpMethod)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_network_connection-p.html#a952fd608e4a4893c8b1705c6be20d31e">httpMethod</a></td></tr>
+<tr class="separator:a952fd608e4a4893c8b1705c6be20d31e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1759b44c3d3471c58b4f516968e44a8c"><td class="memItemLeft" align="right" valign="top">(NSURL *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_network_connection-p.html#a1759b44c3d3471c58b4f516968e44a8c">url</a></td></tr>
 <tr class="separator:a1759b44c3d3471c58b4f516968e44a8c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for the component that sends events to the collector. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_network_connection_8h_source.html#l00053">53</a> of file <a class="el" href="_s_p_network_connection_8h_source.html">SPNetworkConnection.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_network_connection_8h_source.html#l00054">54</a> of file <a class="el" href="include_2_s_p_network_connection_8h_source.html">SPNetworkConnection.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="a3eda1e871e62172110f8c4db9b60b782"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3eda1e871e62172110f8c4db9b60b782">&#9670;&nbsp;</a></span>httpMethod</h2>
+<a id="a952fd608e4a4893c8b1705c6be20d31e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a952fd608e4a4893c8b1705c6be20d31e">&#9670;&nbsp;</a></span>httpMethod <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (SPRequestOptions) httpMethod </td>
+          <td class="memname">- (SPHttpMethod) httpMethod </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>http method used to send requests to the collector. </dd></dl>
+
+</div>
+</div>
+<a id="a952fd608e4a4893c8b1705c6be20d31e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a952fd608e4a4893c8b1705c6be20d31e">&#9670;&nbsp;</a></span>httpMethod <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (SPHttpMethod) httpMethod </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
@@ -113,7 +138,32 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <a id="aa35359e7157ed1cc389347c63975b8b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa35359e7157ed1cc389347c63975b8b1">&#9670;&nbsp;</a></span>sendRequests:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa35359e7157ed1cc389347c63975b8b1">&#9670;&nbsp;</a></span>sendRequests: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSArray&lt;<a class="el" href="interface_s_p_request_result.html">SPRequestResult</a> *&gt; *) sendRequests: </td>
+          <td></td>
+          <td class="paramtype">(NSArray&lt; <a class="el" href="interface_s_p_request.html">SPRequest</a> * &gt; *)&#160;</td>
+          <td class="paramname"><em>requests</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Send requests to the collector. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">requests</td><td>to send, </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>results of the sending operation. </dd></dl>
+
+</div>
+</div>
+<a id="aa35359e7157ed1cc389347c63975b8b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa35359e7157ed1cc389347c63975b8b1">&#9670;&nbsp;</a></span>sendRequests: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,7 +188,25 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <a id="a1759b44c3d3471c58b4f516968e44a8c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1759b44c3d3471c58b4f516968e44a8c">&#9670;&nbsp;</a></span>url</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1759b44c3d3471c58b4f516968e44a8c">&#9670;&nbsp;</a></span>url <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSURL *) url </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>URL of the collector. </dd></dl>
+
+</div>
+</div>
+<a id="a1759b44c3d3471c58b4f516968e44a8c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1759b44c3d3471c58b4f516968e44a8c">&#9670;&nbsp;</a></span>url <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,7 +224,7 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this protocol was generated from the following file:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_network_connection_8h_source.html">SPNetworkConnection.h</a></li>
+<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_network_connection_8h_source.html">SPNetworkConnection.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

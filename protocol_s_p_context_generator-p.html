@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -72,7 +72,7 @@ $(function() {
 <p>A context generator used to generate global contexts.  
  <a href="protocol_s_p_context_generator-p.html#details">More...</a></p>
 
-<p><code>#import &lt;<a class="el" href="_s_p_global_context_8h_source.html">SPGlobalContext.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="include_2_s_p_global_context_8h_source.html">SPGlobalContext.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for &lt;SPContextGenerator&gt;:</div>
 <div class="dyncontent">
@@ -88,13 +88,44 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a20451b82eddf63350481d377d129ed83"><td class="memItemLeft" align="right" valign="top">(nullable NSArray&lt; <a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_context_generator-p.html#a20451b82eddf63350481d377d129ed83">generatorFromEvent:</a></td></tr>
 <tr class="memdesc:a20451b82eddf63350481d377d129ed83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes event information and generates a context.  <a href="protocol_s_p_context_generator-p.html#a20451b82eddf63350481d377d129ed83">More...</a><br /></td></tr>
 <tr class="separator:a20451b82eddf63350481d377d129ed83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a065a46470650100030996e24d3ad7298"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_context_generator-p.html#a065a46470650100030996e24d3ad7298">filterFromEvent:</a></td></tr>
+<tr class="memdesc:a065a46470650100030996e24d3ad7298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes event information and decide if the context needs to be generated.  <a href="protocol_s_p_context_generator-p.html#a065a46470650100030996e24d3ad7298">More...</a><br /></td></tr>
+<tr class="separator:a065a46470650100030996e24d3ad7298"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20451b82eddf63350481d377d129ed83"><td class="memItemLeft" align="right" valign="top">(nullable NSArray&lt; <a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_context_generator-p.html#a20451b82eddf63350481d377d129ed83">generatorFromEvent:</a></td></tr>
+<tr class="memdesc:a20451b82eddf63350481d377d129ed83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Takes event information and generates a context.  <a href="protocol_s_p_context_generator-p.html#a20451b82eddf63350481d377d129ed83">More...</a><br /></td></tr>
+<tr class="separator:a20451b82eddf63350481d377d129ed83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_s_p_global_context_8h_source.html#l00051">51</a> of file <a class="el" href="_s_p_global_context_8h_source.html">SPGlobalContext.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_global_context_8h_source.html#l00052">52</a> of file <a class="el" href="include_2_s_p_global_context_8h_source.html">SPGlobalContext.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="a065a46470650100030996e24d3ad7298"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a065a46470650100030996e24d3ad7298">&#9670;&nbsp;</a></span>filterFromEvent:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a065a46470650100030996e24d3ad7298">&#9670;&nbsp;</a></span>filterFromEvent: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) filterFromEvent: </td>
+          <td></td>
+          <td class="paramtype">(id&lt; <a class="el" href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent</a> &gt;)&#160;</td>
+          <td class="paramname"><em>event</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>informations about the event to process. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>weather the context has to be generated. </dd></dl>
+
+</div>
+</div>
+<a id="a065a46470650100030996e24d3ad7298"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a065a46470650100030996e24d3ad7298">&#9670;&nbsp;</a></span>filterFromEvent: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -119,7 +150,32 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <a id="a20451b82eddf63350481d377d129ed83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20451b82eddf63350481d377d129ed83">&#9670;&nbsp;</a></span>generatorFromEvent:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a20451b82eddf63350481d377d129ed83">&#9670;&nbsp;</a></span>generatorFromEvent: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (nullable NSArray&lt;<a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *) generatorFromEvent: </td>
+          <td></td>
+          <td class="paramtype">(id&lt; <a class="el" href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent</a> &gt;)&#160;</td>
+          <td class="paramname"><em>event</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>informations about the event to process. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>a user-generated self-describing JSON. </dd></dl>
+
+</div>
+</div>
+<a id="a20451b82eddf63350481d377d129ed83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20451b82eddf63350481d377d129ed83">&#9670;&nbsp;</a></span>generatorFromEvent: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -144,7 +200,7 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this protocol was generated from the following file:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_global_context_8h_source.html">SPGlobalContext.h</a></li>
+<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_global_context_8h_source.html">SPGlobalContext.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

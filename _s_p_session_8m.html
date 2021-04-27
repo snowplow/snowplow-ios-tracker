@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPSession.m File Reference</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Session/SPSession.m File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_b41cadc57cc10990c564d4a19c114842.html">Session</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -73,13 +73,14 @@ $(function() {
 <div class="title">SPSession.m File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#import &quot;<a class="el" href="_snowplow_8h_source.html">Snowplow.h</a>&quot;</code><br />
+<div class="textblock"><code>#import &quot;SPTrackerConstants.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_session_8h_source.html">SPSession.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>&quot;</code><br />
+<code>#import &quot;SPUtilities.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_weak_timer_target_8h_source.html">SPWeakTimerTarget.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_background_8h_source.html">SPBackground.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_foreground_8h_source.html">SPForeground.h</a>&quot;</code><br />
+<code>#import &quot;SPTracker.h&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a>&quot;</code><br />
+<code>#import &quot;SPBackground.h&quot;</code><br />
+<code>#import &quot;SPForeground.h&quot;</code><br />
 </div>
 <p><a href="_s_p_session_8m_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -87,8 +88,6 @@ $(function() {
 Variables</h2></td></tr>
 <tr class="memitem:a2cf2f033f871ed19fe95d71aa70078c3"><td class="memItemLeft" align="right" valign="top">NSInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a2cf2f033f871ed19fe95d71aa70078c3">_backgroundTimeout</a></td></tr>
 <tr class="separator:a2cf2f033f871ed19fe95d71aa70078c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a22aa48fadfeba6f7675134fdd2a480c4"><td class="memItemLeft" align="right" valign="top">NSInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a22aa48fadfeba6f7675134fdd2a480c4">_checkInterval</a></td></tr>
-<tr class="separator:a22aa48fadfeba6f7675134fdd2a480c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5987bf221829fcf9b6ea5e18618423c4"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a5987bf221829fcf9b6ea5e18618423c4">_inBackground</a></td></tr>
 <tr class="separator:a5987bf221829fcf9b6ea5e18618423c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2888ea652806261b2dfb395c7a350aa"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#ad2888ea652806261b2dfb395c7a350aa">_isNewSession</a></td></tr>
@@ -113,8 +112,12 @@ Variables</h2></td></tr>
 <tr class="separator:a07b8071c416d81dca6f26057c2d81e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa020c80f25bb619135d2429173c98e5a"><td class="memItemLeft" align="right" valign="top">NSInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#aa020c80f25bb619135d2429173c98e5a">_backgroundIndex</a></td></tr>
 <tr class="separator:aa020c80f25bb619135d2429173c98e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a220f18142ebe18f3abc8020e74692d95"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a220f18142ebe18f3abc8020e74692d95">kSessionSavePath</a> = @&quot;session.dict&quot;</td></tr>
-<tr class="separator:a220f18142ebe18f3abc8020e74692d95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5900b1372ec5f1c0dd647b8689c49b08"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a5900b1372ec5f1c0dd647b8689c49b08">kLegacyFilename</a> = @&quot;session.dict&quot;</td></tr>
+<tr class="separator:a5900b1372ec5f1c0dd647b8689c49b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03133048501bbfe13182a32b961d9646"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a03133048501bbfe13182a32b961d9646">kFilenamePrefix</a> = @&quot;session&quot;</td></tr>
+<tr class="separator:a03133048501bbfe13182a32b961d9646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3baed1905c958a0da598d70c7bc51884"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a3baed1905c958a0da598d70c7bc51884">kFilenameExt</a> = @&quot;dict&quot;</td></tr>
+<tr class="separator:a3baed1905c958a0da598d70c7bc51884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="aa020c80f25bb619135d2429173c98e5a"></a>
@@ -129,7 +132,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00058">58</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00060">60</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -146,25 +149,9 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
 <div class="line">    NSInteger   <a class="code" href="_s_p_tracker_8m.html#ab64d93645fcbefd5aa1c603c9632d532">_foregroundTimeout</a></div>
-<div class="ttc" id="a_s_p_tracker_8m_html_ab64d93645fcbefd5aa1c603c9632d532"><div class="ttname"><a href="_s_p_tracker_8m.html#ab64d93645fcbefd5aa1c603c9632d532">_foregroundTimeout</a></div><div class="ttdeci">NSInteger _foregroundTimeout</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00106">SPTracker.m:106</a></div></div>
+<div class="ttc" id="a_s_p_tracker_8m_html_ab64d93645fcbefd5aa1c603c9632d532"><div class="ttname"><a href="_s_p_tracker_8m.html#ab64d93645fcbefd5aa1c603c9632d532">_foregroundTimeout</a></div><div class="ttdeci">NSInteger _foregroundTimeout</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00116">SPTracker.m:116</a></div></div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00045">45</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
-
-</div>
-</div>
-<a id="a22aa48fadfeba6f7675134fdd2a480c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a22aa48fadfeba6f7675134fdd2a480c4">&#9670;&nbsp;</a></span>_checkInterval</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NSInteger _checkInterval</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00046">46</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00048">48</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -180,7 +167,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00051">51</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00053">53</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -196,7 +183,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00055">55</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00057">57</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -212,7 +199,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00057">57</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00059">59</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -228,7 +215,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00047">47</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00049">49</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -244,7 +231,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00048">48</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00050">50</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -260,7 +247,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00049">49</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00051">51</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -276,7 +263,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -292,7 +279,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00056">56</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00058">58</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -308,7 +295,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00053">53</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00055">55</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -324,7 +311,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00056">56</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
@@ -340,23 +327,55 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00050">50</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>
-<a id="a220f18142ebe18f3abc8020e74692d95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a220f18142ebe18f3abc8020e74692d95">&#9670;&nbsp;</a></span>kSessionSavePath</h2>
+<a id="a3baed1905c958a0da598d70c7bc51884"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3baed1905c958a0da598d70c7bc51884">&#9670;&nbsp;</a></span>kFilenameExt</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">NSString* const kSessionSavePath = @&quot;session.dict&quot;</td>
+          <td class="memname">NSString* const kFilenameExt = @&quot;dict&quot;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00061">61</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00065">65</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+
+</div>
+</div>
+<a id="a03133048501bbfe13182a32b961d9646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03133048501bbfe13182a32b961d9646">&#9670;&nbsp;</a></span>kFilenamePrefix</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NSString* const kFilenamePrefix = @&quot;session&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00064">64</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+
+</div>
+</div>
+<a id="a5900b1372ec5f1c0dd647b8689c49b08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5900b1372ec5f1c0dd647b8689c49b08">&#9670;&nbsp;</a></span>kLegacyFilename</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NSString* const kLegacyFilename = @&quot;session.dict&quot;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00063">63</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>

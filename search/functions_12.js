@@ -1,8 +1,5 @@
 var searchData=
 [
-  ['uncaughtexceptionhandler_1294',['uncaughtExceptionHandler',['../_s_p_tracker_8h.html#ae995bc3f03699b86f5b5a6d22877d383',1,'uncaughtExceptionHandler(NSException *exception):&#160;SPTracker.m'],['../_s_p_tracker_8m.html#ae995bc3f03699b86f5b5a6d22877d383',1,'uncaughtExceptionHandler(NSException *exception):&#160;SPTracker.m']]],
-  ['updatewithpreviousstate_3a_1295',['updateWithPreviousState:',['../interface_s_p_screen_view.html#ad0cbf14269b90c3332ba818dceb3495b',1,'SPScreenView']]],
-  ['url_1296',['url',['../protocol_s_p_network_connection-p.html#a1759b44c3d3471c58b4f516968e44a8c',1,'SPNetworkConnection-p']]],
-  ['urlencodedictionary_3a_1297',['urlEncodeDictionary:',['../interface_s_p_utilities.html#ad3addae2d94dd2aa4a5f7b8c502adc97',1,'SPUtilities']]],
-  ['urlencodestring_3a_1298',['urlEncodeString:',['../interface_s_p_utilities.html#a1629333ccb7465240de35e3113007694',1,'SPUtilities']]]
+  ['validatestring_3a_1622',['validateString:',['../interface_s_p_utilities.html#a06142c86ea1296ecbd2b3b2844596b01',1,'SPUtilities::validateString:(NSString *aString)'],['../interface_s_p_utilities.html#a06142c86ea1296ecbd2b3b2844596b01',1,'SPUtilities::validateString:(NSString *aString)']]],
+  ['verbose_3amessage_3a_1623',['verbose:message:',['../protocol_s_p_logger_delegate-p.html#ad48636075feefff2a2523f4b61fb57f7',1,'SPLoggerDelegate-p::verbose:message:()'],['../interface_s_p_logger.html#ad48636075feefff2a2523f4b61fb57f7',1,'SPLogger::verbose:message:()'],['../protocol_s_p_logger_delegate-p.html#ad48636075feefff2a2523f4b61fb57f7',1,'SPLoggerDelegate-p::verbose:message:()']]]
 ];

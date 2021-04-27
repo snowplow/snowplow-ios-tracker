@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -63,54 +63,44 @@ $(function() {
 
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">iOS, macOS, tvOS and watchOS Analytics for <a class="el" href="interface_snowplow.html">Snowplow</a> </div>  </div>
+<div class="title">iOS, macOS, tvOS and watchOS Analytics for Snowplow </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md__github_workspace_README"></a> <a href="https://github.com/snowplow/snowplow/wiki/Tracker-Maintenance-Classification">![actively-maintained]</a> <a href="https://travis-ci.org/snowplow/snowplow-objc-tracker"><img src="https://travis-ci.org/snowplow/snowplow-objc-tracker.svg?branch=master" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master"><img src="https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master" alt="Coverage Status" style="pointer-events: none;" class="inline"/></a> <a href="https://cocoadocs.org/docsets/SnowplowTracker"><img src="https://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png" alt="Version" class="inline"/></a> <a href="https://cocoadocs.org/docsets/SnowplowTracker"><img src="https://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png" alt="Platform" class="inline"/></a> <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage" style="pointer-events: none;" class="inline"/></a> <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/cocoapods/l/SnowplowTracker.svg" alt="License" style="pointer-events: none;" class="inline"/></a></p>
+<div class="textblock"><p><a class="anchor" id="md__github_workspace_README"></a> <a href="https://github.com/snowplow/snowplow/wiki/Tracker-Maintenance-Classification">![actively-maintained]</a> <a href="https://github.com/snowplow/snowplow-objc-tracker/actions"><img src="https://github.com/snowplow/snowplow-objc-tracker/workflows/Build/badge.svg" alt="Build Status" style="pointer-events: none;" class="inline"/></a> <a href="https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master"><img src="https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master" alt="Coverage Status" style="pointer-events: none;" class="inline"/></a> <a href="https://cocoadocs.org/docsets/SnowplowTracker"><img src="https://cocoapod-badges.herokuapp.com/p/SnowplowTracker/badge.png" alt="Platform" class="inline"/></a> <a href="https://cocoadocs.org/docsets/SnowplowTracker"><img src="https://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png" alt="Version" class="inline"/></a> <a href="https://github.com/Carthage/Carthage"><img src="https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat" alt="Carthage" style="pointer-events: none;" class="inline"/></a> <a href="https://www.apache.org/licenses/LICENSE-2.0"><img src="https://img.shields.io/github/license/snowplow/snowplow-objc-tracker" alt="License" class="inline"/></a></p>
+<p><img src=".github/media/snowplow_logo.png" alt="snowplow-logo" class="inline"/></p>
+<p>Snowplow is a scalable open-source platform for rich, high quality, low-latency data collection. It is designed to collect high quality, complete behavioral data for enterprise business.</p>
+<p><b>To find out more, please check out the <a href="https://snowplowanalytics.com">Snowplow website</a> and our <a href="https://docs.snowplowanalytics.com/">documentation</a>.</b></p>
 <h1><a class="anchor" id="autotoc_md1"></a>
-Overview</h1>
-<p>Add analytics to your iOS, macOS, tvOS and watchOS apps and games with the <b><a href="https://snowplowanalytics.com/">Snowplow</a></b> event tracker for <b><a href="https://www.apple.com/ios/">iOS 8.0+</a></b>, <b><a href="https://www.apple.com/macos/">macOS 10.9+</a></b>, <b><a href="https://www.apple.com/tv/">tvOS 9.0+</a></b> and <b><a href="https://www.apple.com/watchos/">watchOS 2.0+</a></b></p>
+Snowplow iOS Tracker Overview</h1>
+<p>The Snowplow iOS Tracker allows you to add analytics to your mobile apps when using a <a href="https://github.com/snowplow/snowplow">Snowplow</a> pipeline.</p>
 <p>With this tracker you can collect event data from your applications, games or frameworks.</p>
+<p><b>Technical documentation can be found for each tracker in our <a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/">Documentation</a>.</b></p>
 <h2><a class="anchor" id="autotoc_md2"></a>
-Building the Static Framework (iOS only)</h2>
-<ul>
-<li>Open <code>Snowplow.xcworkspace</code> in Xcode.</li>
-<li>Select the <code>SnowplowTracker-iOS-Static</code> scheme and set device to <code>iOS Device</code>.</li>
-<li>Run <code>Archive</code> from the Product menu.</li>
-<li>Finder should open and show you where <code>SnowplowTracker.framework</code> is stored.</li>
-</ul>
+Demo apps using the Snowplow iOS Tracker</h2>
+<p>Some examples of demo apps instrumented with our iOS Tracker can be found in the <a href="https://github.com/snowplow-incubator/snowplow-objc-tracker-examples">snowplow-objc-tracker-examples</a> repository.</p>
 <h2><a class="anchor" id="autotoc_md3"></a>
-Running the Demo Application (iOS only)</h2>
-<ul>
-<li>Open <code>SnowplowDemo.xcworkspace</code> in Xcode.</li>
-<li>Select the <code>SnowplowDemo</code> scheme and set device to any emulator.</li>
-<li>Hit run and the demo will be installed and launched in the emulator window.</li>
-<li>Simply enter a valid endpoint to send events to!</li>
-</ul>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Setting up a local testing endpoint</h2>
-<p>Assuming git, <b><a href="https://docs.vagrantup.com/v2/installation">Vagrant</a></b> and <b><a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a></b> installed:</p>
-<div class="fragment"><div class="line"> host$ git clone https://github.com/snowplow/snowplow-objc-tracker.git</div>
-<div class="line"> host$ cd snowplow-objc-tracker</div>
-<div class="line"> host$ vagrant up &amp;&amp; vagrant ssh</div>
-<div class="line">guest$ cd /vagrant</div>
-<div class="line">guest$ mb &amp;</div>
-<div class="line">guest$ curl -X POST -d @/vagrant/integration-tests/imposter.json http://localhost:2525/imposters</div>
-</div><!-- fragment --><p>Your local endpoint will be <code><a href="http://localhost:4545">http://localhost:4545</a></code> which can be used in the demonstration application.</p>
-<p>To view sent events in your browser please navigate to <code><a href="http://localhost:2525">http://localhost:2525</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md5"></a>
-Find out more</h1>
+Instrument the iOS Tracker</h2>
 <table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Technical Docs   </th><th class="markdownTableHeadNone">Contributing    </th></tr>
+<th class="markdownTableHeadNone">Technical Docs   </th><th class="markdownTableHeadNone">Setup Guide   </th><th class="markdownTableHeadNone">API Docs    </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone"><img src="https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png" alt="i1" class="inline"/>   </td><td class="markdownTableBodyNone"><img src="https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png" alt="i2" class="inline"/>    </td></tr>
+<td class="markdownTableBodyNone"><a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/introduction/"><img src="https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png" alt="i1" class="inline"/></a>   </td><td class="markdownTableBodyNone"><a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/quick-start-guide/#tab-ios-tracker"><img src="https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png" alt="i2" class="inline"/></a>   </td><td class="markdownTableBodyNone"><a href="https://snowplow.github.io/snowplow-objc-tracker/"><img src="https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png" alt="i3" class="inline"/></a>    </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone"><b><a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/objective-c-tracker/">Technical Docs</a></b>   </td><td class="markdownTableBodyNone"><b>Contributing</b>   </td></tr>
+<td class="markdownTableBodyNone"><a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/introduction/">Technical Docs</a>   </td><td class="markdownTableBodyNone"><a href="https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/quick-start-guide/#tab-ios-tracker">Setup Guide</a>   </td><td class="markdownTableBodyNone"><a href="https://snowplow.github.io/snowplow-objc-tracker/">API Docs</a>   </td></tr>
 </table>
-<h1><a class="anchor" id="autotoc_md6"></a>
+<h1><a class="anchor" id="autotoc_md4"></a>
+Maintainers</h1>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Contributing    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">![i4][contributing-image]    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Contributing   </td></tr>
+</table>
+<h1><a class="anchor" id="autotoc_md5"></a>
 Copyright and license</h1>
-<p>The <a class="el" href="interface_snowplow.html">Snowplow</a> iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2020 <a class="el" href="interface_snowplow.html">Snowplow</a> Analytics Ltd.</p>
+<p>The Snowplow iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2021 Snowplow Analytics Ltd.</p>
 <p>Licensed under the <b><a href="https://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a></b> (the "License"); you may not use this software except in compliance with the License.</p>
 <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License. </p>
 </div></div><!-- PageDoc -->

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPScreenView.m File Reference</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Events/SPScreenView.m File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_49fbaad7f69f0610a57b33952cc2393a.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,19 +72,19 @@ $(function() {
 <div class="title">SPScreenView.m File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#import &quot;<a class="el" href="_s_p_screen_view_8h_source.html">SPScreenView.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_snowplow_8h_source.html">Snowplow.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_payload_8h_source.html">SPPayload.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_self_describing_json_8h_source.html">SPSelfDescribingJson.h</a>&quot;</code><br />
+<div class="textblock"><code>#import &quot;<a class="el" href="_internal_2_events_2_s_p_screen_view_8h_source.html">SPScreenView.h</a>&quot;</code><br />
+<code>#import &quot;SPTrackerConstants.h&quot;</code><br />
+<code>#import &quot;SPUtilities.h&quot;</code><br />
+<code>#import &quot;SPPayload.h&quot;</code><br />
+<code>#import &quot;SPSelfDescribingJson.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_screen_state_8h_source.html">SPScreenState.h</a>&quot;</code><br />
 </div>
 <p><a href="_s_p_screen_view_8m_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a0baa8233098ad30df4bfc8da624654b2"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_screen_view_8m.html#a0baa8233098ad30df4bfc8da624654b2">_id</a></td></tr>
-<tr class="separator:a0baa8233098ad30df4bfc8da624654b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e45e74ee7490014c8e63c97418c63d6"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">_screenId</a></td></tr>
+<tr class="separator:a7e45e74ee7490014c8e63c97418c63d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3709e0af2ffb58f832d438ab0e5d54db"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_screen_view_8m.html#a3709e0af2ffb58f832d438ab0e5d54db">_type</a></td></tr>
 <tr class="separator:a3709e0af2ffb58f832d438ab0e5d54db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a007722393ef40d9dd160dc126563e14d"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_screen_view_8m.html#a007722393ef40d9dd160dc126563e14d">_previousName</a></td></tr>
@@ -101,25 +101,6 @@ Variables</h2></td></tr>
 <tr class="separator:ac134301e912f2a37061671845e44fdd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a0baa8233098ad30df4bfc8da624654b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0baa8233098ad30df4bfc8da624654b2">&#9670;&nbsp;</a></span>_id</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NSString* _id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">{</div>
-<div class="line">    NSString * <a class="code" href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a></div>
-<div class="ttc" id="a_s_p_consent_document_8m_html_a352bcebdf7e19bfa71bddfc6dfa9f89d"><div class="ttname"><a href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a></div><div class="ttdeci">NSString * _name</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_document_8m_source.html#l00033">SPConsentDocument.m:33</a></div></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_s_p_screen_view_8m_source.html#l00033">33</a> of file <a class="el" href="_s_p_screen_view_8m_source.html">SPScreenView.m</a>.</p>
-
-</div>
-</div>
 <a id="a248eb7867be59cc6bc5b4201517a7bbc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a248eb7867be59cc6bc5b4201517a7bbc">&#9670;&nbsp;</a></span>_previousId</h2>
 
@@ -165,6 +146,25 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_s_p_screen_view_8m_source.html#l00037">37</a> of file <a class="el" href="_s_p_screen_view_8m_source.html">SPScreenView.m</a>.</p>
+
+</div>
+</div>
+<a id="a7e45e74ee7490014c8e63c97418c63d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e45e74ee7490014c8e63c97418c63d6">&#9670;&nbsp;</a></span>_screenId</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NSString* _screenId</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">{</div>
+<div class="line">    NSString * <a class="code" href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a></div>
+<div class="ttc" id="a_s_p_consent_document_8m_html_a352bcebdf7e19bfa71bddfc6dfa9f89d"><div class="ttname"><a href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a></div><div class="ttdeci">NSString * _name</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_document_8m_source.html#l00033">SPConsentDocument.m:33</a></div></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="_s_p_screen_view_8m_source.html#l00033">33</a> of file <a class="el" href="_s_p_screen_view_8m_source.html">SPScreenView.m</a>.</p>
 
 </div>
 </div>

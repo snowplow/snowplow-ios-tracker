@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,33 +66,63 @@ $(function() {
 
 <h3><a id="index_i"></a>- i -</h3><ul>
 <li>init
-: <a class="el" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">SPInstallTracker</a>
+: <a class="el" href="interface_s_p_emitter_configuration.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">SPEmitterConfiguration</a>
+, <a class="el" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">SPInstallTracker</a>
 , <a class="el" href="interface_s_p_payload.html#a4213bb26f5207ee3f402fe463badc691">SPPayload</a>
 , <a class="el" href="interface_s_p_screen_state.html#a4213bb26f5207ee3f402fe463badc691">SPScreenState</a>
 , <a class="el" href="interface_s_p_session.html#a4213bb26f5207ee3f402fe463badc691">SPSession</a>
-, <a class="el" href="interface_s_p_s_q_lite_event_store.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">SPSQLiteEventStore</a>
 , <a class="el" href="interface_s_p_subject.html#a4213bb26f5207ee3f402fe463badc691">SPSubject</a>
+, <a class="el" href="interface_s_p_tracker_configuration.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">SPTrackerConfiguration</a>
 </li>
 <li>initWithBasis:documentId:documentVersion:documentDescription:
-: <a class="el" href="interface_s_p_gdpr_context.html#a0860ab4f16ce4389a120cda10d40679e">SPGdprContext</a>
+: <a class="el" href="interface_s_p_g_d_p_r_configuration.html#a29f4f592facc0f3d636d9b154b6a9b00">SPGDPRConfiguration</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#a0860ab4f16ce4389a120cda10d40679e">SPGdprContext</a>
+</li>
+<li>initWithCategory:action:
+: <a class="el" href="interface_s_p_structured.html#adf71695673081f90c6e4fe11830e544f">SPStructured</a>
+</li>
+<li>initWithCategory:variable:timing:
+: <a class="el" href="interface_s_p_timing.html#acb9221e7f9886bff7e5deae10d7155ca">SPTiming</a>
 </li>
 <li>initWithContextGenerator:
 : <a class="el" href="interface_s_p_global_context.html#a551236921bf10d5bd0a2bbc3ef744729">SPGlobalContext</a>
 </li>
+<li>initWithDate:action:trigger:category:thread:notification:
+: <a class="el" href="interface_s_p_push_notification.html#a1bfe65e8294eed32b9ae06b9f2666fa7">SPPushNotification</a>
+</li>
+<li>initWithDocumentId:version:
+: <a class="el" href="interface_s_p_consent_document.html#afbd1dbd7f4756aed510c19dc3b5f1768">SPConsentDocument</a>
+</li>
+<li>initWithEmitter:
+: <a class="el" href="interface_s_p_emitter_controller_impl.html#aa53e9ed56360e1631795a8b08844ed95">SPEmitterControllerImpl</a>
+, <a class="el" href="interface_s_p_network_controller_impl.html#aa53e9ed56360e1631795a8b08844ed95">SPNetworkControllerImpl</a>
+</li>
+<li>initWithEndpoint:
+: <a class="el" href="interface_s_p_network_configuration.html#a587822eb45f37ba938033af5db47cb5b">SPNetworkConfiguration</a>
+</li>
+<li>initWithEndpoint:method:
+: <a class="el" href="interface_s_p_network_configuration.html#afcb31e2ea2553d3d3d3fdf17defa4bdb">SPNetworkConfiguration</a>
+</li>
 <li>initWithEvent:
 : <a class="el" href="interface_s_p_tracker_event.html#a819aef3cf14c607a982d206d213983c5">SPTrackerEvent</a>
+</li>
+<li>initWithEventData:
+: <a class="el" href="interface_s_p_self_describing.html#adf5219fc29a44492a7155d2d0c91dfe0">SPSelfDescribing</a>
+</li>
+<li>initWithExpiry:documentId:version:
+: <a class="el" href="interface_s_p_consent_granted.html#adde4c879d822c78297aa59af9f57af5b">SPConsentGranted</a>
 </li>
 <li>initWithForegroundTimeout:andBackgroundTimeout:
 : <a class="el" href="interface_s_p_session.html#aea9637574b28649d2d3c46509924b68f">SPSession</a>
 </li>
-<li>initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:
-: <a class="el" href="interface_s_p_session.html#a1ab103af1560f49577308ec838ac3561">SPSession</a>
-</li>
-<li>initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:andTracker:
-: <a class="el" href="interface_s_p_session.html#a6449cdbc54d3f2fd766a17b7b9b8a0f4">SPSession</a>
-</li>
 <li>initWithForegroundTimeout:andBackgroundTimeout:andTracker:
 : <a class="el" href="interface_s_p_session.html#a273a817cd93716e56437089df5464f25">SPSession</a>
+</li>
+<li>initWithForegroundTimeout:backgroundTimeout:
+: <a class="el" href="interface_s_p_session_configuration.html#aad1f512202c6de448624d28ef3da4122">SPSessionConfiguration</a>
+</li>
+<li>initWithForegroundTimeoutInSeconds:backgroundTimeoutInSeconds:
+: <a class="el" href="interface_s_p_session_configuration.html#af5cd409badd1eb993fc46fe3f774d7ea">SPSessionConfiguration</a>
 </li>
 <li>initWithGenerator:
 : <a class="el" href="interface_s_p_global_context.html#a75faf66ca8608b1e6b6685cf8ead9dac">SPGlobalContext</a>
@@ -103,8 +133,16 @@ $(function() {
 <li>initWithGenerator:ruleset:
 : <a class="el" href="interface_s_p_global_context.html#a960d58ad152ac4ba3827eb0633c8bda6">SPGlobalContext</a>
 </li>
+<li>initWithIndex:
+: <a class="el" href="interface_s_p_background.html#ac971d58b1a73986b45468260bbbdd8a5">SPBackground</a>
+, <a class="el" href="interface_s_p_foreground.html#ac971d58b1a73986b45468260bbbdd8a5">SPForeground</a>
+</li>
+<li>initWithMessage:
+: <a class="el" href="interface_s_n_o_w_error.html#ace4a146673c1620496623dbf82c333c4">SNOWError</a>
+</li>
 <li>initWithName:screenId:
 : <a class="el" href="interface_s_p_screen_state.html#ac2c5d3fd4c29f8e72432c951a3d0dbf4">SPScreenState</a>
+, <a class="el" href="interface_s_p_screen_view.html#ac0548ade851fddf2b09dd465c81cf4c9">SPScreenView</a>
 </li>
 <li>initWithName:type:screenId:
 : <a class="el" href="interface_s_p_screen_state.html#a60a905813ac766abbba33237b1c9c972">SPScreenState</a>
@@ -118,8 +156,23 @@ $(function() {
 <li>initWithName:type:topViewControllerClassName:viewControllerClassName:
 : <a class="el" href="interface_s_p_screen_state.html#a82f14608e3ecdbad6f1212b31cbd836f">SPScreenState</a>
 </li>
+<li>initWithNamespace:
+: <a class="el" href="interface_s_p_s_q_lite_event_store.html#ade7073dc0a02f7ad986bbe627c4bcde4">SPSQLiteEventStore</a>
+</li>
+<li>initWithNamespace:network:configurations:
+: <a class="el" href="interface_s_p_service_provider.html#a97b0c709902bc3277a499ed1773d6887">SPServiceProvider</a>
+</li>
+<li>initWithNetworkConnection:
+: <a class="el" href="interface_s_p_network_configuration.html#abd566ae8bd34c57718f591788634d4b2">SPNetworkConfiguration</a>
+</li>
 <li>initWithNSDictionary:
 : <a class="el" href="interface_s_p_payload.html#a016a41619d42428ef3b0e64c6778ddd6">SPPayload</a>
+</li>
+<li>initWithOrderId:totalValue:items:
+: <a class="el" href="interface_s_p_ecommerce.html#a1b94e18be0b44e5c7da664bc2036ddea">SPEcommerce</a>
+</li>
+<li>initWithPageUrl:
+: <a class="el" href="interface_s_p_page_view.html#a4ec8a050728b01ed1f6e7ed630fd9abe">SPPageView</a>
 </li>
 <li>initWithPayload:emitterEventId:
 : <a class="el" href="interface_s_p_request.html#a29ef75335df5f18c54e43c7034cd5c64">SPRequest</a>
@@ -134,7 +187,10 @@ $(function() {
 : <a class="el" href="interface_s_p_request.html#ab8ec1cdea29b2c337b61c67cbe2f96d0">SPRequest</a>
 </li>
 <li>initWithPlatformContext:andGeoContext:
-: <a class="el" href="interface_s_p_subject.html#a4ae51addd8adffc1db0824283e12149c">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a62a01af3a513e5878ec8a5ec2f94e389">SPSubject</a>
+</li>
+<li>initWithPlatformContext:geoLocationContext:subjectConfiguration:
+: <a class="el" href="interface_s_p_subject.html#aa82294dbb0e40341a38ae2ad2b9c1cd9">SPSubject</a>
 </li>
 <li>initWithRule:
 : <a class="el" href="interface_s_p_schema_rule.html#ab1f7b08f83aa34140a2015d1d49b7d4e">SPSchemaRule</a>
@@ -142,11 +198,20 @@ $(function() {
 <li>initWithSchema:andData:
 : <a class="el" href="interface_s_p_self_describing_json.html#a74e3fc69a74a68d6a040de4010c8f95b">SPSelfDescribingJson</a>
 </li>
+<li>initWithSchema:andDictionary:
+: <a class="el" href="interface_s_p_self_describing_json.html#a094256b1fcffd40f7ce60aa0f4f159c4">SPSelfDescribingJson</a>
+</li>
 <li>initWithSchema:andPayload:
 : <a class="el" href="interface_s_p_self_describing_json.html#ab8a323309490cfac7841211b5f04723c">SPSelfDescribingJson</a>
 </li>
 <li>initWithSchema:andSelfDescribingJson:
 : <a class="el" href="interface_s_p_self_describing_json.html#a31957281cda743de750e28ae76c81a59">SPSelfDescribingJson</a>
+</li>
+<li>initWithSchema:payload:
+: <a class="el" href="interface_s_p_self_describing.html#a550ebe36f3257e4324818417f192c888">SPSelfDescribing</a>
+</li>
+<li>initWithSku:price:quantity:
+: <a class="el" href="interface_s_p_ecommerce_item.html#ad9b123bb1260053f97f04fcad70be5b2">SPEcommerceItem</a>
 </li>
 <li>initWithSource:message:
 : <a class="el" href="interface_s_p_tracker_error.html#aac1be67fa78221109394fcc9c2f6c33e">SPTrackerError</a>
@@ -169,11 +234,26 @@ $(function() {
 <li>initWithTarget:andSelector:
 : <a class="el" href="interface_s_p_weak_timer_target.html#ac2d9c8fc9e71c57feb54df4f68b3f05e">SPWeakTimerTarget</a>
 </li>
+<li>initWithTitle:body:badge:
+: <a class="el" href="interface_s_p_notification_content.html#a6a9372fb0b205ed5af6b8ebf2d8d2ee0">SPNotificationContent</a>
+</li>
 <li>initWithTracker:
-: <a class="el" href="interface_s_p_session.html#a372ca4c6b3c4beaffa3571e707c061f8">SPSession</a>
+: <a class="el" href="interface_s_p_g_d_p_r_controller_impl.html#a014199cebf9e7ce0d196598f628fea1d">SPGDPRControllerImpl</a>
+, <a class="el" href="interface_s_p_global_contexts_controller_impl.html#a014199cebf9e7ce0d196598f628fea1d">SPGlobalContextsControllerImpl</a>
+, <a class="el" href="interface_s_p_session.html#a372ca4c6b3c4beaffa3571e707c061f8">SPSession</a>
+, <a class="el" href="interface_s_p_session_controller_impl.html#a014199cebf9e7ce0d196598f628fea1d">SPSessionControllerImpl</a>
+</li>
+<li>initWithWidth:height:
+: <a class="el" href="interface_s_p_size.html#a51ba901e627f4a68131be8cd2fa1b261">SPSize</a>
 </li>
 <li>insertEvent:
 : <a class="el" href="interface_s_p_s_q_lite_event_store.html#a63608ac08e3606c391e23f6f06bfad91">SPSQLiteEventStore</a>
+</li>
+<li>installEvent
+: <a class="el" href="interface_s_p_tracker.html#a065746f2993c40cd635f3b66efa9d251">SPTracker</a>
+</li>
+<li>instancedTrackerNamespaces
+: <a class="el" href="interface_s_p_snowplow.html#a9cb9a77d806cbdbda437dbe8ed82473e">SPSnowplow</a>
 </li>
 <li>isUUIDString:
 : <a class="el" href="interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a">SPUtilities</a>

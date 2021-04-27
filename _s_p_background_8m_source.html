@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPBackground.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Events/SPBackground.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_49fbaad7f69f0610a57b33952cc2393a.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -70,11 +70,11 @@ $(function() {
 <div class="title">SPBackground.m</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_s_p_background_8m.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="interface_s_p_background.html#aee58a37a0345d53fbf4aeeab0fd1561c">    1</a></span>&#160;<span class="comment">//</span></div>
+<a href="_s_p_background_8m.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPBackground.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -92,70 +92,69 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_background_8h.html">SPBackground.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_events_2_s_p_background_8h.html">SPBackground.h</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_snowplow_8h.html">Snowplow.h</a>&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a>&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_background.html">SPBackground</a> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    NSNumber * _index;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;+ (instancetype) build:(<span class="keywordtype">void</span>(^)(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_background_builder-p.html">SPBackgroundBuilder</a>&gt;builder))buildBlock {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="interface_s_p_background.html">SPBackground</a>* <span class="keyword">event</span> = [<a class="code" href="interface_s_p_background.html">SPBackground</a> new];</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">if</span> (buildBlock) { buildBlock(event); }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    [event preconditions];</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> event;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;- (id) init {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;- (void) preconditions {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:(_index != nil) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Index cannot be nil or empty.&quot;];</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    [<span class="keyword">self</span> basePreconditions];</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// --- Builder Methods</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (void) setIndex:(NSNumber *)index {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    _index = index;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">// --- Public Methods</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;- (NSString *)schema {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_snowplow_8m.html#a79037ff77cf5f154af70d0dbb0d575e3">kSPBackgroundSchema</a>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)payload {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    NSMutableDictionary *payload = [NSMutableDictionary dictionary];</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    [payload setValue:_index forKey:kSPBackgroundIndex];</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> payload;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;- (<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *) getPayload {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    NSMutableDictionary * <span class="keyword">event</span> = [[NSMutableDictionary alloc] init];</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_background.html">SPBackground</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    NSNumber * _index;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;+ (instancetype)build:(<span class="keywordtype">void</span>(^)(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_background_builder-p.html">SPBackgroundBuilder</a>&gt; builder))buildBlock {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="interface_s_p_background.html">SPBackground</a>* <span class="keyword">event</span> = [<a class="code" href="interface_s_p_background.html">SPBackground</a> new];</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">if</span> (buildBlock) { buildBlock(event); }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    [event preconditions];</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> event;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;- (instancetype)init {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;- (instancetype)initWithIndex:(NSNumber *)index {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        _index = index;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;- (void) preconditions {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:(_index != nil) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Index cannot be nil or empty.&quot;];</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// --- Builder Methods</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#pragma clang diagnostic push</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wdeprecated-implementations&quot;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;- (void) setIndex:(NSNumber *)index {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    _index = index;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#pragma clang diagnostic pop</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// --- Public Methods</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;- (NSString *)schema {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#a79037ff77cf5f154af70d0dbb0d575e3">kSPBackgroundSchema</a>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    [event setObject:_index forKey:kSPBackgroundIndex];</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> [[<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> alloc] initWithSchema:kSPBackgroundSchema andData:event];</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="a_s_p_background_8h_html"><div class="ttname"><a href="_s_p_background_8h.html">SPBackground.h</a></div></div>
-<div class="ttc" id="a_s_p_self_describing_json_8h_html"><div class="ttname"><a href="_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a></div></div>
-<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
-<div class="ttc" id="a_snowplow_8h_html"><div class="ttname"><a href="_snowplow_8h.html">Snowplow.h</a></div></div>
-<div class="ttc" id="a_snowplow_8m_html_a79037ff77cf5f154af70d0dbb0d575e3"><div class="ttname"><a href="_snowplow_8m.html#a79037ff77cf5f154af70d0dbb0d575e3">kSPBackgroundSchema</a></div><div class="ttdeci">NSString *const kSPBackgroundSchema</div><div class="ttdef"><b>Definition:</b> <a href="_snowplow_8m_source.html#l00068">Snowplow.m:68</a></div></div>
-<div class="ttc" id="ainterface_s_p_background_html"><div class="ttname"><a href="interface_s_p_background.html">SPBackground</a></div><div class="ttdoc">A background transition event.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_background_8h_source.html#l00046">SPBackground.h:46</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html"><div class="ttname"><a href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a></div><div class="ttdoc">The class that represents self-describing JSONs.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8h_source.html#l00035">SPSelfDescribingJson.h:36</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_utilities_8h_source.html#l00040">SPUtilities.h:41</a></div></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)payload {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    NSMutableDictionary *payload = [NSMutableDictionary dictionary];</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    [payload setValue:_index forKey:kSPBackgroundIndex];</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> payload;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="a_internal_2_events_2_s_p_background_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_background_8h.html">SPBackground.h</a></div></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_a79037ff77cf5f154af70d0dbb0d575e3"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a79037ff77cf5f154af70d0dbb0d575e3">kSPBackgroundSchema</a></div><div class="ttdeci">NSString *const kSPBackgroundSchema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00068">SPTrackerConstants.m:68</a></div></div>
+<div class="ttc" id="ainterface_s_p_background_html"><div class="ttname"><a href="interface_s_p_background.html">SPBackground</a></div><div class="ttdoc">A background transition event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_background_8h_source.html#l00047">SPBackground.h:47</a></div></div>
+<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_utilities_8h_source.html#l00041">SPUtilities.h:42</a></div></div>
 <div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false.</div></div>
-<div class="ttc" id="aprotocol_s_p_background_builder-p_html"><div class="ttname"><a href="protocol_s_p_background_builder-p.html">SPBackgroundBuilder-p</a></div><div class="ttdoc">The protocol for building background events.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_background_8h_source.html#l00032">SPBackground.h:32</a></div></div>
+<div class="ttc" id="aprotocol_s_p_background_builder-p_html"><div class="ttname"><a href="protocol_s_p_background_builder-p.html">SPBackgroundBuilder-p</a></div><div class="ttdoc">The protocol for building background events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_background_8h_source.html#l00032">SPBackground.h:32</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

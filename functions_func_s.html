@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -68,18 +68,24 @@ $(function() {
 <li>saveBuildAndVersion
 : <a class="el" href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">SPInstallTracker</a>
 </li>
+<li>screenContext
+: <a class="el" href="interface_s_p_tracker.html#ae5ae3e2de4a11779b672c472d4f223a0">SPTracker</a>
+</li>
 <li>sendRequests:
 : <a class="el" href="protocol_s_p_network_connection-p.html#aa35359e7157ed1cc389347c63975b8b1">&lt;SPNetworkConnection&gt;</a>
 </li>
+<li>sessionContext
+: <a class="el" href="interface_s_p_tracker.html#a947c4bcb8b9513816c01f4f63897f260">SPTracker</a>
+</li>
 <li>setAction:
-: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a3ea7f5dc5899d6260b89188a35b38d35">&lt;SPPushNotificationBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_structured_builder-p.html#a3ea7f5dc5899d6260b89188a35b38d35">&lt;SPStructuredBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a9e8670eed425afac4c18103ba1b35131">&lt;SPPushNotificationBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_structured_builder-p.html#ae3a783c8ba19a5354e99e51c34d6f104">&lt;SPStructuredBuilder&gt;</a>
 </li>
 <li>setAffiliation:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a1c62d8c62bc1b73283df871c2511bea2">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a4388e75c791cdc242ae92a04c33f083f">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setAll:
-: <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a4a06fe1268acd7e3dea331eea470d13d">&lt;SPConsentWithdrawnBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a3b833e9214a5f0aeb12de85e608d2b63">&lt;SPConsentWithdrawnBuilder&gt;</a>
 </li>
 <li>setAppId:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a1f5fb5611f45dcc5c780ca74dfe730a7">&lt;SPTrackerBuilder&gt;</a>
@@ -88,7 +94,7 @@ $(function() {
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setAttachments:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a980720c2cb0495ff8df338085364eb7a">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a9a401ee9c7cda62a7055f2dea762f17b">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setAutotrackScreenViews:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">&lt;SPTrackerBuilder&gt;</a>
@@ -98,59 +104,55 @@ $(function() {
 , <a class="el" href="protocol_s_p_tracker_builder-p.html#af04e59f09b9ba729db01529aad534ef2">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setBadge:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a55a1045a98682e8ac5bf0952c20b40c6">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#ab0ffad673d865df3d8fbc4722cde6e72">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setBase64Encoded:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a3b5a76384c733fabf2b1bfd33b45ea19">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setBody:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a9f76043de8df3c7aa8002bb7340e570b">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#af9f25fea8c9122982a00b0b9afbf56fd">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setBufferOption:
-: <a class="el" href="protocol_s_p_emitter_builder-p.html#a73870a55d2cd24dd2133a4ccdac0d54d">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#a050d233b3bafc9576d538f00d8631cdd">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setByteLimitGet:
 : <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a1470440e0f2c7d7cb5d859df25921b73">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_emitter_builder-p.html#acd0bd18842ab803025c32698372d60d4">&lt;SPEmitterBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_emitter_builder-p.html#a939558f4e76ac5df753720a8bd8bd28c">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setByteLimitPost:
 : <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#aae004fc9e3cda3446388f3aa49cd5004">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_emitter_builder-p.html#ae27558806aa03cce99d5125c96497999">&lt;SPEmitterBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_emitter_builder-p.html#ac6c219ee3585bb6725590c9c8c231b48">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setCallback:
-: <a class="el" href="protocol_s_p_emitter_builder-p.html#a26607d7afc80ca035a97725feaa2cc01">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#af74b60a2b1a531f7f3233658b79596d9">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setCategory:
-: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a501c681282127cc51854a0cccab3b814">&lt;SPEcommTransactionItemBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_structured_builder-p.html#a06f0728441c05a47c6b13414122e53bb">&lt;SPStructuredBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_timing_builder-p.html#a06f0728441c05a47c6b13414122e53bb">&lt;SPTimingBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a57f25fc4a63ccbfcf5488645a5a54425">&lt;SPEcommTransactionItemBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_structured_builder-p.html#aa5762b3a527bea498f5c7f9368a61b2c">&lt;SPStructuredBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_timing_builder-p.html#aa1ad850dd05509941065fd7ca845c27d">&lt;SPTimingBuilder&gt;</a>
 </li>
 <li>setCategoryIdentifier:
-: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a51b4c7202dc7372999ce0da1c8842b19">&lt;SPPushNotificationBuilder&gt;</a>
-</li>
-<li>setCheckInterval:
-: <a class="el" href="interface_s_p_session.html#aa271cb1456d6c666d7e05114ae4ca4a6">SPSession</a>
-, <a class="el" href="protocol_s_p_tracker_builder-p.html#ac2f988001f7c9c45246e543d65974468">&lt;SPTrackerBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_push_notification_builder-p.html#ae58dc25c09940c96c6ba4b2141d93c3c">&lt;SPPushNotificationBuilder&gt;</a>
 </li>
 <li>setCity:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a4d926cea47d5c1039ec6c89437966b3f">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a935ce897613ecf0f41cb37f46d5a9868">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setColorDepth:
-: <a class="el" href="interface_s_p_subject.html#a1b500079196774d99dcb480b57b00940">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#ac6a12926a5c91e2d5cadf0abd66b9b90">SPSubject</a>
 </li>
 <li>setContexts:
 : <a class="el" href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">&lt;SPEventBuilder&gt;</a>
 </li>
 <li>setCountry:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#abdc6ecc7c1884e2a1ec31c9f39fb4664">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a04250ef611ccf1a5e377074f4026d010">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setCurrency:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a807827cba9eaceda90fbb79157523852">&lt;SPEcommTransactionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a807827cba9eaceda90fbb79157523852">&lt;SPEcommTransactionItemBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a0cec869252a90ae4c8e8d7bc0935fe08">&lt;SPEcommTransactionBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#ac26efcc77dcd1f31c70e8ed5b05a71cc">&lt;SPEcommTransactionItemBuilder&gt;</a>
 </li>
 <li>setCustomPostPath:
 : <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#ac713d8e93a07019bb66894f69e3835a1">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_emitter_builder-p.html#ac713d8e93a07019bb66894f69e3835a1">&lt;SPEmitterBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_emitter_builder-p.html#a101b3edff5dffec357f02fc042fc8937">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setDataWithObject:
 : <a class="el" href="interface_s_p_self_describing_json.html#aea41cd6d4242e98a99d462d9ed232037">SPSelfDescribingJson</a>
@@ -162,62 +164,56 @@ $(function() {
 : <a class="el" href="interface_s_p_self_describing_json.html#a6298ccd1302fe83bb72c9ea78f8fdcfb">SPSelfDescribingJson</a>
 </li>
 <li>setDeliveryDate:
-: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a3ce6ab356dd30bddc6ff90227bde9634">&lt;SPPushNotificationBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a7ece22fff62ea7f90cbc8e261f8cf44f">&lt;SPPushNotificationBuilder&gt;</a>
 </li>
 <li>setDescription:
-: <a class="el" href="protocol_s_p_consent_document_builder-p.html#a2ccd61cd8a7bab0aa3950d88f28245d7">&lt;SPConsentDocumentBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#a2ccd61cd8a7bab0aa3950d88f28245d7">&lt;SPConsentGrantedBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a5bb94b12cb5a9f43a326caac6325ab23">&lt;SPConsentWithdrawnBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_consent_document_builder-p.html#a33d27ce88b163b5da1cfa0e19ca8c7f4">&lt;SPConsentDocumentBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#ade5a59f7cab817650860184fed54c59f">&lt;SPConsentGrantedBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a96e1ad45a7074fb9127798793e6b5e9d">&lt;SPConsentWithdrawnBuilder&gt;</a>
 </li>
 <li>setDevicePlatform:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#ada2040556afda517ad9df89012c213e9">&lt;SPTrackerBuilder&gt;</a>
 </li>
-<li>setDiagnosticLogger:
-: <a class="el" href="interface_s_p_logger.html#a34868a1bb6fadafa1f427c54ad3eefda">SPLogger</a>
-</li>
 <li>setDocumentId:
-: <a class="el" href="protocol_s_p_consent_document_builder-p.html#a94a05192f55aeb9a7e146ebf9de8d722">&lt;SPConsentDocumentBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#a94a05192f55aeb9a7e146ebf9de8d722">&lt;SPConsentGrantedBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a94a05192f55aeb9a7e146ebf9de8d722">&lt;SPConsentWithdrawnBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_consent_document_builder-p.html#ae967a4e74365c375098925d594ba2657">&lt;SPConsentDocumentBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#ae8c6c6d2f4859b22406dfcf9e6a37e3c">&lt;SPConsentGrantedBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#ac5ec51421114114065600a24712ecf01">&lt;SPConsentWithdrawnBuilder&gt;</a>
 </li>
 <li>setDocuments:
-: <a class="el" href="protocol_s_p_consent_granted_builder-p.html#abbf812c54fd22ae0e869e85f8324b77a">&lt;SPConsentGrantedBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#af883edb086da2aec121f56a699d5bfeb">&lt;SPConsentWithdrawnBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_consent_granted_builder-p.html#a0c09affb7f6aab7e08e49edb3bdc3781">&lt;SPConsentGrantedBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#afbac17f8842b32d8d47a795adda34cae">&lt;SPConsentWithdrawnBuilder&gt;</a>
 </li>
 <li>setDomainUserId:
-: <a class="el" href="interface_s_p_subject.html#ae0d0050065451872cba16a9e2eb9dedf">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#afe7a574f7e6bfab7f3c4639e72adbc4b">SPSubject</a>
 </li>
 <li>setEmitRange:
-: <a class="el" href="protocol_s_p_emitter_builder-p.html#abba51719a9a23ee5f5a5c3e0919a64f2">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#aff5840d6366221efab7904c8b901bcf3">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setEmitter:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a919c65f46636089e2d2760b7a73e0a25">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setEmitThreadPoolSize:
 : <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#ac4ffbdbd7b29ce12f16d089f0b3090b7">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_emitter_builder-p.html#a5d4a7f4f95907500c75515c94c52e777">&lt;SPEmitterBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_emitter_builder-p.html#a03a6068f72373f3007a865526dbe4c0f">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setEventData:
-: <a class="el" href="protocol_s_p_unstructured_builder-p.html#acfedadd4a178aa92b2f416d6f8e8c9b5">&lt;SPUnstructuredBuilder&gt;</a>
-</li>
-<li>setEventId:
-: <a class="el" href="protocol_s_p_event_builder-p.html#a7e56391bf1267c23056b493c17f57954">&lt;SPEventBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_self_describing_builder-p.html#ad7910a4993d2410d8b61953874ac7346">&lt;SPSelfDescribingBuilder&gt;</a>
 </li>
 <li>setEventStore:
-: <a class="el" href="protocol_s_p_emitter_builder-p.html#a5ba63f996e722e03e8f44e597d13682d">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#a7dc55c284a386d7fd3d452b69055e900">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setExceptionEvents:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setExpiry:
-: <a class="el" href="protocol_s_p_consent_granted_builder-p.html#ab6d1b8d9fd167b42d175e8f7defc6df0">&lt;SPConsentGrantedBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_consent_granted_builder-p.html#afd4193825b32aa389d8e067e1289277a">&lt;SPConsentGrantedBuilder&gt;</a>
 </li>
 <li>setForegroundTimeout:
 : <a class="el" href="interface_s_p_session.html#a17d9de813b2a3bbabe9c807ab3b17146">SPSession</a>
 , <a class="el" href="protocol_s_p_tracker_builder-p.html#a17d9de813b2a3bbabe9c807ab3b17146">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setGdprContextWithBasis:documentId:documentVersion:documentDescription:
-: <a class="el" href="protocol_s_p_tracker_builder-p.html#aa1fb0b643f9c77fd369defe861cbf770">&lt;SPTrackerBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#ac76512749b25d982208318ea7e9e0cc8">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setGeoAltitude:
 : <a class="el" href="interface_s_p_subject.html#a5015e717c5fc0dc277fabfc11983e9ad">SPSubject</a>
@@ -250,162 +246,167 @@ $(function() {
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a20f6dbb8d8bf32da5ff2b045067efc66">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setHttpMethod:
-: <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a94b1da8a4546588ae23db9450629021e">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_emitter_builder-p.html#a94b1da8a4546588ae23db9450629021e">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a0a9b8df853d756975738114360641362">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_emitter_builder-p.html#afa4942d87e60d938c6413f8b83d1fc13">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setIndex:
-: <a class="el" href="protocol_s_p_background_builder-p.html#a60b59e51b921701c6542cb077d879e04">&lt;SPBackgroundBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_foreground_builder-p.html#a60b59e51b921701c6542cb077d879e04">&lt;SPForegroundBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_background_builder-p.html#a5a7dd8ca36126304c0d723e974417845">&lt;SPBackgroundBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_foreground_builder-p.html#a4cdc3796c3f436f46cc31af7921abdc2">&lt;SPForegroundBuilder&gt;</a>
 </li>
 <li>setInstallEvent:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setIpAddress:
-: <a class="el" href="interface_s_p_subject.html#a75c16b939a4abdd0f63665c5b8971e98">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a1e7b19eafb2f64d9753ac238978bf6ca">SPSubject</a>
 </li>
 <li>setItemId:
-: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#ae60a50a79012bfe0af32fb2f0bdfda77">&lt;SPEcommTransactionItemBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#aaef497748cc63b2a4bfda5ba75746c87">&lt;SPEcommTransactionItemBuilder&gt;</a>
 </li>
 <li>setItems:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a3fbed92f67c196046cc25b3212b1e4b7">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#aec5366a2507d1285e0db927d30f307c1">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setLabel:
-: <a class="el" href="protocol_s_p_structured_builder-p.html#a713df8b4710d10eafe74691b0f3cbdb7">&lt;SPStructuredBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_timing_builder-p.html#a713df8b4710d10eafe74691b0f3cbdb7">&lt;SPTimingBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_structured_builder-p.html#accdcb12daf3d253ce6b41e3784f98c0a">&lt;SPStructuredBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_timing_builder-p.html#a6801214cf6459a40308d1f16fb660780">&lt;SPTimingBuilder&gt;</a>
 </li>
 <li>setLanguage:
-: <a class="el" href="interface_s_p_subject.html#aab846943e4bdfaa09a3471a4d186b159">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a7f081bce8a7e101ac0475eda683194f5">SPSubject</a>
 </li>
 <li>setLaunchImageName:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#af801b69afeac304eb705a71890c6f0a2">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a0ca1b70813cd4244a543a4131e0fe31e">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setLifecycleEvents:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setLoggerDelegate:
-: <a class="el" href="interface_s_p_logger.html#a898f0e4d5559af473293e07327282688">SPLogger</a>
-, <a class="el" href="protocol_s_p_tracker_builder-p.html#a401decf723d67b5eb338fc450c21ed39">&lt;SPTrackerBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#a898f0e4d5559af473293e07327282688">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setLogLevel:
-: <a class="el" href="interface_s_p_logger.html#a87fc8e501fa8506d344fac38f1b8af86">SPLogger</a>
-, <a class="el" href="protocol_s_p_tracker_builder-p.html#a87fc8e501fa8506d344fac38f1b8af86">&lt;SPTrackerBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#a87fc8e501fa8506d344fac38f1b8af86">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setMessage:
-: <a class="el" href="protocol_s_p_error_builder-p.html#af51f303e067683f96a051869506a5831">&lt;SPErrorBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_error_builder-p.html#ab1126174682cf8140359b863b430dd4a">&lt;SPErrorBuilder&gt;</a>
 </li>
 <li>setName:
-: <a class="el" href="protocol_s_p_consent_document_builder-p.html#aab850ef11a473b84f148b9ef19389209">&lt;SPConsentDocumentBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#aab850ef11a473b84f148b9ef19389209">&lt;SPConsentGrantedBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPConsentWithdrawnBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#aab850ef11a473b84f148b9ef19389209">&lt;SPEcommTransactionItemBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_error_builder-p.html#aab850ef11a473b84f148b9ef19389209">&lt;SPErrorBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_screen_view_builder-p.html#a9ee5517d51908f1d712a4e2d984c2eec">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_consent_document_builder-p.html#a1cf3a86417dfb232b26e0875c1f56b51">&lt;SPConsentDocumentBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#aea5c81d6259906eb49880cbf91a83761">&lt;SPConsentGrantedBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a77c62352996a7c59d8090baa33efa810">&lt;SPConsentWithdrawnBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#ade0f3811ce4e70f06bffb370b8911f85">&lt;SPEcommTransactionItemBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_error_builder-p.html#a207dff6acf7e28c48ff5e5f46d73d10b">&lt;SPErrorBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_screen_view_builder-p.html#af0003408ccb536bee0e6cb757713960e">&lt;SPScreenViewBuilder&gt;</a>
+</li>
+<li>setNamespace:
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#adc1977f1173519f214f5a3071d1f4191">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setNetworkConnection:
-: <a class="el" href="protocol_s_p_emitter_builder-p.html#a42621cdf1e903166e832872816e12b32">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#a2d46f2a72cc57ea7c751cf6721833752">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setNetworkUserId:
-: <a class="el" href="interface_s_p_subject.html#a8f0e3020aa9d5f8a5a2a62297aa0301e">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a3cae7590cc37d7f59d08af04d3f3f56b">SPSubject</a>
 </li>
 <li>setNotification:
-: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a1548bb3f4f8086fe0a710eae4e7cd939">&lt;SPPushNotificationBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_push_notification_builder-p.html#aaff36001ef05e0d13f5b743b207bcc3e">&lt;SPPushNotificationBuilder&gt;</a>
 </li>
 <li>setOrderId:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#ac48f7eaae2386949b36001090205efb3">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="interface_s_p_ecommerce_item.html#ac48f7eaae2386949b36001090205efb3">SPEcommerceItem</a>
+, <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#afc2ccca46f3f91cdc9d9b1f824fb0fa2">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setPageTitle:
-: <a class="el" href="protocol_s_p_page_view_builder-p.html#adb05dc48cba31fbfcc344100c09db09d">&lt;SPPageViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_page_view_builder-p.html#aac58a9b6bf71fd19eccc2f03c85cc345">&lt;SPPageViewBuilder&gt;</a>
 </li>
 <li>setPageUrl:
-: <a class="el" href="protocol_s_p_page_view_builder-p.html#a8fd3857ea63f2f1f8ce90ef50903e896">&lt;SPPageViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_page_view_builder-p.html#acfd1a32945d05d059eec41c6a81c5f1c">&lt;SPPageViewBuilder&gt;</a>
 </li>
 <li>setPlatformDict
 : <a class="el" href="interface_s_p_subject.html#a864ec43fb18940dc045cdfacafa02835">SPSubject</a>
 </li>
 <li>setPreviousScreenId:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#abd2faa27d62c86d304ed5e1886fc6bd5">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3e90512857cc645754830b8e42e08fe5">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setPreviousScreenName:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a87cea56c68be791c5f097557aa05273e">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a857ba369ecb35fce7809f7d1b0d58795">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setPreviousScreenType:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a319538bf922e762c9859ad10ec749309">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a72c01583f98ce9af0921d1f2c9b31b8a">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setPrice:
-: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a75f70a703a309233d2e19a2feaf0733c">&lt;SPEcommTransactionItemBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a002d803a32996bf2bc7bef51643aafba">&lt;SPEcommTransactionItemBuilder&gt;</a>
 </li>
 <li>setProperty:
-: <a class="el" href="protocol_s_p_structured_builder-p.html#a1de5fd7b38bd01485985ce13e1de58b5">&lt;SPStructuredBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_structured_builder-p.html#a05f2f3e66037b7c333a01244a91040f4">&lt;SPStructuredBuilder&gt;</a>
 </li>
 <li>setProtocol:
-: <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a826f03dcebe3e2e32b316a5f47b837cb">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_emitter_builder-p.html#a826f03dcebe3e2e32b316a5f47b837cb">&lt;SPEmitterBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_emitter_builder-p.html#a8e7d2f7205f944a06cded92ce1358762">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setQuantity:
-: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a471e2b10c3cfb2dc80640fddd7e9392f">&lt;SPEcommTransactionItemBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#aea4de3a42efeeed47153237d21202eae">&lt;SPEcommTransactionItemBuilder&gt;</a>
 </li>
 <li>setReferrer:
-: <a class="el" href="protocol_s_p_page_view_builder-p.html#a519063676a11256f5f721ace077a2d38">&lt;SPPageViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_page_view_builder-p.html#a93f1fa7fb93bb79d3af155b11149f5b1">&lt;SPPageViewBuilder&gt;</a>
+</li>
+<li>setRequestHeaders:
+: <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a476f41029a04c6c320d29f5935169a63">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_emitter_builder-p.html#a3252f8a08c41648654a48512b024d94b">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setResolutionWithWidth:andHeight:
-: <a class="el" href="interface_s_p_subject.html#a2a4a28fa503fb5942aabede3f1404867">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#abe2aa4a03b76ecd83602493102ae8f43">SPSubject</a>
 </li>
 <li>setScreenContext:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setScreenId:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a3d0f88516e60181543e9bd19c45f9e87">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a37ecec5554fafe23e625c67b7f4012b8">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setSessionContext:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a4add7c27a903e3795fcdd166ca07f8f3">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setShipping:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#ae5d7df4299d1ff71a2217c2403a3a83d">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a25d33d7ba7c6450871db5f0f1e745a17">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setSku:
-: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#a6389712c161b5a238540f5969bdf3d5e">&lt;SPEcommTransactionItemBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_item_builder-p.html#afc6f0422cc8578259e6992038e9042b6">&lt;SPEcommTransactionItemBuilder&gt;</a>
 </li>
 <li>setSound:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#adca8bfe3c74692c41591562d6203835d">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#abb44aeb7f0e0716742efb0488c20af39">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setStackTrace:
-: <a class="el" href="protocol_s_p_error_builder-p.html#a04c23af8cf9784de9738d4eba0e794f3">&lt;SPErrorBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_error_builder-p.html#ab0768cb614678a8b6230a39e69a873c3">&lt;SPErrorBuilder&gt;</a>
 </li>
 <li>setStandardDict
 : <a class="el" href="interface_s_p_subject.html#a794f8f3fee2db271dd5aa98b3cd2c7cd">SPSubject</a>
 </li>
 <li>setState:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a943cd63de1200b545d4a2f7e63c6e3f0">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a24c1fc6663951f4d477e7f3a26ac6378">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setSubject:
-: <a class="el" href="protocol_s_p_tracker_builder-p.html#a50265e66fdedb11fec6ab5531186f93a">&lt;SPTrackerBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_tracker_builder-p.html#ab9872c66928feb491a314fa972b977aa">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setSubtitle:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#aec5c78a701099d352f1e9ce690ed642b">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a0f25df8d00819be5291412860f802775">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setTaxValue:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#acc317664bdd6961368036d4c3be806f0">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#a318d0bcf279088f78c981a9e7dc0aaf0">&lt;SPEcommTransactionBuilder&gt;</a>
 </li>
 <li>setThreadIdentifier:
-: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a2313b40c92f6a98b8053aff996ad69e2">&lt;SPPushNotificationBuilder&gt;</a>
-</li>
-<li>setTimestamp:
-: <a class="el" href="protocol_s_p_event_builder-p.html#abdd813376e78879ea53893d82f1581b1">&lt;SPEventBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_push_notification_builder-p.html#ac1ed46860ea081f303eec75594d2f2a5">&lt;SPPushNotificationBuilder&gt;</a>
 </li>
 <li>setTimezone:
-: <a class="el" href="interface_s_p_subject.html#ad9433eadba6b76ce045b653ecd00f0aa">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a0b3635730a47def2bbebf40e368da59e">SPSubject</a>
 </li>
 <li>setTiming:
-: <a class="el" href="protocol_s_p_timing_builder-p.html#a440acc1d79835a411b84e0b5e446dcc7">&lt;SPTimingBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_timing_builder-p.html#a02ff6ee24e9aeacac64c2562702b0c6f">&lt;SPTimingBuilder&gt;</a>
 </li>
 <li>setTitle:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a3ddc994ed90ada330dac315411ecc254">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#aeee0b420f25aefd9b0fb11f0daa332a5">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setTopViewControllerClassName:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a1e3333a1495b125249a147cbf9805cab">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#aa4a153d9f7252636b234535cf203616e">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setTotalValue:
-: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#aaf579b7a3428c03fd456fe68e29af9ce">&lt;SPEcommTransactionBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_ecomm_transaction_builder-p.html#ab1116d5778ce6c475241e597afb688d6">&lt;SPEcommTransactionBuilder&gt;</a>
+</li>
+<li>setTrackerAsDefault:
+: <a class="el" href="interface_s_p_snowplow.html#ac805e5171aca2aa30d8de17542b7c3b1">SPSnowplow</a>
 </li>
 <li>setTrackerDiagnostic:
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a2fb3544eadd13ba93f9d9ec619cd0900">&lt;SPTrackerBuilder&gt;</a>
@@ -414,46 +415,49 @@ $(function() {
 : <a class="el" href="protocol_s_p_tracker_builder-p.html#a795c8dbff2629f57b7396dc3450793a1">&lt;SPTrackerBuilder&gt;</a>
 </li>
 <li>setTransitionType:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a9a43d7d84443afa7228b3ce4f2bc85b0">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#aebe90e5bf024ec9b25c65577a6c6d9e1">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setTrigger:
-: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a761e8cf6d3af4cea073f016f741ad0c9">&lt;SPPushNotificationBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_push_notification_builder-p.html#a0004a5db6d6548af60235c5dc3116a5a">&lt;SPPushNotificationBuilder&gt;</a>
 </li>
 <li>setTrueTimestamp:
-: <a class="el" href="protocol_s_p_event_builder-p.html#a4161cc260bfdf1f798e09a502751ed93">&lt;SPEventBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">&lt;SPEventBuilder&gt;</a>
 </li>
 <li>setType:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#ac7a97b6bf3922db6bb1b4072ea5d6b96">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#ac4ab80be5ed1b78c3beab9bd3d323432">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setUrlEndpoint:
 : <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#ae4faadb111a5775f1880cca75561a70d">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_emitter_builder-p.html#ae4faadb111a5775f1880cca75561a70d">&lt;SPEmitterBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_emitter_builder-p.html#aeaf7138c7d708da9fe9ee65b417601ce">&lt;SPEmitterBuilder&gt;</a>
 </li>
 <li>setUseragent:
-: <a class="el" href="interface_s_p_subject.html#ac0fdb3b1c33e12e91cf01901c8c074d5">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a0f2ebccdce5269b648a42a4f6baaccc9">SPSubject</a>
 </li>
 <li>setUserId:
-: <a class="el" href="interface_s_p_subject.html#a753218c189d1e3583bce279f74aa00f4">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a52fc432ef066c43d2f023faba7798008">SPSubject</a>
 </li>
 <li>setUserInfo:
-: <a class="el" href="protocol_s_p_notification_content_builder-p.html#ab2096ad4441aebdb525660173e3e8365">&lt;SPNotificationContentBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_notification_content_builder-p.html#a707f341e5325cf818a04840a5e12bbff">&lt;SPNotificationContentBuilder&gt;</a>
 </li>
 <li>setValue:
-: <a class="el" href="protocol_s_p_structured_builder-p.html#adfed4a25b4bc50d488e2ebd40c5cb47e">&lt;SPStructuredBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_structured_builder-p.html#a3ef21c7fa455412d73f50496d438bf84">&lt;SPStructuredBuilder&gt;</a>
 </li>
 <li>setVariable:
-: <a class="el" href="protocol_s_p_timing_builder-p.html#a4082e1f3629aad39cdebb44924d97994">&lt;SPTimingBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_timing_builder-p.html#ac9c3147e1649aa65ccc2e353bfaff56c">&lt;SPTimingBuilder&gt;</a>
 </li>
 <li>setVersion:
-: <a class="el" href="protocol_s_p_consent_document_builder-p.html#a230423cd25026467a1e5dd983b684f29">&lt;SPConsentDocumentBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#a230423cd25026467a1e5dd983b684f29">&lt;SPConsentGrantedBuilder&gt;</a>
-, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a230423cd25026467a1e5dd983b684f29">&lt;SPConsentWithdrawnBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_consent_document_builder-p.html#a6e7976f0a4a928e0b8e66c35ae056005">&lt;SPConsentDocumentBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_granted_builder-p.html#ad2dabe83454c3cbc4f886be13bc7b4bc">&lt;SPConsentGrantedBuilder&gt;</a>
+, <a class="el" href="protocol_s_p_consent_withdrawn_builder-p.html#a3d2de4a44ca7709af4da4a422c7680ce">&lt;SPConsentWithdrawnBuilder&gt;</a>
 </li>
 <li>setViewControllerClassName:
-: <a class="el" href="protocol_s_p_screen_view_builder-p.html#aa54b4b1306ee7c8d019b75612632ba09">&lt;SPScreenViewBuilder&gt;</a>
+: <a class="el" href="protocol_s_p_screen_view_builder-p.html#a8d31598d5129eeba8aaf9acdaac7c918">&lt;SPScreenViewBuilder&gt;</a>
 </li>
 <li>setViewPortWithWidth:andHeight:
-: <a class="el" href="interface_s_p_subject.html#a148acd79d4c34fc142ed27cd3b290425">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a209d1a17f8dbe62a89f61af497fa9666">SPSubject</a>
+</li>
+<li>shutdown
+: <a class="el" href="interface_s_p_service_provider.html#a7861ee1569802186a619778efc85af13">SPServiceProvider</a>
 </li>
 <li>SP_viewDidAppear:
 : <a class="el" href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#addb6c11eaf10730ab6b00ee5278adcdf">UIViewController(SPScreenView_SWIZZLE)</a>
@@ -461,14 +465,11 @@ $(function() {
 <li>startChecker
 : <a class="el" href="interface_s_p_session.html#a4303719ccba6f1ce4433a94ce243336c">SPSession</a>
 </li>
-<li>startTimerFlush
-: <a class="el" href="interface_s_p_emitter.html#ae817bf8ff4d8fe420ccbf83543e37e97">SPEmitter</a>
+<li>startNewSession
+: <a class="el" href="protocol_s_p_session_controller-p.html#aa629a1a894526560d170f92875734161">&lt;SPSessionController&gt;</a>
 </li>
 <li>stopChecker
 : <a class="el" href="interface_s_p_session.html#a461ec91162ce6e4ad6ef315ce08f41dc">SPSession</a>
-</li>
-<li>stopTimerFlush
-: <a class="el" href="interface_s_p_emitter.html#a568e67174677be81e8e9526d05ee741d">SPEmitter</a>
 </li>
 </ul>
 </div><!-- contents -->

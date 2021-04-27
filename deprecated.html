@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -67,52 +67,186 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="reflist">
-<dt>Global <a class="el" href="interface_s_p_event.html#ae43467c5b450a7fea1a847f2b71936fd">[SPEvent __deprecated_msg]</a>  </dt>
-<dd><p class="startdd"><a class="anchor" id="_deprecated000003"></a>This method is for internal use only and will be removed in the next major version. </p>
-<p class="enddd"><a class="anchor" id="_deprecated000004"></a>This method is for internal use only and will be removed in the next major version.  </p>
+<dt>Class <a class="el" href="protocol_s_p_emitter_builder-p.html">&lt;SPEmitterBuilder&gt;</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000001"></a>It will be removed in the next major version, please use <code>Snowplow</code> class methods. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000045"></a>It will be removed in the next major version, please use <code>Snowplow</code> class methods.  </p>
 </dd>
-<dt>Global <a class="el" href="protocol_s_p_event_builder-p.html#a7e56391bf1267c23056b493c17f57954">[SPEventBuilder-p setEventId:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000002"></a>This method is for internal use only and will be removed in the next major version.  </dd>
-<dt>Global <a class="el" href="protocol_s_p_event_builder-p.html#abdd813376e78879ea53893d82f1581b1">[SPEventBuilder-p setTimestamp:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000001"></a>This method is for internal use only and will be removed in the next major version. Use <code>trueTimestamp</code> as alternative.  </dd>
-<dt>Global <a class="el" href="interface_s_p_session.html#a16a2f9d76290228732a817de3fcc6dee">[SPSession __deprecated_msg]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000008"></a>The session timeout calculation no longer need the checkInterval value.  </dd>
-<dt>Global <a class="el" href="interface_s_p_session.html#a1ab103af1560f49577308ec838ac3561">[SPSession initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000005"></a>The session timeout calculation no longer need the checkInterval value. Use <code>initWithForegroundTimeout:andBackgroundTimeout:</code> instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_session.html#a6449cdbc54d3f2fd766a17b7b9b8a0f4">[SPSession initWithForegroundTimeout:andBackgroundTimeout:andCheckInterval:andTracker:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000006"></a>The session timeout calculation no longer need the checkInterval value. Use <code>initWithForegroundTimeout:andBackgroundTimeout:andTracker:</code> instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_session.html#aa271cb1456d6c666d7e05114ae4ca4a6">[SPSession setCheckInterval:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000007"></a>The session timeout calculation no longer need the checkInterval value.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#a351f2daee443fb7d357cb7049774cae4">[SPTracker getFinalPayloadWithPayload:andContext:andEventId:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000010"></a>This function will be removed in the version 2.0. </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#ace5622bfe0c04f7aac31747b99dba2ad">[SPTracker trackBackgroundEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000021"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#aa85f54b8ff33f75ff415ff20887c0c39">[SPTracker trackConsentGrantedEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000018"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#aca06989c5a695368cb4d8b135bb70bff">[SPTracker trackConsentWithdrawnEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000017"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#a2fc2c026fecc111cfc3c51227430b994">[SPTracker trackEcommerceEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000016"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#ab18f355be09cfad49d4562954d8847e7">[SPTracker trackErrorEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000022"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#adb49ed6bed96fbb46af65712c8a94a3f">[SPTracker trackForegroundEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000020"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#ad2e21a507fdb1ba3b3a731f44822cbe4">[SPTracker trackPageViewEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000011"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#a6233651acd86777f751580f975e7bd8e">[SPTracker trackPushNotificationEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000019"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#afac471aa82d20f4bb597abab66e637eb">[SPTracker trackScreenViewEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000014"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#a3cac0007523c03340ccaa1d23bfd6bc7">[SPTracker trackStructuredEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000012"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#ab876e76963f4e3f5a1e22e17e2e69bbc">[SPTracker trackTimingEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000015"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="interface_s_p_tracker.html#a60ee457ce42c85026e9aa26ad8a55b7d">[SPTracker trackUnstructuredEvent:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000013"></a>This method will be removed in the version 2.0. Use <code>track:</code> method instead.  </dd>
-<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#ac2f988001f7c9c45246e543d65974468">[SPTrackerBuilder-p setCheckInterval:]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000009"></a>This function will be removed in the version 2.0.  </dd>
+<dt>Class <a class="el" href="protocol_s_p_tracker_builder-p.html">&lt;SPTrackerBuilder&gt;</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000027"></a>It will be removed in the next major version, please use Snowplow.createTracker methods. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000073"></a>It will be removed in the next major version, please use Snowplow.createTracker methods.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a050d233b3bafc9576d538f00d8631cdd">[SPEmitterBuilder-p setBufferOption:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000049"></a>Use <code>EmitterConfiguration.bufferOption(BufferOption)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000005"></a>Use <code>EmitterConfiguration.bufferOption(BufferOption)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a939558f4e76ac5df753720a8bd8bd28c">[SPEmitterBuilder-p setByteLimitGet:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000009"></a>Use <code>EmitterConfiguration.byteLimitGet(int)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000053"></a>Use <code>EmitterConfiguration.byteLimitGet(int)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#ac6c219ee3585bb6725590c9c8c231b48">[SPEmitterBuilder-p setByteLimitPost:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000054"></a>Use <code>EmitterConfiguration.byteLimitPost(int)</code>. x\ </p>
+<p class="enddd"><a class="anchor" id="_deprecated000010"></a>Use <code>EmitterConfiguration.byteLimitPost(int)</code>. x\  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#af74b60a2b1a531f7f3233658b79596d9">[SPEmitterBuilder-p setCallback:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000006"></a>Use <code>EmitterConfiguration.requestCallback(RequestCallback)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000050"></a>Use <code>EmitterConfiguration.requestCallback(RequestCallback)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a101b3edff5dffec357f02fc042fc8937">[SPEmitterBuilder-p setCustomPostPath:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000055"></a>Use <code>NetworkConfiguration.customPostPath(String)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000011"></a>Use <code>NetworkConfiguration.customPostPath(String)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#aff5840d6366221efab7904c8b901bcf3">[SPEmitterBuilder-p setEmitRange:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000051"></a>Use <code>EmitterConfiguration.threadPoolSize(int)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000007"></a>Use <code>EmitterConfiguration.threadPoolSize(int)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a03a6068f72373f3007a865526dbe4c0f">[SPEmitterBuilder-p setEmitThreadPoolSize:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000052"></a>Use <code>EmitterConfiguration.threadPoolSize(int)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000008"></a>Use <code>EmitterConfiguration.threadPoolSize(int)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a7dc55c284a386d7fd3d452b69055e900">[SPEmitterBuilder-p setEventStore:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000014"></a>Use <code>EmitterConfiguration.eventStore(EventStore)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000058"></a>Use <code>EmitterConfiguration.eventStore(EventStore)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#afa4942d87e60d938c6413f8b83d1fc13">[SPEmitterBuilder-p setHttpMethod:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000047"></a>Use <code>NetworkConfiguration(String, HttpMethod)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000003"></a>Use <code>NetworkConfiguration(String, HttpMethod)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a2d46f2a72cc57ea7c751cf6721833752">[SPEmitterBuilder-p setNetworkConnection:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000057"></a>Use <code>NetworkConfiguration(NetworkConnection)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000013"></a>Use <code>NetworkConfiguration(NetworkConnection)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a8e7d2f7205f944a06cded92ce1358762">[SPEmitterBuilder-p setProtocol:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000004"></a>Use <code>NetworkConfiguration(String, HttpMethod)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000048"></a>Use <code>NetworkConfiguration(String, HttpMethod)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#a3252f8a08c41648654a48512b024d94b">[SPEmitterBuilder-p setRequestHeaders:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000056"></a>Use <code>NetworkConfiguration.requestHeaders(Dictionary)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000012"></a>Use <code>NetworkConfiguration.requestHeaders(Dictionary)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_emitter_builder-p.html#aeaf7138c7d708da9fe9ee65b417601ce">[SPEmitterBuilder-p setUrlEndpoint:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000046"></a>Use <code>NetworkConfiguration(String, HttpMethod)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000002"></a>Use <code>NetworkConfiguration(String, HttpMethod)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">[SPEvent __deprecated_msg]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000015"></a>Use <code>contexts</code> property instead. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000059"></a>Use <code>contexts</code> property instead.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_session.html#ae9bde39a296cb7d8fd8a988fd22a5805">[SPSession DEPRECATED_ATTRIBUTE]</a>  </dt>
+<dd><a class="anchor" id="_deprecated000061"></a>Use <code>SessionController</code> <code>startNewSession()</code>.  </dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#ac6a12926a5c91e2d5cadf0abd66b9b90">[SPSubject setColorDepth:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000066"></a>Use <code>colorDepth(int)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000020"></a>Use <code>colorDepth(int)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#afe7a574f7e6bfab7f3c4639e72adbc4b">[SPSubject setDomainUserId:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000072"></a>Use <code>domainUserId(String)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000026"></a>Use <code>domainUserId(String)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#a1e7b19eafb2f64d9753ac238978bf6ca">[SPSubject setIpAddress:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000069"></a>Use <code>ipAddress(String)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000023"></a>Use <code>ipAddress(String)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#a7f081bce8a7e101ac0475eda683194f5">[SPSubject setLanguage:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000068"></a>Use <code>language(String)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000022"></a>Use <code>language(String)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#a3cae7590cc37d7f59d08af04d3f3f56b">[SPSubject setNetworkUserId:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000071"></a>Use <code>networkUserId(String)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000025"></a>Use <code>networkUserId(String)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#abe2aa4a03b76ecd83602493102ae8f43">[SPSubject setResolutionWithWidth:andHeight:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000018"></a>Use <code>screenResolution(Size)</code> on <code>SubjectConfiguration</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000064"></a>Use <code>screenResolution(Size)</code> on <code>SubjectConfiguration</code>. </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#a0b3635730a47def2bbebf40e368da59e">[SPSubject setTimezone:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000067"></a>Use <code>timezone(String)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000021"></a>Use <code>timezone(String)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#a0f2ebccdce5269b648a42a4f6baaccc9">[SPSubject setUseragent:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000070"></a>Use <code>useragent(String)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000024"></a>Use <code>useragent(String)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#a52fc432ef066c43d2f023faba7798008">[SPSubject setUserId:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000017"></a>Use <code>userId(String)</code> on <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000063"></a>Use <code>userId(String)</code> on <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_subject.html#a209d1a17f8dbe62a89f61af497fa9666">[SPSubject setViewPortWithWidth:andHeight:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000065"></a>Use <code>screenViewPort(Size)</code> on <code>SubjectConfiguration</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000019"></a>Use <code>screenViewPort(Size)</code> on <code>SubjectConfiguration</code>. </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_tracker.html#a53a79fba45cd3d29e99cac2ce5f21234">[SPTracker disableGdprContext]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000088"></a>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000042"></a>Use <code>GdprConfiguration</code> or <code>GdprController</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_tracker.html#a16e4eca53c637c941798f3353b65ba24">[SPTracker enableGdprContextWithBasis:documentId:documentVersion:documentDescription:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000041"></a>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000087"></a>Use <code>GdprConfiguration</code> or <code>GdprController</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="interface_s_p_tracker.html#ae68ec86fdceb507a10c2a4a2181a3574">[SPTracker gdprContext]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000089"></a>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000043"></a>Use <code>GdprConfiguration</code> or <code>GdprController</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">[SPTrackerBuilder-p setApplicationContext:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000080"></a>Use <code>TrackerConfiguration</code> <code>applicationContext(boolean)</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000034"></a>Use <code>TrackerConfiguration</code> <code>applicationContext(boolean)</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">[SPTrackerBuilder-p setAutotrackScreenViews:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000038"></a>Use <code>TrackerConfiguration</code> <code>screenViewAutotracking(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000084"></a>Use <code>TrackerConfiguration</code> <code>screenViewAutotracking(boolean)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a3b5a76384c733fabf2b1bfd33b45ea19">[SPTrackerBuilder-p setBase64Encoded:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000075"></a>Use <code>TrackerConfiguration</code> <code>base64Encoding(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000029"></a>Use <code>TrackerConfiguration</code> <code>base64Encoding(boolean)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#ada2040556afda517ad9df89012c213e9">[SPTrackerBuilder-p setDevicePlatform:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000030"></a>Use <code>TrackerConfiguration</code> <code>devicePlatform(DevicePlatform)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000076"></a>Use <code>TrackerConfiguration</code> <code>devicePlatform(DevicePlatform)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">[SPTrackerBuilder-p setExceptionEvents:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000037"></a>Use <code>TrackerConfiguration</code> <code>exceptionAutotracking(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000083"></a>Use <code>TrackerConfiguration</code> <code>exceptionAutotracking(boolean)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">[SPTrackerBuilder-p setInstallEvent:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000085"></a>Use <code>TrackerConfiguration</code> <code>installAutotracking(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000039"></a>Use <code>TrackerConfiguration</code> <code>installAutotracking(boolean)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">[SPTrackerBuilder-p setLifecycleEvents:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000036"></a>Use <code>TrackerConfiguration</code> <code>lifecycleAutotracking(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000082"></a>Use <code>TrackerConfiguration</code> <code>lifecycleAutotracking(boolean)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a898f0e4d5559af473293e07327282688">[SPTrackerBuilder-p setLoggerDelegate:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000078"></a>Use <code>TrackerConfiguration</code> <code>loggerDelegate(LoggerDelegate)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000032"></a>Use <code>TrackerConfiguration</code> <code>loggerDelegate(LoggerDelegate)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a87fc8e501fa8506d344fac38f1b8af86">[SPTrackerBuilder-p setLogLevel:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000077"></a>Use <code>TrackerConfiguration</code> <code>logLevel(LogLevel)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000031"></a>Use <code>TrackerConfiguration</code> <code>logLevel(LogLevel)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">[SPTrackerBuilder-p setScreenContext:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000081"></a>Use <code>TrackerConfiguration</code> <code>screenContext(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000035"></a>Use <code>TrackerConfiguration</code> <code>screenContext(boolean)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a4add7c27a903e3795fcdd166ca07f8f3">[SPTrackerBuilder-p setSessionContext:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000079"></a>Use <code>TrackerConfiguration</code> <code>sessionContext(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000033"></a>Use <code>TrackerConfiguration</code> <code>sessionContext(boolean)</code>. </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#ab9872c66928feb491a314fa972b977aa">[SPTrackerBuilder-p setSubject:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000074"></a>Use <code>SubjectConfiguration</code>. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000028"></a>Use <code>SubjectConfiguration</code>.  </p>
+</dd>
+<dt>Global <a class="el" href="protocol_s_p_tracker_builder-p.html#a2fb3544eadd13ba93f9d9ec619cd0900">[SPTrackerBuilder-p setTrackerDiagnostic:]</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000040"></a>Use <code>TrackerConfiguration</code> <code>diagnosticAutotracking(boolean)</code>.</p>
+<p class="enddd"><a class="anchor" id="_deprecated000086"></a>Use <code>TrackerConfiguration</code> <code>diagnosticAutotracking(boolean)</code>. </p>
+</dd>
 <dt>Global <a class="el" href="interface_s_p_utilities.html#a85c1f71bfa1f307b99bcc70062b6e443">[SPUtilities __deprecated_msg]</a>  </dt>
-<dd><a class="anchor" id="_deprecated000023"></a>Use <code>getUUIDString</code> instead`. </dd>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000044"></a>Use <code>getUUIDString</code> instead`. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000090"></a>Use <code>getUUIDString</code> instead`.  </p>
+</dd>
+<dt>Class <a class="el" href="interface_s_p_session.html">SPSession</a>  </dt>
+<dd><a class="anchor" id="_deprecated000060"></a>Use <code>SessionConfiguration</code> for the configuration or <code>SessionController</code> for the runtime information and setup.  </dd>
+<dt>Class <a class="el" href="interface_s_p_subject.html">SPSubject</a>  </dt>
+<dd><p class="startdd"><a class="anchor" id="_deprecated000062"></a>It will be removed in the next major version, please use <code>Snowplow</code> methods. This class is used to access and persist user information, it represents the current user being tracked. </p>
+<p class="enddd"><a class="anchor" id="_deprecated000016"></a>It will be removed in the next major version, please use <code>Snowplow</code> methods. This class is used to access and persist user information, it represents the current user being tracked. </p>
+</dd>
 </dl>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->

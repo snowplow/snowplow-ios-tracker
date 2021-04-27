@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPInstallTracker.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Tracker/SPInstallTracker.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_485c2b459e3c0b663cf9b6b013c323eb.html">Tracker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPInstallTracker.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -93,18 +93,18 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_install_tracker_8h.html">SPInstallTracker.h</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_snowplow_8h.html">Snowplow.h</a>&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_install_tracker.html">SPInstallTracker</a></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;- (id) <a class="code" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">init</a> {</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;- (id)<a class="code" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">init</a> {</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super <a class="code" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">init</a>]) {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> ([userDefaults objectForKey:<a class="code" href="_snowplow_8m.html#a6c039e6e8e69e4de952d2c62e394abff">kSPInstalledBefore</a>] == nil) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">if</span> ([userDefaults objectForKey:<a class="code" href="_s_p_tracker_constants_8m.html#a6c039e6e8e69e4de952d2c62e394abff">kSPInstalledBefore</a>] == nil) {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="comment">// mark the install if there&#39;s no value in userDefaults</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            [userDefaults setObject:@YES forKey:kSPInstalledBefore];</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            [userDefaults setObject:[<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7">getTimestamp</a>] forKey:kSPInstallTimestamp];</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            [userDefaults setObject:[NSDate new] forKey:kSPInstallTimestamp];</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <span class="comment">// since the value was missing in userDefaults, we&#39;re assuming this is a new install</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keyword">self</span>.isNewInstall = YES;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        } <span class="keywordflow">else</span> {</div>
@@ -116,17 +116,17 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> nil;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;- (NSNumber *) <a class="code" href="interface_s_p_install_tracker.html#a9ff512193e791cc03d420a27d67c4cc4">getPreviousInstallTimestamp</a> {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;- (NSDate *)<a class="code" href="interface_s_p_install_tracker.html#a8ac981757cbc58056f66a09b5e99bb5d">previousInstallTimestamp</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> [userDefaults objectForKey:kSPInstallTimestamp];</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (void) <a class="code" href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">clearPreviousInstallTimestamp</a> {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (void)<a class="code" href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">clearPreviousInstallTimestamp</a> {</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    [userDefaults removeObjectForKey:kSPInstallTimestamp];</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;- (void) <a class="code" href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">saveBuildAndVersion</a> {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;- (void)<a class="code" href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">saveBuildAndVersion</a> {</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    NSString * build = [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#ae23ed71460453a1498dff63997a79b82">getAppBuild</a>];</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    NSString * version = [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#ae2137fc87f6963308d0fc128f36f827b">getAppVersion</a>];</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">if</span> (build &amp;&amp; version) {</div>
@@ -138,16 +138,13 @@ $(function() {
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_install_tracker_8h_html"><div class="ttname"><a href="_s_p_install_tracker_8h.html">SPInstallTracker.h</a></div></div>
-<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
-<div class="ttc" id="a_snowplow_8h_html"><div class="ttname"><a href="_snowplow_8h.html">Snowplow.h</a></div></div>
-<div class="ttc" id="a_snowplow_8m_html_a6c039e6e8e69e4de952d2c62e394abff"><div class="ttname"><a href="_snowplow_8m.html#a6c039e6e8e69e4de952d2c62e394abff">kSPInstalledBefore</a></div><div class="ttdeci">NSString *const kSPInstalledBefore</div><div class="ttdef"><b>Definition:</b> <a href="_snowplow_8m_source.html#l00271">Snowplow.m:271</a></div></div>
-<div class="ttc" id="ainterface_s_p_install_tracker_html"><div class="ttname"><a href="interface_s_p_install_tracker.html">SPInstallTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00025">SPInstallTracker.h:26</a></div></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_a6c039e6e8e69e4de952d2c62e394abff"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a6c039e6e8e69e4de952d2c62e394abff">kSPInstalledBefore</a></div><div class="ttdeci">NSString *const kSPInstalledBefore</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00271">SPTrackerConstants.m:271</a></div></div>
+<div class="ttc" id="ainterface_s_p_install_tracker_html"><div class="ttname"><a href="interface_s_p_install_tracker.html">SPInstallTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00026">SPInstallTracker.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_install_tracker_html_a03a52d45e8151ae42dd51bef191e9d0e"><div class="ttname"><a href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">-[SPInstallTracker clearPreviousInstallTimestamp]</a></div><div class="ttdeci">void clearPreviousInstallTimestamp()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:52</a></div></div>
 <div class="ttc" id="ainterface_s_p_install_tracker_html_a228b33bbb0f335d7b770d89a5c7f0578"><div class="ttname"><a href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">-[SPInstallTracker saveBuildAndVersion]</a></div><div class="ttdeci">void saveBuildAndVersion()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:57</a></div></div>
 <div class="ttc" id="ainterface_s_p_install_tracker_html_a4213bb26f5207ee3f402fe463badc691"><div class="ttname"><a href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">-[SPInstallTracker init]</a></div><div class="ttdeci">id init()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:29</a></div></div>
-<div class="ttc" id="ainterface_s_p_install_tracker_html_a9ff512193e791cc03d420a27d67c4cc4"><div class="ttname"><a href="interface_s_p_install_tracker.html#a9ff512193e791cc03d420a27d67c4cc4">-[SPInstallTracker getPreviousInstallTimestamp]</a></div><div class="ttdeci">NSNumber * getPreviousInstallTimestamp()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:47</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_utilities_8h_source.html#l00040">SPUtilities.h:41</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html_ab647eb87a22c5930fe25820e6d3ed3b7"><div class="ttname"><a href="interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7">+[SPUtilities getTimestamp]</a></div><div class="ttdeci">NSNumber * getTimestamp()</div><div class="ttdoc">Returns the timestamp generated at the point it was called.</div></div>
+<div class="ttc" id="ainterface_s_p_install_tracker_html_a8ac981757cbc58056f66a09b5e99bb5d"><div class="ttname"><a href="interface_s_p_install_tracker.html#a8ac981757cbc58056f66a09b5e99bb5d">SPInstallTracker::previousInstallTimestamp</a></div><div class="ttdeci">NSDate * previousInstallTimestamp</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00031">SPInstallTracker.h:31</a></div></div>
+<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_utilities_8h_source.html#l00041">SPUtilities.h:42</a></div></div>
 <div class="ttc" id="ainterface_s_p_utilities_html_ae2137fc87f6963308d0fc128f36f827b"><div class="ttname"><a href="interface_s_p_utilities.html#ae2137fc87f6963308d0fc128f36f827b">+[SPUtilities getAppVersion]</a></div><div class="ttdeci">NSString * getAppVersion()</div></div>
 <div class="ttc" id="ainterface_s_p_utilities_html_ae23ed71460453a1498dff63997a79b82"><div class="ttname"><a href="interface_s_p_utilities.html#ae23ed71460453a1498dff63997a79b82">+[SPUtilities getAppBuild]</a></div><div class="ttdeci">NSString * getAppBuild()</div></div>
 </div><!-- fragment --></div><!-- contents -->

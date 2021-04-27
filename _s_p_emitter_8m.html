@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPEmitter.m File Reference</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Emitter/SPEmitter.m File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_97b55bfc2033b6abc11fdef6aad5cd7e.html">Emitter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,18 +72,18 @@ $(function() {
 <div class="title">SPEmitter.m File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#import &quot;<a class="el" href="_snowplow_8h_source.html">Snowplow.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_s_q_lite_event_store_8h_source.html">SPSQLiteEventStore.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_default_network_connection_8h_source.html">SPDefaultNetworkConnection.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_event_store_8h_source.html">SPEventStore.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_payload_8h_source.html">SPPayload.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_self_describing_json_8h_source.html">SPSelfDescribingJson.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_request_result_8h_source.html">SPRequestResult.h</a>&quot;</code><br />
+<div class="textblock"><code>#import &quot;SPTrackerConstants.h&quot;</code><br />
+<code>#import &quot;<a class="el" href="_internal_2_emitter_2_s_p_emitter_8h_source.html">SPEmitter.h</a>&quot;</code><br />
+<code>#import &quot;SPSQLiteEventStore.h&quot;</code><br />
+<code>#import &quot;SPDefaultNetworkConnection.h&quot;</code><br />
+<code>#import &quot;SPEventStore.h&quot;</code><br />
+<code>#import &quot;SPUtilities.h&quot;</code><br />
+<code>#import &quot;SPPayload.h&quot;</code><br />
+<code>#import &quot;SPSelfDescribingJson.h&quot;</code><br />
+<code>#import &quot;<a class="el" href="_internal_2_emitter_2_s_p_request_result_8h_source.html">SPRequestResult.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_weak_timer_target_8h_source.html">SPWeakTimerTarget.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_request_callback_8h_source.html">SPRequestCallback.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_request_8h_source.html">SPRequest.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_internal_2_emitter_2_s_p_request_callback_8h_source.html">SPRequestCallback.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_internal_2_emitter_2_s_p_request_8h_source.html">SPRequest.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a>&quot;</code><br />
 </div>
 <p><a href="_s_p_emitter_8m_source.html">Go to the source code of this file.</a></p>
@@ -104,6 +104,8 @@ Variables</h2></td></tr>
 <tr class="separator:a59ff6ba6588dd0d5db58dfa6a64bfe49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afc141ed03b40e192445c7adcc3eb2b23"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_emitter_8m.html#afc141ed03b40e192445c7adcc3eb2b23">_builderFinished</a></td></tr>
 <tr class="separator:afc141ed03b40e192445c7adcc3eb2b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a0e83ffb8bca74ae9552969085931bf"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_emitter_8m.html#a8a0e83ffb8bca74ae9552969085931bf">_namespace</a></td></tr>
+<tr class="separator:a8a0e83ffb8bca74ae9552969085931bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae23b212f2e1ae49e4272a6ff0b726d31"><td class="memItemLeft" align="right" valign="top">const NSUInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_emitter_8m.html#ae23b212f2e1ae49e4272a6ff0b726d31">POST_WRAPPER_BYTES</a> = 88</td></tr>
 <tr class="separator:ae23b212f2e1ae49e4272a6ff0b726d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -172,6 +174,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a8a0e83ffb8bca74ae9552969085931bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a0e83ffb8bca74ae9552969085931bf">&#9670;&nbsp;</a></span>_namespace</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NSString* _namespace</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8m_source.html#l00046">46</a> of file <a class="el" href="_s_p_emitter_8m_source.html">SPEmitter.m</a>.</p>
+
+</div>
+</div>
 <a id="aa1a78e5ef087a8906dc0ab24c87e58fb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1a78e5ef087a8906dc0ab24c87e58fb">&#9670;&nbsp;</a></span>_networkConnection</h2>
 
@@ -234,7 +252,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8m_source.html#l00048">48</a> of file <a class="el" href="_s_p_emitter_8m_source.html">SPEmitter.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8m_source.html#l00049">49</a> of file <a class="el" href="_s_p_emitter_8m_source.html">SPEmitter.m</a>.</p>
 
 </div>
 </div>

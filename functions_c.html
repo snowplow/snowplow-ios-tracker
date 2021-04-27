@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -66,22 +66,36 @@ $(function() {
 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>callback
-: <a class="el" href="interface_s_p_emitter.html#a3eb4ae7a609cd5880243bc970a93b9c4">SPEmitter</a>
+: <a class="el" href="interface_s_p_emitter.html#aea48f68a7dd4688cdd0bad3a23226948">SPEmitter</a>
 </li>
 <li>camelcaseParsedKey:
 : <a class="el" href="interface_s_p_utilities.html#ab261c0eac0dc36aea8bc680e73788abe">SPUtilities</a>
 </li>
+<li>category
+: <a class="el" href="interface_s_p_ecommerce_item.html#abb61734f2bfc8ce9a9851a68f542eee6">SPEcommerceItem</a>
+, <a class="el" href="interface_s_p_structured.html#abb61734f2bfc8ce9a9851a68f542eee6">SPStructured</a>
+, <a class="el" href="interface_s_p_timing.html#abb61734f2bfc8ce9a9851a68f542eee6">SPTiming</a>
+</li>
 <li>checkArgument:withMessage:
 : <a class="el" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">SPUtilities</a>
+</li>
+<li>city
+: <a class="el" href="interface_s_p_ecommerce.html#a0cebaf9825c830d516bfb480b2f6e763">SPEcommerce</a>
 </li>
 <li>clearPreviousInstallTimestamp
 : <a class="el" href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">SPInstallTracker</a>
 </li>
+<li>colorDepth
+: <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#adf169aaeb7a53389f4e8bf7f2d5dc9a0">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
 <li>context
 : <a class="el" href="interface_s_p_gdpr_context.html#a34126494225a1026402adde888aecacd">SPGdprContext</a>
 </li>
+<li>contextGenerators
+: <a class="el" href="protocol_s_p_global_contexts_configuration_protocol-p.html#acee0bdf8c0c4cd13266dae1c0f6eb108">&lt;SPGlobalContextsConfigurationProtocol&gt;</a>
+</li>
 <li>contexts
-: <a class="el" href="interface_s_p_event.html#af9231ea3bfeb8b225d0262ab37e6b185">SPEvent</a>
+: <a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">SPEvent</a>
 , <a class="el" href="interface_s_p_tracker_event.html#aa3673b8caf4bdca915e14a0628356ec0">SPTrackerEvent</a>
 </li>
 <li>contextsFromEvent:
@@ -90,16 +104,34 @@ $(function() {
 <li>count
 : <a class="el" href="protocol_s_p_event_store-p.html#a908c802735aaad6bb718dea5e2abacec">&lt;SPEventStore&gt;</a>
 </li>
+<li>country
+: <a class="el" href="interface_s_p_ecommerce.html#a7aa278da3902be2d5a367f17eabc4e0e">SPEcommerce</a>
+</li>
+<li>createTrackerWithNamespace:endpoint:method:
+: <a class="el" href="interface_s_p_snowplow.html#a1c5f2081007c91b90debdc1c8a442a1c">SPSnowplow</a>
+</li>
+<li>createTrackerWithNamespace:network:
+: <a class="el" href="interface_s_p_snowplow.html#ac07cca73d3f266cbff521e6b46638504">SPSnowplow</a>
+</li>
+<li>createTrackerWithNamespace:network:configurations:
+: <a class="el" href="interface_s_p_snowplow.html#af6a01db8a16237a4707ddc82e7deb09e">SPSnowplow</a>
+</li>
+<li>currency
+: <a class="el" href="interface_s_p_ecommerce.html#a43baf3c2101f49e1596c00f483f57032">SPEcommerce</a>
+, <a class="el" href="interface_s_p_ecommerce_item.html#a43baf3c2101f49e1596c00f483f57032">SPEcommerceItem</a>
+</li>
 <li>currentScreenState
 : <a class="el" href="category_s_p_tracker_07_08.html#a6f0862d7ee7afbc7655cb6101d442a4d">SPTracker()</a>
-, <a class="el" href="interface_s_p_tracker.html#a6f0862d7ee7afbc7655cb6101d442a4d">SPTracker</a>
+, <a class="el" href="interface_s_p_tracker.html#a94d733b42b622b3040c5adb8a18c5674">SPTracker</a>
 </li>
 <li>customPostPath
-: <a class="el" href="interface_s_p_emitter.html#a8a4261c9021c4ac9a72bc9d71c89a40d">SPEmitter</a>
+: <a class="el" href="interface_s_p_emitter.html#a4489dcf7cae6bf42d4a173493b932960">SPEmitter</a>
+, <a class="el" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">SPNetworkConfiguration</a>
+, <a class="el" href="protocol_s_p_network_controller-p.html#a8a4261c9021c4ac9a72bc9d71c89a40d">&lt;SPNetworkController&gt;</a>
 </li>
 <li>customUserAgent
 : <a class="el" href="category_s_p_request_07_08.html#a781734d6ef422c35d147fdc26fb29360">SPRequest()</a>
-, <a class="el" href="interface_s_p_request.html#a781734d6ef422c35d147fdc26fb29360">SPRequest</a>
+, <a class="el" href="interface_s_p_request.html#aab93ad21f79f890e770f71ca0176a647">SPRequest</a>
 </li>
 </ul>
 </div><!-- contents -->

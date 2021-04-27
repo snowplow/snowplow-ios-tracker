@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPInstallTracker.h Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Tracker/SPInstallTracker.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_485c2b459e3c0b663cf9b6b013c323eb.html">Tracker</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPInstallTracker.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -94,25 +94,27 @@ $(function() {
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="interface_s_p_install_tracker.html">   25</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_install_tracker.html">SPInstallTracker</a> : NSObject</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">   28</a></span>&#160;<span class="keyword">@property</span> (nonatomic) BOOL <a class="code" href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">isNewInstall</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;- (id) <a class="code" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">init</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;- (NSNumber *) <a class="code" href="interface_s_p_install_tracker.html#a9ff512193e791cc03d420a27d67c4cc4">getPreviousInstallTimestamp</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;- (void) <a class="code" href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">clearPreviousInstallTimestamp</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;- (void) <a class="code" href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">saveBuildAndVersion</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="ainterface_s_p_install_tracker_html"><div class="ttname"><a href="interface_s_p_install_tracker.html">SPInstallTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00025">SPInstallTracker.h:26</a></div></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<a class="code" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(InstallTracker)</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="interface_s_p_install_tracker.html">   26</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_install_tracker.html">SPInstallTracker</a> : NSObject</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">   29</a></span>&#160;<span class="keyword">@property</span> (nonatomic) BOOL <a class="code" href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">isNewInstall</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="interface_s_p_install_tracker.html#a8ac981757cbc58056f66a09b5e99bb5d">   31</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSDate *<a class="code" href="interface_s_p_install_tracker.html#a8ac981757cbc58056f66a09b5e99bb5d">previousInstallTimestamp</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;- (id) <a class="code" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">init</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;- (void)<a class="code" href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">clearPreviousInstallTimestamp</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;- (void)<a class="code" href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">saveBuildAndVersion</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="ainclude_2_s_p_device_platform_8h_html_ac51d0fa9ac6b044d5587e1d9ceb2dbbc"><div class="ttname"><a href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(DevicePlatform)</div></div>
+<div class="ttc" id="ainterface_s_p_install_tracker_html"><div class="ttname"><a href="interface_s_p_install_tracker.html">SPInstallTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00026">SPInstallTracker.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_install_tracker_html_a03a52d45e8151ae42dd51bef191e9d0e"><div class="ttname"><a href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">-[SPInstallTracker clearPreviousInstallTimestamp]</a></div><div class="ttdeci">void clearPreviousInstallTimestamp()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:52</a></div></div>
 <div class="ttc" id="ainterface_s_p_install_tracker_html_a228b33bbb0f335d7b770d89a5c7f0578"><div class="ttname"><a href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">-[SPInstallTracker saveBuildAndVersion]</a></div><div class="ttdeci">void saveBuildAndVersion()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:57</a></div></div>
 <div class="ttc" id="ainterface_s_p_install_tracker_html_a4213bb26f5207ee3f402fe463badc691"><div class="ttname"><a href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">-[SPInstallTracker init]</a></div><div class="ttdeci">id init()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:29</a></div></div>
-<div class="ttc" id="ainterface_s_p_install_tracker_html_a9ff512193e791cc03d420a27d67c4cc4"><div class="ttname"><a href="interface_s_p_install_tracker.html#a9ff512193e791cc03d420a27d67c4cc4">-[SPInstallTracker getPreviousInstallTimestamp]</a></div><div class="ttdeci">NSNumber * getPreviousInstallTimestamp()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8m_source.html#l00001">SPInstallTracker.m:47</a></div></div>
-<div class="ttc" id="ainterface_s_p_install_tracker_html_aae937a186e1451b5c3fdde8dfa63b312"><div class="ttname"><a href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">SPInstallTracker::isNewInstall</a></div><div class="ttdeci">BOOL isNewInstall</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00028">SPInstallTracker.h:28</a></div></div>
+<div class="ttc" id="ainterface_s_p_install_tracker_html_a8ac981757cbc58056f66a09b5e99bb5d"><div class="ttname"><a href="interface_s_p_install_tracker.html#a8ac981757cbc58056f66a09b5e99bb5d">SPInstallTracker::previousInstallTimestamp</a></div><div class="ttdeci">NSDate * previousInstallTimestamp</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00031">SPInstallTracker.h:31</a></div></div>
+<div class="ttc" id="ainterface_s_p_install_tracker_html_aae937a186e1451b5c3fdde8dfa63b312"><div class="ttname"><a href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">SPInstallTracker::isNewInstall</a></div><div class="ttdeci">BOOL isNewInstall</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_install_tracker_8h_source.html#l00029">SPInstallTracker.h:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -72,7 +72,7 @@ $(function() {
 <p>Logger delegate to implement in oder to receive logs from the tracker.  
  <a href="protocol_s_p_logger_delegate-p.html#details">More...</a></p>
 
-<p><code>#import &lt;<a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="include_2_s_p_logger_delegate_8h_source.html">SPLoggerDelegate.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for &lt;SPLoggerDelegate&gt;:</div>
 <div class="dyncontent">
@@ -88,13 +88,47 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a51196afe5683f55e04f461c574651c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad48636075feefff2a2523f4b61fb57f7"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_logger_delegate-p.html#ad48636075feefff2a2523f4b61fb57f7">verbose:message:</a></td></tr>
 <tr class="separator:ad48636075feefff2a2523f4b61fb57f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84f0df91ad9afa9b09d46ce9fa306425"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_logger_delegate-p.html#a84f0df91ad9afa9b09d46ce9fa306425">error:message:</a></td></tr>
+<tr class="separator:a84f0df91ad9afa9b09d46ce9fa306425"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51196afe5683f55e04f461c574651c52"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_logger_delegate-p.html#a51196afe5683f55e04f461c574651c52">debug:message:</a></td></tr>
+<tr class="separator:a51196afe5683f55e04f461c574651c52"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad48636075feefff2a2523f4b61fb57f7"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_logger_delegate-p.html#ad48636075feefff2a2523f4b61fb57f7">verbose:message:</a></td></tr>
+<tr class="separator:ad48636075feefff2a2523f4b61fb57f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00075">75</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_logger_delegate_8h_source.html#l00036">36</a> of file <a class="el" href="include_2_s_p_logger_delegate_8h_source.html">SPLoggerDelegate.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="a51196afe5683f55e04f461c574651c52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a51196afe5683f55e04f461c574651c52">&#9670;&nbsp;</a></span>debug:message:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a51196afe5683f55e04f461c574651c52">&#9670;&nbsp;</a></span>debug:message: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) debug: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>tag</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">message:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a51196afe5683f55e04f461c574651c52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51196afe5683f55e04f461c574651c52">&#9670;&nbsp;</a></span>debug:message: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -122,7 +156,35 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <a id="a84f0df91ad9afa9b09d46ce9fa306425"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84f0df91ad9afa9b09d46ce9fa306425">&#9670;&nbsp;</a></span>error:message:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f0df91ad9afa9b09d46ce9fa306425">&#9670;&nbsp;</a></span>error:message: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) error: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>tag</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">message:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a84f0df91ad9afa9b09d46ce9fa306425"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84f0df91ad9afa9b09d46ce9fa306425">&#9670;&nbsp;</a></span>error:message: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -150,7 +212,35 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <a id="ad48636075feefff2a2523f4b61fb57f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad48636075feefff2a2523f4b61fb57f7">&#9670;&nbsp;</a></span>verbose:message:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad48636075feefff2a2523f4b61fb57f7">&#9670;&nbsp;</a></span>verbose:message: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) verbose: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>tag</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">message:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ad48636075feefff2a2523f4b61fb57f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad48636075feefff2a2523f4b61fb57f7">&#9670;&nbsp;</a></span>verbose:message: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +268,7 @@ Instance Methods</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this protocol was generated from the following file:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a></li>
+<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_logger_delegate_8h_source.html">SPLoggerDelegate.h</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

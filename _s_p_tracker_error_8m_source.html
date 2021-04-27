@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPTrackerError.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Events/SPTrackerError.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_49fbaad7f69f0610a57b33952cc2393a.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPTrackerError.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -93,7 +93,7 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_tracker_error_8h.html">SPTrackerError.h</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_snowplow_8h.html">Snowplow.h</a>&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="_s_p_tracker_error_8m.html#a787489e9aae2396eac148bab9e1eeb87">   26</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="_s_p_tracker_error_8m.html#a787489e9aae2396eac148bab9e1eeb87">kMaxMessageLength</a> = 2048;</div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="_s_p_tracker_error_8m.html#af1c752e8858ff6a3242e50e69c06c070">   27</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="_s_p_tracker_error_8m.html#af1c752e8858ff6a3242e50e69c06c070">kMaxStackLength</a> = 8192;</div>
@@ -126,8 +126,8 @@ $(function() {
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// -- Public methods</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;- (NSString *)<a class="code" href="interface_s_p_self_describing.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a> {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_snowplow_8m.html#a2e82162a9dc1f24174710886c5cc1469">kSPDiagnosticErrorSchema</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;- (NSString *)<a class="code" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a> {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#a2e82162a9dc1f24174710886c5cc1469">kSPDiagnosticErrorSchema</a>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> {</div>
@@ -155,15 +155,14 @@ $(function() {
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_a2e82162a9dc1f24174710886c5cc1469"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a2e82162a9dc1f24174710886c5cc1469">kSPDiagnosticErrorSchema</a></div><div class="ttdeci">NSString *const kSPDiagnosticErrorSchema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00072">SPTrackerConstants.m:72</a></div></div>
 <div class="ttc" id="a_s_p_tracker_error_8h_html"><div class="ttname"><a href="_s_p_tracker_error_8h.html">SPTrackerError.h</a></div></div>
 <div class="ttc" id="a_s_p_tracker_error_8m_html_a4fa91cde86bb384782639c3bd5a79b66"><div class="ttname"><a href="_s_p_tracker_error_8m.html#a4fa91cde86bb384782639c3bd5a79b66">kMaxExceptionNameLength</a></div><div class="ttdeci">const int kMaxExceptionNameLength</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_error_8m_source.html#l00028">SPTrackerError.m:28</a></div></div>
 <div class="ttc" id="a_s_p_tracker_error_8m_html_a787489e9aae2396eac148bab9e1eeb87"><div class="ttname"><a href="_s_p_tracker_error_8m.html#a787489e9aae2396eac148bab9e1eeb87">kMaxMessageLength</a></div><div class="ttdeci">const int kMaxMessageLength</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_error_8m_source.html#l00026">SPTrackerError.m:26</a></div></div>
 <div class="ttc" id="a_s_p_tracker_error_8m_html_af1c752e8858ff6a3242e50e69c06c070"><div class="ttname"><a href="_s_p_tracker_error_8m.html#af1c752e8858ff6a3242e50e69c06c070">kMaxStackLength</a></div><div class="ttdeci">const int kMaxStackLength</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_error_8m_source.html#l00027">SPTrackerError.m:27</a></div></div>
-<div class="ttc" id="a_snowplow_8h_html"><div class="ttname"><a href="_snowplow_8h.html">Snowplow.h</a></div></div>
-<div class="ttc" id="a_snowplow_8m_html_a2e82162a9dc1f24174710886c5cc1469"><div class="ttname"><a href="_snowplow_8m.html#a2e82162a9dc1f24174710886c5cc1469">kSPDiagnosticErrorSchema</a></div><div class="ttdeci">NSString *const kSPDiagnosticErrorSchema</div><div class="ttdef"><b>Definition:</b> <a href="_snowplow_8m_source.html#l00072">Snowplow.m:72</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00116">SPEventBase.h:116</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_html_a95884c3e9e7835e3f4f87ffbf78d25c3"><div class="ttname"><a href="interface_s_p_self_describing.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribing::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00166">SPEventBase.h:166</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_error_html"><div class="ttname"><a href="interface_s_p_tracker_error.html">SPTrackerError</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_error_8h_source.html#l00027">SPTrackerError.h:28</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00091">SPEventBase.h:91</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html_a95884c3e9e7835e3f4f87ffbf78d25c3"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingAbstract::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00123">SPEventBase.h:123</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_error_html"><div class="ttname"><a href="interface_s_p_tracker_error.html">SPTrackerError</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_error_8h_source.html#l00028">SPTrackerError.h:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

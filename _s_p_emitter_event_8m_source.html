@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPEmitterEvent.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Emitter/SPEmitterEvent.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_97b55bfc2033b6abc11fdef6aad5cd7e.html">Emitter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPEmitterEvent.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -88,15 +88,15 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright (c) 2013-2020 Snowplow Analytics Ltd</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_emitter_event_8h.html">SPEmitterEvent.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_emitter_2_s_p_emitter_event_8h.html">SPEmitterEvent.h</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="category_s_p_emitter_event_07_08.html">   25</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> ()</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="category_s_p_emitter_event_07_08.html#a8815e44ac439b5f786761dc2554a1639">   27</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) <a class="code" href="interface_s_p_payload.html">SPPayload</a> *<a class="code" href="interface_s_p_emitter_event.html#a8815e44ac439b5f786761dc2554a1639">payload</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="category_s_p_emitter_event_07_08.html#a8815e44ac439b5f786761dc2554a1639">   27</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) <a class="code" href="interface_s_p_payload.html">SPPayload</a> *<a class="code" href="interface_s_p_emitter_event.html#aff6cd163bdf0e28a8a6336674e9dc107">payload</a>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="interface_s_p_emitter_event.html#a975ae0615f854421d7d2aa9520dad7be">   28</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) <span class="keywordtype">long</span> <span class="keywordtype">long</span> <a class="code" href="interface_s_p_emitter_event.html#a528354c950511ddf54576dfeb85d8574">storeId</a>;</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">@end</span></div>
@@ -105,7 +105,7 @@ $(function() {
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;- (instancetype)initWithPayload:(<a class="code" href="interface_s_p_payload.html">SPPayload</a> *)payload storeId:(<span class="keywordtype">long</span> <span class="keywordtype">long</span>)storeId {</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">self</span>.payload = <a class="code" href="interface_s_p_emitter_event.html#a8815e44ac439b5f786761dc2554a1639">payload</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">self</span>.payload = <a class="code" href="interface_s_p_emitter_event.html#aff6cd163bdf0e28a8a6336674e9dc107">payload</a>;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">self</span>.storeId = <a class="code" href="interface_s_p_emitter_event.html#a528354c950511ddf54576dfeb85d8574">storeId</a>;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
@@ -116,11 +116,11 @@ $(function() {
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="a_s_p_emitter_event_8h_html"><div class="ttname"><a href="_s_p_emitter_event_8h.html">SPEmitterEvent.h</a></div></div>
-<div class="ttc" id="ainterface_s_p_emitter_event_html"><div class="ttname"><a href="interface_s_p_emitter_event.html">SPEmitterEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_emitter_event_8h_source.html#l00029">SPEmitterEvent.h:30</a></div></div>
-<div class="ttc" id="ainterface_s_p_emitter_event_html_a528354c950511ddf54576dfeb85d8574"><div class="ttname"><a href="interface_s_p_emitter_event.html#a528354c950511ddf54576dfeb85d8574">SPEmitterEvent::storeId</a></div><div class="ttdeci">long long storeId</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_emitter_event_8h_source.html#l00032">SPEmitterEvent.h:32</a></div></div>
-<div class="ttc" id="ainterface_s_p_emitter_event_html_a8815e44ac439b5f786761dc2554a1639"><div class="ttname"><a href="interface_s_p_emitter_event.html#a8815e44ac439b5f786761dc2554a1639">SPEmitterEvent::payload</a></div><div class="ttdeci">SPPayload * payload</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_emitter_event_8h_source.html#l00031">SPEmitterEvent.h:31</a></div></div>
-<div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_payload_8h_source.html#l00025">SPPayload.h:26</a></div></div>
+<div class="ttc" id="a_internal_2_emitter_2_s_p_emitter_event_8h_html"><div class="ttname"><a href="_internal_2_emitter_2_s_p_emitter_event_8h.html">SPEmitterEvent.h</a></div></div>
+<div class="ttc" id="ainterface_s_p_emitter_event_html"><div class="ttname"><a href="interface_s_p_emitter_event.html">SPEmitterEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_emitter_event_8h_source.html#l00030">SPEmitterEvent.h:31</a></div></div>
+<div class="ttc" id="ainterface_s_p_emitter_event_html_a528354c950511ddf54576dfeb85d8574"><div class="ttname"><a href="interface_s_p_emitter_event.html#a528354c950511ddf54576dfeb85d8574">SPEmitterEvent::storeId</a></div><div class="ttdeci">long long storeId</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_emitter_event_8h_source.html#l00033">SPEmitterEvent.h:33</a></div></div>
+<div class="ttc" id="ainterface_s_p_emitter_event_html_aff6cd163bdf0e28a8a6336674e9dc107"><div class="ttname"><a href="interface_s_p_emitter_event.html#aff6cd163bdf0e28a8a6336674e9dc107">SPEmitterEvent::payload</a></div><div class="ttdeci">SPPayload * payload</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_emitter_event_8h_source.html#l00032">SPEmitterEvent.h:32</a></div></div>
+<div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_payload_8h_source.html#l00026">SPPayload.h:27</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

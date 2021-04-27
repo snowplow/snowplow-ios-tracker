@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPDevicePlatform.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Subject/SPDevicePlatform.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_001dba0b6041a39aa716a3fa7a11dc44.html">Subject</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPDevicePlatform.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -92,9 +92,9 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_device_platform_8h.html">SPDevicePlatform.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_subject_2_s_p_device_platform_8h.html">SPDevicePlatform.h</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="_s_p_device_platform_8h.html#a2ffa3c991e3eec1c3733ed6167bc47a6">   25</a></span>&#160;NSString *<a class="code" href="_s_p_device_platform_8m.html#a2ffa3c991e3eec1c3733ed6167bc47a6">SPDevicePlatformToString</a>(SPDevicePlatform devicePlatform) {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="include_2_s_p_device_platform_8h.html#a2ffa3c991e3eec1c3733ed6167bc47a6">   25</a></span>&#160;NSString *<a class="code" href="_s_p_device_platform_8m.html#a2ffa3c991e3eec1c3733ed6167bc47a6">SPDevicePlatformToString</a>(SPDevicePlatform devicePlatform) {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">switch</span> (devicePlatform) {</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">case</span> SPDevicePlatformWeb: <span class="keywordflow">return</span> <span class="stringliteral">@&quot;web&quot;</span>;</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">case</span> SPDevicePlatformMobile: <span class="keywordflow">return</span> <span class="stringliteral">@&quot;mob&quot;</span>;</div>
@@ -107,7 +107,7 @@ $(function() {
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">default</span>: <span class="keywordflow">return</span> nil;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
-<div class="ttc" id="a_s_p_device_platform_8h_html"><div class="ttname"><a href="_s_p_device_platform_8h.html">SPDevicePlatform.h</a></div></div>
+<div class="ttc" id="a_internal_2_subject_2_s_p_device_platform_8h_html"><div class="ttname"><a href="_internal_2_subject_2_s_p_device_platform_8h.html">SPDevicePlatform.h</a></div></div>
 <div class="ttc" id="a_s_p_device_platform_8m_html_a2ffa3c991e3eec1c3733ed6167bc47a6"><div class="ttname"><a href="_s_p_device_platform_8m.html#a2ffa3c991e3eec1c3733ed6167bc47a6">SPDevicePlatformToString</a></div><div class="ttdeci">NSString * SPDevicePlatformToString(SPDevicePlatform devicePlatform)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_device_platform_8m_source.html#l00025">SPDevicePlatform.m:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

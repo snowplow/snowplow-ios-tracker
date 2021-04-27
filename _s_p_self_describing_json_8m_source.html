@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPSelfDescribingJson.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Payload/SPSelfDescribingJson.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_f54d6bcc456565b5f413b98be6b4cb76.html">Payload</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPSelfDescribingJson.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -92,14 +92,14 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_snowplow_8h.html">Snowplow.h</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_payload_8h.html">SPPayload.h</a>&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_payload_2_s_p_payload_8h.html">SPPayload.h</a>&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_payload_2_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a>&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="category_s_p_self_describing_json_07_08.html">   28</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> ()</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="category_s_p_self_describing_json_07_08.html#a2b280c2cebc1a103da97f7ed38e6a1da">   30</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) NSObject *<a class="code" href="interface_s_p_self_describing_json.html#a2b280c2cebc1a103da97f7ed38e6a1da">data</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="category_s_p_self_describing_json_07_08.html#a2b280c2cebc1a103da97f7ed38e6a1da">   30</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) NSObject *<a class="code" href="interface_s_p_self_describing_json.html#a08e15f1e98e6943b32ae8e172fa9ec0b">data</a>;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">@end</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
@@ -113,57 +113,60 @@ $(function() {
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;- (instancetype)initWithSchema:(NSString *)schema andPayload:(<a class="code" href="interface_s_p_payload.html">SPPayload</a> *)data {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithSchema:schema andData:[data <a class="code" href="interface_s_p_payload.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;- (instancetype)initWithSchema:(NSString *)schema andDictionary:(NSDictionary *)data {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithSchema:schema andData:data];</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;- (instancetype)initWithSchema:(NSString *)schema andSelfDescribingJson:(<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)data {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;- (instancetype)initWithSchema:(NSString *)schema andPayload:(<a class="code" href="interface_s_p_payload.html">SPPayload</a> *)data {</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithSchema:schema andData:[data <a class="code" href="interface_s_p_payload.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]];</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (void) setSchema:(NSString *)schema {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([schema length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Schema cannot be nil or empty.&quot;];</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    _schema = <a class="code" href="interface_s_p_self_describing_json.html#a08a5d4e46afe3ac80d613ed3b1071743">schema</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;- (void) setDataWithObject:(NSObject *)data {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">self</span>.data = <a class="code" href="interface_s_p_self_describing_json.html#a2b280c2cebc1a103da97f7ed38e6a1da">data</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (instancetype)initWithSchema:(NSString *)schema andSelfDescribingJson:(<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)data {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithSchema:schema andData:[data <a class="code" href="interface_s_p_payload.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]];</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;- (void) setSchema:(NSString *)schema {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([schema length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Schema cannot be nil or empty.&quot;];</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="_s_p_self_describing_8m.html#a62b1c133d3f6c06caa7e041de134bd53">_schema</a> = <a class="code" href="interface_s_p_self_describing_json.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a>;</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;- (void) setDataWithPayload:(<a class="code" href="interface_s_p_payload.html">SPPayload</a> *)data {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> setDataWithObject:[data <a class="code" href="interface_s_p_payload.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]];</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;- (void) setDataWithObject:(NSObject *)data {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">self</span>.data = <a class="code" href="interface_s_p_self_describing_json.html#a08e15f1e98e6943b32ae8e172fa9ec0b">data</a>;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;- (void) setDataWithSelfDescribingJson:(<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)data {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;- (void) setDataWithPayload:(<a class="code" href="interface_s_p_payload.html">SPPayload</a> *)data {</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> setDataWithObject:[data <a class="code" href="interface_s_p_payload.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]];</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *) <a class="code" href="interface_s_p_self_describing_json.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a> {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> @{</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="_snowplow_8m.html#a2ad825bef89d8a525393388e3708d60f">kSPSchema</a>: <span class="keyword">self</span>.schema,</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <a class="code" href="_snowplow_8m.html#a387c8180ae53fd0c2232d790f70e4d9c">kSPData</a>: <span class="keyword">self</span>.data,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    };</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;- (NSString *) <a class="code" href="interface_s_p_self_describing_json.html#a0920dc7935061bc57daab91706be5934">description</a> {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">return</span> [[<span class="keyword">self</span> getAsDictionary] description];</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;- (void) setDataWithSelfDescribingJson:(<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *)data {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> setDataWithObject:[data <a class="code" href="interface_s_p_payload.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a>]];</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *) <a class="code" href="interface_s_p_self_describing_json.html#a5171d978026e98ee085fdca8a5e8ccba">getAsDictionary</a> {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordflow">return</span> @{</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <a class="code" href="_s_p_tracker_constants_8m.html#a2ad825bef89d8a525393388e3708d60f">kSPSchema</a>: <span class="keyword">self</span>.schema,</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <a class="code" href="_s_p_tracker_constants_8m.html#a387c8180ae53fd0c2232d790f70e4d9c">kSPData</a>: <span class="keyword">self</span>.data,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    };</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;}</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="keyword">@end</span></div>
-<div class="ttc" id="a_s_p_payload_8h_html"><div class="ttname"><a href="_s_p_payload_8h.html">SPPayload.h</a></div></div>
-<div class="ttc" id="a_s_p_self_describing_json_8h_html"><div class="ttname"><a href="_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a></div></div>
-<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
-<div class="ttc" id="a_snowplow_8h_html"><div class="ttname"><a href="_snowplow_8h.html">Snowplow.h</a></div></div>
-<div class="ttc" id="a_snowplow_8m_html_a2ad825bef89d8a525393388e3708d60f"><div class="ttname"><a href="_snowplow_8m.html#a2ad825bef89d8a525393388e3708d60f">kSPSchema</a></div><div class="ttdeci">NSString *const kSPSchema</div><div class="ttdef"><b>Definition:</b> <a href="_snowplow_8m_source.html#l00084">Snowplow.m:84</a></div></div>
-<div class="ttc" id="a_snowplow_8m_html_a387c8180ae53fd0c2232d790f70e4d9c"><div class="ttname"><a href="_snowplow_8m.html#a387c8180ae53fd0c2232d790f70e4d9c">kSPData</a></div><div class="ttdeci">NSString *const kSPData</div><div class="ttdef"><b>Definition:</b> <a href="_snowplow_8m_source.html#l00085">Snowplow.m:85</a></div></div>
-<div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_payload_8h_source.html#l00025">SPPayload.h:26</a></div></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;- (NSString *) <a class="code" href="interface_s_p_self_describing_json.html#a0920dc7935061bc57daab91706be5934">description</a> {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> [[<span class="keyword">self</span> getAsDictionary] description];</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">@end</span></div>
+<div class="ttc" id="a_internal_2_payload_2_s_p_payload_8h_html"><div class="ttname"><a href="_internal_2_payload_2_s_p_payload_8h.html">SPPayload.h</a></div></div>
+<div class="ttc" id="a_internal_2_payload_2_s_p_self_describing_json_8h_html"><div class="ttname"><a href="_internal_2_payload_2_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a></div></div>
+<div class="ttc" id="a_s_p_self_describing_8m_html_a62b1c133d3f6c06caa7e041de134bd53"><div class="ttname"><a href="_s_p_self_describing_8m.html#a62b1c133d3f6c06caa7e041de134bd53">_schema</a></div><div class="ttdeci">NSString * _schema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_8m_source.html#l00032">SPSelfDescribing.m:30</a></div></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_a2ad825bef89d8a525393388e3708d60f"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a2ad825bef89d8a525393388e3708d60f">kSPSchema</a></div><div class="ttdeci">NSString *const kSPSchema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00084">SPTrackerConstants.m:84</a></div></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_a387c8180ae53fd0c2232d790f70e4d9c"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a387c8180ae53fd0c2232d790f70e4d9c">kSPData</a></div><div class="ttdeci">NSString *const kSPData</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00085">SPTrackerConstants.m:85</a></div></div>
+<div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_payload_8h_source.html#l00026">SPPayload.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_payload_html_a5171d978026e98ee085fdca8a5e8ccba"><div class="ttname"><a href="interface_s_p_payload.html#a5171d978026e98ee085fdca8a5e8ccba">-[SPPayload getAsDictionary]</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * getAsDictionary()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_payload_8m_source.html#l00001">SPPayload.m:135</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html"><div class="ttname"><a href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a></div><div class="ttdoc">The class that represents self-describing JSONs.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8h_source.html#l00035">SPSelfDescribingJson.h:36</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html_a08a5d4e46afe3ac80d613ed3b1071743"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a08a5d4e46afe3ac80d613ed3b1071743">SPSelfDescribingJson::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdoc">the schema URI for this self-describing JSON.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8h_source.html#l00038">SPSelfDescribingJson.h:38</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html_a0920dc7935061bc57daab91706be5934"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a0920dc7935061bc57daab91706be5934">-[SPSelfDescribingJson description]</a></div><div class="ttdeci">NSString * description()</div><div class="ttdoc">Returns a string description of the internal dictionary.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8m_source.html#l00030">SPSelfDescribingJson.m:76</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html_a2b280c2cebc1a103da97f7ed38e6a1da"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a2b280c2cebc1a103da97f7ed38e6a1da">SPSelfDescribingJson::data</a></div><div class="ttdeci">NSObject * data</div><div class="ttdoc">Data of the self-describing JSON.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8h_source.html#l00040">SPSelfDescribingJson.h:40</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html_a5171d978026e98ee085fdca8a5e8ccba"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a5171d978026e98ee085fdca8a5e8ccba">-[SPSelfDescribingJson getAsDictionary]</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * getAsDictionary()</div><div class="ttdoc">Returns the internal NSDictionary of the self-describing JSON.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8m_source.html#l00030">SPSelfDescribingJson.m:69</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_utilities_8h_source.html#l00040">SPUtilities.h:41</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_json_html"><div class="ttname"><a href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a></div><div class="ttdoc">The class that represents self-describing JSONs.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_self_describing_json_8h_source.html#l00036">SPSelfDescribingJson.h:37</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_json_html_a08e15f1e98e6943b32ae8e172fa9ec0b"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a08e15f1e98e6943b32ae8e172fa9ec0b">SPSelfDescribingJson::data</a></div><div class="ttdeci">NSObject * data</div><div class="ttdoc">Data of the self-describing JSON.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_self_describing_json_8h_source.html#l00041">SPSelfDescribingJson.h:41</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_json_html_a0920dc7935061bc57daab91706be5934"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a0920dc7935061bc57daab91706be5934">-[SPSelfDescribingJson description]</a></div><div class="ttdeci">NSString * description()</div><div class="ttdoc">Returns a string description of the internal dictionary.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8m_source.html#l00030">SPSelfDescribingJson.m:80</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_json_html_a5171d978026e98ee085fdca8a5e8ccba"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a5171d978026e98ee085fdca8a5e8ccba">-[SPSelfDescribingJson getAsDictionary]</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * getAsDictionary()</div><div class="ttdoc">Returns the internal NSDictionary of the self-describing JSON.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_self_describing_json_8m_source.html#l00030">SPSelfDescribingJson.m:73</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_json_html_a95884c3e9e7835e3f4f87ffbf78d25c3"><div class="ttname"><a href="interface_s_p_self_describing_json.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingJson::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdoc">the schema URI for this self-describing JSON.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_self_describing_json_8h_source.html#l00039">SPSelfDescribingJson.h:39</a></div></div>
+<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_utilities_8h_source.html#l00041">SPUtilities.h:42</a></div></div>
 <div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false.</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

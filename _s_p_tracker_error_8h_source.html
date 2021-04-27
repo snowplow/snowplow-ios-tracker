@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPTrackerError.h Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Events/SPTrackerError.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_49fbaad7f69f0610a57b33952cc2393a.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPTrackerError.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -92,22 +92,24 @@ $(function() {
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_event_base_8h.html">SPEventBase.h</a>&quot;</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_events_2_s_p_event_base_8h.html">SPEventBase.h</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;NS_ASSUME_NONNULL_BEGIN</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="interface_s_p_tracker_error.html">   27</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_tracker_error.html">SPTrackerError</a> : <a class="code" href="interface_s_p_self_describing.html">SPSelfDescribing</a></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;- (instancetype)initWithSource:(NSString *)source message:(NSString *)message;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;- (instancetype)initWithSource:(NSString *)source message:(NSString *)message error:(nullable NSError *)error exception:(NSException *)exception;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="interface_s_p_tracker_error.html#af4e31f80fbadfd9ffe5094310ce7f785">   35</a></span>&#160;NS_ASSUME_NONNULL_END</div>
-<div class="ttc" id="a_s_p_event_base_8h_html"><div class="ttname"><a href="_s_p_event_base_8h.html">SPEventBase.h</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_html"><div class="ttname"><a href="interface_s_p_self_describing.html">SPSelfDescribing</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8h_source.html#l00163">SPEventBase.h:164</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_error_html"><div class="ttname"><a href="interface_s_p_tracker_error.html">SPTrackerError</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_error_8h_source.html#l00027">SPTrackerError.h:28</a></div></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<a class="code" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(TrackerError)</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="interface_s_p_tracker_error.html">   28</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_tracker_error.html">SPTrackerError</a> : <a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;- (instancetype)initWithSource:(NSString *)source message:(NSString *)message;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;- (instancetype)initWithSource:(NSString *)source message:(NSString *)message error:(nullable NSError *)error exception:(NSException *)exception;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="interface_s_p_tracker_error.html#af4e31f80fbadfd9ffe5094310ce7f785">   36</a></span>&#160;NS_ASSUME_NONNULL_END</div>
+<div class="ttc" id="a_internal_2_events_2_s_p_event_base_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_event_base_8h.html">SPEventBase.h</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_device_platform_8h_html_ac51d0fa9ac6b044d5587e1d9ceb2dbbc"><div class="ttname"><a href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(DevicePlatform)</div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00120">SPEventBase.h:121</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_error_html"><div class="ttname"><a href="interface_s_p_tracker_error.html">SPTrackerError</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_error_8h_source.html#l00028">SPTrackerError.h:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

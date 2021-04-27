@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -65,46 +65,69 @@ $(function() {
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index_b"></a>- b -</h3><ul>
+<li>backgroundIndex
+: <a class="el" href="protocol_s_p_session_controller-p.html#a87d35601044ab6a36cb694166084b13a">&lt;SPSessionController&gt;</a>
+</li>
+<li>backgroundTimeoutInSeconds
+: <a class="el" href="protocol_s_p_session_configuration_protocol-p.html#a5b3fdf33d52494e74aa2f9c292114ffb">&lt;SPSessionConfigurationProtocol&gt;</a>
+</li>
+<li>badge
+: <a class="el" href="interface_s_p_notification_content.html#a6a60ce947f6c6f22a671d2d7c61d8c98">SPNotificationContent</a>
+</li>
 <li>base64Encoded
 : <a class="el" href="interface_s_p_tracker.html#aefb984aa6d25c487860a844b75108a80">SPTracker</a>
 </li>
-<li>basePreconditions
-: <a class="el" href="interface_s_p_event.html#a7d386251ba1e7585ebbb5dc4a62ed0ee">SPEvent</a>
+<li>base64Encoding
+: <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#ae345d7df5d65d0142686c9707b6bc0c6">&lt;SPTrackerConfigurationProtocol&gt;</a>
 </li>
 <li>basis
-: <a class="el" href="category_s_p_gdpr_context_07_08.html#a42d939a082265e3cf39be15ab1726e11">SPGdprContext()</a>
+: <a class="el" href="category_s_p_gdpr_context_07_08.html#ab0077296c88b7316f6a6969bef0b81bc">SPGdprContext()</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#ab0077296c88b7316f6a6969bef0b81bc">SPGdprContext</a>
+</li>
+<li>basisForProcessing
+: <a class="el" href="category_s_p_g_d_p_r_configuration_07_08.html#a5d844813125b6e61d086948fd3146026">SPGDPRConfiguration()</a>
+, <a class="el" href="protocol_s_p_g_d_p_r_configuration_protocol-p.html#a5d844813125b6e61d086948fd3146026">&lt;SPGDPRConfigurationProtocol&gt;</a>
+</li>
+<li>basisString
+: <a class="el" href="category_s_p_gdpr_context_07_08.html#a159e51d46b62a75800444b11478ec523">SPGdprContext()</a>
 </li>
 <li>beginProcessingWithTracker:
 : <a class="el" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">SPEvent</a>
 </li>
+<li>body
+: <a class="el" href="interface_s_p_notification_content.html#ad70c7ae2257290cf3db589aed99b826f">SPNotificationContent</a>
+</li>
 <li>bufferOption
 : <a class="el" href="interface_s_p_emitter.html#a1afc20e170c193008473512a45d6ee68">SPEmitter</a>
+, <a class="el" href="protocol_s_p_emitter_configuration_protocol-p.html#a1afc20e170c193008473512a45d6ee68">&lt;SPEmitterConfigurationProtocol&gt;</a>
 </li>
 <li>build:
-: <a class="el" href="interface_s_n_o_w_error.html#a08ac6b498f529938f86cc8457269a4e8">SNOWError</a>
-, <a class="el" href="interface_s_p_background.html#aee58a37a0345d53fbf4aeeab0fd1561c">SPBackground</a>
-, <a class="el" href="interface_s_p_consent_document.html#aaaa8422f9a118bdbf29f7dc0149893cf">SPConsentDocument</a>
-, <a class="el" href="interface_s_p_consent_granted.html#a80d2cb2661a6e4d6cae28399c0e64dd1">SPConsentGranted</a>
-, <a class="el" href="interface_s_p_consent_withdrawn.html#a8dbd187565ee710f333b68b9f065f635">SPConsentWithdrawn</a>
+: <a class="el" href="interface_s_n_o_w_error.html#a26bd7322fed3046f6fc6521f3f910da3">SNOWError</a>
+, <a class="el" href="interface_s_p_background.html#a26bd7322fed3046f6fc6521f3f910da3">SPBackground</a>
+, <a class="el" href="interface_s_p_consent_document.html#a26bd7322fed3046f6fc6521f3f910da3">SPConsentDocument</a>
+, <a class="el" href="interface_s_p_consent_granted.html#a26bd7322fed3046f6fc6521f3f910da3">SPConsentGranted</a>
+, <a class="el" href="interface_s_p_consent_withdrawn.html#a26bd7322fed3046f6fc6521f3f910da3">SPConsentWithdrawn</a>
 , <a class="el" href="interface_s_p_default_network_connection.html#adaf741d9d965c4f64ee01e6b751ac4f7">SPDefaultNetworkConnection</a>
-, <a class="el" href="interface_s_p_ecommerce.html#a5a69c45a16db6fd5c860c3ff3a6c9bb4">SPEcommerce</a>
-, <a class="el" href="interface_s_p_ecommerce_item.html#a294ef0aea46c9a50dd8f2aa5ae97faf8">SPEcommerceItem</a>
-, <a class="el" href="interface_s_p_emitter.html#a0a7eb06fc025584e893594c01284cf81">SPEmitter</a>
-, <a class="el" href="interface_s_p_foreground.html#a12f36f2ffd1b157d058da2cf64f5b311">SPForeground</a>
-, <a class="el" href="interface_s_p_notification_content.html#af414b05993d6138442458a04260a5077">SPNotificationContent</a>
-, <a class="el" href="interface_s_p_page_view.html#af78a1c64396458f4b17ddb49d6b33437">SPPageView</a>
-, <a class="el" href="interface_s_p_push_notification.html#a88d683295d3494bc81c6b47b18e34838">SPPushNotification</a>
-, <a class="el" href="interface_s_p_screen_view.html#a880a63f41f4c3b49c702285258fd3f5e">SPScreenView</a>
-, <a class="el" href="interface_s_p_structured.html#a80aa97719716fbfad85f8dfc8c8238f2">SPStructured</a>
-, <a class="el" href="interface_s_p_timing.html#a71f1a606d3d2f916169438abccad721a">SPTiming</a>
-, <a class="el" href="interface_s_p_tracker.html#a1518c9fe54543f549e9932182b2355cc">SPTracker</a>
-, <a class="el" href="interface_s_p_unstructured.html#a2d0c599ac37625283f98e3d2e710ba7a">SPUnstructured</a>
+, <a class="el" href="interface_s_p_ecommerce.html#a26bd7322fed3046f6fc6521f3f910da3">SPEcommerce</a>
+, <a class="el" href="interface_s_p_ecommerce_item.html#a26bd7322fed3046f6fc6521f3f910da3">SPEcommerceItem</a>
+, <a class="el" href="interface_s_p_emitter.html#a16d6e484cfe527c29c9d175ae0291468">SPEmitter</a>
+, <a class="el" href="interface_s_p_foreground.html#a26bd7322fed3046f6fc6521f3f910da3">SPForeground</a>
+, <a class="el" href="interface_s_p_notification_content.html#a26bd7322fed3046f6fc6521f3f910da3">SPNotificationContent</a>
+, <a class="el" href="interface_s_p_page_view.html#a26bd7322fed3046f6fc6521f3f910da3">SPPageView</a>
+, <a class="el" href="interface_s_p_push_notification.html#a7d2b584b7c2fe5d160bf663303515ab4">SPPushNotification</a>
+, <a class="el" href="interface_s_p_screen_view.html#a26bd7322fed3046f6fc6521f3f910da3">SPScreenView</a>
+, <a class="el" href="interface_s_p_self_describing.html#a26bd7322fed3046f6fc6521f3f910da3">SPSelfDescribing</a>
+, <a class="el" href="interface_s_p_structured.html#a26bd7322fed3046f6fc6521f3f910da3">SPStructured</a>
+, <a class="el" href="interface_s_p_timing.html#a26bd7322fed3046f6fc6521f3f910da3">SPTiming</a>
+, <a class="el" href="interface_s_p_tracker.html#a16d6e484cfe527c29c9d175ae0291468">SPTracker</a>
 </li>
 <li>byteLimitGet
 : <a class="el" href="interface_s_p_emitter.html#a7e1a51355a257ad6028d04f9053ea5ad">SPEmitter</a>
+, <a class="el" href="protocol_s_p_emitter_configuration_protocol-p.html#a7e1a51355a257ad6028d04f9053ea5ad">&lt;SPEmitterConfigurationProtocol&gt;</a>
 </li>
 <li>byteLimitPost
 : <a class="el" href="interface_s_p_emitter.html#a885052f307de6c6db9d499f4cb6ba83f">SPEmitter</a>
+, <a class="el" href="protocol_s_p_emitter_configuration_protocol-p.html#a885052f307de6c6db9d499f4cb6ba83f">&lt;SPEmitterConfigurationProtocol&gt;</a>
 </li>
 <li>byteSize
 : <a class="el" href="interface_s_p_payload.html#aff32767061773e71a65df47d9381574b">SPPayload</a>

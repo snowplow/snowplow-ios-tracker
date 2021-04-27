@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SNOWReachability.m Source File</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/Utils/SNOWReachability.m Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_30423d12d1986e258cca18be37484e77.html">Utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SNOWReachabilty.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -104,7 +104,7 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="interface_s_n_o_w_reachability.html#a5854a2f4b1d1971459cace9ca9619b09">   32</a></span>&#160;<span class="keyword">static</span> <span class="keywordtype">void</span> PrintReachabilityFlags(SCNetworkReachabilityFlags flags, <span class="keyword">const</span> <span class="keywordtype">char</span>* comment) {</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#if kShouldPrintReachabilityFlags</span></div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    NSLog(<span class="stringliteral">@&quot;Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n&quot;</span>,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;#<span class="keywordflow">if</span> <a class="code" href="_snowplow_8h.html#ae88a5dcb1232cb0e6fb2a7d8c89c9dc0">SNOWPLOW_TARGET_IOS</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;#<span class="keywordflow">if</span> <a class="code" href="include_2_s_p_tracker_constants_8h.html#ae88a5dcb1232cb0e6fb2a7d8c89c9dc0">SNOWPLOW_TARGET_IOS</a></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;          (flags &amp; kSCNetworkReachabilityFlagsIsWWAN)               ? <span class="charliteral">&#39;W&#39;</span> : <span class="charliteral">&#39;-&#39;</span>,</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;#<span class="keywordflow">else</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;          <span class="charliteral">&#39;-&#39;</span>,</div>
@@ -202,7 +202,7 @@ $(function() {
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_n_o_w_reachability_8h_html"><div class="ttname"><a href="_s_n_o_w_reachability_8h.html">SNOWReachability.h</a></div></div>
-<div class="ttc" id="a_snowplow_8h_html_ae88a5dcb1232cb0e6fb2a7d8c89c9dc0"><div class="ttname"><a href="_snowplow_8h.html#ae88a5dcb1232cb0e6fb2a7d8c89c9dc0">SNOWPLOW_TARGET_IOS</a></div><div class="ttdeci">#define SNOWPLOW_TARGET_IOS</div><div class="ttdef"><b>Definition:</b> <a href="_snowplow_8h_source.html#l00029">Snowplow.h:29</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_ae88a5dcb1232cb0e6fb2a7d8c89c9dc0"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#ae88a5dcb1232cb0e6fb2a7d8c89c9dc0">SNOWPLOW_TARGET_IOS</a></div><div class="ttdeci">#define SNOWPLOW_TARGET_IOS</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00029">SPTrackerConstants.h:29</a></div></div>
 <div class="ttc" id="ainterface_s_n_o_w_reachability_html"><div class="ttname"><a href="interface_s_n_o_w_reachability.html">SNOWReachability</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_n_o_w_reachability_8h_source.html#l00032">SNOWReachability.h:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

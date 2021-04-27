@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['logwithtag_3amessage_3aerror_3aexception_3a_1132',['logWithTag:message:error:exception:',['../protocol_s_p_diagnostic_logger-p.html#a448410562d23e4489add70f2a48fafc7',1,'SPDiagnosticLogger-p']]]
+  ['matchwithuri_3a_1457',['matchWithUri:',['../interface_s_p_schema_rule.html#aa8f477f3b57cea031ad865f1507c8b43',1,'SPSchemaRule::matchWithUri:()'],['../interface_s_p_schema_ruleset.html#aa8f477f3b57cea031ad865f1507c8b43',1,'SPSchemaRuleset::matchWithUri:()'],['../interface_s_p_schema_rule.html#aa8f477f3b57cea031ad865f1507c8b43',1,'SPSchemaRule::matchWithUri:()'],['../interface_s_p_schema_ruleset.html#aa8f477f3b57cea031ad865f1507c8b43',1,'SPSchemaRuleset::matchWithUri:()']]]
 ];

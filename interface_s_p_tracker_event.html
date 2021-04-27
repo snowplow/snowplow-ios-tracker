@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -106,8 +106,8 @@ Properties</h2></td></tr>
 <tr class="separator:a485c1e1841e23b8c17e80fd0820a6162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a4dd79aa33066114eeebd2a450d52d2"><td class="memItemLeft" align="right" valign="top">long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker_event.html#a4a4dd79aa33066114eeebd2a450d52d2">timestamp</a></td></tr>
 <tr class="separator:a4a4dd79aa33066114eeebd2a450d52d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f0c9ef70bde9cfeb90915ad73d5f131"><td class="memItemLeft" align="right" valign="top">NSNumber *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker_event.html#a7f0c9ef70bde9cfeb90915ad73d5f131">trueTimestamp</a></td></tr>
-<tr class="separator:a7f0c9ef70bde9cfeb90915ad73d5f131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab19acdc1aca00675ec4522c1809e066f"><td class="memItemLeft" align="right" valign="top">NSDate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker_event.html#ab19acdc1aca00675ec4522c1809e066f">trueTimestamp</a></td></tr>
+<tr class="separator:ab19acdc1aca00675ec4522c1809e066f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3673b8caf4bdca915e14a0628356ec0"><td class="memItemLeft" align="right" valign="top">NSMutableArray&lt; <a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker_event.html#aa3673b8caf4bdca915e14a0628356ec0">contexts</a></td></tr>
 <tr class="separator:aa3673b8caf4bdca915e14a0628356ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad3692381fe60a1b58f1a904384a49610"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker_event.html#ad3692381fe60a1b58f1a904384a49610">isPrimitive</a></td></tr>
@@ -116,10 +116,13 @@ Properties</h2></td></tr>
 <tr class="separator:aa9cffc5818ba877223443d7e7b8918de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_protocol_s_p_inspectable_event-p"><td colspan="2" onclick="javascript:toggleInherit('properties_protocol_s_p_inspectable_event-p')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="protocol_s_p_inspectable_event-p.html">&lt;SPInspectableEvent&gt;</a></td></tr>
 <tr class="memitem:a08a5d4e46afe3ac80d613ed3b1071743 inherit properties_protocol_s_p_inspectable_event-p"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">schema</a></td></tr>
+<tr class="memdesc:a08a5d4e46afe3ac80d613ed3b1071743 inherit properties_protocol_s_p_inspectable_event-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">The schema of the event.  <a href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">More...</a><br /></td></tr>
 <tr class="separator:a08a5d4e46afe3ac80d613ed3b1071743 inherit properties_protocol_s_p_inspectable_event-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae55ea89489d995db157060d95bd16ecb inherit properties_protocol_s_p_inspectable_event-p"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">eventName</a></td></tr>
+<tr class="memdesc:ae55ea89489d995db157060d95bd16ecb inherit properties_protocol_s_p_inspectable_event-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the event.  <a href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">More...</a><br /></td></tr>
 <tr class="separator:ae55ea89489d995db157060d95bd16ecb inherit properties_protocol_s_p_inspectable_event-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa0f021eb5f64dbc10a95109ee06ac31f inherit properties_protocol_s_p_inspectable_event-p"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSString *, NSObject * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">payload</a></td></tr>
+<tr class="memdesc:aa0f021eb5f64dbc10a95109ee06ac31f inherit properties_protocol_s_p_inspectable_event-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload of the event.  <a href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">More...</a><br /></td></tr>
 <tr class="separator:aa0f021eb5f64dbc10a95109ee06ac31f inherit properties_protocol_s_p_inspectable_event-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -373,8 +376,8 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a7f0c9ef70bde9cfeb90915ad73d5f131"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f0c9ef70bde9cfeb90915ad73d5f131">&#9670;&nbsp;</a></span>trueTimestamp</h2>
+<a id="ab19acdc1aca00675ec4522c1809e066f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab19acdc1aca00675ec4522c1809e066f">&#9670;&nbsp;</a></span>trueTimestamp</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -383,7 +386,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSNumber*) trueTimestamp</td>
+          <td class="memname">- (NSDate*) trueTimestamp</td>
         </tr>
       </table>
   </td>
@@ -398,8 +401,8 @@ Properties</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_tracker_event_8h_source.html">SPTrackerEvent.h</a></li>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_tracker_event_8m_source.html">SPTrackerEvent.m</a></li>
+<li>/github/workspace/Snowplow/Internal/Tracker/<a class="el" href="_s_p_tracker_event_8h_source.html">SPTrackerEvent.h</a></li>
+<li>/github/workspace/Snowplow/Internal/Tracker/<a class="el" href="_s_p_tracker_event_8m_source.html">SPTrackerEvent.m</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

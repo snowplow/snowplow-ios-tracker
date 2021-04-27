@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -70,209 +70,145 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The base object for all events.  
+<p>This class has the basic functionality needed to represent all events.  
  <a href="interface_s_p_event.html#details">More...</a></p>
 
-<p><code>#import &lt;<a class="el" href="_s_p_event_base_8h_source.html">SPEventBase.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SPEvent:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="interface_s_p_event.png" usemap="#SPEvent_map" alt=""/>
   <map id="SPEvent_map" name="SPEvent_map">
-<area href="protocol_s_p_event_builder-p.html" title="The base protocol for all event builders." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="214,56,347,80"/>
-<area href="interface_s_p_primitive.html" title="The properties for all the self-describing events." alt="SPPrimitive" shape="rect" coords="0,168,133,192"/>
-<area href="interface_s_p_self_describing.html" title="The properties for all the self-describing events." alt="SPSelfDescribing" shape="rect" coords="286,168,419,192"/>
-<area href="interface_s_p_ecommerce.html" title="An ecommerce event." alt="SPEcommerce" shape="rect" coords="143,224,276,248"/>
-<area href="interface_s_p_ecommerce_item.html" title="An ecommerce item event." alt="SPEcommerceItem" shape="rect" coords="143,280,276,304"/>
-<area href="interface_s_p_page_view.html" title="A pageview." alt="SPPageView" shape="rect" coords="143,336,276,360"/>
-<area href="interface_s_p_structured.html" title="A structured event." alt="SPStructured" shape="rect" coords="143,392,276,416"/>
-<area href="interface_s_n_o_w_error.html" title="An error event." alt="SNOWError" shape="rect" coords="429,224,562,248"/>
-<area href="interface_s_p_background.html" title="A background transition event." alt="SPBackground" shape="rect" coords="429,280,562,304"/>
-<area href="interface_s_p_consent_granted.html" title="A consent granted event." alt="SPConsentGranted" shape="rect" coords="429,336,562,360"/>
-<area href="interface_s_p_consent_withdrawn.html" title="A consent withdrawn event." alt="SPConsentWithdrawn" shape="rect" coords="429,392,562,416"/>
-<area href="interface_s_p_foreground.html" title="A foreground transition event." alt="SPForeground" shape="rect" coords="429,448,562,472"/>
-<area href="interface_s_p_push_notification.html" title="A push notification event." alt="SPPushNotification" shape="rect" coords="429,504,562,528"/>
-<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="429,560,562,584"/>
-<area href="interface_s_p_timing.html" title="A timing event." alt="SPTiming" shape="rect" coords="429,616,562,640"/>
-<area href="interface_s_p_tracker_error.html" alt="SPTrackerError" shape="rect" coords="429,672,562,696"/>
-<area href="interface_s_p_unstructured.html" title="An unstructured event." alt="SPUnstructured" shape="rect" coords="429,728,562,752"/>
+<area href="interface_s_p_primitive_abstract.html" title="The properties for all the self-describing events." alt="SPPrimitiveAbstract" shape="rect" coords="0,112,158,136"/>
+<area href="interface_s_p_primitive_abstract.html" title="The properties for all the self-describing events." alt="SPPrimitiveAbstract" shape="rect" coords="336,112,494,136"/>
+<area href="interface_s_p_self_describing_abstract.html" title="The properties for all the self-describing events." alt="SPSelfDescribingAbstract" shape="rect" coords="672,112,830,136"/>
+<area href="interface_s_p_self_describing_abstract.html" title="The properties for all the self-describing events." alt="SPSelfDescribingAbstract" shape="rect" coords="1008,112,1166,136"/>
+<area href="interface_s_p_ecommerce.html" title="An ecommerce event." alt="SPEcommerce" shape="rect" coords="168,168,326,192"/>
+<area href="interface_s_p_ecommerce.html" title="An ecommerce event." alt="SPEcommerce" shape="rect" coords="168,224,326,248"/>
+<area href="interface_s_p_ecommerce_item.html" title="An ecommerce item event." alt="SPEcommerceItem" shape="rect" coords="168,280,326,304"/>
+<area href="interface_s_p_ecommerce_item.html" title="An ecommerce item event." alt="SPEcommerceItem" shape="rect" coords="168,336,326,360"/>
+<area href="interface_s_p_page_view.html" title="A pageview." alt="SPPageView" shape="rect" coords="168,392,326,416"/>
+<area href="interface_s_p_page_view.html" title="A pageview." alt="SPPageView" shape="rect" coords="168,448,326,472"/>
+<area href="interface_s_p_structured.html" title="A structured event." alt="SPStructured" shape="rect" coords="168,504,326,528"/>
+<area href="interface_s_p_structured.html" title="A structured event." alt="SPStructured" shape="rect" coords="168,560,326,584"/>
+<area href="interface_s_p_ecommerce.html" title="An ecommerce event." alt="SPEcommerce" shape="rect" coords="504,168,662,192"/>
+<area href="interface_s_p_ecommerce.html" title="An ecommerce event." alt="SPEcommerce" shape="rect" coords="504,224,662,248"/>
+<area href="interface_s_p_ecommerce_item.html" title="An ecommerce item event." alt="SPEcommerceItem" shape="rect" coords="504,280,662,304"/>
+<area href="interface_s_p_ecommerce_item.html" title="An ecommerce item event." alt="SPEcommerceItem" shape="rect" coords="504,336,662,360"/>
+<area href="interface_s_p_page_view.html" title="A pageview." alt="SPPageView" shape="rect" coords="504,392,662,416"/>
+<area href="interface_s_p_page_view.html" title="A pageview." alt="SPPageView" shape="rect" coords="504,448,662,472"/>
+<area href="interface_s_p_structured.html" title="A structured event." alt="SPStructured" shape="rect" coords="504,504,662,528"/>
+<area href="interface_s_p_structured.html" title="A structured event." alt="SPStructured" shape="rect" coords="504,560,662,584"/>
+<area href="interface_s_n_o_w_error.html" title="An error event." alt="SNOWError" shape="rect" coords="840,168,998,192"/>
+<area href="interface_s_n_o_w_error.html" title="An error event." alt="SNOWError" shape="rect" coords="840,224,998,248"/>
+<area href="interface_s_p_background.html" title="A background transition event." alt="SPBackground" shape="rect" coords="840,280,998,304"/>
+<area href="interface_s_p_background.html" title="A background transition event." alt="SPBackground" shape="rect" coords="840,336,998,360"/>
+<area href="interface_s_p_consent_granted.html" title="A consent granted event." alt="SPConsentGranted" shape="rect" coords="840,392,998,416"/>
+<area href="interface_s_p_consent_granted.html" title="A consent granted event." alt="SPConsentGranted" shape="rect" coords="840,448,998,472"/>
+<area href="interface_s_p_consent_withdrawn.html" title="A consent withdrawn event." alt="SPConsentWithdrawn" shape="rect" coords="840,504,998,528"/>
+<area href="interface_s_p_consent_withdrawn.html" title="A consent withdrawn event." alt="SPConsentWithdrawn" shape="rect" coords="840,560,998,584"/>
+<area href="interface_s_p_foreground.html" title="A foreground transition event." alt="SPForeground" shape="rect" coords="840,616,998,640"/>
+<area href="interface_s_p_foreground.html" title="A foreground transition event." alt="SPForeground" shape="rect" coords="840,672,998,696"/>
+<area href="interface_s_p_push_notification.html" title="A push notification event." alt="SPPushNotification" shape="rect" coords="840,728,998,752"/>
+<area href="interface_s_p_push_notification.html" title="A push notification event." alt="SPPushNotification" shape="rect" coords="840,784,998,808"/>
+<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="840,840,998,864"/>
+<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="840,896,998,920"/>
+<area href="interface_s_p_self_describing.html" title="An unstructured event." alt="SPSelfDescribing" shape="rect" coords="840,952,998,976"/>
+<area href="interface_s_p_self_describing.html" title="An unstructured event." alt="SPSelfDescribing" shape="rect" coords="840,1008,998,1032"/>
+<area href="interface_s_p_timing.html" title="A timing event." alt="SPTiming" shape="rect" coords="840,1064,998,1088"/>
+<area href="interface_s_p_timing.html" title="A timing event." alt="SPTiming" shape="rect" coords="840,1120,998,1144"/>
+<area href="interface_s_p_tracker_error.html" alt="SPTrackerError" shape="rect" coords="840,1176,998,1200"/>
+<area href="interface_s_n_o_w_error.html" title="An error event." alt="SNOWError" shape="rect" coords="1176,168,1334,192"/>
+<area href="interface_s_n_o_w_error.html" title="An error event." alt="SNOWError" shape="rect" coords="1176,224,1334,248"/>
+<area href="interface_s_p_background.html" title="A background transition event." alt="SPBackground" shape="rect" coords="1176,280,1334,304"/>
+<area href="interface_s_p_background.html" title="A background transition event." alt="SPBackground" shape="rect" coords="1176,336,1334,360"/>
+<area href="interface_s_p_consent_granted.html" title="A consent granted event." alt="SPConsentGranted" shape="rect" coords="1176,392,1334,416"/>
+<area href="interface_s_p_consent_granted.html" title="A consent granted event." alt="SPConsentGranted" shape="rect" coords="1176,448,1334,472"/>
+<area href="interface_s_p_consent_withdrawn.html" title="A consent withdrawn event." alt="SPConsentWithdrawn" shape="rect" coords="1176,504,1334,528"/>
+<area href="interface_s_p_consent_withdrawn.html" title="A consent withdrawn event." alt="SPConsentWithdrawn" shape="rect" coords="1176,560,1334,584"/>
+<area href="interface_s_p_foreground.html" title="A foreground transition event." alt="SPForeground" shape="rect" coords="1176,616,1334,640"/>
+<area href="interface_s_p_foreground.html" title="A foreground transition event." alt="SPForeground" shape="rect" coords="1176,672,1334,696"/>
+<area href="interface_s_p_push_notification.html" title="A push notification event." alt="SPPushNotification" shape="rect" coords="1176,728,1334,752"/>
+<area href="interface_s_p_push_notification.html" title="A push notification event." alt="SPPushNotification" shape="rect" coords="1176,784,1334,808"/>
+<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="1176,840,1334,864"/>
+<area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="1176,896,1334,920"/>
+<area href="interface_s_p_self_describing.html" title="An unstructured event." alt="SPSelfDescribing" shape="rect" coords="1176,952,1334,976"/>
+<area href="interface_s_p_self_describing.html" title="An unstructured event." alt="SPSelfDescribing" shape="rect" coords="1176,1008,1334,1032"/>
+<area href="interface_s_p_timing.html" title="A timing event." alt="SPTiming" shape="rect" coords="1176,1064,1334,1088"/>
+<area href="interface_s_p_timing.html" title="A timing event." alt="SPTiming" shape="rect" coords="1176,1120,1334,1144"/>
+<area href="interface_s_p_tracker_error.html" alt="SPTrackerError" shape="rect" coords="1176,1176,1334,1200"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:add0d22b35bdccb4f43f48a1ca8476cb9"><td class="memItemLeft" align="right" valign="top">(NSNumber *timestamp)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#add0d22b35bdccb4f43f48a1ca8476cb9">__deprecated_msg</a></td></tr>
-<tr class="separator:add0d22b35bdccb4f43f48a1ca8476cb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2714df2a94bf200abe137b8fe056d84f"><td class="memItemLeft" align="right" valign="top">(NSString *eventId)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a2714df2a94bf200abe137b8fe056d84f">__deprecated_msg</a></td></tr>
-<tr class="separator:a2714df2a94bf200abe137b8fe056d84f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d386251ba1e7585ebbb5dc4a62ed0ee"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a7d386251ba1e7585ebbb5dc4a62ed0ee">basePreconditions</a></td></tr>
-<tr class="separator:a7d386251ba1e7585ebbb5dc4a62ed0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f97a27e1bcc210a1010fe95f0c15451"><td class="memItemLeft" align="right" valign="top">(NSMutableArray *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a9f97a27e1bcc210a1010fe95f0c15451">getContexts</a></td></tr>
-<tr class="memdesc:a9f97a27e1bcc210a1010fe95f0c15451"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the copy of the context list associated with the event.  <a href="interface_s_p_event.html#a9f97a27e1bcc210a1010fe95f0c15451">More...</a><br /></td></tr>
-<tr class="separator:a9f97a27e1bcc210a1010fe95f0c15451"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae43467c5b450a7fea1a847f2b71936fd"><td class="memItemLeft" align="right" valign="top">(&quot;The timestamp is set only when the event is processed.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#ae43467c5b450a7fea1a847f2b71936fd">__deprecated_msg</a></td></tr>
-<tr class="memdesc:ae43467c5b450a7fea1a847f2b71936fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the timestamp of the event in milliseconds (epoch time).  <a href="interface_s_p_event.html#ae43467c5b450a7fea1a847f2b71936fd">More...</a><br /></td></tr>
-<tr class="separator:ae43467c5b450a7fea1a847f2b71936fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca478c0b13ceb54d74dff40f4e1fd53d"><td class="memItemLeft" align="right" valign="top">(NSNumber *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#aca478c0b13ceb54d74dff40f4e1fd53d">getTrueTimestamp</a></td></tr>
-<tr class="memdesc:aca478c0b13ceb54d74dff40f4e1fd53d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the user timestamp of the event in seconds (epoch time) if it has been set.  <a href="interface_s_p_event.html#aca478c0b13ceb54d74dff40f4e1fd53d">More...</a><br /></td></tr>
-<tr class="separator:aca478c0b13ceb54d74dff40f4e1fd53d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21a4bb6ea0c0fe18be9505488da57836"><td class="memItemLeft" align="right" valign="top">(&quot;The eventId is set only when the event is processed.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a21a4bb6ea0c0fe18be9505488da57836">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a21a4bb6ea0c0fe18be9505488da57836"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the UUID associated with the event.  <a href="interface_s_p_event.html#a21a4bb6ea0c0fe18be9505488da57836">More...</a><br /></td></tr>
-<tr class="separator:a21a4bb6ea0c0fe18be9505488da57836"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abce1b9a13eb32c13ff790fed2c48e0ce"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_payload.html">SPPayload</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#abce1b9a13eb32c13ff790fed2c48e0ce">addDefaultParamsToPayload:</a></td></tr>
-<tr class="separator:abce1b9a13eb32c13ff790fed2c48e0ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31958fe08a14b53e3e11e3d9afda4007"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">__deprecated_msg</a></td></tr>
+<tr class="memdesc:a31958fe08a14b53e3e11e3d9afda4007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the copy of the context list associated with the event.  <a href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">More...</a><br /></td></tr>
+<tr class="separator:a31958fe08a14b53e3e11e3d9afda4007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a97bab4650a0d1a75d5fd1b61e69680"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">beginProcessingWithTracker:</a></td></tr>
 <tr class="separator:a2a97bab4650a0d1a75d5fd1b61e69680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace618ea65f1dbd891003bc0e03a26672"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#ace618ea65f1dbd891003bc0e03a26672">endProcessingWithTracker:</a></td></tr>
 <tr class="separator:ace618ea65f1dbd891003bc0e03a26672"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_protocol_s_p_event_builder-p"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_protocol_s_p_event_builder-p')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="protocol_s_p_event_builder-p.html">&lt;SPEventBuilder&gt;</a></td></tr>
-<tr class="memitem:abdd813376e78879ea53893d82f1581b1 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#abdd813376e78879ea53893d82f1581b1">setTimestamp:</a></td></tr>
-<tr class="memdesc:abdd813376e78879ea53893d82f1581b1 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the timestamp of when the event has been processed by the tracker.  <a href="protocol_s_p_event_builder-p.html#abdd813376e78879ea53893d82f1581b1">More...</a><br /></td></tr>
-<tr class="separator:abdd813376e78879ea53893d82f1581b1 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4161cc260bfdf1f798e09a502751ed93 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a4161cc260bfdf1f798e09a502751ed93">setTrueTimestamp:</a></td></tr>
-<tr class="memdesc:a4161cc260bfdf1f798e09a502751ed93 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the optional timestamp of the event.  <a href="protocol_s_p_event_builder-p.html#a4161cc260bfdf1f798e09a502751ed93">More...</a><br /></td></tr>
-<tr class="separator:a4161cc260bfdf1f798e09a502751ed93 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">setContexts:</a></td></tr>
-<tr class="memdesc:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the contexts attached to the event.  <a href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">More...</a><br /></td></tr>
-<tr class="separator:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e56391bf1267c23056b493c17f57954 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a7e56391bf1267c23056b493c17f57954">setEventId:</a></td></tr>
-<tr class="memdesc:a7e56391bf1267c23056b493c17f57954 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the UUID associated with the event.  <a href="protocol_s_p_event_builder-p.html#a7e56391bf1267c23056b493c17f57954">More...</a><br /></td></tr>
-<tr class="separator:a7e56391bf1267c23056b493c17f57954 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31958fe08a14b53e3e11e3d9afda4007"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">__deprecated_msg</a></td></tr>
+<tr class="memdesc:a31958fe08a14b53e3e11e3d9afda4007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the copy of the context list associated with the event.  <a href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">More...</a><br /></td></tr>
+<tr class="separator:a31958fe08a14b53e3e11e3d9afda4007"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a97bab4650a0d1a75d5fd1b61e69680"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">beginProcessingWithTracker:</a></td></tr>
+<tr class="separator:a2a97bab4650a0d1a75d5fd1b61e69680"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace618ea65f1dbd891003bc0e03a26672"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#ace618ea65f1dbd891003bc0e03a26672">endProcessingWithTracker:</a></td></tr>
+<tr class="separator:ace618ea65f1dbd891003bc0e03a26672"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a7f0c9ef70bde9cfeb90915ad73d5f131"><td class="memItemLeft" align="right" valign="top">NSNumber *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#a7f0c9ef70bde9cfeb90915ad73d5f131">trueTimestamp</a></td></tr>
-<tr class="separator:a7f0c9ef70bde9cfeb90915ad73d5f131"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9231ea3bfeb8b225d0262ab37e6b185"><td class="memItemLeft" align="right" valign="top">NSMutableArray *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#af9231ea3bfeb8b225d0262ab37e6b185">contexts</a></td></tr>
-<tr class="separator:af9231ea3bfeb8b225d0262ab37e6b185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ed1bb1701daa3787d23b6315cc86337"><td class="memItemLeft" align="right" valign="top">NSDate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a></td></tr>
+<tr class="separator:a3ed1bb1701daa3787d23b6315cc86337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad11f0a52b00c155722483239d7c40b3e"><td class="memItemLeft" align="right" valign="top">NSMutableArray&lt; <a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a></td></tr>
+<tr class="separator:ad11f0a52b00c155722483239d7c40b3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a570e3c8436822df56ff7bb647882fbdc"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSString *, NSObject * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a></td></tr>
 <tr class="separator:a570e3c8436822df56ff7bb647882fbdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class has the basic functionality needed to represent all events. </p>
-
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8h_source.html#l00101">101</a> of file <a class="el" href="_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00082">82</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="a2714df2a94bf200abe137b8fe056d84f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2714df2a94bf200abe137b8fe056d84f">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[1/4]</span></h2>
+<a id="a31958fe08a14b53e3e11e3d9afda4007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31958fe08a14b53e3e11e3d9afda4007">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSString* eventId) __deprecated_msg </td>
-          <td></td>
-          <td class="paramtype">(&quot;The eventId can be specified only by the tracker.&quot;)&#160;</td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The UUID that identifies the event. </p>
-
-</div>
-</div>
-<a id="add0d22b35bdccb4f43f48a1ca8476cb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#add0d22b35bdccb4f43f48a1ca8476cb9">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSNumber* timestamp) __deprecated_msg </td>
-          <td></td>
-          <td class="paramtype">(&quot;The timestamp can be set only by the tracker.&quot;)&#160;</td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>The tracker event timestamp in milliseconds (epoch time). </p>
-
-</div>
-</div>
-<a id="ae43467c5b450a7fea1a847f2b71936fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae43467c5b450a7fea1a847f2b71936fd">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (&quot;The timestamp is set only when the event is processed.&quot;) __deprecated_msg </td>
+          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;) __deprecated_msg </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd>If the timestamp is not set, it sets one as a side effect. </dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>This method is for internal use only and will be removed in the next major version. </dd></dl>
-
-<p>Reimplemented in <a class="el" href="interface_s_p_timing.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPTiming</a>, <a class="el" href="interface_s_p_structured.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPStructured</a>, <a class="el" href="interface_s_p_screen_view.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPScreenView</a>, <a class="el" href="interface_s_p_push_notification.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPPushNotification</a>, <a class="el" href="interface_s_p_page_view.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPPageView</a>, <a class="el" href="interface_s_p_foreground.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPForeground</a>, <a class="el" href="interface_s_p_ecommerce_item.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPEcommerceItem</a>, <a class="el" href="interface_s_p_ecommerce.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPEcommerce</a>, <a class="el" href="interface_s_p_consent_withdrawn.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPConsentWithdrawn</a>, <a class="el" href="interface_s_p_consent_granted.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPConsentGranted</a>, <a class="el" href="interface_s_p_background.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPBackground</a>, and <a class="el" href="interface_s_n_o_w_error.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SNOWError</a>.</p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000015">Deprecated:</a></b></dt><dd>Use <code>contexts</code> property instead. </dd></dl>
 
 </div>
 </div>
-<a id="a21a4bb6ea0c0fe18be9505488da57836"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21a4bb6ea0c0fe18be9505488da57836">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[4/4]</span></h2>
+<a id="a31958fe08a14b53e3e11e3d9afda4007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31958fe08a14b53e3e11e3d9afda4007">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (&quot;The eventId is set only when the event is processed.&quot;) __deprecated_msg </td>
+          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;) __deprecated_msg </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd>If the eventId is not set, it sets one as a side effect. </dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000004">Deprecated:</a></b></dt><dd>This method is for internal use only and will be removed in the next major version. </dd></dl>
-
-<p>Reimplemented in <a class="el" href="interface_s_p_timing.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPTiming</a>, <a class="el" href="interface_s_p_structured.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPStructured</a>, <a class="el" href="interface_s_p_screen_view.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPScreenView</a>, <a class="el" href="interface_s_p_push_notification.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPPushNotification</a>, <a class="el" href="interface_s_p_page_view.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPPageView</a>, <a class="el" href="interface_s_p_foreground.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPForeground</a>, <a class="el" href="interface_s_p_ecommerce_item.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPEcommerceItem</a>, <a class="el" href="interface_s_p_ecommerce.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPEcommerce</a>, <a class="el" href="interface_s_p_consent_withdrawn.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPConsentWithdrawn</a>, <a class="el" href="interface_s_p_consent_granted.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPConsentGranted</a>, <a class="el" href="interface_s_p_background.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SPBackground</a>, and <a class="el" href="interface_s_n_o_w_error.html#ab4a9574e66b0a58eafc8ef7a31bcd875">SNOWError</a>.</p>
-
-</div>
-</div>
-<a id="abce1b9a13eb32c13ff790fed2c48e0ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abce1b9a13eb32c13ff790fed2c48e0ce">&#9670;&nbsp;</a></span>addDefaultParamsToPayload:</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_payload.html">SPPayload</a> *) addDefaultParamsToPayload: </td>
-          <td></td>
-          <td class="paramtype">(&quot;The <a class="el" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> can be updated only by the tracker.&quot;)&#160;</td>
-          <td class="paramname"><em>__deprecated_msg</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7d386251ba1e7585ebbb5dc4a62ed0ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d386251ba1e7585ebbb5dc4a62ed0ee">&#9670;&nbsp;</a></span>basePreconditions</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) basePreconditions </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a>.</p>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000059">Deprecated:</a></b></dt><dd>Use <code>contexts</code> property instead. </dd></dl>
 
 </div>
 </div>
 <a id="a2a97bab4650a0d1a75d5fd1b61e69680"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a97bab4650a0d1a75d5fd1b61e69680">&#9670;&nbsp;</a></span>beginProcessingWithTracker:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a97bab4650a0d1a75d5fd1b61e69680">&#9670;&nbsp;</a></span>beginProcessingWithTracker: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,12 +224,31 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Hook method called just before the event processing in order to execute special operations. </p><dl class="section note"><dt>Note</dt><dd>Internal use only - Don't use in production, it can change without notice. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8m_source.html#l00030">30</a> of file <a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a>.</p>
+
+</div>
+</div>
+<a id="a2a97bab4650a0d1a75d5fd1b61e69680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a97bab4650a0d1a75d5fd1b61e69680">&#9670;&nbsp;</a></span>beginProcessingWithTracker: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) beginProcessingWithTracker: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_s_p_tracker.html">SPTracker</a> *)&#160;</td>
+          <td class="paramname"><em>tracker</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Hook method called just before the event processing in order to execute special operations. </p><dl class="section note"><dt>Note</dt><dd>Internal use only - Don't use in production, it can change without notice. </dd></dl>
 
 </div>
 </div>
 <a id="ace618ea65f1dbd891003bc0e03a26672"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace618ea65f1dbd891003bc0e03a26672">&#9670;&nbsp;</a></span>endProcessingWithTracker:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ace618ea65f1dbd891003bc0e03a26672">&#9670;&nbsp;</a></span>endProcessingWithTracker: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -309,51 +264,32 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Hook method called just after the event processing in order to execute special operations. </p><dl class="section note"><dt>Note</dt><dd>Internal use only - Don't use in production, it can change without notice. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8m_source.html#l00030">30</a> of file <a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a>.</p>
 
 </div>
 </div>
-<a id="a9f97a27e1bcc210a1010fe95f0c15451"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f97a27e1bcc210a1010fe95f0c15451">&#9670;&nbsp;</a></span>getContexts</h2>
+<a id="ace618ea65f1dbd891003bc0e03a26672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace618ea65f1dbd891003bc0e03a26672">&#9670;&nbsp;</a></span>endProcessingWithTracker: <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSMutableArray *) getContexts </td>
+          <td class="memname">- (void) endProcessingWithTracker: </td>
           <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a>.</p>
-
-</div>
-</div>
-<a id="aca478c0b13ceb54d74dff40f4e1fd53d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca478c0b13ceb54d74dff40f4e1fd53d">&#9670;&nbsp;</a></span>getTrueTimestamp</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSNumber *) getTrueTimestamp </td>
-          <td></td>
-          <td class="paramname"></td>
+          <td class="paramtype">(<a class="el" href="interface_s_p_tracker.html">SPTracker</a> *)&#160;</td>
+          <td class="paramname"><em>tracker</em></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a>.</p>
+<p>Hook method called just after the event processing in order to execute special operations. </p><dl class="section note"><dt>Note</dt><dd>Internal use only - Don't use in production, it can change without notice. </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="af9231ea3bfeb8b225d0262ab37e6b185"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9231ea3bfeb8b225d0262ab37e6b185">&#9670;&nbsp;</a></span>contexts</h2>
+<a id="ad11f0a52b00c155722483239d7c40b3e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad11f0a52b00c155722483239d7c40b3e">&#9670;&nbsp;</a></span>contexts</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -362,18 +298,18 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSMutableArray*) contexts</td>
+          <td class="memname">- (NSMutableArray&lt; <a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * &gt; *) contexts</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">retain</span></span>  </td>
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 <p>The contexts attached to the event. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8h_source.html#l00110">110</a> of file <a class="el" href="_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00088">88</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
 
 </div>
 </div>
@@ -398,12 +334,12 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>The payload of the event. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8h_source.html#l00116">116</a> of file <a class="el" href="_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00091">91</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
 
 </div>
 </div>
-<a id="a7f0c9ef70bde9cfeb90915ad73d5f131"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f0c9ef70bde9cfeb90915ad73d5f131">&#9670;&nbsp;</a></span>trueTimestamp</h2>
+<a id="a3ed1bb1701daa3787d23b6315cc86337"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ed1bb1701daa3787d23b6315cc86337">&#9670;&nbsp;</a></span>trueTimestamp</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -412,7 +348,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSNumber*) trueTimestamp</td>
+          <td class="memname">- (NSDate *) trueTimestamp</td>
         </tr>
       </table>
   </td>
@@ -423,13 +359,13 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>The user event timestamp in milliseconds (epoch time). </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_event_base_8h_source.html#l00107">107</a> of file <a class="el" href="_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00085">85</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_event_base_8h_source.html">SPEventBase.h</a></li>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a></li>
+<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a></li>
+<li>/github/workspace/Snowplow/Internal/Events/<a class="el" href="_s_p_event_base_8m_source.html">SPEventBase.m</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

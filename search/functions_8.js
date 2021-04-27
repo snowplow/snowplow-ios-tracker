@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['httpmethod_1094',['httpMethod',['../protocol_s_p_network_connection-p.html#a3eda1e871e62172110f8c4db9b60b782',1,'SPNetworkConnection-p']]]
+  ['httpmethod_1395',['httpMethod',['../protocol_s_p_network_connection-p.html#a952fd608e4a4893c8b1705c6be20d31e',1,'SPNetworkConnection-p::httpMethod()'],['../protocol_s_p_network_connection-p.html#a952fd608e4a4893c8b1705c6be20d31e',1,'SPNetworkConnection-p::httpMethod()']]]
 ];

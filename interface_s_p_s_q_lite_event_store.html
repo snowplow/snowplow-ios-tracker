@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -63,13 +63,14 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Instance Methods</a>  </div>
+<a href="#pub-methods">Instance Methods</a> &#124;
+<a href="#pub-static-methods">Class Methods</a>  </div>
   <div class="headertitle">
 <div class="title">SPSQLiteEventStore Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#import &lt;<a class="el" href="_s_p_s_q_lite_event_store_8h_source.html">SPSQLiteEventStore.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="include_2_s_p_s_q_lite_event_store_8h_source.html">SPSQLiteEventStore.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SPSQLiteEventStore:</div>
 <div class="dyncontent">
@@ -77,13 +78,16 @@ Inheritance diagram for SPSQLiteEventStore:</div>
   <img src="interface_s_p_s_q_lite_event_store.png" usemap="#SPSQLiteEventStore_map" alt=""/>
   <map id="SPSQLiteEventStore_map" name="SPSQLiteEventStore_map">
 <area href="protocol_s_p_event_store-p.html" alt="&lt;SPEventStore&gt;" shape="rect" coords="138,56,266,80"/>
+<area href="protocol_s_p_event_store-p.html" alt="&lt;SPEventStore&gt;" shape="rect" coords="414,56,542,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:a0b0d6e1d6e33fbf4b406f93c62ac4bca"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">init</a></td></tr>
-<tr class="separator:a0b0d6e1d6e33fbf4b406f93c62ac4bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a></td></tr>
+<tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade7073dc0a02f7ad986bbe627c4bcde4"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#ade7073dc0a02f7ad986bbe627c4bcde4">initWithNamespace:</a></td></tr>
+<tr class="separator:ade7073dc0a02f7ad986bbe627c4bcde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a63608ac08e3606c391e23f6f06bfad91"><td class="memItemLeft" align="right" valign="top">(long long int)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a63608ac08e3606c391e23f6f06bfad91">insertEvent:</a></td></tr>
 <tr class="separator:a63608ac08e3606c391e23f6f06bfad91"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41e9b97b5c3ab24222940479e5121cd7"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a41e9b97b5c3ab24222940479e5121cd7">getEventWithId:</a></td></tr>
@@ -92,6 +96,20 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a6c1832cbc34adc3651cee30b21e34111"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95429530e2eb4a0a70970ccd90e7515d"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a95429530e2eb4a0a70970ccd90e7515d">getAllEventsLimited:</a></td></tr>
 <tr class="separator:a95429530e2eb4a0a70970ccd90e7515d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7407f7c13482d8983de09dee47ce70b4"><td class="memItemLeft" align="right" valign="top">(long long int)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a7407f7c13482d8983de09dee47ce70b4">getLastInsertedRowId</a></td></tr>
+<tr class="separator:a7407f7c13482d8983de09dee47ce70b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a></td></tr>
+<tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade7073dc0a02f7ad986bbe627c4bcde4"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#ade7073dc0a02f7ad986bbe627c4bcde4">initWithNamespace:</a></td></tr>
+<tr class="separator:ade7073dc0a02f7ad986bbe627c4bcde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63608ac08e3606c391e23f6f06bfad91"><td class="memItemLeft" align="right" valign="top">(long long int)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a63608ac08e3606c391e23f6f06bfad91">insertEvent:</a></td></tr>
+<tr class="separator:a63608ac08e3606c391e23f6f06bfad91"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41e9b97b5c3ab24222940479e5121cd7"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a41e9b97b5c3ab24222940479e5121cd7">getEventWithId:</a></td></tr>
+<tr class="separator:a41e9b97b5c3ab24222940479e5121cd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60f998d08d8e6faec17168e99f746a28"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a60f998d08d8e6faec17168e99f746a28">getAllEvents</a></td></tr>
+<tr class="separator:a60f998d08d8e6faec17168e99f746a28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a130929dd523b898feeecef73e827d9b3"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a130929dd523b898feeecef73e827d9b3">getAllEventsLimited:</a></td></tr>
+<tr class="separator:a130929dd523b898feeecef73e827d9b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7407f7c13482d8983de09dee47ce70b4"><td class="memItemLeft" align="right" valign="top">(long long int)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_s_q_lite_event_store.html#a7407f7c13482d8983de09dee47ce70b4">getLastInsertedRowId</a></td></tr>
 <tr class="separator:a7407f7c13482d8983de09dee47ce70b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_protocol_s_p_event_store-p"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_protocol_s_p_event_store-p')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="protocol_s_p_event_store-p.html">&lt;SPEventStore&gt;</a></td></tr>
@@ -107,13 +125,32 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a908c802735aaad6bb718dea5e2abacec inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7d3f62272bcfb0bd5e9b076cae62258 inherit pub_methods_protocol_s_p_event_store-p"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_store-p.html#af7d3f62272bcfb0bd5e9b076cae62258">emittableEventsWithQueryLimit:</a></td></tr>
 <tr class="separator:af7d3f62272bcfb0bd5e9b076cae62258 inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c6a1666c7f26ddf7a8c0575a9d6e2f7 inherit pub_methods_protocol_s_p_event_store-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_store-p.html#a9c6a1666c7f26ddf7a8c0575a9d6e2f7">addEvent:</a></td></tr>
+<tr class="separator:a9c6a1666c7f26ddf7a8c0575a9d6e2f7 inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5597452df169cc03bba4fb038864bae0 inherit pub_methods_protocol_s_p_event_store-p"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_store-p.html#a5597452df169cc03bba4fb038864bae0">removeEventWithId:</a></td></tr>
+<tr class="separator:a5597452df169cc03bba4fb038864bae0 inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afbbf271badbd5ea07375e1a4a0ecec59 inherit pub_methods_protocol_s_p_event_store-p"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_store-p.html#afbbf271badbd5ea07375e1a4a0ecec59">removeEventsWithIds:</a></td></tr>
+<tr class="separator:afbbf271badbd5ea07375e1a4a0ecec59 inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8c3fc2c97b8753a6ec7a07356d256fd inherit pub_methods_protocol_s_p_event_store-p"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_store-p.html#ae8c3fc2c97b8753a6ec7a07356d256fd">removeAllEvents</a></td></tr>
+<tr class="separator:ae8c3fc2c97b8753a6ec7a07356d256fd inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a908c802735aaad6bb718dea5e2abacec inherit pub_methods_protocol_s_p_event_store-p"><td class="memItemLeft" align="right" valign="top">(NSUInteger)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_store-p.html#a908c802735aaad6bb718dea5e2abacec">count</a></td></tr>
+<tr class="separator:a908c802735aaad6bb718dea5e2abacec inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7d3f62272bcfb0bd5e9b076cae62258 inherit pub_methods_protocol_s_p_event_store-p"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; <a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_store-p.html#af7d3f62272bcfb0bd5e9b076cae62258">emittableEventsWithQueryLimit:</a></td></tr>
+<tr class="separator:af7d3f62272bcfb0bd5e9b076cae62258 inherit pub_methods_protocol_s_p_event_store-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Class Methods</h2></td></tr>
+<tr class="memitem:ace7e7a8772512ed61f4953b6bb88adcb"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; NSString * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_s_q_lite_event_store.html#ace7e7a8772512ed61f4953b6bb88adcb">removeUnsentEventsExceptForNamespaces:</a></td></tr>
+<tr class="separator:ace7e7a8772512ed61f4953b6bb88adcb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ada5965bdc73ccd92244730b23af0d7f7"><td class="memItemLeft" align="right" valign="top">(NSArray&lt; NSString * &gt; *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_s_q_lite_event_store.html#ada5965bdc73ccd92244730b23af0d7f7">removeUnsentEventsExceptForNamespaces:</a></td></tr>
+<tr class="separator:ada5965bdc73ccd92244730b23af0d7f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8h_source.html#l00030">30</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8h_source.html">SPSQLiteEventStore.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_s_q_lite_event_store_8h_source.html#l00031">31</a> of file <a class="el" href="include_2_s_p_s_q_lite_event_store_8h_source.html">SPSQLiteEventStore.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="a6c1832cbc34adc3651cee30b21e34111"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c1832cbc34adc3651cee30b21e34111">&#9670;&nbsp;</a></span>getAllEvents</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c1832cbc34adc3651cee30b21e34111">&#9670;&nbsp;</a></span>getAllEvents <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -128,12 +165,30 @@ Instance Methods</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns all the events in an array of dictionaries. </p><dl class="section return"><dt>Returns</dt><dd>An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+
+</div>
+</div>
+<a id="a60f998d08d8e6faec17168e99f746a28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60f998d08d8e6faec17168e99f746a28">&#9670;&nbsp;</a></span>getAllEvents <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSArray&lt;<a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> *&gt; *) getAllEvents </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns all the events in an array of dictionaries. </p><dl class="section return"><dt>Returns</dt><dd>An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'. </dd></dl>
 
 </div>
 </div>
 <a id="a95429530e2eb4a0a70970ccd90e7515d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a95429530e2eb4a0a70970ccd90e7515d">&#9670;&nbsp;</a></span>getAllEventsLimited:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a95429530e2eb4a0a70970ccd90e7515d">&#9670;&nbsp;</a></span>getAllEventsLimited: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -149,12 +204,31 @@ Instance Methods</h2></td></tr>
 </div><div class="memdoc">
 <p>Returns limited number the events that are NOT pending in an array of dictionaries. </p><dl class="section return"><dt>Returns</dt><dd>An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+
+</div>
+</div>
+<a id="a130929dd523b898feeecef73e827d9b3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a130929dd523b898feeecef73e827d9b3">&#9670;&nbsp;</a></span>getAllEventsLimited: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSArray&lt;<a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> *&gt; *) getAllEventsLimited: </td>
+          <td></td>
+          <td class="paramtype">(NSUInteger)&#160;</td>
+          <td class="paramname"><em>limit</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Returns limited number the events that are NOT pending in an array of dictionaries. </p><dl class="section return"><dt>Returns</dt><dd>An array with each dictionary element containing key-value pairs of 'date', 'data', 'ID'. </dd></dl>
 
 </div>
 </div>
 <a id="a41e9b97b5c3ab24222940479e5121cd7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41e9b97b5c3ab24222940479e5121cd7">&#9670;&nbsp;</a></span>getEventWithId:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a41e9b97b5c3ab24222940479e5121cd7">&#9670;&nbsp;</a></span>getEventWithId: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,12 +250,37 @@ Instance Methods</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A dictionary containing data with keys: 'ID', 'eventData', and 'dateCreated'. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+
+</div>
+</div>
+<a id="a41e9b97b5c3ab24222940479e5121cd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41e9b97b5c3ab24222940479e5121cd7">&#9670;&nbsp;</a></span>getEventWithId: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (<a class="el" href="interface_s_p_emitter_event.html">SPEmitterEvent</a> *) getEventWithId: </td>
+          <td></td>
+          <td class="paramtype">(long long int)&#160;</td>
+          <td class="paramname"><em>id_</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Finds the row in the event table with the supplied ID. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">id_</td><td>Unique ID of the row in the events table to be returned. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dictionary containing data with keys: 'ID', 'eventData', and 'dateCreated'. </dd></dl>
 
 </div>
 </div>
 <a id="a7407f7c13482d8983de09dee47ce70b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7407f7c13482d8983de09dee47ce70b4">&#9670;&nbsp;</a></span>getLastInsertedRowId</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7407f7c13482d8983de09dee47ce70b4">&#9670;&nbsp;</a></span>getLastInsertedRowId <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -196,32 +295,70 @@ Instance Methods</h2></td></tr>
 </div><div class="memdoc">
 <p>The row ID of the last insert made. </p><dl class="section return"><dt>Returns</dt><dd>The row ID of the last insert made. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
 
 </div>
 </div>
-<a id="a0b0d6e1d6e33fbf4b406f93c62ac4bca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0b0d6e1d6e33fbf4b406f93c62ac4bca">&#9670;&nbsp;</a></span>init</h2>
+<a id="a7407f7c13482d8983de09dee47ce70b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7407f7c13482d8983de09dee47ce70b4">&#9670;&nbsp;</a></span>getLastInsertedRowId <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (instancetype) init </td>
+          <td class="memname">- (long long int) getLastInsertedRowId </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>The row ID of the last insert made. </p><dl class="section return"><dt>Returns</dt><dd>The row ID of the last insert made. </dd></dl>
+
+</div>
+</div>
+<a id="ade7073dc0a02f7ad986bbe627c4bcde4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7073dc0a02f7ad986bbe627c4bcde4">&#9670;&nbsp;</a></span>initWithNamespace: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (instancetype) initWithNamespace: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>namespace</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 <p>Basic initializer that creates a database event table (if one does not exist) and then closes the connection. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+
+</div>
+</div>
+<a id="ade7073dc0a02f7ad986bbe627c4bcde4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade7073dc0a02f7ad986bbe627c4bcde4">&#9670;&nbsp;</a></span>initWithNamespace: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (instancetype) initWithNamespace: </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>namespace</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Basic initializer that creates a database event table (if one does not exist) and then closes the connection. </p>
 
 </div>
 </div>
 <a id="a63608ac08e3606c391e23f6f06bfad91"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63608ac08e3606c391e23f6f06bfad91">&#9670;&nbsp;</a></span>insertEvent:</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a63608ac08e3606c391e23f6f06bfad91">&#9670;&nbsp;</a></span>insertEvent: <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,13 +380,128 @@ Instance Methods</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+
+</div>
+</div>
+<a id="a63608ac08e3606c391e23f6f06bfad91"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63608ac08e3606c391e23f6f06bfad91">&#9670;&nbsp;</a></span>insertEvent: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (long long int) insertEvent: </td>
+          <td></td>
+          <td class="paramtype">(<a class="el" href="interface_s_p_payload.html">SPPayload</a> *)&#160;</td>
+          <td class="paramname"><em>payload</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Inserts events into the sqlite table for the app identified with it's bundleId (appId). </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">payload</td><td>A SnowplowPayload instance to be inserted into the database. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If the insert was successful, we return the rowId of the inserted entry, otherwise -1. We explicitly do this in the case of an error, sqlite would return the previous successful insert leading to incorrect data removals. </dd></dl>
+
+</div>
+</div>
+<a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (instancetype) NS_UNAVAILABLE </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (instancetype) NS_UNAVAILABLE </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ace7e7a8772512ed61f4953b6bb88adcb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace7e7a8772512ed61f4953b6bb88adcb">&#9670;&nbsp;</a></span>removeUnsentEventsExceptForNamespaces: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSArray&lt; NSString * &gt; *) removeUnsentEventsExceptForNamespaces: </td>
+          <td></td>
+          <td class="paramtype">(NSArray&lt;NSString *&gt; *)&#160;</td>
+          <td class="paramname"><em>allowedNamespaces</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>IMPORTANT: This method is for internal use only. It's signature and behaviour might change in any future tracker release.</p>
+<p>Clears all the EventStores not associated at any of the namespaces passed as parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allowedNamespaces</td><td>The namespace allowed. All the EventStores not associated at any of the allowedNamespaces will be cleared. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The list of namespaces that have been found with EventStores and have been cleared out. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html#l00054">54</a> of file <a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a>.</p>
+
+</div>
+</div>
+<a id="ada5965bdc73ccd92244730b23af0d7f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ada5965bdc73ccd92244730b23af0d7f7">&#9670;&nbsp;</a></span>removeUnsentEventsExceptForNamespaces: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (NSArray&lt;NSString *&gt; *) removeUnsentEventsExceptForNamespaces: </td>
+          <td></td>
+          <td class="paramtype">(NSArray&lt; NSString * &gt; *)&#160;</td>
+          <td class="paramname"><em>allowedNamespaces</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>IMPORTANT: This method is for internal use only. It's signature and behaviour might change in any future tracker release.</p>
+<p>Clears all the EventStores not associated at any of the namespaces passed as parameter.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">allowedNamespaces</td><td>The namespace allowed. All the EventStores not associated at any of the allowedNamespaces will be cleared. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The list of namespaces that have been found with EventStores and have been cleared out. </dd></dl>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_s_q_lite_event_store_8h_source.html">SPSQLiteEventStore.h</a></li>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a></li>
+<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_s_q_lite_event_store_8h_source.html">SPSQLiteEventStore.h</a></li>
+<li>/github/workspace/Snowplow/Internal/Storage/<a class="el" href="_s_p_s_q_lite_event_store_8m_source.html">SPSQLiteEventStore.m</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

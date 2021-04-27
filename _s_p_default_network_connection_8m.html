@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Snowplow iOS Tracker: /github/workspace/Snowplow/SPDefaultNetworkConnection.m File Reference</title>
+<title>Snowplow iOS Tracker: /github/workspace/Snowplow/Internal/NetworkConnection/SPDefaultNetworkConnection.m File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -62,7 +62,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_5087cc46bba113942e1ee9ac6f3a2b6c.html">Snowplow</a></li><li class="navelem"><a class="el" href="dir_9ec82e7f723531e21601e34d9c7d73b8.html">Internal</a></li><li class="navelem"><a class="el" href="dir_25d017af5deef8a3ce9c17f8bbae599e.html">NetworkConnection</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,9 +72,9 @@ $(function() {
 <div class="title">SPDefaultNetworkConnection.m File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#import &quot;<a class="el" href="_s_p_default_network_connection_8h_source.html">SPDefaultNetworkConnection.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_snowplow_8h_source.html">Snowplow.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>&quot;</code><br />
+<div class="textblock"><code>#import &quot;<a class="el" href="_internal_2_network_connection_2_s_p_default_network_connection_8h_source.html">SPDefaultNetworkConnection.h</a>&quot;</code><br />
+<code>#import &quot;SPTrackerConstants.h&quot;</code><br />
+<code>#import &quot;SPUtilities.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a>&quot;</code><br />
 </div>
 <p><a href="_s_p_default_network_connection_8m_source.html">Go to the source code of this file.</a></p>
@@ -93,6 +93,8 @@ Variables</h2></td></tr>
 <tr class="separator:addc19ba2d22ac18d82ae3b58737e676c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb6863c677f81d50299794c0594c888d"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_default_network_connection_8m.html#acb6863c677f81d50299794c0594c888d">_customPostPath</a></td></tr>
 <tr class="separator:acb6863c677f81d50299794c0594c888d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6756b08b82060abd92e045fb24ea9385"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSString *, NSString * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_default_network_connection_8m.html#a6756b08b82060abd92e045fb24ea9385">_requestHeaders</a></td></tr>
+<tr class="separator:a6756b08b82060abd92e045fb24ea9385"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59ff6ba6588dd0d5db58dfa6a64bfe49"><td class="memItemLeft" align="right" valign="top">NSOperationQueue *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_default_network_connection_8m.html#a59ff6ba6588dd0d5db58dfa6a64bfe49">_dataOperationQueue</a></td></tr>
 <tr class="separator:a59ff6ba6588dd0d5db58dfa6a64bfe49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af2f0140903305c263b88c46eec47b78d"><td class="memItemLeft" align="right" valign="top">NSURL *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_default_network_connection_8m.html#af2f0140903305c263b88c46eec47b78d">_urlEndpoint</a></td></tr>
@@ -113,7 +115,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00039">39</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00040">40</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
 
 </div>
 </div>
@@ -177,7 +179,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00037">37</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00038">38</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
 
 </div>
 </div>
@@ -209,9 +211,25 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
-<div class="line">    SPRequestOptions _httpMethod</div>
+<div class="line">    SPHttpMethod _httpMethod</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00030">30</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
+
+</div>
+</div>
+<a id="a6756b08b82060abd92e045fb24ea9385"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6756b08b82060abd92e045fb24ea9385">&#9670;&nbsp;</a></span>_requestHeaders</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">NSDictionary&lt;NSString *, NSString *&gt;* _requestHeaders</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00036">36</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
 
 </div>
 </div>
@@ -227,7 +245,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00038">38</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_default_network_connection_8m_source.html#l00039">39</a> of file <a class="el" href="_s_p_default_network_connection_8m_source.html">SPDefaultNetworkConnection.m</a>.</p>
 
 </div>
 </div>

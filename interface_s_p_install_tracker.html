@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">1.7.0</span>
+   &#160;<span id="projectnumber">2.0.0</span>
    </div>
   </td>
  </tr>
@@ -82,8 +82,6 @@ Inheritance diagram for SPInstallTracker:</div>
 Instance Methods</h2></td></tr>
 <tr class="memitem:a4213bb26f5207ee3f402fe463badc691"><td class="memItemLeft" align="right" valign="top">(id)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">init</a></td></tr>
 <tr class="separator:a4213bb26f5207ee3f402fe463badc691"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ff512193e791cc03d420a27d67c4cc4"><td class="memItemLeft" align="right" valign="top">(NSNumber *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_install_tracker.html#a9ff512193e791cc03d420a27d67c4cc4">getPreviousInstallTimestamp</a></td></tr>
-<tr class="separator:a9ff512193e791cc03d420a27d67c4cc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a03a52d45e8151ae42dd51bef191e9d0e"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">clearPreviousInstallTimestamp</a></td></tr>
 <tr class="separator:a03a52d45e8151ae42dd51bef191e9d0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a228b33bbb0f335d7b770d89a5c7f0578"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_install_tracker.html#a228b33bbb0f335d7b770d89a5c7f0578">saveBuildAndVersion</a></td></tr>
@@ -93,10 +91,12 @@ Instance Methods</h2></td></tr>
 Properties</h2></td></tr>
 <tr class="memitem:aae937a186e1451b5c3fdde8dfa63b312"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">isNewInstall</a></td></tr>
 <tr class="separator:aae937a186e1451b5c3fdde8dfa63b312"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ac981757cbc58056f66a09b5e99bb5d"><td class="memItemLeft" align="right" valign="top">NSDate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_install_tracker.html#a8ac981757cbc58056f66a09b5e99bb5d">previousInstallTimestamp</a></td></tr>
+<tr class="separator:a8ac981757cbc58056f66a09b5e99bb5d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_s_p_install_tracker_8h_source.html#l00025">25</a> of file <a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_install_tracker_8h_source.html#l00026">26</a> of file <a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="a03a52d45e8151ae42dd51bef191e9d0e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a03a52d45e8151ae42dd51bef191e9d0e">&#9670;&nbsp;</a></span>clearPreviousInstallTimestamp</h2>
@@ -106,25 +106,6 @@ Properties</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">- (void) clearPreviousInstallTimestamp </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_install_tracker_8m_source.html#l00001">1</a> of file <a class="el" href="_s_p_install_tracker_8m_source.html">SPInstallTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a9ff512193e791cc03d420a27d67c4cc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ff512193e791cc03d420a27d67c4cc4">&#9670;&nbsp;</a></span>getPreviousInstallTimestamp</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (NSNumber *) getPreviousInstallTimestamp </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
@@ -196,13 +177,37 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Installation status </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_install_tracker_8h_source.html#l00028">28</a> of file <a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_install_tracker_8h_source.html#l00029">29</a> of file <a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a>.</p>
+
+</div>
+</div>
+<a id="a8ac981757cbc58056f66a09b5e99bb5d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ac981757cbc58056f66a09b5e99bb5d">&#9670;&nbsp;</a></span>previousInstallTimestamp</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSDate *) previousInstallTimestamp</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_install_tracker_8h_source.html#l00031">31</a> of file <a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a></li>
-<li>/github/workspace/Snowplow/<a class="el" href="_s_p_install_tracker_8m_source.html">SPInstallTracker.m</a></li>
+<li>/github/workspace/Snowplow/Internal/Tracker/<a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a></li>
+<li>/github/workspace/Snowplow/Internal/Tracker/<a class="el" href="_s_p_install_tracker_8m_source.html">SPInstallTracker.m</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
