@@ -50,12 +50,16 @@
 
 - (void) addValueToPayload:(NSString *)value forKey:(NSString *)key {
     if ([value length] == 0) {
-        if ([_payload valueForKey:key] != nil) {
-            [_payload removeObjectForKey:key];
+        @synchronized (self) {
+            if ([_payload valueForKey:key] != nil) {
+                [_payload removeObjectForKey:key];
+            }
         }
         return;
     }
-    [_payload setObject:value forKey:key];
+    @synchronized (self) {
+        [_payload setObject:value forKey:key];
+    }
 }
 
 - (void)addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)dictionary {
@@ -133,14 +137,19 @@
 }
 
 - (NSDictionary<NSString *, NSObject *> *) getAsDictionary {
-    return _payload;
+    @synchronized (self) {
+        return _payload;
+    }
 }
 
 - (NSUInteger)byteSize {
     if (!_payload) {
         return 0;
     }
-    NSData *data = [NSJSONSerialization dataWithJSONObject:_payload options:0 error:nil];
+    NSData *data = nil;
+    @synchronized (self) {
+        data = [NSJSONSerialization dataWithJSONObject:_payload options:0 error:nil];
+    }
     return data.length;
 }
 

@@ -38,6 +38,18 @@ NS_SWIFT_NAME(Subject)
 @property (nonatomic) BOOL platformContext;
 @property (nonatomic) BOOL geoLocationContext;
 
+@property (nonatomic) NSString *userId;
+@property (nonatomic) NSString *networkUserId;
+@property (nonatomic) NSString *domainUserId;
+@property (nonatomic) NSString *useragent;
+@property (nonatomic) NSString *ipAddress;
+@property (nonatomic) NSString *timezone;
+@property (nonatomic) NSString *language;
+@property (nonatomic) SPSize *screenResolution;
+@property (nonatomic) SPSize *screenViewPort;
+@property (nonatomic) NSInteger colorDepth;
+
+
 /*!
  @brief Initializes a newly allocated SPSubject object.
  @return A new SPSubject.
@@ -56,7 +68,7 @@ NS_SWIFT_NAME(Subject)
 /*!
  @warning Internal method - do not use in production
  */
-- (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)configuration __deprecated_msg("Subject will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
+- (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(SPSubjectConfiguration *)configuration __deprecated_msg("Subject will be removed in the next major version. Use `Snowplow.createTracker(...)` instead.");
 
 /*!
  @brief Gets all standard dictionary pairs to decorate the event with.
