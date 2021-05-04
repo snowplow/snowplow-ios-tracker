@@ -24,6 +24,7 @@
 #import "SPSQLiteEventStore.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
+#import "SPJSONSerialization.h"
 #import "SPLogger.h"
 
 #if SWIFT_PACKAGE
@@ -202,7 +203,10 @@ static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
     }
     [self.queue inDatabase:^(FMDatabase *db) {
         if ([db open]) {
-            NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:0 error:nil];
+            NSData *data = [SPJSONSerialization serializeDictionary:dict];
+            if (!data) {
+                return;
+            }
             [db executeUpdate:_queryInsertEvent, data];
             res = (long long int) [db lastInsertRowId];
         }
@@ -216,11 +220,9 @@ static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
         if ([db open]) {
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
-                NSData * data = [s dataForColumn:@"eventData"];
-                NSDictionary *dict;
-                @try {
-                    dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
-                } @catch (NSException *exception) {
+                NSData *data = [s dataForColumn:@"eventData"];
+                NSDictionary *dict = [SPJSONSerialization deserializeData:data];
+                if (!dict) {
                     continue;
                 }
                 SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:dict];
@@ -249,10 +251,8 @@ static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
             while ([s next]) {
                 long long int index = [s longLongIntForColumn:@"ID"];
                 NSData *data = [s dataForColumn:@"eventData"];
-                NSDictionary *dict;
-                @try {
-                    dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
-                } @catch (NSException *exception) {
+                NSDictionary *dict = [SPJSONSerialization deserializeData:data];
+                if (!dict) {
                     continue;
                 }
                 SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:dict];

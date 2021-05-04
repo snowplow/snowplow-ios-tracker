@@ -23,6 +23,7 @@
 #import "SPTrackerConstants.h"
 #import "SPPayload.h"
 #import "SPLogger.h"
+#import "SPJSONSerialization.h"
 
 #define SPLogPayloadError(issue, format, ...) if (self.allowDiagnostic) SPLogTrack(issue, format, ##__VA_ARGS__); else SPLogError(format, ##__VA_ARGS__)
 
@@ -75,21 +76,8 @@
             base64Encoded:(Boolean)encode
           typeWhenEncoded:(NSString *)typeEncoded
        typeWhenNotEncoded:(NSString *)typeNotEncoded {
-    NSError *error = nil;
-    NSDictionary *object = nil;
-    @try {
-        object = [NSJSONSerialization JSONObjectWithData:json options:0 error:&error];
-    }
-    @catch (NSException *exception) {
-        SPLogPayloadError(exception, @"Json to payload exception, %@", exception.name);
-        return;
-    }
-    if (error) {
-        SPLogPayloadError(error, @"Json to payload error, %@", error);
-        return;
-    }
-    if (![object isKindOfClass:[NSDictionary class]]) {
-        SPLogPayloadError(nil, @"Serialized json isn't a NSDictionary type");
+    NSDictionary *object = [SPJSONSerialization deserializeData:json];
+    if (!object) {
         return;
     }
     if (encode) {
@@ -128,8 +116,10 @@
                  base64Encoded:(Boolean)encode
                typeWhenEncoded:(NSString *)typeEncoded
             typeWhenNotEncoded:(NSString *)typeNotEncoded {
-    NSData *data = [NSJSONSerialization dataWithJSONObject:dictionary options:0 error:nil];
-    
+    NSData *data = [SPJSONSerialization serializeDictionary:dictionary];
+    if (!data) {
+        return;
+    }
     [self addJsonToPayload:data
              base64Encoded:encode
            typeWhenEncoded:typeEncoded
@@ -148,7 +138,10 @@
     }
     NSData *data = nil;
     @synchronized (self) {
-        data = [NSJSONSerialization dataWithJSONObject:_payload options:0 error:nil];
+        data = [SPJSONSerialization serializeDictionary:_payload];
+        if (!data) {
+            return 0;
+        }
     }
     return data.length;
 }
