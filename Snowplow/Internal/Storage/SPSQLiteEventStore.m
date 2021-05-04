@@ -217,7 +217,12 @@ static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
             FMResultSet *s = [db executeQuery:_querySelectId, [NSNumber numberWithLongLong:id_]];
             while ([s next]) {
                 NSData * data = [s dataForColumn:@"eventData"];
-                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+                NSDictionary *dict;
+                @try {
+                    dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+                } @catch (NSException *exception) {
+                    continue;
+                }
                 SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:dict];
                 event = [[SPEmitterEvent alloc] initWithPayload:payload storeId:id_];
             }
@@ -244,7 +249,12 @@ static NSString * const _queryDeleteAll   = @"DELETE FROM 'events'";
             while ([s next]) {
                 long long int index = [s longLongIntForColumn:@"ID"];
                 NSData *data = [s dataForColumn:@"eventData"];
-                NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+                NSDictionary *dict;
+                @try {
+                    dict = [NSJSONSerialization JSONObjectWithData:data options:0 error:0];
+                } @catch (NSException *exception) {
+                    continue;
+                }
                 SPPayload *payload = [[SPPayload alloc] initWithNSDictionary:dict];
                 SPEmitterEvent *event = [[SPEmitterEvent alloc] initWithPayload:payload storeId:index];
                 [res addObject:event];
