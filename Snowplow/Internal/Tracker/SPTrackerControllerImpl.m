@@ -25,6 +25,7 @@
 #import "SPNetworkControllerImpl.h"
 #import "SPGDPRControllerImpl.h"
 #import "SPGlobalContextsControllerImpl.h"
+#import "SPSubjectControllerImpl.h"
 #import "SPSessionControllerImpl.h"
 
 #import "SPSubjectConfiguration.h"
@@ -43,6 +44,7 @@
 @property (readwrite, nonatomic) id<SPEmitterController> emitter;
 @property (readwrite, nonatomic) id<SPGDPRController> gdpr;
 @property (readwrite, nonatomic) id<SPGlobalContextsController> globalContexts;
+@property (readwrite, nonatomic) id<SPSubjectController> subject;
 
 @property (nonatomic) SPSessionControllerImpl *sessionController;
 
@@ -59,6 +61,7 @@
     self.emitter = [[SPEmitterControllerImpl alloc] initWithEmitter:tracker.emitter];
     self.gdpr = [[SPGDPRControllerImpl alloc] initWithTracker:tracker];
     self.globalContexts = [[SPGlobalContextsControllerImpl alloc] initWithTracker:tracker];
+    self.subject = [[SPSubjectControllerImpl alloc] initWithSubject:tracker.subject];
     if (!tracker.emitter.networkConnection || [tracker.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class]) {
         self.network = [[SPNetworkControllerImpl alloc] initWithEmitter:tracker.emitter];
     }

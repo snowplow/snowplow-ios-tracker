@@ -106,6 +106,7 @@
 }
 
 - (void) setUserId:(NSString *)uid {
+    _userId = uid;
     [_standardDict addValueToPayload:uid forKey:kSPUid];
 }
 
@@ -114,41 +115,50 @@
 }
 
 - (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height {
+    _screenResolution = [[SPSize alloc] initWithWidth:width height:height];
     NSString * res = [NSString stringWithFormat:@"%@x%@", [@(width) stringValue], [@(height) stringValue]];
     [_standardDict addValueToPayload:res forKey:kSPResolution];
 }
 
 - (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height {
+    _screenViewPort = [[SPSize alloc] initWithWidth:width height:height];
     NSString * res = [NSString stringWithFormat:@"%@x%@", [@(width) stringValue], [@(height) stringValue]];
     [_standardDict addValueToPayload:res forKey:kSPViewPort];
 }
 
 - (void) setColorDepth:(NSInteger)depth {
+    _colorDepth = depth;
     NSString * res = [NSString stringWithFormat:@"%@", [@(depth) stringValue]];
     [_standardDict addValueToPayload:res forKey:kSPColorDepth];
 }
 
 - (void) setTimezone:(NSString *)timezone {
+    _timezone = timezone;
     [_standardDict addValueToPayload:timezone forKey:kSPTimezone];
 }
 
 - (void) setLanguage:(NSString *)lang {
+    _language = lang;
     [_standardDict addValueToPayload:lang forKey:kSPLanguage];
 }
 
 - (void) setIpAddress:(NSString *)ip {
+    _ipAddress = ip;
     [_standardDict addValueToPayload:ip forKey:kSPIpAddress];
 }
 
 - (void) setUseragent:(NSString *)useragent {
+    _useragent = useragent;
     [_standardDict addValueToPayload:useragent forKey:kSPUseragent];
 }
 
 - (void) setNetworkUserId:(NSString *)nuid {
+    _networkUserId = nuid;
     [_standardDict addValueToPayload:nuid forKey:kSPNetworkUid];
 }
 
 - (void) setDomainUserId:(NSString *)duid {
+    _domainUserId = duid;
     [_standardDict addValueToPayload:duid forKey:kSPDomainUid];
 }
 

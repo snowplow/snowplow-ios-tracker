@@ -1,4 +1,11 @@
 
+Version 2.0.1 (2021-05-12)
+--------------------------
+Fix crash if data from Database is corrupted (#596) (Contribution of @glukhanyk)
+Add SubjectController to update userId (#595)
+Fix NSInvalidArgumentException on first run with v2.0 (#592)
+Fix macOS target for SPM (#593) (Contribution of @Juraldinio)
+
 Version 2.0.0 (2021-04-27)
 --------------------------
 Set lifecycle tracking off by default (#587)

@@ -1,5 +1,5 @@
 //
-//  UIViewController+SPScreenView.h
+//  SPSubjectControllerImpl.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -15,35 +15,21 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Michael Hadam
-//  Copyright © 2020 Snowplow Analytics. All rights reserved.
+//  Authors: Alex Benini
+//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
-#import <TargetConditionals.h>
-
-#if !TARGET_OS_OSX
-#import <UIKit/UIKit.h>
-
-@class UIViewController;
-typedef NS_ENUM(NSInteger, SPScreenType);
+#import <Foundation/Foundation.h>
+#import "SPSubjectController.h"
+#import "SPSubject.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface UIViewController (SPScreenView_SWIZZLE)
+@interface SPSubjectControllerImpl : NSObject <SPSubjectController>
 
-- (void) SP_viewDidAppear:(BOOL)animated;
-- (NSString *) _SP_getViewControllerName:(UIViewController *)viewController;
-- (SPScreenType) _SP_getViewControllerType:(UIViewController *)viewController;
-- (SPScreenType) _SP_getTopViewControllerType;
-- (UIViewController *) _SP_topViewController;
-- (UIViewController *) _SP_topViewController:(UIViewController *)rootViewController;
-- (NSString *) _SP_getViewControllerName;
-- (BOOL) _SP_validateString:(NSString *)string;
-- (NSString *) _SP_getSnowplowId;
+- (instancetype)initWithSubject:(SPSubject *)subject;
 
 @end
 
 NS_ASSUME_NONNULL_END
-
-#endif

@@ -24,6 +24,7 @@
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
 
+#import "SPSubjectController.h"
 #import "SPSessionController.h"
 #import "SPEmitterController.h"
 #import "SPNetworkController.h"
@@ -50,6 +51,11 @@ NS_SWIFT_NAME(TrackerController)
  */
 @property (readonly, nonatomic) NSString *namespace;
 
+/**
+ * SubjectController.
+ * @apiNote Don't retain the reference. It may change on tracker reconfiguration.
+ */
+@property (readonly, nonatomic, nullable) id<SPSubjectController> subject;
 /**
  * SessionController.
  * @apiNote Don't retain the reference. It may change on tracker reconfiguration.

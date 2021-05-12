@@ -46,7 +46,16 @@
 
 - (NSDate *)previousInstallTimestamp {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    return [userDefaults objectForKey:kSPInstallTimestamp];
+    id value = [userDefaults objectForKey:kSPInstallTimestamp];
+    if (!value) {
+        return nil;
+    } else if ([value isKindOfClass:NSDate.class]) {  // v2.0 format
+        return (NSDate *)value;
+    } else if ([value isKindOfClass:NSNumber.class]) { // v1.7 format
+        NSTimeInterval timeInterval = ((NSNumber *)value).doubleValue / 1000;
+        return [[NSDate alloc] initWithTimeIntervalSince1970:timeInterval];
+    }
+    return nil;
 }
 
 - (void)clearPreviousInstallTimestamp {

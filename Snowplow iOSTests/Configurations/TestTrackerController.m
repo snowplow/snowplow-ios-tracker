@@ -42,4 +42,14 @@
     XCTAssertNil(tracker.session);
 }
 
+- (void)testSubjectUserIdCanBeUpdated {
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" endpoint:@"https://fake-url" method:SPHttpMethodPost];
+    XCTAssertNotNil(tracker.subject);
+    XCTAssertNil(tracker.subject.userId);
+    tracker.subject.userId = @"fakeUserId";
+    XCTAssertEqualObjects(@"fakeUserId", tracker.subject.userId);
+    tracker.subject.userId = nil;
+    XCTAssertNil(tracker.subject.userId);
+}
+
 @end
