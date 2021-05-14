@@ -22,8 +22,34 @@
 
 #import "SPServiceProvider.h"
 #import "SPDefaultNetworkConnection.h"
+#import "SPGDPRContext.h"
+
+#import "SPEmitter.h"
+#import "SPSubject.h"
+#import "SPTracker.h"
+
+#import "SPTrackerControllerImpl.h"
+#import "SPEmitterControllerImpl.h"
+#import "SPNetworkControllerImpl.h"
+#import "SPSubjectControllerImpl.h"
+#import "SPSessionControllerImpl.h"
+#import "SPGlobalContextsControllerImpl.h"
+#import "SPGDPRControllerImpl.h"
+
 
 @interface SPServiceProvider ()
+
+@property (nonatomic, nullable) SPTracker *tracker;
+@property (nonatomic, nullable) SPEmitter *emitter;
+@property (nonatomic, nullable) SPSubject *subject;
+
+@property (nonatomic, nullable) SPTrackerControllerImpl *trackerController;
+@property (nonatomic, nullable) SPEmitterControllerImpl *emitterController;
+@property (nonatomic, nullable) SPNetworkControllerImpl *networkController;
+@property (nonatomic, nullable) SPGDPRControllerImpl *gdprController;
+@property (nonatomic, nullable) SPGlobalContextsControllerImpl *globalContextsController;
+@property (nonatomic, nullable) SPSubjectControllerImpl *subjectController;
+@property (nonatomic, nullable) SPSessionControllerImpl *sessionController;
 
 @property (nonatomic, nonnull, readwrite) NSString *namespace;
 @property (nonatomic, nonnull) SPNetworkConfiguration *networkConfiguration;
@@ -37,6 +63,16 @@
 @end
 
 @implementation SPServiceProvider
+@synthesize emitter = _emitter;
+@synthesize subject = _subject;
+@synthesize tracker = _tracker;
+@synthesize trackerController = _trackerController;
+@synthesize emitterController = _emitterController;
+@synthesize networkController = _networkController;
+@synthesize sessionController = _sessionController;
+@synthesize subjectController = _subjectController;
+@synthesize gdprController = _gdprController;
+@synthesize globalContextsController = _globalContextsController;
 
 // MARK: - Init
 
@@ -56,14 +92,14 @@
     [self stopServices];
     [self processConfigurations:configurations];
     [self resetServices];
-    [_trackerController resetWithTracker:self.tracker];
+    [self tracker];
 }
 
 - (void)shutdown {
     [_tracker pauseEventTracking];
     [self stopServices];
     [self resetServices];
-    _trackerController = nil;
+    [self resetControllers];
 }
 
 // MARK: - Private methods
@@ -111,6 +147,16 @@
     _tracker = nil;
 }
 
+- (void)resetControllers {
+    _trackerController = nil;
+    _sessionController = nil;
+    _emitterController = nil;
+    _gdprController = nil;
+    _globalContextsController = nil;
+    _subjectController = nil;
+    _networkController = nil;
+}
+
 // MARK: - Getters
 
 - (SPSubject *)subject {
@@ -135,6 +181,42 @@
     if (_trackerController) return _trackerController;
     _trackerController = [self makeTrackerController];
     return _trackerController;
+}
+
+- (SPSessionControllerImpl *)sessionController {
+    if (_sessionController) return _sessionController;
+    _sessionController = [self makeSessionController];
+    return _sessionController;
+}
+
+- (SPEmitterControllerImpl *)emitterController {
+    if (_emitterController) return _emitterController;
+    _emitterController = [self makeEmitterController];
+    return _emitterController;
+}
+
+- (SPGDPRControllerImpl *)gdprController {
+    if (_gdprController) return _gdprController;
+    _gdprController = [self makeGDPRController];
+    return _gdprController;
+}
+
+- (SPGlobalContextsControllerImpl *)globalContextsController {
+    if (_globalContextsController) return _globalContextsController;
+    _globalContextsController = [self makeGlobalContextsController];
+    return _globalContextsController;
+}
+
+- (SPSubjectControllerImpl *)subjectController {
+    if (_subjectController) return _subjectController;
+    _subjectController = [self makeSubjectController];
+    return _subjectController;
+}
+
+- (SPNetworkControllerImpl *)networkController {
+    if (_networkController) return _networkController;
+    _networkController = [self makeNetworkController];
+    return _networkController;
 }
 
 // MARK: - Factories
@@ -211,9 +293,40 @@
 }
 
 - (SPTrackerControllerImpl *)makeTrackerController {
-    SPTrackerControllerImpl *trackerController = [SPTrackerControllerImpl new];
-    [trackerController resetWithTracker:self.tracker];
-    return trackerController;
+    SPTrackerControllerImpl *controller = [[SPTrackerControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPSessionControllerImpl *)makeSessionController {
+    SPSessionControllerImpl *controller = [[SPSessionControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPEmitterControllerImpl *)makeEmitterController {
+    SPEmitterControllerImpl *controller = [[SPEmitterControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPGDPRControllerImpl *)makeGDPRController {
+    SPGDPRControllerImpl *controller = [[SPGDPRControllerImpl alloc] initWithServiceProvider:self];
+    SPGdprContext *gdpr = self.tracker.gdprContext;
+    [controller resetWithBasis:gdpr.basis documentId:gdpr.documentId documentVersion:gdpr.documentVersion documentDescription:gdpr.documentDescription];
+    return controller;
+}
+
+- (SPGlobalContextsControllerImpl *)makeGlobalContextsController {
+    SPGlobalContextsControllerImpl *controller = [[SPGlobalContextsControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPSubjectControllerImpl *)makeSubjectController {
+    SPSubjectControllerImpl *controller = [[SPSubjectControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPNetworkControllerImpl *)makeNetworkController {
+    SPNetworkControllerImpl *controller = [[SPNetworkControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
 }
 
 #pragma clang diagnostic pop

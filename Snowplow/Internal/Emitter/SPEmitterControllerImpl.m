@@ -21,12 +21,8 @@
 //
 
 #import "SPEmitterControllerImpl.h"
-
-@interface SPEmitterControllerImpl ()
-
-@property (nonatomic, weak) SPEmitter *emitter;
-
-@end
+#import "SPTracker.h"
+#import "SPEmitter.h"
 
 
 @implementation SPEmitterControllerImpl {
@@ -38,13 +34,6 @@
 @synthesize byteLimitPost;
 @synthesize emitRange;
 @synthesize threadPoolSize;
-
-- (instancetype)initWithEmitter:(SPEmitter *)emitter {
-    if (self = [super init]) {
-        self.emitter = emitter;
-    }
-    return self;
-}
 
 // MARK: - Properties
 
@@ -109,6 +98,12 @@
 
 - (BOOL)isSending {
     return [self.emitter getSendingStatus];
+}
+
+// MARK: - Private methods
+
+- (SPEmitter *)emitter {
+    return self.serviceProvider.tracker.emitter;
 }
 
 @end

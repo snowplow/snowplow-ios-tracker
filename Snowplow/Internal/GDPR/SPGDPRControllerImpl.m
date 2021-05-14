@@ -22,23 +22,15 @@
 
 #import "SPGDPRControllerImpl.h"
 #import "SPGdprContext.h"
+#import "SPTracker.h"
 
 @interface SPGDPRControllerImpl ()
 
-@property (nonatomic, weak) SPTracker *tracker;
 @property (nonatomic) SPGdprContext *gdpr;
 
 @end
 
 @implementation SPGDPRControllerImpl
-
-- (instancetype)initWithTracker:(SPTracker *)tracker {
-    if (self = [super init]) {
-        self.tracker = tracker;
-        self.gdpr = tracker.gdprContext;
-    }
-    return self;
-}
 
 // MARK: - Methods
 
@@ -87,6 +79,12 @@
 
 - (NSString *)documentDescription {
     return [self.gdpr documentDescription];
+}
+
+// MARK: - Private methods
+
+- (SPTracker *)tracker {
+    return self.serviceProvider.tracker;
 }
 
 @end

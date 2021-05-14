@@ -22,14 +22,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SPGDPRController.h"
-#import "SPTracker.h"
+#import "SPController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(GDPRControllerImpl)
-@interface SPGDPRControllerImpl : NSObject <SPGDPRController>
-
-- (instancetype)initWithTracker:(SPTracker *)tracker;
+@interface SPGDPRControllerImpl : SPController <SPGDPRController>
 
 @end
 

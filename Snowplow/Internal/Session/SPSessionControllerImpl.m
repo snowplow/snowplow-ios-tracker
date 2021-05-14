@@ -24,39 +24,25 @@
 #import "SPSession.h"
 #import "SPLogger.h"
 
-@interface SPSessionControllerImpl ()
-
-@property (nonatomic, weak) SPTracker *tracker;
-
-@end
-
-
 @implementation SPSessionControllerImpl
 
 @synthesize backgroundTimeoutInSeconds;
 @synthesize foregroundTimeoutInSeconds;
 
-- (instancetype)initWithTracker:(SPTracker *)tracker {
-    if (self = [super init]) {
-        self.tracker = tracker;
-    }
-    return self;
-}
-
 - (BOOL)isEnabled {
-    return self.tracker.session != nil;
+    return self.session != nil;
 }
 
 - (void)pause {
-    [self.tracker.session stopChecker];
+    [self.session stopChecker];
 }
 
 - (void)resume {
-    [self.tracker.session startChecker];
+    [self.session startChecker];
 }
 
 - (void)startNewSession {
-    [self.tracker.session startNewSession];
+    [self.session startNewSession];
 }
 
 // MARK: - Properties
@@ -69,7 +55,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 }
 
 - (void)setForegroundTimeoutInSeconds:(NSInteger)foregroundTimeoutInSeconds {
-    [self.tracker.session setForegroundTimeout:foregroundTimeoutInSeconds * 1000];
+    [self.session setForegroundTimeout:foregroundTimeoutInSeconds * 1000];
 }
 
 - (void)setBackgroundTimeout:(NSMeasurement<NSUnitDuration *> *)backgroundTimeout
@@ -80,7 +66,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 }
 
 - (void)setBackgroundTimeoutInSeconds:(NSInteger)backgroundTimeoutInSeconds {
-    [self.tracker.session setBackgroundTimeout:backgroundTimeoutInSeconds * 1000];
+    [self.session setBackgroundTimeout:backgroundTimeoutInSeconds * 1000];
 }
 
 - (NSMeasurement<NSUnitDuration *> *)foregroundTimeout
@@ -94,7 +80,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return -1;
     }
-    return floor([self.tracker.session getForegroundTimeout] / 1000);
+    return floor([self.session getForegroundTimeout] / 1000);
 }
 
 - (NSMeasurement<NSUnitDuration *> *)backgroundTimeout
@@ -108,7 +94,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return -1;
     }
-    return floor([self.tracker.session getBackgroundTimeout] / 1000);
+    return floor([self.session getBackgroundTimeout] / 1000);
 }
 
 - (NSInteger)sessionIndex {
@@ -116,7 +102,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return -1;
     }
-    return self.tracker.session.getSessionIndex;
+    return self.session.getSessionIndex;
 }
 
 - (NSString *)sessionId {
@@ -124,7 +110,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return nil;
     }
-    return self.tracker.session.getSessionId;
+    return self.session.getSessionId;
 }
 
 - (NSString *)userId {
@@ -132,7 +118,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return nil;
     }
-    return self.tracker.session.getUserId;
+    return self.session.getUserId;
 }
 
 - (BOOL)isInBackground {
@@ -140,7 +126,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return NO;
     }
-    return self.tracker.session.getInBackground;
+    return self.session.getInBackground;
 }
 
 - (NSInteger)backgroundIndex {
@@ -148,7 +134,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return -1;
     }
-    return self.tracker.session.getBackgroundIndex;
+    return self.session.getBackgroundIndex;
 }
 
 - (NSInteger)foregroundIndex {
@@ -156,7 +142,13 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return -1;
     }
-    return self.tracker.session.getForegroundIndex;
+    return self.session.getForegroundIndex;
+}
+
+// MARK: - Private methods
+
+- (SPSession *)session {
+    return self.serviceProvider.tracker.session;
 }
 
 @end

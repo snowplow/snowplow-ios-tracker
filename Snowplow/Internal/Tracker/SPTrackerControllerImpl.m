@@ -20,6 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
+#import "SPServiceProviderProtocol.h"
 #import "SPTrackerControllerImpl.h"
 #import "SPEmitterControllerImpl.h"
 #import "SPNetworkControllerImpl.h"
@@ -38,33 +39,48 @@
 #import "SPSubject.h"
 #import "SPLogger.h"
 
+
 @interface SPTrackerControllerImpl ()
-
-@property (readwrite, nonatomic) id<SPNetworkController> network;
-@property (readwrite, nonatomic) id<SPEmitterController> emitter;
-@property (readwrite, nonatomic) id<SPGDPRController> gdpr;
-@property (readwrite, nonatomic) id<SPGlobalContextsController> globalContexts;
-@property (readwrite, nonatomic) id<SPSubjectController> subject;
-
-@property (nonatomic) SPSessionControllerImpl *sessionController;
 
 @property (nonatomic, weak) SPTracker *tracker;
 
 @end
 
-
 @implementation SPTrackerControllerImpl
 
-- (void)resetWithTracker:(SPTracker *)tracker {
-    self.tracker = tracker;
-    self.sessionController = [[SPSessionControllerImpl alloc] initWithTracker:tracker];
-    self.emitter = [[SPEmitterControllerImpl alloc] initWithEmitter:tracker.emitter];
-    self.gdpr = [[SPGDPRControllerImpl alloc] initWithTracker:tracker];
-    self.globalContexts = [[SPGlobalContextsControllerImpl alloc] initWithTracker:tracker];
-    self.subject = [[SPSubjectControllerImpl alloc] initWithSubject:tracker.subject];
-    if (!tracker.emitter.networkConnection || [tracker.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class]) {
-        self.network = [[SPNetworkControllerImpl alloc] initWithEmitter:tracker.emitter];
-    }
+- (SPTracker *)tracker {
+    return self.serviceProvider.tracker;
+}
+
+// MARK: - Controllers
+
+- (id<SPNetworkController>)network {
+    return self.serviceProvider.networkController;
+}
+
+- (id<SPEmitterController>)emitter {
+    return self.serviceProvider.emitterController;
+}
+
+- (id<SPGDPRController>)gdpr {
+    return self.serviceProvider.gdprController;
+}
+
+- (id<SPGlobalContextsController>)globalContexts {
+    return self.serviceProvider.globalContextsController;
+}
+
+- (id<SPSubjectController>)subject {
+    return self.serviceProvider.subjectController;
+}
+
+- (SPSessionControllerImpl *)sessionController {
+    return self.serviceProvider.sessionController;
+}
+
+- (nullable id<SPSessionController>)session {
+    SPSessionControllerImpl *sessionController = self.serviceProvider.sessionController;
+    return sessionController.isEnabled ? sessionController : nil;
 }
 
 // MARK: - Control methods
@@ -209,10 +225,6 @@
 
 - (BOOL)sessionContext {
     return [self.tracker sessionContext];
-}
-
-- (nullable id<SPSessionController>)session {
-    return self.sessionController.isEnabled ? self.sessionController : nil;
 }
 
 - (BOOL)isTracking {

@@ -22,14 +22,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SPGlobalContextsController.h"
-#import "SPTracker.h"
+#import "SPController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(GlobalContextsControllerImpl)
-@interface SPGlobalContextsControllerImpl : NSObject <SPGlobalContextsController>
-
-- (instancetype)initWithTracker:(SPTracker *)tracker;
+@interface SPGlobalContextsControllerImpl : SPController <SPGlobalContextsController>
 
 @end
 

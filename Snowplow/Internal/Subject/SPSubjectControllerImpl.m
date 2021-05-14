@@ -22,13 +22,8 @@
 
 #import "SPSubjectControllerImpl.h"
 #import "SPPayload.h"
-
-
-@interface SPSubjectControllerImpl ()
-
-@property (nonatomic, weak) SPSubject *subject;
-
-@end
+#import "SPTracker.h"
+#import "SPSubject.h"
 
 
 @implementation SPSubjectControllerImpl
@@ -51,13 +46,6 @@
 @synthesize geoSpeed;
 @synthesize geoBearing;
 @synthesize geoTimestamp;
-
-- (instancetype)initWithSubject:(SPSubject *)subject {
-    if (self = [super init]) {
-        self.subject = subject;
-    }
-    return self;
-}
 
 // MARK: - Properties
 
@@ -205,6 +193,12 @@
 
 - (NSNumber *)geoTimestamp {
     return [self.subject geoTimestamp];
+}
+
+// MARK: - Private methods
+
+- (SPSubject *)subject {
+    return self.serviceProvider.tracker.subject;
 }
 
 @end
