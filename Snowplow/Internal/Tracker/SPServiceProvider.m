@@ -175,8 +175,9 @@
 }
 
 - (void)resetConfigurationUpdates {
-    self.networkConfigurationUpdate.sourceConfig = nil;
-    self.trackerConfigurationUpdate.sourceConfig = nil;
+    // Don't reset networkConfiguration as it's needed in case it's not passed in the new configurations.
+    // Set a default trackerConfiguration to reset to default if not passed.
+    self.trackerConfigurationUpdate.sourceConfig = [SPTrackerConfiguration new];
     self.emitterConfigurationUpdate.sourceConfig = nil;
     self.subjectConfigurationUpdate.sourceConfig = nil;
 //    self.sessionConfigurationUpdate.sourceConfig = nil;
