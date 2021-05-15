@@ -62,7 +62,6 @@
 @property (nonatomic, nullable) SPSessionControllerImpl *sessionController;
 
 // Original configurations
-@property (nonatomic, nonnull) SPNetworkConfiguration *networkConfiguration;
 @property (nonatomic) SPEmitterConfiguration *emitterConfiguration;
 @property (nonatomic) SPSubjectConfiguration *subjectConfiguration;
 @property (nonatomic) SPSessionConfiguration *sessionConfiguration;
@@ -97,7 +96,7 @@
     if (self = [super init]) {
         [self resetConfigurationUpdates];
         self.namespace = namespace;
-        self.networkConfiguration = networkConfiguration;
+        self.networkConfigurationUpdate.sourceConfig = networkConfiguration;
         [self processConfigurations:configurations];
         if (!self.trackerConfigurationUpdate.sourceConfig) {
             self.trackerConfigurationUpdate.sourceConfig = [SPTrackerConfiguration new];
@@ -126,7 +125,7 @@
 - (void)processConfigurations:(NSArray<SPConfiguration *> *)configurations {
     for (SPConfiguration *configuration in configurations) {
         if ([configuration isKindOfClass:SPNetworkConfiguration.class]) {
-            self.networkConfiguration = (SPNetworkConfiguration *)configuration;
+            self.networkConfigurationUpdate.sourceConfig = (SPNetworkConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPTrackerConfiguration.class]) {
@@ -259,7 +258,7 @@
 }
 
 - (SPEmitter *)makeEmitter {
-    SPNetworkConfiguration *networkConfig = self.networkConfiguration;
+    SPNetworkConfigurationUpdate *networkConfig = self.networkConfigurationUpdate;
     SPEmitterConfiguration *emitterConfig = self.emitterConfiguration;
     return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         if (networkConfig.networkConnection) {

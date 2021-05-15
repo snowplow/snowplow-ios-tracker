@@ -24,6 +24,7 @@
 #import "SPDefaultNetworkConnection.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
+#import "SPNetworkConfigurationUpdate.h"
 
 
 @implementation SPNetworkControllerImpl {
@@ -53,6 +54,8 @@
 }
 
 - (void)setCustomPostPath:(NSString *)customPostPath {
+    self.dirtyConfig.customPostPath = customPostPath;
+    self.dirtyConfig.customPostPathUpdated = YES;
     [self.emitter setCustomPostPath:customPostPath];
 }
 
@@ -61,6 +64,8 @@
 }
 
 - (void)setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeaders {
+    self.dirtyConfig.requestHeaders = requestHeaders;
+    self.dirtyConfig.requestHeadersUpdated = YES;
     [self.emitter setRequestHeaders:requestHeaders];
 }
 
@@ -72,6 +77,10 @@
 
 - (SPEmitter *)emitter {
     return self.serviceProvider.tracker.emitter;
+}
+
+- (SPNetworkConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.networkConfigurationUpdate;
 }
 
 @end
