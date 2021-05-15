@@ -36,13 +36,23 @@
 #import "SPGlobalContextsControllerImpl.h"
 #import "SPGDPRControllerImpl.h"
 
+#import "SPNetworkConfigurationUpdate.h"
+#import "SPTrackerConfigurationUpdate.h"
+#import "SPEmitterConfigurationUpdate.h"
+#import "SPSubjectConfigurationUpdate.h"
+#import "SPSessionConfigurationUpdate.h"
+#import "SPGDPRConfigurationUpdate.h"
 
 @interface SPServiceProvider ()
 
+@property (nonatomic, nonnull, readwrite) NSString *namespace;
+
+// Internal services
 @property (nonatomic, nullable) SPTracker *tracker;
 @property (nonatomic, nullable) SPEmitter *emitter;
 @property (nonatomic, nullable) SPSubject *subject;
 
+// Controllers
 @property (nonatomic, nullable) SPTrackerControllerImpl *trackerController;
 @property (nonatomic, nullable) SPEmitterControllerImpl *emitterController;
 @property (nonatomic, nullable) SPNetworkControllerImpl *networkController;
@@ -51,14 +61,21 @@
 @property (nonatomic, nullable) SPSubjectControllerImpl *subjectController;
 @property (nonatomic, nullable) SPSessionControllerImpl *sessionController;
 
-@property (nonatomic, nonnull, readwrite) NSString *namespace;
+// Original configurations
 @property (nonatomic, nonnull) SPNetworkConfiguration *networkConfiguration;
-@property (nonatomic, nonnull) SPTrackerConfiguration *trackerConfiguration;
 @property (nonatomic) SPEmitterConfiguration *emitterConfiguration;
 @property (nonatomic) SPSubjectConfiguration *subjectConfiguration;
 @property (nonatomic) SPSessionConfiguration *sessionConfiguration;
 @property (nonatomic) SPGDPRConfiguration *gdprConfiguration;
 @property (nonatomic) SPGlobalContextsConfiguration *globalContextConfiguration;
+
+// Configuration updates
+@property (nonatomic) SPNetworkConfigurationUpdate *networkConfigurationUpdate;
+@property (nonatomic) SPTrackerConfigurationUpdate *trackerConfigurationUpdate;
+@property (nonatomic) SPEmitterConfigurationUpdate *emitterConfigurationUpdate;
+@property (nonatomic) SPSubjectConfigurationUpdate *subjectConfigurationUpdate;
+@property (nonatomic) SPSessionConfigurationUpdate *sessionConfigurationUpdate;
+@property (nonatomic) SPGDPRConfigurationUpdate *gdprConfigurationUpdate;
 
 @end
 
@@ -78,11 +95,12 @@
 
 - (instancetype)initWithNamespace:(NSString *)namespace network:(SPNetworkConfiguration *)networkConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     if (self = [super init]) {
+        [self resetConfigurationUpdates];
         self.namespace = namespace;
         self.networkConfiguration = networkConfiguration;
         [self processConfigurations:configurations];
-        if (!self.trackerConfiguration) {
-            self.trackerConfiguration = [SPTrackerConfiguration new];
+        if (!self.trackerConfigurationUpdate.sourceConfig) {
+            self.trackerConfigurationUpdate.sourceConfig = [SPTrackerConfiguration new];
         }
     }
     return self;
@@ -100,6 +118,7 @@
     [self stopServices];
     [self resetServices];
     [self resetControllers];
+    [self resetConfigurationUpdates];
 }
 
 // MARK: - Private methods
@@ -111,7 +130,7 @@
             continue;
         }
         if ([configuration isKindOfClass:SPTrackerConfiguration.class]) {
-            self.trackerConfiguration = (SPTrackerConfiguration *)configuration;
+            self.trackerConfigurationUpdate.sourceConfig = (SPTrackerConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
@@ -155,6 +174,15 @@
     _globalContextsController = nil;
     _subjectController = nil;
     _networkController = nil;
+}
+
+- (void)resetConfigurationUpdates {
+    self.networkConfigurationUpdate = [SPNetworkConfigurationUpdate new];
+    self.trackerConfigurationUpdate = [SPTrackerConfigurationUpdate new];
+    self.emitterConfigurationUpdate = [SPEmitterConfigurationUpdate new];
+    self.subjectConfigurationUpdate = [SPSubjectConfigurationUpdate new];
+    self.sessionConfigurationUpdate = [SPSessionConfigurationUpdate new];
+    self.gdprConfigurationUpdate = [SPGDPRConfigurationUpdate new];
 }
 
 // MARK: - Getters
@@ -225,8 +253,8 @@
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 - (SPSubject *)makeSubject {
-    return [[SPSubject alloc] initWithPlatformContext:self.trackerConfiguration.platformContext
-                                   geoLocationContext:self.trackerConfiguration.geoLocationContext
+    return [[SPSubject alloc] initWithPlatformContext:self.trackerConfigurationUpdate.platformContext
+                                   geoLocationContext:self.trackerConfigurationUpdate.geoLocationContext
                                  subjectConfiguration:self.subjectConfiguration];
 }
 
@@ -258,11 +286,11 @@
 - (SPTracker *)makeTracker {
     SPEmitter *emitter = self.emitter;
     SPSubject *subject = self.subject;
-    SPTrackerConfiguration *trackerConfig = self.trackerConfiguration;
+    SPTrackerConfiguration *trackerConfig = self.trackerConfigurationUpdate;
     SPSessionConfiguration *sessionConfig = self.sessionConfiguration;
     SPGlobalContextsConfiguration *gcConfig = self.globalContextConfiguration;
     SPGDPRConfiguration *gdprConfig = self.gdprConfiguration;
-    return [SPTracker build:^(id<SPTrackerBuilder> builder) {
+    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setTrackerNamespace:self.namespace];
         [builder setEmitter:emitter];
         [builder setSubject:subject];
@@ -290,6 +318,10 @@
             [builder setGdprContextWithBasis:gdprConfig.basisForProcessing documentId:gdprConfig.documentId documentVersion:gdprConfig.documentVersion documentDescription:gdprConfig.documentDescription];
         }
     }];
+    if (self.trackerConfigurationUpdate.isPaused) {
+        [tracker pauseEventTracking];
+    }
+    return tracker;
 }
 
 - (SPTrackerControllerImpl *)makeTrackerController {

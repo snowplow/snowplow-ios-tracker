@@ -117,8 +117,8 @@
     XCTAssertEqualObjects(networkConfig.endpoint, derivedEndpoint);
     XCTAssertEqualObjects(protocol, scheme);
     
-    XCTAssertEqual(trackerConfig.appId, tracker.appId);
-    XCTAssertEqual(@"namespace", tracker.namespace);
+    XCTAssertEqualObjects(trackerConfig.appId, tracker.appId);
+    XCTAssertEqualObjects(@"namespace", tracker.namespace);
 }
 
 - (void)testSessionInitialization {

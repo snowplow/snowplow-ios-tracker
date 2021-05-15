@@ -19,6 +19,12 @@
 @class SPSubjectControllerImpl;
 @class SPSessionControllerImpl;
 
+@class SPNetworkConfigurationUpdate;
+@class SPTrackerConfigurationUpdate;
+@class SPEmitterConfigurationUpdate;
+@class SPSubjectConfigurationUpdate;
+@class SPSessionConfigurationUpdate;
+@class SPGDPRConfigurationUpdate;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -37,6 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (SPGlobalContextsControllerImpl *)globalContextsController;
 - (SPSubjectControllerImpl *)subjectController;
 - (SPSessionControllerImpl *)sessionController;
+
+- (SPNetworkConfigurationUpdate *)networkConfigurationUpdate;
+- (SPTrackerConfigurationUpdate *)trackerConfigurationUpdate;
+- (SPEmitterConfigurationUpdate *)emitterConfigurationUpdate;
+- (SPSubjectConfigurationUpdate *)subjectConfigurationUpdate;
+- (SPSessionConfigurationUpdate *)sessionConfigurationUpdate;
+- (SPGDPRConfigurationUpdate *)gdprConfigurationUpdate;
 
 @end
 
