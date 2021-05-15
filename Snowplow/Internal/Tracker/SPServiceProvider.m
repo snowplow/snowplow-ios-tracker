@@ -63,7 +63,6 @@
 @property (nonatomic, nullable) SPSessionControllerImpl *sessionController;
 
 // Original configurations
-@property (nonatomic) SPGDPRConfiguration *gdprConfiguration;
 @property (nonatomic) SPGlobalContextsConfiguration *globalContextConfiguration;
 
 // Configuration updates
@@ -144,7 +143,7 @@
             continue;
         }
         if ([configuration isKindOfClass:SPGDPRConfiguration.class]) {
-            self.gdprConfiguration = (SPGDPRConfiguration *)configuration;
+            self.gdprConfigurationUpdate.sourceConfig = (SPGDPRConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPGlobalContextsConfiguration.class]) {
@@ -181,7 +180,7 @@
     self.emitterConfigurationUpdate.sourceConfig = nil;
     self.subjectConfigurationUpdate.sourceConfig = nil;
     self.sessionConfigurationUpdate.sourceConfig = nil;
-//    self.gdprConfigurationUpdate.sourceConfig = nil;
+    self.gdprConfigurationUpdate.sourceConfig = nil;
 }
 
 - (void)initializeConfigurationUpdates {
@@ -297,7 +296,7 @@
     SPTrackerConfiguration *trackerConfig = self.trackerConfigurationUpdate;
     SPSessionConfiguration *sessionConfig = self.sessionConfigurationUpdate;
     SPGlobalContextsConfiguration *gcConfig = self.globalContextConfiguration;
-    SPGDPRConfiguration *gdprConfig = self.gdprConfiguration;
+    SPGDPRConfiguration *gdprConfig = self.gdprConfigurationUpdate;
     SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setTrackerNamespace:self.namespace];
         [builder setEmitter:emitter];

@@ -7,13 +7,18 @@
 //
 
 #import "SPGDPRConfiguration.h"
+#import "SPGdprContext.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPGDPRConfigurationUpdate : SPGDPRConfiguration
 
+@property (nonatomic, nullable) SPGDPRConfiguration *sourceConfig;
+
+@property (nonatomic) SPGdprContext *gdpr;
+
 @property (nonatomic) BOOL isEnabled;
-@property (nonatomic) BOOL gdprEdited;
+@property (nonatomic) BOOL gdprUpdated;
 
 @end
 

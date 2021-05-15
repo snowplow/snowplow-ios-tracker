@@ -23,6 +23,8 @@
 #import "SPGDPRControllerImpl.h"
 #import "SPGdprContext.h"
 #import "SPTracker.h"
+#import "SPGDPRConfigurationUpdate.h"
+
 
 @interface SPGDPRControllerImpl ()
 
@@ -44,9 +46,12 @@
                           documentVersion:documentVersion
                       documentDescription:documentDescription];
     self.gdpr = self.tracker.gdprContext;
+    self.dirtyConfig.gdpr = self.gdpr;
+    self.dirtyConfig.gdprUpdated = YES;
 }
 
 - (void)disable {
+    self.dirtyConfig.isEnabled = NO;
     [self.tracker disableGdprContext];
 }
 
@@ -62,6 +67,7 @@
                                   documentId:self.gdpr.documentId
                              documentVersion:self.gdpr.documentVersion
                          documentDescription:self.gdpr.documentDescription];
+    self.dirtyConfig.isEnabled = YES;
     return YES;
 }
 
@@ -85,6 +91,10 @@
 
 - (SPTracker *)tracker {
     return self.serviceProvider.tracker;
+}
+
+- (SPGDPRConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.gdprConfigurationUpdate;
 }
 
 @end
