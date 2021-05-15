@@ -62,7 +62,6 @@
 @property (nonatomic, nullable) SPSessionControllerImpl *sessionController;
 
 // Original configurations
-@property (nonatomic) SPEmitterConfiguration *emitterConfiguration;
 @property (nonatomic) SPSessionConfiguration *sessionConfiguration;
 @property (nonatomic) SPGDPRConfiguration *gdprConfiguration;
 @property (nonatomic) SPGlobalContextsConfiguration *globalContextConfiguration;
@@ -93,7 +92,7 @@
 
 - (instancetype)initWithNamespace:(NSString *)namespace network:(SPNetworkConfiguration *)networkConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     if (self = [super init]) {
-        [self resetConfigurationUpdates];
+        [self initializeConfigurationUpdates];
         self.namespace = namespace;
         self.networkConfigurationUpdate.sourceConfig = networkConfiguration;
         [self processConfigurations:configurations];
@@ -106,6 +105,7 @@
 
 - (void)resetWithConfigurations:(NSArray<SPConfiguration *> *)configurations {
     [self stopServices];
+    [self resetConfigurationUpdates];
     [self processConfigurations:configurations];
     [self resetServices];
     [self tracker];
@@ -116,7 +116,7 @@
     [self stopServices];
     [self resetServices];
     [self resetControllers];
-    [self resetConfigurationUpdates];
+    [self initializeConfigurationUpdates];
 }
 
 // MARK: - Private methods
@@ -140,7 +140,7 @@
             continue;
         }
         if ([configuration isKindOfClass:SPEmitterConfiguration.class]) {
-            self.emitterConfiguration = (SPEmitterConfiguration *)configuration;
+            self.emitterConfigurationUpdate.sourceConfig = (SPEmitterConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPGDPRConfiguration.class]) {
@@ -175,6 +175,15 @@
 }
 
 - (void)resetConfigurationUpdates {
+    self.networkConfigurationUpdate.sourceConfig = nil;
+    self.trackerConfigurationUpdate.sourceConfig = nil;
+    self.emitterConfigurationUpdate.sourceConfig = nil;
+    self.subjectConfigurationUpdate.sourceConfig = nil;
+//    self.sessionConfigurationUpdate.sourceConfig = nil;
+//    self.gdprConfigurationUpdate.sourceConfig = nil;
+}
+
+- (void)initializeConfigurationUpdates {
     self.networkConfigurationUpdate = [SPNetworkConfigurationUpdate new];
     self.trackerConfigurationUpdate = [SPTrackerConfigurationUpdate new];
     self.emitterConfigurationUpdate = [SPEmitterConfigurationUpdate new];
@@ -258,7 +267,7 @@
 
 - (SPEmitter *)makeEmitter {
     SPNetworkConfigurationUpdate *networkConfig = self.networkConfigurationUpdate;
-    SPEmitterConfiguration *emitterConfig = self.emitterConfiguration;
+    SPEmitterConfiguration *emitterConfig = self.emitterConfigurationUpdate;
     return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         if (networkConfig.networkConnection) {
             [builder setNetworkConnection:networkConfig.networkConnection];

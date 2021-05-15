@@ -12,8 +12,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPEmitterConfigurationUpdate : SPEmitterConfiguration
 
-SP_DIRTYFLAG(bufferOption)
+@property (nonatomic, nullable) SPEmitterConfiguration *sourceConfig;
 
+SP_DIRTYFLAG(bufferOption)
 SP_DIRTYFLAG(byteLimitGet)
 SP_DIRTYFLAG(byteLimitPost)
 SP_DIRTYFLAG(emitRange)
