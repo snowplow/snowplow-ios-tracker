@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPSubjectConfigurationUpdate : SPSubjectConfiguration
 
+@property (nonatomic, nullable) SPSubjectConfiguration *sourceConfig;
+
 SP_DIRTYFLAG(userId)
 SP_DIRTYFLAG(networkUserId)
 SP_DIRTYFLAG(domainUserId)

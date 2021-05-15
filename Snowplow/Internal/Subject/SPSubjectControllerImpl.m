@@ -24,6 +24,7 @@
 #import "SPPayload.h"
 #import "SPTracker.h"
 #import "SPSubject.h"
+#import "SPSubjectConfigurationUpdate.h"
 
 
 @implementation SPSubjectControllerImpl
@@ -50,6 +51,8 @@
 // MARK: - Properties
 
 - (void)setUserId:(NSString *)userId {
+    self.dirtyConfig.userId = userId;
+    self.dirtyConfig.userIdUpdated = YES;
     [self.subject setUserId:userId];
 }
 
@@ -58,6 +61,8 @@
 }
 
 - (void)setNetworkUserId:(NSString *)networkUserId {
+    self.dirtyConfig.networkUserId = networkUserId;
+    self.dirtyConfig.networkUserIdUpdated = YES;
     [self.subject setNetworkUserId:networkUserId];
 }
 
@@ -66,6 +71,8 @@
 }
 
 - (void)setDomainUserId:(NSString *)domainUserId {
+    self.dirtyConfig.domainUserId = domainUserId;
+    self.dirtyConfig.domainUserIdUpdated = YES;
     [self.subject setDomainUserId:domainUserId];
 }
 
@@ -74,6 +81,8 @@
 }
 
 - (void)setUseragent:(NSString *)useragent {
+    self.dirtyConfig.useragent = useragent;
+    self.dirtyConfig.useragentUpdated = YES;
     [self.subject setUseragent:useragent];
 }
 
@@ -82,6 +91,8 @@
 }
 
 - (void)setIpAddress:(NSString *)ipAddress {
+    self.dirtyConfig.ipAddress = ipAddress;
+    self.dirtyConfig.ipAddressUpdated = YES;
     [self.subject setIpAddress:ipAddress];
 }
 
@@ -90,6 +101,8 @@
 }
 
 - (void)setTimezone:(NSString *)timezone {
+    self.dirtyConfig.timezone = timezone;
+    self.dirtyConfig.timezoneUpdated = YES;
     [self.subject setTimezone:timezone];
 }
 
@@ -98,6 +111,8 @@
 }
 
 - (void)setLanguage:(NSString *)language {
+    self.dirtyConfig.language = language;
+    self.dirtyConfig.languageUpdated = YES;
     [self.subject setLanguage:language];
 }
 
@@ -106,6 +121,8 @@
 }
 
 - (void)setScreenResolution:(SPSize *)screenResolution {
+    self.dirtyConfig.screenResolution = screenResolution;
+    self.dirtyConfig.screenResolutionUpdated = YES;
     [self.subject setResolutionWithWidth:screenResolution.width andHeight:screenResolution.height];
 }
 
@@ -114,6 +131,8 @@
 }
 
 - (void)setScreenViewPort:(SPSize *)screenViewPort {
+    self.dirtyConfig.screenViewPort = screenViewPort;
+    self.dirtyConfig.screenViewPortUpdated = YES;
     [self.subject setViewPortWithWidth:screenResolution.width andHeight:screenResolution.height];
 }
 
@@ -122,6 +141,8 @@
 }
 
 - (void)setColorDepth:(NSNumber *)colorDepth {
+    self.dirtyConfig.colorDepth = colorDepth;
+    self.dirtyConfig.colorDepthUpdated = YES;
     [self.subject setColorDepth:colorDepth.intValue];
 }
 
@@ -199,6 +220,10 @@
 
 - (SPSubject *)subject {
     return self.serviceProvider.tracker.subject;
+}
+
+- (SPSubjectConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.subjectConfigurationUpdate;
 }
 
 @end

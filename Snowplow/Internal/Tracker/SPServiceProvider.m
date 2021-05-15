@@ -63,7 +63,6 @@
 
 // Original configurations
 @property (nonatomic) SPEmitterConfiguration *emitterConfiguration;
-@property (nonatomic) SPSubjectConfiguration *subjectConfiguration;
 @property (nonatomic) SPSessionConfiguration *sessionConfiguration;
 @property (nonatomic) SPGDPRConfiguration *gdprConfiguration;
 @property (nonatomic) SPGlobalContextsConfiguration *globalContextConfiguration;
@@ -133,7 +132,7 @@
             continue;
         }
         if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
-            self.subjectConfiguration = (SPSubjectConfiguration *)configuration;
+            self.subjectConfigurationUpdate.sourceConfig = (SPSubjectConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPSessionConfiguration.class]) {
@@ -254,7 +253,7 @@
 - (SPSubject *)makeSubject {
     return [[SPSubject alloc] initWithPlatformContext:self.trackerConfigurationUpdate.platformContext
                                    geoLocationContext:self.trackerConfigurationUpdate.geoLocationContext
-                                 subjectConfiguration:self.subjectConfiguration];
+                                 subjectConfiguration:self.subjectConfigurationUpdate];
 }
 
 - (SPEmitter *)makeEmitter {

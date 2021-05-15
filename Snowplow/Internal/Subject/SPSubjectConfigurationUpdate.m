@@ -10,4 +10,15 @@
 
 @implementation SPSubjectConfigurationUpdate
 
+SP_DIRTY_GETTER(NSString *, userId)
+SP_DIRTY_GETTER(NSString *, networkUserId)
+SP_DIRTY_GETTER(NSString *, domainUserId)
+SP_DIRTY_GETTER(NSString *, useragent)
+SP_DIRTY_GETTER(NSString *, ipAddress)
+SP_DIRTY_GETTER(NSString *, timezone)
+SP_DIRTY_GETTER(NSString *, language)
+SP_DIRTY_GETTER(SPSize *, screenResolution)
+SP_DIRTY_GETTER(SPSize *, screenViewPort)
+SP_DIRTY_GETTER(NSNumber *, colorDepth)
+
 @end
