@@ -23,6 +23,7 @@
 #import "SPSessionControllerImpl.h"
 #import "SPSession.h"
 #import "SPLogger.h"
+#import "SPSessionConfigurationUpdate.h"
 
 @implementation SPSessionControllerImpl
 
@@ -34,10 +35,12 @@
 }
 
 - (void)pause {
+    self.dirtyConfig.isPaused = YES;
     [self.session stopChecker];
 }
 
 - (void)resume {
+    self.dirtyConfig.isPaused = NO;
     [self.session startChecker];
 }
 
@@ -55,6 +58,8 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 }
 
 - (void)setForegroundTimeoutInSeconds:(NSInteger)foregroundTimeoutInSeconds {
+    self.dirtyConfig.foregroundTimeoutInSeconds = foregroundTimeoutInSeconds;
+    self.dirtyConfig.foregroundTimeoutInSecondsUpdated = YES;
     [self.session setForegroundTimeout:foregroundTimeoutInSeconds * 1000];
 }
 
@@ -66,6 +71,8 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 }
 
 - (void)setBackgroundTimeoutInSeconds:(NSInteger)backgroundTimeoutInSeconds {
+    self.dirtyConfig.backgroundTimeoutInSeconds = backgroundTimeoutInSeconds;
+    self.dirtyConfig.backgroundTimeoutInSecondsUpdated = YES;
     [self.session setBackgroundTimeout:backgroundTimeoutInSeconds * 1000];
 }
 
@@ -149,6 +156,10 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 
 - (SPSession *)session {
     return self.serviceProvider.tracker.session;
+}
+
+- (SPSessionConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.sessionConfigurationUpdate;
 }
 
 @end

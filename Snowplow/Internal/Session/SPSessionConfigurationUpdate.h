@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPSessionConfigurationUpdate : SPSessionConfiguration
 
+@property (nonatomic, nullable) SPSessionConfiguration *sourceConfig;
+
 @property (nonatomic) BOOL isPaused;
 
 SP_DIRTYFLAG(foregroundTimeoutInSeconds)

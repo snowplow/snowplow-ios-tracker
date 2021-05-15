@@ -10,4 +10,7 @@
 
 @implementation SPSessionConfigurationUpdate
 
+SP_DIRTY_GETTER(NSInteger, foregroundTimeoutInSeconds);
+SP_DIRTY_GETTER(NSInteger, backgroundTimeoutInSeconds);
+
 @end

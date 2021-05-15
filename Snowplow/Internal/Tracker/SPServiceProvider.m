@@ -27,6 +27,7 @@
 #import "SPEmitter.h"
 #import "SPSubject.h"
 #import "SPTracker.h"
+#import "SPSession.h"
 
 #import "SPTrackerControllerImpl.h"
 #import "SPEmitterControllerImpl.h"
@@ -62,7 +63,6 @@
 @property (nonatomic, nullable) SPSessionControllerImpl *sessionController;
 
 // Original configurations
-@property (nonatomic) SPSessionConfiguration *sessionConfiguration;
 @property (nonatomic) SPGDPRConfiguration *gdprConfiguration;
 @property (nonatomic) SPGlobalContextsConfiguration *globalContextConfiguration;
 
@@ -136,7 +136,7 @@
             continue;
         }
         if ([configuration isKindOfClass:SPSessionConfiguration.class]) {
-            self.sessionConfiguration = (SPSessionConfiguration *)configuration;
+            self.sessionConfigurationUpdate.sourceConfig = (SPSessionConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPEmitterConfiguration.class]) {
@@ -180,7 +180,7 @@
     self.trackerConfigurationUpdate.sourceConfig = [SPTrackerConfiguration new];
     self.emitterConfigurationUpdate.sourceConfig = nil;
     self.subjectConfigurationUpdate.sourceConfig = nil;
-//    self.sessionConfigurationUpdate.sourceConfig = nil;
+    self.sessionConfigurationUpdate.sourceConfig = nil;
 //    self.gdprConfigurationUpdate.sourceConfig = nil;
 }
 
@@ -295,7 +295,7 @@
     SPEmitter *emitter = self.emitter;
     SPSubject *subject = self.subject;
     SPTrackerConfiguration *trackerConfig = self.trackerConfigurationUpdate;
-    SPSessionConfiguration *sessionConfig = self.sessionConfiguration;
+    SPSessionConfiguration *sessionConfig = self.sessionConfigurationUpdate;
     SPGlobalContextsConfiguration *gcConfig = self.globalContextConfiguration;
     SPGDPRConfiguration *gdprConfig = self.gdprConfiguration;
     SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
@@ -328,6 +328,9 @@
     }];
     if (self.trackerConfigurationUpdate.isPaused) {
         [tracker pauseEventTracking];
+    }
+    if (self.sessionConfigurationUpdate.isPaused) {
+        [tracker.session stopChecker];
     }
     return tracker;
 }
