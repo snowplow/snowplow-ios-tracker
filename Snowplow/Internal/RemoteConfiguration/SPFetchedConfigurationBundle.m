@@ -28,9 +28,9 @@
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
     if (self = [super init]) {
-        self.formatVersion = [dictionary sp_stringForKey:SP_STR_PROP(formatVersion) defaultValue:nil];
-        if (!self.formatVersion) {
-            SPLogDebug(@"Error assigning: formatVersion");
+        self.schema = [dictionary sp_stringForKey:@"$schema" defaultValue:nil];
+        if (!self.schema) {
+            SPLogDebug(@"Error assigning: schema");
             return nil;
         }
         NSNumber *number = [dictionary sp_numberForKey:SP_STR_PROP(configurationVersion) defaultValue:nil];
@@ -52,7 +52,7 @@
 
 - (id)copyWithZone:(nullable NSZone *)zone {
     SPFetchedConfigurationBundle *copy;
-    copy.formatVersion = self.formatVersion;
+    copy.schema = self.schema;
     copy.configurationVersion = self.configurationVersion;
     copy.configurationBundle = [self.configurationBundle copyWithZone:zone];
     return copy;
@@ -61,14 +61,14 @@
 // MARK: - NSCoding
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
-    [coder encodeObject:self.formatVersion forKey:SP_STR_PROP(formatVersion)];
+    [coder encodeObject:self.schema forKey:SP_STR_PROP(schema)];
     [coder encodeInteger:self.configurationVersion forKey:SP_STR_PROP(configurationVersion)];
     [coder encodeObject:self.configurationBundle forKey:SP_STR_PROP(configurationBundle)];
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
     if (self = [super init]) {
-        self.formatVersion = [coder decodeObjectForKey:SP_STR_PROP(formatVersion)];
+        self.schema = [coder decodeObjectForKey:SP_STR_PROP(schema)];
         self.configurationVersion = [coder decodeIntegerForKey:SP_STR_PROP(configurationVersion)];
         self.configurationBundle = [coder decodeObjectForKey:SP_STR_PROP(configurationBundle)];
     }

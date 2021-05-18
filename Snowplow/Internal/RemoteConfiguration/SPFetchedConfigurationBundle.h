@@ -26,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPFetchedConfigurationBundle : SPConfiguration
 
-@property (nonatomic, nonnull) NSString *formatVersion;
+@property (nonatomic, nonnull) NSString *schema;
 @property (nonatomic) NSInteger configurationVersion;
 @property (nonatomic, nonnull) NSArray<SPConfigurationBundle *> *configurationBundle;
 

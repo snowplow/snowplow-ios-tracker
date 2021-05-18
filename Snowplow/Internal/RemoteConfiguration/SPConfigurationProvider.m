@@ -46,7 +46,7 @@
         self.cache = [SPConfigurationCache new];
         if (defaultBundles) {
             SPFetchedConfigurationBundle *bundle = [[SPFetchedConfigurationBundle alloc] init];
-            bundle.formatVersion = @"1.0";
+            bundle.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
             bundle.configurationVersion = NSIntegerMin;
             bundle.configurationBundle = defaultBundles;
             self.defaultBundle = bundle;
@@ -67,7 +67,7 @@
             }
         }
         self.fetcher = [[SPConfigurationFetcher alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
-            if (![self versionCompatibility:fetchedConfigurationBundle.formatVersion]) {
+            if (![self schemaCompatibility:fetchedConfigurationBundle.schema]) {
                 return;
             }
             @synchronized (self) {
@@ -84,8 +84,8 @@
 
 // Private methods
 
-- (BOOL)versionCompatibility:(NSString *)version {
-    return [version hasPrefix:@"1."];
+- (BOOL)schemaCompatibility:(NSString *)schema {
+    return [schema hasPrefix:@"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-"];
 }
 
 @end
