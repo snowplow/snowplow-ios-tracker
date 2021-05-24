@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['width_1054',['width',['../interface_s_p_size.html#ab581e554cfc9559c9e2cd57ecf126d02',1,'SPSize::width()'],['../category_s_p_size_07_08.html#ab581e554cfc9559c9e2cd57ecf126d02',1,'SPSize()::width()']]]
+  ['width_1062',['width',['../interface_s_p_size.html#ab581e554cfc9559c9e2cd57ecf126d02',1,'SPSize::width()'],['../category_s_p_size_07_08.html#ab581e554cfc9559c9e2cd57ecf126d02',1,'SPSize()::width()']]]
 ];

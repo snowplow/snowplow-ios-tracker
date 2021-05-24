@@ -1,11 +1,19 @@
 var searchData=
 [
-  ['gdpr_1984',['gdpr',['../protocol_s_p_tracker_controller-p.html#a0bd3e1d57c53eedcfde88dd88bcae0e8',1,'SPTrackerController-p::gdpr()'],['../category_s_p_g_d_p_r_controller_impl_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPGDPRControllerImpl()::gdpr()'],['../category_s_p_tracker_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPTracker()::gdpr()'],['../category_s_p_tracker_controller_impl_07_08.html#a0bd3e1d57c53eedcfde88dd88bcae0e8',1,'SPTrackerControllerImpl()::gdpr()']]],
-  ['gdprconfiguration_1985',['gdprConfiguration',['../category_s_p_service_provider_07_08.html#a9af323ac3a9f2daca4b4b3d8eb6ffee0',1,'SPServiceProvider()']]],
-  ['generator_1986',['generator',['../category_s_p_global_context_07_08.html#a8b80ec007372f37a574719ca3a38f50a',1,'SPGlobalContext()']]],
-  ['geolocationcontext_1987',['geoLocationContext',['../interface_s_p_subject.html#a6379d52e90cb954cd393c6c3febd5835',1,'SPSubject::geoLocationContext()'],['../protocol_s_p_tracker_configuration_protocol-p.html#a6379d52e90cb954cd393c6c3febd5835',1,'SPTrackerConfigurationProtocol-p::geoLocationContext()']]],
-  ['globalcontextconfiguration_1988',['globalContextConfiguration',['../category_s_p_service_provider_07_08.html#a26a50fb1f896474abce1aa9b10cf4ae8',1,'SPServiceProvider()']]],
-  ['globalcontextgenerators_1989',['globalContextGenerators',['../interface_s_p_tracker.html#a09707cf1934854e30dbaa4040c4bd0ee',1,'SPTracker']]],
-  ['globalcontexts_1990',['globalContexts',['../protocol_s_p_tracker_controller-p.html#aa43ea05290a5a33aa3697398b152ee8c',1,'SPTrackerController-p::globalContexts()'],['../category_s_p_tracker_controller_impl_07_08.html#aa43ea05290a5a33aa3697398b152ee8c',1,'SPTrackerControllerImpl()::globalContexts()']]],
-  ['globalcontexttags_1991',['globalContextTags',['../interface_s_p_tracker.html#ad92223be26bbd5c457f7b240738e164b',1,'SPTracker']]]
+  ['gdpr_2000',['gdpr',['../category_s_p_g_d_p_r_controller_impl_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPGDPRControllerImpl()::gdpr()'],['../category_s_p_tracker_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPTracker()::gdpr()'],['../category_s_p_tracker_controller_impl_07_08.html#a0bd3e1d57c53eedcfde88dd88bcae0e8',1,'SPTrackerControllerImpl()::gdpr()'],['../protocol_s_p_tracker_controller-p.html#a0bd3e1d57c53eedcfde88dd88bcae0e8',1,'SPTrackerController-p::gdpr()']]],
+  ['gdprconfiguration_2001',['gdprConfiguration',['../category_s_p_service_provider_07_08.html#a9af323ac3a9f2daca4b4b3d8eb6ffee0',1,'SPServiceProvider()']]],
+  ['generator_2002',['generator',['../category_s_p_global_context_07_08.html#a8b80ec007372f37a574719ca3a38f50a',1,'SPGlobalContext()']]],
+  ['geoaltitude_2003',['geoAltitude',['../protocol_s_p_subject_configuration_protocol-p.html#ad4940f43bf101f1cc3236c9ad402f944',1,'SPSubjectConfigurationProtocol-p']]],
+  ['geoaltitudeaccuracy_2004',['geoAltitudeAccuracy',['../protocol_s_p_subject_configuration_protocol-p.html#ae35467f760a6b20dd144f1d70d44fff6',1,'SPSubjectConfigurationProtocol-p']]],
+  ['geobearing_2005',['geoBearing',['../protocol_s_p_subject_configuration_protocol-p.html#aa892a8a189f4541dae1ded6235b093d0',1,'SPSubjectConfigurationProtocol-p']]],
+  ['geolatitude_2006',['geoLatitude',['../protocol_s_p_subject_configuration_protocol-p.html#adc5a9c1d318a3db94d9650baaa99c286',1,'SPSubjectConfigurationProtocol-p']]],
+  ['geolatitudelongitudeaccuracy_2007',['geoLatitudeLongitudeAccuracy',['../protocol_s_p_subject_configuration_protocol-p.html#afef6208823cd1b6e9547cf271815f1d6',1,'SPSubjectConfigurationProtocol-p']]],
+  ['geolocationcontext_2008',['geoLocationContext',['../interface_s_p_subject.html#a6379d52e90cb954cd393c6c3febd5835',1,'SPSubject::geoLocationContext()'],['../protocol_s_p_tracker_configuration_protocol-p.html#a6379d52e90cb954cd393c6c3febd5835',1,'SPTrackerConfigurationProtocol-p::geoLocationContext()']]],
+  ['geolongitude_2009',['geoLongitude',['../protocol_s_p_subject_configuration_protocol-p.html#a4983e604773cc3a80e59884649c0a0c2',1,'SPSubjectConfigurationProtocol-p']]],
+  ['geospeed_2010',['geoSpeed',['../protocol_s_p_subject_configuration_protocol-p.html#adea58f6c6243ae4486c26d71e540451b',1,'SPSubjectConfigurationProtocol-p']]],
+  ['geotimestamp_2011',['geoTimestamp',['../protocol_s_p_subject_configuration_protocol-p.html#ab451e2f3fa8646e74e764df50480e980',1,'SPSubjectConfigurationProtocol-p']]],
+  ['globalcontextconfiguration_2012',['globalContextConfiguration',['../category_s_p_service_provider_07_08.html#a26a50fb1f896474abce1aa9b10cf4ae8',1,'SPServiceProvider()']]],
+  ['globalcontextgenerators_2013',['globalContextGenerators',['../interface_s_p_tracker.html#a09707cf1934854e30dbaa4040c4bd0ee',1,'SPTracker']]],
+  ['globalcontexts_2014',['globalContexts',['../protocol_s_p_tracker_controller-p.html#aa43ea05290a5a33aa3697398b152ee8c',1,'SPTrackerController-p::globalContexts()'],['../category_s_p_tracker_controller_impl_07_08.html#aa43ea05290a5a33aa3697398b152ee8c',1,'SPTrackerControllerImpl()::globalContexts()']]],
+  ['globalcontexttags_2015',['globalContextTags',['../interface_s_p_tracker.html#ad92223be26bbd5c457f7b240738e164b',1,'SPTracker']]]
 ];

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.1</span>
+   &#160;<span id="projectnumber">2.0.2</span>
    </div>
   </td>
  </tr>
@@ -75,7 +75,7 @@ $(function() {
 : <a class="el" href="category_s_p_service_provider_07_08.html#a9af323ac3a9f2daca4b4b3d8eb6ffee0">SPServiceProvider()</a>
 </li>
 <li>gdprContext
-: <a class="el" href="interface_s_p_tracker.html#adb81ed80fc123aac698f0dab9a34edf8">SPTracker</a>
+: <a class="el" href="interface_s_p_tracker.html#ae68ec86fdceb507a10c2a4a2181a3574">SPTracker</a>
 </li>
 <li>generator
 : <a class="el" href="category_s_p_global_context_07_08.html#a8b80ec007372f37a574719ca3a38f50a">SPGlobalContext()</a>
@@ -83,9 +83,41 @@ $(function() {
 <li>generatorFromEvent:
 : <a class="el" href="protocol_s_p_context_generator-p.html#a20451b82eddf63350481d377d129ed83">&lt;SPContextGenerator&gt;</a>
 </li>
+<li>geoAltitude
+: <a class="el" href="interface_s_p_subject.html#afed435cefae79457733bb10bb4535d20">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#ad4940f43bf101f1cc3236c9ad402f944">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>geoAltitudeAccuracy
+: <a class="el" href="interface_s_p_subject.html#a6ff8d54ed03896827357361c6f2c95c9">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#ae35467f760a6b20dd144f1d70d44fff6">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>geoBearing
+: <a class="el" href="interface_s_p_subject.html#a06d5b0ed525704c6996e185e1e68af3a">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#aa892a8a189f4541dae1ded6235b093d0">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>geoLatitude
+: <a class="el" href="interface_s_p_subject.html#acf4d1812e005130e0e87f9f538fb3590">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#adc5a9c1d318a3db94d9650baaa99c286">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>geoLatitudeLongitudeAccuracy
+: <a class="el" href="interface_s_p_subject.html#a491fee5d3ac81bb3434d88c46cd24bff">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#afef6208823cd1b6e9547cf271815f1d6">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
 <li>geoLocationContext
 : <a class="el" href="interface_s_p_subject.html#a6379d52e90cb954cd393c6c3febd5835">SPSubject</a>
 , <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a6379d52e90cb954cd393c6c3febd5835">&lt;SPTrackerConfigurationProtocol&gt;</a>
+</li>
+<li>geoLongitude
+: <a class="el" href="interface_s_p_subject.html#af929f8270cae46cbfc5e9a8c986e6f29">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#a4983e604773cc3a80e59884649c0a0c2">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>geoSpeed
+: <a class="el" href="interface_s_p_subject.html#a3a203e19c32d051153ebb4b50bcfbfe3">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#adea58f6c6243ae4486c26d71e540451b">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>geoTimestamp
+: <a class="el" href="interface_s_p_subject.html#a1c2dec346ffb9b1dcfe9045ac81b2585">SPSubject</a>
+, <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#ab451e2f3fa8646e74e764df50480e980">&lt;SPSubjectConfigurationProtocol&gt;</a>
 </li>
 <li>getAllEvents
 : <a class="el" href="interface_s_p_s_q_lite_event_store.html#a6c1832cbc34adc3651cee30b21e34111">SPSQLiteEventStore</a>
@@ -141,7 +173,7 @@ $(function() {
 </li>
 <li>getDocuments
 : <a class="el" href="interface_s_p_consent_granted.html#ad964b886fa619bf77cd1113a4258ebed">SPConsentGranted</a>
-, <a class="el" href="interface_s_p_consent_withdrawn.html#ad964b886fa619bf77cd1113a4258ebed">SPConsentWithdrawn</a>
+, <a class="el" href="interface_s_p_consent_withdrawn.html#a5457a05010ea894fc3833f555949e231">SPConsentWithdrawn</a>
 </li>
 <li>getEventWithId:
 : <a class="el" href="interface_s_p_s_q_lite_event_store.html#a41e9b97b5c3ab24222940479e5121cd7">SPSQLiteEventStore</a>
