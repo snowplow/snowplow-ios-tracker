@@ -186,6 +186,7 @@ NS_SWIFT_NAME(Subject)
  @param latitude A non-nil number.
  */
 - (void) setGeoLatitude:(float)latitude;
+- (NSNumber *)geoLatitude;
 
 /*!
  @brief Sets the longitude value for the geo context.
@@ -193,6 +194,7 @@ NS_SWIFT_NAME(Subject)
  @param longitude A non-nil number.
  */
 - (void) setGeoLongitude:(float)longitude;
+- (NSNumber *)geoLongitude;
 
 /*!
  @brief Sets the latitudeLongitudeAccuracy value for the geolocation context.
@@ -200,6 +202,7 @@ NS_SWIFT_NAME(Subject)
  @param latitudeLongitudeAccuracy A non-nil number
  */
 - (void) setGeoLatitudeLongitudeAccuracy:(float)latitudeLongitudeAccuracy;
+- (NSNumber *)geoLatitudeLongitudeAccuracy;
 
 /*!
  @brief Sets the altitude value for the geolocation context.
@@ -207,6 +210,7 @@ NS_SWIFT_NAME(Subject)
  @param altitude A non-nil number.
  */
 - (void) setGeoAltitude:(float)altitude;
+- (NSNumber *)geoAltitude;
 
 /*!
  @brief Sets the altitudeAccuracy value for the geolocation context.
@@ -214,6 +218,7 @@ NS_SWIFT_NAME(Subject)
  @param altitudeAccuracy A non-nil number.
  */
 - (void) setGeoAltitudeAccuracy:(float)altitudeAccuracy;
+- (NSNumber *)geoAltitudeAccuracy;
 
 /*!
  @brief Sets the bearing value for the geolocation context.
@@ -221,6 +226,7 @@ NS_SWIFT_NAME(Subject)
  @param bearing A non-nil number.
  */
 - (void) setGeoBearing:(float)bearing;
+- (NSNumber *)geoBearing;
 
 /*!
  @brief Sets the speed value for the geolocation context.
@@ -228,6 +234,7 @@ NS_SWIFT_NAME(Subject)
  @param speed A non-nil number.
  */
 - (void) setGeoSpeed:(float)speed;
+- (NSNumber *)geoSpeed;
 
 /*!
  @brief Sets the timestamp value for the geolocation context.
@@ -235,6 +242,7 @@ NS_SWIFT_NAME(Subject)
  @param timestamp The timestamp.
  */
 - (void) setGeoTimestamp:(NSNumber *)timestamp;
+- (NSNumber *)geoTimestamp;
 
 @end
 

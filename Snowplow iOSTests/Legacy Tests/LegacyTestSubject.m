@@ -113,6 +113,19 @@
     XCTAssertNotNil([subject getGeoLocationDict]);
 }
 
+- (void)testGeoLocationWithSubjectConfiguration {
+    SPSubjectConfiguration *config = [[SPSubjectConfiguration alloc] init];
+    config.geoLatitude = @12.12;
+    config.geoLongitude = @24.24;
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO geoLocationContext:YES subjectConfiguration:config];
+    
+    NSDictionary *values = [subject getGeoLocationDict];
+    
+    XCTAssertEqualObjects([NSNumber numberWithFloat:12.12], [values objectForKey:kSPGeoLatitude]);
+    XCTAssertEqualObjects([NSNumber numberWithFloat:24.24], [values objectForKey:kSPGeoLongitude]);
+    XCTAssertNil(values[kSPGeoAltitude]);
+}
+
 @end
 
 #pragma clang diagnostic pop

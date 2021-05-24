@@ -69,6 +69,15 @@
 @synthesize screenViewPort;
 @synthesize colorDepth;
 
+@synthesize geoLatitude;
+@synthesize geoLongitude;
+@synthesize geoLatitudeLongitudeAccuracy;
+@synthesize geoAltitude;
+@synthesize geoAltitudeAccuracy;
+@synthesize geoSpeed;
+@synthesize geoBearing;
+@synthesize geoTimestamp;
+
 // MARK: - Builder
 
 SP_BUILDER_METHOD(NSString *, userId)
@@ -81,6 +90,16 @@ SP_BUILDER_METHOD(NSString *, language)
 SP_BUILDER_METHOD(SPSize *, screenResolution)
 SP_BUILDER_METHOD(SPSize *, screenViewPort)
 SP_BUILDER_METHOD(NSNumber *, colorDepth)
+
+// geolocation
+SP_BUILDER_METHOD(NSNumber *, geoLatitude)
+SP_BUILDER_METHOD(NSNumber *, geoLongitude)
+SP_BUILDER_METHOD(NSNumber *, geoLatitudeLongitudeAccuracy)
+SP_BUILDER_METHOD(NSNumber *, geoAltitude)
+SP_BUILDER_METHOD(NSNumber *, geoAltitudeAccuracy)
+SP_BUILDER_METHOD(NSNumber *, geoBearing)
+SP_BUILDER_METHOD(NSNumber *, geoSpeed)
+SP_BUILDER_METHOD(NSNumber *, geoTimestamp)
 
 // MARK: - NSCopying
 
@@ -96,6 +115,16 @@ SP_BUILDER_METHOD(NSNumber *, colorDepth)
     copy.screenResolution = self.screenResolution;
     copy.screenViewPort = self.screenViewPort;
     copy.colorDepth = self.colorDepth;
+
+    // geolocation
+    copy.geoLatitude = self.geoLatitude;
+    copy.geoLongitude = self.geoLongitude;
+    copy.geoLatitudeLongitudeAccuracy = self.geoLatitudeLongitudeAccuracy;
+    copy.geoAltitude = self.geoAltitude;
+    copy.geoAltitudeAccuracy = self.geoAltitudeAccuracy;
+    copy.geoSpeed = self.geoSpeed;
+    copy.geoBearing = self.geoBearing;
+    copy.geoTimestamp = self.geoTimestamp;
     return copy;
 }
 
@@ -112,6 +141,15 @@ SP_BUILDER_METHOD(NSNumber *, colorDepth)
     [coder encodeObject:self.screenResolution forKey:SP_STR_PROP(screenResolution)];
     [coder encodeObject:self.screenViewPort forKey:SP_STR_PROP(screenViewPort)];
     [coder encodeObject:self.colorDepth forKey:SP_STR_PROP(colorDepth)];
+    // geolocation
+    [coder encodeObject:self.geoLatitude forKey:SP_STR_PROP(geoLatitude)];
+    [coder encodeObject:self.geoLongitude forKey:SP_STR_PROP(geoLongitude)];
+    [coder encodeObject:self.geoLatitudeLongitudeAccuracy forKey:SP_STR_PROP(geoLatitudeLongitudeAccuracy)];
+    [coder encodeObject:self.geoAltitude forKey:SP_STR_PROP(geoAltitude)];
+    [coder encodeObject:self.geoAltitudeAccuracy forKey:SP_STR_PROP(geoAltitudeAccuracy)];
+    [coder encodeObject:self.geoSpeed forKey:SP_STR_PROP(geoSpeed)];
+    [coder encodeObject:self.geoBearing forKey:SP_STR_PROP(geoBearing)];
+    [coder encodeObject:self.geoTimestamp forKey:SP_STR_PROP(geoTimestamp)];
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
@@ -126,6 +164,15 @@ SP_BUILDER_METHOD(NSNumber *, colorDepth)
         self.screenResolution = [coder decodeObjectForKey:SP_STR_PROP(screenResolution)];
         self.screenViewPort = [coder decodeObjectForKey:SP_STR_PROP(screenViewPort)];
         self.colorDepth = [coder decodeObjectForKey:SP_STR_PROP(colorDepth)];
+        // geolocation
+        self.geoLatitude = [coder decodeObjectForKey:SP_STR_PROP(geoLatitude)];
+        self.geoLongitude = [coder decodeObjectForKey:SP_STR_PROP(geoLongitude)];
+        self.geoLatitudeLongitudeAccuracy = [coder decodeObjectForKey:SP_STR_PROP(geoLatitudeLongitudeAccuracy)];
+        self.geoAltitude = [coder decodeObjectForKey:SP_STR_PROP(geoAltitude)];
+        self.geoAltitudeAccuracy = [coder decodeObjectForKey:SP_STR_PROP(geoAltitudeAccuracy)];
+        self.geoSpeed = [coder decodeObjectForKey:SP_STR_PROP(geoSpeed)];
+        self.geoBearing = [coder decodeObjectForKey:SP_STR_PROP(geoBearing)];
+        self.geoTimestamp = [coder decodeObjectForKey:SP_STR_PROP(geoTimestamp)];
     }
     return self;
 }
