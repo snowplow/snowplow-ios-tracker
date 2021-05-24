@@ -35,12 +35,14 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <UserNotifications/UserNotifications.h>
 #import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+#import <UserNotifications/UserNotifications.h>
 #import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_TV

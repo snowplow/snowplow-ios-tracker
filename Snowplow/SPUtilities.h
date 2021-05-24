@@ -26,10 +26,8 @@
 @class SPPayload;
 @class SPSelfDescribingJson;
 @class SPScreenState;
-
-#if SNOWPLOW_TARGET_IOS
-#import <UserNotifications/UserNotifications.h>
-#endif
+@class UNNotificationAttachment;
+@class UNNotificationTrigger;
 
 /*!
  @class SPUtilities
@@ -229,19 +227,14 @@
 
  @return A string describing the type of trigger.
  */
-#if SNOWPLOW_TARGET_IOS
-+ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger NS_AVAILABLE_IOS(10.0);
-#endif
++ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger API_AVAILABLE(ios(10.0), macosx(10.14));
 
 /*!
  @brief Converts a UNNotificationAttachment array into an array of string dictionaries.
  @param attachments An array of UNNotificationAttachment.
  @return An array of string dictionaries.
  */
-
-#if SNOWPLOW_TARGET_IOS
-+ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments NS_AVAILABLE_IOS(10.0);
-#endif
++ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments API_AVAILABLE(ios(10.0), macosx(10.14));
 
 /*!
  @brief Converts a kebab-case string keys into a camel-case string keys.
