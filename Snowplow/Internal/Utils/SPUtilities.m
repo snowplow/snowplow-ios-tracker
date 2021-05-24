@@ -98,24 +98,63 @@
 + (NSString *) getAppleIdfa {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #ifdef SNOWPLOW_IDFA_ENABLED
-    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
-    if (!ASIdentifierManagerClass) return nil;
+    NSString *errorMsg = @"ASIdentifierManager not found. Please, add the AdSupport.framework if you want to use it.";
+    Class identifierManagerClass = NSClassFromString(@"ASIdentifierManager");
+    if (!identifierManagerClass) {
+        SPLogError(errorMsg);
+        return nil;
+    }
 
     SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
-    if (![ASIdentifierManagerClass respondsToSelector:sharedManagerSelector]) return nil;
+    if (![identifierManagerClass respondsToSelector:sharedManagerSelector]) {
+        SPLogError(errorMsg);
+        return nil;
+    }
 
-    id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
-
-    SEL isAdvertisingTrackingEnabledSelector = NSSelectorFromString(@"isAdvertisingTrackingEnabled");
-    if (![sharedManager respondsToSelector:isAdvertisingTrackingEnabledSelector]) return nil;
-
-    BOOL isAdvertisingTrackingEnabled = ((BOOL (*)(id, SEL))[sharedManager methodForSelector:isAdvertisingTrackingEnabledSelector])(sharedManager, isAdvertisingTrackingEnabledSelector);
-    if (!isAdvertisingTrackingEnabled) return nil;
-
+    id identifierManager = ((id (*)(id, SEL))[identifierManagerClass methodForSelector:sharedManagerSelector])(identifierManagerClass, sharedManagerSelector);
+    
+    if (@available(iOS 14.0, *)) {
+        errorMsg = @"ATTrackingManager not found. Please, add the AppTrackingTransparency.framework if you want to use it.";
+        Class trackingManagerClass = NSClassFromString(@"ATTrackingManager");
+        if (!trackingManagerClass) {
+            SPLogError(errorMsg);
+            return nil;
+        }
+        
+        SEL trackingStatusSelector = NSSelectorFromString(@"trackingAuthorizationStatus");
+        if (![trackingManagerClass respondsToSelector:trackingStatusSelector]) {
+            SPLogError(errorMsg);
+            return nil;
+        }
+        
+        //notDetermined = 0, restricted = 1, denied = 2, authorized = 3
+        NSInteger authorizationStatus = ((NSInteger (*)(id, SEL))[trackingManagerClass methodForSelector:trackingStatusSelector])(trackingManagerClass, trackingStatusSelector);
+        
+        if (authorizationStatus != 3)  {
+            SPLogDebug(@"The user didn't let tracking of IDFA. Authorization status is: %d", authorizationStatus);
+            return nil;
+        }
+    } else {
+        SEL isAdvertisingTrackingEnabledSelector = NSSelectorFromString(@"isAdvertisingTrackingEnabled");
+        if (![identifierManager respondsToSelector:isAdvertisingTrackingEnabledSelector]) {
+            SPLogError(errorMsg);
+            return nil;
+        }
+        
+        BOOL isAdvertisingTrackingEnabled = ((BOOL (*)(id, SEL))[identifierManager methodForSelector:isAdvertisingTrackingEnabledSelector])(identifierManager, isAdvertisingTrackingEnabledSelector);
+        if (!isAdvertisingTrackingEnabled) {
+            SPLogError(@"The user didn't let tracking of IDFA.");
+            return nil;
+        }
+    }
+    
     SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
-    if (![sharedManager respondsToSelector:advertisingIdentifierSelector]) return nil;
+    if (![identifierManager respondsToSelector:advertisingIdentifierSelector]) {
+        SPLogError(@"ASIdentifierManager doesn't respond to selector `advertisingIdentifier`.");
+        return nil;
+    }
 
-    NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
+    NSUUID *uuid = ((NSUUID* (*)(id, SEL))[identifierManager methodForSelector:advertisingIdentifierSelector])(identifierManager, advertisingIdentifierSelector);
     return [uuid UUIDString];
 #endif
 #endif

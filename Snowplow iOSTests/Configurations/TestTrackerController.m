@@ -52,4 +52,16 @@
     XCTAssertNil(tracker.subject.userId);
 }
 
+- (void)testSubjectGeoLocationCanBeUpdated {
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" endpoint:@"https://fake-url" method:SPHttpMethodPost];
+    XCTAssertNotNil(tracker.subject);
+    XCTAssertNil(tracker.subject.geoLatitude);
+    tracker.subject.geoLatitude = @12.3456;
+    XCTAssertEqualObjects([NSNumber numberWithFloat:12.3456], tracker.subject.geoLatitude);
+    tracker.subject.geoLatitude = nil;
+    // TODO: On version 3 setting to nil should get back nil.
+    // Here it should be nil rather than 0 but it's the way the beneith SPSubject works.
+    XCTAssertEqualObjects([NSNumber numberWithFloat:0], tracker.subject.geoLatitude);
+}
+
 @end

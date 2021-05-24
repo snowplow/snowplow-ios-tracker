@@ -26,7 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(NetworkController)
+NS_SWIFT_NAME(NetworkControllerImpl)
 @interface SPNetworkControllerImpl : NSObject <SPNetworkController>
 
 - (instancetype)initWithEmitter:(SPEmitter *)emitter;
