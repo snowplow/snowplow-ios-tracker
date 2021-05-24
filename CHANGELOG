@@ -1,4 +1,10 @@
 
+Version 2.0.2 (2021-05-24)
+--------------------------
+Add geolocation to SubjectConfiguration and SubjectController (#604)
+Fix duplicate NS_SWIFT_NAME macro (#603)
+Fix IDFA not accessible on iOS 14 (#601)
+
 Version 2.0.1 (2021-05-12)
 --------------------------
 Fix crash if data from Database is corrupted (#596) (Contribution of @glukhanyk)
