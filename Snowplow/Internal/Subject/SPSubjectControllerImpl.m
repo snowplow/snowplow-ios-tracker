@@ -43,6 +43,15 @@
 @synthesize screenViewPort;
 @synthesize colorDepth;
 
+@synthesize geoLatitude;
+@synthesize geoLongitude;
+@synthesize geoLatitudeLongitudeAccuracy;
+@synthesize geoAltitude;
+@synthesize geoAltitudeAccuracy;
+@synthesize geoSpeed;
+@synthesize geoBearing;
+@synthesize geoTimestamp;
+
 - (instancetype)initWithSubject:(SPSubject *)subject {
     if (self = [super init]) {
         self.subject = subject;
@@ -130,6 +139,72 @@
 
 - (NSNumber *)colorDepth {
     return @([self.subject colorDepth]);
+}
+
+// MARK: - GeoLocalization
+
+- (void)setGeoLatitude:(NSNumber *)geoLatitude {
+    [self.subject setGeoLatitude:geoLatitude.floatValue];
+}
+
+- (NSNumber *)geoLatitude {
+    return [self.subject geoLatitude];
+}
+
+- (void)setGeoLongitude:(NSNumber *)geoLongitude {
+    [self.subject setGeoLongitude:geoLongitude.floatValue];
+}
+
+- (NSNumber *)geoLongitude {
+    return [self.subject geoLongitude];
+}
+
+- (void)setGeoLatitudeLongitudeAccuracy:(NSNumber *)geoLatitudeLongitudeAccuracy {
+    [self.subject setGeoLatitudeLongitudeAccuracy:geoLatitudeLongitudeAccuracy.floatValue];
+}
+
+- (NSNumber *)geoLatitudeLongitudeAccuracy {
+    return [self.subject geoLatitudeLongitudeAccuracy];
+}
+
+- (void)setGeoAltitude:(NSNumber *)geoAltitude {
+    [self.subject setGeoAltitude:geoAltitude.floatValue];
+}
+
+- (NSNumber *)geoAltitude {
+    return [self.subject geoAltitude];
+}
+
+- (void)setGeoAltitudeAccuracy:(NSNumber *)geoAltitudeAccuracy {
+    [self.subject setGeoAltitudeAccuracy:geoAltitudeAccuracy.floatValue];
+}
+
+- (NSNumber *)geoAltitudeAccuracy {
+    return [self.subject geoAltitudeAccuracy];
+}
+
+- (void)setGeoSpeed:(NSNumber *)geoSpeed {
+    [self.subject setGeoSpeed:geoSpeed.floatValue];
+}
+
+- (NSNumber *)geoSpeed {
+    return [self.subject geoSpeed];
+}
+
+- (void)setGeoBearing:(NSNumber *)geoBearing {
+    [self.subject setGeoBearing:geoBearing.floatValue];
+}
+
+- (NSNumber *)geoBearing {
+    return [self.subject geoBearing];
+}
+
+- (void)setGeoTimestamp:(NSNumber *)geoTimestamp {
+    [self.subject setGeoTimestamp:geoTimestamp];
+}
+
+- (NSNumber *)geoTimestamp {
+    return [self.subject geoTimestamp];
 }
 
 @end

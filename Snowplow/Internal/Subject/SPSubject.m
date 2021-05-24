@@ -73,6 +73,31 @@
             if (config.colorDepth) {
                 [self setColorDepth:config.colorDepth.integerValue];
             }
+            // geolocation
+            if (config.geoLatitude) {
+                [self setGeoLatitude:config.geoLatitude.floatValue];
+            }
+            if (config.geoLongitude) {
+                [self setGeoLongitude:config.geoLongitude.floatValue];
+            }
+            if (config.geoLatitudeLongitudeAccuracy) {
+                [self setGeoLatitudeLongitudeAccuracy:config.geoLatitudeLongitudeAccuracy.floatValue];
+            }
+            if (config.geoAltitude) {
+                [self setGeoAltitude:config.geoAltitude.floatValue];
+            }
+            if (config.geoAltitudeAccuracy) {
+                [self setGeoAltitudeAccuracy:config.geoAltitudeAccuracy.floatValue];
+            }
+            if (config.geoSpeed) {
+                [self setGeoSpeed:config.geoSpeed.floatValue];
+            }
+            if (config.geoBearing) {
+                [self setGeoBearing:config.geoBearing.floatValue];
+            }
+            if (config.geoTimestamp) {
+                [self setGeoTimestamp:config.geoTimestamp];
+            }
         }
     }
     return self;
@@ -193,32 +218,64 @@
     [_geoLocationDict setObject:[NSNumber numberWithFloat:latitude] forKey:kSPGeoLatitude];
 }
 
+- (NSNumber *)geoLatitude {
+    return (NSNumber *)_geoLocationDict[kSPGeoLatitude];
+}
+
 - (void) setGeoLongitude:(float)longitude {
     [_geoLocationDict setObject:[NSNumber numberWithFloat:longitude] forKey:kSPGeoLongitude];
+}
+
+- (NSNumber *)geoLongitude {
+    return (NSNumber *)_geoLocationDict[kSPGeoLongitude];
 }
 
 - (void) setGeoLatitudeLongitudeAccuracy:(float)latitudeLongitudeAccuracy {
     [_geoLocationDict setObject:[NSNumber numberWithFloat:latitudeLongitudeAccuracy] forKey:kSPGeoLatLongAccuracy];
 }
 
+- (NSNumber *)geoLatitudeLongitudeAccuracy {
+    return (NSNumber *)_geoLocationDict[kSPGeoLatLongAccuracy];
+}
+
 - (void) setGeoAltitude:(float)altitude {
     [_geoLocationDict setObject:[NSNumber numberWithFloat:altitude] forKey:kSPGeoAltitude];
+}
+
+- (NSNumber *)geoAltitude {
+    return (NSNumber *)_geoLocationDict[kSPGeoAltitude];
 }
 
 - (void) setGeoAltitudeAccuracy:(float)altitudeAccuracy {
     [_geoLocationDict setObject:[NSNumber numberWithFloat:altitudeAccuracy] forKey:kSPGeoAltitudeAccuracy];
 }
 
+- (NSNumber *)geoAltitudeAccuracy {
+    return (NSNumber *)_geoLocationDict[kSPGeoAltitudeAccuracy];
+}
+
 - (void) setGeoBearing:(float)bearing {
     [_geoLocationDict setObject:[NSNumber numberWithFloat:bearing] forKey:kSPGeoBearing];
+}
+
+- (NSNumber *)geoBearing {
+    return (NSNumber *)_geoLocationDict[kSPGeoBearing];
 }
 
 - (void) setGeoSpeed:(float)speed {
     [_geoLocationDict setObject:[NSNumber numberWithFloat:speed] forKey:kSPGeoSpeed];
 }
 
+- (NSNumber *)geoSpeed {
+    return (NSNumber *)_geoLocationDict[kSPGeoSpeed];
+}
+
 - (void) setGeoTimestamp:(NSNumber *)timestamp {
     [_geoLocationDict setObject:timestamp forKey:kSPGeoTimestamp];
+}
+
+- (NSNumber *)geoTimestamp {
+    return (NSNumber *)_geoLocationDict[kSPGeoTimestamp];
 }
 
 @end
