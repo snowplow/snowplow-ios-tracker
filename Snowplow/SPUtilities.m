@@ -35,12 +35,14 @@
 #import <CoreTelephony/CTCarrier.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <UserNotifications/UserNotifications.h>
 #import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
+#import <UserNotifications/UserNotifications.h>
 #import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_TV
@@ -50,6 +52,7 @@
 #elif SNOWPLOW_TARGET_WATCHOS
 
 #import <WatchKit/WatchKit.h>
+#import <UserNotifications/UserNotifications.h>
 
 #endif
 
@@ -98,24 +101,63 @@
 + (NSString *) getAppleIdfa {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #ifdef SNOWPLOW_IDFA_ENABLED
-    Class ASIdentifierManagerClass = NSClassFromString(@"ASIdentifierManager");
-    if (!ASIdentifierManagerClass) return nil;
+    NSString *errorMsg = @"ASIdentifierManager not found. Please, add the AdSupport.framework if you want to use it.";
+    Class identifierManagerClass = NSClassFromString(@"ASIdentifierManager");
+    if (!identifierManagerClass) {
+        SPLogError(errorMsg);
+        return nil;
+    }
 
     SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
-    if (![ASIdentifierManagerClass respondsToSelector:sharedManagerSelector]) return nil;
+    if (![identifierManagerClass respondsToSelector:sharedManagerSelector]) {
+        SPLogError(errorMsg);
+        return nil;
+    }
 
-    id sharedManager = ((id (*)(id, SEL))[ASIdentifierManagerClass methodForSelector:sharedManagerSelector])(ASIdentifierManagerClass, sharedManagerSelector);
-
-    SEL isAdvertisingTrackingEnabledSelector = NSSelectorFromString(@"isAdvertisingTrackingEnabled");
-    if (![sharedManager respondsToSelector:isAdvertisingTrackingEnabledSelector]) return nil;
-
-    BOOL isAdvertisingTrackingEnabled = ((BOOL (*)(id, SEL))[sharedManager methodForSelector:isAdvertisingTrackingEnabledSelector])(sharedManager, isAdvertisingTrackingEnabledSelector);
-    if (!isAdvertisingTrackingEnabled) return nil;
-
+    id identifierManager = ((id (*)(id, SEL))[identifierManagerClass methodForSelector:sharedManagerSelector])(identifierManagerClass, sharedManagerSelector);
+    
+    if (@available(iOS 14.0, *)) {
+        errorMsg = @"ATTrackingManager not found. Please, add the AppTrackingTransparency.framework if you want to use it.";
+        Class trackingManagerClass = NSClassFromString(@"ATTrackingManager");
+        if (!trackingManagerClass) {
+            SPLogError(errorMsg);
+            return nil;
+        }
+        
+        SEL trackingStatusSelector = NSSelectorFromString(@"trackingAuthorizationStatus");
+        if (![trackingManagerClass respondsToSelector:trackingStatusSelector]) {
+            SPLogError(errorMsg);
+            return nil;
+        }
+        
+        //notDetermined = 0, restricted = 1, denied = 2, authorized = 3
+        NSInteger authorizationStatus = ((NSInteger (*)(id, SEL))[trackingManagerClass methodForSelector:trackingStatusSelector])(trackingManagerClass, trackingStatusSelector);
+        
+        if (authorizationStatus != 3)  {
+            SPLogDebug(@"The user didn't let tracking of IDFA. Authorization status is: %d", authorizationStatus);
+            return nil;
+        }
+    } else {
+        SEL isAdvertisingTrackingEnabledSelector = NSSelectorFromString(@"isAdvertisingTrackingEnabled");
+        if (![identifierManager respondsToSelector:isAdvertisingTrackingEnabledSelector]) {
+            SPLogError(errorMsg);
+            return nil;
+        }
+        
+        BOOL isAdvertisingTrackingEnabled = ((BOOL (*)(id, SEL))[identifierManager methodForSelector:isAdvertisingTrackingEnabledSelector])(identifierManager, isAdvertisingTrackingEnabledSelector);
+        if (!isAdvertisingTrackingEnabled) {
+            SPLogError(@"The user didn't let tracking of IDFA.");
+            return nil;
+        }
+    }
+    
     SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
-    if (![sharedManager respondsToSelector:advertisingIdentifierSelector]) return nil;
+    if (![identifierManager respondsToSelector:advertisingIdentifierSelector]) {
+        SPLogError(@"ASIdentifierManager doesn't respond to selector `advertisingIdentifier`.");
+        return nil;
+    }
 
-    NSUUID *uuid = ((NSUUID* (*)(id, SEL))[sharedManager methodForSelector:advertisingIdentifierSelector])(sharedManager, advertisingIdentifierSelector);
+    NSUUID *uuid = ((NSUUID* (*)(id, SEL))[identifierManager methodForSelector:advertisingIdentifierSelector])(identifierManager, advertisingIdentifierSelector);
     return [uuid UUIDString];
 #endif
 #endif
@@ -324,9 +366,9 @@
     }
 }
 
-#if SNOWPLOW_TARGET_IOS
-+ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger {
++ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger API_AVAILABLE(ios(10.0), macosx(10.14)) API_UNAVAILABLE(watchos, tvos) {
     NSMutableString * triggerType = [[NSMutableString alloc] initWithString:@"UNKNOWN"];
+#if SNOWPLOW_TARGET_IOS
     NSString * triggerClass = NSStringFromClass([trigger class]);
     if ([triggerClass isEqualToString:@"UNTimeIntervalNotificationTrigger"]) {
         [triggerType setString:@"TIME_INTERVAL"];
@@ -337,11 +379,11 @@
     } else if ([triggerClass isEqualToString:@"UNPushNotificationTrigger"]) {
         [triggerType setString:@"PUSH"];
     }
-
+#endif
     return (NSString *)triggerType;
 }
 
-+ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments {
++ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments API_AVAILABLE(ios(10.0), macosx(10.14)) API_UNAVAILABLE(watchos, tvos) {
     NSMutableArray<NSDictionary *> * converting = [[NSMutableArray alloc] init];
     NSMutableDictionary * newAttachment = [[NSMutableDictionary alloc] init];
 
@@ -355,7 +397,6 @@
 
     return (NSArray<NSDictionary *> *)[NSArray arrayWithArray:converting];
 }
-#endif
 
 + (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict {
     NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];

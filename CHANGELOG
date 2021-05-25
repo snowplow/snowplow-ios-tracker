@@ -1,4 +1,12 @@
 
+Version 1.7.1 (2021-05-25)
+--------------------------
+Fix IDFA not accessible on iOS 14 (#601)
+Fix SNOWPLOW_TARGET not working with Xcode 12.5 (#589) (Contribution of @ejensen)
+Test tracker v1 against demo apps v1 (#608)
+
+(Post-release v2)
+
 Version 1.7.0 (2021-04-03)
 --------------------------
 Fix issue of OpenIDFA causing App Rejection (#575)
