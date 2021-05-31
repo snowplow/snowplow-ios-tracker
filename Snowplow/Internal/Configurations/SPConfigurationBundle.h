@@ -42,7 +42,11 @@ NS_SWIFT_NAME(ConfigurationBundle)
 
 @property (nonatomic, nonnull, readonly) NSArray<SPConfiguration *> *configurations;
 
-- (instancetype)initWithNamespace:(NSString *)namespace networkConfiguration:(SPNetworkConfiguration *)networkConfiguration;
++ (instancetype) new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
+
+- (instancetype)initWithNamespace:(NSString *)namespace;
+- (instancetype)initWithNamespace:(NSString *)namespace networkConfiguration:(nullable SPNetworkConfiguration *)networkConfiguration;
 
 @end
 

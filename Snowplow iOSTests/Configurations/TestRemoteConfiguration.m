@@ -98,8 +98,7 @@
 }
 
 - (void)testConfigurationCache {
-    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
-    bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
+    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
     SPFetchedConfigurationBundle *expected = [[SPFetchedConfigurationBundle alloc] init];
     expected.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
     expected.configurationVersion = 12;
@@ -177,8 +176,7 @@
     
     SPConfigurationCache *cache = [SPConfigurationCache new];
     [cache clearCache];
-    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
-    bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
+    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
     SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
     cached.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
     cached.configurationVersion = 1;
@@ -219,8 +217,7 @@
     
     SPConfigurationCache *cache = [SPConfigurationCache new];
     [cache clearCache];
-    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
-    bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
+    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
     SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
     cached.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
     cached.configurationVersion = 1;
@@ -261,8 +258,7 @@
     
     SPConfigurationCache *cache = [SPConfigurationCache new];
     [cache clearCache];
-    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
-    bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
+    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
     SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
     cached.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
     cached.configurationVersion = 1;

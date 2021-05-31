@@ -30,12 +30,33 @@
 
 @implementation SPConfigurationBundle
 
-- (instancetype)initWithNamespace:(NSString *)namespace networkConfiguration:(SPNetworkConfiguration *)networkConfiguration {
+- (instancetype)initWithNamespace:(NSString *)namespace {
+    return [self initWithNamespace:namespace networkConfiguration:nil];
+}
+
+- (instancetype)initWithNamespace:(NSString *)namespace networkConfiguration:(nullable SPNetworkConfiguration *)networkConfiguration {
     if (self = [super init]) {
         self.namespace = namespace;
         self.networkConfiguration = networkConfiguration;
     }
     return self;
+}
+
+- (NSArray<SPConfiguration *> *)configurations {
+    NSMutableArray *array = [NSMutableArray new];
+    if (self.networkConfiguration) {
+        [array addObject:self.networkConfiguration];
+    }
+    if (self.trackerConfiguration) {
+        [array addObject:self.trackerConfiguration];
+    }
+    if (self.subjectConfiguration) {
+        [array addObject:self.subjectConfiguration];
+    }
+    if (self.sessionConfiguration) {
+        [array addObject:self.sessionConfiguration];
+    }
+    return array;
 }
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
