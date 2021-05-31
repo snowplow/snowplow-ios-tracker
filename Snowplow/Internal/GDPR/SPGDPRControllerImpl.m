@@ -25,10 +25,9 @@
 #import "SPTracker.h"
 #import "SPGDPRConfigurationUpdate.h"
 
-
 @interface SPGDPRControllerImpl ()
 
-@property (nonatomic) SPGdprContext *gdpr;
+@property (nonatomic, nullable) SPGdprContext *gdpr;
 
 @end
 

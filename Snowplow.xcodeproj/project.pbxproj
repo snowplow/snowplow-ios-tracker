@@ -563,6 +563,7 @@
 		ED98972B26287F7A00145157 /* SPConfigurationCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98972526287F7900145157 /* SPConfigurationCache.m */; };
 		ED98972C26287F7A00145157 /* SPConfigurationCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98972526287F7900145157 /* SPConfigurationCache.m */; };
 		ED98972D26287F7A00145157 /* SPConfigurationCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98972526287F7900145157 /* SPConfigurationCache.m */; };
+		EDA06FB62664CD2F007FA773 /* SPMockEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */; };
 		EDCBD0D824F5084900D39DD2 /* TestNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */; };
 		EDD8540C24EE786900661F6B /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD8540A24EE786900661F6B /* SPEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDD8540D24EE786900661F6B /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD8540A24EE786900661F6B /* SPEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -917,6 +918,8 @@
 		ED9897152627006F00145157 /* NSDictionary+SP_TypeMethods.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+SP_TypeMethods.m"; sourceTree = "<group>"; };
 		ED98972426287F7900145157 /* SPConfigurationCache.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConfigurationCache.h; sourceTree = "<group>"; };
 		ED98972526287F7900145157 /* SPConfigurationCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConfigurationCache.m; sourceTree = "<group>"; };
+		EDA06FB42664CD2F007FA773 /* SPMockEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockEventStore.h; sourceTree = "<group>"; };
+		EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockEventStore.m; sourceTree = "<group>"; };
 		EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestNetworkConnection.m; sourceTree = "<group>"; };
 		EDD8540A24EE786900661F6B /* SPEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEventStore.h; sourceTree = "<group>"; };
 		EDD8541424EEC25000661F6B /* SPEmitterEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEmitterEvent.h; sourceTree = "<group>"; };
@@ -1019,6 +1022,7 @@
 		752DABD821CC38560065F874 /* Snowplow iOSTests */ = {
 			isa = PBXGroup;
 			children = (
+				EDA06FB32664CD02007FA773 /* Utils */,
 				ED88B6C62583A3770048FAD1 /* Legacy Tests */,
 				ED8BF8EB2570FAFB001DFDD9 /* Configurations */,
 				ED914EB02430D03A0068DA0A /* Global Contexts */,
@@ -1215,6 +1219,15 @@
 				ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */,
 			);
 			path = "Global Contexts";
+			sourceTree = "<group>";
+		};
+		EDA06FB32664CD02007FA773 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				EDA06FB42664CD2F007FA773 /* SPMockEventStore.h */,
+				EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		EDC9B346255ACF5100F4136D /* Events */ = {
@@ -2229,6 +2242,7 @@
 				ED914EB52431FEE70068DA0A /* TestGlobalContexts.m in Sources */,
 				EDCBD0D824F5084900D39DD2 /* TestNetworkConnection.m in Sources */,
 				ED88B6B3258253F20048FAD1 /* TestEvents.m in Sources */,
+				EDA06FB62664CD2F007FA773 /* SPMockEventStore.m in Sources */,
 				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
 				ED87A43D2577E441000C54EB /* TestTrackerController.m in Sources */,
 				EDEE836324C0C318000B8530 /* TestLogger.m in Sources */,
