@@ -60,7 +60,7 @@ NS_SWIFT_NAME(Snowplow)
  * which will delete all the EventStores instanced with namespaces not listed in the passed list.
  *
  * @param remoteConfiguration The remote configuration used to indicate where to download the configuration from.
- * @param defaultBundles The default configuration passed by default in case there isn't a cached version and it's able to download a new one.
+ * @param defaultConfigurationBundles The default configuration passed by default in case there isn't a cached version and it's able to download a new one.
  * @param onSuccess The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated
  *                  to the created trackers.
  */
