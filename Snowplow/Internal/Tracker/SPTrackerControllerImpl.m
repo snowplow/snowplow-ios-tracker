@@ -20,6 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
+#import "SPServiceProviderProtocol.h"
 #import "SPTrackerControllerImpl.h"
 #import "SPEmitterControllerImpl.h"
 #import "SPNetworkControllerImpl.h"
@@ -28,9 +29,6 @@
 #import "SPSubjectControllerImpl.h"
 #import "SPSessionControllerImpl.h"
 
-#import "SPSubjectConfiguration.h"
-#import "SPNetworkConfiguration.h"
-
 #import "SPTrackerConstants.h"
 #import "SPTracker.h"
 #import "SPEmitter.h"
@@ -38,42 +36,50 @@
 #import "SPSubject.h"
 #import "SPLogger.h"
 
-@interface SPTrackerControllerImpl ()
-
-@property (readwrite, nonatomic) id<SPNetworkController> network;
-@property (readwrite, nonatomic) id<SPEmitterController> emitter;
-@property (readwrite, nonatomic) id<SPGDPRController> gdpr;
-@property (readwrite, nonatomic) id<SPGlobalContextsController> globalContexts;
-@property (readwrite, nonatomic) id<SPSubjectController> subject;
-
-@property (nonatomic) SPSessionControllerImpl *sessionController;
-
-@property (nonatomic, weak) SPTracker *tracker;
-
-@end
-
+#import "SPTrackerConfigurationUpdate.h"
 
 @implementation SPTrackerControllerImpl
 
-- (void)resetWithTracker:(SPTracker *)tracker {
-    self.tracker = tracker;
-    self.sessionController = [[SPSessionControllerImpl alloc] initWithTracker:tracker];
-    self.emitter = [[SPEmitterControllerImpl alloc] initWithEmitter:tracker.emitter];
-    self.gdpr = [[SPGDPRControllerImpl alloc] initWithTracker:tracker];
-    self.globalContexts = [[SPGlobalContextsControllerImpl alloc] initWithTracker:tracker];
-    self.subject = [[SPSubjectControllerImpl alloc] initWithSubject:tracker.subject];
-    if (!tracker.emitter.networkConnection || [tracker.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class]) {
-        self.network = [[SPNetworkControllerImpl alloc] initWithEmitter:tracker.emitter];
-    }
+// MARK: - Controllers
+
+- (id<SPNetworkController>)network {
+    return self.serviceProvider.networkController;
+}
+
+- (id<SPEmitterController>)emitter {
+    return self.serviceProvider.emitterController;
+}
+
+- (id<SPGDPRController>)gdpr {
+    return self.serviceProvider.gdprController;
+}
+
+- (id<SPGlobalContextsController>)globalContexts {
+    return self.serviceProvider.globalContextsController;
+}
+
+- (id<SPSubjectController>)subject {
+    return self.serviceProvider.subjectController;
+}
+
+- (SPSessionControllerImpl *)sessionController {
+    return self.serviceProvider.sessionController;
+}
+
+- (nullable id<SPSessionController>)session {
+    SPSessionControllerImpl *sessionController = self.serviceProvider.sessionController;
+    return sessionController.isEnabled ? sessionController : nil;
 }
 
 // MARK: - Control methods
 
 - (void)pause {
+    self.dirtyConfig.isPaused = YES;
     [self.tracker pauseEventTracking];
 }
 
 - (void)resume {
+    self.dirtyConfig.isPaused = NO;
     [self.tracker resumeEventTracking];
 }
 
@@ -84,6 +90,8 @@
 // MARK: - Properties' setters and getters
 
 - (void)setAppId:(NSString *)appId {
+    self.dirtyConfig.appId = appId;
+    self.dirtyConfig.appIdUpdated = YES;
     [self.tracker setAppId:appId];
 }
 
@@ -96,6 +104,8 @@
 }
 
 - (void)setDevicePlatform:(SPDevicePlatform)devicePlatform {
+    self.dirtyConfig.devicePlatform = devicePlatform;
+    self.dirtyConfig.devicePlatformUpdated = YES;
     [self.tracker setDevicePlatform:devicePlatform];
 }
 
@@ -104,6 +114,8 @@
 }
 
 - (void)setBase64Encoding:(BOOL)base64Encoding {
+    self.dirtyConfig.base64Encoding = base64Encoding;
+    self.dirtyConfig.base64EncodingUpdated = YES;
     [self.tracker setBase64Encoded:base64Encoding];
 }
 
@@ -112,6 +124,8 @@
 }
 
 - (void)setLogLevel:(SPLogLevel)logLevel {
+    self.dirtyConfig.logLevel = logLevel;
+    self.dirtyConfig.logLevelUpdated = YES;
     [SPLogger setLogLevel:logLevel];
 }
 
@@ -128,6 +142,8 @@
 }
 
 - (void)setApplicationContext:(BOOL)applicationContext {
+    self.dirtyConfig.applicationContext = applicationContext;
+    self.dirtyConfig.applicationContextUpdated = YES;
     [self.tracker setApplicationContext:applicationContext];
 }
 
@@ -136,6 +152,8 @@
 }
 
 - (void)setPlatformContext:(BOOL)platformContext {
+    self.dirtyConfig.platformContext = platformContext;
+    self.dirtyConfig.platformContextUpdated = YES;
     if (self.tracker.subject) {
         self.tracker.subject.platformContext = platformContext;
     }
@@ -146,6 +164,8 @@
 }
 
 - (void)setGeoLocationContext:(BOOL)geoLocationContext {
+    self.dirtyConfig.geoLocationContext = geoLocationContext;
+    self.dirtyConfig.geoLocationContextUpdated = YES;
     if (self.tracker.subject) {
         self.tracker.subject.geoLocationContext = geoLocationContext;
     }
@@ -156,6 +176,8 @@
 }
 
 - (void)setDiagnosticAutotracking:(BOOL)diagnosticAutotracking {
+    self.dirtyConfig.diagnosticAutotracking = diagnosticAutotracking;
+    self.dirtyConfig.diagnosticAutotrackingUpdated = YES;
     [self.tracker setTrackerDiagnostic:diagnosticAutotracking];
 }
 
@@ -164,6 +186,8 @@
 }
 
 - (void)setExceptionAutotracking:(BOOL)exceptionAutotracking {
+    self.dirtyConfig.exceptionAutotracking = exceptionAutotracking;
+    self.dirtyConfig.exceptionAutotrackingUpdated = YES;
     [self.tracker setExceptionEvents:exceptionAutotracking];
 }
 
@@ -172,6 +196,8 @@
 }
 
 - (void)setInstallAutotracking:(BOOL)installAutotracking {
+    self.dirtyConfig.installAutotracking = installAutotracking;
+    self.dirtyConfig.installAutotrackingUpdated = YES;
     [self.tracker setInstallEvent:installAutotracking];
 }
 
@@ -180,6 +206,8 @@
 }
 
 - (void)setLifecycleAutotracking:(BOOL)lifecycleAutotracking {
+    self.dirtyConfig.lifecycleAutotracking = lifecycleAutotracking;
+    self.dirtyConfig.lifecycleAutotrackingUpdated = YES;
     [self.tracker setLifecycleEvents:lifecycleAutotracking];
 }
 
@@ -188,6 +216,8 @@
 }
 
 - (void)setScreenContext:(BOOL)screenContext {
+    self.dirtyConfig.screenContext = screenContext;
+    self.dirtyConfig.screenContextUpdated = YES;
     [self.tracker setScreenContext:screenContext];
 }
 
@@ -196,6 +226,8 @@
 }
 
 - (void)setScreenViewAutotracking:(BOOL)screenViewAutotracking {
+    self.dirtyConfig.screenViewAutotracking = screenViewAutotracking;
+    self.dirtyConfig.screenViewAutotrackingUpdated = YES;
     [self.tracker setAutotrackScreenViews:screenViewAutotracking];
 }
 
@@ -204,15 +236,13 @@
 }
 
 - (void)setSessionContext:(BOOL)sessionContext {
+    self.dirtyConfig.sessionContext = sessionContext;
+    self.dirtyConfig.sessionContextUpdated = YES;
     [self.tracker setSessionContext:sessionContext];
 }
 
 - (BOOL)sessionContext {
     return [self.tracker sessionContext];
-}
-
-- (nullable id<SPSessionController>)session {
-    return self.sessionController.isEnabled ? self.sessionController : nil;
 }
 
 - (BOOL)isTracking {
@@ -221,6 +251,16 @@
 
 - (NSString *)version {
     return kSPVersion;
+}
+
+// MARK: - Private methods
+
+- (SPTracker *)tracker {
+    return self.serviceProvider.tracker;
+}
+
+- (SPTrackerConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.trackerConfigurationUpdate;
 }
 
 @end

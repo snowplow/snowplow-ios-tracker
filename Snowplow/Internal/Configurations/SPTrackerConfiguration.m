@@ -21,6 +21,7 @@
 //
 
 #import "SPTrackerConfiguration.h"
+#import "NSDictionary+SP_TypeMethods.h"
 
 @implementation SPTrackerConfiguration
 
@@ -39,6 +40,32 @@
 @synthesize installAutotracking;
 @synthesize exceptionAutotracking;
 @synthesize diagnosticAutotracking;
+
+- (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
+    if (self = [self init]) {
+        self.appId = [dictionary sp_stringForKey:SP_STR_PROP(appId) defaultValue:self.appId];
+        NSString *devicePlatform = [dictionary sp_stringForKey:SP_STR_PROP(appId) defaultValue:nil];
+        if (devicePlatform) {
+            self.devicePlatform = SPStringToDevicePlatform(devicePlatform);
+        }
+        NSString *logLevel = [dictionary sp_stringForKey:SP_STR_PROP(logLevel) defaultValue:nil];
+        if (logLevel) {
+            NSUInteger index = [@[@"off", @"error", @"debug", @"verbose"] indexOfObject:logLevel];
+            self.logLevel = index != NSNotFound ? index : SPLogLevelOff;
+        }
+        self.sessionContext = [dictionary sp_boolForKey:SP_STR_PROP(sessionContext) defaultValue:self.sessionContext];
+        self.applicationContext = [dictionary sp_boolForKey:SP_STR_PROP(applicationContext) defaultValue:self.applicationContext];
+        self.platformContext = [dictionary sp_boolForKey:SP_STR_PROP(platformContext) defaultValue:self.platformContext];
+        self.geoLocationContext = [dictionary sp_boolForKey:SP_STR_PROP(geoLocationContext) defaultValue:self.geoLocationContext];
+        self.screenContext = [dictionary sp_boolForKey:SP_STR_PROP(screenContext) defaultValue:self.screenContext];
+        self.screenViewAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(screenViewAutotracking) defaultValue:self.screenViewAutotracking];
+        self.lifecycleAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(lifecycleAutotracking) defaultValue:self.lifecycleAutotracking];
+        self.installAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(installAutotracking) defaultValue:self.installAutotracking];
+        self.exceptionAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(exceptionAutotracking) defaultValue:self.exceptionAutotracking];
+        self.diagnosticAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(diagnosticAutotracking) defaultValue:self.diagnosticAutotracking];
+    }
+    return self;
+}
 
 - (instancetype)init {
     if (self = [super init]) {

@@ -21,8 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class SPTracker;
+#import "SPTracker.h"
 
 /**
  * @deprecated Use `SessionConfiguration` for the configuration or `SessionController`

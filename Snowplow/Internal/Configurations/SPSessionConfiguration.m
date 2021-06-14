@@ -21,6 +21,7 @@
 //
 
 #import "SPSessionConfiguration.h"
+#import "NSDictionary+SP_TypeMethods.h"
 
 @implementation SPSessionConfiguration
 
@@ -29,6 +30,12 @@
 
 - (instancetype)init {
     return [self initWithForegroundTimeoutInSeconds:1800 backgroundTimeoutInSeconds:1800];
+}
+
+- (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
+    NSInteger foregroundTimeout = [dictionary sp_numberForKey:SP_STR_PROP(foregroundTimeout) defaultValue:@1800].integerValue;
+    NSInteger backgroundTimeout = [dictionary sp_numberForKey:SP_STR_PROP(backgroundTimeout) defaultValue:@1800].integerValue;
+    return [self initWithForegroundTimeoutInSeconds:foregroundTimeout backgroundTimeoutInSeconds:backgroundTimeout];
 }
 
 - (instancetype)initWithForegroundTimeout:(NSMeasurement<NSUnitDuration *> *)foregroundTimeout backgroundTimeout:(NSMeasurement<NSUnitDuration *> *)backgroundTimeout {

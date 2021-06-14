@@ -22,23 +22,16 @@
 
 #import "SPGDPRControllerImpl.h"
 #import "SPGdprContext.h"
+#import "SPTracker.h"
+#import "SPGDPRConfigurationUpdate.h"
 
 @interface SPGDPRControllerImpl ()
 
-@property (nonatomic, weak) SPTracker *tracker;
-@property (nonatomic) SPGdprContext *gdpr;
+@property (nonatomic, nullable) SPGdprContext *gdpr;
 
 @end
 
 @implementation SPGDPRControllerImpl
-
-- (instancetype)initWithTracker:(SPTracker *)tracker {
-    if (self = [super init]) {
-        self.tracker = tracker;
-        self.gdpr = tracker.gdprContext;
-    }
-    return self;
-}
 
 // MARK: - Methods
 
@@ -52,9 +45,12 @@
                           documentVersion:documentVersion
                       documentDescription:documentDescription];
     self.gdpr = self.tracker.gdprContext;
+    self.dirtyConfig.gdpr = self.gdpr;
+    self.dirtyConfig.gdprUpdated = YES;
 }
 
 - (void)disable {
+    self.dirtyConfig.isEnabled = NO;
     [self.tracker disableGdprContext];
 }
 
@@ -70,6 +66,7 @@
                                   documentId:self.gdpr.documentId
                              documentVersion:self.gdpr.documentVersion
                          documentDescription:self.gdpr.documentDescription];
+    self.dirtyConfig.isEnabled = YES;
     return YES;
 }
 
@@ -87,6 +84,16 @@
 
 - (NSString *)documentDescription {
     return [self.gdpr documentDescription];
+}
+
+// MARK: - Private methods
+
+- (SPTracker *)tracker {
+    return self.serviceProvider.tracker;
+}
+
+- (SPGDPRConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.gdprConfigurationUpdate;
 }
 
 @end

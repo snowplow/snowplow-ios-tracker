@@ -22,15 +22,37 @@
 
 #import "SPSnowplow.h"
 #import "SPServiceProvider.h"
+#import "SPConfigurationProvider.h"
 
 @interface SPSnowplow ()
 
 @property (nonatomic, nullable) SPServiceProvider *defaultServiceProvider;
 @property (nonatomic, nonnull) NSMutableDictionary<NSString *, SPServiceProvider *> *serviceProviderInstances;
+@property (nonatomic, nullable) SPConfigurationProvider *configurationProvider;
 
 @end
 
 @implementation SPSnowplow
+
++ (void)setupWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(NSArray<SPConfigurationBundle *> *)defaultBundles onSuccess:(void (^)(NSArray<NSString *> * _Nullable))onSuccess
+{
+    SPSnowplow *snowplow = [SPSnowplow sharedInstance];
+    snowplow.configurationProvider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfiguration defaultConfigurationBundles:defaultBundles];
+    [snowplow.configurationProvider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        NSArray<SPConfigurationBundle *> *bundles = fetchedConfigurationBundle.configurationBundle;
+        NSArray<NSString *> *namespaces = [SPSnowplow createTrackersWithConfigurationBundles:bundles];
+        onSuccess(namespaces);
+    }];
+}
+
++ (void)refreshIfRemoteUpdate:(void (^)(NSArray<NSString *> * _Nullable))onSuccess {
+    SPSnowplow *snowplow = [SPSnowplow sharedInstance];
+    [snowplow.configurationProvider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        NSArray<SPConfigurationBundle *> *bundles = fetchedConfigurationBundle.configurationBundle;
+        NSArray<NSString *> *namespaces = [SPSnowplow createTrackersWithConfigurationBundles:bundles];
+        onSuccess(namespaces);
+    }];
+}
 
 + (id<SPTrackerController>)createTrackerWithNamespace:(NSString *)namespace endpoint:(NSString *)endpoint method:(SPHttpMethod)method {
     SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:endpoint method:method];
@@ -54,6 +76,10 @@
 
 + (id<SPTrackerController>)defaultTracker {
     return [[[SPSnowplow sharedInstance] defaultServiceProvider] trackerController];
+}
+
++ (id<SPTrackerController>)trackerByNamespace:(NSString *)namespace {
+    return [[[SPSnowplow sharedInstance].serviceProviderInstances objectForKey:namespace] trackerController];
 }
 
 + (BOOL)setTrackerAsDefault:(id<SPTrackerController>)trackerController {
@@ -113,6 +139,30 @@
         }
         return isOverriding;
     }
+}
+
+// Remote Configuration
+
++ (NSArray<NSString *> *)createTrackersWithConfigurationBundles:(NSArray<SPConfigurationBundle *> *)bundles {
+    NSMutableArray<NSString *> *namespaces = [NSMutableArray new];
+    for (SPConfigurationBundle *bundle in bundles) {
+        @synchronized (SPSnowplow.class) {
+            if (!bundle.networkConfiguration) {
+                // remove tracker if it exists
+                id<SPTrackerController> tracker = [SPSnowplow trackerByNamespace:bundle.namespace];
+                if (tracker) {
+                    [SPSnowplow removeTracker:tracker];
+                }
+            } else {
+                [SPSnowplow createTrackerWithNamespace:bundle.namespace
+                                               network:bundle.networkConfiguration
+                                        configurations:bundle.configurations
+                 ];
+                [namespaces addObject:bundle.namespace];
+            }
+        }
+    }
+    return namespaces;
 }
 
 // Global singleton

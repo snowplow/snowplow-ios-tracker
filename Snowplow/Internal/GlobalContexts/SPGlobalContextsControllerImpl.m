@@ -21,21 +21,10 @@
 //
 
 #import "SPGlobalContextsControllerImpl.h"
+#import "SPTracker.h"
 
-@interface SPGlobalContextsControllerImpl ()
-
-@property (nonatomic, weak) SPTracker *tracker;
-
-@end
 
 @implementation SPGlobalContextsControllerImpl
-
-- (instancetype)initWithTracker:(SPTracker *)tracker {
-    if (self = [super init]) {
-        self.tracker = tracker;
-    }
-    return self;
-}
 
 - (void)setContextGenerators:(NSMutableDictionary<NSString *,SPGlobalContext *> *)contextGenerators {
     [self.tracker setGlobalContextGenerators:contextGenerators];
@@ -55,6 +44,12 @@
 
 - (NSArray<NSString *> *)tags {
     return [self.tracker globalContextTags];
+}
+
+// MARK: - Private methods
+
+- (SPTracker *)tracker {
+    return self.serviceProvider.tracker;
 }
 
 @end

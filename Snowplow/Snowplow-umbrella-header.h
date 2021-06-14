@@ -8,6 +8,7 @@
 #import "SPEmitterConfiguration.h"
 #import "SPGDPRConfiguration.h"
 #import "SPGlobalContextsConfiguration.h"
+#import "SPConfigurationBundle.h"
 
 #import "SPTrackerController.h"
 #import "SPSessionController.h"

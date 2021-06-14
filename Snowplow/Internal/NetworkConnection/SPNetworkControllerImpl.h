@@ -22,14 +22,14 @@
 
 #import <Foundation/Foundation.h>
 #import "SPNetworkController.h"
-#import "SPEmitter.h"
+#import "SPController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(NetworkControllerImpl)
-@interface SPNetworkControllerImpl : NSObject <SPNetworkController>
+@interface SPNetworkControllerImpl : SPController <SPNetworkController>
 
-- (instancetype)initWithEmitter:(SPEmitter *)emitter;
+- (BOOL)isCustomNetworkConnection;
 
 @end
 

@@ -25,6 +25,7 @@
 #import "SPNetworkConfiguration.h"
 #import "SPTrackerConfiguration.h"
 #import "SPSession.h"
+#import "SPMockEventStore.h"
 
 @interface TestTrackerConfiguration : XCTestCase
 
@@ -117,8 +118,8 @@
     XCTAssertEqualObjects(networkConfig.endpoint, derivedEndpoint);
     XCTAssertEqualObjects(protocol, scheme);
     
-    XCTAssertEqual(trackerConfig.appId, tracker.appId);
-    XCTAssertEqual(@"namespace", tracker.namespace);
+    XCTAssertEqualObjects(trackerConfig.appId, tracker.appId);
+    XCTAssertEqualObjects(@"namespace", tracker.namespace);
 }
 
 - (void)testSessionInitialization {
@@ -151,6 +152,67 @@
     trackerConfig.sessionContext = NO;
     tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNil(tracker.session);
+}
+
+- (void)testGDPRConfiguration {
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPTrackerConfiguration *trackerConfiguration = [[[SPTrackerConfiguration alloc] init] appId:@"appid"];
+    trackerConfiguration.base64Encoding = NO;
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    SPGDPRConfiguration *gdprConfiguration = [[SPGDPRConfiguration alloc] initWithBasis:SPGdprProcessingBasisConsent documentId:@"id" documentVersion:@"ver" documentDescription:@"desc"];
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, gdprConfiguration, emitterConfiguration]];
+    id<SPGDPRController> gdprController = trackerController.gdpr;
+
+    // Check gdpr settings
+    XCTAssertEqual(SPGdprProcessingBasisConsent, gdprController.basisForProcessing);
+    XCTAssertEqualObjects(@"id", gdprController.documentId);
+
+    // Check gdpr settings reset
+    [gdprController resetWithBasis:SPGdprProcessingBasisContract documentId:@"id1" documentVersion:@"ver1" documentDescription:@"desc1"];
+    XCTAssertEqual(SPGdprProcessingBasisContract, gdprController.basisForProcessing);
+    XCTAssertEqualObjects(@"id1", gdprController.documentId);
+    XCTAssertTrue(gdprController.isEnabled);
+
+    // Check gdpr context added
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    NSString *contexts = (NSString *)[[payload getAsDictionary] objectForKey:@"co"];
+    XCTAssertTrue([contexts containsString:@"\"basisForProcessing\":\"contract\""]);
+    XCTAssertTrue([contexts containsString:@"\"documentId\":\"id1\""]);
+
+    // Check gdpr disabled
+    [gdprController disable];
+    XCTAssertFalse(gdprController.isEnabled);
+    XCTAssertEqual(SPGdprProcessingBasisContract, gdprController.basisForProcessing);
+    XCTAssertEqualObjects(@"id1", gdprController.documentId);
+    
+    // Check gdpr context not added
+    event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    payload = [[events firstObject] payload];
+    contexts = (NSString *)[[payload getAsDictionary] objectForKey:@"co"];
+    XCTAssertFalse([contexts containsString:@"\"basisForProcessing\":\"contract\""]);
+    XCTAssertFalse([contexts containsString:@"\"documentId\":\"id1\""]);
+    
+    // Check gdpr enabled again
+    [gdprController enable];
+    XCTAssertTrue(gdprController.isEnabled);
 }
 
 @end

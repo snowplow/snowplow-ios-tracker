@@ -21,23 +21,18 @@
 //
 
 #import "SPNetworkControllerImpl.h"
-
-@interface SPNetworkControllerImpl ()
-
-@property (nonatomic, weak) SPEmitter *emitter;
-
-@end
+#import "SPDefaultNetworkConnection.h"
+#import "SPTracker.h"
+#import "SPEmitter.h"
+#import "SPNetworkConfigurationUpdate.h"
 
 
 @implementation SPNetworkControllerImpl {
     id<SPRequestCallback> _requestCallback;
 }
 
-- (instancetype)initWithEmitter:(SPEmitter *)emitter {
-    if (self = [super init]) {
-        self.emitter = emitter;
-    }
-    return self;
+- (BOOL)isCustomNetworkConnection {
+    return self.emitter.networkConnection && ![self.emitter.networkConnection isKindOfClass:SPDefaultNetworkConnection.class];
 }
 
 // MARK: - Properties
@@ -59,6 +54,8 @@
 }
 
 - (void)setCustomPostPath:(NSString *)customPostPath {
+    self.dirtyConfig.customPostPath = customPostPath;
+    self.dirtyConfig.customPostPathUpdated = YES;
     [self.emitter setCustomPostPath:customPostPath];
 }
 
@@ -67,11 +64,23 @@
 }
 
 - (void)setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeaders {
+    self.dirtyConfig.requestHeaders = requestHeaders;
+    self.dirtyConfig.requestHeadersUpdated = YES;
     [self.emitter setRequestHeaders:requestHeaders];
 }
 
 - (NSDictionary<NSString *, NSString *> *)requestHeaders {
     return [self.emitter requestHeaders];
+}
+
+// MARK: - Private methods
+
+- (SPEmitter *)emitter {
+    return self.serviceProvider.tracker.emitter;
+}
+
+- (SPNetworkConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.networkConfigurationUpdate;
 }
 
 @end

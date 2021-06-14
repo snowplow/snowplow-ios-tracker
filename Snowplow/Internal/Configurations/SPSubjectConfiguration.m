@@ -21,6 +21,7 @@
 //
 
 #import "SPSubjectConfiguration.h"
+#import "NSDictionary+SP_TypeMethods.h"
 
 
 @interface SPSize ()
@@ -77,6 +78,19 @@
 @synthesize geoSpeed;
 @synthesize geoBearing;
 @synthesize geoTimestamp;
+
+- (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
+    if (self = [self init]) {
+        self.userId = [dictionary sp_stringForKey:SP_STR_PROP(userId) defaultValue:self.userId];
+        self.networkUserId = [dictionary sp_stringForKey:SP_STR_PROP(networkUserId) defaultValue:self.networkUserId];
+        self.domainUserId = [dictionary sp_stringForKey:SP_STR_PROP(domainUserId) defaultValue:self.domainUserId];
+        self.useragent = [dictionary sp_stringForKey:SP_STR_PROP(useragent) defaultValue:self.useragent];
+        self.ipAddress = [dictionary sp_stringForKey:SP_STR_PROP(ipAddress) defaultValue:self.ipAddress];
+        self.timezone = [dictionary sp_stringForKey:SP_STR_PROP(timezone) defaultValue:self.timezone];
+        self.language = [dictionary sp_stringForKey:SP_STR_PROP(language) defaultValue:self.language];
+    }
+    return self;
+}
 
 // MARK: - Builder
 
