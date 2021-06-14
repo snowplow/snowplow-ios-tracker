@@ -38,6 +38,6 @@ Pod::Spec.new do |s|
 
   s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
 
-  s.dependency 'FMDB', '~> 2.6'
+  s.dependency 'FMDB', '~> 2.7'
 end
 
