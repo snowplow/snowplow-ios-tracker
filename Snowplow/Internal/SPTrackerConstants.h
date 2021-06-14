@@ -44,7 +44,7 @@
 #define SP_BUILDER_DECLARE_NULLABLE(type, prop) - (instancetype)prop:(nullable type)value NS_SWIFT_NAME(prop(_:));
 #define SP_BUILDER_METHOD(type, prop) - (instancetype)prop:(type)value { self.prop = value; return self; }
 #define SP_DIRTYFLAG(prop) @property BOOL prop##Updated;
-#define SP_DIRTY_GETTER(type, prop) - (type)prop { return self.prop##Updated ? super.prop : self.sourceConfig.prop; }
+#define SP_DIRTY_GETTER(type, prop) - (type)prop { return (!self.sourceConfig || self.prop##Updated) ? super.prop : self.sourceConfig.prop; }
 
 
 @interface SPTrackerConstants : NSObject

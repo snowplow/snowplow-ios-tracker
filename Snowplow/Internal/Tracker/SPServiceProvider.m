@@ -267,7 +267,7 @@
 
 - (SPEmitter *)makeEmitter {
     SPNetworkConfigurationUpdate *networkConfig = self.networkConfigurationUpdate;
-    SPEmitterConfiguration *emitterConfig = self.emitterConfigurationUpdate;
+    SPEmitterConfigurationUpdate *emitterConfig = self.emitterConfigurationUpdate;
     return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         if (networkConfig.networkConnection) {
             [builder setNetworkConnection:networkConfig.networkConnection];
