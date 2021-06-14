@@ -98,6 +98,7 @@
         if (!self.trackerConfigurationUpdate.sourceConfig) {
             self.trackerConfigurationUpdate.sourceConfig = [SPTrackerConfiguration new];
         }
+        [self tracker]; // Build tracker to initialize NotificationCenter receivers
     }
     return self;
 }
