@@ -48,6 +48,8 @@
         if (devicePlatform) {
             self.devicePlatform = SPStringToDevicePlatform(devicePlatform);
         }
+        // TODO: Uniform "base64encoding" string on both Android and iOS trackers
+        self.base64Encoding = [dictionary sp_boolForKey:@"base64encoding" defaultValue:self.base64Encoding];
         NSString *logLevel = [dictionary sp_stringForKey:SP_STR_PROP(logLevel) defaultValue:nil];
         if (logLevel) {
             NSUInteger index = [@[@"off", @"error", @"debug", @"verbose"] indexOfObject:logLevel];
@@ -135,6 +137,8 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.appId forKey:SP_STR_PROP(appId)];
+    [coder encodeInteger:self.devicePlatform forKey:SP_STR_PROP(devicePlatform)];
+    [coder encodeBool:self.base64Encoding forKey:SP_STR_PROP(base64Encoding)];
     [coder encodeInteger:self.logLevel forKey:SP_STR_PROP(logLevel)];
     [coder encodeObject:self.loggerDelegate forKey:SP_STR_PROP(loggerDelegate)];
     [coder encodeBool:self.sessionContext forKey:SP_STR_PROP(sessionContext)];
@@ -152,6 +156,8 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
     if (self = [super init]) {
         self.appId = [coder decodeObjectForKey:SP_STR_PROP(appId)];
+        self.devicePlatform = [coder decodeIntegerForKey:SP_STR_PROP(devicePlatform)];
+        self.base64Encoding = [coder decodeBoolForKey:SP_STR_PROP(base64Encoding)];
         self.logLevel = [coder decodeIntegerForKey:SP_STR_PROP(logLevel)];
         self.loggerDelegate = [coder decodeObjectForKey:SP_STR_PROP(loggerDelegate)];
         self.sessionContext = [coder decodeBoolForKey:SP_STR_PROP(sessionContext)];
