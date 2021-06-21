@@ -21,8 +21,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class SPTracker;
+#import "SPTracker.h"
 
 /**
  * @deprecated Use `SessionConfiguration` for the configuration or `SessionController`
@@ -64,6 +63,12 @@ NS_SWIFT_NAME(Session)
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout
                      andBackgroundTimeout:(NSInteger)backgroundTimeout
                                andTracker:(SPTracker *)tracker;
+
+/// Only internal use.
++ (NSString *)createSessionFilenameWithNamespace:(NSString *)namespace;
+
+/// Only internal use.
++ (NSURL *)createSessionFileUrlWithFilename:(NSString *)filename;
 
 /**
  * Starts the recurring timer check for sessions

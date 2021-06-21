@@ -35,3 +35,11 @@ NSString *SPDevicePlatformToString(SPDevicePlatform devicePlatform) {
         default: return nil;
     }
 }
+
+SPDevicePlatform SPStringToDevicePlatform(NSString *devicePlatformString) {
+    NSUInteger index = [@[@"web", @"mob", @"pc", @"srv", @"app", @"tv", @"cnsl", @"iot"] indexOfObject:devicePlatformString];
+    if (index == NSNotFound) {
+        index = SPDevicePlatformMobile;
+    }
+    return index;
+}

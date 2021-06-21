@@ -24,6 +24,10 @@
 
 @implementation SPConfiguration
 
+- (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
+    return [[SPConfiguration alloc] init];
+}
+
 - (nonnull instancetype)copyWithZone:(nullable NSZone *)zone {
     return [[SPConfiguration allocWithZone:zone] init];
 }

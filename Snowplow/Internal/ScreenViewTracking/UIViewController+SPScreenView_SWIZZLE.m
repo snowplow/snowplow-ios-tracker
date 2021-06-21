@@ -132,19 +132,24 @@
 - (SPScreenType) _SP_getViewControllerType:(UIViewController *)viewController {
     if ([viewController isKindOfClass:[UINavigationController class]]) {
         return SPScreenTypeNavigation;
-    } else if ([viewController isKindOfClass:[UITabBarController class]]) {
-        return SPScreenTypeTabBar;
-    } else if (viewController.presentedViewController) {
-        return SPScreenTypeModal;
-    } else if ([viewController isKindOfClass:[UIPageViewController class]]) {
-        return SPScreenTypePageView;
-    } else if ([viewController isKindOfClass:[UIPopoverPresentationController class]]) {
-        return SPScreenTypePopoverPresentation;
-    } else if ([viewController isKindOfClass:[UISplitViewController class]]) {
-        return SPScreenTypeSplitView;
-    } else {
-        return SPScreenTypeDefault;
     }
+    if ([viewController isKindOfClass:[UITabBarController class]]) {
+        return SPScreenTypeTabBar;
+    }
+    if (viewController.presentedViewController) {
+        return SPScreenTypeModal;
+    }
+    if ([viewController isKindOfClass:[UIPageViewController class]]) {
+        return SPScreenTypePageView;
+    }
+    if ([viewController isKindOfClass:[UISplitViewController class]]) {
+        return SPScreenTypeSplitView;
+    }
+    Class uiPopoverPresentationControllerClass = NSClassFromString(@"UIPopoverPresentationController");
+    if (uiPopoverPresentationControllerClass && [viewController isKindOfClass:uiPopoverPresentationControllerClass]) {
+        return SPScreenTypePopoverPresentation;
+    }
+    return SPScreenTypeDefault;
 }
 
 - (SPScreenType) _SP_getTopViewControllerType {

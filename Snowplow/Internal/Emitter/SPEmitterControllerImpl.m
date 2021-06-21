@@ -21,12 +21,9 @@
 //
 
 #import "SPEmitterControllerImpl.h"
-
-@interface SPEmitterControllerImpl ()
-
-@property (nonatomic, weak) SPEmitter *emitter;
-
-@end
+#import "SPTracker.h"
+#import "SPEmitter.h"
+#import "SPEmitterConfigurationUpdate.h"
 
 
 @implementation SPEmitterControllerImpl {
@@ -39,16 +36,11 @@
 @synthesize emitRange;
 @synthesize threadPoolSize;
 
-- (instancetype)initWithEmitter:(SPEmitter *)emitter {
-    if (self = [super init]) {
-        self.emitter = emitter;
-    }
-    return self;
-}
-
 // MARK: - Properties
 
 - (void)setBufferOption:(SPBufferOption)bufferOption {
+    self.dirtyConfig.bufferOption = bufferOption;
+    self.dirtyConfig.bufferOptionUpdated = YES;
     [self.emitter setBufferOption:bufferOption];
 }
 
@@ -57,6 +49,8 @@
 }
 
 - (void)setByteLimitGet:(NSInteger)byteLimitGet {
+    self.dirtyConfig.byteLimitGet = byteLimitGet;
+    self.dirtyConfig.byteLimitGetUpdated = YES;
     [self.emitter setByteLimitGet:byteLimitGet];
 }
 
@@ -65,6 +59,8 @@
 }
 
 - (void)setByteLimitPost:(NSInteger)byteLimitPost {
+    self.dirtyConfig.byteLimitPost = byteLimitPost;
+    self.dirtyConfig.byteLimitPostUpdated = YES;
     [self.emitter setByteLimitPost:byteLimitPost];
 }
 
@@ -73,6 +69,8 @@
 }
 
 - (void)setEmitRange:(NSInteger)emitRange {
+    self.dirtyConfig.emitRange = emitRange;
+    self.dirtyConfig.emitRangeUpdated = YES;
     [self.emitter setEmitRange:emitRange];
 }
 
@@ -81,6 +79,8 @@
 }
 
 - (void)setThreadPoolSize:(NSInteger)emitThreadPoolSize {
+    self.dirtyConfig.threadPoolSize = emitThreadPoolSize;
+    self.dirtyConfig.threadPoolSizeUpdated = YES;
     [self.emitter setEmitThreadPoolSize:emitThreadPoolSize];
 }
 
@@ -109,6 +109,16 @@
 
 - (BOOL)isSending {
     return [self.emitter getSendingStatus];
+}
+
+// MARK: - Private methods
+
+- (SPEmitter *)emitter {
+    return self.serviceProvider.tracker.emitter;
+}
+
+- (SPEmitterConfigurationUpdate *)dirtyConfig {
+    return self.serviceProvider.emitterConfigurationUpdate;
 }
 
 @end

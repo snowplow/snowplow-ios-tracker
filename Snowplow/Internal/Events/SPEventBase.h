@@ -116,7 +116,7 @@ SP_BUILDER_DECLARE(NSMutableArray<SPSelfDescribingJson *> *, contexts)
  @interface SPSelfDescribingAbstract
  @brief The properties for all the self-describing events.
  */
-NS_SWIFT_NAME(SelfDescribing)
+NS_SWIFT_NAME(SelfDescribingAbstract)
 @interface SPSelfDescribingAbstract : SPEvent
 
 /*! The schema of the event. */
@@ -128,7 +128,7 @@ NS_SWIFT_NAME(SelfDescribing)
  @interface SPPrimitiveAbstract
  @brief The properties for all the self-describing events.
  */
-NS_SWIFT_NAME(Primitive)
+NS_SWIFT_NAME(PrimitiveAbstract)
 @interface SPPrimitiveAbstract : SPEvent
 
 /*! The name of the event. */

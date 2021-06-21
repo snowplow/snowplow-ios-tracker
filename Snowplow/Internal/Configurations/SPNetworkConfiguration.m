@@ -21,6 +21,7 @@
 //
 
 #import "SPNetworkConfiguration.h"
+#import "NSDictionary+SP_TypeMethods.h"
 
 @interface SPNetworkConfiguration ()
 
@@ -34,6 +35,17 @@
 
 @synthesize customPostPath;
 @synthesize requestHeaders;
+
+/// Allow endpoint and method only.
+- (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
+    NSString *endpoint = [dictionary sp_stringForKey:SP_STR_PROP(endpoint) defaultValue:nil];
+    NSString *method = [dictionary sp_stringForKey:SP_STR_PROP(method) defaultValue:nil];
+    if (!endpoint || !method) {
+        return nil;
+    }
+    SPHttpMethod httpMethod = [method isEqualToString:@"get"] ? SPHttpMethodGet : SPHttpMethodPost;
+    return [self initWithEndpoint:endpoint method:httpMethod];
+}
 
 - (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method {
     if (self = [super init]) {

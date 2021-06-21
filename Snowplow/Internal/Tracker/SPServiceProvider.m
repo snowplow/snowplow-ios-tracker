@@ -22,48 +22,101 @@
 
 #import "SPServiceProvider.h"
 #import "SPDefaultNetworkConnection.h"
+#import "SPGDPRContext.h"
+
+#import "SPEmitter.h"
+#import "SPSubject.h"
+#import "SPTracker.h"
+#import "SPSession.h"
+
+#import "SPTrackerControllerImpl.h"
+#import "SPEmitterControllerImpl.h"
+#import "SPNetworkControllerImpl.h"
+#import "SPSubjectControllerImpl.h"
+#import "SPSessionControllerImpl.h"
+#import "SPGlobalContextsControllerImpl.h"
+#import "SPGDPRControllerImpl.h"
+
+#import "SPNetworkConfigurationUpdate.h"
+#import "SPTrackerConfigurationUpdate.h"
+#import "SPEmitterConfigurationUpdate.h"
+#import "SPSubjectConfigurationUpdate.h"
+#import "SPSessionConfigurationUpdate.h"
+#import "SPGDPRConfigurationUpdate.h"
 
 @interface SPServiceProvider ()
 
 @property (nonatomic, nonnull, readwrite) NSString *namespace;
-@property (nonatomic, nonnull) SPNetworkConfiguration *networkConfiguration;
-@property (nonatomic, nonnull) SPTrackerConfiguration *trackerConfiguration;
-@property (nonatomic) SPEmitterConfiguration *emitterConfiguration;
-@property (nonatomic) SPSubjectConfiguration *subjectConfiguration;
-@property (nonatomic) SPSessionConfiguration *sessionConfiguration;
-@property (nonatomic) SPGDPRConfiguration *gdprConfiguration;
+
+// Internal services
+@property (nonatomic, nullable) SPTracker *tracker;
+@property (nonatomic, nullable) SPEmitter *emitter;
+@property (nonatomic, nullable) SPSubject *subject;
+
+// Controllers
+@property (nonatomic, nullable) SPTrackerControllerImpl *trackerController;
+@property (nonatomic, nullable) SPEmitterControllerImpl *emitterController;
+@property (nonatomic, nullable) SPNetworkControllerImpl *networkController;
+@property (nonatomic, nullable) SPGDPRControllerImpl *gdprController;
+@property (nonatomic, nullable) SPGlobalContextsControllerImpl *globalContextsController;
+@property (nonatomic, nullable) SPSubjectControllerImpl *subjectController;
+@property (nonatomic, nullable) SPSessionControllerImpl *sessionController;
+
+// Original configurations
 @property (nonatomic) SPGlobalContextsConfiguration *globalContextConfiguration;
+
+// Configuration updates
+@property (nonatomic) SPNetworkConfigurationUpdate *networkConfigurationUpdate;
+@property (nonatomic) SPTrackerConfigurationUpdate *trackerConfigurationUpdate;
+@property (nonatomic) SPEmitterConfigurationUpdate *emitterConfigurationUpdate;
+@property (nonatomic) SPSubjectConfigurationUpdate *subjectConfigurationUpdate;
+@property (nonatomic) SPSessionConfigurationUpdate *sessionConfigurationUpdate;
+@property (nonatomic) SPGDPRConfigurationUpdate *gdprConfigurationUpdate;
 
 @end
 
 @implementation SPServiceProvider
+@synthesize emitter = _emitter;
+@synthesize subject = _subject;
+@synthesize tracker = _tracker;
+@synthesize trackerController = _trackerController;
+@synthesize emitterController = _emitterController;
+@synthesize networkController = _networkController;
+@synthesize sessionController = _sessionController;
+@synthesize subjectController = _subjectController;
+@synthesize gdprController = _gdprController;
+@synthesize globalContextsController = _globalContextsController;
 
 // MARK: - Init
 
 - (instancetype)initWithNamespace:(NSString *)namespace network:(SPNetworkConfiguration *)networkConfiguration configurations:(NSArray<SPConfiguration *> *)configurations {
     if (self = [super init]) {
+        [self initializeConfigurationUpdates];
         self.namespace = namespace;
-        self.networkConfiguration = networkConfiguration;
+        self.networkConfigurationUpdate.sourceConfig = networkConfiguration;
         [self processConfigurations:configurations];
-        if (!self.trackerConfiguration) {
-            self.trackerConfiguration = [SPTrackerConfiguration new];
+        if (!self.trackerConfigurationUpdate.sourceConfig) {
+            self.trackerConfigurationUpdate.sourceConfig = [SPTrackerConfiguration new];
         }
+        [self tracker]; // Build tracker to initialize NotificationCenter receivers
     }
     return self;
 }
 
 - (void)resetWithConfigurations:(NSArray<SPConfiguration *> *)configurations {
     [self stopServices];
+    [self resetConfigurationUpdates];
     [self processConfigurations:configurations];
     [self resetServices];
-    [_trackerController resetWithTracker:self.tracker];
+    [self tracker];
 }
 
 - (void)shutdown {
     [_tracker pauseEventTracking];
     [self stopServices];
     [self resetServices];
-    _trackerController = nil;
+    [self resetControllers];
+    [self initializeConfigurationUpdates];
 }
 
 // MARK: - Private methods
@@ -71,27 +124,27 @@
 - (void)processConfigurations:(NSArray<SPConfiguration *> *)configurations {
     for (SPConfiguration *configuration in configurations) {
         if ([configuration isKindOfClass:SPNetworkConfiguration.class]) {
-            self.networkConfiguration = (SPNetworkConfiguration *)configuration;
+            self.networkConfigurationUpdate.sourceConfig = (SPNetworkConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPTrackerConfiguration.class]) {
-            self.trackerConfiguration = (SPTrackerConfiguration *)configuration;
+            self.trackerConfigurationUpdate.sourceConfig = (SPTrackerConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPSubjectConfiguration.class]) {
-            self.subjectConfiguration = (SPSubjectConfiguration *)configuration;
+            self.subjectConfigurationUpdate.sourceConfig = (SPSubjectConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPSessionConfiguration.class]) {
-            self.sessionConfiguration = (SPSessionConfiguration *)configuration;
+            self.sessionConfigurationUpdate.sourceConfig = (SPSessionConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPEmitterConfiguration.class]) {
-            self.emitterConfiguration = (SPEmitterConfiguration *)configuration;
+            self.emitterConfigurationUpdate.sourceConfig = (SPEmitterConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPGDPRConfiguration.class]) {
-            self.gdprConfiguration = (SPGDPRConfiguration *)configuration;
+            self.gdprConfigurationUpdate.sourceConfig = (SPGDPRConfiguration *)configuration;
             continue;
         }
         if ([configuration isKindOfClass:SPGlobalContextsConfiguration.class]) {
@@ -109,6 +162,35 @@
     _emitter = nil;
     _subject = nil;
     _tracker = nil;
+}
+
+- (void)resetControllers {
+    _trackerController = nil;
+    _sessionController = nil;
+    _emitterController = nil;
+    _gdprController = nil;
+    _globalContextsController = nil;
+    _subjectController = nil;
+    _networkController = nil;
+}
+
+- (void)resetConfigurationUpdates {
+    // Don't reset networkConfiguration as it's needed in case it's not passed in the new configurations.
+    // Set a default trackerConfiguration to reset to default if not passed.
+    self.trackerConfigurationUpdate.sourceConfig = [SPTrackerConfiguration new];
+    self.emitterConfigurationUpdate.sourceConfig = nil;
+    self.subjectConfigurationUpdate.sourceConfig = nil;
+    self.sessionConfigurationUpdate.sourceConfig = nil;
+    self.gdprConfigurationUpdate.sourceConfig = nil;
+}
+
+- (void)initializeConfigurationUpdates {
+    self.networkConfigurationUpdate = [SPNetworkConfigurationUpdate new];
+    self.trackerConfigurationUpdate = [SPTrackerConfigurationUpdate new];
+    self.emitterConfigurationUpdate = [SPEmitterConfigurationUpdate new];
+    self.subjectConfigurationUpdate = [SPSubjectConfigurationUpdate new];
+    self.sessionConfigurationUpdate = [SPSessionConfigurationUpdate new];
+    self.gdprConfigurationUpdate = [SPGDPRConfigurationUpdate new];
 }
 
 // MARK: - Getters
@@ -137,20 +219,56 @@
     return _trackerController;
 }
 
+- (SPSessionControllerImpl *)sessionController {
+    if (_sessionController) return _sessionController;
+    _sessionController = [self makeSessionController];
+    return _sessionController;
+}
+
+- (SPEmitterControllerImpl *)emitterController {
+    if (_emitterController) return _emitterController;
+    _emitterController = [self makeEmitterController];
+    return _emitterController;
+}
+
+- (SPGDPRControllerImpl *)gdprController {
+    if (_gdprController) return _gdprController;
+    _gdprController = [self makeGDPRController];
+    return _gdprController;
+}
+
+- (SPGlobalContextsControllerImpl *)globalContextsController {
+    if (_globalContextsController) return _globalContextsController;
+    _globalContextsController = [self makeGlobalContextsController];
+    return _globalContextsController;
+}
+
+- (SPSubjectControllerImpl *)subjectController {
+    if (_subjectController) return _subjectController;
+    _subjectController = [self makeSubjectController];
+    return _subjectController;
+}
+
+- (SPNetworkControllerImpl *)networkController {
+    if (_networkController) return _networkController;
+    _networkController = [self makeNetworkController];
+    return _networkController;
+}
+
 // MARK: - Factories
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 - (SPSubject *)makeSubject {
-    return [[SPSubject alloc] initWithPlatformContext:self.trackerConfiguration.platformContext
-                                   geoLocationContext:self.trackerConfiguration.geoLocationContext
-                                 subjectConfiguration:self.subjectConfiguration];
+    return [[SPSubject alloc] initWithPlatformContext:self.trackerConfigurationUpdate.platformContext
+                                   geoLocationContext:self.trackerConfigurationUpdate.geoLocationContext
+                                 subjectConfiguration:self.subjectConfigurationUpdate];
 }
 
 - (SPEmitter *)makeEmitter {
-    SPNetworkConfiguration *networkConfig = self.networkConfiguration;
-    SPEmitterConfiguration *emitterConfig = self.emitterConfiguration;
+    SPNetworkConfigurationUpdate *networkConfig = self.networkConfigurationUpdate;
+    SPEmitterConfigurationUpdate *emitterConfig = self.emitterConfigurationUpdate;
     return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         if (networkConfig.networkConnection) {
             [builder setNetworkConnection:networkConfig.networkConnection];
@@ -176,11 +294,11 @@
 - (SPTracker *)makeTracker {
     SPEmitter *emitter = self.emitter;
     SPSubject *subject = self.subject;
-    SPTrackerConfiguration *trackerConfig = self.trackerConfiguration;
-    SPSessionConfiguration *sessionConfig = self.sessionConfiguration;
+    SPTrackerConfiguration *trackerConfig = self.trackerConfigurationUpdate;
+    SPSessionConfiguration *sessionConfig = self.sessionConfigurationUpdate;
     SPGlobalContextsConfiguration *gcConfig = self.globalContextConfiguration;
-    SPGDPRConfiguration *gdprConfig = self.gdprConfiguration;
-    return [SPTracker build:^(id<SPTrackerBuilder> builder) {
+    SPGDPRConfiguration *gdprConfig = self.gdprConfigurationUpdate;
+    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setTrackerNamespace:self.namespace];
         [builder setEmitter:emitter];
         [builder setSubject:subject];
@@ -208,12 +326,50 @@
             [builder setGdprContextWithBasis:gdprConfig.basisForProcessing documentId:gdprConfig.documentId documentVersion:gdprConfig.documentVersion documentDescription:gdprConfig.documentDescription];
         }
     }];
+    if (self.trackerConfigurationUpdate.isPaused) {
+        [tracker pauseEventTracking];
+    }
+    if (self.sessionConfigurationUpdate.isPaused) {
+        [tracker.session stopChecker];
+    }
+    return tracker;
 }
 
 - (SPTrackerControllerImpl *)makeTrackerController {
-    SPTrackerControllerImpl *trackerController = [SPTrackerControllerImpl new];
-    [trackerController resetWithTracker:self.tracker];
-    return trackerController;
+    SPTrackerControllerImpl *controller = [[SPTrackerControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPSessionControllerImpl *)makeSessionController {
+    SPSessionControllerImpl *controller = [[SPSessionControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPEmitterControllerImpl *)makeEmitterController {
+    SPEmitterControllerImpl *controller = [[SPEmitterControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPGDPRControllerImpl *)makeGDPRController {
+    SPGDPRControllerImpl *controller = [[SPGDPRControllerImpl alloc] initWithServiceProvider:self];
+    SPGdprContext *gdpr = self.tracker.gdprContext;
+    [controller resetWithBasis:gdpr.basis documentId:gdpr.documentId documentVersion:gdpr.documentVersion documentDescription:gdpr.documentDescription];
+    return controller;
+}
+
+- (SPGlobalContextsControllerImpl *)makeGlobalContextsController {
+    SPGlobalContextsControllerImpl *controller = [[SPGlobalContextsControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPSubjectControllerImpl *)makeSubjectController {
+    SPSubjectControllerImpl *controller = [[SPSubjectControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
+}
+
+- (SPNetworkControllerImpl *)makeNetworkController {
+    SPNetworkControllerImpl *controller = [[SPNetworkControllerImpl alloc] initWithServiceProvider:self];
+    return controller;
 }
 
 #pragma clang diagnostic pop

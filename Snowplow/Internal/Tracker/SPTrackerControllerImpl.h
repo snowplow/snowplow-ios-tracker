@@ -22,13 +22,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SPTrackerController.h"
+#import "SPController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(TrackerControllerImpl)
-@interface SPTrackerControllerImpl : NSObject <SPTrackerController>
-
-- (void)resetWithTracker:(SPTracker *)tracker;
+@interface SPTrackerControllerImpl : SPController <SPTrackerController>
 
 @end
 

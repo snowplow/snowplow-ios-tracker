@@ -21,22 +21,12 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPSubject.h"
-#import "SPEmitter.h"
-#import "SPTracker.h"
-#import "SPTrackerControllerImpl.h"
+#import "SPServiceProviderProtocol.h"
+#import "SPNetworkConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPServiceProvider : NSObject
-
-@property (nonatomic, nonnull, readonly) NSString *namespace;
-
-@property (nonatomic, nullable) SPEmitter *emitter;
-@property (nonatomic, nullable) SPSubject *subject;
-@property (nonatomic, nullable) SPTracker *tracker;
-
-@property (nonatomic, nullable) SPTrackerControllerImpl *trackerController;
+@interface SPServiceProvider : NSObject <SPServiceProviderProtocol>
 
 - (instancetype)initWithNamespace:(NSString *)namespace network:(SPNetworkConfiguration *)networkConfiguration configurations:(NSArray<SPConfiguration *> *)configurations;
 

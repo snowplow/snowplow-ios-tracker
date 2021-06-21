@@ -620,10 +620,14 @@ static SPTracker *_sharedInstance = nil;
     }
     
     // Add screen context
-    if (_screenContext && _currentScreenState) {
-        SPSelfDescribingJson * contextJson = [SPUtilities getScreenContextWithScreenState:_currentScreenState];
-        if (contextJson != nil) {
-            [contexts addObject:contextJson];
+    if (_screenContext) {
+        @synchronized (_currentScreenState) {
+            if (_currentScreenState) {
+                SPSelfDescribingJson *contextJson = [SPUtilities getScreenContextWithScreenState:_currentScreenState];
+                if (contextJson != nil) {
+                    [contexts addObject:contextJson];
+                }
+            }
         }
     }
     

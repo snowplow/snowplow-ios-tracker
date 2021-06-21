@@ -19,6 +19,7 @@ let package = Package(
             path: "./Snowplow",
             publicHeadersPath: "./include",
             cSettings: [
+                .headerSearchPath("./Internal/RemoteConfiguration"),
                 .headerSearchPath("./Internal/Configurations"),
                 .headerSearchPath("./Internal/Subject"),
                 .headerSearchPath("./Internal/GDPR"),

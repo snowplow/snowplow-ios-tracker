@@ -22,13 +22,11 @@
 
 #import <Foundation/Foundation.h>
 #import "SPSubjectController.h"
-#import "SPSubject.h"
+#import "SPController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPSubjectControllerImpl : NSObject <SPSubjectController>
-
-- (instancetype)initWithSubject:(SPSubject *)subject;
+@interface SPSubjectControllerImpl : SPController <SPSubjectController>
 
 @end
 

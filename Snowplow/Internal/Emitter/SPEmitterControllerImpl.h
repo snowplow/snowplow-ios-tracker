@@ -22,14 +22,12 @@
 
 #import <Foundation/Foundation.h>
 #import "SPEmitterController.h"
-#import "SPEmitter.h"
+#import "SPController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(EmitterControllerImpl)
-@interface SPEmitterControllerImpl : NSObject <SPEmitterController>
-
-- (instancetype)initWithEmitter:(SPEmitter *)emitter;
+@interface SPEmitterControllerImpl : SPController <SPEmitterController>
 
 @end
 

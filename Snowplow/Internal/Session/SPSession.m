@@ -86,23 +86,9 @@ NSString * const kFilenameExt = @"dict";
         self.sessionFilename = kLegacyFilename;
         self.tracker = tracker;
         if (tracker.trackerNamespace) {
-            NSString *namespace = tracker.trackerNamespace;
-            NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
-            NSString *suffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
-            self.sessionFilename = [NSString stringWithFormat:@"%@_%@.%@", kFilenamePrefix, suffix, kFilenameExt];
-        }
-        
-        NSFileManager *fm = [NSFileManager defaultManager];
-        NSURL *url = [fm URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
-        url = [url URLByAppendingPathComponent:@"snowplow"];
-        NSError *error = nil;
-        BOOL result = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
-        if (!result) {
-            SPLogError(@"Unable to create file for sessions: %@", error.localizedDescription);
-            return nil;
-        }
-        url = [url URLByAppendingPathComponent:self.sessionFilename];
-        self.sessionFileUrl = url;
+            self.sessionFilename = [SPSession createSessionFilenameWithNamespace:tracker.trackerNamespace];
+        }        
+        self.sessionFileUrl = [SPSession createSessionFileUrlWithFilename:self.sessionFilename];
         
         NSDictionary * storedSessionDict = [self getSessionFromFile];
         if (storedSessionDict) {
@@ -112,7 +98,7 @@ NSString * const kFilenameExt = @"dict";
         } else {
             _userId = [SPUtilities getUUIDString];
             _currentSessionId = nil;
-            _sessionIndex = -1;
+            _sessionIndex = 0;
         }
         
         self.lastSessionCheck = [SPUtilities getTimestamp];
@@ -131,6 +117,25 @@ NSString * const kFilenameExt = @"dict";
         #endif
     }
     return self;
+}
+
++ (NSString *)createSessionFilenameWithNamespace:(NSString *)namespace {
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
+    NSString *suffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
+    return [NSString stringWithFormat:@"%@_%@.%@", kFilenamePrefix, suffix, kFilenameExt];
+}
+
++ (NSURL *)createSessionFileUrlWithFilename:(NSString *)filename {
+    NSFileManager *fm = [NSFileManager defaultManager];
+    NSURL *url = [fm URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
+    url = [url URLByAppendingPathComponent:@"snowplow"];
+    NSError *error = nil;
+    BOOL result = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
+    if (!result) {
+        SPLogError(@"Unable to create file for sessions: %@", error.localizedDescription);
+        return nil;
+    }
+    return [url URLByAppendingPathComponent:filename];
 }
 
 // MARK: - Public
