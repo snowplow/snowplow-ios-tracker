@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['post_5fwrapper_5fbytes_1936',['POST_WRAPPER_BYTES',['../_s_p_emitter_8m.html#ae23b212f2e1ae49e4272a6ff0b726d31',1,'SPEmitter.m']]]
+  ['onfetchcallback_2114',['OnFetchCallback',['../_s_p_configuration_provider_8h.html#a5c1e5d018c1873004b189b86ef26b66b',1,'SPConfigurationProvider.h']]]
 ];

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -77,8 +77,14 @@ $(function() {
 <li>serializeDictionary:
 : <a class="el" href="interface_s_p_j_s_o_n_serialization.html#af987e9b0934977e95d905c63f978804e">SPJSONSerialization</a>
 </li>
+<li>sessionConfigurationUpdate
+: <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a545a16595784f6ac8e0b4205c1e6130d">&lt;SPServiceProviderProtocol&gt;</a>
+</li>
 <li>sessionContext
 : <a class="el" href="interface_s_p_tracker.html#a947c4bcb8b9513816c01f4f63897f260">SPTracker</a>
+</li>
+<li>sessionController
+: <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a242b73a799cd71f3b99104cec86b21f3">&lt;SPServiceProviderProtocol&gt;</a>
 </li>
 <li>setAction:
 : <a class="el" href="protocol_s_p_push_notification_builder-p.html#a9e8670eed425afac4c18103ba1b35131">&lt;SPPushNotificationBuilder&gt;</a>
@@ -429,6 +435,9 @@ $(function() {
 <li>setType:
 : <a class="el" href="protocol_s_p_screen_view_builder-p.html#ac4ab80be5ed1b78c3beab9bd3d323432">&lt;SPScreenViewBuilder&gt;</a>
 </li>
+<li>setupWithRemoteConfiguration:defaultConfigurationBundles:onSuccess:
+: <a class="el" href="interface_s_p_snowplow.html#a22da75399c22ed721151122550974437">SPSnowplow</a>
+</li>
 <li>setUrlEndpoint:
 : <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#ae4faadb111a5775f1880cca75561a70d">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>
 , <a class="el" href="protocol_s_p_emitter_builder-p.html#aeaf7138c7d708da9fe9ee65b417601ce">&lt;SPEmitterBuilder&gt;</a>
@@ -462,6 +471,27 @@ $(function() {
 <li>shutdown
 : <a class="el" href="interface_s_p_service_provider.html#a7861ee1569802186a619778efc85af13">SPServiceProvider</a>
 </li>
+<li>sp_arrayForKey:itemClass:defaultValue:
+: <a class="el" href="category_n_s_dictionary_07_s_p___type_methods_08.html#af84c556cb79b4765cbaab72e3b36482c">NSDictionary(SP_TypeMethods)</a>
+</li>
+<li>sp_boolForKey:defaultValue:
+: <a class="el" href="category_n_s_dictionary_07_s_p___type_methods_08.html#a3a23b45edbdc6e3d7bb97bce5396540b">NSDictionary(SP_TypeMethods)</a>
+</li>
+<li>sp_configurationForKey:configurationClass:defaultValue:
+: <a class="el" href="category_n_s_dictionary_07_s_p___type_methods_08.html#a410245a498379050e6bd6f589856e169">NSDictionary(SP_TypeMethods)</a>
+</li>
+<li>sp_dictionaryForKey:defaultValue:
+: <a class="el" href="category_n_s_dictionary_07_s_p___type_methods_08.html#a53a94a3f0b944680b2a81febae6701ad">NSDictionary(SP_TypeMethods)</a>
+</li>
+<li>sp_numberForKey:defaultValue:
+: <a class="el" href="category_n_s_dictionary_07_s_p___type_methods_08.html#aafc9e1b3ca33036adc0eb4cfa46107d9">NSDictionary(SP_TypeMethods)</a>
+</li>
+<li>sp_objectForKey:objectClass:defaultValue:
+: <a class="el" href="category_n_s_dictionary_07_s_p___type_methods_08.html#a8708fb595b2fd3d182c056709126291b">NSDictionary(SP_TypeMethods)</a>
+</li>
+<li>sp_stringForKey:defaultValue:
+: <a class="el" href="category_n_s_dictionary_07_s_p___type_methods_08.html#a8b1b4e25614819c3e74d44eb55bb8f02">NSDictionary(SP_TypeMethods)</a>
+</li>
 <li>SP_viewDidAppear:
 : <a class="el" href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#addb6c11eaf10730ab6b00ee5278adcdf">UIViewController(SPScreenView_SWIZZLE)</a>
 </li>
@@ -473,6 +503,15 @@ $(function() {
 </li>
 <li>stopChecker
 : <a class="el" href="interface_s_p_session.html#a461ec91162ce6e4ad6ef315ce08f41dc">SPSession</a>
+</li>
+<li>subject
+: <a class="el" href="protocol_s_p_service_provider_protocol-p.html#ad867a59a2988499afa5d746498ad782c">&lt;SPServiceProviderProtocol&gt;</a>
+</li>
+<li>subjectConfigurationUpdate
+: <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a21bb4d321cf3edd7f428afbc250a9ae8">&lt;SPServiceProviderProtocol&gt;</a>
+</li>
+<li>subjectController
+: <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a07b6c3bc500beb1a376e926877ce46df">&lt;SPServiceProviderProtocol&gt;</a>
 </li>
 </ul>
 </div><!-- contents -->

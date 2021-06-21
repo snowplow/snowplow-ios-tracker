@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -74,23 +74,37 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPJSONSerialization.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Created by Alex Benini on 04/05/21.</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//  Copyright © 2021 Snowplow Analytics. All rights reserved.</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;NS_ASSUME_NONNULL_BEGIN</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="interface_s_p_j_s_o_n_serialization.html">   13</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_j_s_o_n_serialization.html">SPJSONSerialization</a> : NSObject</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;+ (nullable NSData *)serializeDictionary:(nonnull NSDictionary *)dictionary;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;+ (nullable NSDictionary *)deserializeData:(nonnull NSData *)data;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="interface_s_p_j_s_o_n_serialization.html#ae58f498b40633c0aa0bb0ead82ea1e52">   20</a></span>&#160;NS_ASSUME_NONNULL_END</div>
-<div class="ttc" id="ainterface_s_p_j_s_o_n_serialization_html"><div class="ttname"><a href="interface_s_p_j_s_o_n_serialization.html">SPJSONSerialization</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_j_s_o_n_serialization_8h_source.html#l00013">SPJSONSerialization.h:14</a></div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">//  Version 2.0. You may obtain a copy of the Apache License Version 2.0 at</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">//  http://www.apache.org/licenses/LICENSE-2.0.</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">//  Unless required by applicable law or agreed to in writing,</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">//  software distributed under the Apache License Version 2.0 is distributed on</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">//  an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">//  express or implied. See the Apache License Version 2.0 for the specific</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;NS_ASSUME_NONNULL_BEGIN</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="interface_s_p_j_s_o_n_serialization.html">   27</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_j_s_o_n_serialization.html">SPJSONSerialization</a> : NSObject</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;+ (nullable NSData *)serializeDictionary:(nonnull NSDictionary *)dictionary;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;+ (nullable NSDictionary *)deserializeData:(nonnull NSData *)data;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="interface_s_p_j_s_o_n_serialization.html#ae58f498b40633c0aa0bb0ead82ea1e52">   34</a></span>&#160;NS_ASSUME_NONNULL_END</div>
+<div class="ttc" id="ainterface_s_p_j_s_o_n_serialization_html"><div class="ttname"><a href="interface_s_p_j_s_o_n_serialization.html">SPJSONSerialization</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_j_s_o_n_serialization_8h_source.html#l00027">SPJSONSerialization.h:28</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

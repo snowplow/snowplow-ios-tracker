@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -104,9 +104,11 @@ $(function() {
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<a class="code" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(Configuration)</div>
 <div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="interface_s_p_configuration.html">   33</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_configuration.html">SPConfiguration</a> : NSObject &lt;NSCopying, NSCoding&gt;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;- (instancetype)initWithDictionary:(NSDictionary&lt;NSString *, NSObject *&gt; *)dictionary;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;NS_ASSUME_NONNULL_END</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;NS_ASSUME_NONNULL_END</div>
 <div class="ttc" id="a_internal_2_s_p_tracker_constants_8h_html"><div class="ttname"><a href="_internal_2_s_p_tracker_constants_8h.html">SPTrackerConstants.h</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_device_platform_8h_html_ac51d0fa9ac6b044d5587e1d9ceb2dbbc"><div class="ttname"><a href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(DevicePlatform)</div></div>
 <div class="ttc" id="ainterface_s_p_configuration_html"><div class="ttname"><a href="interface_s_p_configuration.html">SPConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_configuration_8h_source.html#l00033">SPConfiguration.h:33</a></div></div>

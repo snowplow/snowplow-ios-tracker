@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -76,17 +76,24 @@ Inheritance diagram for SPNetworkControllerImpl:</div>
  <div class="center">
   <img src="interface_s_p_network_controller_impl.png" usemap="#SPNetworkControllerImpl_map" alt=""/>
   <map id="SPNetworkControllerImpl_map" name="SPNetworkControllerImpl_map">
-<area href="protocol_s_p_network_controller-p.html" alt="&lt;SPNetworkController&gt;" shape="rect" coords="162,0,314,24"/>
+<area href="interface_s_p_controller.html" alt="SPController" shape="rect" coords="0,56,152,80"/>
+<area href="protocol_s_p_network_controller-p.html" alt="&lt;SPNetworkController&gt;" shape="rect" coords="162,56,314,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:aa53e9ed56360e1631795a8b08844ed95"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_network_controller_impl.html#aa53e9ed56360e1631795a8b08844ed95">initWithEmitter:</a></td></tr>
-<tr class="separator:aa53e9ed56360e1631795a8b08844ed95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aaaccd4bc511239bac31524a73cbaab"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_network_controller_impl.html#a3aaaccd4bc511239bac31524a73cbaab">isCustomNetworkConnection</a></td></tr>
+<tr class="separator:a3aaaccd4bc511239bac31524a73cbaab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_interface_s_p_controller"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_interface_s_p_controller')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="interface_s_p_controller.html">SPController</a></td></tr>
+<tr class="memitem:a766e7b8c29d7da118e0c7c7055436210 inherit pub_methods_interface_s_p_controller"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_controller.html#a766e7b8c29d7da118e0c7c7055436210">initWithServiceProvider:</a></td></tr>
+<tr class="separator:a766e7b8c29d7da118e0c7c7055436210 inherit pub_methods_interface_s_p_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header properties_interface_s_p_controller"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_s_p_controller')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_s_p_controller.html">SPController</a></td></tr>
+<tr class="memitem:ae00912fbad5bedd954bf81f801172c7d inherit properties_interface_s_p_controller"><td class="memItemLeft" align="right" valign="top">id&lt; <a class="el" href="protocol_s_p_service_provider_protocol-p.html">SPServiceProviderProtocol</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_controller.html#ae00912fbad5bedd954bf81f801172c7d">serviceProvider</a></td></tr>
+<tr class="separator:ae00912fbad5bedd954bf81f801172c7d inherit properties_interface_s_p_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_protocol_s_p_network_controller-p"><td colspan="2" onclick="javascript:toggleInherit('properties_protocol_s_p_network_controller-p')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="protocol_s_p_network_controller-p.html">&lt;SPNetworkController&gt;</a></td></tr>
 <tr class="memitem:aa7cd0dcd5c09f0c4bb7882356026c5b8 inherit properties_protocol_s_p_network_controller-p"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_network_controller-p.html#aa7cd0dcd5c09f0c4bb7882356026c5b8">endpoint</a></td></tr>
 <tr class="separator:aa7cd0dcd5c09f0c4bb7882356026c5b8 inherit properties_protocol_s_p_network_controller-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -101,17 +108,16 @@ Additional Inherited Members</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="_s_p_network_controller_impl_8h_source.html#l00030">30</a> of file <a class="el" href="_s_p_network_controller_impl_8h_source.html">SPNetworkControllerImpl.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="aa53e9ed56360e1631795a8b08844ed95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa53e9ed56360e1631795a8b08844ed95">&#9670;&nbsp;</a></span>initWithEmitter:</h2>
+<a id="a3aaaccd4bc511239bac31524a73cbaab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aaaccd4bc511239bac31524a73cbaab">&#9670;&nbsp;</a></span>isCustomNetworkConnection</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (instancetype) initWithEmitter: </td>
+          <td class="memname">- (BOOL) isCustomNetworkConnection </td>
           <td></td>
-          <td class="paramtype">(<a class="el" href="interface_s_p_emitter.html">SPEmitter</a> *)&#160;</td>
-          <td class="paramname"><em>emitter</em></td>
+          <td class="paramname"></td>
           <td></td>
         </tr>
       </table>
@@ -119,7 +125,7 @@ Additional Inherited Members</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><div class="line">{</div>
 <div class="line">    id&lt;SPRequestCallback&gt; _requestCallback</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_s_p_network_controller_impl_8m_source.html#l00027">27</a> of file <a class="el" href="_s_p_network_controller_impl_8m_source.html">SPNetworkControllerImpl.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_network_controller_impl_8m_source.html#l00001">1</a> of file <a class="el" href="_s_p_network_controller_impl_8m_source.html">SPNetworkControllerImpl.m</a>.</p>
 
 </div>
 </div>

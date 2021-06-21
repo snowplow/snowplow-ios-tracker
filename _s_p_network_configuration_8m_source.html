@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -93,96 +93,108 @@ $(function() {
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_configurations_2_s_p_network_configuration_8h.html">SPNetworkConfiguration.h</a>&quot;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="category_s_p_network_configuration_07_08.html">   25</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> ()</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="category_s_p_network_configuration_07_08.html#aa7cd0dcd5c09f0c4bb7882356026c5b8">   27</a></span>&#160;<span class="keyword">@property</span> (nonatomic, nullable) NSString *<a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="category_s_p_network_configuration_07_08.html#a6e7f267871844aa0b1a9fe3f2cd604de">   28</a></span>&#160;<span class="keyword">@property</span> (nonatomic) SPHttpMethod <a class="code" href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">method</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="interface_s_p_network_configuration.html#a587822eb45f37ba938033af5db47cb5b">   29</a></span>&#160;<span class="keyword">@property</span> (nonatomic) SPProtocol <a class="code" href="interface_s_p_network_configuration.html#a2685bb05bd03555b988042d2d6774c28">protocol</a>;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">@synthesize</span> <a class="code" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">customPostPath</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">@synthesize</span> <a class="code" href="interface_s_p_network_configuration.html#a2bb2cb28f4a9c0cbc25905b3545da63c">requestHeaders</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;- (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        NSURL *url = [[NSURL alloc] initWithString:endpoint];</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> ([url.scheme isEqualToString:<span class="stringliteral">@&quot;https&quot;</span>]) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keyword">self</span>.protocol = SPProtocolHttps;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">self</span>.endpoint = <a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ([url.scheme isEqualToString:<span class="stringliteral">@&quot;http&quot;</span>]) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keyword">self</span>.protocol = SPProtocolHttp;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keyword">self</span>.endpoint = <a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keyword">self</span>.protocol = SPProtocolHttps;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <span class="keyword">self</span>.endpoint = [NSString stringWithFormat:@&quot;https://%@&quot;, endpoint];</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keyword">self</span>.method = <a class="code" href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">method</a>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">self</span>.networkConnection = nil;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keyword">self</span>.customPostPath = nil;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;- (instancetype)initWithEndpoint:(NSString *)endpoint {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithEndpoint:endpoint method:SPHttpMethodPost];</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;- (instancetype)initWithNetworkConnection:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_network_connection-p.html">SPNetworkConnection</a>&gt;)networkConnection {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">self</span>.endpoint = nil;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">self</span>.protocol = 0;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keyword">self</span>.method = 0;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">self</span>.networkConnection = <a class="code" href="interface_s_p_network_configuration.html#a95ff1572912de220c7eb8cbbe856270e">networkConnection</a>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keyword">self</span>.customPostPath = nil;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// MARK: - Builder</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">customPostPath</a>)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSDictionary *, <a class="code" href="interface_s_p_network_configuration.html#a2bb2cb28f4a9c0cbc25905b3545da63c">requestHeaders</a>)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">// MARK: - NSCopying</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;- (id)copyWithZone:(nullable NSZone *)zone {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> *copy;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code" href="interface_s_p_network_configuration.html#a95ff1572912de220c7eb8cbbe856270e">networkConnection</a>) {</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        copy = [[<a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> alloc] initWithNetworkConnection:self.networkConnection];</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        copy = [[<a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> allocWithZone:zone] initWithEndpoint:self.endpoint method:self.method];</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    copy.<a class="code" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">customPostPath</a> = <span class="keyword">self</span>.customPostPath;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> copy;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">// MARK: - NSCoding</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;- (void)encodeWithCoder:(nonnull NSCoder *)coder {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    [coder encodeObject:self.endpoint forKey:SP_STR_PROP(endpoint)];</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    [coder encodeInteger:self.protocol forKey:SP_STR_PROP(protocol)];</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    [coder encodeInteger:self.method forKey:SP_STR_PROP(method)];</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    [coder encodeObject:self.customPostPath forKey:SP_STR_PROP(customPostPath)];</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    [coder encodeObject:self.requestHeaders forKey:SP_STR_PROP(requestHeaders)];</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a> = [coder decodeObjectForKey:SP_STR_PROP(endpoint)];</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">self</span>.protocol = [coder decodeIntegerForKey:SP_STR_PROP(protocol)];</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">self</span>.method = [coder decodeIntegerForKey:SP_STR_PROP(method)];</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">self</span>.customPostPath = [coder decodeObjectForKey:SP_STR_PROP(customPostPath)];</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keyword">self</span>.requestHeaders = [coder decodeObjectForKey:SP_STR_PROP(requestHeaders)];</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_n_s_dictionary_09_s_p___type_methods_8h.html">NSDictionary+SP_TypeMethods.h</a>&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="category_s_p_network_configuration_07_08.html">   26</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> ()</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="category_s_p_network_configuration_07_08.html#aa7cd0dcd5c09f0c4bb7882356026c5b8">   28</a></span>&#160;<span class="keyword">@property</span> (nonatomic, nullable) NSString *<a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="category_s_p_network_configuration_07_08.html#a6e7f267871844aa0b1a9fe3f2cd604de">   29</a></span>&#160;<span class="keyword">@property</span> (nonatomic) SPHttpMethod <a class="code" href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">method</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="interface_s_p_network_configuration.html#a587822eb45f37ba938033af5db47cb5b">   30</a></span>&#160;<span class="keyword">@property</span> (nonatomic) SPProtocol <a class="code" href="interface_s_p_network_configuration.html#a2685bb05bd03555b988042d2d6774c28">protocol</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">@synthesize</span> <a class="code" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">customPostPath</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">@synthesize</span> <a class="code" href="interface_s_p_network_configuration.html#a2bb2cb28f4a9c0cbc25905b3545da63c">requestHeaders</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;- (instancetype)initWithDictionary:(NSDictionary&lt;NSString *,NSObject *&gt; *)dictionary {</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    NSString *<a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a> = [dictionary sp_stringForKey:SP_STR_PROP(endpoint) defaultValue:nil];</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    NSString *<a class="code" href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">method</a> = [dictionary sp_stringForKey:SP_STR_PROP(method) defaultValue:nil];</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a> || !<a class="code" href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">method</a>) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">return</span> nil;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    SPHttpMethod httpMethod = [<a class="code" href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">method</a> isEqualToString:@&quot;get&quot;] ? SPHttpMethodGet : SPHttpMethodPost;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> <a class="code" href="interface_s_p_network_configuration.html#afcb31e2ea2553d3d3d3fdf17defa4bdb">initWithEndpoint</a>:endpoint <a class="code" href="interface_s_p_network_configuration.html#afcb31e2ea2553d3d3d3fdf17defa4bdb">method</a>:httpMethod];</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;- (instancetype)initWithEndpoint:(NSString *)endpoint method:(SPHttpMethod)method {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        NSURL *url = [[NSURL alloc] initWithString:endpoint];</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> ([url.scheme isEqualToString:<span class="stringliteral">@&quot;https&quot;</span>]) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">self</span>.protocol = SPProtocolHttps;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keyword">self</span>.endpoint = <a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ([url.scheme isEqualToString:<span class="stringliteral">@&quot;http&quot;</span>]) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            <span class="keyword">self</span>.protocol = SPProtocolHttp;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            <span class="keyword">self</span>.endpoint = <a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keyword">self</span>.protocol = SPProtocolHttps;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            <span class="keyword">self</span>.endpoint = [NSString stringWithFormat:@&quot;https://%@&quot;, endpoint];</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">self</span>.method = <a class="code" href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">method</a>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keyword">self</span>.networkConnection = nil;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">self</span>.customPostPath = nil;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;- (instancetype)initWithEndpoint:(NSString *)endpoint {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> initWithEndpoint:endpoint method:SPHttpMethodPost];</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;- (instancetype)initWithNetworkConnection:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_network_connection-p.html">SPNetworkConnection</a>&gt;)networkConnection {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keyword">self</span>.endpoint = nil;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keyword">self</span>.protocol = 0;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keyword">self</span>.method = 0;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keyword">self</span>.networkConnection = <a class="code" href="interface_s_p_network_configuration.html#a95ff1572912de220c7eb8cbbe856270e">networkConnection</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keyword">self</span>.customPostPath = nil;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">// MARK: - Builder</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">customPostPath</a>)</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSDictionary *, <a class="code" href="interface_s_p_network_configuration.html#a2bb2cb28f4a9c0cbc25905b3545da63c">requestHeaders</a>)</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// MARK: - NSCopying</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;- (id)copyWithZone:(nullable NSZone *)zone {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> *copy;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code" href="interface_s_p_network_configuration.html#a95ff1572912de220c7eb8cbbe856270e">networkConnection</a>) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        copy = [[<a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> alloc] initWithNetworkConnection:self.networkConnection];</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        copy = [[<a class="code" href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a> allocWithZone:zone] initWithEndpoint:self.endpoint method:self.method];</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    copy.<a class="code" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">customPostPath</a> = <span class="keyword">self</span>.customPostPath;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">return</span> copy;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">// MARK: - NSCoding</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;- (void)encodeWithCoder:(nonnull NSCoder *)coder {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    [coder encodeObject:self.endpoint forKey:SP_STR_PROP(endpoint)];</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    [coder encodeInteger:self.protocol forKey:SP_STR_PROP(protocol)];</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    [coder encodeInteger:self.method forKey:SP_STR_PROP(method)];</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    [coder encodeObject:self.customPostPath forKey:SP_STR_PROP(customPostPath)];</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    [coder encodeObject:self.requestHeaders forKey:SP_STR_PROP(requestHeaders)];</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">endpoint</a> = [coder decodeObjectForKey:SP_STR_PROP(endpoint)];</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">self</span>.protocol = [coder decodeIntegerForKey:SP_STR_PROP(protocol)];</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keyword">self</span>.method = [coder decodeIntegerForKey:SP_STR_PROP(method)];</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="keyword">self</span>.customPostPath = [coder decodeObjectForKey:SP_STR_PROP(customPostPath)];</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keyword">self</span>.requestHeaders = [coder decodeObjectForKey:SP_STR_PROP(requestHeaders)];</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_internal_2_configurations_2_s_p_network_configuration_8h_html"><div class="ttname"><a href="_internal_2_configurations_2_s_p_network_configuration_8h.html">SPNetworkConfiguration.h</a></div></div>
+<div class="ttc" id="a_n_s_dictionary_09_s_p___type_methods_8h_html"><div class="ttname"><a href="_n_s_dictionary_09_s_p___type_methods_8h.html">NSDictionary+SP_TypeMethods.h</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_ae6c0cd7c5ec3616671af14ae52ac02d3"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a></div><div class="ttdeci">#define SP_BUILDER_METHOD(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00045">SPTrackerConstants.h:45</a></div></div>
 <div class="ttc" id="ainterface_s_p_network_configuration_html"><div class="ttname"><a href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_network_configuration_8h_source.html#l00034">SPNetworkConfiguration.h:35</a></div></div>
 <div class="ttc" id="ainterface_s_p_network_configuration_html_a2685bb05bd03555b988042d2d6774c28"><div class="ttname"><a href="interface_s_p_network_configuration.html#a2685bb05bd03555b988042d2d6774c28">SPNetworkConfiguration::protocol</a></div><div class="ttdeci">SPProtocol protocol</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_network_configuration_8h_source.html#l00049">SPNetworkConfiguration.h:49</a></div></div>
@@ -191,6 +203,7 @@ $(function() {
 <div class="ttc" id="ainterface_s_p_network_configuration_html_a589f8c5e3b4bea39eed18df1c09fe712"><div class="ttname"><a href="interface_s_p_network_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">SPNetworkConfiguration::endpoint</a></div><div class="ttdeci">NSString * endpoint</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_network_configuration_8h_source.html#l00039">SPNetworkConfiguration.h:39</a></div></div>
 <div class="ttc" id="ainterface_s_p_network_configuration_html_a6e7f267871844aa0b1a9fe3f2cd604de"><div class="ttname"><a href="interface_s_p_network_configuration.html#a6e7f267871844aa0b1a9fe3f2cd604de">SPNetworkConfiguration::method</a></div><div class="ttdeci">SPHttpMethod method</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_network_configuration_8h_source.html#l00044">SPNetworkConfiguration.h:44</a></div></div>
 <div class="ttc" id="ainterface_s_p_network_configuration_html_a95ff1572912de220c7eb8cbbe856270e"><div class="ttname"><a href="interface_s_p_network_configuration.html#a95ff1572912de220c7eb8cbbe856270e">SPNetworkConfiguration::networkConnection</a></div><div class="ttdeci">id&lt; SPNetworkConnection &gt; networkConnection</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_network_configuration_8h_source.html#l00054">SPNetworkConfiguration.h:54</a></div></div>
+<div class="ttc" id="ainterface_s_p_network_configuration_html_afcb31e2ea2553d3d3d3fdf17defa4bdb"><div class="ttname"><a href="interface_s_p_network_configuration.html#afcb31e2ea2553d3d3d3fdf17defa4bdb">-[SPNetworkConfiguration initWithEndpoint:method:]</a></div><div class="ttdeci">instancetype initWithEndpoint:method:(NSString *endpoint,[method] SPHttpMethod method)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_network_configuration_8m_source.html#l00030">SPNetworkConfiguration.m:50</a></div></div>
 <div class="ttc" id="aprotocol_s_p_network_connection-p_html"><div class="ttname"><a href="protocol_s_p_network_connection-p.html">SPNetworkConnection-p</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_network_connection_8h_source.html#l00054">SPNetworkConnection.h:54</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

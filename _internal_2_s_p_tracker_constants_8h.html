@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -100,6 +100,10 @@ Macros</h2></td></tr>
 <tr class="separator:a57b2160e5d408ff6315ec3e509abdd09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6c0cd7c5ec3616671af14ae52ac02d3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_internal_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(type,  prop)&#160;&#160;&#160;- (instancetype)prop:(type)value { self.prop = value; return self; }</td></tr>
 <tr class="separator:ae6c0cd7c5ec3616671af14ae52ac02d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f31bac3c7792d96dfb2b6f2c503789b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_internal_2_s_p_tracker_constants_8h.html#a4f31bac3c7792d96dfb2b6f2c503789b">SP_DIRTYFLAG</a>(prop)&#160;&#160;&#160;@property BOOL prop##Updated;</td></tr>
+<tr class="separator:a4f31bac3c7792d96dfb2b6f2c503789b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72db96819598060ec3238f85e17e9c7b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_internal_2_s_p_tracker_constants_8h.html#a72db96819598060ec3238f85e17e9c7b">SP_DIRTY_GETTER</a>(type,  prop)&#160;&#160;&#160;- (type)prop { return (!self.sourceConfig || self.prop##Updated) ? super.prop : self.sourceConfig.prop; }</td></tr>
+<tr class="separator:a72db96819598060ec3238f85e17e9c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ae88a5dcb1232cb0e6fb2a7d8c89c9dc0"></a>
@@ -253,6 +257,56 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_internal_2_s_p_tracker_constants_8h_source.html#l00045">45</a> of file <a class="el" href="_internal_2_s_p_tracker_constants_8h_source.html">SPTrackerConstants.h</a>.</p>
+
+</div>
+</div>
+<a id="a72db96819598060ec3238f85e17e9c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72db96819598060ec3238f85e17e9c7b">&#9670;&nbsp;</a></span>SP_DIRTY_GETTER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SP_DIRTY_GETTER</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">type, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">prop&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;- (type)prop { return (!self.sourceConfig || self.prop##Updated) ? super.prop : self.sourceConfig.prop; }</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_internal_2_s_p_tracker_constants_8h_source.html#l00047">47</a> of file <a class="el" href="_internal_2_s_p_tracker_constants_8h_source.html">SPTrackerConstants.h</a>.</p>
+
+</div>
+</div>
+<a id="a4f31bac3c7792d96dfb2b6f2c503789b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f31bac3c7792d96dfb2b6f2c503789b">&#9670;&nbsp;</a></span>SP_DIRTYFLAG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define SP_DIRTYFLAG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">prop</td><td>)</td>
+          <td>&#160;&#160;&#160;@property BOOL prop##Updated;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_internal_2_s_p_tracker_constants_8h_source.html#l00046">46</a> of file <a class="el" href="_internal_2_s_p_tracker_constants_8h_source.html">SPTrackerConstants.h</a>.</p>
 
 </div>
 </div>

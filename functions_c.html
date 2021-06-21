@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -65,6 +65,15 @@ $(function() {
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index_c"></a>- c -</h3><ul>
+<li>cache
+: <a class="el" href="category_s_p_configuration_provider_07_08.html#a34ed2ce874b39d5e2689d5e244659765">SPConfigurationProvider()</a>
+</li>
+<li>cacheBundle
+: <a class="el" href="category_s_p_configuration_provider_07_08.html#a17a360afc1ecb1aafddc154c44f24187">SPConfigurationProvider()</a>
+</li>
+<li>cacheFileUrl
+: <a class="el" href="category_s_p_configuration_cache_07_08.html#a28ded18249ef13a50b8a170763c32a59">SPConfigurationCache()</a>
+</li>
 <li>callback
 : <a class="el" href="interface_s_p_emitter.html#aea48f68a7dd4688cdd0bad3a23226948">SPEmitter</a>
 </li>
@@ -82,12 +91,30 @@ $(function() {
 <li>city
 : <a class="el" href="interface_s_p_ecommerce.html#a0cebaf9825c830d516bfb480b2f6e763">SPEcommerce</a>
 </li>
+<li>clearCache
+: <a class="el" href="interface_s_p_configuration_cache.html#a91b1d39c78e5682128a85ce27d4392e8">SPConfigurationCache</a>
+</li>
 <li>clearPreviousInstallTimestamp
 : <a class="el" href="interface_s_p_install_tracker.html#a03a52d45e8151ae42dd51bef191e9d0e">SPInstallTracker</a>
 </li>
 <li>colorDepth
 : <a class="el" href="interface_s_p_subject.html#aa523896c8e0c83b81a06ff310983f18b">SPSubject</a>
 , <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#adf169aaeb7a53389f4e8bf7f2d5dc9a0">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>configuration
+: <a class="el" href="category_s_p_configuration_cache_07_08.html#ad51c02c22f816e80f9feb5e28e814afb">SPConfigurationCache()</a>
+</li>
+<li>configurationBundle
+: <a class="el" href="interface_s_p_fetched_configuration_bundle.html#a5fb53f4c91734240a68efb627b068d49">SPFetchedConfigurationBundle</a>
+</li>
+<li>configurationProvider
+: <a class="el" href="category_s_p_snowplow_07_08.html#a0489352d30d79455af3017818f3d53d0">SPSnowplow()</a>
+</li>
+<li>configurations
+: <a class="el" href="interface_s_p_configuration_bundle.html#a81bc818419b9e8da54bf5ad6158754df">SPConfigurationBundle</a>
+</li>
+<li>configurationVersion
+: <a class="el" href="interface_s_p_fetched_configuration_bundle.html#aa6b4da2e0724e53adec6c898fdede086">SPFetchedConfigurationBundle</a>
 </li>
 <li>context
 : <a class="el" href="interface_s_p_gdpr_context.html#a34126494225a1026402adde888aecacd">SPGdprContext</a>
@@ -100,13 +127,19 @@ $(function() {
 , <a class="el" href="interface_s_p_tracker_event.html#aa3673b8caf4bdca915e14a0628356ec0">SPTrackerEvent</a>
 </li>
 <li>contextsFromEvent:
-: <a class="el" href="interface_s_p_global_context.html#ac9cffa435e98e329d03653dad463a371">SPGlobalContext</a>
+: <a class="el" href="interface_s_p_global_context.html#a83ec9ab1112a410943218279e8b91013">SPGlobalContext</a>
 </li>
 <li>count
 : <a class="el" href="protocol_s_p_event_store-p.html#a908c802735aaad6bb718dea5e2abacec">&lt;SPEventStore&gt;</a>
 </li>
 <li>country
 : <a class="el" href="interface_s_p_ecommerce.html#a7aa278da3902be2d5a367f17eabc4e0e">SPEcommerce</a>
+</li>
+<li>createSessionFilenameWithNamespace:
+: <a class="el" href="interface_s_p_session.html#a7fe613b59c27dc3523bcd860caba3811">SPSession</a>
+</li>
+<li>createSessionFileUrlWithFilename:
+: <a class="el" href="interface_s_p_session.html#a5232cfe710e73d43ed66088a5ccf0059">SPSession</a>
 </li>
 <li>createTrackerWithNamespace:endpoint:method:
 : <a class="el" href="interface_s_p_snowplow.html#a1c5f2081007c91b90debdc1c8a442a1c">SPSnowplow</a>
@@ -128,6 +161,7 @@ $(function() {
 <li>customPostPath
 : <a class="el" href="interface_s_p_emitter.html#a4489dcf7cae6bf42d4a173493b932960">SPEmitter</a>
 , <a class="el" href="interface_s_p_network_configuration.html#a4489dcf7cae6bf42d4a173493b932960">SPNetworkConfiguration</a>
+, <a class="el" href="interface_s_p_network_configuration_update.html#a4489dcf7cae6bf42d4a173493b932960">SPNetworkConfigurationUpdate</a>
 , <a class="el" href="protocol_s_p_network_controller-p.html#a8a4261c9021c4ac9a72bc9d71c89a40d">&lt;SPNetworkController&gt;</a>
 </li>
 <li>customUserAgent

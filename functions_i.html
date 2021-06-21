@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -90,18 +90,18 @@ $(function() {
 <li>initWithDate:action:trigger:category:thread:notification:
 : <a class="el" href="interface_s_p_push_notification.html#a1bfe65e8294eed32b9ae06b9f2666fa7">SPPushNotification</a>
 </li>
+<li>initWithDictionary:
+: <a class="el" href="interface_s_p_configuration.html#a324c82d77b75ef4c513f4e6ca6dfa51b">SPConfiguration</a>
+</li>
 <li>initWithDocumentId:version:
 : <a class="el" href="interface_s_p_consent_document.html#afbd1dbd7f4756aed510c19dc3b5f1768">SPConsentDocument</a>
-</li>
-<li>initWithEmitter:
-: <a class="el" href="interface_s_p_emitter_controller_impl.html#aa53e9ed56360e1631795a8b08844ed95">SPEmitterControllerImpl</a>
-, <a class="el" href="interface_s_p_network_controller_impl.html#aa53e9ed56360e1631795a8b08844ed95">SPNetworkControllerImpl</a>
 </li>
 <li>initWithEndpoint:
 : <a class="el" href="interface_s_p_network_configuration.html#a587822eb45f37ba938033af5db47cb5b">SPNetworkConfiguration</a>
 </li>
 <li>initWithEndpoint:method:
 : <a class="el" href="interface_s_p_network_configuration.html#afcb31e2ea2553d3d3d3fdf17defa4bdb">SPNetworkConfiguration</a>
+, <a class="el" href="interface_s_p_remote_configuration.html#afcb31e2ea2553d3d3d3fdf17defa4bdb">SPRemoteConfiguration</a>
 </li>
 <li>initWithEvent:
 : <a class="el" href="interface_s_p_tracker_event.html#a819aef3cf14c607a982d206d213983c5">SPTrackerEvent</a>
@@ -157,10 +157,14 @@ $(function() {
 : <a class="el" href="interface_s_p_screen_state.html#a82f14608e3ecdbad6f1212b31cbd836f">SPScreenState</a>
 </li>
 <li>initWithNamespace:
-: <a class="el" href="interface_s_p_s_q_lite_event_store.html#ade7073dc0a02f7ad986bbe627c4bcde4">SPSQLiteEventStore</a>
+: <a class="el" href="interface_s_p_configuration_bundle.html#ade7073dc0a02f7ad986bbe627c4bcde4">SPConfigurationBundle</a>
+, <a class="el" href="interface_s_p_s_q_lite_event_store.html#ade7073dc0a02f7ad986bbe627c4bcde4">SPSQLiteEventStore</a>
 </li>
 <li>initWithNamespace:network:configurations:
 : <a class="el" href="interface_s_p_service_provider.html#a97b0c709902bc3277a499ed1773d6887">SPServiceProvider</a>
+</li>
+<li>initWithNamespace:networkConfiguration:
+: <a class="el" href="interface_s_p_configuration_bundle.html#a42896b15204cde86ae38470b2c962a7c">SPConfigurationBundle</a>
 </li>
 <li>initWithNetworkConnection:
 : <a class="el" href="interface_s_p_network_configuration.html#abd566ae8bd34c57718f591788634d4b2">SPNetworkConfiguration</a>
@@ -192,6 +196,15 @@ $(function() {
 <li>initWithPlatformContext:geoLocationContext:subjectConfiguration:
 : <a class="el" href="interface_s_p_subject.html#aa4ec20c26b29cd14d8200d9e3c431057">SPSubject</a>
 </li>
+<li>initWithRemoteConfiguration:
+: <a class="el" href="interface_s_p_configuration_provider.html#a448f5b881a275ea8f3ac736fdbaa62f6">SPConfigurationProvider</a>
+</li>
+<li>initWithRemoteConfiguration:defaultConfigurationBundles:
+: <a class="el" href="interface_s_p_configuration_provider.html#a4fcb159a48fea839004ab8238cf17ec2">SPConfigurationProvider</a>
+</li>
+<li>initWithRemoteSource:onFetchCallback:
+: <a class="el" href="interface_s_p_configuration_fetcher.html#a02b0aa362a92ff818481c6ca9b52aff2">SPConfigurationFetcher</a>
+</li>
 <li>initWithRule:
 : <a class="el" href="interface_s_p_schema_rule.html#ab1f7b08f83aa34140a2015d1d49b7d4e">SPSchemaRule</a>
 </li>
@@ -209,6 +222,9 @@ $(function() {
 </li>
 <li>initWithSchema:payload:
 : <a class="el" href="interface_s_p_self_describing.html#a550ebe36f3257e4324818417f192c888">SPSelfDescribing</a>
+</li>
+<li>initWithServiceProvider:
+: <a class="el" href="interface_s_p_controller.html#a766e7b8c29d7da118e0c7c7055436210">SPController</a>
 </li>
 <li>initWithSku:price:quantity:
 : <a class="el" href="interface_s_p_ecommerce_item.html#ad9b123bb1260053f97f04fcad70be5b2">SPEcommerceItem</a>
@@ -228,9 +244,6 @@ $(function() {
 <li>initWithStaticContexts:ruleset:
 : <a class="el" href="interface_s_p_global_context.html#a42d4a4f5dc42dca778655b8830436cef">SPGlobalContext</a>
 </li>
-<li>initWithSubject:
-: <a class="el" href="interface_s_p_subject_controller_impl.html#ac859c20ddb6c2f8eb61a4896334eb4ea">SPSubjectControllerImpl</a>
-</li>
 <li>initWithSuccess:storeIds:
 : <a class="el" href="interface_s_p_request_result.html#aeffa7c32f3dede1cc9011670571b4ec6">SPRequestResult</a>
 </li>
@@ -241,10 +254,7 @@ $(function() {
 : <a class="el" href="interface_s_p_notification_content.html#a6a9372fb0b205ed5af6b8ebf2d8d2ee0">SPNotificationContent</a>
 </li>
 <li>initWithTracker:
-: <a class="el" href="interface_s_p_g_d_p_r_controller_impl.html#a014199cebf9e7ce0d196598f628fea1d">SPGDPRControllerImpl</a>
-, <a class="el" href="interface_s_p_global_contexts_controller_impl.html#a014199cebf9e7ce0d196598f628fea1d">SPGlobalContextsControllerImpl</a>
-, <a class="el" href="interface_s_p_session.html#a372ca4c6b3c4beaffa3571e707c061f8">SPSession</a>
-, <a class="el" href="interface_s_p_session_controller_impl.html#a014199cebf9e7ce0d196598f628fea1d">SPSessionControllerImpl</a>
+: <a class="el" href="interface_s_p_session.html#a372ca4c6b3c4beaffa3571e707c061f8">SPSession</a>
 </li>
 <li>initWithWidth:height:
 : <a class="el" href="interface_s_p_size.html#a51ba901e627f4a68131be8cd2fa1b261">SPSize</a>
@@ -259,14 +269,18 @@ $(function() {
 : <a class="el" href="interface_s_p_tracker.html#a065746f2993c40cd635f3b66efa9d251">SPTracker</a>
 </li>
 <li>instancedTrackerNamespaces
-: <a class="el" href="interface_s_p_snowplow.html#a79dbba1db4d8ea98d1419d6f56e9292d">SPSnowplow</a>
+: <a class="el" href="interface_s_p_snowplow.html#a9cb9a77d806cbdbda437dbe8ed82473e">SPSnowplow</a>
 </li>
 <li>ipAddress
 : <a class="el" href="interface_s_p_subject.html#a439b7b1942a6bcec6157111484d5b9a3">SPSubject</a>
 , <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#ab462cfb8062bd3f3df27bcc3238eba7a">&lt;SPSubjectConfigurationProtocol&gt;</a>
 </li>
+<li>isCustomNetworkConnection
+: <a class="el" href="interface_s_p_network_controller_impl.html#a3aaaccd4bc511239bac31524a73cbaab">SPNetworkControllerImpl</a>
+</li>
 <li>isEnabled
-: <a class="el" href="protocol_s_p_g_d_p_r_controller-p.html#aa1c61b65eb48984514ce82668cb00c88">&lt;SPGDPRController&gt;</a>
+: <a class="el" href="interface_s_p_g_d_p_r_configuration_update.html#aa1c61b65eb48984514ce82668cb00c88">SPGDPRConfigurationUpdate</a>
+, <a class="el" href="protocol_s_p_g_d_p_r_controller-p.html#aa1c61b65eb48984514ce82668cb00c88">&lt;SPGDPRController&gt;</a>
 , <a class="el" href="interface_s_p_session_controller_impl.html#aa1c61b65eb48984514ce82668cb00c88">SPSessionControllerImpl</a>
 </li>
 <li>isInBackground
@@ -274,6 +288,10 @@ $(function() {
 </li>
 <li>isNewInstall
 : <a class="el" href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">SPInstallTracker</a>
+</li>
+<li>isPaused
+: <a class="el" href="interface_s_p_session_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">SPSessionConfigurationUpdate</a>
+, <a class="el" href="interface_s_p_tracker_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">SPTrackerConfigurationUpdate</a>
 </li>
 <li>isPrimitive
 : <a class="el" href="interface_s_p_tracker_event.html#ad3692381fe60a1b58f1a904384a49610">SPTrackerEvent</a>

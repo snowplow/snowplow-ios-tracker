@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -66,7 +66,8 @@ $(function() {
 
 <h3><a id="index_s"></a>- s -</h3><ul>
 <li>schema
-: <a class="el" href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">&lt;SPInspectableEvent&gt;</a>
+: <a class="el" href="interface_s_p_fetched_configuration_bundle.html#a08a5d4e46afe3ac80d613ed3b1071743">SPFetchedConfigurationBundle</a>
+, <a class="el" href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">&lt;SPInspectableEvent&gt;</a>
 , <a class="el" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingAbstract</a>
 , <a class="el" href="interface_s_p_self_describing_json.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingJson</a>
 , <a class="el" href="interface_s_p_tracker_event.html#a08a5d4e46afe3ac80d613ed3b1071743">SPTrackerEvent</a>
@@ -92,6 +93,10 @@ $(function() {
 <li>sendLimit
 : <a class="el" href="category_s_p_s_q_lite_event_store_07_08.html#a1347eace9a7919bc54bf1c3daa653877">SPSQLiteEventStore()</a>
 </li>
+<li>serviceProvider
+: <a class="el" href="category_s_p_controller_07_08.html#ae00912fbad5bedd954bf81f801172c7d">SPController()</a>
+, <a class="el" href="interface_s_p_controller.html#ae00912fbad5bedd954bf81f801172c7d">SPController</a>
+</li>
 <li>serviceProviderInstances
 : <a class="el" href="category_s_p_snowplow_07_08.html#a884e78d42032988e68e5f606b0c77f6f">SPSnowplow()</a>
 </li>
@@ -100,13 +105,16 @@ $(function() {
 , <a class="el" href="protocol_s_p_tracker_controller-p.html#a75c9b4ea6b84fcfbfcf2923d223a4bcd">&lt;SPTrackerController&gt;</a>
 </li>
 <li>sessionConfiguration
-: <a class="el" href="category_s_p_service_provider_07_08.html#a34d0635e05dbbff86a8942e8e5244330">SPServiceProvider()</a>
+: <a class="el" href="interface_s_p_configuration_bundle.html#a2ad3a1b3a30e521c523ce523798c340e">SPConfigurationBundle</a>
+</li>
+<li>sessionConfigurationUpdate
+: <a class="el" href="category_s_p_service_provider_07_08.html#ad34a963f7c4f65f956f305ec001a1f70">SPServiceProvider()</a>
 </li>
 <li>sessionContext
 : <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#abd4a17577664657d6838375947778d90">&lt;SPTrackerConfigurationProtocol&gt;</a>
 </li>
 <li>sessionController
-: <a class="el" href="category_s_p_tracker_controller_impl_07_08.html#aa3fe8297bb4bf3513050a830ab8ea7db">SPTrackerControllerImpl()</a>
+: <a class="el" href="category_s_p_service_provider_07_08.html#aa3fe8297bb4bf3513050a830ab8ea7db">SPServiceProvider()</a>
 </li>
 <li>sessionFilename
 : <a class="el" href="category_s_p_session_07_08.html#a3d3f0cabf72b326b497863e36a962338">SPSession()</a>
@@ -135,6 +143,14 @@ $(function() {
 <li>source
 : <a class="el" href="category_s_p_tracker_error_07_08.html#ae6b6878bd667597292346fb0f3ed2b3b">SPTrackerError()</a>
 </li>
+<li>sourceConfig
+: <a class="el" href="interface_s_p_emitter_configuration_update.html#ac86f20920c9637f21cf1f9e92f542bf2">SPEmitterConfigurationUpdate</a>
+, <a class="el" href="interface_s_p_g_d_p_r_configuration_update.html#ad09492c54ffa250ff012608330118569">SPGDPRConfigurationUpdate</a>
+, <a class="el" href="interface_s_p_network_configuration_update.html#a8e5d6f42dd0ad66c5d5d455c8a133c19">SPNetworkConfigurationUpdate</a>
+, <a class="el" href="interface_s_p_session_configuration_update.html#a5ca00c92ebc15de2901df46b9b6bae4f">SPSessionConfigurationUpdate</a>
+, <a class="el" href="interface_s_p_subject_configuration_update.html#a3129913e9e84ddd1423d640aefede366">SPSubjectConfigurationUpdate</a>
+, <a class="el" href="interface_s_p_tracker_configuration_update.html#a1e224414aaf8842bc20cd8916f590c43">SPTrackerConfigurationUpdate</a>
+</li>
 <li>sqliteFilename
 : <a class="el" href="category_s_p_s_q_lite_event_store_07_08.html#a6f61ee531ab30b85254f3fb40fb513fe">SPSQLiteEventStore()</a>
 </li>
@@ -153,14 +169,18 @@ $(function() {
 , <a class="el" href="interface_s_p_request_result.html#a3d165635bc6b492804790e21ea10fed8">SPRequestResult</a>
 </li>
 <li>subject
-: <a class="el" href="interface_s_p_service_provider.html#aaa4d7fa395e976cf77921e862809b8d1">SPServiceProvider</a>
-, <a class="el" href="category_s_p_subject_controller_impl_07_08.html#a59099084083240184e72f41011390c59">SPSubjectControllerImpl()</a>
+: <a class="el" href="category_s_p_service_provider_07_08.html#a59099084083240184e72f41011390c59">SPServiceProvider()</a>
 , <a class="el" href="interface_s_p_tracker.html#aaa4d7fa395e976cf77921e862809b8d1">SPTracker</a>
 , <a class="el" href="protocol_s_p_tracker_controller-p.html#af7a8e5fb45a232a1c288a41eb89c1ff9">&lt;SPTrackerController&gt;</a>
-, <a class="el" href="category_s_p_tracker_controller_impl_07_08.html#af7a8e5fb45a232a1c288a41eb89c1ff9">SPTrackerControllerImpl()</a>
 </li>
 <li>subjectConfiguration
-: <a class="el" href="category_s_p_service_provider_07_08.html#a5dbe949df5297d340a74f8ca9ab3e07e">SPServiceProvider()</a>
+: <a class="el" href="interface_s_p_configuration_bundle.html#a5f87c8283d65f68ca9f8f38f3c80fe1a">SPConfigurationBundle</a>
+</li>
+<li>subjectConfigurationUpdate
+: <a class="el" href="category_s_p_service_provider_07_08.html#a21ed3e2f598555f9bda18437968a17ca">SPServiceProvider()</a>
+</li>
+<li>subjectController
+: <a class="el" href="category_s_p_service_provider_07_08.html#a252b5a90cc4db28ec9125049f0000bc7">SPServiceProvider()</a>
 </li>
 <li>subtitle
 : <a class="el" href="interface_s_p_notification_content.html#a917db584ad932e6663677b38b5887bd8">SPNotificationContent</a>

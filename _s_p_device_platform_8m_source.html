@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -107,7 +107,16 @@ $(function() {
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">default</span>: <span class="keywordflow">return</span> nil;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    }</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="include_2_s_p_device_platform_8h.html#a0a98ec1a77b9d2f446e70cc9b98364e4">   39</a></span>&#160;SPDevicePlatform <a class="code" href="_s_p_device_platform_8m.html#a0a98ec1a77b9d2f446e70cc9b98364e4">SPStringToDevicePlatform</a>(NSString *devicePlatformString) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    NSUInteger index = [@[@&quot;web&quot;, @&quot;mob&quot;, @&quot;pc&quot;, @&quot;srv&quot;, @&quot;app&quot;, @&quot;tv&quot;, @&quot;cnsl&quot;, @&quot;iot&quot;] indexOfObject:devicePlatformString];</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">if</span> (index == NSNotFound) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        index = SPDevicePlatformMobile;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">return</span> index;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="ttc" id="a_internal_2_subject_2_s_p_device_platform_8h_html"><div class="ttname"><a href="_internal_2_subject_2_s_p_device_platform_8h.html">SPDevicePlatform.h</a></div></div>
+<div class="ttc" id="a_s_p_device_platform_8m_html_a0a98ec1a77b9d2f446e70cc9b98364e4"><div class="ttname"><a href="_s_p_device_platform_8m.html#a0a98ec1a77b9d2f446e70cc9b98364e4">SPStringToDevicePlatform</a></div><div class="ttdeci">SPDevicePlatform SPStringToDevicePlatform(NSString *devicePlatformString)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_device_platform_8m_source.html#l00039">SPDevicePlatform.m:39</a></div></div>
 <div class="ttc" id="a_s_p_device_platform_8m_html_a2ffa3c991e3eec1c3733ed6167bc47a6"><div class="ttname"><a href="_s_p_device_platform_8m.html#a2ffa3c991e3eec1c3733ed6167bc47a6">SPDevicePlatformToString</a></div><div class="ttdeci">NSString * SPDevicePlatformToString(SPDevicePlatform devicePlatform)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_device_platform_8m_source.html#l00025">SPDevicePlatform.m:25</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

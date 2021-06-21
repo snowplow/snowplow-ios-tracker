@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['readme_2emd_1189',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]]
+  ['nsdictionary_2bsp_5ftypemethods_2eh_1297',['NSDictionary+SP_TypeMethods.h',['../_n_s_dictionary_09_s_p___type_methods_8h.html',1,'']]],
+  ['nsdictionary_2bsp_5ftypemethods_2em_1298',['NSDictionary+SP_TypeMethods.m',['../_n_s_dictionary_09_s_p___type_methods_8m.html',1,'']]]
 ];

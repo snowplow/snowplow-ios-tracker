@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['quantity_568',['quantity',['../interface_s_p_ecommerce_item.html#ab2ab5438d68c02d6af3bee3b0b18126a',1,'SPEcommerceItem']]],
-  ['queue_569',['queue',['../category_s_p_s_q_lite_event_store_07_08.html#ad9f75fcf2b2c0b90d6d736740fedd57a',1,'SPSQLiteEventStore()']]]
+  ['quantity_598',['quantity',['../interface_s_p_ecommerce_item.html#ab2ab5438d68c02d6af3bee3b0b18126a',1,'SPEcommerceItem']]],
+  ['queue_599',['queue',['../category_s_p_s_q_lite_event_store_07_08.html#ad9f75fcf2b2c0b90d6d736740fedd57a',1,'SPSQLiteEventStore()']]]
 ];

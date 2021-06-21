@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -62,8 +62,6 @@ $(function() {
 
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Instance Methods</a>  </div>
   <div class="headertitle">
 <div class="title">SPSubjectControllerImpl Class Reference</div>  </div>
 </div><!--header-->
@@ -76,19 +74,21 @@ Inheritance diagram for SPSubjectControllerImpl:</div>
  <div class="center">
   <img src="interface_s_p_subject_controller_impl.png" usemap="#SPSubjectControllerImpl_map" alt=""/>
   <map id="SPSubjectControllerImpl_map" name="SPSubjectControllerImpl_map">
-<area href="protocol_s_p_subject_controller-p.html" alt="&lt;SPSubjectController&gt;" shape="rect" coords="217,56,424,80"/>
-<area href="protocol_s_p_subject_configuration_protocol-p.html" alt="&lt;SPSubjectConfigurationProtocol&gt;" shape="rect" coords="108,0,315,24"/>
-<area href="protocol_s_p_subject_configuration_protocol-p.html" alt="&lt;SPSubjectConfigurationProtocol&gt;" shape="rect" coords="325,0,532,24"/>
+<area href="interface_s_p_controller.html" alt="SPController" shape="rect" coords="0,56,207,80"/>
+<area href="protocol_s_p_subject_controller-p.html" alt="&lt;SPSubjectController&gt;" shape="rect" coords="325,56,532,80"/>
+<area href="protocol_s_p_subject_configuration_protocol-p.html" alt="&lt;SPSubjectConfigurationProtocol&gt;" shape="rect" coords="217,0,424,24"/>
+<area href="protocol_s_p_subject_configuration_protocol-p.html" alt="&lt;SPSubjectConfigurationProtocol&gt;" shape="rect" coords="434,0,641,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Instance Methods</h2></td></tr>
-<tr class="memitem:ac859c20ddb6c2f8eb61a4896334eb4ea"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_subject_controller_impl.html#ac859c20ddb6c2f8eb61a4896334eb4ea">initWithSubject:</a></td></tr>
-<tr class="separator:ac859c20ddb6c2f8eb61a4896334eb4ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_methods_interface_s_p_controller"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_interface_s_p_controller')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="interface_s_p_controller.html">SPController</a></td></tr>
+<tr class="memitem:a766e7b8c29d7da118e0c7c7055436210 inherit pub_methods_interface_s_p_controller"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_controller.html#a766e7b8c29d7da118e0c7c7055436210">initWithServiceProvider:</a></td></tr>
+<tr class="separator:a766e7b8c29d7da118e0c7c7055436210 inherit pub_methods_interface_s_p_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header properties_interface_s_p_controller"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_s_p_controller')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_s_p_controller.html">SPController</a></td></tr>
+<tr class="memitem:ae00912fbad5bedd954bf81f801172c7d inherit properties_interface_s_p_controller"><td class="memItemLeft" align="right" valign="top">id&lt; <a class="el" href="protocol_s_p_service_provider_protocol-p.html">SPServiceProviderProtocol</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_controller.html#ae00912fbad5bedd954bf81f801172c7d">serviceProvider</a></td></tr>
+<tr class="separator:ae00912fbad5bedd954bf81f801172c7d inherit properties_interface_s_p_controller"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_protocol_s_p_subject_configuration_protocol-p"><td colspan="2" onclick="javascript:toggleInherit('properties_protocol_s_p_subject_configuration_protocol-p')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html">&lt;SPSubjectConfigurationProtocol&gt;</a></td></tr>
 <tr class="memitem:a25211835b4b5dff492e975e6231df626 inherit properties_protocol_s_p_subject_configuration_protocol-p"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#a25211835b4b5dff492e975e6231df626">userId</a></td></tr>
 <tr class="separator:a25211835b4b5dff492e975e6231df626 inherit properties_protocol_s_p_subject_configuration_protocol-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -130,30 +130,8 @@ Additional Inherited Members</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="_s_p_subject_controller_impl_8h_source.html#l00029">29</a> of file <a class="el" href="_s_p_subject_controller_impl_8h_source.html">SPSubjectControllerImpl.h</a>.</p>
-</div><h2 class="groupheader">Method Documentation</h2>
-<a id="ac859c20ddb6c2f8eb61a4896334eb4ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac859c20ddb6c2f8eb61a4896334eb4ea">&#9670;&nbsp;</a></span>initWithSubject:</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (instancetype) initWithSubject: </td>
-          <td></td>
-          <td class="paramtype">(<a class="el" href="interface_s_p_subject.html">SPSubject</a> *)&#160;</td>
-          <td class="paramname"><em>subject</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_subject_controller_impl_8m_source.html#l00029">29</a> of file <a class="el" href="_s_p_subject_controller_impl_8m_source.html">SPSubjectControllerImpl.m</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+</div><hr/>The documentation for this class was generated from the following file:<ul>
 <li>/github/workspace/Snowplow/Internal/Subject/<a class="el" href="_s_p_subject_controller_impl_8h_source.html">SPSubjectControllerImpl.h</a></li>
-<li>/github/workspace/Snowplow/Internal/Subject/<a class="el" href="_s_p_subject_controller_impl_8m_source.html">SPSubjectControllerImpl.m</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

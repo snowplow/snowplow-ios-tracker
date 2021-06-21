@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.0.2</span>
+   &#160;<span id="projectnumber">2.1.0</span>
    </div>
   </td>
  </tr>
@@ -68,12 +68,22 @@ $(function() {
 <li>reachabilityForInternetConnection
 : <a class="el" href="interface_s_n_o_w_reachability.html#a5854a2f4b1d1971459cace9ca9619b09">SNOWReachability</a>
 </li>
+<li>readCache
+: <a class="el" href="interface_s_p_configuration_cache.html#add33efd3a187fba104ed48b3612fe37d">SPConfigurationCache</a>
+</li>
 <li>receiveScreenViewNotification:
 : <a class="el" href="interface_s_p_tracker.html#a3828de4f1426bf290d3f54a6192a3310">SPTracker</a>
 , <a class="el" href="category_s_p_tracker_07_08.html#a3828de4f1426bf290d3f54a6192a3310">SPTracker()</a>
 </li>
 <li>referrer
 : <a class="el" href="interface_s_p_page_view.html#a51dcf6fe772da8bade82c61a698c17ed">SPPageView</a>
+</li>
+<li>refreshIfRemoteUpdate:
+: <a class="el" href="interface_s_p_snowplow.html#a9360b356a74fa938815bcde5fb6d2c51">SPSnowplow</a>
+</li>
+<li>remoteConfiguration
+: <a class="el" href="category_s_p_configuration_fetcher_07_08.html#a9bc722a02917a1a0ae843624ad957264">SPConfigurationFetcher()</a>
+, <a class="el" href="category_s_p_configuration_provider_07_08.html#a9bc722a02917a1a0ae843624ad957264">SPConfigurationProvider()</a>
 </li>
 <li>removeAllEvents
 : <a class="el" href="protocol_s_p_event_store-p.html#ae8c3fc2c97b8753a6ec7a07356d256fd">&lt;SPEventStore&gt;</a>
@@ -108,6 +118,7 @@ $(function() {
 <li>requestHeaders
 : <a class="el" href="interface_s_p_emitter.html#a2bb2cb28f4a9c0cbc25905b3545da63c">SPEmitter</a>
 , <a class="el" href="interface_s_p_network_configuration.html#a2bb2cb28f4a9c0cbc25905b3545da63c">SPNetworkConfiguration</a>
+, <a class="el" href="interface_s_p_network_configuration_update.html#a78dc3367f64c8c7a48e8dd10afeebf05">SPNetworkConfigurationUpdate</a>
 , <a class="el" href="protocol_s_p_network_controller-p.html#a97c67dcefac0f44eccc96b4fa5ce80ed">&lt;SPNetworkController&gt;</a>
 </li>
 <li>resetWithBasis:documentId:documentVersion:documentDescription:
@@ -115,9 +126,6 @@ $(function() {
 </li>
 <li>resetWithConfigurations:
 : <a class="el" href="interface_s_p_service_provider.html#ab8b293467d180d3534e62d0f98f3c4e7">SPServiceProvider</a>
-</li>
-<li>resetWithTracker:
-: <a class="el" href="interface_s_p_tracker_controller_impl.html#a60b3ef9cfa3b8d03be93af66eeda0778">SPTrackerControllerImpl</a>
 </li>
 <li>resume
 : <a class="el" href="interface_s_p_emitter.html#a41de8150eff044a237990c271d57ea27">SPEmitter</a>
@@ -127,6 +135,9 @@ $(function() {
 </li>
 <li>resumeEventTracking
 : <a class="el" href="interface_s_p_tracker.html#a04e6b40a46e44344fad4cadb9d95b658">SPTracker</a>
+</li>
+<li>retrieveConfigurationOnlyRemote:onFetchCallback:
+: <a class="el" href="interface_s_p_configuration_provider.html#ad015ff9b05e0fe08f95172739ed0529e">SPConfigurationProvider</a>
 </li>
 <li>rule
 : <a class="el" href="category_s_p_schema_rule_07_08.html#af6c3f7a9b2a6bf0223eef5cb1202f5a4">SPSchemaRule()</a>
