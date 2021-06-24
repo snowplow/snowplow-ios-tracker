@@ -215,4 +215,52 @@
     XCTAssertTrue(gdprController.isEnabled);
 }
 
+- (void)testWithoutGDPRConfiguration {
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPTrackerConfiguration *trackerConfiguration = [[[SPTrackerConfiguration alloc] init] appId:@"appid"];
+    trackerConfiguration.base64Encoding = NO;
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+    id<SPGDPRController> gdprController = trackerController.gdpr;
+
+    // Check gdpr settings
+    XCTAssertFalse(gdprController.isEnabled);
+
+    // Check gdpr context not added
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    NSString *contexts = (NSString *)[[payload getAsDictionary] objectForKey:@"co"];
+    XCTAssertFalse([contexts containsString:@"\"basisForProcessing\""]);
+
+    // Check gdpr can be enabled again
+    [gdprController resetWithBasis:SPGdprProcessingBasisContract documentId:@"id1" documentVersion:@"ver1" documentDescription:@"desc1"];
+    XCTAssertEqual(SPGdprProcessingBasisContract, gdprController.basisForProcessing);
+    XCTAssertEqualObjects(@"id1", gdprController.documentId);
+    XCTAssertTrue(gdprController.isEnabled);
+    
+    // Check gdpr context added
+    event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    payload = [[events firstObject] payload];
+    contexts = (NSString *)[[payload getAsDictionary] objectForKey:@"co"];
+    XCTAssertTrue([contexts containsString:@"\"basisForProcessing\":\"contract\""]);
+    XCTAssertTrue([contexts containsString:@"\"documentId\":\"id1\""]);
+}
+
 @end
