@@ -297,7 +297,6 @@
     SPTrackerConfiguration *trackerConfig = self.trackerConfigurationUpdate;
     SPSessionConfiguration *sessionConfig = self.sessionConfigurationUpdate;
     SPGlobalContextsConfiguration *gcConfig = self.globalContextConfiguration;
-    SPGDPRConfiguration *gdprConfig = self.gdprConfigurationUpdate;
     SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setTrackerNamespace:self.namespace];
         [builder setEmitter:emitter];
@@ -322,7 +321,8 @@
         if (gcConfig) {
             [builder setGlobalContextGenerators:gcConfig.contextGenerators];
         }
-        if (gdprConfig) {
+        SPGDPRConfigurationUpdate *gdprConfig = self.gdprConfigurationUpdate;
+        if (gdprConfig.sourceConfig) {
             [builder setGdprContextWithBasis:gdprConfig.basisForProcessing documentId:gdprConfig.documentId documentVersion:gdprConfig.documentVersion documentDescription:gdprConfig.documentDescription];
         }
     }];
@@ -353,7 +353,9 @@
 - (SPGDPRControllerImpl *)makeGDPRController {
     SPGDPRControllerImpl *controller = [[SPGDPRControllerImpl alloc] initWithServiceProvider:self];
     SPGdprContext *gdpr = self.tracker.gdprContext;
-    [controller resetWithBasis:gdpr.basis documentId:gdpr.documentId documentVersion:gdpr.documentVersion documentDescription:gdpr.documentDescription];
+    if (gdpr) {
+        [controller resetWithBasis:gdpr.basis documentId:gdpr.documentId documentVersion:gdpr.documentVersion documentDescription:gdpr.documentDescription];
+    }
     return controller;
 }
 
