@@ -22,7 +22,7 @@
 
 #import "SPServiceProvider.h"
 #import "SPDefaultNetworkConnection.h"
-#import "SPGDPRContext.h"
+#import "SPGdprContext.h"
 
 #import "SPEmitter.h"
 #import "SPSubject.h"
