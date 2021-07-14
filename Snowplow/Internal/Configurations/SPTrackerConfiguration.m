@@ -40,6 +40,7 @@
 @synthesize installAutotracking;
 @synthesize exceptionAutotracking;
 @synthesize diagnosticAutotracking;
+@synthesize trackerVersionSuffix;
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
     if (self = [self init]) {
@@ -110,6 +111,7 @@ SP_BUILDER_METHOD(BOOL, lifecycleAutotracking)
 SP_BUILDER_METHOD(BOOL, installAutotracking)
 SP_BUILDER_METHOD(BOOL, exceptionAutotracking)
 SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
+SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
 
 // MARK: - NSCopying
 
@@ -130,6 +132,7 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
     copy.installAutotracking = self.installAutotracking;
     copy.exceptionAutotracking = self.exceptionAutotracking;
     copy.diagnosticAutotracking = self.diagnosticAutotracking;
+    copy.trackerVersionSuffix = self.trackerVersionSuffix;
     return copy;
 }
 
@@ -155,6 +158,7 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
     [coder encodeBool:self.installAutotracking forKey:SP_STR_PROP(installAutotracking)];
     [coder encodeBool:self.exceptionAutotracking forKey:SP_STR_PROP(exceptionAutotracking)];
     [coder encodeBool:self.diagnosticAutotracking forKey:SP_STR_PROP(diagnosticAutotracking)];
+    [coder encodeObject:self.trackerVersionSuffix forKey:SP_STR_PROP(trackerVersionSuffix)];
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
@@ -174,6 +178,7 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
         self.installAutotracking = [coder decodeBoolForKey:SP_STR_PROP(installAutotracking)];
         self.exceptionAutotracking = [coder decodeBoolForKey:SP_STR_PROP(exceptionAutotracking)];
         self.diagnosticAutotracking = [coder decodeBoolForKey:SP_STR_PROP(diagnosticAutotracking)];
+        self.trackerVersionSuffix = [coder decodeObjectForKey:SP_STR_PROP(trackerVersionSuffix)];
     }
     return self;
 }

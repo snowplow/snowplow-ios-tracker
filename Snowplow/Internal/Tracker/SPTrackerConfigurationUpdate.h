@@ -45,6 +45,7 @@ SP_DIRTYFLAG(lifecycleAutotracking)
 SP_DIRTYFLAG(installAutotracking)
 SP_DIRTYFLAG(exceptionAutotracking)
 SP_DIRTYFLAG(diagnosticAutotracking)
+SP_DIRTYFLAG(trackerVersionSuffix)
 
 @end
 

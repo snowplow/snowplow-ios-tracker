@@ -302,6 +302,7 @@
         [builder setEmitter:emitter];
         [builder setSubject:subject];
         [builder setAppId:trackerConfig.appId];
+        [builder setTrackerVersionSuffix:trackerConfig.trackerVersionSuffix];
         [builder setBase64Encoded:trackerConfig.base64Encoding];
         [builder setLogLevel:trackerConfig.logLevel];
         [builder setLoggerDelegate:trackerConfig.loggerDelegate];
