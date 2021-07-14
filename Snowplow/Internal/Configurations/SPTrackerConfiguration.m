@@ -133,7 +133,11 @@ SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
     return copy;
 }
 
-// MARK: - NSCoding
+// MARK: - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.appId forKey:SP_STR_PROP(appId)];

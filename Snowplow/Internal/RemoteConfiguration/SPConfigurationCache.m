@@ -21,6 +21,7 @@
 //
 
 #import "SPConfigurationCache.h"
+#import "SPLogger.h"
 
 @interface SPConfigurationCache ()
 
@@ -69,9 +70,25 @@
     @synchronized (self) {
         NSData *data = [[NSData alloc] initWithContentsOfURL:self.cacheFileUrl];
         if (!data) return;
-        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
-        self.configuration = (SPFetchedConfigurationBundle *)[unarchiver decodeObject];
-        [unarchiver finishDecoding];
+        @try {
+            if (@available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *)) {
+                NSError *error = nil;
+                self.configuration = (SPFetchedConfigurationBundle *)[NSKeyedUnarchiver unarchiveTopLevelObjectWithData:data error:&error];
+                if (error) {
+                    SPLogError(@"Error on getting configuration from cache: %@", error.localizedDescription);
+                    self.configuration = nil;
+                    return;
+                }
+            } else {
+                NSKeyedUnarchiver *unarchiver = nil;
+                unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+                self.configuration = (SPFetchedConfigurationBundle *)[unarchiver decodeObject];
+                [unarchiver finishDecoding];
+            }
+        } @catch (NSException *exception) {
+            SPLogError(@"Exception on getting configuration from cache: %@", exception.reason);
+            self.configuration = nil;
+        }
     }
 }
 
@@ -79,12 +96,26 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         @synchronized (self) {
             if (!self.configuration) return;
-            NSMutableData *data = [NSMutableData new];
-            NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
-            [archiver encodeObject:self.configuration];
-            [archiver finishEncoding];
-            NSError *error = nil;
-            [data writeToURL:self.cacheFileUrl options:NSDataWritingAtomic error:&error];
+            @try {
+                NSMutableData *data = [NSMutableData new];
+                NSKeyedArchiver *archiver;
+                if (@available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *)) {
+                    archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
+                    [archiver encodeObject:self.configuration forKey:@"root"];
+                    [data setData:archiver.encodedData];
+                } else {
+                    archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+                    [archiver encodeObject:self.configuration];
+                    [archiver finishEncoding];
+                }
+                NSError *error = nil;
+                [data writeToURL:self.cacheFileUrl options:NSDataWritingAtomic error:&error];
+                if (error) {
+                    SPLogError(@"Error on caching configuration: %@", error.localizedDescription);
+                }
+            } @catch (NSException *exception) {
+                SPLogError(@"Exception on caching configuration: %@", exception.reason);
+            }
         }
     });
 }

@@ -100,7 +100,11 @@ SP_BUILDER_METHOD(NSDictionary *, requestHeaders)
     return copy;
 }
 
-// MARK: - NSCoding
+// MARK: - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.endpoint forKey:SP_STR_PROP(endpoint)];

@@ -69,7 +69,11 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     return copy;
 }
 
-// MARK: - NSCoding
+// MARK: - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeInteger:self.bufferOption forKey:SP_STR_PROP(bufferOption)];

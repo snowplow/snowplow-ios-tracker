@@ -2665,7 +2665,7 @@
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Snowplow\"";
 				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -2723,7 +2723,7 @@
 				);
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/Snowplow\"";
 				INFOPLIST_FILE = "Snowplow iOSTests/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",

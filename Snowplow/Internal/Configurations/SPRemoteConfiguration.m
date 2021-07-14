@@ -50,7 +50,11 @@
     return [[SPRemoteConfiguration allocWithZone:zone] initWithEndpoint:self.endpoint method:self.method];
 }
 
-// MARK: - NSCoding
+// MARK: - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.endpoint forKey:SP_STR_PROP(endpoint)];
