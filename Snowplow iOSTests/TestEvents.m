@@ -7,6 +7,8 @@
 #import "SPEvent.h"
 #import "SPTrackerError.h"
 #import "SPSelfDescribingJson.h"
+#import "SPSelfDescribing.h"
+#import "SPMockEventStore.h"
 
 @interface TestEvent : XCTestCase
 
@@ -42,6 +44,40 @@
     NSDate *testDate = [NSDate date];
     event.trueTimestamp = testDate;
     XCTAssertEqual(event.trueTimestamp, testDate);
+}
+
+- (void)testApplicationInstall {
+    // Prepare ApplicationInstall event
+    SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:installEvent];
+    NSDate *currentTimestamp = [NSDate dateWithTimeIntervalSince1970:12345L];
+    event.trueTimestamp = currentTimestamp;
+    
+    // Setup tracker
+    SPTrackerConfiguration *trackerConfiguration = [SPTrackerConfiguration new];
+    trackerConfiguration.base64Encoding = NO;
+    trackerConfiguration.installAutotracking = NO;
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+
+    // Track event
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    
+    // Check v_tracker field
+    NSString *deviceTimestamp = (NSString *)[[payload getAsDictionary] objectForKey:@"dtm"];
+    NSString *expected = [NSString stringWithFormat:@"%lld", (long long)(currentTimestamp.timeIntervalSince1970 * 1000)];
+    XCTAssertEqualObjects(expected, deviceTimestamp);
 }
 
 - (void)testPageView {

@@ -528,8 +528,17 @@ static SPTracker *_sharedInstance = nil;
 
 - (void)processEvent:(SPEvent *)event {
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    [self transformEvent:trackerEvent];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
+}
+
+- (void)transformEvent:(SPTrackerEvent *)event {
+    // Application_install event needs the timestamp to the real installation event.
+    if ([event.schema isEqualToString:kSPApplicationInstallSchema] && event.trueTimestamp) {
+        event.timestamp = event.trueTimestamp.timeIntervalSince1970 * 1000;
+        event.trueTimestamp = nil;
+    }
 }
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
