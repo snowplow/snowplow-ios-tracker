@@ -142,7 +142,11 @@ SP_BUILDER_METHOD(NSNumber *, geoTimestamp)
     return copy;
 }
 
-// MARK: - NSCoding
+// MARK: - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.userId forKey:SP_STR_PROP(userId)];

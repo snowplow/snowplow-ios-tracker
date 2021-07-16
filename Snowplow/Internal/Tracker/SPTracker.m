@@ -119,6 +119,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _exceptionEvents;
     BOOL                   _installEvent;
     BOOL                   _trackerDiagnostic;
+    NSString *             _trackerVersionSuffix;
 }
 
 static SPTracker *_sharedInstance = nil;
@@ -181,6 +182,7 @@ static SPTracker *_sharedInstance = nil;
     if (self) {
         _trackerNamespace = nil;
         _appId = nil;
+        _trackerVersionSuffix = nil;
         _devicePlatform = [SPUtilities getPlatform];
         _base64Encoded = YES;
         _dataCollection = YES;
@@ -257,8 +259,17 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (void) setTrackerData {
+    NSString *trackerVersion = kSPVersion;
+    if ([_trackerVersionSuffix length]) {
+        NSMutableCharacterSet *allowedCharSet = [NSMutableCharacterSet alphanumericCharacterSet];
+        [allowedCharSet formUnionWithCharacterSet:[NSCharacterSet characterSetWithCharactersInString:@".-"]];
+        NSString *suffix = [[_trackerVersionSuffix componentsSeparatedByCharactersInSet:[allowedCharSet invertedSet]] componentsJoinedByString:@""];
+        if ([suffix length]) {
+            trackerVersion = [NSString stringWithFormat:@"%@ %@", trackerVersion, suffix];
+        }
+    }
     _trackerData = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                    kSPVersion, kSPTrackerVersion,
+                    trackerVersion, kSPTrackerVersion,
                     _trackerNamespace, kSPNamespace,
                     _appId != nil ? _appId : [NSNull null], kSPAppId, nil];
 }
@@ -288,6 +299,13 @@ static SPTracker *_sharedInstance = nil;
 
 - (void) setTrackerNamespace:(NSString *)trackerNamespace {
     _trackerNamespace = trackerNamespace;
+    if (_builderFinished && _trackerData != nil) {
+        [self setTrackerData];
+    }
+}
+
+- (void) setTrackerVersionSuffix:(NSString *)trackerVersionSuffix {
+    _trackerVersionSuffix = trackerVersionSuffix;
     if (_builderFinished && _trackerData != nil) {
         [self setTrackerData];
     }
@@ -528,8 +546,17 @@ static SPTracker *_sharedInstance = nil;
 
 - (void)processEvent:(SPEvent *)event {
     SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    [self transformEvent:trackerEvent];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
+}
+
+- (void)transformEvent:(SPTrackerEvent *)event {
+    // Application_install event needs the timestamp to the real installation event.
+    if ([event.schema isEqualToString:kSPApplicationInstallSchema] && event.trueTimestamp) {
+        event.timestamp = event.trueTimestamp.timeIntervalSince1970 * 1000;
+        event.trueTimestamp = nil;
+    }
 }
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {

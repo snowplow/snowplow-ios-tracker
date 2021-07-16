@@ -93,6 +93,11 @@ NS_SWIFT_NAME(TrackerConfigurationProtocol)
  * Whether enable diagnostic reporting.
  */
 @property () BOOL diagnosticAutotracking;
+/**
+ * Decorate the v_tracker field in the tracker protocol.
+ * @note Do not use. Internal use only.
+ */
+@property (nonatomic, nullable) NSString *trackerVersionSuffix;
 
 @end
 
@@ -184,6 +189,10 @@ SP_BUILDER_DECLARE(BOOL, exceptionAutotracking)
  * Whether enable diagnostic reporting.
  */
 SP_BUILDER_DECLARE(BOOL, diagnosticAutotracking)
+/**
+ * Internal use only.
+ */
+SP_BUILDER_DECLARE(NSString *, trackerVersionSuffix)
 
 @end
 

@@ -112,6 +112,12 @@ NS_SWIFT_NAME(TrackerBuilder)
 - (void) setTrackerNamespace:(NSString *)trackerNamespace;
 
 /*!
+ Internal use only.
+ Decorate the `tv` (tracker version) field in the tracker protocol.
+ */
+- (void) setTrackerVersionSuffix:(NSString *)trackerVersionSuffix;
+
+/*!
  @brief Tracker builder method to set the device platform the tracker is running on
  @deprecated Use `TrackerConfiguration` `devicePlatform(DevicePlatform)`.
 

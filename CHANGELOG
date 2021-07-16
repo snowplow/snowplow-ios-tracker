@@ -1,4 +1,12 @@
 
+Version 2.2.0 (2021-07-16)
+--------------------------
+Remove Demo app builds for iOS 12 on CI (#626)
+Set amended v_tracker indicating wrapper tracker version (#624)
+Set application install timestamp on device timestamp field (#625)
+Avoid deprecated method for configuration serialization (#623)
+Fix for CaseSensetive file systems (#622) (Contribution of @Juraldinio)
+
 Version 2.1.1 (2021-06-24)
 --------------------------
 Fix Gdpr context being tracked without enabling it (#618)

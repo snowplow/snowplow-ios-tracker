@@ -154,6 +154,36 @@
     XCTAssertNil(tracker.session);
 }
 
+- (void)testTrackerVersionSuffix {
+    SPTrackerConfiguration *trackerConfiguration = [SPTrackerConfiguration new];
+    trackerConfiguration.trackerVersionSuffix = @"test With Space 1-2-3";
+
+    // Setup tracker
+    trackerConfiguration.base64Encoding = NO;
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+
+    // Track fake event
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    
+    // Check v_tracker field
+    NSString *versionTracker = (NSString *)[[payload getAsDictionary] objectForKey:@"tv"];
+    NSString *expected = [NSString stringWithFormat:@"%@ testWithSpace1-2-3", kSPVersion];
+    XCTAssertEqualObjects(expected, versionTracker);
+}
+
 - (void)testGDPRConfiguration {
     SPMockEventStore *eventStore = [SPMockEventStore new];
     SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];

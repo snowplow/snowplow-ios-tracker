@@ -30,7 +30,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 NS_SWIFT_NAME(Configuration)
-@interface SPConfiguration : NSObject <NSCopying, NSCoding>
+@interface SPConfiguration : NSObject <NSCopying, NSSecureCoding>
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *, NSObject *> *)dictionary;
 

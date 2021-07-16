@@ -89,7 +89,11 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
     return copy;
 }
 
-// MARK: - NSCoding
+// MARK: - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeInteger:self.backgroundTimeoutInSeconds forKey:SP_STR_PROP(backgroundTimeoutInSeconds)];

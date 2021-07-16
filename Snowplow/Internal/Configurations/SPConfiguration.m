@@ -24,6 +24,10 @@
 
 @implementation SPConfiguration
 
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+
 - (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
     return [[SPConfiguration alloc] init];
 }

@@ -58,7 +58,11 @@
     return copy;
 }
 
-// MARK: - NSCoding
+// MARK: - NSSecureCoding
+
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
 
 - (void)encodeWithCoder:(nonnull NSCoder *)coder {
     [coder encodeObject:self.schema forKey:SP_STR_PROP(schema)];

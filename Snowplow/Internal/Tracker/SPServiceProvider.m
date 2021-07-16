@@ -22,7 +22,7 @@
 
 #import "SPServiceProvider.h"
 #import "SPDefaultNetworkConnection.h"
-#import "SPGDPRContext.h"
+#import "SPGdprContext.h"
 
 #import "SPEmitter.h"
 #import "SPSubject.h"
@@ -302,6 +302,7 @@
         [builder setEmitter:emitter];
         [builder setSubject:subject];
         [builder setAppId:trackerConfig.appId];
+        [builder setTrackerVersionSuffix:trackerConfig.trackerVersionSuffix];
         [builder setBase64Encoded:trackerConfig.base64Encoding];
         [builder setLogLevel:trackerConfig.logLevel];
         [builder setLoggerDelegate:trackerConfig.loggerDelegate];
