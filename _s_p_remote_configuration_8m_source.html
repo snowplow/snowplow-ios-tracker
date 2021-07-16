@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.1.1</span>
+   &#160;<span id="projectnumber">2.2.0</span>
    </div>
   </td>
  </tr>
@@ -122,23 +122,27 @@ $(function() {
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> [[<a class="code" href="interface_s_p_remote_configuration.html">SPRemoteConfiguration</a> allocWithZone:zone] initWithEndpoint:self.endpoint method:self.method];</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">// MARK: - NSCoding</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">// MARK: - NSSecureCoding</span></div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;- (void)encodeWithCoder:(nonnull NSCoder *)coder {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    [coder encodeObject:self.endpoint forKey:SP_STR_PROP(endpoint)];</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    [coder encodeInteger:self.method forKey:SP_STR_PROP(method)];</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keyword">self</span>.endpoint = [coder decodeObjectForKey:SP_STR_PROP(endpoint)];</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keyword">self</span>.method = [coder decodeIntegerForKey:SP_STR_PROP(method)];</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;+ (BOOL)supportsSecureCoding {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> YES;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;- (void)encodeWithCoder:(nonnull NSCoder *)coder {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    [coder encodeObject:self.endpoint forKey:SP_STR_PROP(endpoint)];</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    [coder encodeInteger:self.method forKey:SP_STR_PROP(method)];</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keyword">self</span>.endpoint = [coder decodeObjectForKey:SP_STR_PROP(endpoint)];</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <span class="keyword">self</span>.method = [coder decodeIntegerForKey:SP_STR_PROP(method)];</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    }</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_internal_2_configurations_2_s_p_remote_configuration_8h_html"><div class="ttname"><a href="_internal_2_configurations_2_s_p_remote_configuration_8h.html">SPRemoteConfiguration.h</a></div></div>
 <div class="ttc" id="ainterface_s_p_remote_configuration_html"><div class="ttname"><a href="interface_s_p_remote_configuration.html">SPRemoteConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_remote_configuration_8h_source.html#l00034">SPRemoteConfiguration.h:35</a></div></div>
 <div class="ttc" id="ainterface_s_p_remote_configuration_html_a589f8c5e3b4bea39eed18df1c09fe712"><div class="ttname"><a href="interface_s_p_remote_configuration.html#a589f8c5e3b4bea39eed18df1c09fe712">SPRemoteConfiguration::endpoint</a></div><div class="ttdeci">NSString * endpoint</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_remote_configuration_8h_source.html#l00039">SPRemoteConfiguration.h:39</a></div></div>

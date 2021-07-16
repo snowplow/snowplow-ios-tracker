@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.1.1</span>
+   &#160;<span id="projectnumber">2.2.0</span>
    </div>
   </td>
  </tr>
@@ -159,28 +159,32 @@ $(function() {
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> copy;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// MARK: - NSCoding</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// MARK: - NSSecureCoding</span></div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;- (void)encodeWithCoder:(nonnull NSCoder *)coder {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    [coder encodeObject:self.namespace forKey:SP_STR_PROP(namespace)];</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    [coder encodeObject:self.networkConfiguration forKey:SP_STR_PROP(networkConfiguration)];</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    [coder encodeObject:self.trackerConfiguration forKey:SP_STR_PROP(trackerConfiguration)];</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    [coder encodeObject:self.subjectConfiguration forKey:SP_STR_PROP(subjectConfiguration)];</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    [coder encodeObject:self.sessionConfiguration forKey:SP_STR_PROP(sessionConfiguration)];</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keyword">self</span>.namespace = [coder decodeObjectForKey:SP_STR_PROP(namespace)];</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_configuration_bundle.html#af11e7f0df9b9296371a063ab2069da3a">networkConfiguration</a> = [coder decodeObjectForKey:SP_STR_PROP(networkConfiguration)];</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keyword">self</span>.trackerConfiguration = [coder decodeObjectForKey:SP_STR_PROP(trackerConfiguration)];</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">self</span>.subjectConfiguration = [coder decodeObjectForKey:SP_STR_PROP(subjectConfiguration)];</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">self</span>.sessionConfiguration = [coder decodeObjectForKey:SP_STR_PROP(sessionConfiguration)];</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;+ (BOOL)supportsSecureCoding {</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span> YES;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;}</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;- (void)encodeWithCoder:(nonnull NSCoder *)coder {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    [coder encodeObject:self.namespace forKey:SP_STR_PROP(namespace)];</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    [coder encodeObject:self.networkConfiguration forKey:SP_STR_PROP(networkConfiguration)];</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    [coder encodeObject:self.trackerConfiguration forKey:SP_STR_PROP(trackerConfiguration)];</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    [coder encodeObject:self.subjectConfiguration forKey:SP_STR_PROP(subjectConfiguration)];</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    [coder encodeObject:self.sessionConfiguration forKey:SP_STR_PROP(sessionConfiguration)];</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;- (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <span class="keyword">self</span>.namespace = [coder decodeObjectForKey:SP_STR_PROP(namespace)];</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_configuration_bundle.html#af11e7f0df9b9296371a063ab2069da3a">networkConfiguration</a> = [coder decodeObjectForKey:SP_STR_PROP(networkConfiguration)];</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keyword">self</span>.trackerConfiguration = [coder decodeObjectForKey:SP_STR_PROP(trackerConfiguration)];</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keyword">self</span>.subjectConfiguration = [coder decodeObjectForKey:SP_STR_PROP(subjectConfiguration)];</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">self</span>.sessionConfiguration = [coder decodeObjectForKey:SP_STR_PROP(sessionConfiguration)];</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_internal_2_configurations_2_s_p_configuration_bundle_8h_html"><div class="ttname"><a href="_internal_2_configurations_2_s_p_configuration_bundle_8h.html">SPConfigurationBundle.h</a></div></div>
 <div class="ttc" id="a_n_s_dictionary_09_s_p___type_methods_8h_html"><div class="ttname"><a href="_n_s_dictionary_09_s_p___type_methods_8h.html">NSDictionary+SP_TypeMethods.h</a></div></div>
 <div class="ttc" id="a_s_p_logger_8h_html"><div class="ttname"><a href="_s_p_logger_8h.html">SPLogger.h</a></div></div>
@@ -197,7 +201,7 @@ $(function() {
 <div class="ttc" id="ainterface_s_p_network_configuration_html"><div class="ttname"><a href="interface_s_p_network_configuration.html">SPNetworkConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_network_configuration_8h_source.html#l00034">SPNetworkConfiguration.h:35</a></div></div>
 <div class="ttc" id="ainterface_s_p_session_configuration_html"><div class="ttname"><a href="interface_s_p_session_configuration.html">SPSessionConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_session_configuration_8h_source.html#l00072">SPSessionConfiguration.h:72</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_configuration_html"><div class="ttname"><a href="interface_s_p_subject_configuration.html">SPSubjectConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_subject_configuration_8h_source.html#l00142">SPSubjectConfiguration.h:142</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_configuration_html"><div class="ttname"><a href="interface_s_p_tracker_configuration.html">SPTrackerConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00105">SPTrackerConfiguration.h:105</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_configuration_html"><div class="ttname"><a href="interface_s_p_tracker_configuration.html">SPTrackerConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00110">SPTrackerConfiguration.h:110</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
