@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *) _SP_getViewControllerName:(UIViewController *)viewController;
 - (SPScreenType) _SP_getViewControllerType:(UIViewController *)viewController;
 - (SPScreenType) _SP_getTopViewControllerType;
-- (UIViewController *) _SP_topViewController;
+- (UIViewController *) _SP_topViewController NS_EXTENSION_UNAVAILABLE_IOS("This is not available for App extensions.");
 - (UIViewController *) _SP_topViewController:(UIViewController *)rootViewController;
 - (NSString *) _SP_getViewControllerName;
 - (BOOL) _SP_validateString:(NSString *)string;
