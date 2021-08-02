@@ -1,3 +1,6 @@
+Version 2.2.1 (2021-08-02)
+--------------------------
+Fix build errors in Xcoce 13 beta 3 when using SPM (#628)
 
 Version 2.2.0 (2021-07-16)
 --------------------------
