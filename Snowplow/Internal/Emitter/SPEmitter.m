@@ -23,6 +23,7 @@
 #import "SPTrackerConstants.h"
 #import "SPEmitter.h"
 #import "SPSQLiteEventStore.h"
+#import "SPMemoryEventStore.h"
 #import "SPDefaultNetworkConnection.h"
 #import "SPEventStore.h"
 #import "SPUtilities.h"
@@ -117,8 +118,12 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 
 - (void)setNamespace:(NSString *)namespace {
     _namespace = namespace;
-    if (_builderFinished) {
-        _eventStore = _eventStore ?: [[SPSQLiteEventStore alloc] initWithNamespace:_namespace];
+    if (_builderFinished && !_eventStore) {
+#if TARGET_OS_TV || TARGET_OS_WATCH
+        _eventStore = [[SPMemoryEventStore alloc] init];
+#else
+        _eventStore = [[SPSQLiteEventStore alloc] initWithNamespace:_namespace];
+#endif
     }
 }
 

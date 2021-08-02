@@ -61,7 +61,7 @@
 		754774CD222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */ = {isa = PBXBuildFile; fileRef = 754774CB222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		754774D0222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */ = {isa = PBXBuildFile; fileRef = 754774CC222756470043B814 /* UIViewController+SPScreenView_SWIZZLE.m */; };
 		75CAC40521F2955100271FB3 /* TestSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F121F2955000271FB3 /* TestSession.m */; };
-		75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F221F2955000271FB3 /* TestEventStore.m */; };
+		75CAC40621F2955100271FB3 /* TestSQLiteEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F221F2955000271FB3 /* TestSQLiteEventStore.m */; };
 		75CAC40721F2955100271FB3 /* TestPayload.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F321F2955000271FB3 /* TestPayload.m */; };
 		75CAC40821F2955100271FB3 /* LegacyTestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F421F2955000271FB3 /* LegacyTestSubject.m */; };
 		75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */ = {isa = PBXBuildFile; fileRef = 75CAC3F521F2955000271FB3 /* TestSelfDescribingJson.m */; };
@@ -564,6 +564,15 @@
 		ED98972C26287F7A00145157 /* SPConfigurationCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98972526287F7900145157 /* SPConfigurationCache.m */; };
 		ED98972D26287F7A00145157 /* SPConfigurationCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98972526287F7900145157 /* SPConfigurationCache.m */; };
 		EDA06FB62664CD2F007FA773 /* SPMockEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */; };
+		EDB693FA26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDB693FB26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDB693FC26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDB693FD26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EDB693FE26B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB693F926B7F61D00B76A79 /* SPMemoryEventStore.m */; };
+		EDB693FF26B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB693F926B7F61D00B76A79 /* SPMemoryEventStore.m */; };
+		EDB6940026B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB693F926B7F61D00B76A79 /* SPMemoryEventStore.m */; };
+		EDB6940126B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB693F926B7F61D00B76A79 /* SPMemoryEventStore.m */; };
+		EDB6940326B83BF300B76A79 /* TestMemoryEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB6940226B83BF300B76A79 /* TestMemoryEventStore.m */; };
 		EDCBD0D824F5084900D39DD2 /* TestNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */; };
 		EDD8540C24EE786900661F6B /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD8540A24EE786900661F6B /* SPEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDD8540D24EE786900661F6B /* SPEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDD8540A24EE786900661F6B /* SPEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -776,7 +785,7 @@
 		75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnowplowIgluClient.framework; path = Carthage/Build/iOS/SnowplowIgluClient.framework; sourceTree = "<group>"; };
 		75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VVJSONSchemaValidation.framework; path = Carthage/Build/iOS/VVJSONSchemaValidation.framework; sourceTree = "<group>"; };
 		75CAC3F121F2955000271FB3 /* TestSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSession.m; sourceTree = "<group>"; };
-		75CAC3F221F2955000271FB3 /* TestEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestEventStore.m; sourceTree = "<group>"; };
+		75CAC3F221F2955000271FB3 /* TestSQLiteEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSQLiteEventStore.m; sourceTree = "<group>"; };
 		75CAC3F321F2955000271FB3 /* TestPayload.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestPayload.m; sourceTree = "<group>"; };
 		75CAC3F421F2955000271FB3 /* LegacyTestSubject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LegacyTestSubject.m; sourceTree = "<group>"; };
 		75CAC3F521F2955000271FB3 /* TestSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestSelfDescribingJson.m; sourceTree = "<group>"; };
@@ -920,6 +929,9 @@
 		ED98972526287F7900145157 /* SPConfigurationCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConfigurationCache.m; sourceTree = "<group>"; };
 		EDA06FB42664CD2F007FA773 /* SPMockEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockEventStore.h; sourceTree = "<group>"; };
 		EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockEventStore.m; sourceTree = "<group>"; };
+		EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMemoryEventStore.h; sourceTree = "<group>"; };
+		EDB693F926B7F61D00B76A79 /* SPMemoryEventStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMemoryEventStore.m; sourceTree = "<group>"; };
+		EDB6940226B83BF300B76A79 /* TestMemoryEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMemoryEventStore.m; sourceTree = "<group>"; };
 		EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestNetworkConnection.m; sourceTree = "<group>"; };
 		EDD8540A24EE786900661F6B /* SPEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEventStore.h; sourceTree = "<group>"; };
 		EDD8541424EEC25000661F6B /* SPEmitterEvent.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPEmitterEvent.h; sourceTree = "<group>"; };
@@ -1032,7 +1044,8 @@
 				75CAC40321F2955100271FB3 /* SnowplowTests-Info.plist */,
 				EDCBD0D724F5084800D39DD2 /* TestNetworkConnection.m */,
 				ED88B6B2258253F20048FAD1 /* TestEvents.m */,
-				75CAC3F221F2955000271FB3 /* TestEventStore.m */,
+				EDB6940226B83BF300B76A79 /* TestMemoryEventStore.m */,
+				75CAC3F221F2955000271FB3 /* TestSQLiteEventStore.m */,
 				75CAC3F621F2955000271FB3 /* TestGeneratedJsons.m */,
 				75CAC3F321F2955000271FB3 /* TestPayload.m */,
 				75CAC40121F2955100271FB3 /* TestRequest.m */,
@@ -1369,6 +1382,8 @@
 			isa = PBXGroup;
 			children = (
 				EDD8540A24EE786900661F6B /* SPEventStore.h */,
+				EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */,
+				EDB693F926B7F61D00B76A79 /* SPMemoryEventStore.m */,
 				ABB767AE194974D3006275D1 /* SPSQLiteEventStore.h */,
 				ABB767AF194974D3006275D1 /* SPSQLiteEventStore.m */,
 			);
@@ -1476,6 +1491,7 @@
 				ED88B7342587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */,
 				EDF2A1B426402D53009032AB /* SPSubjectController.h in Headers */,
 				ED88B64A257A57F80048FAD1 /* SPGlobalContextsController.h in Headers */,
+				EDB693FA26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */,
 				CE4F9D02244B066500968CFC /* SPEcommerceItem.h in Headers */,
 				EDD8541624EEC25100661F6B /* SPEmitterEvent.h in Headers */,
 				752DAC3221CC43C60065F874 /* SPTrackerConstants.h in Headers */,
@@ -1641,6 +1657,7 @@
 				ED87A3DA25765DAE000C54EB /* SPSessionController.h in Headers */,
 				ED88672C2573C1F100DB53BB /* SPSessionConfiguration.h in Headers */,
 				EDF2A1B526402D53009032AB /* SPSubjectController.h in Headers */,
+				EDB693FB26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */,
 				ED277BE32625F5C5002C7B6D /* SPFetchedConfigurationBundle.h in Headers */,
 				75CAC46221F2A21B00271FB3 /* SPRequestResult.h in Headers */,
 				EDDD6FFE264E873B00259404 /* SPController.h in Headers */,
@@ -1725,6 +1742,7 @@
 				EDD8541824EEC25100661F6B /* SPEmitterEvent.h in Headers */,
 				CE4F9CA0244B066500968CFC /* SPSchemaRule.h in Headers */,
 				ED87A4302577ADFF000C54EB /* SPTrackerControllerImpl.h in Headers */,
+				EDB693FC26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */,
 				CE4F9CC0244B066500968CFC /* SPForeground.h in Headers */,
 				EDDD7045264F2A8800259404 /* SPEmitterConfigurationUpdate.h in Headers */,
 				ED88B56B2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */,
@@ -1758,6 +1776,7 @@
 				ED88B7372587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */,
 				EDF2A1B726402D53009032AB /* SPSubjectController.h in Headers */,
 				ED88B64D257A57F80048FAD1 /* SPGlobalContextsController.h in Headers */,
+				EDB693FD26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */,
 				CE4F9D05244B066500968CFC /* SPEcommerceItem.h in Headers */,
 				EDD8541924EEC25100661F6B /* SPEmitterEvent.h in Headers */,
 				75F9C5E521FA35BC00A5B8FC /* Snowplow-umbrella-header.h in Headers */,
@@ -2189,6 +2208,7 @@
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
 				75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */,
 				EDDD7001264E873B00259404 /* SPController.m in Sources */,
+				EDB693FE26B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				ED88B66C257A5A520048FAD1 /* SPGlobalContextsControllerImpl.m in Sources */,
 				ED8122AE25E9578600AE7FE8 /* SPSnowplow.m in Sources */,
 				ED8866E62571445300DB53BB /* SPSubjectConfiguration.m in Sources */,
@@ -2232,7 +2252,7 @@
 				75CAC40821F2955100271FB3 /* LegacyTestSubject.m in Sources */,
 				ED8BF8ED2570FB2F001DFDD9 /* TestTrackerConfiguration.m in Sources */,
 				75CAC41221F2955100271FB3 /* TestRequest.m in Sources */,
-				75CAC40621F2955100271FB3 /* TestEventStore.m in Sources */,
+				75CAC40621F2955100271FB3 /* TestSQLiteEventStore.m in Sources */,
 				ED914EB72432081F0068DA0A /* TestSchemaRuleset.m in Sources */,
 				75CAC41121F2955100271FB3 /* LegacyTestTracker.m in Sources */,
 				75CAC40D21F2955100271FB3 /* LegacyTestEmitter.m in Sources */,
@@ -2246,6 +2266,7 @@
 				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
 				ED87A43D2577E441000C54EB /* TestTrackerController.m in Sources */,
 				EDEE836324C0C318000B8530 /* TestLogger.m in Sources */,
+				EDB6940326B83BF300B76A79 /* TestMemoryEventStore.m in Sources */,
 				75CAC41321F2955100271FB3 /* TestUtils.m in Sources */,
 				75CAC40521F2955100271FB3 /* TestSession.m in Sources */,
 				ED7F080626190B5F005D377E /* TestRemoteConfiguration.m in Sources */,
@@ -2325,6 +2346,7 @@
 				EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */,
 				75CAC44421F2A17500271FB3 /* SPWeakTimerTarget.m in Sources */,
 				ED98971B2627006F00145157 /* NSDictionary+SP_TypeMethods.m in Sources */,
+				EDB693FF26B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				CE4F9CD3244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				EDF2A1BF264032F9009032AB /* SPSubjectControllerImpl.m in Sources */,
 				ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
@@ -2404,6 +2426,7 @@
 				75CAC45021F2A19500271FB3 /* SPUtilities.m in Sources */,
 				75CAC45121F2A19500271FB3 /* SPRequestResult.m in Sources */,
 				ED98971C2627006F00145157 /* NSDictionary+SP_TypeMethods.m in Sources */,
+				EDB6940026B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				CE4F9CD4244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				EDF2A1C0264032F9009032AB /* SPSubjectControllerImpl.m in Sources */,
 				ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
@@ -2491,6 +2514,7 @@
 				75F9C5DF21FA357100A5B8FC /* SPRequestResult.m in Sources */,
 				ED87A4352577ADFF000C54EB /* SPTrackerControllerImpl.m in Sources */,
 				CE4F9C8D244B066500968CFC /* SPConsentDocument.m in Sources */,
+				EDB6940126B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				ED98971D2627006F00145157 /* NSDictionary+SP_TypeMethods.m in Sources */,
 				CE4F9D01244B066500968CFC /* SPBackground.m in Sources */,
 				ED8867322573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
