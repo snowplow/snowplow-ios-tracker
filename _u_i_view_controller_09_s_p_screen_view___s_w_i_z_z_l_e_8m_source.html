@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.0</span>
+   &#160;<span id="projectnumber">2.2.1</span>
    </div>
   </td>
  </tr>
@@ -143,7 +143,7 @@ $(function() {
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">// Construct userInfo</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] init];</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    userInfo[@&quot;viewControllerClassName&quot;] = NSStringFromClass([<span class="keyword">self</span> <span class="keyword">class</span>]);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    userInfo[@&quot;topViewControllerClassName&quot;] = NSStringFromClass([[<span class="keyword">self</span> <a class="code" href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#aa7c19e7dfff3a61266736265ee3e6f31">_SP_topViewController</a>] <span class="keyword">class</span>]);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    userInfo[@&quot;topViewControllerClassName&quot;] = NSStringFromClass([[<span class="keyword">self</span> _SP_topViewController] <span class="keyword">class</span>]);</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="comment">// `name` is set to snowplowId class instance variable if it exists (hence no @&quot;id&quot; in userInfo)</span></div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    userInfo[@&quot;name&quot;] = [<span class="keyword">self</span> _SP_getViewControllerName];</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    userInfo[@&quot;type&quot;] = [[NSNumber alloc] initWithInteger:[<span class="keyword">self</span> _SP_getTopViewControllerType]];</div>
@@ -228,7 +228,7 @@ $(function() {
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> _SP_getViewControllerType:[<span class="keyword">self</span> _SP_topViewController]];</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;- (UIViewController *) <a class="code" href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#aa7c19e7dfff3a61266736265ee3e6f31">_SP_topViewController</a> {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;- (UIViewController *) _SP_topViewController {</div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    UIWindow *keyWindow = nil;</div>
 <div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    NSArray&lt;UIWindow *&gt; *windows = [UIApplication sharedApplication].windows;</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keywordflow">for</span> (UIWindow *window in windows) {</div>
@@ -243,7 +243,7 @@ $(function() {
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> _SP_topViewController:keyWindow.rootViewController];</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;}</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;- (UIViewController *) <a class="code" href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#aa7c19e7dfff3a61266736265ee3e6f31">_SP_topViewController</a>:(UIViewController *)rootViewController {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;- (UIViewController *) _SP_topViewController:(UIViewController *)rootViewController {</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">if</span> ([rootViewController isKindOfClass:[UINavigationController <span class="keyword">class</span>]]) {</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        UINavigationController *navigationController = (UINavigationController *)rootViewController;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">return</span> [<span class="keyword">self</span> _SP_topViewController:[navigationController.viewControllers lastObject]];</div>
@@ -268,7 +268,6 @@ $(function() {
 <div class="ttc" id="a_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8h_html"><div class="ttname"><a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8h.html">UIViewController+SPScreenView_SWIZZLE.h</a></div></div>
 <div class="ttc" id="acategory_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08_html"><div class="ttname"><a href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html">UIViewController(SPScreenView_SWIZZLE)</a></div><div class="ttdef"><b>Definition:</b> <a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8h_source.html#l00033">UIViewController+SPScreenView_SWIZZLE.h:33</a></div></div>
 <div class="ttc" id="acategory_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08_html_a69866b23010c13684501c169c89b1419"><div class="ttname"><a href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#a69866b23010c13684501c169c89b1419">-[UIViewController(SPScreenView_SWIZZLE) _SP_getViewControllerName]</a></div><div class="ttdeci">NSString * _SP_getViewControllerName()</div><div class="ttdef"><b>Definition:</b> <a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8m_source.html#l00001">UIViewController+SPScreenView_SWIZZLE.m:103</a></div></div>
-<div class="ttc" id="acategory_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08_html_aa7c19e7dfff3a61266736265ee3e6f31"><div class="ttname"><a href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#aa7c19e7dfff3a61266736265ee3e6f31">-[UIViewController(SPScreenView_SWIZZLE) _SP_topViewController]</a></div><div class="ttdeci">UIViewController * _SP_topViewController()</div><div class="ttdef"><b>Definition:</b> <a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8m_source.html#l00001">UIViewController+SPScreenView_SWIZZLE.m:159</a></div></div>
 <div class="ttc" id="acategory_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08_html_ab9e0163b43136317c5314cf4716fec39"><div class="ttname"><a href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#ab9e0163b43136317c5314cf4716fec39">-[UIViewController(SPScreenView_SWIZZLE) _SP_getSnowplowId]</a></div><div class="ttdeci">NSString * _SP_getSnowplowId()</div><div class="ttdef"><b>Definition:</b> <a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8m_source.html#l00001">UIViewController+SPScreenView_SWIZZLE.m:90</a></div></div>
 <div class="ttc" id="acategory_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08_html_aed3cffed075a75ea98e3cd0984aa5a41"><div class="ttname"><a href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#aed3cffed075a75ea98e3cd0984aa5a41">-[UIViewController(SPScreenView_SWIZZLE) _SP_getTopViewControllerType]</a></div><div class="ttdeci">SPScreenType _SP_getTopViewControllerType()</div><div class="ttdef"><b>Definition:</b> <a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8m_source.html#l00001">UIViewController+SPScreenView_SWIZZLE.m:155</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
