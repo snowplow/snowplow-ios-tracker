@@ -148,6 +148,8 @@ extern NSString * const kSPApplicationBuild;
 
 // --- Session Context
 
+extern NSString * const kSPInstallationUserId;
+
 extern NSString * const kSPSessionUserId;
 extern NSString * const kSPSessionId;
 extern NSString * const kSPSessionPreviousId;

@@ -92,7 +92,7 @@ NSString * const kFilenameExt = @"dict";
         
         NSDictionary * storedSessionDict = [self getSessionFromFile];
         if (storedSessionDict) {
-            _userId = [storedSessionDict valueForKey:kSPSessionUserId];
+            _userId = [storedSessionDict valueForKey:kSPSessionUserId] ?: [SPUtilities getUUIDString];
             _currentSessionId = [storedSessionDict valueForKey:kSPSessionId];
             _sessionIndex = [[storedSessionDict valueForKey:kSPSessionIndex] intValue];
         } else {
@@ -101,6 +101,16 @@ NSString * const kFilenameExt = @"dict";
             _sessionIndex = 0;
         }
         
+        // Get or Set the Session UserID
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *storedUserId = [userDefaults stringForKey:kSPInstallationUserId];
+        if (storedUserId) {
+            _userId = storedUserId;
+        } else if (_userId) {
+            [userDefaults setObject:_userId forKey:kSPInstallationUserId];
+        }
+        
+        // Start session check
         self.lastSessionCheck = [SPUtilities getTimestamp];
         [self startChecker];
 
@@ -162,16 +172,20 @@ NSString * const kFilenameExt = @"dict";
 }
 
 - (NSDictionary *) getSessionDictWithEventId:(NSString *)eventId {
+    NSMutableDictionary *result;
     if (!_isSessionCheckerEnabled) {
-        return [_sessionDict copy];
-    }
-    @synchronized (self) {
-        if ([self shouldUpdateSession]) {
-            [self updateSessionWithEventId:eventId];
+        result = [_sessionDict mutableCopy];
+    } else {
+        @synchronized (self) {
+            if ([self shouldUpdateSession]) {
+                [self updateSessionWithEventId:eventId];
+            }
+            self.lastSessionCheck = [SPUtilities getTimestamp];
+            result = [_sessionDict mutableCopy];
         }
-        self.lastSessionCheck = [SPUtilities getTimestamp];
-        return [_sessionDict copy];
     }
+    [result setObject:_userId forKey:kSPSessionUserId];
+    return [result copy];
 }
 
 - (NSInteger) getForegroundTimeout {
@@ -275,7 +289,6 @@ NSString * const kFilenameExt = @"dict";
     if (_firstEventId) {
         [newSessionDict setObject:_firstEventId forKey:kSPSessionFirstEventId];
     }
-    [newSessionDict setObject:_userId forKey:kSPSessionUserId];
     [newSessionDict setObject:_currentSessionId forKey:kSPSessionId];
     [newSessionDict setObject:(_previousSessionId != nil ? _previousSessionId : [NSNull null]) forKey:kSPSessionPreviousId];
     [newSessionDict setObject:[NSNumber numberWithInt:(int)_sessionIndex] forKey:kSPSessionIndex];
