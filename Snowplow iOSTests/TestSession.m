@@ -370,7 +370,8 @@
 - (void)cleanSessionFileWithNamespace:(NSString *)namespace {
     NSString *sessionFilename = @"session.dict";
     if (namespace) {
-        sessionFilename = [SPSession createSessionFilenameWithNamespace:@"tracker"];
+        NSString *escapedNamespace = [SPSession stringFromNamespace:namespace];
+        sessionFilename = [SPSession sessionFilenameFromEscapedNamespace:escapedNamespace];
     }
     NSError *error = nil;
     NSURL *sessionFileUrl = [SPSession createSessionFileUrlWithFilename:sessionFilename];

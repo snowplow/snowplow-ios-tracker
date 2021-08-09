@@ -65,7 +65,10 @@ NS_SWIFT_NAME(Session)
                                andTracker:(SPTracker *)tracker;
 
 /// Only internal use.
-+ (NSString *)createSessionFilenameWithNamespace:(NSString *)namespace;
++ (NSString *)stringFromNamespace:(NSString *)namespace;
+
+/// Only internal use.
++ (NSString *)sessionFilenameFromEscapedNamespace:(NSString *)escapedNamespace;
 
 /// Only internal use.
 + (NSURL *)createSessionFileUrlWithFilename:(NSString *)filename;

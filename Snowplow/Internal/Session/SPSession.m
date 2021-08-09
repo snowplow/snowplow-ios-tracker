@@ -38,6 +38,8 @@
 
 @property (atomic) NSNumber *lastSessionCheck;
 @property (weak) SPTracker *tracker;
+
+@property (nonatomic) NSString *sessionUserDefaultsKey;
 @property (nonatomic) NSString *sessionFilename;
 @property (nonatomic) NSURL *sessionFileUrl;
 
@@ -85,12 +87,21 @@ NSString * const kFilenameExt = @"dict";
         _sessionStorage = @"LOCAL_STORAGE";
         self.sessionFilename = kLegacyFilename;
         self.tracker = tracker;
-        if (tracker.trackerNamespace) {
-            self.sessionFilename = [SPSession createSessionFilenameWithNamespace:tracker.trackerNamespace];
-        }        
-        self.sessionFileUrl = [SPSession createSessionFileUrlWithFilename:self.sessionFilename];
+        NSString *escapedNamespace = [SPSession stringFromNamespace:tracker.trackerNamespace];
+        if (escapedNamespace) {
+            self.sessionFilename = [SPSession sessionFilenameFromEscapedNamespace:escapedNamespace];
+            self.sessionUserDefaultsKey = [NSString stringWithFormat:@"%@_%@", kSPSessionDictionaryPrefix, escapedNamespace];
+        }
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *storedSessionDict;
         
-        NSDictionary * storedSessionDict = [self getSessionFromFile];
+        #if TARGET_OS_TV || TARGET_OS_WATCH
+            storedSessionDict = [userDefaults dictionaryForKey:sessionUserDefaultsKey];
+        #else
+            self.sessionFileUrl = [SPSession createSessionFileUrlWithFilename:self.sessionFilename];
+            storedSessionDict = [self getSessionFromFile];
+        #endif
+        
         if (storedSessionDict) {
             _userId = [storedSessionDict valueForKey:kSPSessionUserId] ?: [SPUtilities getUUIDString];
             _currentSessionId = [storedSessionDict valueForKey:kSPSessionId];
@@ -102,7 +113,6 @@ NSString * const kFilenameExt = @"dict";
         }
         
         // Get or Set the Session UserID
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
         NSString *storedUserId = [userDefaults stringForKey:kSPInstallationUserId];
         if (storedUserId) {
             _userId = storedUserId;
@@ -129,10 +139,15 @@ NSString * const kFilenameExt = @"dict";
     return self;
 }
 
-+ (NSString *)createSessionFilenameWithNamespace:(NSString *)namespace {
++ (NSString *)stringFromNamespace:(NSString *)namespace {
+    if (!namespace) return nil;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
-    NSString *suffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
-    return [NSString stringWithFormat:@"%@_%@.%@", kFilenamePrefix, suffix, kFilenameExt];
+    return [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
+}
+
++ (NSString *)sessionFilenameFromEscapedNamespace:(NSString *)escapedNamespace {
+    if (!escapedNamespace) return nil;
+    return [NSString stringWithFormat:@"%@_%@.%@", kFilenamePrefix, escapedNamespace, kFilenameExt];
 }
 
 + (NSURL *)createSessionFileUrlWithFilename:(NSString *)filename {
@@ -295,7 +310,12 @@ NSString * const kFilenameExt = @"dict";
     [newSessionDict setObject:_sessionStorage forKey:kSPSessionStorage];
     _sessionDict = [newSessionDict copy];
 
-    [self writeSessionToFile];
+    #if TARGET_OS_TV || TARGET_OS_WATCH
+        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:_sessionDict forKey:self.escapedNamespace];
+    #else
+        [self writeSessionToFile];
+    #endif
 }
 
 - (void) updateInBackground {

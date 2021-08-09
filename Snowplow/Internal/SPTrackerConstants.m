@@ -36,6 +36,11 @@ NSString * const kSPVersion               = @"watchos-2.2.1";
 NSString * const kSPVersion               = @"osx-2.2.1";
 #endif
 
+// --- Session Dictionary keys
+
+NSString * const kSPInstallationUserId    = @"SPInstallationUserId";
+NSString * const kSPSessionDictionaryPrefix = @"SPSessionDictionary";
+
 // --- Emitter
 
 NSString * const kSPContentTypeHeader     = @"application/json; charset=utf-8";
@@ -131,8 +136,6 @@ NSString * const kSPApplicationVersion    = @"version";
 NSString * const kSPApplicationBuild      = @"build";
 
 // --- Session Context
-
-NSString * const kSPInstallationUserId    = @"SPInstallationUserId";
 
 NSString * const kSPSessionUserId         = @"userId";
 NSString * const kSPSessionId             = @"sessionId";
