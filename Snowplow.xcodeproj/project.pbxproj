@@ -564,6 +564,15 @@
 		ED98972C26287F7A00145157 /* SPConfigurationCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98972526287F7900145157 /* SPConfigurationCache.m */; };
 		ED98972D26287F7A00145157 /* SPConfigurationCache.m in Sources */ = {isa = PBXBuildFile; fileRef = ED98972526287F7900145157 /* SPConfigurationCache.m */; };
 		EDA06FB62664CD2F007FA773 /* SPMockEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */; };
+		EDB2FD1926C130B80031B872 /* SPDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB2FD1726C130B80031B872 /* SPDataPersistence.h */; };
+		EDB2FD1A26C130B80031B872 /* SPDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB2FD1726C130B80031B872 /* SPDataPersistence.h */; };
+		EDB2FD1B26C130B80031B872 /* SPDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB2FD1726C130B80031B872 /* SPDataPersistence.h */; };
+		EDB2FD1C26C130B80031B872 /* SPDataPersistence.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB2FD1726C130B80031B872 /* SPDataPersistence.h */; };
+		EDB2FD1D26C130B80031B872 /* SPDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB2FD1826C130B80031B872 /* SPDataPersistence.m */; };
+		EDB2FD1E26C130B80031B872 /* SPDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB2FD1826C130B80031B872 /* SPDataPersistence.m */; };
+		EDB2FD1F26C130B80031B872 /* SPDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB2FD1826C130B80031B872 /* SPDataPersistence.m */; };
+		EDB2FD2026C130B80031B872 /* SPDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB2FD1826C130B80031B872 /* SPDataPersistence.m */; };
+		EDB2FD2226C57F6D0031B872 /* TestDataPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB2FD2126C57F6C0031B872 /* TestDataPersistence.m */; };
 		EDB693FA26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDB693FB26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EDB693FC26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */ = {isa = PBXBuildFile; fileRef = EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -929,6 +938,9 @@
 		ED98972526287F7900145157 /* SPConfigurationCache.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPConfigurationCache.m; sourceTree = "<group>"; };
 		EDA06FB42664CD2F007FA773 /* SPMockEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockEventStore.h; sourceTree = "<group>"; };
 		EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockEventStore.m; sourceTree = "<group>"; };
+		EDB2FD1726C130B80031B872 /* SPDataPersistence.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDataPersistence.h; sourceTree = "<group>"; };
+		EDB2FD1826C130B80031B872 /* SPDataPersistence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPDataPersistence.m; sourceTree = "<group>"; };
+		EDB2FD2126C57F6C0031B872 /* TestDataPersistence.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestDataPersistence.m; sourceTree = "<group>"; };
 		EDB693F826B7F61D00B76A79 /* SPMemoryEventStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMemoryEventStore.h; sourceTree = "<group>"; };
 		EDB693F926B7F61D00B76A79 /* SPMemoryEventStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMemoryEventStore.m; sourceTree = "<group>"; };
 		EDB6940226B83BF300B76A79 /* TestMemoryEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestMemoryEventStore.m; sourceTree = "<group>"; };
@@ -1055,6 +1067,7 @@
 				75CAC40221F2955100271FB3 /* TestUtils.m */,
 				7534D20722569F3400904EE5 /* TestScreenState.m */,
 				EDEE836224C0C317000B8530 /* TestLogger.m */,
+				EDB2FD2126C57F6C0031B872 /* TestDataPersistence.m */,
 			);
 			path = "Snowplow iOSTests";
 			sourceTree = "<group>";
@@ -1403,6 +1416,8 @@
 				ED34672926415C1D0018BA61 /* SPJSONSerialization.m */,
 				ED9897142627006F00145157 /* NSDictionary+SP_TypeMethods.h */,
 				ED9897152627006F00145157 /* NSDictionary+SP_TypeMethods.m */,
+				EDB2FD1726C130B80031B872 /* SPDataPersistence.h */,
+				EDB2FD1826C130B80031B872 /* SPDataPersistence.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1554,6 +1569,7 @@
 				CE4F9C9A244B066500968CFC /* SPEvent.h in Headers */,
 				ED88B76D2587B4EF0048FAD1 /* SPNetworkController.h in Headers */,
 				ED7F0840261924BF005D377E /* SPConfigurationFetcher.h in Headers */,
+				EDB2FD1926C130B80031B872 /* SPDataPersistence.h in Headers */,
 				ED88B5DF257950210048FAD1 /* SPGDPRConfiguration.h in Headers */,
 				ED88B58F257922490048FAD1 /* SPEmitterController.h in Headers */,
 				752DAC3621CC43C70065F874 /* SPSession.h in Headers */,
@@ -1582,6 +1598,7 @@
 				CE4F9CA3244B066500968CFC /* SPPageView.h in Headers */,
 				CE4F9D03244B066500968CFC /* SPEcommerceItem.h in Headers */,
 				EDEE834C24BDB326000B8530 /* SPTrackerError.h in Headers */,
+				EDB2FD1A26C130B80031B872 /* SPDataPersistence.h in Headers */,
 				75CAC45821F2A21B00271FB3 /* Snowplow-umbrella-header.h in Headers */,
 				75CAC45921F2A21B00271FB3 /* SPTrackerConstants.h in Headers */,
 				ED8BF8B425700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */,
@@ -1729,6 +1746,7 @@
 				ED87A41E2577AC5B000C54EB /* SPTrackerController.h in Headers */,
 				ED7F081726190E00005D377E /* SPConfigurationProvider.h in Headers */,
 				CE4F9D08244B066500968CFC /* SPSchemaRuleset.h in Headers */,
+				EDB2FD1B26C130B80031B872 /* SPDataPersistence.h in Headers */,
 				75CAC43221F2A0CC00271FB3 /* SPSQLiteEventStore.h in Headers */,
 				EDEE835C24BE0944000B8530 /* SPLogger.h in Headers */,
 				ED88B7362587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */,
@@ -1839,6 +1857,7 @@
 				CE4F9C9D244B066500968CFC /* SPEvent.h in Headers */,
 				ED88B7702587B4F00048FAD1 /* SPNetworkController.h in Headers */,
 				ED7F0843261924BF005D377E /* SPConfigurationFetcher.h in Headers */,
+				EDB2FD1C26C130B80031B872 /* SPDataPersistence.h in Headers */,
 				ED88B5E2257950210048FAD1 /* SPGDPRConfiguration.h in Headers */,
 				ED88B592257922490048FAD1 /* SPEmitterController.h in Headers */,
 				75F9C5ED21FA35BC00A5B8FC /* SPSQLiteEventStore.h in Headers */,
@@ -2179,6 +2198,7 @@
 				EDF2A1BE264032F9009032AB /* SPSubjectControllerImpl.m in Sources */,
 				ED88670225715DD600DB53BB /* SPConfiguration.m in Sources */,
 				ED88B6DF2583DFC90048FAD1 /* SPServiceProvider.m in Sources */,
+				EDB2FD1D26C130B80031B872 /* SPDataPersistence.m in Sources */,
 				ED7F081826190E00005D377E /* SPConfigurationProvider.m in Sources */,
 				CE4F9C96244B066500968CFC /* SPEcommerceItem.m in Sources */,
 				ED88B611257956490048FAD1 /* SPGDPRControllerImpl.m in Sources */,
@@ -2269,6 +2289,7 @@
 				EDB6940326B83BF300B76A79 /* TestMemoryEventStore.m in Sources */,
 				75CAC41321F2955100271FB3 /* TestUtils.m in Sources */,
 				75CAC40521F2955100271FB3 /* TestSession.m in Sources */,
+				EDB2FD2226C57F6D0031B872 /* TestDataPersistence.m in Sources */,
 				ED7F080626190B5F005D377E /* TestRemoteConfiguration.m in Sources */,
 				75CAC40E21F2955100271FB3 /* TestRequestResult.m in Sources */,
 				75CAC40C21F2955100271FB3 /* LegacyTestEvent.m in Sources */,
@@ -2324,6 +2345,7 @@
 				EDDD7048264F2A8800259404 /* SPEmitterConfigurationUpdate.m in Sources */,
 				CE4F9CC7244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				CE4F9C8B244B066500968CFC /* SPConsentDocument.m in Sources */,
+				EDB2FD1E26C130B80031B872 /* SPDataPersistence.m in Sources */,
 				EDD8541B24EEC25100661F6B /* SPEmitterEvent.m in Sources */,
 				EDDD7016264F1D2100259404 /* SPTrackerConfigurationUpdate.m in Sources */,
 				ED34672F26415C1D0018BA61 /* SPJSONSerialization.m in Sources */,
@@ -2404,6 +2426,7 @@
 				EDDD7049264F2A8800259404 /* SPEmitterConfigurationUpdate.m in Sources */,
 				CE4F9CC8244B066500968CFC /* SPSchemaRuleset.m in Sources */,
 				CE4F9C8C244B066500968CFC /* SPConsentDocument.m in Sources */,
+				EDB2FD1F26C130B80031B872 /* SPDataPersistence.m in Sources */,
 				EDD8541C24EEC25100661F6B /* SPEmitterEvent.m in Sources */,
 				EDDD7017264F1D2100259404 /* SPTrackerConfigurationUpdate.m in Sources */,
 				ED34673026415C1D0018BA61 /* SPJSONSerialization.m in Sources */,
@@ -2492,6 +2515,7 @@
 				EDDD704A264F2A8800259404 /* SPEmitterConfigurationUpdate.m in Sources */,
 				CE4F9D0D244B066500968CFC /* SPScreenView.m in Sources */,
 				75F9C5D821FA357100A5B8FC /* SPEmitter.m in Sources */,
+				EDB2FD2026C130B80031B872 /* SPDataPersistence.m in Sources */,
 				75F9C5D921FA357100A5B8FC /* SPSubject.m in Sources */,
 				EDDD7018264F1D2100259404 /* SPTrackerConfigurationUpdate.m in Sources */,
 				CE4F9D21244B066500968CFC /* SPEcommerce.m in Sources */,

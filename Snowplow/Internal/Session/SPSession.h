@@ -64,15 +64,6 @@ NS_SWIFT_NAME(Session)
                      andBackgroundTimeout:(NSInteger)backgroundTimeout
                                andTracker:(SPTracker *)tracker;
 
-/// Only internal use.
-+ (NSString *)stringFromNamespace:(NSString *)namespace;
-
-/// Only internal use.
-+ (NSString *)sessionFilenameFromEscapedNamespace:(NSString *)escapedNamespace;
-
-/// Only internal use.
-+ (NSURL *)createSessionFileUrlWithFilename:(NSString *)filename;
-
 /**
  * Starts the recurring timer check for sessions
  */

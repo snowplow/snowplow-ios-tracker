@@ -22,6 +22,7 @@
 
 #import <XCTest/XCTest.h>
 #import "SPSession.h"
+#import "SPDataPersistence.h"
 #import "SPTrackerConstants.h"
 
 /// Category needed to make the private methods testable.
@@ -40,7 +41,6 @@
 
 - (void)setUp {
     [super setUp];
-    [self cleanSessionFileWithNamespace:nil];
     [self cleanSessionFileWithNamespace:@"tracker"];
 }
 
@@ -368,15 +368,7 @@
 /// Service methods
 
 - (void)cleanSessionFileWithNamespace:(NSString *)namespace {
-    NSString *sessionFilename = @"session.dict";
-    if (namespace) {
-        NSString *escapedNamespace = [SPSession stringFromNamespace:namespace];
-        sessionFilename = [SPSession sessionFilenameFromEscapedNamespace:escapedNamespace];
-    }
-    NSError *error = nil;
-    NSURL *sessionFileUrl = [SPSession createSessionFileUrlWithFilename:sessionFilename];
-    [[NSFileManager defaultManager] removeItemAtURL:sessionFileUrl error:&error];
-    NSLog(@"%@", error.localizedDescription);
+    [SPDataPersistence removeDataPersistenceWithNamespace:namespace];
 }
 
 @end

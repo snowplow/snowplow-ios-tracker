@@ -39,7 +39,6 @@ NSString * const kSPVersion               = @"osx-2.2.1";
 // --- Session Dictionary keys
 
 NSString * const kSPInstallationUserId    = @"SPInstallationUserId";
-NSString * const kSPSessionDictionaryPrefix = @"SPSessionDictionary";
 
 // --- Emitter
 
