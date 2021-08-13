@@ -20,6 +20,7 @@
 //  License: Apache License Version 2.0
 //
 
+#import "SPDataPersistence.h"
 #import "SPTrackerConstants.h"
 #import "SPSession.h"
 #import "SPUtilities.h"
@@ -38,8 +39,7 @@
 
 @property (atomic) NSNumber *lastSessionCheck;
 @property (weak) SPTracker *tracker;
-@property (nonatomic) NSString *sessionFilename;
-@property (nonatomic) NSURL *sessionFileUrl;
+@property (nonatomic) SPDataPersistence *dataPersistence;
 
 @end
 
@@ -60,10 +60,6 @@
     NSInteger   _backgroundIndex;
 }
 
-NSString * const kLegacyFilename = @"session.dict";
-NSString * const kFilenamePrefix = @"session";
-NSString * const kFilenameExt = @"dict";
-
 - (id) init {
     return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andTracker:nil];
 }
@@ -83,14 +79,10 @@ NSString * const kFilenameExt = @"dict";
         _inBackground = NO;
         _isNewSession = YES;
         _sessionStorage = @"LOCAL_STORAGE";
-        self.sessionFilename = kLegacyFilename;
         self.tracker = tracker;
-        if (tracker.trackerNamespace) {
-            self.sessionFilename = [SPSession createSessionFilenameWithNamespace:tracker.trackerNamespace];
-        }        
-        self.sessionFileUrl = [SPSession createSessionFileUrlWithFilename:self.sessionFilename];
+        self.dataPersistence = [SPDataPersistence dataPersistenceForNamespace:tracker.trackerNamespace];
+        NSDictionary *storedSessionDict = self.dataPersistence.session;
         
-        NSDictionary * storedSessionDict = [self getSessionFromFile];
         if (storedSessionDict) {
             _userId = [storedSessionDict valueForKey:kSPSessionUserId] ?: [SPUtilities getUUIDString];
             _currentSessionId = [storedSessionDict valueForKey:kSPSessionId];
@@ -127,25 +119,6 @@ NSString * const kFilenameExt = @"dict";
         #endif
     }
     return self;
-}
-
-+ (NSString *)createSessionFilenameWithNamespace:(NSString *)namespace {
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^a-zA-Z0-9_]+" options:0 error:nil];
-    NSString *suffix = [regex stringByReplacingMatchesInString:namespace options:0 range:NSMakeRange(0, namespace.length) withTemplate:@"-"];
-    return [NSString stringWithFormat:@"%@_%@.%@", kFilenamePrefix, suffix, kFilenameExt];
-}
-
-+ (NSURL *)createSessionFileUrlWithFilename:(NSString *)filename {
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSURL *url = [fm URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
-    url = [url URLByAppendingPathComponent:@"snowplow"];
-    NSError *error = nil;
-    BOOL result = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
-    if (!result) {
-        SPLogError(@"Unable to create file for sessions: %@", error.localizedDescription);
-        return nil;
-    }
-    return [url URLByAppendingPathComponent:filename];
 }
 
 // MARK: - Public
@@ -231,40 +204,11 @@ NSString * const kFilenameExt = @"dict";
 // MARK: - Private
 
 - (BOOL) writeSessionToFile {
-    NSError *error = nil;
     NSMutableDictionary *sessionDict = [_sessionDict mutableCopy];
     [sessionDict removeObjectForKey:kSPSessionPreviousId];
     [sessionDict removeObjectForKey:kSPSessionStorage];
-    
-    BOOL result = NO;
-    if (@available(iOS 11.0, macOS 10.13, watchOS 4.0, *)) {
-        result = [sessionDict writeToURL:self.sessionFileUrl error:&error];
-    } else {
-        result = [sessionDict writeToURL:self.sessionFileUrl atomically:YES];
-    }
-    if (!result) {
-        SPLogError(@"Unable to write file for sessions: %@", error.localizedDescription ?: @"-");
-        return NO;
-    }
+    self.dataPersistence.session = sessionDict;
     return YES;
-}
-
-- (NSDictionary *) getSessionFromFile {
-    NSDictionary *sessionDict = nil;
-    sessionDict = [NSDictionary dictionaryWithContentsOfURL:self.sessionFileUrl];
-    if (sessionDict) {
-        return sessionDict;
-    }
-    // Load legacy stored session (tracker v.1.x)
-    @synchronized (SPSession.class) {
-        sessionDict = [NSDictionary dictionaryWithContentsOfURL:self.sessionFileUrl];
-        if (!sessionDict) {
-            NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).lastObject;
-            path = [path stringByAppendingPathComponent:kLegacyFilename];
-            sessionDict = [NSDictionary dictionaryWithContentsOfFile:path];
-        }
-    }
-    return sessionDict;
 }
 
 - (BOOL)shouldUpdateSession {

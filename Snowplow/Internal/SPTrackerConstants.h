@@ -53,6 +53,10 @@
 
 extern NSString * const kSPVersion;
 
+// --- Dictionary keys
+
+extern NSString * const kSPInstallationUserId;
+
 // --- Emitter
 
 extern NSString * const kSPContentTypeHeader;
@@ -147,8 +151,6 @@ extern NSString * const kSPApplicationVersion;
 extern NSString * const kSPApplicationBuild;
 
 // --- Session Context
-
-extern NSString * const kSPInstallationUserId;
 
 extern NSString * const kSPSessionUserId;
 extern NSString * const kSPSessionId;

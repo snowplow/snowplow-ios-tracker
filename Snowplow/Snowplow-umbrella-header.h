@@ -58,5 +58,6 @@
 #import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSQLiteEventStore.h"
+#import "SPMemoryEventStore.h"
 #import "SPDefaultNetworkConnection.h"
 #import "SPGdprContext.h"
