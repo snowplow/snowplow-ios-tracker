@@ -1,3 +1,9 @@
+
+Version 2.2.2 (2021-08-16)
+--------------------------
+Fix crash on tvOS caused by access to filesystem (#621)
+Fix Session UserID not consistent among tracker instances (#630)
+
 Version 2.2.1 (2021-08-02)
 --------------------------
 Fix build errors in Xcoce 13 beta 3 when using SPM (#628)
