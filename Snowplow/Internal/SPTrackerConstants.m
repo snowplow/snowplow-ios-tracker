@@ -132,6 +132,8 @@ NSString * const kSPApplicationBuild      = @"build";
 
 // --- Session Context
 
+NSString * const kSPInstallationUserId    = @"SPInstallationUserId";
+
 NSString * const kSPSessionUserId         = @"userId";
 NSString * const kSPSessionId             = @"sessionId";
 NSString * const kSPSessionPreviousId     = @"previousSessionId";
