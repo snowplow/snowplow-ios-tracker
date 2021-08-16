@@ -34,17 +34,21 @@
 
 - (instancetype)init {
     if (self = [super init]) {
+#if !(TARGET_OS_TV) && !(TARGET_OS_WATCH)
         [self createCachePath];
+#endif
     }
     return self;
 }
 
 - (nullable SPFetchedConfigurationBundle *)readCache {
     @synchronized (self) {
+#if !(TARGET_OS_TV) && !(TARGET_OS_WATCH)
         if (self.configuration) {
             return self.configuration;
         }
         [self loadCache];
+#endif
         return self.configuration;
     }
 }
@@ -52,15 +56,23 @@
 - (void)writeCache:(SPFetchedConfigurationBundle *)configuration {
     @synchronized (self) {
         self.configuration = configuration;
+#if !(TARGET_OS_TV) && !(TARGET_OS_WATCH)
         [self storeCache];
+#endif
     }
 }
 
 - (void)clearCache {
+    NSError *error = nil;
     @synchronized (self) {
+        self.configuration = nil;
+#if !(TARGET_OS_TV) && !(TARGET_OS_WATCH)
         if (!self.cacheFileUrl) return;
-        NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtURL:self.cacheFileUrl error:&error];
+#endif
+    }
+    if (error) {
+        SPLogError(@"Error on clearing configuration from cache: %@", error.localizedDescription);
     }
 }
 

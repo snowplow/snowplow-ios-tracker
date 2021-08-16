@@ -1,5 +1,5 @@
 //
-//  TestEventStore.m
+//  TestSQLiteEventStore.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -24,10 +24,10 @@
 #import "SPSQLiteEventStore.h"
 #import "SPPayload.h"
 
-@interface TestEventStore : XCTestCase
+@interface TestSQLiteEventStore : XCTestCase
 @end
 
-@implementation TestEventStore
+@implementation TestSQLiteEventStore
 
 - (void)setUp {
     [SPSQLiteEventStore removeUnsentEventsExceptForNamespaces:@[]];

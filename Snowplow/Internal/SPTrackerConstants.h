@@ -53,6 +53,10 @@
 
 extern NSString * const kSPVersion;
 
+// --- Dictionary keys
+
+extern NSString * const kSPInstallationUserId;
+
 // --- Emitter
 
 extern NSString * const kSPContentTypeHeader;
