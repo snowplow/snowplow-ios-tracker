@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.1</span>
+   &#160;<span id="projectnumber">2.2.2</span>
    </div>
   </td>
  </tr>
@@ -110,58 +110,54 @@ $(function() {
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                     andBackgroundTimeout:(NSInteger)backgroundTimeout</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                               andTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;+ (NSString *)createSessionFilenameWithNamespace:(NSString *)namespace;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;+ (NSURL *)createSessionFileUrlWithFilename:(NSString *)filename;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;- (void) <a class="code" href="interface_s_p_session.html#a4303719ccba6f1ce4433a94ce243336c">startChecker</a>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;- (void) <a class="code" href="interface_s_p_session.html#a461ec91162ce6e4ad6ef315ce08f41dc">stopChecker</a>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;- (void)startNewSession <a class="code" href="interface_s_p_session.html#ae9bde39a296cb7d8fd8a988fd22a5805">DEPRECATED_ATTRIBUTE</a>;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;- (void) setForegroundTimeout:(NSInteger)foregroundTimeout;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;- (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#aa086cd1790f49f081d794ce32251a9d2">getForegroundTimeout</a>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#a14cad00f834d7a2985959f9a17d2a9e2">getBackgroundTimeout</a>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;- (<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *) <a class="code" href="interface_s_p_session.html#ad85d58fd2b76f297786a18a54931a136">getTracker</a>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;- (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;- (void) <a class="code" href="interface_s_p_session.html#a4303719ccba6f1ce4433a94ce243336c">startChecker</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;- (void) <a class="code" href="interface_s_p_session.html#a461ec91162ce6e4ad6ef315ce08f41dc">stopChecker</a>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;- (void)startNewSession <a class="code" href="interface_s_p_session.html#ae9bde39a296cb7d8fd8a988fd22a5805">DEPRECATED_ATTRIBUTE</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;- (void) setForegroundTimeout:(NSInteger)foregroundTimeout;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;- (void) setBackgroundTimeout:(NSInteger)backgroundTimeout;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#aa086cd1790f49f081d794ce32251a9d2">getForegroundTimeout</a>;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#a14cad00f834d7a2985959f9a17d2a9e2">getBackgroundTimeout</a>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;- (<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *) <a class="code" href="interface_s_p_session.html#ad85d58fd2b76f297786a18a54931a136">getTracker</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;- (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#ad8b89df302614274a293777fa02578eb">getSessionIndex</a>;</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#ad8b89df302614274a293777fa02578eb">getSessionIndex</a>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#a21784c7b87f262be30e730174cf72059">getForegroundIndex</a>;</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#a21784c7b87f262be30e730174cf72059">getForegroundIndex</a>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#ab3bbad6aa3a4de7c5616fe5ee4fea569">getBackgroundIndex</a>;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;- (NSInteger) <a class="code" href="interface_s_p_session.html#ab3bbad6aa3a4de7c5616fe5ee4fea569">getBackgroundIndex</a>;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;- (BOOL) <a class="code" href="interface_s_p_session.html#a4b035145b7f7dfdcf8800a57725959a2">getInBackground</a>;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;- (BOOL) <a class="code" href="interface_s_p_session.html#a4b035145b7f7dfdcf8800a57725959a2">getInBackground</a>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;- (NSString*) <a class="code" href="interface_s_p_session.html#aa8fcc313c7a082962ff8facc3f187a84">getUserId</a>;</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;- (NSString*) <a class="code" href="interface_s_p_session.html#aa8fcc313c7a082962ff8facc3f187a84">getUserId</a>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;- (NSString*) <a class="code" href="interface_s_p_session.html#ae8f7a7cc26ec67d614cba1b206c8375d">getSessionId</a>;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;- (NSString*) <a class="code" href="interface_s_p_session.html#ae8f7a7cc26ec67d614cba1b206c8375d">getSessionId</a>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;- (NSString*) <a class="code" href="interface_s_p_session.html#a7890d7a881fef9829c52bd1549febdc9">getPreviousSessionId</a>;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;- (NSString*) <a class="code" href="interface_s_p_session.html#a7890d7a881fef9829c52bd1549febdc9">getPreviousSessionId</a>;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="ainclude_2_s_p_device_platform_8h_html_ac51d0fa9ac6b044d5587e1d9ceb2dbbc"><div class="ttname"><a href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(DevicePlatform)</div></div>
 <div class="ttc" id="ainterface_s_p_session_html"><div class="ttname"><a href="interface_s_p_session.html">SPSession</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8h_source.html#l00032">SPSession.h:33</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_a14cad00f834d7a2985959f9a17d2a9e2"><div class="ttname"><a href="interface_s_p_session.html#a14cad00f834d7a2985959f9a17d2a9e2">-[SPSession getBackgroundTimeout]</a></div><div class="ttdeci">NSInteger getBackgroundTimeout()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:181</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_a21784c7b87f262be30e730174cf72059"><div class="ttname"><a href="interface_s_p_session.html#a21784c7b87f262be30e730174cf72059">-[SPSession getForegroundIndex]</a></div><div class="ttdeci">NSInteger getForegroundIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:209</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_a4213bb26f5207ee3f402fe463badc691"><div class="ttname"><a href="interface_s_p_session.html#a4213bb26f5207ee3f402fe463badc691">-[SPSession init]</a></div><div class="ttdeci">id init()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:67</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_a4303719ccba6f1ce4433a94ce243336c"><div class="ttname"><a href="interface_s_p_session.html#a4303719ccba6f1ce4433a94ce243336c">-[SPSession startChecker]</a></div><div class="ttdeci">void startChecker()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:143</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_a461ec91162ce6e4ad6ef315ce08f41dc"><div class="ttname"><a href="interface_s_p_session.html#a461ec91162ce6e4ad6ef315ce08f41dc">-[SPSession stopChecker]</a></div><div class="ttdeci">void stopChecker()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:147</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_a4b035145b7f7dfdcf8800a57725959a2"><div class="ttname"><a href="interface_s_p_session.html#a4b035145b7f7dfdcf8800a57725959a2">-[SPSession getInBackground]</a></div><div class="ttdeci">BOOL getInBackground()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:189</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_a7890d7a881fef9829c52bd1549febdc9"><div class="ttname"><a href="interface_s_p_session.html#a7890d7a881fef9829c52bd1549febdc9">-[SPSession getPreviousSessionId]</a></div><div class="ttdeci">NSString * getPreviousSessionId()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:201</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_aa086cd1790f49f081d794ce32251a9d2"><div class="ttname"><a href="interface_s_p_session.html#aa086cd1790f49f081d794ce32251a9d2">-[SPSession getForegroundTimeout]</a></div><div class="ttdeci">NSInteger getForegroundTimeout()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:177</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_aa8fcc313c7a082962ff8facc3f187a84"><div class="ttname"><a href="interface_s_p_session.html#aa8fcc313c7a082962ff8facc3f187a84">-[SPSession getUserId]</a></div><div class="ttdeci">NSString * getUserId()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:193</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_ab3bbad6aa3a4de7c5616fe5ee4fea569"><div class="ttname"><a href="interface_s_p_session.html#ab3bbad6aa3a4de7c5616fe5ee4fea569">-[SPSession getBackgroundIndex]</a></div><div class="ttdeci">NSInteger getBackgroundIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:205</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_ad85d58fd2b76f297786a18a54931a136"><div class="ttname"><a href="interface_s_p_session.html#ad85d58fd2b76f297786a18a54931a136">-[SPSession getTracker]</a></div><div class="ttdeci">SPTracker * getTracker()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:213</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_ad8b89df302614274a293777fa02578eb"><div class="ttname"><a href="interface_s_p_session.html#ad8b89df302614274a293777fa02578eb">-[SPSession getSessionIndex]</a></div><div class="ttdeci">NSInteger getSessionIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:185</a></div></div>
-<div class="ttc" id="ainterface_s_p_session_html_ae8f7a7cc26ec67d614cba1b206c8375d"><div class="ttname"><a href="interface_s_p_session.html#ae8f7a7cc26ec67d614cba1b206c8375d">-[SPSession getSessionId]</a></div><div class="ttdeci">NSString * getSessionId()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00065">SPSession.m:197</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_a14cad00f834d7a2985959f9a17d2a9e2"><div class="ttname"><a href="interface_s_p_session.html#a14cad00f834d7a2985959f9a17d2a9e2">-[SPSession getBackgroundTimeout]</a></div><div class="ttdeci">NSInteger getBackgroundTimeout()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:168</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_a21784c7b87f262be30e730174cf72059"><div class="ttname"><a href="interface_s_p_session.html#a21784c7b87f262be30e730174cf72059">-[SPSession getForegroundIndex]</a></div><div class="ttdeci">NSInteger getForegroundIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:196</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_a4213bb26f5207ee3f402fe463badc691"><div class="ttname"><a href="interface_s_p_session.html#a4213bb26f5207ee3f402fe463badc691">-[SPSession init]</a></div><div class="ttdeci">id init()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:63</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_a4303719ccba6f1ce4433a94ce243336c"><div class="ttname"><a href="interface_s_p_session.html#a4303719ccba6f1ce4433a94ce243336c">-[SPSession startChecker]</a></div><div class="ttdeci">void startChecker()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:126</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_a461ec91162ce6e4ad6ef315ce08f41dc"><div class="ttname"><a href="interface_s_p_session.html#a461ec91162ce6e4ad6ef315ce08f41dc">-[SPSession stopChecker]</a></div><div class="ttdeci">void stopChecker()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:130</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_a4b035145b7f7dfdcf8800a57725959a2"><div class="ttname"><a href="interface_s_p_session.html#a4b035145b7f7dfdcf8800a57725959a2">-[SPSession getInBackground]</a></div><div class="ttdeci">BOOL getInBackground()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:176</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_a7890d7a881fef9829c52bd1549febdc9"><div class="ttname"><a href="interface_s_p_session.html#a7890d7a881fef9829c52bd1549febdc9">-[SPSession getPreviousSessionId]</a></div><div class="ttdeci">NSString * getPreviousSessionId()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:188</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_aa086cd1790f49f081d794ce32251a9d2"><div class="ttname"><a href="interface_s_p_session.html#aa086cd1790f49f081d794ce32251a9d2">-[SPSession getForegroundTimeout]</a></div><div class="ttdeci">NSInteger getForegroundTimeout()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:164</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_aa8fcc313c7a082962ff8facc3f187a84"><div class="ttname"><a href="interface_s_p_session.html#aa8fcc313c7a082962ff8facc3f187a84">-[SPSession getUserId]</a></div><div class="ttdeci">NSString * getUserId()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:180</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_ab3bbad6aa3a4de7c5616fe5ee4fea569"><div class="ttname"><a href="interface_s_p_session.html#ab3bbad6aa3a4de7c5616fe5ee4fea569">-[SPSession getBackgroundIndex]</a></div><div class="ttdeci">NSInteger getBackgroundIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:192</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_ad85d58fd2b76f297786a18a54931a136"><div class="ttname"><a href="interface_s_p_session.html#ad85d58fd2b76f297786a18a54931a136">-[SPSession getTracker]</a></div><div class="ttdeci">SPTracker * getTracker()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:200</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_ad8b89df302614274a293777fa02578eb"><div class="ttname"><a href="interface_s_p_session.html#ad8b89df302614274a293777fa02578eb">-[SPSession getSessionIndex]</a></div><div class="ttdeci">NSInteger getSessionIndex()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:172</a></div></div>
+<div class="ttc" id="ainterface_s_p_session_html_ae8f7a7cc26ec67d614cba1b206c8375d"><div class="ttname"><a href="interface_s_p_session.html#ae8f7a7cc26ec67d614cba1b206c8375d">-[SPSession getSessionId]</a></div><div class="ttdeci">NSString * getSessionId()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_8m_source.html#l00060">SPSession.m:184</a></div></div>
 <div class="ttc" id="ainterface_s_p_session_html_ae9bde39a296cb7d8fd8a988fd22a5805"><div class="ttname"><a href="interface_s_p_session.html#ae9bde39a296cb7d8fd8a988fd22a5805">-[SPSession DEPRECATED_ATTRIBUTE]</a></div><div class="ttdeci">void DEPRECATED_ATTRIBUTE()</div></div>
 <div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdoc">The tracker class.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_8h_source.html#l00250">SPTracker.h:250</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.1</span>
+   &#160;<span id="projectnumber">2.2.2</span>
    </div>
   </td>
  </tr>
@@ -73,7 +73,8 @@ $(function() {
 <div class="title">SPSession.m File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#import &quot;SPTrackerConstants.h&quot;</code><br />
+<div class="textblock"><code>#import &quot;<a class="el" href="_s_p_data_persistence_8h_source.html">SPDataPersistence.h</a>&quot;</code><br />
+<code>#import &quot;SPTrackerConstants.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_session_8h_source.html">SPSession.h</a>&quot;</code><br />
 <code>#import &quot;SPUtilities.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_weak_timer_target_8h_source.html">SPWeakTimerTarget.h</a>&quot;</code><br />
@@ -112,12 +113,6 @@ Variables</h2></td></tr>
 <tr class="separator:a07b8071c416d81dca6f26057c2d81e66"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa020c80f25bb619135d2429173c98e5a"><td class="memItemLeft" align="right" valign="top">NSInteger&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#aa020c80f25bb619135d2429173c98e5a">_backgroundIndex</a></td></tr>
 <tr class="separator:aa020c80f25bb619135d2429173c98e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5900b1372ec5f1c0dd647b8689c49b08"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a5900b1372ec5f1c0dd647b8689c49b08">kLegacyFilename</a> = @&quot;session.dict&quot;</td></tr>
-<tr class="separator:a5900b1372ec5f1c0dd647b8689c49b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03133048501bbfe13182a32b961d9646"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a03133048501bbfe13182a32b961d9646">kFilenamePrefix</a> = @&quot;session&quot;</td></tr>
-<tr class="separator:a03133048501bbfe13182a32b961d9646"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3baed1905c958a0da598d70c7bc51884"><td class="memItemLeft" align="right" valign="top">NSString *const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_session_8m.html#a3baed1905c958a0da598d70c7bc51884">kFilenameExt</a> = @&quot;dict&quot;</td></tr>
-<tr class="separator:a3baed1905c958a0da598d70c7bc51884"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
 <a id="aa020c80f25bb619135d2429173c98e5a"></a>
@@ -328,54 +323,6 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00052">52</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
-
-</div>
-</div>
-<a id="a3baed1905c958a0da598d70c7bc51884"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3baed1905c958a0da598d70c7bc51884">&#9670;&nbsp;</a></span>kFilenameExt</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NSString* const kFilenameExt = @&quot;dict&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00065">65</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
-
-</div>
-</div>
-<a id="a03133048501bbfe13182a32b961d9646"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03133048501bbfe13182a32b961d9646">&#9670;&nbsp;</a></span>kFilenamePrefix</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NSString* const kFilenamePrefix = @&quot;session&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00064">64</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
-
-</div>
-</div>
-<a id="a5900b1372ec5f1c0dd647b8689c49b08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5900b1372ec5f1c0dd647b8689c49b08">&#9670;&nbsp;</a></span>kLegacyFilename</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">NSString* const kLegacyFilename = @&quot;session.dict&quot;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00063">63</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 
 </div>
 </div>

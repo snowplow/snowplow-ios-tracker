@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.1</span>
+   &#160;<span id="projectnumber">2.2.2</span>
    </div>
   </td>
  </tr>
@@ -95,7 +95,8 @@ $(function() {
 , <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#a2c11a1c3f33271e978dc7a7cf79cad53">&lt;SPSubjectConfigurationProtocol&gt;</a>
 </li>
 <li>sendLimit
-: <a class="el" href="category_s_p_s_q_lite_event_store_07_08.html#a1347eace9a7919bc54bf1c3daa653877">SPSQLiteEventStore()</a>
+: <a class="el" href="category_s_p_memory_event_store_07_08.html#a1347eace9a7919bc54bf1c3daa653877">SPMemoryEventStore()</a>
+, <a class="el" href="category_s_p_s_q_lite_event_store_07_08.html#a1347eace9a7919bc54bf1c3daa653877">SPSQLiteEventStore()</a>
 </li>
 <li>sendRequests:
 : <a class="el" href="protocol_s_p_network_connection-p.html#aa35359e7157ed1cc389347c63975b8b1">&lt;SPNetworkConnection&gt;</a>
@@ -111,7 +112,8 @@ $(function() {
 : <a class="el" href="category_s_p_snowplow_07_08.html#a884e78d42032988e68e5f606b0c77f6f">SPSnowplow()</a>
 </li>
 <li>session
-: <a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">SPTracker</a>
+: <a class="el" href="interface_s_p_data_persistence.html#a2acda4b552404accefe751bed8d93b45">SPDataPersistence</a>
+, <a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">SPTracker</a>
 , <a class="el" href="protocol_s_p_tracker_controller-p.html#a75c9b4ea6b84fcfbfcf2923d223a4bcd">&lt;SPTrackerController&gt;</a>
 </li>
 <li>sessionConfiguration
@@ -128,12 +130,6 @@ $(function() {
 <li>sessionController
 : <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a242b73a799cd71f3b99104cec86b21f3">&lt;SPServiceProviderProtocol&gt;</a>
 , <a class="el" href="category_s_p_service_provider_07_08.html#aa3fe8297bb4bf3513050a830ab8ea7db">SPServiceProvider()</a>
-</li>
-<li>sessionFilename
-: <a class="el" href="category_s_p_session_07_08.html#a3d3f0cabf72b326b497863e36a962338">SPSession()</a>
-</li>
-<li>sessionFileUrl
-: <a class="el" href="category_s_p_session_07_08.html#accfa2698e784dd7ec8a671ea68604d34">SPSession()</a>
 </li>
 <li>sessionId
 : <a class="el" href="protocol_s_p_session_controller-p.html#a999b0efe4724b78334b1809b8792cf5c">&lt;SPSessionController&gt;</a>
@@ -601,6 +597,9 @@ $(function() {
 <li>storeIds
 : <a class="el" href="category_s_p_request_result_07_08.html#a2b37dc41b8390ac6348e85417a407019">SPRequestResult()</a>
 , <a class="el" href="interface_s_p_request_result.html#a3d165635bc6b492804790e21ea10fed8">SPRequestResult</a>
+</li>
+<li>stringFromNamespace:
+: <a class="el" href="interface_s_p_data_persistence.html#a1ab54c4d5352c2d7e085f94e1cd21217">SPDataPersistence</a>
 </li>
 <li>subject
 : <a class="el" href="protocol_s_p_service_provider_protocol-p.html#ad867a59a2988499afa5d746498ad782c">&lt;SPServiceProviderProtocol&gt;</a>
