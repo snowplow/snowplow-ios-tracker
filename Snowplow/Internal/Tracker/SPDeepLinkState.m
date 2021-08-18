@@ -1,5 +1,5 @@
 //
-//  SPTrackerConfigurationUpdate.m
+//  SPDeepLinkState.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,26 +20,25 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPTrackerConfigurationUpdate.h"
+#import "SPDeepLinkState.h"
 
-@implementation SPTrackerConfigurationUpdate
+@interface SPDeepLinkState ()
 
-SP_DIRTY_GETTER(NSString *, appId)
-SP_DIRTY_GETTER(SPDevicePlatform, devicePlatform)
-SP_DIRTY_GETTER(BOOL, base64Encoding)
-SP_DIRTY_GETTER(SPLogLevel, logLevel)
-SP_DIRTY_GETTER(id<SPLoggerDelegate>, loggerDelegate)
-SP_DIRTY_GETTER(BOOL, applicationContext)
-SP_DIRTY_GETTER(BOOL, platformContext)
-SP_DIRTY_GETTER(BOOL, geoLocationContext)
-SP_DIRTY_GETTER(BOOL, deepLinkContext)
-SP_DIRTY_GETTER(BOOL, sessionContext)
-SP_DIRTY_GETTER(BOOL, screenContext)
-SP_DIRTY_GETTER(BOOL, screenViewAutotracking)
-SP_DIRTY_GETTER(BOOL, lifecycleAutotracking)
-SP_DIRTY_GETTER(BOOL, installAutotracking)
-SP_DIRTY_GETTER(BOOL, exceptionAutotracking)
-SP_DIRTY_GETTER(BOOL, diagnosticAutotracking)
-SP_DIRTY_GETTER(NSString *, trackerVersionSuffix)
+@property (readwrite) NSString *url;
+@property (readwrite) NSString *referrer;
+
+@end
+
+
+@implementation SPDeepLinkState
+
+- (instancetype)initWithUrl:(NSString *)url referrer:(NSString *)referrer {
+    if (self = [super init]) {
+        self.url = url;
+        self.referrer = referrer;
+        self.readyForOutput = NO;
+    }
+    return self;
+}
 
 @end

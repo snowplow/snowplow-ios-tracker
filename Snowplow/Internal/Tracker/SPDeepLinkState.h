@@ -1,5 +1,5 @@
 //
-//  SPTrackerConfigurationUpdate.m
+//  SPDeepLinkState.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -20,26 +20,19 @@
 //  License: Apache License Version 2.0
 //
 
-#import "SPTrackerConfigurationUpdate.h"
+#import <Foundation/Foundation.h>
+#import "SPStateMachineProtocol.h"
 
-@implementation SPTrackerConfigurationUpdate
+NS_ASSUME_NONNULL_BEGIN
 
-SP_DIRTY_GETTER(NSString *, appId)
-SP_DIRTY_GETTER(SPDevicePlatform, devicePlatform)
-SP_DIRTY_GETTER(BOOL, base64Encoding)
-SP_DIRTY_GETTER(SPLogLevel, logLevel)
-SP_DIRTY_GETTER(id<SPLoggerDelegate>, loggerDelegate)
-SP_DIRTY_GETTER(BOOL, applicationContext)
-SP_DIRTY_GETTER(BOOL, platformContext)
-SP_DIRTY_GETTER(BOOL, geoLocationContext)
-SP_DIRTY_GETTER(BOOL, deepLinkContext)
-SP_DIRTY_GETTER(BOOL, sessionContext)
-SP_DIRTY_GETTER(BOOL, screenContext)
-SP_DIRTY_GETTER(BOOL, screenViewAutotracking)
-SP_DIRTY_GETTER(BOOL, lifecycleAutotracking)
-SP_DIRTY_GETTER(BOOL, installAutotracking)
-SP_DIRTY_GETTER(BOOL, exceptionAutotracking)
-SP_DIRTY_GETTER(BOOL, diagnosticAutotracking)
-SP_DIRTY_GETTER(NSString *, trackerVersionSuffix)
+@interface SPDeepLinkState : NSObject <SPState>
+
+@property (readonly) NSString *url;
+@property (readonly) NSString *referrer;
+@property BOOL readyForOutput;
+
+- (instancetype)initWithUrl:(NSString *)url referrer:(nullable NSString *)referrer;
 
 @end
+
+NS_ASSUME_NONNULL_END

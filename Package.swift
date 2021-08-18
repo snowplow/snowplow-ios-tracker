@@ -34,6 +34,7 @@ let package = Package(
                 .headerSearchPath("./Internal/GlobalContexts"),
                 .headerSearchPath("./Internal/Emitter"),
                 .headerSearchPath("./Internal/Events"),
+                .headerSearchPath("./Internal/Entities"),
                 .headerSearchPath("./Internal"),
             ]),
         .testTarget(

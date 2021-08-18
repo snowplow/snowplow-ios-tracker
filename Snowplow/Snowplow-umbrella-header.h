@@ -36,6 +36,7 @@
 #import "SPConsentWithdrawn.h"
 #import "SPConsentDocument.h"
 #import "SPConsentGranted.h"
+#import "SPDeepLinkReceived.h"
 #import "SPTiming.h"
 #import "SPEcommerce.h"
 #import "SPEcommerceItem.h"
