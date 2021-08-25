@@ -29,13 +29,14 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
 
-- (instancetype)initWithEvent:(SPEvent *)event {
+- (instancetype)initWithEvent:(SPEvent *)event stateCopy:(NSDictionary<NSString *,SPStateFuture *> *)stateCopy {
     if (self = [super init]) {
         self.eventId = [NSUUID UUID];
         self.timestamp = (long long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);
         self.trueTimestamp = event.trueTimestamp;
         self.contexts = [event.contexts mutableCopy];
         self.payload = [event.payload mutableCopy];
+        self.state = stateCopy;
 
         self.isService = [event isKindOfClass:SPTrackerError.class];
         if ([event isKindOfClass:SPPrimitiveAbstract.class]) {

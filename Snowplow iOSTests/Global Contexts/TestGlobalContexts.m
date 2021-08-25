@@ -133,7 +133,7 @@
     SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"static": staticGC}.mutableCopy];
     
     SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
@@ -156,7 +156,7 @@
     }.mutableCopy];
 
     SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:stringToMatch action:@"Action"];
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
@@ -176,19 +176,19 @@
 
     // Not matching primitive event
     SPPrimitiveAbstract *primitiveEvent = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:primitiveEvent];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:primitiveEvent stateCopy:@{}];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
     // Not matching self-describing event with mobile schema
     SPSelfDescribingAbstract *selfDescribingEvent = [[[SPScreenView alloc] initWithName:@"Name" screenId:nil] type:@"Type"];
-    trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
+    trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent stateCopy:@{}];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 0);
 
     // Matching self-describing event with general schema
     selfDescribingEvent = [[[SPTiming alloc] initWithCategory:@"Category" variable:@"Variable" timing:@123] label:@"Label"];
-    trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent];
+    trackerEvent = [[SPTrackerEvent alloc] initWithEvent:selfDescribingEvent stateCopy:@{}];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
     XCTAssertTrue(contexts.count == 1);
     XCTAssertEqual(contexts[0].schema, @"schema");
@@ -201,7 +201,7 @@
     SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"generator": generatorGC}.mutableCopy];
 
     SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:@"Category" action:@"Action"];
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];
@@ -214,7 +214,7 @@
     SPTracker *tracker = [self getTrackerWithGlobalContextGenerators:@{@"contextGenerator": contextGeneratorGC}.mutableCopy];
     
     SPPrimitiveAbstract *event = [[SPStructured alloc] initWithCategory:@"StringToMatch" action:@"Action"];
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
     
     NSMutableArray<SPSelfDescribingJson *> *contexts = [NSMutableArray array];
     [tracker addGlobalContextsToContexts:contexts event:trackerEvent];

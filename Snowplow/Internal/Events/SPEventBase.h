@@ -26,6 +26,7 @@
 
 @class SPPayload;
 @class SPTracker;
+@class SPStateFuture;
 
 /// An enum for screen types.
 typedef NS_ENUM(NSInteger, SPScreenType) {
@@ -54,6 +55,8 @@ NS_SWIFT_NAME(InspectableEvent)
 @property (nonatomic, readonly, nullable) NSString *eventName;
 /// The payload of the event
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
+/*! The state at the time the event was sent. */
+@property (nonatomic, readonly) NSDictionary<NSString *, SPStateFuture *> *state;
 
 @end
 

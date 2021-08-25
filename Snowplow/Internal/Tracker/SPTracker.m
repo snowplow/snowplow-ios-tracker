@@ -545,7 +545,7 @@ static SPTracker *_sharedInstance = nil;
 #pragma mark - Event Decoration
 
 - (void)processEvent:(SPEvent *)event {
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
     [self transformEvent:trackerEvent];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
