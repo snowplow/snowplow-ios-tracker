@@ -25,8 +25,9 @@
 #import "SPEmitter.h"
 #import "SPPayload.h"
 #import "SPSubject.h"
-#import "SPScreenState.h"
 #import "SPTrackerConstants.h"
+#import "SPEvent.h"
+#import "SPScreenState.h"
 
 @interface TestScreenState : XCTestCase
 
@@ -79,6 +80,30 @@
     NSDictionary * dictionary = [payload getAsDictionary];
     XCTAssertEqual([dictionary objectForKey:kSPScreenName], @"some name");
     XCTAssertEqual([dictionary objectForKey:kSPScreenId], uuid);
+}
+
+- (void)testScreenStateMachine {
+    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder>  _Nonnull builder) {
+        [builder setEmitter:[SPEmitter build:^(id<SPEmitterBuilder> builder) {
+            [builder setUrlEndpoint:@"http://snowplow-fake-url.com"];
+        }]];
+        [builder setTrackerNamespace:@"namespace"];
+        [builder setBase64Encoded:NO];
+        [builder setScreenContext:YES];
+    }];
+    
+    // Send events
+    [tracker track:[[SPTiming alloc] initWithCategory:@"category" variable:@"variable" timing:@"timing"]];
+    
+    NSUUID *uuid = [NSUUID UUID];
+    [tracker track:[[SPScreenView alloc] initWithName:@"screen1" screenId:uuid]];
+
+    [tracker track:[[SPTiming alloc] initWithCategory:@"category" variable:@"variable" timing:@"timing"]];
+    
+    uuid = [NSUUID UUID];
+    [tracker track:[[SPScreenView alloc] initWithName:@"screen2" screenId:uuid]];
+
+    [tracker track:[[SPTiming alloc] initWithCategory:@"category" variable:@"variable" timing:@"timing"]];
 }
 
 @end

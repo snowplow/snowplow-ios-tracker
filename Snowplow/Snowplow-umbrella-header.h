@@ -49,7 +49,7 @@
 #import "SPSchemaRuleset.h"
 #import "SPSchemaRule.h"
 
-// Classe to restrict visibility
+// Classes to restrict visibility
 
 #import "SPTracker.h"
 #import "SPEmitter.h"
@@ -61,3 +61,5 @@
 #import "SPMemoryEventStore.h"
 #import "SPDefaultNetworkConnection.h"
 #import "SPGdprContext.h"
+#import "SPStateFuture.h"
+#import "SPStateManager.h"

@@ -21,12 +21,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SPStateMachineProtocol.h"
 
 /** Forward declaration for SPScreenView */
 @class SPPayload;
+@protocol SPState;
 
 NS_SWIFT_NAME(ScreenState)
-@interface SPScreenState : NSObject <NSCopying>
+@interface SPScreenState : NSObject <SPState, NSCopying>
 
 /** Screenview name */
 @property (nonatomic, copy, readonly) NSString * name;

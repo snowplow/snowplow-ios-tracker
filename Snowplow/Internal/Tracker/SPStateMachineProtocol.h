@@ -6,6 +6,7 @@
 //  Copyright © 2021 Snowplow Analytics. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #import "SPEventBase.h"
 
 @protocol SPState <NSObject>

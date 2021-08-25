@@ -31,11 +31,10 @@
 #import "SPPayload.h"
 #import "SPEvent.h"
 #import "SPSelfDescribingJson.h"
-#import "SPScreenState.h"
 #import "SPUtilities.h"
 #import "SPTrackerEvent.h"
 #import "SPServiceProvider.h"
-
+#import "SPScreenState.h"
 
 /// Category needed to make the private methods testable.
 @interface SPTracker (Testing)
