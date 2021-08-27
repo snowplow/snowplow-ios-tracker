@@ -20,6 +20,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<SPSelfDescribingJson *> *)entitiesByProcessedEvent:(id<SPInspectableEvent>)event;
 
+- (BOOL)addPayloadValuesForEvent:(id<SPInspectableEvent>)event;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
 @property (nonatomic) NSMapTable<id<SPStateMachineProtocol>, NSString *> *stateMachineToIdentifier;
 @property (nonatomic) NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *eventSchemaToStateMachine;
 @property (nonatomic) NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *eventSchemaToEntitiesGenerator;
+@property (nonatomic) NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *eventSchemaToPayloadUpdater;
 @property (nonatomic) NSMutableDictionary<NSString *, SPStateFuture *> *stateIdentifierToCurrentState;
 
 @end
@@ -26,6 +27,7 @@
         self.stateMachineToIdentifier = [NSMapTable weakToStrongObjectsMapTable];
         self.eventSchemaToStateMachine = [NSMutableDictionary new];
         self.eventSchemaToEntitiesGenerator = [NSMutableDictionary new];
+        self.eventSchemaToPayloadUpdater = [NSMutableDictionary new];
         self.stateIdentifierToCurrentState = [NSMutableDictionary new];
     }
     return self;
@@ -35,22 +37,15 @@
     @synchronized (self) {
         self.identifierToStateMachine[stateMachineIdentifier] = stateMachine;
         [self.stateMachineToIdentifier setObject:stateMachineIdentifier forKey:stateMachine];
-        for (NSString *eventSchema in [stateMachine subscribedEventSchemasForTransitions]) {
-            NSMutableArray *array = self.eventSchemaToStateMachine[eventSchema];
-            if (!array) {
-                array = [NSMutableArray new];
-                self.eventSchemaToStateMachine[eventSchema] = array;
-            }
-            [array addObject:stateMachine];
-        }
-        for (NSString *eventSchema in [stateMachine subscribedEventSchemasForEntitiesGeneration]) {
-            NSMutableArray *array = self.eventSchemaToEntitiesGenerator[eventSchema];
-            if (!array) {
-                array = [NSMutableArray new];
-                self.eventSchemaToEntitiesGenerator[eventSchema] = array;
-            }
-            [array addObject:stateMachine];
-        }
+        [self addToSchemaRegistry:self.eventSchemaToStateMachine
+                          schemas:[stateMachine subscribedEventSchemasForTransitions]
+                     stateMachine:stateMachine];
+        [self addToSchemaRegistry:self.eventSchemaToEntitiesGenerator
+                          schemas:[stateMachine subscribedEventSchemasForEntitiesGeneration]
+                     stateMachine:stateMachine];
+        [self addToSchemaRegistry:self.eventSchemaToPayloadUpdater
+                          schemas:[stateMachine subscribedEventSchemasForPayloadUpdating]
+                     stateMachine:stateMachine];
     }
 }
 
@@ -62,14 +57,15 @@
     [self.identifierToStateMachine removeObjectForKey:stateMachineIdentifier];
     [self.stateMachineToIdentifier removeObjectForKey:stateMachine];
     [self.stateIdentifierToCurrentState removeObjectForKey:stateMachineIdentifier];
-    for (NSString *eventSchema in [stateMachine subscribedEventSchemasForTransitions]) {
-        NSMutableArray *array = self.eventSchemaToStateMachine[eventSchema];
-        [array removeObject:stateMachine];
-    }
-    for (NSString *eventSchema in [stateMachine subscribedEventSchemasForEntitiesGeneration]) {
-        NSMutableArray *array = self.eventSchemaToEntitiesGenerator[eventSchema];
-        [array removeObject:stateMachine];
-    }
+    [self removeFromSchemaRegistry:self.eventSchemaToStateMachine
+                           schemas:[stateMachine subscribedEventSchemasForTransitions]
+                      stateMachine:stateMachine];
+    [self removeFromSchemaRegistry:self.eventSchemaToEntitiesGenerator
+                           schemas:[stateMachine subscribedEventSchemasForEntitiesGeneration]
+                      stateMachine:stateMachine];
+    [self removeFromSchemaRegistry:self.eventSchemaToPayloadUpdater
+                           schemas:[stateMachine subscribedEventSchemasForPayloadUpdating]
+                      stateMachine:stateMachine];
     return YES;
 }
 
@@ -103,9 +99,48 @@
             NSString *stateIdentifier = [self.stateMachineToIdentifier objectForKey:stateMachine];
             SPStateFuture *stateFuture = [event.state objectForKey:stateIdentifier];
             NSArray<SPSelfDescribingJson *> *entities = [stateMachine entitiesFromEvent:event state:stateFuture.state];
-            [result addObjectsFromArray:entities];
+            if (entities) {
+                [result addObjectsFromArray:entities];
+            }
         }
         return result;
+    }
+}
+
+- (BOOL)addPayloadValuesForEvent:(id<SPInspectableEvent>)event {
+    @synchronized (self) {
+        int failures = 0;
+        NSMutableArray<id<SPStateMachineProtocol>> *stateMachines = self.eventSchemaToPayloadUpdater[event.schema] ?: [NSMutableArray new];
+        [stateMachines addObjectsFromArray:self.eventSchemaToPayloadUpdater[@"*"]];
+        for (id<SPStateMachineProtocol> stateMachine in stateMachines) {
+            NSString *stateIdentifier = [self.stateMachineToIdentifier objectForKey:stateMachine];
+            SPStateFuture *stateFuture = [event.state objectForKey:stateIdentifier];
+            NSDictionary<NSString *, NSObject *> *payloadValues = [stateMachine payloadValuesFromEvent:event state:stateFuture.state];
+            if (payloadValues && ![event addPayloadValues:payloadValues]) {
+                failures++;
+            }
+        }
+        return failures == 0;
+    }
+}
+
+// MARK: - Private methods
+
+- (void)addToSchemaRegistry:(NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *)schemaRegistry schemas:(NSArray<NSString *> *)schemas stateMachine:(id<SPStateMachineProtocol>)stateMachine {
+    for (NSString *eventSchema in schemas) {
+        NSMutableArray *array = schemaRegistry[eventSchema];
+        if (!array) {
+            array = [NSMutableArray new];
+            schemaRegistry[eventSchema] = array;
+        }
+        [array addObject:stateMachine];
+    }
+}
+
+- (void)removeFromSchemaRegistry:(NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *)schemaRegistry schemas:(NSArray<NSString *> *)schemas stateMachine:(id<SPStateMachineProtocol>)stateMachine {
+    for (NSString *eventSchema in schemas) {
+        NSMutableArray *array = schemaRegistry[eventSchema];
+        [array removeObject:stateMachine];
     }
 }
 

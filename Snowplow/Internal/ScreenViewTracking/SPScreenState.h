@@ -27,23 +27,29 @@
 @class SPPayload;
 @protocol SPState;
 
+NS_ASSUME_NONNULL_BEGIN
+
 NS_SWIFT_NAME(ScreenState)
 @interface SPScreenState : NSObject <SPState, NSCopying>
 
 /** Screenview name */
 @property (nonatomic, copy, readonly) NSString * name;
-/** Screen type */
-@property (nonatomic, copy, readonly) NSString * type;
 /** Screen ID */
 @property (nonatomic, copy, readonly) NSString * screenId;
+/** Screen type */
+@property (nonatomic, copy, nullable, readonly) NSString * type;
 /** Screenview transition type */
-@property (nonatomic, copy, readonly) NSString * transitionType;
+@property (nonatomic, copy, nullable, readonly) NSString * transitionType;
 /** Top view controller class name */
-@property (nonatomic, copy, readwrite) NSString * topViewControllerClassName;
+@property (nonatomic, copy, nullable, readonly) NSString * topViewControllerClassName;
 /** View controller class name */
-@property (nonatomic, copy, readwrite) NSString * viewControllerClassName;
+@property (nonatomic, copy, nullable, readonly) NSString * viewControllerClassName;
 
-- (id) init;
+/** Previous ScreenState */
+@property (nonatomic, nullable) SPScreenState *previousState;
+
+- (instancetype)init NS_UNAVAILABLE;
+- (instancetype)new NS_UNAVAILABLE;
 
 /**
  * Creates a new screen state.
@@ -54,41 +60,15 @@ NS_SWIFT_NAME(ScreenState)
  * @param theTopControllerName The top view controller class name
  * @param theControllerName The view controller class name
  */
-- (id) initWithName:theName type:theType screenId:theScreenId transitionType:theTransitionType topViewControllerClassName:theTopControllerName viewControllerClassName:theControllerName NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithName:(NSString *)theName type:(nullable NSString *)theType screenId:(nullable NSString *)theScreenId transitionType:(nullable NSString *)theTransitionType topViewControllerClassName:(nullable NSString *)theTopControllerName viewControllerClassName:(nullable NSString *)theControllerName NS_DESIGNATED_INITIALIZER;
 
-/**
- * Creates a new screen state.
- * @param theName A name to identify the screen view
- * @param theType The type of the screen view
- * @param theTopControllerName The top view controller class name
- * @param theControllerName The view controller class name
- */
-- (id) initWithName:theName type:theType topViewControllerClassName:theTopControllerName viewControllerClassName:theControllerName;
+- (instancetype)initWithName:(NSString *)theName type:(nullable NSString *)theType topViewControllerClassName:(nullable NSString *)theTopControllerName viewControllerClassName:(nullable NSString *)theControllerName;
 
-/**
- * Creates a new screen state.
- * @param theName A name to identify the screen view
- * @param theType The type of the screen view
- * @param theScreenId An ID generated for the screen
- * @param theTransitionType The transition used to arrive at the screen
- */
-- (id) initWithName:(id)theName type:(id)theType screenId:(id)theScreenId transitionType:(id)theTransitionType;
+- (instancetype)initWithName:(NSString *)theName type:(nullable NSString *)theType screenId:(nullable NSString *)theScreenId transitionType:(nullable NSString *)theTransitionType;
 
-/**
- * Creates a new screen state, this is important for previous state (we don't track previous transition).
- * @param theName A name to identify the screen view
- * @param theType The type of the screen view
- * @param theScreenId A ID generated for the screen
- */
-- (id) initWithName:theName type:theType screenId:theScreenId;
+- (instancetype)initWithName:(NSString *)theName type:(nullable NSString *)theType screenId:(nullable NSString *)theScreenId;
 
-/**
- * Creates a new screen state, this is important for previous state (we don't track previous transition).
- * @param theName A name to identify the screen view
- * @param theScreenId A ID generated for the screen
- */
-- (id) initWithName:theName screenId:theScreenId;
-
+- (instancetype)initWithName:(NSString *)theName screenId:(nullable NSString *)theScreenId;
 
 /**
  * Returns all non-nil values if the state is valid (e.g. name is not missing or empty string).
@@ -101,3 +81,5 @@ NS_SWIFT_NAME(ScreenState)
 - (BOOL) isValid;
 
 @end
+
+NS_ASSUME_NONNULL_END

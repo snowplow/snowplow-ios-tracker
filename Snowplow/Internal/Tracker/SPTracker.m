@@ -555,6 +555,8 @@ static SPTracker *_sharedInstance = nil;
         event.timestamp = event.trueTimestamp.timeIntervalSince1970 * 1000;
         event.trueTimestamp = nil;
     }
+    // Payload can be optionally updated with values based on internal state
+    [self.stateManager addPayloadValuesForEvent:event];
 }
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
@@ -572,7 +574,6 @@ static SPTracker *_sharedInstance = nil;
     [self addGlobalContextsToContexts:contexts event:event];
     [self addStateMachineEntitiesToContexts:contexts event:event];
     [self wrapContexts:contexts toPayload:payload];
-
     return payload;
 }
 

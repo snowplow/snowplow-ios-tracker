@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPTrackerEvent : NSObject <SPInspectableEvent>
 
-@property (nonatomic) NSDictionary<NSString *, NSObject *> *payload;
+@property (nonatomic) NSMutableDictionary<NSString *, NSObject *> *payload;
 @property (nonatomic) NSString *schema;
 @property (nonatomic) NSString *eventName;
 @property (nonatomic) NSUUID *eventId;

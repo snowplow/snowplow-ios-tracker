@@ -18,10 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSArray<NSString *> *)subscribedEventSchemasForTransitions;
 - (NSArray<NSString *> *)subscribedEventSchemasForEntitiesGeneration;
+- (NSArray<NSString *> *)subscribedEventSchemasForPayloadUpdating;
 
-- (id<SPState>)transitionFromEvent:(SPEvent *)event currentState:(id<SPState>)currentState;
+- (nullable id<SPState>)transitionFromEvent:(SPEvent *)event currentState:(nullable id<SPState>)currentState;
 
-- (NSArray<SPSelfDescribingJson *> *)entitiesFromEvent:(id<SPInspectableEvent>)event state:(nullable id<SPState>)state;
+- (nullable NSArray<SPSelfDescribingJson *> *)entitiesFromEvent:(id<SPInspectableEvent>)event state:(nullable id<SPState>)state;
+
+- (nullable NSDictionary<NSString *, NSObject *> *)payloadValuesFromEvent:(id<SPInspectableEvent>)event state:(nullable id<SPState>)state;
 
 @end
 

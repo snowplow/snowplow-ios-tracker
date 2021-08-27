@@ -21,20 +21,34 @@
     return @[@"*"];
 }
 
+- (NSArray<NSString *> *)subscribedEventSchemasForPayloadUpdating {
+    return @[kSPScreenViewSchema];
+}
+
 - (id<SPState>)transitionFromEvent:(SPEvent *)event currentState:(id<SPState>)currentState {
     SPScreenView *screenView = (SPScreenView *)event;
-    return [[SPScreenState alloc] initWithName:screenView.name
-                                          type:screenView.type
-                                      screenId:screenView.screenId
-                                transitionType:screenView.transitionType
-                    topViewControllerClassName:screenView.topViewControllerClassName
-                       viewControllerClassName:screenView.viewControllerClassName];
+    SPScreenState *oldState = (SPScreenState *)currentState;
+    SPScreenState *newState = [screenView getScreenState];
+    newState.previousState = oldState;
+    return newState;
 }
 
 - (NSArray<SPSelfDescribingJson *> *)entitiesFromEvent:(id<SPInspectableEvent>)event state:(id<SPState>)state {
     if ([state isKindOfClass:SPScreenState.class]) {
         SPSelfDescribingJson *entity = [SPUtilities getScreenContextWithScreenState:(SPScreenState *)state];
         return @[entity];
+    }
+    return nil;
+}
+
+- (NSDictionary<NSString *,NSObject *> *)payloadValuesFromEvent:(id<SPInspectableEvent>)event state:(id<SPState>)state {
+    if ([state isKindOfClass:SPScreenState.class]) {
+        SPScreenState *previousState = ((SPScreenState *)state).previousState;
+        NSMutableDictionary<NSString *,NSObject *> *addedValues = [NSMutableDictionary new];
+        [addedValues setValue:previousState.name forKey:kSPSvPreviousName];
+        [addedValues setValue:previousState.type forKey:kSPSvPreviousType];
+        [addedValues setValue:previousState.screenId forKey:kSPSvPreviousScreenId];
+        return addedValues;
     }
     return nil;
 }

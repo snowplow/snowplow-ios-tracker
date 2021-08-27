@@ -58,6 +58,8 @@ NS_SWIFT_NAME(InspectableEvent)
 /*! The state at the time the event was sent. */
 @property (nonatomic, readonly) NSDictionary<NSString *, SPStateFuture *> *state;
 
+- (BOOL)addPayloadValues:(NSDictionary<NSString *, NSObject *> *)payload;
+
 @end
 
 

@@ -52,4 +52,16 @@
 
 #pragma GCC diagnostic pop
 
+- (BOOL)addPayloadValues:(nonnull NSDictionary<NSString *,NSObject *> *)payload {
+    __block BOOL result = YES;
+    [payload enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSObject * _Nonnull obj, BOOL * _Nonnull stop) {
+        if (![self.payload objectForKey:key]) {
+            [self.payload setObject:obj forKey:key];
+        } else {
+            result = NO;
+        }
+    }];
+    return result;
+}
+
 @end

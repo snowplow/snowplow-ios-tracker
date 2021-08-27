@@ -59,6 +59,14 @@
     return @[sdj];
 }
 
+- (nonnull NSArray<NSString *> *)subscribedEventSchemasForPayloadUpdating {
+    return @[@"event"];
+}
+
+- (nullable NSDictionary<NSString *,NSObject *> *)payloadValuesFromEvent:(nonnull id<SPInspectableEvent>)event state:(nullable id<SPState>)state {
+    return @{@"newParam": @"value"};
+}
+
 @end
 
 // MARK: - Test
@@ -74,7 +82,7 @@
     
     SPSelfDescribing *eventInc = [[SPSelfDescribing alloc] initWithSchema:@"inc" payload:@{@"value": @1}];
     SPSelfDescribing *eventDec = [[SPSelfDescribing alloc] initWithSchema:@"dec" payload:@{@"value": @2}];
-    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithSchema:@"nothing" payload:@{@"value": @3}];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithSchema:@"event" payload:@{@"value": @3}];
 
     NSDictionary<NSString *, SPStateFuture *> *state = [stateManager trackerStateByProcessedEvent:eventInc];
     MockState *mockState = (MockState *)[state[@"identifier"] state];
@@ -82,24 +90,32 @@
     id<SPInspectableEvent> e = [[SPTrackerEvent alloc] initWithEvent:eventInc stateCopy:state];
     NSArray<SPSelfDescribingJson *> *entities = [stateManager entitiesByProcessedEvent:e];
     XCTAssertEqualObjects(@1, ((NSDictionary<NSString *, NSNumber *> *)(entities[0].data))[@"value"]);
-    
+    XCTAssertTrue([stateManager addPayloadValuesForEvent:e]);
+    XCTAssertNil((e.payload)[@"newParam"]);
+
     state = [stateManager trackerStateByProcessedEvent:eventInc];
     XCTAssertEqual(2, [(MockState *)[state[@"identifier"] state] value]);
     e = [[SPTrackerEvent alloc] initWithEvent:eventInc stateCopy:state];
     entities = [stateManager entitiesByProcessedEvent:e];
     XCTAssertEqualObjects(@2, ((NSDictionary<NSString *, NSNumber *> *)(entities[0].data))[@"value"]);
+    XCTAssertTrue([stateManager addPayloadValuesForEvent:e]);
+    XCTAssertNil((e.payload)[@"newParam"]);
 
     state = [stateManager trackerStateByProcessedEvent:eventDec];
     XCTAssertEqual(1, [(MockState *)[state[@"identifier"] state] value]);
     e = [[SPTrackerEvent alloc] initWithEvent:eventDec stateCopy:state];
     entities = [stateManager entitiesByProcessedEvent:e];
     XCTAssertEqualObjects(@1, ((NSDictionary<NSString *, NSNumber *> *)(entities[0].data))[@"value"]);
+    XCTAssertTrue([stateManager addPayloadValuesForEvent:e]);
+    XCTAssertNil((e.payload)[@"newParam"]);
 
     state = [stateManager trackerStateByProcessedEvent:event];
     XCTAssertEqual(1, [(MockState *)[state[@"identifier"] state] value]);
     e = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:state];
     entities = [stateManager entitiesByProcessedEvent:e];
     XCTAssertEqualObjects(@1, ((NSDictionary<NSString *, NSNumber *> *)(entities[0].data))[@"value"]);
+    XCTAssertTrue([stateManager addPayloadValuesForEvent:e]);
+    XCTAssertEqualObjects(@"value", (e.payload)[@"newParam"]);
 }
 
 - (void)testAddRemoveStateMachine {
