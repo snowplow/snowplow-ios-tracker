@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (readonly, atomic, nullable) id<SPState> state;
 
-- (instancetype)initWithEvent:(SPEvent *)event previousState:(SPStateFuture *)previousState stateMachine:(id<SPStateMachineProtocol>)stateMachine;
+- (instancetype)initWithEvent:(SPEvent *)event previousState:(nullable SPStateFuture *)previousState stateMachine:(id<SPStateMachineProtocol>)stateMachine;
 
 @end
 

@@ -32,7 +32,7 @@
 
 - (id<SPState>)state {
     @synchronized (self) {
-        if (!self.computedState) {
+        if (!self.computedState && self.stateMachine) {
             self.computedState = [self.stateMachine transitionFromEvent:self.event currentState:self.previousState.state];
             self.event = nil;
             self.previousState = nil;
