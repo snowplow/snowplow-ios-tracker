@@ -83,7 +83,7 @@
     return YES;
 }
 
-- (SPTrackerState *)trackerStateForProcessedEvent:(SPEvent *)event {
+- (id<SPTrackerStateSnapshot>)trackerStateForProcessedEvent:(SPEvent *)event {
     @synchronized (self) {
         if ([event isKindOfClass:SPSelfDescribingAbstract.class]) {
             SPSelfDescribingAbstract *sdEvent = (SPSelfDescribingAbstract *)event;

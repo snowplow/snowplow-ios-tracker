@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 @protocol SPTrackerStateSnapshot <NSObject>
 
 /// Get a computed state with a specific state identifier
-- (id<SPState>)stateWithIdentifier:(NSString *)stateIdentifier;
+- (nullable id<SPState>)stateWithIdentifier:(NSString *)stateIdentifier;
 
 @end
 

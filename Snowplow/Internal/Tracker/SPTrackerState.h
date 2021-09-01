@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)setStateFuture:(SPStateFuture *)state identifier:(NSString *)stateIdentifier;
 
 /// Get a future computable state associated with a state identifier
-- (SPStateFuture *)stateFutureWithIdentifier:(NSString *)stateIdentifier;
+- (nullable SPStateFuture *)stateFutureWithIdentifier:(NSString *)stateIdentifier;
 
 /// Remove the state associated with a state identifier
 - (void)removeStateWithIdentifier:(NSString *)stateIdentifer;

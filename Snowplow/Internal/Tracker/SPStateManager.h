@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)addStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier;
 - (BOOL)removeStateMachine:(NSString *)stateMachineIdentifier;
 
-- (SPTrackerState *)trackerStateForProcessedEvent:(SPEvent *)event;
+- (id<SPTrackerStateSnapshot>)trackerStateForProcessedEvent:(SPEvent *)event;
 
 - (NSArray<SPSelfDescribingJson *> *)entitiesForProcessedEvent:(id<SPInspectableEvent>)event;
 
