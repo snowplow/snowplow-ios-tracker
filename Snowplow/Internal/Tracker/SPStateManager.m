@@ -29,7 +29,7 @@
 @property (nonatomic) NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *eventSchemaToStateMachine;
 @property (nonatomic) NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *eventSchemaToEntitiesGenerator;
 @property (nonatomic) NSMutableDictionary<NSString *, NSMutableArray<id<SPStateMachineProtocol>> *> *eventSchemaToPayloadUpdater;
-@property (nonatomic) NSMutableDictionary<NSString *, SPStateFuture *> *stateIdentifierToCurrentState;
+@property (nonatomic) SPTrackerState *trackerState;
 
 @end
 
@@ -42,7 +42,7 @@
         self.eventSchemaToStateMachine = [NSMutableDictionary new];
         self.eventSchemaToEntitiesGenerator = [NSMutableDictionary new];
         self.eventSchemaToPayloadUpdater = [NSMutableDictionary new];
-        self.stateIdentifierToCurrentState = [NSMutableDictionary new];
+        self.trackerState = [SPTrackerState new];
     }
     return self;
 }
@@ -70,7 +70,7 @@
     }
     [self.identifierToStateMachine removeObjectForKey:stateMachineIdentifier];
     [self.stateMachineToIdentifier removeObjectForKey:stateMachine];
-    [self.stateIdentifierToCurrentState removeObjectForKey:stateMachineIdentifier];
+    [self.trackerState removeStateWithIdentifier:stateMachineIdentifier];
     [self removeFromSchemaRegistry:self.eventSchemaToStateMachine
                            schemas:[stateMachine subscribedEventSchemasForTransitions]
                       stateMachine:stateMachine];
@@ -83,7 +83,7 @@
     return YES;
 }
 
-- (NSDictionary<NSString *, SPStateFuture *> *)trackerStateByProcessedEvent:(SPEvent *)event {
+- (SPTrackerState *)trackerStateForProcessedEvent:(SPEvent *)event {
     @synchronized (self) {
         if ([event isKindOfClass:SPSelfDescribingAbstract.class]) {
             SPSelfDescribingAbstract *sdEvent = (SPSelfDescribingAbstract *)event;
@@ -91,9 +91,9 @@
             [stateMachines addObjectsFromArray:self.eventSchemaToStateMachine[@"*"]];
             for (id<SPStateMachineProtocol> stateMachine in stateMachines) {
                 NSString *stateIdentifier = [self.stateMachineToIdentifier objectForKey:stateMachine];
-                SPStateFuture *previousState = self.stateIdentifierToCurrentState[stateIdentifier];
-                SPStateFuture *newState = [[SPStateFuture alloc] initWithEvent:sdEvent previousState:previousState stateMachine:stateMachine];
-                self.stateIdentifierToCurrentState[stateIdentifier] = newState;
+                SPStateFuture *previousStateFuture = [self.trackerState stateFutureWithIdentifier:stateIdentifier];
+                SPStateFuture *currentStateFuture = [[SPStateFuture alloc] initWithEvent:sdEvent previousState:previousStateFuture stateMachine:stateMachine];
+                [self.trackerState setStateFuture:currentStateFuture identifier:stateIdentifier];
                 // TODO: Remove early state computation.
                 /*
                 The early state-computation causes low performance as it's executed synchronously on
@@ -105,22 +105,22 @@
                    externally)
                  Remove the early state-computation only when these two problems are fixed.
                  */
-                [newState state]; // Early state-computation
+                [currentStateFuture state]; // Early state-computation
             }
         }
-        return [self.stateIdentifierToCurrentState copy];
+        return self.trackerState.snapshot;
     }
 }
 
-- (NSArray<SPSelfDescribingJson *> *)entitiesByProcessedEvent:(id<SPInspectableEvent>)event {
+- (NSArray<SPSelfDescribingJson *> *)entitiesForProcessedEvent:(id<SPInspectableEvent>)event {
     @synchronized (self) {
         NSMutableArray<SPSelfDescribingJson *> *result = [NSMutableArray new];
         NSMutableArray<id<SPStateMachineProtocol>> *stateMachines = self.eventSchemaToEntitiesGenerator[event.schema] ?: [NSMutableArray new];
         [stateMachines addObjectsFromArray:self.eventSchemaToEntitiesGenerator[@"*"]];
         for (id<SPStateMachineProtocol> stateMachine in stateMachines) {
             NSString *stateIdentifier = [self.stateMachineToIdentifier objectForKey:stateMachine];
-            SPStateFuture *stateFuture = [event.state objectForKey:stateIdentifier];
-            NSArray<SPSelfDescribingJson *> *entities = [stateMachine entitiesFromEvent:event state:stateFuture.state];
+            id<SPState> state = [event.state stateWithIdentifier:stateIdentifier];
+            NSArray<SPSelfDescribingJson *> *entities = [stateMachine entitiesFromEvent:event state:state];
             if (entities) {
                 [result addObjectsFromArray:entities];
             }
@@ -129,15 +129,15 @@
     }
 }
 
-- (BOOL)addPayloadValuesForEvent:(id<SPInspectableEvent>)event {
+- (BOOL)addPayloadValuesToEvent:(id<SPInspectableEvent>)event {
     @synchronized (self) {
         int failures = 0;
         NSMutableArray<id<SPStateMachineProtocol>> *stateMachines = self.eventSchemaToPayloadUpdater[event.schema] ?: [NSMutableArray new];
         [stateMachines addObjectsFromArray:self.eventSchemaToPayloadUpdater[@"*"]];
         for (id<SPStateMachineProtocol> stateMachine in stateMachines) {
             NSString *stateIdentifier = [self.stateMachineToIdentifier objectForKey:stateMachine];
-            SPStateFuture *stateFuture = [event.state objectForKey:stateIdentifier];
-            NSDictionary<NSString *, NSObject *> *payloadValues = [stateMachine payloadValuesFromEvent:event state:stateFuture.state];
+            id<SPState> state = [event.state stateWithIdentifier:stateIdentifier];
+            NSDictionary<NSString *, NSObject *> *payloadValues = [stateMachine payloadValuesFromEvent:event state:state];
             if (payloadValues && ![event addPayloadValues:payloadValues]) {
                 failures++;
             }

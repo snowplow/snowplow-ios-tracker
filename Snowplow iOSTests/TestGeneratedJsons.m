@@ -123,7 +123,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     event.value = @5;
     
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray * dataArray = [NSArray arrayWithObject:data];
@@ -143,7 +143,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray *dataArray = [NSArray arrayWithObject:data];
@@ -169,7 +169,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
 
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray *dataArray = [NSArray arrayWithObject:data];
@@ -221,7 +221,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     event.referrer = @"DemoPageReferrer";
 
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray *dataArray = [NSArray arrayWithObject:data];
@@ -251,7 +251,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [event currency:@"USD"];
 
     // Check that the main payload passes validation
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray *dataArray = [NSArray arrayWithObject:data];
@@ -335,7 +335,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [event referrer:@"DemoPageReferrer"];
     
     // Check that the final payload passes validation
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:@{}];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
     NSDictionary<NSString *, NSObject *> *data = [[tracker payloadWithEvent:trackerEvent] getAsDictionary];
 
     NSArray *dataArray = [NSArray arrayWithObject:data];

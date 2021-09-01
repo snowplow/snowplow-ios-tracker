@@ -539,11 +539,11 @@ static SPTracker *_sharedInstance = nil;
 #pragma mark - Event Decoration
 
 - (void)processEvent:(SPEvent *)event {
-    NSDictionary<NSString *, SPStateFuture *> *stateCopy;
+    SPTrackerState *stateSnapshot;
     @synchronized (self) {
-        stateCopy = [self.stateManager trackerStateByProcessedEvent:event];
+        stateSnapshot = [self.stateManager trackerStateForProcessedEvent:event];
     }
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event stateCopy:stateCopy];
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event state:stateSnapshot];
     [self transformEvent:trackerEvent];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
@@ -556,7 +556,7 @@ static SPTracker *_sharedInstance = nil;
         event.trueTimestamp = nil;
     }
     // Payload can be optionally updated with values based on internal state
-    [self.stateManager addPayloadValuesForEvent:event];
+    [self.stateManager addPayloadValuesToEvent:event];
 }
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
@@ -662,7 +662,7 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (void)addStateMachineEntitiesToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(id<SPInspectableEvent>)event {
-    NSArray<SPSelfDescribingJson *> *stateManagerEntities = [self.stateManager entitiesByProcessedEvent:event];
+    NSArray<SPSelfDescribingJson *> *stateManagerEntities = [self.stateManager entitiesForProcessedEvent:event];
     [contexts addObjectsFromArray:stateManagerEntities];
 }
 

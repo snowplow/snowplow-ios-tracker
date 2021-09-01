@@ -1,5 +1,5 @@
 //
-//  SPState.h
+//  SPStateFuture.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -25,6 +25,13 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ StateFuture represents the placeholder of a future computation.
+ The proper state value is computed when it's observed. Until that moment the StateFuture keeps the elements
+ (event, previous StateFuture, StateMachine) needed to calculate the real state value.
+ For this reason, the StateFuture can be the head of StateFuture chain which will collapse once the StateFuture
+ head is asked to get the real state value.
+ */
 @interface SPStateFuture : NSObject
 
 @property (readonly, atomic, nullable) id<SPState> state;

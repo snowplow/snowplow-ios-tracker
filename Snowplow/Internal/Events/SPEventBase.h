@@ -23,6 +23,7 @@
 #import <Foundation/Foundation.h>
 #import "SPSelfDescribingJson.h"
 #import "SPTrackerConstants.h"
+#import "SPTrackerStateSnapshot.h"
 
 @class SPPayload;
 @class SPTracker;
@@ -56,7 +57,7 @@ NS_SWIFT_NAME(InspectableEvent)
 /// The payload of the event
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 /*! The state at the time the event was sent. */
-@property (nonatomic, readonly) NSDictionary<NSString *, SPStateFuture *> *state;
+@property (nonatomic, readonly) id<SPTrackerStateSnapshot> state;
 
 - (BOOL)addPayloadValues:(NSDictionary<NSString *, NSObject *> *)payload;
 

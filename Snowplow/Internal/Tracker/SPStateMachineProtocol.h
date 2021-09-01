@@ -23,9 +23,6 @@
 #import <Foundation/Foundation.h>
 #import "SPEventBase.h"
 
-@protocol SPState <NSObject>
-@end
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol SPStateMachineProtocol <NSObject>
@@ -34,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<NSString *> *)subscribedEventSchemasForEntitiesGeneration;
 - (NSArray<NSString *> *)subscribedEventSchemasForPayloadUpdating;
 
-- (nullable id<SPState>)transitionFromEvent:(SPEvent *)event currentState:(nullable id<SPState>)currentState;
+- (nullable id<SPState>)transitionFromEvent:(SPEvent *)event state:(nullable id<SPState>)state;
 
 - (nullable NSArray<SPSelfDescribingJson *> *)entitiesFromEvent:(id<SPInspectableEvent>)event state:(nullable id<SPState>)state;
 

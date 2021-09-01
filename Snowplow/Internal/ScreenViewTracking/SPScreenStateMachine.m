@@ -39,7 +39,7 @@
     return @[kSPScreenViewSchema];
 }
 
-- (id<SPState>)transitionFromEvent:(SPEvent *)event currentState:(id<SPState>)currentState {
+- (id<SPState>)transitionFromEvent:(SPEvent *)event state:(id<SPState>)currentState {
     SPScreenView *screenView = (SPScreenView *)event;
     SPScreenState *oldState = (SPScreenState *)currentState;
     SPScreenState *newState = [screenView getScreenState];

@@ -1,5 +1,5 @@
 //
-//  SPScreenStateMachine.m
+//  SPScreenStateMachine.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.

@@ -1,5 +1,5 @@
 //
-//  SPStateUpdater.m
+//  SPStateFuture.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -47,7 +47,7 @@
 - (id<SPState>)state {
     @synchronized (self) {
         if (!self.computedState && self.stateMachine) {
-            self.computedState = [self.stateMachine transitionFromEvent:self.event currentState:self.previousState.state];
+            self.computedState = [self.stateMachine transitionFromEvent:self.event state:self.previousState.state];
             self.event = nil;
             self.previousState = nil;
             self.stateMachine = nil;

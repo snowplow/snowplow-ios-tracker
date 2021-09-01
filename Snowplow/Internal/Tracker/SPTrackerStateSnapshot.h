@@ -1,5 +1,5 @@
 //
-//  SPStateManager.h
+//  SPTrackerStateSnapshot.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,20 +21,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPTrackerState.h"
+#import "SPState.h"
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPStateManager : NSObject
+@protocol SPTrackerStateSnapshot <NSObject>
 
-- (void)addStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier;
-- (BOOL)removeStateMachine:(NSString *)stateMachineIdentifier;
-
-- (SPTrackerState *)trackerStateForProcessedEvent:(SPEvent *)event;
-
-- (NSArray<SPSelfDescribingJson *> *)entitiesForProcessedEvent:(id<SPInspectableEvent>)event;
-
-- (BOOL)addPayloadValuesToEvent:(id<SPInspectableEvent>)event;
+/// Get a computed state with a specific state identifier
+- (id<SPState>)stateWithIdentifier:(NSString *)stateIdentifier;
 
 @end
 
