@@ -1,5 +1,5 @@
 //
-//  SPMockEventStore.h
+//  SPStateManager.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,15 +21,20 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPEventStore.h"
-#import "SPPayload.h"
+#import "SPTrackerState.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPMockEventStore : NSObject <SPEventStore>
+@interface SPStateManager : NSObject
 
-@property (atomic) NSMutableDictionary<NSNumber *, SPPayload *> *db;
-@property (atomic) long lastInsertedRow;
+- (void)addStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier;
+- (BOOL)removeStateMachine:(NSString *)stateMachineIdentifier;
+
+- (id<SPTrackerStateSnapshot>)trackerStateForProcessedEvent:(SPEvent *)event;
+
+- (NSArray<SPSelfDescribingJson *> *)entitiesForProcessedEvent:(id<SPInspectableEvent>)event;
+
+- (BOOL)addPayloadValuesToEvent:(id<SPInspectableEvent>)event;
 
 @end
 

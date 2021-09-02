@@ -31,11 +31,10 @@
 #import "SPPayload.h"
 #import "SPEvent.h"
 #import "SPSelfDescribingJson.h"
-#import "SPScreenState.h"
 #import "SPUtilities.h"
 #import "SPTrackerEvent.h"
 #import "SPServiceProvider.h"
-
+#import "SPScreenState.h"
 
 /// Category needed to make the private methods testable.
 @interface SPTracker (Testing)
@@ -63,7 +62,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void) testScreenContextJson {
-    SPScreenState * screen = [[SPScreenState alloc] initWithName:@"name" type:@"type" topViewControllerClassName:@"topvcname" viewControllerClassName:@"vcname"];
+    SPScreenState * screen = [[SPScreenState alloc] initWithName:@"name" type:@"type" screenId:nil transitionType:@"transition" topViewControllerClassName:@"topVCname" viewControllerClassName:@"VCname"];
     SPSelfDescribingJson * json = [SPUtilities getScreenContextWithScreenState:screen];
     XCTAssertTrue([validator validateJson:[json getAsDictionary]]);
 }

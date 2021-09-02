@@ -1,5 +1,5 @@
 //
-//  SPMockEventStore.h
+//  SPStateFuture.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,15 +21,22 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPEventStore.h"
-#import "SPPayload.h"
+#import "SPStateMachineProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPMockEventStore : NSObject <SPEventStore>
+/**
+ StateFuture represents the placeholder of a future computation.
+ The proper state value is computed when it's observed. Until that moment the StateFuture keeps the elements
+ (event, previous StateFuture, StateMachine) needed to calculate the real state value.
+ For this reason, the StateFuture can be the head of StateFuture chain which will collapse once the StateFuture
+ head is asked to get the real state value.
+ */
+@interface SPStateFuture : NSObject
 
-@property (atomic) NSMutableDictionary<NSNumber *, SPPayload *> *db;
-@property (atomic) long lastInsertedRow;
+@property (readonly, atomic, nullable) id<SPState> state;
+
+- (instancetype)initWithEvent:(SPEvent *)event previousState:(nullable SPStateFuture *)previousState stateMachine:(id<SPStateMachineProtocol>)stateMachine;
 
 @end
 

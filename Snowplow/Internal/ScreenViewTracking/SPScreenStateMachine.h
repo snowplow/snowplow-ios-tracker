@@ -1,5 +1,5 @@
 //
-//  SPMockEventStore.h
+//  SPScreenStateMachine.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -21,15 +21,11 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "SPEventStore.h"
-#import "SPPayload.h"
+#import "SPStateMachineProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPMockEventStore : NSObject <SPEventStore>
-
-@property (atomic) NSMutableDictionary<NSNumber *, SPPayload *> *db;
-@property (atomic) long lastInsertedRow;
+@interface SPScreenStateMachine : NSObject <SPStateMachineProtocol>
 
 @end
 

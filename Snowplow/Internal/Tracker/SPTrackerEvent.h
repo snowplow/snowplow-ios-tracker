@@ -23,18 +23,20 @@
 #import <Foundation/Foundation.h>
 #import "SPEventBase.h"
 #import "SPSelfDescribingJson.h"
+#import "SPTrackerState.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPTrackerEvent : NSObject <SPInspectableEvent>
 
-@property (nonatomic) NSDictionary<NSString *, NSObject *> *payload;
+@property (nonatomic) NSMutableDictionary<NSString *, NSObject *> *payload;
 @property (nonatomic) NSString *schema;
 @property (nonatomic) NSString *eventName;
 @property (nonatomic) NSUUID *eventId;
 @property (nonatomic) long long timestamp;
 @property (nonatomic, nullable) NSDate *trueTimestamp;
 @property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
+@property (nonatomic) id<SPTrackerStateSnapshot> state;
 
 @property (nonatomic) BOOL isPrimitive;
 @property (nonatomic) BOOL isService;
@@ -42,7 +44,8 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
 
-- (instancetype) initWithEvent:(SPEvent *)event;
+- (instancetype)initWithEvent:(SPEvent *)event;
+- (instancetype)initWithEvent:(SPEvent *)event state:(nullable id<SPTrackerStateSnapshot>)state;
 
 @end
 

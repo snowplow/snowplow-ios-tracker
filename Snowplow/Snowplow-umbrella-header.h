@@ -44,12 +44,14 @@
 #import "SPBackground.h"
 #import "SNOWError.h"
 
-// Global Contexts
+// Global Contexts and State Management
 #import "SPGlobalContext.h"
 #import "SPSchemaRuleset.h"
 #import "SPSchemaRule.h"
+#import "SPTrackerStateSnapshot.h"
+#import "SPState.h"
 
-// Classe to restrict visibility
+// Classes to restrict visibility
 
 #import "SPTracker.h"
 #import "SPEmitter.h"
@@ -61,3 +63,4 @@
 #import "SPMemoryEventStore.h"
 #import "SPDefaultNetworkConnection.h"
 #import "SPGdprContext.h"
+#import "SPStateManager.h"

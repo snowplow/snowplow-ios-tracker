@@ -28,7 +28,6 @@
 #import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSession.h"
-#import "SPScreenState.h"
 #import "SPInstallTracker.h"
 #import "SPGlobalContext.h"
 
@@ -53,20 +52,19 @@
 #import "SPSessionConfiguration.h"
 
 #import "SPServiceProvider.h"
-
 #import "SPTrackerControllerImpl.h"
-
 #import "SPEmitterEventProcessing.h"
+
+#import "SPStateManager.h"
+#import "SPScreenStateMachine.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
 
 @property (class, readwrite, weak) SPTracker *sharedInstance;
-
-@property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
-@property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
-
 @property (nonatomic) SPGdprContext *gdpr;
+
+@property (nonatomic) SPStateManager *stateManager;
 
 /*!
  @brief This method is called to send an auto-tracked screen view event.
@@ -195,8 +193,7 @@ static SPTracker *_sharedInstance = nil;
         _backgroundTimeout = 300;
         _builderFinished = NO;
         self.globalContextGenerators = [NSMutableDictionary dictionary];
-        self.previousScreenState = nil;
-        self.currentScreenState = nil;
+        self.stateManager = [SPStateManager new];
         _exceptionEvents = NO;
         _installEvent = NO;
         _trackerDiagnostic = NO;
@@ -336,7 +333,14 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (void) setScreenContext:(BOOL)screenContext {
-    _screenContext = screenContext;
+    @synchronized (self) {
+        _screenContext = screenContext;
+        if (screenContext) {
+            [self.stateManager addStateMachine:[SPScreenStateMachine new] identifier:@"SPScreenContext"];
+        } else {
+            [self.stateManager removeStateMachine:@"SPScreenContext"];
+        }
+    }
 }
 
 - (void) setApplicationContext:(BOOL)applicationContext {
@@ -527,16 +531,6 @@ static SPTracker *_sharedInstance = nil;
 
 - (void)track:(SPEvent *)event {
     if (!event || !_dataCollection) return;
-    
-    if ([event isKindOfClass:SPScreenView.class]) {
-        @synchronized (_currentScreenState) {
-            SPScreenView *screenView = (SPScreenView *)event;
-            _previousScreenState = _currentScreenState;
-            _currentScreenState = [screenView getScreenState];
-            [screenView updateWithPreviousState: _previousScreenState];
-        }
-    }
-
     [event beginProcessingWithTracker:self];
     [self processEvent:event];
     [event endProcessingWithTracker:self];
@@ -545,7 +539,11 @@ static SPTracker *_sharedInstance = nil;
 #pragma mark - Event Decoration
 
 - (void)processEvent:(SPEvent *)event {
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPTrackerState *stateSnapshot;
+    @synchronized (self) {
+        stateSnapshot = [self.stateManager trackerStateForProcessedEvent:event];
+    }
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event state:stateSnapshot];
     [self transformEvent:trackerEvent];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
@@ -557,6 +555,8 @@ static SPTracker *_sharedInstance = nil;
         event.timestamp = event.trueTimestamp.timeIntervalSince1970 * 1000;
         event.trueTimestamp = nil;
     }
+    // Payload can be optionally updated with values based on internal state
+    [self.stateManager addPayloadValuesToEvent:event];
 }
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
@@ -572,8 +572,8 @@ static SPTracker *_sharedInstance = nil;
     NSMutableArray<SPSelfDescribingJson *> *contexts = event.contexts;
     [self addBasicContextsToContexts:contexts event:event];
     [self addGlobalContextsToContexts:contexts event:event];
+    [self addStateMachineEntitiesToContexts:contexts event:event];
     [self wrapContexts:contexts toPayload:payload];
-
     return payload;
 }
 
@@ -646,18 +646,6 @@ static SPTracker *_sharedInstance = nil;
         }
     }
     
-    // Add screen context
-    if (_screenContext) {
-        @synchronized (_currentScreenState) {
-            if (_currentScreenState) {
-                SPSelfDescribingJson *contextJson = [SPUtilities getScreenContextWithScreenState:_currentScreenState];
-                if (contextJson != nil) {
-                    [contexts addObject:contextJson];
-                }
-            }
-        }
-    }
-    
     // Add GDPR context
     if (self.gdpr) {
         SPSelfDescribingJson *gdprContext = self.gdpr.context;
@@ -671,6 +659,11 @@ static SPTracker *_sharedInstance = nil;
     [self.globalContextGenerators enumerateKeysAndObjectsUsingBlock:^(NSString *key, SPGlobalContext *generator, BOOL *stop) {
         [contexts addObjectsFromArray:[generator contextsFromEvent:event]];
     }];
+}
+
+- (void)addStateMachineEntitiesToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(id<SPInspectableEvent>)event {
+    NSArray<SPSelfDescribingJson *> *stateManagerEntities = [self.stateManager entitiesForProcessedEvent:event];
+    [contexts addObjectsFromArray:stateManagerEntities];
 }
 
 - (void)wrapContexts:(NSArray<SPSelfDescribingJson *> *)contexts toPayload:(SPPayload *)payload {
