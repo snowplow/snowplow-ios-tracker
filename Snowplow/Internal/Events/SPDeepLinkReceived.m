@@ -32,7 +32,7 @@
     NSString * _url;
 }
 
-NSString * const kSPDeepLinkReceivedSchema = @"iglu:com.snowplowanalytics.mobile/deeplink_received/jsonschema/1-0-0";
+NSString * const kSPDeepLinkReceivedSchema = @"iglu:com.snowplowanalytics.mobile/deep_link_received/jsonschema/1-0-0";
 NSString * const kSPDeepLinkReceivedParamReferrer = @"referrer";
 NSString * const kSPDeepLinkReceivedParamUrl = @"url";
 

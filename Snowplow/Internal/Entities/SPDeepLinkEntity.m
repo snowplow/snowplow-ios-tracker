@@ -31,7 +31,7 @@
 
 @implementation SPDeepLinkEntity
 
-NSString * const kSPDeepLinkSchema = @"iglu:com.snowplowanalytics.mobile/deeplink/jsonschema/1-0-0";
+NSString * const kSPDeepLinkSchema = @"iglu:com.snowplowanalytics.mobile/deep_link/jsonschema/1-0-0";
 NSString * const kSPDeepLinkParamReferrer = @"referrer";
 NSString * const kSPDeepLinkParamUrl = @"url";
 
