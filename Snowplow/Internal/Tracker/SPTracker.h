@@ -171,6 +171,14 @@ NS_SWIFT_NAME(TrackerBuilder)
 - (void) setApplicationContext:(BOOL)applicationContext;
 
 /*!
+ @brief Tracker builder method to set whether deepLink contexts will be added to ScreenView events.
+ @deprecated Use `TrackerConfiguration` `deepLinkContext(boolean)`.
+
+ @param deepLinkContext Whether screen contexts are enabled.
+ */
+- (void) setDeepLinkContext:(BOOL)deepLinkContext;
+
+/*!
  @brief Tracker builder method to set whether screen contexts will be added to all events.
  @deprecated Use `TrackerConfiguration` `screenContext(boolean)`.
 
@@ -277,6 +285,7 @@ NS_SWIFT_NAME(Tracker)
 - (BOOL)applicationContext;
 - (BOOL)exceptionEvents;
 - (BOOL)installEvent;
+- (BOOL)deepLinkContext;
 - (BOOL)screenContext;
 - (BOOL)autoTrackScreenView;
 - (BOOL)sessionContext;

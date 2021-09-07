@@ -215,6 +215,16 @@
     return [self.tracker getLifecycleEvents];
 }
 
+- (void)setDeepLinkContext:(BOOL)deepLinkContext {
+    self.dirtyConfig.deepLinkContext = deepLinkContext;
+    self.dirtyConfig.deepLinkContextUpdated = YES;
+    [self.tracker setDeepLinkContext:deepLinkContext];
+}
+
+- (BOOL)deepLinkContext {
+    return [self.tracker deepLinkContext];
+}
+
 - (void)setScreenContext:(BOOL)screenContext {
     self.dirtyConfig.screenContext = screenContext;
     self.dirtyConfig.screenContextUpdated = YES;

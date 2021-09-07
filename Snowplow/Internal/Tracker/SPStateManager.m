@@ -87,7 +87,7 @@
     @synchronized (self) {
         if ([event isKindOfClass:SPSelfDescribingAbstract.class]) {
             SPSelfDescribingAbstract *sdEvent = (SPSelfDescribingAbstract *)event;
-            NSMutableArray<id<SPStateMachineProtocol>> *stateMachines = self.eventSchemaToStateMachine[sdEvent.schema] ?: [NSMutableArray new];
+            NSMutableArray<id<SPStateMachineProtocol>> *stateMachines = self.eventSchemaToStateMachine[sdEvent.schema].mutableCopy ?: [NSMutableArray new];
             [stateMachines addObjectsFromArray:self.eventSchemaToStateMachine[@"*"]];
             for (id<SPStateMachineProtocol> stateMachine in stateMachines) {
                 NSString *stateIdentifier = [self.stateMachineToIdentifier objectForKey:stateMachine];
@@ -115,7 +115,7 @@
 - (NSArray<SPSelfDescribingJson *> *)entitiesForProcessedEvent:(id<SPInspectableEvent>)event {
     @synchronized (self) {
         NSMutableArray<SPSelfDescribingJson *> *result = [NSMutableArray new];
-        NSMutableArray<id<SPStateMachineProtocol>> *stateMachines = self.eventSchemaToEntitiesGenerator[event.schema] ?: [NSMutableArray new];
+        NSMutableArray<id<SPStateMachineProtocol>> *stateMachines = self.eventSchemaToEntitiesGenerator[event.schema].mutableCopy ?: [NSMutableArray new];
         [stateMachines addObjectsFromArray:self.eventSchemaToEntitiesGenerator[@"*"]];
         for (id<SPStateMachineProtocol> stateMachine in stateMachines) {
             NSString *stateIdentifier = [self.stateMachineToIdentifier objectForKey:stateMachine];

@@ -70,6 +70,10 @@ NS_SWIFT_NAME(TrackerConfigurationProtocol)
  */
 @property () BOOL sessionContext;
 /**
+ * Whether deepLink context is sent with all the ScreenView events.
+ */
+@property () BOOL deepLinkContext;
+/**
  * Whether screen context is sent with all the tracked events.
  */
 @property () BOOL screenContext;
@@ -117,6 +121,7 @@ NS_SWIFT_NAME(TrackerConfiguration)
  *         logLevel = LogLevel.OFF;
  *         loggerDelegate = null;
  *         sessionContext = true;
+ *         deepLinkContext = true;
  *         applicationContext = true;
  *         platformContext = true;
  *         geoLocationContext = false;
@@ -169,6 +174,10 @@ SP_BUILDER_DECLARE(BOOL, sessionContext)
  * Whether screen context is sent with all the tracked events.
  */
 SP_BUILDER_DECLARE(BOOL, screenContext)
+/**
+ * Whether deepLink context is sent with all the ScreenView events.
+ */
+SP_BUILDER_DECLARE(BOOL, deepLinkContext)
 /**
  * Whether enable automatic tracking of ScreenView events.
  */

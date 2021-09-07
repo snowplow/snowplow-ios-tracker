@@ -57,6 +57,7 @@
 
 #import "SPStateManager.h"
 #import "SPScreenStateMachine.h"
+#import "SPDeepLinkStateMachine.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
@@ -107,6 +108,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _dataCollection;
     SPSession *            _session;
     BOOL                   _sessionContext;
+    BOOL                   _deepLinkContext;
     BOOL                   _screenContext;
     BOOL                   _applicationContext;
     BOOL                   _autotrackScreenViews;
@@ -134,6 +136,10 @@ static SPTracker *_sharedInstance = nil;
 
 - (BOOL)installEvent {
     return _installEvent;
+}
+
+- (BOOL)deepLinkContext {
+    return _deepLinkContext;
 }
 
 - (BOOL)screenContext {
@@ -329,6 +335,17 @@ static SPTracker *_sharedInstance = nil;
         _session = [[SPSession alloc] initWithForegroundTimeout:_foregroundTimeout
                                            andBackgroundTimeout:_backgroundTimeout
                                                      andTracker:self];
+    }
+}
+
+- (void) setDeepLinkContext:(BOOL)deepLinkContext {
+    @synchronized (self) {
+        _deepLinkContext = deepLinkContext;
+        if (deepLinkContext) {
+            [self.stateManager addStateMachine:[SPDeepLinkStateMachine new] identifier:@"SPDeepLinkContext"];
+        } else {
+            [self.stateManager removeStateMachine:@"SPDeepLinkContext"];
+        }
     }
 }
 
