@@ -47,6 +47,8 @@ NS_SWIFT_NAME(ForegroundBuilder)
 NS_SWIFT_NAME(Foreground)
 @interface SPForeground : SPSelfDescribingAbstract <SPForegroundBuilder>
 
+@property (readonly) NSNumber *index;
+
 + (instancetype)build:(void(^)(id<SPForegroundBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;

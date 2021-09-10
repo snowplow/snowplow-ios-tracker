@@ -1,5 +1,5 @@
 //
-// SPDeepLinkEntity.h
+// SPLifecycleEntity.h
 // Snowplow
 //
 // Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -25,20 +25,20 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
- Entity that indicates a deep-link has been received and processed.
+ Entity that indicates the state of the app is visible (foreground) when the event is tracked.
  */
-NS_SWIFT_NAME(DeepLinkEntity)
-@interface SPDeepLinkEntity : SPSelfDescribingJson
+NS_SWIFT_NAME(LifecycleEntity)
+@interface SPLifecycleEntity : SPSelfDescribingJson
 
-extern NSString * const kSPDeepLinkSchema;
-extern NSString * const kSPDeepLinkParamReferrer;
-extern NSString * const kSPDeepLinkParamUrl;
+extern NSString * const kSPLifecycleEntitySchema;
+extern NSString * const kSPLifecycleEntityParamIndex;
+extern NSString * const kSPLifecycleEntityParamIsVisible;
 
 - (instancetype)init NS_UNAVAILABLE;
 
-- (instancetype)initWithUrl:(NSString *)url;
+- (instancetype)initWithIsVisible:(BOOL)isVisible;
 
-SP_BUILDER_DECLARE_NULLABLE(NSString *, referrer)
+SP_BUILDER_DECLARE_NULLABLE(NSNumber *, index)
 
 @end
 

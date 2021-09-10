@@ -58,6 +58,7 @@
 #import "SPStateManager.h"
 #import "SPScreenStateMachine.h"
 #import "SPDeepLinkStateMachine.h"
+#import "SPLifecycleStateMachine.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
@@ -383,7 +384,14 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (void) setLifecycleEvents:(BOOL)lifecycleEvents {
-    _lifecycleEvents = lifecycleEvents;
+    @synchronized (self) {
+        _lifecycleEvents = lifecycleEvents;
+        if (lifecycleEvents) {
+            [self.stateManager addStateMachine:[SPLifecycleStateMachine new] identifier:@"SPLifecycle"];
+        } else {
+            [self.stateManager removeStateMachine:@"SPLifecycle"];
+        }
+    }
 }
 
 - (void) setExceptionEvents:(BOOL)exceptionEvents {

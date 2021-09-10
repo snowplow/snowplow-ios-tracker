@@ -342,6 +342,30 @@
 		ED34672F26415C1D0018BA61 /* SPJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = ED34672926415C1D0018BA61 /* SPJSONSerialization.m */; };
 		ED34673026415C1D0018BA61 /* SPJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = ED34672926415C1D0018BA61 /* SPJSONSerialization.m */; };
 		ED34673126415C1D0018BA61 /* SPJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = ED34672926415C1D0018BA61 /* SPJSONSerialization.m */; };
+		ED38D91F26EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D91D26EBCD58002AEC8E /* SPLifecycleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED38D92026EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D91D26EBCD58002AEC8E /* SPLifecycleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED38D92126EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D91D26EBCD58002AEC8E /* SPLifecycleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED38D92226EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D91D26EBCD58002AEC8E /* SPLifecycleEntity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED38D92326EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D91E26EBCD59002AEC8E /* SPLifecycleEntity.m */; };
+		ED38D92426EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D91E26EBCD59002AEC8E /* SPLifecycleEntity.m */; };
+		ED38D92526EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D91E26EBCD59002AEC8E /* SPLifecycleEntity.m */; };
+		ED38D92626EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D91E26EBCD59002AEC8E /* SPLifecycleEntity.m */; };
+		ED38D92B26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92726EBCEBE002AEC8E /* SPLifecycleState.h */; };
+		ED38D92C26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92726EBCEBE002AEC8E /* SPLifecycleState.h */; };
+		ED38D92D26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92726EBCEBE002AEC8E /* SPLifecycleState.h */; };
+		ED38D92E26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92726EBCEBE002AEC8E /* SPLifecycleState.h */; };
+		ED38D92F26EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92826EBCEBE002AEC8E /* SPLifecycleStateMachine.m */; };
+		ED38D93026EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92826EBCEBE002AEC8E /* SPLifecycleStateMachine.m */; };
+		ED38D93126EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92826EBCEBE002AEC8E /* SPLifecycleStateMachine.m */; };
+		ED38D93226EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92826EBCEBE002AEC8E /* SPLifecycleStateMachine.m */; };
+		ED38D93326EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92926EBCEBE002AEC8E /* SPLifecycleStateMachine.h */; };
+		ED38D93426EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92926EBCEBE002AEC8E /* SPLifecycleStateMachine.h */; };
+		ED38D93526EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92926EBCEBE002AEC8E /* SPLifecycleStateMachine.h */; };
+		ED38D93626EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = ED38D92926EBCEBE002AEC8E /* SPLifecycleStateMachine.h */; };
+		ED38D93726EBCEBE002AEC8E /* SPLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */; };
+		ED38D93826EBCEBE002AEC8E /* SPLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */; };
+		ED38D93926EBCEBE002AEC8E /* SPLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */; };
+		ED38D93A26EBCEBE002AEC8E /* SPLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */; };
 		ED7CE16626DE39510035C323 /* SPScreenStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = EDAB664F26D69D740067755F /* SPScreenStateMachine.h */; };
 		ED7CE16726DE39530035C323 /* SPScreenStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = EDAB664F26D69D740067755F /* SPScreenStateMachine.h */; };
 		ED7CE16A26DE43A00035C323 /* SPScreenStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAB664E26D69D740067755F /* SPScreenStateMachine.m */; };
@@ -952,6 +976,12 @@
 		ED277BE12625F5C5002C7B6D /* SPFetchedConfigurationBundle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPFetchedConfigurationBundle.m; sourceTree = "<group>"; };
 		ED34672826415C1D0018BA61 /* SPJSONSerialization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPJSONSerialization.h; sourceTree = "<group>"; };
 		ED34672926415C1D0018BA61 /* SPJSONSerialization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPJSONSerialization.m; sourceTree = "<group>"; };
+		ED38D91D26EBCD58002AEC8E /* SPLifecycleEntity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLifecycleEntity.h; sourceTree = "<group>"; };
+		ED38D91E26EBCD59002AEC8E /* SPLifecycleEntity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLifecycleEntity.m; sourceTree = "<group>"; };
+		ED38D92726EBCEBE002AEC8E /* SPLifecycleState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLifecycleState.h; sourceTree = "<group>"; };
+		ED38D92826EBCEBE002AEC8E /* SPLifecycleStateMachine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLifecycleStateMachine.m; sourceTree = "<group>"; };
+		ED38D92926EBCEBE002AEC8E /* SPLifecycleStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLifecycleStateMachine.h; sourceTree = "<group>"; };
+		ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLifecycleState.m; sourceTree = "<group>"; };
 		ED6AC5152369D42800A8F8A3 /* ios.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ios.modulemap; sourceTree = "<group>"; };
 		ED7CE16D26DFB55C0035C323 /* SPTrackerState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerState.h; sourceTree = "<group>"; };
 		ED7CE16E26DFB55C0035C323 /* SPTrackerState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTrackerState.m; sourceTree = "<group>"; };
@@ -1357,6 +1387,8 @@
 		EDAB65D626CD2F970067755F /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				ED38D91D26EBCD58002AEC8E /* SPLifecycleEntity.h */,
+				ED38D91E26EBCD59002AEC8E /* SPLifecycleEntity.m */,
 				EDAB65CC26CBD5150067755F /* SPDeepLinkEntity.h */,
 				EDAB65CD26CBD5150067755F /* SPDeepLinkEntity.m */,
 			);
@@ -1494,6 +1526,10 @@
 				EDAB665526D6AA940067755F /* SPDeepLinkStateMachine.m */,
 				EDAB665E26D6ACCB0067755F /* SPDeepLinkState.h */,
 				EDAB665F26D6ACCB0067755F /* SPDeepLinkState.m */,
+				ED38D92726EBCEBE002AEC8E /* SPLifecycleState.h */,
+				ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */,
+				ED38D92926EBCEBE002AEC8E /* SPLifecycleStateMachine.h */,
+				ED38D92826EBCEBE002AEC8E /* SPLifecycleStateMachine.m */,
 			);
 			path = Tracker;
 			sourceTree = "<group>";
@@ -1628,6 +1664,7 @@
 				CE4F9CBE244B066500968CFC /* SPForeground.h in Headers */,
 				ED88B629257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
 				EDAB664026D699D90067755F /* SPStateFuture.h in Headers */,
+				ED38D91F26EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */,
 				ED7F082A2619199D005D377E /* SPRemoteConfiguration.h in Headers */,
 				ED88B7342587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */,
 				EDF2A1B426402D53009032AB /* SPSubjectController.h in Headers */,
@@ -1678,6 +1715,7 @@
 				CE4F9CF2244B066500968CFC /* SPStructured.h in Headers */,
 				EDD8542A24EFEFE600661F6B /* SPNetworkConnection.h in Headers */,
 				ED88B7912587B5620048FAD1 /* SPNetworkControllerImpl.h in Headers */,
+				ED38D93326EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */,
 				ED8BF8CB25701853001DFDD9 /* SPNetworkConfiguration.h in Headers */,
 				752DAC3E21CC43C70065F874 /* SPRequestCallback.h in Headers */,
 				ED87A42E2577ADFF000C54EB /* SPTrackerControllerImpl.h in Headers */,
@@ -1690,6 +1728,7 @@
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				ED88B6DB2583DFC80048FAD1 /* SPServiceProvider.h in Headers */,
 				EDDD7039264F27E700259404 /* SPNetworkConfigurationUpdate.h in Headers */,
+				ED38D92B26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
 				ED8866E22571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
 				ED7CE17D26DFC12C0035C323 /* SPState.h in Headers */,
 				CE4F9CCA244B066500968CFC /* SPGlobalContext.h in Headers */,
@@ -1750,6 +1789,7 @@
 				75CAC45B21F2A21B00271FB3 /* SPEmitter.h in Headers */,
 				CE4F9D1B244B066500968CFC /* SPEcommerce.h in Headers */,
 				EDDD7012264F1D2100259404 /* SPTrackerConfigurationUpdate.h in Headers */,
+				ED38D92C26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
 				ED7F0841261924BF005D377E /* SPConfigurationFetcher.h in Headers */,
 				75CAC45C21F2A21B00271FB3 /* SPSubject.h in Headers */,
 				EDDD703A264F27E700259404 /* SPNetworkConfigurationUpdate.h in Headers */,
@@ -1774,6 +1814,7 @@
 				CE4F9CE7244B066500968CFC /* SPPushNotification.h in Headers */,
 				EDDD7008264E8ECE00259404 /* SPServiceProviderProtocol.h in Headers */,
 				CE4F9CA7244B066500968CFC /* SPTiming.h in Headers */,
+				ED38D93426EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */,
 				754774C12225FBB90043B814 /* SPScreenState.h in Headers */,
 				75CAC46121F2A21B00271FB3 /* SPUtilities.h in Headers */,
 				EDDD7026264F23C600259404 /* SPGDPRConfigurationUpdate.h in Headers */,
@@ -1800,6 +1841,7 @@
 				ED8BF8CC25701853001DFDD9 /* SPNetworkConfiguration.h in Headers */,
 				ED98972726287F7A00145157 /* SPConfigurationCache.h in Headers */,
 				ED7F082B2619199D005D377E /* SPRemoteConfiguration.h in Headers */,
+				ED38D92026EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */,
 				CE4F9D0F244B066500968CFC /* SPConsentDocument.h in Headers */,
 				EDD8543524EFFFB300661F6B /* SPRequest.h in Headers */,
 				EDD8541724EEC25100661F6B /* SPEmitterEvent.h in Headers */,
@@ -1849,6 +1891,7 @@
 				ED88B62B257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
 				ED88B7932587B5620048FAD1 /* SPNetworkControllerImpl.h in Headers */,
 				ED88B60F257956490048FAD1 /* SPGDPRControllerImpl.h in Headers */,
+				ED38D92126EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */,
 				75CAC42D21F2A0CC00271FB3 /* SPEmitter.h in Headers */,
 				CE4F9CFC244B066500968CFC /* SPEventBase.h in Headers */,
 				ED88B64C257A57F80048FAD1 /* SPGlobalContextsController.h in Headers */,
@@ -1866,6 +1909,7 @@
 				75CAC43721F2A0CC00271FB3 /* SPRequestCallback.h in Headers */,
 				ED34672C26415C1D0018BA61 /* SPJSONSerialization.h in Headers */,
 				ED914EBC24325AB40068DA0A /* SPGdprContext.h in Headers */,
+				ED38D92D26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
 				ED7CE16726DE39530035C323 /* SPScreenStateMachine.h in Headers */,
 				ED8866C025711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				ED88B6DD2583DFC90048FAD1 /* SPServiceProvider.h in Headers */,
@@ -1930,6 +1974,7 @@
 				75CAC43421F2A0CC00271FB3 /* SPRequestResult.h in Headers */,
 				ED87A3DB25765DAE000C54EB /* SPSessionController.h in Headers */,
 				ED88672D2573C1F200DB53BB /* SPSessionConfiguration.h in Headers */,
+				ED38D93526EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */,
 				EDDD7009264E8ECE00259404 /* SPServiceProviderProtocol.h in Headers */,
 				ED8A3EED2371709100E51827 /* SPInstallTracker.h in Headers */,
 				ED8122AC25E9578600AE7FE8 /* SPSnowplow.h in Headers */,
@@ -1949,6 +1994,7 @@
 				CE4F9CC1244B066500968CFC /* SPForeground.h in Headers */,
 				ED88B62C257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
 				EDAB664326D699D90067755F /* SPStateFuture.h in Headers */,
+				ED38D92226EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */,
 				ED7F082D2619199D005D377E /* SPRemoteConfiguration.h in Headers */,
 				ED88B7372587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */,
 				EDF2A1B726402D53009032AB /* SPSubjectController.h in Headers */,
@@ -1999,6 +2045,7 @@
 				CE4F9CF5244B066500968CFC /* SPStructured.h in Headers */,
 				EDD8542D24EFEFE600661F6B /* SPNetworkConnection.h in Headers */,
 				ED88B7942587B5620048FAD1 /* SPNetworkControllerImpl.h in Headers */,
+				ED38D93626EBCEBE002AEC8E /* SPLifecycleStateMachine.h in Headers */,
 				ED8BF8CE25701853001DFDD9 /* SPNetworkConfiguration.h in Headers */,
 				75F9C5EE21FA35BC00A5B8FC /* SPUtilities.h in Headers */,
 				ED87A4312577ADFF000C54EB /* SPTrackerControllerImpl.h in Headers */,
@@ -2011,6 +2058,7 @@
 				ED88B6DE2583DFC90048FAD1 /* SPServiceProvider.h in Headers */,
 				ED8866E52571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
 				EDDD703C264F27E700259404 /* SPNetworkConfigurationUpdate.h in Headers */,
+				ED38D92E26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
 				CE4F9CCD244B066500968CFC /* SPGlobalContext.h in Headers */,
 				ED7CE18026DFC12C0035C323 /* SPState.h in Headers */,
 				CE4F9CD9244B066500968CFC /* SPScreenView.h in Headers */,
@@ -2394,9 +2442,11 @@
 				EDAB665A26D6AA940067755F /* SPDeepLinkStateMachine.m in Sources */,
 				752DAC1921CC42BC0065F874 /* SPTracker.m in Sources */,
 				EDAB65D226CBD5150067755F /* SPDeepLinkEntity.m in Sources */,
+				ED38D92326EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */,
 				EDD8543824EFFFB300661F6B /* SPRequest.m in Sources */,
 				EDDD703D264F27E700259404 /* SPNetworkConfigurationUpdate.m in Sources */,
 				CE4F9CC2244B066500968CFC /* SPConsentGranted.m in Sources */,
+				ED38D92F26EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */,
 				ED7F0844261924BF005D377E /* SPConfigurationFetcher.m in Sources */,
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
 				ED7CE17326DFB55C0035C323 /* SPTrackerState.m in Sources */,
@@ -2429,6 +2479,7 @@
 				ED852B2F23A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
 				752DAC2921CC42BC0065F874 /* SPRequestResult.m in Sources */,
 				752DAC2B21CC42BC0065F874 /* SPWeakTimerTarget.m in Sources */,
+				ED38D93726EBCEBE002AEC8E /* SPLifecycleState.m in Sources */,
 				ED87A4322577ADFF000C54EB /* SPTrackerControllerImpl.m in Sources */,
 				CE4F9C8A244B066500968CFC /* SPConsentDocument.m in Sources */,
 				EDAB663C26D699D90067755F /* SPStateManager.m in Sources */,
@@ -2508,6 +2559,7 @@
 				ED7F0845261924BF005D377E /* SPConfigurationFetcher.m in Sources */,
 				ED88670325715DD600DB53BB /* SPConfiguration.m in Sources */,
 				ED8867302573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
+				ED38D93026EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */,
 				ED88B5AC25792C620048FAD1 /* SPEmitterControllerImpl.m in Sources */,
 				CE4F9CC3244B066500968CFC /* SPConsentGranted.m in Sources */,
 				CE4F9CF7244B066500968CFC /* SPEventBase.m in Sources */,
@@ -2533,6 +2585,7 @@
 				EDB2FD1E26C130B80031B872 /* SPDataPersistence.m in Sources */,
 				EDD8541B24EEC25100661F6B /* SPEmitterEvent.m in Sources */,
 				EDDD7016264F1D2100259404 /* SPTrackerConfigurationUpdate.m in Sources */,
+				ED38D93826EBCEBE002AEC8E /* SPLifecycleState.m in Sources */,
 				ED34672F26415C1D0018BA61 /* SPJSONSerialization.m in Sources */,
 				75CAC44021F2A17500271FB3 /* SPSelfDescribingJson.m in Sources */,
 				CE4F9CCF244B066500968CFC /* SNOWError.m in Sources */,
@@ -2557,6 +2610,7 @@
 				EDB693FF26B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				CE4F9CD3244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				EDF2A1BF264032F9009032AB /* SPSubjectControllerImpl.m in Sources */,
+				ED38D92426EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */,
 				ED91CB7223AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
 				CE4F9C97244B066500968CFC /* SPEcommerceItem.m in Sources */,
 				ED88B62E257A3FE60048FAD1 /* SPGlobalContextsConfiguration.m in Sources */,
@@ -2597,6 +2651,7 @@
 				ED7F0846261924BF005D377E /* SPConfigurationFetcher.m in Sources */,
 				ED88670425715DD600DB53BB /* SPConfiguration.m in Sources */,
 				ED8867312573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
+				ED38D93126EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */,
 				ED88B5AD25792C620048FAD1 /* SPEmitterControllerImpl.m in Sources */,
 				CE4F9CC4244B066500968CFC /* SPConsentGranted.m in Sources */,
 				CE4F9CF8244B066500968CFC /* SPEventBase.m in Sources */,
@@ -2622,6 +2677,7 @@
 				EDB2FD1F26C130B80031B872 /* SPDataPersistence.m in Sources */,
 				EDD8541C24EEC25100661F6B /* SPEmitterEvent.m in Sources */,
 				EDDD7017264F1D2100259404 /* SPTrackerConfigurationUpdate.m in Sources */,
+				ED38D93926EBCEBE002AEC8E /* SPLifecycleState.m in Sources */,
 				ED34673026415C1D0018BA61 /* SPJSONSerialization.m in Sources */,
 				75CAC44C21F2A19500271FB3 /* SPSession.m in Sources */,
 				CE4F9CD0244B066500968CFC /* SNOWError.m in Sources */,
@@ -2646,6 +2702,7 @@
 				EDB6940026B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				CE4F9CD4244B066500968CFC /* SPTrackerEvent.m in Sources */,
 				EDF2A1C0264032F9009032AB /* SPSubjectControllerImpl.m in Sources */,
+				ED38D92526EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */,
 				ED852B3023A0E90E00F2DF6B /* SNOWReachability.m in Sources */,
 				CE4F9C98244B066500968CFC /* SPEcommerceItem.m in Sources */,
 				ED88B62F257A3FE60048FAD1 /* SPGlobalContextsConfiguration.m in Sources */,
@@ -2694,6 +2751,7 @@
 				EDAB665126D69D740067755F /* SPScreenStateMachine.m in Sources */,
 				EDDD7036264F25A200259404 /* SPSessionConfigurationUpdate.m in Sources */,
 				ED8BF8BA25700B40001DFDD9 /* SPTrackerConfiguration.m in Sources */,
+				ED38D93226EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */,
 				EDEE836124BE0944000B8530 /* SPLogger.m in Sources */,
 				ED7F0847261924BF005D377E /* SPConfigurationFetcher.m in Sources */,
 				ED88B5702578F8820048FAD1 /* SPEmitterConfiguration.m in Sources */,
@@ -2719,6 +2777,7 @@
 				EDB2FD2026C130B80031B872 /* SPDataPersistence.m in Sources */,
 				75F9C5D921FA357100A5B8FC /* SPSubject.m in Sources */,
 				EDDD7018264F1D2100259404 /* SPTrackerConfigurationUpdate.m in Sources */,
+				ED38D93A26EBCEBE002AEC8E /* SPLifecycleState.m in Sources */,
 				CE4F9D21244B066500968CFC /* SPEcommerce.m in Sources */,
 				75F9C5DA21FA357100A5B8FC /* SPSession.m in Sources */,
 				CE4F9CD1244B066500968CFC /* SNOWError.m in Sources */,
@@ -2743,6 +2802,7 @@
 				EDB6940126B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				ED98971D2627006F00145157 /* NSDictionary+SP_TypeMethods.m in Sources */,
 				CE4F9D01244B066500968CFC /* SPBackground.m in Sources */,
+				ED38D92626EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */,
 				ED8867322573C1F200DB53BB /* SPSessionConfiguration.m in Sources */,
 				EDEE835224BDB326000B8530 /* SPTrackerError.m in Sources */,
 				ED8BF8D225701853001DFDD9 /* SPNetworkConfiguration.m in Sources */,
