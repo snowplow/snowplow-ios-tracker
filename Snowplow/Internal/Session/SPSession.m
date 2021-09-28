@@ -107,7 +107,7 @@
         [self startChecker];
 
         // Trigger notification for view changes
-        #if SNOWPLOW_TARGET_IOS
+        #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(updateInBackground)
                                                      name:UIApplicationWillResignActiveNotification
