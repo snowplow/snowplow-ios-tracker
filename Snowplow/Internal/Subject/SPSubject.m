@@ -110,14 +110,22 @@
 }
 
 - (SPPayload *) getPlatformDict {
-    return _platformDict;
+    if (self.platformContext) {
+        return _platformDict;
+    } else {
+        return nil;
+    }
 }
 
 - (NSDictionary *) getGeoLocationDict {
-    if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
-        return _geoLocationDict;
+    if (self.geoLocationContext) {
+        if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
+            return _geoLocationDict;
+        } else {
+            SPLogDebug(@"GeoLocation missing required fields; cannot get.");
+            return nil;
+        }
     } else {
-        SPLogDebug(@"GeoLocation missing required fields; cannot get.");
         return nil;
     }
 }
