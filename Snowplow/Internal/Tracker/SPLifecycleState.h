@@ -1,6 +1,6 @@
 //
-// SPDeepLinkEntity.h
-// Snowplow
+//  SPLifecycleState.h
+//  Snowplow
 //
 // Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
 //
@@ -19,28 +19,19 @@
 // License: Apache License Version 2.0
 //
 
-#import "SPEventBase.h"
-#import "SPSelfDescribingJson.h"
+#import <Foundation/Foundation.h>
+#import "SPStateMachineProtocol.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Entity that indicates a deep-link has been received and processed.
- */
-NS_SWIFT_NAME(DeepLinkEntity)
-@interface SPDeepLinkEntity : SPSelfDescribingJson
+@interface SPLifecycleState : NSObject <SPState>
 
-extern NSString * const kSPDeepLinkSchema;
-extern NSString * const kSPDeepLinkParamReferrer;
-extern NSString * const kSPDeepLinkParamUrl;
+@property (readonly) BOOL isForeground;
+@property (readonly, nullable) NSNumber *index;
 
-- (instancetype)init NS_UNAVAILABLE;
-
-- (instancetype)initWithUrl:(NSString *)url;
-
-SP_BUILDER_DECLARE_NULLABLE(NSString *, referrer)
+- (instancetype)initAsForegroundWithIndex:(nullable NSNumber *)index;
+- (instancetype)initAsBackgroundWithIndex:(nullable NSNumber *)index;
 
 @end
-
 
 NS_ASSUME_NONNULL_END
