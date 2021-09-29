@@ -171,11 +171,6 @@ NS_SWIFT_NAME(Subject)
 - (void) setStandardDict;
 
 /*!
- @brief Optional mobile/desktop context, if selected will be automatically populated on object creation.
- */
-- (void) setPlatformDict;
-
-/*!
  @brief Optional geolocation context, if run will allocate memory for the geolocation context
  */
 - (void) setGeoDict;

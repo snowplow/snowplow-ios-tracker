@@ -25,12 +25,13 @@
 #import "SPPayload.h"
 #import "SPUtilities.h"
 #import "SPLogger.h"
+#import "SPPlatformContext.h"
 
 
 @implementation SPSubject {
-    SPPayload *           _standardDict;
-    SPPayload *           _platformDict;
-    NSMutableDictionary * _geoLocationDict;
+    SPPayload *                _standardDict;
+    SPPlatformContext *        _platformDict;
+    NSMutableDictionary *      _geoLocationDict;
 }
 
 #pragma clang diagnostic push
@@ -49,8 +50,8 @@
         self.platformContext = platformContext;
         self.geoLocationContext = geoContext;
         _standardDict = [[SPPayload alloc] init];
+        _platformDict = [[SPPlatformContext alloc] init];
         [self setStandardDict];
-        [self setPlatformDict];
         [self setGeoDict];
         if (config) {
             if (config.userId) [self setUserId:config.userId];
@@ -111,7 +112,7 @@
 
 - (SPPayload *) getPlatformDict {
     if (self.platformContext) {
-        return _platformDict;
+        return [_platformDict fetchPlatformDict];
     } else {
         return nil;
     }
@@ -193,27 +194,6 @@
 - (void) setDomainUserId:(NSString *)duid {
     _domainUserId = duid;
     [_standardDict addValueToPayload:duid forKey:kSPDomainUid];
-}
-
-// MARK: - Platform Dictionary
-
-- (void) setPlatformDict {
-    _platformDict = [[SPPayload alloc] init];
-    [_platformDict addValueToPayload:[SPUtilities getOSType]            forKey:kSPPlatformOsType];
-    [_platformDict addValueToPayload:[SPUtilities getOSVersion]         forKey:kSPPlatformOsVersion];
-    [_platformDict addValueToPayload:[SPUtilities getDeviceVendor]      forKey:kSPPlatformDeviceManu];
-    [_platformDict addValueToPayload:[SPUtilities getDeviceModel]       forKey:kSPPlatformDeviceModel];
-#if SNOWPLOW_TARGET_IOS
-    [self setMobileDict];
-#endif
-}
-
-- (void) setMobileDict {
-    [_platformDict addValueToPayload:[SPUtilities getCarrierName]       forKey:kSPMobileCarrier];
-    [_platformDict addValueToPayload:[SPUtilities getAppleIdfa]         forKey:kSPMobileAppleIdfa];
-    [_platformDict addValueToPayload:[SPUtilities getAppleIdfv]         forKey:kSPMobileAppleIdfv];
-    [_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];
-    [_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
 }
 
 // MARK: - GeoLocation Dictionary

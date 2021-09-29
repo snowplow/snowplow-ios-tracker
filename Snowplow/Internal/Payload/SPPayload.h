@@ -48,6 +48,13 @@ NS_SWIFT_NAME(Payload)
 - (void) addValueToPayload:(NSString *)value forKey:(NSString *)key;
 
 /**
+ *  Adds a simple name-value pair into the SPPayload intance.
+ *  @param value A NSNumber value
+ *  @param key A key of type NSString
+ */
+- (void) addNumericValueToPayload:(NSNumber *)value forKey:(NSString *)key;
+
+/**
  *  Adds a dictionary of attributes to be appended into the SPPayload instance. It does NOT overwrite the existing data in the object.
  *  All attribute values must be NSString types to be added; all others are discarded.
  *  @param dict An object of NSDictionary.

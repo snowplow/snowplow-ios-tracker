@@ -63,6 +63,20 @@
     }
 }
 
+- (void) addNumericValueToPayload:(NSNumber *)value forKey:(NSString *)key {
+    if (value == nil) {
+        @synchronized (self) {
+            if ([_payload valueForKey:key] != nil) {
+                [_payload removeObjectForKey:key];
+            }
+        }
+        return;
+    }
+    @synchronized (self) {
+        [_payload setObject:value forKey:key];
+    }
+}
+
 - (void)addDictionaryToPayload:(NSDictionary<NSString *, NSObject *> *)dictionary {
     if (!dictionary) return;
     [dictionary.copy enumerateKeysAndObjectsUsingBlock:^(id key, id value, BOOL* stop) {

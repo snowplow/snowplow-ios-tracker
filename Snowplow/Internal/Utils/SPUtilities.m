@@ -36,6 +36,11 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <SystemConfiguration/SystemConfiguration.h>
 #import "SNOWReachability.h"
+#include <sys/mount.h>
+#if __has_include(<os/proc.h>)
+#import <os/proc.h>
+#define __HAS_OS_PROC_H__
+#endif
 
 #elif SNOWPLOW_TARGET_OSX
 
@@ -494,6 +499,83 @@
 
 + (NSString *) getAppBuild {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];
+}
+
++ (NSNumber *) getBatteryLevel {
+#if SNOWPLOW_TARGET_IOS
+    float batteryLevel = [[UIDevice currentDevice] batteryLevel];
+    if (batteryLevel != UIDeviceBatteryStateUnknown && batteryLevel >= 0) {
+        return [[NSNumber alloc] initWithInt: (int) (batteryLevel * 100)];
+    }
+#endif
+    return nil;
+}
+
++ (NSString *) getBatteryState {
+#if SNOWPLOW_TARGET_IOS
+    switch ([[UIDevice currentDevice] batteryState]) {
+        case UIDeviceBatteryStateCharging:
+            return @"charging";
+        case UIDeviceBatteryStateFull:
+            return @"full";
+        case UIDeviceBatteryStateUnplugged:
+            return @"unplugged";
+        default:
+            return nil;
+    }
+#else
+    return nil;
+#endif
+}
+
++ (NSNumber *) isLowPowerModeEnabled {
+#if SNOWPLOW_TARGET_IOS
+    bool isEnabled = [[NSProcessInfo processInfo] isLowPowerModeEnabled];
+    return [[NSNumber alloc] initWithBool:isEnabled];
+#else
+    return nil;
+#endif
+}
+
++ (NSNumber *) getPhysicalMemory {
+    unsigned long long physicalMemory = [[NSProcessInfo processInfo] physicalMemory];
+    return [[NSNumber alloc] initWithUnsignedLongLong:physicalMemory];
+}
+
++ (NSNumber *) getAppAvailableMemory {
+#if SNOWPLOW_TARGET_IOS
+#ifdef __HAS_OS_PROC_H__
+    if (@available(iOS 13.0, *)) {
+        unsigned long availableMemory = os_proc_available_memory();
+        return [[NSNumber alloc] initWithUnsignedLong:availableMemory];
+    }
+#endif
+#endif
+    return nil;
+}
+
++ (NSNumber *) getAvailableStorage {
+#if SNOWPLOW_TARGET_IOS
+    struct statfs tStats;
+    if (statfs([NSHomeDirectory() UTF8String], &tStats) == 0) {
+        return [[NSNumber alloc] initWithUnsignedLongLong: tStats.f_bavail * tStats.f_bsize];
+    } else {
+        SPLogError(@"Failed to read available storage size");
+    }
+#endif
+    return nil;
+}
+
++ (NSNumber *) getTotalStorage {
+#if SNOWPLOW_TARGET_IOS
+    struct statfs tStats;
+    if (statfs([NSHomeDirectory() UTF8String], &tStats) == 0) {
+        return [[NSNumber alloc] initWithUnsignedLongLong: tStats.f_blocks * tStats.f_bsize];
+    } else {
+        SPLogError(@"Failed to read total storage size");
+    }
+#endif
+    return nil;
 }
 
 @end

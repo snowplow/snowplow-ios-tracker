@@ -298,4 +298,53 @@
  */
 + (SPSelfDescribingJson *) getApplicationContextWithVersion:(NSString *)version andBuild:(NSString *)build;
 
+/*!
+ @brief Returns remaining battery level as an integer percentage of total battery capacity.
+ 
+ @return Battery level.
+ */
++ (NSNumber *) getBatteryLevel;
+
+/*!
+ @brief Returns battery state for the device.
+ 
+ @return One of "charging", "full", "unplugged" or NULL
+ */
++ (NSString *) getBatteryState;
+
+/*!
+ @brief Returns whether low power mode is activated.
+ 
+ @return Boolean indicating the state of low power mode.
+ */
++ (NSNumber *) isLowPowerModeEnabled;
+
+/*!
+ @brief Returns total physical system memory in bytes.
+ 
+ @return Total physical system memory in bytes.
+ */
++ (NSNumber *) getPhysicalMemory;
+
+/*!
+ @brief Returns the amount of memory in bytes available to the current app (iOS 13+).
+ 
+ @return Amount of memory in bytes available to the current app (or 0 if not supported).
+ */
++ (NSNumber *) getAppAvailableMemory;
+
+/*!
+ @brief Returns number of bytes of storage remaining. The information is requested from the home directory.
+ 
+ @return Bytes of storage remaining.
+ */
++ (NSNumber *) getAvailableStorage;
+
+/*!
+ @brief Returns the total number of bytes of storage. The information is requested from the home directory.
+ 
+ @return Total size of storage in bytes.
+ */
++ (NSNumber *) getTotalStorage;
+
 @end

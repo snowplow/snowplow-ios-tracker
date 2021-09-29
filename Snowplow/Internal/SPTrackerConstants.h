@@ -145,6 +145,13 @@ extern NSString * const kSPMobileAppleIdfa;
 extern NSString * const kSPMobileAppleIdfv;
 extern NSString * const kSPMobileNetworkType;
 extern NSString * const kSPMobileNetworkTech;
+extern NSString * const kSPMobilePhysicalMemory;
+extern NSString * const kSPMobileAppAvailableMemory;
+extern NSString * const kSPMobileBatteryLevel;
+extern NSString * const kSPMobileBatteryState;
+extern NSString * const kSPMobileLowPowerMode;
+extern NSString * const kSPMobileAvailableStorage;
+extern NSString * const kSPMobileTotalStorage;
 
 // --- Application Context
 extern NSString * const kSPApplicationVersion;
