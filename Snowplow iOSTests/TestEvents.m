@@ -80,6 +80,39 @@
     XCTAssertEqualObjects(expected, deviceTimestamp);
 }
 
+- (void)testWorkaroundForCampaignAttributionEnrichment {
+    // Prepare DeepLinkReceived event
+    SPDeepLinkReceived *event = [[SPDeepLinkReceived alloc] initWithUrl:@"url"];
+    event.referrer = @"referrer";
+    
+    // Setup tracker
+    SPTrackerConfiguration *trackerConfiguration = [SPTrackerConfiguration new];
+    trackerConfiguration.base64Encoding = NO;
+    trackerConfiguration.installAutotracking = NO;
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+
+    // Track event
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    
+    // Check url and referrer fields
+    NSString *url = (NSString *)[[payload getAsDictionary] objectForKey:kSPPageUrl];
+    NSString *referrer = (NSString *)[[payload getAsDictionary] objectForKey:kSPPageRefr];
+    XCTAssertEqualObjects(url, @"url");
+    XCTAssertEqualObjects(referrer, @"referrer");
+}
+
 - (void)testPageView {
     // Valid construction
     SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];

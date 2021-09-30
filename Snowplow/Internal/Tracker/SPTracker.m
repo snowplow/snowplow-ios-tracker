@@ -44,6 +44,7 @@
 #import "SPForeground.h"
 #import "SPBackground.h"
 #import "SPPushNotification.h"
+#import "SPDeepLinkReceived.h"
 #import "SPTrackerEvent.h"
 #import "SPTrackerError.h"
 #import "SPLogger.h"
@@ -623,6 +624,9 @@ static SPTracker *_sharedInstance = nil;
 
 - (void)addSelfDescribingPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
     [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
+
+    [self workaroundForCampaignAttributionEnrichment:payload event:event]; // TODO: To remove when Atomic table refactoring is finished
+    
     SPSelfDescribingJson *data = [[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload];
     NSDictionary *unstructuredEventPayload = @{
         kSPSchema: kSPUnstructSchema,
@@ -632,6 +636,24 @@ static SPTracker *_sharedInstance = nil;
                       base64Encoded:_base64Encoded
                     typeWhenEncoded:kSPUnstructuredEncoded
                  typeWhenNotEncoded:kSPUnstructured];
+}
+
+/*
+ This is needed because the campaign-attribution-enrichment (in the pipeline) is able to parse
+ the `url` and `referrer` only if they are part of a PageView event.
+ The PageView event is an atomic event but the DeepLinkReceived is a SelfDescribing event.
+ For this reason we copy these two fields in the atomic fields in order to let the enrichment
+ to process correctly the fields even if the event is not a PageView and it's a SelfDescribing event.
+ This is a hack that should be removed once the atomic event table is dismissed and all the events
+ will be SelfDescribing.
+ */
+- (void)workaroundForCampaignAttributionEnrichment:(SPPayload *)payload event:(SPTrackerEvent *)event {
+    if ([event.schema isEqualToString:kSPDeepLinkReceivedSchema]) {
+        NSString *url = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamUrl];
+        NSString *referrer = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamReferrer];
+        [payload addValueToPayload:url forKey:kSPPageUrl];
+        [payload addValueToPayload:referrer forKey:kSPPageRefr];
+    }
 }
 
 - (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(SPTrackerEvent *)event {
