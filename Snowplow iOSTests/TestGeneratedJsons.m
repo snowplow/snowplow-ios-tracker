@@ -309,6 +309,21 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     XCTAssertTrue([validator validateJson:sdj]);
 }
 
+- (void)testMessageNotificationEventJson {
+    NSDictionary *userInfo = @{@"aps":
+                                    @{@"alert":
+                                          @{@"title": @"test title",
+                                            @"body": @"test",
+                                            @"loc-key": @"test key"
+                                            },
+                                      @"content-available": @0
+                                          }
+                                    };
+    SPMessageNotification *event = [SPMessageNotification messageNotificationWithUserInfo:userInfo defaultTitle:nil defaultBody:nil];
+    NSDictionary *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    XCTAssertTrue([validator validateJson:sdj]);
+}
+
 - (void)testApplicationInstallJson {
     SPSelfDescribingJson *installEvent = [[SPSelfDescribingJson alloc] initWithSchema:kSPApplicationInstallSchema andData:@{}];
     NSDictionary<NSString *, NSObject *> *json = [installEvent getAsDictionary];

@@ -30,6 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 /*!
  @protocol SPPushNotificationBuilder
  @brief The protocol for building push notification events.
+ @deprecated This is available only on iOS. Please, use MessageNotification instead, which is available for both iOS and Android trackers.
  */
 NS_SWIFT_NAME(PushNotificationBuilder)
 @protocol SPPushNotificationBuilder <SPEventBuilder>
@@ -144,6 +145,7 @@ NS_SWIFT_NAME(NotificationContentBuilder)
 /*!
  @class SPPushNotification
  @brief A push notification event.
+ @deprecated This is available only on iOS. Please, use MessageNotification instead, which is available for both iOS and Android trackers.
  */
 NS_SWIFT_NAME(PushNotification)
 @interface SPPushNotification : SPSelfDescribingAbstract <SPPushNotificationBuilder>

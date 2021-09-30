@@ -392,6 +392,14 @@
 		ED38D93826EBCEBE002AEC8E /* SPLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */; };
 		ED38D93926EBCEBE002AEC8E /* SPLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */; };
 		ED38D93A26EBCEBE002AEC8E /* SPLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */; };
+		ED6B0329271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = ED6B0327271094D700EFA12B /* SPMessageNotificationAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED6B032A271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = ED6B0327271094D700EFA12B /* SPMessageNotificationAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED6B032B271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = ED6B0327271094D700EFA12B /* SPMessageNotificationAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED6B032C271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */ = {isa = PBXBuildFile; fileRef = ED6B0327271094D700EFA12B /* SPMessageNotificationAttachment.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED6B032D271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6B0328271094D700EFA12B /* SPMessageNotificationAttachment.m */; };
+		ED6B032E271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6B0328271094D700EFA12B /* SPMessageNotificationAttachment.m */; };
+		ED6B032F271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6B0328271094D700EFA12B /* SPMessageNotificationAttachment.m */; };
+		ED6B0330271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = ED6B0328271094D700EFA12B /* SPMessageNotificationAttachment.m */; };
 		ED7CE16626DE39510035C323 /* SPScreenStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = EDAB664F26D69D740067755F /* SPScreenStateMachine.h */; };
 		ED7CE16726DE39530035C323 /* SPScreenStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = EDAB664F26D69D740067755F /* SPScreenStateMachine.h */; };
 		ED7CE16A26DE43A00035C323 /* SPScreenStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAB664E26D69D740067755F /* SPScreenStateMachine.m */; };
@@ -607,6 +615,14 @@
 		ED8BF8D125701853001DFDD9 /* SPNetworkConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8BF8CA25701853001DFDD9 /* SPNetworkConfiguration.m */; };
 		ED8BF8D225701853001DFDD9 /* SPNetworkConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8BF8CA25701853001DFDD9 /* SPNetworkConfiguration.m */; };
 		ED8BF8ED2570FB2F001DFDD9 /* TestTrackerConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = ED8BF8EC2570FB2F001DFDD9 /* TestTrackerConfiguration.m */; };
+		ED9081B12703747C00EE9421 /* SPMessageNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9081AF2703747B00EE9421 /* SPMessageNotification.m */; };
+		ED9081B22703747C00EE9421 /* SPMessageNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9081AF2703747B00EE9421 /* SPMessageNotification.m */; };
+		ED9081B32703747C00EE9421 /* SPMessageNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9081AF2703747B00EE9421 /* SPMessageNotification.m */; };
+		ED9081B42703747C00EE9421 /* SPMessageNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9081AF2703747B00EE9421 /* SPMessageNotification.m */; };
+		ED9081B52703747C00EE9421 /* SPMessageNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED9081B02703747C00EE9421 /* SPMessageNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED9081B62703747C00EE9421 /* SPMessageNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED9081B02703747C00EE9421 /* SPMessageNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED9081B72703747C00EE9421 /* SPMessageNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED9081B02703747C00EE9421 /* SPMessageNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED9081B82703747C00EE9421 /* SPMessageNotification.h in Headers */ = {isa = PBXBuildFile; fileRef = ED9081B02703747C00EE9421 /* SPMessageNotification.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED914EB52431FEE70068DA0A /* TestGlobalContexts.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */; };
 		ED914EB72432081F0068DA0A /* TestSchemaRuleset.m in Sources */ = {isa = PBXBuildFile; fileRef = ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */; };
 		ED914EBA24325AB40068DA0A /* SPGdprContext.h in Headers */ = {isa = PBXBuildFile; fileRef = ED914EB824325AB40068DA0A /* SPGdprContext.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1017,6 +1033,8 @@
 		ED38D92926EBCEBE002AEC8E /* SPLifecycleStateMachine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPLifecycleStateMachine.h; sourceTree = "<group>"; };
 		ED38D92A26EBCEBE002AEC8E /* SPLifecycleState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPLifecycleState.m; sourceTree = "<group>"; };
 		ED6AC5152369D42800A8F8A3 /* ios.modulemap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = ios.modulemap; sourceTree = "<group>"; };
+		ED6B0327271094D700EFA12B /* SPMessageNotificationAttachment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMessageNotificationAttachment.h; sourceTree = "<group>"; };
+		ED6B0328271094D700EFA12B /* SPMessageNotificationAttachment.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMessageNotificationAttachment.m; sourceTree = "<group>"; };
 		ED7CE16D26DFB55C0035C323 /* SPTrackerState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerState.h; sourceTree = "<group>"; };
 		ED7CE16E26DFB55C0035C323 /* SPTrackerState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPTrackerState.m; sourceTree = "<group>"; };
 		ED7CE17726DFBFA30035C323 /* SPTrackerStateSnapshot.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPTrackerStateSnapshot.h; sourceTree = "<group>"; };
@@ -1073,6 +1091,8 @@
 		ED8BF8C925701853001DFDD9 /* SPNetworkConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPNetworkConfiguration.h; sourceTree = "<group>"; };
 		ED8BF8CA25701853001DFDD9 /* SPNetworkConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPNetworkConfiguration.m; sourceTree = "<group>"; };
 		ED8BF8EC2570FB2F001DFDD9 /* TestTrackerConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestTrackerConfiguration.m; sourceTree = "<group>"; };
+		ED9081AF2703747B00EE9421 /* SPMessageNotification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPMessageNotification.m; sourceTree = "<group>"; };
+		ED9081B02703747C00EE9421 /* SPMessageNotification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPMessageNotification.h; sourceTree = "<group>"; };
 		ED914EB42431FEE70068DA0A /* TestGlobalContexts.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestGlobalContexts.m; sourceTree = "<group>"; };
 		ED914EB62432081F0068DA0A /* TestSchemaRuleset.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestSchemaRuleset.m; sourceTree = "<group>"; };
 		ED914EB824325AB40068DA0A /* SPGdprContext.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPGdprContext.h; sourceTree = "<group>"; };
@@ -1459,6 +1479,10 @@
 				CE4F9C7B244B066400968CFC /* SPEventBase.m */,
 				CE4F9C6D244B066400968CFC /* SPForeground.h */,
 				CE4F9C62244B066400968CFC /* SPForeground.m */,
+				ED9081B02703747C00EE9421 /* SPMessageNotification.h */,
+				ED9081AF2703747B00EE9421 /* SPMessageNotification.m */,
+				ED6B0327271094D700EFA12B /* SPMessageNotificationAttachment.h */,
+				ED6B0328271094D700EFA12B /* SPMessageNotificationAttachment.m */,
 				CE4F9C66244B066400968CFC /* SPPageView.h */,
 				CE4F9C74244B066400968CFC /* SPPageView.m */,
 				CE4F9C77244B066400968CFC /* SPPushNotification.h */,
@@ -1706,6 +1730,7 @@
 				CE4F9CBE244B066500968CFC /* SPForeground.h in Headers */,
 				ED88B629257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
 				EDAB664026D699D90067755F /* SPStateFuture.h in Headers */,
+				ED6B0329271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */,
 				ED38D91F26EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */,
 				ED7F082A2619199D005D377E /* SPRemoteConfiguration.h in Headers */,
 				ED88B7342587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */,
@@ -1805,6 +1830,7 @@
 				CE4F9D1A244B066500968CFC /* SPEcommerce.h in Headers */,
 				EDDD7043264F2A8800259404 /* SPEmitterConfigurationUpdate.h in Headers */,
 				ED98972626287F7A00145157 /* SPConfigurationCache.h in Headers */,
+				ED9081B52703747C00EE9421 /* SPMessageNotification.h in Headers */,
 				EDD8540C24EE786900661F6B /* SPEventStore.h in Headers */,
 				CE4F9CAE244B066500968CFC /* SPConsentWithdrawn.h in Headers */,
 				EDAB666026D6ACCB0067755F /* SPDeepLinkState.h in Headers */,
@@ -1837,6 +1863,7 @@
 				EDDD7012264F1D2100259404 /* SPTrackerConfigurationUpdate.h in Headers */,
 				ED38D92C26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
 				ED7F0841261924BF005D377E /* SPConfigurationFetcher.h in Headers */,
+				ED6B032A271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */,
 				75CAC45C21F2A21B00271FB3 /* SPSubject.h in Headers */,
 				EDDD703A264F27E700259404 /* SPNetworkConfigurationUpdate.h in Headers */,
 				ED88B669257A5A520048FAD1 /* SPGlobalContextsControllerImpl.h in Headers */,
@@ -1847,6 +1874,7 @@
 				75CAC45F21F2A21B00271FB3 /* SPSelfDescribingJson.h in Headers */,
 				EDAB665726D6AA940067755F /* SPDeepLinkStateMachine.h in Headers */,
 				EDFEEAC823A7CB2A001E6D03 /* SPInstallTracker.h in Headers */,
+				ED9081B62703747C00EE9421 /* SPMessageNotification.h in Headers */,
 				ED8866BF25711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				ED88B6DC2583DFC80048FAD1 /* SPServiceProvider.h in Headers */,
 				ED277BD32625F220002C7B6D /* SPConfigurationBundle.h in Headers */,
@@ -1939,6 +1967,7 @@
 				ED88B62B257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
 				ED88B7932587B5620048FAD1 /* SPNetworkControllerImpl.h in Headers */,
 				ED88B60F257956490048FAD1 /* SPGDPRControllerImpl.h in Headers */,
+				ED9081B72703747C00EE9421 /* SPMessageNotification.h in Headers */,
 				ED38D92126EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */,
 				75CAC42D21F2A0CC00271FB3 /* SPEmitter.h in Headers */,
 				CE4F9CFC244B066500968CFC /* SPEventBase.h in Headers */,
@@ -2014,6 +2043,7 @@
 				6BF08DB2270DF2E8009C7E2B /* SPMockDeviceInfoMonitor.h in Headers */,
 				EDB693FC26B7F61D00B76A79 /* SPMemoryEventStore.h in Headers */,
 				CE4F9CC0244B066500968CFC /* SPForeground.h in Headers */,
+				ED6B032B271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */,
 				EDDD7045264F2A8800259404 /* SPEmitterConfigurationUpdate.h in Headers */,
 				ED88B56B2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */,
 				CE4F9CF4244B066500968CFC /* SPStructured.h in Headers */,
@@ -2045,6 +2075,7 @@
 				CE4F9CC1244B066500968CFC /* SPForeground.h in Headers */,
 				ED88B62C257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
 				EDAB664326D699D90067755F /* SPStateFuture.h in Headers */,
+				ED6B032C271094D700EFA12B /* SPMessageNotificationAttachment.h in Headers */,
 				ED38D92226EBCD59002AEC8E /* SPLifecycleEntity.h in Headers */,
 				ED7F082D2619199D005D377E /* SPRemoteConfiguration.h in Headers */,
 				ED88B7372587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */,
@@ -2144,6 +2175,7 @@
 				CE4F9D1D244B066500968CFC /* SPEcommerce.h in Headers */,
 				EDDD7046264F2A8800259404 /* SPEmitterConfigurationUpdate.h in Headers */,
 				ED98972926287F7A00145157 /* SPConfigurationCache.h in Headers */,
+				ED9081B82703747C00EE9421 /* SPMessageNotification.h in Headers */,
 				EDD8540F24EE786900661F6B /* SPEventStore.h in Headers */,
 				CE4F9CB1244B066500968CFC /* SPConsentWithdrawn.h in Headers */,
 				EDAB666326D6ACCB0067755F /* SPDeepLinkState.h in Headers */,
@@ -2470,6 +2502,7 @@
 				ED88670225715DD600DB53BB /* SPConfiguration.m in Sources */,
 				EDAB666426D6ACCB0067755F /* SPDeepLinkState.m in Sources */,
 				ED88B6DF2583DFC90048FAD1 /* SPServiceProvider.m in Sources */,
+				ED6B032D271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */,
 				EDB2FD1D26C130B80031B872 /* SPDataPersistence.m in Sources */,
 				EDAB665026D69D740067755F /* SPScreenStateMachine.m in Sources */,
 				ED7F081826190E00005D377E /* SPConfigurationProvider.m in Sources */,
@@ -2507,6 +2540,7 @@
 				752DAC1B21CC42BC0065F874 /* SPEmitter.m in Sources */,
 				ED7CE17326DFB55C0035C323 /* SPTrackerState.m in Sources */,
 				75264A32224E5DD2000E0E9B /* SPInstallTracker.m in Sources */,
+				ED9081B12703747C00EE9421 /* SPMessageNotification.m in Sources */,
 				EDDD7001264E873B00259404 /* SPController.m in Sources */,
 				EDB693FE26B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				ED88B66C257A5A520048FAD1 /* SPGlobalContextsControllerImpl.m in Sources */,
@@ -2606,6 +2640,7 @@
 				75CAC43C21F2A17500271FB3 /* SPEmitter.m in Sources */,
 				ED277BD72625F220002C7B6D /* SPConfigurationBundle.m in Sources */,
 				CE4F9CBB244B066500968CFC /* SPSelfDescribing.m in Sources */,
+				ED6B032E271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */,
 				EDD8542524EFEFB900661F6B /* SPDefaultNetworkConnection.m in Sources */,
 				75CAC43D21F2A17500271FB3 /* SPSubject.m in Sources */,
 				ED8BF8D025701853001DFDD9 /* SPNetworkConfiguration.m in Sources */,
@@ -2613,6 +2648,7 @@
 				6BF08DB5270DF2E8009C7E2B /* SPMockDeviceInfoMonitor.m in Sources */,
 				CE4F9C8F244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
 				CE4F9D17244B066500968CFC /* SPGlobalContext.m in Sources */,
+				ED9081B22703747C00EE9421 /* SPMessageNotification.m in Sources */,
 				ED88B5E4257950210048FAD1 /* SPGDPRConfiguration.m in Sources */,
 				ED7CE16A26DE43A00035C323 /* SPScreenStateMachine.m in Sources */,
 				EDDD7034264F25A200259404 /* SPSessionConfigurationUpdate.m in Sources */,
@@ -2701,6 +2737,7 @@
 				ED8A3EEC2371708C00E51827 /* SPInstallTracker.m in Sources */,
 				ED277BD82625F220002C7B6D /* SPConfigurationBundle.m in Sources */,
 				CE4F9CBC244B066500968CFC /* SPSelfDescribing.m in Sources */,
+				ED6B032F271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */,
 				EDD8542624EFEFB900661F6B /* SPDefaultNetworkConnection.m in Sources */,
 				75CAC44A21F2A19500271FB3 /* SPEmitter.m in Sources */,
 				ED8BF8D125701853001DFDD9 /* SPNetworkConfiguration.m in Sources */,
@@ -2708,6 +2745,7 @@
 				6BF08DB6270DF2E8009C7E2B /* SPMockDeviceInfoMonitor.m in Sources */,
 				CE4F9C90244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
 				CE4F9D18244B066500968CFC /* SPGlobalContext.m in Sources */,
+				ED9081B32703747C00EE9421 /* SPMessageNotification.m in Sources */,
 				ED88B5E5257950210048FAD1 /* SPGDPRConfiguration.m in Sources */,
 				ED7CE16B26DE43A00035C323 /* SPScreenStateMachine.m in Sources */,
 				EDDD7035264F25A200259404 /* SPSessionConfigurationUpdate.m in Sources */,
@@ -2804,6 +2842,7 @@
 				ED88B614257956490048FAD1 /* SPGDPRControllerImpl.m in Sources */,
 				7534D20222569BED00904EE5 /* UIViewController+SPScreenView_SWIZZLE.m in Sources */,
 				7534D20322569BED00904EE5 /* SPInstallTracker.m in Sources */,
+				ED6B0330271094D700EFA12B /* SPMessageNotificationAttachment.m in Sources */,
 				ED277BD92625F220002C7B6D /* SPConfigurationBundle.m in Sources */,
 				CE4F9C95244B066500968CFC /* SPForeground.m in Sources */,
 				ED91CB7423AA8AD50078E75F /* SPDevicePlatform.m in Sources */,
@@ -2811,6 +2850,7 @@
 				6BF08DB7270DF2E8009C7E2B /* SPMockDeviceInfoMonitor.m in Sources */,
 				ED88B630257A3FE60048FAD1 /* SPGlobalContextsConfiguration.m in Sources */,
 				CE4F9D19244B066500968CFC /* SPGlobalContext.m in Sources */,
+				ED9081B42703747C00EE9421 /* SPMessageNotification.m in Sources */,
 				ED87A3F225766BB4000C54EB /* SPSessionControllerImpl.m in Sources */,
 				EDAB665D26D6AA940067755F /* SPDeepLinkStateMachine.m in Sources */,
 				EDAB666726D6ACCB0067755F /* SPDeepLinkState.m in Sources */,

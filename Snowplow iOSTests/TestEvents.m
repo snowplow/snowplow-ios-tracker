@@ -404,6 +404,73 @@
     XCTAssertNil(event);
 }
 
+- (void)testMessageNotification {
+    SPMessageNotification *event = [[SPMessageNotification alloc] initWithTitle:@"title" body:@"body" trigger:SPMessageNotificationTriggerPush];
+    event.notificationTimestamp = @"2020-12-31T15:59:60-08:00";
+    event.action = @"action";
+    event.bodyLocKey = @"loc key";
+    event.bodyLocArgs = @[@"loc arg1", @"loc arg2"];
+    event.sound = @"chime.mp3";
+    event.notificationCount = @9;
+    event.category = @"category1";
+    event.attachments = @[[[SPMessageNotificationAttachment alloc] initWithIdentifier:@"id" type:@"type" url:@"url"]];
+
+    NSDictionary<NSString *, NSObject *> *payload = event.payload;
+    XCTAssertEqualObjects(@"title", payload[kSPMessageNotificationParamTitle]);
+    XCTAssertEqualObjects(@"body", payload[kSPMessageNotificationParamBody]);
+    XCTAssertEqualObjects(@"2020-12-31T15:59:60-08:00", payload[kSPMessageNotificationParamNotificationTimestamp]);
+    XCTAssertEqualObjects(@"push", payload[kSPMessageNotificationParamTrigger]);
+    XCTAssertEqualObjects(@"action", payload[kSPMessageNotificationParamAction]);
+    XCTAssertEqualObjects(@"loc key", payload[kSPMessageNotificationParamBodyLocKey]);
+    NSArray<NSString *> *locArgs = (NSArray<NSString *> *)(payload[kSPMessageNotificationParamBodyLocArgs]);
+    XCTAssertNotNil(locArgs);
+    XCTAssertEqual(2, locArgs.count);
+    XCTAssertEqualObjects(@"loc arg1", locArgs[0]);
+    XCTAssertEqualObjects(@"loc arg2", locArgs[1]);
+    XCTAssertEqualObjects(@"chime.mp3", payload[kSPMessageNotificationParamSound]);
+    XCTAssertEqualObjects(@9, payload[kSPMessageNotificationParamNotificationCount]);
+    XCTAssertEqualObjects(@"category1", payload[kSPMessageNotificationParamCategory]);
+    NSArray<NSDictionary<NSString *, NSObject *> *> *attachments = (NSArray<NSDictionary<NSString *, NSObject *> *> *)(payload[kSPMessageNotificationParamMessageNotificationAttachments]);
+    XCTAssertNotNil(attachments);
+    XCTAssertEqual(1, attachments.count);
+    NSDictionary<NSString *, NSObject *> *attachment = attachments[0];
+    XCTAssertEqualObjects(@"id", attachment[kSPMessageNotificationAttachmentParamIdentifier]);
+    XCTAssertEqualObjects(@"type", attachment[kSPMessageNotificationAttachmentParamType]);
+    XCTAssertEqualObjects(@"url", attachment[kSPMessageNotificationAttachmentParamUrl]);
+}
+
+- (void)testMessageNotificationWithUserInfo {
+    NSDictionary *userInfo = @{ @"aps":
+                                    @{ @"alert":
+                                           @{
+                                               @"title": @"test-title",
+                                               @"body": @"test-body",
+                                               @"loc-key": @"loc key",
+                                               @"loc-args": @[@"loc arg1", @"loc arg2"]
+                                           },
+                                       @"sound": @"chime.aiff",
+                                       @"badge": @9,
+                                       @"category": @"category1",
+                                       @"content-available": @1
+                                    },
+                                @"custom-element": @1
+    };
+    SPMessageNotification *event = [SPMessageNotification messageNotificationWithUserInfo:userInfo defaultTitle:nil defaultBody:nil];
+    XCTAssertNotNil(event);
+    NSDictionary<NSString *, NSObject *> *payload = event.payload;
+    XCTAssertEqualObjects(@"test-title", payload[kSPMessageNotificationParamTitle]);
+    XCTAssertEqualObjects(@"test-body", payload[kSPMessageNotificationParamBody]);
+    XCTAssertEqualObjects(@"loc key", payload[kSPMessageNotificationParamBodyLocKey]);
+    NSArray *locArgs = (NSArray *)payload[kSPMessageNotificationParamBodyLocArgs];
+    XCTAssertEqual(2, locArgs.count);
+    XCTAssertEqualObjects(@"loc arg1", locArgs[0]);
+    XCTAssertEqualObjects(@"loc arg2", locArgs[1]);
+    XCTAssertEqualObjects(@9, payload[kSPMessageNotificationParamNotificationCount]);
+    XCTAssertEqualObjects(@"chime.aiff", payload[kSPMessageNotificationParamSound]);
+    XCTAssertEqualObjects(@"category1", payload[kSPMessageNotificationParamCategory]);
+    XCTAssertEqualObjects(@YES, payload[kSPMessageNotificationParamContentAvailable]);
+}
+
 - (void)testError {
     // Valid construction
     SNOWError *error = [[[[SNOWError alloc] initWithMessage:@"message"]
