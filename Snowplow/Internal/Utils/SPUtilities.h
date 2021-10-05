@@ -87,36 +87,41 @@
  @brief Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project and you enable the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
 
  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getAppleIdfa;
++ (NSString *) getAppleIdfa __deprecated;
 
 /*!
  @brief Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.
 
  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getAppleIdfv;
++ (NSString *) getAppleIdfv __deprecated;
 
 /*!
  @brief Returns the carrier of the SIM inserted in the device.
 
  @return A string containing the carrier name of the service provider.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getCarrierName;
++ (NSString *) getCarrierName __deprecated;
 
 /*!
  @brief Returns the Network Type the device is connected to.
 
  @return A string containing the Network Type.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getNetworkType;
++ (NSString *) getNetworkType __deprecated;
 
 /*!
  @brief Returns the Network Technology the device is using.
 
  @return A string containing the Network Technology.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getNetworkTechnology;
++ (NSString *) getNetworkTechnology __deprecated;
 
 /*!
  @brief Generates a randomly generated 6-digit integer.
@@ -150,29 +155,33 @@
  @brief Returns the current device's vendor in the form of a string.
 
  @return A string with vendor, i.e. "Apple Inc."
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getDeviceVendor;
++ (NSString *) getDeviceVendor __deprecated;
 
 /*!
  @brief Returns the current device's model in the form of a string.
 
  @return A string with device model.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getDeviceModel;
++ (NSString *) getDeviceModel __deprecated;
 
 /*!
  @brief This is to detect what the version of mobile OS of the current device.
 
  @return The current device's OS version type as a string.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getOSVersion;
++ (NSString *) getOSVersion __deprecated;
 
 /*!
  @brief This is to detect what the type of mobile OS of the current device.
 
  @return The current device's OS type as a string.
+ @deprecated Will be moved to internal API.
  */
-+ (NSString *) getOSType;
++ (NSString *) getOSType __deprecated;
 
 /*!
  @brief Returns the Application ID
@@ -297,54 +306,5 @@
  @return A context SDJ.
  */
 + (SPSelfDescribingJson *) getApplicationContextWithVersion:(NSString *)version andBuild:(NSString *)build;
-
-/*!
- @brief Returns remaining battery level as an integer percentage of total battery capacity.
- 
- @return Battery level.
- */
-+ (NSNumber *) getBatteryLevel;
-
-/*!
- @brief Returns battery state for the device.
- 
- @return One of "charging", "full", "unplugged" or NULL
- */
-+ (NSString *) getBatteryState;
-
-/*!
- @brief Returns whether low power mode is activated.
- 
- @return Boolean indicating the state of low power mode.
- */
-+ (NSNumber *) isLowPowerModeEnabled;
-
-/*!
- @brief Returns total physical system memory in bytes.
- 
- @return Total physical system memory in bytes.
- */
-+ (NSNumber *) getPhysicalMemory;
-
-/*!
- @brief Returns the amount of memory in bytes available to the current app (iOS 13+).
- 
- @return Amount of memory in bytes available to the current app (or 0 if not supported).
- */
-+ (NSNumber *) getAppAvailableMemory;
-
-/*!
- @brief Returns number of bytes of storage remaining. The information is requested from the home directory.
- 
- @return Bytes of storage remaining.
- */
-+ (NSNumber *) getAvailableStorage;
-
-/*!
- @brief Returns the total number of bytes of storage. The information is requested from the home directory.
- 
- @return Total size of storage in bytes.
- */
-+ (NSNumber *) getTotalStorage;
 
 @end

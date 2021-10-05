@@ -52,6 +52,60 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (nonnull SPPayload *) fetchPlatformDict;
 
+/*!
+ @brief Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project and you enable the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
+ @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
+ */
++ (nullable NSString *) appleIdfa;
+
+/*!
+ @brief Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.
+ @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
+ */
++ (nullable NSString *) appleIdfv;
+
+/*!
+ @brief Returns the current device's vendor in the form of a string.
+ @return A string with vendor, i.e. "Apple Inc."
+ */
++ (nullable NSString *) deviceVendor;
+
+/*!
+ @brief Returns the current device's model in the form of a string.
+ @return A string with device model.
+ */
++ (nullable NSString *) deviceModel;
+
+/*!
+ @brief This is to detect what the version of mobile OS of the current device.
+ @return The current device's OS version type as a string.
+ */
++ (nullable NSString *) osVersion;
+
+/*!
+ @brief This is to detect what the type of mobile OS of the current device.
+ @return The current device's OS type as a string.
+ */
++ (nullable NSString *) osType;
+
+/*!
+ @brief Returns the carrier of the SIM inserted in the device.
+ @return A string containing the carrier name of the service provider.
+ */
++ (nullable NSString *) carrierName;
+
+/*!
+ @brief Returns the Network Type the device is connected to.
+ @return A string containing the Network Type.
+ */
++ (nullable NSString *) networkType;
+
+/*!
+ @brief Returns the Network Technology the device is using.
+ @return A string containing the Network Technology.
+ */
++ (nullable NSString *) networkTechnology;
+
 /**
  * @property ephemeralMobileDictUpdatesCount
  * @brief Number of updates of mobile platform dictionary.
