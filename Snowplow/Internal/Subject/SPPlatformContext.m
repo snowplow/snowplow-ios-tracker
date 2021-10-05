@@ -49,13 +49,17 @@
 
 #include <sys/sysctl.h>
 
-@implementation SPPlatformContext {
-    SPPayload *_platformDict;
-    NSTimeInterval _mobileDictUpdateFrequency;
-    NSTimeInterval _networkDictUpdateFrequency;
-    NSTimeInterval _lastUpdatedEphemeralMobileDict;
-    NSTimeInterval _lastUpdatedEphemeralNetworkDict;
-}
+@interface SPPlatformContext ()
+
+@property (strong, nonatomic) SPPayload *platformDict;
+@property (nonatomic, readonly) NSTimeInterval mobileDictUpdateFrequency;
+@property (nonatomic, readonly) NSTimeInterval networkDictUpdateFrequency;
+@property (nonatomic) NSTimeInterval lastUpdatedEphemeralMobileDict;
+@property (nonatomic) NSTimeInterval lastUpdatedEphemeralNetworkDict;
+
+@end
+
+@implementation SPPlatformContext
 
 - (instancetype) init {
     return [self initWithMobileDictUpdateFrequency:0.1 networkDictUpdateFrequency:10.0];
@@ -75,58 +79,58 @@
     return self;
 }
 
-- (nonnull SPPayload *) fetchPlatformDict {
+- (SPPayload *) fetchPlatformDict {
 #if SNOWPLOW_TARGET_IOS
     @synchronized (self) {
         NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-        if (now - _lastUpdatedEphemeralMobileDict >= _mobileDictUpdateFrequency) {
+        if (now - self.lastUpdatedEphemeralMobileDict >= self.mobileDictUpdateFrequency) {
             [self setEphemeralMobileDict];
         }
-        if (now - _lastUpdatedEphemeralNetworkDict >= _networkDictUpdateFrequency) {
+        if (now - self.lastUpdatedEphemeralNetworkDict >= self.networkDictUpdateFrequency) {
             [self setEphemeralNetworkDict];
         }
     }
 #endif
-    return _platformDict;
+    return self.platformDict;
 }
 
 // MARK: - Private methods
 
 - (void) setPlatformDict {
-    _platformDict = [[SPPayload alloc] init];
-    [_platformDict addValueToPayload:[SPPlatformContext osType]       forKey:kSPPlatformOsType];
-    [_platformDict addValueToPayload:[SPPlatformContext osVersion]    forKey:kSPPlatformOsVersion];
-    [_platformDict addValueToPayload:[SPPlatformContext deviceVendor] forKey:kSPPlatformDeviceManu];
-    [_platformDict addValueToPayload:[SPPlatformContext deviceModel]  forKey:kSPPlatformDeviceModel];
+    self.platformDict = [[SPPayload alloc] init];
+    [self.platformDict addValueToPayload:[SPPlatformContext osType]       forKey:kSPPlatformOsType];
+    [self.platformDict addValueToPayload:[SPPlatformContext osVersion]    forKey:kSPPlatformOsVersion];
+    [self.platformDict addValueToPayload:[SPPlatformContext deviceVendor] forKey:kSPPlatformDeviceManu];
+    [self.platformDict addValueToPayload:[SPPlatformContext deviceModel]  forKey:kSPPlatformDeviceModel];
 #if SNOWPLOW_TARGET_IOS
     [self setMobileDict];
 #endif
 }
 
 - (void) setMobileDict {
-    [_platformDict addValueToPayload:[SPPlatformContext carrierName] forKey:kSPMobileCarrier];
-    [_platformDict addValueToPayload:[SPPlatformContext appleIdfa]   forKey:kSPMobileAppleIdfa];
-    [_platformDict addValueToPayload:[SPPlatformContext appleIdfv]   forKey:kSPMobileAppleIdfv];
-    [_platformDict addNumericValueToPayload:[self getTotalStorage]   forKey:kSPMobileTotalStorage];
+    [self.platformDict addValueToPayload:[SPPlatformContext carrierName] forKey:kSPMobileCarrier];
+    [self.platformDict addValueToPayload:[SPPlatformContext appleIdfa]   forKey:kSPMobileAppleIdfa];
+    [self.platformDict addValueToPayload:[SPPlatformContext appleIdfv]   forKey:kSPMobileAppleIdfv];
+    [self.platformDict addNumericValueToPayload:[self getTotalStorage]   forKey:kSPMobileTotalStorage];
     [self setEphemeralMobileDict];
     [self setEphemeralNetworkDict];
 }
 
 - (void) setEphemeralMobileDict {
-    _lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];
+    self.lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];
     _ephemeralMobileDictUpdatesCount++;
-    [_platformDict addNumericValueToPayload:[self getBatteryLevel]       forKey:kSPMobileBatteryLevel];
-    [_platformDict addValueToPayload:[self getBatteryState]              forKey:kSPMobileBatteryState];
-    [_platformDict addNumericValueToPayload:[self isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];
-    [_platformDict addNumericValueToPayload:[self getAvailableStorage]   forKey:kSPMobileAvailableStorage];
-    [_platformDict addNumericValueToPayload:[self getAppAvailableMemory] forKey:kSPMobileAppAvailableMemory];
+    [self.platformDict addNumericValueToPayload:[self getBatteryLevel]       forKey:kSPMobileBatteryLevel];
+    [self.platformDict addValueToPayload:[self getBatteryState]              forKey:kSPMobileBatteryState];
+    [self.platformDict addNumericValueToPayload:[self isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];
+    [self.platformDict addNumericValueToPayload:[self getAvailableStorage]   forKey:kSPMobileAvailableStorage];
+    [self.platformDict addNumericValueToPayload:[self getAppAvailableMemory] forKey:kSPMobileAppAvailableMemory];
 }
 
 - (void) setEphemeralNetworkDict {
-    _lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];
+    self.lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];
     _ephemeralNetworkDictUpdatesCount++;
-    [_platformDict addValueToPayload:[SPPlatformContext networkTechnology] forKey:kSPMobileNetworkTech];
-    [_platformDict addValueToPayload:[SPPlatformContext networkType]       forKey:kSPMobileNetworkType];
+    [self.platformDict addValueToPayload:[SPPlatformContext networkTechnology] forKey:kSPMobileNetworkTech];
+    [self.platformDict addValueToPayload:[SPPlatformContext networkType]       forKey:kSPMobileNetworkType];
 }
 
 // MARK: - Public static utility methods for getting device information
@@ -141,7 +145,7 @@
  Note that `advertisingIdentifier` returns a sequence of 0s when used in the simulator.
  Use a real device if you want a proper IDFA.
  */
-+ (nullable NSString *) appleIdfa {
++ (NSString *) appleIdfa {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #ifdef SNOWPLOW_IDFA_ENABLED
     NSString *errorMsg = @"ASIdentifierManager not found. Please, add the AdSupport.framework if you want to use it.";
@@ -207,7 +211,7 @@
     return nil;
 }
 
-+ (nullable NSString *) appleIdfv {
++ (NSString *) appleIdfv {
     NSString * idfv = nil;
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #ifndef SNOWPLOW_NO_IDFV
@@ -217,11 +221,11 @@
     return idfv;
 }
 
-+ (nullable NSString *) deviceVendor {
++ (NSString *) deviceVendor {
     return @"Apple Inc.";
 }
 
-+ (nullable NSString *) deviceModel {
++ (NSString *) deviceModel {
     NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
     if (simulatorModel) return simulatorModel;
 
@@ -234,7 +238,7 @@
     return platform;
 }
 
-+ (nullable NSString *) osVersion {
++ (NSString *) osVersion {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     return [[UIDevice currentDevice] systemVersion];
 #elif SNOWPLOW_TARGET_WATCHOS
@@ -254,7 +258,7 @@
 #endif
 }
 
-+ (nullable NSString *) osType {
++ (NSString *) osType {
 #if SNOWPLOW_TARGET_IOS
     return @"ios";
 #elif SNOWPLOW_TARGET_TV
@@ -266,7 +270,7 @@
 #endif
 }
 
-+ (nullable NSString *) carrierName {
++ (NSString *) carrierName {
 #if SNOWPLOW_TARGET_IOS
     CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
     CTCarrier *carrier;
@@ -286,7 +290,7 @@
     return nil;
 }
 
-+ (nullable NSString *) networkTechnology {
++ (NSString *) networkTechnology {
 #if SNOWPLOW_TARGET_IOS
     CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
     if (@available(iOS 12.1, *)) {
@@ -319,7 +323,7 @@
     return nil;
 }
 
-+ (nullable NSString *) networkType {
++ (NSString *) networkType {
 #if SNOWPLOW_TARGET_IOS
     SNOWNetworkStatus networkStatus = [SNOWReachability reachabilityForInternetConnection].networkStatus;
     switch (networkStatus) {
