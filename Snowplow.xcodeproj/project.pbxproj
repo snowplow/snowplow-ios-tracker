@@ -13,6 +13,7 @@
 		23DFEC802362FAD500BD19C4 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
 		23DFEC822362FAED00BD19C4 /* SnowplowIgluClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
 		23DFEC832362FAF800BD19C4 /* VVJSONSchemaValidation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
+		6BABC50E270B40450043BB5C /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF15D1227035A480048F376 /* TestSubject.m */; };
 		6BBDCD4227019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
 		6BBDCD4327019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
 		6BBDCD4427019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
@@ -2525,7 +2526,6 @@
 				75CAC41221F2955100271FB3 /* TestRequest.m in Sources */,
 				75CAC40621F2955100271FB3 /* TestSQLiteEventStore.m in Sources */,
 				ED914EB72432081F0068DA0A /* TestSchemaRuleset.m in Sources */,
-				6BF15D1327035A480048F376 /* TestSubject.m in Sources */,
 				75CAC41121F2955100271FB3 /* LegacyTestTracker.m in Sources */,
 				75CAC40D21F2955100271FB3 /* LegacyTestEmitter.m in Sources */,
 				75CAC40721F2955100271FB3 /* TestPayload.m in Sources */,
@@ -2544,6 +2544,7 @@
 				EDB2FD2226C57F6D0031B872 /* TestDataPersistence.m in Sources */,
 				ED7F080626190B5F005D377E /* TestRemoteConfiguration.m in Sources */,
 				75CAC40E21F2955100271FB3 /* TestRequestResult.m in Sources */,
+				6BABC50E270B40450043BB5C /* TestSubject.m in Sources */,
 				75CAC40C21F2955100271FB3 /* LegacyTestEvent.m in Sources */,
 				EDE54F4825EFA38D0073947D /* TestMultipleInstances.m in Sources */,
 				EDAB664D26D69A7B0067755F /* TestStateManager.m in Sources */,
