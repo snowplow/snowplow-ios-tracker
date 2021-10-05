@@ -30,12 +30,6 @@
 
 @implementation TestPlatformContext
 
-- (void)setUp {
-}
-
-- (void)tearDown {
-}
-
 - (void)testContainsPlatformInfo {
     SPPlatformContext *context = [[SPPlatformContext alloc] init];
     NSDictionary *platformDict = [[context fetchPlatformDict] getAsDictionary];
@@ -54,50 +48,50 @@
 
 - (void)testUpdatesMobileInfo {
 #if SNOWPLOW_TARGET_IOS
-    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 andNetworkDictUpdateFrequency:1];
+    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1];
     [context fetchPlatformDict];
-    long updateCount = [context getCountEphemeralMobileDictUpdates];
+    long updateCount = [context ephemeralMobileDictUpdatesCount];
     XCTAssertGreaterThan(updateCount, 0);
     [context fetchPlatformDict];
-    XCTAssertGreaterThan([context getCountEphemeralMobileDictUpdates], updateCount);
+    XCTAssertGreaterThan([context ephemeralMobileDictUpdatesCount], updateCount);
 #endif
 }
 
 - (void)testDoesntUpdateMobileInfoWithinUpdateWindow {
 #if SNOWPLOW_TARGET_IOS
-    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 andNetworkDictUpdateFrequency:1];
+    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 networkDictUpdateFrequency:1];
     [context fetchPlatformDict];
-    long updateCount = [context getCountEphemeralMobileDictUpdates];
+    long updateCount = [context ephemeralMobileDictUpdatesCount];
     XCTAssertGreaterThan(updateCount, 0);
     [context fetchPlatformDict];
-    XCTAssertEqual([context getCountEphemeralMobileDictUpdates], updateCount);
+    XCTAssertEqual([context ephemeralMobileDictUpdatesCount], updateCount);
 #endif
 }
 
 - (void)testUpdatesNetworkInfo {
 #if SNOWPLOW_TARGET_IOS
-    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1 andNetworkDictUpdateFrequency:0];
+    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1 networkDictUpdateFrequency:0];
     [context fetchPlatformDict];
-    long updateCount = [context getCountEphemeralNetworkDictUpdates];
+    long updateCount = [context ephemeralNetworkDictUpdatesCount];
     XCTAssertGreaterThan(updateCount, 0);
     [context fetchPlatformDict];
-    XCTAssertGreaterThan([context getCountEphemeralNetworkDictUpdates], updateCount);
+    XCTAssertGreaterThan([context ephemeralNetworkDictUpdatesCount], updateCount);
 #endif
 }
 
 - (void)testDoesntUpdateNetworkInfoWithinUpdateWindow {
 #if SNOWPLOW_TARGET_IOS
-    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 andNetworkDictUpdateFrequency:1];
+    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 networkDictUpdateFrequency:1];
     [context fetchPlatformDict];
-    long updateCount = [context getCountEphemeralNetworkDictUpdates];
+    long updateCount = [context ephemeralNetworkDictUpdatesCount];
     XCTAssertGreaterThan(updateCount, 0);
     [context fetchPlatformDict];
-    XCTAssertEqual([context getCountEphemeralNetworkDictUpdates], updateCount);
+    XCTAssertEqual([context ephemeralNetworkDictUpdatesCount], updateCount);
 #endif
 }
 
 - (void)testPerformanceOfFetchingNetworkDict {
-    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 andNetworkDictUpdateFrequency:0];
+    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 networkDictUpdateFrequency:0];
     [self measureBlock:^{
         for (int i = 0; i < 100; i++) {
             [context fetchPlatformDict];
@@ -106,7 +100,7 @@
 }
 
 - (void)testPerformanceOfFetchingMobileDict {
-    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 andNetworkDictUpdateFrequency:1000];
+    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1000];
     [self measureBlock:^{
         for (int i = 0; i < 10000; i++) {
             [context fetchPlatformDict];

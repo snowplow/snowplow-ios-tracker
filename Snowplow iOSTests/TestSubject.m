@@ -30,39 +30,33 @@
 
 @implementation TestSubject
 
-- (void)setUp {
-}
-
-- (void)tearDown {
-}
-
 - (void)testReturnsPlatformContextIfEnabled {
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    SPPayload * platformDict = [subject getPlatformDict];
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
+    SPPayload *platformDict = [subject getPlatformDict];
     XCTAssertNotNil(platformDict);
     XCTAssertNotNil([[platformDict getAsDictionary] objectForKey:kSPPlatformOsType]);
 }
 
 - (void)testDoesntReturnPlatformContextIfDisabled {
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
-    SPPayload * platformDict = [subject getPlatformDict];
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
+    SPPayload *platformDict = [subject getPlatformDict];
     XCTAssertNil(platformDict);
 }
 
 - (void)testReturnsGeolocationContextIfEnabled {
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:YES];
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:YES];
     [subject setGeoLatitude:10.0];
     [subject setGeoLongitude:10.0];
-    NSDictionary * geoLocationDict = [subject getGeoLocationDict];
+    NSDictionary *geoLocationDict = [subject getGeoLocationDict];
     XCTAssertNotNil(geoLocationDict);
     XCTAssertNotNil([geoLocationDict objectForKey:kSPGeoLatitude]);
 }
 
 - (void)testDoesntReturnGeolocationContextIfDisabled {
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
     [subject setGeoLatitude:10.0];
     [subject setGeoLongitude:10.0];
-    NSDictionary * geoLocationDict = [subject getGeoLocationDict];
+    NSDictionary *geoLocationDict = [subject getGeoLocationDict];
     XCTAssertNil(geoLocationDict);
 }
 

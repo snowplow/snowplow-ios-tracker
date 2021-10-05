@@ -29,9 +29,9 @@
 
 
 @implementation SPSubject {
-    SPPayload *                _standardDict;
-    SPPlatformContext *        _platformDict;
-    NSMutableDictionary *      _geoLocationDict;
+    SPPayload *           _standardDict;
+    SPPlatformContext *   _platformContextManager;
+    NSMutableDictionary * _geoLocationDict;
 }
 
 #pragma clang diagnostic push
@@ -50,7 +50,7 @@
         self.platformContext = platformContext;
         self.geoLocationContext = geoContext;
         _standardDict = [[SPPayload alloc] init];
-        _platformDict = [[SPPlatformContext alloc] init];
+        _platformContextManager = [[SPPlatformContext alloc] init];
         [self setStandardDict];
         [self setGeoDict];
         if (config) {
@@ -112,7 +112,7 @@
 
 - (SPPayload *) getPlatformDict {
     if (self.platformContext) {
-        return [_platformDict fetchPlatformDict];
+        return [_platformContextManager fetchPlatformDict];
     } else {
         return nil;
     }

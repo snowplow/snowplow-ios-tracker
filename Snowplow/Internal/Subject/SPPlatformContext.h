@@ -20,8 +20,9 @@
 //  License: Apache License Version 2.0
 //
 
-#ifndef SPPlatformContext_h
-#define SPPlatformContext_h
+#import <Foundation/Foundation.h>
+
+NS_ASSUME_NONNULL_BEGIN
 
 @class SPPayload;
 
@@ -36,7 +37,7 @@
  * Initializes a newly allocated PlatformContext object with default update frequency
  * @return a PlatformContext object
  */
-- (id) init;
+- (instancetype) init;
 
 /**
  * Initializes a newly allocated PlatformContext object with custom update frequency for mobile and network properties
@@ -44,25 +45,25 @@
  * @param networkDictUpdateFrequency Minimal gap between subsequent updates of network platform information
  * @return a PlatformContext object
  */
-- (id) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency andNetworkDictUpdateFrequency:(NSTimeInterval) networkDictUpdateFrequency;
+- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency;
 
 /**
  * Updates and returns payload dictionary with device context information.
  */
-- (SPPayload *) fetchPlatformDict;
+- (nonnull SPPayload *) fetchPlatformDict;
 
 /**
- * Returns the number of times that the mobile platform context was updated.
- * @return Number of updates of mobile platform dictionary.
+ * @property ephemeralMobileDictUpdatesCount
+ * @brief Number of updates of mobile platform dictionary.
  */
-- (long) getCountEphemeralMobileDictUpdates;
+@property (nonatomic, readonly) long ephemeralMobileDictUpdatesCount;
 
 /**
- * Returns the number of times that the network type platform context was updated.
- * @return Number of updates of network platform dictionary.
+ * @property ephemeralNetworkDictUpdatesCount
+ * @brief Number of updates of network platform dictionary.
  */
-- (long) getCountEphemeralNetworkDictUpdates;
+@property (nonatomic, readonly) long ephemeralNetworkDictUpdatesCount;
 
 @end
 
-#endif /* SPDeviceContexts_h */
+NS_ASSUME_NONNULL_END

@@ -20,7 +20,6 @@
 //  License: Apache License Version 2.0
 //
 
-#import <Foundation/Foundation.h>
 #import "SPPlatformContext.h"
 #import "SPPayload.h"
 #import "SPUtilities.h"
@@ -29,25 +28,23 @@
 #endif
 
 @implementation SPPlatformContext {
-    SPPayload * _platformDict;
+    SPPayload *_platformDict;
     NSTimeInterval _mobileDictUpdateFrequency;
     NSTimeInterval _networkDictUpdateFrequency;
     NSTimeInterval _lastUpdatedEphemeralMobileDict;
     NSTimeInterval _lastUpdatedEphemeralNetworkDict;
-    long _countEphemeralMobileDictUpdates;
-    long _countEphemeralNetworkDictUpdates;
 }
 
-- (id) init {
-    return [self initWithMobileDictUpdateFrequency:0.1 andNetworkDictUpdateFrequency:10.0];
+- (instancetype) init {
+    return [self initWithMobileDictUpdateFrequency:0.1 networkDictUpdateFrequency:10.0];
 }
 
-- (id) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency andNetworkDictUpdateFrequency:(NSTimeInterval) networkDictUpdateFrequency {
+- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency {
     if (self = [super init]) {
         _mobileDictUpdateFrequency = mobileDictUpdateFrequency;
         _networkDictUpdateFrequency = networkDictUpdateFrequency;
-        _countEphemeralMobileDictUpdates = 0;
-        _countEphemeralNetworkDictUpdates = 0;
+        _ephemeralMobileDictUpdatesCount = 0;
+        _ephemeralNetworkDictUpdatesCount = 0;
 #if SNOWPLOW_TARGET_IOS
         [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
 #endif
@@ -56,7 +53,7 @@
     return self;
 }
 
-- (SPPayload *) fetchPlatformDict {
+- (nonnull SPPayload *) fetchPlatformDict {
 #if SNOWPLOW_TARGET_IOS
     @synchronized (self) {
         NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
@@ -69,14 +66,6 @@
     }
 #endif
     return _platformDict;
-}
-
-- (long) getCountEphemeralMobileDictUpdates {
-    return _countEphemeralMobileDictUpdates;
-}
-
-- (long) getCountEphemeralNetworkDictUpdates {
-    return _countEphemeralNetworkDictUpdates;
 }
 
 // MARK: - Private methods
@@ -103,19 +92,19 @@
 
 - (void) setEphemeralMobileDict {
     _lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];
-    _countEphemeralMobileDictUpdates++;
     [_platformDict addNumericValueToPayload:[SPUtilities getBatteryLevel]       forKey:kSPMobileBatteryLevel];
     [_platformDict addValueToPayload:[SPUtilities getBatteryState]              forKey:kSPMobileBatteryState];
     [_platformDict addNumericValueToPayload:[SPUtilities isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];
     [_platformDict addNumericValueToPayload:[SPUtilities getAvailableStorage]   forKey:kSPMobileAvailableStorage];
     [_platformDict addNumericValueToPayload:[SPUtilities getAppAvailableMemory] forKey:kSPMobileAppAvailableMemory];
+    _ephemeralMobileDictUpdatesCount++;
 }
 
 - (void) setEphemeralNetworkDict {
     _lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];
-    _countEphemeralNetworkDictUpdates++;
     [_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
     [_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];
+    _ephemeralNetworkDictUpdatesCount++;
 }
 
 @end

@@ -64,16 +64,13 @@
 }
 
 - (void) addNumericValueToPayload:(NSNumber *)value forKey:(NSString *)key {
-    if (value == nil) {
-        @synchronized (self) {
-            if ([_payload valueForKey:key] != nil) {
-                [_payload removeObjectForKey:key];
-            }
-        }
-        return;
-    }
     @synchronized (self) {
-        [_payload setObject:value forKey:key];
+        if (value) {
+            [_payload setObject:value forKey:key];
+        }
+        else if ([_payload valueForKey:key]) {
+            [_payload removeObjectForKey:key];
+        }
     }
 }
 
