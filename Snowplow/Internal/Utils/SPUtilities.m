@@ -27,7 +27,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
 #import "SPLogger.h"
-#import "SPPlatformContext.h"
+#import "SPDeviceInfoMonitor.h"
 
 #if SNOWPLOW_TARGET_IOS
 
@@ -91,23 +91,23 @@
  Use a real device if you want a proper IDFA.
  */
 + (NSString *) getAppleIdfa {
-    return [SPPlatformContext appleIdfa];
+    return [[[SPDeviceInfoMonitor alloc] init] appleIdfa];
 }
 
 + (NSString *) getAppleIdfv {
-    return [SPPlatformContext appleIdfv];
+    return [[[SPDeviceInfoMonitor alloc] init] appleIdfv];
 }
 
 + (NSString *) getCarrierName {
-    return [SPPlatformContext carrierName];
+    return [[[SPDeviceInfoMonitor alloc] init] carrierName];
 }
 
 + (NSString *) getNetworkTechnology {
-    return [SPPlatformContext networkTechnology];
+    return [[[SPDeviceInfoMonitor alloc] init] networkTechnology];
 }
 
 + (NSString *) getNetworkType {
-    return [SPPlatformContext networkType];
+    return [[[SPDeviceInfoMonitor alloc] init] networkType];
 }
 
 + (int) getTransactionId {
@@ -142,19 +142,19 @@
 }
 
 + (NSString *) getDeviceVendor {
-    return [SPPlatformContext deviceVendor];
+    return [[[SPDeviceInfoMonitor alloc] init] deviceVendor];
 }
 
 + (NSString *) getDeviceModel {
-    return [SPPlatformContext deviceModel];
+    return [[[SPDeviceInfoMonitor alloc] init] deviceModel];
 }
 
 + (NSString *) getOSVersion {
-    return [SPPlatformContext osVersion];
+    return [[[SPDeviceInfoMonitor alloc] init] osVersion];
 }
 
 + (NSString *) getOSType {
-    return [SPPlatformContext osType];
+    return [[[SPDeviceInfoMonitor alloc] init] osType];
 }
 
 + (NSString *) getAppId {

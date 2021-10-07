@@ -1,5 +1,5 @@
 //
-//  SPPlatformContext.h
+//  SPPlatformContext.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -22,36 +22,13 @@
 
 #import "SPPlatformContext.h"
 #import "SPPayload.h"
-#import "SPLogger.h"
 #import "SPTrackerConstants.h"
-
-#if SNOWPLOW_TARGET_IOS
-
-#import <UIKit/UIScreen.h>
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import "SNOWReachability.h"
-#include <sys/mount.h>
-#if __has_include(<os/proc.h>)
-#import <os/proc.h>
-#define __HAS_OS_PROC_H__
-#endif
-
-#elif SNOWPLOW_TARGET_TV
-
-#import <UIKit/UIScreen.h>
-
-#elif SNOWPLOW_TARGET_WATCHOS
-
-#import <WatchKit/WatchKit.h>
-
-#endif
-
-#include <sys/sysctl.h>
+#import "SPDeviceInfoMonitor.h"
 
 @interface SPPlatformContext ()
 
 @property (strong, nonatomic) SPPayload *platformDict;
+@property (strong, nonatomic, readonly) SPDeviceInfoMonitor *deviceInfoMonitor;
 @property (nonatomic, readonly) NSTimeInterval mobileDictUpdateFrequency;
 @property (nonatomic, readonly) NSTimeInterval networkDictUpdateFrequency;
 @property (nonatomic) NSTimeInterval lastUpdatedEphemeralMobileDict;
@@ -62,15 +39,18 @@
 @implementation SPPlatformContext
 
 - (instancetype) init {
-    return [self initWithMobileDictUpdateFrequency:0.1 networkDictUpdateFrequency:10.0];
+    return [self initWithMobileDictUpdateFrequency:0.1 networkDictUpdateFrequency:10.0 deviceInfoMonitor:[[SPDeviceInfoMonitor alloc] init]];
 }
 
 - (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency {
+    return [self initWithMobileDictUpdateFrequency:mobileDictUpdateFrequency networkDictUpdateFrequency:networkDictUpdateFrequency deviceInfoMonitor:[[SPDeviceInfoMonitor alloc] init]];
+}
+
+- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency deviceInfoMonitor:(SPDeviceInfoMonitor *)deviceInfoMonitor {
     if (self = [super init]) {
         _mobileDictUpdateFrequency = mobileDictUpdateFrequency;
         _networkDictUpdateFrequency = networkDictUpdateFrequency;
-        _ephemeralMobileDictUpdatesCount = 0;
-        _ephemeralNetworkDictUpdatesCount = 0;
+        _deviceInfoMonitor = deviceInfoMonitor;
 #if SNOWPLOW_TARGET_IOS
         [[UIDevice currentDevice] setBatteryMonitoringEnabled:YES];
 #endif
@@ -98,351 +78,42 @@
 
 - (void) setPlatformDict {
     self.platformDict = [[SPPayload alloc] init];
-    [self.platformDict addValueToPayload:[SPPlatformContext osType]       forKey:kSPPlatformOsType];
-    [self.platformDict addValueToPayload:[SPPlatformContext osVersion]    forKey:kSPPlatformOsVersion];
-    [self.platformDict addValueToPayload:[SPPlatformContext deviceVendor] forKey:kSPPlatformDeviceManu];
-    [self.platformDict addValueToPayload:[SPPlatformContext deviceModel]  forKey:kSPPlatformDeviceModel];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor osType]       forKey:kSPPlatformOsType];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor osVersion]    forKey:kSPPlatformOsVersion];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor deviceVendor] forKey:kSPPlatformDeviceManu];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor deviceModel]  forKey:kSPPlatformDeviceModel];
+    
 #if SNOWPLOW_TARGET_IOS
     [self setMobileDict];
 #endif
 }
 
 - (void) setMobileDict {
-    [self.platformDict addValueToPayload:[SPPlatformContext carrierName] forKey:kSPMobileCarrier];
-    [self.platformDict addValueToPayload:[SPPlatformContext appleIdfa]   forKey:kSPMobileAppleIdfa];
-    [self.platformDict addValueToPayload:[SPPlatformContext appleIdfv]   forKey:kSPMobileAppleIdfv];
-    [self.platformDict addNumericValueToPayload:[self getTotalStorage]   forKey:kSPMobileTotalStorage];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor carrierName]           forKey:kSPMobileCarrier];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor appleIdfa]             forKey:kSPMobileAppleIdfa];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor appleIdfv]             forKey:kSPMobileAppleIdfv];
+    [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor totalStorage]   forKey:kSPMobileTotalStorage];
+    [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor physicalMemory] forKey:kSPMobilePhysicalMemory];
+    
     [self setEphemeralMobileDict];
     [self setEphemeralNetworkDict];
 }
 
 - (void) setEphemeralMobileDict {
     self.lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];
-    _ephemeralMobileDictUpdatesCount++;
-    [self.platformDict addNumericValueToPayload:[self getBatteryLevel]       forKey:kSPMobileBatteryLevel];
-    [self.platformDict addValueToPayload:[self getBatteryState]              forKey:kSPMobileBatteryState];
-    [self.platformDict addNumericValueToPayload:[self isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];
-    [self.platformDict addNumericValueToPayload:[self getAvailableStorage]   forKey:kSPMobileAvailableStorage];
-    [self.platformDict addNumericValueToPayload:[self getAppAvailableMemory] forKey:kSPMobileAppAvailableMemory];
+    
+    [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor batteryLevel]          forKey:kSPMobileBatteryLevel];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor batteryState]                 forKey:kSPMobileBatteryState];
+    [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];
+    [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor availableStorage]      forKey:kSPMobileAvailableStorage];
+    [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor appAvailableMemory]    forKey:kSPMobileAppAvailableMemory];
 }
 
 - (void) setEphemeralNetworkDict {
     self.lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];
-    _ephemeralNetworkDictUpdatesCount++;
-    [self.platformDict addValueToPayload:[SPPlatformContext networkTechnology] forKey:kSPMobileNetworkTech];
-    [self.platformDict addValueToPayload:[SPPlatformContext networkType]       forKey:kSPMobileNetworkType];
-}
-
-// MARK: - Public static utility methods for getting device information
-
-/*
- The IDFA can be retrieved using selectors rather than proper instance methods because
- the compiler would complain about the missing AdSupport framework.
- As stated in the header file, this only works if you have the AdSupport library in your project.
- If you have it and you want to use IDFA, add the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
- If you haven't AdSupport framework in your project or SNOWPLOW_IDFA_ENABLED it's not set, it just compiles returning a nil advertisingIdentifier.
- 
- Note that `advertisingIdentifier` returns a sequence of 0s when used in the simulator.
- Use a real device if you want a proper IDFA.
- */
-+ (NSString *) appleIdfa {
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-#ifdef SNOWPLOW_IDFA_ENABLED
-    NSString *errorMsg = @"ASIdentifierManager not found. Please, add the AdSupport.framework if you want to use it.";
-    Class identifierManagerClass = NSClassFromString(@"ASIdentifierManager");
-    if (!identifierManagerClass) {
-        SPLogError(errorMsg);
-        return nil;
-    }
-
-    SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
-    if (![identifierManagerClass respondsToSelector:sharedManagerSelector]) {
-        SPLogError(errorMsg);
-        return nil;
-    }
-
-    id identifierManager = ((id (*)(id, SEL))[identifierManagerClass methodForSelector:sharedManagerSelector])(identifierManagerClass, sharedManagerSelector);
     
-    if (@available(iOS 14.0, *)) {
-        errorMsg = @"ATTrackingManager not found. Please, add the AppTrackingTransparency.framework if you want to use it.";
-        Class trackingManagerClass = NSClassFromString(@"ATTrackingManager");
-        if (!trackingManagerClass) {
-            SPLogError(errorMsg);
-            return nil;
-        }
-        
-        SEL trackingStatusSelector = NSSelectorFromString(@"trackingAuthorizationStatus");
-        if (![trackingManagerClass respondsToSelector:trackingStatusSelector]) {
-            SPLogError(errorMsg);
-            return nil;
-        }
-        
-        //notDetermined = 0, restricted = 1, denied = 2, authorized = 3
-        NSInteger authorizationStatus = ((NSInteger (*)(id, SEL))[trackingManagerClass methodForSelector:trackingStatusSelector])(trackingManagerClass, trackingStatusSelector);
-        
-        if (authorizationStatus != 3)  {
-            SPLogDebug(@"The user didn't let tracking of IDFA. Authorization status is: %d", authorizationStatus);
-            return nil;
-        }
-    } else {
-        SEL isAdvertisingTrackingEnabledSelector = NSSelectorFromString(@"isAdvertisingTrackingEnabled");
-        if (![identifierManager respondsToSelector:isAdvertisingTrackingEnabledSelector]) {
-            SPLogError(errorMsg);
-            return nil;
-        }
-        
-        BOOL isAdvertisingTrackingEnabled = ((BOOL (*)(id, SEL))[identifierManager methodForSelector:isAdvertisingTrackingEnabledSelector])(identifierManager, isAdvertisingTrackingEnabledSelector);
-        if (!isAdvertisingTrackingEnabled) {
-            SPLogError(@"The user didn't let tracking of IDFA.");
-            return nil;
-        }
-    }
-    
-    SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
-    if (![identifierManager respondsToSelector:advertisingIdentifierSelector]) {
-        SPLogError(@"ASIdentifierManager doesn't respond to selector `advertisingIdentifier`.");
-        return nil;
-    }
-
-    NSUUID *uuid = ((NSUUID* (*)(id, SEL))[identifierManager methodForSelector:advertisingIdentifierSelector])(identifierManager, advertisingIdentifierSelector);
-    return [uuid UUIDString];
-#endif
-#endif
-    return nil;
-}
-
-+ (NSString *) appleIdfv {
-    NSString * idfv = nil;
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-#ifndef SNOWPLOW_NO_IDFV
-    idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-#endif
-#endif
-    return idfv;
-}
-
-+ (NSString *) deviceVendor {
-    return @"Apple Inc.";
-}
-
-+ (NSString *) deviceModel {
-    NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
-    if (simulatorModel) return simulatorModel;
-
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = malloc(size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithUTF8String:machine];
-    free(machine);
-    return platform;
-}
-
-+ (NSString *) osVersion {
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-    return [[UIDevice currentDevice] systemVersion];
-#elif SNOWPLOW_TARGET_WATCHOS
-    return [[WKInterfaceDevice currentDevice] systemVersion];
-#else
-    SInt32 osxMajorVersion;
-    SInt32 osxMinorVersion;
-    SInt32 osxPatchFixVersion;
-    NSProcessInfo *info = [NSProcessInfo processInfo];
-    NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
-    osxMajorVersion = (int)systemVersion.majorVersion;
-    osxMinorVersion = (int)systemVersion.minorVersion;
-    osxPatchFixVersion = (int)systemVersion.patchVersion;
-    NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
-                               osxMinorVersion, osxPatchFixVersion];
-    return versionString;
-#endif
-}
-
-+ (NSString *) osType {
-#if SNOWPLOW_TARGET_IOS
-    return @"ios";
-#elif SNOWPLOW_TARGET_TV
-    return @"tvos";
-#elif SNOWPLOW_TARGET_WATCHOS
-    return @"watchos";
-#else
-    return @"osx";
-#endif
-}
-
-+ (NSString *) carrierName {
-#if SNOWPLOW_TARGET_IOS
-    CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
-    CTCarrier *carrier;
-    if (@available(iOS 12.1, *)) {
-        // `serviceSubscribersCellularProviders` has a bug in the iOS 12.0 so we use it from iOS 12.1
-        NSString *carrierKey = [SPPlatformContext carrierKey];
-        if (!carrierKey) {
-            return nil;
-        }
-        NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
-        carrier = services[carrierKey];
-    } else {
-        carrier = [networkInfo subscriberCellularProvider];
-    }
-    return [carrier carrierName];
-#endif
-    return nil;
-}
-
-+ (NSString *) networkTechnology {
-#if SNOWPLOW_TARGET_IOS
-    CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
-    if (@available(iOS 12.1, *)) {
-        // `serviceCurrentRadioAccessTechnology` has a bug in the iOS 12.0 so we use it from iOS 12.1
-        NSString *carrierKey = [SPPlatformContext carrierKey];
-        if (!carrierKey) {
-            return nil;
-        }
-        NSDictionary<NSString *, NSString *> *services = [networkInfo serviceCurrentRadioAccessTechnology];
-        return services[carrierKey];
-    } else {
-        return [networkInfo currentRadioAccessTechnology];
-    }
-#endif
-    return nil;
-}
-
-+ (NSString *) carrierKey {
-#if SNOWPLOW_TARGET_IOS
-    if (@available(iOS 12.1, *)) {
-        CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
-        // `serviceSubscribersCellularProviders` has a bug in the iOS 12.0 so we use it from iOS 12.1
-        NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
-        NSArray<NSString *> *carrierKeys = services.allKeys;
-        // From iOS 12, iPhones with eSIMs can return multiple carrier providers.
-        // We can't prefer anyone of them so we track the first reported.
-        return carrierKeys.firstObject;
-    }
-#endif
-    return nil;
-}
-
-+ (NSString *) networkType {
-#if SNOWPLOW_TARGET_IOS
-    SNOWNetworkStatus networkStatus = [SNOWReachability reachabilityForInternetConnection].networkStatus;
-    switch (networkStatus) {
-        case SNOWNetworkStatusOffline:
-            return @"offline";
-        case SNOWNetworkStatusWifi:
-            return @"wifi";
-        case SNOWNetworkStatusWWAN:
-            return @"mobile";
-    }
-#endif
-    return @"offline";
-}
-
-// MARK: - Private utility methods for getting device information
-
-/*!
- @brief Returns remaining battery level as an integer percentage of total battery capacity.
- @return Battery level.
- */
-- (NSNumber *) getBatteryLevel {
-#if SNOWPLOW_TARGET_IOS
-    float batteryLevel = [[UIDevice currentDevice] batteryLevel];
-    if (batteryLevel != UIDeviceBatteryStateUnknown && batteryLevel >= 0) {
-        return [[NSNumber alloc] initWithInt: (int) (batteryLevel * 100)];
-    }
-#endif
-    return nil;
-}
-
-/*!
- @brief Returns battery state for the device.
- @return One of "charging", "full", "unplugged" or NULL
- */
-- (NSString *) getBatteryState {
-#if SNOWPLOW_TARGET_IOS
-    switch ([[UIDevice currentDevice] batteryState]) {
-        case UIDeviceBatteryStateCharging:
-            return @"charging";
-        case UIDeviceBatteryStateFull:
-            return @"full";
-        case UIDeviceBatteryStateUnplugged:
-            return @"unplugged";
-        default:
-            return nil;
-    }
-#else
-    return nil;
-#endif
-}
-
-/*!
- @brief Returns whether low power mode is activated.
- @return Boolean indicating the state of low power mode.
- */
-- (NSNumber *) isLowPowerModeEnabled {
-#if SNOWPLOW_TARGET_IOS
-    bool isEnabled = [[NSProcessInfo processInfo] isLowPowerModeEnabled];
-    return [[NSNumber alloc] initWithBool:isEnabled];
-#else
-    return nil;
-#endif
-}
-
-/*!
- @brief Returns total physical system memory in bytes.
- @return Total physical system memory in bytes.
- */
-- (NSNumber *) getPhysicalMemory {
-    unsigned long long physicalMemory = [[NSProcessInfo processInfo] physicalMemory];
-    return [[NSNumber alloc] initWithUnsignedLongLong:physicalMemory];
-}
-
-/*!
- @brief Returns the amount of memory in bytes available to the current app (iOS 13+).
- @return Amount of memory in bytes available to the current app (or 0 if not supported).
- */
-- (NSNumber *) getAppAvailableMemory {
-#if SNOWPLOW_TARGET_IOS
-#ifdef __HAS_OS_PROC_H__
-    if (@available(iOS 13.0, *)) {
-        unsigned long availableMemory = os_proc_available_memory();
-        return [[NSNumber alloc] initWithUnsignedLong:availableMemory];
-    }
-#endif
-#endif
-    return nil;
-}
-
-/*!
- @brief Returns number of bytes of storage remaining. The information is requested from the home directory.
- @return Bytes of storage remaining.
- */
-- (NSNumber *) getAvailableStorage {
-#if SNOWPLOW_TARGET_IOS
-    struct statfs tStats;
-    if (statfs([NSHomeDirectory() UTF8String], &tStats) == 0) {
-        return [[NSNumber alloc] initWithUnsignedLongLong: tStats.f_bavail * tStats.f_bsize];
-    } else {
-        SPLogError(@"Failed to read available storage size");
-    }
-#endif
-    return nil;
-}
-
-/*!
- @brief Returns the total number of bytes of storage. The information is requested from the home directory.
- @return Total size of storage in bytes.
- */
-- (NSNumber *) getTotalStorage {
-#if SNOWPLOW_TARGET_IOS
-    struct statfs tStats;
-    if (statfs([NSHomeDirectory() UTF8String], &tStats) == 0) {
-        return [[NSNumber alloc] initWithUnsignedLongLong: tStats.f_blocks * tStats.f_bsize];
-    } else {
-        SPLogError(@"Failed to read total storage size");
-    }
-#endif
-    return nil;
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor networkTechnology] forKey:kSPMobileNetworkTech];
+    [self.platformDict addValueToPayload:[self.deviceInfoMonitor networkType]       forKey:kSPMobileNetworkType];
 }
 
 

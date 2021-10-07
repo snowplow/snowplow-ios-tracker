@@ -25,6 +25,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @class SPPayload;
+@class SPDeviceInfoMonitor;
 
 /*!
  @class SPPlatformContext
@@ -48,75 +49,18 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency;
 
 /**
+ * Initializes a newly allocated PlatformContext object with custom update frequency for mobile and network properties and a custom device info monitor
+ * @param mobileDictUpdateFrequency Minimal gap between subsequent updates of mobile platform information
+ * @param networkDictUpdateFrequency Minimal gap between subsequent updates of network platform information
+ * @param deviceInfoMonitor Device monitor for fetching platform information
+ * @return a PlatformContext object
+ */
+- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency deviceInfoMonitor:(SPDeviceInfoMonitor *)deviceInfoMonitor;
+
+/**
  * Updates and returns payload dictionary with device context information.
  */
 - (nonnull SPPayload *) fetchPlatformDict;
-
-/*!
- @brief Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project and you enable the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
- @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
- */
-+ (nullable NSString *) appleIdfa;
-
-/*!
- @brief Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.
- @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
- */
-+ (nullable NSString *) appleIdfv;
-
-/*!
- @brief Returns the current device's vendor in the form of a string.
- @return A string with vendor, i.e. "Apple Inc."
- */
-+ (nullable NSString *) deviceVendor;
-
-/*!
- @brief Returns the current device's model in the form of a string.
- @return A string with device model.
- */
-+ (nullable NSString *) deviceModel;
-
-/*!
- @brief This is to detect what the version of mobile OS of the current device.
- @return The current device's OS version type as a string.
- */
-+ (nullable NSString *) osVersion;
-
-/*!
- @brief This is to detect what the type of mobile OS of the current device.
- @return The current device's OS type as a string.
- */
-+ (nullable NSString *) osType;
-
-/*!
- @brief Returns the carrier of the SIM inserted in the device.
- @return A string containing the carrier name of the service provider.
- */
-+ (nullable NSString *) carrierName;
-
-/*!
- @brief Returns the Network Type the device is connected to.
- @return A string containing the Network Type.
- */
-+ (nullable NSString *) networkType;
-
-/*!
- @brief Returns the Network Technology the device is using.
- @return A string containing the Network Technology.
- */
-+ (nullable NSString *) networkTechnology;
-
-/**
- * @property ephemeralMobileDictUpdatesCount
- * @brief Number of updates of mobile platform dictionary.
- */
-@property (nonatomic, readonly) long ephemeralMobileDictUpdatesCount;
-
-/**
- * @property ephemeralNetworkDictUpdatesCount
- * @brief Number of updates of network platform dictionary.
- */
-@property (nonatomic, readonly) long ephemeralNetworkDictUpdatesCount;
 
 @end
 
