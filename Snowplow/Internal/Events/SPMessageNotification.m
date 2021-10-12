@@ -103,7 +103,10 @@ SP_BUILDER_METHOD(NSString *, titleLocKey)
     }
     [payload setValue:_bodyLocKey forKey:kSPMessageNotificationParamBodyLocKey];
     [payload setValue:_category forKey:kSPMessageNotificationParamCategory];
-    [payload setValue:_contentAvailable forKey:kSPMessageNotificationParamContentAvailable];
+    if (_contentAvailable) {
+        NSNumber *contentAvailableBoolTyped = @(_contentAvailable.boolValue);
+        [payload setValue:contentAvailableBoolTyped forKey:kSPMessageNotificationParamContentAvailable];
+    }
     [payload setValue:_group forKey:kSPMessageNotificationParamGroup];
     [payload setValue:_icon forKey:kSPMessageNotificationParamIcon];
     [payload setValue:_notificationCount forKey:kSPMessageNotificationParamNotificationCount];
