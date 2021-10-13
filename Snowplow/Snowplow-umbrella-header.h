@@ -44,6 +44,8 @@
 #import "SPForeground.h"
 #import "SPBackground.h"
 #import "SNOWError.h"
+#import "SPMessageNotification.h"
+#import "SPMessageNotificationAttachment.h"
 
 // Global Contexts and State Management
 #import "SPGlobalContext.h"

@@ -37,5 +37,8 @@
 #import "SPForeground.h"
 #import "SPBackground.h"
 #import "SNOWError.h"
+#import "SPDeepLinkReceived.h"
+#import "SPMessageNotification.h"
+#import "SPMessageNotificationAttachment.h"
 
 // #endif /* SPEvent_h */
