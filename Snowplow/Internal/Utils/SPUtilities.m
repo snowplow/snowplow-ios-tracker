@@ -26,22 +26,17 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPScreenState.h"
-#include <sys/sysctl.h>
 #import "SPLogger.h"
+#import "SPDeviceInfoMonitor.h"
 
 #if SNOWPLOW_TARGET_IOS
 
 #import <UIKit/UIScreen.h>
-#import <CoreTelephony/CTCarrier.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <SystemConfiguration/SystemConfiguration.h>
-#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_OSX
 
 #import <AppKit/AppKit.h>
 #import <Carbon/Carbon.h>
-#import "SNOWReachability.h"
 
 #elif SNOWPLOW_TARGET_TV
 
@@ -96,147 +91,23 @@
  Use a real device if you want a proper IDFA.
  */
 + (NSString *) getAppleIdfa {
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-#ifdef SNOWPLOW_IDFA_ENABLED
-    NSString *errorMsg = @"ASIdentifierManager not found. Please, add the AdSupport.framework if you want to use it.";
-    Class identifierManagerClass = NSClassFromString(@"ASIdentifierManager");
-    if (!identifierManagerClass) {
-        SPLogError(errorMsg);
-        return nil;
-    }
-
-    SEL sharedManagerSelector = NSSelectorFromString(@"sharedManager");
-    if (![identifierManagerClass respondsToSelector:sharedManagerSelector]) {
-        SPLogError(errorMsg);
-        return nil;
-    }
-
-    id identifierManager = ((id (*)(id, SEL))[identifierManagerClass methodForSelector:sharedManagerSelector])(identifierManagerClass, sharedManagerSelector);
-    
-    if (@available(iOS 14.0, *)) {
-        errorMsg = @"ATTrackingManager not found. Please, add the AppTrackingTransparency.framework if you want to use it.";
-        Class trackingManagerClass = NSClassFromString(@"ATTrackingManager");
-        if (!trackingManagerClass) {
-            SPLogError(errorMsg);
-            return nil;
-        }
-        
-        SEL trackingStatusSelector = NSSelectorFromString(@"trackingAuthorizationStatus");
-        if (![trackingManagerClass respondsToSelector:trackingStatusSelector]) {
-            SPLogError(errorMsg);
-            return nil;
-        }
-        
-        //notDetermined = 0, restricted = 1, denied = 2, authorized = 3
-        NSInteger authorizationStatus = ((NSInteger (*)(id, SEL))[trackingManagerClass methodForSelector:trackingStatusSelector])(trackingManagerClass, trackingStatusSelector);
-        
-        if (authorizationStatus != 3)  {
-            SPLogDebug(@"The user didn't let tracking of IDFA. Authorization status is: %d", authorizationStatus);
-            return nil;
-        }
-    } else {
-        SEL isAdvertisingTrackingEnabledSelector = NSSelectorFromString(@"isAdvertisingTrackingEnabled");
-        if (![identifierManager respondsToSelector:isAdvertisingTrackingEnabledSelector]) {
-            SPLogError(errorMsg);
-            return nil;
-        }
-        
-        BOOL isAdvertisingTrackingEnabled = ((BOOL (*)(id, SEL))[identifierManager methodForSelector:isAdvertisingTrackingEnabledSelector])(identifierManager, isAdvertisingTrackingEnabledSelector);
-        if (!isAdvertisingTrackingEnabled) {
-            SPLogError(@"The user didn't let tracking of IDFA.");
-            return nil;
-        }
-    }
-    
-    SEL advertisingIdentifierSelector = NSSelectorFromString(@"advertisingIdentifier");
-    if (![identifierManager respondsToSelector:advertisingIdentifierSelector]) {
-        SPLogError(@"ASIdentifierManager doesn't respond to selector `advertisingIdentifier`.");
-        return nil;
-    }
-
-    NSUUID *uuid = ((NSUUID* (*)(id, SEL))[identifierManager methodForSelector:advertisingIdentifierSelector])(identifierManager, advertisingIdentifierSelector);
-    return [uuid UUIDString];
-#endif
-#endif
-    return nil;
+    return [[[SPDeviceInfoMonitor alloc] init] appleIdfa];
 }
 
 + (NSString *) getAppleIdfv {
-    NSString * idfv = nil;
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-#ifndef SNOWPLOW_NO_IDFV
-    idfv = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
-#endif
-#endif
-    return idfv;
+    return [[[SPDeviceInfoMonitor alloc] init] appleIdfv];
 }
 
 + (NSString *) getCarrierName {
-#if SNOWPLOW_TARGET_IOS
-    CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
-    CTCarrier *carrier;
-    if (@available(iOS 12.1, *)) {
-        // `serviceSubscribersCellularProviders` has a bug in the iOS 12.0 so we use it from iOS 12.1
-        NSString *carrierKey = [SPUtilities carrierKey];
-        if (!carrierKey) {
-            return nil;
-        }
-        NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
-        carrier = services[carrierKey];
-    } else {
-        carrier = [networkInfo subscriberCellularProvider];
-    }
-    return [carrier carrierName];
-#endif
-    return nil;
+    return [[[SPDeviceInfoMonitor alloc] init] carrierName];
 }
 
 + (NSString *) getNetworkTechnology {
-#if SNOWPLOW_TARGET_IOS
-    CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
-    if (@available(iOS 12.1, *)) {
-        // `serviceCurrentRadioAccessTechnology` has a bug in the iOS 12.0 so we use it from iOS 12.1
-        NSString *carrierKey = [SPUtilities carrierKey];
-        if (!carrierKey) {
-            return nil;
-        }
-        NSDictionary<NSString *, NSString *> *services = [networkInfo serviceCurrentRadioAccessTechnology];
-        return services[carrierKey];
-    } else {
-        return [networkInfo currentRadioAccessTechnology];
-    }
-#endif
-    return nil;
-}
-
-+ (NSString *)carrierKey {
-#if SNOWPLOW_TARGET_IOS
-    if (@available(iOS 12.1, *)) {
-        CTTelephonyNetworkInfo *networkInfo = [CTTelephonyNetworkInfo new];
-        // `serviceSubscribersCellularProviders` has a bug in the iOS 12.0 so we use it from iOS 12.1
-        NSDictionary<NSString *,CTCarrier *> *services = [networkInfo serviceSubscriberCellularProviders];
-        NSArray<NSString *> *carrierKeys = services.allKeys;
-        // From iOS 12, iPhones with eSIMs can return multiple carrier providers.
-        // We can't prefer anyone of them so we track the first reported.
-        return carrierKeys.firstObject;
-    }
-#endif
-    return nil;
+    return [[[SPDeviceInfoMonitor alloc] init] networkTechnology];
 }
 
 + (NSString *) getNetworkType {
-#if SNOWPLOW_TARGET_IOS
-    SNOWNetworkStatus networkStatus = [SNOWReachability reachabilityForInternetConnection].networkStatus;
-    switch (networkStatus) {
-        case SNOWNetworkStatusOffline:
-            return @"offline";
-        case SNOWNetworkStatusWifi:
-            return @"wifi";
-        case SNOWNetworkStatusWWAN:
-            return @"mobile";
-    }
-#endif
-    return @"offline";
+    return [[[SPDeviceInfoMonitor alloc] init] networkType];
 }
 
 + (int) getTransactionId {
@@ -271,52 +142,19 @@
 }
 
 + (NSString *) getDeviceVendor {
-    return @"Apple Inc.";
+    return [[[SPDeviceInfoMonitor alloc] init] deviceVendor];
 }
 
 + (NSString *) getDeviceModel {
-    NSString *simulatorModel = [NSProcessInfo.processInfo.environment objectForKey: @"SIMULATOR_MODEL_IDENTIFIER"];
-    if (simulatorModel) return simulatorModel;
-
-    size_t size;
-    sysctlbyname("hw.machine", NULL, &size, NULL, 0);
-    char *machine = malloc(size);
-    sysctlbyname("hw.machine", machine, &size, NULL, 0);
-    NSString *platform = [NSString stringWithUTF8String:machine];
-    free(machine);
-    return platform;
+    return [[[SPDeviceInfoMonitor alloc] init] deviceModel];
 }
 
 + (NSString *) getOSVersion {
-#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
-    return [[UIDevice currentDevice] systemVersion];
-#elif SNOWPLOW_TARGET_WATCHOS
-    return [[WKInterfaceDevice currentDevice] systemVersion];
-#else
-    SInt32 osxMajorVersion;
-    SInt32 osxMinorVersion;
-    SInt32 osxPatchFixVersion;
-    NSProcessInfo *info = [NSProcessInfo processInfo];
-    NSOperatingSystemVersion systemVersion = [info operatingSystemVersion];
-    osxMajorVersion = (int)systemVersion.majorVersion;
-    osxMinorVersion = (int)systemVersion.minorVersion;
-    osxPatchFixVersion = (int)systemVersion.patchVersion;
-    NSString *versionString = [NSString stringWithFormat:@"%d.%d.%d", osxMajorVersion,
-                               osxMinorVersion, osxPatchFixVersion];
-    return versionString;
-#endif
+    return [[[SPDeviceInfoMonitor alloc] init] osVersion];
 }
 
 + (NSString *) getOSType {
-#if SNOWPLOW_TARGET_IOS
-    return @"ios";
-#elif SNOWPLOW_TARGET_TV
-    return @"tvos";
-#elif SNOWPLOW_TARGET_WATCHOS
-    return @"watchos";
-#else
-    return @"osx";
-#endif
+    return [[[SPDeviceInfoMonitor alloc] init] osType];
 }
 
 + (NSString *) getAppId {

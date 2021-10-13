@@ -131,6 +131,38 @@
     XCTAssertEqualObjects(payload.getAsDictionary, [[NSDictionary alloc] init]);
 }
 
+- (void)testAddNumericValueToPayload {
+    NSDictionary *sample_dict = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                 @100, @"Key1", nil];
+    SPPayload *sample_payload = [[SPPayload alloc] init];
+    [sample_payload addNumericValueToPayload:@100 forKey:@"Key1"];
+    
+    
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
+                          sample_dict,
+                          @"Payload should have the correctly added payload");
+}
+
+- (void)testAddNilNumericValueToPayload {
+    SPPayload *sample_payload = [[SPPayload alloc] init];
+    [sample_payload addNumericValueToPayload:nil forKey:@"Key1"];
+    
+    
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
+                          [[NSDictionary alloc] init],
+                          @"Payload should be empty");
+}
+
+- (void)testAddNilNumericValueToPayloadUnsetsKey {
+    SPPayload *sample_payload = [[SPPayload alloc] initWithNSDictionary:@{@"Key1":@100}];
+    [sample_payload addNumericValueToPayload:nil forKey:@"Key1"];
+    
+    
+    XCTAssertEqualObjects(sample_payload.getAsDictionary,
+                          [[NSDictionary alloc] init],
+                          @"Payload should be empty");
+}
+
 - (void)testAddDictToPayload {
     NSDictionary *sample_dic = [[NSDictionary alloc] initWithObjectsAndKeys:
                                 @"Value1", @"Key1", nil];

@@ -78,14 +78,14 @@ NS_SWIFT_NAME(Subject)
 - (SPPayload *) getStandardDict;
 
 /*!
- @brief Gets all platform dictionary pairs to decorate event with.
+ @brief Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
 
  @return A SPPayload with all platform specific pairs.
  */
 - (SPPayload *) getPlatformDict;
 
 /*!
- @brief Gets the geolocation dictionary if the required keys are available.
+ @brief Gets the geolocation dictionary if the required keys are available. Returns nil if not enabled.
 
  @return A dictionary with key-value pairs of the geolocation context.
  */
@@ -169,11 +169,6 @@ NS_SWIFT_NAME(Subject)
  @brief Sets the standard pairs for the Subject, called automatically on object creation.
  */
 - (void) setStandardDict;
-
-/*!
- @brief Optional mobile/desktop context, if selected will be automatically populated on object creation.
- */
-- (void) setPlatformDict;
 
 /*!
  @brief Optional geolocation context, if run will allocate memory for the geolocation context

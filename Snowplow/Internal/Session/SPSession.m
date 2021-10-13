@@ -31,7 +31,7 @@
 #import "SPBackground.h"
 #import "SPForeground.h"
 
-#if SNOWPLOW_TARGET_IOS
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #import <UIKit/UIKit.h>
 #endif
 
