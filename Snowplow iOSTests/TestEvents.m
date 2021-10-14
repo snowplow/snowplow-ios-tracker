@@ -22,18 +22,6 @@
     event.contexts = self.goodCustomContext;
     XCTAssertNotNil(event);
     event = nil;
-    
-    // Context is not SelfDescribingJson
-    BOOL isFailed = NO;
-    @try {
-        event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
-        [event contexts:self.badCustomContext];
-    }
-    @catch (NSException *exception) {
-        isFailed = YES;
-        XCTAssertEqualObjects(@"All contexts must be SelfDescribingJson objects.", exception.reason);
-    }
-    XCTAssertTrue(isFailed);
 }
  
 - (void)testTrueTimestamp {

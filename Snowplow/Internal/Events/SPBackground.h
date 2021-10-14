@@ -16,7 +16,6 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -24,34 +23,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPBackgroundBuilder
- @brief The protocol for building background events.
- */
-NS_SWIFT_NAME(BackgroundBuilder)
-@protocol SPBackgroundBuilder <SPEventBuilder>
-
-/*!
- @brief Set the index of the event, a count that increments on each background and foreground.
-
- @param index The transition event index.
- */
-- (void) setIndex:(NSNumber *)index __deprecated_msg("Use initializer of `Background` class instead.");
-@end
-
-/*!
- @class SPBackground
- @brief A background transition event.
- */
+/// A background transition event.
 NS_SWIFT_NAME(Background)
-@interface SPBackground : SPSelfDescribingAbstract <SPBackgroundBuilder>
+@interface SPBackground : SPSelfDescribingAbstract
 
+/// Index indicating the current transition.
 @property (readonly) NSNumber *index;
-
-+ (instancetype) build:(void(^)(id<SPBackgroundBuilder>builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 
+/**
+ Creates a brackground transition event.
+ @param index indicate the current transition.
+ */
 - (instancetype)initWithIndex:(NSNumber *)index NS_SWIFT_NAME(init(index:));
 
 @end

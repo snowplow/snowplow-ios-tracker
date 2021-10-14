@@ -300,15 +300,6 @@
     return aString;
 }
 
-+ (SPSelfDescribingJson *) getScreenContextWithScreenState:(SPScreenState *)screenState {
-    SPPayload * contextPayload = [screenState getValidPayload];
-    if (contextPayload) {
-        return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenContextSchema andPayload:contextPayload];
-    } else {
-    	return nil;
-    }
-}
-
 + (SPSelfDescribingJson *) getApplicationContext {
     NSString * version = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
     NSString * build = [[NSBundle mainBundle] objectForInfoDictionaryKey: (NSString *)kCFBundleVersionKey];

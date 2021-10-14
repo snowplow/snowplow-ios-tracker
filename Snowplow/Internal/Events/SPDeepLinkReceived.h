@@ -15,7 +15,7 @@
 // express or implied. See the Apache License Version 2.0 for the specific
 // language governing permissions and limitations there under.
 //
-// Copyright: Copyright © 2020 Snowplow Analytics.
+// Copyright: Copyright © 2021 Snowplow Analytics.
 // License: Apache License Version 2.0
 //
 
@@ -24,9 +24,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/**
- Event that represents a deep-link received in the app.
- */
+/// A deep-link received in the app.
 NS_SWIFT_NAME(DeepLinkReceived)
 @interface SPDeepLinkReceived : SPSelfDescribingAbstract
 
@@ -34,15 +32,18 @@ extern NSString * const kSPDeepLinkReceivedSchema;
 extern NSString * const kSPDeepLinkReceivedParamReferrer;
 extern NSString * const kSPDeepLinkReceivedParamUrl;
 
-/// Referrer URL, source of this deep-link
+/// Referrer URL, source of this deep-link.
 @property (nonatomic, nullable) NSString *referrer;
-/// URL in the received deep-link
+/// URL in the received deep-link.
 @property (nonatomic, nonnull, readonly) NSString *url;
 
 - (instancetype)init NS_UNAVAILABLE;
 
+/// Creates a deep-link received event.
+/// @param url URL in the received deep-link.
 - (instancetype)initWithUrl:(NSString *)url;
 
+/// Referrer URL, source of this deep-link.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, referrer)
 
 @end

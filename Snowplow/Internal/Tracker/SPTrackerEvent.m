@@ -44,7 +44,7 @@
 
         self.isService = [event isKindOfClass:SPTrackerError.class];
         if ([event isKindOfClass:SPPrimitiveAbstract.class]) {
-            self.eventName = [(SPPrimitiveAbstract *)event name];
+            self.eventName = [(SPPrimitiveAbstract *)event eventName];
             self.isPrimitive = true;
         } else {
             self.schema = [(SPSelfDescribingAbstract *)event schema];

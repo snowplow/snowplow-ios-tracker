@@ -275,13 +275,6 @@
 + (NSString *) validateString:(NSString *)aString;
 
 /*!
- Returns a screen context SDJ given a screen state object.
- @param screenState Some screen state
- @return A context SDJ.
- */
-+ (SPSelfDescribingJson *) getScreenContextWithScreenState:(SPScreenState *)screenState;
-
-/*!
  Returns the app version.
  @return App version string.
  */

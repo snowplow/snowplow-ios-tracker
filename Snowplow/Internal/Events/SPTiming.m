@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -26,24 +26,16 @@
 #import "SPUtilities.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPTiming {
-    NSString * _category;
-    NSString * _variable;
-    NSNumber * _timing;
-    NSString * _label;
-}
 
-+ (instancetype)build:(void(^)(id<SPTimingBuilder> builder))buildBlock {
-    SPTiming* event = [SPTiming new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@interface SPTiming ()
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@property (nonatomic, readwrite) NSString *category;
+@property (nonatomic, readwrite) NSString *variable;
+@property (nonatomic, readwrite) NSNumber *timing;
+
+@end
+
+@implementation SPTiming
 
 - (instancetype)initWithCategory:(NSString *)category variable:(NSString *)variable timing:(NSNumber *)timing {
     if (self = [super init]) {
@@ -56,36 +48,9 @@
     return self;
 }
 
-- (void) preconditions {
-    [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
-    [SPUtilities checkArgument:([_variable length] != 0) withMessage:@"Variable cannot be nil or empty."];
-    [SPUtilities checkArgument:(_timing != nil) withMessage:@"Timing cannot be nil."];
-}
-
 // --- Builder Methods
 
 SP_BUILDER_METHOD(NSString *, label)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setCategory:(NSString *)category {
-    _category = category;
-}
-
-- (void) setVariable:(NSString *)variable {
-    _variable = variable;
-}
-
-- (void) setTiming:(NSInteger)timing {
-    _timing = [NSNumber numberWithLong:timing];
-}
-
-- (void) setLabel:(NSString *)label {
-    _label = label;
-}
-
-#pragma clang diagnostic pop
 
 // --- Public Methods
 

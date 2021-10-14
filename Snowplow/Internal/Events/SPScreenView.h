@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -27,100 +27,49 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPScreenViewBuilder
- @brief The protocol for building screenview events.
- */
-NS_SWIFT_NAME(ScreenViewBuilder)
-@protocol SPScreenViewBuilder <SPEventBuilder>
-/*!
- @brief Set the name of the screen.
-
- @param name The name of the screen.
- */
-- (void) setName:(NSString *)name __deprecated_msg("Use `name` of `ScreenView` class instead.");
-
-/*!
- @brief Set the type of the screen.
-
- @param type The type for the screen.
- */
-- (void) setType:(nullable NSString *)type __deprecated_msg("Use `type` of `ScreenView` class instead.");
-
-/*!
- @brief Set the ID of the screen.
-
- @param screenId The ID for the screen.
- */
-- (void) setScreenId:(NSString *)screenId __deprecated_msg("Use `screenId` of `ScreenView` class instead.");
-
-/*!
- @brief Set the name of the previous screen.
-
- @param name The name of the previous screen.
- */
-- (void) setPreviousScreenName:(nullable NSString *)name __deprecated_msg("Use `previousName` of `ScreenView` class instead.");
-
-/*!
- @brief Set the type of the previous screen.
-
- @param type The type of the previous screen.
- */
-- (void) setPreviousScreenType:(nullable NSString *)type __deprecated_msg("Use `previousType` of `ScreenView` class instead.");
-
-/*!
- @brief Set the ID of the previous screen.
-
- @param screenId The ID for the previous screen.
- */
-- (void) setPreviousScreenId:(nullable NSString *)screenId __deprecated_msg("Use `previousId` of `ScreenView` class instead.");
-
-/*!
- @brief Set the type of the screen transition.
-
- @param type The type of the screen transition.
- */
-- (void) setTransitionType:(nullable NSString *)type __deprecated_msg("Use `transitionType` of `ScreenView` class instead.");
-
-- (void) setViewControllerClassName:(nullable NSString *)className __deprecated_msg("Use `viewControllerClassName` of `ScreenView` class instead.");
-
-- (void) setTopViewControllerClassName:(nullable NSString *)className __deprecated_msg("Use `topViewControllerClassName` of `ScreenView` class instead.");
-
-@end
-
-/*!
- @class SPScreenView
- @brief A screenview event.
- */
+/// A screenview event.
 NS_SWIFT_NAME(ScreenView)
-@interface SPScreenView : SPSelfDescribingAbstract <SPScreenViewBuilder>
+@interface SPScreenView : SPSelfDescribingAbstract
 
+/// Name of the screen.
 @property (nonatomic, readonly) NSString *name;
+/// Identifier of the screen.
 @property (nonatomic, readonly) NSString *screenId;
+/// Type of screen.
 @property (nonatomic, nullable) NSString *type;
+/// Name of the previous screen.
 @property (nonatomic, nullable) NSString *previousName;
+/// Identifier of the previous screen.
 @property (nonatomic, nullable) NSString *previousId;
+/// Type of the previous screen.
 @property (nonatomic, nullable) NSString *previousType;
+/// Type of transition between previous and current screen,
 @property (nonatomic, nullable) NSString *transitionType;
+/// Name of the ViewController subclass.
 @property (nonatomic, nullable) NSString *viewControllerClassName;
+/// Name of the top ViewController subclass.
 @property (nonatomic, nullable) NSString *topViewControllerClassName;
-
-+ (instancetype)build:(void(^)(id<SPScreenViewBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 
+/// Creates a screenview event.
+/// @param name Name of the screen.
+/// @param screenId Identifier of the screen.
 - (instancetype)initWithName:(NSString *)name screenId:(nullable NSUUID *)screenId NS_SWIFT_NAME(init(name:screenId:));
 
-- (SPScreenState *)getScreenState;
-
-- (BOOL)updateWithPreviousState:(SPScreenState *)previousState;
-
+/// Type of screen.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, type)
+/// Name of the previous screen.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, previousName)
+/// Identifier of the previous screen.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, previousId)
+/// Type of the previous screen.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, previousType)
+/// Type of transition between previous and current screen,
 SP_BUILDER_DECLARE_NULLABLE(NSString *, transitionType)
+/// Name of the ViewController subclass.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, viewControllerClassName)
+/// Name of the top ViewController subclass.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, topViewControllerClassName)
 
 @end

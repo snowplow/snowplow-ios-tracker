@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -28,129 +28,11 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*!
- @protocol SPPushNotificationBuilder
- @brief The protocol for building push notification events.
- @deprecated This is available only on iOS. Please, use MessageNotification instead, which is available for both iOS and Android trackers.
- */
-NS_SWIFT_NAME(PushNotificationBuilder)
-@protocol SPPushNotificationBuilder <SPEventBuilder>
-
-/*!
- @brief Set the action.
-
- @param action Action taken by the user.
- */
-- (void) setAction:(NSString *)action __deprecated_msg("Use initializer of `PushNotification` class instead.");
-
-/*!
- @brief Set the delivery date.
-
- @param date The date the notification was delivered.
- */
-- (void) setDeliveryDate:(NSString *)date __deprecated_msg("Use initializer of `PushNotification` class instead.");
-
-/*!
- @brief Set the trigger.
-
- @param trigger Event trigger (i.e. push or local trigger).
- */
-- (void) setTrigger:(NSString *)trigger __deprecated_msg("Use initializer of `PushNotification` class instead.");
-
-/*!
- @brief Set the category ID.
-
- @param category Category Id of the notification.
- */
-- (void) setCategoryIdentifier:(NSString *)category __deprecated_msg("Use initializer of `PushNotification` class instead.");
-
-/*!
- @brief Set the thread ID.
-
- @param thread Thread Id of the notification.
- */
-- (void) setThreadIdentifier:(NSString *)thread __deprecated_msg("Use initializer of `PushNotification` class instead.");
-
-/*!
- @brief Set the notification content.
-
- @param content Notification content event.
- */
-- (void) setNotification:(SPNotificationContent *)content __deprecated_msg("Use initializer of `PushNotification` class instead.");
-@end
-
-/*!
- @protocol SPNotificationContentBuilder
- @brief The protocol for building notification content.
- */
-NS_SWIFT_NAME(NotificationContentBuilder)
-@protocol SPNotificationContentBuilder
-
-/*!
- @brief Set the title.
-
- @param title Title displayed in notification.
- */
-- (void) setTitle:(NSString *)title __deprecated_msg("Use initializer of `NotificationContent` class instead.");
-
-/*!
- @brief Set the subtitle.
-
- @param subtitle Subtitle displayed.
- */
-- (void) setSubtitle:(nullable NSString *)subtitle __deprecated_msg("Use `subtitle` of `NotificationContent` class instead.");
-
-/*!
- @brief Set the body.
-
- @param body Body message.
- */
-- (void) setBody:(NSString *)body __deprecated_msg("Use `body` of `NotificationContent` class instead.");
-
-/*!
- @brief Set the badge.
-
- @param badge Badge count of the app.
- */
-- (void) setBadge:(NSNumber *)badge __deprecated_msg("Use `badge` of `NotificationContent` class instead.");
-
-/*!
- @brief Set the sound.
-
- @param sound Name of the notification sound.
- */
-- (void) setSound:(nullable NSString *)sound __deprecated_msg("Use `sound` of `NotificationContent` class instead.");
-
-/*!
- @brief Set the launchImageName.
-
- @param name The launchImageName member of a UNNotificationContent object.
- */
-- (void) setLaunchImageName:(nullable NSString *)name __deprecated_msg("Use `imageName` of `NotificationContent` class instead.");
-
-/*!
- @brief Set the UserInfo dictionary.
-
- @param userInfo The UserInfo dictionary of a UNNotificationContent.
- */
-- (void) setUserInfo:(nullable NSDictionary *)userInfo __deprecated_msg("Use `userInfo` of `NotificationContent` class instead.");
-
-/*!
- @brief Set attachments.
-
- @param attachments Attachments displayed with notification.
- */
-- (void) setAttachments:(nullable NSArray *)attachments __deprecated_msg("Use `attachments` of `NotificationContent` class instead.");
-@end
-
-/*!
- @class SPPushNotification
- @brief A push notification event.
+ A push notification event.
  @deprecated This is available only on iOS. Please, use MessageNotification instead, which is available for both iOS and Android trackers.
  */
 NS_SWIFT_NAME(PushNotification)
-@interface SPPushNotification : SPSelfDescribingAbstract <SPPushNotificationBuilder>
-
-+ (instancetype)build:(void(^)(id<SPPushNotificationBuilder> builder))buildBlock;
+@interface SPPushNotification : SPSelfDescribingAbstract
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -159,13 +41,11 @@ NS_SWIFT_NAME(PushNotification)
 @end
 
 /*!
- @class SPNotificationContent
- @brief A notification content event.
-
- This object is used to store information that supplements a push notification event.
+ A notification content event. This object is used to store information that supplements a push notification event.
+ @deprecated This is available only on iOS. Please, use MessageNotification instead, which is available for both iOS and Android trackers.
  */
 NS_SWIFT_NAME(NotificationContent)
-@interface SPNotificationContent : NSObject <SPNotificationContentBuilder>
+@interface SPNotificationContent : NSObject
 
 @property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSString *body;
@@ -177,8 +57,6 @@ NS_SWIFT_NAME(NotificationContent)
 @property (nonatomic, nullable) NSArray *attachments;
 
 @property (nonatomic) NSDictionary *payload;
-
-+ (instancetype) build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 

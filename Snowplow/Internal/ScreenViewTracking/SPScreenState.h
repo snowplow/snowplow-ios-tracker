@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Michael Hadam
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -73,7 +73,7 @@ NS_SWIFT_NAME(ScreenState)
 /**
  * Returns all non-nil values if the state is valid (e.g. name is not missing or empty string).
  */
-- (SPPayload *) getValidPayload;
+- (SPPayload *)payload;
 
 /**
  * Return if the state is valid.

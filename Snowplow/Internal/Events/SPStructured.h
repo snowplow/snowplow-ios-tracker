@@ -24,63 +24,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPStructuredBuilder
- @brief The protocol for building structured events.
- */
-NS_SWIFT_NAME(StructuredBuilder)
-@protocol SPStructuredBuilder <SPEventBuilder>
-
-/*!
- @brief Set the category of the structured event.
-
- @param category The category of the structured event.
- */
-- (void) setCategory:(NSString *)category __deprecated_msg("Use `category` of `Structured` class instead.");
-
-/*!
- @brief Set the action of the structured event.
-
- @param action The action of the structured event.
- */
-- (void) setAction:(NSString *)action __deprecated_msg("Use `action` of `Structured` class instead.");
-
-/*!
- @brief Set the label of the structured event.
-
- @param label The label of the structured event.
- */
-- (void) setLabel:(nullable NSString *)label __deprecated_msg("Use `label` of `Structured` class instead.");
-
-/*!
- @brief Set the property of the structured event.
-
- @param property The property of the structured event.
- */
-- (void) setProperty:(nullable NSString *)property __deprecated_msg("Use `property` of `Structured` class instead.");
-
-/*!
- @brief Set the value of the structured event.
-
- @param value The value of the structured event.
- */
-- (void) setValue:(nullable NSNumber *)value __deprecated_msg("Use `value` of `Structured` class instead.");
-@end
-
-/*!
- @class SPStructured
- @brief A structured event.
- */
+/// A structured event.
 NS_SWIFT_NAME(Structured)
-@interface SPStructured : SPPrimitiveAbstract <SPStructuredBuilder>
+@interface SPStructured : SPPrimitiveAbstract
 
 @property (nonatomic, readonly) NSString *category;
 @property (nonatomic, readonly) NSString *action;
 @property (nonatomic, nullable) NSString *label;
 @property (nonatomic, nullable) NSString *property;
 @property (nonatomic, nullable) NSNumber *value;
-
-+ (instancetype)build:(void(^)(id<SPStructuredBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 

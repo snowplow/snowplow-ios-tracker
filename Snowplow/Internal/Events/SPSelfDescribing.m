@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -33,25 +33,13 @@
     NSDictionary<NSString *, NSObject *> * _payload;
 }
 
-+ (instancetype) build:(void(^)(id<SPSelfDescribingBuilder> builder))buildBlock {
-    SPSelfDescribing* event = [SPSelfDescribing new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
-
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
-
 - (instancetype)initWithEventData:(SPSelfDescribingJson *)eventData {
     if (self = [super init]) {
         [SPUtilities checkArgument:(eventData != nil) withMessage:@"EventData cannot be nil."];
         _schema = eventData.schema;
         [SPUtilities checkArgument:(_schema != nil) withMessage:@"EventData schema cannot be nil."];
         [SPUtilities checkArgument:([eventData.data isKindOfClass:[NSDictionary<NSString *, NSObject *> class]]) withMessage:@"EventData payload is not correctly formatted."];
-        _payload = (NSDictionary<NSString *, NSObject *> *) eventData.data;
+        _payload = (NSDictionary<NSString *, NSObject *> *)eventData.data;
         [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_payload] withMessage:@"EventData payload has to be JSON serializable."];
         _eventData = eventData;
     }
@@ -67,22 +55,6 @@
     }
     return self;
 }
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_eventData != nil) withMessage:@"EventData cannot be nil."];
-    [SPUtilities checkArgument:[NSJSONSerialization isValidJSONObject:_eventData.data] withMessage:@"EventData has to be JSON serializable."];
-}
-
-// --- Builder Methods
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setEventData:(SPSelfDescribingJson *)eventData {
-    _eventData = eventData;
-}
-
-#pragma clang diagnostic pop
 
 // --- Public Methods
 

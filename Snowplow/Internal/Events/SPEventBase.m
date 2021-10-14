@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -43,9 +43,7 @@ NSString * stringWithSPScreenType(SPScreenType screenType) {
 
 // Base Event
 
-@implementation SPEvent {
-    NSMutableArray<SPSelfDescribingJson *> *_contexts;
-}
+@implementation SPEvent
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -58,22 +56,6 @@ SP_BUILDER_METHOD(NSDate *, trueTimestamp)
 SP_BUILDER_METHOD(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 
 // --- Public Methods
-
-- (void)setContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts {
-    for (NSObject *sdj in contexts) {
-        [SPUtilities checkArgument:([sdj isKindOfClass:[SPSelfDescribingJson class]])
-                       withMessage:@"All contexts must be SelfDescribingJson objects."];
-    }
-    _contexts = contexts;
-}
-
-- (NSMutableArray<SPSelfDescribingJson *> *)contexts {
-    return _contexts;
-}
-
-- (NSMutableArray<SPSelfDescribingJson *> *)getContexts {
-    return self.contexts;
-}
 
 - (NSDictionary<NSString *,NSObject *> *)payload {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
@@ -102,7 +84,7 @@ SP_BUILDER_METHOD(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 
 @implementation SPPrimitiveAbstract
 
-- (NSString *)name {
+- (NSString *)eventName {
     @throw [NSException exceptionWithName:NSInternalInconsistencyException
                                    reason:[NSString stringWithFormat:@"You must override %@ in a subclass", NSStringFromSelector(_cmd)]
                                  userInfo:nil];
