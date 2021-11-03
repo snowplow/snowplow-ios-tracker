@@ -1,5 +1,10 @@
-
+#import "SPSnowplow.h"
 #import "SPTrackerConstants.h"
+#import "SPLoggerDelegate.h"
+#import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
+
+// Configurations
 #import "SPConfiguration.h"
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
@@ -10,6 +15,7 @@
 #import "SPGlobalContextsConfiguration.h"
 #import "SPConfigurationBundle.h"
 
+// Controllers
 #import "SPTrackerController.h"
 #import "SPSessionController.h"
 #import "SPNetworkController.h"
@@ -17,15 +23,20 @@
 #import "SPGDPRController.h"
 #import "SPGlobalContextsController.h"
 
-#import "SPLoggerDelegate.h"
-
-#import "SPEventStore.h"
+// NetworkConnection
 #import "SPNetworkConnection.h"
+#import "SPDefaultNetworkConnection.h"
+
+// EventStore
+#import "SPEventStore.h"
+#import "SPSQLiteEventStore.h"
+#import "SPMemoryEventStore.h"
+
+// Emitter
 #import "SPRequest.h"
 #import "SPRequestResult.h"
 #import "SPEmitterEvent.h"
 #import "SPRequestCallback.h"
-#import "SPSnowplow.h"
 
 // Events
 #import "SPEventBase.h"
@@ -53,12 +64,3 @@
 #import "SPSchemaRule.h"
 #import "SPTrackerStateSnapshot.h"
 #import "SPState.h"
-
-// Classes to restrict visibility
-
-#import "SPPayload.h"
-#import "SPSelfDescribingJson.h"
-#import "SPSQLiteEventStore.h"
-#import "SPMemoryEventStore.h"
-#import "SPDefaultNetworkConnection.h"
-#import "SPStateManager.h"

@@ -27,7 +27,6 @@
 
 @class SPPayload;
 @class SPTracker;
-@class SPStateFuture;
 
 /// An enum for screen types.
 typedef NS_ENUM(NSInteger, SPScreenType) {
