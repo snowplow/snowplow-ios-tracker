@@ -67,10 +67,6 @@
 #endif
 }
 
-+ (NSString *) getEventId {
-    return [SPUtilities getUUIDString];
-}
-
 + (NSString *) getUUIDString {
     // Generates type 4 UUID
     return [[NSUUID UUID] UUIDString].lowercaseString;
@@ -78,40 +74,6 @@
 
 + (bool ) isUUIDString:(nonnull NSString *)uuidString {
     return [[NSUUID alloc] initWithUUIDString:uuidString] != nil;
-}
-
-/*
- The IDFA can be retrieved using selectors rather than proper instance methods because
- the compiler would complain about the missing AdSupport framework.
- As stated in the header file, this only works if you have the AdSupport library in your project.
- If you have it and you want to use IDFA, add the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
- If you haven't AdSupport framework in your project or SNOWPLOW_IDFA_ENABLED it's not set, it just compiles returning a nil advertisingIdentifier.
- 
- Note that `advertisingIdentifier` returns a sequence of 0s when used in the simulator.
- Use a real device if you want a proper IDFA.
- */
-+ (NSString *) getAppleIdfa {
-    return [[[SPDeviceInfoMonitor alloc] init] appleIdfa];
-}
-
-+ (NSString *) getAppleIdfv {
-    return [[[SPDeviceInfoMonitor alloc] init] appleIdfv];
-}
-
-+ (NSString *) getCarrierName {
-    return [[[SPDeviceInfoMonitor alloc] init] carrierName];
-}
-
-+ (NSString *) getNetworkTechnology {
-    return [[[SPDeviceInfoMonitor alloc] init] networkTechnology];
-}
-
-+ (NSString *) getNetworkType {
-    return [[[SPDeviceInfoMonitor alloc] init] networkType];
-}
-
-+ (int) getTransactionId {
-    return arc4random() % (999999 - 100000+1) + 100000;
 }
 
 + (NSNumber *) getTimestamp {
@@ -141,22 +103,6 @@
     return [self getResolution];
 }
 
-+ (NSString *) getDeviceVendor {
-    return [[[SPDeviceInfoMonitor alloc] init] deviceVendor];
-}
-
-+ (NSString *) getDeviceModel {
-    return [[[SPDeviceInfoMonitor alloc] init] deviceModel];
-}
-
-+ (NSString *) getOSVersion {
-    return [[[SPDeviceInfoMonitor alloc] init] osVersion];
-}
-
-+ (NSString *) getOSType {
-    return [[[SPDeviceInfoMonitor alloc] init] osType];
-}
-
 + (NSString *) getAppId {
     return [[NSBundle mainBundle] bundleIdentifier];
 }
@@ -176,10 +122,6 @@
         [keyValuePairs addObject:[NSString stringWithFormat:@"%@=%@", [self urlEncodeString:key], [self urlEncodeString:[value description]]]];
     }];
     return [keyValuePairs componentsJoinedByString:@"&"];
-}
-
-+ (NSInteger) getByteSizeWithString:(NSString *)str {
-    return [str lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
 }
 
 + (void) checkArgument:(BOOL)argument withMessage:(NSString *)message {
