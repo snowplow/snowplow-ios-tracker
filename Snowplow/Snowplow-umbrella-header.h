@@ -56,14 +56,10 @@
 
 // Classes to restrict visibility
 
-#import "SPTracker.h"
-#import "SPEmitter.h"
-#import "SPSubject.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSQLiteEventStore.h"
 #import "SPMemoryEventStore.h"
 #import "SPDefaultNetworkConnection.h"
-#import "SPGdprContext.h"
 #import "SPStateManager.h"

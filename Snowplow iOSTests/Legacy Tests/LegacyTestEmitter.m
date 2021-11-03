@@ -179,7 +179,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     // Allow timer to be set
     [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-    [emitter startTimerFlush];
+    [emitter resume];
 }
 
 // MARK: - Emitting tests

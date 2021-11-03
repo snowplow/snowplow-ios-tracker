@@ -23,11 +23,6 @@
 #import <Foundation/Foundation.h>
 #import "SPTracker.h"
 
-/**
- * @deprecated Use `SessionConfiguration` for the configuration or `SessionController`
- * for the runtime information and setup.
- */
-DEPRECATED_ATTRIBUTE
 NS_SWIFT_NAME(Session)
 @interface SPSession : NSObject
 
@@ -75,8 +70,7 @@ NS_SWIFT_NAME(Session)
 - (void) stopChecker;
 
 /// Expires the current session and starts a new one
-/// @deprecated Use `SessionController` `startNewSession()`.
-- (void)startNewSession DEPRECATED_ATTRIBUTE;
+- (void)startNewSession;
 
 /**
  * Sets a new foreground timeout in milliseconds

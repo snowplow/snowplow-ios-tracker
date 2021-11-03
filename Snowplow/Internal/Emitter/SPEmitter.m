@@ -99,7 +99,6 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         __typeof__(self) strongSelf = weakSelf;
         if (!strongSelf) return;
         NSString *endpoint = strongSelf->_url;
-        NSURL *url = [[NSURL alloc] initWithString:endpoint];
         if (![endpoint hasPrefix:@"http"]) {
             NSString *protocol = strongSelf->_protocol == SPProtocolHttps ? @"https://" : @"http://";
             endpoint = [protocol stringByAppendingString:endpoint];
@@ -219,10 +218,6 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 
 // MARK: - Pause/Resume methods
 
-- (void)startTimerFlush {
-    [self resume];
-}
-
 - (void)resume {
     __weak __typeof__(self) weakSelf = self;
     
@@ -242,10 +237,6 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     });
 }
 
-- (void) stopTimerFlush {
-    [self pause];
-}
-
 - (void)pause {
     [_timer invalidate];
     _timer = nil;
@@ -261,10 +252,6 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         [strongSelf->_eventStore addEvent:eventPayload];
         [strongSelf flush];
     });
-}
-
-- (void)flushBuffer {
-    [self flush];
 }
 
 - (void)flush {
