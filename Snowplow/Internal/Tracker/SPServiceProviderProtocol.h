@@ -25,7 +25,7 @@
 @class SPSubject;
 @class SPEmitter;
 @class SPTracker;
-@class SPTrackerControllerImpl;
+@protocol SPTrackerController;
 @class SPEmitterControllerImpl;
 @class SPNetworkControllerImpl;
 @class SPGDPRControllerImpl;
@@ -50,7 +50,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (SPEmitter *)emitter;
 - (SPSubject *)subject;
 
-- (SPTrackerControllerImpl *)trackerController;
+- (id<SPTrackerController>)trackerController;
 - (SPEmitterControllerImpl *)emitterController;
 - (SPNetworkControllerImpl *)networkController;
 - (SPGDPRControllerImpl *)gdprController;

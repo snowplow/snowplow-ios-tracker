@@ -235,6 +235,8 @@ NS_SWIFT_NAME(TrackerBuilder)
 @property (readonly, nonatomic) BOOL base64Encoded;
 /*! @brief Whether to use Base64 encoding for events. */
 @property (readonly, nonatomic) SPDevicePlatform devicePlatform;
+/*! @brief Version suffix for tracker wrappers. */
+@property (readonly, nonatomic) NSString *trackerVersionSuffix;
 /*! @brief Previous screen view state. */
 @property (readonly, nonatomic, strong) SPScreenState * previousScreenState;
 /*! @brief Current screen view state. */
