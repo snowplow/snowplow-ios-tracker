@@ -28,10 +28,6 @@
 @class SPSelfDescribingJson;
 @class SPScreenState;
 
-#if SNOWPLOW_TARGET_IOS
-#import <UserNotifications/UserNotifications.h>
-#endif
-
 /*!
  This is a class that contains utility functions used throughout the tracker.
  */
@@ -120,24 +116,6 @@
  @return The same NSDictionary without any Null values.
  */
 + (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict;
-
-/*!
- @brief Maps a trigger object to the corresponding simplified string.
- @param trigger A UNNotificationTrigger object.
- @return A string describing the type of trigger.
- */
-#if SNOWPLOW_TARGET_IOS
-+ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger NS_AVAILABLE_IOS(10.0);
-#endif
-
-/*!
- @brief Converts a UNNotificationAttachment array into an array of string dictionaries.
- @param attachments An array of UNNotificationAttachment.
- @return An array of string dictionaries.
- */
-#if SNOWPLOW_TARGET_IOS
-+ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments NS_AVAILABLE_IOS(10.0);
-#endif
 
 /*!
  @brief Converts a kebab-case string keys into a camel-case string keys.

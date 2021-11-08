@@ -56,7 +56,42 @@
     return self;
 }
 
-// --- Public Methods
+#if SNOWPLOW_TARGET_IOS
+- (instancetype)initWithDate:(NSString *)date action:(NSString *)action notificationTrigger:(nullable UNNotificationTrigger *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification {
+    if (self = [super init]) {
+        _date = date;
+        _action = action;
+        _trigger = [SPPushNotification stringFromNotificationTrigger:trigger];
+        _category = category;
+        _thread = thread;
+        _notification = notification;
+        [SPUtilities checkArgument:([_date length] != 0) withMessage:@"Delivery date cannot be nil or empty."];
+        [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
+        [SPUtilities checkArgument:([_trigger length] != 0) withMessage:@"Trigger cannot be nil or empty."];
+        [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
+        [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
+    }
+    return self;
+}
+
+
++ (NSString *)stringFromNotificationTrigger:(nullable UNNotificationTrigger *)trigger  API_AVAILABLE(ios(10.0)) {
+    NSMutableString * triggerType = [[NSMutableString alloc] initWithString:@"UNKNOWN"];
+    NSString * triggerClass = NSStringFromClass([trigger class]);
+    if ([triggerClass isEqualToString:@"UNTimeIntervalNotificationTrigger"]) {
+        [triggerType setString:@"TIME_INTERVAL"];
+    } else if ([triggerClass isEqualToString:@"UNCalendarNotificationTrigger"]) {
+        [triggerType setString:@"CALENDAR"];
+    } else if ([triggerClass isEqualToString:@"UNLocationNotificationTrigger"]) {
+        [triggerType setString:@"LOCATION"];
+    } else if ([triggerClass isEqualToString:@"UNPushNotificationTrigger"]) {
+        [triggerType setString:@"PUSH"];
+    }
+    return (NSString *)triggerType;
+}
+#endif
+
+// MARK: - Public Methods
 
 - (NSString *)schema {
     return kSPPushNotificationSchema;
@@ -145,10 +180,18 @@ SP_BUILDER_METHOD(NSArray *, attachments)
         }
         [event setObject:[[NSDictionary alloc] initWithDictionary:newUserInfo] forKey:kSPPnUserInfo];
     }
-    if (_attachments != nil) {
-        [event setObject:_attachments forKey:kSPPnAttachments];
+    if (_attachments.count) {
+        NSMutableArray<NSDictionary *> * converting = [[NSMutableArray alloc] init];
+        NSMutableDictionary * newAttachment = [[NSMutableDictionary alloc] init];
+        for (id attachment in _attachments) {
+            newAttachment[kSPPnAttachmentId] = [attachment valueForKey:@"identifier"];
+            newAttachment[kSPPnAttachmentUrl] = [attachment valueForKey:@"URL"];
+            newAttachment[kSPPnAttachmentType] = [attachment valueForKey:@"type"];
+            [converting addObject: (NSDictionary *)[newAttachment copy]];
+            [newAttachment removeAllObjects];
+        }
+        [event setObject:[NSArray arrayWithArray:converting] forKey:kSPPnAttachments];
     }
-
     return [[NSDictionary alloc] initWithDictionary:event copyItems:YES];
 }
 

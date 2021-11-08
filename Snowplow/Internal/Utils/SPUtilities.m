@@ -133,39 +133,6 @@
     }
 }
 
-#if SNOWPLOW_TARGET_IOS
-+ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger {
-    NSMutableString * triggerType = [[NSMutableString alloc] initWithString:@"UNKNOWN"];
-    NSString * triggerClass = NSStringFromClass([trigger class]);
-    if ([triggerClass isEqualToString:@"UNTimeIntervalNotificationTrigger"]) {
-        [triggerType setString:@"TIME_INTERVAL"];
-    } else if ([triggerClass isEqualToString:@"UNCalendarNotificationTrigger"]) {
-        [triggerType setString:@"CALENDAR"];
-    } else if ([triggerClass isEqualToString:@"UNLocationNotificationTrigger"]) {
-        [triggerType setString:@"LOCATION"];
-    } else if ([triggerClass isEqualToString:@"UNPushNotificationTrigger"]) {
-        [triggerType setString:@"PUSH"];
-    }
-
-    return (NSString *)triggerType;
-}
-
-+ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments {
-    NSMutableArray<NSDictionary *> * converting = [[NSMutableArray alloc] init];
-    NSMutableDictionary * newAttachment = [[NSMutableDictionary alloc] init];
-
-    for (id attachment in attachments) {
-        newAttachment[kSPPnAttachmentId] = [attachment valueForKey:@"identifier"];
-        newAttachment[kSPPnAttachmentUrl] = [attachment valueForKey:@"URL"];
-        newAttachment[kSPPnAttachmentType] = [attachment valueForKey:@"type"];
-        [converting addObject: (NSDictionary *)[newAttachment copy]];
-        [newAttachment removeAllObjects];
-    }
-
-    return (NSArray<NSDictionary *> *)[NSArray arrayWithArray:converting];
-}
-#endif
-
 + (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict {
     NSMutableDictionary *cleanDictionary = [NSMutableDictionary dictionary];
     for (NSString * key in [dict allKeys]) {

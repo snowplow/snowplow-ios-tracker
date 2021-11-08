@@ -23,6 +23,10 @@
 #import "SPEventBase.h"
 #import "SPSelfDescribingJson.h"
 
+#if SNOWPLOW_TARGET_IOS
+#import <UserNotifications/UserNotifications.h>
+#endif
+
 @class SPNotificationContent;
 
 NS_ASSUME_NONNULL_BEGIN
@@ -37,6 +41,10 @@ NS_SWIFT_NAME(PushNotification)
 - (instancetype)init NS_UNAVAILABLE;
 
 - (instancetype)initWithDate:(NSString *)date action:(NSString *)action trigger:(NSString *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification NS_SWIFT_NAME(init(date:action:trigger:category:thread:notification:));
+
+#if SNOWPLOW_TARGET_IOS
+- (instancetype)initWithDate:(NSString *)date action:(NSString *)action notificationTrigger:(nullable UNNotificationTrigger *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification NS_SWIFT_NAME(init(date:action:notificationTrigger:category:thread:notification:)) NS_AVAILABLE_IOS(10.0);
+#endif
 
 @end
 
