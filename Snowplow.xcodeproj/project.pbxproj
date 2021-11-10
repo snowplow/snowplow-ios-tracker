@@ -581,8 +581,8 @@
 		ED88B6E12583DFC90048FAD1 /* SPServiceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B6DA2583DFC70048FAD1 /* SPServiceProvider.m */; };
 		ED88B6E22583DFC90048FAD1 /* SPServiceProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = ED88B6DA2583DFC70048FAD1 /* SPServiceProvider.m */; };
 		ED88B7342587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; };
-		ED88B7352587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		ED88B7362587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ED88B7352587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; };
+		ED88B7362587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; };
 		ED88B7372587777B0048FAD1 /* SPEmitterEventProcessing.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B7332587777A0048FAD1 /* SPEmitterEventProcessing.h */; };
 		ED88B76D2587B4EF0048FAD1 /* SPNetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B76C2587B4EF0048FAD1 /* SPNetworkController.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ED88B76E2587B4F00048FAD1 /* SPNetworkController.h in Headers */ = {isa = PBXBuildFile; fileRef = ED88B76C2587B4EF0048FAD1 /* SPNetworkController.h */; settings = {ATTRIBUTES = (Public, ); }; };

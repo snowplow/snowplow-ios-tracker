@@ -3,9 +3,11 @@
 #import "SPLoggerDelegate.h"
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
+#import "SPDevicePlatform.h"
 
 // Configurations
 #import "SPConfiguration.h"
+#import "SPRemoteConfiguration.h"
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
 #import "SPSubjectConfiguration.h"
@@ -18,6 +20,7 @@
 // Controllers
 #import "SPTrackerController.h"
 #import "SPSessionController.h"
+#import "SPSubjectController.h"
 #import "SPNetworkController.h"
 #import "SPEmitterController.h"
 #import "SPGDPRController.h"
@@ -57,6 +60,10 @@
 #import "SNOWError.h"
 #import "SPMessageNotification.h"
 #import "SPMessageNotificationAttachment.h"
+
+// Entities
+#import "SPDeepLinkEntity.h"
+#import "SPLifecycleEntity.h"
 
 // Global Contexts and State Management
 #import "SPGlobalContext.h"
