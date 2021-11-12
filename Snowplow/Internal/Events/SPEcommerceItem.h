@@ -59,6 +59,8 @@ SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
 SP_BUILDER_DECLARE_NULLABLE(NSString *, category)
 /// Currency used for the price of the item.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, currency)
+/// OrderID of the order that contains this item.
+SP_BUILDER_DECLARE_NULLABLE(NSString *, orderId)
 
 @end
 

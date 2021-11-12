@@ -51,6 +51,7 @@
 SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, category)
 SP_BUILDER_METHOD(NSString *, currency)
+SP_BUILDER_METHOD(NSString *, orderId)
 
 // --- Public Methods
 
