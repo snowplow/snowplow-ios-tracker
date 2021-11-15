@@ -36,13 +36,9 @@
 - (instancetype)initWithIndex:(NSNumber *)index {
     if (self = [super init]) {
         _index = index;
-        [self preconditions]; //$ added
+        [SPUtilities checkArgument:(_index != nil) withMessage:@"Index cannot be nil or empty."];
     }
     return self;
-}
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_index != nil) withMessage:@"Index cannot be nil or empty."];
 }
 
 // --- Public Methods

@@ -43,15 +43,11 @@
         _expiry = expiry;
         _documentId = documentId;
         _version = version;
-        [self preconditions]; //$ added
+        [SPUtilities checkArgument:(_expiry != nil) withMessage:@"Expiry cannot be nil."];
+        [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
+        [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
     }
     return self;
-}
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_expiry != nil) withMessage:@"Expiry cannot be nil."];
-    [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
-    [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
 }
 
 // --- Builder Methods

@@ -44,13 +44,9 @@
 - (instancetype)initWithMessage:(NSString *)message {
     if (self = [super init]) {
         _message = message;
-        [self preconditions]; //$ added
+        [SPUtilities checkArgument:(_message != nil) withMessage:@"Message cannot be nil or empty."];
     }
     return self;
-}
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_message != nil) withMessage:@"Message cannot be nil or empty."];
 }
 
 // --- Builder Methods
