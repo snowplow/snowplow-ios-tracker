@@ -123,8 +123,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString *             _trackerVersionSuffix;
 }
 
-static SPTracker *_sharedInstance = nil;
-
 // MARK: - Added property methods
 
 - (BOOL)applicationContext {
