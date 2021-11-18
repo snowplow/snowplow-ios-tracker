@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -24,63 +24,34 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPConsentDocumentBuilder
- @brief The protocol for building consent documents.
- */
-NS_SWIFT_NAME(ConsentDocumentBuilder)
-@protocol SPConsentDocumentBuilder
-
-/*!
- @brief Set the ID associated with a document that defines consent.
-
- @param documentId The document ID.
- */
-- (void) setDocumentId:(NSString *)documentId __deprecated_msg("Use initializer of `ConsentDocument` class instead.");
-
-/*!
- @brief Set the version of the consent document.
-
- @param version The version of the document.
- */
-- (void) setVersion:(NSString *)version __deprecated_msg("Use `version` of `ConsentDocument` class instead.");
-
-/*!
- @brief Set the name of the consent document.
-
- @param name Name of the consent document.
- */
-- (void) setName:(nullable NSString *)name __deprecated_msg("Use `name` of `ConsentDocument` class instead.");
-
-/*!
- @brief Set the description of the consent document.
-
- @param description The consent document description.
- */
-- (void) setDescription:(nullable NSString *)description __deprecated_msg("Use `description` of `ConsentDocument` class instead.");
-@end
-
-/*!
- @class SPConsentDocument
- @brief A consent document event.
- */
+/// A consent document event.
 NS_SWIFT_NAME(ConsentDocument)
-@interface SPConsentDocument : NSObject <SPConsentDocumentBuilder>
+@interface SPConsentDocument : NSObject
 
+/// Identifier of the document.
 @property (nonatomic, readonly) NSString *documentId;
+/// Version of the document.
 @property (nonatomic, readonly) NSString *version;
+/// Name of the document.
 @property (nonatomic, nullable) NSString *name;
+/// Description of the document.
 @property (nonatomic, nullable) NSString *documentDescription;
-
-+ (instancetype)build:(void(^)(id<SPConsentDocumentBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 
+/**
+ Create a consent document event.
+ @param documentId identifier of the document.
+ @param version version of the document.
+ */
 - (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version NS_SWIFT_NAME(init(documentId:version:));
 
-- (SPSelfDescribingJson *) getPayload;
+/// Returns the payload.
+- (SPSelfDescribingJson *)getPayload;
 
+/// Name of the document.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
+/// Description of the document.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, documentDescription)
 
 @end

@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,57 +25,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPTimingBuilder
- @brief The protocol for building timing events.
- */
-NS_SWIFT_NAME(TimingBuilder)
-@protocol SPTimingBuilder <SPEventBuilder>
-
-/*!
- @brief Set the category of the timing event.
-
- This is for categorizing timing variables into logical groups (e.g API calls, asset loading).
-
- @param category A logical group name for variables.
- */
-- (void) setCategory:(NSString *)category __deprecated_msg("Use `category` of `Timing` class instead.");
-
-/*!
- @brief Set the variable of the timing event.
-
- @param variable Identify the timing being recorded.
- */
-- (void) setVariable:(NSString *)variable __deprecated_msg("Use `variable` of `Timing` class instead.");
-
-/*!
- @brief Set the timing.
-
- @param timing The number of milliseconds in elapsed time to report.
- */
-- (void) setTiming:(NSInteger)timing __deprecated_msg("Use `timing` of `Timing` class instead.");
-
-/*!
- @brief Set the label.
-
- @param label Optional description of this timing.
- */
-- (void) setLabel:(nullable NSString *)label __deprecated_msg("Use `label` of `Timing` class instead.");
-@end
-
-/*!
- @class SPTiming
- @brief A timing event.
- */
+/// A timing event.
 NS_SWIFT_NAME(Timing)
-@interface SPTiming : SPSelfDescribingAbstract <SPTimingBuilder>
+@interface SPTiming : SPSelfDescribingAbstract
 
 @property (nonatomic, readonly) NSString *category;
 @property (nonatomic, readonly) NSString *variable;
 @property (nonatomic, readonly) NSNumber *timing;
 @property (nonatomic, nullable) NSString *label;
-
-+ (instancetype)build:(void(^)(id<SPTimingBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 

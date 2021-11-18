@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Michael Hadam
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 

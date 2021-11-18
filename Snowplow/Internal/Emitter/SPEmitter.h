@@ -20,12 +20,6 @@
 //  License: Apache License Version 2.0
 //
 
-/*!
- @file SPEmitter.h
-
- @brief Header file for SPEmitter.
- */
-
 #import <Foundation/Foundation.h>
 #import "SPNetworkConnection.h"
 #import "SPEventStore.h"
@@ -37,9 +31,7 @@
 
 /*!
  @brief The builder for SPEmitter.
- @deprecated It will be removed in the next major version, please use `Snowplow` class methods.
  */
-DEPRECATED_ATTRIBUTE
 NS_SWIFT_NAME(EmitterBuilder)
 @protocol SPEmitterBuilder <NSObject>
 
@@ -48,100 +40,84 @@ NS_SWIFT_NAME(EmitterBuilder)
 /*!
  @brief Emitter builder method to set the collector endpoint.
  @param urlEndpoint The collector endpoint.
- @deprecated Use `NetworkConfiguration(String, HttpMethod)`.
  */
-- (void) setUrlEndpoint:(NSString *)urlEndpoint DEPRECATED_ATTRIBUTE;
+- (void) setUrlEndpoint:(NSString *)urlEndpoint;
 
 /*!
  @brief Emitter builder method to set HTTP method.
  @param method Should be SPHttpMethodGet or SPHttpMethodPost.
- @deprecated Use `NetworkConfiguration(String, HttpMethod)`.
  */
-- (void) setHttpMethod:(SPHttpMethod)method DEPRECATED_ATTRIBUTE;
+- (void) setHttpMethod:(SPHttpMethod)method;
 
 /*!
  @brief Emitter builder method to set HTTP security.
  @param protocol Should be SPProtocolHttp or SPProtocolHttps.
- @deprecated Use `NetworkConfiguration(String, HttpMethod)`.
  */
-- (void) setProtocol:(SPProtocol)protocol DEPRECATED_ATTRIBUTE;
+- (void) setProtocol:(SPProtocol)protocol;
 
 /*!
  @brief Emitter builder method to set the buffer option.
  @param bufferOption the buffer option for the emitter.
- @deprecated Use `EmitterConfiguration.bufferOption(BufferOption)`.
  */
-- (void) setBufferOption:(SPBufferOption)bufferOption DEPRECATED_ATTRIBUTE;
+- (void) setBufferOption:(SPBufferOption)bufferOption;
 
 /*!
  @brief Emitter builder method to set callbacks.
  @param callback Called on when events have sent.
- @deprecated Use `EmitterConfiguration.requestCallback(RequestCallback)`.
  */
-- (void) setCallback:(id<SPRequestCallback>)callback DEPRECATED_ATTRIBUTE;
+- (void) setCallback:(id<SPRequestCallback>)callback;
 
 /*!
  @brief Emitter builder method to set emit range.
  @param emitRange Number of events to pull from database.
- @deprecated Use `EmitterConfiguration.threadPoolSize(int)`.
  */
-- (void) setEmitRange:(NSInteger)emitRange DEPRECATED_ATTRIBUTE;
+- (void) setEmitRange:(NSInteger)emitRange;
 
 /*!
  @brief Emitter builder method to set thread pool size.
  @param emitThreadPoolSize The number of threads used by the emitter.
- @deprecated Use `EmitterConfiguration.threadPoolSize(int)`.
  */
-- (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize DEPRECATED_ATTRIBUTE;
+- (void) setEmitThreadPoolSize:(NSInteger)emitThreadPoolSize;
 
 /*!
  @brief Emitter builder method to set byte limit for GET requests.
  @param byteLimitGet Maximum event size for a GET request.
- @deprecated Use `EmitterConfiguration.byteLimitGet(int)`.
  */
-- (void) setByteLimitGet:(NSInteger)byteLimitGet DEPRECATED_ATTRIBUTE;
+- (void) setByteLimitGet:(NSInteger)byteLimitGet;
 
 /*!
  @brief Emitter builder method to set byte limit for POST requests.
  @param byteLimitPost Maximum event size for a POST request.
- @deprecated Use `EmitterConfiguration.byteLimitPost(int)`.
-x\ */
-- (void) setByteLimitPost:(NSInteger)byteLimitPost DEPRECATED_ATTRIBUTE;
+ */
+- (void) setByteLimitPost:(NSInteger)byteLimitPost;
 
 /*!
  @brief Emitter builder method to set a custom POST path.
  @param customPath A custom path that is used on the endpoint to send requests.
- @deprecated Use `NetworkConfiguration.customPostPath(String)`.
  */
-- (void) setCustomPostPath:(NSString *)customPath DEPRECATED_ATTRIBUTE;
+- (void) setCustomPostPath:(NSString *)customPath;
 
 /*!
  @brief Builder method to set request headers.
  @param requestHeadersKeyValue custom headers (key, value) for http requests.
- @deprecated Use `NetworkConfiguration.requestHeaders(Dictionary)`.
  */
-- (void) setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeadersKeyValue DEPRECATED_ATTRIBUTE;
+- (void) setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeadersKeyValue;
 
 /*!
  @brief Emitter builder method to set SPNetworkConnection component.
  @param networkConnection The component in charge for sending events to the collector.
- @deprecated Use `NetworkConfiguration(NetworkConnection)`.
  */
-- (void) setNetworkConnection:(id<SPNetworkConnection>)networkConnection DEPRECATED_ATTRIBUTE;
+- (void) setNetworkConnection:(id<SPNetworkConnection>)networkConnection;
 
 /*!
  @brief Emitter builder method to set SPEventStore component.
  @param eventStore The component in charge for persisting events before sending.
- @deprecated Use `EmitterConfiguration.eventStore(EventStore)`.
  */
-- (void) setEventStore:(id<SPEventStore>)eventStore DEPRECATED_ATTRIBUTE;
+- (void) setEventStore:(id<SPEventStore>)eventStore;
 
 @end
 
 /*!
- @class SPEmitter
- @brief The emitter class.
-
  This class sends events to the collector.
  */
 NS_SWIFT_NAME(Emitter)
@@ -176,7 +152,7 @@ NS_SWIFT_NAME(Emitter)
 /*!
  @brief Builds the emitter using a build block of functions.
  */
-+ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock __deprecated_msg("Will be removed in the next major version. Use `Snowplow.setup(...)` instead.");
++ (instancetype) build:(void(^)(id<SPEmitterBuilder>builder))buildBlock;
 
 + (instancetype) new NS_UNAVAILABLE;
 - (instancetype) init NS_UNAVAILABLE;
@@ -194,33 +170,23 @@ NS_SWIFT_NAME(Emitter)
  */
 - (void)flush;
 
-- (void)flushBuffer __deprecated_msg("Use `flush` instead.");
-
 /*!
  @brief Allowes sending of events to collector.
  */
 - (void)resume;
-
-- (void)startTimerFlush __deprecated_msg("Use `resume` instead.");
 
 /*!
  @brief Suspends sending of events to collector.
  */
 - (void)pause;
 
-- (void)stopTimerFlush __deprecated_msg("Use `pause` instead.");
-
 /*!
  @brief Returns the number of events in the DB.
-
- @return The number of events in DB.
  */
 - (NSUInteger) getDbCount;
 
 /*!
  @brief Returns whether the emitter is currently sending.
-
- @return Whether the emitter is currently sending.
  */
 - (BOOL) getSendingStatus;
 

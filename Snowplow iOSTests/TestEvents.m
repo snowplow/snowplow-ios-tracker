@@ -16,26 +16,6 @@
 
 @implementation TestEvent
 
-- (void)testEvent {
-    // Valid construction
-    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
-    event.contexts = self.goodCustomContext;
-    XCTAssertNotNil(event);
-    event = nil;
-    
-    // Context is not SelfDescribingJson
-    BOOL isFailed = NO;
-    @try {
-        event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
-        [event contexts:self.badCustomContext];
-    }
-    @catch (NSException *exception) {
-        isFailed = YES;
-        XCTAssertEqualObjects(@"All contexts must be SelfDescribingJson objects.", exception.reason);
-    }
-    XCTAssertTrue(isFailed);
-}
- 
 - (void)testTrueTimestamp {
     SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
     XCTAssertNil(event.trueTimestamp);
@@ -523,20 +503,6 @@
         XCTAssertEqualObjects(payload[@"exceptionName"], @"CustomException");
         XCTAssertTrue([(NSString *)payload[@"stackTrace"] length]);
     }
-}
-
-// --- Helpers
-
-- (NSMutableArray<SPSelfDescribingJson *> *)goodCustomContext {
-    NSDictionary *data = @{@"snowplow": @"demo-tracker"};
-    SPSelfDescribingJson *context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
-                                                                          andData:data];
-    return [NSMutableArray arrayWithArray:@[context]];
-}
-
-- (NSMutableArray<SPSelfDescribingJson *> *)badCustomContext {
-    NSDictionary *data = @{@"snowplow": @"demo-tracker"};
-    return [NSMutableArray arrayWithArray:@[data]];
 }
 
 @end

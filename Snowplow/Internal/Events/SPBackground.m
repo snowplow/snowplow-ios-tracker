@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,43 +25,21 @@
 #import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 
-@implementation SPBackground {
-    NSNumber * _index;
-}
+@interface SPBackground ()
 
-+ (instancetype)build:(void(^)(id<SPBackgroundBuilder> builder))buildBlock {
-    SPBackground* event = [SPBackground new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@property (readwrite) NSNumber *index;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPBackground
 
 - (instancetype)initWithIndex:(NSNumber *)index {
     if (self = [super init]) {
         _index = index;
+        [SPUtilities checkArgument:(_index != nil) withMessage:@"Index cannot be nil or empty."];
     }
     return self;
 }
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_index != nil) withMessage:@"Index cannot be nil or empty."];
-}
-
-// --- Builder Methods
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setIndex:(NSNumber *)index {
-    _index = index;
-}
-
-#pragma clang diagnostic pop
 
 // --- Public Methods
 

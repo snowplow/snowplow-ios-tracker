@@ -36,63 +36,32 @@
 
 - (void)testEventBuilderConditions {
     // Valid construction
-    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-        [builder setContexts:[self getCustomContext]];
-    }];
+    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
+    [event setContexts:[self getCustomContext]];
     XCTAssertNotNil(event);
-    event = nil;
-    
-    // Context is not SelfDescribingJson
-    @try {
-        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-            [builder setPageUrl:@"DemoPageUrl"];
-            [builder setContexts:[self getBadCustomContext]];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"All contexts must be SelfDescribingJson objects.", exception.reason);
-    }
-    XCTAssertNil(event);
+    event = nil;    
 }
  
 - (void)testTrueTimestamp {
-    SPEvent *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-    }];
+    SPEvent *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
     XCTAssertNil(event.trueTimestamp);
 
     // Set trueTimestamp
     NSDate *testDate = [NSDate date];
-    event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-        [builder setTrueTimestamp:testDate];
-    }];
+    event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
+    [event setTrueTimestamp:testDate];
     XCTAssertEqual(event.trueTimestamp, testDate);
 }
 
 - (void)testPageViewBuilderConditions {
     // Valid construction
-    SPPageView *event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-        [builder setPageUrl:@"DemoPageUrl"];
-    }];
+    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
     XCTAssertNotNil(event);
     event = nil;
     
     // PageURL is empty
     @try {
-        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {
-            [builder setPageUrl:@""];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"PageURL cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // PageURL is nil
-    @try {
-        event = [SPPageView build:^(id<SPPageViewBuilder> builder) {}];
+        event = [[SPPageView alloc] initWithPageUrl:@""];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"PageURL cannot be nil or empty.", exception.reason);
@@ -102,53 +71,22 @@
 
 - (void)testStructuredBuilderConditions {
     // Valid construction
-    SPStructured *event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-        [builder setCategory:@"category"];
-        [builder setAction:@"action"];
-    }];
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
     XCTAssertNotNil(event);
     event = nil;
     
     // Category is empty
     @try {
-        event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-            [builder setCategory:@""];
-            [builder setAction:@"action"];
-        }];
+        event = [[SPStructured alloc] initWithCategory:@"" action:@"action"];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Category cannot be nil or empty.", exception.reason);
     }
     XCTAssertNil(event);
-    
-    // Category is nil
-    @try {
-        event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-            [builder setAction:@"action"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Category cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
+        
     // Action is empty
     @try {
-        event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-            [builder setCategory:@"category"];
-            [builder setAction:@""];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Action cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Action is nil
-    @try {
-        event = [SPStructured build:^(id<SPStructuredBuilder> builder) {
-            [builder setCategory:@"category"];
-        }];
+        event = [[SPStructured alloc] initWithCategory:@"category" action:@""];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Action cannot be nil or empty.", exception.reason);
@@ -163,20 +101,9 @@
     [data setObject:[NSNumber numberWithInt:56473] forKey:@"score"];
     SPSelfDescribingJson * sdj = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0"
                                                                       andData:data];
-    SPSelfDescribing *event = [SPSelfDescribing build:^(id<SPSelfDescribingBuilder> builder) {
-        [builder setEventData:sdj];
-    }];
+    SPSelfDescribing *event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     XCTAssertNotNil(event);
     event = nil;
-    
-    // Category is empty
-    @try {
-        event = [SPSelfDescribing build:^(id<SPSelfDescribingBuilder> builder) {}];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventData cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
 }
 
 - (void)testUnstructuredBuilderWrongDataCondition {
@@ -188,353 +115,115 @@
     // Data is wrong
     SPSelfDescribing *event;
     @try {
-        event = [SPSelfDescribing build:^(id<SPSelfDescribingBuilder> builder) {
-            [builder setEventData:sdj];
-        }];
+        event = [[SPSelfDescribing alloc] initWithEventData:sdj];
     }
     @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"EventData has to be JSON serializable.", exception.reason);
+        XCTAssertEqualObjects(@"EventData payload has to be JSON serializable.", exception.reason);
     }
     XCTAssertNil(event);
 }
 
 - (void)testConsentWithdrawnBuilderConditions {
     // Valid construction
-    SPConsentWithdrawn *event = [SPConsentWithdrawn build:^(id<SPConsentWithdrawnBuilder> builder) {
-        [builder setName:@"name"];
-        [builder setAll:false];
-        [builder setVersion:@"3"];
-        [builder setDocumentId:@"1000"];
-        [builder setDescription:@"description"];
-    }];
+    SPConsentWithdrawn *event = [[SPConsentWithdrawn alloc] init];
+    [event setName:@"name"];
+    [event setAll:false];
+    [event setVersion:@"3"];
+    [event setDocumentId:@"1000"];
+    [event setDocumentDescription:@"description"];
     XCTAssertNotNil(event);
 }
 
 - (void)testConsentGrantedBuilderConditions {
     // Valid construction
-    SPConsentGranted *event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-        [builder setName:@"name"];
-        [builder setExpiry:@"expiry"];
-        [builder setVersion:@"3"];
-        [builder setDocumentId:@"1000"];
-        [builder setDescription:@"description"];
-    }];
+    SPConsentGranted *event = [[SPConsentGranted alloc] initWithExpiry:@"expiry" documentId:@"1000" version:@"3"];
+    event.name = @"name";
+    event.documentDescription = @"description";
     XCTAssertNotNil(event);
     event = nil;
-
-    // expiry is empty
-    @try {
-        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-            [builder setDocumentId:@"3"];
-            [builder setVersion:@"3"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Expiry cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
-
-    // documentId is empty
-    @try {
-        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-            [builder setExpiry:@"expiry"];
-            [builder setVersion:@"3"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Document ID cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
-
-    // Version is empty
-    @try {
-        event = [SPConsentGranted build:^(id<SPConsentGrantedBuilder> builder) {
-            [builder setExpiry:@"expiry"];
-            [builder setDocumentId:@"3"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Version cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
 }
 
 - (void)testConsentDocumentBuilderConditions {
     // Valid construction
-    SPConsentDocument *event = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-        [builder setName:@"name"];
-        [builder setVersion:@"3"];
-        [builder setDocumentId:@"1000"];
-        [builder setDescription:@"description"];
-    }];
+    SPConsentDocument *event = [[SPConsentDocument alloc] initWithDocumentId:@"1000" version:@"3"];
+    [event setName:@"name"];
+    [event setDocumentDescription:@"description"];
     XCTAssertNotNil(event);
     event = nil;
-
-    // documentId is empty
-    @try {
-        event = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-            [builder setVersion:@"3"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Document ID cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
-
-    // Version is empty
-    @try {
-        event = [SPConsentDocument build:^(id<SPConsentDocumentBuilder> builder) {
-            [builder setDocumentId:@"3"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Version cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
 }
 
 - (void)testScreenViewBuilderConditions {
-    NSString *screenId = [NSUUID UUID].UUIDString;
+    NSUUID *screenId = [NSUUID UUID];
     
     // Valid construction
-    SPScreenView *event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-        [builder setName:@"name"];
-        [builder setScreenId:screenId];
-    }];
+    SPScreenView *event = [[SPScreenView alloc] initWithName:@"name" screenId:screenId];
     XCTAssertNotNil(event);
     event = nil;
 
     @try {
-        event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-            [builder setName:@""];
-            [builder setScreenId:screenId];
-        }];
+        event = [[SPScreenView alloc] initWithName:@"" screenId:screenId];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Name cannot be empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-   
-    @try {
-        event = [SPScreenView build:^(id<SPScreenViewBuilder> builder) {
-            [builder setName:@"name"];
-            [builder setScreenId:@""];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"ScreenID has to be a valid UUID string.", exception.reason);
     }
     XCTAssertNil(event);
 }
 
 - (void)testTimingBuilderConditions {
     // Valid construction
-    SPTiming *event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-        [builder setCategory:@"category"];
-        [builder setVariable:@"variable"];
-        [builder setTiming:5];
-    }];
+    SPTiming *event = [[SPTiming alloc] initWithCategory:@"category" variable:@"variable" timing:@5];
     XCTAssertNotNil(event);
     event = nil;
     
     // Category is empty
     @try {
-        event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-            [builder setCategory:@""];
-            [builder setVariable:@"variable"];
-            [builder setTiming:5];
-        }];
+        event = [[SPTiming alloc] initWithCategory:@"" variable:@"variable" timing:@5];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Category cannot be nil or empty.", exception.reason);
     }
     XCTAssertNil(event);
-    
-    // Category is nil
-    @try {
-        event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-            [builder setVariable:@"variable"];
-            [builder setTiming:5];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Category cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
+        
     // Variable is empty
     @try {
-        event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-            [builder setCategory:@"category"];
-            [builder setVariable:@""];
-            [builder setTiming:5];
-        }];
+        event = [[SPTiming alloc] initWithCategory:@"category" variable:@"" timing:@5];
+
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Variable cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Variable is nil
-    @try {
-        event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-            [builder setCategory:@"category"];
-            [builder setTiming:5];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Variable cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Timing is nil
-    @try {
-        event = [SPTiming build:^(id<SPTimingBuilder> builder) {
-            [builder setCategory:@"category"];
-            [builder setVariable:@"variable"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Timing cannot be nil.", exception.reason);
     }
     XCTAssertNil(event);
 }
 
 - (void)testEcommerceBuilderConditions {
     // Valid construction
-    SPEcommerce *event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-        [builder setOrderId:@"orderid"];
-        [builder setTotalValue:@5];
-        [builder setItems:[[NSArray alloc] init]]; // This is valid as we don't check for count of items. Should we?
-    }];
+    SPEcommerce *event = [[SPEcommerce alloc] initWithOrderId:@"orderId" totalValue:@5 items:@[]];
     XCTAssertNotNil(event);
     event = nil;
     
     // OrderID is empty
     @try {
-        event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-            [builder setOrderId:@""];
-            [builder setTotalValue:@5];
-            [builder setItems:[[NSArray alloc] init]];
-        }];
+        event = [[SPEcommerce alloc] initWithOrderId:@"" totalValue:@5 items:@[]];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"OrderId cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // OrderID is nil
-    @try {
-        event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-            [builder setTotalValue:@5];
-            [builder setItems:[[NSArray alloc] init]];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"OrderId cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Items is nil
-    @try {
-        event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-            [builder setOrderId:@"orderid"];
-            [builder setTotalValue:@5];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Items cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // TotalValue is nil
-    @try {
-        event = [SPEcommerce build:^(id<SPEcommTransactionBuilder> builder) {
-            [builder setOrderId:@"orderid"];
-            [builder setItems:[[NSArray alloc] init]];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"TotalValue cannot be nil.", exception.reason);
     }
     XCTAssertNil(event);
 }
 
 - (void)testEcommerceItemBuilderConditions {
     // Valid construction
-    SPEcommerceItem *event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-        [builder setItemId:@"itemid"];
-        [builder setSku:@"sku"];
-        [builder setPrice:5];
-        [builder setQuantity:1];
-    }];
+    SPEcommerceItem *event = [[SPEcommerceItem alloc] initWithSku:@"sku" price:@5 quantity:@1];
+    event.orderId = @"orderId";
     XCTAssertNotNil(event);
     event = nil;
     
-    // Item is empty
-    @try {
-        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-            [builder setItemId:@""];
-            [builder setSku:@"sku"];
-            [builder setPrice:5];
-            [builder setQuantity:1];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"OrderId cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
     // Sku is empty
     @try {
-        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-            [builder setItemId:@"itemid"];
-            [builder setSku:@""];
-            [builder setPrice:5];
-            [builder setQuantity:1];
-        }];
+        event = [[SPEcommerceItem alloc] initWithSku:@"" price:@5 quantity:@1];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"SKU cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Sku is nil
-    @try {
-        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-            [builder setItemId:@"itemid"];
-            [builder setPrice:5];
-            [builder setQuantity:1];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"SKU cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Price is nil
-    @try {
-        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-            [builder setItemId:@"itemid"];
-            [builder setSku:@"sku"];
-            [builder setQuantity:1];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Price cannot be nil.", exception.reason);
-    }
-    XCTAssertNil(event);
-    
-    // Quantity is nil
-    @try {
-        event = [SPEcommerceItem build:^(id<SPEcommTransactionItemBuilder> builder) {
-            [builder setItemId:@"itemid"];
-            [builder setSku:@"sku"];
-            [builder setPrice:1];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Quantity cannot be nil.", exception.reason);
     }
     XCTAssertNil(event);
 }
@@ -556,32 +245,19 @@
                                              @"category": @"category"
                                              }
                                  };
-
-    SPNotificationContent *event = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
-        [builder setTitle:@"title"];
-        [builder setSubtitle:@"subtitle"];
-        [builder setBody:@"body"];
-        [builder setBadge:[NSNumber numberWithInt:5]];
-        [builder setSound:@"sound"];
-        [builder setLaunchImageName:@"image"];
-        [builder setUserInfo:userInfo];
-        [builder setAttachments:attachments];
-    }];
+    
+    SPNotificationContent *event = [[SPNotificationContent alloc] initWithTitle:@"title" body:@"body" badge:@5];
+    [event setSubtitle:@"subtitle"];
+    [event setSound:@"sound"];
+    [event setLaunchImageName:@"image"];
+    [event setUserInfo:userInfo];
+    [event setAttachments:attachments];
     XCTAssertNotNil(event);
     event = nil;
-
+    
     // Title is empty
     @try {
-        event = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
-            [builder setTitle:@""];
-            [builder setSubtitle:@"subtitle"];
-            [builder setBody:@"body"];
-            [builder setBadge:[NSNumber numberWithInt:5]];
-            [builder setSound:@"sound"];
-            [builder setLaunchImageName:@"image"];
-            [builder setUserInfo:userInfo];
-            [builder setAttachments:attachments];
-        }];
+        event = [[SPNotificationContent alloc] initWithTitle:@"" body:@"body" badge:@5];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Title cannot be nil or empty.", exception.reason);
@@ -590,36 +266,10 @@
 
     // Body is empty
     @try {
-        event = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
-            [builder setTitle:@"title"];
-            [builder setSubtitle:@"subtitle"];
-            [builder setBody:@""];
-            [builder setBadge:[NSNumber numberWithInt:5]];
-            [builder setSound:@"sound"];
-            [builder setLaunchImageName:@"image"];
-            [builder setUserInfo:userInfo];
-            [builder setAttachments:attachments];
-        }];
+        event = [[SPNotificationContent alloc] initWithTitle:@"title" body:@"" badge:@5];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Body cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-
-    // Badge is empty
-    @try {
-        event = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
-            [builder setTitle:@"title"];
-            [builder setSubtitle:@"subtitle"];
-            [builder setBody:@"body"];
-            [builder setSound:@"sound"];
-            [builder setLaunchImageName:@"image"];
-            [builder setUserInfo:userInfo];
-            [builder setAttachments:attachments];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Badge cannot be nil.", exception.reason);
     }
     XCTAssertNil(event);
 }
@@ -642,70 +292,38 @@
                                              }
                                  };
 
-    SPNotificationContent *content = [SPNotificationContent build:^(id<SPNotificationContentBuilder> builder) {
-        [builder setTitle:@"title"];
-        [builder setSubtitle:@"subtitle"];
-        [builder setBody:@"body"];
-        [builder setBadge:[NSNumber numberWithInt:5]];
-        [builder setSound:@"sound"];
-        [builder setLaunchImageName:@"image"];
-        [builder setUserInfo:userInfo];
-        [builder setAttachments:attachments];
-    }];
+    SPNotificationContent *content = [[SPNotificationContent alloc] initWithTitle:@"title" body:@"body" badge:@5];
+        [content setSubtitle:@"subtitle"];
+        [content setSound:@"sound"];
+        [content setLaunchImageName:@"image"];
+        [content setUserInfo:userInfo];
+        [content setAttachments:attachments];
 
-    SPPushNotification *event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-        [builder setAction:@"action"];
-        [builder setTrigger:@"PUSH"];
-        [builder setDeliveryDate:@"date"];
-        [builder setCategoryIdentifier:@"category"];
-        [builder setThreadIdentifier:@"thread"];
-        [builder setNotification:content];
-    }];
+    SPPushNotification *event = [[SPPushNotification alloc] initWithDate:@"date" action:@"action" trigger:@"PUSH" category:@"category" thread:@"thread" notification:content];
     XCTAssertNotNil(event);
     event = nil;
 
     // Action is empty
     @try {
-        event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-            [builder setAction:@""];
-            [builder setTrigger:@"trigger"];
-            [builder setDeliveryDate:@"date"];
-            [builder setCategoryIdentifier:@"category"];
-            [builder setThreadIdentifier:@"thread"];
-            [builder setNotification:content];
-        }];
+        event = [[SPPushNotification alloc] initWithDate:@"date" action:@"" trigger:@"PUSH" category:@"category" thread:@"thread" notification:content];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Action cannot be nil or empty.", exception.reason);
     }
     XCTAssertNil(event);
 
-    // Trigger is nil
+    // Trigger is empty
     @try {
-        event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-            [builder setAction:@"action"];
-            [builder setTrigger:@""];
-            [builder setDeliveryDate:@"date"];
-            [builder setCategoryIdentifier:@"category"];
-            [builder setThreadIdentifier:@"thread"];
-            [builder setNotification:content];
-        }];
+        event = [[SPPushNotification alloc] initWithDate:@"date" action:@"action" trigger:@"" category:@"category" thread:@"thread" notification:content];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Trigger cannot be nil or empty.", exception.reason);
     }
     XCTAssertNil(event);
 
-    // Date is nil
+    // Date is empty
     @try {
-        event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-            [builder setAction:@"action"];
-            [builder setTrigger:@"trigger"];
-            [builder setDeliveryDate:@""];
-            [builder setCategoryIdentifier:@"category"];
-            [builder setThreadIdentifier:@"thread"];
-            [builder setNotification:content];
-        }];
+        event = [[SPPushNotification alloc] initWithDate:@"" action:@"action" trigger:@"PUSH" category:@"category" thread:@"thread" notification:content];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Delivery date cannot be nil or empty.", exception.reason);
@@ -714,14 +332,7 @@
 
     // CategoryId is empty
     @try {
-        event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-            [builder setAction:@"action"];
-            [builder setTrigger:@"trigger"];
-            [builder setDeliveryDate:@"date"];
-            [builder setCategoryIdentifier:@""];
-            [builder setThreadIdentifier:@"thread"];
-            [builder setNotification:content];
-        }];
+        event = [[SPPushNotification alloc] initWithDate:@"date" action:@"action" trigger:@"PUSH" category:@"" thread:@"thread" notification:content];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Category identifier cannot be nil or empty.", exception.reason);
@@ -730,45 +341,20 @@
 
     // ThreadId is empty
     @try {
-        event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-            [builder setAction:@"action"];
-            [builder setTrigger:@"trigger"];
-            [builder setDeliveryDate:@"date"];
-            [builder setCategoryIdentifier:@"category"];
-            [builder setThreadIdentifier:@""];
-            [builder setNotification:content];
-        }];
+        event = [[SPPushNotification alloc] initWithDate:@"date" action:@"action" trigger:@"PUSH" category:@"category" thread:@"" notification:content];
     }
     @catch (NSException *exception) {
         XCTAssertEqualObjects(@"Thread identifier cannot be nil or empty.", exception.reason);
-    }
-    XCTAssertNil(event);
-
-    // Notification is empty
-    @try {
-        event = [SPPushNotification build:^(id<SPPushNotificationBuilder> builder) {
-            [builder setAction:@"action"];
-            [builder setTrigger:@"trigger"];
-            [builder setDeliveryDate:@"date"];
-            [builder setCategoryIdentifier:@"category"];
-            [builder setThreadIdentifier:@"thread"];
-        }];
-    }
-    @catch (NSException *exception) {
-        XCTAssertEqualObjects(@"Notification cannot be nil.", exception.reason);
     }
     XCTAssertNil(event);
 }
 
 - (void)testErrorBuilderConditions {
     // Valid construction
-    SNOWError * error = [SNOWError build:^(id<SPErrorBuilder> builder) {
-        [builder setName:@"name"];
-        [builder setMessage:@"message"];
-        [builder setStackTrace:@"stackTrace"];
-    }];
-    
-    XCTAssertNotNil(error);
+    SNOWError *event = [[SNOWError alloc] initWithMessage:@"message"];
+    [event setName:@"name"];
+    [event setStackTrace:@"stackTrace"];
+    XCTAssertNotNil(event);
 }
 
 - (void)testTrackerErrorContainsStacktrace {
@@ -794,7 +380,7 @@
 }
 
 - (NSMutableArray *) getBadCustomContext {
-    NSDictionary * data = @{@"snowplow": @"demo-tracker"};
+    NSDictionary *data = @{@"snowplow": @"demo-tracker"};
     return [NSMutableArray arrayWithArray:@[data]];
 }
 

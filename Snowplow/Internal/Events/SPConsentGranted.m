@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -28,40 +28,26 @@
 #import "SPSelfDescribingJson.h"
 #import "SPConsentDocument.h"
 
-@implementation SPConsentGranted {
-    NSString * _documentId;
-    NSString * _version;
-    NSString * _name;
-    NSString * _documentDescription;
-    NSString * _expiry;
-    NSArray<SPSelfDescribingJson *> * _documents;
-}
+@interface SPConsentGranted ()
 
-+ (instancetype)build:(void(^)(id<SPConsentGrantedBuilder> builder))buildBlock {
-    SPConsentGranted* event = [SPConsentGranted new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@property (nonatomic, readwrite) NSString *expiry;
+@property (nonatomic, readwrite) NSString *documentId;
+@property (nonatomic, readwrite) NSString *version;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPConsentGranted
 
 - (instancetype)initWithExpiry:(NSString *)expiry documentId:(NSString *)documentId version:(NSString *)version {
     if (self = [super init]) {
         _expiry = expiry;
         _documentId = documentId;
         _version = version;
+        [SPUtilities checkArgument:(_expiry != nil) withMessage:@"Expiry cannot be nil."];
+        [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
+        [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
     }
     return self;
-}
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_expiry != nil) withMessage:@"Expiry cannot be nil."];
-    [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
-    [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
 }
 
 // --- Builder Methods
@@ -69,35 +55,6 @@
 SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, documentDescription)
 SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setDocumentId:(NSString *)dId {
-    _documentId = dId;
-}
-
-- (void) setVersion:(NSString *)version {
-    _version = version;
-}
-
-- (void) setName:(NSString *)name {
-    _name = name;
-}
-
-- (void) setDescription:(NSString *)description {
-    _documentDescription = description;
-}
-
-- (void) setExpiry:(NSString *)expiry {
-    _expiry = expiry;
-}
-
-- (void) setDocuments:(NSArray<SPSelfDescribingJson *> *)documents {
-    _documents = documents;
-}
-
-#pragma clang diagnostic pop
 
 // --- Public Methods
 
@@ -111,7 +68,7 @@ SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
     return payload;
 }
 
-- (NSArray<SPSelfDescribingJson *> *) getDocuments {
+- (NSArray<SPSelfDescribingJson *> *)getDocuments {
     NSMutableArray<SPSelfDescribingJson *> *documents = [NSMutableArray<SPSelfDescribingJson *> new];
 
     SPConsentDocument *document = [[SPConsentDocument alloc] initWithDocumentId:_documentId version:_version];

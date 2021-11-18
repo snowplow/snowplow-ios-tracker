@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -44,7 +44,7 @@
 
         self.isService = [event isKindOfClass:SPTrackerError.class];
         if ([event isKindOfClass:SPPrimitiveAbstract.class]) {
-            self.eventName = [(SPPrimitiveAbstract *)event name];
+            self.eventName = [(SPPrimitiveAbstract *)event eventName];
             self.isPrimitive = true;
         } else {
             self.schema = [(SPSelfDescribingAbstract *)event schema];

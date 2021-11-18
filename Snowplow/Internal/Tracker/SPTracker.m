@@ -64,7 +64,6 @@
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
 
-@property (class, readwrite, weak) SPTracker *sharedInstance;
 @property (nonatomic) SPGdprContext *gdpr;
 
 @property (nonatomic) SPStateManager *stateManager;
@@ -124,8 +123,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString *             _trackerVersionSuffix;
 }
 
-static SPTracker *_sharedInstance = nil;
-
 // MARK: - Added property methods
 
 - (BOOL)applicationContext {
@@ -169,18 +166,7 @@ static SPTracker *_sharedInstance = nil;
     }
     [tracker setup];
     [tracker checkInstall];
-    SPTracker.sharedInstance = tracker;
     return tracker;
-}
-
-+ (void)setSharedInstance:(SPTracker *)sharedInstance {
-    if (sharedInstance != _sharedInstance) {
-        _sharedInstance = sharedInstance;
-    }
-}
-
-+ (SPTracker *)sharedInstance {
-    return _sharedInstance;
 }
 
 - (instancetype) initWithDefaultValues {
@@ -477,24 +463,12 @@ static SPTracker *_sharedInstance = nil;
 
 #pragma mark - Getters
 
-- (NSInteger) getSessionIndex __deprecated {
-    return [_session getSessionIndex];
-}
-
 - (BOOL) getInBackground {
     return [_session getInBackground];
 }
 
 - (BOOL) getIsTracking {
     return _dataCollection;
-}
-
-- (NSString*) getSessionUserId {
-    return [_session getUserId];
-}
-
-- (NSString*) getSessionId {
-    return [_session getSessionId];
 }
 
 - (BOOL) getLifecycleEvents {
@@ -548,12 +522,6 @@ static SPTracker *_sharedInstance = nil;
 }
 
 #pragma mark - Event Tracking Functions
-
-- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event __deprecated {
-    if (!event || !_dataCollection) return;
-    SPSelfDescribing *unstruct = [[SPSelfDescribing alloc] initWithEventData:event];
-    [self track:unstruct];
-}
 
 - (void)track:(SPEvent *)event {
     if (!event || !_dataCollection) return;

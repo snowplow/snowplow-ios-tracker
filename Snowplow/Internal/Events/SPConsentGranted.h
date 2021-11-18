@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,80 +25,41 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPConsentGrantedBuilder
- @brief The protocol for building consent granted events.
- */
-NS_SWIFT_NAME(ConsentGrantedBuilder)
-@protocol SPConsentGrantedBuilder <SPEventBuilder>
-
-/*!
- @brief Set the ID of the associated consent document.
-
- @param documentId The associated consent document description.
- */
-- (void) setDocumentId:(NSString *)documentId __deprecated_msg("Use initializer of `ConsentGranted` class instead.");
-
-/*!
- @brief Set the version of the associated consent document.
-
- @param version The associated consent document version.
- */
-- (void) setVersion:(NSString *)version __deprecated_msg("Use initializer of `ConsentGranted` class instead.");
-
-/*!
- @brief Set the name of the associated consent document.
-
- @param name The associated consent document name.
- */
-- (void) setName:(nullable NSString *)name __deprecated_msg("Use `name` of `ConsentGranted` class instead.");
-
-/*!
- @brief Set the description of the associated consent document.
-
- @param description The associated consent document description.
- */
-- (void) setDescription:(nullable NSString *)description __deprecated_msg("Use `description` of `ConsentGranted` class instead.");
-
-/*!
- @brief Set the expiry of the associated consent document.
-
- @param expiry The associated consent document expiry.
- */
-- (void) setExpiry:(nullable NSString *)expiry __deprecated_msg("Use `expiry` of `ConsentGranted` class instead.");
-
-/*!
- @brief Set additional associated consent documents.
-
- @param documents An array of associated consent documents.
- */
-- (void) setDocuments:(nullable NSArray<SPSelfDescribingJson *> *)documents __deprecated_msg("Use `documents` of `ConsentGranted` class instead.");
-@end
-
-/*!
- @class SPConsentGranted
- @brief A consent granted event.
- */
+/// A consent granted event.
 NS_SWIFT_NAME(ConsentGranted)
-@interface SPConsentGranted : SPSelfDescribingAbstract <SPConsentGrantedBuilder>
+@interface SPConsentGranted : SPSelfDescribingAbstract
 
+/// Expiration of the consent.
 @property (nonatomic, readonly) NSString *expiry;
+/// Identifier of the first document.
 @property (nonatomic, readonly) NSString *documentId;
+/// Version of the first document.
 @property (nonatomic, readonly) NSString *version;
+/// Name of the first document.
 @property (nonatomic, nullable) NSString *name;
+/// Description of the first document.
 @property (nonatomic, nullable) NSString *documentDescription;
+/// Other attached documents.
 @property (nonatomic, nullable) NSArray<SPSelfDescribingJson *> *documents;
-
-+ (instancetype)build:(void(^)(id<SPConsentGrantedBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 
+/**
+ Creates a consent granted event with a first document.
+ @param expiry consent expiration.
+ @param documentId identifier of the first document.
+ @param version version of the first document.
+ */
 - (instancetype)initWithExpiry:(NSString *)expiry documentId:(NSString *)documentId version:(NSString *)version NS_SWIFT_NAME(init(expiry:documentId:version:));
 
+/// Retuns the full list of attached documents.
 - (NSArray<SPSelfDescribingJson *> *)getDocuments;
 
+/// Name of the first document.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, name)
+/// Description of the first document.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, documentDescription)
+/// Other attached documents.
 SP_BUILDER_DECLARE_NULLABLE(NSArray<SPSelfDescribingJson *> *, documents)
 
 @end

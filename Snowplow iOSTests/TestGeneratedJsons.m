@@ -34,7 +34,10 @@
 #import "SPUtilities.h"
 #import "SPTrackerEvent.h"
 #import "SPServiceProvider.h"
+
+#import "SPScreenStateMachine.h"
 #import "SPScreenState.h"
+
 
 /// Category needed to make the private methods testable.
 @interface SPTracker (Testing)
@@ -61,10 +64,14 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [super tearDown];
 }
 
-- (void) testScreenContextJson {
-    SPScreenState * screen = [[SPScreenState alloc] initWithName:@"name" type:@"type" screenId:nil transitionType:@"transition" topViewControllerClassName:@"topVCname" viewControllerClassName:@"VCname"];
-    SPSelfDescribingJson * json = [SPUtilities getScreenContextWithScreenState:screen];
-    XCTAssertTrue([validator validateJson:[json getAsDictionary]]);
+- (void)testScreenContextJson {
+    SPScreenStateMachine *stateMachine = [[SPScreenStateMachine alloc] init];
+    SPTrackerEvent *fakeEvent = [[SPTrackerEvent alloc] initWithEvent:[[SPStructured alloc] initWithCategory:@"fake" action:@"fake"]];
+    id<SPState> screenState = [[SPScreenState alloc] initWithName:@"name" type:@"type" screenId:nil transitionType:@"transition" topViewControllerClassName:@"topVCname" viewControllerClassName:@"VCname"];
+    NSArray<SPSelfDescribingJson *> *entities = [stateMachine entitiesFromEvent:fakeEvent state:screenState];
+    SPSelfDescribingJson *screenContext = [entities firstObject];
+    XCTAssertNotNil(screenContext);
+    XCTAssertTrue([validator validateJson:[screenContext getAsDictionary]]);
 }
 
 - (void)testClientSessionContextJson {

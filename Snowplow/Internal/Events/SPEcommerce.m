@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -27,30 +27,15 @@
 #import "SPPayload.h"
 #import "SPTracker.h"
 
-@implementation SPEcommerce {
-    NSString * _orderId;
-    NSNumber * _totalValue;
-    NSString * _affiliation;
-    NSNumber * _taxValue;
-    NSNumber * _shipping;
-    NSString * _city;
-    NSString * _state;
-    NSString * _country;
-    NSString * _currency;
-    NSArray<SPEcommerceItem *> *_items;
-}
+@interface SPEcommerce ()
 
-+ (instancetype)build:(void(^)(id<SPEcommTransactionBuilder> builder))buildBlock {
-    SPEcommerce* event = [SPEcommerce new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@property (nonatomic, readwrite) NSString *orderId;
+@property (nonatomic, readwrite) NSNumber *totalValue;
+@property (nonatomic, readwrite) NSArray<SPEcommerceItem *> *items;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPEcommerce
 
 - (instancetype)initWithOrderId:(NSString *)orderId totalValue:(NSNumber *)totalValue items:(NSArray<SPEcommerceItem *> *)items {
     if (self = [super init]) {
@@ -60,12 +45,6 @@
         [SPUtilities checkArgument:([_orderId length] != 0) withMessage:@"OrderId cannot be nil or empty."];
     }
     return self;
-}
-
-- (void) preconditions {
-    [SPUtilities checkArgument:([_orderId length] != 0) withMessage:@"OrderId cannot be nil or empty."];
-    [SPUtilities checkArgument:(_items != nil) withMessage:@"Items cannot be nil."];
-    [SPUtilities checkArgument:(_totalValue != nil) withMessage:@"TotalValue cannot be nil."];
 }
 
 // --- Builder Methods
@@ -78,54 +57,9 @@ SP_BUILDER_METHOD(NSString *, state)
 SP_BUILDER_METHOD(NSString *, country)
 SP_BUILDER_METHOD(NSString *, currency)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setOrderId:(NSString *)orderId {
-    _orderId = orderId;
-}
-
-- (void) setTotalValue:(NSNumber *)totalValue {
-    _totalValue = totalValue;
-}
-
-- (void) setAffiliation:(NSString *)affiliation {
-    _affiliation = affiliation;
-}
-
-- (void) setTaxValue:(NSNumber *)taxValue {
-    _taxValue =  taxValue;
-}
-
-- (void) setShipping:(NSNumber *)shipping {
-    _shipping =  shipping;
-}
-
-- (void) setCity:(NSString *)city {
-    _city = city;
-}
-
-- (void) setState:(NSString *)state {
-    _state = state;
-}
-
-- (void) setCountry:(NSString *)country {
-    _country = country;
-}
-
-- (void) setCurrency:(NSString *)currency {
-    _currency = currency;
-}
-
-- (void) setItems:(NSArray<SPEcommerceItem *> *)items {
-    _items = items;
-}
-
-#pragma clang diagnostic pop
-
 // --- Public Methods
 
-- (NSString *)name {
+- (NSString *)eventName {
     return kSPEventEcomm;
 }
 
@@ -143,20 +77,15 @@ SP_BUILDER_METHOD(NSString *, currency)
     return payload;
 }
 
-- (NSArray<SPEcommerceItem *> *) getItems {
+- (NSArray<SPEcommerceItem *> *)getItems {
     return _items;
 }
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
-
 - (void)endProcessingWithTracker:(SPTracker *)tracker {
     for (SPEcommerceItem *item in _items) {
-        [item setOrderId:_orderId];
+        item.orderId  = _orderId;
         [tracker track:item];
     }
 }
-
-#pragma GCC diagnostic pop
 
 @end

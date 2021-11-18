@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,52 +25,28 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*!
- @protocol SPPageViewBuilder
- @brief The protocol for building pageview events.
- */
-NS_SWIFT_NAME(PageViewBuilder)
-@protocol SPPageViewBuilder <SPEventBuilder>
-
-/*!
- @brief Set the URL of the page.
-
- @param pageUrl The URL of the page.
- */
-- (void) setPageUrl:(NSString *)pageUrl __deprecated_msg("Use initializer of `PageView` class instead.");
-
-/*!
- @brief Set the title of the page.
-
- @param pageTitle The title of the page.
- */
-- (void) setPageTitle:(nullable NSString *)pageTitle __deprecated_msg("Use `pageTitle` of `PageView` class instead.");
-
-/*!
- @brief Set the referrer of the pageview.
-
- @param referrer The pageview referrer.
- */
-- (void) setReferrer:(nullable NSString *)referrer __deprecated_msg("Use `referrer` of `PageView` class instead.");
-@end
-
-/*!
- @class SPPageView
- @brief A pageview.
+ A pageview event.
+ @deprecated This event has been designed for web trackers, not suitable for mobile apps. Use DeepLinkReceived event to track deep link received in the app.
  */
 NS_SWIFT_NAME(PageView)
-@interface SPPageView : SPPrimitiveAbstract <SPPageViewBuilder>
+@interface SPPageView : SPPrimitiveAbstract
 
+/// Page url.
 @property (nonatomic, readonly) NSString *pageUrl;
+/// Page title.
 @property (nonatomic, nullable) NSString *pageTitle;
+/// Page referrer url.
 @property (nonatomic, nullable) NSString *referrer;
-
-+ (instancetype)build:(void(^)(id<SPPageViewBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 
+/// Creates a pageview event.
+/// @param pageUrl The page url.
 - (instancetype)initWithPageUrl:(NSString *)pageUrl NS_SWIFT_NAME(init(pageUrl:));
 
+/// Page title.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, pageTitle)
+/// Page referrer url.
 SP_BUILDER_DECLARE_NULLABLE(NSString *, referrer)
 
 @end

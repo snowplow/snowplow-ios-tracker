@@ -245,6 +245,16 @@
     return [self.tracker autoTrackScreenView];
 }
 
+- (void)setTrackerVersionSuffix:(NSString *)trackerVersionSuffix {
+    self.dirtyConfig.trackerVersionSuffix = trackerVersionSuffix;
+    self.dirtyConfig.trackerVersionSuffixUpdated = YES;
+    [self.tracker setTrackerVersionSuffix:trackerVersionSuffix];
+}
+
+- (NSString *)trackerVersionSuffix {
+    return [self.tracker trackerVersionSuffix];
+}
+
 - (void)setSessionContext:(BOOL)sessionContext {
     self.dirtyConfig.sessionContext = sessionContext;
     self.dirtyConfig.sessionContextUpdated = YES;

@@ -42,14 +42,14 @@
 - (id<SPState>)transitionFromEvent:(SPEvent *)event state:(id<SPState>)currentState {
     SPScreenView *screenView = (SPScreenView *)event;
     SPScreenState *oldState = (SPScreenState *)currentState;
-    SPScreenState *newState = [screenView getScreenState];
+    SPScreenState *newState = [self screenStateFromScreenView:screenView];
     newState.previousState = oldState;
     return newState;
 }
 
 - (NSArray<SPSelfDescribingJson *> *)entitiesFromEvent:(id<SPInspectableEvent>)event state:(id<SPState>)state {
     if ([state isKindOfClass:SPScreenState.class]) {
-        SPSelfDescribingJson *entity = [SPUtilities getScreenContextWithScreenState:(SPScreenState *)state];
+        SPSelfDescribingJson *entity = [self screenContextFromScreenState:(SPScreenState *)state];
         return @[entity];
     }
     return nil;
@@ -65,6 +65,25 @@
         return addedValues;
     }
     return nil;
+}
+
+// Private methods
+
+- (SPScreenState *)screenStateFromScreenView:(SPScreenView *)screenView {
+    return [[SPScreenState alloc] initWithName:screenView.name
+                                          type:screenView.type
+                                      screenId:screenView.screenId
+                                transitionType:screenView.transitionType
+                    topViewControllerClassName:screenView.topViewControllerClassName
+                       viewControllerClassName:screenView.viewControllerClassName];
+}
+
+- (SPSelfDescribingJson *)screenContextFromScreenState:(SPScreenState *)screenState {
+    SPPayload *contextPayload = [screenState payload];
+    if (!contextPayload) {
+        return nil;
+    }
+    return [[SPSelfDescribingJson alloc] initWithSchema:kSPScreenContextSchema andPayload:contextPayload];
 }
 
 @end

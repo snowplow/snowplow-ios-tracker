@@ -28,50 +28,31 @@
 @class SPSelfDescribingJson;
 @class SPScreenState;
 
-#if SNOWPLOW_TARGET_IOS
-#import <UserNotifications/UserNotifications.h>
-#endif
-
 /*!
- @class SPUtilities
- @brief A class of utility functions.
-
  This is a class that contains utility functions used throughout the tracker.
  */
 @interface SPUtilities : NSObject
 
 /*!
  @brief Returns the system timezone region.
-
  @return A string of the timezone region (e.g. 'Toronto/Canada').
  */
 + (NSString *) getTimezone;
 
 /*!
  @brief Returns the system language currently used on the device.
-
  @return A string of the current language.
  */
 + (NSString *) getLanguage;
 
 /*!
  @brief Returns the platform type of the device..
-
  @return A string of the platform type.
  */
 + (SPDevicePlatform) getPlatform;
 
 /*!
  @brief Returns a randomly generated UUID (type 4).
- 
- @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
- @deprecated Use `getUUIDString` instead`.
- */
-+ (NSString *) getEventId __deprecated_msg("Use `getUUIDString` instead.");
-
-/*!
- @brief Returns a randomly generated UUID (type 4).
-
  @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
  */
 + (NSString *) getUUIDString;
@@ -84,142 +65,46 @@
 + (bool ) isUUIDString:(NSString *)uuidString;
 
 /*!
- @brief Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project and you enable the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
-
- @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getAppleIdfa __deprecated;
-
-/*!
- @brief Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.
-
- @return A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getAppleIdfv __deprecated;
-
-/*!
- @brief Returns the carrier of the SIM inserted in the device.
-
- @return A string containing the carrier name of the service provider.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getCarrierName __deprecated;
-
-/*!
- @brief Returns the Network Type the device is connected to.
-
- @return A string containing the Network Type.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getNetworkType __deprecated;
-
-/*!
- @brief Returns the Network Technology the device is using.
-
- @return A string containing the Network Technology.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getNetworkTechnology __deprecated;
-
-/*!
- @brief Generates a randomly generated 6-digit integer.
-
- @return A random 6-digit int.
- */
-+ (int) getTransactionId __deprecated;
-
-/*!
  @brief Returns the timestamp (in milliseconds) generated at the point it was called.
-
  @return A double of the timestamp from when the method was called.
  */
 + (NSNumber *) getTimestamp;
 
 /*!
  @brief Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.
-
  @return A formatted string with resolution 'width' and 'height'.
  */
 + (NSString *) getResolution;
 
 /*!
  @brief Calculates the viewport of the app as it is on the screen. Currently, returns the same value as getResolution.
-
  @return A formatted string with viewport width and height.
  */
 + (NSString *) getViewPort;
 
 /*!
- @brief Returns the current device's vendor in the form of a string.
-
- @return A string with vendor, i.e. "Apple Inc."
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getDeviceVendor __deprecated;
-
-/*!
- @brief Returns the current device's model in the form of a string.
-
- @return A string with device model.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getDeviceModel __deprecated;
-
-/*!
- @brief This is to detect what the version of mobile OS of the current device.
-
- @return The current device's OS version type as a string.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getOSVersion __deprecated;
-
-/*!
- @brief This is to detect what the type of mobile OS of the current device.
-
- @return The current device's OS type as a string.
- @deprecated Will be moved to internal API.
- */
-+ (NSString *) getOSType __deprecated;
-
-/*!
  @brief Returns the Application ID
-
  @return The device bundle application id
  */
 + (NSString *) getAppId;
 
 /*!
  @brief URL encodes a string so that it is suitable to use in a query-string. A nil s returns @"".
-
  @return The url encoded string
  */
 + (NSString *)urlEncodeString:(NSString *)s;
 
 /*!
  @brief URL encodes a dictionary as key=value pairs separated by &, so that it can be used in a query-string.
-
  This method can encode string, numbers, and bool values, and not embedded arrays or dictionaries.
  It encodes bool as 1 and 0.
-
  @return The url encoded string of the dictionary.
  */
 + (NSString *)urlEncodeDictionary:(NSDictionary *)d;
 
 /*!
- @brief Returns the byte size of a string.
-
- @param str A string.
- @return The byte size of the string.
- */
-+ (NSInteger) getByteSizeWithString:(NSString *)str __deprecated_msg("getByteSizeWithString is deprecated. Use NSString method instead.");
-
-/*!
  @brief Checks an expression and will log if it is false.
-
  This allows for rudimentary Preconditions for object setup.
-
  @param argument The argument to check.
  @param message The message to log.
  */
@@ -227,31 +112,10 @@
 
 /*!
  @brief Removes all entries which have a value of NSNull from the dictionary.
-
  @param dict An NSDictionary to be cleaned.
  @return The same NSDictionary without any Null values.
  */
 + (NSDictionary *) removeNullValuesFromDictWithDict:(NSDictionary *)dict;
-
-/*!
- @brief Maps a trigger object to the corresponding simplified string.
- @param trigger A UNNotificationTrigger object.
-
- @return A string describing the type of trigger.
- */
-#if SNOWPLOW_TARGET_IOS
-+ (NSString *) getTriggerType:(UNNotificationTrigger *)trigger NS_AVAILABLE_IOS(10.0);
-#endif
-
-/*!
- @brief Converts a UNNotificationAttachment array into an array of string dictionaries.
- @param attachments An array of UNNotificationAttachment.
- @return An array of string dictionaries.
- */
-
-#if SNOWPLOW_TARGET_IOS
-+ (NSArray<NSDictionary *> *) convertAttachments:(NSArray<UNNotificationAttachment *> *)attachments NS_AVAILABLE_IOS(10.0);
-#endif
 
 /*!
  @brief Converts a kebab-case string keys into a camel-case string keys.
@@ -273,13 +137,6 @@
  @return A string or nil
  */
 + (NSString *) validateString:(NSString *)aString;
-
-/*!
- Returns a screen context SDJ given a screen state object.
- @param screenState Some screen state
- @return A context SDJ.
- */
-+ (SPSelfDescribingJson *) getScreenContextWithScreenState:(SPScreenState *)screenState;
 
 /*!
  Returns the app version.

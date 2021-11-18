@@ -69,15 +69,15 @@
     
     // Test builder
     XCTAssertEqual([screenState isValid], YES);
-    XCTAssertNotNil([screenState getValidPayload]);
+    XCTAssertNotNil([screenState payload]);
     
     // ID and name required
     screenState = [[SPScreenState alloc] initWithName:@"some name" screenId:uuid];
     
     // Test builder setting properly
     XCTAssertEqual([screenState isValid], YES);
-    XCTAssertNotNil([screenState getValidPayload]);
-    SPPayload * payload = [screenState getValidPayload];
+    XCTAssertNotNil([screenState payload]);
+    SPPayload * payload = [screenState payload];
     NSDictionary * dictionary = [payload getAsDictionary];
     XCTAssertEqual([dictionary objectForKey:kSPScreenName], @"some name");
     XCTAssertEqual([dictionary objectForKey:kSPScreenId], uuid);

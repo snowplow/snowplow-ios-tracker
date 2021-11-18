@@ -15,7 +15,7 @@
 // express or implied. See the Apache License Version 2.0 for the specific
 // language governing permissions and limitations there under.
 //
-// Copyright: Copyright © 2020 Snowplow Analytics.
+// Copyright: Copyright © 2021 Snowplow Analytics.
 // License: Apache License Version 2.0
 //
 
@@ -27,7 +27,6 @@
 @property NSMutableDictionary<NSString *, NSObject *> *dictionary;
 
 @end
-
 
 @implementation SPMessageNotificationAttachment
 

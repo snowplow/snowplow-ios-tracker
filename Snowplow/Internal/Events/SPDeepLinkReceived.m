@@ -15,7 +15,7 @@
 // express or implied. See the Apache License Version 2.0 for the specific
 // language governing permissions and limitations there under.
 //
-// Copyright: Copyright © 2020 Snowplow Analytics.
+// Copyright: Copyright © 2021 Snowplow Analytics.
 // License: Apache License Version 2.0
 //
 
@@ -25,12 +25,13 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPDeepLinkReceived {
-    /// It's the property for `referrer` JSON key
-    NSString * _referrer;
-    /// It's the property for `url` JSON key
-    NSString * _url;
-}
+@interface SPDeepLinkReceived ()
+
+@property (nonatomic, nonnull, readwrite) NSString *url;
+
+@end
+
+@implementation SPDeepLinkReceived
 
 NSString * const kSPDeepLinkReceivedSchema = @"iglu:com.snowplowanalytics.mobile/deep_link_received/jsonschema/1-0-0";
 NSString * const kSPDeepLinkReceivedParamReferrer = @"referrer";

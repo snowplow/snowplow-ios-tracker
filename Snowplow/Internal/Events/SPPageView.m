@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -26,23 +26,13 @@
 #import "SPUtilities.h"
 #import "SPPayload.h"
 
-@implementation SPPageView {
-    NSString * _pageUrl;
-    NSString * _pageTitle;
-    NSString * _referrer;
-}
+@interface SPPageView ()
 
-+ (instancetype)build:(void(^)(id<SPPageViewBuilder> builder))buildBlock {
-    SPPageView* event = [SPPageView new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@property (nonatomic, readwrite) NSString *pageUrl;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPPageView
 
 - (instancetype)initWithPageUrl:(NSString *)pageUrl {
     if (self = [super init]) {
@@ -52,35 +42,14 @@
     return self;
 }
 
-- (void) preconditions {
-    [SPUtilities checkArgument:([_pageUrl length] != 0) withMessage:@"PageURL cannot be nil or empty."];
-}
-
 // --- Builder Methods
 
 SP_BUILDER_METHOD(NSString *, pageTitle)
 SP_BUILDER_METHOD(NSString *, referrer)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setPageUrl:(NSString *)pageUrl {
-    _pageUrl = pageUrl;
-}
-
-- (void) setPageTitle:(NSString *)pageTitle {
-    _pageTitle = pageTitle;
-}
-
-- (void) setReferrer:(NSString *)referrer {
-    _referrer = referrer;
-}
-
-#pragma clang diagnostic pop
-
 // --- Public Methods
 
-- (NSString *)name {
+- (NSString *)eventName {
     return kSPEventPageView;
 }
 

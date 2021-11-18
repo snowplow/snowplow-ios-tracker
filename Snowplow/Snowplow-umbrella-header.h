@@ -1,6 +1,13 @@
-
+#import "SPSnowplow.h"
 #import "SPTrackerConstants.h"
+#import "SPLoggerDelegate.h"
+#import "SPPayload.h"
+#import "SPSelfDescribingJson.h"
+#import "SPDevicePlatform.h"
+
+// Configurations
 #import "SPConfiguration.h"
+#import "SPRemoteConfiguration.h"
 #import "SPTrackerConfiguration.h"
 #import "SPNetworkConfiguration.h"
 #import "SPSubjectConfiguration.h"
@@ -10,22 +17,29 @@
 #import "SPGlobalContextsConfiguration.h"
 #import "SPConfigurationBundle.h"
 
+// Controllers
 #import "SPTrackerController.h"
 #import "SPSessionController.h"
+#import "SPSubjectController.h"
 #import "SPNetworkController.h"
 #import "SPEmitterController.h"
 #import "SPGDPRController.h"
 #import "SPGlobalContextsController.h"
 
-#import "SPLoggerDelegate.h"
-
-#import "SPEventStore.h"
+// NetworkConnection
 #import "SPNetworkConnection.h"
+#import "SPDefaultNetworkConnection.h"
+
+// EventStore
+#import "SPEventStore.h"
+#import "SPSQLiteEventStore.h"
+#import "SPMemoryEventStore.h"
+
+// Emitter
 #import "SPRequest.h"
 #import "SPRequestResult.h"
 #import "SPEmitterEvent.h"
 #import "SPRequestCallback.h"
-#import "SPSnowplow.h"
 
 // Events
 #import "SPEventBase.h"
@@ -47,23 +61,13 @@
 #import "SPMessageNotification.h"
 #import "SPMessageNotificationAttachment.h"
 
+// Entities
+#import "SPDeepLinkEntity.h"
+#import "SPLifecycleEntity.h"
+
 // Global Contexts and State Management
 #import "SPGlobalContext.h"
 #import "SPSchemaRuleset.h"
 #import "SPSchemaRule.h"
 #import "SPTrackerStateSnapshot.h"
 #import "SPState.h"
-
-// Classes to restrict visibility
-
-#import "SPTracker.h"
-#import "SPEmitter.h"
-#import "SPSubject.h"
-#import "SPPayload.h"
-#import "SPSelfDescribingJson.h"
-#import "SPUtilities.h"
-#import "SPSQLiteEventStore.h"
-#import "SPMemoryEventStore.h"
-#import "SPDefaultNetworkConnection.h"
-#import "SPGdprContext.h"
-#import "SPStateManager.h"
