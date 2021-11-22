@@ -59,7 +59,15 @@
 }
 
 - (void)testDataIsCorrectlyStored {
-    SPDataPersistence *dp = [SPDataPersistence dataPersistenceForNamespace:@"namespace"];
+    [self commonTestDataIsCorrectlyStoredOnFile:YES];
+}
+
+- (void)testDataIsCorrectlyStoredWhenNotStoredOnFile {
+    [self commonTestDataIsCorrectlyStoredOnFile:NO];
+}
+
+- (void)commonTestDataIsCorrectlyStoredOnFile:(BOOL)isStoredOnFile {
+    SPDataPersistence *dp = [SPDataPersistence dataPersistenceForNamespace:@"namespace" storedOnFile:isStoredOnFile];
     NSDictionary<NSString *, NSObject *> *session = @{@"key": @"value"};
     dp.session = session;
     XCTAssertEqualObjects(session, dp.session);
@@ -72,8 +80,16 @@
 }
 
 - (void)testDataIsStoredWithoutInterference {
-    SPDataPersistence *dp1 = [SPDataPersistence dataPersistenceForNamespace:@"namespace1"];
-    SPDataPersistence *dp2 = [SPDataPersistence dataPersistenceForNamespace:@"namespace2"];
+    [self commonTestDataIsStoredWithoutInterferenceStoredOnFile:YES];
+}
+
+- (void)testDataIsStoredWithoutInterferenceWhenNotStoredOnFile {
+    [self commonTestDataIsStoredWithoutInterferenceStoredOnFile:NO];
+}
+
+- (void)commonTestDataIsStoredWithoutInterferenceStoredOnFile:(BOOL)isStoredOnFile {
+    SPDataPersistence *dp1 = [SPDataPersistence dataPersistenceForNamespace:@"namespace1" storedOnFile:isStoredOnFile];
+    SPDataPersistence *dp2 = [SPDataPersistence dataPersistenceForNamespace:@"namespace2" storedOnFile:isStoredOnFile];
     NSDictionary<NSString *, NSObject *> *session = @{@"key": @"value"};
     dp1.session = session;
     // Check dp1
