@@ -28,10 +28,7 @@
 
 @property (nonatomic) NSString *escapedNamespace;
 
-#if TARGET_OS_TV || TARGET_OS_WATCH
 @property (nonatomic) NSString *userDefaultsKey;
-#endif
-
 @property (nonatomic) NSURL *directoryUrl;
 @property (nonatomic) NSURL *fileUrl;
 
@@ -41,10 +38,7 @@
 
 static NSMutableDictionary<NSString *, SPDataPersistence *> *instances = nil;
 
-#if TARGET_OS_TV || TARGET_OS_WATCH
 NSString *const kSPSessionDictionaryPrefix = @"SPSessionDictionary";
-#endif
-
 NSString *const kFilename = @"namespace";
 NSString *const kFilenameExt = @"dict";
 NSString *const kSessionFilenameV1 = @"session.dict";
@@ -53,6 +47,10 @@ NSString *const kSessionFilenamePrefixV2_2 = @"session";
 NSString *sessionKey = @"session";
 
 + (SPDataPersistence *)dataPersistenceForNamespace:(NSString *)namespace {
+    return [SPDataPersistence dataPersistenceForNamespace:namespace storedOnFile:YES];
+}
+
++ (SPDataPersistence *)dataPersistenceForNamespace:(NSString *)namespace storedOnFile:(BOOL)isStoredOnFile {
     NSString *escapedNamespace = [SPDataPersistence stringFromNamespace:namespace];
     if ([escapedNamespace length] <= 0) return nil;
     @synchronized (SPDataPersistence.class) {
@@ -65,7 +63,7 @@ NSString *sessionKey = @"session";
         } else {
             instances = [NSMutableDictionary new];
         }
-        instance = [[SPDataPersistence alloc] initWithNamespace:escapedNamespace];
+        instance = [[SPDataPersistence alloc] initWithNamespace:escapedNamespace storedOnFile:isStoredOnFile];
         [instances setValue:instance forKey:escapedNamespace];
         return instance;
     }
@@ -91,9 +89,9 @@ NSString *sessionKey = @"session";
 
 - (NSDictionary<NSString *, NSDictionary<NSString *, NSObject *> *> *)data {
     @synchronized (self) {
-#if TARGET_OS_TV || TARGET_OS_WATCH
-        return [[NSUserDefaults standardUserDefaults] dictionaryForKey:self.userDefaultsKey];
-#else
+        if (!self.isStoredOnFile) {
+            return [[NSUserDefaults standardUserDefaults] dictionaryForKey:self.userDefaultsKey] ?: @{};
+        }
         NSMutableDictionary<NSString *, NSDictionary<NSString *, NSObject *> *> *result =
         [NSMutableDictionary dictionaryWithContentsOfURL:self.fileUrl];
         
@@ -105,21 +103,20 @@ NSString *sessionKey = @"session";
                 ?: [self sessionDictionaryFromLegacyTrackerV1]
                 ?: [NSDictionary new];
             [result setObject:sessionDict forKey:sessionKey];
-            [self storeDictionary:result];
+            [self storeDictionary:result fileURL:self.fileUrl];
         }
         
         return result;
-#endif
     }
 }
 
 - (void)setData:(NSDictionary<NSString *,NSDictionary<NSString *, NSObject *> *> *)data {
     @synchronized (self) {
-#if TARGET_OS_TV || TARGET_OS_WATCH
-        [[NSUserDefaults standardUserDefaults] setObject:data forKey:self.userDefaultsKey];
-#else
-        [self storeDictionary:data];
-#endif
+        if (self.fileUrl) {
+            [self storeDictionary:data fileURL:self.fileUrl];
+        } else {
+            [[NSUserDefaults standardUserDefaults] setObject:data forKey:self.userDefaultsKey];
+        }
     }
 }
 
@@ -135,17 +132,24 @@ NSString *sessionKey = @"session";
     }
 }
 
+- (BOOL)isStoredOnFile {
+    return self.fileUrl != nil;
+}
+
 // MARK: - Private instance methods
 
-- (instancetype)initWithNamespace:(NSString *)escapedNamespace {
+- (instancetype)initWithNamespace:(NSString *)escapedNamespace storedOnFile:(BOOL)isStoredOnFile {
     if (self = [super init]) {
         self.escapedNamespace = escapedNamespace;
-#if TARGET_OS_TV || TARGET_OS_WATCH
         self.userDefaultsKey = [NSString stringWithFormat:@"%@_%@", kSPSessionDictionaryPrefix, escapedNamespace];
-#else
-        self.directoryUrl = [self createDirectoryUrl];
-        NSString *filename = [NSString stringWithFormat:@"%@_%@.%@", kFilename, escapedNamespace, kFilenameExt];
-        self.fileUrl = [self.directoryUrl URLByAppendingPathComponent:filename];
+#if !(TARGET_OS_TV || TARGET_OS_WATCH)
+        if (isStoredOnFile) {
+            self.directoryUrl = [self createDirectoryUrl];
+            if (self.directoryUrl) {
+                NSString *filename = [NSString stringWithFormat:@"%@_%@.%@", kFilename, escapedNamespace, kFilenameExt];
+                self.fileUrl = [self.directoryUrl URLByAppendingPathComponent:filename];
+            }
+        }
 #endif
     }
     return self;
@@ -153,47 +157,44 @@ NSString *sessionKey = @"session";
 
 - (BOOL)removeAll {
     @synchronized (self) {
-#if TARGET_OS_TV || TARGET_OS_WATCH
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:self.userDefaultsKey];
-        return YES;
-#else
         NSError *error = nil;
-        [[NSFileManager defaultManager] removeItemAtURL:self.fileUrl error:&error];
-        if (error) {
+        if (self.fileUrl && ![[NSFileManager defaultManager] removeItemAtURL:self.fileUrl error:&error]) {
             SPLogError(@"%@", error.localizedDescription);
             return NO;
         }
         return YES;
-#endif
     }
 }
 
 - (NSURL *)createDirectoryUrl {
-    NSFileManager *fm = [NSFileManager defaultManager];
-    NSURL *url = [fm URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
-    url = [url URLByAppendingPathComponent:@"snowplow"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *url = [fileManager URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
+    url = [url URLByAppendingPathComponent:@"snowplow" isDirectory:YES];
     NSError *error = nil;
-    BOOL result = [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
-    if (!result) {
-        SPLogError(@"Unable to create directory for tracker data persistence: %@", error.localizedDescription);
-        return nil;
+    if ([url checkResourceIsReachableAndReturnError:&error]) {
+        return url;
     }
-    return url;
+    if ([fileManager createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error]) {
+        return url;
+    }
+    SPLogError(@"Unable to create directory for tracker data persistence: %@", error.localizedDescription);
+    return nil;
 }
 
-- (BOOL)storeDictionary:(NSDictionary *)dictionary {
+- (BOOL)storeDictionary:(NSDictionary *)dictionary fileURL:(NSURL *)fileUrl {
     BOOL result = NO;
     NSError *error = nil;
     if (@available(iOS 11.0, macOS 10.13, watchOS 4.0, *)) {
-        result = [dictionary writeToURL:self.fileUrl error:&error];
+        result = [dictionary writeToURL:fileUrl error:&error];
     } else {
-        result = [dictionary writeToURL:self.fileUrl atomically:YES];
+        result = [dictionary writeToURL:fileUrl atomically:YES];
     }
-    if (!result) {
-        SPLogError(@"Unable to write file for sessions: %@", error.localizedDescription ?: @"-");
-        return NO;
+    if (result) {
+        return YES;
     }
-    return YES;
+    SPLogError(@"Unable to write file for sessions: %@", error.localizedDescription ?: @"-");
+    return NO;
 }
 
 // Migration methods
