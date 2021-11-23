@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,111 +88,74 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2020 Snowplow Analytics.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2021 Snowplow Analytics.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_events_2_s_p_structured_8h.html">SPStructured.h</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#import &quot;SPPayload.h&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_structured.html">SPStructured</a> {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    NSString * <a class="code" href="_s_p_ecommerce_item_8m.html#af855f037e344d90dc5e4fe0c076fcef0">_category</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="_s_p_structured_8m.html#aa3722b6a0f976d26633d8c0e314d49db">   31</a></span>&#160;    NSString * <a class="code" href="_s_p_structured_8m.html#aa3722b6a0f976d26633d8c0e314d49db">_action</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="_s_p_structured_8m.html#a41b5bdd7a62ab76a7d1e067e4ac659bc">   32</a></span>&#160;    NSString * <a class="code" href="_s_p_structured_8m.html#a41b5bdd7a62ab76a7d1e067e4ac659bc">_label</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="_s_p_structured_8m.html#a4276c420f016d6b60667fd196f5b5f9b">   33</a></span>&#160;    NSString * <a class="code" href="_s_p_structured_8m.html#a4276c420f016d6b60667fd196f5b5f9b">_property</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="_s_p_structured_8m.html#a410f4a9a77471c71cec16d96acc9f11b">   34</a></span>&#160;    NSNumber * <a class="code" href="_s_p_structured_8m.html#a410f4a9a77471c71cec16d96acc9f11b">_value</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;+ (instancetype)build:(<span class="keywordtype">void</span>(^)(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_structured_builder-p.html">SPStructuredBuilder</a>&gt; builder))buildBlock {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="interface_s_p_structured.html">SPStructured</a>* <span class="keyword">event</span> = [<a class="code" href="interface_s_p_structured.html">SPStructured</a> new];</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (buildBlock) { buildBlock(event); }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    [event preconditions];</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> event;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;- (instancetype)init {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;- (instancetype)initWithCategory:(NSString *)category action:(NSString *)action {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="_s_p_ecommerce_item_8m.html#af855f037e344d90dc5e4fe0c076fcef0">_category</a> = category;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="_s_p_structured_8m.html#aa3722b6a0f976d26633d8c0e314d49db">_action</a> = action;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_category length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Category cannot be nil or empty.&quot;];</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_action length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Action cannot be nil or empty.&quot;];</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;- (void) preconditions {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_category length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Category cannot be nil or empty.&quot;];</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_action length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Action cannot be nil or empty.&quot;];</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// --- Builder Methods</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, label)</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, property)</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSNumber *, value)</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="category_s_p_structured_07_08.html">   29</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_structured.html">SPStructured</a> ()</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="category_s_p_structured_07_08.html#a6885a7977060d70a7f69a7aa0c492266">   31</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) NSString *<a class="code" href="include_2_s_p_message_notification_8h.html#a6885a7977060d70a7f69a7aa0c492266">category</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="category_s_p_structured_07_08.html#aaab84b2e5d0ad0f648e7e0e17c6afa08">   32</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) NSString *<a class="code" href="include_2_s_p_message_notification_8h.html#aaab84b2e5d0ad0f648e7e0e17c6afa08">action</a>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_structured.html">SPStructured</a></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;- (instancetype)initWithCategory:(NSString *)category action:(NSString *)action {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        _category = <a class="code" href="interface_s_p_structured.html#abb61734f2bfc8ce9a9851a68f542eee6">category</a>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        _action = <a class="code" href="interface_s_p_structured.html#a29e4bb27f23843d40b10870159af881b">action</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_category length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Category cannot be nil or empty.&quot;];</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_action length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Action cannot be nil or empty.&quot;];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// --- Builder Methods</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_structured.html#a9d061ff300db3959567dcf9153ed0764">label</a>)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_structured.html#a6a57e2084a8d583cf1c898e71563f191">property</a>)</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSNumber *, <a class="code" href="interface_s_p_structured.html#aa6f2bc6f5a3aafc9fc841956263d36a8">value</a>)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// --- Public Methods</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;- (NSString *)<a class="code" href="interface_s_p_primitive_abstract.html#ae4e8eed07e1794bcf249bfa51b5c3290">eventName</a> {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#af6e88356338f8af16ad3babe11a3f8bc">kSPEventStructured</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    NSMutableDictionary *<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> = [NSMutableDictionary dictionary];</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    [payload setValue:_category forKey:kSPStuctCategory];</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    [payload setValue:_action forKey:kSPStuctAction];</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    [payload setValue:_label forKey:kSPStuctLabel];</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    [payload setValue:_property forKey:kSPStuctProperty];</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">if</span> (_value) [payload setObject:[NSString stringWithFormat:@&quot;%.17g&quot;, [_value doubleValue]] forKey:kSPStuctValue];</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a>;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#pragma clang diagnostic push</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wdeprecated-implementations&quot;</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;- (void) setCategory:(NSString *)category {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="_s_p_ecommerce_item_8m.html#af855f037e344d90dc5e4fe0c076fcef0">_category</a> = category;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;- (void) setAction:(NSString *)action {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="_s_p_structured_8m.html#aa3722b6a0f976d26633d8c0e314d49db">_action</a> = action;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;- (void) setLabel:(NSString *)label {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="_s_p_structured_8m.html#a41b5bdd7a62ab76a7d1e067e4ac659bc">_label</a> = label;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;- (void) setProperty:(NSString *)property {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <a class="code" href="_s_p_structured_8m.html#a4276c420f016d6b60667fd196f5b5f9b">_property</a> = property;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;- (void) setValue:(NSNumber *)value {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="_s_p_structured_8m.html#a410f4a9a77471c71cec16d96acc9f11b">_value</a> = value;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#pragma clang diagnostic pop</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">// --- Public Methods</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;- (NSString *)name {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#af6e88356338f8af16ad3babe11a3f8bc">kSPEventStructured</a>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)payload {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    NSMutableDictionary *payload = [NSMutableDictionary dictionary];</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    [payload setValue:_category forKey:kSPStuctCategory];</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    [payload setValue:_action forKey:kSPStuctAction];</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    [payload setValue:_label forKey:kSPStuctLabel];</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    [payload setValue:_property forKey:kSPStuctProperty];</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="_s_p_structured_8m.html#a410f4a9a77471c71cec16d96acc9f11b">_value</a>) [payload setObject:[NSString stringWithFormat:@&quot;%.17g&quot;, [_value doubleValue]] forKey:kSPStuctValue];</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> payload;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_internal_2_events_2_s_p_structured_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_structured_8h.html">SPStructured.h</a></div></div>
-<div class="ttc" id="a_s_p_ecommerce_item_8m_html_af855f037e344d90dc5e4fe0c076fcef0"><div class="ttname"><a href="_s_p_ecommerce_item_8m.html#af855f037e344d90dc5e4fe0c076fcef0">_category</a></div><div class="ttdeci">NSString * _category</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_ecommerce_item_8m_source.html#l00035">SPEcommerceItem.m:35</a></div></div>
-<div class="ttc" id="a_s_p_structured_8m_html_a410f4a9a77471c71cec16d96acc9f11b"><div class="ttname"><a href="_s_p_structured_8m.html#a410f4a9a77471c71cec16d96acc9f11b">_value</a></div><div class="ttdeci">NSNumber * _value</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_structured_8m_source.html#l00034">SPStructured.m:34</a></div></div>
-<div class="ttc" id="a_s_p_structured_8m_html_a41b5bdd7a62ab76a7d1e067e4ac659bc"><div class="ttname"><a href="_s_p_structured_8m.html#a41b5bdd7a62ab76a7d1e067e4ac659bc">_label</a></div><div class="ttdeci">NSString * _label</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_structured_8m_source.html#l00032">SPStructured.m:32</a></div></div>
-<div class="ttc" id="a_s_p_structured_8m_html_a4276c420f016d6b60667fd196f5b5f9b"><div class="ttname"><a href="_s_p_structured_8m.html#a4276c420f016d6b60667fd196f5b5f9b">_property</a></div><div class="ttdeci">NSString * _property</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_structured_8m_source.html#l00033">SPStructured.m:33</a></div></div>
-<div class="ttc" id="a_s_p_structured_8m_html_aa3722b6a0f976d26633d8c0e314d49db"><div class="ttname"><a href="_s_p_structured_8m.html#aa3722b6a0f976d26633d8c0e314d49db">_action</a></div><div class="ttdeci">NSString * _action</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_structured_8m_source.html#l00031">SPStructured.m:29</a></div></div>
 <div class="ttc" id="a_s_p_tracker_constants_8m_html_af6e88356338f8af16ad3babe11a3f8bc"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#af6e88356338f8af16ad3babe11a3f8bc">kSPEventStructured</a></div><div class="ttdeci">NSString *const kSPEventStructured</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00081">SPTrackerConstants.m:81</a></div></div>
+<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_message_notification_8h_html_a6885a7977060d70a7f69a7aa0c492266"><div class="ttname"><a href="include_2_s_p_message_notification_8h.html#a6885a7977060d70a7f69a7aa0c492266">category</a></div><div class="ttdeci">NSString * category</div><div class="ttdoc">The category associated to the notification.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_message_notification_8h_source.html#l00074">SPMessageNotification.h:74</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_message_notification_8h_html_aaab84b2e5d0ad0f648e7e0e17c6afa08"><div class="ttname"><a href="include_2_s_p_message_notification_8h.html#aaab84b2e5d0ad0f648e7e0e17c6afa08">action</a></div><div class="ttdeci">NSString * action</div><div class="ttdoc">The action associated with the notification.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_message_notification_8h_source.html#l00064">SPMessageNotification.h:64</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_ae6c0cd7c5ec3616671af14ae52ac02d3"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a></div><div class="ttdeci">#define SP_BUILDER_METHOD(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00045">SPTrackerConstants.h:45</a></div></div>
-<div class="ttc" id="ainterface_s_p_structured_html"><div class="ttname"><a href="interface_s_p_structured.html">SPStructured</a></div><div class="ttdoc">A structured event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00075">SPStructured.h:75</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_utilities_8h_source.html#l00041">SPUtilities.h:42</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false.</div></div>
-<div class="ttc" id="aprotocol_s_p_structured_builder-p_html"><div class="ttname"><a href="protocol_s_p_structured_builder-p.html">SPStructuredBuilder-p</a></div><div class="ttdoc">The protocol for building structured events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00032">SPStructured.h:32</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00081">SPEventBase.h:81</a></div></div>
+<div class="ttc" id="ainterface_s_p_primitive_abstract_html_ae4e8eed07e1794bcf249bfa51b5c3290"><div class="ttname"><a href="interface_s_p_primitive_abstract.html#ae4e8eed07e1794bcf249bfa51b5c3290">SPPrimitiveAbstract::eventName</a></div><div class="ttdeci">NSString * eventName</div><div class="ttdoc">The name of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00113">SPEventBase.h:113</a></div></div>
+<div class="ttc" id="ainterface_s_p_structured_html"><div class="ttname"><a href="interface_s_p_structured.html">SPStructured</a></div><div class="ttdoc">A structured event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00029">SPStructured.h:30</a></div></div>
+<div class="ttc" id="ainterface_s_p_structured_html_a29e4bb27f23843d40b10870159af881b"><div class="ttname"><a href="interface_s_p_structured.html#a29e4bb27f23843d40b10870159af881b">SPStructured::action</a></div><div class="ttdeci">NSString * action</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00032">SPStructured.h:32</a></div></div>
+<div class="ttc" id="ainterface_s_p_structured_html_a6a57e2084a8d583cf1c898e71563f191"><div class="ttname"><a href="interface_s_p_structured.html#a6a57e2084a8d583cf1c898e71563f191">SPStructured::property</a></div><div class="ttdeci">NSString * property</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00034">SPStructured.h:34</a></div></div>
+<div class="ttc" id="ainterface_s_p_structured_html_a9d061ff300db3959567dcf9153ed0764"><div class="ttname"><a href="interface_s_p_structured.html#a9d061ff300db3959567dcf9153ed0764">SPStructured::label</a></div><div class="ttdeci">NSString * label</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00033">SPStructured.h:33</a></div></div>
+<div class="ttc" id="ainterface_s_p_structured_html_aa6f2bc6f5a3aafc9fc841956263d36a8"><div class="ttname"><a href="interface_s_p_structured.html#aa6f2bc6f5a3aafc9fc841956263d36a8">SPStructured::value</a></div><div class="ttdeci">NSNumber * value</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00035">SPStructured.h:35</a></div></div>
+<div class="ttc" id="ainterface_s_p_structured_html_abb61734f2bfc8ce9a9851a68f542eee6"><div class="ttname"><a href="interface_s_p_structured.html#abb61734f2bfc8ce9a9851a68f542eee6">SPStructured::category</a></div><div class="ttdeci">NSString * category</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_structured_8h_source.html#l00031">SPStructured.h:31</a></div></div>
+<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_utilities_8h_source.html#l00034">SPUtilities.h:35</a></div></div>
+<div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false. This allows for rudimentary Preconditions for objec...</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

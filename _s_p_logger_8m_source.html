@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,7 +88,7 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2020 Snowplow Analytics.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2021 Snowplow Analytics.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
@@ -188,7 +188,7 @@ $(function() {
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        printf(<span class="stringliteral">&quot;%s&quot;</span>, [output UTF8String]);</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">    #elif DEBUG</span></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;        <span class="comment">// Log should be printed only during debugging</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        NSLog(<span class="stringliteral">@&quot;[%@] %@: %@&quot;</span>, @[<span class="stringliteral">@&quot;Off&quot;</span>, <span class="stringliteral">@&quot;Error&quot;</span>, <span class="stringliteral">@&quot;Debug&quot;</span>, <span class="stringliteral">@&quot;Verbose&quot;</span>][level], tag, message);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        NSLog(<span class="stringliteral">@&quot;[%@] %@: %@&quot;</span>, @[<span class="stringliteral">@&quot;Off&quot;</span>, <span class="stringliteral">@&quot;Error&quot;</span>, <span class="stringliteral">@&quot;Debug&quot;</span>, <span class="stringliteral">@&quot;Verbose&quot;</span>][level], <a class="code" href="include_2_s_p_message_notification_8h.html#a5b425a2328efc4e01b0407d12a87335b">tag</a>, message);</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">    #endif</span></div>
 <div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;}</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
@@ -203,7 +203,7 @@ $(function() {
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    </div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">// Construct userInfo</span></div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    NSMutableDictionary&lt;NSString *, NSObject *&gt; *userInfo = [NSMutableDictionary new];</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    userInfo[@&quot;tag&quot;] = tag;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    userInfo[@&quot;tag&quot;] = <a class="code" href="include_2_s_p_message_notification_8h.html#a5b425a2328efc4e01b0407d12a87335b">tag</a>;</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    userInfo[@&quot;message&quot;] = message;</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    userInfo[@&quot;error&quot;] = error;</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    userInfo[@&quot;exception&quot;] = exception;</div>
@@ -217,6 +217,7 @@ $(function() {
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_logger_8h_html"><div class="ttname"><a href="_s_p_logger_8h.html">SPLogger.h</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_message_notification_8h_html_a5b425a2328efc4e01b0407d12a87335b"><div class="ttname"><a href="include_2_s_p_message_notification_8h.html#a5b425a2328efc4e01b0407d12a87335b">tag</a></div><div class="ttdeci">NSString * tag</div><div class="ttdoc">An identifier similar to 'group' but usable for different purposes (Android only).</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_message_notification_8h_source.html#l00090">SPMessageNotification.h:90</a></div></div>
 <div class="ttc" id="ainterface_s_p_logger_html"><div class="ttname"><a href="interface_s_p_logger.html">SPLogger</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_logger_8h_source.html#l00034">SPLogger.h:35</a></div></div>
 <div class="ttc" id="ainterface_s_p_logger_html_a4ba5771a5320961342645035f378f652"><div class="ttname"><a href="interface_s_p_logger.html#a4ba5771a5320961342645035f378f652">SPLogger::delegate</a></div><div class="ttdeci">id&lt; SPLoggerDelegate &gt; delegate</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_logger_8h_source.html#l00037">SPLogger.h:37</a></div></div>
 <div class="ttc" id="ainterface_s_p_logger_html_a647c2a5be3658264a07df976583beee2"><div class="ttname"><a href="interface_s_p_logger.html#a647c2a5be3658264a07df976583beee2">SPLogger::logLevel</a></div><div class="ttdeci">SPLogLevel logLevel</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_logger_8h_source.html#l00036">SPLogger.h:36</a></div></div>

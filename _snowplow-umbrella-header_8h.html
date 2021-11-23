@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -70,8 +70,14 @@ $(function() {
 <div class="title">Snowplow-umbrella-header.h File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#import &quot;SPTrackerConstants.h&quot;</code><br />
+<div class="textblock"><code>#import &quot;SPSnowplow.h&quot;</code><br />
+<code>#import &quot;SPTrackerConstants.h&quot;</code><br />
+<code>#import &quot;SPLoggerDelegate.h&quot;</code><br />
+<code>#import &quot;SPPayload.h&quot;</code><br />
+<code>#import &quot;SPSelfDescribingJson.h&quot;</code><br />
+<code>#import &quot;SPDevicePlatform.h&quot;</code><br />
 <code>#import &quot;SPConfiguration.h&quot;</code><br />
+<code>#import &quot;SPRemoteConfiguration.h&quot;</code><br />
 <code>#import &quot;SPTrackerConfiguration.h&quot;</code><br />
 <code>#import &quot;SPNetworkConfiguration.h&quot;</code><br />
 <code>#import &quot;SPSubjectConfiguration.h&quot;</code><br />
@@ -82,18 +88,20 @@ $(function() {
 <code>#import &quot;SPConfigurationBundle.h&quot;</code><br />
 <code>#import &quot;SPTrackerController.h&quot;</code><br />
 <code>#import &quot;SPSessionController.h&quot;</code><br />
+<code>#import &quot;SPSubjectController.h&quot;</code><br />
 <code>#import &quot;SPNetworkController.h&quot;</code><br />
 <code>#import &quot;SPEmitterController.h&quot;</code><br />
 <code>#import &quot;SPGDPRController.h&quot;</code><br />
 <code>#import &quot;SPGlobalContextsController.h&quot;</code><br />
-<code>#import &quot;SPLoggerDelegate.h&quot;</code><br />
-<code>#import &quot;SPEventStore.h&quot;</code><br />
 <code>#import &quot;SPNetworkConnection.h&quot;</code><br />
+<code>#import &quot;SPDefaultNetworkConnection.h&quot;</code><br />
+<code>#import &quot;SPEventStore.h&quot;</code><br />
+<code>#import &quot;SPSQLiteEventStore.h&quot;</code><br />
+<code>#import &quot;SPMemoryEventStore.h&quot;</code><br />
 <code>#import &quot;SPRequest.h&quot;</code><br />
 <code>#import &quot;SPRequestResult.h&quot;</code><br />
 <code>#import &quot;SPEmitterEvent.h&quot;</code><br />
 <code>#import &quot;SPRequestCallback.h&quot;</code><br />
-<code>#import &quot;SPSnowplow.h&quot;</code><br />
 <code>#import &quot;SPEventBase.h&quot;</code><br />
 <code>#import &quot;SPPageView.h&quot;</code><br />
 <code>#import &quot;SPStructured.h&quot;</code><br />
@@ -102,6 +110,7 @@ $(function() {
 <code>#import &quot;SPConsentWithdrawn.h&quot;</code><br />
 <code>#import &quot;SPConsentDocument.h&quot;</code><br />
 <code>#import &quot;SPConsentGranted.h&quot;</code><br />
+<code>#import &quot;SPDeepLinkReceived.h&quot;</code><br />
 <code>#import &quot;SPTiming.h&quot;</code><br />
 <code>#import &quot;SPEcommerce.h&quot;</code><br />
 <code>#import &quot;SPEcommerceItem.h&quot;</code><br />
@@ -109,19 +118,15 @@ $(function() {
 <code>#import &quot;SPForeground.h&quot;</code><br />
 <code>#import &quot;SPBackground.h&quot;</code><br />
 <code>#import &quot;SNOWError.h&quot;</code><br />
+<code>#import &quot;SPMessageNotification.h&quot;</code><br />
+<code>#import &quot;SPMessageNotificationAttachment.h&quot;</code><br />
+<code>#import &quot;SPDeepLinkEntity.h&quot;</code><br />
+<code>#import &quot;SPLifecycleEntity.h&quot;</code><br />
 <code>#import &quot;SPGlobalContext.h&quot;</code><br />
 <code>#import &quot;SPSchemaRuleset.h&quot;</code><br />
 <code>#import &quot;SPSchemaRule.h&quot;</code><br />
-<code>#import &quot;SPTracker.h&quot;</code><br />
-<code>#import &quot;SPEmitter.h&quot;</code><br />
-<code>#import &quot;SPSubject.h&quot;</code><br />
-<code>#import &quot;SPPayload.h&quot;</code><br />
-<code>#import &quot;SPSelfDescribingJson.h&quot;</code><br />
-<code>#import &quot;SPUtilities.h&quot;</code><br />
-<code>#import &quot;SPSQLiteEventStore.h&quot;</code><br />
-<code>#import &quot;SPMemoryEventStore.h&quot;</code><br />
-<code>#import &quot;SPDefaultNetworkConnection.h&quot;</code><br />
-<code>#import &quot;SPGdprContext.h&quot;</code><br />
+<code>#import &quot;SPTrackerStateSnapshot.h&quot;</code><br />
+<code>#import &quot;SPState.h&quot;</code><br />
 </div>
 <p><a href="_snowplow-umbrella-header_8h_source.html">Go to the source code of this file.</a></p>
 </div><!-- contents -->

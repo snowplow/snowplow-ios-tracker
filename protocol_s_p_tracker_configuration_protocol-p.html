@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -107,6 +107,8 @@ Properties</h2></td></tr>
 <tr class="separator:a6379d52e90cb954cd393c6c3febd5835"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd4a17577664657d6838375947778d90"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#abd4a17577664657d6838375947778d90">sessionContext</a></td></tr>
 <tr class="separator:abd4a17577664657d6838375947778d90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad580431c1acbc1169d0fba512c288839"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#ad580431c1acbc1169d0fba512c288839">deepLinkContext</a></td></tr>
+<tr class="separator:ad580431c1acbc1169d0fba512c288839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa4f13bf1ab7e9ccf0cbae2a1c58e3575"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#aa4f13bf1ab7e9ccf0cbae2a1c58e3575">screenContext</a></td></tr>
 <tr class="separator:aa4f13bf1ab7e9ccf0cbae2a1c58e3575"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a64285c40f76b8f4e0bad91464c12fbc3"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a64285c40f76b8f4e0bad91464c12fbc3">screenViewAutotracking</a></td></tr>
@@ -201,6 +203,31 @@ Properties</h2></td></tr>
 
 </div>
 </div>
+<a id="ad580431c1acbc1169d0fba512c288839"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad580431c1acbc1169d0fba512c288839">&#9670;&nbsp;</a></span>deepLinkContext</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) deepLinkContext</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">atomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Whether deepLink context is sent with all the ScreenView events. </p>
+
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00075">75</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+
+</div>
+</div>
 <a id="a606cc5a8cc75395474e895b6575c22d1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a606cc5a8cc75395474e895b6575c22d1">&#9670;&nbsp;</a></span>devicePlatform</h2>
 
@@ -247,7 +274,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Whether enable diagnostic reporting. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00095">95</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00099">99</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 
 </div>
 </div>
@@ -272,7 +299,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Whether enable crash reporting. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00091">91</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00095">95</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 
 </div>
 </div>
@@ -322,7 +349,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Whether enable automatic tracking of install event. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00087">87</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00091">91</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 
 </div>
 </div>
@@ -347,7 +374,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Whether enable automatic tracking of background and foreground transitions. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00083">83</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00087">87</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 
 </div>
 </div>
@@ -447,7 +474,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Whether screen context is sent with all the tracked events. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00075">75</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00079">79</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 
 </div>
 </div>
@@ -472,7 +499,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Whether enable automatic tracking of ScreenView events. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00079">79</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00083">83</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 
 </div>
 </div>
@@ -522,7 +549,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p>Decorate the v_tracker field in the tracker protocol. </p><dl class="section note"><dt>Note</dt><dd>Do not use. Internal use only. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00100">100</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00104">104</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 
 </div>
 </div>

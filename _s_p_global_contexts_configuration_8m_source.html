@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -106,7 +106,7 @@ $(function() {
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;- (BOOL)addWithTag:(nonnull NSString *)tag contextGenerator:(nonnull <a class="code" href="interface_s_p_global_context.html">SPGlobalContext</a> *)generator {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ([<span class="keyword">self</span>.<a class="code" href="protocol_s_p_global_contexts_configuration_protocol-p.html#acee0bdf8c0c4cd13266dae1c0f6eb108">contextGenerators</a> objectForKey:tag]) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> ([<span class="keyword">self</span>.<a class="code" href="protocol_s_p_global_contexts_configuration_protocol-p.html#acee0bdf8c0c4cd13266dae1c0f6eb108">contextGenerators</a> objectForKey:<a class="code" href="include_2_s_p_message_notification_8h.html#a5b425a2328efc4e01b0407d12a87335b">tag</a>]) {</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> NO;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    [<span class="keyword">self</span>.contextGenerators setObject:generator forKey:tag];</div>
@@ -137,6 +137,7 @@ $(function() {
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_internal_2_configurations_2_s_p_global_contexts_configuration_8h_html"><div class="ttname"><a href="_internal_2_configurations_2_s_p_global_contexts_configuration_8h.html">SPGlobalContextsConfiguration.h</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_message_notification_8h_html_a5b425a2328efc4e01b0407d12a87335b"><div class="ttname"><a href="include_2_s_p_message_notification_8h.html#a5b425a2328efc4e01b0407d12a87335b">tag</a></div><div class="ttdeci">NSString * tag</div><div class="ttdoc">An identifier similar to 'group' but usable for different purposes (Android only).</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_message_notification_8h_source.html#l00090">SPMessageNotification.h:90</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_a302023d51d090b94a36a8d8d9faf7a89"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#a302023d51d090b94a36a8d8d9faf7a89">SP_ESCAPE</a></div><div class="ttdeci">#define SP_ESCAPE(...)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00042">SPTrackerConstants.h:42</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_ae6c0cd7c5ec3616671af14ae52ac02d3"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a></div><div class="ttdeci">#define SP_BUILDER_METHOD(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00045">SPTrackerConstants.h:45</a></div></div>
 <div class="ttc" id="ainterface_s_p_global_context_html"><div class="ttname"><a href="interface_s_p_global_context.html">SPGlobalContext</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_global_context_8h_source.html#l00073">SPGlobalContext.h:74</a></div></div>

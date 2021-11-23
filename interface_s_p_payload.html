@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -86,6 +86,8 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a016a41619d42428ef3b0e64c6778ddd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa596cf76631d7230d9a107a2e528aacb"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">addValueToPayload:forKey:</a></td></tr>
 <tr class="separator:aa596cf76631d7230d9a107a2e528aacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a699ccad6948a81afff19a5a2d912f2e5"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#a699ccad6948a81afff19a5a2d912f2e5">addNumericValueToPayload:forKey:</a></td></tr>
+<tr class="separator:a699ccad6948a81afff19a5a2d912f2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a277e68ac53e26db0a9379412a7277fa3"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#a277e68ac53e26db0a9379412a7277fa3">addDictionaryToPayload:</a></td></tr>
 <tr class="separator:a277e68ac53e26db0a9379412a7277fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af42c0222d1921f55049ee966fcd5c270"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#af42c0222d1921f55049ee966fcd5c270">addJsonToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:</a></td></tr>
@@ -104,6 +106,8 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a016a41619d42428ef3b0e64c6778ddd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa596cf76631d7230d9a107a2e528aacb"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">addValueToPayload:forKey:</a></td></tr>
 <tr class="separator:aa596cf76631d7230d9a107a2e528aacb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a699ccad6948a81afff19a5a2d912f2e5"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#a699ccad6948a81afff19a5a2d912f2e5">addNumericValueToPayload:forKey:</a></td></tr>
+<tr class="separator:a699ccad6948a81afff19a5a2d912f2e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a277e68ac53e26db0a9379412a7277fa3"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#a277e68ac53e26db0a9379412a7277fa3">addDictionaryToPayload:</a></td></tr>
 <tr class="separator:a277e68ac53e26db0a9379412a7277fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af42c0222d1921f55049ee966fcd5c270"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_payload.html#af42c0222d1921f55049ee966fcd5c270">addJsonToPayload:base64Encoded:typeWhenEncoded:typeWhenNotEncoded:</a></td></tr>
@@ -470,6 +474,78 @@ Properties</h2></td></tr>
     <tr><td class="paramname">encode</td><td>Boolean option to choose whether the JSON data should be encoded. </td></tr>
     <tr><td class="paramname">typeEncoded</td><td>If the data is to be encoded, the result will be a value of the key in typeEncoded. </td></tr>
     <tr><td class="paramname">typeNotEncoded</td><td>If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a699ccad6948a81afff19a5a2d912f2e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a699ccad6948a81afff19a5a2d912f2e5">&#9670;&nbsp;</a></span>addNumericValueToPayload:forKey: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) addNumericValueToPayload: </td>
+          <td></td>
+          <td class="paramtype">(NSNumber *)&#160;</td>
+          <td class="paramname"><em>value</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">forKey:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds a simple name-value pair into the <a class="el" href="interface_s_p_payload.html">SPPayload</a> intance. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>A NSNumber value </td></tr>
+    <tr><td class="paramname">key</td><td>A key of type NSString </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="_s_p_payload_8m_source.html#l00001">1</a> of file <a class="el" href="_s_p_payload_8m_source.html">SPPayload.m</a>.</p>
+
+</div>
+</div>
+<a id="a699ccad6948a81afff19a5a2d912f2e5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a699ccad6948a81afff19a5a2d912f2e5">&#9670;&nbsp;</a></span>addNumericValueToPayload:forKey: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) addNumericValueToPayload: </td>
+          <td></td>
+          <td class="paramtype">(NSNumber *)&#160;</td>
+          <td class="paramname"><em>value</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">forKey:</td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds a simple name-value pair into the <a class="el" href="interface_s_p_payload.html">SPPayload</a> intance. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>A NSNumber value </td></tr>
+    <tr><td class="paramname">key</td><td>A key of type NSString </td></tr>
   </table>
   </dd>
 </dl>

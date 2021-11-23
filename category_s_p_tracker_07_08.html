@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -78,19 +78,15 @@ Instance Methods</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a6c9eb073d11a8aa9b5c6097bc7fc33b7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_tracker.html">SPTracker</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="category_s_p_tracker_07_08.html#a6c9eb073d11a8aa9b5c6097bc7fc33b7">sharedInstance</a></td></tr>
-<tr class="separator:a6c9eb073d11a8aa9b5c6097bc7fc33b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="category_s_p_tracker_07_08.html#a6f0862d7ee7afbc7655cb6101d442a4d">currentScreenState</a></td></tr>
-<tr class="separator:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa67525cde5b8165a61548549fae7410a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="category_s_p_tracker_07_08.html#aa67525cde5b8165a61548549fae7410a">previousScreenState</a></td></tr>
-<tr class="separator:aa67525cde5b8165a61548549fae7410a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af04993dabe2f57e8876613edabdc5c61"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_gdpr_context.html">SPGdprContext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="category_s_p_tracker_07_08.html#af04993dabe2f57e8876613edabdc5c61">gdpr</a></td></tr>
 <tr class="separator:af04993dabe2f57e8876613edabdc5c61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad66b55212616ef4edfab8638d58dccc2"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_state_manager.html">SPStateManager</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="category_s_p_tracker_07_08.html#ad66b55212616ef4edfab8638d58dccc2">stateManager</a></td></tr>
+<tr class="separator:ad66b55212616ef4edfab8638d58dccc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A class extension that makes the screen view states mutable internally. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00062">62</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00065">65</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="a3828de4f1426bf290d3f54a6192a3310"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3828de4f1426bf290d3f54a6192a3310">&#9670;&nbsp;</a></span>receiveScreenViewNotification:</h2>
@@ -117,30 +113,6 @@ Properties</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="a6f0862d7ee7afbc7655cb6101d442a4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f0862d7ee7afbc7655cb6101d442a4d">&#9670;&nbsp;</a></span>currentScreenState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a>*) currentScreenState</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00066">66</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
 <a id="af04993dabe2f57e8876613edabdc5c61"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af04993dabe2f57e8876613edabdc5c61">&#9670;&nbsp;</a></span>gdpr</h2>
 
@@ -161,36 +133,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00069">69</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="aa67525cde5b8165a61548549fae7410a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa67525cde5b8165a61548549fae7410a">&#9670;&nbsp;</a></span>previousScreenState</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a>*) previousScreenState</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
 <p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00067">67</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
-<a id="a6c9eb073d11a8aa9b5c6097bc7fc33b7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c9eb073d11a8aa9b5c6097bc7fc33b7">&#9670;&nbsp;</a></span>sharedInstance</h2>
+<a id="ad66b55212616ef4edfab8638d58dccc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66b55212616ef4edfab8638d58dccc2">&#9670;&nbsp;</a></span>stateManager</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -199,17 +147,17 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_tracker.html">SPTracker</a>*) sharedInstance</td>
+          <td class="memname">- (<a class="el" href="interface_s_p_state_manager.html">SPStateManager</a>*) stateManager</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">atomic</span><span class="mlabel">weak</span></span>  </td>
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">write</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00064">64</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00069">69</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -91,8 +91,9 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a4303719ccba6f1ce4433a94ce243336c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a461ec91162ce6e4ad6ef315ce08f41dc"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#a461ec91162ce6e4ad6ef315ce08f41dc">stopChecker</a></td></tr>
 <tr class="separator:a461ec91162ce6e4ad6ef315ce08f41dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9bde39a296cb7d8fd8a988fd22a5805"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#ae9bde39a296cb7d8fd8a988fd22a5805">DEPRECATED_ATTRIBUTE</a></td></tr>
-<tr class="separator:ae9bde39a296cb7d8fd8a988fd22a5805"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa629a1a894526560d170f92875734161"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#aa629a1a894526560d170f92875734161">startNewSession</a></td></tr>
+<tr class="memdesc:aa629a1a894526560d170f92875734161"><td class="mdescLeft">&#160;</td><td class="mdescRight">Expires the current session and starts a new one.  <a href="interface_s_p_session.html#aa629a1a894526560d170f92875734161">More...</a><br /></td></tr>
+<tr class="separator:aa629a1a894526560d170f92875734161"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a17d9de813b2a3bbabe9c807ab3b17146"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#a17d9de813b2a3bbabe9c807ab3b17146">setForegroundTimeout:</a></td></tr>
 <tr class="separator:a17d9de813b2a3bbabe9c807ab3b17146"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af04e59f09b9ba729db01529aad534ef2"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_session.html#af04e59f09b9ba729db01529aad534ef2">setBackgroundTimeout:</a></td></tr>
@@ -121,28 +122,9 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a7890d7a881fef9829c52bd1549febdc9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000060">Deprecated:</a></b></dt><dd>Use <code>SessionConfiguration</code> for the configuration or <code>SessionController</code> for the runtime information and setup. </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="_s_p_session_8h_source.html#l00032">32</a> of file <a class="el" href="_s_p_session_8h_source.html">SPSession.h</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8h_source.html#l00027">27</a> of file <a class="el" href="_s_p_session_8h_source.html">SPSession.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="ae9bde39a296cb7d8fd8a988fd22a5805"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9bde39a296cb7d8fd8a988fd22a5805">&#9670;&nbsp;</a></span>DEPRECATED_ATTRIBUTE</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) DEPRECATED_ATTRIBUTE </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Expires the current session and starts a new one </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000061">Deprecated:</a></b></dt><dd>Use <code>SessionController</code> <code>startNewSession()</code>. </dd></dl>
-
-</div>
-</div>
 <a id="ab3bbad6aa3a4de7c5616fe5ee4fea569"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab3bbad6aa3a4de7c5616fe5ee4fea569">&#9670;&nbsp;</a></span>getBackgroundIndex</h2>
 
@@ -557,6 +539,25 @@ Instance Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Starts the recurring timer check for sessions </p>
+
+<p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00060">60</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
+
+</div>
+</div>
+<a id="aa629a1a894526560d170f92875734161"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa629a1a894526560d170f92875734161">&#9670;&nbsp;</a></span>startNewSession</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) startNewSession </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_s_p_session_8m_source.html#l00060">60</a> of file <a class="el" href="_s_p_session_8m_source.html">SPSession.m</a>.</p>
 

@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPEventBase.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -88,16 +88,16 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Joshua Beemster</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_events_2_s_p_event_base_8h.html">SPEventBase.h</a>&quot;</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;SPPayload.h&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_screen_state_8h.html">SPScreenState.h</a>&quot;</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#import &quot;SPTracker.h&quot;</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_tracker_8h.html">SPTracker.h</a>&quot;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">   30</a></span>&#160;NSString * <a class="code" href="_s_p_event_base_8m.html#a423b9852e4b2e1555143e3154418d809">stringWithSPScreenType</a>(SPScreenType screenType) {</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    NSArray * arr = @[</div>
@@ -115,86 +115,69 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">// Base Event</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_event.html">SPEvent</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    NSMutableArray&lt;SPSelfDescribingJson *&gt; *_contexts;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;- (instancetype)init {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a> = [[NSMutableArray alloc] init];</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSDate *, trueTimestamp)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSMutableArray&lt;SPSelfDescribingJson *&gt; *, contexts)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_event.html">SPEvent</a></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;- (instancetype)init {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a> = [[NSMutableArray alloc] init];</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSDate *, <a class="code" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a>)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSMutableArray&lt;SPSelfDescribingJson *&gt; *, <a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// --- Public Methods</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// --- Public Methods</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;- (void)setContexts:(NSMutableArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)contexts {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> (NSObject *sdj in contexts) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([sdj isKindOfClass:[<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> class]])</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                       <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;All contexts must be SelfDescribingJson objects.&quot;];</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    _contexts = contexts;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;- (NSMutableArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)contexts {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">return</span> _contexts;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;- (NSMutableArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)getContexts {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>.contexts;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;- (NSDictionary&lt;NSString *,NSObject *&gt; *)payload {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">@throw</span> [NSException exceptionWithName:NSInternalInconsistencyException</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                                   reason:[NSString stringWithFormat:@&quot;You must override %@ in a subclass&quot;, NSStringFromSelector(_cmd)]</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                 userInfo:nil];</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;- (void)beginProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {}</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;- (void)endProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;- (NSDictionary&lt;NSString *,NSObject *&gt; *)<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">@throw</span> [NSException exceptionWithName:NSInternalInconsistencyException</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                                   reason:[NSString stringWithFormat:@&quot;You must override %@ in a subclass&quot;, NSStringFromSelector(_cmd)]</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;                                 userInfo:nil];</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;- (void)beginProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;- (void)endProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {}</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">// SelfDescribing base class</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;- (NSString *)<a class="code" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a> {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">@throw</span> [NSException exceptionWithName:NSInternalInconsistencyException</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                                   reason:[NSString stringWithFormat:@&quot;You must override %@ in a subclass&quot;, NSStringFromSelector(_cmd)]</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                                 userInfo:nil];</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">// Primitive base class</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">// SelfDescribing base class</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;- (NSString *)<a class="code" href="interface_s_p_primitive_abstract.html#ae4e8eed07e1794bcf249bfa51b5c3290">eventName</a> {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">@throw</span> [NSException exceptionWithName:NSInternalInconsistencyException</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                   reason:[NSString stringWithFormat:@&quot;You must override %@ in a subclass&quot;, NSStringFromSelector(_cmd)]</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                                 userInfo:nil];</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;}</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;- (NSString *)<a class="code" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a> {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keyword">@throw</span> [NSException exceptionWithName:NSInternalInconsistencyException</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                   reason:[NSString stringWithFormat:@&quot;You must override %@ in a subclass&quot;, NSStringFromSelector(_cmd)]</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                 userInfo:nil];</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">// Primitive base class</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;- (NSString *)<a class="code" href="interface_s_p_primitive_abstract.html#afc8ccc6676addc3b49a494b2bf969c68">name</a> {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keyword">@throw</span> [NSException exceptionWithName:NSInternalInconsistencyException</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                                   reason:[NSString stringWithFormat:@&quot;You must override %@ in a subclass&quot;, NSStringFromSelector(_cmd)]</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;                                 userInfo:nil];</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_internal_2_events_2_s_p_event_base_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_event_base_8h.html">SPEventBase.h</a></div></div>
 <div class="ttc" id="a_s_p_event_base_8m_html_a423b9852e4b2e1555143e3154418d809"><div class="ttname"><a href="_s_p_event_base_8m.html#a423b9852e4b2e1555143e3154418d809">stringWithSPScreenType</a></div><div class="ttdeci">NSString * stringWithSPScreenType(SPScreenType screenType)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8m_source.html#l00030">SPEventBase.m:30</a></div></div>
 <div class="ttc" id="a_s_p_screen_state_8h_html"><div class="ttname"><a href="_s_p_screen_state_8h.html">SPScreenState.h</a></div></div>
+<div class="ttc" id="a_s_p_tracker_8h_html"><div class="ttname"><a href="_s_p_tracker_8h.html">SPTracker.h</a></div><div class="ttdoc">Header file for SPTracker.</div></div>
+<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_ae6c0cd7c5ec3616671af14ae52ac02d3"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a></div><div class="ttdeci">#define SP_BUILDER_METHOD(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00045">SPTrackerConstants.h:45</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html"><div class="ttname"><a href="interface_s_p_event.html">SPEvent</a></div><div class="ttdoc">This class has the basic functionality needed to represent all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00082">SPEventBase.h:83</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html_ad11f0a52b00c155722483239d7c40b3e"><div class="ttname"><a href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">SPEvent::contexts</a></div><div class="ttdeci">NSMutableArray&lt; SPSelfDescribingJson * &gt; * contexts</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00088">SPEventBase.h:88</a></div></div>
-<div class="ttc" id="ainterface_s_p_primitive_abstract_html"><div class="ttname"><a href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00132">SPEventBase.h:133</a></div></div>
-<div class="ttc" id="ainterface_s_p_primitive_abstract_html_afc8ccc6676addc3b49a494b2bf969c68"><div class="ttname"><a href="interface_s_p_primitive_abstract.html#afc8ccc6676addc3b49a494b2bf969c68">SPPrimitiveAbstract::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00135">SPEventBase.h:135</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00120">SPEventBase.h:121</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_abstract_html_a95884c3e9e7835e3f4f87ffbf78d25c3"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingAbstract::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00123">SPEventBase.h:123</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_json_html"><div class="ttname"><a href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a></div><div class="ttdoc">The class that represents self-describing JSONs.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_self_describing_json_8h_source.html#l00036">SPSelfDescribingJson.h:37</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdoc">The tracker class.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_8h_source.html#l00250">SPTracker.h:250</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_utilities_8h_source.html#l00041">SPUtilities.h:42</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false.</div></div>
+<div class="ttc" id="ainterface_s_p_event_html"><div class="ttname"><a href="interface_s_p_event.html">SPEvent</a></div><div class="ttdoc">This class has the basic functionality needed to represent all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00072">SPEventBase.h:73</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a3ed1bb1701daa3787d23b6315cc86337"><div class="ttname"><a href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">SPEvent::trueTimestamp</a></div><div class="ttdeci">NSDate * trueTimestamp</div><div class="ttdoc">The user event timestamp in milliseconds (epoch time).</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00075">SPEventBase.h:75</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00081">SPEventBase.h:81</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_ad11f0a52b00c155722483239d7c40b3e"><div class="ttname"><a href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">SPEvent::contexts</a></div><div class="ttdeci">NSMutableArray&lt; SPSelfDescribingJson * &gt; * contexts</div><div class="ttdoc">The contexts attached to the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00078">SPEventBase.h:78</a></div></div>
+<div class="ttc" id="ainterface_s_p_primitive_abstract_html"><div class="ttname"><a href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00110">SPEventBase.h:111</a></div></div>
+<div class="ttc" id="ainterface_s_p_primitive_abstract_html_ae4e8eed07e1794bcf249bfa51b5c3290"><div class="ttname"><a href="interface_s_p_primitive_abstract.html#ae4e8eed07e1794bcf249bfa51b5c3290">SPPrimitiveAbstract::eventName</a></div><div class="ttdeci">NSString * eventName</div><div class="ttdoc">The name of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00113">SPEventBase.h:113</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00101">SPEventBase.h:102</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html_a95884c3e9e7835e3f4f87ffbf78d25c3"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingAbstract::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdoc">The schema of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00104">SPEventBase.h:104</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00222">SPTracker.h:222</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

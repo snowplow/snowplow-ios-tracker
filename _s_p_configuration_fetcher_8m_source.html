@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -113,7 +113,7 @@ $(function() {
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;- (void)performRequest {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    NSURL *url = [[NSURL alloc] initWithString:self.remoteConfiguration.endpoint];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    NSURL *<a class="code" href="include_2_s_p_deep_link_received_8h.html#a43481294fa1d2f0ebe7cff14b17726cc">url</a> = [[NSURL alloc] initWithString:self.remoteConfiguration.endpoint];</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:url];</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    [urlRequest setHTTPMethod:@&quot;GET&quot;];</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
@@ -146,6 +146,7 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_configuration_fetcher_8h_html"><div class="ttname"><a href="_s_p_configuration_fetcher_8h.html">SPConfigurationFetcher.h</a></div></div>
 <div class="ttc" id="a_s_p_configuration_provider_8h_html_a5c1e5d018c1873004b189b86ef26b66b"><div class="ttname"><a href="_s_p_configuration_provider_8h.html#a5c1e5d018c1873004b189b86ef26b66b">OnFetchCallback</a></div><div class="ttdeci">NS_ASSUME_NONNULL_BEGIN typedef void(^ OnFetchCallback)(SPFetchedConfigurationBundle *_Nonnull fetchedConfigurationBundle)</div></div>
+<div class="ttc" id="ainclude_2_s_p_deep_link_received_8h_html_a43481294fa1d2f0ebe7cff14b17726cc"><div class="ttname"><a href="include_2_s_p_deep_link_received_8h.html#a43481294fa1d2f0ebe7cff14b17726cc">url</a></div><div class="ttdeci">NSString * url</div><div class="ttdoc">URL in the received deep-link.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_deep_link_received_8h_source.html#l00038">SPDeepLinkReceived.h:38</a></div></div>
 <div class="ttc" id="ainterface_s_p_configuration_fetcher_html"><div class="ttname"><a href="interface_s_p_configuration_fetcher.html">SPConfigurationFetcher</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_configuration_fetcher_8h_source.html#l00029">SPConfigurationFetcher.h:30</a></div></div>
 <div class="ttc" id="ainterface_s_p_fetched_configuration_bundle_html"><div class="ttname"><a href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_fetched_configuration_bundle_8h_source.html#l00027">SPFetchedConfigurationBundle.h:28</a></div></div>
 <div class="ttc" id="ainterface_s_p_remote_configuration_html"><div class="ttname"><a href="interface_s_p_remote_configuration.html">SPRemoteConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_remote_configuration_8h_source.html#l00034">SPRemoteConfiguration.h:35</a></div></div>

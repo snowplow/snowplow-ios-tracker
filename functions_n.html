@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -71,8 +71,8 @@ $(function() {
 , <a class="el" href="interface_s_p_consent_granted.html#afc8ccc6676addc3b49a494b2bf969c68">SPConsentGranted</a>
 , <a class="el" href="interface_s_p_consent_withdrawn.html#afc8ccc6676addc3b49a494b2bf969c68">SPConsentWithdrawn</a>
 , <a class="el" href="interface_s_p_ecommerce_item.html#afc8ccc6676addc3b49a494b2bf969c68">SPEcommerceItem</a>
-, <a class="el" href="interface_s_p_primitive_abstract.html#afc8ccc6676addc3b49a494b2bf969c68">SPPrimitiveAbstract</a>
 , <a class="el" href="interface_s_p_screen_state.html#a4b93d352d2fca75b34e1b5a50e03f587">SPScreenState</a>
+, <a class="el" href="category_s_p_screen_view_07_08.html#a4b93d352d2fca75b34e1b5a50e03f587">SPScreenView()</a>
 , <a class="el" href="interface_s_p_screen_view.html#afc8ccc6676addc3b49a494b2bf969c68">SPScreenView</a>
 </li>
 <li>network
@@ -87,19 +87,31 @@ $(function() {
 </li>
 <li>networkConnection
 : <a class="el" href="interface_s_p_network_configuration_update.html#a9129caadcab37ca1aab776f223d3bd0f">SPNetworkConfigurationUpdate</a>
-, <a class="el" href="interface_s_p_emitter.html#a95ff1572912de220c7eb8cbbe856270e">SPEmitter</a>
+, <a class="el" href="interface_s_p_emitter.html#a85342200450c69463ce61bb9f2de187f">SPEmitter</a>
 , <a class="el" href="interface_s_p_network_configuration.html#a95ff1572912de220c7eb8cbbe856270e">SPNetworkConfiguration</a>
 </li>
 <li>networkController
 : <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a0bb195e4c3e0262c89a12b783ee5642b">&lt;SPServiceProviderProtocol&gt;</a>
 , <a class="el" href="category_s_p_service_provider_07_08.html#ae9c12344aec50599872bed436aae7257">SPServiceProvider()</a>
 </li>
+<li>networkDictUpdateFrequency
+: <a class="el" href="category_s_p_platform_context_07_08.html#a8e7ab3c3dd2eaed1d01f71256fbd375b">SPPlatformContext()</a>
+</li>
 <li>networkStatus
 : <a class="el" href="interface_s_n_o_w_reachability.html#a82a4c384096b8a9276c6faf99d21cb8e">SNOWReachability</a>
 </li>
+<li>networkTechnology
+: <a class="el" href="interface_s_p_device_info_monitor.html#ac4314ba38c438e342f2e1fc3d9a3f202">SPDeviceInfoMonitor</a>
+</li>
+<li>networkType
+: <a class="el" href="interface_s_p_device_info_monitor.html#a7910b9c2bdb57ec1fa11ec4dc397611e">SPDeviceInfoMonitor</a>
+</li>
 <li>networkUserId
-: <a class="el" href="interface_s_p_subject.html#a4a4c1fbb36dfa1cb47d932d414d06019">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a97b558f2f50f52ef875e60f0662498b0">SPSubject</a>
 , <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#a97b558f2f50f52ef875e60f0662498b0">&lt;SPSubjectConfigurationProtocol&gt;</a>
+</li>
+<li>notification
+: <a class="el" href="category_s_p_push_notification_07_08.html#a066793ac1eb56779f679b8a9b3e6c8d8">SPPushNotification()</a>
 </li>
 <li>NS_EXTENSION_UNAVAILABLE_IOS
 : <a class="el" href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#adbdd481d7df08bc1824fc6c3d40c7616">UIViewController(SPScreenView_SWIZZLE)</a>
@@ -109,6 +121,7 @@ $(function() {
 </li>
 <li>NS_UNAVAILABLE
 : <a class="el" href="interface_s_p_configuration_bundle.html#a0549af3e4e40c2a471fb1bffe38a6036">SPConfigurationBundle</a>
+, <a class="el" href="interface_s_p_data_persistence.html#a0549af3e4e40c2a471fb1bffe38a6036">SPDataPersistence</a>
 , <a class="el" href="interface_s_p_default_network_connection.html#a0549af3e4e40c2a471fb1bffe38a6036">SPDefaultNetworkConnection</a>
 , <a class="el" href="interface_s_p_emitter.html#a0549af3e4e40c2a471fb1bffe38a6036">SPEmitter</a>
 , <a class="el" href="interface_s_p_global_context.html#a0549af3e4e40c2a471fb1bffe38a6036">SPGlobalContext</a>
@@ -123,6 +136,7 @@ $(function() {
 , <a class="el" href="interface_s_p_configuration_bundle.html#a0549af3e4e40c2a471fb1bffe38a6036">SPConfigurationBundle</a>
 , <a class="el" href="interface_s_p_consent_document.html#a0549af3e4e40c2a471fb1bffe38a6036">SPConsentDocument</a>
 , <a class="el" href="interface_s_p_consent_granted.html#a0549af3e4e40c2a471fb1bffe38a6036">SPConsentGranted</a>
+, <a class="el" href="interface_s_p_data_persistence.html#a0549af3e4e40c2a471fb1bffe38a6036">SPDataPersistence</a>
 , <a class="el" href="interface_s_p_default_network_connection.html#a0549af3e4e40c2a471fb1bffe38a6036">SPDefaultNetworkConnection</a>
 , <a class="el" href="interface_s_p_ecommerce.html#a0549af3e4e40c2a471fb1bffe38a6036">SPEcommerce</a>
 , <a class="el" href="interface_s_p_ecommerce_item.html#a0549af3e4e40c2a471fb1bffe38a6036">SPEcommerceItem</a>
@@ -135,6 +149,7 @@ $(function() {
 , <a class="el" href="interface_s_p_push_notification.html#a0549af3e4e40c2a471fb1bffe38a6036">SPPushNotification</a>
 , <a class="el" href="interface_s_p_schema_rule.html#a0549af3e4e40c2a471fb1bffe38a6036">SPSchemaRule</a>
 , <a class="el" href="interface_s_p_schema_ruleset.html#a0549af3e4e40c2a471fb1bffe38a6036">SPSchemaRuleset</a>
+, <a class="el" href="interface_s_p_screen_state.html#a0549af3e4e40c2a471fb1bffe38a6036">SPScreenState</a>
 , <a class="el" href="interface_s_p_screen_view.html#a0549af3e4e40c2a471fb1bffe38a6036">SPScreenView</a>
 , <a class="el" href="interface_s_p_self_describing.html#a0549af3e4e40c2a471fb1bffe38a6036">SPSelfDescribing</a>
 , <a class="el" href="interface_s_p_self_describing_json.html#a0549af3e4e40c2a471fb1bffe38a6036">SPSelfDescribingJson</a>

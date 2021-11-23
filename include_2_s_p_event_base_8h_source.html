@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -74,7 +74,7 @@ $(function() {
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPEventBase.h</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2020 Snowplow Analytics Ltd. All rights reserved.</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">//  Copyright (c) 2021 Snowplow Analytics Ltd. All rights reserved.</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">//  This program is licensed to you under the Apache License Version 2.0,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">//  and you may not use this file except in compliance with the Apache License</span></div>
@@ -88,109 +88,102 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Joshua Beemster</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &lt;Foundation/Foundation.h&gt;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_payload_2_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a>&quot;</span></div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_s_p_tracker_constants_8h.html">SPTrackerConstants.h</a>&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_s_p_payload.html">SPPayload</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_s_p_tracker.html">SPTracker</a>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="include_2_s_p_event_base_8h.html#a2c35ff8e2269616c8aaabef0f6758f53">   31</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="include_2_s_p_event_base_8h.html#a2c35ff8e2269616c8aaabef0f6758f53">NS_ENUM</a>(NSInteger, SPScreenType) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// sourced from `View Controller Catalog for iOS`</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    SPScreenTypeDefault,</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    SPScreenTypeNavigation,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    SPScreenTypeTabBar,</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    SPScreenTypePageView,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    SPScreenTypeSplitView,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    SPScreenTypePopoverPresentation,</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    SPScreenTypeModal,</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    SPScreenTypeCombined</div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">   41</a></span>&#160;} <a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(ScreenType);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;NSString * _Nullable <a class="code" href="include_2_s_p_event_base_8h.html#a7f30523a157c28657048471bc0d79ea8">stringWithSPScreenType</a>(SPScreenType screenType);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;NS_ASSUME_NONNULL_BEGIN</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(InspectableEvent)</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html">   49</a></span>&#160;<span class="keyword">@protocol </span><a class="code" href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent</a> &lt;NSObject&gt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">   52</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly, nullable) NSString *<a class="code" href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">schema</a>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">   54</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly, nullable) NSString *<a class="code" href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">eventName</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">   56</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSDictionary&lt;NSString *, NSObject *&gt; *<a class="code" href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">payload</a>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(EventBuilder)</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="protocol_s_p_event_builder-p.html">   63</a></span>&#160;<span class="keyword">@protocol </span><a class="code" href="protocol_s_p_event_builder-p.html">SPEventBuilder</a> &lt;NSObject&gt;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;- (void)setTrueTimestamp:(NSDate *)timestamp;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;- (void) setContexts:(NSMutableArray *)contexts;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_tracker_2_s_p_tracker_state_snapshot_8h.html">SPTrackerStateSnapshot.h</a>&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_s_p_payload.html">SPPayload</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">@class</span> <a class="code" href="interface_s_p_tracker.html">SPTracker</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="include_2_s_p_event_base_8h.html#a2c35ff8e2269616c8aaabef0f6758f53">   32</a></span>&#160;<span class="keyword">typedef</span> <a class="code" href="include_2_s_p_event_base_8h.html#a2c35ff8e2269616c8aaabef0f6758f53">NS_ENUM</a>(NSInteger, SPScreenType) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="comment">// sourced from `View Controller Catalog for iOS`</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    SPScreenTypeDefault,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    SPScreenTypeNavigation,</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    SPScreenTypeTabBar,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    SPScreenTypePageView,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    SPScreenTypeSplitView,</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    SPScreenTypePopoverPresentation,</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    SPScreenTypeModal,</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    SPScreenTypeCombined</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">   42</a></span>&#160;} <a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(ScreenType);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;NSString * _Nullable <a class="code" href="include_2_s_p_event_base_8h.html#a7f30523a157c28657048471bc0d79ea8">stringWithSPScreenType</a>(SPScreenType screenType);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;NS_ASSUME_NONNULL_BEGIN</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(InspectableEvent)</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html">   50</a></span>&#160;<span class="keyword">@protocol </span><a class="code" href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent</a> &lt;NSObject&gt;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">   53</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly, nullable) NSString *<a class="code" href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">schema</a>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">   55</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly, nullable) NSString *<a class="code" href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">eventName</a>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">   57</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSDictionary&lt;NSString *, NSObject *&gt; *<a class="code" href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">payload</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="protocol_s_p_inspectable_event-p.html#a23d1b9022db2d6d2ffdc192411ba903f">   60</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) id&lt;SPTrackerStateSnapshot&gt; <a class="code" href="protocol_s_p_inspectable_event-p.html#a4623e7d355d981bf4beb0688dd4d3e8f">state</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;- (BOOL)addPayloadValues:(NSDictionary&lt;NSString *, NSObject *&gt; *)payload;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(Event)</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="interface_s_p_event.html">   72</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_event.html">SPEvent</a> : NSObject</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">   75</a></span>&#160;<span class="keyword">@property</span> (nonatomic, nullable) NSDate *<a class="code" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">   78</a></span>&#160;<span class="keyword">@property</span> (nonatomic) NSMutableArray&lt;SPSelfDescribingJson *&gt; *<a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>;</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(Event)</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="interface_s_p_event.html">   82</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_event.html">SPEvent</a> : NSObject</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">   85</a></span>&#160;<span class="keyword">@property</span> (nonatomic, nullable) NSDate *<a class="code" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">   81</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSDictionary&lt;NSString *, NSObject *&gt; *<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#a57b2160e5d408ff6315ec3e509abdd09">SP_BUILDER_DECLARE_NULLABLE</a>(NSDate *, <a class="code" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a>)</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#a2120ed9fc094de8a8d1708bec80e0068">SP_BUILDER_DECLARE</a>(NSMutableArray&lt;SPSelfDescribingJson *&gt; *, <a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>)</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">   88</a></span>&#160;<span class="keyword">@property</span> (nonatomic) NSMutableArray&lt;SPSelfDescribingJson *&gt; *<a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">   91</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSDictionary&lt;NSString *, NSObject *&gt; *<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#a57b2160e5d408ff6315ec3e509abdd09">SP_BUILDER_DECLARE_NULLABLE</a>(NSDate *, <a class="code" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a>)</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#a2120ed9fc094de8a8d1708bec80e0068">SP_BUILDER_DECLARE</a>(NSMutableArray&lt;SPSelfDescribingJson *&gt; *, <a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;- (NSMutableArray *) getContexts <a class="code" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">__deprecated_msg</a>(&quot;Use `<a class="code" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;- (void)beginProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;- (void)beginProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;- (void)endProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(SelfDescribingAbstract)</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="interface_s_p_self_describing_abstract.html">  101</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a> : <a class="code" href="interface_s_p_event.html">SPEvent</a></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">  104</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSString *schema;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">@end</span></div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;- (void)endProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(PrimitiveAbstract)</div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="interface_s_p_primitive_abstract.html">  110</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a> : <a class="code" href="interface_s_p_event.html">SPEvent</a></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="interface_s_p_primitive_abstract.html#ae4e8eed07e1794bcf249bfa51b5c3290">  113</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSString *eventName;</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(SelfDescribingAbstract)</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="interface_s_p_self_describing_abstract.html">  120</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a> : <a class="code" href="interface_s_p_event.html">SPEvent</a></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">  123</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSString *schema;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<a class="code" href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a>(PrimitiveAbstract)</div>
-<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="interface_s_p_primitive_abstract.html">  132</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a> : <a class="code" href="interface_s_p_event.html">SPEvent</a></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="interface_s_p_primitive_abstract.html#afc8ccc6676addc3b49a494b2bf969c68">  135</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readonly) NSString *name;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;NS_ASSUME_NONNULL_END</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;NS_ASSUME_NONNULL_END</div>
 <div class="ttc" id="a_internal_2_payload_2_s_p_self_describing_json_8h_html"><div class="ttname"><a href="_internal_2_payload_2_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a></div></div>
 <div class="ttc" id="a_internal_2_s_p_tracker_constants_8h_html"><div class="ttname"><a href="_internal_2_s_p_tracker_constants_8h.html">SPTrackerConstants.h</a></div></div>
-<div class="ttc" id="ainclude_2_s_p_event_base_8h_html_a2c35ff8e2269616c8aaabef0f6758f53"><div class="ttname"><a href="include_2_s_p_event_base_8h.html#a2c35ff8e2269616c8aaabef0f6758f53">NS_ENUM</a></div><div class="ttdeci">typedef NS_ENUM(NSInteger, SPScreenType)</div><div class="ttdoc">An enum for screen types.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00031">SPEventBase.h:31</a></div></div>
+<div class="ttc" id="a_internal_2_tracker_2_s_p_tracker_state_snapshot_8h_html"><div class="ttname"><a href="_internal_2_tracker_2_s_p_tracker_state_snapshot_8h.html">SPTrackerStateSnapshot.h</a></div></div>
+<div class="ttc" id="ainclude_2_s_p_event_base_8h_html_a2c35ff8e2269616c8aaabef0f6758f53"><div class="ttname"><a href="include_2_s_p_event_base_8h.html#a2c35ff8e2269616c8aaabef0f6758f53">NS_ENUM</a></div><div class="ttdeci">typedef NS_ENUM(NSInteger, SPScreenType)</div><div class="ttdoc">An enum for screen types.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00032">SPEventBase.h:32</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_event_base_8h_html_a3331a9e5038a613322f4b80bc1cb6b7d"><div class="ttname"><a href="include_2_s_p_event_base_8h.html#a3331a9e5038a613322f4b80bc1cb6b7d">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(ScreenType)</div></div>
 <div class="ttc" id="ainclude_2_s_p_event_base_8h_html_a7f30523a157c28657048471bc0d79ea8"><div class="ttname"><a href="include_2_s_p_event_base_8h.html#a7f30523a157c28657048471bc0d79ea8">stringWithSPScreenType</a></div><div class="ttdeci">NSString *_Nullable stringWithSPScreenType(SPScreenType screenType)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_event_base_8m_source.html#l00030">SPEventBase.m:30</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_a2120ed9fc094de8a8d1708bec80e0068"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#a2120ed9fc094de8a8d1708bec80e0068">SP_BUILDER_DECLARE</a></div><div class="ttdeci">#define SP_BUILDER_DECLARE(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00043">SPTrackerConstants.h:43</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_a57b2160e5d408ff6315ec3e509abdd09"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#a57b2160e5d408ff6315ec3e509abdd09">SP_BUILDER_DECLARE_NULLABLE</a></div><div class="ttdeci">#define SP_BUILDER_DECLARE_NULLABLE(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00044">SPTrackerConstants.h:44</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html"><div class="ttname"><a href="interface_s_p_event.html">SPEvent</a></div><div class="ttdoc">This class has the basic functionality needed to represent all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00082">SPEventBase.h:83</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html_a31958fe08a14b53e3e11e3d9afda4007"><div class="ttname"><a href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">-[SPEvent __deprecated_msg]</a></div><div class="ttdeci">&quot;Use `contexts` property instead.&quot; __deprecated_msg()</div><div class="ttdoc">Get the copy of the context list associated with the event.</div></div>
-<div class="ttc" id="ainterface_s_p_event_html_a3ed1bb1701daa3787d23b6315cc86337"><div class="ttname"><a href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">SPEvent::trueTimestamp</a></div><div class="ttdeci">NSDate * trueTimestamp</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00085">SPEventBase.h:85</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00091">SPEventBase.h:91</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html_ad11f0a52b00c155722483239d7c40b3e"><div class="ttname"><a href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">SPEvent::contexts</a></div><div class="ttdeci">NSMutableArray&lt; SPSelfDescribingJson * &gt; * contexts</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00088">SPEventBase.h:88</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html"><div class="ttname"><a href="interface_s_p_event.html">SPEvent</a></div><div class="ttdoc">This class has the basic functionality needed to represent all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00072">SPEventBase.h:73</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a3ed1bb1701daa3787d23b6315cc86337"><div class="ttname"><a href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">SPEvent::trueTimestamp</a></div><div class="ttdeci">NSDate * trueTimestamp</div><div class="ttdoc">The user event timestamp in milliseconds (epoch time).</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00075">SPEventBase.h:75</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00081">SPEventBase.h:81</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_ad11f0a52b00c155722483239d7c40b3e"><div class="ttname"><a href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">SPEvent::contexts</a></div><div class="ttdeci">NSMutableArray&lt; SPSelfDescribingJson * &gt; * contexts</div><div class="ttdoc">The contexts attached to the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00078">SPEventBase.h:78</a></div></div>
 <div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_payload_8h_source.html#l00026">SPPayload.h:27</a></div></div>
-<div class="ttc" id="ainterface_s_p_primitive_abstract_html"><div class="ttname"><a href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00132">SPEventBase.h:133</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00120">SPEventBase.h:121</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdoc">The tracker class.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_8h_source.html#l00250">SPTracker.h:250</a></div></div>
-<div class="ttc" id="aprotocol_s_p_event_builder-p_html"><div class="ttname"><a href="protocol_s_p_event_builder-p.html">SPEventBuilder-p</a></div><div class="ttdoc">This protocol defines basic functionality needed to build all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00063">SPEventBase.h:63</a></div></div>
-<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent-p</a></div><div class="ttdoc">The inspectable properties of the event used to generate contexts.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00049">SPEventBase.h:49</a></div></div>
-<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html_a08a5d4e46afe3ac80d613ed3b1071743"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">SPInspectableEvent-p::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdoc">The schema of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00052">SPEventBase.h:52</a></div></div>
-<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html_aa0f021eb5f64dbc10a95109ee06ac31f"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">SPInspectableEvent-p::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00056">SPEventBase.h:56</a></div></div>
-<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html_ae55ea89489d995db157060d95bd16ecb"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">SPInspectableEvent-p::eventName</a></div><div class="ttdeci">NSString * eventName</div><div class="ttdoc">The name of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00054">SPEventBase.h:54</a></div></div>
+<div class="ttc" id="ainterface_s_p_primitive_abstract_html"><div class="ttname"><a href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00110">SPEventBase.h:111</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00101">SPEventBase.h:102</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00222">SPTracker.h:222</a></div></div>
+<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent-p</a></div><div class="ttdoc">The inspectable properties of the event used to generate contexts.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00050">SPEventBase.h:50</a></div></div>
+<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html_a08a5d4e46afe3ac80d613ed3b1071743"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html#a08a5d4e46afe3ac80d613ed3b1071743">SPInspectableEvent-p::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdoc">The schema of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00053">SPEventBase.h:53</a></div></div>
+<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html_a4623e7d355d981bf4beb0688dd4d3e8f"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html#a4623e7d355d981bf4beb0688dd4d3e8f">SPInspectableEvent-p::state</a></div><div class="ttdeci">id&lt; SPTrackerStateSnapshot &gt; state</div><div class="ttdoc">The tracker state at the time the event was sent.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00060">SPEventBase.h:60</a></div></div>
+<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html_aa0f021eb5f64dbc10a95109ee06ac31f"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">SPInspectableEvent-p::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00057">SPEventBase.h:57</a></div></div>
+<div class="ttc" id="aprotocol_s_p_inspectable_event-p_html_ae55ea89489d995db157060d95bd16ecb"><div class="ttname"><a href="protocol_s_p_inspectable_event-p.html#ae55ea89489d995db157060d95bd16ecb">SPInspectableEvent-p::eventName</a></div><div class="ttdeci">NSString * eventName</div><div class="ttdoc">The name of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00055">SPEventBase.h:55</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

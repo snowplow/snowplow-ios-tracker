@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,7 +88,7 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Michael Hadam</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright © 2020 Snowplow Analytics. All rights reserved.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright © 2021 Snowplow Analytics. All rights reserved.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
@@ -96,10 +96,10 @@ $(function() {
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#if !TARGET_OS_OSX</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#import &quot;SPTracker.h&quot;</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_tracker_8h.html">SPTracker.h</a>&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#import &quot;SPEventBase.h&quot;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#import &quot;SPSelfDescribingJson.h&quot;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#import &quot;UIKit/UIKit.h&quot;</span></div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8h.html">UIViewController+SPScreenView_SWIZZLE.h</a>&quot;</span></div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#import &lt;objc/runtime.h&gt;</span></div>
@@ -265,6 +265,8 @@ $(function() {
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">@end</span></div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="a_s_p_tracker_8h_html"><div class="ttname"><a href="_s_p_tracker_8h.html">SPTracker.h</a></div><div class="ttdoc">Header file for SPTracker.</div></div>
+<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
 <div class="ttc" id="a_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8h_html"><div class="ttname"><a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8h.html">UIViewController+SPScreenView_SWIZZLE.h</a></div></div>
 <div class="ttc" id="acategory_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08_html"><div class="ttname"><a href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html">UIViewController(SPScreenView_SWIZZLE)</a></div><div class="ttdef"><b>Definition:</b> <a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8h_source.html#l00033">UIViewController+SPScreenView_SWIZZLE.h:33</a></div></div>
 <div class="ttc" id="acategory_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08_html_a69866b23010c13684501c169c89b1419"><div class="ttname"><a href="category_u_i_view_controller_07_s_p_screen_view___s_w_i_z_z_l_e_08.html#a69866b23010c13684501c169c89b1419">-[UIViewController(SPScreenView_SWIZZLE) _SP_getViewControllerName]</a></div><div class="ttdeci">NSString * _SP_getViewControllerName()</div><div class="ttdef"><b>Definition:</b> <a href="_u_i_view_controller_09_s_p_screen_view___s_w_i_z_z_l_e_8m_source.html#l00001">UIViewController+SPScreenView_SWIZZLE.m:103</a></div></div>

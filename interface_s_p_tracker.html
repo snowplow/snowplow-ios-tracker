@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -71,10 +71,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>The tracker class.  
- <a href="interface_s_p_tracker.html#details">More...</a></p>
-
-<p><code>#import &lt;<a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>&gt;</code></p>
+<p><code>#import &lt;<a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for SPTracker:</div>
 <div class="dyncontent">
@@ -82,7 +79,6 @@ Inheritance diagram for SPTracker:</div>
   <img src="interface_s_p_tracker.png" usemap="#SPTracker_map" alt=""/>
   <map id="SPTracker_map" name="SPTracker_map">
 <area href="protocol_s_p_tracker_builder-p.html" title="The builder for SPTracker." alt="&lt;SPTrackerBuilder&gt;" shape="rect" coords="136,56,262,80"/>
-<area href="protocol_s_p_tracker_builder-p.html" title="The builder for SPTracker." alt="&lt;SPTrackerBuilder&gt;" shape="rect" coords="408,56,534,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -94,6 +90,8 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a27928e1f643404117eaa007e82cc69e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a065746f2993c40cd635f3b66efa9d251"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a065746f2993c40cd635f3b66efa9d251">installEvent</a></td></tr>
 <tr class="separator:a065746f2993c40cd635f3b66efa9d251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26e47154d80d750a70c41dd4e2439539"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a26e47154d80d750a70c41dd4e2439539">deepLinkContext</a></td></tr>
+<tr class="separator:a26e47154d80d750a70c41dd4e2439539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5ae3e2de4a11779b672c472d4f223a0"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#ae5ae3e2de4a11779b672c472d4f223a0">screenContext</a></td></tr>
 <tr class="separator:ae5ae3e2de4a11779b672c472d4f223a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bf66136c994059444f231cfb9e1b034"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a3bf66136c994059444f231cfb9e1b034">autoTrackScreenView</a></td></tr>
@@ -112,21 +110,12 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a04e6b40a46e44344fad4cadb9d95b658"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a04e6b40a46e44344fad4cadb9d95b658">resumeEventTracking</a></td></tr>
 <tr class="memdesc:a04e6b40a46e44344fad4cadb9d95b658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes all event tracking and restarts the session checking.  <a href="interface_s_p_tracker.html#a04e6b40a46e44344fad4cadb9d95b658">More...</a><br /></td></tr>
 <tr class="separator:a04e6b40a46e44344fad4cadb9d95b658"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current session index count.  <a href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">More...</a><br /></td></tr>
-<tr class="separator:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4b035145b7f7dfdcf8800a57725959a2"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a4b035145b7f7dfdcf8800a57725959a2">getInBackground</a></td></tr>
 <tr class="memdesc:a4b035145b7f7dfdcf8800a57725959a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the application is in the background or foreground.  <a href="interface_s_p_tracker.html#a4b035145b7f7dfdcf8800a57725959a2">More...</a><br /></td></tr>
 <tr class="separator:a4b035145b7f7dfdcf8800a57725959a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec67ad973569678562fdba843763eab8"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#aec67ad973569678562fdba843763eab8">getIsTracking</a></td></tr>
 <tr class="memdesc:aec67ad973569678562fdba843763eab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the tracker is currently collecting data.  <a href="interface_s_p_tracker.html#aec67ad973569678562fdba843763eab8">More...</a><br /></td></tr>
 <tr class="separator:aec67ad973569678562fdba843763eab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the session's userId.  <a href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">More...</a><br /></td></tr>
-<tr class="separator:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current session's id.  <a href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">More...</a><br /></td></tr>
-<tr class="separator:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5496c440daa0a9dbb58e43785c35ba6c"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a5496c440daa0a9dbb58e43785c35ba6c">getLifecycleEvents</a></td></tr>
 <tr class="memdesc:a5496c440daa0a9dbb58e43785c35ba6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether lifecyle events is enabled.  <a href="interface_s_p_tracker.html#a5496c440daa0a9dbb58e43785c35ba6c">More...</a><br /></td></tr>
 <tr class="separator:a5496c440daa0a9dbb58e43785c35ba6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -137,70 +126,11 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a16e4eca53c637c941798f3353b65ba24"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a16e4eca53c637c941798f3353b65ba24">enableGdprContextWithBasis:documentId:documentVersion:documentDescription:</a></td></tr>
 <tr class="separator:a16e4eca53c637c941798f3353b65ba24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a53a79fba45cd3d29e99cac2ce5f21234"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a53a79fba45cd3d29e99cac2ce5f21234">disableGdprContext</a></td></tr>
+<tr class="memdesc:a53a79fba45cd3d29e99cac2ce5f21234"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disable GDPR context.  <a href="interface_s_p_tracker.html#a53a79fba45cd3d29e99cac2ce5f21234">More...</a><br /></td></tr>
 <tr class="separator:a53a79fba45cd3d29e99cac2ce5f21234"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adb81ed80fc123aac698f0dab9a34edf8"><td class="memItemLeft" align="right" valign="top">(nullable <a class="el" href="interface_s_p_gdpr_context.html">SPGdprContext</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#adb81ed80fc123aac698f0dab9a34edf8">gdprContext</a></td></tr>
+<tr class="memdesc:adb81ed80fc123aac698f0dab9a34edf8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return GDPR context.  <a href="interface_s_p_tracker.html#adb81ed80fc123aac698f0dab9a34edf8">More...</a><br /></td></tr>
 <tr class="separator:adb81ed80fc123aac698f0dab9a34edf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb87a7e0b3353a82a78ade7cdf78578b"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#adb87a7e0b3353a82a78ade7cdf78578b">trackSelfDescribingEvent:</a></td></tr>
-<tr class="memdesc:adb87a7e0b3353a82a78ade7cdf78578b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks an self-describing event.  <a href="interface_s_p_tracker.html#adb87a7e0b3353a82a78ade7cdf78578b">More...</a><br /></td></tr>
-<tr class="separator:adb87a7e0b3353a82a78ade7cdf78578b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f7b1f8e5ef2884a648c795c9e651610"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a5f7b1f8e5ef2884a648c795c9e651610">track:</a></td></tr>
-<tr class="memdesc:a5f7b1f8e5ef2884a648c795c9e651610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks an event despite its specific type.  <a href="interface_s_p_tracker.html#a5f7b1f8e5ef2884a648c795c9e651610">More...</a><br /></td></tr>
-<tr class="separator:a5f7b1f8e5ef2884a648c795c9e651610"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeedebbe1e115933860105dd51b3ecab4"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#aeedebbe1e115933860105dd51b3ecab4">applicationContext</a></td></tr>
-<tr class="separator:aeedebbe1e115933860105dd51b3ecab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27928e1f643404117eaa007e82cc69e5"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a27928e1f643404117eaa007e82cc69e5">exceptionEvents</a></td></tr>
-<tr class="separator:a27928e1f643404117eaa007e82cc69e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a065746f2993c40cd635f3b66efa9d251"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a065746f2993c40cd635f3b66efa9d251">installEvent</a></td></tr>
-<tr class="separator:a065746f2993c40cd635f3b66efa9d251"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5ae3e2de4a11779b672c472d4f223a0"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#ae5ae3e2de4a11779b672c472d4f223a0">screenContext</a></td></tr>
-<tr class="separator:ae5ae3e2de4a11779b672c472d4f223a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bf66136c994059444f231cfb9e1b034"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a3bf66136c994059444f231cfb9e1b034">autoTrackScreenView</a></td></tr>
-<tr class="separator:a3bf66136c994059444f231cfb9e1b034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a947c4bcb8b9513816c01f4f63897f260"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a947c4bcb8b9513816c01f4f63897f260">sessionContext</a></td></tr>
-<tr class="separator:a947c4bcb8b9513816c01f4f63897f260"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72fcf6b15892c88f18d935d244d9104b"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a72fcf6b15892c88f18d935d244d9104b">trackerDiagnostic</a></td></tr>
-<tr class="separator:a72fcf6b15892c88f18d935d244d9104b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a></td></tr>
-<tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3828de4f1426bf290d3f54a6192a3310"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a3828de4f1426bf290d3f54a6192a3310">receiveScreenViewNotification:</a></td></tr>
-<tr class="separator:a3828de4f1426bf290d3f54a6192a3310"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a438132304bb8705edbb9a89512f81125"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">pauseEventTracking</a></td></tr>
-<tr class="memdesc:a438132304bb8705edbb9a89512f81125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pauses all event tracking, storage and session checking.  <a href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">More...</a><br /></td></tr>
-<tr class="separator:a438132304bb8705edbb9a89512f81125"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a04e6b40a46e44344fad4cadb9d95b658"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a04e6b40a46e44344fad4cadb9d95b658">resumeEventTracking</a></td></tr>
-<tr class="memdesc:a04e6b40a46e44344fad4cadb9d95b658"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resumes all event tracking and restarts the session checking.  <a href="interface_s_p_tracker.html#a04e6b40a46e44344fad4cadb9d95b658">More...</a><br /></td></tr>
-<tr class="separator:a04e6b40a46e44344fad4cadb9d95b658"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current session index count.  <a href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">More...</a><br /></td></tr>
-<tr class="separator:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4b035145b7f7dfdcf8800a57725959a2"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a4b035145b7f7dfdcf8800a57725959a2">getInBackground</a></td></tr>
-<tr class="memdesc:a4b035145b7f7dfdcf8800a57725959a2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the application is in the background or foreground.  <a href="interface_s_p_tracker.html#a4b035145b7f7dfdcf8800a57725959a2">More...</a><br /></td></tr>
-<tr class="separator:a4b035145b7f7dfdcf8800a57725959a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aec67ad973569678562fdba843763eab8"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#aec67ad973569678562fdba843763eab8">getIsTracking</a></td></tr>
-<tr class="memdesc:aec67ad973569678562fdba843763eab8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the tracker is currently collecting data.  <a href="interface_s_p_tracker.html#aec67ad973569678562fdba843763eab8">More...</a><br /></td></tr>
-<tr class="separator:aec67ad973569678562fdba843763eab8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the session's userId.  <a href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">More...</a><br /></td></tr>
-<tr class="separator:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current session's id.  <a href="interface_s_p_tracker.html#a1748cbe44c01e5e298e8bd9206c0fe63">More...</a><br /></td></tr>
-<tr class="separator:a1748cbe44c01e5e298e8bd9206c0fe63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5496c440daa0a9dbb58e43785c35ba6c"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a5496c440daa0a9dbb58e43785c35ba6c">getLifecycleEvents</a></td></tr>
-<tr class="memdesc:a5496c440daa0a9dbb58e43785c35ba6c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether lifecyle events is enabled.  <a href="interface_s_p_tracker.html#a5496c440daa0a9dbb58e43785c35ba6c">More...</a><br /></td></tr>
-<tr class="separator:a5496c440daa0a9dbb58e43785c35ba6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bca9d49209ed9d4d1dfe677a4649b42"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a6bca9d49209ed9d4d1dfe677a4649b42">addGlobalContext:tag:</a></td></tr>
-<tr class="separator:a6bca9d49209ed9d4d1dfe677a4649b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d93f44b8e038fde213d30eaa5f9875c"><td class="memItemLeft" align="right" valign="top">(nullable <a class="el" href="interface_s_p_global_context.html">SPGlobalContext</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a7d93f44b8e038fde213d30eaa5f9875c">removeGlobalContext:</a></td></tr>
-<tr class="separator:a7d93f44b8e038fde213d30eaa5f9875c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16e4eca53c637c941798f3353b65ba24"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a16e4eca53c637c941798f3353b65ba24">enableGdprContextWithBasis:documentId:documentVersion:documentDescription:</a></td></tr>
-<tr class="separator:a16e4eca53c637c941798f3353b65ba24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53a79fba45cd3d29e99cac2ce5f21234"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a53a79fba45cd3d29e99cac2ce5f21234">disableGdprContext</a></td></tr>
-<tr class="separator:a53a79fba45cd3d29e99cac2ce5f21234"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae68ec86fdceb507a10c2a4a2181a3574"><td class="memItemLeft" align="right" valign="top">(nullable <a class="el" href="interface_s_p_gdpr_context.html">SPGdprContext</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#ae68ec86fdceb507a10c2a4a2181a3574">gdprContext</a></td></tr>
-<tr class="separator:ae68ec86fdceb507a10c2a4a2181a3574"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb87a7e0b3353a82a78ade7cdf78578b"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#adb87a7e0b3353a82a78ade7cdf78578b">trackSelfDescribingEvent:</a></td></tr>
-<tr class="memdesc:adb87a7e0b3353a82a78ade7cdf78578b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks an self-describing event.  <a href="interface_s_p_tracker.html#adb87a7e0b3353a82a78ade7cdf78578b">More...</a><br /></td></tr>
-<tr class="separator:adb87a7e0b3353a82a78ade7cdf78578b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f7b1f8e5ef2884a648c795c9e651610"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_tracker.html#a5f7b1f8e5ef2884a648c795c9e651610">track:</a></td></tr>
 <tr class="memdesc:a5f7b1f8e5ef2884a648c795c9e651610"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracks an event despite its specific type.  <a href="interface_s_p_tracker.html#a5f7b1f8e5ef2884a648c795c9e651610">More...</a><br /></td></tr>
 <tr class="separator:a5f7b1f8e5ef2884a648c795c9e651610"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -243,68 +173,9 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">setApplicationContext:</a></td></tr>
 <tr class="memdesc:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether events will include application context.  <a href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">More...</a><br /></td></tr>
 <tr class="separator:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">setScreenContext:</a></td></tr>
-<tr class="memdesc:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether screen contexts will be added to all events.  <a href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">More...</a><br /></td></tr>
-<tr class="separator:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16e3832b7898d53c77bd1c8c2cd5d04b inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">setLifecycleEvents:</a></td></tr>
-<tr class="memdesc:a16e3832b7898d53c77bd1c8c2cd5d04b inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether foreground and background events are sent on app suspend and resume.  <a href="protocol_s_p_tracker_builder-p.html#a16e3832b7898d53c77bd1c8c2cd5d04b">More...</a><br /></td></tr>
-<tr class="separator:a16e3832b7898d53c77bd1c8c2cd5d04b inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88c11a27d3e33a9147bfed13aeec0a7f inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">setExceptionEvents:</a></td></tr>
-<tr class="memdesc:a88c11a27d3e33a9147bfed13aeec0a7f inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether exceptions should be autotracked.  <a href="protocol_s_p_tracker_builder-p.html#a88c11a27d3e33a9147bfed13aeec0a7f">More...</a><br /></td></tr>
-<tr class="separator:a88c11a27d3e33a9147bfed13aeec0a7f inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aacac592802ef3e5fbcb3f7b354ff07ee inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">setAutotrackScreenViews:</a></td></tr>
-<tr class="memdesc:aacac592802ef3e5fbcb3f7b354ff07ee inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether screenviews will be autotracked.  <a href="protocol_s_p_tracker_builder-p.html#aacac592802ef3e5fbcb3f7b354ff07ee">More...</a><br /></td></tr>
-<tr class="separator:aacac592802ef3e5fbcb3f7b354ff07ee inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa82d4da0338212add4f4fc3555f8d7ad inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">setInstallEvent:</a></td></tr>
-<tr class="memdesc:aa82d4da0338212add4f4fc3555f8d7ad inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether application install should be autotracked.  <a href="protocol_s_p_tracker_builder-p.html#aa82d4da0338212add4f4fc3555f8d7ad">More...</a><br /></td></tr>
-<tr class="separator:aa82d4da0338212add4f4fc3555f8d7ad inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fb3544eadd13ba93f9d9ec619cd0900 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a2fb3544eadd13ba93f9d9ec619cd0900">setTrackerDiagnostic:</a></td></tr>
-<tr class="memdesc:a2fb3544eadd13ba93f9d9ec619cd0900 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether tracker should send tracker diagnostic events.  <a href="protocol_s_p_tracker_builder-p.html#a2fb3544eadd13ba93f9d9ec619cd0900">More...</a><br /></td></tr>
-<tr class="separator:a2fb3544eadd13ba93f9d9ec619cd0900 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20f6dbb8d8bf32da5ff2b045067efc66 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a20f6dbb8d8bf32da5ff2b045067efc66">setGlobalContextGenerators:</a></td></tr>
-<tr class="memdesc:a20f6dbb8d8bf32da5ff2b045067efc66 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add global context generators to be used by tracker.  <a href="protocol_s_p_tracker_builder-p.html#a20f6dbb8d8bf32da5ff2b045067efc66">More...</a><br /></td></tr>
-<tr class="separator:a20f6dbb8d8bf32da5ff2b045067efc66 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac76512749b25d982208318ea7e9e0cc8 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ac76512749b25d982208318ea7e9e0cc8">setGdprContextWithBasis:documentId:documentVersion:documentDescription:</a></td></tr>
-<tr class="memdesc:ac76512749b25d982208318ea7e9e0cc8 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set a GDPR context for the tracker.  <a href="protocol_s_p_tracker_builder-p.html#ac76512749b25d982208318ea7e9e0cc8">More...</a><br /></td></tr>
-<tr class="separator:ac76512749b25d982208318ea7e9e0cc8 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a919c65f46636089e2d2760b7a73e0a25 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a919c65f46636089e2d2760b7a73e0a25">setEmitter:</a></td></tr>
-<tr class="memdesc:a919c65f46636089e2d2760b7a73e0a25 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set an emitter.  <a href="protocol_s_p_tracker_builder-p.html#a919c65f46636089e2d2760b7a73e0a25">More...</a><br /></td></tr>
-<tr class="separator:a919c65f46636089e2d2760b7a73e0a25 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9872c66928feb491a314fa972b977aa inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ab9872c66928feb491a314fa972b977aa">setSubject:</a></td></tr>
-<tr class="memdesc:ab9872c66928feb491a314fa972b977aa inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set a subject. The subject represents a current user, and holds associated information.  <a href="protocol_s_p_tracker_builder-p.html#ab9872c66928feb491a314fa972b977aa">More...</a><br /></td></tr>
-<tr class="separator:ab9872c66928feb491a314fa972b977aa inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f5fb5611f45dcc5c780ca74dfe730a7 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a1f5fb5611f45dcc5c780ca74dfe730a7">setAppId:</a></td></tr>
-<tr class="memdesc:a1f5fb5611f45dcc5c780ca74dfe730a7 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set the app ID.  <a href="protocol_s_p_tracker_builder-p.html#a1f5fb5611f45dcc5c780ca74dfe730a7">More...</a><br /></td></tr>
-<tr class="separator:a1f5fb5611f45dcc5c780ca74dfe730a7 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b5a76384c733fabf2b1bfd33b45ea19 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a3b5a76384c733fabf2b1bfd33b45ea19">setBase64Encoded:</a></td></tr>
-<tr class="memdesc:a3b5a76384c733fabf2b1bfd33b45ea19 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether events will be sent Base64 encoded.  <a href="protocol_s_p_tracker_builder-p.html#a3b5a76384c733fabf2b1bfd33b45ea19">More...</a><br /></td></tr>
-<tr class="separator:a3b5a76384c733fabf2b1bfd33b45ea19 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a795c8dbff2629f57b7396dc3450793a1 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a795c8dbff2629f57b7396dc3450793a1">setTrackerNamespace:</a></td></tr>
-<tr class="memdesc:a795c8dbff2629f57b7396dc3450793a1 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set the tracker namespace.  <a href="protocol_s_p_tracker_builder-p.html#a795c8dbff2629f57b7396dc3450793a1">More...</a><br /></td></tr>
-<tr class="separator:a795c8dbff2629f57b7396dc3450793a1 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84833e8b7bb06820185556f8eaee85a9 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a84833e8b7bb06820185556f8eaee85a9">setTrackerVersionSuffix:</a></td></tr>
-<tr class="separator:a84833e8b7bb06820185556f8eaee85a9 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada2040556afda517ad9df89012c213e9 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ada2040556afda517ad9df89012c213e9">setDevicePlatform:</a></td></tr>
-<tr class="memdesc:ada2040556afda517ad9df89012c213e9 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set the device platform the tracker is running on.  <a href="protocol_s_p_tracker_builder-p.html#ada2040556afda517ad9df89012c213e9">More...</a><br /></td></tr>
-<tr class="separator:ada2040556afda517ad9df89012c213e9 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a87fc8e501fa8506d344fac38f1b8af86 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a87fc8e501fa8506d344fac38f1b8af86">setLogLevel:</a></td></tr>
-<tr class="memdesc:a87fc8e501fa8506d344fac38f1b8af86 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set the log level desired for logging.  <a href="protocol_s_p_tracker_builder-p.html#a87fc8e501fa8506d344fac38f1b8af86">More...</a><br /></td></tr>
-<tr class="separator:a87fc8e501fa8506d344fac38f1b8af86 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a898f0e4d5559af473293e07327282688 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a898f0e4d5559af473293e07327282688">setLoggerDelegate:</a></td></tr>
-<tr class="memdesc:a898f0e4d5559af473293e07327282688 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set the delegate for log messages tracker's generated.  <a href="protocol_s_p_tracker_builder-p.html#a898f0e4d5559af473293e07327282688">More...</a><br /></td></tr>
-<tr class="separator:a898f0e4d5559af473293e07327282688 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4add7c27a903e3795fcdd166ca07f8f3 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a4add7c27a903e3795fcdd166ca07f8f3">setSessionContext:</a></td></tr>
-<tr class="memdesc:a4add7c27a903e3795fcdd166ca07f8f3 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether events will include session context.  <a href="protocol_s_p_tracker_builder-p.html#a4add7c27a903e3795fcdd166ca07f8f3">More...</a><br /></td></tr>
-<tr class="separator:a4add7c27a903e3795fcdd166ca07f8f3 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17d9de813b2a3bbabe9c807ab3b17146 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a17d9de813b2a3bbabe9c807ab3b17146">setForegroundTimeout:</a></td></tr>
-<tr class="memdesc:a17d9de813b2a3bbabe9c807ab3b17146 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set the foreground timeout.  <a href="protocol_s_p_tracker_builder-p.html#a17d9de813b2a3bbabe9c807ab3b17146">More...</a><br /></td></tr>
-<tr class="separator:a17d9de813b2a3bbabe9c807ab3b17146 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af04e59f09b9ba729db01529aad534ef2 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#af04e59f09b9ba729db01529aad534ef2">setBackgroundTimeout:</a></td></tr>
-<tr class="memdesc:af04e59f09b9ba729db01529aad534ef2 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set the background timeout.  <a href="protocol_s_p_tracker_builder-p.html#af04e59f09b9ba729db01529aad534ef2">More...</a><br /></td></tr>
-<tr class="separator:af04e59f09b9ba729db01529aad534ef2 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">setApplicationContext:</a></td></tr>
-<tr class="memdesc:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether events will include application context.  <a href="protocol_s_p_tracker_builder-p.html#a6f80293c6bbabc838796c35ef56674b5">More...</a><br /></td></tr>
-<tr class="separator:a6f80293c6bbabc838796c35ef56674b5 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4920175fc0a64adf568a8e69d78ab292 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a4920175fc0a64adf568a8e69d78ab292">setDeepLinkContext:</a></td></tr>
+<tr class="memdesc:a4920175fc0a64adf568a8e69d78ab292 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether deepLink contexts will be added to ScreenView events.  <a href="protocol_s_p_tracker_builder-p.html#a4920175fc0a64adf568a8e69d78ab292">More...</a><br /></td></tr>
+<tr class="separator:a4920175fc0a64adf568a8e69d78ab292 inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">setScreenContext:</a></td></tr>
 <tr class="memdesc:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether screen contexts will be added to all events.  <a href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">More...</a><br /></td></tr>
 <tr class="separator:ae43c91cdb33a509965bf9912e92eb3af inherit pub_methods_protocol_s_p_tracker_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -332,168 +203,58 @@ Instance Methods</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Class Methods</h2></td></tr>
-<tr class="memitem:a16d6e484cfe527c29c9d175ae0291468"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_tracker.html#a16d6e484cfe527c29c9d175ae0291468">build:</a></td></tr>
-<tr class="memdesc:a16d6e484cfe527c29c9d175ae0291468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method that allows for builder pattern in creating the tracker.  <a href="interface_s_p_tracker.html#a16d6e484cfe527c29c9d175ae0291468">More...</a><br /></td></tr>
-<tr class="separator:a16d6e484cfe527c29c9d175ae0291468"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_tracker.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a></td></tr>
-<tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a16d6e484cfe527c29c9d175ae0291468"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_tracker.html#a16d6e484cfe527c29c9d175ae0291468">build:</a></td></tr>
-<tr class="memdesc:a16d6e484cfe527c29c9d175ae0291468"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method that allows for builder pattern in creating the tracker.  <a href="interface_s_p_tracker.html#a16d6e484cfe527c29c9d175ae0291468">More...</a><br /></td></tr>
-<tr class="separator:a16d6e484cfe527c29c9d175ae0291468"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1518c9fe54543f549e9932182b2355cc"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_tracker.html#a1518c9fe54543f549e9932182b2355cc">build:</a></td></tr>
+<tr class="memdesc:a1518c9fe54543f549e9932182b2355cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method that allows for builder pattern in creating the tracker.  <a href="interface_s_p_tracker.html#a1518c9fe54543f549e9932182b2355cc">More...</a><br /></td></tr>
+<tr class="separator:a1518c9fe54543f549e9932182b2355cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_tracker.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a></td></tr>
 <tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a9c1968a472f50c67a99ff7c33ae4c46b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_emitter.html">SPEmitter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a9c1968a472f50c67a99ff7c33ae4c46b">emitter</a></td></tr>
-<tr class="memdesc:a9c1968a472f50c67a99ff7c33ae4c46b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The emitter used to send events.  <a href="interface_s_p_tracker.html#a9c1968a472f50c67a99ff7c33ae4c46b">More...</a><br /></td></tr>
-<tr class="separator:a9c1968a472f50c67a99ff7c33ae4c46b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa4d7fa395e976cf77921e862809b8d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_subject.html">SPSubject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#aaa4d7fa395e976cf77921e862809b8d1">subject</a></td></tr>
-<tr class="memdesc:aaa4d7fa395e976cf77921e862809b8d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">The subject used to represent the current user and persist user information.  <a href="interface_s_p_tracker.html#aaa4d7fa395e976cf77921e862809b8d1">More...</a><br /></td></tr>
-<tr class="separator:aaa4d7fa395e976cf77921e862809b8d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a489ce4ff16de97e53fa2d339df7ee7aa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_session.html">SPSession</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a></td></tr>
-<tr class="memdesc:a489ce4ff16de97e53fa2d339df7ee7aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object used for sessionization, i.e. it characterizes user activity.  <a href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">More...</a><br /></td></tr>
-<tr class="separator:a489ce4ff16de97e53fa2d339df7ee7aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a50bf5d0174c23c39639d70f7fa5ac35c"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a50bf5d0174c23c39639d70f7fa5ac35c">appId</a></td></tr>
-<tr class="memdesc:a50bf5d0174c23c39639d70f7fa5ac35c"><td class="mdescLeft">&#160;</td><td class="mdescRight">A unique identifier for an application.  <a href="interface_s_p_tracker.html#a50bf5d0174c23c39639d70f7fa5ac35c">More...</a><br /></td></tr>
-<tr class="separator:a50bf5d0174c23c39639d70f7fa5ac35c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01c00090d40b9effb2d1fea225735f3c"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a01c00090d40b9effb2d1fea225735f3c">trackerNamespace</a></td></tr>
-<tr class="memdesc:a01c00090d40b9effb2d1fea225735f3c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The identifier for the current tracker.  <a href="interface_s_p_tracker.html#a01c00090d40b9effb2d1fea225735f3c">More...</a><br /></td></tr>
-<tr class="separator:a01c00090d40b9effb2d1fea225735f3c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afe539ac6a0ae6a0837289b63280b7347"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_emitter.html">SPEmitter</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#afe539ac6a0ae6a0837289b63280b7347">emitter</a></td></tr>
+<tr class="memdesc:afe539ac6a0ae6a0837289b63280b7347"><td class="mdescLeft">&#160;</td><td class="mdescRight">The emitter used to send events.  <a href="interface_s_p_tracker.html#afe539ac6a0ae6a0837289b63280b7347">More...</a><br /></td></tr>
+<tr class="separator:afe539ac6a0ae6a0837289b63280b7347"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59099084083240184e72f41011390c59"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_subject.html">SPSubject</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a59099084083240184e72f41011390c59">subject</a></td></tr>
+<tr class="memdesc:a59099084083240184e72f41011390c59"><td class="mdescLeft">&#160;</td><td class="mdescRight">The subject used to represent the current user and persist user information.  <a href="interface_s_p_tracker.html#a59099084083240184e72f41011390c59">More...</a><br /></td></tr>
+<tr class="separator:a59099084083240184e72f41011390c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20935b7ed4e202ab3bebb808712d0899"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_session.html">SPSession</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">session</a></td></tr>
+<tr class="memdesc:a20935b7ed4e202ab3bebb808712d0899"><td class="mdescLeft">&#160;</td><td class="mdescRight">The object used for sessionization, i.e. it characterizes user activity.  <a href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">More...</a><br /></td></tr>
+<tr class="separator:a20935b7ed4e202ab3bebb808712d0899"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb7d69d21f368888a32a72c26c6d67ff"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#aeb7d69d21f368888a32a72c26c6d67ff">appId</a></td></tr>
+<tr class="memdesc:aeb7d69d21f368888a32a72c26c6d67ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A unique identifier for an application.  <a href="interface_s_p_tracker.html#aeb7d69d21f368888a32a72c26c6d67ff">More...</a><br /></td></tr>
+<tr class="separator:aeb7d69d21f368888a32a72c26c6d67ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97987b98d675ea54a02798cc8f83145b"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a97987b98d675ea54a02798cc8f83145b">trackerNamespace</a></td></tr>
+<tr class="memdesc:a97987b98d675ea54a02798cc8f83145b"><td class="mdescLeft">&#160;</td><td class="mdescRight">The identifier for the current tracker.  <a href="interface_s_p_tracker.html#a97987b98d675ea54a02798cc8f83145b">More...</a><br /></td></tr>
+<tr class="separator:a97987b98d675ea54a02798cc8f83145b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefb984aa6d25c487860a844b75108a80"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#aefb984aa6d25c487860a844b75108a80">base64Encoded</a></td></tr>
 <tr class="memdesc:aefb984aa6d25c487860a844b75108a80"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to use Base64 encoding for events.  <a href="interface_s_p_tracker.html#aefb984aa6d25c487860a844b75108a80">More...</a><br /></td></tr>
 <tr class="separator:aefb984aa6d25c487860a844b75108a80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a606cc5a8cc75395474e895b6575c22d1"><td class="memItemLeft" align="right" valign="top">SPDevicePlatform&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a606cc5a8cc75395474e895b6575c22d1">devicePlatform</a></td></tr>
 <tr class="memdesc:a606cc5a8cc75395474e895b6575c22d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to use Base64 encoding for events.  <a href="interface_s_p_tracker.html#a606cc5a8cc75395474e895b6575c22d1">More...</a><br /></td></tr>
 <tr class="separator:a606cc5a8cc75395474e895b6575c22d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac070ac7c7fb910541a6b899478e656cd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#ac070ac7c7fb910541a6b899478e656cd">previousScreenState</a></td></tr>
-<tr class="memdesc:ac070ac7c7fb910541a6b899478e656cd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous screen view state.  <a href="interface_s_p_tracker.html#ac070ac7c7fb910541a6b899478e656cd">More...</a><br /></td></tr>
-<tr class="separator:ac070ac7c7fb910541a6b899478e656cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94d733b42b622b3040c5adb8a18c5674"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a94d733b42b622b3040c5adb8a18c5674">currentScreenState</a></td></tr>
-<tr class="memdesc:a94d733b42b622b3040c5adb8a18c5674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current screen view state.  <a href="interface_s_p_tracker.html#a94d733b42b622b3040c5adb8a18c5674">More...</a><br /></td></tr>
-<tr class="separator:a94d733b42b622b3040c5adb8a18c5674"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04714965c7be43ed76e2b916b73f452b"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a04714965c7be43ed76e2b916b73f452b">trackerVersionSuffix</a></td></tr>
+<tr class="memdesc:a04714965c7be43ed76e2b916b73f452b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Version suffix for tracker wrappers.  <a href="interface_s_p_tracker.html#a04714965c7be43ed76e2b916b73f452b">More...</a><br /></td></tr>
+<tr class="separator:a04714965c7be43ed76e2b916b73f452b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa67525cde5b8165a61548549fae7410a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#aa67525cde5b8165a61548549fae7410a">previousScreenState</a></td></tr>
+<tr class="memdesc:aa67525cde5b8165a61548549fae7410a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous screen view state.  <a href="interface_s_p_tracker.html#aa67525cde5b8165a61548549fae7410a">More...</a><br /></td></tr>
+<tr class="separator:aa67525cde5b8165a61548549fae7410a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a6f0862d7ee7afbc7655cb6101d442a4d">currentScreenState</a></td></tr>
+<tr class="memdesc:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current screen view state.  <a href="interface_s_p_tracker.html#a6f0862d7ee7afbc7655cb6101d442a4d">More...</a><br /></td></tr>
+<tr class="separator:a6f0862d7ee7afbc7655cb6101d442a4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad92223be26bbd5c457f7b240738e164b"><td class="memItemLeft" align="right" valign="top">NSArray&lt; NSString * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#ad92223be26bbd5c457f7b240738e164b">globalContextTags</a></td></tr>
 <tr class="memdesc:ad92223be26bbd5c457f7b240738e164b"><td class="mdescLeft">&#160;</td><td class="mdescRight">List of tags associated to global contexts.  <a href="interface_s_p_tracker.html#ad92223be26bbd5c457f7b240738e164b">More...</a><br /></td></tr>
 <tr class="separator:ad92223be26bbd5c457f7b240738e164b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09707cf1934854e30dbaa4040c4bd0ee"><td class="memItemLeft" align="right" valign="top">NSMutableDictionary&lt; NSString *, <a class="el" href="interface_s_p_global_context.html">SPGlobalContext</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a09707cf1934854e30dbaa4040c4bd0ee">globalContextGenerators</a></td></tr>
-<tr class="memdesc:a09707cf1934854e30dbaa4040c4bd0ee"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary of global contexts generators.  <a href="interface_s_p_tracker.html#a09707cf1934854e30dbaa4040c4bd0ee">More...</a><br /></td></tr>
-<tr class="separator:a09707cf1934854e30dbaa4040c4bd0ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d15c78ec57c322b541baf3d1d7838d5"><td class="memItemLeft" align="right" valign="top">NSMutableDictionary&lt; NSString *, <a class="el" href="interface_s_p_global_context.html">SPGlobalContext</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_tracker.html#a6d15c78ec57c322b541baf3d1d7838d5">globalContextGenerators</a></td></tr>
+<tr class="memdesc:a6d15c78ec57c322b541baf3d1d7838d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary of global contexts generators.  <a href="interface_s_p_tracker.html#a6d15c78ec57c322b541baf3d1d7838d5">More...</a><br /></td></tr>
+<tr class="separator:a6d15c78ec57c322b541baf3d1d7838d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class is used for tracking events, and delegates them to other classes responsible for sending, storage, etc. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00250">250</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00222">222</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="a1748cbe44c01e5e298e8bd9206c0fe63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1748cbe44c01e5e298e8bd9206c0fe63">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[1/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;) __deprecated_msg </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>A count of sessions that have occurred - also identifies the current session. </dd></dl>
-
-</div>
-</div>
-<a id="a1748cbe44c01e5e298e8bd9206c0fe63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1748cbe44c01e5e298e8bd9206c0fe63">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[2/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;) __deprecated_msg </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>UUID for userID. </dd></dl>
-
-</div>
-</div>
-<a id="a1748cbe44c01e5e298e8bd9206c0fe63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1748cbe44c01e5e298e8bd9206c0fe63">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[3/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;) __deprecated_msg </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>UUID of the session. </dd></dl>
-
-</div>
-</div>
-<a id="a1748cbe44c01e5e298e8bd9206c0fe63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1748cbe44c01e5e298e8bd9206c0fe63">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[4/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;) __deprecated_msg </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>A count of sessions that have occurred - also identifies the current session. </dd></dl>
-
-</div>
-</div>
-<a id="a1748cbe44c01e5e298e8bd9206c0fe63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1748cbe44c01e5e298e8bd9206c0fe63">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[5/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;) __deprecated_msg </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>UUID for userID. </dd></dl>
-
-</div>
-</div>
-<a id="a1748cbe44c01e5e298e8bd9206c0fe63"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1748cbe44c01e5e298e8bd9206c0fe63">&#9670;&nbsp;</a></span>__deprecated_msg <span class="overload">[6/6]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (&quot;Use `<a class="el" href="interface_s_p_tracker.html#a489ce4ff16de97e53fa2d339df7ee7aa">session</a>` instead. It will be removed in the version 3.0&quot;) __deprecated_msg </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>UUID of the session. </dd></dl>
-
-</div>
-</div>
 <a id="a6bca9d49209ed9d4d1dfe677a4649b42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bca9d49209ed9d4d1dfe677a4649b42">&#9670;&nbsp;</a></span>addGlobalContext:tag: <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bca9d49209ed9d4d1dfe677a4649b42">&#9670;&nbsp;</a></span>addGlobalContext:tag:</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -526,48 +287,12 @@ Properties</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Weather the global context has been added. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a6bca9d49209ed9d4d1dfe677a4649b42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bca9d49209ed9d4d1dfe677a4649b42">&#9670;&nbsp;</a></span>addGlobalContext:tag: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) addGlobalContext: </td>
-          <td></td>
-          <td class="paramtype">(<a class="el" href="interface_s_p_global_context.html">SPGlobalContext</a> *)&#160;</td>
-          <td class="paramname"><em>generator</em></td>
-        </tr>
-        <tr>
-          <td class="paramkey">tag:</td>
-          <td></td>
-          <td class="paramtype">(NSString *)&#160;</td>
-          <td class="paramname"><em>tag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Add new generator for global contexts associated with a string tag. If the string tag has been already set the new global context is not assigned. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">generator</td><td>The global context generator. </td></tr>
-    <tr><td class="paramname">tag</td><td>The tag associated to the global context. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Weather the global context has been added. </dd></dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="aeedebbe1e115933860105dd51b3ecab4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeedebbe1e115933860105dd51b3ecab4">&#9670;&nbsp;</a></span>applicationContext <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeedebbe1e115933860105dd51b3ecab4">&#9670;&nbsp;</a></span>applicationContext</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -581,29 +306,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="aeedebbe1e115933860105dd51b3ecab4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeedebbe1e115933860105dd51b3ecab4">&#9670;&nbsp;</a></span>applicationContext <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) applicationContext </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a3bf66136c994059444f231cfb9e1b034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bf66136c994059444f231cfb9e1b034">&#9670;&nbsp;</a></span>autoTrackScreenView <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bf66136c994059444f231cfb9e1b034">&#9670;&nbsp;</a></span>autoTrackScreenView</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -617,18 +325,38 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
-<a id="a3bf66136c994059444f231cfb9e1b034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bf66136c994059444f231cfb9e1b034">&#9670;&nbsp;</a></span>autoTrackScreenView <span class="overload">[2/2]</span></h2>
+<a id="a1518c9fe54543f549e9932182b2355cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1518c9fe54543f549e9932182b2355cc">&#9670;&nbsp;</a></span>build:</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (BOOL) autoTrackScreenView </td>
+          <td class="memname">+ (instancetype) build: </td>
+          <td></td>
+          <td class="paramtype">(void(^)(id&lt;<a class="el" href="protocol_s_p_tracker_builder-p.html">SPTrackerBuilder</a>&gt;builder))&#160;</td>
+          <td class="paramname"><em>buildBlock</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+
+</div>
+</div>
+<a id="a26e47154d80d750a70c41dd4e2439539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26e47154d80d750a70c41dd4e2439539">&#9670;&nbsp;</a></span>deepLinkContext</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) deepLinkContext </td>
           <td></td>
           <td class="paramname"></td>
           <td></td>
@@ -636,46 +364,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a16d6e484cfe527c29c9d175ae0291468"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16d6e484cfe527c29c9d175ae0291468">&#9670;&nbsp;</a></span>build: <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (instancetype) build: </td>
-          <td></td>
-          <td class="paramtype">(&quot;Will be removed in the next major version. Use `Snowplow.setup(...)` instead.&quot;)&#160;</td>
-          <td class="paramname"><em>__deprecated_msg</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a16d6e484cfe527c29c9d175ae0291468"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16d6e484cfe527c29c9d175ae0291468">&#9670;&nbsp;</a></span>build: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (instancetype) build: </td>
-          <td></td>
-          <td class="paramtype">(&quot;Will be removed in the next major version. Use `Snowplow.setup(...)` instead.&quot;)&#160;</td>
-          <td class="paramname"><em>__deprecated_msg</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a53a79fba45cd3d29e99cac2ce5f21234"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53a79fba45cd3d29e99cac2ce5f21234">&#9670;&nbsp;</a></span>disableGdprContext <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a53a79fba45cd3d29e99cac2ce5f21234">&#9670;&nbsp;</a></span>disableGdprContext</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -688,32 +382,13 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Disable GDPR context. </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000042">Deprecated:</a></b></dt><dd>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a53a79fba45cd3d29e99cac2ce5f21234"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53a79fba45cd3d29e99cac2ce5f21234">&#9670;&nbsp;</a></span>disableGdprContext <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) disableGdprContext </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Disable GDPR context. </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000088">Deprecated:</a></b></dt><dd>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </dd></dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a16e4eca53c637c941798f3353b65ba24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16e4eca53c637c941798f3353b65ba24">&#9670;&nbsp;</a></span>enableGdprContextWithBasis:documentId:documentVersion:documentDescription: <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a16e4eca53c637c941798f3353b65ba24">&#9670;&nbsp;</a></span>enableGdprContextWithBasis:documentId:documentVersion:documentDescription:</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -758,62 +433,11 @@ Properties</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000041">Deprecated:</a></b></dt><dd>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </dd></dl>
-
-</div>
-</div>
-<a id="a16e4eca53c637c941798f3353b65ba24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a16e4eca53c637c941798f3353b65ba24">&#9670;&nbsp;</a></span>enableGdprContextWithBasis:documentId:documentVersion:documentDescription: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) enableGdprContextWithBasis: </td>
-          <td></td>
-          <td class="paramtype">(SPGdprProcessingBasis)&#160;</td>
-          <td class="paramname"><em>basisForProcessing</em></td>
-        </tr>
-        <tr>
-          <td class="paramkey">documentId:</td>
-          <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>documentId</em></td>
-        </tr>
-        <tr>
-          <td class="paramkey">documentVersion:</td>
-          <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>documentVersion</em></td>
-        </tr>
-        <tr>
-          <td class="paramkey">documentDescription:</td>
-          <td></td>
-          <td class="paramtype">(nullable NSString *)&#160;</td>
-          <td class="paramname"><em>documentDescription</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Enables GDPR context to be sent with every event. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">basisForProcessing</td><td>GDPR Basis for processing. </td></tr>
-    <tr><td class="paramname">documentId</td><td>ID of a GDPR basis document. </td></tr>
-    <tr><td class="paramname">documentVersion</td><td>Version of the document. </td></tr>
-    <tr><td class="paramname">documentDescription</td><td>Description of the document. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000087">Deprecated:</a></b></dt><dd>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </dd></dl>
 
 </div>
 </div>
 <a id="a27928e1f643404117eaa007e82cc69e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27928e1f643404117eaa007e82cc69e5">&#9670;&nbsp;</a></span>exceptionEvents <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a27928e1f643404117eaa007e82cc69e5">&#9670;&nbsp;</a></span>exceptionEvents</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -827,29 +451,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a27928e1f643404117eaa007e82cc69e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27928e1f643404117eaa007e82cc69e5">&#9670;&nbsp;</a></span>exceptionEvents <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) exceptionEvents </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="adb81ed80fc123aac698f0dab9a34edf8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb81ed80fc123aac698f0dab9a34edf8">&#9670;&nbsp;</a></span>gdprContext <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#adb81ed80fc123aac698f0dab9a34edf8">&#9670;&nbsp;</a></span>gdprContext</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -862,32 +469,13 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Return GDPR context </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000043">Deprecated:</a></b></dt><dd>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="ae68ec86fdceb507a10c2a4a2181a3574"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae68ec86fdceb507a10c2a4a2181a3574">&#9670;&nbsp;</a></span>gdprContext <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (nullable <a class="el" href="interface_s_p_gdpr_context.html">SPGdprContext</a> *) gdprContext </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Return GDPR context </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000089">Deprecated:</a></b></dt><dd>Use <code>GdprConfiguration</code> or <code>GdprController</code>. </dd></dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a4b035145b7f7dfdcf8800a57725959a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b035145b7f7dfdcf8800a57725959a2">&#9670;&nbsp;</a></span>getInBackground <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b035145b7f7dfdcf8800a57725959a2">&#9670;&nbsp;</a></span>getInBackground</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -902,30 +490,12 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Whether application is suspended. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a4b035145b7f7dfdcf8800a57725959a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4b035145b7f7dfdcf8800a57725959a2">&#9670;&nbsp;</a></span>getInBackground <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) getInBackground </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Whether application is suspended. </dd></dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="aec67ad973569678562fdba843763eab8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec67ad973569678562fdba843763eab8">&#9670;&nbsp;</a></span>getIsTracking <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aec67ad973569678562fdba843763eab8">&#9670;&nbsp;</a></span>getIsTracking</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -940,30 +510,12 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Whether the tracker is tracking. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="aec67ad973569678562fdba843763eab8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aec67ad973569678562fdba843763eab8">&#9670;&nbsp;</a></span>getIsTracking <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) getIsTracking </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Whether the tracker is tracking. </dd></dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a5496c440daa0a9dbb58e43785c35ba6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5496c440daa0a9dbb58e43785c35ba6c">&#9670;&nbsp;</a></span>getLifecycleEvents <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5496c440daa0a9dbb58e43785c35ba6c">&#9670;&nbsp;</a></span>getLifecycleEvents</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -978,30 +530,12 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Whether background and foreground events are sent. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a5496c440daa0a9dbb58e43785c35ba6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5496c440daa0a9dbb58e43785c35ba6c">&#9670;&nbsp;</a></span>getLifecycleEvents <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) getLifecycleEvents </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Whether background and foreground events are sent. </dd></dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a065746f2993c40cd635f3b66efa9d251"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a065746f2993c40cd635f3b66efa9d251">&#9670;&nbsp;</a></span>installEvent <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a065746f2993c40cd635f3b66efa9d251">&#9670;&nbsp;</a></span>installEvent</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1015,29 +549,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a065746f2993c40cd635f3b66efa9d251"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a065746f2993c40cd635f3b66efa9d251">&#9670;&nbsp;</a></span>installEvent <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) installEvent </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1054,41 +571,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[2/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (instancetype) NS_UNAVAILABLE </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[3/4]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (instancetype) NS_UNAVAILABLE </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1105,7 +588,7 @@ Properties</h2></td></tr>
 </div>
 </div>
 <a id="a438132304bb8705edbb9a89512f81125"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a438132304bb8705edbb9a89512f81125">&#9670;&nbsp;</a></span>pauseEventTracking <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a438132304bb8705edbb9a89512f81125">&#9670;&nbsp;</a></span>pauseEventTracking</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1119,29 +602,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a438132304bb8705edbb9a89512f81125"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a438132304bb8705edbb9a89512f81125">&#9670;&nbsp;</a></span>pauseEventTracking <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) pauseEventTracking </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a3828de4f1426bf290d3f54a6192a3310"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3828de4f1426bf290d3f54a6192a3310">&#9670;&nbsp;</a></span>receiveScreenViewNotification: <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3828de4f1426bf290d3f54a6192a3310">&#9670;&nbsp;</a></span>receiveScreenViewNotification:</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1156,30 +622,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a3828de4f1426bf290d3f54a6192a3310"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3828de4f1426bf290d3f54a6192a3310">&#9670;&nbsp;</a></span>receiveScreenViewNotification: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) receiveScreenViewNotification: </td>
-          <td></td>
-          <td class="paramtype">(NSNotification *)&#160;</td>
-          <td class="paramname"><em>notification</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a4fa9d96fc92e0ccdf8d3b84e85615bf3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4fa9d96fc92e0ccdf8d3b84e85615bf3">&#9670;&nbsp;</a></span>removeGlobalContext: <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa9d96fc92e0ccdf8d3b84e85615bf3">&#9670;&nbsp;</a></span>removeGlobalContext:</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1201,37 +649,12 @@ Properties</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The global context associated with the tag or <code>nil</code> in case of any entry with that string tag. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a7d93f44b8e038fde213d30eaa5f9875c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d93f44b8e038fde213d30eaa5f9875c">&#9670;&nbsp;</a></span>removeGlobalContext: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (nullable <a class="el" href="interface_s_p_global_context.html">SPGlobalContext</a> *) removeGlobalContext: </td>
-          <td></td>
-          <td class="paramtype">(NSString *)&#160;</td>
-          <td class="paramname"><em>tag</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Remove the global context associated with the string tag. If the string tag exist it returns the global context generator associated with. </p><dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">tag</td><td>The tag associated to the global context. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The global context associated with the tag or <code>nil</code> in case of any entry with that string tag. </dd></dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a04e6b40a46e44344fad4cadb9d95b658"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04e6b40a46e44344fad4cadb9d95b658">&#9670;&nbsp;</a></span>resumeEventTracking <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a04e6b40a46e44344fad4cadb9d95b658">&#9670;&nbsp;</a></span>resumeEventTracking</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1245,29 +668,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a04e6b40a46e44344fad4cadb9d95b658"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a04e6b40a46e44344fad4cadb9d95b658">&#9670;&nbsp;</a></span>resumeEventTracking <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) resumeEventTracking </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="ae5ae3e2de4a11779b672c472d4f223a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5ae3e2de4a11779b672c472d4f223a0">&#9670;&nbsp;</a></span>screenContext <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5ae3e2de4a11779b672c472d4f223a0">&#9670;&nbsp;</a></span>screenContext</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1281,29 +687,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="ae5ae3e2de4a11779b672c472d4f223a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5ae3e2de4a11779b672c472d4f223a0">&#9670;&nbsp;</a></span>screenContext <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) screenContext </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a947c4bcb8b9513816c01f4f63897f260"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a947c4bcb8b9513816c01f4f63897f260">&#9670;&nbsp;</a></span>sessionContext <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a947c4bcb8b9513816c01f4f63897f260">&#9670;&nbsp;</a></span>sessionContext</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1317,29 +706,12 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a947c4bcb8b9513816c01f4f63897f260"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a947c4bcb8b9513816c01f4f63897f260">&#9670;&nbsp;</a></span>sessionContext <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) sessionContext </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a5f7b1f8e5ef2884a648c795c9e651610"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f7b1f8e5ef2884a648c795c9e651610">&#9670;&nbsp;</a></span>track: <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f7b1f8e5ef2884a648c795c9e651610">&#9670;&nbsp;</a></span>track:</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1360,36 +732,12 @@ Properties</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a5f7b1f8e5ef2884a648c795c9e651610"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f7b1f8e5ef2884a648c795c9e651610">&#9670;&nbsp;</a></span>track: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) track: </td>
-          <td></td>
-          <td class="paramtype">(<a class="el" href="interface_s_p_event.html">SPEvent</a> *)&#160;</td>
-          <td class="paramname"><em>event</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>The event to track </td></tr>
-  </table>
-  </dd>
-</dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <a id="a72fcf6b15892c88f18d935d244d9104b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72fcf6b15892c88f18d935d244d9104b">&#9670;&nbsp;</a></span>trackerDiagnostic <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a72fcf6b15892c88f18d935d244d9104b">&#9670;&nbsp;</a></span>trackerDiagnostic</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1403,80 +751,13 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00125">125</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
-
-</div>
-</div>
-<a id="a72fcf6b15892c88f18d935d244d9104b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a72fcf6b15892c88f18d935d244d9104b">&#9670;&nbsp;</a></span>trackerDiagnostic <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (BOOL) trackerDiagnostic </td>
-          <td></td>
-          <td class="paramname"></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="adb87a7e0b3353a82a78ade7cdf78578b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb87a7e0b3353a82a78ade7cdf78578b">&#9670;&nbsp;</a></span>trackSelfDescribingEvent: <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) trackSelfDescribingEvent: </td>
-          <td></td>
-          <td class="paramtype">(&quot;Will be removed in the next major version. Use `track(...)` passing a `SelfDescribing` event instead.&quot;)&#160;</td>
-          <td class="paramname"><em>__deprecated_msg</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd>This is an alias for trackUnstructuredEvent:event.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>An self-describing JSON. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a id="adb87a7e0b3353a82a78ade7cdf78578b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb87a7e0b3353a82a78ade7cdf78578b">&#9670;&nbsp;</a></span>trackSelfDescribingEvent: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) trackSelfDescribingEvent: </td>
-          <td></td>
-          <td class="paramtype">(&quot;Will be removed in the next major version. Use `track(...)` passing a `SelfDescribing` event instead.&quot;)&#160;</td>
-          <td class="paramname"><em>__deprecated_msg</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section note"><dt>Note</dt><dd>This is an alias for trackUnstructuredEvent:event.</dd></dl>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>An self-describing JSON. </td></tr>
-  </table>
-  </dd>
-</dl>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="a50bf5d0174c23c39639d70f7fa5ac35c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50bf5d0174c23c39639d70f7fa5ac35c">&#9670;&nbsp;</a></span>appId</h2>
+<a id="aeb7d69d21f368888a32a72c26c6d67ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb7d69d21f368888a32a72c26c6d67ff">&#9670;&nbsp;</a></span>appId</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1485,7 +766,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSString *) appId</td>
+          <td class="memname">- (NSString*) appId</td>
         </tr>
       </table>
   </td>
@@ -1495,7 +776,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00259">259</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00231">231</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
@@ -1519,12 +800,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00263">263</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00235">235</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
-<a id="a94d733b42b622b3040c5adb8a18c5674"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94d733b42b622b3040c5adb8a18c5674">&#9670;&nbsp;</a></span>currentScreenState</h2>
+<a id="a6f0862d7ee7afbc7655cb6101d442a4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6f0862d7ee7afbc7655cb6101d442a4d">&#9670;&nbsp;</a></span>currentScreenState</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1533,7 +814,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *) currentScreenState</td>
+          <td class="memname">- (<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a>*) currentScreenState</td>
         </tr>
       </table>
   </td>
@@ -1543,7 +824,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00269">269</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00243">243</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
@@ -1567,12 +848,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00265">265</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00237">237</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
-<a id="a9c1968a472f50c67a99ff7c33ae4c46b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c1968a472f50c67a99ff7c33ae4c46b">&#9670;&nbsp;</a></span>emitter</h2>
+<a id="afe539ac6a0ae6a0837289b63280b7347"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afe539ac6a0ae6a0837289b63280b7347">&#9670;&nbsp;</a></span>emitter</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1581,7 +862,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_emitter.html">SPEmitter</a> *) emitter</td>
+          <td class="memname">- (<a class="el" href="interface_s_p_emitter.html">SPEmitter</a>*) emitter</td>
         </tr>
       </table>
   </td>
@@ -1591,12 +872,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00253">253</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00225">225</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
-<a id="a09707cf1934854e30dbaa4040c4bd0ee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09707cf1934854e30dbaa4040c4bd0ee">&#9670;&nbsp;</a></span>globalContextGenerators</h2>
+<a id="a6d15c78ec57c322b541baf3d1d7838d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d15c78ec57c322b541baf3d1d7838d5">&#9670;&nbsp;</a></span>globalContextGenerators</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1605,7 +886,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSMutableDictionary&lt; NSString *, <a class="el" href="interface_s_p_global_context.html">SPGlobalContext</a> * &gt; *) globalContextGenerators</td>
+          <td class="memname">- (NSMutableDictionary&lt;NSString *, <a class="el" href="interface_s_p_global_context.html">SPGlobalContext</a> *&gt;*) globalContextGenerators</td>
         </tr>
       </table>
   </td>
@@ -1615,7 +896,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00273">273</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00247">247</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
@@ -1639,12 +920,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00271">271</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00245">245</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
-<a id="ac070ac7c7fb910541a6b899478e656cd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac070ac7c7fb910541a6b899478e656cd">&#9670;&nbsp;</a></span>previousScreenState</h2>
+<a id="aa67525cde5b8165a61548549fae7410a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa67525cde5b8165a61548549fae7410a">&#9670;&nbsp;</a></span>previousScreenState</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1653,7 +934,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a> *) previousScreenState</td>
+          <td class="memname">- (<a class="el" href="interface_s_p_screen_state.html">SPScreenState</a>*) previousScreenState</td>
         </tr>
       </table>
   </td>
@@ -1663,12 +944,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00267">267</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00241">241</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
-<a id="a489ce4ff16de97e53fa2d339df7ee7aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a489ce4ff16de97e53fa2d339df7ee7aa">&#9670;&nbsp;</a></span>session</h2>
+<a id="a20935b7ed4e202ab3bebb808712d0899"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20935b7ed4e202ab3bebb808712d0899">&#9670;&nbsp;</a></span>session</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1677,7 +958,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_session.html">SPSession</a> *) session</td>
+          <td class="memname">- (<a class="el" href="interface_s_p_session.html">SPSession</a>*) session</td>
         </tr>
       </table>
   </td>
@@ -1687,12 +968,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00257">257</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00229">229</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
-<a id="aaa4d7fa395e976cf77921e862809b8d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa4d7fa395e976cf77921e862809b8d1">&#9670;&nbsp;</a></span>subject</h2>
+<a id="a59099084083240184e72f41011390c59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59099084083240184e72f41011390c59">&#9670;&nbsp;</a></span>subject</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1701,7 +982,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_subject.html">SPSubject</a> *) subject</td>
+          <td class="memname">- (<a class="el" href="interface_s_p_subject.html">SPSubject</a>*) subject</td>
         </tr>
       </table>
   </td>
@@ -1711,12 +992,12 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00255">255</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00227">227</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
-<a id="a01c00090d40b9effb2d1fea225735f3c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a01c00090d40b9effb2d1fea225735f3c">&#9670;&nbsp;</a></span>trackerNamespace</h2>
+<a id="a97987b98d675ea54a02798cc8f83145b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97987b98d675ea54a02798cc8f83145b">&#9670;&nbsp;</a></span>trackerNamespace</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1725,7 +1006,7 @@ Properties</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">- (NSString *) trackerNamespace</td>
+          <td class="memname">- (NSString*) trackerNamespace</td>
         </tr>
       </table>
   </td>
@@ -1735,12 +1016,36 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_8h_source.html#l00261">261</a> of file <a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00233">233</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
+
+</div>
+</div>
+<a id="a04714965c7be43ed76e2b916b73f452b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04714965c7be43ed76e2b916b73f452b">&#9670;&nbsp;</a></span>trackerVersionSuffix</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (NSString*) trackerVersionSuffix</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8h_source.html#l00239">239</a> of file <a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_tracker_8h_source.html">SPTracker.h</a></li>
+<li>/github/workspace/Snowplow/Internal/Tracker/<a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a></li>
 <li>/github/workspace/Snowplow/Internal/Tracker/<a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a></li>
 </ul>
 </div><!-- contents -->

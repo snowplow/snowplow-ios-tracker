@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,7 +88,7 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2020 Snowplow Analytics.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2021 Snowplow Analytics.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
@@ -102,35 +102,55 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#pragma GCC diagnostic ignored &quot;-Wdeprecated-declarations&quot;</span> <span class="comment">// to ignore warnings for deprecated methods that we are forced to use until the next major version release</span></div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;- (instancetype)initWithEvent:(<a class="code" href="interface_s_p_event.html">SPEvent</a> *)event {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">self</span>.eventId = [NSUUID UUID];</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">self</span>.timestamp = (<span class="keywordtype">long</span> long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">self</span>.<a class="code" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a> = <span class="keyword">event</span>.trueTimestamp;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">self</span>.contexts = [event.contexts mutableCopy];</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">self</span>.payload = [event.payload mutableCopy];</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">self</span>.isService = [event isKindOfClass:SPTrackerError.class];</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> ([event isKindOfClass:<a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a>.class]) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keyword">self</span>.eventName = [(<a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a> *)<a class="code" href="interface_s_p_primitive_abstract.html">event</a> name];</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <span class="keyword">self</span>.isPrimitive = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keyword">self</span>.schema = [(<a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a> *)<a class="code" href="interface_s_p_self_describing_abstract.html">event</a> schema];</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            <span class="keyword">self</span>.isPrimitive = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#pragma GCC diagnostic pop</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> [<span class="keyword">self</span> <a class="code" href="interface_s_p_tracker_event.html#ae931a34fbe50d36032548c0f3068ef6c">initWithEvent</a>:event <a class="code" href="interface_s_p_tracker_event.html#ae931a34fbe50d36032548c0f3068ef6c">state</a>:nil];</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;- (instancetype)initWithEvent:(<a class="code" href="interface_s_p_event.html">SPEvent</a> *)event state:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_tracker_state_snapshot-p.html">SPTrackerStateSnapshot</a>&gt;)state {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">self</span>.eventId = [NSUUID UUID];</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">self</span>.timestamp = (<span class="keywordtype">long</span> long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">self</span>.trueTimestamp = <span class="keyword">event</span>.trueTimestamp;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">self</span>.contexts = [event.contexts mutableCopy];</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">self</span>.payload = [event.payload mutableCopy];</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">self</span>.state = <a class="code" href="interface_s_p_tracker_event.html#a4623e7d355d981bf4beb0688dd4d3e8f">state</a> ?: [<a class="code" href="interface_s_p_tracker_state.html">SPTrackerState</a> new];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">self</span>.isService = [event isKindOfClass:SPTrackerError.class];</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">if</span> ([event isKindOfClass:<a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a>.class]) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            <span class="keyword">self</span>.eventName = [(<a class="code" href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a> *)<a class="code" href="interface_s_p_primitive_abstract.html">event</a> eventName];</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keyword">self</span>.isPrimitive = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            <span class="keyword">self</span>.schema = [(<a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a> *)<a class="code" href="interface_s_p_self_describing_abstract.html">event</a> schema];</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keyword">self</span>.isPrimitive = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#pragma GCC diagnostic pop</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;- (BOOL)addPayloadValues:(nonnull NSDictionary&lt;NSString *,NSObject *&gt; *)payload {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    __block BOOL result = YES;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    [payload enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSObject * _Nonnull obj, BOOL * _Nonnull stop) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        if (![<span class="keyword">self</span>.payload objectForKey:key]) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            [<span class="keyword">self</span>.payload setObject:obj forKey:key];</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        } else {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            result = NO;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }];</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">return</span> result;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_tracker_error_8h_html"><div class="ttname"><a href="_s_p_tracker_error_8h.html">SPTrackerError.h</a></div></div>
 <div class="ttc" id="a_s_p_tracker_event_8h_html"><div class="ttname"><a href="_s_p_tracker_event_8h.html">SPTrackerEvent.h</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html"><div class="ttname"><a href="interface_s_p_event.html">SPEvent</a></div><div class="ttdoc">This class has the basic functionality needed to represent all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00082">SPEventBase.h:83</a></div></div>
-<div class="ttc" id="ainterface_s_p_event_html_a3ed1bb1701daa3787d23b6315cc86337"><div class="ttname"><a href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">SPEvent::trueTimestamp</a></div><div class="ttdeci">NSDate * trueTimestamp</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00085">SPEventBase.h:85</a></div></div>
-<div class="ttc" id="ainterface_s_p_primitive_abstract_html"><div class="ttname"><a href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00132">SPEventBase.h:133</a></div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00120">SPEventBase.h:121</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_event_html"><div class="ttname"><a href="interface_s_p_tracker_event.html">SPTrackerEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_event_8h_source.html#l00029">SPTrackerEvent.h:29</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html"><div class="ttname"><a href="interface_s_p_event.html">SPEvent</a></div><div class="ttdoc">This class has the basic functionality needed to represent all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00072">SPEventBase.h:73</a></div></div>
+<div class="ttc" id="ainterface_s_p_primitive_abstract_html"><div class="ttname"><a href="interface_s_p_primitive_abstract.html">SPPrimitiveAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00110">SPEventBase.h:111</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00101">SPEventBase.h:102</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_event_html"><div class="ttname"><a href="interface_s_p_tracker_event.html">SPTrackerEvent</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_event_8h_source.html#l00030">SPTrackerEvent.h:30</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_event_html_a4623e7d355d981bf4beb0688dd4d3e8f"><div class="ttname"><a href="interface_s_p_tracker_event.html#a4623e7d355d981bf4beb0688dd4d3e8f">SPTrackerEvent::state</a></div><div class="ttdeci">id&lt; SPTrackerStateSnapshot &gt; state</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_event_8h_source.html#l00039">SPTrackerEvent.h:39</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_event_html_ae931a34fbe50d36032548c0f3068ef6c"><div class="ttname"><a href="interface_s_p_tracker_event.html#ae931a34fbe50d36032548c0f3068ef6c">-[SPTrackerEvent initWithEvent:state:]</a></div><div class="ttdeci">instancetype initWithEvent:state:(SPEvent *event,[state] nullable id&lt; SPTrackerStateSnapshot &gt; state)</div></div>
+<div class="ttc" id="ainterface_s_p_tracker_state_html"><div class="ttname"><a href="interface_s_p_tracker_state.html">SPTrackerState</a></div><div class="ttdoc">The global tracker state which collects all the state generated by the tracker state machines.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_state_8h_source.html#l00030">SPTrackerState.h:30</a></div></div>
+<div class="ttc" id="aprotocol_s_p_tracker_state_snapshot-p_html"><div class="ttname"><a href="protocol_s_p_tracker_state_snapshot-p.html">SPTrackerStateSnapshot-p</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_state_snapshot_8h_source.html#l00029">SPTrackerStateSnapshot.h:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

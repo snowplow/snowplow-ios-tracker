@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -76,6 +76,12 @@ $(function() {
 <li>dataPersistenceForNamespace:
 : <a class="el" href="interface_s_p_data_persistence.html#a8655c0bee74b74a3124e8380a2955f4a">SPDataPersistence</a>
 </li>
+<li>dataPersistenceForNamespace:storedOnFile:
+: <a class="el" href="interface_s_p_data_persistence.html#ab5f15b57f365b80e3745fe4005271edc">SPDataPersistence</a>
+</li>
+<li>date
+: <a class="el" href="category_s_p_push_notification_07_08.html#aaa3b60b07bfc86e8f76c1e4a8cec2187">SPPushNotification()</a>
+</li>
 <li>dbCount
 : <a class="el" href="protocol_s_p_emitter_controller-p.html#a5343864a4f56195164c24c6473b7d6e5">&lt;SPEmitterController&gt;</a>
 </li>
@@ -86,6 +92,10 @@ $(function() {
 : <a class="el" href="interface_s_p_logger.html#a51196afe5683f55e04f461c574651c52">SPLogger</a>
 , <a class="el" href="protocol_s_p_logger_delegate-p.html#a51196afe5683f55e04f461c574651c52">&lt;SPLoggerDelegate&gt;</a>
 </li>
+<li>deepLinkContext
+: <a class="el" href="interface_s_p_tracker.html#a26e47154d80d750a70c41dd4e2439539">SPTracker</a>
+, <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#ad580431c1acbc1169d0fba512c288839">&lt;SPTrackerConfigurationProtocol&gt;</a>
+</li>
 <li>defaultBundle
 : <a class="el" href="category_s_p_configuration_provider_07_08.html#a5e23cbb367c5a3c68cdf4a839f7074e1">SPConfigurationProvider()</a>
 </li>
@@ -93,7 +103,7 @@ $(function() {
 : <a class="el" href="category_s_p_snowplow_07_08.html#accde7e30fd657ad89590fce8d0433a95">SPSnowplow()</a>
 </li>
 <li>defaultTracker
-: <a class="el" href="interface_s_p_snowplow.html#a66d4188c04dc962de2883ccfcf9fd386">SPSnowplow</a>
+: <a class="el" href="interface_s_p_snowplow.html#af88c6a4e3eba13d0aed98d7bf438e84c">SPSnowplow</a>
 </li>
 <li>delegate
 : <a class="el" href="category_s_p_logger_07_08.html#af8663a7a0fc137158964a6b3eeef532f">SPLogger()</a>
@@ -102,24 +112,33 @@ $(function() {
 <li>denied
 : <a class="el" href="interface_s_p_schema_ruleset.html#ab88f1dcc29bfd1ce804ddb50011ff17b">SPSchemaRuleset</a>
 </li>
-<li>DEPRECATED_ATTRIBUTE
-: <a class="el" href="interface_s_p_session.html#ae9bde39a296cb7d8fd8a988fd22a5805">SPSession</a>
-</li>
 <li>description
 : <a class="el" href="interface_s_p_self_describing_json.html#a0920dc7935061bc57daab91706be5934">SPSelfDescribingJson</a>
 </li>
 <li>deserializeData:
 : <a class="el" href="interface_s_p_j_s_o_n_serialization.html#ae58f498b40633c0aa0bb0ead82ea1e52">SPJSONSerialization</a>
 </li>
+<li>deviceInfoMonitor
+: <a class="el" href="category_s_p_platform_context_07_08.html#a4cb557d10156115d8a0316bf967b49a3">SPPlatformContext()</a>
+</li>
+<li>deviceModel
+: <a class="el" href="interface_s_p_device_info_monitor.html#af1a4bff9aaf62200754f3948c908b548">SPDeviceInfoMonitor</a>
+</li>
 <li>devicePlatform
 : <a class="el" href="interface_s_p_tracker.html#a606cc5a8cc75395474e895b6575c22d1">SPTracker</a>
 , <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a606cc5a8cc75395474e895b6575c22d1">&lt;SPTrackerConfigurationProtocol&gt;</a>
+</li>
+<li>deviceVendor
+: <a class="el" href="interface_s_p_device_info_monitor.html#a63de4e6b24b45d48f5e2e4f82cb4816e">SPDeviceInfoMonitor</a>
 </li>
 <li>diagnostic:message:errorOrException:
 : <a class="el" href="interface_s_p_logger.html#a3d545afaac963331161b72b43931219c">SPLogger</a>
 </li>
 <li>diagnosticAutotracking
 : <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a83ee43d0a3875bd50e016e534491b264">&lt;SPTrackerConfigurationProtocol&gt;</a>
+</li>
+<li>dictionary
+: <a class="el" href="category_s_p_message_notification_attachment_07_08.html#a95d2021067e2a15ce22e06fe30e33b31">SPMessageNotificationAttachment()</a>
 </li>
 <li>directoryUrl
 : <a class="el" href="category_s_p_data_persistence_07_08.html#a72478e5a0945a0e3d7c6f12fb1646a2d">SPDataPersistence()</a>
@@ -137,16 +156,18 @@ $(function() {
 , <a class="el" href="category_s_p_g_d_p_r_configuration_07_08.html#a64eb47b62bbb1859ef569d9ba2af47e0">SPGDPRConfiguration()</a>
 , <a class="el" href="protocol_s_p_g_d_p_r_configuration_protocol-p.html#a64eb47b62bbb1859ef569d9ba2af47e0">&lt;SPGDPRConfigurationProtocol&gt;</a>
 , <a class="el" href="category_s_p_gdpr_context_07_08.html#a64eb47b62bbb1859ef569d9ba2af47e0">SPGdprContext()</a>
-, <a class="el" href="interface_s_p_gdpr_context.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPGdprContext</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#a64eb47b62bbb1859ef569d9ba2af47e0">SPGdprContext</a>
 </li>
 <li>documentId
-: <a class="el" href="interface_s_p_consent_document.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentDocument</a>
+: <a class="el" href="category_s_p_consent_document_07_08.html#ae44e6b200e862c07209b87cb42f9deec">SPConsentDocument()</a>
+, <a class="el" href="interface_s_p_consent_document.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentDocument</a>
+, <a class="el" href="category_s_p_consent_granted_07_08.html#ae44e6b200e862c07209b87cb42f9deec">SPConsentGranted()</a>
 , <a class="el" href="interface_s_p_consent_granted.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentGranted</a>
 , <a class="el" href="interface_s_p_consent_withdrawn.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentWithdrawn</a>
 , <a class="el" href="category_s_p_g_d_p_r_configuration_07_08.html#ae44e6b200e862c07209b87cb42f9deec">SPGDPRConfiguration()</a>
 , <a class="el" href="protocol_s_p_g_d_p_r_configuration_protocol-p.html#ae44e6b200e862c07209b87cb42f9deec">&lt;SPGDPRConfigurationProtocol&gt;</a>
 , <a class="el" href="category_s_p_gdpr_context_07_08.html#ae44e6b200e862c07209b87cb42f9deec">SPGdprContext()</a>
-, <a class="el" href="interface_s_p_gdpr_context.html#ae8e7d37e01479eab475ab8395d1e138c">SPGdprContext</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#ae44e6b200e862c07209b87cb42f9deec">SPGdprContext</a>
 </li>
 <li>documents
 : <a class="el" href="interface_s_p_consent_granted.html#ac04eadf04876e55d5d380255bf3cbbbe">SPConsentGranted</a>
@@ -156,10 +177,10 @@ $(function() {
 : <a class="el" href="category_s_p_g_d_p_r_configuration_07_08.html#aa0fa004d2853700050646cf210ddab47">SPGDPRConfiguration()</a>
 , <a class="el" href="protocol_s_p_g_d_p_r_configuration_protocol-p.html#aa0fa004d2853700050646cf210ddab47">&lt;SPGDPRConfigurationProtocol&gt;</a>
 , <a class="el" href="category_s_p_gdpr_context_07_08.html#aa0fa004d2853700050646cf210ddab47">SPGdprContext()</a>
-, <a class="el" href="interface_s_p_gdpr_context.html#ae9f4b5d0e8efd40efb5fdad768870c2d">SPGdprContext</a>
+, <a class="el" href="interface_s_p_gdpr_context.html#aa0fa004d2853700050646cf210ddab47">SPGdprContext</a>
 </li>
 <li>domainUserId
-: <a class="el" href="interface_s_p_subject.html#ad80b3b6a04862519d67367634089d3d7">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#aaa87f2ab7d80af27d2d688ea3f0d8a0e">SPSubject</a>
 , <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#aaa87f2ab7d80af27d2d688ea3f0d8a0e">&lt;SPSubjectConfigurationProtocol&gt;</a>
 </li>
 </ul>

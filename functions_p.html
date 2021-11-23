@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -69,7 +69,12 @@ $(function() {
 : <a class="el" href="interface_s_p_page_view.html#a311928fc4f00ef3f32dab5974a77e81c">SPPageView</a>
 </li>
 <li>pageUrl
-: <a class="el" href="interface_s_p_page_view.html#a003317b43f5ecaa5e3882ceb8b317a24">SPPageView</a>
+: <a class="el" href="category_s_p_page_view_07_08.html#a636e6d44af59d423e621666a7a795ca6">SPPageView()</a>
+, <a class="el" href="interface_s_p_page_view.html#a003317b43f5ecaa5e3882ceb8b317a24">SPPageView</a>
+</li>
+<li>parameters
+: <a class="el" href="category_s_p_deep_link_entity_07_08.html#a66be8a8de6c02810de83a12378b4be70">SPDeepLinkEntity()</a>
+, <a class="el" href="category_s_p_lifecycle_entity_07_08.html#a66be8a8de6c02810de83a12378b4be70">SPLifecycleEntity()</a>
 </li>
 <li>pause
 : <a class="el" href="interface_s_p_emitter.html#a7167f5c196fc5e167bfabde1a730e81d">SPEmitter</a>
@@ -81,18 +86,28 @@ $(function() {
 : <a class="el" href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">SPTracker</a>
 </li>
 <li>payload
-: <a class="el" href="category_s_p_emitter_event_07_08.html#a8815e44ac439b5f786761dc2554a1639">SPEmitterEvent()</a>
+: <a class="el" href="interface_s_p_screen_state.html#a3d6327b7c5a53bfc67c5b0e748b8a83d">SPScreenState</a>
+, <a class="el" href="category_s_p_emitter_event_07_08.html#a8815e44ac439b5f786761dc2554a1639">SPEmitterEvent()</a>
 , <a class="el" href="interface_s_p_emitter_event.html#aff6cd163bdf0e28a8a6336674e9dc107">SPEmitterEvent</a>
 , <a class="el" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent</a>
 , <a class="el" href="protocol_s_p_inspectable_event-p.html#aa0f021eb5f64dbc10a95109ee06ac31f">&lt;SPInspectableEvent&gt;</a>
 , <a class="el" href="interface_s_p_notification_content.html#a0572db16dcfb3be5364f2451edb4c737">SPNotificationContent</a>
 , <a class="el" href="category_s_p_request_07_08.html#a8815e44ac439b5f786761dc2554a1639">SPRequest()</a>
 , <a class="el" href="interface_s_p_request.html#aff6cd163bdf0e28a8a6336674e9dc107">SPRequest</a>
-, <a class="el" href="interface_s_p_tracker_event.html#aa0f021eb5f64dbc10a95109ee06ac31f">SPTrackerEvent</a>
+, <a class="el" href="interface_s_p_tracker_event.html#a879a1eda32f4c34cfe3f7711c422f9f1">SPTrackerEvent</a>
+</li>
+<li>payloadValuesFromEvent:state:
+: <a class="el" href="protocol_s_p_state_machine_protocol-p.html#adbb43780d28c69ff652f471038605a2d">&lt;SPStateMachineProtocol&gt;</a>
+</li>
+<li>physicalMemory
+: <a class="el" href="interface_s_p_device_info_monitor.html#a5406a6a333d6e17f526e1073cf134131">SPDeviceInfoMonitor</a>
 </li>
 <li>platformContext
 : <a class="el" href="interface_s_p_subject.html#aac4981818b95f50d2a838fdb76a34f9f">SPSubject</a>
 , <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#aac4981818b95f50d2a838fdb76a34f9f">&lt;SPTrackerConfigurationProtocol&gt;</a>
+</li>
+<li>platformDict
+: <a class="el" href="category_s_p_platform_context_07_08.html#aefae67fdbe7dffa7378b8cfd4e49d895">SPPlatformContext()</a>
 </li>
 <li>previousId
 : <a class="el" href="interface_s_p_screen_view.html#a1431319fe6f00bce7f421490d7523d85">SPScreenView</a>
@@ -104,14 +119,18 @@ $(function() {
 : <a class="el" href="interface_s_p_screen_view.html#a5aa729c0d5c1a2666adaf3a286911ae1">SPScreenView</a>
 </li>
 <li>previousScreenState
-: <a class="el" href="category_s_p_tracker_07_08.html#aa67525cde5b8165a61548549fae7410a">SPTracker()</a>
-, <a class="el" href="interface_s_p_tracker.html#ac070ac7c7fb910541a6b899478e656cd">SPTracker</a>
+: <a class="el" href="interface_s_p_tracker.html#aa67525cde5b8165a61548549fae7410a">SPTracker</a>
+</li>
+<li>previousState
+: <a class="el" href="interface_s_p_screen_state.html#ace14bf52b47ee1ac9a8b359121e1b842">SPScreenState</a>
+, <a class="el" href="category_s_p_state_future_07_08.html#a144a659866a46df90f0d9c0479c3a0f5">SPStateFuture()</a>
 </li>
 <li>previousType
 : <a class="el" href="interface_s_p_screen_view.html#a6b29640f6ea7b6d84f2df3084eb6c748">SPScreenView</a>
 </li>
 <li>price
-: <a class="el" href="interface_s_p_ecommerce_item.html#a2dd971c730f66a160e799f907a8ccb9c">SPEcommerceItem</a>
+: <a class="el" href="category_s_p_ecommerce_item_07_08.html#a5d9b1fdd408311b474bfdc328a05c6a9">SPEcommerceItem()</a>
+, <a class="el" href="interface_s_p_ecommerce_item.html#a2dd971c730f66a160e799f907a8ccb9c">SPEcommerceItem</a>
 </li>
 <li>property
 : <a class="el" href="interface_s_p_structured.html#a6a57e2084a8d583cf1c898e71563f191">SPStructured</a>

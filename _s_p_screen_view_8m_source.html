@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,171 +88,87 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2020 Snowplow Analytics.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2021 Snowplow Analytics.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_events_2_s_p_screen_view_8h.html">SPScreenView.h</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#import &quot;SPPayload.h&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#import &quot;SPSelfDescribingJson.h&quot;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_screen_state_8h.html">SPScreenState.h</a>&quot;</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_screen_view.html">SPScreenView</a> {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    NSString * <a class="code" href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">   33</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">_screenId</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="_s_p_screen_view_8m.html#a3709e0af2ffb58f832d438ab0e5d54db">   34</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#a3709e0af2ffb58f832d438ab0e5d54db">_type</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="_s_p_screen_view_8m.html#a007722393ef40d9dd160dc126563e14d">   35</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#a007722393ef40d9dd160dc126563e14d">_previousName</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="_s_p_screen_view_8m.html#a248eb7867be59cc6bc5b4201517a7bbc">   36</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#a248eb7867be59cc6bc5b4201517a7bbc">_previousId</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="_s_p_screen_view_8m.html#a6f64cec757fdaaed01bf3253912c8278">   37</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#a6f64cec757fdaaed01bf3253912c8278">_previousType</a>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="_s_p_screen_view_8m.html#a0836bc0b2863a558c3614c89db1e0622">   38</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#a0836bc0b2863a558c3614c89db1e0622">_transitionType</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="_s_p_screen_view_8m.html#a67519a9f39eb84d452b716a8c689245b">   39</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#a67519a9f39eb84d452b716a8c689245b">_viewControllerClassName</a>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="interface_s_p_screen_view.html#ab6d97c69cd8da8ce099167364706a3ac">   40</a></span>&#160;    NSString * <a class="code" href="_s_p_screen_view_8m.html#ac134301e912f2a37061671845e44fdd9">_topViewControllerClassName</a>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;+ (instancetype)build:(<span class="keywordtype">void</span>(^)(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_screen_view_builder-p.html">SPScreenViewBuilder</a>&gt;builder))buildBlock {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="interface_s_p_screen_view.html">SPScreenView</a>* <span class="keyword">event</span> = [<a class="code" href="interface_s_p_screen_view.html">SPScreenView</a> new];</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (buildBlock) { buildBlock(event); }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    [event preconditions];</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> event;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;- (instancetype)init {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">_screenId</a>) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">_screenId</a> = [[NSUUID UUID] UUIDString];</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;- (instancetype)initWithName:(NSString *)name screenId:(nullable NSUUID *)screenId {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <a class="code" href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">_screenId</a> = [(screenId ?: [NSUUID UUID]) UUIDString];</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a> = name;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_name length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Name cannot be empty.&quot;];</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a">isUUIDString</a>:_screenId]) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;ScreenID has to be a valid UUID string.&quot;];</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;- (void) preconditions {</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_name length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Name cannot be empty.&quot;];</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a">isUUIDString</a>:_screenId]) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;ScreenID has to be a valid UUID string.&quot;];</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// --- Builder Methods</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, type)</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, previousName)</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, previousId)</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, previousType)</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, transitionType)</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, viewControllerClassName)</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, topViewControllerClassName)</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#pragma clang diagnostic push</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wdeprecated-implementations&quot;</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;- (void) setName:(NSString *)name {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a> = name;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;- (void) setScreenId:(NSString *)screenId {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">_screenId</a> = screenId;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;- (void) setType:(NSString *)type {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a3709e0af2ffb58f832d438ab0e5d54db">_type</a> = type;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;- (void) setPreviousScreenName:(NSString *)name {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a007722393ef40d9dd160dc126563e14d">_previousName</a> = name;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;- (void) setPreviousScreenId:(NSString *)screenId {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a248eb7867be59cc6bc5b4201517a7bbc">_previousId</a> = screenId;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;- (void) setPreviousScreenType:(NSString *)type {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a6f64cec757fdaaed01bf3253912c8278">_previousType</a> = type;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;- (void) setTransitionType:(NSString *)type {</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a0836bc0b2863a558c3614c89db1e0622">_transitionType</a> = type;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;- (void) setViewControllerClassName:(NSString *)className {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a67519a9f39eb84d452b716a8c689245b">_viewControllerClassName</a> = className;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;- (void) setTopViewControllerClassName:(NSString *)className {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#ac134301e912f2a37061671845e44fdd9">_topViewControllerClassName</a> = className;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;}</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160; </div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#pragma clang diagnostic pop</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">// --- Public Methods</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;- (NSString *)schema {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#a96beea4fff40d234f8192a9359ae5572">kSPScreenViewSchema</a>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)payload {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    NSMutableDictionary *payload = [NSMutableDictionary dictionary];</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    [payload setValue:_name forKey:kSPSvName];</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    [payload setValue:_screenId forKey:kSPSvScreenId];</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    [payload setValue:_type forKey:kSPSvType];</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    [payload setValue:_previousName forKey:kSPSvPreviousName];</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    [payload setValue:_previousType forKey:kSPSvPreviousType];</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    [payload setValue:_previousId forKey:kSPSvPreviousScreenId];</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    [payload setValue:_transitionType forKey:kSPSvTransitionType];</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">return</span> payload;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;}</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;- (<a class="code" href="interface_s_p_screen_state.html">SPScreenState</a> *) getScreenState {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">return</span> [[<a class="code" href="interface_s_p_screen_state.html">SPScreenState</a> alloc] initWithName:_name</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;                                          type:_type</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;                                      screenId:_screenId</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                transitionType:_transitionType</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;                    topViewControllerClassName:_topViewControllerClassName</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;                       viewControllerClassName:_viewControllerClassName];</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;}</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;- (BOOL) updateWithPreviousState:(<a class="code" href="interface_s_p_screen_state.html">SPScreenState</a> *)previousState {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordflow">if</span> (![previousState isValid]) {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">return</span> NO;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a007722393ef40d9dd160dc126563e14d">_previousName</a> = previousState.<a class="code" href="interface_s_p_screen_state.html#a4b93d352d2fca75b34e1b5a50e03f587">name</a>;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a248eb7867be59cc6bc5b4201517a7bbc">_previousId</a> = previousState.<a class="code" href="interface_s_p_screen_state.html#aee9144d75682935c9a51d00df414d317">screenId</a>;</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <a class="code" href="_s_p_screen_view_8m.html#a6f64cec757fdaaed01bf3253912c8278">_previousType</a> = previousState.<a class="code" href="interface_s_p_screen_state.html#abff6a04d71c2bba87e646615388a1f5c">type</a>;</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> YES;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;}</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="category_s_p_screen_view_07_08.html">   32</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_screen_view.html">SPScreenView</a> ()</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="category_s_p_screen_view_07_08.html#a4b93d352d2fca75b34e1b5a50e03f587">   34</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) NSString *<a class="code" href="interface_s_p_screen_view.html#afc8ccc6676addc3b49a494b2bf969c68">name</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="category_s_p_screen_view_07_08.html#aee9144d75682935c9a51d00df414d317">   35</a></span>&#160;<span class="keyword">@property</span> (nonatomic, readwrite) NSString *<a class="code" href="interface_s_p_screen_view.html#a7acc3f3441395a99b549e5a07d0d3ce7">screenId</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_screen_view.html">SPScreenView</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;- (instancetype)initWithName:(NSString *)name screenId:(nullable NSUUID *)screenId {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        _screenId = [(screenId ?: [NSUUID UUID]) UUIDString];</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        _name = <a class="code" href="interface_s_p_screen_view.html#afc8ccc6676addc3b49a494b2bf969c68">name</a>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([_name length] != 0) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;Name cannot be empty.&quot;];</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        [<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">checkArgument</a>:([<a class="code" href="interface_s_p_utilities.html">SPUtilities</a> <a class="code" href="interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a">isUUIDString</a>:_screenId]) <a class="code" href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">withMessage</a>:@&quot;ScreenID has to be a valid UUID string.&quot;];</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// --- Builder Methods</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_screen_view.html#a40ff878797d6b2d341b6d0861c4a6c91">type</a>)</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_screen_view.html#a5aa729c0d5c1a2666adaf3a286911ae1">previousName</a>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_screen_view.html#a1431319fe6f00bce7f421490d7523d85">previousId</a>)</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_screen_view.html#a6b29640f6ea7b6d84f2df3084eb6c748">previousType</a>)</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_screen_view.html#a5fcd2f58d6ce1c70aeb27d9b1ebc8662">transitionType</a>)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_screen_view.html#a1ba0f75fe1b6344dff67523a81cce81e">viewControllerClassName</a>)</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_screen_view.html#a605e6dfa160aa60da32014703588267c">topViewControllerClassName</a>)</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// --- Public Methods</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;- (NSString *)<a class="code" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a> {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#a96beea4fff40d234f8192a9359ae5572">kSPScreenViewSchema</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    NSMutableDictionary *<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> = [NSMutableDictionary dictionary];</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    [payload setValue:_name forKey:kSPSvName];</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    [payload setValue:_screenId forKey:kSPSvScreenId];</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    [payload setValue:_type forKey:kSPSvType];</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    [payload setValue:_previousName forKey:kSPSvPreviousName];</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    [payload setValue:_previousType forKey:kSPSvPreviousType];</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    [payload setValue:_previousId forKey:kSPSvPreviousScreenId];</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    [payload setValue:_transitionType forKey:kSPSvTransitionType];</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a>;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_internal_2_events_2_s_p_screen_view_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_screen_view_8h.html">SPScreenView.h</a></div></div>
-<div class="ttc" id="a_s_p_consent_document_8m_html_a352bcebdf7e19bfa71bddfc6dfa9f89d"><div class="ttname"><a href="_s_p_consent_document_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a></div><div class="ttdeci">NSString * _name</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_document_8m_source.html#l00033">SPConsentDocument.m:33</a></div></div>
 <div class="ttc" id="a_s_p_screen_state_8h_html"><div class="ttname"><a href="_s_p_screen_state_8h.html">SPScreenState.h</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_a007722393ef40d9dd160dc126563e14d"><div class="ttname"><a href="_s_p_screen_view_8m.html#a007722393ef40d9dd160dc126563e14d">_previousName</a></div><div class="ttdeci">NSString * _previousName</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00035">SPScreenView.m:35</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_a0836bc0b2863a558c3614c89db1e0622"><div class="ttname"><a href="_s_p_screen_view_8m.html#a0836bc0b2863a558c3614c89db1e0622">_transitionType</a></div><div class="ttdeci">NSString * _transitionType</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00038">SPScreenView.m:38</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_a248eb7867be59cc6bc5b4201517a7bbc"><div class="ttname"><a href="_s_p_screen_view_8m.html#a248eb7867be59cc6bc5b4201517a7bbc">_previousId</a></div><div class="ttdeci">NSString * _previousId</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00036">SPScreenView.m:36</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_a3709e0af2ffb58f832d438ab0e5d54db"><div class="ttname"><a href="_s_p_screen_view_8m.html#a3709e0af2ffb58f832d438ab0e5d54db">_type</a></div><div class="ttdeci">NSString * _type</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00034">SPScreenView.m:34</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_a67519a9f39eb84d452b716a8c689245b"><div class="ttname"><a href="_s_p_screen_view_8m.html#a67519a9f39eb84d452b716a8c689245b">_viewControllerClassName</a></div><div class="ttdeci">NSString * _viewControllerClassName</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00039">SPScreenView.m:39</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_a6f64cec757fdaaed01bf3253912c8278"><div class="ttname"><a href="_s_p_screen_view_8m.html#a6f64cec757fdaaed01bf3253912c8278">_previousType</a></div><div class="ttdeci">NSString * _previousType</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00037">SPScreenView.m:37</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_a7e45e74ee7490014c8e63c97418c63d6"><div class="ttname"><a href="_s_p_screen_view_8m.html#a7e45e74ee7490014c8e63c97418c63d6">_screenId</a></div><div class="ttdeci">NSString * _screenId</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00033">SPScreenView.m:31</a></div></div>
-<div class="ttc" id="a_s_p_screen_view_8m_html_ac134301e912f2a37061671845e44fdd9"><div class="ttname"><a href="_s_p_screen_view_8m.html#ac134301e912f2a37061671845e44fdd9">_topViewControllerClassName</a></div><div class="ttdeci">NSString * _topViewControllerClassName</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_view_8m_source.html#l00040">SPScreenView.m:40</a></div></div>
 <div class="ttc" id="a_s_p_tracker_constants_8m_html_a96beea4fff40d234f8192a9359ae5572"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a96beea4fff40d234f8192a9359ae5572">kSPScreenViewSchema</a></div><div class="ttdeci">NSString *const kSPScreenViewSchema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00058">SPTrackerConstants.m:58</a></div></div>
+<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_ae6c0cd7c5ec3616671af14ae52ac02d3"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a></div><div class="ttdeci">#define SP_BUILDER_METHOD(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00045">SPTrackerConstants.h:45</a></div></div>
-<div class="ttc" id="ainterface_s_p_screen_state_html"><div class="ttname"><a href="interface_s_p_screen_state.html">SPScreenState</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_state_8h_source.html#l00029">SPScreenState.h:29</a></div></div>
-<div class="ttc" id="ainterface_s_p_screen_state_html_a4b93d352d2fca75b34e1b5a50e03f587"><div class="ttname"><a href="interface_s_p_screen_state.html#a4b93d352d2fca75b34e1b5a50e03f587">SPScreenState::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_state_8h_source.html#l00032">SPScreenState.h:32</a></div></div>
-<div class="ttc" id="ainterface_s_p_screen_state_html_abff6a04d71c2bba87e646615388a1f5c"><div class="ttname"><a href="interface_s_p_screen_state.html#abff6a04d71c2bba87e646615388a1f5c">SPScreenState::type</a></div><div class="ttdeci">NSString * type</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_state_8h_source.html#l00034">SPScreenState.h:34</a></div></div>
-<div class="ttc" id="ainterface_s_p_screen_state_html_aee9144d75682935c9a51d00df414d317"><div class="ttname"><a href="interface_s_p_screen_state.html#aee9144d75682935c9a51d00df414d317">SPScreenState::screenId</a></div><div class="ttdeci">NSString * screenId</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_screen_state_8h_source.html#l00036">SPScreenState.h:36</a></div></div>
-<div class="ttc" id="ainterface_s_p_screen_view_html"><div class="ttname"><a href="interface_s_p_screen_view.html">SPScreenView</a></div><div class="ttdoc">A screenview event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00096">SPScreenView.h:96</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdoc">A class of utility functions.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_utilities_8h_source.html#l00041">SPUtilities.h:42</a></div></div>
-<div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false.</div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00081">SPEventBase.h:81</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html"><div class="ttname"><a href="interface_s_p_screen_view.html">SPScreenView</a></div><div class="ttdoc">A screenview event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00032">SPScreenView.h:33</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a1431319fe6f00bce7f421490d7523d85"><div class="ttname"><a href="interface_s_p_screen_view.html#a1431319fe6f00bce7f421490d7523d85">SPScreenView::previousId</a></div><div class="ttdeci">NSString * previousId</div><div class="ttdoc">Identifier of the previous screen.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00043">SPScreenView.h:43</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a1ba0f75fe1b6344dff67523a81cce81e"><div class="ttname"><a href="interface_s_p_screen_view.html#a1ba0f75fe1b6344dff67523a81cce81e">SPScreenView::viewControllerClassName</a></div><div class="ttdeci">NSString * viewControllerClassName</div><div class="ttdoc">Name of the ViewController subclass.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00049">SPScreenView.h:49</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a40ff878797d6b2d341b6d0861c4a6c91"><div class="ttname"><a href="interface_s_p_screen_view.html#a40ff878797d6b2d341b6d0861c4a6c91">SPScreenView::type</a></div><div class="ttdeci">NSString * type</div><div class="ttdoc">Type of screen.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00039">SPScreenView.h:39</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a5aa729c0d5c1a2666adaf3a286911ae1"><div class="ttname"><a href="interface_s_p_screen_view.html#a5aa729c0d5c1a2666adaf3a286911ae1">SPScreenView::previousName</a></div><div class="ttdeci">NSString * previousName</div><div class="ttdoc">Name of the previous screen.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00041">SPScreenView.h:41</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a5fcd2f58d6ce1c70aeb27d9b1ebc8662"><div class="ttname"><a href="interface_s_p_screen_view.html#a5fcd2f58d6ce1c70aeb27d9b1ebc8662">SPScreenView::transitionType</a></div><div class="ttdeci">NSString * transitionType</div><div class="ttdoc">Type of transition between previous and current screen,.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00047">SPScreenView.h:47</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a605e6dfa160aa60da32014703588267c"><div class="ttname"><a href="interface_s_p_screen_view.html#a605e6dfa160aa60da32014703588267c">SPScreenView::topViewControllerClassName</a></div><div class="ttdeci">NSString * topViewControllerClassName</div><div class="ttdoc">Name of the top ViewController subclass.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00051">SPScreenView.h:51</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a6b29640f6ea7b6d84f2df3084eb6c748"><div class="ttname"><a href="interface_s_p_screen_view.html#a6b29640f6ea7b6d84f2df3084eb6c748">SPScreenView::previousType</a></div><div class="ttdeci">NSString * previousType</div><div class="ttdoc">Type of the previous screen.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00045">SPScreenView.h:45</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_a7acc3f3441395a99b549e5a07d0d3ce7"><div class="ttname"><a href="interface_s_p_screen_view.html#a7acc3f3441395a99b549e5a07d0d3ce7">SPScreenView::screenId</a></div><div class="ttdeci">NSString * screenId</div><div class="ttdoc">Identifier of the screen.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00037">SPScreenView.h:37</a></div></div>
+<div class="ttc" id="ainterface_s_p_screen_view_html_afc8ccc6676addc3b49a494b2bf969c68"><div class="ttname"><a href="interface_s_p_screen_view.html#afc8ccc6676addc3b49a494b2bf969c68">SPScreenView::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdoc">Name of the screen.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00035">SPScreenView.h:35</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html_a95884c3e9e7835e3f4f87ffbf78d25c3"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingAbstract::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdoc">The schema of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00104">SPEventBase.h:104</a></div></div>
+<div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_utilities_8h_source.html#l00034">SPUtilities.h:35</a></div></div>
+<div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false. This allows for rudimentary Preconditions for objec...</div></div>
 <div class="ttc" id="ainterface_s_p_utilities_html_afedff29058e66fca587b7a272deeec5a"><div class="ttname"><a href="interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a">+[SPUtilities isUUIDString:]</a></div><div class="ttdeci">bool isUUIDString:(NSString *uuidString)</div><div class="ttdoc">Check if the value is a valid UUID (type 4).</div></div>
-<div class="ttc" id="aprotocol_s_p_screen_view_builder-p_html"><div class="ttname"><a href="protocol_s_p_screen_view_builder-p.html">SPScreenViewBuilder-p</a></div><div class="ttdoc">The protocol for building screenview events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_screen_view_8h_source.html#l00035">SPScreenView.h:35</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

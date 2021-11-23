@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -75,14 +75,13 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#import &quot;SPTrackerConstants.h&quot;</code><br />
-<code>#import &quot;<a class="el" href="_internal_2_tracker_2_s_p_tracker_8h_source.html">SPTracker.h</a>&quot;</code><br />
-<code>#import &quot;SPEmitter.h&quot;</code><br />
-<code>#import &quot;SPSubject.h&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_tracker_8h_source.html">SPTracker.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_subject_8h_source.html">SPSubject.h</a>&quot;</code><br />
 <code>#import &quot;SPPayload.h&quot;</code><br />
 <code>#import &quot;SPSelfDescribingJson.h&quot;</code><br />
-<code>#import &quot;SPUtilities.h&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_utilities_8h_source.html">SPUtilities.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_session_8h_source.html">SPSession.h</a>&quot;</code><br />
-<code>#import &quot;<a class="el" href="_s_p_screen_state_8h_source.html">SPScreenState.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_install_tracker_8h_source.html">SPInstallTracker.h</a>&quot;</code><br />
 <code>#import &quot;SPGlobalContext.h&quot;</code><br />
 <code>#import &quot;SNOWError.h&quot;</code><br />
@@ -98,6 +97,7 @@ $(function() {
 <code>#import &quot;SPForeground.h&quot;</code><br />
 <code>#import &quot;SPBackground.h&quot;</code><br />
 <code>#import &quot;SPPushNotification.h&quot;</code><br />
+<code>#import &quot;SPDeepLinkReceived.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_tracker_event_8h_source.html">SPTrackerEvent.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_tracker_error_8h_source.html">SPTrackerError.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_logger_8h_source.html">SPLogger.h</a>&quot;</code><br />
@@ -105,7 +105,11 @@ $(function() {
 <code>#import &quot;SPSessionConfiguration.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_service_provider_8h_source.html">SPServiceProvider.h</a>&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_tracker_controller_impl_8h_source.html">SPTrackerControllerImpl.h</a>&quot;</code><br />
-<code>#import &quot;SPEmitterEventProcessing.h&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_emitter_event_processing_8h_source.html">SPEmitterEventProcessing.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_state_manager_8h_source.html">SPStateManager.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_screen_state_machine_8h_source.html">SPScreenStateMachine.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_deep_link_state_machine_8h_source.html">SPDeepLinkStateMachine.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_s_p_lifecycle_state_machine_8h_source.html">SPLifecycleStateMachine.h</a>&quot;</code><br />
 </div>
 <p><a href="_s_p_tracker_8m_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -124,6 +128,8 @@ Variables</h2></td></tr>
 <tr class="separator:a46ac7417664c582ba7a25b2f3d33c7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a442a901c5b75a4fb9886925ea3aea742"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_tracker_8m.html#a442a901c5b75a4fb9886925ea3aea742">_sessionContext</a></td></tr>
 <tr class="separator:a442a901c5b75a4fb9886925ea3aea742"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62e31b76b036ee60d411c9a0c81cc4f3"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_tracker_8m.html#a62e31b76b036ee60d411c9a0c81cc4f3">_deepLinkContext</a></td></tr>
+<tr class="separator:a62e31b76b036ee60d411c9a0c81cc4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6fd425dd6010a06bef7ad67479e6423"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_tracker_8m.html#ad6fd425dd6010a06bef7ad67479e6423">_screenContext</a></td></tr>
 <tr class="separator:ad6fd425dd6010a06bef7ad67479e6423"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac073f419c6711d3cdf1644d552d96411"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_tracker_8m.html#ac073f419c6711d3cdf1644d552d96411">_applicationContext</a></td></tr>
@@ -181,7 +187,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00113">113</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00114">114</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -197,7 +203,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00114">114</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00115">115</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -213,7 +219,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00117">117</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00118">118</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -229,7 +235,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00118">118</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00119">119</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -249,6 +255,22 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a62e31b76b036ee60d411c9a0c81cc4f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62e31b76b036ee60d411c9a0c81cc4f3">&#9670;&nbsp;</a></span>_deepLinkContext</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BOOL _deepLinkContext</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00112">112</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+
+</div>
+</div>
 <a id="ae0a6c4e8f5b6b7697628e9f977de76d9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae0a6c4e8f5b6b7697628e9f977de76d9">&#9670;&nbsp;</a></span>_exceptionEvents</h2>
 
@@ -261,7 +283,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00119">119</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00120">120</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -277,7 +299,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00116">116</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00117">117</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -293,7 +315,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00120">120</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00121">121</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -309,7 +331,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00115">115</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00116">116</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -343,7 +365,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00112">112</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00113">113</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -391,7 +413,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00121">121</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00122">122</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>
@@ -407,7 +429,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00122">122</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_tracker_8m_source.html#l00123">123</a> of file <a class="el" href="_s_p_tracker_8m_source.html">SPTracker.m</a>.</p>
 
 </div>
 </div>

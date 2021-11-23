@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -71,6 +71,9 @@ $(function() {
 <li>taxValue
 : <a class="el" href="interface_s_p_ecommerce.html#aebb032a5d2279eb52b398c9ef3bdd61f">SPEcommerce</a>
 </li>
+<li>thread
+: <a class="el" href="category_s_p_push_notification_07_08.html#addd8c02e5310db21fa57a0c346deb08c">SPPushNotification()</a>
+</li>
 <li>threadPoolSize
 : <a class="el" href="protocol_s_p_emitter_configuration_protocol-p.html#ac389ceb0f9532131f0c0810ac89bfde3">&lt;SPEmitterConfigurationProtocol&gt;</a>
 </li>
@@ -81,21 +84,27 @@ $(function() {
 : <a class="el" href="interface_s_p_tracker_event.html#a4a4dd79aa33066114eeebd2a450d52d2">SPTrackerEvent</a>
 </li>
 <li>timezone
-: <a class="el" href="interface_s_p_subject.html#a3dcab03ed6aa5ce370cda45188d3f6ed">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a864eef85e11d3b306776aa9495bb951b">SPSubject</a>
 , <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#a864eef85e11d3b306776aa9495bb951b">&lt;SPSubjectConfigurationProtocol&gt;</a>
 </li>
 <li>timing
-: <a class="el" href="interface_s_p_timing.html#aedd57d445345099ec5b74f511d6707a7">SPTiming</a>
+: <a class="el" href="category_s_p_timing_07_08.html#afda76831fcbc5fd5a12c318b2fa87351">SPTiming()</a>
+, <a class="el" href="interface_s_p_timing.html#aedd57d445345099ec5b74f511d6707a7">SPTiming</a>
 </li>
 <li>title
-: <a class="el" href="interface_s_p_notification_content.html#a6782f341812fcbe7fc1add57a80edc5c">SPNotificationContent</a>
+: <a class="el" href="category_s_p_notification_content_07_08.html#ad39b2fbc36bb32f1287f61db3d3477a1">SPNotificationContent()</a>
+, <a class="el" href="interface_s_p_notification_content.html#a6782f341812fcbe7fc1add57a80edc5c">SPNotificationContent</a>
 </li>
 <li>topViewControllerClassName
 : <a class="el" href="interface_s_p_screen_state.html#a566cb5902a9d8d3cba663ddc013aad04">SPScreenState</a>
 , <a class="el" href="interface_s_p_screen_view.html#a605e6dfa160aa60da32014703588267c">SPScreenView</a>
 </li>
+<li>totalStorage
+: <a class="el" href="interface_s_p_device_info_monitor.html#a1d1b45975c0a3387552cba80af22f08a">SPDeviceInfoMonitor</a>
+</li>
 <li>totalValue
-: <a class="el" href="interface_s_p_ecommerce.html#a23305f3ca76c205b97e067e4654a08ff">SPEcommerce</a>
+: <a class="el" href="category_s_p_ecommerce_07_08.html#aadf84bbbbf54fb19a1fdafb8cad03314">SPEcommerce()</a>
+, <a class="el" href="interface_s_p_ecommerce.html#a23305f3ca76c205b97e067e4654a08ff">SPEcommerce</a>
 </li>
 <li>track:
 : <a class="el" href="interface_s_p_tracker.html#a5f7b1f8e5ef2884a648c795c9e651610">SPTracker</a>
@@ -117,24 +126,35 @@ $(function() {
 , <a class="el" href="category_s_p_service_provider_07_08.html#ad814ca93b16cdb40135b9971e4ba4d0e">SPServiceProvider()</a>
 </li>
 <li>trackerController
-: <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a67cdc5bf2b0a2f38f9d7f0c5585bb3e1">&lt;SPServiceProviderProtocol&gt;</a>
+: <a class="el" href="protocol_s_p_service_provider_protocol-p.html#a6b2b59887ed14a9aad0bc2039ab41b6e">&lt;SPServiceProviderProtocol&gt;</a>
 , <a class="el" href="category_s_p_service_provider_07_08.html#a637d5c021574719b67dde80b5e64bf75">SPServiceProvider()</a>
 </li>
 <li>trackerDiagnostic
 : <a class="el" href="interface_s_p_tracker.html#a72fcf6b15892c88f18d935d244d9104b">SPTracker</a>
 </li>
 <li>trackerNamespace
-: <a class="el" href="interface_s_p_tracker.html#a01c00090d40b9effb2d1fea225735f3c">SPTracker</a>
+: <a class="el" href="interface_s_p_tracker.html#a97987b98d675ea54a02798cc8f83145b">SPTracker</a>
+</li>
+<li>trackerState
+: <a class="el" href="category_s_p_state_manager_07_08.html#ab458b70bb9a82e8bee8c822a66ff6159">SPStateManager()</a>
+, <a class="el" href="category_s_p_tracker_state_07_08.html#a6ca83a452a44472c40ca0a974e9c5dbd">SPTrackerState()</a>
+</li>
+<li>trackerStateForProcessedEvent:
+: <a class="el" href="interface_s_p_state_manager.html#aa1debf33c73c815ac7e3df926aa513f7">SPStateManager</a>
 </li>
 <li>trackerVersionSuffix
-: <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a04714965c7be43ed76e2b916b73f452b">&lt;SPTrackerConfigurationProtocol&gt;</a>
+: <a class="el" href="interface_s_p_tracker.html#a04714965c7be43ed76e2b916b73f452b">SPTracker</a>
+, <a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a04714965c7be43ed76e2b916b73f452b">&lt;SPTrackerConfigurationProtocol&gt;</a>
 </li>
-<li>trackSelfDescribingEvent:
-: <a class="el" href="interface_s_p_tracker.html#adb87a7e0b3353a82a78ade7cdf78578b">SPTracker</a>
+<li>transitionFromEvent:state:
+: <a class="el" href="protocol_s_p_state_machine_protocol-p.html#ae993789e4238a4a1679938e7542fe54e">&lt;SPStateMachineProtocol&gt;</a>
 </li>
 <li>transitionType
 : <a class="el" href="interface_s_p_screen_state.html#a4d5628a2aed914d41b4d9a40cae234ff">SPScreenState</a>
 , <a class="el" href="interface_s_p_screen_view.html#a5fcd2f58d6ce1c70aeb27d9b1ebc8662">SPScreenView</a>
+</li>
+<li>trigger
+: <a class="el" href="category_s_p_push_notification_07_08.html#aeb61e12c28f17abbf5596732b7c978d8">SPPushNotification()</a>
 </li>
 <li>trueTimestamp
 : <a class="el" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">SPEvent</a>

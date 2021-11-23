@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -70,7 +70,7 @@ $(function() {
 <div class="title">SPConsentWithdrawn.m</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_s_p_consent_withdrawn_8m.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">//</span></div>
+<a href="_s_p_consent_withdrawn_8m.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno"><a class="line" href="interface_s_p_consent_withdrawn.html#ad964b886fa619bf77cd1113a4258ebed">    1</a></span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="comment">//  SPConsentWithdrawn.m</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="comment">//  Snowplow</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">//</span></div>
@@ -88,133 +88,94 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2020 Snowplow Analytics.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2021 Snowplow Analytics.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_events_2_s_p_consent_withdrawn_8h.html">SPConsentWithdrawn.h</a>&quot;</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#import &quot;SPTrackerConstants.h&quot;</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;SPUtilities.h&quot;</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_s_p_utilities_8h.html">SPUtilities.h</a>&quot;</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#import &quot;SPSelfDescribingJson.h&quot;</span></div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#import &quot;<a class="code" href="_internal_2_events_2_s_p_consent_document_8h.html">SPConsentDocument.h</a>&quot;</span></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_consent_withdrawn.html">SPConsentWithdrawn</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    BOOL _all;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="_s_p_consent_withdrawn_8m.html#ae6e7ad87fe65ab0095c01e887730e34d">   32</a></span>&#160;    NSString * <a class="code" href="_s_p_consent_withdrawn_8m.html#ae6e7ad87fe65ab0095c01e887730e34d">_documentId</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="_s_p_consent_withdrawn_8m.html#aeda6f72795a39134822a876338b3ca31">   33</a></span>&#160;    NSString * <a class="code" href="_s_p_consent_withdrawn_8m.html#aeda6f72795a39134822a876338b3ca31">_version</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="_s_p_consent_withdrawn_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">   34</a></span>&#160;    NSString * <a class="code" href="_s_p_consent_withdrawn_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="_s_p_consent_withdrawn_8m.html#a75614a82cad698215cfd47dd6a7c36be">   35</a></span>&#160;    NSString * <a class="code" href="_s_p_consent_withdrawn_8m.html#a75614a82cad698215cfd47dd6a7c36be">_documentDescription</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="interface_s_p_consent_withdrawn.html#ad964b886fa619bf77cd1113a4258ebed">   36</a></span>&#160;    NSArray&lt;SPSelfDescribingJson *&gt; * <a class="code" href="_s_p_consent_withdrawn_8m.html#ad41bea94e49f3d9e9112dcc194d428ed">_documents</a>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">@implementation </span><a class="code" href="interface_s_p_consent_withdrawn.html">SPConsentWithdrawn</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;- (instancetype)init {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// --- Builder Methods</span></div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;+ (instancetype)build:(<span class="keywordtype">void</span>(^)(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_consent_withdrawn_builder-p.html">SPConsentWithdrawnBuilder</a>&gt; builder))buildBlock {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="interface_s_p_consent_withdrawn.html">SPConsentWithdrawn</a>* <span class="keyword">event</span> = [<a class="code" href="interface_s_p_consent_withdrawn.html">SPConsentWithdrawn</a> new];</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">if</span> (buildBlock) { buildBlock(event); }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">return</span> event;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;- (instancetype)init {</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// --- Builder Methods</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(BOOL, <a class="code" href="interface_s_p_consent_withdrawn.html#a063d5898dca0eb3ad1dea084838f29c6">all</a>)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_consent_withdrawn.html#ae8e7d37e01479eab475ab8395d1e138c">documentId</a>)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_consent_withdrawn.html#a8ce6d497d5541c45afcbc3acc0bf7305">version</a>)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_consent_withdrawn.html#afc8ccc6676addc3b49a494b2bf969c68">name</a>)</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, <a class="code" href="interface_s_p_consent_withdrawn.html#a42077d6a2f0e11be13c7765ca82ec9f7">documentDescription</a>)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSArray&lt;SPSelfDescribingJson *&gt; *, <a class="code" href="interface_s_p_consent_withdrawn.html#ac04eadf04876e55d5d380255bf3cbbbe">documents</a>)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">// --- Public Methods</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;- (NSString *)<a class="code" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a> {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#a9c8f913c50b858842b3e1b672246a1b7">kSPConsentWithdrawnSchema</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(BOOL, all)</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, documentId)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, version)</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, name)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSString *, documentDescription)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<a class="code" href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a>(NSArray&lt;SPSelfDescribingJson *&gt; *, documents)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#pragma clang diagnostic push</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wdeprecated-implementations&quot;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;- (void) setDocumentId:(NSString *)dId {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="_s_p_consent_withdrawn_8m.html#ae6e7ad87fe65ab0095c01e887730e34d">_documentId</a> = dId;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;- (void) setVersion:(NSString *)version {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="_s_p_consent_withdrawn_8m.html#aeda6f72795a39134822a876338b3ca31">_version</a> = version;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;- (void) setName:(NSString *)name {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="_s_p_consent_withdrawn_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a> = name;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;- (void) setDescription:(NSString *)description {</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <a class="code" href="_s_p_consent_withdrawn_8m.html#a75614a82cad698215cfd47dd6a7c36be">_documentDescription</a> = description;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;}</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;- (void) setAll:(BOOL)all {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    _all = all;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">// documents should be an array of consent SDJs</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;- (void) setDocuments:(NSArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)documents {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="_s_p_consent_withdrawn_8m.html#ad41bea94e49f3d9e9112dcc194d428ed">_documents</a> = documents;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#pragma clang diagnostic pop</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">// --- Public Methods</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;- (NSString *)schema {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="_s_p_tracker_constants_8m.html#a9c8f913c50b858842b3e1b672246a1b7">kSPConsentWithdrawnSchema</a>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)payload {</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> @{</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <a class="code" href="_s_p_tracker_constants_8m.html#a9de2e5b7c9ba927b148437dd697b179f">KSPCwAll</a>: (_all ? @YES: @NO),</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    };</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;- (NSArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)getDocuments {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    NSMutableArray&lt;SPSelfDescribingJson *&gt; *documents = [NSMutableArray&lt;SPSelfDescribingJson *&gt; new];</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <a class="code" href="interface_s_p_consent_document.html">SPConsentDocument</a> *document = [[<a class="code" href="interface_s_p_consent_document.html">SPConsentDocument</a> alloc] initWithDocumentId:_documentId version:_version];</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="_s_p_consent_withdrawn_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a>.length != 0) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        document.<a class="code" href="interface_s_p_consent_document.html#afc8ccc6676addc3b49a494b2bf969c68">name</a> = <a class="code" href="_s_p_consent_withdrawn_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="_s_p_consent_withdrawn_8m.html#a75614a82cad698215cfd47dd6a7c36be">_documentDescription</a> != 0) {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        document.<a class="code" href="interface_s_p_consent_document.html#a42077d6a2f0e11be13c7765ca82ec9f7">documentDescription</a> = <a class="code" href="_s_p_consent_withdrawn_8m.html#a75614a82cad698215cfd47dd6a7c36be">_documentDescription</a>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    [documents addObject:[document <a class="code" href="interface_s_p_consent_document.html#a3ed0eaa1593dd4c523105d334b72af8d">getPayload</a>]];</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="_s_p_consent_withdrawn_8m.html#ad41bea94e49f3d9e9112dcc194d428ed">_documents</a>.count &gt; 0) {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        [documents addObjectsFromArray:_documents];</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> documents;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;- (void)beginProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    NSArray&lt;SPSelfDescribingJson *&gt; *documents = [<span class="keyword">self</span> getDocuments];</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (documents) {</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        [<span class="keyword">self</span>.contexts addObjectsFromArray:documents];</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (NSDictionary&lt;NSString *, NSObject *&gt; *)<a class="code" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a> {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> @{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="_s_p_tracker_constants_8m.html#a9de2e5b7c9ba927b148437dd697b179f">KSPCwAll</a>: (_all ? @YES: @NO),</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;- (NSArray&lt;<a class="code" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> *&gt; *)<a class="code" href="interface_s_p_consent_withdrawn.html#ad964b886fa619bf77cd1113a4258ebed">getDocuments</a> {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    NSMutableArray&lt;SPSelfDescribingJson *&gt; *<a class="code" href="interface_s_p_consent_withdrawn.html#ac04eadf04876e55d5d380255bf3cbbbe">documents</a> = [NSMutableArray&lt;SPSelfDescribingJson *&gt; new];</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="interface_s_p_consent_document.html">SPConsentDocument</a> *document = [[<a class="code" href="interface_s_p_consent_document.html">SPConsentDocument</a> alloc] initWithDocumentId:_documentId version:_version];</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (_name.length != 0) {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        document.<a class="code" href="interface_s_p_consent_document.html#afc8ccc6676addc3b49a494b2bf969c68">name</a> = _name;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">if</span> (_documentDescription != 0) {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        document.<a class="code" href="interface_s_p_consent_document.html#a42077d6a2f0e11be13c7765ca82ec9f7">documentDescription</a> = _documentDescription;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    [documents addObject:[document <a class="code" href="interface_s_p_consent_document.html#a3ed0eaa1593dd4c523105d334b72af8d">getPayload</a>]];</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> (_documents.count &gt; 0) {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        [documents addObjectsFromArray:_documents];</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="interface_s_p_consent_withdrawn.html#ac04eadf04876e55d5d380255bf3cbbbe">documents</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;- (void)beginProcessingWithTracker:(<a class="code" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    NSArray&lt;SPSelfDescribingJson *&gt; *<a class="code" href="interface_s_p_consent_withdrawn.html#ac04eadf04876e55d5d380255bf3cbbbe">documents</a> = [<span class="keyword">self</span> getDocuments];</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="interface_s_p_consent_withdrawn.html#ac04eadf04876e55d5d380255bf3cbbbe">documents</a>) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        [<span class="keyword">self</span>.contexts addObjectsFromArray:documents];</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
 <div class="ttc" id="a_internal_2_events_2_s_p_consent_document_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_consent_document_8h.html">SPConsentDocument.h</a></div></div>
 <div class="ttc" id="a_internal_2_events_2_s_p_consent_withdrawn_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_consent_withdrawn_8h.html">SPConsentWithdrawn.h</a></div></div>
-<div class="ttc" id="a_s_p_consent_withdrawn_8m_html_a352bcebdf7e19bfa71bddfc6dfa9f89d"><div class="ttname"><a href="_s_p_consent_withdrawn_8m.html#a352bcebdf7e19bfa71bddfc6dfa9f89d">_name</a></div><div class="ttdeci">NSString * _name</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_withdrawn_8m_source.html#l00034">SPConsentWithdrawn.m:34</a></div></div>
-<div class="ttc" id="a_s_p_consent_withdrawn_8m_html_a75614a82cad698215cfd47dd6a7c36be"><div class="ttname"><a href="_s_p_consent_withdrawn_8m.html#a75614a82cad698215cfd47dd6a7c36be">_documentDescription</a></div><div class="ttdeci">NSString * _documentDescription</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_withdrawn_8m_source.html#l00035">SPConsentWithdrawn.m:35</a></div></div>
-<div class="ttc" id="a_s_p_consent_withdrawn_8m_html_ad41bea94e49f3d9e9112dcc194d428ed"><div class="ttname"><a href="_s_p_consent_withdrawn_8m.html#ad41bea94e49f3d9e9112dcc194d428ed">_documents</a></div><div class="ttdeci">NSArray&lt; SPSelfDescribingJson * &gt; * _documents</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_withdrawn_8m_source.html#l00036">SPConsentWithdrawn.m:36</a></div></div>
-<div class="ttc" id="a_s_p_consent_withdrawn_8m_html_ae6e7ad87fe65ab0095c01e887730e34d"><div class="ttname"><a href="_s_p_consent_withdrawn_8m.html#ae6e7ad87fe65ab0095c01e887730e34d">_documentId</a></div><div class="ttdeci">NSString * _documentId</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_withdrawn_8m_source.html#l00032">SPConsentWithdrawn.m:30</a></div></div>
-<div class="ttc" id="a_s_p_consent_withdrawn_8m_html_aeda6f72795a39134822a876338b3ca31"><div class="ttname"><a href="_s_p_consent_withdrawn_8m.html#aeda6f72795a39134822a876338b3ca31">_version</a></div><div class="ttdeci">NSString * _version</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_withdrawn_8m_source.html#l00033">SPConsentWithdrawn.m:33</a></div></div>
 <div class="ttc" id="a_s_p_tracker_constants_8m_html_a9c8f913c50b858842b3e1b672246a1b7"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a9c8f913c50b858842b3e1b672246a1b7">kSPConsentWithdrawnSchema</a></div><div class="ttdeci">NSString *const kSPConsentWithdrawnSchema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00068">SPTrackerConstants.m:68</a></div></div>
-<div class="ttc" id="a_s_p_tracker_constants_8m_html_a9de2e5b7c9ba927b148437dd697b179f"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a9de2e5b7c9ba927b148437dd697b179f">KSPCwAll</a></div><div class="ttdeci">NSString *const KSPCwAll</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00204">SPTrackerConstants.m:204</a></div></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_a9de2e5b7c9ba927b148437dd697b179f"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#a9de2e5b7c9ba927b148437dd697b179f">KSPCwAll</a></div><div class="ttdeci">NSString *const KSPCwAll</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00211">SPTrackerConstants.m:211</a></div></div>
+<div class="ttc" id="a_s_p_utilities_8h_html"><div class="ttname"><a href="_s_p_utilities_8h.html">SPUtilities.h</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_tracker_constants_8h_html_ae6c0cd7c5ec3616671af14ae52ac02d3"><div class="ttname"><a href="include_2_s_p_tracker_constants_8h.html#ae6c0cd7c5ec3616671af14ae52ac02d3">SP_BUILDER_METHOD</a></div><div class="ttdeci">#define SP_BUILDER_METHOD(type, prop)</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_constants_8h_source.html#l00045">SPTrackerConstants.h:45</a></div></div>
-<div class="ttc" id="ainterface_s_p_consent_document_html"><div class="ttname"><a href="interface_s_p_consent_document.html">SPConsentDocument</a></div><div class="ttdoc">A consent document event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_document_8h_source.html#l00068">SPConsentDocument.h:68</a></div></div>
-<div class="ttc" id="ainterface_s_p_consent_document_html_a3ed0eaa1593dd4c523105d334b72af8d"><div class="ttname"><a href="interface_s_p_consent_document.html#a3ed0eaa1593dd4c523105d334b72af8d">-[SPConsentDocument getPayload]</a></div><div class="ttdeci">SPSelfDescribingJson * getPayload()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_document_8m_source.html#l00034">SPConsentDocument.m:90</a></div></div>
-<div class="ttc" id="ainterface_s_p_consent_document_html_a42077d6a2f0e11be13c7765ca82ec9f7"><div class="ttname"><a href="interface_s_p_consent_document.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPConsentDocument::documentDescription</a></div><div class="ttdeci">NSString * documentDescription</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_document_8h_source.html#l00073">SPConsentDocument.h:73</a></div></div>
-<div class="ttc" id="ainterface_s_p_consent_document_html_afc8ccc6676addc3b49a494b2bf969c68"><div class="ttname"><a href="interface_s_p_consent_document.html#afc8ccc6676addc3b49a494b2bf969c68">SPConsentDocument::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_document_8h_source.html#l00072">SPConsentDocument.h:72</a></div></div>
-<div class="ttc" id="ainterface_s_p_consent_withdrawn_html"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html">SPConsentWithdrawn</a></div><div class="ttdoc">A consent withdrawn event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00083">SPConsentWithdrawn.h:83</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_document_html"><div class="ttname"><a href="interface_s_p_consent_document.html">SPConsentDocument</a></div><div class="ttdoc">A consent document event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_document_8h_source.html#l00029">SPConsentDocument.h:30</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_document_html_a3ed0eaa1593dd4c523105d334b72af8d"><div class="ttname"><a href="interface_s_p_consent_document.html#a3ed0eaa1593dd4c523105d334b72af8d">-[SPConsentDocument getPayload]</a></div><div class="ttdeci">SPSelfDescribingJson * getPayload()</div><div class="ttdoc">Returns the payload.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_document_8m_source.html#l00033">SPConsentDocument.m:56</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_document_html_a42077d6a2f0e11be13c7765ca82ec9f7"><div class="ttname"><a href="interface_s_p_consent_document.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPConsentDocument::documentDescription</a></div><div class="ttdeci">NSString * documentDescription</div><div class="ttdoc">Description of the document.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_document_8h_source.html#l00038">SPConsentDocument.h:38</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_document_html_afc8ccc6676addc3b49a494b2bf969c68"><div class="ttname"><a href="interface_s_p_consent_document.html#afc8ccc6676addc3b49a494b2bf969c68">SPConsentDocument::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdoc">Name of the document.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_document_8h_source.html#l00036">SPConsentDocument.h:36</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html">SPConsentWithdrawn</a></div><div class="ttdoc">A consent withdrawn event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00030">SPConsentWithdrawn.h:31</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html_a063d5898dca0eb3ad1dea084838f29c6"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html#a063d5898dca0eb3ad1dea084838f29c6">SPConsentWithdrawn::all</a></div><div class="ttdeci">BOOL all</div><div class="ttdoc">Consent to all.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00033">SPConsentWithdrawn.h:33</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html_a42077d6a2f0e11be13c7765ca82ec9f7"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html#a42077d6a2f0e11be13c7765ca82ec9f7">SPConsentWithdrawn::documentDescription</a></div><div class="ttdeci">NSString * documentDescription</div><div class="ttdoc">Description of the first document.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00041">SPConsentWithdrawn.h:41</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html_a8ce6d497d5541c45afcbc3acc0bf7305"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html#a8ce6d497d5541c45afcbc3acc0bf7305">SPConsentWithdrawn::version</a></div><div class="ttdeci">NSString * version</div><div class="ttdoc">Version of the first document.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00037">SPConsentWithdrawn.h:37</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html_ac04eadf04876e55d5d380255bf3cbbbe"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html#ac04eadf04876e55d5d380255bf3cbbbe">SPConsentWithdrawn::documents</a></div><div class="ttdeci">NSArray&lt; SPSelfDescribingJson * &gt; * documents</div><div class="ttdoc">Other documents.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00043">SPConsentWithdrawn.h:43</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html_ad964b886fa619bf77cd1113a4258ebed"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html#ad964b886fa619bf77cd1113a4258ebed">-[SPConsentWithdrawn getDocuments]</a></div><div class="ttdeci">NSArray&lt; SPSelfDescribingJson * &gt; * getDocuments()</div><div class="ttdoc">Retuns the full list of attached documents.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_consent_withdrawn_8m_source.html#l00001">SPConsentWithdrawn.m:58</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html_ae8e7d37e01479eab475ab8395d1e138c"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html#ae8e7d37e01479eab475ab8395d1e138c">SPConsentWithdrawn::documentId</a></div><div class="ttdeci">NSString * documentId</div><div class="ttdoc">Identifier of the first document.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00035">SPConsentWithdrawn.h:35</a></div></div>
+<div class="ttc" id="ainterface_s_p_consent_withdrawn_html_afc8ccc6676addc3b49a494b2bf969c68"><div class="ttname"><a href="interface_s_p_consent_withdrawn.html#afc8ccc6676addc3b49a494b2bf969c68">SPConsentWithdrawn::name</a></div><div class="ttdeci">NSString * name</div><div class="ttdoc">Name of the first document.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00039">SPConsentWithdrawn.h:39</a></div></div>
+<div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00081">SPEventBase.h:81</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html_a95884c3e9e7835e3f4f87ffbf78d25c3"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">SPSelfDescribingAbstract::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdoc">The schema of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00104">SPEventBase.h:104</a></div></div>
 <div class="ttc" id="ainterface_s_p_self_describing_json_html"><div class="ttname"><a href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a></div><div class="ttdoc">The class that represents self-describing JSONs.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_self_describing_json_8h_source.html#l00036">SPSelfDescribingJson.h:37</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdoc">The tracker class.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_8h_source.html#l00250">SPTracker.h:250</a></div></div>
-<div class="ttc" id="aprotocol_s_p_consent_withdrawn_builder-p_html"><div class="ttname"><a href="protocol_s_p_consent_withdrawn_builder-p.html">SPConsentWithdrawnBuilder-p</a></div><div class="ttdoc">The protocol for building consent withdrawn events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_consent_withdrawn_8h_source.html#l00033">SPConsentWithdrawn.h:33</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00222">SPTracker.h:222</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

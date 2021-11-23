@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -81,8 +81,8 @@ Inheritance diagram for SPSelfDescribingAbstract:</div>
   <map id="SPSelfDescribingAbstract_map" name="SPSelfDescribingAbstract_map">
 <area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="84,56,242,80"/>
 <area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="420,56,578,80"/>
-<area href="interface_s_n_o_w_error.html" title="An error event." alt="SNOWError" shape="rect" coords="420,168,578,192"/>
-<area href="interface_s_n_o_w_error.html" title="An error event." alt="SNOWError" shape="rect" coords="420,224,578,248"/>
+<area href="interface_s_n_o_w_error.html" title="An error event representing an exception, error or warning message in the app." alt="SNOWError" shape="rect" coords="420,168,578,192"/>
+<area href="interface_s_n_o_w_error.html" title="An error event representing an exception, error or warning message in the app." alt="SNOWError" shape="rect" coords="420,224,578,248"/>
 <area href="interface_s_p_background.html" title="A background transition event." alt="SPBackground" shape="rect" coords="420,280,578,304"/>
 <area href="interface_s_p_background.html" title="A background transition event." alt="SPBackground" shape="rect" coords="420,336,578,360"/>
 <area href="interface_s_p_consent_granted.html" title="A consent granted event." alt="SPConsentGranted" shape="rect" coords="420,392,578,416"/>
@@ -91,12 +91,12 @@ Inheritance diagram for SPSelfDescribingAbstract:</div>
 <area href="interface_s_p_consent_withdrawn.html" title="A consent withdrawn event." alt="SPConsentWithdrawn" shape="rect" coords="420,560,578,584"/>
 <area href="interface_s_p_foreground.html" title="A foreground transition event." alt="SPForeground" shape="rect" coords="420,616,578,640"/>
 <area href="interface_s_p_foreground.html" title="A foreground transition event." alt="SPForeground" shape="rect" coords="420,672,578,696"/>
-<area href="interface_s_p_push_notification.html" title="A push notification event." alt="SPPushNotification" shape="rect" coords="420,728,578,752"/>
-<area href="interface_s_p_push_notification.html" title="A push notification event." alt="SPPushNotification" shape="rect" coords="420,784,578,808"/>
+<area href="interface_s_p_push_notification.html" alt="SPPushNotification" shape="rect" coords="420,728,578,752"/>
+<area href="interface_s_p_push_notification.html" alt="SPPushNotification" shape="rect" coords="420,784,578,808"/>
 <area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="420,840,578,864"/>
 <area href="interface_s_p_screen_view.html" title="A screenview event." alt="SPScreenView" shape="rect" coords="420,896,578,920"/>
-<area href="interface_s_p_self_describing.html" title="An unstructured event." alt="SPSelfDescribing" shape="rect" coords="420,952,578,976"/>
-<area href="interface_s_p_self_describing.html" title="An unstructured event." alt="SPSelfDescribing" shape="rect" coords="420,1008,578,1032"/>
+<area href="interface_s_p_self_describing.html" title="A self-describing event." alt="SPSelfDescribing" shape="rect" coords="420,952,578,976"/>
+<area href="interface_s_p_self_describing.html" title="A self-describing event." alt="SPSelfDescribing" shape="rect" coords="420,1008,578,1032"/>
 <area href="interface_s_p_timing.html" title="A timing event." alt="SPTiming" shape="rect" coords="420,1064,578,1088"/>
 <area href="interface_s_p_timing.html" title="A timing event." alt="SPTiming" shape="rect" coords="420,1120,578,1144"/>
 <area href="interface_s_p_tracker_error.html" alt="SPTrackerError" shape="rect" coords="420,1176,578,1200"/>
@@ -106,28 +106,26 @@ Inheritance diagram for SPSelfDescribingAbstract:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:a95884c3e9e7835e3f4f87ffbf78d25c3"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a></td></tr>
+<tr class="memdesc:a95884c3e9e7835e3f4f87ffbf78d25c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The schema of the event.  <a href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">More...</a><br /></td></tr>
 <tr class="separator:a95884c3e9e7835e3f4f87ffbf78d25c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interface_s_p_event"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_s_p_event')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_s_p_event.html">SPEvent</a></td></tr>
 <tr class="memitem:a3ed1bb1701daa3787d23b6315cc86337 inherit properties_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">NSDate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a></td></tr>
+<tr class="memdesc:a3ed1bb1701daa3787d23b6315cc86337 inherit properties_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user event timestamp in milliseconds (epoch time).  <a href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">More...</a><br /></td></tr>
 <tr class="separator:a3ed1bb1701daa3787d23b6315cc86337 inherit properties_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad11f0a52b00c155722483239d7c40b3e inherit properties_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">NSMutableArray&lt; <a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a></td></tr>
+<tr class="memdesc:ad11f0a52b00c155722483239d7c40b3e inherit properties_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">The contexts attached to the event.  <a href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">More...</a><br /></td></tr>
 <tr class="separator:ad11f0a52b00c155722483239d7c40b3e inherit properties_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a570e3c8436822df56ff7bb647882fbdc inherit properties_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSString *, NSObject * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a></td></tr>
+<tr class="memdesc:a570e3c8436822df56ff7bb647882fbdc inherit properties_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload of the event.  <a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">More...</a><br /></td></tr>
 <tr class="separator:a570e3c8436822df56ff7bb647882fbdc inherit properties_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_methods_interface_s_p_event"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_interface_s_p_event')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="interface_s_p_event.html">SPEvent</a></td></tr>
-<tr class="memitem:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the copy of the context list associated with the event.  <a href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">More...</a><br /></td></tr>
-<tr class="separator:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">beginProcessingWithTracker:</a></td></tr>
 <tr class="separator:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace618ea65f1dbd891003bc0e03a26672 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#ace618ea65f1dbd891003bc0e03a26672">endProcessingWithTracker:</a></td></tr>
 <tr class="separator:ace618ea65f1dbd891003bc0e03a26672 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the copy of the context list associated with the event.  <a href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">More...</a><br /></td></tr>
-<tr class="separator:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">beginProcessingWithTracker:</a></td></tr>
 <tr class="separator:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace618ea65f1dbd891003bc0e03a26672 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#ace618ea65f1dbd891003bc0e03a26672">endProcessingWithTracker:</a></td></tr>
@@ -135,7 +133,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00120">120</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00101">101</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
 </div><h2 class="groupheader">Property Documentation</h2>
 <a id="a95884c3e9e7835e3f4f87ffbf78d25c3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95884c3e9e7835e3f4f87ffbf78d25c3">&#9670;&nbsp;</a></span>schema</h2>
@@ -156,9 +154,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>The schema of the event. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00123">123</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_event_base_8h_source.html#l00104">104</a> of file <a class="el" href="include_2_s_p_event_base_8h_source.html">SPEventBase.h</a>.</p>
 
 </div>
 </div>

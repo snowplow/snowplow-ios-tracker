@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -65,17 +65,32 @@ $(function() {
 <div class="textblock">Here is a list of all struct and union fields with links to the structures/unions they belong to:</div>
 
 <h3><a id="index_i"></a>- i -</h3><ul>
+<li>identifierToStateMachine
+: <a class="el" href="category_s_p_state_manager_07_08.html#a58dee29d7b5039f41bcb46d8ccc026a6">SPStateManager()</a>
+</li>
 <li>index
-: <a class="el" href="category_s_p_memory_event_store_07_08.html#a304d356d69a33c02a46cfb6494e05cbc">SPMemoryEventStore()</a>
+: <a class="el" href="category_s_p_background_07_08.html#a5f3a882030c38a597459a8cda8e3ae68">SPBackground()</a>
+, <a class="el" href="interface_s_p_background.html#afca23c3320b441689b314c58099f44e3">SPBackground</a>
+, <a class="el" href="category_s_p_foreground_07_08.html#a5f3a882030c38a597459a8cda8e3ae68">SPForeground()</a>
+, <a class="el" href="interface_s_p_foreground.html#afca23c3320b441689b314c58099f44e3">SPForeground</a>
+, <a class="el" href="category_s_p_lifecycle_state_07_08.html#a5f3a882030c38a597459a8cda8e3ae68">SPLifecycleState()</a>
+, <a class="el" href="interface_s_p_lifecycle_state.html#a5f3a882030c38a597459a8cda8e3ae68">SPLifecycleState</a>
+, <a class="el" href="category_s_p_memory_event_store_07_08.html#a304d356d69a33c02a46cfb6494e05cbc">SPMemoryEventStore()</a>
 </li>
 <li>init
 : <a class="el" href="interface_s_p_emitter_configuration.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">SPEmitterConfiguration</a>
 , <a class="el" href="interface_s_p_install_tracker.html#a4213bb26f5207ee3f402fe463badc691">SPInstallTracker</a>
 , <a class="el" href="interface_s_p_payload.html#a4213bb26f5207ee3f402fe463badc691">SPPayload</a>
-, <a class="el" href="interface_s_p_screen_state.html#a4213bb26f5207ee3f402fe463badc691">SPScreenState</a>
+, <a class="el" href="interface_s_p_platform_context.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">SPPlatformContext</a>
 , <a class="el" href="interface_s_p_session.html#a4213bb26f5207ee3f402fe463badc691">SPSession</a>
 , <a class="el" href="interface_s_p_subject.html#a4213bb26f5207ee3f402fe463badc691">SPSubject</a>
 , <a class="el" href="interface_s_p_tracker_configuration.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">SPTrackerConfiguration</a>
+</li>
+<li>initAsBackgroundWithIndex:
+: <a class="el" href="interface_s_p_lifecycle_state.html#a231841123b5f92c0b6b273ec4eb9e1d3">SPLifecycleState</a>
+</li>
+<li>initAsForegroundWithIndex:
+: <a class="el" href="interface_s_p_lifecycle_state.html#aa03ae92e8405a85b26834e6c98ef3b06">SPLifecycleState</a>
 </li>
 <li>initWithBasis:documentId:documentVersion:documentDescription:
 : <a class="el" href="interface_s_p_g_d_p_r_configuration.html#a29f4f592facc0f3d636d9b154b6a9b00">SPGDPRConfiguration</a>
@@ -108,6 +123,12 @@ $(function() {
 </li>
 <li>initWithEvent:
 : <a class="el" href="interface_s_p_tracker_event.html#a819aef3cf14c607a982d206d213983c5">SPTrackerEvent</a>
+</li>
+<li>initWithEvent:previousState:stateMachine:
+: <a class="el" href="interface_s_p_state_future.html#a80a3cf4ee0b2c6bb376a1a566d2410f1">SPStateFuture</a>
+</li>
+<li>initWithEvent:state:
+: <a class="el" href="interface_s_p_tracker_event.html#ae931a34fbe50d36032548c0f3068ef6c">SPTrackerEvent</a>
 </li>
 <li>initWithEventData:
 : <a class="el" href="interface_s_p_self_describing.html#adf5219fc29a44492a7155d2d0c91dfe0">SPSelfDescribing</a>
@@ -143,21 +164,27 @@ $(function() {
 <li>initWithMessage:
 : <a class="el" href="interface_s_n_o_w_error.html#ace4a146673c1620496623dbf82c333c4">SNOWError</a>
 </li>
+<li>initWithMobileDictUpdateFrequency:networkDictUpdateFrequency:
+: <a class="el" href="interface_s_p_platform_context.html#a47d47a93a90202febebe679d2f4843b2">SPPlatformContext</a>
+</li>
+<li>initWithMobileDictUpdateFrequency:networkDictUpdateFrequency:deviceInfoMonitor:
+: <a class="el" href="interface_s_p_platform_context.html#a50f793a0ef10d23bf6e626e23225efda">SPPlatformContext</a>
+</li>
 <li>initWithName:screenId:
-: <a class="el" href="interface_s_p_screen_state.html#ac2c5d3fd4c29f8e72432c951a3d0dbf4">SPScreenState</a>
+: <a class="el" href="interface_s_p_screen_state.html#a1fd53a630a08d0bf9e388c7ec00575eb">SPScreenState</a>
 , <a class="el" href="interface_s_p_screen_view.html#ac0548ade851fddf2b09dd465c81cf4c9">SPScreenView</a>
 </li>
 <li>initWithName:type:screenId:
-: <a class="el" href="interface_s_p_screen_state.html#a60a905813ac766abbba33237b1c9c972">SPScreenState</a>
+: <a class="el" href="interface_s_p_screen_state.html#a30c9a6c1bcd66b55ae5a15c238237ff3">SPScreenState</a>
 </li>
 <li>initWithName:type:screenId:transitionType:
-: <a class="el" href="interface_s_p_screen_state.html#ac9f4de5f9628ff20181683e3e5e9c27a">SPScreenState</a>
+: <a class="el" href="interface_s_p_screen_state.html#a7744ac2e63ad003d94d7fed86a57cf5e">SPScreenState</a>
 </li>
 <li>initWithName:type:screenId:transitionType:topViewControllerClassName:viewControllerClassName:
-: <a class="el" href="interface_s_p_screen_state.html#a28930b1b4b68eb636203b5ad109a8790">SPScreenState</a>
+: <a class="el" href="interface_s_p_screen_state.html#a43928429da599ad2be85a1e32518a874">SPScreenState</a>
 </li>
 <li>initWithName:type:topViewControllerClassName:viewControllerClassName:
-: <a class="el" href="interface_s_p_screen_state.html#a82f14608e3ecdbad6f1212b31cbd836f">SPScreenState</a>
+: <a class="el" href="interface_s_p_screen_state.html#ad8a4958465a86101da9831c46df2a533">SPScreenState</a>
 </li>
 <li>initWithNamespace:
 : <a class="el" href="interface_s_p_configuration_bundle.html#ade7073dc0a02f7ad986bbe627c4bcde4">SPConfigurationBundle</a>
@@ -194,10 +221,10 @@ $(function() {
 : <a class="el" href="interface_s_p_request.html#ab8ec1cdea29b2c337b61c67cbe2f96d0">SPRequest</a>
 </li>
 <li>initWithPlatformContext:andGeoContext:
-: <a class="el" href="interface_s_p_subject.html#a62a01af3a513e5878ec8a5ec2f94e389">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a4ae51addd8adffc1db0824283e12149c">SPSubject</a>
 </li>
 <li>initWithPlatformContext:geoLocationContext:subjectConfiguration:
-: <a class="el" href="interface_s_p_subject.html#aa4ec20c26b29cd14d8200d9e3c431057">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#a2c0fd800be81e2941076440ddff419cf">SPSubject</a>
 </li>
 <li>initWithRemoteConfiguration:
 : <a class="el" href="interface_s_p_configuration_provider.html#a448f5b881a275ea8f3ac736fdbaa62f6">SPConfigurationProvider</a>
@@ -259,6 +286,9 @@ $(function() {
 <li>initWithTracker:
 : <a class="el" href="interface_s_p_session.html#a372ca4c6b3c4beaffa3571e707c061f8">SPSession</a>
 </li>
+<li>initWithUrl:referrer:
+: <a class="el" href="interface_s_p_deep_link_state.html#ad768a7baab82b43a309fc5074b3f979b">SPDeepLinkState</a>
+</li>
 <li>initWithWidth:height:
 : <a class="el" href="interface_s_p_size.html#a51ba901e627f4a68131be8cd2fa1b261">SPSize</a>
 </li>
@@ -275,7 +305,7 @@ $(function() {
 : <a class="el" href="interface_s_p_snowplow.html#a9cb9a77d806cbdbda437dbe8ed82473e">SPSnowplow</a>
 </li>
 <li>ipAddress
-: <a class="el" href="interface_s_p_subject.html#a439b7b1942a6bcec6157111484d5b9a3">SPSubject</a>
+: <a class="el" href="interface_s_p_subject.html#ab462cfb8062bd3f3df27bcc3238eba7a">SPSubject</a>
 , <a class="el" href="protocol_s_p_subject_configuration_protocol-p.html#ab462cfb8062bd3f3df27bcc3238eba7a">&lt;SPSubjectConfigurationProtocol&gt;</a>
 </li>
 <li>isCustomNetworkConnection
@@ -286,8 +316,15 @@ $(function() {
 , <a class="el" href="protocol_s_p_g_d_p_r_controller-p.html#aa1c61b65eb48984514ce82668cb00c88">&lt;SPGDPRController&gt;</a>
 , <a class="el" href="interface_s_p_session_controller_impl.html#aa1c61b65eb48984514ce82668cb00c88">SPSessionControllerImpl</a>
 </li>
+<li>isForeground
+: <a class="el" href="category_s_p_lifecycle_state_07_08.html#a33387fdf0a7890127a6cc2032dcd398f">SPLifecycleState()</a>
+, <a class="el" href="interface_s_p_lifecycle_state.html#a33387fdf0a7890127a6cc2032dcd398f">SPLifecycleState</a>
+</li>
 <li>isInBackground
 : <a class="el" href="protocol_s_p_session_controller-p.html#aacd23442d2c3438b3dc2853c61c5bb73">&lt;SPSessionController&gt;</a>
+</li>
+<li>isLowPowerModeEnabled
+: <a class="el" href="interface_s_p_device_info_monitor.html#a40a76a0a36969e055d63abb5c383fe14">SPDeviceInfoMonitor</a>
 </li>
 <li>isNewInstall
 : <a class="el" href="interface_s_p_install_tracker.html#aae937a186e1451b5c3fdde8dfa63b312">SPInstallTracker</a>
@@ -305,6 +342,9 @@ $(function() {
 <li>isService
 : <a class="el" href="interface_s_p_tracker_event.html#aa9cffc5818ba877223443d7e7b8918de">SPTrackerEvent</a>
 </li>
+<li>isStoredOnFile
+: <a class="el" href="interface_s_p_data_persistence.html#a6946143c404fd564027dc58c8a5647a2">SPDataPersistence</a>
+</li>
 <li>isSuccessful
 : <a class="el" href="category_s_p_request_result_07_08.html#a5e390c8b1193472bdab82a70a4c2c9fd">SPRequestResult()</a>
 , <a class="el" href="interface_s_p_request_result.html#a5e390c8b1193472bdab82a70a4c2c9fd">SPRequestResult</a>
@@ -319,7 +359,8 @@ $(function() {
 : <a class="el" href="interface_s_p_screen_state.html#aa29c0e93357b1d83c72352cc03e84ca8">SPScreenState</a>
 </li>
 <li>items
-: <a class="el" href="interface_s_p_ecommerce.html#a804e5cff1c02df5716db4a4c7d5a2023">SPEcommerce</a>
+: <a class="el" href="category_s_p_ecommerce_07_08.html#af204fc89946a046616ebcedcdd005ca0">SPEcommerce()</a>
+, <a class="el" href="interface_s_p_ecommerce.html#a804e5cff1c02df5716db4a4c7d5a2023">SPEcommerce</a>
 </li>
 </ul>
 </div><!-- contents -->

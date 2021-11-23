@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -63,6 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Instance Methods</a> &#124;
 <a href="#pub-static-methods">Class Methods</a> &#124;
 <a href="#properties">Properties</a>  </div>
   <div class="headertitle">
@@ -78,10 +79,19 @@ Inheritance diagram for SPDataPersistence:</div>
   <img src="interface_s_p_data_persistence.png" alt=""/>
  </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Instance Methods</h2></td></tr>
+<tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_data_persistence.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a></td></tr>
+<tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Class Methods</h2></td></tr>
+<tr class="memitem:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_data_persistence.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a></td></tr>
+<tr class="separator:a0549af3e4e40c2a471fb1bffe38a6036"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8655c0bee74b74a3124e8380a2955f4a"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_data_persistence.html">SPDataPersistence</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_data_persistence.html#a8655c0bee74b74a3124e8380a2955f4a">dataPersistenceForNamespace:</a></td></tr>
 <tr class="separator:a8655c0bee74b74a3124e8380a2955f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab5f15b57f365b80e3745fe4005271edc"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_data_persistence.html">SPDataPersistence</a> *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_data_persistence.html#ab5f15b57f365b80e3745fe4005271edc">dataPersistenceForNamespace:storedOnFile:</a></td></tr>
+<tr class="separator:ab5f15b57f365b80e3745fe4005271edc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abfed87e9d0c0299463e47fa640689289"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_data_persistence.html#abfed87e9d0c0299463e47fa640689289">removeDataPersistenceWithNamespace:</a></td></tr>
 <tr class="separator:abfed87e9d0c0299463e47fa640689289"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ab54c4d5352c2d7e085f94e1cd21217"><td class="memItemLeft" align="right" valign="top">(NSString *)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_data_persistence.html#a1ab54c4d5352c2d7e085f94e1cd21217">stringFromNamespace:</a></td></tr>
@@ -93,6 +103,8 @@ Properties</h2></td></tr>
 <tr class="separator:ac945f0a60691bbccf0efa369c476244e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2acda4b552404accefe751bed8d93b45"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSString *, NSObject * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_data_persistence.html#a2acda4b552404accefe751bed8d93b45">session</a></td></tr>
 <tr class="separator:a2acda4b552404accefe751bed8d93b45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6946143c404fd564027dc58c8a5647a2"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_data_persistence.html#a6946143c404fd564027dc58c8a5647a2">isStoredOnFile</a></td></tr>
+<tr class="separator:a6946143c404fd564027dc58c8a5647a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -114,7 +126,71 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8m_source.html#l00053">53</a> of file <a class="el" href="_s_p_data_persistence_8m_source.html">SPDataPersistence.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8m_source.html#l00047">47</a> of file <a class="el" href="_s_p_data_persistence_8m_source.html">SPDataPersistence.m</a>.</p>
+
+</div>
+</div>
+<a id="ab5f15b57f365b80e3745fe4005271edc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5f15b57f365b80e3745fe4005271edc">&#9670;&nbsp;</a></span>dataPersistenceForNamespace:storedOnFile:</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (<a class="el" href="interface_s_p_data_persistence.html">SPDataPersistence</a> *) <a class="el" href="interface_s_p_data_persistence.html#a8655c0bee74b74a3124e8380a2955f4a">dataPersistenceForNamespace:</a> </td>
+          <td></td>
+          <td class="paramtype">(NSString *)&#160;</td>
+          <td class="paramname"><em>namespace</em></td>
+        </tr>
+        <tr>
+          <td class="paramkey">storedOnFile:</td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>isStoredOnFile</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8m_source.html#l00047">47</a> of file <a class="el" href="_s_p_data_persistence_8m_source.html">SPDataPersistence.m</a>.</p>
+
+</div>
+</div>
+<a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (instancetype) NS_UNAVAILABLE </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0549af3e4e40c2a471fb1bffe38a6036"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0549af3e4e40c2a471fb1bffe38a6036">&#9670;&nbsp;</a></span>NS_UNAVAILABLE <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">+ (instancetype) NS_UNAVAILABLE </td>
+          <td></td>
+          <td class="paramname"></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -134,7 +210,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8m_source.html#l00053">53</a> of file <a class="el" href="_s_p_data_persistence_8m_source.html">SPDataPersistence.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8m_source.html#l00047">47</a> of file <a class="el" href="_s_p_data_persistence_8m_source.html">SPDataPersistence.m</a>.</p>
 
 </div>
 </div>
@@ -154,7 +230,7 @@ Properties</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8m_source.html#l00053">53</a> of file <a class="el" href="_s_p_data_persistence_8m_source.html">SPDataPersistence.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8m_source.html#l00047">47</a> of file <a class="el" href="_s_p_data_persistence_8m_source.html">SPDataPersistence.m</a>.</p>
 
 </div>
 </div>
@@ -180,6 +256,30 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8h_source.html#l00029">29</a> of file <a class="el" href="_s_p_data_persistence_8h_source.html">SPDataPersistence.h</a>.</p>
+
+</div>
+</div>
+<a id="a6946143c404fd564027dc58c8a5647a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6946143c404fd564027dc58c8a5647a2">&#9670;&nbsp;</a></span>isStoredOnFile</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) isStoredOnFile</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">atomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_data_persistence_8h_source.html#l00031">31</a> of file <a class="el" href="_s_p_data_persistence_8h_source.html">SPDataPersistence.h</a>.</p>
 
 </div>
 </div>

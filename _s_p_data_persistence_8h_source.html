@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -100,17 +100,24 @@ $(function() {
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
 <div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="interface_s_p_data_persistence.html#ac945f0a60691bbccf0efa369c476244e">   29</a></span>&#160;<span class="keyword">@property</span> (nonatomic) NSDictionary&lt;NSString *, NSDictionary&lt;NSString *, NSObject *&gt; *&gt; *<a class="code" href="interface_s_p_data_persistence.html#ac945f0a60691bbccf0efa369c476244e">data</a>;</div>
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="interface_s_p_data_persistence.html#a2acda4b552404accefe751bed8d93b45">   30</a></span>&#160;<span class="keyword">@property</span> (nonatomic) NSDictionary&lt;NSString *, NSObject *&gt; *<a class="code" href="interface_s_p_data_persistence.html#a2acda4b552404accefe751bed8d93b45">session</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;+ (<a class="code" href="interface_s_p_data_persistence.html">SPDataPersistence</a> *)dataPersistenceForNamespace:(NSString *)namespace;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;+ (BOOL)removeDataPersistenceWithNamespace:(NSString *)namespace;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;+ (NSString *)stringFromNamespace:(NSString *)namespace;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;NS_ASSUME_NONNULL_END</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="interface_s_p_data_persistence.html#a6946143c404fd564027dc58c8a5647a2">   31</a></span>&#160;<span class="keyword">@property</span> (readonly) BOOL <a class="code" href="interface_s_p_data_persistence.html#a6946143c404fd564027dc58c8a5647a2">isStoredOnFile</a>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;+ (instancetype) new <a class="code" href="interface_s_p_data_persistence.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;- (instancetype) init <a class="code" href="interface_s_p_data_persistence.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;+ (<a class="code" href="interface_s_p_data_persistence.html">SPDataPersistence</a> *)dataPersistenceForNamespace:(NSString *)namespace;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;+ (<a class="code" href="interface_s_p_data_persistence.html">SPDataPersistence</a> *)dataPersistenceForNamespace:(NSString *)namespace storedOnFile:(BOOL)isStoredOnFile;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;+ (BOOL)removeDataPersistenceWithNamespace:(NSString *)namespace;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;+ (NSString *)stringFromNamespace:(NSString *)namespace;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;NS_ASSUME_NONNULL_END</div>
 <div class="ttc" id="ainterface_s_p_data_persistence_html"><div class="ttname"><a href="interface_s_p_data_persistence.html">SPDataPersistence</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_data_persistence_8h_source.html#l00027">SPDataPersistence.h:28</a></div></div>
+<div class="ttc" id="ainterface_s_p_data_persistence_html_a0549af3e4e40c2a471fb1bffe38a6036"><div class="ttname"><a href="interface_s_p_data_persistence.html#a0549af3e4e40c2a471fb1bffe38a6036">+[SPDataPersistence NS_UNAVAILABLE]</a></div><div class="ttdeci">instancetype NS_UNAVAILABLE()</div></div>
 <div class="ttc" id="ainterface_s_p_data_persistence_html_a2acda4b552404accefe751bed8d93b45"><div class="ttname"><a href="interface_s_p_data_persistence.html#a2acda4b552404accefe751bed8d93b45">SPDataPersistence::session</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * session</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_data_persistence_8h_source.html#l00030">SPDataPersistence.h:30</a></div></div>
+<div class="ttc" id="ainterface_s_p_data_persistence_html_a6946143c404fd564027dc58c8a5647a2"><div class="ttname"><a href="interface_s_p_data_persistence.html#a6946143c404fd564027dc58c8a5647a2">SPDataPersistence::isStoredOnFile</a></div><div class="ttdeci">BOOL isStoredOnFile</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_data_persistence_8h_source.html#l00031">SPDataPersistence.h:31</a></div></div>
 <div class="ttc" id="ainterface_s_p_data_persistence_html_ac945f0a60691bbccf0efa369c476244e"><div class="ttname"><a href="interface_s_p_data_persistence.html#ac945f0a60691bbccf0efa369c476244e">SPDataPersistence::data</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSDictionary&lt; NSString *, NSObject * &gt; * &gt; * data</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_data_persistence_8h_source.html#l00029">SPDataPersistence.h:29</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

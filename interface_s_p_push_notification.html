@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -63,15 +63,11 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Instance Methods</a> &#124;
-<a href="#pub-static-methods">Class Methods</a>  </div>
+<a href="#pub-methods">Instance Methods</a>  </div>
   <div class="headertitle">
 <div class="title">SPPushNotification Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p>A push notification event.  
- <a href="interface_s_p_push_notification.html#details">More...</a></p>
 
 <p><code>#import &lt;<a class="el" href="include_2_s_p_push_notification_8h_source.html">SPPushNotification.h</a>&gt;</code></p>
 <div class="dynheader">
@@ -80,18 +76,12 @@ Inheritance diagram for SPPushNotification:</div>
  <div class="center">
   <img src="interface_s_p_push_notification.png" usemap="#SPPushNotification_map" alt=""/>
   <map id="SPPushNotification_map" name="SPPushNotification_map">
-<area href="interface_s_p_self_describing_abstract.html" title="The properties for all the self-describing events." alt="SPSelfDescribingAbstract" shape="rect" coords="0,112,173,136"/>
-<area href="protocol_s_p_push_notification_builder-p.html" title="The protocol for building push notification events." alt="&lt;SPPushNotificationBuilder&gt;" shape="rect" coords="366,112,539,136"/>
-<area href="interface_s_p_self_describing_abstract.html" title="The properties for all the self-describing events." alt="SPSelfDescribingAbstract" shape="rect" coords="732,112,905,136"/>
-<area href="protocol_s_p_push_notification_builder-p.html" title="The protocol for building push notification events." alt="&lt;SPPushNotificationBuilder&gt;" shape="rect" coords="1098,112,1271,136"/>
-<area href="protocol_s_p_event_builder-p.html" title="This protocol defines basic functionality needed to build all events." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="1281,56,1454,80"/>
-<area href="protocol_s_p_event_builder-p.html" title="This protocol defines basic functionality needed to build all events." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="1281,0,1454,24"/>
-<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="915,56,1088,80"/>
-<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="915,0,1088,24"/>
-<area href="protocol_s_p_event_builder-p.html" title="This protocol defines basic functionality needed to build all events." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="549,56,722,80"/>
-<area href="protocol_s_p_event_builder-p.html" title="This protocol defines basic functionality needed to build all events." alt="&lt;SPEventBuilder&gt;" shape="rect" coords="549,0,722,24"/>
-<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="183,56,356,80"/>
-<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="183,0,356,24"/>
+<area href="interface_s_p_self_describing_abstract.html" title="The properties for all the self-describing events." alt="SPSelfDescribingAbstract" shape="rect" coords="168,168,326,192"/>
+<area href="interface_s_p_self_describing_abstract.html" title="The properties for all the self-describing events." alt="SPSelfDescribingAbstract" shape="rect" coords="840,168,998,192"/>
+<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="0,112,158,136"/>
+<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="336,112,494,136"/>
+<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="672,112,830,136"/>
+<area href="interface_s_p_event.html" title="This class has the basic functionality needed to represent all events." alt="SPEvent" shape="rect" coords="1008,112,1166,136"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -106,133 +96,38 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a1bfe65e8294eed32b9ae06b9f2666fa7"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_push_notification.html#a1bfe65e8294eed32b9ae06b9f2666fa7">initWithDate:action:trigger:category:thread:notification:</a></td></tr>
 <tr class="separator:a1bfe65e8294eed32b9ae06b9f2666fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_interface_s_p_event"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_interface_s_p_event')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="interface_s_p_event.html">SPEvent</a></td></tr>
-<tr class="memitem:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the copy of the context list associated with the event.  <a href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">More...</a><br /></td></tr>
-<tr class="separator:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">beginProcessingWithTracker:</a></td></tr>
 <tr class="separator:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace618ea65f1dbd891003bc0e03a26672 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#ace618ea65f1dbd891003bc0e03a26672">endProcessingWithTracker:</a></td></tr>
 <tr class="separator:ace618ea65f1dbd891003bc0e03a26672 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(&quot;Use `<a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a>` property instead.&quot;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">__deprecated_msg</a></td></tr>
-<tr class="memdesc:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the copy of the context list associated with the event.  <a href="interface_s_p_event.html#a31958fe08a14b53e3e11e3d9afda4007">More...</a><br /></td></tr>
-<tr class="separator:a31958fe08a14b53e3e11e3d9afda4007 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#a2a97bab4650a0d1a75d5fd1b61e69680">beginProcessingWithTracker:</a></td></tr>
 <tr class="separator:a2a97bab4650a0d1a75d5fd1b61e69680 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace618ea65f1dbd891003bc0e03a26672 inherit pub_methods_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_event.html#ace618ea65f1dbd891003bc0e03a26672">endProcessingWithTracker:</a></td></tr>
 <tr class="separator:ace618ea65f1dbd891003bc0e03a26672 inherit pub_methods_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_protocol_s_p_push_notification_builder-p"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_protocol_s_p_push_notification_builder-p')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="protocol_s_p_push_notification_builder-p.html">&lt;SPPushNotificationBuilder&gt;</a></td></tr>
-<tr class="memitem:a9e8670eed425afac4c18103ba1b35131 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#a9e8670eed425afac4c18103ba1b35131">setAction:</a></td></tr>
-<tr class="memdesc:a9e8670eed425afac4c18103ba1b35131 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the action.  <a href="protocol_s_p_push_notification_builder-p.html#a9e8670eed425afac4c18103ba1b35131">More...</a><br /></td></tr>
-<tr class="separator:a9e8670eed425afac4c18103ba1b35131 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ece22fff62ea7f90cbc8e261f8cf44f inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#a7ece22fff62ea7f90cbc8e261f8cf44f">setDeliveryDate:</a></td></tr>
-<tr class="memdesc:a7ece22fff62ea7f90cbc8e261f8cf44f inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the delivery date.  <a href="protocol_s_p_push_notification_builder-p.html#a7ece22fff62ea7f90cbc8e261f8cf44f">More...</a><br /></td></tr>
-<tr class="separator:a7ece22fff62ea7f90cbc8e261f8cf44f inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0004a5db6d6548af60235c5dc3116a5a inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#a0004a5db6d6548af60235c5dc3116a5a">setTrigger:</a></td></tr>
-<tr class="memdesc:a0004a5db6d6548af60235c5dc3116a5a inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the trigger.  <a href="protocol_s_p_push_notification_builder-p.html#a0004a5db6d6548af60235c5dc3116a5a">More...</a><br /></td></tr>
-<tr class="separator:a0004a5db6d6548af60235c5dc3116a5a inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae58dc25c09940c96c6ba4b2141d93c3c inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#ae58dc25c09940c96c6ba4b2141d93c3c">setCategoryIdentifier:</a></td></tr>
-<tr class="memdesc:ae58dc25c09940c96c6ba4b2141d93c3c inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the category ID.  <a href="protocol_s_p_push_notification_builder-p.html#ae58dc25c09940c96c6ba4b2141d93c3c">More...</a><br /></td></tr>
-<tr class="separator:ae58dc25c09940c96c6ba4b2141d93c3c inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1ed46860ea081f303eec75594d2f2a5 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#ac1ed46860ea081f303eec75594d2f2a5">setThreadIdentifier:</a></td></tr>
-<tr class="memdesc:ac1ed46860ea081f303eec75594d2f2a5 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the thread ID.  <a href="protocol_s_p_push_notification_builder-p.html#ac1ed46860ea081f303eec75594d2f2a5">More...</a><br /></td></tr>
-<tr class="separator:ac1ed46860ea081f303eec75594d2f2a5 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaff36001ef05e0d13f5b743b207bcc3e inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#aaff36001ef05e0d13f5b743b207bcc3e">setNotification:</a></td></tr>
-<tr class="memdesc:aaff36001ef05e0d13f5b743b207bcc3e inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the notification content.  <a href="protocol_s_p_push_notification_builder-p.html#aaff36001ef05e0d13f5b743b207bcc3e">More...</a><br /></td></tr>
-<tr class="separator:aaff36001ef05e0d13f5b743b207bcc3e inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9e8670eed425afac4c18103ba1b35131 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#a9e8670eed425afac4c18103ba1b35131">setAction:</a></td></tr>
-<tr class="memdesc:a9e8670eed425afac4c18103ba1b35131 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the action.  <a href="protocol_s_p_push_notification_builder-p.html#a9e8670eed425afac4c18103ba1b35131">More...</a><br /></td></tr>
-<tr class="separator:a9e8670eed425afac4c18103ba1b35131 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ece22fff62ea7f90cbc8e261f8cf44f inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#a7ece22fff62ea7f90cbc8e261f8cf44f">setDeliveryDate:</a></td></tr>
-<tr class="memdesc:a7ece22fff62ea7f90cbc8e261f8cf44f inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the delivery date.  <a href="protocol_s_p_push_notification_builder-p.html#a7ece22fff62ea7f90cbc8e261f8cf44f">More...</a><br /></td></tr>
-<tr class="separator:a7ece22fff62ea7f90cbc8e261f8cf44f inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0004a5db6d6548af60235c5dc3116a5a inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#a0004a5db6d6548af60235c5dc3116a5a">setTrigger:</a></td></tr>
-<tr class="memdesc:a0004a5db6d6548af60235c5dc3116a5a inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the trigger.  <a href="protocol_s_p_push_notification_builder-p.html#a0004a5db6d6548af60235c5dc3116a5a">More...</a><br /></td></tr>
-<tr class="separator:a0004a5db6d6548af60235c5dc3116a5a inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae58dc25c09940c96c6ba4b2141d93c3c inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#ae58dc25c09940c96c6ba4b2141d93c3c">setCategoryIdentifier:</a></td></tr>
-<tr class="memdesc:ae58dc25c09940c96c6ba4b2141d93c3c inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the category ID.  <a href="protocol_s_p_push_notification_builder-p.html#ae58dc25c09940c96c6ba4b2141d93c3c">More...</a><br /></td></tr>
-<tr class="separator:ae58dc25c09940c96c6ba4b2141d93c3c inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1ed46860ea081f303eec75594d2f2a5 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#ac1ed46860ea081f303eec75594d2f2a5">setThreadIdentifier:</a></td></tr>
-<tr class="memdesc:ac1ed46860ea081f303eec75594d2f2a5 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the thread ID.  <a href="protocol_s_p_push_notification_builder-p.html#ac1ed46860ea081f303eec75594d2f2a5">More...</a><br /></td></tr>
-<tr class="separator:ac1ed46860ea081f303eec75594d2f2a5 inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaff36001ef05e0d13f5b743b207bcc3e inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_push_notification_builder-p.html#aaff36001ef05e0d13f5b743b207bcc3e">setNotification:</a></td></tr>
-<tr class="memdesc:aaff36001ef05e0d13f5b743b207bcc3e inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the notification content.  <a href="protocol_s_p_push_notification_builder-p.html#aaff36001ef05e0d13f5b743b207bcc3e">More...</a><br /></td></tr>
-<tr class="separator:aaff36001ef05e0d13f5b743b207bcc3e inherit pub_methods_protocol_s_p_push_notification_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_methods_protocol_s_p_event_builder-p"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_protocol_s_p_event_builder-p')"><img src="closed.png" alt="-"/>&#160;Instance Methods inherited from <a class="el" href="protocol_s_p_event_builder-p.html">&lt;SPEventBuilder&gt;</a></td></tr>
-<tr class="memitem:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">setTrueTimestamp:</a></td></tr>
-<tr class="memdesc:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the optional timestamp of the event.  <a href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">More...</a><br /></td></tr>
-<tr class="separator:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">setContexts:</a></td></tr>
-<tr class="memdesc:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the contexts attached to the event.  <a href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">More...</a><br /></td></tr>
-<tr class="separator:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">setTrueTimestamp:</a></td></tr>
-<tr class="memdesc:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the optional timestamp of the event.  <a href="protocol_s_p_event_builder-p.html#ac6346f8eccd89194b5e6c544bf4300d7">More...</a><br /></td></tr>
-<tr class="separator:ac6346f8eccd89194b5e6c544bf4300d7 inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">setContexts:</a></td></tr>
-<tr class="memdesc:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the contexts attached to the event.  <a href="protocol_s_p_event_builder-p.html#a5142d5fe015c3e41b4e745475e270c2a">More...</a><br /></td></tr>
-<tr class="separator:a5142d5fe015c3e41b4e745475e270c2a inherit pub_methods_protocol_s_p_event_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Class Methods</h2></td></tr>
-<tr class="memitem:a7d2b584b7c2fe5d160bf663303515ab4"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_push_notification.html#a7d2b584b7c2fe5d160bf663303515ab4">build:</a></td></tr>
-<tr class="separator:a7d2b584b7c2fe5d160bf663303515ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d2b584b7c2fe5d160bf663303515ab4"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">+ <a class="el" href="interface_s_p_push_notification.html#a7d2b584b7c2fe5d160bf663303515ab4">build:</a></td></tr>
-<tr class="separator:a7d2b584b7c2fe5d160bf663303515ab4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header properties_interface_s_p_self_describing_abstract"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_s_p_self_describing_abstract')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></td></tr>
 <tr class="memitem:a95884c3e9e7835e3f4f87ffbf78d25c3 inherit properties_interface_s_p_self_describing_abstract"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">schema</a></td></tr>
+<tr class="memdesc:a95884c3e9e7835e3f4f87ffbf78d25c3 inherit properties_interface_s_p_self_describing_abstract"><td class="mdescLeft">&#160;</td><td class="mdescRight">The schema of the event.  <a href="interface_s_p_self_describing_abstract.html#a95884c3e9e7835e3f4f87ffbf78d25c3">More...</a><br /></td></tr>
 <tr class="separator:a95884c3e9e7835e3f4f87ffbf78d25c3 inherit properties_interface_s_p_self_describing_abstract"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_interface_s_p_event"><td colspan="2" onclick="javascript:toggleInherit('properties_interface_s_p_event')"><img src="closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="interface_s_p_event.html">SPEvent</a></td></tr>
 <tr class="memitem:a3ed1bb1701daa3787d23b6315cc86337 inherit properties_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">NSDate *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">trueTimestamp</a></td></tr>
+<tr class="memdesc:a3ed1bb1701daa3787d23b6315cc86337 inherit properties_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">The user event timestamp in milliseconds (epoch time).  <a href="interface_s_p_event.html#a3ed1bb1701daa3787d23b6315cc86337">More...</a><br /></td></tr>
 <tr class="separator:a3ed1bb1701daa3787d23b6315cc86337 inherit properties_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad11f0a52b00c155722483239d7c40b3e inherit properties_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">NSMutableArray&lt; <a class="el" href="interface_s_p_self_describing_json.html">SPSelfDescribingJson</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">contexts</a></td></tr>
+<tr class="memdesc:ad11f0a52b00c155722483239d7c40b3e inherit properties_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">The contexts attached to the event.  <a href="interface_s_p_event.html#ad11f0a52b00c155722483239d7c40b3e">More...</a><br /></td></tr>
 <tr class="separator:ad11f0a52b00c155722483239d7c40b3e inherit properties_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a570e3c8436822df56ff7bb647882fbdc inherit properties_interface_s_p_event"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSString *, NSObject * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">payload</a></td></tr>
+<tr class="memdesc:a570e3c8436822df56ff7bb647882fbdc inherit properties_interface_s_p_event"><td class="mdescLeft">&#160;</td><td class="mdescRight">The payload of the event.  <a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">More...</a><br /></td></tr>
 <tr class="separator:a570e3c8436822df56ff7bb647882fbdc inherit properties_interface_s_p_event"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_push_notification_8h_source.html#l00149">149</a> of file <a class="el" href="include_2_s_p_push_notification_8h_source.html">SPPushNotification.h</a>.</p>
+<div class="textblock"><p>A push notification event. </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>This is available only on iOS. Please, use MessageNotification instead, which is available for both iOS and Android trackers. </dd></dl>
+<p>A push notification event. </p><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000005">Deprecated:</a></b></dt><dd>This is available only on iOS. Please, use MessageNotification instead, which is available for both iOS and Android trackers. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_push_notification_8h_source.html#l00039">39</a> of file <a class="el" href="include_2_s_p_push_notification_8h_source.html">SPPushNotification.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="a7d2b584b7c2fe5d160bf663303515ab4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d2b584b7c2fe5d160bf663303515ab4">&#9670;&nbsp;</a></span>build: <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (instancetype) build: </td>
-          <td></td>
-          <td class="paramtype">(void(^)(id&lt;<a class="el" href="protocol_s_p_push_notification_builder-p.html">SPPushNotificationBuilder</a>&gt; builder))&#160;</td>
-          <td class="paramname"><em>buildBlock</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_push_notification_8m_source.html#l00034">34</a> of file <a class="el" href="_s_p_push_notification_8m_source.html">SPPushNotification.m</a>.</p>
-
-</div>
-</div>
-<a id="a7d2b584b7c2fe5d160bf663303515ab4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d2b584b7c2fe5d160bf663303515ab4">&#9670;&nbsp;</a></span>build: <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">+ (instancetype) build: </td>
-          <td></td>
-          <td class="paramtype">(void(^)(id&lt; <a class="el" href="protocol_s_p_push_notification_builder-p.html">SPPushNotificationBuilder</a> &gt; builder))&#160;</td>
-          <td class="paramname"><em>buildBlock</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a1bfe65e8294eed32b9ae06b9f2666fa7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a1bfe65e8294eed32b9ae06b9f2666fa7">&#9670;&nbsp;</a></span>initWithDate:action:trigger:category:thread:notification: <span class="overload">[1/2]</span></h2>
 
@@ -371,9 +266,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>/github/workspace/Snowplow/include/<a class="el" href="include_2_s_p_push_notification_8h_source.html">SPPushNotification.h</a></li>
-<li>/github/workspace/Snowplow/Internal/Events/<a class="el" href="_s_p_push_notification_8m_source.html">SPPushNotification.m</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

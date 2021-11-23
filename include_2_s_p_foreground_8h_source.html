@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">2.2.2</span>
+   &#160;<span id="projectnumber">3.0.0</span>
    </div>
   </td>
  </tr>
@@ -88,7 +88,7 @@ $(function() {
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">//  language governing permissions and limitations there under.</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">//  Authors: Alex Benini</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2020 Snowplow Analytics.</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">//  Copyright: Copyright © 2021 Snowplow Analytics.</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">//  License: Apache License Version 2.0</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
@@ -97,32 +97,25 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;NS_ASSUME_NONNULL_BEGIN</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<a class="code" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(ForegroundBuilder)</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="protocol_s_p_foreground_builder-p.html">   33</a></span>&#160;<span class="keyword">@protocol </span><a class="code" href="protocol_s_p_foreground_builder-p.html">SPForegroundBuilder</a> &lt;<a class="code" href="protocol_s_p_event_builder-p.html">SPEventBuilder</a>&gt;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<a class="code" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(Foreground)</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="interface_s_p_foreground.html">   30</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_foreground.html">SPForeground</a> : <a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="interface_s_p_foreground.html#afca23c3320b441689b314c58099f44e3">   33</a></span>&#160;<span class="keyword">@property</span> (readonly) NSNumber *<a class="code" href="interface_s_p_foreground.html#afca23c3320b441689b314c58099f44e3">index</a>;</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;- (void) setIndex:(NSNumber *)index __deprecated_msg(&quot;Use initializer of `Foreground` class instead.&quot;);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;- (instancetype)init <a class="code" href="interface_s_p_foreground.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;- (instancetype)initWithIndex:(NSNumber *)<a class="code" href="interface_s_p_foreground.html#afca23c3320b441689b314c58099f44e3">index</a> <a class="code" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(init(<a class="code" href="interface_s_p_foreground.html#afca23c3320b441689b314c58099f44e3">index</a>:));</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<a class="code" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(Foreground)</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="interface_s_p_foreground.html">   48</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_foreground.html">SPForeground</a> : <a class="code" href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a> &lt;<a class="code" href="protocol_s_p_foreground_builder-p.html">SPForegroundBuilder</a>&gt;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;+ (instancetype)build:(<span class="keywordtype">void</span>(^)(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_foreground_builder-p.html">SPForegroundBuilder</a>&gt; builder))buildBlock __deprecated_msg(&quot;Use initializer instead.&quot;);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;- (instancetype)init <a class="code" href="interface_s_p_foreground.html#a0549af3e4e40c2a471fb1bffe38a6036">NS_UNAVAILABLE</a>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;- (instancetype)initWithIndex:(NSNumber *)index NS_SWIFT_NAME(init(index:));</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="keyword">@end</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="interface_s_p_foreground.html#a26bd7322fed3046f6fc6521f3f910da3">   58</a></span>&#160;NS_ASSUME_NONNULL_END</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;NS_ASSUME_NONNULL_END</div>
 <div class="ttc" id="a_internal_2_events_2_s_p_event_base_8h_html"><div class="ttname"><a href="_internal_2_events_2_s_p_event_base_8h.html">SPEventBase.h</a></div></div>
 <div class="ttc" id="a_internal_2_payload_2_s_p_self_describing_json_8h_html"><div class="ttname"><a href="_internal_2_payload_2_s_p_self_describing_json_8h.html">SPSelfDescribingJson.h</a></div></div>
 <div class="ttc" id="ainclude_2_s_p_device_platform_8h_html_ac51d0fa9ac6b044d5587e1d9ceb2dbbc"><div class="ttname"><a href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(DevicePlatform)</div></div>
-<div class="ttc" id="ainterface_s_p_foreground_html"><div class="ttname"><a href="interface_s_p_foreground.html">SPForeground</a></div><div class="ttdoc">A foreground transition event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_foreground_8h_source.html#l00048">SPForeground.h:48</a></div></div>
+<div class="ttc" id="ainterface_s_p_foreground_html"><div class="ttname"><a href="interface_s_p_foreground.html">SPForeground</a></div><div class="ttdoc">A foreground transition event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_foreground_8h_source.html#l00030">SPForeground.h:31</a></div></div>
 <div class="ttc" id="ainterface_s_p_foreground_html_a0549af3e4e40c2a471fb1bffe38a6036"><div class="ttname"><a href="interface_s_p_foreground.html#a0549af3e4e40c2a471fb1bffe38a6036">-[SPForeground NS_UNAVAILABLE]</a></div><div class="ttdeci">instancetype NS_UNAVAILABLE()</div></div>
-<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00120">SPEventBase.h:121</a></div></div>
-<div class="ttc" id="aprotocol_s_p_event_builder-p_html"><div class="ttname"><a href="protocol_s_p_event_builder-p.html">SPEventBuilder-p</a></div><div class="ttdoc">This protocol defines basic functionality needed to build all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00063">SPEventBase.h:63</a></div></div>
-<div class="ttc" id="aprotocol_s_p_foreground_builder-p_html"><div class="ttname"><a href="protocol_s_p_foreground_builder-p.html">SPForegroundBuilder-p</a></div><div class="ttdoc">The protocol for building foreground events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_foreground_8h_source.html#l00033">SPForeground.h:33</a></div></div>
+<div class="ttc" id="ainterface_s_p_foreground_html_afca23c3320b441689b314c58099f44e3"><div class="ttname"><a href="interface_s_p_foreground.html#afca23c3320b441689b314c58099f44e3">SPForeground::index</a></div><div class="ttdeci">NSNumber * index</div><div class="ttdoc">Indicate the current transition.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_foreground_8h_source.html#l00033">SPForeground.h:33</a></div></div>
+<div class="ttc" id="ainterface_s_p_self_describing_abstract_html"><div class="ttname"><a href="interface_s_p_self_describing_abstract.html">SPSelfDescribingAbstract</a></div><div class="ttdoc">The properties for all the self-describing events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00101">SPEventBase.h:102</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
