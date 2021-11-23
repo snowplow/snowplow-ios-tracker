@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,26 +25,19 @@
 #import "SPTrackerConstants.h"
 #import "SPUtilities.h"
 
-@implementation SPPushNotification {
-    NSString * _action;
-    NSString * _trigger;
-    NSString * _date;
-    NSString * _category;
-    NSString * _thread;
-    SPNotificationContent * _notification;
-}
 
-+ (instancetype)build:(void(^)(id<SPPushNotificationBuilder> builder))buildBlock {
-    SPPushNotification* event = [SPPushNotification new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@interface SPPushNotification ()
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@property NSString *date;
+@property NSString *action;
+@property NSString *trigger;
+@property NSString *category;
+@property NSString *thread;
+@property SPNotificationContent *notification;
+
+@end
+
+@implementation SPPushNotification
 
 - (instancetype)initWithDate:(NSString *)date action:(NSString *)action trigger:(NSString *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification {
     if (self = [super init]) {
@@ -63,47 +56,42 @@
     return self;
 }
 
-- (void) preconditions {
-    [SPUtilities checkArgument:([_date length] != 0) withMessage:@"Delivery date cannot be nil or empty."];
-    [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
-    [SPUtilities checkArgument:([_trigger length] != 0) withMessage:@"Trigger cannot be nil or empty."];
-    [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
-    [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
-    [SPUtilities checkArgument:(_notification != nil) withMessage:@"Notification cannot be nil."];
+#if SNOWPLOW_TARGET_IOS
+- (instancetype)initWithDate:(NSString *)date action:(NSString *)action notificationTrigger:(nullable UNNotificationTrigger *)trigger category:(NSString *)category thread:(NSString *)thread notification:(SPNotificationContent *)notification {
+    if (self = [super init]) {
+        _date = date;
+        _action = action;
+        _trigger = [SPPushNotification stringFromNotificationTrigger:trigger];
+        _category = category;
+        _thread = thread;
+        _notification = notification;
+        [SPUtilities checkArgument:([_date length] != 0) withMessage:@"Delivery date cannot be nil or empty."];
+        [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
+        [SPUtilities checkArgument:([_trigger length] != 0) withMessage:@"Trigger cannot be nil or empty."];
+        [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category identifier cannot be nil or empty."];
+        [SPUtilities checkArgument:([_thread length] != 0) withMessage:@"Thread identifier cannot be nil or empty."];
+    }
+    return self;
 }
 
-// --- Builder Methods
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setAction:(NSString *)action {
-    _action = action;
++ (NSString *)stringFromNotificationTrigger:(nullable UNNotificationTrigger *)trigger  API_AVAILABLE(ios(10.0)) {
+    NSMutableString * triggerType = [[NSMutableString alloc] initWithString:@"UNKNOWN"];
+    NSString * triggerClass = NSStringFromClass([trigger class]);
+    if ([triggerClass isEqualToString:@"UNTimeIntervalNotificationTrigger"]) {
+        [triggerType setString:@"TIME_INTERVAL"];
+    } else if ([triggerClass isEqualToString:@"UNCalendarNotificationTrigger"]) {
+        [triggerType setString:@"CALENDAR"];
+    } else if ([triggerClass isEqualToString:@"UNLocationNotificationTrigger"]) {
+        [triggerType setString:@"LOCATION"];
+    } else if ([triggerClass isEqualToString:@"UNPushNotificationTrigger"]) {
+        [triggerType setString:@"PUSH"];
+    }
+    return (NSString *)triggerType;
 }
+#endif
 
-- (void) setDeliveryDate:(NSString *)date {
-    _date = date;
-}
-
-- (void) setTrigger:(NSString *)trigger {
-    _trigger = trigger;
-}
-
-- (void) setCategoryIdentifier:(NSString *)category {
-    _category = category;
-}
-
-- (void) setThreadIdentifier:(NSString *)thread {
-    _thread = thread;
-}
-
-- (void) setNotification:(SPNotificationContent *)content {
-    _notification = content;
-}
-
-#pragma clang diagnostic pop
-
-// --- Public Methods
+// MARK: - Public Methods
 
 - (NSString *)schema {
     return kSPPushNotificationSchema;
@@ -122,30 +110,18 @@
 
 @end
 
+
 // MARK:- SPNotificationContent
 
-@implementation SPNotificationContent {
-    NSString * _title;
-    NSString * _subtitle;
-    NSString * _body;
-    NSNumber * _badge;
-    NSString * _sound;
-    NSString * _launchImageName;
-    NSDictionary * _userInfo;
-    NSArray * _attachments;
-}
+@interface SPNotificationContent ()
 
-+ (instancetype)build:(void(^)(id<SPNotificationContentBuilder>builder))buildBlock {
-    SPNotificationContent* event = [SPNotificationContent new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@property (nonatomic, readwrite) NSString *title;
+@property (nonatomic, readwrite) NSString *body;
+@property (nonatomic, readwrite) NSNumber *badge;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPNotificationContent
 
 - (instancetype)initWithTitle:(NSString *)title body:(NSString *)body badge:(NSNumber *)badge {
     if (self = [super init]) {
@@ -158,12 +134,6 @@
     return self;
 }
 
-- (void) preconditions {
-    [SPUtilities checkArgument:([_title length] != 0) withMessage:@"Title cannot be nil or empty."];
-    [SPUtilities checkArgument:([_body length] != 0) withMessage:@"Body cannot be nil or empty."];
-    [SPUtilities checkArgument:(_badge != nil) withMessage:@"Badge cannot be nil."];
-}
-
 // --- Builder Methods
 
 SP_BUILDER_METHOD(NSString *, subtitle)
@@ -172,46 +142,9 @@ SP_BUILDER_METHOD(NSString *, launchImageName)
 SP_BUILDER_METHOD(NSDictionary *, userInfo)
 SP_BUILDER_METHOD(NSArray *, attachments)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setTitle:(NSString *)title {
-    _title = title;
-}
-
-- (void) setSubtitle:(NSString *)subtitle {
-    _subtitle = subtitle;
-}
-
-- (void) setBody:(NSString *)body {
-    _body = body;
-}
-
-- (void) setBadge:(NSNumber *)badge {
-    _badge = badge;
-}
-
-- (void) setSound:(NSString *)sound {
-    _sound = sound;
-}
-
-- (void) setLaunchImageName:(NSString *)name {
-    _launchImageName = name;
-}
-
-- (void) setUserInfo:(NSDictionary *)userInfo {
-    _userInfo = [SPUtilities replaceHyphenatedKeysWithCamelcase:userInfo];
-}
-
-- (void) setAttachments:(NSArray *)attachments {
-    _attachments = attachments;
-}
-
-#pragma clang diagnostic pop
-
 // --- Public Methods
 
-- (NSDictionary *) payload {
+- (NSDictionary *)payload {
     NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
     [event setObject:_title forKey:kSPPnTitle];
     [event setObject:_body forKey:kSPPnBody];
@@ -247,10 +180,18 @@ SP_BUILDER_METHOD(NSArray *, attachments)
         }
         [event setObject:[[NSDictionary alloc] initWithDictionary:newUserInfo] forKey:kSPPnUserInfo];
     }
-    if (_attachments != nil) {
-        [event setObject:_attachments forKey:kSPPnAttachments];
+    if (_attachments.count) {
+        NSMutableArray<NSDictionary *> * converting = [[NSMutableArray alloc] init];
+        NSMutableDictionary * newAttachment = [[NSMutableDictionary alloc] init];
+        for (id attachment in _attachments) {
+            newAttachment[kSPPnAttachmentId] = [attachment valueForKey:@"identifier"];
+            newAttachment[kSPPnAttachmentUrl] = [attachment valueForKey:@"URL"];
+            newAttachment[kSPPnAttachmentType] = [attachment valueForKey:@"type"];
+            [converting addObject: (NSDictionary *)[newAttachment copy]];
+            [newAttachment removeAllObjects];
+        }
+        [event setObject:[NSArray arrayWithArray:converting] forKey:kSPPnAttachments];
     }
-
     return [[NSDictionary alloc] initWithDictionary:event copyItems:YES];
 }
 

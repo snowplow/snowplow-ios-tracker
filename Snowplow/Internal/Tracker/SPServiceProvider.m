@@ -309,6 +309,7 @@
         [builder setDevicePlatform:trackerConfig.devicePlatform];
         [builder setSessionContext:trackerConfig.sessionContext];
         [builder setApplicationContext:trackerConfig.applicationContext];
+        [builder setDeepLinkContext:trackerConfig.deepLinkContext];
         [builder setScreenContext:trackerConfig.screenContext];
         [builder setAutotrackScreenViews:trackerConfig.screenViewAutotracking];
         [builder setLifecycleEvents:trackerConfig.lifecycleAutotracking];

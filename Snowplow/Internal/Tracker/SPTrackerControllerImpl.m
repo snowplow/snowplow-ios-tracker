@@ -215,6 +215,16 @@
     return [self.tracker getLifecycleEvents];
 }
 
+- (void)setDeepLinkContext:(BOOL)deepLinkContext {
+    self.dirtyConfig.deepLinkContext = deepLinkContext;
+    self.dirtyConfig.deepLinkContextUpdated = YES;
+    [self.tracker setDeepLinkContext:deepLinkContext];
+}
+
+- (BOOL)deepLinkContext {
+    return [self.tracker deepLinkContext];
+}
+
 - (void)setScreenContext:(BOOL)screenContext {
     self.dirtyConfig.screenContext = screenContext;
     self.dirtyConfig.screenContextUpdated = YES;
@@ -233,6 +243,16 @@
 
 - (BOOL)screenViewAutotracking {
     return [self.tracker autoTrackScreenView];
+}
+
+- (void)setTrackerVersionSuffix:(NSString *)trackerVersionSuffix {
+    self.dirtyConfig.trackerVersionSuffix = trackerVersionSuffix;
+    self.dirtyConfig.trackerVersionSuffixUpdated = YES;
+    [self.tracker setTrackerVersionSuffix:trackerVersionSuffix];
+}
+
+- (NSString *)trackerVersionSuffix {
+    return [self.tracker trackerVersionSuffix];
 }
 
 - (void)setSessionContext:(BOOL)sessionContext {

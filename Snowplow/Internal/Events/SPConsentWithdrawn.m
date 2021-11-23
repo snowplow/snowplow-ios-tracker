@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -27,20 +27,7 @@
 #import "SPSelfDescribingJson.h"
 #import "SPConsentDocument.h"
 
-@implementation SPConsentWithdrawn {
-    BOOL _all;
-    NSString * _documentId;
-    NSString * _version;
-    NSString * _name;
-    NSString * _documentDescription;
-    NSArray<SPSelfDescribingJson *> * _documents;
-}
-
-+ (instancetype)build:(void(^)(id<SPConsentWithdrawnBuilder> builder))buildBlock {
-    SPConsentWithdrawn* event = [SPConsentWithdrawn new];
-    if (buildBlock) { buildBlock(event); }
-    return event;
-}
+@implementation SPConsentWithdrawn
 
 - (instancetype)init {
     self = [super init];
@@ -55,36 +42,6 @@ SP_BUILDER_METHOD(NSString *, version)
 SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, documentDescription)
 SP_BUILDER_METHOD(NSArray<SPSelfDescribingJson *> *, documents)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setDocumentId:(NSString *)dId {
-    _documentId = dId;
-}
-
-- (void) setVersion:(NSString *)version {
-    _version = version;
-}
-
-- (void) setName:(NSString *)name {
-    _name = name;
-}
-
-- (void) setDescription:(NSString *)description {
-    _documentDescription = description;
-}
-
-- (void) setAll:(BOOL)all {
-    _all = all;
-}
-
-// documents should be an array of consent SDJs
-- (void) setDocuments:(NSArray<SPSelfDescribingJson *> *)documents {
-    _documents = documents;
-}
-
-#pragma clang diagnostic pop
 
 // --- Public Methods
 

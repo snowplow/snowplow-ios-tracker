@@ -35,6 +35,7 @@
 @synthesize geoLocationContext;
 @synthesize sessionContext;
 @synthesize screenContext;
+@synthesize deepLinkContext;
 @synthesize screenViewAutotracking;
 @synthesize lifecycleAutotracking;
 @synthesize installAutotracking;
@@ -60,6 +61,7 @@
         self.applicationContext = [dictionary sp_boolForKey:SP_STR_PROP(applicationContext) defaultValue:self.applicationContext];
         self.platformContext = [dictionary sp_boolForKey:SP_STR_PROP(platformContext) defaultValue:self.platformContext];
         self.geoLocationContext = [dictionary sp_boolForKey:SP_STR_PROP(geoLocationContext) defaultValue:self.geoLocationContext];
+        self.deepLinkContext = [dictionary sp_boolForKey:SP_STR_PROP(deepLinkContext) defaultValue:self.deepLinkContext];
         self.screenContext = [dictionary sp_boolForKey:SP_STR_PROP(screenContext) defaultValue:self.screenContext];
         self.screenViewAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(screenViewAutotracking) defaultValue:self.screenViewAutotracking];
         self.lifecycleAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(lifecycleAutotracking) defaultValue:self.lifecycleAutotracking];
@@ -84,6 +86,7 @@
         self.applicationContext = YES;
         self.platformContext = YES;
         self.geoLocationContext = NO;
+        self.deepLinkContext = YES;
         self.screenContext = YES;
         self.screenViewAutotracking = YES;
         self.lifecycleAutotracking = NO;
@@ -105,6 +108,7 @@ SP_BUILDER_METHOD(BOOL, applicationContext)
 SP_BUILDER_METHOD(BOOL, platformContext)
 SP_BUILDER_METHOD(BOOL, geoLocationContext)
 SP_BUILDER_METHOD(BOOL, sessionContext)
+SP_BUILDER_METHOD(BOOL, deepLinkContext)
 SP_BUILDER_METHOD(BOOL, screenContext)
 SP_BUILDER_METHOD(BOOL, screenViewAutotracking)
 SP_BUILDER_METHOD(BOOL, lifecycleAutotracking)
@@ -126,6 +130,7 @@ SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
     copy.applicationContext = self.applicationContext;
     copy.platformContext = self.platformContext;
     copy.geoLocationContext = self.geoLocationContext;
+    copy.deepLinkContext = self.deepLinkContext;
     copy.screenContext = self.screenContext;
     copy.screenViewAutotracking = self.screenViewAutotracking;
     copy.lifecycleAutotracking = self.lifecycleAutotracking;
@@ -152,6 +157,7 @@ SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
     [coder encodeBool:self.applicationContext forKey:SP_STR_PROP(applicationContext)];
     [coder encodeBool:self.platformContext forKey:SP_STR_PROP(platformContext)];
     [coder encodeBool:self.geoLocationContext forKey:SP_STR_PROP(geoLocationContext)];
+    [coder encodeBool:self.deepLinkContext forKey:SP_STR_PROP(deepLinkContext)];
     [coder encodeBool:self.screenContext forKey:SP_STR_PROP(screenContext)];
     [coder encodeBool:self.screenViewAutotracking forKey:SP_STR_PROP(screenViewAutotracking)];
     [coder encodeBool:self.lifecycleAutotracking forKey:SP_STR_PROP(lifecycleAutotracking)];
@@ -172,6 +178,7 @@ SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
         self.applicationContext = [coder decodeBoolForKey:SP_STR_PROP(applicationContext)];
         self.platformContext = [coder decodeBoolForKey:SP_STR_PROP(platformContext)];
         self.geoLocationContext = [coder decodeBoolForKey:SP_STR_PROP(geoLocationContext)];
+        self.deepLinkContext = [coder decodeBoolForKey:SP_STR_PROP(deepLinkContext)];
         self.screenContext = [coder decodeBoolForKey:SP_STR_PROP(screenContext)];
         self.screenViewAutotracking = [coder decodeBoolForKey:SP_STR_PROP(screenViewAutotracking)];
         self.lifecycleAutotracking = [coder decodeBoolForKey:SP_STR_PROP(lifecycleAutotracking)];

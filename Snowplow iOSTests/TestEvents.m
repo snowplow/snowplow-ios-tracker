@@ -16,26 +16,6 @@
 
 @implementation TestEvent
 
-- (void)testEvent {
-    // Valid construction
-    SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
-    event.contexts = self.goodCustomContext;
-    XCTAssertNotNil(event);
-    event = nil;
-    
-    // Context is not SelfDescribingJson
-    BOOL isFailed = NO;
-    @try {
-        event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
-        [event contexts:self.badCustomContext];
-    }
-    @catch (NSException *exception) {
-        isFailed = YES;
-        XCTAssertEqualObjects(@"All contexts must be SelfDescribingJson objects.", exception.reason);
-    }
-    XCTAssertTrue(isFailed);
-}
- 
 - (void)testTrueTimestamp {
     SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
     XCTAssertNil(event.trueTimestamp);
@@ -78,6 +58,39 @@
     NSString *deviceTimestamp = (NSString *)[[payload getAsDictionary] objectForKey:@"dtm"];
     NSString *expected = [NSString stringWithFormat:@"%lld", (long long)(currentTimestamp.timeIntervalSince1970 * 1000)];
     XCTAssertEqualObjects(expected, deviceTimestamp);
+}
+
+- (void)testWorkaroundForCampaignAttributionEnrichment {
+    // Prepare DeepLinkReceived event
+    SPDeepLinkReceived *event = [[SPDeepLinkReceived alloc] initWithUrl:@"url"];
+    event.referrer = @"referrer";
+    
+    // Setup tracker
+    SPTrackerConfiguration *trackerConfiguration = [SPTrackerConfiguration new];
+    trackerConfiguration.base64Encoding = NO;
+    trackerConfiguration.installAutotracking = NO;
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+
+    // Track event
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    
+    // Check url and referrer fields
+    NSString *url = (NSString *)[[payload getAsDictionary] objectForKey:kSPPageUrl];
+    NSString *referrer = (NSString *)[[payload getAsDictionary] objectForKey:kSPPageRefr];
+    XCTAssertEqualObjects(url, @"url");
+    XCTAssertEqualObjects(referrer, @"referrer");
 }
 
 - (void)testPageView {
@@ -404,6 +417,73 @@
     XCTAssertNil(event);
 }
 
+- (void)testMessageNotification {
+    SPMessageNotification *event = [[SPMessageNotification alloc] initWithTitle:@"title" body:@"body" trigger:SPMessageNotificationTriggerPush];
+    event.notificationTimestamp = @"2020-12-31T15:59:60-08:00";
+    event.action = @"action";
+    event.bodyLocKey = @"loc key";
+    event.bodyLocArgs = @[@"loc arg1", @"loc arg2"];
+    event.sound = @"chime.mp3";
+    event.notificationCount = @9;
+    event.category = @"category1";
+    event.attachments = @[[[SPMessageNotificationAttachment alloc] initWithIdentifier:@"id" type:@"type" url:@"url"]];
+
+    NSDictionary<NSString *, NSObject *> *payload = event.payload;
+    XCTAssertEqualObjects(@"title", payload[kSPMessageNotificationParamTitle]);
+    XCTAssertEqualObjects(@"body", payload[kSPMessageNotificationParamBody]);
+    XCTAssertEqualObjects(@"2020-12-31T15:59:60-08:00", payload[kSPMessageNotificationParamNotificationTimestamp]);
+    XCTAssertEqualObjects(@"push", payload[kSPMessageNotificationParamTrigger]);
+    XCTAssertEqualObjects(@"action", payload[kSPMessageNotificationParamAction]);
+    XCTAssertEqualObjects(@"loc key", payload[kSPMessageNotificationParamBodyLocKey]);
+    NSArray<NSString *> *locArgs = (NSArray<NSString *> *)(payload[kSPMessageNotificationParamBodyLocArgs]);
+    XCTAssertNotNil(locArgs);
+    XCTAssertEqual(2, locArgs.count);
+    XCTAssertEqualObjects(@"loc arg1", locArgs[0]);
+    XCTAssertEqualObjects(@"loc arg2", locArgs[1]);
+    XCTAssertEqualObjects(@"chime.mp3", payload[kSPMessageNotificationParamSound]);
+    XCTAssertEqualObjects(@9, payload[kSPMessageNotificationParamNotificationCount]);
+    XCTAssertEqualObjects(@"category1", payload[kSPMessageNotificationParamCategory]);
+    NSArray<NSDictionary<NSString *, NSObject *> *> *attachments = (NSArray<NSDictionary<NSString *, NSObject *> *> *)(payload[kSPMessageNotificationParamMessageNotificationAttachments]);
+    XCTAssertNotNil(attachments);
+    XCTAssertEqual(1, attachments.count);
+    NSDictionary<NSString *, NSObject *> *attachment = attachments[0];
+    XCTAssertEqualObjects(@"id", attachment[kSPMessageNotificationAttachmentParamIdentifier]);
+    XCTAssertEqualObjects(@"type", attachment[kSPMessageNotificationAttachmentParamType]);
+    XCTAssertEqualObjects(@"url", attachment[kSPMessageNotificationAttachmentParamUrl]);
+}
+
+- (void)testMessageNotificationWithUserInfo {
+    NSDictionary *userInfo = @{ @"aps":
+                                    @{ @"alert":
+                                           @{
+                                               @"title": @"test-title",
+                                               @"body": @"test-body",
+                                               @"loc-key": @"loc key",
+                                               @"loc-args": @[@"loc arg1", @"loc arg2"]
+                                           },
+                                       @"sound": @"chime.aiff",
+                                       @"badge": @9,
+                                       @"category": @"category1",
+                                       @"content-available": @1
+                                    },
+                                @"custom-element": @1
+    };
+    SPMessageNotification *event = [SPMessageNotification messageNotificationWithUserInfo:userInfo defaultTitle:nil defaultBody:nil];
+    XCTAssertNotNil(event);
+    NSDictionary<NSString *, NSObject *> *payload = event.payload;
+    XCTAssertEqualObjects(@"test-title", payload[kSPMessageNotificationParamTitle]);
+    XCTAssertEqualObjects(@"test-body", payload[kSPMessageNotificationParamBody]);
+    XCTAssertEqualObjects(@"loc key", payload[kSPMessageNotificationParamBodyLocKey]);
+    NSArray *locArgs = (NSArray *)payload[kSPMessageNotificationParamBodyLocArgs];
+    XCTAssertEqual(2, locArgs.count);
+    XCTAssertEqualObjects(@"loc arg1", locArgs[0]);
+    XCTAssertEqualObjects(@"loc arg2", locArgs[1]);
+    XCTAssertEqualObjects(@9, payload[kSPMessageNotificationParamNotificationCount]);
+    XCTAssertEqualObjects(@"chime.aiff", payload[kSPMessageNotificationParamSound]);
+    XCTAssertEqualObjects(@"category1", payload[kSPMessageNotificationParamCategory]);
+    XCTAssertEqualObjects(@YES, payload[kSPMessageNotificationParamContentAvailable]);
+}
+
 - (void)testError {
     // Valid construction
     SNOWError *error = [[[[SNOWError alloc] initWithMessage:@"message"]
@@ -423,20 +503,6 @@
         XCTAssertEqualObjects(payload[@"exceptionName"], @"CustomException");
         XCTAssertTrue([(NSString *)payload[@"stackTrace"] length]);
     }
-}
-
-// --- Helpers
-
-- (NSMutableArray<SPSelfDescribingJson *> *)goodCustomContext {
-    NSDictionary *data = @{@"snowplow": @"demo-tracker"};
-    SPSelfDescribingJson *context = [[SPSelfDescribingJson alloc] initWithSchema:@"iglu:com.acme_company/demo_ios/jsonschema/1-0-0"
-                                                                          andData:data];
-    return [NSMutableArray arrayWithArray:@[context]];
-}
-
-- (NSMutableArray<SPSelfDescribingJson *> *)badCustomContext {
-    NSDictionary *data = @{@"snowplow": @"demo-tracker"};
-    return [NSMutableArray arrayWithArray:@[data]];
 }
 
 @end

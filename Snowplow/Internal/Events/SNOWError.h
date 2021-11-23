@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,46 +25,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPErrorBuilder
- @brief The protocol for building error events.
- */
-@protocol SPErrorBuilder <SPEventBuilder>
-
-/*!
- @brief Set the error message.
- 
- @param message The error message.
- */
-- (void) setMessage:(NSString *)message __deprecated_msg("Use initializer of `SNOWError` class instead.");
-
-/*!
- @brief Set the exception stack trace.
- 
- @param stackTrace The stack trace of the exception.
- */
-- (void) setStackTrace:(nullable NSString *)stackTrace __deprecated_msg("Use `stackTrace` of `SNOWError` class instead.");
-
-/*!
- @brief Set the exception name.
- 
- @param name The exception name.
- */
-- (void) setName:(nullable NSString *)name __deprecated_msg("Use name of `SNOWError` class instead.");
-
-@end
-
-/*!
- @class SNOWError
- @brief An error event.
- */
-@interface SNOWError : SPSelfDescribingAbstract <SPErrorBuilder>
+/// An error event representing an exception, error or warning message in the app
+@interface SNOWError : SPSelfDescribingAbstract
 
 @property (nonatomic, nullable) NSString *name;
 @property (nonatomic, nullable) NSString *stackTrace;
 @property (nonatomic, readonly) NSString *message;
-
-+ (instancetype)build:(void(^)(id<SPErrorBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
 
 - (instancetype)init NS_UNAVAILABLE;
 

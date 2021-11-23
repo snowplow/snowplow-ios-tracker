@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -27,13 +27,13 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-2.2.2";
+NSString * const kSPVersion               = @"ios-3.0.0";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-2.2.2";
+NSString * const kSPVersion               = @"tvos-3.0.0";
 #elif SNOWPLOW_TARGET_WATCHOS
-NSString * const kSPVersion               = @"watchos-2.2.2";
+NSString * const kSPVersion               = @"watchos-3.0.0";
 #else
-NSString * const kSPVersion               = @"osx-2.2.2";
+NSString * const kSPVersion               = @"osx-3.0.0";
 #endif
 
 // --- Session Dictionary keys
@@ -58,7 +58,7 @@ NSString * const kSPUserTimingsSchema     = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPScreenViewSchema      = @"iglu:com.snowplowanalytics.mobile/screen_view/jsonschema/1-0-0";
 NSString * const kSPUnstructSchema        = @"iglu:com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0";
 NSString * const kSPContextSchema         = @"iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1";
-NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-1";
+NSString * const kSPMobileContextSchema   = @"iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-2";
 NSString * const kSPDesktopContextSchema  = @"iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0";
 NSString * const kSPSessionContextSchema  = @"iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-1";
 NSString * const kSPScreenContextSchema   = @"iglu:com.snowplowanalytics.mobile/screen/jsonschema/1-0-0";
@@ -66,7 +66,7 @@ NSString * const kSPGeoContextSchema      = @"iglu:com.snowplowanalytics.snowplo
 NSString * const kSPConsentDocumentSchema = @"iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0";
 NSString * const kSPConsentGrantedSchema = @"iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0";
 NSString * const kSPConsentWithdrawnSchema = @"iglu:com.snowplowanalytics.snowplow/consent_withdrawn/jsonschema/1-0-0";
-NSString * const kSPPushNotificationSchema = @"iglu:com.apple/notification_event/jsonschema/1-0-0";
+NSString * const kSPPushNotificationSchema = @"iglu:com.apple/notification_event/jsonschema/1-0-1";
 NSString * const kSPApplicationContextSchema = @"iglu:com.snowplowanalytics.mobile/application/jsonschema/1-0-0";
 NSString * const kSPForegroundSchema = @"iglu:com.snowplowanalytics.snowplow/application_foreground/jsonschema/1-0-0";
 NSString * const kSPBackgroundSchema = @"iglu:com.snowplowanalytics.snowplow/application_background/jsonschema/1-0-0";
@@ -123,11 +123,18 @@ NSString * const kSPPlatformDeviceModel   = @"deviceModel";
 
 // --- Mobile Context
 
-NSString * const kSPMobileCarrier         = @"carrier";
-NSString * const kSPMobileAppleIdfa       = @"appleIdfa";
-NSString * const kSPMobileAppleIdfv       = @"appleIdfv";
-NSString * const kSPMobileNetworkType     = @"networkType";
-NSString * const kSPMobileNetworkTech     = @"networkTechnology";
+NSString * const kSPMobileCarrier            = @"carrier";
+NSString * const kSPMobileAppleIdfa          = @"appleIdfa";
+NSString * const kSPMobileAppleIdfv          = @"appleIdfv";
+NSString * const kSPMobileNetworkType        = @"networkType";
+NSString * const kSPMobileNetworkTech        = @"networkTechnology";
+NSString * const kSPMobilePhysicalMemory     = @"physicalMemory";
+NSString * const kSPMobileAppAvailableMemory = @"appAvailableMemory";
+NSString * const kSPMobileBatteryLevel       = @"batteryLevel";
+NSString * const kSPMobileBatteryState       = @"batteryState";
+NSString * const kSPMobileLowPowerMode       = @"lowPowerMode";
+NSString * const kSPMobileAvailableStorage   = @"availableStorage";
+NSString * const kSPMobileTotalStorage       = @"totalStorage";
 
 // --- Application Context
 

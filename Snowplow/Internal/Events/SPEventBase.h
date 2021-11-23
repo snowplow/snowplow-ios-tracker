@@ -2,7 +2,7 @@
 //  SPEventBase.h
 //  Snowplow
 //
-//  Copyright (c) 2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,13 +16,14 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 #import "SPSelfDescribingJson.h"
 #import "SPTrackerConstants.h"
+#import "SPTrackerStateSnapshot.h"
 
 @class SPPayload;
 @class SPTracker;
@@ -55,24 +56,13 @@ NS_SWIFT_NAME(InspectableEvent)
 /// The payload of the event
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
-@end
+/// The tracker state at the time the event was sent.
+@property (nonatomic, readonly) id<SPTrackerStateSnapshot> state;
 
-
-/// This protocol defines basic functionality needed to build all events
-NS_SWIFT_NAME(EventBuilder)
-@protocol SPEventBuilder <NSObject>
-
-/*!
- @brief Set the optional timestamp of the event.
- @param timestamp The timestamp of the event in seconds (epoch time)
- */
-- (void)setTrueTimestamp:(NSDate *)timestamp;
-
-/*!
- @brief Set the contexts attached to the event.
- @param contexts An array of contexts (should be self-describing JSONs).
- */
-- (void) setContexts:(NSMutableArray *)contexts;
+/// Add payload values to the event.
+/// @param payload Map of values to add to the event payload.
+/// @return Whether or not the values have been successfully added to the event payload.
+- (BOOL)addPayloadValues:(NSDictionary<NSString *, NSObject *> *)payload;
 
 @end
 
@@ -81,23 +71,17 @@ NS_SWIFT_NAME(EventBuilder)
 NS_SWIFT_NAME(Event)
 @interface SPEvent : NSObject
 
-/*! The user event timestamp in milliseconds (epoch time). */
+/// The user event timestamp in milliseconds (epoch time).
 @property (nonatomic, nullable) NSDate *trueTimestamp;
 
-/*! The contexts attached to the event. */
+/// The contexts attached to the event.
 @property (nonatomic) NSMutableArray<SPSelfDescribingJson *> *contexts;
 
-/*! The payload of the event. */
+/// The payload of the event.
 @property (nonatomic, readonly) NSDictionary<NSString *, NSObject *> *payload;
 
 SP_BUILDER_DECLARE_NULLABLE(NSDate *, trueTimestamp)
 SP_BUILDER_DECLARE(NSMutableArray<SPSelfDescribingJson *> *, contexts)
-
-/*!
- @brief Get the copy of the context list associated with the event.
- @deprecated Use `contexts` property instead.
-*/
-- (NSMutableArray *) getContexts __deprecated_msg("Use `contexts` property instead.");
 
 /**
  * Hook method called just before the event processing in order to execute special operations.
@@ -112,27 +96,21 @@ SP_BUILDER_DECLARE(NSMutableArray<SPSelfDescribingJson *> *, contexts)
 - (void)endProcessingWithTracker:(SPTracker *)tracker;
 @end
 
-/*!
- @interface SPSelfDescribingAbstract
- @brief The properties for all the self-describing events.
- */
+/// The properties for all the self-describing events.
 NS_SWIFT_NAME(SelfDescribingAbstract)
 @interface SPSelfDescribingAbstract : SPEvent
 
-/*! The schema of the event. */
+/// The schema of the event.
 @property (nonatomic, readonly) NSString *schema;
 
 @end
 
-/*!
- @interface SPPrimitiveAbstract
- @brief The properties for all the self-describing events.
- */
+/// The properties for all the self-describing events.
 NS_SWIFT_NAME(PrimitiveAbstract)
 @interface SPPrimitiveAbstract : SPEvent
 
-/*! The name of the event. */
-@property (nonatomic, readonly) NSString *name;
+/// The name of the event.
+@property (nonatomic, readonly) NSString *eventName;
 
 @end
 

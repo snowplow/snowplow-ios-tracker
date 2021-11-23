@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -26,25 +26,14 @@
 #import "SPUtilities.h"
 #import "SPPayload.h"
 
-@implementation SPStructured {
-    NSString * _category;
-    NSString * _action;
-    NSString * _label;
-    NSString * _property;
-    NSNumber * _value;
-}
+@interface SPStructured ()
 
-+ (instancetype)build:(void(^)(id<SPStructuredBuilder> builder))buildBlock {
-    SPStructured* event = [SPStructured new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@property (nonatomic, readwrite) NSString *category;
+@property (nonatomic, readwrite) NSString *action;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPStructured
 
 - (instancetype)initWithCategory:(NSString *)category action:(NSString *)action {
     if (self = [super init]) {
@@ -56,45 +45,15 @@
     return self;
 }
 
-- (void) preconditions {
-    [SPUtilities checkArgument:([_category length] != 0) withMessage:@"Category cannot be nil or empty."];
-    [SPUtilities checkArgument:([_action length] != 0) withMessage:@"Action cannot be nil or empty."];
-}
-
 // --- Builder Methods
 
 SP_BUILDER_METHOD(NSString *, label)
 SP_BUILDER_METHOD(NSString *, property)
 SP_BUILDER_METHOD(NSNumber *, value)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setCategory:(NSString *)category {
-    _category = category;
-}
-
-- (void) setAction:(NSString *)action {
-    _action = action;
-}
-
-- (void) setLabel:(NSString *)label {
-    _label = label;
-}
-
-- (void) setProperty:(NSString *)property {
-    _property = property;
-}
-
-- (void) setValue:(NSNumber *)value {
-    _value = value;
-}
-
-#pragma clang diagnostic pop
-
 // --- Public Methods
 
-- (NSString *)name {
+- (NSString *)eventName {
     return kSPEventStructured;
 }
 

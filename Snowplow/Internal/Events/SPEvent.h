@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -37,5 +37,8 @@
 #import "SPForeground.h"
 #import "SPBackground.h"
 #import "SNOWError.h"
+#import "SPDeepLinkReceived.h"
+#import "SPMessageNotification.h"
+#import "SPMessageNotificationAttachment.h"
 
 // #endif /* SPEvent_h */

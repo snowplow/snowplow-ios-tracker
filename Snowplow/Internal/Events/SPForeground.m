@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -26,21 +26,13 @@
 #import "SPUtilities.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPForeground {
-    NSNumber * _index;
-}
+@interface SPForeground ()
 
-+ (instancetype)build:(void(^)(id<SPForegroundBuilder> builder))buildBlock {
-    SPForeground* event = [SPForeground new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@property (readwrite) NSNumber *index;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPForeground
 
 - (instancetype)initWithIndex:(NSNumber *)index {
     if (self = [super init]) {
@@ -48,21 +40,6 @@
     }
     return self;
 }
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_index != nil) withMessage:@"Index cannot be nil or empty."];
-}
-
-// --- Builder Methods
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setIndex:(NSNumber *)index {
-    _index = index;
-}
-
-#pragma clang diagnostic pop
 
 // --- Public Methods
 

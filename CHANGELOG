@@ -1,4 +1,17 @@
 
+Version 3.0.0 (2021-11-23)
+--------------------------
+Fix SPDataPersistence crash at SDK init (#655)
+Fix Copyright notice in LICENSE file (#651)
+Remove v1 API (#652)
+Allow campaign enrichment with DeepLinkReceived events (#648)
+Add event for remote and local notifications (#646)
+Add memory, battery and storage info to mobile context (#643)
+Support lifecycle reporting for tvOS (#640) (Contribution of @miike)
+Add lifecycle context to indicate app state when the event is tracked (#637)
+Capture campaign attribution data from deep links (#297)
+Add tracker state management (#634)
+
 Version 2.2.2 (2021-08-16)
 --------------------------
 Fix crash on tvOS caused by access to filesystem (#621)

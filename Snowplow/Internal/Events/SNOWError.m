@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -27,18 +27,14 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SNOWError {
-    NSString * _name;
-    NSString * _stackTrace;
-    NSString * _message;
-}
 
-+ (instancetype) build:(void(^)(id<SPErrorBuilder> builder))buildBlock {
-    SNOWError * event = [SNOWError new];
-    if (buildBlock) { buildBlock(event); }
-    [event preconditions];
-    return event;
-}
+@interface SNOWError ()
+
+@property (nonatomic, readwrite) NSString *message;
+
+@end
+
+@implementation SNOWError
 
 - (instancetype)init {
     self = [super init];
@@ -48,35 +44,15 @@
 - (instancetype)initWithMessage:(NSString *)message {
     if (self = [super init]) {
         _message = message;
+        [SPUtilities checkArgument:(_message != nil) withMessage:@"Message cannot be nil or empty."];
     }
     return self;
-}
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_message != nil) withMessage:@"Message cannot be nil or empty."];
 }
 
 // --- Builder Methods
 
 SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, stackTrace)
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setMessage:(NSString *)message {
-    _message = message;
-}
-
-- (void) setStackTrace:(NSString *)stackTrace {
-    _stackTrace = stackTrace;
-}
-
-- (void) setName:(NSString *)name {
-    _name = name;
-}
-
-#pragma clang diagnostic pop
 
 // --- Public Methods
 

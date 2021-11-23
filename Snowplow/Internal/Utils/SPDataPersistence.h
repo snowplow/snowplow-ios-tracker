@@ -28,8 +28,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) NSDictionary<NSString *, NSDictionary<NSString *, NSObject *> *> *data;
 @property (nonatomic) NSDictionary<NSString *, NSObject *> *session;
+@property (readonly) BOOL isStoredOnFile;
+
++ (instancetype) new NS_UNAVAILABLE;
+- (instancetype) init NS_UNAVAILABLE;
 
 + (SPDataPersistence *)dataPersistenceForNamespace:(NSString *)namespace;
++ (SPDataPersistence *)dataPersistenceForNamespace:(NSString *)namespace storedOnFile:(BOOL)isStoredOnFile;
 + (BOOL)removeDataPersistenceWithNamespace:(NSString *)namespace;
 
 + (NSString *)stringFromNamespace:(NSString *)namespace;

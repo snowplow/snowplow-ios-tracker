@@ -1,0 +1,1 @@
+../Internal/Events/SPMessageNotificationAttachment.h

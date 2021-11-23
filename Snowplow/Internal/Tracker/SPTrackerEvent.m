@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -30,16 +30,21 @@
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations" // to ignore warnings for deprecated methods that we are forced to use until the next major version release
 
 - (instancetype)initWithEvent:(SPEvent *)event {
+    return [self initWithEvent:event state:nil];
+}
+
+- (instancetype)initWithEvent:(SPEvent *)event state:(id<SPTrackerStateSnapshot>)state {
     if (self = [super init]) {
         self.eventId = [NSUUID UUID];
         self.timestamp = (long long)([[[NSDate alloc] init] timeIntervalSince1970] * 1000);
         self.trueTimestamp = event.trueTimestamp;
         self.contexts = [event.contexts mutableCopy];
         self.payload = [event.payload mutableCopy];
+        self.state = state ?: [SPTrackerState new];
 
         self.isService = [event isKindOfClass:SPTrackerError.class];
         if ([event isKindOfClass:SPPrimitiveAbstract.class]) {
-            self.eventName = [(SPPrimitiveAbstract *)event name];
+            self.eventName = [(SPPrimitiveAbstract *)event eventName];
             self.isPrimitive = true;
         } else {
             self.schema = [(SPSelfDescribingAbstract *)event schema];
@@ -50,5 +55,17 @@
 }
 
 #pragma GCC diagnostic pop
+
+- (BOOL)addPayloadValues:(nonnull NSDictionary<NSString *,NSObject *> *)payload {
+    __block BOOL result = YES;
+    [payload enumerateKeysAndObjectsUsingBlock:^(NSString * _Nonnull key, NSObject * _Nonnull obj, BOOL * _Nonnull stop) {
+        if (![self.payload objectForKey:key]) {
+            [self.payload setObject:obj forKey:key];
+        } else {
+            result = NO;
+        }
+    }];
+    return result;
+}
 
 @end

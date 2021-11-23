@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -27,36 +27,23 @@
 #import "SPPayload.h"
 #import "SPSelfDescribingJson.h"
 
-@implementation SPConsentDocument {
-    NSString * _documentId;
-    NSString * _version;
-    NSString * _name;
-    NSString * _documentDescription;
-}
+@interface SPConsentDocument ()
 
-+ (instancetype)build:(void(^)(id<SPConsentDocumentBuilder> builder))buildBlock {
-    SPConsentDocument* document = [SPConsentDocument new];
-    if (buildBlock) { buildBlock(document); }
-    [document preconditions];
-    return document;
-}
+@property (nonatomic, readwrite) NSString *documentId;
+@property (nonatomic, readwrite) NSString *version;
 
-- (instancetype)init {
-    self = [super init];
-    return self;
-}
+@end
+
+@implementation SPConsentDocument
 
 - (instancetype)initWithDocumentId:(NSString *)documentId version:(NSString *)version {
     if (self = [super init]) {
         _documentId = documentId;
         _version = version;
+        [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
+        [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
     }
     return self;
-}
-
-- (void) preconditions {
-    [SPUtilities checkArgument:(_documentId != nil) withMessage:@"Document ID cannot be nil."];
-    [SPUtilities checkArgument:(_version != nil) withMessage:@"Version cannot be nil."];
 }
 
 // --- Builder Methods
@@ -64,32 +51,10 @@
 SP_BUILDER_METHOD(NSString *, name)
 SP_BUILDER_METHOD(NSString *, documentDescription)
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-implementations"
-
-- (void) setDocumentId:(NSString *)dId {
-    _documentId = dId;
-}
-
-- (void) setVersion:(NSString *)version {
-    _version = version;
-}
-
-- (void) setName:(NSString *)name {
-    _name = name;
-}
-
-- (void) setDescription:(NSString *)description {
-    _documentDescription = description;
-}
-
-#pragma clang diagnostic pop
-
 // --- Public Methods
 
-- (SPSelfDescribingJson *) getPayload {
-
-    NSMutableDictionary * event = [[NSMutableDictionary alloc] init];
+- (SPSelfDescribingJson *)getPayload {
+    NSMutableDictionary *event = [[NSMutableDictionary alloc] init];
     [event setObject:_documentId forKey:kSPCdId];
     [event setObject:_version forKey:kSPCdVersion];
     if ([_name length] != 0) {
@@ -98,7 +63,6 @@ SP_BUILDER_METHOD(NSString *, documentDescription)
     if ([_documentDescription length] != 0) {
         [event setObject:_documentDescription forKey:KSPCdDescription];
     }
-
     return [[SPSelfDescribingJson alloc] initWithSchema:kSPConsentDocumentSchema
                                                 andData:event];
 }

@@ -44,18 +44,17 @@
 
 - (void)testSubjectInit {
     SPSubject * subject = [[SPSubject alloc] init];
-    XCTAssertNotNil([subject getPlatformDict]);
     XCTAssertNotNil([subject getStandardDict]);
 }
 
 - (void)testSubjectInitWithOptions {
-    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
     XCTAssertNotNil([subject getPlatformDict]);
     XCTAssertNotNil([subject getStandardDict]);
 }
 
 - (void)testSubjectSetterFunctions {
-    SPSubject * subject = [[SPSubject alloc] init];
+    SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:YES];
     [subject setUserId:@"aUserId"];
     [subject setResolutionWithWidth:1920 andHeight:1080];
     [subject setViewPortWithWidth:1080 andHeight:1920];

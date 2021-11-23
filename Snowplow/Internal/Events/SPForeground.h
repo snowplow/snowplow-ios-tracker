@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,32 +25,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPForegroundBuilder
- @brief The protocol for building foreground events.
- */
-NS_SWIFT_NAME(ForegroundBuilder)
-@protocol SPForegroundBuilder <SPEventBuilder>
-
-/*!
- @brief Set the index of the event, a count that increments on each background and foreground.
-
- @param index The transition event index.
- */
-- (void) setIndex:(NSNumber *)index __deprecated_msg("Use initializer of `Foreground` class instead.");
-@end
-
-/*!
- @class SPForeground
- @brief A foreground transition event.
- */
+/// A foreground transition event.
 NS_SWIFT_NAME(Foreground)
-@interface SPForeground : SPSelfDescribingAbstract <SPForegroundBuilder>
+@interface SPForeground : SPSelfDescribingAbstract
 
-+ (instancetype)build:(void(^)(id<SPForegroundBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+/// Indicate the current transition.
+@property (readonly) NSNumber *index;
 
 - (instancetype)init NS_UNAVAILABLE;
 
+/**
+ Creates a foreground transition event.
+ @param index indicate the current transition.
+ */
 - (instancetype)initWithIndex:(NSNumber *)index NS_SWIFT_NAME(init(index:));
 
 @end

@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -25,11 +25,12 @@
 #import "SPPayload.h"
 #import "SPUtilities.h"
 #import "SPLogger.h"
+#import "SPPlatformContext.h"
 
 
 @implementation SPSubject {
     SPPayload *           _standardDict;
-    SPPayload *           _platformDict;
+    SPPlatformContext *   _platformContextManager;
     NSMutableDictionary * _geoLocationDict;
 }
 
@@ -49,8 +50,8 @@
         self.platformContext = platformContext;
         self.geoLocationContext = geoContext;
         _standardDict = [[SPPayload alloc] init];
+        _platformContextManager = [[SPPlatformContext alloc] init];
         [self setStandardDict];
-        [self setPlatformDict];
         [self setGeoDict];
         if (config) {
             if (config.userId) [self setUserId:config.userId];
@@ -110,14 +111,22 @@
 }
 
 - (SPPayload *) getPlatformDict {
-    return _platformDict;
+    if (self.platformContext) {
+        return [_platformContextManager fetchPlatformDict];
+    } else {
+        return nil;
+    }
 }
 
 - (NSDictionary *) getGeoLocationDict {
-    if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
-        return _geoLocationDict;
+    if (self.geoLocationContext) {
+        if (_geoLocationDict[kSPGeoLatitude] && _geoLocationDict[kSPGeoLongitude]) {
+            return _geoLocationDict;
+        } else {
+            SPLogDebug(@"GeoLocation missing required fields; cannot get.");
+            return nil;
+        }
     } else {
-        SPLogDebug(@"GeoLocation missing required fields; cannot get.");
         return nil;
     }
 }
@@ -185,27 +194,6 @@
 - (void) setDomainUserId:(NSString *)duid {
     _domainUserId = duid;
     [_standardDict addValueToPayload:duid forKey:kSPDomainUid];
-}
-
-// MARK: - Platform Dictionary
-
-- (void) setPlatformDict {
-    _platformDict = [[SPPayload alloc] init];
-    [_platformDict addValueToPayload:[SPUtilities getOSType]            forKey:kSPPlatformOsType];
-    [_platformDict addValueToPayload:[SPUtilities getOSVersion]         forKey:kSPPlatformOsVersion];
-    [_platformDict addValueToPayload:[SPUtilities getDeviceVendor]      forKey:kSPPlatformDeviceManu];
-    [_platformDict addValueToPayload:[SPUtilities getDeviceModel]       forKey:kSPPlatformDeviceModel];
-#if SNOWPLOW_TARGET_IOS
-    [self setMobileDict];
-#endif
-}
-
-- (void) setMobileDict {
-    [_platformDict addValueToPayload:[SPUtilities getCarrierName]       forKey:kSPMobileCarrier];
-    [_platformDict addValueToPayload:[SPUtilities getAppleIdfa]         forKey:kSPMobileAppleIdfa];
-    [_platformDict addValueToPayload:[SPUtilities getAppleIdfv]         forKey:kSPMobileAppleIdfv];
-    [_platformDict addValueToPayload:[SPUtilities getNetworkType]       forKey:kSPMobileNetworkType];
-    [_platformDict addValueToPayload:[SPUtilities getNetworkTechnology] forKey:kSPMobileNetworkTech];
 }
 
 // MARK: - GeoLocation Dictionary

@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright © 2020 Snowplow Analytics.
+//  Copyright: Copyright © 2021 Snowplow Analytics.
 //  License: Apache License Version 2.0
 //
 
@@ -25,28 +25,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-/*!
- @protocol SPSelfDescribingBuilder
- @brief The protocol for building unstructured events.
- */
-NS_SWIFT_NAME(SelfDescribingBuilder)
-@protocol SPSelfDescribingBuilder <SPEventBuilder>
-/*!
- @brief Set the data field of the unstructured event.
-
- @param eventData A self-describing JSON of an unstructured event.
- */
-- (void) setEventData:(SPSelfDescribingJson *)eventData __deprecated_msg("Use `eventData` of `Unstructured` class instead.");
-@end
-
-/*!
- @class SPSelfDescribing
- @brief An unstructured event.
- */
+/// A self-describing event.
 NS_SWIFT_NAME(SelfDescribing)
-@interface SPSelfDescribing : SPSelfDescribingAbstract <SPSelfDescribingBuilder>
-
-+ (instancetype)build:(void(^)(id<SPSelfDescribingBuilder> builder))buildBlock __deprecated_msg("Use initializer instead.");
+@interface SPSelfDescribing : SPSelfDescribingAbstract
 
 - (instancetype)init NS_UNAVAILABLE;
 

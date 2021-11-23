@@ -2,7 +2,7 @@
 //  SPSession.m
 //  Snowplow
 //
-//  Copyright (c) 2020 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2021 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,7 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2020 Snowplow Analytics Ltd
+//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -31,7 +31,7 @@
 #import "SPBackground.h"
 #import "SPForeground.h"
 
-#if SNOWPLOW_TARGET_IOS
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
 #import <UIKit/UIKit.h>
 #endif
 
@@ -107,7 +107,7 @@
         [self startChecker];
 
         // Trigger notification for view changes
-        #if SNOWPLOW_TARGET_IOS
+        #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(updateInBackground)
                                                      name:UIApplicationWillResignActiveNotification

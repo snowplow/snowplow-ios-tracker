@@ -28,7 +28,6 @@
 #import "SPSelfDescribingJson.h"
 #import "SPUtilities.h"
 #import "SPSession.h"
-#import "SPScreenState.h"
 #import "SPInstallTracker.h"
 #import "SPGlobalContext.h"
 
@@ -45,6 +44,7 @@
 #import "SPForeground.h"
 #import "SPBackground.h"
 #import "SPPushNotification.h"
+#import "SPDeepLinkReceived.h"
 #import "SPTrackerEvent.h"
 #import "SPTrackerError.h"
 #import "SPLogger.h"
@@ -53,20 +53,20 @@
 #import "SPSessionConfiguration.h"
 
 #import "SPServiceProvider.h"
-
 #import "SPTrackerControllerImpl.h"
-
 #import "SPEmitterEventProcessing.h"
+
+#import "SPStateManager.h"
+#import "SPScreenStateMachine.h"
+#import "SPDeepLinkStateMachine.h"
+#import "SPLifecycleStateMachine.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
 
-@property (class, readwrite, weak) SPTracker *sharedInstance;
-
-@property (readwrite, nonatomic, strong) SPScreenState * currentScreenState;
-@property (readwrite, nonatomic, strong) SPScreenState * previousScreenState;
-
 @property (nonatomic) SPGdprContext *gdpr;
+
+@property (nonatomic) SPStateManager *stateManager;
 
 /*!
  @brief This method is called to send an auto-tracked screen view event.
@@ -109,6 +109,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _dataCollection;
     SPSession *            _session;
     BOOL                   _sessionContext;
+    BOOL                   _deepLinkContext;
     BOOL                   _screenContext;
     BOOL                   _applicationContext;
     BOOL                   _autotrackScreenViews;
@@ -122,8 +123,6 @@ void uncaughtExceptionHandler(NSException *exception) {
     NSString *             _trackerVersionSuffix;
 }
 
-static SPTracker *_sharedInstance = nil;
-
 // MARK: - Added property methods
 
 - (BOOL)applicationContext {
@@ -136,6 +135,10 @@ static SPTracker *_sharedInstance = nil;
 
 - (BOOL)installEvent {
     return _installEvent;
+}
+
+- (BOOL)deepLinkContext {
+    return _deepLinkContext;
 }
 
 - (BOOL)screenContext {
@@ -163,18 +166,7 @@ static SPTracker *_sharedInstance = nil;
     }
     [tracker setup];
     [tracker checkInstall];
-    SPTracker.sharedInstance = tracker;
     return tracker;
-}
-
-+ (void)setSharedInstance:(SPTracker *)sharedInstance {
-    if (sharedInstance != _sharedInstance) {
-        _sharedInstance = sharedInstance;
-    }
-}
-
-+ (SPTracker *)sharedInstance {
-    return _sharedInstance;
 }
 
 - (instancetype) initWithDefaultValues {
@@ -195,8 +187,7 @@ static SPTracker *_sharedInstance = nil;
         _backgroundTimeout = 300;
         _builderFinished = NO;
         self.globalContextGenerators = [NSMutableDictionary dictionary];
-        self.previousScreenState = nil;
-        self.currentScreenState = nil;
+        self.stateManager = [SPStateManager new];
         _exceptionEvents = NO;
         _installEvent = NO;
         _trackerDiagnostic = NO;
@@ -335,8 +326,26 @@ static SPTracker *_sharedInstance = nil;
     }
 }
 
+- (void) setDeepLinkContext:(BOOL)deepLinkContext {
+    @synchronized (self) {
+        _deepLinkContext = deepLinkContext;
+        if (deepLinkContext) {
+            [self.stateManager addStateMachine:[SPDeepLinkStateMachine new] identifier:@"SPDeepLinkContext"];
+        } else {
+            [self.stateManager removeStateMachine:@"SPDeepLinkContext"];
+        }
+    }
+}
+
 - (void) setScreenContext:(BOOL)screenContext {
-    _screenContext = screenContext;
+    @synchronized (self) {
+        _screenContext = screenContext;
+        if (screenContext) {
+            [self.stateManager addStateMachine:[SPScreenStateMachine new] identifier:@"SPScreenContext"];
+        } else {
+            [self.stateManager removeStateMachine:@"SPScreenContext"];
+        }
+    }
 }
 
 - (void) setApplicationContext:(BOOL)applicationContext {
@@ -362,7 +371,14 @@ static SPTracker *_sharedInstance = nil;
 }
 
 - (void) setLifecycleEvents:(BOOL)lifecycleEvents {
-    _lifecycleEvents = lifecycleEvents;
+    @synchronized (self) {
+        _lifecycleEvents = lifecycleEvents;
+        if (lifecycleEvents) {
+            [self.stateManager addStateMachine:[SPLifecycleStateMachine new] identifier:@"SPLifecycle"];
+        } else {
+            [self.stateManager removeStateMachine:@"SPLifecycle"];
+        }
+    }
 }
 
 - (void) setExceptionEvents:(BOOL)exceptionEvents {
@@ -447,24 +463,12 @@ static SPTracker *_sharedInstance = nil;
 
 #pragma mark - Getters
 
-- (NSInteger) getSessionIndex __deprecated {
-    return [_session getSessionIndex];
-}
-
 - (BOOL) getInBackground {
     return [_session getInBackground];
 }
 
 - (BOOL) getIsTracking {
     return _dataCollection;
-}
-
-- (NSString*) getSessionUserId {
-    return [_session getUserId];
-}
-
-- (NSString*) getSessionId {
-    return [_session getSessionId];
 }
 
 - (BOOL) getLifecycleEvents {
@@ -519,24 +523,8 @@ static SPTracker *_sharedInstance = nil;
 
 #pragma mark - Event Tracking Functions
 
-- (void) trackSelfDescribingEvent:(SPSelfDescribingJson *)event __deprecated {
-    if (!event || !_dataCollection) return;
-    SPSelfDescribing *unstruct = [[SPSelfDescribing alloc] initWithEventData:event];
-    [self track:unstruct];
-}
-
 - (void)track:(SPEvent *)event {
     if (!event || !_dataCollection) return;
-    
-    if ([event isKindOfClass:SPScreenView.class]) {
-        @synchronized (_currentScreenState) {
-            SPScreenView *screenView = (SPScreenView *)event;
-            _previousScreenState = _currentScreenState;
-            _currentScreenState = [screenView getScreenState];
-            [screenView updateWithPreviousState: _previousScreenState];
-        }
-    }
-
     [event beginProcessingWithTracker:self];
     [self processEvent:event];
     [event endProcessingWithTracker:self];
@@ -545,7 +533,11 @@ static SPTracker *_sharedInstance = nil;
 #pragma mark - Event Decoration
 
 - (void)processEvent:(SPEvent *)event {
-    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event];
+    SPTrackerState *stateSnapshot;
+    @synchronized (self) {
+        stateSnapshot = [self.stateManager trackerStateForProcessedEvent:event];
+    }
+    SPTrackerEvent *trackerEvent = [[SPTrackerEvent alloc] initWithEvent:event state:stateSnapshot];
     [self transformEvent:trackerEvent];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
@@ -557,6 +549,8 @@ static SPTracker *_sharedInstance = nil;
         event.timestamp = event.trueTimestamp.timeIntervalSince1970 * 1000;
         event.trueTimestamp = nil;
     }
+    // Payload can be optionally updated with values based on internal state
+    [self.stateManager addPayloadValuesToEvent:event];
 }
 
 - (SPPayload *)payloadWithEvent:(SPTrackerEvent *)event {
@@ -572,8 +566,8 @@ static SPTracker *_sharedInstance = nil;
     NSMutableArray<SPSelfDescribingJson *> *contexts = event.contexts;
     [self addBasicContextsToContexts:contexts event:event];
     [self addGlobalContextsToContexts:contexts event:event];
+    [self addStateMachineEntitiesToContexts:contexts event:event];
     [self wrapContexts:contexts toPayload:payload];
-
     return payload;
 }
 
@@ -598,6 +592,9 @@ static SPTracker *_sharedInstance = nil;
 
 - (void)addSelfDescribingPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
     [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
+
+    [self workaroundForCampaignAttributionEnrichment:payload event:event]; // TODO: To remove when Atomic table refactoring is finished
+    
     SPSelfDescribingJson *data = [[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload];
     NSDictionary *unstructuredEventPayload = @{
         kSPSchema: kSPUnstructSchema,
@@ -607,6 +604,24 @@ static SPTracker *_sharedInstance = nil;
                       base64Encoded:_base64Encoded
                     typeWhenEncoded:kSPUnstructuredEncoded
                  typeWhenNotEncoded:kSPUnstructured];
+}
+
+/*
+ This is needed because the campaign-attribution-enrichment (in the pipeline) is able to parse
+ the `url` and `referrer` only if they are part of a PageView event.
+ The PageView event is an atomic event but the DeepLinkReceived is a SelfDescribing event.
+ For this reason we copy these two fields in the atomic fields in order to let the enrichment
+ to process correctly the fields even if the event is not a PageView and it's a SelfDescribing event.
+ This is a hack that should be removed once the atomic event table is dismissed and all the events
+ will be SelfDescribing.
+ */
+- (void)workaroundForCampaignAttributionEnrichment:(SPPayload *)payload event:(SPTrackerEvent *)event {
+    if ([event.schema isEqualToString:kSPDeepLinkReceivedSchema]) {
+        NSString *url = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamUrl];
+        NSString *referrer = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamReferrer];
+        [payload addValueToPayload:url forKey:kSPPageUrl];
+        [payload addValueToPayload:referrer forKey:kSPPageRefr];
+    }
 }
 
 - (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(SPTrackerEvent *)event {
@@ -646,18 +661,6 @@ static SPTracker *_sharedInstance = nil;
         }
     }
     
-    // Add screen context
-    if (_screenContext) {
-        @synchronized (_currentScreenState) {
-            if (_currentScreenState) {
-                SPSelfDescribingJson *contextJson = [SPUtilities getScreenContextWithScreenState:_currentScreenState];
-                if (contextJson != nil) {
-                    [contexts addObject:contextJson];
-                }
-            }
-        }
-    }
-    
     // Add GDPR context
     if (self.gdpr) {
         SPSelfDescribingJson *gdprContext = self.gdpr.context;
@@ -671,6 +674,11 @@ static SPTracker *_sharedInstance = nil;
     [self.globalContextGenerators enumerateKeysAndObjectsUsingBlock:^(NSString *key, SPGlobalContext *generator, BOOL *stop) {
         [contexts addObjectsFromArray:[generator contextsFromEvent:event]];
     }];
+}
+
+- (void)addStateMachineEntitiesToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(id<SPInspectableEvent>)event {
+    NSArray<SPSelfDescribingJson *> *stateManagerEntities = [self.stateManager entitiesForProcessedEvent:event];
+    [contexts addObjectsFromArray:stateManagerEntities];
 }
 
 - (void)wrapContexts:(NSArray<SPSelfDescribingJson *> *)contexts toPayload:(SPPayload *)payload {

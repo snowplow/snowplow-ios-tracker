@@ -31,10 +31,12 @@
 #import "SPPayload.h"
 #import "SPEvent.h"
 #import "SPSelfDescribingJson.h"
-#import "SPScreenState.h"
 #import "SPUtilities.h"
 #import "SPTrackerEvent.h"
 #import "SPServiceProvider.h"
+
+#import "SPScreenStateMachine.h"
+#import "SPScreenState.h"
 
 
 /// Category needed to make the private methods testable.
@@ -62,10 +64,14 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
     [super tearDown];
 }
 
-- (void) testScreenContextJson {
-    SPScreenState * screen = [[SPScreenState alloc] initWithName:@"name" type:@"type" topViewControllerClassName:@"topvcname" viewControllerClassName:@"vcname"];
-    SPSelfDescribingJson * json = [SPUtilities getScreenContextWithScreenState:screen];
-    XCTAssertTrue([validator validateJson:[json getAsDictionary]]);
+- (void)testScreenContextJson {
+    SPScreenStateMachine *stateMachine = [[SPScreenStateMachine alloc] init];
+    SPTrackerEvent *fakeEvent = [[SPTrackerEvent alloc] initWithEvent:[[SPStructured alloc] initWithCategory:@"fake" action:@"fake"]];
+    id<SPState> screenState = [[SPScreenState alloc] initWithName:@"name" type:@"type" screenId:nil transitionType:@"transition" topViewControllerClassName:@"topVCname" viewControllerClassName:@"VCname"];
+    NSArray<SPSelfDescribingJson *> *entities = [stateMachine entitiesFromEvent:fakeEvent state:screenState];
+    SPSelfDescribingJson *screenContext = [entities firstObject];
+    XCTAssertNotNil(screenContext);
+    XCTAssertTrue([validator validateJson:[screenContext getAsDictionary]]);
 }
 
 - (void)testClientSessionContextJson {
@@ -306,6 +312,21 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 
     SPPushNotification *event = [[SPPushNotification alloc] initWithDate:@"date" action:@"action" trigger:@"PUSH" category:@"category" thread:@"thread" notification:content];
     
+    NSDictionary *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
+    XCTAssertTrue([validator validateJson:sdj]);
+}
+
+- (void)testMessageNotificationEventJson {
+    NSDictionary *userInfo = @{@"aps":
+                                    @{@"alert":
+                                          @{@"title": @"test title",
+                                            @"body": @"test",
+                                            @"loc-key": @"test key"
+                                            },
+                                      @"content-available": @0
+                                          }
+                                    };
+    SPMessageNotification *event = [SPMessageNotification messageNotificationWithUserInfo:userInfo defaultTitle:nil defaultBody:nil];
     NSDictionary *sdj = [[[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload] getAsDictionary];
     XCTAssertTrue([validator validateJson:sdj]);
 }
