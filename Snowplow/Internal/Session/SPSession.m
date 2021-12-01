@@ -152,7 +152,9 @@
         @synchronized (self) {
             if ([self shouldUpdateSession]) {
                 SPSessionState *state = [self updateSessionWithEventId:eventId];
-                self.onSessionUpdate(state);
+                if (self.onSessionUpdate) {
+                    self.onSessionUpdate(state);
+                }
             }
             self.lastSessionCheck = [SPUtilities getTimestamp];
             result = [_sessionDict mutableCopy];

@@ -26,7 +26,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^OnSessionUpdate)(SPSessionState * _Nonnull sessionState);
+typedef void(^OnSessionStateUpdate)(SPSessionState * _Nonnull sessionState);
 
 NS_SWIFT_NAME(SessionConfigurationProtocol)
 @protocol SPSessionConfigurationProtocol
@@ -60,7 +60,7 @@ NS_SWIFT_NAME(SessionConfigurationProtocol)
 /**
  * The callback called everytime the session is updated.
  */
-@property (nullable) OnSessionUpdate onSessionUpdate;
+@property (nullable) OnSessionStateUpdate onSessionStateUpdate;
 
 @end
 
@@ -98,7 +98,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0));
 /**
  * The callback called everytime the session is updated.
  */
-SP_BUILDER_DECLARE_NULLABLE(OnSessionUpdate, onSessionUpdate)
+SP_BUILDER_DECLARE_NULLABLE(OnSessionStateUpdate, onSessionUpdate)
 
 @end
 

@@ -27,7 +27,7 @@
 
 @synthesize foregroundTimeoutInSeconds;
 @synthesize backgroundTimeoutInSeconds;
-@synthesize onSessionUpdate;
+@synthesize onSessionStateUpdate;
 
 - (instancetype)init {
     return [self initWithForegroundTimeoutInSeconds:1800 backgroundTimeoutInSeconds:1800];
@@ -83,7 +83,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 
 // MARK: - Builders
 
-SP_BUILDER_METHOD(OnSessionUpdate, onSessionUpdate)
+SP_BUILDER_METHOD(OnSessionStateUpdate, onSessionStateUpdate)
 
 // MARK: - NSCopying
 

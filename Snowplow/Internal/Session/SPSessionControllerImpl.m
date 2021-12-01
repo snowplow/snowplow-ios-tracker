@@ -76,10 +76,10 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
     [self.session setBackgroundTimeout:backgroundTimeoutInSeconds * 1000];
 }
 
-- (void)setOnSessionUpdate:(OnSessionUpdate)onSessionUpdate {
-    self.dirtyConfig.onSessionUpdate = onSessionUpdate;
-    self.dirtyConfig.onSessionUpdateUpdated = YES;
-    self.session.onSessionUpdate = onSessionUpdate;
+- (void)setOnSessionStateUpdate:(OnSessionStateUpdate)onSessionUpdate {
+    self.dirtyConfig.onSessionStateUpdate = onSessionUpdate;
+    self.dirtyConfig.onSessionStateUpdateUpdated = YES;
+    self.session.onSessionStateUpdate = onSessionUpdate;
 }
 
 - (NSMeasurement<NSUnitDuration *> *)foregroundTimeout
@@ -110,12 +110,12 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
     return floor([self.session getBackgroundTimeout] / 1000);
 }
 
-- (OnSessionUpdate)onSessionUpdate {
+- (OnSessionStateUpdate)onSessionStateUpdate {
     if (!self.isEnabled) {
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return nil;
     }
-    return self.session.onSessionUpdate;
+    return self.session.onSessionStateUpdate;
 }
 
 - (NSInteger)sessionIndex {
@@ -131,7 +131,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return nil;
     }
-    return self.session.getSessionId;
+    return self.session.state.sessionId;
 }
 
 - (NSString *)userId {
