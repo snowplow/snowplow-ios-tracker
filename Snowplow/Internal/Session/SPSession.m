@@ -151,7 +151,8 @@
     } else {
         @synchronized (self) {
             if ([self shouldUpdateSession]) {
-                [self updateSessionWithEventId:eventId];
+                SPSessionState *state = [self updateSessionWithEventId:eventId];
+                self.onSessionUpdate(state);
             }
             self.lastSessionCheck = [SPUtilities getTimestamp];
             result = [_sessionDict mutableCopy];
@@ -221,7 +222,7 @@
     return now < lastAccess || now - lastAccess > timeout;
 }
 
-- (void)updateSessionWithEventId:(NSString *)eventId {
+- (SPSessionState *)updateSessionWithEventId:(NSString *)eventId {
     _isNewSession = NO;
     _firstEventId = eventId;
     _previousSessionId = _currentSessionId;
@@ -238,8 +239,12 @@
     [newSessionDict setObject:[NSNumber numberWithInt:(int)_sessionIndex] forKey:kSPSessionIndex];
     [newSessionDict setObject:_sessionStorage forKey:kSPSessionStorage];
     _sessionDict = [newSessionDict copy];
-
+    
     [self writeSessionToFile];
+
+    // Create SessionState
+    SPSessionState *sessionState = [[SPSessionState alloc] init];
+    return sessionState;
 }
 
 - (void) updateInBackground {

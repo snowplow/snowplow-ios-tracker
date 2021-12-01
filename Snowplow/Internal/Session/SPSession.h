@@ -26,6 +26,9 @@
 NS_SWIFT_NAME(Session)
 @interface SPSession : NSObject
 
+/// Callback to be called when the session is updated
+@property OnSessionUpdate onSessionUpdate;
+
 /**
  * Initializes a newly allocated SnowplowSession
  * @return a SnowplowSession

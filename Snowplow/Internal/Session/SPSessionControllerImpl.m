@@ -76,6 +76,12 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
     [self.session setBackgroundTimeout:backgroundTimeoutInSeconds * 1000];
 }
 
+- (void)setOnSessionUpdate:(OnSessionUpdate)onSessionUpdate {
+    self.dirtyConfig.onSessionUpdate = onSessionUpdate;
+    self.dirtyConfig.onSessionUpdateUpdated = YES;
+    self.session.onSessionUpdate = onSessionUpdate;
+}
+
 - (NSMeasurement<NSUnitDuration *> *)foregroundTimeout
 API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 {
@@ -102,6 +108,14 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         return -1;
     }
     return floor([self.session getBackgroundTimeout] / 1000);
+}
+
+- (OnSessionUpdate)onSessionUpdate {
+    if (!self.isEnabled) {
+        SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
+        return nil;
+    }
+    return self.session.onSessionUpdate;
 }
 
 - (NSInteger)sessionIndex {
