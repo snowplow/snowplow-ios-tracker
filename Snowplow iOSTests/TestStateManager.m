@@ -92,7 +92,7 @@
 
 - (void)testStateManager {
     SPStateManager *stateManager = [SPStateManager new];
-    [stateManager addStateMachine:[MockStateMachine new] identifier:@"identifier"];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier"];
     
     SPSelfDescribing *eventInc = [[SPSelfDescribing alloc] initWithSchema:@"inc" payload:@{@"value": @1}];
     SPSelfDescribing *eventDec = [[SPSelfDescribing alloc] initWithSchema:@"dec" payload:@{@"value": @2}];
@@ -134,7 +134,7 @@
 
 - (void)testAddRemoveStateMachine {
     SPStateManager *stateManager = [SPStateManager new];
-    [stateManager addStateMachine:[MockStateMachine new] identifier:@"identifier"];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier"];
     [stateManager removeStateMachine:@"identifier"];
     
     SPSelfDescribing *eventInc = [[SPSelfDescribing alloc] initWithSchema:@"inc" payload:@{@"value": @1}];
@@ -145,6 +145,32 @@
     id<SPInspectableEvent> e = [[SPTrackerEvent alloc] initWithEvent:eventInc state:trackerState];
     NSArray<SPSelfDescribingJson *> *entities = [stateManager entitiesForProcessedEvent:e];
     XCTAssertEqual(0, entities.count);
+}
+
+- (void)testAllowsMultipleStateMachines {
+    SPStateManager *stateManager = [SPStateManager new];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier1"];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier2"];
+    
+    SPSelfDescribing *eventInc = [[SPSelfDescribing alloc] initWithSchema:@"inc" payload:@{@"value": @1}];
+
+    id<SPTrackerStateSnapshot> trackerState = [stateManager trackerStateForProcessedEvent:eventInc];
+    id<SPInspectableEvent> e = [[SPTrackerEvent alloc] initWithEvent:eventInc state:trackerState];
+    NSArray<SPSelfDescribingJson *> *entities = [stateManager entitiesForProcessedEvent:e];
+    XCTAssertEqual(2, entities.count);
+}
+
+- (void)testDoesntDuplicateStateFromStateMachinesWithSameId {
+    SPStateManager *stateManager = [SPStateManager new];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier"];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier"];
+    
+    SPSelfDescribing *eventInc = [[SPSelfDescribing alloc] initWithSchema:@"inc" payload:@{@"value": @1}];
+
+    id<SPTrackerStateSnapshot> trackerState = [stateManager trackerStateForProcessedEvent:eventInc];
+    id<SPInspectableEvent> e = [[SPTrackerEvent alloc] initWithEvent:eventInc state:trackerState];
+    NSArray<SPSelfDescribingJson *> *entities = [stateManager entitiesForProcessedEvent:e];
+    XCTAssertEqual(1, entities.count);
 }
 
 @end

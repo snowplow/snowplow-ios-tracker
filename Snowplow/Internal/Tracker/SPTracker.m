@@ -330,7 +330,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     @synchronized (self) {
         _deepLinkContext = deepLinkContext;
         if (deepLinkContext) {
-            [self.stateManager addStateMachine:[SPDeepLinkStateMachine new] identifier:@"SPDeepLinkContext"];
+            [self.stateManager addOrReplaceStateMachine:[SPDeepLinkStateMachine new] identifier:@"SPDeepLinkContext"];
         } else {
             [self.stateManager removeStateMachine:@"SPDeepLinkContext"];
         }
@@ -341,7 +341,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     @synchronized (self) {
         _screenContext = screenContext;
         if (screenContext) {
-            [self.stateManager addStateMachine:[SPScreenStateMachine new] identifier:@"SPScreenContext"];
+            [self.stateManager addOrReplaceStateMachine:[SPScreenStateMachine new] identifier:@"SPScreenContext"];
         } else {
             [self.stateManager removeStateMachine:@"SPScreenContext"];
         }
@@ -374,7 +374,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     @synchronized (self) {
         _lifecycleEvents = lifecycleEvents;
         if (lifecycleEvents) {
-            [self.stateManager addStateMachine:[SPLifecycleStateMachine new] identifier:@"SPLifecycle"];
+            [self.stateManager addOrReplaceStateMachine:[SPLifecycleStateMachine new] identifier:@"SPLifecycle"];
         } else {
             [self.stateManager removeStateMachine:@"SPLifecycle"];
         }
