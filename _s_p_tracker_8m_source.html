@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">3.0.0</span>
+   &#160;<span id="projectnumber">3.0.1</span>
    </div>
   </td>
  </tr>
@@ -396,7 +396,7 @@ $(function() {
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    @<span class="keyword">synchronized</span> (<span class="keyword">self</span>) {</div>
 <div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;        <a class="code" href="_s_p_tracker_8m.html#a62e31b76b036ee60d411c9a0c81cc4f3">_deepLinkContext</a> = deepLinkContext;</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="keywordflow">if</span> (deepLinkContext) {</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            [<span class="keyword">self</span>.stateManager addStateMachine:[<a class="code" href="interface_s_p_deep_link_state_machine.html">SPDeepLinkStateMachine</a> new] identifier:@&quot;SPDeepLinkContext&quot;];</div>
+<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;            [<span class="keyword">self</span>.stateManager addOrReplaceStateMachine:[<a class="code" href="interface_s_p_deep_link_state_machine.html">SPDeepLinkStateMachine</a> new] identifier:@&quot;SPDeepLinkContext&quot;];</div>
 <div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;            [<span class="keyword">self</span>.stateManager removeStateMachine:@&quot;SPDeepLinkContext&quot;];</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        }</div>
@@ -407,7 +407,7 @@ $(function() {
 <div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    @<span class="keyword">synchronized</span> (<span class="keyword">self</span>) {</div>
 <div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;        <a class="code" href="_s_p_tracker_8m.html#ad6fd425dd6010a06bef7ad67479e6423">_screenContext</a> = screenContext;</div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        <span class="keywordflow">if</span> (screenContext) {</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            [<span class="keyword">self</span>.stateManager addStateMachine:[<a class="code" href="interface_s_p_screen_state_machine.html">SPScreenStateMachine</a> new] identifier:@&quot;SPScreenContext&quot;];</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;            [<span class="keyword">self</span>.stateManager addOrReplaceStateMachine:[<a class="code" href="interface_s_p_screen_state_machine.html">SPScreenStateMachine</a> new] identifier:@&quot;SPScreenContext&quot;];</div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;            [<span class="keyword">self</span>.stateManager removeStateMachine:@&quot;SPScreenContext&quot;];</div>
 <div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;        }</div>
@@ -440,7 +440,7 @@ $(function() {
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    @<span class="keyword">synchronized</span> (<span class="keyword">self</span>) {</div>
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;        <a class="code" href="_s_p_tracker_8m.html#a2dd5773d02e27aec3a98616139d51285">_lifecycleEvents</a> = lifecycleEvents;</div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;        <span class="keywordflow">if</span> (lifecycleEvents) {</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            [<span class="keyword">self</span>.stateManager addStateMachine:[<a class="code" href="interface_s_p_lifecycle_state_machine.html">SPLifecycleStateMachine</a> new] identifier:@&quot;SPLifecycle&quot;];</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;            [<span class="keyword">self</span>.stateManager addOrReplaceStateMachine:[<a class="code" href="interface_s_p_lifecycle_state_machine.html">SPLifecycleStateMachine</a> new] identifier:@&quot;SPLifecycle&quot;];</div>
 <div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;            [<span class="keyword">self</span>.stateManager removeStateMachine:@&quot;SPLifecycle&quot;];</div>
 <div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        }</div>

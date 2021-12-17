@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">3.0.0</span>
+   &#160;<span id="projectnumber">3.0.1</span>
    </div>
   </td>
  </tr>
@@ -99,7 +99,7 @@ $(function() {
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
 <div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="interface_s_p_state_manager.html">   28</a></span>&#160;<span class="keyword">@interface </span><a class="code" href="interface_s_p_state_manager.html">SPStateManager</a> : NSObject</div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;- (void)addStateMachine:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_state_machine_protocol-p.html">SPStateMachineProtocol</a>&gt;)stateMachine identifier:(NSString *)stateMachineIdentifier;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;- (void)addOrReplaceStateMachine:(<span class="keywordtype">id</span>&lt;<a class="code" href="protocol_s_p_state_machine_protocol-p.html">SPStateMachineProtocol</a>&gt;)stateMachine identifier:(NSString *)stateMachineIdentifier;</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;- (BOOL)removeStateMachine:(NSString *)stateMachineIdentifier;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;- (id&lt;<a class="code" href="protocol_s_p_tracker_state_snapshot-p.html">SPTrackerStateSnapshot</a>&gt;)trackerStateForProcessedEvent:(<a class="code" href="interface_s_p_event.html">SPEvent</a> *)event;</div>

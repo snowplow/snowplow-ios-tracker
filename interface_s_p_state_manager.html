@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">3.0.0</span>
+   &#160;<span id="projectnumber">3.0.1</span>
    </div>
   </td>
  </tr>
@@ -79,8 +79,8 @@ Inheritance diagram for SPStateManager:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Instance Methods</h2></td></tr>
-<tr class="memitem:a56f9ae09095d24189052090c9cc87d46"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_state_manager.html#a56f9ae09095d24189052090c9cc87d46">addStateMachine:identifier:</a></td></tr>
-<tr class="separator:a56f9ae09095d24189052090c9cc87d46"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a899fbafbae8ac511d525c4c5165fb580"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_state_manager.html#a899fbafbae8ac511d525c4c5165fb580">addOrReplaceStateMachine:identifier:</a></td></tr>
+<tr class="separator:a899fbafbae8ac511d525c4c5165fb580"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae992f4a127e27b2fb76c7d41d1f6240c"><td class="memItemLeft" align="right" valign="top">(BOOL)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_state_manager.html#ae992f4a127e27b2fb76c7d41d1f6240c">removeStateMachine:</a></td></tr>
 <tr class="separator:ae992f4a127e27b2fb76c7d41d1f6240c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa1debf33c73c815ac7e3df926aa513f7"><td class="memItemLeft" align="right" valign="top">(id&lt; <a class="el" href="protocol_s_p_tracker_state_snapshot-p.html">SPTrackerStateSnapshot</a> &gt;)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_state_manager.html#aa1debf33c73c815ac7e3df926aa513f7">trackerStateForProcessedEvent:</a></td></tr>
@@ -94,34 +94,14 @@ Instance Methods</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="_s_p_state_manager_8h_source.html#l00028">28</a> of file <a class="el" href="_s_p_state_manager_8h_source.html">SPStateManager.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="adb303937e0dad8d02154371d449c579a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb303937e0dad8d02154371d449c579a">&#9670;&nbsp;</a></span>addPayloadValuesToEvent:</h2>
+<a id="a899fbafbae8ac511d525c4c5165fb580"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a899fbafbae8ac511d525c4c5165fb580">&#9670;&nbsp;</a></span>addOrReplaceStateMachine:identifier:</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (BOOL) addPayloadValuesToEvent: </td>
-          <td></td>
-          <td class="paramtype">(id&lt;<a class="el" href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent</a>&gt;)&#160;</td>
-          <td class="paramname"><em>event</em></td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_s_p_state_manager_8m_source.html#l00032">32</a> of file <a class="el" href="_s_p_state_manager_8m_source.html">SPStateManager.m</a>.</p>
-
-</div>
-</div>
-<a id="a56f9ae09095d24189052090c9cc87d46"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56f9ae09095d24189052090c9cc87d46">&#9670;&nbsp;</a></span>addStateMachine:identifier:</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">- (void) addStateMachine: </td>
+          <td class="memname">- (void) addOrReplaceStateMachine: </td>
           <td></td>
           <td class="paramtype">(id&lt;<a class="el" href="protocol_s_p_state_machine_protocol-p.html">SPStateMachineProtocol</a>&gt;)&#160;</td>
           <td class="paramname"><em>stateMachine</em></td>
@@ -136,6 +116,26 @@ Instance Methods</h2></td></tr>
           <td></td>
           <td></td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_state_manager_8m_source.html#l00032">32</a> of file <a class="el" href="_s_p_state_manager_8m_source.html">SPStateManager.m</a>.</p>
+
+</div>
+</div>
+<a id="adb303937e0dad8d02154371d449c579a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb303937e0dad8d02154371d449c579a">&#9670;&nbsp;</a></span>addPayloadValuesToEvent:</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) addPayloadValuesToEvent: </td>
+          <td></td>
+          <td class="paramtype">(id&lt;<a class="el" href="protocol_s_p_inspectable_event-p.html">SPInspectableEvent</a>&gt;)&#160;</td>
+          <td class="paramname"><em>event</em></td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
