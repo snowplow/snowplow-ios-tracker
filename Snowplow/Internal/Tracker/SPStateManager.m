@@ -47,8 +47,15 @@
     return self;
 }
 
-- (void)addStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier {
+- (void)addOrReplaceStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier {
     @synchronized (self) {
+        id<SPStateMachineProtocol> previousStateMachine = [self.identifierToStateMachine objectForKey:stateMachineIdentifier];
+        if (previousStateMachine) {
+            if ([stateMachine isMemberOfClass:[previousStateMachine class]]) {
+                return;
+            }
+            [self removeStateMachine:stateMachineIdentifier];
+        }
         self.identifierToStateMachine[stateMachineIdentifier] = stateMachine;
         [self.stateMachineToIdentifier setObject:stateMachineIdentifier forKey:stateMachine];
         [self addToSchemaRegistry:self.eventSchemaToStateMachine
