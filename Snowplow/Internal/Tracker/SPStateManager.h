@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPStateManager : NSObject
 
-- (void)addStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier;
+- (void)addOrReplaceStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier;
 - (BOOL)removeStateMachine:(NSString *)stateMachineIdentifier;
 
 - (id<SPTrackerStateSnapshot>)trackerStateForProcessedEvent:(SPEvent *)event;
