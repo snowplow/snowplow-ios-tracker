@@ -49,7 +49,11 @@
 
 - (void)addOrReplaceStateMachine:(id<SPStateMachineProtocol>)stateMachine identifier:(NSString *)stateMachineIdentifier {
     @synchronized (self) {
-        if ([self.identifierToStateMachine objectForKey:stateMachineIdentifier]) {
+        id<SPStateMachineProtocol> previousStateMachine = [self.identifierToStateMachine objectForKey:stateMachineIdentifier];
+        if (previousStateMachine) {
+            if ([stateMachine isMemberOfClass:[previousStateMachine class]]) {
+                return;
+            }
             [self removeStateMachine:stateMachineIdentifier];
         }
         self.identifierToStateMachine[stateMachineIdentifier] = stateMachine;

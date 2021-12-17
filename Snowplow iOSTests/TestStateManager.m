@@ -83,6 +83,16 @@
 
 @end
 
+@interface MockStateMachine1 : MockStateMachine
+@end
+@implementation MockStateMachine1
+@end
+
+@interface MockStateMachine2 : MockStateMachine
+@end
+@implementation MockStateMachine2
+@end
+
 // MARK: - Test
 
 @interface TestStateManager : XCTestCase
@@ -173,5 +183,26 @@
     XCTAssertEqual(1, entities.count);
 }
 
-@end
+- (void)testReplacingStateMachineDoesntResetTrackerState {
+    SPStateManager *stateManager = [SPStateManager new];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier"];
+    id<SPTrackerStateSnapshot> trackerState1 = [stateManager trackerStateForProcessedEvent:[[SPSelfDescribing alloc] initWithSchema:@"inc" payload:@{@"value": @1}]];
+    XCTAssertEqual(1, [(MockState *)[trackerState1 stateWithIdentifier:@"identifier"] value]);
+    
+    [stateManager addOrReplaceStateMachine:[MockStateMachine new] identifier:@"identifier"];
+    id<SPTrackerStateSnapshot> trackerState2 = [stateManager trackerStateForProcessedEvent:[[SPStructured alloc] initWithCategory:@"category" action:@"action"]];
+    XCTAssertEqual(1, [(MockState *)[trackerState2 stateWithIdentifier:@"identifier"] value]);
+}
 
+- (void)testReplacingStateMachineWithDifferentOneResetsTrackerState {
+    SPStateManager *stateManager = [SPStateManager new];
+    [stateManager addOrReplaceStateMachine:[MockStateMachine1 new] identifier:@"identifier"];
+    id<SPTrackerStateSnapshot> trackerState1 = [stateManager trackerStateForProcessedEvent:[[SPSelfDescribing alloc] initWithSchema:@"inc" payload:@{@"value": @1}]];
+    XCTAssertEqual(1, [(MockState *)[trackerState1 stateWithIdentifier:@"identifier"] value]);
+    
+    [stateManager addOrReplaceStateMachine:[MockStateMachine2 new] identifier:@"identifier"];
+    id<SPTrackerStateSnapshot> trackerState2 = [stateManager trackerStateForProcessedEvent:[[SPStructured alloc] initWithCategory:@"category" action:@"action"]];
+    XCTAssertEqual(0, [(MockState *)[trackerState2 stateWithIdentifier:@"identifier"] value]);
+}
+
+@end
