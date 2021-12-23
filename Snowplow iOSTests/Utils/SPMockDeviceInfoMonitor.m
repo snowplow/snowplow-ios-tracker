@@ -27,18 +27,20 @@
 - (instancetype) init {
     if (self = [super init]) {
         self.methodAccessCounts = [[NSMutableDictionary alloc] init];
+        self.customAppleIdfa = @"appleIdfa";
+        self.customAppleIdfv = @"appleIdfv";
     }
     return self;
 }
 
 - (NSString *) appleIdfa {
     [self increaseMethodAccessCount:@"appleIdfa"];
-    return @"appleIdfa";
+    return self.customAppleIdfa;
 }
 
 - (NSString *) appleIdfv {
     [self increaseMethodAccessCount:@"appleIdfv"];
-    return @"appleIdfv";
+    return self.customAppleIdfv;
 }
 
 - (NSString *) deviceVendor {

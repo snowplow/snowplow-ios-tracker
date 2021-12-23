@@ -90,8 +90,6 @@
 
 - (void) setMobileDict {
     [self.platformDict addValueToPayload:[self.deviceInfoMonitor carrierName]           forKey:kSPMobileCarrier];
-    [self.platformDict addValueToPayload:[self.deviceInfoMonitor appleIdfa]             forKey:kSPMobileAppleIdfa];
-    [self.platformDict addValueToPayload:[self.deviceInfoMonitor appleIdfv]             forKey:kSPMobileAppleIdfv];
     [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor totalStorage]   forKey:kSPMobileTotalStorage];
     [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor physicalMemory] forKey:kSPMobilePhysicalMemory];
     
@@ -101,6 +99,14 @@
 
 - (void) setEphemeralMobileDict {
     self.lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];
+    
+    NSDictionary *currentDict = [self.platformDict getAsDictionary];
+    if ([currentDict valueForKey:kSPMobileAppleIdfa] == nil) {
+        [self.platformDict addValueToPayload:[self.deviceInfoMonitor appleIdfa] forKey:kSPMobileAppleIdfa];
+    }
+    if ([currentDict valueForKey:kSPMobileAppleIdfv] == nil) {
+        [self.platformDict addValueToPayload:[self.deviceInfoMonitor appleIdfv] forKey:kSPMobileAppleIdfv];
+    }
     
     [self.platformDict addNumericValueToPayload:[self.deviceInfoMonitor batteryLevel]          forKey:kSPMobileBatteryLevel];
     [self.platformDict addValueToPayload:[self.deviceInfoMonitor batteryState]                 forKey:kSPMobileBatteryState];

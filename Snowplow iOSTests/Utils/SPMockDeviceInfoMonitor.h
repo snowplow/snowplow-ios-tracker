@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (int) accessCount:(NSString *) method;
 
 @property (strong, nonatomic) NSDictionary<NSString *, NSNumber *> *methodAccessCounts;
+@property (strong, nonatomic, nullable) NSString *customAppleIdfa;
+@property (strong, nonatomic, nullable) NSString *customAppleIdfv;
 
 @end
 
