@@ -22,7 +22,7 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Snowplow iOS Tracker
-   &#160;<span id="projectnumber">3.0.1</span>
+   &#160;<span id="projectnumber">3.0.2</span>
    </div>
   </td>
  </tr>
@@ -162,36 +162,44 @@ $(function() {
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;- (void) setMobileDict {</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor carrierName]           forKey:kSPMobileCarrier];</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfa]             forKey:kSPMobileAppleIdfa];</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfv]             forKey:kSPMobileAppleIdfv];</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor totalStorage]   forKey:kSPMobileTotalStorage];</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor physicalMemory] forKey:kSPMobilePhysicalMemory];</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    [<span class="keyword">self</span> setEphemeralMobileDict];</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    [<span class="keyword">self</span> setEphemeralNetworkDict];</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;- (void) setEphemeralMobileDict {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">self</span>.lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryLevel]          forKey:kSPMobileBatteryLevel];</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryState]                 forKey:kSPMobileBatteryState];</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor availableStorage]      forKey:kSPMobileAvailableStorage];</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appAvailableMemory]    forKey:kSPMobileAppAvailableMemory];</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;- (void) setEphemeralNetworkDict {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keyword">self</span>.lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkTechnology] forKey:kSPMobileNetworkTech];</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkType]       forKey:kSPMobileNetworkType];</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keyword">@end</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor totalStorage]   forKey:kSPMobileTotalStorage];</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor physicalMemory] forKey:kSPMobilePhysicalMemory];</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    [<span class="keyword">self</span> setEphemeralMobileDict];</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    [<span class="keyword">self</span> setEphemeralNetworkDict];</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;- (void) setEphemeralMobileDict {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keyword">self</span>.lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    NSDictionary *currentDict = [<span class="keyword">self</span>.platformDict getAsDictionary];</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">if</span> ([currentDict valueForKey:<a class="code" href="_s_p_tracker_constants_8m.html#ae4249ccdbd2ea70ba9b825c146a063eb">kSPMobileAppleIdfa</a>] == nil) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfa] forKey:kSPMobileAppleIdfa];</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> ([currentDict valueForKey:<a class="code" href="_s_p_tracker_constants_8m.html#aaedae4ee9d8ffc9eb21b9b53b3dc7338">kSPMobileAppleIdfv</a>] == nil) {</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfv] forKey:kSPMobileAppleIdfv];</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    </div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryLevel]          forKey:kSPMobileBatteryLevel];</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryState]                 forKey:kSPMobileBatteryState];</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor availableStorage]      forKey:kSPMobileAvailableStorage];</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appAvailableMemory]    forKey:kSPMobileAppAvailableMemory];</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;- (void) setEphemeralNetworkDict {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">self</span>.lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    </div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkTechnology] forKey:kSPMobileNetworkTech];</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkType]       forKey:kSPMobileNetworkType];</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_device_info_monitor_8h_html"><div class="ttname"><a href="_s_p_device_info_monitor_8h.html">SPDeviceInfoMonitor.h</a></div></div>
 <div class="ttc" id="a_s_p_platform_context_8h_html"><div class="ttname"><a href="_s_p_platform_context_8h.html">SPPlatformContext.h</a></div></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_aaedae4ee9d8ffc9eb21b9b53b3dc7338"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#aaedae4ee9d8ffc9eb21b9b53b3dc7338">kSPMobileAppleIdfv</a></div><div class="ttdeci">NSString *const kSPMobileAppleIdfv</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00128">SPTrackerConstants.m:128</a></div></div>
+<div class="ttc" id="a_s_p_tracker_constants_8m_html_ae4249ccdbd2ea70ba9b825c146a063eb"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#ae4249ccdbd2ea70ba9b825c146a063eb">kSPMobileAppleIdfa</a></div><div class="ttdeci">NSString *const kSPMobileAppleIdfa</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00127">SPTrackerConstants.m:127</a></div></div>
 <div class="ttc" id="ainterface_s_p_device_info_monitor_html"><div class="ttname"><a href="interface_s_p_device_info_monitor.html">SPDeviceInfoMonitor</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_device_info_monitor_8h_source.html#l00027">SPDeviceInfoMonitor.h:28</a></div></div>
 <div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_payload_8h_source.html#l00026">SPPayload.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_platform_context_html"><div class="ttname"><a href="interface_s_p_platform_context.html">SPPlatformContext</a></div><div class="ttdoc">Manages a dictionary (SPPayload) with platform context. Some properties for mobile platforms are upda...</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8h_source.html#l00035">SPPlatformContext.h:36</a></div></div>
