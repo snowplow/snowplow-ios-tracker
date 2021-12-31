@@ -172,7 +172,7 @@
     
     [session updateInBackground]; // It sends a background event
 
-    NSString *sessionId = [session getSessionId];
+    NSString *sessionId = session.state.sessionId;
 
     NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
     NSInteger sessionIndex = [session getSessionIndex];
@@ -331,9 +331,9 @@
     [tracker2 track:event];
 
     NSInteger initialValue1 = [tracker1.session getSessionIndex];
-    NSString *id1 = [tracker1.session getSessionId];
+    NSString *id1 = tracker1.session.state.sessionId;
     NSInteger initialValue2 = [tracker2.session getSessionIndex];
-    NSString *id2 = [tracker2.session getSessionId];
+    NSString *id2 = tracker2.session.state.sessionId;
 
     // Retrigger session in tracker1
     [NSThread sleepForTimeInterval:7];
@@ -342,7 +342,7 @@
 
     // Send event to force update of session on tracker2
     [tracker2 track:event];
-    id2 = [tracker2.session getSessionId];
+    id2 = tracker2.session.state.sessionId;
 
     // Check sessions have the correct state
     XCTAssertEqual(0, [tracker1.session getSessionIndex] - initialValue1); // retriggered
@@ -358,7 +358,7 @@
     }];
     [tracker2b track:event];
     NSInteger initialValue2b = [tracker2b.session getSessionIndex];
-    NSString *previousId2b = [tracker2b.session getPreviousSessionId];
+    NSString *previousId2b = tracker2b.session.state.previousSessionId;
 
     // Check the new tracker session gets the data from the old tracker2 session
     XCTAssertEqual(initialValue2 + 2, initialValue2b);

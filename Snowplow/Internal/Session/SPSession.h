@@ -22,12 +22,16 @@
 
 #import <Foundation/Foundation.h>
 #import "SPTracker.h"
+#import "SPSessionState.h"
 
 NS_SWIFT_NAME(Session)
 @interface SPSession : NSObject
 
 /// Callback to be called when the session is updated
-@property OnSessionUpdate onSessionUpdate;
+@property OnSessionStateUpdate onSessionStateUpdate;
+
+/// Returns the current session state
+@property (readonly) SPSessionState *state;
 
 /**
  * Initializes a newly allocated SnowplowSession
@@ -136,17 +140,5 @@ NS_SWIFT_NAME(Session)
  * @return the session's userId
  */
 - (NSString*) getUserId;
-
-/**
- * Returns the current session's id
- * @return the current session's id
- */
-- (NSString*) getSessionId;
-
-/**
- * Returns the current session's id
- * @return the previous session's id
- */
-- (NSString*) getPreviousSessionId;
 
 @end
