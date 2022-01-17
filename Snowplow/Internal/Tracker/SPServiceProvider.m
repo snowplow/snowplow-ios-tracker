@@ -331,8 +331,13 @@
     if (self.trackerConfigurationUpdate.isPaused) {
         [tracker pauseEventTracking];
     }
-    if (self.sessionConfigurationUpdate.isPaused) {
-        [tracker.session stopChecker];
+    if (tracker.session) {
+        if (self.sessionConfigurationUpdate.isPaused) {
+            [tracker.session stopChecker];
+        }
+        if (self.sessionConfigurationUpdate.onSessionStateUpdate) {
+            tracker.session.onSessionStateUpdate = self.sessionConfigurationUpdate.onSessionStateUpdate;
+        }
     }
     return tracker;
 }
