@@ -80,7 +80,8 @@ Pod::Spec.new do |s|
     'Snowplow/Internal/**/SPSchemaRuleset.h',
     'Snowplow/Internal/**/SPSchemaRule.h',
     'Snowplow/Internal/**/SPTrackerStateSnapshot.h',
-    'Snowplow/Internal/**/SPState.h'
+    'Snowplow/Internal/**/SPState.h',
+    'Snowplow/Internal/**/SPSessionState.h'
   ]
 
   s.osx.exclude_files = 'Snowplow/**/ScreenViewTracking/UIViewController+SPScreenView_SWIZZLE.*'

@@ -71,3 +71,4 @@
 #import "SPSchemaRule.h"
 #import "SPTrackerStateSnapshot.h"
 #import "SPState.h"
+#import "SPSessionState.h"
