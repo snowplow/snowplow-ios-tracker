@@ -98,7 +98,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0));
 /**
  * The callback called everytime the session is updated.
  */
-SP_BUILDER_DECLARE_NULLABLE(OnSessionStateUpdate, onSessionUpdate)
+SP_BUILDER_DECLARE_NULLABLE(OnSessionStateUpdate, onSessionStateUpdate)
 
 @end
 
