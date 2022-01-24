@@ -34,9 +34,11 @@
         self.storage = storage;
         
         NSMutableDictionary *sessionDictionary = [NSMutableDictionary new];
-        [sessionDictionary setObject:firstEventId forKey:kSPSessionFirstEventId];
+        if (previousSessionId) {
+            [sessionDictionary setObject:previousSessionId forKey:kSPSessionPreviousId];
+        }
         [sessionDictionary setObject:currentSessionId forKey:kSPSessionId];
-        [sessionDictionary setObject:(previousSessionId ?: [NSNull null]) forKey:kSPSessionPreviousId];
+        [sessionDictionary setObject:firstEventId forKey:kSPSessionFirstEventId];
         [sessionDictionary setObject:[NSNumber numberWithInteger:sessionIndex] forKey:kSPSessionIndex];
         [sessionDictionary setObject:storage forKey:kSPSessionStorage];
         [sessionDictionary setObject:userId forKey:kSPSessionUserId];
