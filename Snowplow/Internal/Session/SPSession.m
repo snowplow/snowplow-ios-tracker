@@ -144,8 +144,9 @@
             if ([self shouldUpdateSession]) {
                 [self updateSessionWithEventId:eventId];
                 if (self.onSessionStateUpdate) {
-                    //$ Add here callback in separate thread
-                    self.onSessionStateUpdate(_state);
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        self.onSessionStateUpdate(self.state);
+                    });
                 }
             }
             self.lastSessionCheck = [SPUtilities getTimestamp];
