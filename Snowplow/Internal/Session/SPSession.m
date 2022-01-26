@@ -204,7 +204,15 @@
     _isNewSession = NO;
     _sessionIndex++;
     _state = [[SPSessionState alloc] initWithFirstEventId:eventId currentSessionId:[SPUtilities getUUIDString] previousSessionId:_state.sessionId sessionIndex:_sessionIndex userId:_userId storage:@"LOCAL_STORAGE"];
-    self.dataPersistence.session = _state.sessionContext;
+    NSDictionary<NSString *,NSObject *> *sessionToPersist = _state.sessionContext;
+    // Remove previousSessionId if nil because dictionaries with nil values aren't plist serializable
+    // and can't be stored with SPDataPersistence.
+    if (!_state.previousSessionId) {
+        NSMutableDictionary<NSString *,NSObject *> *sessionCopy = [sessionToPersist mutableCopy];
+        [sessionCopy removeObjectForKey:kSPSessionPreviousId];
+        sessionToPersist = sessionCopy;
+    }
+    self.dataPersistence.session = sessionToPersist;
 }
 
 - (void) updateInBackground {
