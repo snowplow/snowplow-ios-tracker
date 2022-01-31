@@ -55,7 +55,7 @@
     XCTAssertNil([session getTracker]);
     XCTAssertTrue(![session getInBackground]);
     XCTAssertNotNil([session getSessionDictWithEventId:@"eventid-1"]);
-    XCTAssertTrue([session getSessionIndex] >= 1);
+    XCTAssertTrue(session.state.sessionIndex >= 1);
     XCTAssertEqual([session getForegroundTimeout], 600000);
     XCTAssertEqual([session getBackgroundTimeout], 300000);
 }
@@ -86,7 +86,7 @@
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
     
     NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
-    NSInteger sessionIndex = [session getSessionIndex];
+    NSInteger sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -96,7 +96,7 @@
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
     
     NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
-    NSInteger sessionIndex = [session getSessionIndex];
+    NSInteger sessionIndex = session.state.sessionIndex;
     NSString *sessionId = [sessionContext objectForKey:kSPSessionId];
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -105,7 +105,7 @@
     [NSThread sleepForTimeInterval:1];
 
     sessionContext = [session getSessionDictWithEventId:@"event_2"];
-    sessionIndex = [session getSessionIndex];
+    sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -114,7 +114,7 @@
     [NSThread sleepForTimeInterval:1];
 
     sessionContext = [session getSessionDictWithEventId:@"event_3"];
-    sessionIndex = [session getSessionIndex];
+    sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -123,7 +123,7 @@
     [NSThread sleepForTimeInterval:3.1];
 
     sessionContext = [session getSessionDictWithEventId:@"event_4"];
-    sessionIndex = [session getSessionIndex];
+    sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(2, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(@"event_4", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -147,7 +147,7 @@
     [session updateInBackground];
     
     NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
-    NSInteger sessionIndex = [session getSessionIndex];
+    NSInteger sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -175,7 +175,7 @@
     NSString *sessionId = session.state.sessionId;
 
     NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1"];
-    NSInteger sessionIndex = [session getSessionIndex];
+    NSInteger sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
@@ -185,7 +185,7 @@
     [NSThread sleepForTimeInterval:1];
     
     sessionContext = [session getSessionDictWithEventId:@"event_2"];
-    sessionIndex = [session getSessionIndex];
+    sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
@@ -195,7 +195,7 @@
     [NSThread sleepForTimeInterval:1];
     
     sessionContext = [session getSessionDictWithEventId:@"event_3"];
-    sessionIndex = [session getSessionIndex];
+    sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(sessionId, [sessionContext objectForKey:kSPSessionId]);
@@ -205,7 +205,7 @@
     [NSThread sleepForTimeInterval:2.1];
     
     sessionContext = [session getSessionDictWithEventId:@"event_4"];
-    sessionIndex = [session getSessionIndex];
+    sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(2, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(@"event_4", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -330,9 +330,9 @@
     [tracker1 track:event];
     [tracker2 track:event];
 
-    NSInteger initialValue1 = [tracker1.session getSessionIndex];
+    NSInteger initialValue1 = tracker1.session.state.sessionIndex;
     NSString *id1 = tracker1.session.state.sessionId;
-    NSInteger initialValue2 = [tracker2.session getSessionIndex];
+    NSInteger initialValue2 = tracker2.session.state.sessionIndex;
     NSString *id2 = tracker2.session.state.sessionId;
 
     // Retrigger session in tracker1
@@ -345,8 +345,8 @@
     id2 = tracker2.session.state.sessionId;
 
     // Check sessions have the correct state
-    XCTAssertEqual(0, [tracker1.session getSessionIndex] - initialValue1); // retriggered
-    XCTAssertEqual(1, [tracker2.session getSessionIndex] - initialValue2); // timed out
+    XCTAssertEqual(0, tracker1.session.state.sessionIndex - initialValue1); // retriggered
+    XCTAssertEqual(1, tracker2.session.state.sessionIndex - initialValue2); // timed out
     
     //Recreate tracker2
     SPTracker *tracker2b = [SPTracker build:^(id<SPTrackerBuilder> _Nonnull builder) {
@@ -357,7 +357,7 @@
         [builder setBackgroundTimeout:5];
     }];
     [tracker2b track:event];
-    NSInteger initialValue2b = [tracker2b.session getSessionIndex];
+    NSInteger initialValue2b = tracker2b.session.state.sessionIndex;
     NSString *previousId2b = tracker2b.session.state.previousSessionId;
 
     // Check the new tracker session gets the data from the old tracker2 session

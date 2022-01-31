@@ -123,7 +123,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return -1;
     }
-    return self.session.getSessionIndex;
+    return self.session.state.sessionIndex;
 }
 
 - (NSString *)sessionId {

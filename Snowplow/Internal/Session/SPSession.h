@@ -112,12 +112,6 @@ NS_SWIFT_NAME(Session)
 - (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId;
 
 /**
- * Returns the current session index count
- * @return a count of sessions
- */
-- (NSInteger) getSessionIndex;
-
-/**
  * Returns the foreground index count
  * @return a count of foregrounds
  */

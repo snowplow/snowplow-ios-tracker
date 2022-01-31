@@ -164,10 +164,6 @@
     return _backgroundTimeout;
 }
 
-- (NSInteger) getSessionIndex {
-    return _sessionIndex;
-}
-
 - (BOOL) getInBackground {
     return _inBackground;
 }
