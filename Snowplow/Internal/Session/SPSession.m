@@ -51,7 +51,6 @@
     BOOL        _isNewSession;
     BOOL        _isSessionCheckerEnabled;
     NSString *  _userId;
-    NSInteger   _sessionIndex;
     NSInteger   _foregroundIndex;
     NSInteger   _backgroundIndex;
 }
@@ -80,21 +79,11 @@
         
         if (storedSessionDict) {
             _state = [[SPSessionState alloc] initWithStoredState:storedSessionDict];
-            _userId = [storedSessionDict valueForKey:kSPSessionUserId] ?: [SPUtilities getUUIDString];
-            _sessionIndex = _state.sessionIndex;
-        } else {
-            _userId = [SPUtilities getUUIDString];
-            _sessionIndex = 0;
         }
-        
-        // Get or Set the Session UserID
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *storedUserId = [userDefaults stringForKey:kSPInstallationUserId];
-        if (storedUserId) {
-            _userId = storedUserId;
-        } else if (_userId) {
-            [userDefaults setObject:_userId forKey:kSPInstallationUserId];
+        if (!_state) {
+            SPLogTrack(nil, @"No previous session info available");
         }
+        _userId = [self retrieveUserIdWithState:_state];
         
         // Start session check
         self.lastSessionCheck = [SPUtilities getTimestamp];
@@ -151,7 +140,6 @@
             }
             self.lastSessionCheck = [SPUtilities getTimestamp];
         }
-        _state.userId = _userId;
         return _state.sessionContext;
     }
 }
@@ -186,6 +174,23 @@
 
 // MARK: - Private
 
+- (NSString *)retrieveUserIdWithState:(SPSessionState *)state {
+    NSString *userId = state.userId ?: [SPUtilities getUUIDString];
+    // With v2 we designed a new identifier: Installation ID.
+    // It should be created by the tracker at first execution and it should be constant until the app deletion.
+    // It behaves as the SessionUserID but it should be available even if the session context is disabled.
+    // At the moment we store it separately from the session in order to fully implement it in one of the
+    // future versions.
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *storedUserId = [userDefaults stringForKey:kSPInstallationUserId];
+    if (storedUserId) {
+        userId = storedUserId;
+    } else if (_userId) {
+        [userDefaults setObject:userId forKey:kSPInstallationUserId];
+    }
+    return userId;
+}
+
 - (BOOL)shouldUpdateSession {
     if (_isNewSession) {
         return YES;
@@ -198,8 +203,8 @@
 
 - (void)updateSessionWithEventId:(NSString *)eventId {
     _isNewSession = NO;
-    _sessionIndex++;
-    _state = [[SPSessionState alloc] initWithFirstEventId:eventId currentSessionId:[SPUtilities getUUIDString] previousSessionId:_state.sessionId sessionIndex:_sessionIndex userId:_userId storage:@"LOCAL_STORAGE"];
+    NSInteger sessionIndex = (_state.sessionIndex ?: 0) + 1;
+    _state = [[SPSessionState alloc] initWithFirstEventId:eventId currentSessionId:[SPUtilities getUUIDString] previousSessionId:_state.sessionId sessionIndex:sessionIndex userId:_userId storage:@"LOCAL_STORAGE"];
     NSDictionary<NSString *,NSObject *> *sessionToPersist = _state.sessionContext;
     // Remove previousSessionId if nil because dictionaries with nil values aren't plist serializable
     // and can't be stored with SPDataPersistence.
