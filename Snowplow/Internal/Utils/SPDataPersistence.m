@@ -99,9 +99,13 @@ NSString *sessionKey = @"session";
             // Initialise
             result = [NSMutableDictionary new];
             // Migrate legacy session data
-            NSDictionary *sessionDict = [self sessionDictionaryFromLegacyTrackerV2_2]
-                ?: [self sessionDictionaryFromLegacyTrackerV1]
-                ?: [NSDictionary new];
+            NSMutableDictionary *sessionDict = [self sessionDictionaryFromLegacyTrackerV2_2].mutableCopy
+                ?: [self sessionDictionaryFromLegacyTrackerV1].mutableCopy
+                ?: [NSMutableDictionary new];
+            // Add missing fields
+            [sessionDict setObject:@"" forKey:kSPSessionFirstEventId];
+            [sessionDict setObject:@"LOCAL_STORAGE" forKey:kSPSessionStorage];
+            // Wrap up
             [result setObject:sessionDict forKey:sessionKey];
             [self storeDictionary:result fileURL:self.fileUrl];
         }
