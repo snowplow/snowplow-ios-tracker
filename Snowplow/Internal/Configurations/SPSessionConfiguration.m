@@ -91,6 +91,7 @@ SP_BUILDER_METHOD(OnSessionStateUpdate, onSessionStateUpdate)
     SPSessionConfiguration *copy = [[SPSessionConfiguration allocWithZone:zone] init];
     copy.backgroundTimeoutInSeconds = self.backgroundTimeoutInSeconds;
     copy.foregroundTimeoutInSeconds = self.foregroundTimeoutInSeconds;
+    copy.onSessionStateUpdate = self.onSessionStateUpdate;
     return copy;
 }
 
