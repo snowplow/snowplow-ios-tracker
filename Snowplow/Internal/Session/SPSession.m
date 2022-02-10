@@ -221,16 +221,16 @@
 - (void) updateInBackground {
     if (!_inBackground && [self.tracker getLifecycleEvents]) {
         _backgroundIndex += 1;
-        _inBackground = YES;
         [self sendBackgroundEvent];
+        _inBackground = YES;
     }
 }
 
 - (void) updateInForeground {
     if (_inBackground && [self.tracker getLifecycleEvents]) {
         _foregroundIndex += 1;
-        _inBackground = NO;
         [self sendForegroundEvent];
+        _inBackground = NO;
     }
 }
 
