@@ -40,6 +40,7 @@
 @property (atomic) NSNumber *lastSessionCheck;
 @property (weak) SPTracker *tracker;
 @property (nonatomic) SPDataPersistence *dataPersistence;
+@property (nonatomic, readwrite) SPSessionState *state;
 
 @end
 
@@ -50,12 +51,6 @@
     BOOL        _isNewSession;
     BOOL        _isSessionCheckerEnabled;
     NSString *  _userId;
-    NSString *  _currentSessionId;
-    NSString *  _previousSessionId;
-    NSInteger   _sessionIndex;
-    NSString *  _sessionStorage;
-    NSString *  _firstEventId;
-    NSDictionary * _sessionDict;
     NSInteger   _foregroundIndex;
     NSInteger   _backgroundIndex;
 }
@@ -78,29 +73,17 @@
         _backgroundTimeout = backgroundTimeout * 1000;
         _inBackground = NO;
         _isNewSession = YES;
-        _sessionStorage = @"LOCAL_STORAGE";
         self.tracker = tracker;
         self.dataPersistence = [SPDataPersistence dataPersistenceForNamespace:tracker.trackerNamespace];
         NSDictionary *storedSessionDict = self.dataPersistence.session;
         
         if (storedSessionDict) {
-            _userId = [storedSessionDict valueForKey:kSPSessionUserId] ?: [SPUtilities getUUIDString];
-            _currentSessionId = [storedSessionDict valueForKey:kSPSessionId];
-            _sessionIndex = [[storedSessionDict valueForKey:kSPSessionIndex] intValue];
-        } else {
-            _userId = [SPUtilities getUUIDString];
-            _currentSessionId = nil;
-            _sessionIndex = 0;
+            _state = [[SPSessionState alloc] initWithStoredState:storedSessionDict];
         }
-        
-        // Get or Set the Session UserID
-        NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *storedUserId = [userDefaults stringForKey:kSPInstallationUserId];
-        if (storedUserId) {
-            _userId = storedUserId;
-        } else if (_userId) {
-            [userDefaults setObject:_userId forKey:kSPInstallationUserId];
+        if (!_state) {
+            SPLogTrack(nil, @"No previous session info available");
         }
+        _userId = [self retrieveUserIdWithState:_state];
         
         // Start session check
         self.lastSessionCheck = [SPUtilities getTimestamp];
@@ -145,20 +128,20 @@
 }
 
 - (NSDictionary *) getSessionDictWithEventId:(NSString *)eventId {
-    NSMutableDictionary *result;
-    if (!_isSessionCheckerEnabled) {
-        result = [_sessionDict mutableCopy];
-    } else {
-        @synchronized (self) {
+    @synchronized (self) {
+        if (_isSessionCheckerEnabled) {
             if ([self shouldUpdateSession]) {
                 [self updateSessionWithEventId:eventId];
+                if (self.onSessionStateUpdate) {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        self.onSessionStateUpdate(self.state);
+                    });
+                }
             }
             self.lastSessionCheck = [SPUtilities getTimestamp];
-            result = [_sessionDict mutableCopy];
         }
+        return _state.sessionContext;
     }
-    [result setObject:_userId forKey:kSPSessionUserId];
-    return [result copy];
 }
 
 - (NSInteger) getForegroundTimeout {
@@ -169,24 +152,12 @@
     return _backgroundTimeout;
 }
 
-- (NSInteger) getSessionIndex {
-    return _sessionIndex;
-}
-
 - (BOOL) getInBackground {
     return _inBackground;
 }
 
 - (NSString *)getUserId {
     return _userId;
-}
-
-- (NSString *)getSessionId {
-    return _currentSessionId;
-}
-
-- (NSString *)getPreviousSessionId {
-    return _previousSessionId;
 }
 
 - (NSInteger) getBackgroundIndex {
@@ -203,12 +174,23 @@
 
 // MARK: - Private
 
-- (BOOL) writeSessionToFile {
-    NSMutableDictionary *sessionDict = [_sessionDict mutableCopy];
-    [sessionDict removeObjectForKey:kSPSessionPreviousId];
-    [sessionDict removeObjectForKey:kSPSessionStorage];
-    self.dataPersistence.session = sessionDict;
-    return YES;
+- (NSString *)retrieveUserIdWithState:(SPSessionState *)state {
+    NSString *userId = state.userId ?: [SPUtilities getUUIDString];
+    // Session_UserID is available only if the session context is enabled.
+    // In a future version we would like to make it available even if the session context is disabled.
+    // For this reason, we store the Session_UserID in a separate storage (decoupled by session values)
+    // calling it Installation_UserID in order to remark that it isn't related to the session context.
+    // Although, for legacy, we need to copy its value in the Session_UserID of the session context
+    // as the session context schema (and related data modelling) requires it.
+    // For further details: https://discourse.snowplowanalytics.com/t/rfc-mobile-trackers-v2-0
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *storedUserId = [userDefaults stringForKey:kSPInstallationUserId];
+    if (storedUserId) {
+        userId = storedUserId;
+    } else if (_userId) {
+        [userDefaults setObject:userId forKey:kSPInstallationUserId];
+    }
+    return userId;
 }
 
 - (BOOL)shouldUpdateSession {
@@ -223,23 +205,17 @@
 
 - (void)updateSessionWithEventId:(NSString *)eventId {
     _isNewSession = NO;
-    _firstEventId = eventId;
-    _previousSessionId = _currentSessionId;
-    _currentSessionId = [SPUtilities getUUIDString];
-    _sessionIndex++;
-    
-    // Update session dictionary used as context for events
-    NSMutableDictionary *newSessionDict = [NSMutableDictionary new];
-    if (_firstEventId) {
-        [newSessionDict setObject:_firstEventId forKey:kSPSessionFirstEventId];
+    NSInteger sessionIndex = (_state.sessionIndex ?: 0) + 1;
+    _state = [[SPSessionState alloc] initWithFirstEventId:eventId currentSessionId:[SPUtilities getUUIDString] previousSessionId:_state.sessionId sessionIndex:sessionIndex userId:_userId storage:@"LOCAL_STORAGE"];
+    NSDictionary<NSString *,NSObject *> *sessionToPersist = _state.sessionContext;
+    // Remove previousSessionId if nil because dictionaries with nil values aren't plist serializable
+    // and can't be stored with SPDataPersistence.
+    if (!_state.previousSessionId) {
+        NSMutableDictionary<NSString *,NSObject *> *sessionCopy = [sessionToPersist mutableCopy];
+        [sessionCopy removeObjectForKey:kSPSessionPreviousId];
+        sessionToPersist = sessionCopy;
     }
-    [newSessionDict setObject:_currentSessionId forKey:kSPSessionId];
-    [newSessionDict setObject:(_previousSessionId != nil ? _previousSessionId : [NSNull null]) forKey:kSPSessionPreviousId];
-    [newSessionDict setObject:[NSNumber numberWithInt:(int)_sessionIndex] forKey:kSPSessionIndex];
-    [newSessionDict setObject:_sessionStorage forKey:kSPSessionStorage];
-    _sessionDict = [newSessionDict copy];
-
-    [self writeSessionToFile];
+    self.dataPersistence.session = sessionToPersist;
 }
 
 - (void) updateInBackground {

@@ -32,6 +32,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 SP_DIRTYFLAG(foregroundTimeoutInSeconds)
 SP_DIRTYFLAG(backgroundTimeoutInSeconds)
+SP_DIRTYFLAG(onSessionStateUpdate)
 
 @end
 

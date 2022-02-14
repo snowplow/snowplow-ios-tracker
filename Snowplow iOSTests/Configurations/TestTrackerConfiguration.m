@@ -26,6 +26,8 @@
 #import "SPTrackerConfiguration.h"
 #import "SPSession.h"
 #import "SPMockEventStore.h"
+#import "SPDataPersistence.h"
+
 
 @interface TestTrackerConfiguration : XCTestCase
 
@@ -153,6 +155,56 @@
     tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig]];
     XCTAssertNil(tracker.session);
 }
+
+- (void)testSessionConfigurationCallback {
+    [SPDataPersistence removeDataPersistenceWithNamespace:@"namespace"];
+    XCTestExpectation *expectation = [XCTestExpectation new];
+
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    SPSessionConfiguration *sessionConfig = [[SPSessionConfiguration alloc] initWithForegroundTimeoutInSeconds:100 backgroundTimeoutInSeconds:100];
+
+    sessionConfig.onSessionStateUpdate = ^(SPSessionState * _Nonnull sessionState) {
+        XCTAssertEqual(1, sessionState.sessionIndex);
+        XCTAssertNil(sessionState.previousSessionId);
+        [expectation fulfill];
+    };
+    
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig, sessionConfig]];
+
+    [tracker track:[[SPTiming alloc] initWithCategory:@"cat" variable:@"var" timing:@123]];
+    
+    [self waitForExpectations:@[expectation] timeout:10];
+}
+
+- (void)testSessionConfigurationCallbackAfterNewSession {
+    [SPDataPersistence removeDataPersistenceWithNamespace:@"namespace"];
+    XCTestExpectation *expectation = [XCTestExpectation new];
+
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"https://fake-url" method:SPHttpMethodPost];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration new] appId:@"appid"];
+    SPSessionConfiguration *sessionConfig = [[SPSessionConfiguration alloc] initWithForegroundTimeoutInSeconds:100 backgroundTimeoutInSeconds:100];
+    __block NSString *sessionId;
+    sessionConfig.onSessionStateUpdate = ^(SPSessionState * _Nonnull sessionState) {
+        if (sessionState.sessionIndex == 1) {
+            XCTAssertNil(sessionState.previousSessionId);
+            sessionId = sessionState.sessionId;
+        } else {
+            XCTAssertEqual(2, sessionState.sessionIndex);
+            XCTAssertEqualObjects(sessionId, sessionState.previousSessionId);
+            [expectation fulfill];
+        }
+    };
+    
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[trackerConfig, sessionConfig]];
+
+    [tracker track:[[SPTiming alloc] initWithCategory:@"cat" variable:@"var" timing:@123]];
+    [tracker.session startNewSession];
+    [tracker track:[[SPTiming alloc] initWithCategory:@"cat" variable:@"var" timing:@123]];
+
+    [self waitForExpectations:@[expectation] timeout:10];
+}
+
 
 - (void)testTrackerVersionSuffix {
     SPTrackerConfiguration *trackerConfiguration = [SPTrackerConfiguration new];

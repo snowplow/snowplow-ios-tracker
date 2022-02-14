@@ -26,5 +26,6 @@
 
 SP_DIRTY_GETTER(NSInteger, foregroundTimeoutInSeconds);
 SP_DIRTY_GETTER(NSInteger, backgroundTimeoutInSeconds);
+SP_DIRTY_GETTER(OnSessionStateUpdate, onSessionStateUpdate)
 
 @end
