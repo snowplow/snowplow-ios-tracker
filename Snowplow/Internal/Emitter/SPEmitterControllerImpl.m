@@ -111,6 +111,16 @@
     return [self.emitter getSendingStatus];
 }
 
+- (void)pause {
+    self.dirtyConfig.isPaused = YES;
+    [self.emitter pauseEmit];
+}
+
+- (void)resume {
+    self.dirtyConfig.isPaused = NO;
+    [self.emitter resumeEmit];
+}
+
 // MARK: - Private methods
 
 - (SPEmitter *)emitter {

@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nullable) SPEmitterConfiguration *sourceConfig;
 
+@property (nonatomic) BOOL isPaused;
+
 SP_DIRTYFLAG(bufferOption)
 SP_DIRTYFLAG(byteLimitGet)
 SP_DIRTYFLAG(byteLimitPost)

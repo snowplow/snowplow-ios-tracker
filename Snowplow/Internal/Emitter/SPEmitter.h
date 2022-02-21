@@ -171,14 +171,24 @@ NS_SWIFT_NAME(Emitter)
 - (void)flush;
 
 /*!
- @brief Allowes sending of events to collector.
+ @brief Starts timer for periodically sending events to collector.
  */
-- (void)resume;
+- (void)resumeTimer;
 
 /*!
- @brief Suspends sending of events to collector.
+ @brief Suspends timer for periodically sending events to collector.
  */
-- (void)pause;
+- (void)pauseTimer;
+
+/*!
+ @brief Allows sending events to collector.
+ */
+- (void)resumeEmit;
+
+/*!
+ @brief Suspends sending events to collector.
+ */
+- (void)pauseEmit;
 
 /*!
  @brief Returns the number of events in the DB.

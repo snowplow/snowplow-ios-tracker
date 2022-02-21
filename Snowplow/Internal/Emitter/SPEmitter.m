@@ -45,6 +45,7 @@
     NSOperationQueue * _dataOperationQueue;
     BOOL               _builderFinished;
     NSString *         _namespace;
+    BOOL               _pausedEmit;
 }
 
 const NSUInteger POST_WRAPPER_BYTES = 88;
@@ -79,6 +80,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         _requestHeaders = nil;
         _eventStore = nil;
         _networkConnection = nil;
+        _pausedEmit = NO;
     }
     return self;
 }
@@ -86,7 +88,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 - (void) setup {
     _dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize;
     [self setupNetworkConnection];
-    [self resume];
+    [self resumeTimer];
     _builderFinished = YES;
 }
 
@@ -218,11 +220,11 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 
 // MARK: - Pause/Resume methods
 
-- (void)resume {
+- (void)resumeTimer {
     __weak __typeof__(self) weakSelf = self;
     
     if (_timer != nil) {
-        [self pause];
+        [self pauseTimer];
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -237,9 +239,18 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     });
 }
 
-- (void)pause {
+- (void)pauseTimer {
     [_timer invalidate];
     _timer = nil;
+}
+
+- (void)resumeEmit {
+    _pausedEmit = NO;
+    [self flush];
+}
+
+- (void)pauseEmit {
+    _pausedEmit = YES;
 }
 
 - (void)addPayloadToBuffer:(SPPayload *)eventPayload {
@@ -267,11 +278,11 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 // MARK: - Control methods
 
 - (void) sendGuard {
-    if (_isSending) {
+    if (_isSending || _pausedEmit) {
         return;
     }
     @synchronized (self) {
-        if (!_isSending) {
+        if (!_isSending && !_pausedEmit) {
             _isSending = YES;
             @try {
                 [self attemptEmit];
@@ -428,7 +439,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 }
 
 - (void) dealloc {
-    [self pause];
+    [self pauseTimer];
 }
 
 @end

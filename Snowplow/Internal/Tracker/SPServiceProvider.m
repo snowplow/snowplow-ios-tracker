@@ -155,7 +155,7 @@
 }
 
 - (void)stopServices {
-    [_emitter pause];
+    [_emitter pauseTimer];
 }
 
 - (void)resetServices {

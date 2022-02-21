@@ -40,6 +40,19 @@ NS_SWIFT_NAME(EmitterController)
 
 - (void)flush;
 
+/**
+ * Pause emitting events.
+ * Emitting events will be suspended until resumed again.
+ * Suitable for low bandwidth situations.
+ */
+- (void)pause;
+
+/**
+ * Resume emitting events if previously paused.
+ * The emitter will resume emitting events again.
+ */
+- (void)resume;
+
 @end
 
 NS_ASSUME_NONNULL_END

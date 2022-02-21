@@ -13,6 +13,12 @@
 		23DFEC802362FAD500BD19C4 /* FMDB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 752DAC0C21CC3EEA0065F874 /* FMDB.framework */; };
 		23DFEC822362FAED00BD19C4 /* SnowplowIgluClient.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3B921F28BD600271FB3 /* SnowplowIgluClient.framework */; };
 		23DFEC832362FAF800BD19C4 /* VVJSONSchemaValidation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75CAC3C021F2930100271FB3 /* VVJSONSchemaValidation.framework */; };
+		6B871F6127C3913300BCF742 /* TestEmitterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B871F6027C3913300BCF742 /* TestEmitterConfiguration.m */; };
+		6B871F6427C3928900BCF742 /* SPMockNetworkConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 6B871F6327C3928900BCF742 /* SPMockNetworkConnection.m */; };
+		6B871F6627C3976B00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
+		6B871F6727C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
+		6B871F6827C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
+		6B871F6927C3976D00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
 		6BABC50E270B40450043BB5C /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF15D1227035A480048F376 /* TestSubject.m */; };
 		6BBDCD4227019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
 		6BBDCD4327019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
@@ -922,6 +928,9 @@
 		0485CA141BAC658500214BC5 /* SPSelfDescribingJson.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPSelfDescribingJson.h; sourceTree = "<group>"; };
 		0485CA151BAC65A300214BC5 /* SPSelfDescribingJson.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPSelfDescribingJson.m; sourceTree = "<group>"; };
 		049B2BDA1B7A203200BD82FC /* SPRequestCallback.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPRequestCallback.h; sourceTree = "<group>"; };
+		6B871F6027C3913300BCF742 /* TestEmitterConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestEmitterConfiguration.m; sourceTree = "<group>"; };
+		6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockNetworkConnection.h; sourceTree = "<group>"; };
+		6B871F6327C3928900BCF742 /* SPMockNetworkConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockNetworkConnection.m; sourceTree = "<group>"; };
 		6BBDCD4027019AF4001B547F /* SPPlatformContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPlatformContext.h; path = Snowplow/Internal/Subject/SPPlatformContext.h; sourceTree = SOURCE_ROOT; };
 		6BBDCD4127019AF4001B547F /* SPPlatformContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPPlatformContext.m; path = Snowplow/Internal/Subject/SPPlatformContext.m; sourceTree = SOURCE_ROOT; };
 		6BF08DA4270DEED6009C7E2B /* SPDeviceInfoMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDeviceInfoMonitor.h; sourceTree = "<group>"; };
@@ -1428,6 +1437,7 @@
 				ED87A43C2577E440000C54EB /* TestTrackerController.m */,
 				EDE54F4725EFA38D0073947D /* TestMultipleInstances.m */,
 				ED7F080526190B5F005D377E /* TestRemoteConfiguration.m */,
+				6B871F6027C3913300BCF742 /* TestEmitterConfiguration.m */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1448,6 +1458,8 @@
 				EDA06FB52664CD2F007FA773 /* SPMockEventStore.m */,
 				6BF08DAE270DF2E8009C7E2B /* SPMockDeviceInfoMonitor.h */,
 				6BF08DAF270DF2E8009C7E2B /* SPMockDeviceInfoMonitor.m */,
+				6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */,
+				6B871F6327C3928900BCF742 /* SPMockNetworkConnection.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1841,6 +1853,7 @@
 				CE4F9C9E244B066500968CFC /* SPSchemaRule.h in Headers */,
 				752DAC3921CC43C70065F874 /* SPSQLiteEventStore.h in Headers */,
 				CE4F9D1A244B066500968CFC /* SPEcommerce.h in Headers */,
+				6B871F6627C3976B00BCF742 /* SPMockNetworkConnection.h in Headers */,
 				EDDD7043264F2A8800259404 /* SPEmitterConfigurationUpdate.h in Headers */,
 				ED98972626287F7A00145157 /* SPConfigurationCache.h in Headers */,
 				ED9081B52703747C00EE9421 /* SPMessageNotification.h in Headers */,
@@ -1890,6 +1903,7 @@
 				ED9081B62703747C00EE9421 /* SPMessageNotification.h in Headers */,
 				ED8866BF25711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				ED88B6DC2583DFC80048FAD1 /* SPServiceProvider.h in Headers */,
+				6B871F6727C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */,
 				ED277BD32625F220002C7B6D /* SPConfigurationBundle.h in Headers */,
 				EDD8542B24EFEFE600661F6B /* SPNetworkConnection.h in Headers */,
 				EDAB666126D6ACCB0067755F /* SPDeepLinkState.h in Headers */,
@@ -2001,6 +2015,7 @@
 				ED34672C26415C1D0018BA61 /* SPJSONSerialization.h in Headers */,
 				ED914EBC24325AB40068DA0A /* SPGdprContext.h in Headers */,
 				ED38D92D26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
+				6B871F6827C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */,
 				ED7CE16726DE39530035C323 /* SPScreenStateMachine.h in Headers */,
 				ED8866C025711EC000DB53BB /* SPLoggerDelegate.h in Headers */,
 				ED88B6DD2583DFC90048FAD1 /* SPServiceProvider.h in Headers */,
@@ -2189,6 +2204,7 @@
 				CE4F9CA1244B066500968CFC /* SPSchemaRule.h in Headers */,
 				75F9C5EF21FA35BC00A5B8FC /* SPRequestResult.h in Headers */,
 				CE4F9D1D244B066500968CFC /* SPEcommerce.h in Headers */,
+				6B871F6927C3976D00BCF742 /* SPMockNetworkConnection.h in Headers */,
 				EDDD7046264F2A8800259404 /* SPEmitterConfigurationUpdate.h in Headers */,
 				ED98972926287F7A00145157 /* SPConfigurationCache.h in Headers */,
 				ED9081B82703747C00EE9421 /* SPMessageNotification.h in Headers */,
@@ -2616,11 +2632,13 @@
 				75CAC40721F2955100271FB3 /* TestPayload.m in Sources */,
 				75CAC40A21F2955100271FB3 /* TestGeneratedJsons.m in Sources */,
 				7534D20822569F3400904EE5 /* TestScreenState.m in Sources */,
+				6B871F6127C3913300BCF742 /* TestEmitterConfiguration.m in Sources */,
 				ED914EB52431FEE70068DA0A /* TestGlobalContexts.m in Sources */,
 				EDCBD0D824F5084900D39DD2 /* TestNetworkConnection.m in Sources */,
 				ED88B6B3258253F20048FAD1 /* TestEvents.m in Sources */,
 				EDA06FB62664CD2F007FA773 /* SPMockEventStore.m in Sources */,
 				75CAC40921F2955100271FB3 /* TestSelfDescribingJson.m in Sources */,
+				6B871F6427C3928900BCF742 /* SPMockNetworkConnection.m in Sources */,
 				ED87A43D2577E441000C54EB /* TestTrackerController.m in Sources */,
 				EDEE836324C0C318000B8530 /* TestLogger.m in Sources */,
 				EDB6940326B83BF300B76A79 /* TestMemoryEventStore.m in Sources */,

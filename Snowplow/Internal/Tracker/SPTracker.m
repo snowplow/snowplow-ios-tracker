@@ -451,13 +451,13 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void) pauseEventTracking {
     _dataCollection = NO;
-    [_emitter pause];
+    [_emitter pauseTimer];
     [_session stopChecker];
 }
 
 - (void) resumeEventTracking {
     _dataCollection = YES;
-    [_emitter resume];
+    [_emitter resumeTimer];
     [_session startChecker];
 }
 
