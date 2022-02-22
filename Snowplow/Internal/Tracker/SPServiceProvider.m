@@ -339,6 +339,9 @@
             tracker.session.onSessionStateUpdate = self.sessionConfigurationUpdate.onSessionStateUpdate;
         }
     }
+    if (self.emitterConfigurationUpdate.isPaused) {
+        [emitter pauseEmit];
+    }
     return tracker;
 }
 
