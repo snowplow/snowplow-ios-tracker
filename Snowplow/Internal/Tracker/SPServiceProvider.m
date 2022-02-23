@@ -269,7 +269,7 @@
 - (SPEmitter *)makeEmitter {
     SPNetworkConfigurationUpdate *networkConfig = self.networkConfigurationUpdate;
     SPEmitterConfigurationUpdate *emitterConfig = self.emitterConfigurationUpdate;
-    return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         if (networkConfig.networkConnection) {
             [builder setNetworkConnection:networkConfig.networkConnection];
         } else {
@@ -289,6 +289,10 @@
             [builder setCallback:emitterConfig.requestCallback];
         }
     }];
+    if (emitterConfig && emitterConfig.isPaused) {
+        [emitter pauseEmit];
+    }
+    return emitter;
 }
 
 - (SPTracker *)makeTracker {
@@ -338,9 +342,6 @@
         if (self.sessionConfigurationUpdate.onSessionStateUpdate) {
             tracker.session.onSessionStateUpdate = self.sessionConfigurationUpdate.onSessionStateUpdate;
         }
-    }
-    if (self.emitterConfigurationUpdate.isPaused) {
-        [emitter pauseEmit];
     }
     return tracker;
 }
