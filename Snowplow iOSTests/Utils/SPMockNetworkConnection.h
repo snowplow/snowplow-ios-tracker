@@ -1,5 +1,5 @@
 //
-//  SPEmitterEventProcessing.h
+//  SPMockNetworkConnection.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
@@ -15,23 +15,26 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
+//  Authors: Alex Benini, Matus Tomlein
+//  Copyright: Copyright (c) 2022 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
+#import "SPEmitter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-NS_SWIFT_NAME(EmitterEventProcessing)
-@protocol SPEmitterEventProcessing
+@interface SPMockNetworkConnection : NSObject <SPNetworkConnection>
 
-- (void)addPayloadToBuffer:(SPPayload *)eventPayload;
-- (void)pauseTimer;
-- (void)resumeTimer;
-- (void)flush;
+- (instancetype)initWithRequestOption:(SPHttpMethod)httpMethod successfulConnection:(BOOL)successfulConnection;
+
+@property (nonatomic) BOOL successfulConnection;
+@property (nonatomic) SPHttpMethod httpMethod;
+@property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResult *> *> *previousResults;
+@property (nonatomic) NSUInteger sendingCount;
 
 @end
+
 
 NS_ASSUME_NONNULL_END

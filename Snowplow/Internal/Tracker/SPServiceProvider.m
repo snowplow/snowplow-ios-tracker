@@ -155,7 +155,7 @@
 }
 
 - (void)stopServices {
-    [_emitter pause];
+    [_emitter pauseTimer];
 }
 
 - (void)resetServices {
@@ -269,7 +269,7 @@
 - (SPEmitter *)makeEmitter {
     SPNetworkConfigurationUpdate *networkConfig = self.networkConfigurationUpdate;
     SPEmitterConfigurationUpdate *emitterConfig = self.emitterConfigurationUpdate;
-    return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         if (networkConfig.networkConnection) {
             [builder setNetworkConnection:networkConfig.networkConnection];
         } else {
@@ -289,6 +289,10 @@
             [builder setCallback:emitterConfig.requestCallback];
         }
     }];
+    if (emitterConfig && emitterConfig.isPaused) {
+        [emitter pauseEmit];
+    }
+    return emitter;
 }
 
 - (SPTracker *)makeTracker {
