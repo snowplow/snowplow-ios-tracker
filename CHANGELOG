@@ -1,3 +1,11 @@
+Version 3.1.0 (2022-02-25)
+--------------------------
+Update copyright headers to 2022 (#669)
+Update links to v3 docs in README (#665)
+Add pause and resume to EmitterController (#672)
+Check session for background event using foreground timeout (#667)
+Add session callback (#664)
+
 Version 3.0.2 (2021-12-23)
 --------------------------
 Fix updating IDFA during app runtime (#661)
