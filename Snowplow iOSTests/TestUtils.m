@@ -2,7 +2,7 @@
 //  TestUtils.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,6 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -46,16 +45,7 @@
 }
 
 - (void)testGetLanguage {
-#if TARGET_OS_IPHONE
-    if (SNOWPLOW_iOS_9_OR_LATER) {
-        NSArray *options = [NSArray arrayWithObjects:@"en", @"en-US", nil];
-        XCTAssertTrue([options containsObject:[SPUtilities getLanguage]]);
-    }
-#else
-    XCTAssertEqualObjects([SPUtilities getLanguage],
-                          @"en",
-                          @"Language retrieved is not the same as 'en'");
-#endif
+    XCTAssertNotNil([SPUtilities getLanguage]);
 }
 
 - (void)testGetPlatform {

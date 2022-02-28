@@ -2,7 +2,7 @@
 //  SPSession.h
 //  Snowplow
 //
-//  Copyright (c) 2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,15 +16,21 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Joshua Beemster
-//  Copyright: Copyright (c) 2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 #import "SPTracker.h"
+#import "SPSessionState.h"
 
 NS_SWIFT_NAME(Session)
 @interface SPSession : NSObject
+
+/// Callback to be called when the session is updated
+@property OnSessionStateUpdate onSessionStateUpdate;
+
+/// Returns the current session state
+@property (readonly) SPSessionState *state;
 
 /**
  * Initializes a newly allocated SnowplowSession
@@ -105,12 +111,6 @@ NS_SWIFT_NAME(Session)
 - (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId;
 
 /**
- * Returns the current session index count
- * @return a count of sessions
- */
-- (NSInteger) getSessionIndex;
-
-/**
  * Returns the foreground index count
  * @return a count of foregrounds
  */
@@ -133,17 +133,5 @@ NS_SWIFT_NAME(Session)
  * @return the session's userId
  */
 - (NSString*) getUserId;
-
-/**
- * Returns the current session's id
- * @return the current session's id
- */
-- (NSString*) getSessionId;
-
-/**
- * Returns the current session's id
- * @return the previous session's id
- */
-- (NSString*) getPreviousSessionId;
 
 @end

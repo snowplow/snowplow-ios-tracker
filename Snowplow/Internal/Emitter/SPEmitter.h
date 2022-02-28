@@ -2,7 +2,7 @@
 //  SPEmitter.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,6 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Jonathan Almeida, Joshua Beemster
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -171,14 +170,24 @@ NS_SWIFT_NAME(Emitter)
 - (void)flush;
 
 /*!
- @brief Allowes sending of events to collector.
+ @brief Starts timer for periodically sending events to collector.
  */
-- (void)resume;
+- (void)resumeTimer;
 
 /*!
- @brief Suspends sending of events to collector.
+ @brief Suspends timer for periodically sending events to collector.
  */
-- (void)pause;
+- (void)pauseTimer;
+
+/*!
+ @brief Allows sending events to collector.
+ */
+- (void)resumeEmit;
+
+/*!
+ @brief Suspends sending events to collector.
+ */
+- (void)pauseEmit;
 
 /*!
  @brief Returns the number of events in the DB.

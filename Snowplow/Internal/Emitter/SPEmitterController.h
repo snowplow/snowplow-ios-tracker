@@ -2,7 +2,7 @@
 //  SPEmitterController.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,6 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -39,6 +38,19 @@ NS_SWIFT_NAME(EmitterController)
 @property (nonatomic, readonly) BOOL isSending;
 
 - (void)flush;
+
+/**
+ * Pause emitting events.
+ * Emitting events will be suspended until resumed again.
+ * Suitable for low bandwidth situations.
+ */
+- (void)pause;
+
+/**
+ * Resume emitting events if previously paused.
+ * The emitter will resume emitting events again.
+ */
+- (void)resume;
 
 @end
 

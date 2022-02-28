@@ -42,7 +42,7 @@ Some examples of demo apps instrumented with our iOS Tracker can be found in the
 
 ## Copyright and license
 
-The Snowplow iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2021 Snowplow Analytics Ltd.
+The Snowplow iOS/macOS/tvOS/watchOS Tracker is copyright 2013-2022 Snowplow Analytics Ltd.
 
 Licensed under the **[Apache License, Version 2.0][license]** (the "License");
 you may not use this software except in compliance with the License.
@@ -74,10 +74,10 @@ limitations under the License.
 [carthage]: https://github.com/Carthage/Carthage
 [carthage-badge]: https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat
 
-[setup-docs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/quick-start-guide/#tab-ios-tracker
+[setup-docs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v3-0/quick-start-guide/#tab-ios-tracker
 [setup-docs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/setup.png
 
-[tech-docs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v2-0/introduction/
+[tech-docs]: https://docs.snowplowanalytics.com/docs/collecting-data/collecting-from-own-applications/mobile-trackers/mobile-trackers-v3-0/introduction/
 [tech-docs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
 
 [api-docs]: https://snowplow.github.io/snowplow-objc-tracker/

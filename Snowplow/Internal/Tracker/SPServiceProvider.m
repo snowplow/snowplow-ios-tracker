@@ -2,7 +2,7 @@
 //  SPServiceProvider.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,6 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -155,7 +154,7 @@
 }
 
 - (void)stopServices {
-    [_emitter pause];
+    [_emitter pauseTimer];
 }
 
 - (void)resetServices {
@@ -269,7 +268,7 @@
 - (SPEmitter *)makeEmitter {
     SPNetworkConfigurationUpdate *networkConfig = self.networkConfigurationUpdate;
     SPEmitterConfigurationUpdate *emitterConfig = self.emitterConfigurationUpdate;
-    return [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
         if (networkConfig.networkConnection) {
             [builder setNetworkConnection:networkConfig.networkConnection];
         } else {
@@ -289,6 +288,10 @@
             [builder setCallback:emitterConfig.requestCallback];
         }
     }];
+    if (emitterConfig && emitterConfig.isPaused) {
+        [emitter pauseEmit];
+    }
+    return emitter;
 }
 
 - (SPTracker *)makeTracker {
@@ -331,8 +334,13 @@
     if (self.trackerConfigurationUpdate.isPaused) {
         [tracker pauseEventTracking];
     }
-    if (self.sessionConfigurationUpdate.isPaused) {
-        [tracker.session stopChecker];
+    if (tracker.session) {
+        if (self.sessionConfigurationUpdate.isPaused) {
+            [tracker.session stopChecker];
+        }
+        if (self.sessionConfigurationUpdate.onSessionStateUpdate) {
+            tracker.session.onSessionStateUpdate = self.sessionConfigurationUpdate.onSessionStateUpdate;
+        }
     }
     return tracker;
 }

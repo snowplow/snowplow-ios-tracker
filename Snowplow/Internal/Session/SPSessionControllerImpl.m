@@ -2,7 +2,7 @@
 //  SPSessionControllerImpl.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,6 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -76,6 +75,12 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
     [self.session setBackgroundTimeout:backgroundTimeoutInSeconds * 1000];
 }
 
+- (void)setOnSessionStateUpdate:(OnSessionStateUpdate)onSessionUpdate {
+    self.dirtyConfig.onSessionStateUpdate = onSessionUpdate;
+    self.dirtyConfig.onSessionStateUpdateUpdated = YES;
+    self.session.onSessionStateUpdate = onSessionUpdate;
+}
+
 - (NSMeasurement<NSUnitDuration *> *)foregroundTimeout
 API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
 {
@@ -104,12 +109,20 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
     return floor([self.session getBackgroundTimeout] / 1000);
 }
 
+- (OnSessionStateUpdate)onSessionStateUpdate {
+    if (!self.isEnabled) {
+        SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
+        return nil;
+    }
+    return self.session.onSessionStateUpdate;
+}
+
 - (NSInteger)sessionIndex {
     if (!self.isEnabled) {
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return -1;
     }
-    return self.session.getSessionIndex;
+    return self.session.state.sessionIndex;
 }
 
 - (NSString *)sessionId {
@@ -117,7 +130,7 @@ API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0))
         SPLogTrack(nil, @"Attempt to access SessionController fields when disabled");
         return nil;
     }
-    return self.session.getSessionId;
+    return self.session.state.sessionId;
 }
 
 - (NSString *)userId {

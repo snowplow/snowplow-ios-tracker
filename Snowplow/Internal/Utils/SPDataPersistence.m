@@ -2,7 +2,7 @@
 //  SPDataPersistence.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,6 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
@@ -99,9 +98,13 @@ NSString *sessionKey = @"session";
             // Initialise
             result = [NSMutableDictionary new];
             // Migrate legacy session data
-            NSDictionary *sessionDict = [self sessionDictionaryFromLegacyTrackerV2_2]
-                ?: [self sessionDictionaryFromLegacyTrackerV1]
-                ?: [NSDictionary new];
+            NSMutableDictionary *sessionDict = [self sessionDictionaryFromLegacyTrackerV2_2].mutableCopy
+                ?: [self sessionDictionaryFromLegacyTrackerV1].mutableCopy
+                ?: [NSMutableDictionary new];
+            // Add missing fields
+            [sessionDict setObject:@"" forKey:kSPSessionFirstEventId];
+            [sessionDict setObject:@"LOCAL_STORAGE" forKey:kSPSessionStorage];
+            // Wrap up
             [result setObject:sessionDict forKey:sessionKey];
             [self storeDictionary:result fileURL:self.fileUrl];
         }

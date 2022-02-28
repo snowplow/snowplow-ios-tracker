@@ -2,7 +2,7 @@
 //  LegacyTestEmitter.m
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,6 +25,7 @@
 #import "SPEmitter.h"
 #import "SPLogger.h"
 #import "SPMockEventStore.h"
+#import "SPMockNetworkConnection.h"
 
 
 @interface SPBrokenNetworkConnection : NSObject <SPNetworkConnection>
@@ -45,52 +46,6 @@
 - (SPHttpMethod)httpMethod {
     [NSException raise:@"BrokenNetworkConnection" format:@"Fake exception on network connection."];
     return SPHttpMethodGet;
-}
-
-@end
-
-
-@interface SPMockNetworkConnection : NSObject <SPNetworkConnection>
-
-@property (nonatomic) BOOL successfulConnection;
-@property (nonatomic) SPHttpMethod httpMethod;
-@property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResult *> *> *previousResults;
-
-@end
-
-@implementation SPMockNetworkConnection
-
-- initWithRequestOption:(SPHttpMethod)httpMethod successfulConnection:(BOOL)successfulConnection {
-    if (self = [super init]) {
-        self.httpMethod = httpMethod;
-        self.successfulConnection = successfulConnection;
-        self.previousResults = [NSMutableArray new];
-    }
-    return self;
-}
-
-- (nonnull NSArray<SPRequestResult *> *)sendRequests:(nonnull NSArray<SPRequest *> *)requests {
-    NSMutableArray<SPRequestResult *> *requestResults = [NSMutableArray new];
-    for (SPRequest *request in requests) {
-        BOOL isSuccessful = request.oversize || self.successfulConnection;
-        SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccessful storeIds:request.emitterEventIds];
-        SPLogVerbose(@"Sent %@ with success %@", request.emitterEventIds, isSuccessful ? @"YES" : @"NO");
-        [requestResults addObject:result];
-    }
-    [self.previousResults addObject:requestResults];
-    return requestResults;
-}
-
-- (SPHttpMethod)httpMethod {
-    return _httpMethod;
-}
-
-- (nonnull NSURL *)url {
-    return [NSURL URLWithString:@"http://fake-url.com"];
-}
-
-- (NSUInteger)sendingCount {
-    return self.previousResults.count;
 }
 
 @end
@@ -179,7 +134,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     
     // Allow timer to be set
     [[NSRunLoop mainRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:1]];
-    [emitter resume];
+    [emitter resumeTimer];
 }
 
 // MARK: - Emitting tests

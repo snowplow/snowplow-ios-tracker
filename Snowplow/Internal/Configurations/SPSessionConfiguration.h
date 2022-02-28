@@ -2,7 +2,7 @@
 //  SPSessionConfiguration.h
 //  Snowplow
 //
-//  Copyright (c) 2013-2021 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,14 +16,16 @@
 //  language governing permissions and limitations there under.
 //
 //  Authors: Alex Benini
-//  Copyright: Copyright (c) 2013-2021 Snowplow Analytics Ltd
 //  License: Apache License Version 2.0
 //
 
 #import <Foundation/Foundation.h>
 #import "SPConfiguration.h"
+#import "SPSessionState.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+typedef void(^OnSessionStateUpdate)(SPSessionState * _Nonnull sessionState);
 
 NS_SWIFT_NAME(SessionConfigurationProtocol)
 @protocol SPSessionConfigurationProtocol
@@ -53,6 +55,11 @@ NS_SWIFT_NAME(SessionConfigurationProtocol)
  * background.
  */
 @property NSMeasurement<NSUnitDuration *> *backgroundTimeout API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0));
+
+/**
+ * The callback called everytime the session is updated.
+ */
+@property (nullable) OnSessionStateUpdate onSessionStateUpdate;
 
 @end
 
@@ -86,6 +93,11 @@ NS_SWIFT_NAME(SessionConfiguration)
 - (instancetype)initWithForegroundTimeout:(NSMeasurement<NSUnitDuration *> *)foregroundTimeout
                         backgroundTimeout:(NSMeasurement<NSUnitDuration *> *)backgroundTimeout
 API_AVAILABLE(ios(10), macosx(10.12), tvos(10.0), watchos(3.0));
+
+/**
+ * The callback called everytime the session is updated.
+ */
+SP_BUILDER_DECLARE_NULLABLE(OnSessionStateUpdate, onSessionStateUpdate)
 
 @end
 
