@@ -43,6 +43,7 @@
 - (void)setUp {
     [super setUp];
     [self cleanSessionFileWithNamespace:@"tracker"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kSPInstallationUserId];
 }
 
 - (void)tearDown {
@@ -432,10 +433,49 @@
     XCTAssertNotEqualObjects(id1, previousId2b);
 }
 
-/// Service methods
+- (void)testMigrateSessionFromV3_0 {
+    [self cleanSessionFileWithNamespace:@"tracker"];
+    [self storeSessionAsV3_0WithNamespace:@"tracker" eventId:@"eventId" sessionId:@"sessionId" sessionIndex:123 userId:@"userId"];
+
+    SPEmitter *emitter = [SPEmitter build:^(id<SPEmitterBuilder> builder) {
+        [builder setUrlEndpoint:@""];
+    }];
+    SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder>  _Nonnull builder) {
+        [builder setTrackerNamespace:@"tracker"];
+        [builder setEmitter:emitter];
+        [builder setSessionContext:YES];
+    }];
+    SPEvent *event = [[SPStructured alloc] initWithCategory:@"c" action:@"a"];
+    [tracker track:event];
+
+    SPSessionState *sessionState = tracker.session.state;
+    XCTAssertEqualObjects(@"sessionId", sessionState.previousSessionId);
+    XCTAssertEqual(124, sessionState.sessionIndex);
+    XCTAssertEqualObjects(@"userId", sessionState.userId);
+    XCTAssertNotEqualObjects(@"eventId", sessionState.firstEventId);
+}
+
+
+
+// Service methods
 
 - (void)cleanSessionFileWithNamespace:(NSString *)namespace {
     [SPDataPersistence removeDataPersistenceWithNamespace:namespace];
+}
+
+// Migration methods
+
+- (void)storeSessionAsV3_0WithNamespace:(NSString *)namespace eventId:(NSString *)eventId sessionId:(NSString *)sessionId sessionIndex:(int)sessionIndex userId:(NSString *)userId {
+    SPDataPersistence *dataPersistence = [SPDataPersistence dataPersistenceForNamespace:namespace];
+    NSMutableDictionary *newSessionDict = [NSMutableDictionary new];
+    [newSessionDict setObject:eventId forKey:kSPSessionFirstEventId];
+    [newSessionDict setObject:sessionId forKey:kSPSessionId];
+    [newSessionDict setObject:[NSNumber numberWithInt:sessionIndex] forKey:kSPSessionIndex];
+    dataPersistence.session = newSessionDict;
+    
+    //Store userId
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:userId forKey:kSPInstallationUserId];
 }
 
 @end
