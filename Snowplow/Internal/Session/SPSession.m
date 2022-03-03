@@ -26,6 +26,7 @@
 #import "SPWeakTimerTarget.h"
 #import "SPTracker.h"
 #import "SPLogger.h"
+#import "NSDictionary+SP_TypeMethods.h"
 
 #import "SPBackground.h"
 #import "SPForeground.h"
@@ -74,15 +75,15 @@
         _isNewSession = YES;
         self.tracker = tracker;
         self.dataPersistence = [SPDataPersistence dataPersistenceForNamespace:tracker.trackerNamespace];
-        NSDictionary *storedSessionDict = self.dataPersistence.session;
-        
-        if (storedSessionDict) {
+        NSMutableDictionary *storedSessionDict = self.dataPersistence.session.mutableCopy;
+        _userId = [self retrieveUserIdWithSessionDict:storedSessionDict];
+        if (storedSessionDict && _userId) {
+            [storedSessionDict setObject:_userId forKey:kSPSessionUserId];
             _state = [[SPSessionState alloc] initWithStoredState:storedSessionDict];
         }
         if (!_state) {
             SPLogTrack(nil, @"No previous session info available");
         }
-        _userId = [self retrieveUserIdWithState:_state];
         
         // Start session check
         self.lastSessionCheck = [SPUtilities getTimestamp];
@@ -173,8 +174,8 @@
 
 // MARK: - Private
 
-- (NSString *)retrieveUserIdWithState:(SPSessionState *)state {
-    NSString *userId = state.userId ?: [SPUtilities getUUIDString];
+- (NSString *)retrieveUserIdWithSessionDict:(NSDictionary *)sessionDict {
+    NSString *userId = [sessionDict sp_stringForKey:kSPSessionUserId defaultValue:nil] ?: [SPUtilities getUUIDString];
     // Session_UserID is available only if the session context is enabled.
     // In a future version we would like to make it available even if the session context is disabled.
     // For this reason, we store the Session_UserID in a separate storage (decoupled by session values)
@@ -186,7 +187,7 @@
     NSString *storedUserId = [userDefaults stringForKey:kSPInstallationUserId];
     if (storedUserId) {
         userId = storedUserId;
-    } else if (_userId) {
+    } else {
         [userDefaults setObject:userId forKey:kSPInstallationUserId];
     }
     return userId;
