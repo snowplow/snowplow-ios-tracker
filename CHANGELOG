@@ -1,3 +1,7 @@
+Version 3.1.1 (2022-03-03)
+--------------------------
+Fix object cannot be nil (key: userId) when initialising Snowplow tracker (#675)
+
 Version 3.1.0 (2022-02-25)
 --------------------------
 Update copyright headers to 2022 (#669)
