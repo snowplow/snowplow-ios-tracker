@@ -47,7 +47,8 @@
 }
 
 - (NSArray<SPSelfDescribingJson *> *)entitiesFromEvent:(id<SPInspectableEvent>)event state:(id<SPState>)state {
-    if (!state) return nil;
+//    if (!state) return nil;
+    if (!state) return @[[[[SPLifecycleEntity alloc] initWithIsVisible:YES] index:0]];
     SPLifecycleState *s = (SPLifecycleState *)state;
     return @[[[[SPLifecycleEntity alloc] initWithIsVisible:s.isForeground] index:s.index]];
 }
