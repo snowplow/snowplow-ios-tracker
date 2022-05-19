@@ -342,6 +342,7 @@
 		CE4F9D1F244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
 		CE4F9D20244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
 		CE4F9D21244B066500968CFC /* SPEcommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4F9C85244B066500968CFC /* SPEcommerce.m */; };
+		D99BDC6D2834F89A00F6A14F /* TestLifecycleState.m in Sources */ = {isa = PBXBuildFile; fileRef = D99BDC6C2834F89A00F6A14F /* TestLifecycleState.m */; };
 		ED0EFE2D26E240B0002CAA21 /* SPDeepLinkReceived.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0EFE2B26E240B0002CAA21 /* SPDeepLinkReceived.m */; };
 		ED0EFE2E26E240B0002CAA21 /* SPDeepLinkReceived.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0EFE2B26E240B0002CAA21 /* SPDeepLinkReceived.m */; };
 		ED0EFE2F26E240B0002CAA21 /* SPDeepLinkReceived.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0EFE2B26E240B0002CAA21 /* SPDeepLinkReceived.m */; };
@@ -1036,6 +1037,7 @@
 		CE4F9C83244B066500968CFC /* SPGlobalContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPGlobalContext.m; sourceTree = "<group>"; };
 		CE4F9C84244B066500968CFC /* SPEcommerce.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEcommerce.h; sourceTree = "<group>"; };
 		CE4F9C85244B066500968CFC /* SPEcommerce.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEcommerce.m; sourceTree = "<group>"; };
+		D99BDC6C2834F89A00F6A14F /* TestLifecycleState.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestLifecycleState.m; sourceTree = "<group>"; };
 		ED0EFE2B26E240B0002CAA21 /* SPDeepLinkReceived.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDeepLinkReceived.m; sourceTree = "<group>"; };
 		ED0EFE2C26E240B0002CAA21 /* SPDeepLinkReceived.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDeepLinkReceived.h; sourceTree = "<group>"; };
 		ED26E6B923842AAF0096AF7C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/System/Library/Frameworks/AdSupport.framework; sourceTree = DEVELOPER_DIR; };
@@ -1268,6 +1270,7 @@
 				75CAC3F121F2955000271FB3 /* TestSession.m */,
 				75CAC40221F2955100271FB3 /* TestUtils.m */,
 				7534D20722569F3400904EE5 /* TestScreenState.m */,
+				D99BDC6C2834F89A00F6A14F /* TestLifecycleState.m */,
 				EDEE836224C0C317000B8530 /* TestLogger.m */,
 				EDB2FD2126C57F6C0031B872 /* TestDataPersistence.m */,
 				EDAB664826D69A160067755F /* TestStateManager.m */,
@@ -2624,6 +2627,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D99BDC6D2834F89A00F6A14F /* TestLifecycleState.m in Sources */,
 				6BF15D0C2702ECD70048F376 /* TestPlatformContext.m in Sources */,
 				75CAC40821F2955100271FB3 /* LegacyTestSubject.m in Sources */,
 				ED8BF8ED2570FB2F001DFDD9 /* TestTrackerConfiguration.m in Sources */,
