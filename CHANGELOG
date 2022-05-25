@@ -1,3 +1,7 @@
+Version 3.1.2 (2022-05-25)
+--------------------------
+Attach LifecycleEntity before the first Background event (#679)
+
 Version 3.1.1 (2022-03-03)
 --------------------------
 Fix object cannot be nil (key: userId) when initialising Snowplow tracker (#675)
