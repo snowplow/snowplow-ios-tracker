@@ -106,9 +106,10 @@ NS_SWIFT_NAME(Session)
 /**
  * Returns the session dictionary
  * @param firstEventId The potential first event id of the session
+ * @param firstEventTimestamp Device created timestamp of the first event of the session
  * @return a SnowplowPayload containing the session dictionary
  */
-- (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId;
+- (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId eventTimestamp:(long long)firstEventTimestamp;
 
 /**
  * Returns the foreground index count
