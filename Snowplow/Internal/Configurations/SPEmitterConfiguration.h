@@ -77,6 +77,11 @@ NS_SWIFT_NAME(EmitterConfigurationProtocol)
  * Callback called for each request performed by the tracker to the collector.
  */
 @property (nullable) id<SPRequestCallback> requestCallback;
+/**
+ *  Custom retry rules for HTTP status codes returned from the Collector.
+ *  The dictionary is a mapping of integers (status codes) to booleans (true for retry and false for not retry).
+ */
+@property (nonatomic, nullable) NSDictionary<NSNumber *, NSNumber *> *customRetryForStatusCodes;
 
 @end
 
@@ -136,6 +141,11 @@ SP_BUILDER_DECLARE_NULLABLE(id<SPRequestCallback>, requestCallback)
  * If it's not set the tracker will use a SQLite database as default EventStore.
  */
 SP_BUILDER_DECLARE_NULLABLE(id<SPEventStore>, eventStore)
+/**
+ * Custom retry rules for HTTP status codes returned from the Collector.
+ * The dictionary is a mapping of integers (status codes) to booleans (true for retry and false for not retry).
+ */
+SP_BUILDER_DECLARE_NULLABLE(NSDictionary *, customRetryForStatusCodes)
 
 @end
 

@@ -152,7 +152,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitSingleGetEventWithSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:YES];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet statusCode:200];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
     
@@ -169,7 +169,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitSingleGetEventWithNoSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet statusCode:500];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
     
@@ -186,7 +186,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitTwoGetEventsWithSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:YES];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet statusCode:200];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     
     for (SPPayload *payload in [self generatePayloads:2]) {
@@ -211,7 +211,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitTwoGetEventsWithNoSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet statusCode:500];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
 
     for (SPPayload *payload in [self generatePayloads:2]) {
@@ -233,7 +233,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitSinglePostEventWithSuccess {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost successfulConnection:YES];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost statusCode:200];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
     
     [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
@@ -251,7 +251,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitEventsPostAsGroup {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost statusCode:500];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionDefaultGroup];
     
     NSArray<SPPayload *> *payloads = [self generatePayloads:15];
@@ -264,7 +264,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     }
 
     XCTAssertEqual(14, [emitter getDbCount]);
-    networkConnection.successfulConnection = YES;
+    networkConnection.statusCode = 200;
     NSUInteger prevSendingCount = [networkConnection sendingCount];
     [emitter addPayloadToBuffer:payloads[14]];
     
@@ -292,7 +292,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
 }
 
 - (void)testEmitOversizeEventsPostAsGroup {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost successfulConnection:NO];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost statusCode:500];
     SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection build:^(id<SPEmitterBuilder> builder) {
         [builder setBufferOption:SPBufferOptionDefaultGroup];
         [builder setByteLimitPost:5];
@@ -308,7 +308,7 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
     }
 
     XCTAssertEqual(0, [emitter getDbCount]);
-    networkConnection.successfulConnection = YES;
+    networkConnection.statusCode = 200;
     NSUInteger prevSendingCount = [networkConnection sendingCount];
     [emitter addPayloadToBuffer:payloads[14]];
     
@@ -339,6 +339,52 @@ NSString *const TEST_SERVER_EMITTER = @"www.notarealurl.com";
         [builder setEventStore:[SPMockEventStore new]];
         buildBlock(builder);
     }];
+}
+
+- (void)testRemovesEventsFromQueueOnNoRetryStatus {
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet statusCode:403];
+    SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
+
+    [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
+    
+    [NSThread sleepForTimeInterval:1];
+
+    XCTAssertEqual(0, [emitter getDbCount]);
+    for (NSArray<SPRequestResult *> *results in networkConnection.previousResults) {
+        for (SPRequestResult *result in results) {
+            XCTAssertFalse(result.isSuccessful);
+        }
+    }
+
+    [emitter flush];
+}
+
+- (void)testFollowCustomRetryRules {
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodGet statusCode:500];
+    SPEmitter *emitter = [self emitterWithNetworkConnection:networkConnection bufferOption:SPBufferOptionSingle];
+    
+    NSMutableDictionary *customRules = [[NSMutableDictionary alloc] init];
+    [customRules setObject:@YES forKey:@403];
+    [customRules setObject:@NO forKey:@500];
+    [emitter setCustomRetryForStatusCodes:customRules];
+
+    [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
+    
+    [NSThread sleepForTimeInterval:1];
+
+    // no events in queue since they were dropped because retrying is disabled for 500
+    XCTAssertEqual(0, [emitter getDbCount]);
+    
+    networkConnection.statusCode = 403;
+
+    [emitter addPayloadToBuffer:[self generatePayloads:1].firstObject];
+    
+    [NSThread sleepForTimeInterval:1];
+
+    // event still in queue because retrying is enabled for 403
+    XCTAssertEqual(1, [emitter getDbCount]);
+
+    [emitter flush];
 }
 
 // MARK: - Service methods

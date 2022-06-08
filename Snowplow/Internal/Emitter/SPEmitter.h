@@ -114,6 +114,13 @@ NS_SWIFT_NAME(EmitterBuilder)
  */
 - (void) setEventStore:(id<SPEventStore>)eventStore;
 
+/**
+ @brief Set a custom retry rules for HTTP status codes received in emit responses from the Collector.
+ 
+ @param customRetryForStatusCodes Mapping of integers (status codes) to booleans (true for retry and false for not retry)
+ */
+- (void) setCustomRetryForStatusCodes:(NSDictionary<NSNumber *, NSNumber *> *)customRetryForStatusCodes;
+
 @end
 
 /*!
@@ -147,6 +154,8 @@ NS_SWIFT_NAME(Emitter)
 @property (readonly, nonatomic) NSDictionary<NSString *, NSString *> *requestHeaders;
 /*! @brief Custom NetworkConnection istance to handle connection outside the emitter. */
 @property (readonly, nonatomic) id<SPNetworkConnection> networkConnection;
+/*! @brief Custom retry rules for HTTP status codes. */
+@property (readonly, nonatomic) NSDictionary<NSNumber *, NSNumber *> *customRetryForStatusCodes;
 
 /*!
  @brief Builds the emitter using a build block of functions.

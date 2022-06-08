@@ -80,6 +80,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         _eventStore = nil;
         _networkConnection = nil;
         _pausedEmit = NO;
+        _customRetryForStatusCodes = [[NSDictionary alloc] init];
     }
     return self;
 }
@@ -217,6 +218,14 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     }
 }
 
+- (void)setCustomRetryForStatusCodes:(NSDictionary<NSNumber *, NSNumber *> *)customRetryForStatusCodes {
+    if (customRetryForStatusCodes) {
+        _customRetryForStatusCodes = customRetryForStatusCodes;
+    } else {
+        _customRetryForStatusCodes = [[NSDictionary alloc] init];
+    }
+}
+
 // MARK: - Pause/Resume methods
 
 - (void)resumeTimer {
@@ -308,6 +317,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     
     NSInteger successCount = 0;
     NSInteger failureCount = 0;
+    NSInteger failedOversizedCount = 0;
     NSMutableArray<NSNumber *> *removableEvents = [NSMutableArray new];
     
     for (SPRequestResult *result in sendResults) {
@@ -316,20 +326,29 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
             successCount += resultIndexArray.count;
             [removableEvents addObjectsFromArray:resultIndexArray];
         } else {
-            failureCount += resultIndexArray.count;
+            if ([result isOversize]) {
+                failedOversizedCount += resultIndexArray.count;
+            } else {
+                failureCount += resultIndexArray.count;
+            }
+            if (![result shouldRetry:_customRetryForStatusCodes]) {
+                [removableEvents addObjectsFromArray:resultIndexArray];
+                SPLogError(@"Sending events to Collector failed with status %ld. Events will be dropped.", (long)[result statusCode]);
+            }
         }
     }
+    NSInteger allFailureCount = failureCount + failedOversizedCount;
     
     [_eventStore removeEventsWithIds:removableEvents];
     
     SPLogDebug(@"Success Count: %@", [@(successCount) stringValue]);
-    SPLogDebug(@"Failure Count: %@", [@(failureCount) stringValue]);
+    SPLogDebug(@"Failure Count: %@", [@(allFailureCount) stringValue]);
     
     if (_callback != nil) {
-        if (failureCount == 0) {
+        if (allFailureCount == 0) {
             [_callback onSuccessWithCount:successCount];
         } else {
-            [_callback onFailureWithCount:failureCount successCount:successCount];
+            [_callback onFailureWithCount:allFailureCount successCount:successCount];
         }
     }
     
