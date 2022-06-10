@@ -24,16 +24,29 @@
 NS_SWIFT_NAME(RequestResult)
 @interface SPRequestResult : NSObject
 
-/// Returns the success of the request operation.
-@property (nonatomic, readonly) BOOL isSuccessful;
+/// Returns the HTTP status code from Collector.
+@property (nonatomic, readonly) NSInteger statusCode;
+/// Was the request oversize
+@property (nonatomic, readonly) BOOL isOversize;
 /// Returns the stored index array, needed to remove the events after sending.
 @property (nonatomic, readonly) NSArray<NSNumber *> *storeIds;
 
 /**
  * Creates a request result object
- * @param success whether the operation was a success or not
+ * @param statusCode HTTP status code from collector response
  * @param storeIds the event indexes in the database
  */
-- (instancetype)initWithSuccess:(BOOL)success storeIds:(NSArray<NSNumber *> *)storeIds;
+- (instancetype)initWithStatusCode:(NSInteger)statusCode oversize:(BOOL)isOversize storeIds:(NSArray<NSNumber *> *)storeIds;
+
+/**
+ * @return Whether the events were successfuly sent to the Collector.
+ */
+- (BOOL)isSuccessful;
+
+/**
+ * @param customRetryForStatusCodes mapping of custom retry rules for HTTP status codes in Collector response.
+ * @return Whether sending the events to the Collector should be retried.
+ */
+- (BOOL)shouldRetry:(NSDictionary<NSNumber *, NSNumber *> *)customRetryForStatusCodes;
 
 @end

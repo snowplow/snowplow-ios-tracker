@@ -286,6 +286,7 @@
             [builder setByteLimitGet:emitterConfig.byteLimitGet];
             [builder setEmitThreadPoolSize:emitterConfig.threadPoolSize];
             [builder setCallback:emitterConfig.requestCallback];
+            [builder setCustomRetryForStatusCodes:emitterConfig.customRetryForStatusCodes];
         }
     }];
     if (emitterConfig && emitterConfig.isPaused) {

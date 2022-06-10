@@ -34,6 +34,7 @@ SP_DIRTYFLAG(byteLimitGet)
 SP_DIRTYFLAG(byteLimitPost)
 SP_DIRTYFLAG(emitRange)
 SP_DIRTYFLAG(threadPoolSize)
+SP_DIRTYFLAG(customRetryForStatusCodes)
 
 @end
 

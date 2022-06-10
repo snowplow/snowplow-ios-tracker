@@ -50,7 +50,7 @@
 }
 
 - (void)testUpdatingConfigurationRetainsPausedEmitter {
-    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost successfulConnection:YES];
+    SPMockNetworkConnection *networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost statusCode:200];
     SPEmitterConfiguration *emitterConfig = [[SPEmitterConfiguration alloc] init];
     emitterConfig.eventStore = [SPMockEventStore new];
     emitterConfig.bufferOption = SPBufferOptionSingle;

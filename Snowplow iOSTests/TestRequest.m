@@ -129,10 +129,9 @@
 }
 
 - (NSArray<SPRequestResult *> *)sendRequests:(NSArray<SPRequest *> *)requests {
-    BOOL isSuccess = self.resultCode == 200;
     NSMutableArray<SPRequestResult *> *results = [NSMutableArray new];
     for (SPRequest *request in requests) {
-        SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccess storeIds:request.emitterEventIds];
+        SPRequestResult *result = [[SPRequestResult alloc] initWithStatusCode:self.resultCode oversize:request.oversize storeIds:request.emitterEventIds];
         [results addObject:result];
     }
     return results;

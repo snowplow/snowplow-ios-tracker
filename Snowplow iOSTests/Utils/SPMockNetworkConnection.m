@@ -24,10 +24,10 @@
 
 @implementation SPMockNetworkConnection
 
-- initWithRequestOption:(SPHttpMethod)httpMethod successfulConnection:(BOOL)successfulConnection {
+- initWithRequestOption:(SPHttpMethod)httpMethod statusCode:(NSInteger)statusCode {
     if (self = [super init]) {
         self.httpMethod = httpMethod;
-        self.successfulConnection = successfulConnection;
+        self.statusCode = statusCode;
         self.previousResults = [NSMutableArray new];
     }
     return self;
@@ -36,9 +36,8 @@
 - (nonnull NSArray<SPRequestResult *> *)sendRequests:(nonnull NSArray<SPRequest *> *)requests {
     NSMutableArray<SPRequestResult *> *requestResults = [NSMutableArray new];
     for (SPRequest *request in requests) {
-        BOOL isSuccessful = request.oversize || self.successfulConnection;
-        SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccessful storeIds:request.emitterEventIds];
-        SPLogVerbose(@"Sent %@ with success %@", request.emitterEventIds, isSuccessful ? @"YES" : @"NO");
+        SPRequestResult *result = [[SPRequestResult alloc] initWithStatusCode:_statusCode oversize:request.oversize storeIds:request.emitterEventIds];
+        SPLogVerbose(@"Sent %@ with success %@", request.emitterEventIds, [result isSuccessful] ? @"YES" : @"NO");
         [requestResults addObject:result];
     }
     [self.previousResults addObject:requestResults];
