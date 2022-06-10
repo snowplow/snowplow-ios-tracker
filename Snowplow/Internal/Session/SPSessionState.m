@@ -26,6 +26,7 @@
 @interface SPSessionState ()
 
 @property (nonatomic, nonnull, readwrite) NSString *firstEventId;
+@property (nonatomic, nullable, readwrite) NSString *firstEventTimestamp;
 @property (nonatomic, nullable, readwrite) NSString *previousSessionId;
 @property (nonatomic, nonnull, readwrite) NSString *sessionId;
 @property (nonatomic, readwrite) NSInteger sessionIndex;
@@ -37,21 +38,23 @@
 
 @implementation SPSessionState
 
-+ (NSMutableDictionary<NSString *, NSObject *> *)buildSessionDictionaryWithFirstEventId:(NSString *)firstEventId currentSessionId:(NSString *)currentSessionId previousSessionId:(NSString *)previousSessionId sessionIndex:(NSInteger)sessionIndex userId:(NSString *)userId storage:(NSString *)storage
++ (NSMutableDictionary<NSString *, NSObject *> *)buildSessionDictionaryWithFirstEventId:(NSString *)firstEventId firstEventTimestamp:(NSString *)firstEventTimestamp currentSessionId:(NSString *)currentSessionId previousSessionId:(NSString *)previousSessionId sessionIndex:(NSInteger)sessionIndex userId:(NSString *)userId storage:(NSString *)storage
 {
     NSMutableDictionary *dictionary = [NSMutableDictionary new];
     [dictionary setObject:previousSessionId ?: [NSNull null] forKey:kSPSessionPreviousId];
     [dictionary setObject:currentSessionId forKey:kSPSessionId];
     [dictionary setObject:firstEventId forKey:kSPSessionFirstEventId];
+    [dictionary setObject:firstEventTimestamp ?: [NSNull null] forKey:kSPSessionFirstEventTimestamp];
     [dictionary setObject:[NSNumber numberWithInteger:sessionIndex] forKey:kSPSessionIndex];
     [dictionary setObject:storage forKey:kSPSessionStorage];
     [dictionary setObject:userId forKey:kSPSessionUserId];
     return dictionary;
 }
 
-- (instancetype)initWithFirstEventId:(NSString *)firstEventId currentSessionId:(NSString *)currentSessionId previousSessionId:(NSString *)previousSessionId sessionIndex:(NSInteger)sessionIndex userId:(NSString *)userId storage:(NSString *)storage {
+- (instancetype)initWithFirstEventId:(NSString *)firstEventId firstEventTimestamp:(NSString *)firstEventTimestamp currentSessionId:(NSString *)currentSessionId previousSessionId:(NSString *)previousSessionId sessionIndex:(NSInteger)sessionIndex userId:(NSString *)userId storage:(NSString *)storage {
     if (self = [super init]) {
         self.firstEventId = firstEventId;
+        self.firstEventTimestamp = firstEventTimestamp;
         self.sessionId = currentSessionId;
         self.previousSessionId = previousSessionId;
         self.sessionIndex = sessionIndex;
@@ -59,6 +62,7 @@
         self.storage = storage;
         
         self.sessionDictionary = [SPSessionState buildSessionDictionaryWithFirstEventId:firstEventId
+                                                                    firstEventTimestamp:firstEventTimestamp
                                                                        currentSessionId:currentSessionId
                                                                       previousSessionId:previousSessionId
                                                                            sessionIndex:sessionIndex
@@ -87,10 +91,12 @@
         // defensive and exclude any possible issue with a missing value.
         self.firstEventId = [storedState sp_stringForKey:kSPSessionFirstEventId
                                                        defaultValue:@"00000000-0000-0000-0000-000000000000"];
+        self.firstEventTimestamp = [storedState sp_stringForKey:kSPSessionFirstEventTimestamp defaultValue:nil];
                 
         self.storage = [storedState sp_stringForKey:kSPSessionStorage defaultValue:@"LOCAL_STORAGE"];
         
         self.sessionDictionary = [SPSessionState buildSessionDictionaryWithFirstEventId:self.firstEventId
+                                                                    firstEventTimestamp:self.firstEventTimestamp
                                                                        currentSessionId:self.sessionId
                                                                       previousSessionId:self.previousSessionId
                                                                            sessionIndex:self.sessionIndex

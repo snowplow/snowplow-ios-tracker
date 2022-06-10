@@ -80,6 +80,15 @@
     return @([time timeIntervalSince1970] * 1000);
 }
 
++ (NSString *) timestampToISOString:(long long)timestamp {
+    NSDate *eventDate = [NSDate dateWithTimeIntervalSince1970:timestamp / 1000.0];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setLocale:[NSLocale localeWithLocaleIdentifier:@"en_US_POSIX"]];
+    [formatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+    [formatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
+    return [formatter stringFromDate:eventDate];
+}
+
 + (NSString *) getResolution {
 #if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_TV
     CGRect mainScreen = [[UIScreen mainScreen] bounds];
