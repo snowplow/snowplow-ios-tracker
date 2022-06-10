@@ -45,7 +45,7 @@
 
     XCTAssertNotNil(result);
     XCTAssertEqual(result.isSuccessful, YES);
-    XCTAssertEqual([result shouldRetry:[[NSDictionary alloc] init]], NO);
+    XCTAssertEqual([result shouldRetry:@{}], NO);
     XCTAssertEqual(result.storeIds, emitterEventIds);
 }
 
@@ -54,7 +54,7 @@
     [emitterEventIds addObject:@1];
     SPRequestResult *result = [[SPRequestResult alloc] initWithStatusCode:500 oversize:NO storeIds:emitterEventIds];
     XCTAssertEqual(result.isSuccessful, NO);
-    XCTAssertEqual([result shouldRetry:[[NSDictionary alloc] init]], YES);
+    XCTAssertEqual([result shouldRetry:@{}], YES);
 }
 
 - (void)testDefaultResult {
@@ -68,19 +68,19 @@
 - (void)testOversizedFailedRequest {
     SPRequestResult *result = [[SPRequestResult alloc] initWithStatusCode:500 oversize:YES storeIds:@[]];
     XCTAssertEqual(result.isSuccessful, NO);
-    XCTAssertEqual([result shouldRetry:[[NSDictionary alloc] init]], NO);
+    XCTAssertEqual([result shouldRetry:@{}], NO);
 }
 
 - (void)testFailedRequestWithNoRetryStatus {
     SPRequestResult *result = [[SPRequestResult alloc] initWithStatusCode:403 oversize:NO storeIds:@[]];
     XCTAssertEqual(result.isSuccessful, NO);
-    XCTAssertEqual([result shouldRetry:[[NSDictionary alloc] init]], NO);
+    XCTAssertEqual([result shouldRetry:@{}], NO);
 }
 
 - (void)testFailedRequestWithCustomNoRetryStatus {
     NSMutableDictionary *customRetryRules = [[NSMutableDictionary alloc] init];
-    [customRetryRules setObject:[NSNumber numberWithBool:YES] forKey:[NSNumber numberWithInt:403]];
-    [customRetryRules setObject:[NSNumber numberWithBool:NO] forKey:[NSNumber numberWithInt:500]];
+    [customRetryRules setObject:@YES forKey:@403];
+    [customRetryRules setObject:@NO forKey:@500];
     
     SPRequestResult *result = [[SPRequestResult alloc] initWithStatusCode:403 oversize:NO storeIds:@[]];
     XCTAssertEqual([result shouldRetry:customRetryRules], YES);

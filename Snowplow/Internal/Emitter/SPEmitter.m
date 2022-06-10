@@ -80,7 +80,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         _eventStore = nil;
         _networkConnection = nil;
         _pausedEmit = NO;
-        _customRetryForStatusCodes = [[NSDictionary alloc] init];
+        _customRetryForStatusCodes = @{};
     }
     return self;
 }
@@ -219,11 +219,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 }
 
 - (void)setCustomRetryForStatusCodes:(NSDictionary<NSNumber *, NSNumber *> *)customRetryForStatusCodes {
-    if (customRetryForStatusCodes) {
-        _customRetryForStatusCodes = customRetryForStatusCodes;
-    } else {
-        _customRetryForStatusCodes = [[NSDictionary alloc] init];
-    }
+    _customRetryForStatusCodes = customRetryForStatusCodes ?: @{};
 }
 
 // MARK: - Pause/Resume methods

@@ -67,6 +67,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     copy.byteLimitPost = self.byteLimitPost;
     copy.requestCallback = self.requestCallback;
     copy.eventStore = self.eventStore;
+    copy.customRetryForStatusCodes = self.customRetryForStatusCodes;
     return copy;
 }
 
