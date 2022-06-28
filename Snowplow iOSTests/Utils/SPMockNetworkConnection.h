@@ -26,9 +26,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SPMockNetworkConnection : NSObject <SPNetworkConnection>
 
-- (instancetype)initWithRequestOption:(SPHttpMethod)httpMethod successfulConnection:(BOOL)successfulConnection;
+- (instancetype)initWithRequestOption:(SPHttpMethod)httpMethod statusCode:(NSInteger)statusCode;
 
-@property (nonatomic) BOOL successfulConnection;
+@property (nonatomic) NSInteger statusCode;
 @property (nonatomic) SPHttpMethod httpMethod;
 @property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResult *> *> *previousResults;
 @property (nonatomic) NSUInteger sendingCount;

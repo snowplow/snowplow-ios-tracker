@@ -624,10 +624,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts event:(SPTrackerEvent *)event {
-    [self addBasicContextsToContexts:contexts eventId:event.eventId.UUIDString isService:event.isService];
+    [self addBasicContextsToContexts:contexts eventId:event.eventId.UUIDString eventTimestamp:event.timestamp isService:event.isService];
 }
 
-- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId isService:(BOOL)isService {
+- (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId eventTimestamp:(long long)eventTimestamp isService:(BOOL)isService {
     if (_subject) {
         NSDictionary * platformDict = [[_subject getPlatformDict] getAsDictionary];
         if (platformDict != nil) {
@@ -652,7 +652,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
     // Add session
     if (_session) {
-        NSDictionary *sessionDict = [_session getSessionDictWithEventId:eventId];
+        NSDictionary *sessionDict = [_session getSessionDictWithEventId:eventId eventTimestamp:eventTimestamp];
         if (sessionDict) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
         } else {

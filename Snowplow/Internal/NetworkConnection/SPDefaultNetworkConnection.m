@@ -173,11 +173,10 @@
             
             dispatch_semaphore_wait(sem, DISPATCH_TIME_FOREVER);
 
-            BOOL isSuccessful = [httpResponse statusCode] >= 200 && [httpResponse statusCode] < 300;
-            if (!isSuccessful) {
+            SPRequestResult *result = [[SPRequestResult alloc] initWithStatusCode:[httpResponse statusCode] oversize:request.oversize storeIds:request.emitterEventIds];
+            if (![result isSuccessful]) {
                 SPLogError(@"Connection error: %@", connectionError);
             }
-            SPRequestResult *result = [[SPRequestResult alloc] initWithSuccess:isSuccessful storeIds:request.emitterEventIds];
 
             @synchronized (results) {
                 [results addObject:result];

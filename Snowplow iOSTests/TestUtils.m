@@ -90,6 +90,11 @@
 
 }
 
+- (void) testTimestampToISOString {
+    XCTAssertEqualObjects([SPUtilities timestampToISOString:1654496481347], @"2022-06-06T06:21:21.347Z");
+    XCTAssertEqualObjects([SPUtilities timestampToISOString:1654498990916], @"2022-06-06T07:03:10.916Z");
+}
+
 - (void)testAppId {
     // This is always NULL in a test environment
     NSLog(@"appId: %@", [SPUtilities getAppId]);

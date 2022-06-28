@@ -24,7 +24,8 @@
 
 @interface SPRequestResult ()
 
-@property (nonatomic, readwrite) BOOL isSuccessful;
+@property (nonatomic, readwrite) NSInteger statusCode;
+@property (nonatomic, readwrite) BOOL isOversize;
 @property (nonatomic, readwrite) NSArray<NSNumber *> *storeIds;
 
 @end
@@ -32,15 +33,42 @@
 @implementation SPRequestResult
 
 - (instancetype)init {
-    return [self initWithSuccess:NO storeIds:@[]];
+    return [self initWithStatusCode:-1 oversize:NO storeIds:@[]];
 }
 
-- (instancetype)initWithSuccess:(BOOL)success storeIds:(NSArray<NSNumber *> *)storeIds {
+- (instancetype)initWithStatusCode:(NSInteger)statusCode oversize:(BOOL)isOversize storeIds:(NSArray<NSNumber *> *)storeIds {
     if (self = [super init]) {
-        self.isSuccessful = success;
+        self.statusCode = statusCode;
+        self.isOversize = isOversize;
         self.storeIds = storeIds;
     }
     return self;
+}
+
+- (BOOL)isSuccessful {
+    return _statusCode >= 200 && _statusCode < 300;
+}
+
+- (BOOL)shouldRetry:(NSDictionary<NSNumber *, NSNumber *> *)customRetryForStatusCodes {
+    // don't retry if successful
+    if ([self isSuccessful]) {
+        return false;
+    }
+
+    // don't retry if request is larger than max byte limit
+    if ([self isOversize]) {
+        return false;
+    }
+
+    // status code has a custom retry rule
+    NSNumber *code = [NSNumber numberWithInteger:_statusCode];
+    if ([customRetryForStatusCodes objectForKey:code]) {
+        return [[customRetryForStatusCodes objectForKey:code] boolValue];
+    }
+
+    // retry if status code is not in the list of no-retry status codes
+    NSArray *dontRetryStatusCodes = @[@400, @401, @403, @410, @422];
+    return ![dontRetryStatusCodes containsObject:code];
 }
 
 @end

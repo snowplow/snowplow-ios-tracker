@@ -29,6 +29,7 @@
 @synthesize emitRange;
 @synthesize threadPoolSize;
 @synthesize requestCallback;
+@synthesize customRetryForStatusCodes;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -51,6 +52,7 @@ SP_BUILDER_METHOD(NSInteger, threadPoolSize)
 SP_BUILDER_METHOD(NSInteger, byteLimitGet)
 SP_BUILDER_METHOD(NSInteger, byteLimitPost)
 SP_BUILDER_METHOD(id<SPRequestCallback>, requestCallback)
+SP_BUILDER_METHOD(NSDictionary *, customRetryForStatusCodes)
 
 SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
 
@@ -65,6 +67,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     copy.byteLimitPost = self.byteLimitPost;
     copy.requestCallback = self.requestCallback;
     copy.eventStore = self.eventStore;
+    copy.customRetryForStatusCodes = self.customRetryForStatusCodes;
     return copy;
 }
 
@@ -80,6 +83,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     [coder encodeInteger:self.threadPoolSize forKey:SP_STR_PROP(threadPoolSize)];
     [coder encodeInteger:self.byteLimitGet forKey:SP_STR_PROP(byteLimitGet)];
     [coder encodeInteger:self.byteLimitPost forKey:SP_STR_PROP(byteLimitPost)];
+    [coder encodeObject:self.customRetryForStatusCodes forKey:SP_STR_PROP(customRetryForStatusCodes)];
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
@@ -89,6 +93,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
         self.threadPoolSize = [coder decodeIntegerForKey:SP_STR_PROP(threadPoolSize)];
         self.byteLimitGet = [coder decodeIntegerForKey:SP_STR_PROP(byteLimitGet)];
         self.byteLimitPost = [coder decodeIntegerForKey:SP_STR_PROP(byteLimitPost)];
+        self.customRetryForStatusCodes = [coder decodeObjectForKey:SP_STR_PROP(customRetryForStatusCodes)];
     }
     return self;
 }

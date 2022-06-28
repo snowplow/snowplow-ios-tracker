@@ -1,3 +1,8 @@
+Version 3.2.0 (2022-06-28)
+--------------------------
+Add eventIndex and firstEventTimestamp properties to client sessions (#682)
+Add a customizable set of failure HTTP status codes for which collector requests should not be retried (#684)
+
 Version 3.1.2 (2022-05-25)
 --------------------------
 Attach LifecycleEntity before the first Background event (#679)

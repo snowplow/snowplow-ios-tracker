@@ -80,6 +80,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         _eventStore = nil;
         _networkConnection = nil;
         _pausedEmit = NO;
+        _customRetryForStatusCodes = @{};
     }
     return self;
 }
@@ -217,6 +218,10 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     }
 }
 
+- (void)setCustomRetryForStatusCodes:(NSDictionary<NSNumber *, NSNumber *> *)customRetryForStatusCodes {
+    _customRetryForStatusCodes = customRetryForStatusCodes ?: @{};
+}
+
 // MARK: - Pause/Resume methods
 
 - (void)resumeTimer {
@@ -307,7 +312,8 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     SPLogVerbose(@"Processing emitter results.");
     
     NSInteger successCount = 0;
-    NSInteger failureCount = 0;
+    NSInteger failedWillRetryCount = 0;
+    NSInteger failedWontRetryCount = 0;
     NSMutableArray<NSNumber *> *removableEvents = [NSMutableArray new];
     
     for (SPRequestResult *result in sendResults) {
@@ -315,25 +321,30 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         if (result.isSuccessful) {
             successCount += resultIndexArray.count;
             [removableEvents addObjectsFromArray:resultIndexArray];
+        } else if ([result shouldRetry:_customRetryForStatusCodes]) {
+            failedWillRetryCount += resultIndexArray.count;
         } else {
-            failureCount += resultIndexArray.count;
+            failedWontRetryCount += resultIndexArray.count;
+            [removableEvents addObjectsFromArray:resultIndexArray];
+            SPLogError(@"Sending events to Collector failed with status %ld. Events will be dropped.", (long)[result statusCode]);
         }
     }
+    NSInteger allFailureCount = failedWillRetryCount + failedWontRetryCount;
     
     [_eventStore removeEventsWithIds:removableEvents];
     
     SPLogDebug(@"Success Count: %@", [@(successCount) stringValue]);
-    SPLogDebug(@"Failure Count: %@", [@(failureCount) stringValue]);
+    SPLogDebug(@"Failure Count: %@", [@(allFailureCount) stringValue]);
     
     if (_callback != nil) {
-        if (failureCount == 0) {
+        if (allFailureCount == 0) {
             [_callback onSuccessWithCount:successCount];
         } else {
-            [_callback onFailureWithCount:failureCount successCount:successCount];
+            [_callback onFailureWithCount:allFailureCount successCount:successCount];
         }
     }
     
-    if (failureCount > 0 && successCount == 0) {
+    if (failedWillRetryCount > 0 && successCount == 0) {
         SPLogDebug(@"Ending emitter run as all requests failed.", nil);
         [NSThread sleepForTimeInterval:5];
         _isSending = NO;

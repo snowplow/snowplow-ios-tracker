@@ -70,6 +70,12 @@
 + (NSNumber *) getTimestamp;
 
 /*!
+ @brief Converts a timestamp (in milliseconds) to ISO8601 formatted string
+ @return ISO8601 formatted string
+ */
++ (NSString *) timestampToISOString:(long long)timestamp;
+
+/*!
  @brief Calculates the resolution of the screen in-terms of actual pixels of the device. This doesn't count Retine-pixels which are technically subpixels.
  @return A formatted string with resolution 'width' and 'height'.
  */
