@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['gdpr_0',['gdpr',['../category_s_p_g_d_p_r_controller_impl_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPGDPRControllerImpl()::gdpr()'],['../category_s_p_tracker_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPTracker()::gdpr()'],['../protocol_s_p_tracker_controller-p.html#a0bd3e1d57c53eedcfde88dd88bcae0e8',1,'SPTrackerController-p::gdpr()'],['../interface_s_p_g_d_p_r_configuration_update.html#af04993dabe2f57e8876613edabdc5c61',1,'SPGDPRConfigurationUpdate::gdpr()']]],
+  ['gdpr_0',['gdpr',['../interface_s_p_g_d_p_r_configuration_update.html#af04993dabe2f57e8876613edabdc5c61',1,'SPGDPRConfigurationUpdate::gdpr()'],['../category_s_p_g_d_p_r_controller_impl_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPGDPRControllerImpl()::gdpr()'],['../category_s_p_tracker_07_08.html#af04993dabe2f57e8876613edabdc5c61',1,'SPTracker()::gdpr()'],['../protocol_s_p_tracker_controller-p.html#a0bd3e1d57c53eedcfde88dd88bcae0e8',1,'SPTrackerController-p::gdpr()']]],
   ['gdprconfigurationupdate_1',['gdprConfigurationUpdate',['../category_s_p_service_provider_07_08.html#afc47002f0895b15b4565c111bf10d532',1,'SPServiceProvider()']]],
   ['gdprcontroller_2',['gdprController',['../category_s_p_service_provider_07_08.html#afe114c09ec266d0dcb865d2ced267cee',1,'SPServiceProvider()']]],
   ['gdprupdated_3',['gdprUpdated',['../interface_s_p_g_d_p_r_configuration_update.html#a612c1dd197c5a3fde9b43dc5b85dad0a',1,'SPGDPRConfigurationUpdate']]],
