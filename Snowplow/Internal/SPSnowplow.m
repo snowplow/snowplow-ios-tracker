@@ -22,6 +22,7 @@
 #import "SPSnowplow.h"
 #import "SPServiceProvider.h"
 #import "SPConfigurationProvider.h"
+#import "SPWebViewMessageHandler.h"
 
 @interface SPSnowplow ()
 
@@ -163,6 +164,16 @@
     }
     return namespaces;
 }
+
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_OSX
+
++ (void)subscribeToWebViewEventsWithConfiguration:(WKWebViewConfiguration *)webViewConfiguration {
+    SPWebViewMessageHandler *messageHandler = [[SPWebViewMessageHandler alloc] init];
+    
+    [webViewConfiguration.userContentController addScriptMessageHandler:messageHandler name:@"snowplow"];
+}
+
+#endif
 
 // Global singleton
 

@@ -1,5 +1,5 @@
 //
-//  SPMockNetworkConnection.h
+//  SPMockWKScriptMessage.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -15,26 +15,18 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Alex Benini, Matus Tomlein
+//  Authors: Matus Tomlein
 //  License: Apache License Version 2.0
 //
 
-#import <Foundation/Foundation.h>
-#import "SPEmitter.h"
+#import <WebKit/WebKit.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SPMockNetworkConnection : NSObject <SPNetworkConnection>
+@interface SPMockWKScriptMessage : WKScriptMessage
 
-- (instancetype)initWithRequestOption:(SPHttpMethod)httpMethod statusCode:(NSInteger)statusCode;
-
-@property (nonatomic) NSInteger statusCode;
-@property (nonatomic) SPHttpMethod httpMethod;
-@property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResult *> *> *previousResults;
-@property (nonatomic) NSMutableArray<NSArray<SPRequest *> *> *previousRequests;
-@property (nonatomic) NSUInteger sendingCount;
+- (id) initWithBody:(id)body;
 
 @end
-
 
 NS_ASSUME_NONNULL_END
