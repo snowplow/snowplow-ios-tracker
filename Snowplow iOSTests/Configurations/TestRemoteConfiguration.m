@@ -103,13 +103,15 @@
     expected.configurationVersion = 12;
     expected.configurationBundle = @[bundle];
     
-    SPConfigurationCache *cache = [SPConfigurationCache new];
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:@"http://example.com" method:SPHttpMethodGet];
+    
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
     [cache writeCache:expected];
     
     [NSThread sleepForTimeInterval:5]; // wait the config is written on cache.
     
-    cache = [SPConfigurationCache new];
+    cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     SPFetchedConfigurationBundle *config = [cache readCache];
     
     XCTAssertEqual(expected.configurationVersion, config.configurationVersion);
@@ -124,7 +126,8 @@
 - (void)testConfigurationProvider_notDownloading_fails {
     // prepare test
     NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
-    SPConfigurationCache *cache = [SPConfigurationCache new];
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
     [[LSNocilla sharedInstance] start];
     stubRequest(@"GET", endpoint)
@@ -132,7 +135,6 @@
     
     // test
     XCTestExpectation *expectation = [XCTestExpectation new];
-    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
         XCTFail();
@@ -147,7 +149,8 @@
 - (void)testConfigurationProvider_downloadOfWrongSchema_fails {
     // prepare test
     NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
-    SPConfigurationCache *cache = [SPConfigurationCache new];
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
     [[LSNocilla sharedInstance] start];
     stubRequest(@"GET", endpoint)
@@ -157,7 +160,6 @@
     
     // test
     XCTestExpectation *expectation = [XCTestExpectation new];
-    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
         XCTFail();
@@ -172,8 +174,9 @@
 - (void)testConfigurationProvider_downloadSameConfigVersionThanCached_dontUpdate {
     // prepare test
     NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     
-    SPConfigurationCache *cache = [SPConfigurationCache new];
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
     SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
     SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
@@ -191,7 +194,6 @@
     
     // test
     XCTestExpectation *expectation = [XCTestExpectation new];
-    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     __block int i = 0;
     [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
@@ -213,8 +215,9 @@
 - (void)testConfigurationProvider_downloadHigherConfigVersionThanCached_doUpdate {
     // prepare test
     NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     
-    SPConfigurationCache *cache = [SPConfigurationCache new];
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
     SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
     SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
@@ -232,7 +235,6 @@
     
     // test
     XCTestExpectation *expectation = [XCTestExpectation new];
-    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     __block int i = 0;
     [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
@@ -254,8 +256,9 @@
 - (void)testConfigurationProvider_justRefresh_downloadSameConfigVersionThanCached_dontUpdate {
     // prepare test
     NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     
-    SPConfigurationCache *cache = [SPConfigurationCache new];
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
     SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
     SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
@@ -265,7 +268,6 @@
     [cache writeCache:cached];
     [NSThread sleepForTimeInterval:5]; // wait to write on cache
     
-    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     XCTestExpectation *expectation = [XCTestExpectation new];
     [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
@@ -291,13 +293,52 @@
     [[LSNocilla sharedInstance] stop];
 }
 
+- (void)testDoesntUseCachedConfigurationIfDifferentRemoteEndpoint {
+    // prepare test
+    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    SPRemoteConfiguration *cachedRemoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:@"https://cached-snowplowanalytics.com/config.json" method:SPHttpMethodGet];
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
+    
+    // write configuration (version 2) to cache
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:cachedRemoteConfig];
+    [cache clearCache];
+    SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] initWithNamespace:@"namespace" networkConfiguration:[[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"]];
+    SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
+    cached.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
+    cached.configurationVersion = 2;
+    cached.configurationBundle = @[bundle];
+    [cache writeCache:cached];
+    [NSThread sleepForTimeInterval:5]; // wait to write on cache
+
+    // stub request for configuration (return version 1)
+    [[LSNocilla sharedInstance] start];
+    stubRequest(@"GET", endpoint)
+    .andReturn(200)
+    .withHeaders(@{@"Content-Type": @"application/json"})
+    .withBody(@"{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":1,\"configurationBundle\":[]}");
+
+    // initialize tracker with remote config
+    XCTestExpectation *expectation = [XCTestExpectation new];
+    [[SPConfigurationFetcher alloc] initWithRemoteSource:remoteConfig onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        XCTAssertNotNil(fetchedConfigurationBundle);
+        // should be the non-cache configuration (version 1)
+        XCTAssertEqualObjects(@"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0", fetchedConfigurationBundle.schema);
+        XCTAssertEqual(1, fetchedConfigurationBundle.configurationVersion);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectations:@[expectation] timeout:10];
+    [[LSNocilla sharedInstance] stop];
+}
+
 // TODO: Replace LSNocilla as it's unreliable and unsupported. It causes this test failure.
 /*
 - (void)testConfigurationProvider_justRefresh_downloadHigherConfigVersionThanCached_doUpdate {
     // prepare test
     NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
 
-    SPConfigurationCache *cache = [SPConfigurationCache new];
+    SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
     SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
     bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
@@ -308,7 +349,6 @@
     [cache writeCache:cached];
     [NSThread sleepForTimeInterval:5]; // wait to write on cache
     
-    SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     XCTestExpectation *expectation = [XCTestExpectation new];
     [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {

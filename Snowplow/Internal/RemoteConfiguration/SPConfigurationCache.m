@@ -31,10 +31,10 @@
 
 @implementation SPConfigurationCache
 
-- (instancetype)init {
+- (instancetype)initWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration {
     if (self = [super init]) {
 #if !(TARGET_OS_TV) && !(TARGET_OS_WATCH)
-        [self createCachePath];
+        [self createCachePathWithRemoteConfiguration:remoteConfiguration];
 #endif
     }
     return self;
@@ -131,13 +131,14 @@
     });
 }
 
-- (void)createCachePath {
+- (void)createCachePathWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration {
     NSFileManager *fm = [NSFileManager defaultManager];
     NSURL *url = [fm URLsForDirectory:NSApplicationSupportDirectory inDomains:NSUserDomainMask].lastObject;
     url = [url URLByAppendingPathComponent:@"snowplow-cache"];
     NSError *error = nil;
     [fm createDirectoryAtURL:url withIntermediateDirectories:YES attributes:nil error:&error];
-    url = [url URLByAppendingPathComponent:@"remoteConfig.data" isDirectory:NO];
+    NSString *fileName = [NSString stringWithFormat:@"remoteConfig-%lu.data", (unsigned long)[remoteConfiguration.endpoint hash]];
+    url = [url URLByAppendingPathComponent:fileName isDirectory:NO];
     self.cacheFileUrl = url;
 }
 
