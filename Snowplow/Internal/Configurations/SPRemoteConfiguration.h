@@ -33,12 +33,12 @@ NS_SWIFT_NAME(RemoteConfiguration)
 @interface SPRemoteConfiguration : SPConfiguration
 
 /**
- * URL (without schema/protocol) used to send events to the collector.
+ * URL of the remote configuration.
  */
 @property (nonatomic, nullable, readonly) NSString *endpoint;
 
 /**
- * Method used to send events to the collector.
+ * The method used to send the request.
  */
 @property (nonatomic, readonly) SPHttpMethod method;
 

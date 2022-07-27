@@ -42,7 +42,7 @@
 - (instancetype)initWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(nullable NSArray<SPConfigurationBundle *> *)defaultBundles {
     if (self = [super init]) {
         self.remoteConfiguration = remoteConfiguration;
-        self.cache = [SPConfigurationCache new];
+        self.cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfiguration];
         if (defaultBundles) {
             SPFetchedConfigurationBundle *bundle = [[SPFetchedConfigurationBundle alloc] init];
             bundle.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";

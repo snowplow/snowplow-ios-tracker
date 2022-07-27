@@ -21,11 +21,13 @@
 
 #import <Foundation/Foundation.h>
 #import "SPFetchedConfigurationBundle.h"
+#import "SPRemoteConfiguration.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SPConfigurationCache : NSObject
 
+- (instancetype)initWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration;
 - (nullable SPFetchedConfigurationBundle *)readCache;
 - (void)writeCache:(SPFetchedConfigurationBundle *)configuration;
 - (void)clearCache;
