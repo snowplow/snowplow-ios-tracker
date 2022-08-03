@@ -156,14 +156,7 @@
 }
 
 - (UIViewController *) _SP_topViewController {
-    UIWindow *keyWindow = nil;
-    NSArray<UIWindow *> *windows = [UIApplication sharedApplication].windows;
-    for (UIWindow *window in windows) {
-        if (window.isKeyWindow) {
-            keyWindow = window;
-            break;
-        }
-    }
+    UIWindow *keyWindow = self.view.window;
     if (!keyWindow) {
         return nil;
     }
