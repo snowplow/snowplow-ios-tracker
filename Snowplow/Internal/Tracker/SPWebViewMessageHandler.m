@@ -41,21 +41,22 @@
 - (void)userContentController:(WKUserContentController *)userContentController
       didReceiveScriptMessage:(WKScriptMessage *)message {
     NSDictionary *event = message.body[@"event"];
-    NSArray *context = message.body[@"context"];
-    NSArray *trackers = message.body[@"trackers"];
+    NSArray<NSDictionary *> *context = message.body[@"context"];
+    NSArray<NSString *> *trackers = message.body[@"trackers"];
+    NSString *command = message.body[@"command"];
 
-    if ([message.body[@"command"] isEqual:@"trackSelfDescribingEvent"]) {
+    if ([command isEqual:@"trackSelfDescribingEvent"]) {
         [self trackSelfDescribing:event withContext:context andTrackers:trackers];
-    } else if ([message.body[@"command"] isEqual: @"trackStructEvent"]) {
+    } else if ([command isEqual: @"trackStructEvent"]) {
         [self trackStructEvent:event withContext:context andTrackers:trackers];
-    } else if ([message.body[@"command"] isEqual: @"trackPageView"]) {
+    } else if ([command isEqual: @"trackPageView"]) {
         [self trackPageView:event withContext:context andTrackers:trackers];
-    } else if ([message.body[@"command"] isEqual: @"trackScreenView"]) {
+    } else if ([command isEqual: @"trackScreenView"]) {
         [self trackScreenView:event withContext:context andTrackers:trackers];
     }
 }
 
-- (void)trackSelfDescribing:(NSDictionary *)event withContext:(NSArray *)context andTrackers:(NSArray *)trackers {
+- (void)trackSelfDescribing:(NSDictionary *)event withContext:(NSArray<NSDictionary *> *)context andTrackers:(NSArray<NSString *> *)trackers {
     NSString *schema = [event objectForKey:@"schema"];
     NSDictionary *payload = [event objectForKey:@"data"];
     
@@ -65,7 +66,7 @@
     }
 }
 
-- (void)trackStructEvent:(NSDictionary *)event withContext:(NSArray *)context andTrackers:(NSArray *)trackers {
+- (void)trackStructEvent:(NSDictionary *)event withContext:(NSArray<NSDictionary *> *)context andTrackers:(NSArray<NSString *> *)trackers {
     NSString *category = [event objectForKey:@"category"];
     NSString *action = [event objectForKey:@"action"];
     NSString *label = [event objectForKey:@"label"];
@@ -81,7 +82,7 @@
     }
 }
 
-- (void)trackPageView:(NSDictionary *)event withContext:(NSArray *)context andTrackers:(NSArray *)trackers {
+- (void)trackPageView:(NSDictionary *)event withContext:(NSArray<NSDictionary *> *)context andTrackers:(NSArray<NSString *> *)trackers {
     NSString *url = [event objectForKey:@"url"];
     NSString *title = [event objectForKey:@"title"];
     NSString *referrer = [event objectForKey:@"referrer"];
@@ -94,7 +95,7 @@
     }
 }
 
-- (void)trackScreenView:(NSDictionary *)event withContext:(NSArray *)context andTrackers:(NSArray *)trackers {
+- (void)trackScreenView:(NSDictionary *)event withContext:(NSArray<NSDictionary *> *)context andTrackers:(NSArray<NSString *> *)trackers {
     NSString *name = [event objectForKey:@"name"];
     NSString *screenId = [event objectForKey:@"id"];
     NSString *type = [event objectForKey:@"type"];
@@ -115,13 +116,13 @@
     }
 }
 
-- (void)track:(SPEvent *)event withContext:(NSArray *)context andTrackers:(NSArray *)trackers {
+- (void)track:(SPEvent *)event withContext:(NSArray<NSDictionary *> *)context andTrackers:(NSArray<NSString *> *)trackers {
     if (context) {
         [event setContexts:[self parseContext:context]];
     }
-    if (trackers && [trackers count] > 0) {
+    if (trackers.count > 0) {
         for (NSString *namespace in trackers) {
-            id tracker = [SPSnowplow trackerByNamespace:namespace];
+            id<SPTrackerController> tracker = [SPSnowplow trackerByNamespace:namespace];
             if (tracker) {
                 [tracker track:event];
             }
@@ -131,15 +132,15 @@
     }
 }
 
-- (NSMutableArray<SPSelfDescribingJson *> *) parseContext:(NSArray *)context {
+- (NSMutableArray<SPSelfDescribingJson *> *) parseContext:(NSArray<NSDictionary *> *)context {
     NSMutableArray<SPSelfDescribingJson *> *contextEntities = [[NSMutableArray alloc] init];
 
-    for (id entityJson in context) {
+    for (NSDictionary *entityJson in context) {
         NSString *schema = [entityJson objectForKey:@"schema"];
         NSDictionary *payload = [entityJson objectForKey:@"data"];
         
         if (schema && payload) {
-            SPSelfDescribingJson *entity = [[SPSelfDescribingJson alloc] initWithSchema:schema andData:payload];
+            SPSelfDescribingJson *entity = [[SPSelfDescribingJson alloc] initWithSchema:schema andDictionary:payload];
             [contextEntities addObject:entity];
         }
     }

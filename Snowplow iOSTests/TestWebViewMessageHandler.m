@@ -39,8 +39,8 @@
     self.webViewMessageHandler = [[SPWebViewMessageHandler alloc] init];
     self.networkConnection = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost statusCode:200];
     
-    id networkConfig = [[SPNetworkConfiguration alloc] initWithNetworkConnection:self.networkConnection];
-    id trackerConfig = [[SPTrackerConfiguration alloc] init];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithNetworkConnection:self.networkConnection];
+    SPTrackerConfiguration *trackerConfig = [[SPTrackerConfiguration alloc] init];
     [trackerConfig base64Encoding:NO];
     [trackerConfig sessionContext:NO];
     [trackerConfig platformContext:NO];
@@ -54,7 +54,7 @@
 }
 
 - (void)testTracksStructuredEventWithAllProperties {
-    id message = [[SPMockWKScriptMessage alloc] initWithBody:@{
+    SPMockWKScriptMessage *message = [[SPMockWKScriptMessage alloc] initWithBody:@{
         @"command": @"trackStructEvent",
         @"event": @{
             @"category": @"cat",
@@ -72,8 +72,8 @@
     
     XCTAssertEqual(1, [self.networkConnection sendingCount]);
     XCTAssertEqual(1, [[self.networkConnection.previousRequests objectAtIndex:0] count]);
-    id request = [[self.networkConnection.previousRequests objectAtIndex:0] objectAtIndex:0];
-    id payload = [(NSArray *)[[[request payload] getAsDictionary] objectForKey:@"data"] objectAtIndex:0];
+    SPRequest *request = [[self.networkConnection.previousRequests objectAtIndex:0] objectAtIndex:0];
+    NSDictionary *payload = [(NSArray *)[[[request payload] getAsDictionary] objectForKey:@"data"] objectAtIndex:0];
     XCTAssert([[payload objectForKey:@"se_ca"] isEqualToString:@"cat"]);
     XCTAssert([[payload objectForKey:@"se_ac"] isEqualToString:@"act"]);
     XCTAssert([[payload objectForKey:@"se_pr"] isEqualToString:@"prop"]);
@@ -83,12 +83,12 @@
 
 - (void)testTracksEventWithCorrectTracker {
     // create the second tracker
-    id networkConnection2 = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost statusCode:200];
-    id networkConfig = [[SPNetworkConfiguration alloc] initWithNetworkConnection:networkConnection2];
+    SPMockNetworkConnection *networkConnection2 = [[SPMockNetworkConnection alloc] initWithRequestOption:SPHttpMethodPost statusCode:200];
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithNetworkConnection:networkConnection2];
     [SPSnowplow createTrackerWithNamespace:@"ns2" network:networkConfig configurations:@[]];
 
     // track an event using the second tracker
-    id message = [[SPMockWKScriptMessage alloc] initWithBody:@{
+    SPMockWKScriptMessage *message = [[SPMockWKScriptMessage alloc] initWithBody:@{
         @"command": @"trackPageView",
         @"event": @{
             @"url": @"http://localhost"
@@ -108,7 +108,7 @@
 }
 
 - (void)testTracksEventWithContext {
-    id message = [[SPMockWKScriptMessage alloc] initWithBody:@{
+    SPMockWKScriptMessage *message = [[SPMockWKScriptMessage alloc] initWithBody:@{
         @"command": @"trackSelfDescribingEvent",
         @"event": @{
             @"schema": @"http://schema.com",
@@ -133,8 +133,8 @@
 
     XCTAssertEqual(1, [self.networkConnection sendingCount]);
     XCTAssertEqual(1, [[self.networkConnection.previousRequests objectAtIndex:0] count]);
-    id request = [[self.networkConnection.previousRequests objectAtIndex:0] objectAtIndex:0];
-    id payload = [(NSArray *)[[[request payload] getAsDictionary] objectForKey:@"data"] objectAtIndex:0];
+    SPRequest *request = [[self.networkConnection.previousRequests objectAtIndex:0] objectAtIndex:0];
+    NSDictionary *payload = [(NSArray *)[[[request payload] getAsDictionary] objectForKey:@"data"] objectAtIndex:0];
 
     NSString *context = [payload objectForKey:@"co"];
     XCTAssert([context containsString:@"{\"a\":\"b\"}"]);
