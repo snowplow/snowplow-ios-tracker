@@ -60,12 +60,13 @@
             if (!self.cacheBundle) {
                 self.cacheBundle = [self.cache readCache];
             }
-            SPFetchedConfigurationBundle *retrievedBundle = self.cacheBundle ?: self.defaultBundle;
-            if (retrievedBundle) {
-                onFetchCallback(retrievedBundle);
+            if (self.cacheBundle) {
+                onFetchCallback(self.cacheBundle, SPConfigurationStateCached);
+            } else if (self.defaultBundle) {
+                onFetchCallback(self.defaultBundle, SPConfigurationStateDefault);
             }
         }
-        self.fetcher = [[SPConfigurationFetcher alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        self.fetcher = [[SPConfigurationFetcher alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
             if (![self schemaCompatibility:fetchedConfigurationBundle.schema]) {
                 return;
             }
@@ -75,7 +76,7 @@
                 }
                 [self.cache writeCache:fetchedConfigurationBundle];
                 self.cacheBundle = fetchedConfigurationBundle;
-                onFetchCallback(fetchedConfigurationBundle);
+                onFetchCallback(fetchedConfigurationBundle, SPConfigurationStateFetched);
             }
         }];
     }

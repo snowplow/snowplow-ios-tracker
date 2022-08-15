@@ -86,9 +86,10 @@
     XCTestExpectation *expectation = [XCTestExpectation new];
 
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
-    [[SPConfigurationFetcher alloc] initWithRemoteSource:remoteConfig onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [[SPConfigurationFetcher alloc] initWithRemoteSource:remoteConfig onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
         XCTAssertNotNil(fetchedConfigurationBundle);
         XCTAssertEqualObjects(@"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", fetchedConfigurationBundle.schema);
+        XCTAssertEqual(SPConfigurationStateFetched, configurationState);
         [expectation fulfill];
     }];
 
@@ -136,7 +137,7 @@
     // test
     XCTestExpectation *expectation = [XCTestExpectation new];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
-    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
         XCTFail();
     }];
     XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
@@ -161,7 +162,7 @@
     // test
     XCTestExpectation *expectation = [XCTestExpectation new];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
-    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
         XCTFail();
     }];
     XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
@@ -196,7 +197,8 @@
     XCTestExpectation *expectation = [XCTestExpectation new];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     __block int i = 0;
-    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
+        XCTAssertEqual(SPConfigurationStateCached, configurationState);
         if (i == 1 || [fetchedConfigurationBundle.schema isEqualToString:@"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0"]) {
             XCTFail();
         }
@@ -237,7 +239,9 @@
     XCTestExpectation *expectation = [XCTestExpectation new];
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     __block int i = 0;
-    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
+        XCTAssertEqual(i == 0 ? SPConfigurationStateCached : SPConfigurationStateFetched,
+                       configurationState);
         if (i == 1 && [fetchedConfigurationBundle.schema isEqualToString:@"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0"]) {
             i++;
         }
@@ -270,7 +274,8 @@
     
     SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
     XCTestExpectation *expectation = [XCTestExpectation new];
-    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
+        XCTAssertEqual(SPConfigurationStateCached, configurationState);
         [expectation fulfill];
     }];
     [self waitForExpectations:@[expectation] timeout:5];
@@ -283,7 +288,7 @@
     
     // test
     expectation = [XCTestExpectation new];
-    [provider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [provider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
         XCTFail();
     }];
     XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
@@ -319,7 +324,7 @@
 
     // initialize tracker with remote config
     XCTestExpectation *expectation = [XCTestExpectation new];
-    [[SPConfigurationFetcher alloc] initWithRemoteSource:remoteConfig onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [[SPConfigurationFetcher alloc] initWithRemoteSource:remoteConfig onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
         XCTAssertNotNil(fetchedConfigurationBundle);
         // should be the non-cache configuration (version 1)
         XCTAssertEqualObjects(@"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0", fetchedConfigurationBundle.schema);

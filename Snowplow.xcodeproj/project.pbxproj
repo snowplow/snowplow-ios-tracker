@@ -21,6 +21,10 @@
 		6B871F6827C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
 		6B871F6927C3976D00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
 		6BABC50E270B40450043BB5C /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF15D1227035A480048F376 /* TestSubject.m */; };
+		6BACDF922897C2580013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BACDF932897C2580013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BACDF942897C2580013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BACDF952897C2630013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BBDCD4227019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
 		6BBDCD4327019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
 		6BBDCD4427019AF4001B547F /* SPPlatformContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BBDCD4027019AF4001B547F /* SPPlatformContext.h */; };
@@ -934,6 +938,7 @@
 		6B871F6027C3913300BCF742 /* TestEmitterConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestEmitterConfiguration.m; sourceTree = "<group>"; };
 		6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockNetworkConnection.h; sourceTree = "<group>"; };
 		6B871F6327C3928900BCF742 /* SPMockNetworkConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockNetworkConnection.m; sourceTree = "<group>"; };
+		6BACDF912897C2580013276E /* SPConfigurationState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConfigurationState.h; sourceTree = "<group>"; };
 		6BBDCD4027019AF4001B547F /* SPPlatformContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPlatformContext.h; path = Snowplow/Internal/Subject/SPPlatformContext.h; sourceTree = SOURCE_ROOT; };
 		6BBDCD4127019AF4001B547F /* SPPlatformContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPPlatformContext.m; path = Snowplow/Internal/Subject/SPPlatformContext.m; sourceTree = SOURCE_ROOT; };
 		6BF08DA4270DEED6009C7E2B /* SPDeviceInfoMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPDeviceInfoMonitor.h; sourceTree = "<group>"; };
@@ -1380,6 +1385,7 @@
 				ED277BE12625F5C5002C7B6D /* SPFetchedConfigurationBundle.m */,
 				ED98972426287F7900145157 /* SPConfigurationCache.h */,
 				ED98972526287F7900145157 /* SPConfigurationCache.m */,
+				6BACDF912897C2580013276E /* SPConfigurationState.h */,
 			);
 			path = RemoteConfiguration;
 			sourceTree = "<group>";
@@ -1827,6 +1833,7 @@
 				75264A30224E5DBC000E0E9B /* SPInstallTracker.h in Headers */,
 				ED88B6DB2583DFC80048FAD1 /* SPServiceProvider.h in Headers */,
 				EDDD7039264F27E700259404 /* SPNetworkConfigurationUpdate.h in Headers */,
+				6BACDF922897C2580013276E /* SPConfigurationState.h in Headers */,
 				ED38D92B26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
 				ED8866E22571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
 				ED7CE17D26DFC12C0035C323 /* SPState.h in Headers */,
@@ -1959,6 +1966,7 @@
 				CE4F9CBF244B066500968CFC /* SPForeground.h in Headers */,
 				ED88B56A2578F8820048FAD1 /* SPEmitterConfiguration.h in Headers */,
 				CE4F9CF3244B066500968CFC /* SPStructured.h in Headers */,
+				6BACDF932897C2580013276E /* SPConfigurationState.h in Headers */,
 				ED9897172627006F00145157 /* NSDictionary+SP_TypeMethods.h in Headers */,
 				EDD8542124EFEFB900661F6B /* SPDefaultNetworkConnection.h in Headers */,
 				ED34672B26415C1D0018BA61 /* SPJSONSerialization.h in Headers */,
@@ -2044,6 +2052,7 @@
 				EDF2A1BC264032F9009032AB /* SPSubjectControllerImpl.h in Headers */,
 				ED88B5E1257950210048FAD1 /* SPGDPRConfiguration.h in Headers */,
 				CE4F9D14244B066500968CFC /* SPBackground.h in Headers */,
+				6BACDF942897C2580013276E /* SPConfigurationState.h in Headers */,
 				ED98972826287F7A00145157 /* SPConfigurationCache.h in Headers */,
 				ED7F082C2619199D005D377E /* SPRemoteConfiguration.h in Headers */,
 				EDDD6FFF264E873B00259404 /* SPController.h in Headers */,
@@ -2178,6 +2187,7 @@
 				ED88B6DE2583DFC90048FAD1 /* SPServiceProvider.h in Headers */,
 				ED8866E52571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
 				EDDD703C264F27E700259404 /* SPNetworkConfigurationUpdate.h in Headers */,
+				6BACDF952897C2630013276E /* SPConfigurationState.h in Headers */,
 				ED38D92E26EBCEBE002AEC8E /* SPLifecycleState.h in Headers */,
 				CE4F9CCD244B066500968CFC /* SPGlobalContext.h in Headers */,
 				ED7CE18026DFC12C0035C323 /* SPState.h in Headers */,
