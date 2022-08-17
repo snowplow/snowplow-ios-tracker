@@ -146,4 +146,12 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     XCTAssertTrue([connection.url.absoluteString hasPrefix:@"http://acme.test.url.com"]);
 }
 
+- (void)testStripsTrailingSlashInEndpoint {
+    SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
+        [builder setUrlEndpoint:@"http://acme.test.url.com/"];
+        [builder setHttpMethod:SPHttpMethodGet];
+    }];
+    XCTAssertTrue([[[connection url] absoluteString] isEqualToString:@"http://acme.test.url.com/i"]);
+}
+
 @end
