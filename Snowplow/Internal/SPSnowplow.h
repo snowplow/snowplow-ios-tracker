@@ -27,6 +27,10 @@
 #import "SPConfigurationBundle.h"
 #import "SPConfigurationState.h"
 
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_OSX
+@import WebKit;
+#endif
+
 NS_ASSUME_NONNULL_BEGIN
 
 /**
@@ -214,6 +218,16 @@ NS_SWIFT_NAME(Snowplow)
  * @return Set of namespace of the active trackers in the app.
  */
 + (NSArray<NSString *> *)instancedTrackerNamespaces;
+
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_OSX
+
+/**
+ * Subscribe to events tracked in a Web view using the Snowplow WebView tracker JavaScript library.
+ * @param webViewConfiguration Configuration of the Web view to subscribe to events from
+ */
++ (void)subscribeToWebViewEventsWithConfiguration:(WKWebViewConfiguration *)webViewConfiguration;
+
+#endif
 
 @end
 
