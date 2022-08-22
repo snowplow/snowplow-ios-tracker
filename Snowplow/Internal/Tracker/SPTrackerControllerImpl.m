@@ -264,6 +264,16 @@
     return [self.tracker sessionContext];
 }
 
+- (void)setUserAnonymisation:(BOOL)userAnonymisation {
+    self.dirtyConfig.userAnonymisation = userAnonymisation;
+    self.dirtyConfig.userAnonymisationUpdated = YES;
+    [self.tracker setUserAnonymisation:userAnonymisation];
+}
+
+- (BOOL)userAnonymisation {
+    return self.tracker.userAnonymisation;
+}
+
 - (BOOL)isTracking {
     return [self.tracker getIsTracking];
 }

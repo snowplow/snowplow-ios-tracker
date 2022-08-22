@@ -76,7 +76,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 
 - (void)testClientSessionContextJson {
     SPSession * session = [[SPSession alloc] init];
-    NSDictionary * data = [session getSessionDictWithEventId:@"first-event-id" eventTimestamp:1654496481346];
+    NSDictionary * data = [session getSessionDictWithEventId:@"first-event-id" eventTimestamp:1654496481346 userAnonymisation:NO];
     NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:data] getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
 }
@@ -86,7 +86,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 
 - (void)testPlatformContextJson {
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:YES];
-    NSDictionary * data = [[subject getPlatformDict] getAsDictionary];
+    NSDictionary * data = [[subject getPlatformDictWithUserAnonymisation:NO] getAsDictionary];
     NSDictionary * json;
 #if TARGET_OS_IPHONE
     json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPMobileContextSchema andData:data] getAsDictionary];

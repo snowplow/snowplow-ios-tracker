@@ -69,6 +69,12 @@ NS_SWIFT_NAME(DefaultNetworkConnectionBuilder)
  */
 - (void) setRequestHeaders:(NSDictionary<NSString *, NSString *> *)requestHeadersKeyValue;
 
+/*!
+ @brief Builder method to set the server anonymisation flag.
+ @param serverAnonymisation Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
+ */
+- (void) setServerAnonymisation:(BOOL)serverAnonymisation;
+
 @end
 
 NS_SWIFT_NAME(DefaultNetworkConnection)

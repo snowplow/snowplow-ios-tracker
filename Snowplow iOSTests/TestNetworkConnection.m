@@ -154,4 +154,72 @@ NSString *const TEST_URL_ENDPOINT = @"acme.test.url.com";
     XCTAssertTrue([[[connection url] absoluteString] isEqualToString:@"http://acme.test.url.com/i"]);
 }
 
+- (void)testDoesntAddHeaderWithoutServerAnonymisation {
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", @"https", TEST_URL_ENDPOINT].regex)
+        .withHeader(@"SP-Anonymous", @"*")
+        .andReturn(500);
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", @"https", TEST_URL_ENDPOINT].regex)
+        .andReturn(200);
+    
+    SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
+        [builder setUrlEndpoint:TEST_URL_ENDPOINT];
+        [builder setHttpMethod:SPHttpMethodPost];
+        [builder setServerAnonymisation:NO];
+    }];
+    
+    SPPayload *payload = [SPPayload new];
+    [payload addValueToPayload:@"value" forKey:@"key"];
+    SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:1];
+    NSArray<SPRequestResult *> *results = [connection sendRequests:@[request]];
+    
+    // Check successful result
+    SPRequestResult *result = [results objectAtIndex:0];
+    XCTAssertTrue(result.isSuccessful);
+    XCTAssertEqualObjects(@1, result.storeIds[0]);
+}
+
+- (void)testAddsHeaderForServerAnonymisationForPostRequest {
+    stubRequest(@"POST", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", @"https", TEST_URL_ENDPOINT].regex)
+        .withHeader(@"SP-Anonymous", @"*")
+        .andReturn(200);
+    
+    SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
+        [builder setUrlEndpoint:TEST_URL_ENDPOINT];
+        [builder setHttpMethod:SPHttpMethodPost];
+        [builder setServerAnonymisation:YES];
+    }];
+    
+    SPPayload *payload = [SPPayload new];
+    [payload addValueToPayload:@"value" forKey:@"key"];
+    SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:1];
+    NSArray<SPRequestResult *> *results = [connection sendRequests:@[request]];
+    
+    // Check successful result
+    SPRequestResult *result = [results objectAtIndex:0];
+    XCTAssertTrue(result.isSuccessful);
+    XCTAssertEqualObjects(@1, result.storeIds[0]);
+}
+
+- (void)testAddsHeaderForServerAnonymisationForGetRequest {
+    stubRequest(@"GET", [[NSString alloc] initWithFormat:@"^%@://%@/i?(.*?)", @"https", TEST_URL_ENDPOINT].regex)
+        .withHeader(@"SP-Anonymous", @"*")
+        .andReturn(200);
+    
+    SPDefaultNetworkConnection *connection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
+        [builder setUrlEndpoint:TEST_URL_ENDPOINT];
+        [builder setHttpMethod:SPHttpMethodGet];
+        [builder setServerAnonymisation:YES];
+    }];
+    
+    SPPayload *payload = [SPPayload new];
+    [payload addValueToPayload:@"value" forKey:@"key"];
+    SPRequest *request = [[SPRequest alloc] initWithPayload:payload emitterEventId:1];
+    NSArray<SPRequestResult *> *results = [connection sendRequests:@[request]];
+    
+    // Check successful result
+    SPRequestResult *result = [results objectAtIndex:0];
+    XCTAssertTrue(result.isSuccessful);
+    XCTAssertEqualObjects(@1, result.storeIds[0]);
+}
+
 @end

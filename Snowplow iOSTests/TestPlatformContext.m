@@ -32,7 +32,7 @@
 
 - (void)testContainsPlatformInfo {
     SPPlatformContext *context = [[SPPlatformContext alloc] init];
-    NSDictionary *platformDict = [[context fetchPlatformDict] getAsDictionary];
+    NSDictionary *platformDict = [[context fetchPlatformDictWithUserAnonymisation:NO] getAsDictionary];
     XCTAssertNotNil([platformDict objectForKey:kSPPlatformOsType]);
     XCTAssertNotNil([platformDict objectForKey:kSPPlatformOsVersion]);
 }
@@ -40,7 +40,7 @@
 - (void)testContainsMobileInfo {
 #if SNOWPLOW_TARGET_IOS
     SPPlatformContext *context = [[SPPlatformContext alloc] init];
-    NSDictionary *platformDict = [[context fetchPlatformDict] getAsDictionary];
+    NSDictionary *platformDict = [[context fetchPlatformDictWithUserAnonymisation:NO] getAsDictionary];
     XCTAssertNotNil([platformDict objectForKey:kSPMobileAvailableStorage]);
     XCTAssertNotNil([platformDict objectForKey:kSPMobileTotalStorage]);
 #endif
@@ -49,7 +49,7 @@
 - (void)testAddsAllMockedInfo {
     SPDeviceInfoMonitor *deviceInfoMonitor = [[SPMockDeviceInfoMonitor alloc] init];
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1 deviceInfoMonitor:deviceInfoMonitor];
-    NSDictionary *platformDict = [[context fetchPlatformDict] getAsDictionary];
+    NSDictionary *platformDict = [[context fetchPlatformDictWithUserAnonymisation:NO] getAsDictionary];
     XCTAssertTrue([@"appleIdfa" isEqualToString: [platformDict valueForKey:kSPMobileAppleIdfa]]);
     XCTAssertTrue([@"appleIdfv" isEqualToString: [platformDict valueForKey:kSPMobileAppleIdfv]]);
     XCTAssertTrue([@"Apple Inc." isEqualToString: [platformDict valueForKey:kSPPlatformDeviceManu]]);
@@ -74,10 +74,10 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1 deviceInfoMonitor:deviceInfoMonitor];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"batteryLevel"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appAvailableMemory"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(2, [deviceInfoMonitor accessCount:@"batteryLevel"]);
     XCTAssertEqual(2, [deviceInfoMonitor accessCount:@"appAvailableMemory"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(3, [deviceInfoMonitor accessCount:@"batteryLevel"]);
     XCTAssertEqual(3, [deviceInfoMonitor accessCount:@"appAvailableMemory"]);
 #endif
@@ -89,10 +89,10 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 networkDictUpdateFrequency:1 deviceInfoMonitor:deviceInfoMonitor];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"batteryLevel"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appAvailableMemory"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"batteryLevel"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appAvailableMemory"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"batteryLevel"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appAvailableMemory"]);
 #endif
@@ -104,10 +104,10 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1 networkDictUpdateFrequency:0 deviceInfoMonitor:deviceInfoMonitor];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkTechnology"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkType"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(2, [deviceInfoMonitor accessCount:@"networkTechnology"]);
     XCTAssertEqual(2, [deviceInfoMonitor accessCount:@"networkType"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(3, [deviceInfoMonitor accessCount:@"networkTechnology"]);
     XCTAssertEqual(3, [deviceInfoMonitor accessCount:@"networkType"]);
 #endif
@@ -119,10 +119,10 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1000 deviceInfoMonitor:deviceInfoMonitor];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkTechnology"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkType"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkTechnology"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkType"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkTechnology"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"networkType"]);
 #endif
@@ -134,10 +134,10 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:0 deviceInfoMonitor:deviceInfoMonitor];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"physicalMemory"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"totalStorage"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"physicalMemory"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"totalStorage"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"physicalMemory"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"totalStorage"]);
 #endif
@@ -149,7 +149,7 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1 deviceInfoMonitor:deviceInfoMonitor];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appleIdfa"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appleIdfv"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appleIdfa"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appleIdfv"]);
 #endif
@@ -163,9 +163,19 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1 deviceInfoMonitor:deviceInfoMonitor];
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appleIdfa"]);
     XCTAssertEqual(1, [deviceInfoMonitor accessCount:@"appleIdfv"]);
-    [context fetchPlatformDict];
+    [context fetchPlatformDictWithUserAnonymisation:NO];
     XCTAssertEqual(2, [deviceInfoMonitor accessCount:@"appleIdfa"]);
     XCTAssertEqual(2, [deviceInfoMonitor accessCount:@"appleIdfv"]);
+#endif
+}
+
+- (void)testAnonymisesUserIdentifiers {
+#if SNOWPLOW_TARGET_IOS
+    SPDeviceInfoMonitor *deviceInfoMonitor = [[SPMockDeviceInfoMonitor alloc] init];
+    SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1 deviceInfoMonitor:deviceInfoMonitor];
+    NSDictionary *platformDict = [[context fetchPlatformDictWithUserAnonymisation:YES] getAsDictionary];
+    XCTAssertNil([platformDict valueForKey:kSPMobileAppleIdfa]);
+    XCTAssertNil([platformDict valueForKey:kSPMobileAppleIdfv]);
 #endif
 }
 
@@ -173,7 +183,7 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:1000 networkDictUpdateFrequency:0];
     [self measureBlock:^{
         for (int i = 0; i < 100; i++) {
-            [context fetchPlatformDict];
+            [context fetchPlatformDictWithUserAnonymisation:NO];
         }
     }];
 }
@@ -182,7 +192,7 @@
     SPPlatformContext *context = [[SPPlatformContext alloc] initWithMobileDictUpdateFrequency:0 networkDictUpdateFrequency:1000];
     [self measureBlock:^{
         for (int i = 0; i < 10000; i++) {
-            [context fetchPlatformDict];
+            [context fetchPlatformDictWithUserAnonymisation:NO];
         }
     }];
 }

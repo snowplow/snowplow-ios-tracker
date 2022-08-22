@@ -287,6 +287,7 @@
             [builder setEmitThreadPoolSize:emitterConfig.threadPoolSize];
             [builder setCallback:emitterConfig.requestCallback];
             [builder setCustomRetryForStatusCodes:emitterConfig.customRetryForStatusCodes];
+            [builder setServerAnonymisation:emitterConfig.serverAnonymisation];
         }
     }];
     if (emitterConfig && emitterConfig.isPaused) {
@@ -320,6 +321,7 @@
         [builder setInstallEvent:trackerConfig.installAutotracking];
         [builder setExceptionEvents:trackerConfig.exceptionAutotracking];
         [builder setTrackerDiagnostic:trackerConfig.diagnosticAutotracking];
+        [builder setUserAnonymisation:trackerConfig.userAnonymisation];
         if (sessionConfig) {
             [builder setBackgroundTimeout:sessionConfig.backgroundTimeoutInSeconds];
             [builder setForegroundTimeout:sessionConfig.foregroundTimeoutInSeconds];

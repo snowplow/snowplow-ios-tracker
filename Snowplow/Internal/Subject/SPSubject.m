@@ -109,9 +109,9 @@
     return _standardDict;
 }
 
-- (SPPayload *) getPlatformDict {
+- (SPPayload *) getPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation {
     if (self.platformContext) {
-        return [_platformContextManager fetchPlatformDict];
+        return [_platformContextManager fetchPlatformDictWithUserAnonymisation:userAnonymisation];
     } else {
         return nil;
     }

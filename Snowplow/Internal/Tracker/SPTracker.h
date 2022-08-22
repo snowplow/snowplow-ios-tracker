@@ -212,6 +212,12 @@ NS_SWIFT_NAME(TrackerBuilder)
                 documentVersion:(nullable NSString *)documentVersion
             documentDescription:(nullable NSString *)documentDescription;
 
+/*!
+ @brief Tracker builder method to set whether to anonymise client-side user identifiers in session and platform context entities.
+ @param userAnonymisation Whether to anonymise client-side user identifiers in session and platform context entities
+ */
+- (void) setUserAnonymisation:(BOOL)userAnonymisation;
+
 @end
 
 
@@ -255,6 +261,7 @@ NS_SWIFT_NAME(TrackerBuilder)
 - (BOOL)autoTrackScreenView;
 - (BOOL)sessionContext;
 - (BOOL)trackerDiagnostic;
+- (BOOL)userAnonymisation;
 
 // MARK: - methods
 

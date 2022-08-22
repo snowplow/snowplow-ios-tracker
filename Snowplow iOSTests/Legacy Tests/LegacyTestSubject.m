@@ -49,7 +49,7 @@
 
 - (void)testSubjectInitWithOptions {
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    XCTAssertNotNil([subject getPlatformDict]);
+    XCTAssertNotNil([subject getPlatformDictWithUserAnonymisation:NO]);
     XCTAssertNotNil([subject getStandardDict]);
 }
 

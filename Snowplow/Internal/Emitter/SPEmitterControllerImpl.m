@@ -67,6 +67,16 @@
     return [self.emitter byteLimitPost];
 }
 
+- (void)setServerAnonymisation:(BOOL)serverAnonymisation {
+    self.dirtyConfig.serverAnonymisation = serverAnonymisation;
+    self.dirtyConfig.serverAnonymisationUpdated = YES;
+    [self.emitter setServerAnonymisation:serverAnonymisation];
+}
+
+- (BOOL)serverAnonymisation {
+    return [self.emitter serverAnonymisation];
+}
+
 - (void)setEmitRange:(NSInteger)emitRange {
     self.dirtyConfig.emitRange = emitRange;
     self.dirtyConfig.emitRangeUpdated = YES;

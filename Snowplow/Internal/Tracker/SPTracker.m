@@ -119,6 +119,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _exceptionEvents;
     BOOL                   _installEvent;
     BOOL                   _trackerDiagnostic;
+    BOOL                   _userAnonymisation;
     NSString *             _trackerVersionSuffix;
 }
 
@@ -156,6 +157,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     return _trackerDiagnostic;
 }
 
+- (BOOL)userAnonymisation {
+    return _userAnonymisation;
+}
+
 // MARK: - Methods
 
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
@@ -190,6 +195,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         _exceptionEvents = NO;
         _installEvent = NO;
         _trackerDiagnostic = NO;
+        _userAnonymisation = NO;
 #if SNOWPLOW_TARGET_IOS
         _platformContextSchema = kSPMobileContextSchema;
 #else
@@ -390,6 +396,10 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)setTrackerDiagnostic:(BOOL)trackerDiagnostic {
     _trackerDiagnostic = trackerDiagnostic;
+}
+
+- (void)setUserAnonymisation:(BOOL)userAnonymisation {
+    _userAnonymisation = userAnonymisation;
 }
 
 #pragma mark - Global Contexts methods
@@ -629,7 +639,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 - (void)addBasicContextsToContexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts eventId:(NSString *)eventId eventTimestamp:(long long)eventTimestamp isService:(BOOL)isService {
     if (_subject) {
-        NSDictionary * platformDict = [[_subject getPlatformDict] getAsDictionary];
+        NSDictionary * platformDict = [[_subject getPlatformDictWithUserAnonymisation:self.userAnonymisation] getAsDictionary];
         if (platformDict != nil) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:_platformContextSchema andData:platformDict]];
         }
@@ -652,7 +662,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 
     // Add session
     if (_session) {
-        NSDictionary *sessionDict = [_session getSessionDictWithEventId:eventId eventTimestamp:eventTimestamp];
+        NSDictionary *sessionDict = [_session getSessionDictWithEventId:eventId eventTimestamp:eventTimestamp userAnonymisation:self.userAnonymisation];
         if (sessionDict) {
             [contexts addObject:[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:sessionDict]];
         } else {

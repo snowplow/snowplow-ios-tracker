@@ -344,4 +344,37 @@
     XCTAssertTrue([contexts containsString:@"\"documentId\":\"id1\""]);
 }
 
+- (void)testAnonymisesUserIdentifiersIfAnonymousUserTracking {
+    // Initialize a tracker with anonymous user tracking
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPTrackerConfiguration *trackerConfiguration = [[[SPTrackerConfiguration alloc] init] appId:@"appid"];
+    trackerConfiguration.base64Encoding = NO;
+    trackerConfiguration.userAnonymisation = YES;
+    trackerConfiguration.sessionContext = YES;
+    trackerConfiguration.platformContext = YES;
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+
+    // Track an event and retrieve tracked context JSON from event store
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
+    [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    NSString *contexts = (NSString *)[[payload getAsDictionary] objectForKey:@"co"];
+    
+    // Check empty userId in session context
+    XCTAssertTrue([contexts containsString:@"\"userId\":\"00000000-0000-0000-0000-000000000000\""]);
+    // Check no user identifiers in platform context
+    XCTAssertFalse([contexts containsString:@"\"appleIdfa\":\""]);
+    XCTAssertFalse([contexts containsString:@"\"appleIdfv\":\""]);
+}
+
 @end
