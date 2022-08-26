@@ -68,8 +68,8 @@
     [self SP_viewDidAppear:animated];
     
     NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-    if (bundle != [NSBundle mainBundle]) {
-        // Ignore non-main bundle view controllers
+    if (![bundle.bundlePath hasPrefix:[NSBundle mainBundle].bundlePath]) {
+        // Ignore view controllers that don't start with the main bundle path
         return;
     }
     
