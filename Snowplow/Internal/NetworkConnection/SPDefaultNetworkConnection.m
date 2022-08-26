@@ -82,7 +82,11 @@
     if (_customPostPath && _httpMethod == SPHttpMethodPost) {
         urlSuffix = _customPostPath;
     }
-    _urlEndpoint = [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", endpoint, urlSuffix]];
+
+    // Remove trailing slashes from endpoint to avoid double slashes when appending path
+    endpoint = [endpoint stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"/"]];
+
+    _urlEndpoint = [[NSURL URLWithString:endpoint] URLByAppendingPathComponent:urlSuffix];
     
     // Log
     if ([_urlEndpoint scheme] && [_urlEndpoint host]) {
