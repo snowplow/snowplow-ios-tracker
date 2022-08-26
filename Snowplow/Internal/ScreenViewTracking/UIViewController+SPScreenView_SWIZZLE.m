@@ -66,7 +66,13 @@
 
 - (void) SP_viewDidAppear:(BOOL)animated {
     [self SP_viewDidAppear:animated];
-
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    if (![bundle.bundlePath hasPrefix:[NSBundle mainBundle].bundlePath]) {
+        // Ignore view controllers that don't start with the main bundle path
+        return;
+    }
+    
     // Construct userInfo
     NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] init];
     userInfo[@"viewControllerClassName"] = NSStringFromClass([self class]);
