@@ -75,7 +75,7 @@ const NSString* IGLU_PATH = @"http://raw.githubusercontent.com/snowplow/iglu-cen
 }
 
 - (void)testClientSessionContextJson {
-    SPSession * session = [[SPSession alloc] init];
+    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:1800 andBackgroundTimeout:1800];
     NSDictionary * data = [session getSessionDictWithEventId:@"first-event-id" eventTimestamp:1654496481346 userAnonymisation:NO];
     NSDictionary * json = [[[SPSelfDescribingJson alloc] initWithSchema:kSPSessionContextSchema andData:data] getAsDictionary];
     XCTAssertTrue([validator validateJson:json]);
