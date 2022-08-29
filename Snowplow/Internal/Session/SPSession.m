@@ -56,16 +56,8 @@
     NSInteger   _eventIndex;
 }
 
-- (id) init {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andTracker:nil];
-}
-
-- (id) initWithTracker:(SPTracker *)tracker {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andTracker:tracker];
-}
-
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout {
-    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout];
+    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout andTracker:nil];
 }
 
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andTracker:(SPTracker *)tracker {

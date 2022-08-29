@@ -52,7 +52,7 @@
 
 
 - (void)testInit {
-    SPSession * session = [[SPSession alloc] init];
+    SPSession * session = [[SPSession alloc] initWithForegroundTimeout:600 andBackgroundTimeout:300];
     XCTAssertNil([session getTracker]);
     XCTAssertTrue(![session getInBackground]);
     XCTAssertNotNil([session getSessionDictWithEventId:@"eventid-1" eventTimestamp:1654496481346 userAnonymisation:NO]);

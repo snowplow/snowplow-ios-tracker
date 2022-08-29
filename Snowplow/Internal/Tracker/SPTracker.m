@@ -187,8 +187,8 @@ void uncaughtExceptionHandler(NSException *exception) {
         _screenContext = NO;
         _lifecycleEvents = NO;
         _autotrackScreenViews = NO;
-        _foregroundTimeout = 600;
-        _backgroundTimeout = 300;
+        _foregroundTimeout = 1800;
+        _backgroundTimeout = 1800;
         _builderFinished = NO;
         self.globalContextGenerators = [NSMutableDictionary dictionary];
         self.stateManager = [SPStateManager new];
