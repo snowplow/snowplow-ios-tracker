@@ -55,7 +55,7 @@
     SPSession * session = [[SPSession alloc] init];
     XCTAssertNil([session getTracker]);
     XCTAssertTrue(![session getInBackground]);
-    XCTAssertNotNil([session getSessionDictWithEventId:@"eventid-1" eventTimestamp:1654496481346]);
+    XCTAssertNotNil([session getSessionDictWithEventId:@"eventid-1" eventTimestamp:1654496481346 userAnonymisation:NO]);
     XCTAssertTrue(session.state.sessionIndex >= 1);
     XCTAssertEqual([session getForegroundTimeout], 600000);
     XCTAssertEqual([session getBackgroundTimeout], 300000);
@@ -86,7 +86,7 @@
 - (void)testFirstSession {
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346 userAnonymisation:NO];
     NSInteger sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -97,7 +97,7 @@
 - (void)testForegroundEventsOnSameSession {
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346 userAnonymisation:NO];
     NSInteger sessionIndex = session.state.sessionIndex;
     NSString *sessionId = [sessionContext objectForKey:kSPSessionId];
     XCTAssertEqual(1, sessionIndex);
@@ -107,7 +107,7 @@
     
     [NSThread sleepForTimeInterval:1];
 
-    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347];
+    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347 userAnonymisation:NO];
     sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -117,7 +117,7 @@
     
     [NSThread sleepForTimeInterval:1];
 
-    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481348];
+    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481348 userAnonymisation:NO];
     sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -127,7 +127,7 @@
 
     [NSThread sleepForTimeInterval:3.1];
 
-    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481349];
+    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481349 userAnonymisation:NO];
     sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(2, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -152,7 +152,7 @@
     
     [session updateInBackground];
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346 userAnonymisation:NO];
     NSInteger sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -181,7 +181,7 @@
 
     NSString *sessionId = session.state.sessionId;
 
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346 userAnonymisation:NO];
     NSInteger sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -191,7 +191,7 @@
     
     [NSThread sleepForTimeInterval:1];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347];
+    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347 userAnonymisation:NO];
     sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -201,7 +201,7 @@
     
     [NSThread sleepForTimeInterval:1];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481348];
+    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481348 userAnonymisation:NO];
     sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(1, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -211,7 +211,7 @@
     
     [NSThread sleepForTimeInterval:2.1];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481349];
+    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481349 userAnonymisation:NO];
     sessionIndex = session.state.sessionIndex;
     XCTAssertEqual(2, sessionIndex);
     XCTAssertEqual(sessionIndex, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
@@ -236,7 +236,7 @@
     }];
     SPSession *session = tracker.session;
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481351];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481351 userAnonymisation:NO];
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
     XCTAssertEqualObjects(@"2022-06-06T06:21:21.351Z", [sessionContext objectForKey:kSPSessionFirstEventTimestamp]);
     XCTAssertFalse([session getInBackground]);
@@ -247,7 +247,7 @@
     [session updateInBackground];
     [NSThread sleepForTimeInterval:1.1];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481352];
+    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481352 userAnonymisation:NO];
     XCTAssertEqualObjects(oldSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
     XCTAssertEqualObjects(@"event_2", [sessionContext objectForKey:kSPSessionFirstEventId]);
     XCTAssertEqualObjects(@"2022-06-06T06:21:21.352Z", [sessionContext objectForKey:kSPSessionFirstEventTimestamp]);
@@ -259,7 +259,7 @@
     [session updateInForeground];
     [NSThread sleepForTimeInterval:1.1];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481353];
+    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481353 userAnonymisation:NO];
     XCTAssertEqualObjects(oldSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
     XCTAssertEqualObjects(@"event_3", [sessionContext objectForKey:kSPSessionFirstEventId]);
     XCTAssertEqualObjects(@"2022-06-06T06:21:21.353Z", [sessionContext objectForKey:kSPSessionFirstEventTimestamp]);
@@ -271,7 +271,7 @@
     [session updateInBackground];
     [NSThread sleepForTimeInterval:1.1];
 
-    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481354];
+    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481354 userAnonymisation:NO];
     XCTAssertEqualObjects(oldSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
     XCTAssertEqualObjects(@"event_4", [sessionContext objectForKey:kSPSessionFirstEventId]);
     XCTAssertEqualObjects(@"2022-06-06T06:21:21.354Z", [sessionContext objectForKey:kSPSessionFirstEventTimestamp]);
@@ -283,7 +283,7 @@
 - (void)testTimeoutSessionWhenPauseAndResume {
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andTracker:nil];
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481355];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481355 userAnonymisation:NO];
     NSString *prevSessionId = [sessionContext objectForKey:kSPSessionId];
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
     XCTAssertEqualObjects(@"2022-06-06T06:21:21.355Z", [sessionContext objectForKey:kSPSessionFirstEventTimestamp]);
@@ -291,7 +291,7 @@
     [session stopChecker];
     [NSThread sleepForTimeInterval:2];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481356];
+    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481356 userAnonymisation:NO];
     XCTAssertEqual(1, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(prevSessionId, [sessionContext objectForKey:kSPSessionId]);
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -300,7 +300,7 @@
     
     [session startChecker];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481357];
+    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481357 userAnonymisation:NO];
     XCTAssertEqual(2, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(prevSessionId, [sessionContext objectForKey:kSPSessionPreviousId]);
     XCTAssertEqualObjects(@"event_3", [sessionContext objectForKey:kSPSessionFirstEventId]);
@@ -321,7 +321,7 @@
     }];
     SPSession *session = tracker.session;
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481361];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481361 userAnonymisation:NO];
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
     XCTAssertFalse([session getInBackground]);
     XCTAssertEqual(0, [session getBackgroundIndex]);
@@ -354,7 +354,7 @@
     }];
     SPSession *session = tracker.session;
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481358];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481358 userAnonymisation:NO];
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
     XCTAssertFalse([session getInBackground]);
     XCTAssertEqual(0, [session getBackgroundIndex]);
@@ -376,12 +376,12 @@
 - (void)testNoEventsForLongTimeDontIncreaseSessionIndexMultipleTimes {
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:1 andBackgroundTimeout:1 andTracker:nil];
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481359];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481359 userAnonymisation:NO];
     XCTAssertEqualObjects(@"event_1", [sessionContext objectForKey:kSPSessionFirstEventId]);
     
     [NSThread sleepForTimeInterval:4];
     
-    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481360];
+    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481360 userAnonymisation:NO];
     XCTAssertEqual(2, [[sessionContext objectForKey:kSPSessionIndex] intValue]);
     XCTAssertEqualObjects(@"event_2", [sessionContext objectForKey:kSPSessionFirstEventId]);
 }
@@ -472,23 +472,33 @@
 - (void)testIncrementsEventIndex {
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
     
-    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346];
+    NSDictionary *sessionContext = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346 userAnonymisation:NO];
     XCTAssertEqualObjects(@1, [sessionContext objectForKey:kSPSessionEventIndex]);
     
     [NSThread sleepForTimeInterval:1];
 
-    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347];
+    sessionContext = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347 userAnonymisation:NO];
     XCTAssertEqualObjects(@2, [sessionContext objectForKey:kSPSessionEventIndex]);
     
     [NSThread sleepForTimeInterval:1];
 
-    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481348];
+    sessionContext = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481348 userAnonymisation:NO];
     XCTAssertEqualObjects(@3, [sessionContext objectForKey:kSPSessionEventIndex]);
 
     [NSThread sleepForTimeInterval:3.1];
 
-    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481349];
+    sessionContext = [session getSessionDictWithEventId:@"event_4" eventTimestamp:1654496481349 userAnonymisation:NO];
     XCTAssertEqualObjects(@1, [sessionContext objectForKey:kSPSessionEventIndex]);
+}
+
+- (void)testAnonymisesUserIdentifiers {
+    SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
+    
+    NSDictionary *withoutAnonymisation = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346 userAnonymisation:NO];
+    XCTAssertFalse([[withoutAnonymisation objectForKey:kSPSessionUserId] isEqualToString:@"00000000-0000-0000-0000-000000000000"]);
+    
+    NSDictionary *withAnonymisation = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347 userAnonymisation:YES];
+    XCTAssertTrue([[withAnonymisation objectForKey:kSPSessionUserId] isEqualToString:@"00000000-0000-0000-0000-000000000000"]);
 }
 
 // Service methods

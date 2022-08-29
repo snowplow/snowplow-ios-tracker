@@ -82,6 +82,10 @@ NS_SWIFT_NAME(EmitterConfigurationProtocol)
  *  The dictionary is a mapping of integers (status codes) to booleans (true for retry and false for not retry).
  */
 @property (nonatomic, nullable) NSDictionary<NSNumber *, NSNumber *> *customRetryForStatusCodes;
+/**
+ * Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
+ */
+@property () BOOL serverAnonymisation;
 
 @end
 
@@ -107,6 +111,7 @@ NS_SWIFT_NAME(EmitterConfiguration)
  *         threadPoolSize = 15;
  *         byteLimitGet = 40000;
  *         byteLimitPost = 40000;
+ *         serverAnonymisation = false;
  */
 - (instancetype)init;
 
@@ -146,6 +151,10 @@ SP_BUILDER_DECLARE_NULLABLE(id<SPEventStore>, eventStore)
  * The dictionary is a mapping of integers (status codes) to booleans (true for retry and false for not retry).
  */
 SP_BUILDER_DECLARE_NULLABLE(NSDictionary *, customRetryForStatusCodes)
+/**
+ * Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
+ */
+SP_BUILDER_DECLARE(BOOL, serverAnonymisation)
 
 @end
 

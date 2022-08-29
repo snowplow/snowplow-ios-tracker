@@ -58,7 +58,7 @@
     return self;
 }
 
-- (SPPayload *) fetchPlatformDict {
+- (SPPayload *) fetchPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation {
 #if SNOWPLOW_TARGET_IOS
     @synchronized (self) {
         NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
@@ -70,7 +70,14 @@
         }
     }
 #endif
-    return self.platformDict;
+    if (userAnonymisation) { // mask user identifiers
+        SPPayload *copy = [[SPPayload alloc] initWithNSDictionary:[self.platformDict getAsDictionary]];
+        [copy addValueToPayload:nil forKey:kSPMobileAppleIdfa];
+        [copy addValueToPayload:nil forKey:kSPMobileAppleIdfv];
+        return copy;
+    } else {
+        return self.platformDict;
+    }
 }
 
 // MARK: - Private methods

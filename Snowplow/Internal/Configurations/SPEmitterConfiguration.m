@@ -30,6 +30,7 @@
 @synthesize threadPoolSize;
 @synthesize requestCallback;
 @synthesize customRetryForStatusCodes;
+@synthesize serverAnonymisation;
 
 - (instancetype)init {
     if (self = [super init]) {
@@ -40,6 +41,7 @@
         self.byteLimitPost = 40000;
         self.eventStore = nil;
         self.requestCallback = nil;
+        self.serverAnonymisation = NO;
     }
     return self;
 }
@@ -53,6 +55,7 @@ SP_BUILDER_METHOD(NSInteger, byteLimitGet)
 SP_BUILDER_METHOD(NSInteger, byteLimitPost)
 SP_BUILDER_METHOD(id<SPRequestCallback>, requestCallback)
 SP_BUILDER_METHOD(NSDictionary *, customRetryForStatusCodes)
+SP_BUILDER_METHOD(BOOL, serverAnonymisation)
 
 SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
 
@@ -68,6 +71,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     copy.requestCallback = self.requestCallback;
     copy.eventStore = self.eventStore;
     copy.customRetryForStatusCodes = self.customRetryForStatusCodes;
+    copy.serverAnonymisation = self.serverAnonymisation;
     return copy;
 }
 
@@ -84,6 +88,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
     [coder encodeInteger:self.byteLimitGet forKey:SP_STR_PROP(byteLimitGet)];
     [coder encodeInteger:self.byteLimitPost forKey:SP_STR_PROP(byteLimitPost)];
     [coder encodeObject:self.customRetryForStatusCodes forKey:SP_STR_PROP(customRetryForStatusCodes)];
+    [coder encodeBool:self.serverAnonymisation forKey:SP_STR_PROP(serverAnonymisation)];
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
@@ -94,6 +99,7 @@ SP_BUILDER_METHOD(id<SPEventStore>, eventStore)
         self.byteLimitGet = [coder decodeIntegerForKey:SP_STR_PROP(byteLimitGet)];
         self.byteLimitPost = [coder decodeIntegerForKey:SP_STR_PROP(byteLimitPost)];
         self.customRetryForStatusCodes = [coder decodeObjectForKey:SP_STR_PROP(customRetryForStatusCodes)];
+        self.serverAnonymisation = [coder decodeBoolForKey:SP_STR_PROP(serverAnonymisation)];
     }
     return self;
 }

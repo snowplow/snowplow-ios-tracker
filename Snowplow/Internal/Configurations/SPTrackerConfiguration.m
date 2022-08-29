@@ -41,6 +41,7 @@
 @synthesize exceptionAutotracking;
 @synthesize diagnosticAutotracking;
 @synthesize trackerVersionSuffix;
+@synthesize userAnonymisation;
 
 - (instancetype)initWithDictionary:(NSDictionary<NSString *,NSObject *> *)dictionary {
     if (self = [self init]) {
@@ -67,6 +68,7 @@
         self.installAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(installAutotracking) defaultValue:self.installAutotracking];
         self.exceptionAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(exceptionAutotracking) defaultValue:self.exceptionAutotracking];
         self.diagnosticAutotracking = [dictionary sp_boolForKey:SP_STR_PROP(diagnosticAutotracking) defaultValue:self.diagnosticAutotracking];
+        self.userAnonymisation = [dictionary sp_boolForKey:SP_STR_PROP(userAnonymisation) defaultValue:self.userAnonymisation];
     }
     return self;
 }
@@ -92,6 +94,7 @@
         self.installAutotracking = YES;
         self.exceptionAutotracking = YES;
         self.diagnosticAutotracking = NO;
+        self.userAnonymisation = NO;
     }
     return self;
 }
@@ -114,6 +117,7 @@ SP_BUILDER_METHOD(BOOL, lifecycleAutotracking)
 SP_BUILDER_METHOD(BOOL, installAutotracking)
 SP_BUILDER_METHOD(BOOL, exceptionAutotracking)
 SP_BUILDER_METHOD(BOOL, diagnosticAutotracking)
+SP_BUILDER_METHOD(BOOL, userAnonymisation)
 SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
 
 // MARK: - NSCopying
@@ -137,6 +141,7 @@ SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
     copy.exceptionAutotracking = self.exceptionAutotracking;
     copy.diagnosticAutotracking = self.diagnosticAutotracking;
     copy.trackerVersionSuffix = self.trackerVersionSuffix;
+    copy.userAnonymisation = self.userAnonymisation;
     return copy;
 }
 
@@ -164,6 +169,7 @@ SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
     [coder encodeBool:self.exceptionAutotracking forKey:SP_STR_PROP(exceptionAutotracking)];
     [coder encodeBool:self.diagnosticAutotracking forKey:SP_STR_PROP(diagnosticAutotracking)];
     [coder encodeObject:self.trackerVersionSuffix forKey:SP_STR_PROP(trackerVersionSuffix)];
+    [coder encodeBool:self.userAnonymisation forKey:SP_STR_PROP(userAnonymisation)];
 }
 
 - (nullable instancetype)initWithCoder:(nonnull NSCoder *)coder {
@@ -185,6 +191,7 @@ SP_BUILDER_METHOD(NSString *, trackerVersionSuffix)
         self.exceptionAutotracking = [coder decodeBoolForKey:SP_STR_PROP(exceptionAutotracking)];
         self.diagnosticAutotracking = [coder decodeBoolForKey:SP_STR_PROP(diagnosticAutotracking)];
         self.trackerVersionSuffix = [coder decodeObjectForKey:SP_STR_PROP(trackerVersionSuffix)];
+        self.userAnonymisation = [coder decodeBoolForKey:SP_STR_PROP(userAnonymisation)];
     }
     return self;
 }

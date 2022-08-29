@@ -81,6 +81,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         _networkConnection = nil;
         _pausedEmit = NO;
         _customRetryForStatusCodes = @{};
+        _serverAnonymisation = NO;
     }
     return self;
 }
@@ -112,6 +113,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
         [builder setEmitThreadPoolSize:strongSelf->_emitThreadPoolSize];
         [builder setByteLimitGet:strongSelf->_byteLimitGet];
         [builder setByteLimitPost:strongSelf->_byteLimitPost];
+        [builder setServerAnonymisation:strongSelf->_serverAnonymisation];
     }];
 }
 
@@ -186,6 +188,13 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
 
 - (void) setByteLimitPost:(NSInteger)byteLimitPost {
     _byteLimitPost = byteLimitPost;
+    if (_builderFinished && _networkConnection) {
+        [self setupNetworkConnection];
+    }
+}
+
+- (void) setServerAnonymisation:(BOOL)serverAnonymisation {
+    _serverAnonymisation = serverAnonymisation;
     if (_builderFinished && _networkConnection) {
         [self setupNetworkConnection];
     }

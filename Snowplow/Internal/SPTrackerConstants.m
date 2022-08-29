@@ -150,6 +150,7 @@ NSString * const kSPSessionStorage             = @"storageMechanism";
 NSString * const kSPSessionFirstEventId        = @"firstEventId";
 NSString * const kSPSessionFirstEventTimestamp = @"firstEventTimestamp";
 NSString * const kSPSessionEventIndex          = @"eventIndex";
+NSString * const kSPSessionAnonymousUserId     = @"00000000-0000-0000-0000-000000000000";
 
 // --- Geo-Location Context
 

@@ -33,6 +33,7 @@
     NSUInteger _byteLimitPost;
     NSString *_customPostPath;
     NSDictionary<NSString *, NSString *> *_requestHeaders;
+    BOOL _serverAnonymisation;
 
     NSOperationQueue *_dataOperationQueue;
     NSURL *_urlEndpoint;
@@ -59,6 +60,7 @@
         _requestHeaders = nil;
         _dataOperationQueue = [[NSOperationQueue alloc] init];
         _builderFinished = NO;
+        _serverAnonymisation = NO;
     }
     return self;
 }
@@ -141,6 +143,10 @@
     _requestHeaders = requestHeadersKeyValue;
 }
 
+- (void)setServerAnonymisation:(BOOL)serverAnonymisation {
+    _serverAnonymisation = serverAnonymisation;
+}
+
 // MARK: - Implement SPNetworkConnection protocol
 
 - (SPHttpMethod)httpMethod {
@@ -199,6 +205,9 @@
     [urlRequest setValue:[NSString stringWithFormat:@"%@", @(requestData.length).stringValue] forHTTPHeaderField:@"Content-Length"];
     [urlRequest setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
     [urlRequest setValue:kSPContentTypeHeader forHTTPHeaderField:@"Content-Type"];
+    if (_serverAnonymisation) {
+        [urlRequest setValue:@"*" forHTTPHeaderField:@"SP-Anonymous"];
+    }
     [self applyValuesAndHeaderFields:_requestHeaders toRequest:urlRequest];
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest setHTTPBody:requestData];
@@ -210,6 +219,9 @@
     NSString *url = [NSString stringWithFormat:@"%@?%@", _urlEndpoint.absoluteString, [SPUtilities urlEncodeDictionary:payload]];
     NSMutableURLRequest *urlRequest = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
     [urlRequest setValue:kSPAcceptContentHeader forHTTPHeaderField:@"Accept"];
+    if (_serverAnonymisation) {
+        [urlRequest setValue:@"*" forHTTPHeaderField:@"SP-Anonymous"];
+    }
     [self applyValuesAndHeaderFields:_requestHeaders toRequest:urlRequest];
     [urlRequest setHTTPMethod:@"GET"];
     return urlRequest;

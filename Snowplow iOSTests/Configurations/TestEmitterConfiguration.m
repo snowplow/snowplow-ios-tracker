@@ -72,5 +72,16 @@
     XCTAssertEqual(0, [[tracker emitter] dbCount]);
 }
 
+- (void)testActivatesServerAnonymisationInEmitter {
+    SPEmitterConfiguration *emitterConfig = [[SPEmitterConfiguration alloc] init];
+    emitterConfig.serverAnonymisation = YES;
+    
+    SPNetworkConfiguration *networkConfig = [[SPNetworkConfiguration alloc] initWithEndpoint:@"" method:SPHttpMethodPost];
+    
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfig configurations:@[emitterConfig]];
+    
+    XCTAssertTrue(tracker.emitter.serverAnonymisation);
+}
+
 
 @end

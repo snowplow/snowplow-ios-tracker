@@ -32,5 +32,6 @@ SP_DIRTY_GETTER(NSInteger, threadPoolSize)
 SP_DIRTY_GETTER(NSInteger, byteLimitGet)
 SP_DIRTY_GETTER(NSInteger, byteLimitPost)
 SP_DIRTY_GETTER(NSDictionary *, customRetryForStatusCodes)
+SP_DIRTY_GETTER(BOOL, serverAnonymisation)
 
 @end
