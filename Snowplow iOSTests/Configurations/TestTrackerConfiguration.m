@@ -377,4 +377,29 @@
     XCTAssertFalse([contexts containsString:@"\"appleIdfv\":\""]);
 }
 
+- (void)testTrackerReturnsTrackedEventId {
+    // Setup tracker
+    SPTrackerConfiguration *trackerConfiguration = [SPTrackerConfiguration new];
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+
+    // Track fake event
+    SPStructured *event = [[SPStructured alloc] initWithCategory:@"category" action:@"action"];
+    NSUUID *eventId = [trackerController track:event];
+    for (int i=0; eventStore.count < 1 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(1, events.count);
+    SPPayload *payload = [[events firstObject] payload];
+    
+    // Check eid field
+    NSString *trackedEventId = (NSString *)[[payload getAsDictionary] objectForKey:@"eid"];
+    XCTAssertTrue([[eventId UUIDString] isEqualToString:trackedEventId]);
+}
 @end

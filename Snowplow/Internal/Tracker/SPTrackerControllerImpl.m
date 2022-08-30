@@ -82,8 +82,8 @@
     [self.tracker resumeEventTracking];
 }
 
-- (void)track:(nonnull SPEvent *)event {
-    [self.tracker track:event];
+- (NSUUID *)track:(nonnull SPEvent *)event {
+    return [self.tracker track:event];
 }
 
 // MARK: - Properties' setters and getters

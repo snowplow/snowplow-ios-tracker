@@ -532,16 +532,17 @@ void uncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark - Event Tracking Functions
 
-- (void)track:(SPEvent *)event {
-    if (!event || !_dataCollection) return;
+- (NSUUID *)track:(SPEvent *)event {
+    if (!event || !_dataCollection) return nil;
     [event beginProcessingWithTracker:self];
-    [self processEvent:event];
+    NSUUID *eventId = [self processEvent:event];
     [event endProcessingWithTracker:self];
+    return eventId;
 }
 
 #pragma mark - Event Decoration
 
-- (void)processEvent:(SPEvent *)event {
+- (NSUUID *)processEvent:(SPEvent *)event {
     SPTrackerState *stateSnapshot;
     @synchronized (self) {
         stateSnapshot = [self.stateManager trackerStateForProcessedEvent:event];
@@ -550,6 +551,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     [self transformEvent:trackerEvent];
     SPPayload *payload = [self payloadWithEvent:trackerEvent];
     [_emitter addPayloadToBuffer:payload];
+    return [trackerEvent eventId];
 }
 
 - (void)transformEvent:(SPTrackerEvent *)event {

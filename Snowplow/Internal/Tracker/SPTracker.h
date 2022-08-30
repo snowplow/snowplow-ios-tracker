@@ -343,8 +343,9 @@ NS_SWIFT_NAME(TrackerBuilder)
 /*!
  @brief Tracks an event despite its specific type.
  @param event The event to track
+ @return The event ID or nil in case tracking is paused
  */
-- (void)track:(SPEvent *)event;
+- (NSUUID *)track:(SPEvent *)event;
 
 @end
 
