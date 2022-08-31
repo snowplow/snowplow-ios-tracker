@@ -1,3 +1,16 @@
+Version 4.0.0 (2022-09-01)
+--------------------------
+Do not resume remote configuration from cache in case it has different endpoint (#688)
+Fix too many events tracked by screen view autotracking (#689)
+Ignore trailing slashes in the network configuration endpoint (#695)
+Add interface to subscribe for events tracked in Web views (#691)
+Add anonymous tracking features (#702)
+Return tracked event ID from the track method (#710)
+Extend the onSuccess callback when setting up remote configuration to pass configuration state (#694)
+Add support for tracking events in a Share Extension (#700) (thanks to @onato)
+Fix default session timeout values to 30 minutes everywhere (#708)
+Upgrade deprecated macOS and XCode versions in Github actions (#696)
+
 Version 3.2.0 (2022-06-28)
 --------------------------
 Add eventIndex and firstEventTimestamp properties to client sessions (#682)

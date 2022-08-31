@@ -26,13 +26,13 @@
 // --- Version
 
 #if SNOWPLOW_TARGET_IOS
-NSString * const kSPVersion               = @"ios-3.2.0";
+NSString * const kSPVersion               = @"ios-4.0.0";
 #elif SNOWPLOW_TARGET_TV
-NSString * const kSPVersion               = @"tvos-3.2.0";
+NSString * const kSPVersion               = @"tvos-4.0.0";
 #elif SNOWPLOW_TARGET_WATCHOS
-NSString * const kSPVersion               = @"watchos-3.2.0";
+NSString * const kSPVersion               = @"watchos-4.0.0";
 #else
-NSString * const kSPVersion               = @"osx-3.2.0";
+NSString * const kSPVersion               = @"osx-4.0.0";
 #endif
 
 // --- Session Dictionary keys
