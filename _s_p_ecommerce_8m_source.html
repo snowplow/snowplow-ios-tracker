@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -154,7 +154,7 @@ $(function() {
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>- (void)endProcessingWithTracker:(<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">for</span> (<a class="code hl_class" href="interface_s_p_ecommerce_item.html">SPEcommerceItem</a> *item in _items) {</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        item.orderId  = _orderId;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        [tracker <a class="code hl_function" href="interface_s_p_tracker.html#a5f7b1f8e5ef2884a648c795c9e651610">track</a>:item];</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>        [tracker <a class="code hl_function" href="interface_s_p_tracker.html#aa71b0d4d9f998e1ece504fdb63e0e4bf">track</a>:item];</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    }</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
@@ -179,8 +179,8 @@ $(function() {
 <div class="ttc" id="ainterface_s_p_ecommerce_item_html"><div class="ttname"><a href="interface_s_p_ecommerce_item.html">SPEcommerceItem</a></div><div class="ttdoc">An ecommerce item event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_ecommerce_item_8h_source.html#l00028">SPEcommerceItem.h:29</a></div></div>
 <div class="ttc" id="ainterface_s_p_event_html_a570e3c8436822df56ff7bb647882fbdc"><div class="ttname"><a href="interface_s_p_event.html#a570e3c8436822df56ff7bb647882fbdc">SPEvent::payload</a></div><div class="ttdeci">NSDictionary&lt; NSString *, NSObject * &gt; * payload</div><div class="ttdoc">The payload of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00080">SPEventBase.h:80</a></div></div>
 <div class="ttc" id="ainterface_s_p_primitive_abstract_html_ae4e8eed07e1794bcf249bfa51b5c3290"><div class="ttname"><a href="interface_s_p_primitive_abstract.html#ae4e8eed07e1794bcf249bfa51b5c3290">SPPrimitiveAbstract::eventName</a></div><div class="ttdeci">NSString * eventName</div><div class="ttdoc">The name of the event.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00112">SPEventBase.h:112</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00221">SPTracker.h:221</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html_a5f7b1f8e5ef2884a648c795c9e651610"><div class="ttname"><a href="interface_s_p_tracker.html#a5f7b1f8e5ef2884a648c795c9e651610">-[SPTracker track:]</a></div><div class="ttdeci">void track:(SPEvent *event)</div><div class="ttdoc">Tracks an event despite its specific type.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00122">SPTracker.m:525</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00227">SPTracker.h:227</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html_aa71b0d4d9f998e1ece504fdb63e0e4bf"><div class="ttname"><a href="interface_s_p_tracker.html#aa71b0d4d9f998e1ece504fdb63e0e4bf">-[SPTracker track:]</a></div><div class="ttdeci">NSUUID * track:(SPEvent *event)</div><div class="ttdoc">Tracks an event despite its specific type.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00123">SPTracker.m:535</a></div></div>
 <div class="ttc" id="ainterface_s_p_utilities_html"><div class="ttname"><a href="interface_s_p_utilities.html">SPUtilities</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_utilities_8h_source.html#l00033">SPUtilities.h:34</a></div></div>
 <div class="ttc" id="ainterface_s_p_utilities_html_a94047629677589574ead1a1373f03e47"><div class="ttname"><a href="interface_s_p_utilities.html#a94047629677589574ead1a1373f03e47">+[SPUtilities checkArgument:withMessage:]</a></div><div class="ttdeci">void checkArgument:withMessage:(BOOL argument,[withMessage] NSString *message)</div><div class="ttdoc">Checks an expression and will log if it is false. This allows for rudimentary Preconditions for objec...</div></div>
 </div><!-- fragment --></div><!-- contents -->

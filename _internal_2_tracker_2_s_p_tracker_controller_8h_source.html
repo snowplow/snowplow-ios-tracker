@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -105,7 +105,7 @@ $(function() {
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>NS_ASSUME_NONNULL_BEGIN</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><a class="code hl_function" href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a>(TrackerController)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><a class="code hl_function" href="include_2_s_p_configuration_state_8h.html#a32ea5063c2a974a383315bcdf5029ae4">NS_SWIFT_NAME</a>(TrackerController)</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="keyword">@protocol </span><a class="code hl_protocol" href="protocol_s_p_tracker_controller-p.html">SPTrackerController</a> &lt;<a class="code hl_protocol" href="protocol_s_p_tracker_configuration_protocol-p.html">SPTrackerConfigurationProtocol</a>&gt;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="keyword">@property</span> (readonly, nonatomic) NSString *<a class="code hl_property" href="protocol_s_p_tracker_controller-p.html#a9cb5b196b8ffddbe8dd1f0578c0707eb">version</a>;</div>
@@ -119,14 +119,14 @@ $(function() {
 <div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span><span class="keyword">@property</span> (readonly, nonatomic) id&lt;SPGDPRController&gt; <a class="code hl_property" href="protocol_s_p_tracker_controller-p.html#a0bd3e1d57c53eedcfde88dd88bcae0e8">gdpr</a>;</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="protocol_s_p_tracker_controller-p.html#a7167f5c196fc5e167bfabde1a730e81d">   82</a></span><span class="keyword">@property</span> (readonly, nonatomic) id&lt;SPGlobalContextsController&gt; <a class="code hl_property" href="protocol_s_p_tracker_controller-p.html#aa43ea05290a5a33aa3697398b152ee8c">globalContexts</a>;</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>- (void)track:(<a class="code hl_class" href="interface_s_p_event.html">SPEvent</a> *)event;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>- (void)<a class="code hl_function" href="protocol_s_p_tracker_controller-p.html#a7167f5c196fc5e167bfabde1a730e81d">pause</a>;</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>- (void)<a class="code hl_function" href="protocol_s_p_tracker_controller-p.html#a41de8150eff044a237990c271d57ea27">resume</a>;</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span><span class="keyword">@end</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>NS_ASSUME_NONNULL_END</div>
-<div class="ttc" id="ainclude_2_s_p_device_platform_8h_html_ac51d0fa9ac6b044d5587e1d9ceb2dbbc"><div class="ttname"><a href="include_2_s_p_device_platform_8h.html#ac51d0fa9ac6b044d5587e1d9ceb2dbbc">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(DevicePlatform)</div></div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>- (NSUUID *)track:(<a class="code hl_class" href="interface_s_p_event.html">SPEvent</a> *)event;</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>- (void)<a class="code hl_function" href="protocol_s_p_tracker_controller-p.html#a7167f5c196fc5e167bfabde1a730e81d">pause</a>;</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>- (void)<a class="code hl_function" href="protocol_s_p_tracker_controller-p.html#a41de8150eff044a237990c271d57ea27">resume</a>;</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="keyword">@end</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>NS_ASSUME_NONNULL_END</div>
+<div class="ttc" id="ainclude_2_s_p_configuration_state_8h_html_a32ea5063c2a974a383315bcdf5029ae4"><div class="ttname"><a href="include_2_s_p_configuration_state_8h.html#a32ea5063c2a974a383315bcdf5029ae4">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(ConfigurationState)</div></div>
 <div class="ttc" id="ainterface_s_p_event_html"><div class="ttname"><a href="interface_s_p_event.html">SPEvent</a></div><div class="ttdoc">This class has the basic functionality needed to represent all events.</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_event_base_8h_source.html#l00071">SPEventBase.h:72</a></div></div>
 <div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html">SPTrackerConfigurationProtocol-p</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00030">SPTrackerConfiguration.h:30</a></div></div>
 <div class="ttc" id="aprotocol_s_p_tracker_controller-p_html"><div class="ttname"><a href="protocol_s_p_tracker_controller-p.html">SPTrackerController-p</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_controller_8h_source.html#l00038">SPTrackerController.h:38</a></div></div>

@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -142,7 +142,7 @@ Class Methods</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >Entry point to instance a new Snowplow tracker. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_snowplow_8h_source.html#l00035">35</a> of file <a class="el" href="include_2_s_p_snowplow_8h_source.html">SPSnowplow.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_snowplow_8h_source.html#l00040">40</a> of file <a class="el" href="include_2_s_p_snowplow_8h_source.html">SPSnowplow.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="aa93f1cb8a377614c6bb79c36f3522a19" name="aa93f1cb8a377614c6bb79c36f3522a19"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa93f1cb8a377614c6bb79c36f3522a19">&#9670;&nbsp;</a></span>createTrackerWithNamespace:endpoint:method: <span class="overload">[1/2]</span></h2>
@@ -422,7 +422,7 @@ Class Methods</h2></td></tr>
 </div><div class="memdoc">
 <p >The default tracker instance is the first created in the app, but that can be overridden programmatically calling <code>setTrackerAsDefault(TrackerController)</code>. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_snowplow_8m_source.html#l00030">30</a> of file <a class="el" href="_s_p_snowplow_8m_source.html">SPSnowplow.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_snowplow_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_snowplow_8m_source.html">SPSnowplow.m</a>.</p>
 
 </div>
 </div>
@@ -460,7 +460,7 @@ Class Methods</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Set of namespace of the active trackers in the app. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_snowplow_8m_source.html#l00030">30</a> of file <a class="el" href="_s_p_snowplow_8m_source.html">SPSnowplow.m</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_snowplow_8m_source.html#l00031">31</a> of file <a class="el" href="_s_p_snowplow_8m_source.html">SPSnowplow.m</a>.</p>
 
 </div>
 </div>
@@ -782,7 +782,7 @@ Class Methods</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">remoteConfiguration</td><td>The remote configuration used to indicate where to download the configuration from. </td></tr>
     <tr><td class="paramname">defaultBundles</td><td>The default configuration passed by default in case there isn't a cached version and it's able to download a new one. </td></tr>
-    <tr><td class="paramname">onSuccess</td><td>The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated to the created trackers. </td></tr>
+    <tr><td class="paramname">onSuccess</td><td>The callback called when a configuration (cached or downloaded) is set. It passes two arguments: list of the namespaces associated to the created trackers and the state of the configuration – whether it was retrieved from cache or fetched over the network. </td></tr>
   </table>
   </dd>
 </dl>
@@ -827,7 +827,7 @@ Class Methods</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">remoteConfiguration</td><td>The remote configuration used to indicate where to download the configuration from. </td></tr>
     <tr><td class="paramname">defaultBundles</td><td>The default configuration passed by default in case there isn't a cached version and it's able to download a new one. </td></tr>
-    <tr><td class="paramname">onSuccess</td><td>The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated to the created trackers. </td></tr>
+    <tr><td class="paramname">onSuccess</td><td>The callback called when a configuration (cached or downloaded) is set. It passes two arguments: list of the namespaces associated to the created trackers and the state of the configuration – whether it was retrieved from cache or fetched over the network. </td></tr>
   </table>
   </dd>
 </dl>

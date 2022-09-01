@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -103,6 +103,9 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a476f41029a04c6c320d29f5935169a63"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a476f41029a04c6c320d29f5935169a63">setRequestHeaders:</a></td></tr>
 <tr class="memdesc:a476f41029a04c6c320d29f5935169a63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder method to set request headers.  <a href="protocol_s_p_default_network_connection_builder-p.html#a476f41029a04c6c320d29f5935169a63">More...</a><br /></td></tr>
 <tr class="separator:a476f41029a04c6c320d29f5935169a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05221116f8e4cb6f05a32d5591efb4cf"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">setServerAnonymisation:</a></td></tr>
+<tr class="memdesc:a05221116f8e4cb6f05a32d5591efb4cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder method to set the server anonymisation flag.  <a href="protocol_s_p_default_network_connection_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">More...</a><br /></td></tr>
+<tr class="separator:a05221116f8e4cb6f05a32d5591efb4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4faadb111a5775f1880cca75561a70d"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#ae4faadb111a5775f1880cca75561a70d">setUrlEndpoint:</a></td></tr>
 <tr class="memdesc:ae4faadb111a5775f1880cca75561a70d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder method to set the collector endpoint.  <a href="protocol_s_p_default_network_connection_builder-p.html#ae4faadb111a5775f1880cca75561a70d">More...</a><br /></td></tr>
 <tr class="separator:ae4faadb111a5775f1880cca75561a70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -124,6 +127,9 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:a476f41029a04c6c320d29f5935169a63"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a476f41029a04c6c320d29f5935169a63">setRequestHeaders:</a></td></tr>
 <tr class="memdesc:a476f41029a04c6c320d29f5935169a63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder method to set request headers.  <a href="protocol_s_p_default_network_connection_builder-p.html#a476f41029a04c6c320d29f5935169a63">More...</a><br /></td></tr>
 <tr class="separator:a476f41029a04c6c320d29f5935169a63"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05221116f8e4cb6f05a32d5591efb4cf"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">setServerAnonymisation:</a></td></tr>
+<tr class="memdesc:a05221116f8e4cb6f05a32d5591efb4cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder method to set the server anonymisation flag.  <a href="protocol_s_p_default_network_connection_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">More...</a><br /></td></tr>
+<tr class="separator:a05221116f8e4cb6f05a32d5591efb4cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -411,6 +417,54 @@ Instance Methods</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">requestHeadersKeyValue</td><td>custom headers (key, value) for http requests. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a05221116f8e4cb6f05a32d5591efb4cf" name="a05221116f8e4cb6f05a32d5591efb4cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05221116f8e4cb6f05a32d5591efb4cf">&#9670;&nbsp;</a></span>setServerAnonymisation: <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setServerAnonymisation: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>serverAnonymisation</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">serverAnonymisation</td><td>Whether to anonymise server-side user identifiers including the <code>network_userid</code> and <code>user_ipaddress</code> </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a05221116f8e4cb6f05a32d5591efb4cf" name="a05221116f8e4cb6f05a32d5591efb4cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05221116f8e4cb6f05a32d5591efb4cf">&#9670;&nbsp;</a></span>setServerAnonymisation: <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setServerAnonymisation: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>serverAnonymisation</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">serverAnonymisation</td><td>Whether to anonymise server-side user identifiers including the <code>network_userid</code> and <code>user_ipaddress</code> </td></tr>
   </table>
   </dd>
 </dl>

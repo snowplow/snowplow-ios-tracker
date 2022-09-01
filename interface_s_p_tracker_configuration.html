@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -132,11 +132,13 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:a83ee43d0a3875bd50e016e534491b264 inherit properties_protocol_s_p_tracker_configuration_protocol-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a04714965c7be43ed76e2b916b73f452b inherit properties_protocol_s_p_tracker_configuration_protocol-p"><td class="memItemLeft" align="right" valign="top">NSString *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#a04714965c7be43ed76e2b916b73f452b">trackerVersionSuffix</a></td></tr>
 <tr class="separator:a04714965c7be43ed76e2b916b73f452b inherit properties_protocol_s_p_tracker_configuration_protocol-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf1323e03b81a32b2cfc57d07ca371d9 inherit properties_protocol_s_p_tracker_configuration_protocol-p"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_tracker_configuration_protocol-p.html#abf1323e03b81a32b2cfc57d07ca371d9">userAnonymisation</a></td></tr>
+<tr class="separator:abf1323e03b81a32b2cfc57d07ca371d9 inherit properties_protocol_s_p_tracker_configuration_protocol-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >This class represents the configuration of the tracker and the core tracker properties. The TrackerConfiguration can be used to setup the tracker behaviour indicating what should be tracked in term of automatic tracking and contexts/entities to track with the events. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00113">113</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html#l00117">117</a> of file <a class="el" href="include_2_s_p_tracker_configuration_8h_source.html">SPTrackerConfiguration.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="a0b0d6e1d6e33fbf4b406f93c62ac4bca" name="a0b0d6e1d6e33fbf4b406f93c62ac4bca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b0d6e1d6e33fbf4b406f93c62ac4bca">&#9670;&nbsp;</a></span>init <span class="overload">[1/2]</span></h2>
@@ -152,7 +154,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >It sets a default TrackerConfiguration. Default values: devicePlatform = DevicePlatform.Mobile; base64encoding = true; logLevel = LogLevel.OFF; loggerDelegate = null; sessionContext = true; deepLinkContext = true; applicationContext = true; platformContext = true; geoLocationContext = false; screenContext = true; screenViewAutotracking = true; lifecycleAutotracking = true; installAutotracking = true; exceptionAutotracking = true; diagnosticAutotracking = false; </p>
+<p >It sets a default TrackerConfiguration. Default values: devicePlatform = DevicePlatform.Mobile; base64encoding = true; logLevel = LogLevel.OFF; loggerDelegate = null; sessionContext = true; deepLinkContext = true; applicationContext = true; platformContext = true; geoLocationContext = false; screenContext = true; screenViewAutotracking = true; lifecycleAutotracking = true; installAutotracking = true; exceptionAutotracking = true; diagnosticAutotracking = false; userAnonymisation = false; </p>
 
 <p class="definition">Definition at line <a class="el" href="_s_p_tracker_configuration_8m_source.html#l00001">1</a> of file <a class="el" href="_s_p_tracker_configuration_8m_source.html">SPTrackerConfiguration.m</a>.</p>
 
@@ -172,7 +174,7 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >It sets a default TrackerConfiguration. Default values: devicePlatform = DevicePlatform.Mobile; base64encoding = true; logLevel = LogLevel.OFF; loggerDelegate = null; sessionContext = true; deepLinkContext = true; applicationContext = true; platformContext = true; geoLocationContext = false; screenContext = true; screenViewAutotracking = true; lifecycleAutotracking = true; installAutotracking = true; exceptionAutotracking = true; diagnosticAutotracking = false; </p>
+<p >It sets a default TrackerConfiguration. Default values: devicePlatform = DevicePlatform.Mobile; base64encoding = true; logLevel = LogLevel.OFF; loggerDelegate = null; sessionContext = true; deepLinkContext = true; applicationContext = true; platformContext = true; geoLocationContext = false; screenContext = true; screenViewAutotracking = true; lifecycleAutotracking = true; installAutotracking = true; exceptionAutotracking = true; diagnosticAutotracking = false; userAnonymisation = false; </p>
 
 </div>
 </div>

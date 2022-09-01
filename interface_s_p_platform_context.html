@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -87,28 +87,34 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a47d47a93a90202febebe679d2f4843b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a50f793a0ef10d23bf6e626e23225efda"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_platform_context.html#a50f793a0ef10d23bf6e626e23225efda">initWithMobileDictUpdateFrequency:networkDictUpdateFrequency:deviceInfoMonitor:</a></td></tr>
 <tr class="separator:a50f793a0ef10d23bf6e626e23225efda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d02539939beac8799dfaf61020efa3f"><td class="memItemLeft" align="right" valign="top">(nonnull <a class="el" href="interface_s_p_payload.html">SPPayload</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_platform_context.html#a2d02539939beac8799dfaf61020efa3f">fetchPlatformDict</a></td></tr>
-<tr class="separator:a2d02539939beac8799dfaf61020efa3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aead356fb14d728d9b6cbece2e02f9e30"><td class="memItemLeft" align="right" valign="top">(nonnull <a class="el" href="interface_s_p_payload.html">SPPayload</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_platform_context.html#aead356fb14d728d9b6cbece2e02f9e30">fetchPlatformDictWithUserAnonymisation:</a></td></tr>
+<tr class="separator:aead356fb14d728d9b6cbece2e02f9e30"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="_s_p_platform_context_8h_source.html#l00034">34</a> of file <a class="el" href="_s_p_platform_context_8h_source.html">SPPlatformContext.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
-<a id="a2d02539939beac8799dfaf61020efa3f" name="a2d02539939beac8799dfaf61020efa3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d02539939beac8799dfaf61020efa3f">&#9670;&nbsp;</a></span>fetchPlatformDict</h2>
+<a id="aead356fb14d728d9b6cbece2e02f9e30" name="aead356fb14d728d9b6cbece2e02f9e30"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aead356fb14d728d9b6cbece2e02f9e30">&#9670;&nbsp;</a></span>fetchPlatformDictWithUserAnonymisation:</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_payload.html">SPPayload</a> *) fetchPlatformDict </td>
+          <td class="memname">- (<a class="el" href="interface_s_p_payload.html">SPPayload</a> *) fetchPlatformDictWithUserAnonymisation: </td>
           <td></td>
-          <td class="paramname"></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>userAnonymisation</em></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >Updates and returns payload dictionary with device context information. </p>
+<p >Updates and returns payload dictionary with device context information. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userAnonymisation</td><td>Whether to anonymise user identifiers (IDFA values) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="_s_p_platform_context_8m_source.html#l00034">34</a> of file <a class="el" href="_s_p_platform_context_8m_source.html">SPPlatformContext.m</a>.</p>
 

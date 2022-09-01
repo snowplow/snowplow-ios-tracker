@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -149,6 +149,9 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:ac76512749b25d982208318ea7e9e0cc8"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#ac76512749b25d982208318ea7e9e0cc8">setGdprContextWithBasis:documentId:documentVersion:documentDescription:</a></td></tr>
 <tr class="memdesc:ac76512749b25d982208318ea7e9e0cc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set a GDPR context for the tracker.  <a href="protocol_s_p_tracker_builder-p.html#ac76512749b25d982208318ea7e9e0cc8">More...</a><br /></td></tr>
 <tr class="separator:ac76512749b25d982208318ea7e9e0cc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fbb3a5315a943004d123bfc042b3a67"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_tracker_builder-p.html#a3fbb3a5315a943004d123bfc042b3a67">setUserAnonymisation:</a></td></tr>
+<tr class="memdesc:a3fbb3a5315a943004d123bfc042b3a67"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tracker builder method to set whether to anonymise client-side user identifiers in session and platform context entities.  <a href="protocol_s_p_tracker_builder-p.html#a3fbb3a5315a943004d123bfc042b3a67">More...</a><br /></td></tr>
+<tr class="separator:a3fbb3a5315a943004d123bfc042b3a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -699,6 +702,30 @@ Instance Methods</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Internal use only. Decorate the <code>tv</code> (tracker version) field in the tracker protocol. </p>
+
+</div>
+</div>
+<a id="a3fbb3a5315a943004d123bfc042b3a67" name="a3fbb3a5315a943004d123bfc042b3a67"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fbb3a5315a943004d123bfc042b3a67">&#9670;&nbsp;</a></span>setUserAnonymisation:</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (void) setUserAnonymisation: </td>
+          <td></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>userAnonymisation</em></td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userAnonymisation</td><td>Whether to anonymise client-side user identifiers in session and platform context entities </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

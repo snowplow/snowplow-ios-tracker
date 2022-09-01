@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -75,6 +75,7 @@ $(function() {
 <li>sendLimit&#160;:&#160;<a class="el" href="category_s_p_memory_event_store_07_08.html#a1347eace9a7919bc54bf1c3daa653877">SPMemoryEventStore()</a>, <a class="el" href="category_s_p_s_q_lite_event_store_07_08.html#a1347eace9a7919bc54bf1c3daa653877">SPSQLiteEventStore()</a></li>
 <li>sendRequests:&#160;:&#160;<a class="el" href="protocol_s_p_network_connection-p.html#ae5ca160c5350b1a547afb957e689600a">&lt;SPNetworkConnection&gt;</a></li>
 <li>serializeDictionary:&#160;:&#160;<a class="el" href="interface_s_p_j_s_o_n_serialization.html#af987e9b0934977e95d905c63f978804e">SPJSONSerialization</a></li>
+<li>serverAnonymisation&#160;:&#160;<a class="el" href="interface_s_p_emitter.html#ae8f2f3e18453f5edc48b554f5e3153ac">SPEmitter</a>, <a class="el" href="protocol_s_p_emitter_configuration_protocol-p.html#ae8f2f3e18453f5edc48b554f5e3153ac">&lt;SPEmitterConfigurationProtocol&gt;</a></li>
 <li>serviceProvider&#160;:&#160;<a class="el" href="category_s_p_controller_07_08.html#ae00912fbad5bedd954bf81f801172c7d">SPController()</a>, <a class="el" href="interface_s_p_controller.html#ae00912fbad5bedd954bf81f801172c7d">SPController</a></li>
 <li>serviceProviderInstances&#160;:&#160;<a class="el" href="category_s_p_snowplow_07_08.html#a884e78d42032988e68e5f606b0c77f6f">SPSnowplow()</a></li>
 <li>session&#160;:&#160;<a class="el" href="interface_s_p_data_persistence.html#a2acda4b552404accefe751bed8d93b45">SPDataPersistence</a>, <a class="el" href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">SPTracker</a>, <a class="el" href="protocol_s_p_tracker_controller-p.html#a75c9b4ea6b84fcfbfcf2923d223a4bcd">&lt;SPTrackerController&gt;</a></li>
@@ -134,6 +135,7 @@ $(function() {
 <li>setRequestHeaders:&#160;:&#160;<a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a476f41029a04c6c320d29f5935169a63">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>, <a class="el" href="protocol_s_p_emitter_builder-p.html#a476f41029a04c6c320d29f5935169a63">&lt;SPEmitterBuilder&gt;</a></li>
 <li>setResolutionWithWidth:andHeight:&#160;:&#160;<a class="el" href="interface_s_p_subject.html#a2a4a28fa503fb5942aabede3f1404867">SPSubject</a></li>
 <li>setScreenContext:&#160;:&#160;<a class="el" href="protocol_s_p_tracker_builder-p.html#ae43c91cdb33a509965bf9912e92eb3af">&lt;SPTrackerBuilder&gt;</a></li>
+<li>setServerAnonymisation:&#160;:&#160;<a class="el" href="protocol_s_p_default_network_connection_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>, <a class="el" href="protocol_s_p_emitter_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">&lt;SPEmitterBuilder&gt;</a></li>
 <li>setSessionContext:&#160;:&#160;<a class="el" href="protocol_s_p_tracker_builder-p.html#a4add7c27a903e3795fcdd166ca07f8f3">&lt;SPTrackerBuilder&gt;</a></li>
 <li>setStandardDict&#160;:&#160;<a class="el" href="interface_s_p_subject.html#a794f8f3fee2db271dd5aa98b3cd2c7cd">SPSubject</a></li>
 <li>setStateFuture:identifier:&#160;:&#160;<a class="el" href="interface_s_p_tracker_state.html#a72a71f1f5412ad9eecc36bbef87fda67">SPTrackerState</a></li>
@@ -146,6 +148,7 @@ $(function() {
 <li>setupWithRemoteConfiguration:defaultConfigurationBundles:onSuccess:&#160;:&#160;<a class="el" href="interface_s_p_snowplow.html#a22da75399c22ed721151122550974437">SPSnowplow</a></li>
 <li>setUrlEndpoint:&#160;:&#160;<a class="el" href="protocol_s_p_default_network_connection_builder-p.html#ae4faadb111a5775f1880cca75561a70d">&lt;SPDefaultNetworkConnectionBuilder&gt;</a>, <a class="el" href="protocol_s_p_emitter_builder-p.html#ae4faadb111a5775f1880cca75561a70d">&lt;SPEmitterBuilder&gt;</a></li>
 <li>setUseragent:&#160;:&#160;<a class="el" href="interface_s_p_subject.html#ac0fdb3b1c33e12e91cf01901c8c074d5">SPSubject</a></li>
+<li>setUserAnonymisation:&#160;:&#160;<a class="el" href="protocol_s_p_tracker_builder-p.html#a3fbb3a5315a943004d123bfc042b3a67">&lt;SPTrackerBuilder&gt;</a></li>
 <li>setUserId:&#160;:&#160;<a class="el" href="interface_s_p_subject.html#a753218c189d1e3583bce279f74aa00f4">SPSubject</a></li>
 <li>setViewPortWithWidth:andHeight:&#160;:&#160;<a class="el" href="interface_s_p_subject.html#a148acd79d4c34fc142ed27cd3b290425">SPSubject</a></li>
 <li>shipping&#160;:&#160;<a class="el" href="interface_s_p_ecommerce.html#a7591892fd55b773ed4193e12233f82f3">SPEcommerce</a></li>

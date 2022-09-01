@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -143,6 +143,9 @@ Instance Methods</h2></td></tr>
 <tr class="memitem:ac713d8e93a07019bb66894f69e3835a1 inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_emitter_builder-p.html#ac713d8e93a07019bb66894f69e3835a1">setCustomPostPath:</a></td></tr>
 <tr class="memdesc:ac713d8e93a07019bb66894f69e3835a1 inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitter builder method to set a custom POST path.  <a href="protocol_s_p_emitter_builder-p.html#ac713d8e93a07019bb66894f69e3835a1">More...</a><br /></td></tr>
 <tr class="separator:ac713d8e93a07019bb66894f69e3835a1 inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a05221116f8e4cb6f05a32d5591efb4cf inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_emitter_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">setServerAnonymisation:</a></td></tr>
+<tr class="memdesc:a05221116f8e4cb6f05a32d5591efb4cf inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emitter builder method to set the server anonymisation flag.  <a href="protocol_s_p_emitter_builder-p.html#a05221116f8e4cb6f05a32d5591efb4cf">More...</a><br /></td></tr>
+<tr class="separator:a05221116f8e4cb6f05a32d5591efb4cf inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a476f41029a04c6c320d29f5935169a63 inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="memItemLeft" align="right" valign="top">(void)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="protocol_s_p_emitter_builder-p.html#a476f41029a04c6c320d29f5935169a63">setRequestHeaders:</a></td></tr>
 <tr class="memdesc:a476f41029a04c6c320d29f5935169a63 inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder method to set request headers.  <a href="protocol_s_p_emitter_builder-p.html#a476f41029a04c6c320d29f5935169a63">More...</a><br /></td></tr>
 <tr class="separator:a476f41029a04c6c320d29f5935169a63 inherit pub_methods_protocol_s_p_emitter_builder-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -214,11 +217,14 @@ Properties</h2></td></tr>
 <tr class="memitem:a2021cbe0b7d7e95a20253789fd78df12"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSNumber *, NSNumber * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_emitter.html#a2021cbe0b7d7e95a20253789fd78df12">customRetryForStatusCodes</a></td></tr>
 <tr class="memdesc:a2021cbe0b7d7e95a20253789fd78df12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Custom retry rules for HTTP status codes.  <a href="interface_s_p_emitter.html#a2021cbe0b7d7e95a20253789fd78df12">More...</a><br /></td></tr>
 <tr class="separator:a2021cbe0b7d7e95a20253789fd78df12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f2f3e18453f5edc48b554f5e3153ac"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interface_s_p_emitter.html#ae8f2f3e18453f5edc48b554f5e3153ac">serverAnonymisation</a></td></tr>
+<tr class="memdesc:ae8f2f3e18453f5edc48b554f5e3153ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether to anonymise server-side user identifiers including the <code>network_userid</code> and <code>user_ipaddress</code>.  <a href="interface_s_p_emitter.html#ae8f2f3e18453f5edc48b554f5e3153ac">More...</a><br /></td></tr>
+<tr class="separator:ae8f2f3e18453f5edc48b554f5e3153ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >This class sends events to the collector. </p>
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00130">130</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00136">136</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="af360836d478fe92793ce69eae76fbfed" name="af360836d478fe92793ce69eae76fbfed"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af360836d478fe92793ce69eae76fbfed">&#9670;&nbsp;</a></span>addPayloadToBuffer:</h2>
@@ -462,7 +468,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00138">138</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00144">144</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -486,7 +492,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00146">146</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00152">152</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -510,7 +516,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00148">148</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00154">154</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -534,7 +540,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00150">150</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00156">156</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -558,7 +564,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00152">152</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00158">158</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -582,7 +588,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00158">158</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00164">164</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -606,7 +612,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00142">142</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00148">148</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -630,7 +636,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00144">144</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00150">150</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -654,7 +660,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00134">134</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00140">140</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -678,7 +684,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00156">156</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00162">162</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -702,7 +708,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00136">136</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00142">142</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -726,7 +732,31 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00154">154</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00160">160</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+
+</div>
+</div>
+<a id="ae8f2f3e18453f5edc48b554f5e3153ac" name="ae8f2f3e18453f5edc48b554f5e3153ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8f2f3e18453f5edc48b554f5e3153ac">&#9670;&nbsp;</a></span>serverAnonymisation</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">- (BOOL) serverAnonymisation</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">read</span><span class="mlabel">nonatomic</span><span class="mlabel">assign</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00166">166</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>
@@ -750,7 +780,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00140">140</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_s_p_emitter_8h_source.html#l00146">146</a> of file <a class="el" href="_s_p_emitter_8h_source.html">SPEmitter.h</a>.</p>
 
 </div>
 </div>

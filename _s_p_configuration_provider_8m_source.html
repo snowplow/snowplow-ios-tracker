@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -113,7 +113,7 @@ $(function() {
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>- (instancetype)initWithRemoteConfiguration:(<a class="code hl_class" href="interface_s_p_remote_configuration.html">SPRemoteConfiguration</a> *)remoteConfiguration defaultConfigurationBundles:(nullable NSArray&lt;<a class="code hl_class" href="interface_s_p_configuration_bundle.html">SPConfigurationBundle</a> *&gt; *)defaultBundles {</div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">if</span> (<span class="keyword">self</span> = [super init]) {</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">self</span>.remoteConfiguration = remoteConfiguration;</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">self</span>.cache = [<a class="code hl_class" href="interface_s_p_configuration_cache.html">SPConfigurationCache</a> new];</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keyword">self</span>.cache = [[<a class="code hl_class" href="interface_s_p_configuration_cache.html">SPConfigurationCache</a> alloc] initWithRemoteConfiguration:remoteConfiguration];</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">if</span> (defaultBundles) {</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            <a class="code hl_class" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> *bundle = [[<a class="code hl_class" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> alloc] init];</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>            bundle.<a class="code hl_property" href="interface_s_p_fetched_configuration_bundle.html#a08a5d4e46afe3ac80d613ed3b1071743">schema</a> = <span class="stringliteral">@&quot;http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0&quot;</span>;</div>
@@ -125,48 +125,49 @@ $(function() {
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>- (void)retrieveConfigurationOnlyRemote:(BOOL)onlyRemote onFetchCallback:(<a class="code hl_variable" href="_s_p_configuration_provider_8h.html#a5c1e5d018c1873004b189b86ef26b66b">OnFetchCallback</a>)onFetchCallback {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>- (void)retrieveConfigurationOnlyRemote:(BOOL)onlyRemote onFetchCallback:(<a class="code hl_variable" href="_s_p_configuration_provider_8h.html#ac20ed4e0d5b434303953ad4b13230b73">OnFetchCallback</a>)onFetchCallback {</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    @<span class="keyword">synchronized</span> (<span class="keyword">self</span>) {</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">if</span> (!onlyRemote) {</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">if</span> (!<span class="keyword">self</span>.cacheBundle) {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                <span class="keyword">self</span>.cacheBundle = [<span class="keyword">self</span>.cache readCache];</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <a class="code hl_class" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> *retrievedBundle = <span class="keyword">self</span>.cacheBundle ?: <span class="keyword">self</span>.defaultBundle;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            <span class="keywordflow">if</span> (retrievedBundle) {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                onFetchCallback(retrievedBundle);</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            }</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        }</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">self</span>.fetcher = [[<a class="code hl_class" href="interface_s_p_configuration_fetcher.html">SPConfigurationFetcher</a> alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            if (![<span class="keyword">self</span> schemaCompatibility:fetchedConfigurationBundle.schema]) {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>                return;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            @synchronized (self) {</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>                if (self.cacheBundle &amp;&amp; self.cacheBundle.configurationVersion &gt;= fetchedConfigurationBundle.configurationVersion) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                    return;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                [<span class="keyword">self</span>.cache writeCache:fetchedConfigurationBundle];</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                self.cacheBundle = fetchedConfigurationBundle;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                onFetchCallback(fetchedConfigurationBundle);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>            }</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>        }];</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    }</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>}</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span><span class="comment">// Private methods</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span> </div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>- (BOOL)schemaCompatibility:(NSString *)schema {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="keywordflow">return</span> [schema hasPrefix:@&quot;http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-&quot;];</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span><span class="keyword">@end</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">if</span> (<span class="keyword">self</span>.cacheBundle) {</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                onFetchCallback(<span class="keyword">self</span>.cacheBundle, SPConfigurationStateCached);</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keyword">self</span>.defaultBundle) {</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                onFetchCallback(<span class="keyword">self</span>.defaultBundle, SPConfigurationStateDefault);</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        }</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">self</span>.fetcher = [[<a class="code hl_class" href="interface_s_p_configuration_fetcher.html">SPConfigurationFetcher</a> alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            if (![<span class="keyword">self</span> schemaCompatibility:fetchedConfigurationBundle.schema]) {</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>                return;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            }</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            @synchronized (self) {</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                if (self.cacheBundle &amp;&amp; self.cacheBundle.configurationVersion &gt;= fetchedConfigurationBundle.configurationVersion) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>                    return;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>                }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                [<span class="keyword">self</span>.cache writeCache:fetchedConfigurationBundle];</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                self.cacheBundle = fetchedConfigurationBundle;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                onFetchCallback(fetchedConfigurationBundle, SPConfigurationStateFetched);</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }];</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="comment">// Private methods</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>- (BOOL)schemaCompatibility:(NSString *)schema {</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordflow">return</span> [schema hasPrefix:@&quot;http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-&quot;];</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>}</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span> </div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span><span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_configuration_cache_8h_html"><div class="ttname"><a href="_s_p_configuration_cache_8h.html">SPConfigurationCache.h</a></div></div>
 <div class="ttc" id="a_s_p_configuration_fetcher_8h_html"><div class="ttname"><a href="_s_p_configuration_fetcher_8h.html">SPConfigurationFetcher.h</a></div></div>
 <div class="ttc" id="a_s_p_configuration_provider_8h_html"><div class="ttname"><a href="_s_p_configuration_provider_8h.html">SPConfigurationProvider.h</a></div></div>
-<div class="ttc" id="a_s_p_configuration_provider_8h_html_a5c1e5d018c1873004b189b86ef26b66b"><div class="ttname"><a href="_s_p_configuration_provider_8h.html#a5c1e5d018c1873004b189b86ef26b66b">OnFetchCallback</a></div><div class="ttdeci">NS_ASSUME_NONNULL_BEGIN typedef void(^ OnFetchCallback)(SPFetchedConfigurationBundle *_Nonnull fetchedConfigurationBundle)</div></div>
+<div class="ttc" id="a_s_p_configuration_provider_8h_html_ac20ed4e0d5b434303953ad4b13230b73"><div class="ttname"><a href="_s_p_configuration_provider_8h.html#ac20ed4e0d5b434303953ad4b13230b73">OnFetchCallback</a></div><div class="ttdeci">NS_ASSUME_NONNULL_BEGIN typedef void(^ OnFetchCallback)(SPFetchedConfigurationBundle *_Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState)</div></div>
 <div class="ttc" id="ainterface_s_p_configuration_bundle_html"><div class="ttname"><a href="interface_s_p_configuration_bundle.html">SPConfigurationBundle</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_configuration_bundle_8h_source.html#l00034">SPConfigurationBundle.h:35</a></div></div>
-<div class="ttc" id="ainterface_s_p_configuration_cache_html"><div class="ttname"><a href="interface_s_p_configuration_cache.html">SPConfigurationCache</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_configuration_cache_8h_source.html#l00027">SPConfigurationCache.h:28</a></div></div>
+<div class="ttc" id="ainterface_s_p_configuration_cache_html"><div class="ttname"><a href="interface_s_p_configuration_cache.html">SPConfigurationCache</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_configuration_cache_8h_source.html#l00028">SPConfigurationCache.h:29</a></div></div>
 <div class="ttc" id="ainterface_s_p_configuration_fetcher_html"><div class="ttname"><a href="interface_s_p_configuration_fetcher.html">SPConfigurationFetcher</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_configuration_fetcher_8h_source.html#l00028">SPConfigurationFetcher.h:29</a></div></div>
-<div class="ttc" id="ainterface_s_p_configuration_provider_html"><div class="ttname"><a href="interface_s_p_configuration_provider.html">SPConfigurationProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_configuration_provider_8h_source.html#l00034">SPConfigurationProvider.h:35</a></div></div>
+<div class="ttc" id="ainterface_s_p_configuration_provider_html"><div class="ttname"><a href="interface_s_p_configuration_provider.html">SPConfigurationProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_configuration_provider_8h_source.html#l00035">SPConfigurationProvider.h:36</a></div></div>
 <div class="ttc" id="ainterface_s_p_fetched_configuration_bundle_html"><div class="ttname"><a href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_fetched_configuration_bundle_8h_source.html#l00026">SPFetchedConfigurationBundle.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_fetched_configuration_bundle_html_a08a5d4e46afe3ac80d613ed3b1071743"><div class="ttname"><a href="interface_s_p_fetched_configuration_bundle.html#a08a5d4e46afe3ac80d613ed3b1071743">SPFetchedConfigurationBundle::schema</a></div><div class="ttdeci">NSString * schema</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_fetched_configuration_bundle_8h_source.html#l00028">SPFetchedConfigurationBundle.h:28</a></div></div>
 <div class="ttc" id="ainterface_s_p_fetched_configuration_bundle_html_a5fb53f4c91734240a68efb627b068d49"><div class="ttname"><a href="interface_s_p_fetched_configuration_bundle.html#a5fb53f4c91734240a68efb627b068d49">SPFetchedConfigurationBundle::configurationBundle</a></div><div class="ttdeci">NSArray&lt; SPConfigurationBundle * &gt; * configurationBundle</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_fetched_configuration_bundle_8h_source.html#l00030">SPFetchedConfigurationBundle.h:30</a></div></div>

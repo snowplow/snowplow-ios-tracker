@@ -1,7 +1,7 @@
 var searchData=
 [
   ['fetcher_0',['fetcher',['../category_s_p_configuration_provider_07_08.html#a57770b350fdadf8ed54c07bb314bafd7',1,'SPConfigurationProvider()']]],
-  ['fetchplatformdict_1',['fetchPlatformDict',['../interface_s_p_platform_context.html#a2d02539939beac8799dfaf61020efa3f',1,'SPPlatformContext']]],
+  ['fetchplatformdictwithuseranonymisation_3a_1',['fetchPlatformDictWithUserAnonymisation:',['../interface_s_p_platform_context.html#aead356fb14d728d9b6cbece2e02f9e30',1,'SPPlatformContext']]],
   ['fileurl_2',['fileUrl',['../category_s_p_data_persistence_07_08.html#ab657c011ab5c772559ccf2785c941433',1,'SPDataPersistence()']]],
   ['filter_3',['filter',['../category_s_p_global_context_07_08.html#af92e042411180501d40d8200443f6e60',1,'SPGlobalContext()']]],
   ['filterblock_4',['filterBlock',['../interface_s_p_schema_ruleset.html#a94b521acee94cf4cef250817bdb1f8b7',1,'SPSchemaRuleset']]],

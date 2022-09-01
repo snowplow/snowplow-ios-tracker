@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -115,11 +115,13 @@ Properties</h2></td></tr>
 <tr class="separator:a316f86a7aa2c2326fbdf4c8633c60d3f inherit properties_protocol_s_p_emitter_configuration_protocol-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2021cbe0b7d7e95a20253789fd78df12 inherit properties_protocol_s_p_emitter_configuration_protocol-p"><td class="memItemLeft" align="right" valign="top">NSDictionary&lt; NSNumber *, NSNumber * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_emitter_configuration_protocol-p.html#a2021cbe0b7d7e95a20253789fd78df12">customRetryForStatusCodes</a></td></tr>
 <tr class="separator:a2021cbe0b7d7e95a20253789fd78df12 inherit properties_protocol_s_p_emitter_configuration_protocol-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f2f3e18453f5edc48b554f5e3153ac inherit properties_protocol_s_p_emitter_configuration_protocol-p"><td class="memItemLeft" align="right" valign="top">BOOL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protocol_s_p_emitter_configuration_protocol-p.html#ae8f2f3e18453f5edc48b554f5e3153ac">serverAnonymisation</a></td></tr>
+<tr class="separator:ae8f2f3e18453f5edc48b554f5e3153ac inherit properties_protocol_s_p_emitter_configuration_protocol-p"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >It allows the tracker configuration from the emission perspective. The EmitterConfiguration can be used to setup details about how the tracker should treat the events to emit to the collector. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html#l00094">94</a> of file <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html">SPEmitterConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html#l00098">98</a> of file <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html">SPEmitterConfiguration.h</a>.</p>
 </div><h2 class="groupheader">Method Documentation</h2>
 <a id="a0b0d6e1d6e33fbf4b406f93c62ac4bca" name="a0b0d6e1d6e33fbf4b406f93c62ac4bca"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0b0d6e1d6e33fbf4b406f93c62ac4bca">&#9670;&nbsp;</a></span>init <span class="overload">[1/2]</span></h2>
@@ -135,7 +137,7 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >It sets a default EmitterConfiguration. Default values: bufferOption = BufferOption.Single; emitRange = 150; threadPoolSize = 15; byteLimitGet = 40000; byteLimitPost = 40000; </p>
+<p >It sets a default EmitterConfiguration. Default values: bufferOption = BufferOption.Single; emitRange = 150; threadPoolSize = 15; byteLimitGet = 40000; byteLimitPost = 40000; serverAnonymisation = false; </p>
 
 <p class="definition">Definition at line <a class="el" href="_s_p_emitter_configuration_8m_source.html#l00001">1</a> of file <a class="el" href="_s_p_emitter_configuration_8m_source.html">SPEmitterConfiguration.m</a>.</p>
 
@@ -155,7 +157,7 @@ Properties</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p >It sets a default EmitterConfiguration. Default values: bufferOption = BufferOption.Single; emitRange = 150; threadPoolSize = 15; byteLimitGet = 40000; byteLimitPost = 40000; </p>
+<p >It sets a default EmitterConfiguration. Default values: bufferOption = BufferOption.Single; emitRange = 150; threadPoolSize = 15; byteLimitGet = 40000; byteLimitPost = 40000; serverAnonymisation = false; </p>
 
 </div>
 </div>
@@ -181,7 +183,7 @@ Properties</h2></td></tr>
 </div><div class="memdoc">
 <p >Custom component with full ownership for persisting events before to be sent to the collector. If it's not set the tracker will use a SQLite database as default EventStore. </p>
 
-<p class="definition">Definition at line <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html#l00100">100</a> of file <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html">SPEmitterConfiguration.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html#l00104">104</a> of file <a class="el" href="include_2_s_p_emitter_configuration_8h_source.html">SPEmitterConfiguration.h</a>.</p>
 
 </div>
 </div>

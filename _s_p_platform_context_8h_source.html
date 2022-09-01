@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -101,20 +101,22 @@ $(function() {
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>- (instancetype) <a class="code hl_function" href="interface_s_p_platform_context.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">init</a>;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency deviceInfoMonitor:(<a class="code hl_class" href="interface_s_p_device_info_monitor.html">SPDeviceInfoMonitor</a> *)deviceInfoMonitor;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>- (nonnull <a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) <a class="code hl_function" href="interface_s_p_platform_context.html#a2d02539939beac8799dfaf61020efa3f">fetchPlatformDict</a>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">@end</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>NS_ASSUME_NONNULL_END</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                        networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                        networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                                 deviceInfoMonitor:(<a class="code hl_class" href="interface_s_p_device_info_monitor.html">SPDeviceInfoMonitor</a> *)deviceInfoMonitor;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>- (nonnull <a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) fetchPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation;</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">@end</span></div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>NS_ASSUME_NONNULL_END</div>
 <div class="ttc" id="ainterface_s_p_device_info_monitor_html"><div class="ttname"><a href="interface_s_p_device_info_monitor.html">SPDeviceInfoMonitor</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_device_info_monitor_8h_source.html#l00026">SPDeviceInfoMonitor.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_payload_8h_source.html#l00025">SPPayload.h:26</a></div></div>
 <div class="ttc" id="ainterface_s_p_platform_context_html"><div class="ttname"><a href="interface_s_p_platform_context.html">SPPlatformContext</a></div><div class="ttdoc">Manages a dictionary (SPPayload) with platform context. Some properties for mobile platforms are upda...</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8h_source.html#l00034">SPPlatformContext.h:35</a></div></div>
 <div class="ttc" id="ainterface_s_p_platform_context_html_a0b0d6e1d6e33fbf4b406f93c62ac4bca"><div class="ttname"><a href="interface_s_p_platform_context.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">-[SPPlatformContext init]</a></div><div class="ttdeci">instancetype init()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8m_source.html#l00034">SPPlatformContext.m:40</a></div></div>
-<div class="ttc" id="ainterface_s_p_platform_context_html_a2d02539939beac8799dfaf61020efa3f"><div class="ttname"><a href="interface_s_p_platform_context.html#a2d02539939beac8799dfaf61020efa3f">-[SPPlatformContext fetchPlatformDict]</a></div><div class="ttdeci">nonnull SPPayload * fetchPlatformDict()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8m_source.html#l00034">SPPlatformContext.m:61</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

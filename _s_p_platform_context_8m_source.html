@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -102,7 +102,7 @@ $(function() {
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="category_s_p_platform_context_07_08.html#a87427f14a8dce0817c1cea7b54c40ccb">   31</a></span><span class="keyword">@property</span> (nonatomic, readonly) NSTimeInterval mobileDictUpdateFrequency;</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno"><a class="line" href="category_s_p_platform_context_07_08.html#a8e7ab3c3dd2eaed1d01f71256fbd375b">   32</a></span><span class="keyword">@property</span> (nonatomic, readonly) NSTimeInterval networkDictUpdateFrequency;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="category_s_p_platform_context_07_08.html#a1dfe5255765702bc52c37f344c26bc24">   33</a></span><span class="keyword">@property</span> (nonatomic) NSTimeInterval lastUpdatedEphemeralMobileDict;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="interface_s_p_platform_context.html#a2d02539939beac8799dfaf61020efa3f">   34</a></span><span class="keyword">@property</span> (nonatomic) NSTimeInterval lastUpdatedEphemeralNetworkDict;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="interface_s_p_platform_context.html#aead356fb14d728d9b6cbece2e02f9e30">   34</a></span><span class="keyword">@property</span> (nonatomic) NSTimeInterval lastUpdatedEphemeralNetworkDict;</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="keyword">@end</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
@@ -129,7 +129,7 @@ $(function() {
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>;</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>}</div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>- (<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) <a class="code hl_function" href="interface_s_p_platform_context.html#a2d02539939beac8799dfaf61020efa3f">fetchPlatformDict</a> {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>- (<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) fetchPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation {</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span><span class="preprocessor">#if SNOWPLOW_TARGET_IOS</span></div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    @<span class="keyword">synchronized</span> (<span class="keyword">self</span>) {</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        NSTimeInterval now = [[NSDate date] timeIntervalSince1970];</div>
@@ -141,68 +141,75 @@ $(function() {
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        }</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>.platformDict;</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>}</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span><span class="comment">// MARK: - Private methods</span></div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>- (void) setPlatformDict {</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keyword">self</span>.platformDict = [[<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> alloc] init];</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor osType]       forKey:kSPPlatformOsType];</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor osVersion]    forKey:kSPPlatformOsVersion];</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor deviceVendor] forKey:kSPPlatformDeviceManu];</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor deviceModel]  forKey:kSPPlatformDeviceModel];</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="preprocessor">#if SNOWPLOW_TARGET_IOS</span></div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    [<span class="keyword">self</span> setMobileDict];</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>}</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span> </div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>- (void) setMobileDict {</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor carrierName]           forKey:kSPMobileCarrier];</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor totalStorage]   forKey:kSPMobileTotalStorage];</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor physicalMemory] forKey:kSPMobilePhysicalMemory];</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>    [<span class="keyword">self</span> setEphemeralMobileDict];</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    [<span class="keyword">self</span> setEphemeralNetworkDict];</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>- (void) setEphemeralMobileDict {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keyword">self</span>.lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (userAnonymisation) { <span class="comment">// mask user identifiers</span></div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *copy = [[<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> alloc] initWithNSDictionary:[<span class="keyword">self</span>.platformDict getAsDictionary]];</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        [copy <a class="code hl_function" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">addValueToPayload</a>:nil <a class="code hl_function" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">forKey</a>:kSPMobileAppleIdfa];</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>        [copy <a class="code hl_function" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">addValueToPayload</a>:nil <a class="code hl_function" href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">forKey</a>:kSPMobileAppleIdfv];</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keywordflow">return</span> copy;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> <span class="keyword">self</span>.platformDict;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>}</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="comment">// MARK: - Private methods</span></div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>- (void) setPlatformDict {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keyword">self</span>.platformDict = [[<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> alloc] init];</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor osType]       forKey:kSPPlatformOsType];</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor osVersion]    forKey:kSPPlatformOsVersion];</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor deviceVendor] forKey:kSPPlatformDeviceManu];</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor deviceModel]  forKey:kSPPlatformDeviceModel];</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#if SNOWPLOW_TARGET_IOS</span></div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    [<span class="keyword">self</span> setMobileDict];</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>- (void) setMobileDict {</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor carrierName]           forKey:kSPMobileCarrier];</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor totalStorage]   forKey:kSPMobileTotalStorage];</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor physicalMemory] forKey:kSPMobilePhysicalMemory];</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    NSDictionary *currentDict = [<span class="keyword">self</span>.platformDict getAsDictionary];</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">if</span> ([currentDict valueForKey:<a class="code hl_variable" href="_s_p_tracker_constants_8m.html#ae4249ccdbd2ea70ba9b825c146a063eb">kSPMobileAppleIdfa</a>] == nil) {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfa] forKey:kSPMobileAppleIdfa];</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    }</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="keywordflow">if</span> ([currentDict valueForKey:<a class="code hl_variable" href="_s_p_tracker_constants_8m.html#aaedae4ee9d8ffc9eb21b9b53b3dc7338">kSPMobileAppleIdfv</a>] == nil) {</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfv] forKey:kSPMobileAppleIdfv];</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryLevel]          forKey:kSPMobileBatteryLevel];</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryState]                 forKey:kSPMobileBatteryState];</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor availableStorage]      forKey:kSPMobileAvailableStorage];</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appAvailableMemory]    forKey:kSPMobileAppAvailableMemory];</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>}</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>- (void) setEphemeralNetworkDict {</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keyword">self</span>.lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkTechnology] forKey:kSPMobileNetworkTech];</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkType]       forKey:kSPMobileNetworkType];</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    [<span class="keyword">self</span> setEphemeralMobileDict];</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    [<span class="keyword">self</span> setEphemeralNetworkDict];</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>}</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>- (void) setEphemeralMobileDict {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keyword">self</span>.lastUpdatedEphemeralMobileDict = [[NSDate date] timeIntervalSince1970];</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    </div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    NSDictionary *currentDict = [<span class="keyword">self</span>.platformDict getAsDictionary];</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span> ([currentDict valueForKey:<a class="code hl_variable" href="_s_p_tracker_constants_8m.html#ae4249ccdbd2ea70ba9b825c146a063eb">kSPMobileAppleIdfa</a>] == nil) {</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfa] forKey:kSPMobileAppleIdfa];</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">if</span> ([currentDict valueForKey:<a class="code hl_variable" href="_s_p_tracker_constants_8m.html#aaedae4ee9d8ffc9eb21b9b53b3dc7338">kSPMobileAppleIdfv</a>] == nil) {</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appleIdfv] forKey:kSPMobileAppleIdfv];</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    </div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryLevel]          forKey:kSPMobileBatteryLevel];</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor batteryState]                 forKey:kSPMobileBatteryState];</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor isLowPowerModeEnabled] forKey:kSPMobileLowPowerMode];</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor availableStorage]      forKey:kSPMobileAvailableStorage];</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    [<span class="keyword">self</span>.platformDict addNumericValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor appAvailableMemory]    forKey:kSPMobileAppAvailableMemory];</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span><span class="keyword">@end</span></div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>- (void) setEphemeralNetworkDict {</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">self</span>.lastUpdatedEphemeralNetworkDict = [[NSDate date] timeIntervalSince1970];</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    </div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkTechnology] forKey:kSPMobileNetworkTech];</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    [<span class="keyword">self</span>.platformDict addValueToPayload:[<span class="keyword">self</span>.deviceInfoMonitor networkType]       forKey:kSPMobileNetworkType];</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>}</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_device_info_monitor_8h_html"><div class="ttname"><a href="_s_p_device_info_monitor_8h.html">SPDeviceInfoMonitor.h</a></div></div>
 <div class="ttc" id="a_s_p_platform_context_8h_html"><div class="ttname"><a href="_s_p_platform_context_8h.html">SPPlatformContext.h</a></div></div>
 <div class="ttc" id="a_s_p_tracker_constants_8m_html_aaedae4ee9d8ffc9eb21b9b53b3dc7338"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#aaedae4ee9d8ffc9eb21b9b53b3dc7338">kSPMobileAppleIdfv</a></div><div class="ttdeci">NSString *const kSPMobileAppleIdfv</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00127">SPTrackerConstants.m:127</a></div></div>
 <div class="ttc" id="a_s_p_tracker_constants_8m_html_ae4249ccdbd2ea70ba9b825c146a063eb"><div class="ttname"><a href="_s_p_tracker_constants_8m.html#ae4249ccdbd2ea70ba9b825c146a063eb">kSPMobileAppleIdfa</a></div><div class="ttdeci">NSString *const kSPMobileAppleIdfa</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_constants_8m_source.html#l00126">SPTrackerConstants.m:126</a></div></div>
 <div class="ttc" id="ainterface_s_p_device_info_monitor_html"><div class="ttname"><a href="interface_s_p_device_info_monitor.html">SPDeviceInfoMonitor</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_device_info_monitor_8h_source.html#l00026">SPDeviceInfoMonitor.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_payload_8h_source.html#l00025">SPPayload.h:26</a></div></div>
+<div class="ttc" id="ainterface_s_p_payload_html_aa596cf76631d7230d9a107a2e528aacb"><div class="ttname"><a href="interface_s_p_payload.html#aa596cf76631d7230d9a107a2e528aacb">-[SPPayload addValueToPayload:forKey:]</a></div><div class="ttdeci">void addValueToPayload:forKey:(NSString *value,[forKey] NSString *key)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_payload_8m_source.html#l00001">SPPayload.m:51</a></div></div>
 <div class="ttc" id="ainterface_s_p_platform_context_html"><div class="ttname"><a href="interface_s_p_platform_context.html">SPPlatformContext</a></div><div class="ttdoc">Manages a dictionary (SPPayload) with platform context. Some properties for mobile platforms are upda...</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8h_source.html#l00034">SPPlatformContext.h:35</a></div></div>
 <div class="ttc" id="ainterface_s_p_platform_context_html_a0b0d6e1d6e33fbf4b406f93c62ac4bca"><div class="ttname"><a href="interface_s_p_platform_context.html#a0b0d6e1d6e33fbf4b406f93c62ac4bca">-[SPPlatformContext init]</a></div><div class="ttdeci">instancetype init()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8m_source.html#l00034">SPPlatformContext.m:40</a></div></div>
-<div class="ttc" id="ainterface_s_p_platform_context_html_a2d02539939beac8799dfaf61020efa3f"><div class="ttname"><a href="interface_s_p_platform_context.html#a2d02539939beac8799dfaf61020efa3f">-[SPPlatformContext fetchPlatformDict]</a></div><div class="ttdeci">nonnull SPPayload * fetchPlatformDict()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8m_source.html#l00034">SPPlatformContext.m:61</a></div></div>
 <div class="ttc" id="ainterface_s_p_platform_context_html_a50f793a0ef10d23bf6e626e23225efda"><div class="ttname"><a href="interface_s_p_platform_context.html#a50f793a0ef10d23bf6e626e23225efda">-[SPPlatformContext initWithMobileDictUpdateFrequency:networkDictUpdateFrequency:deviceInfoMonitor:]</a></div><div class="ttdeci">instancetype initWithMobileDictUpdateFrequency:networkDictUpdateFrequency:deviceInfoMonitor:(NSTimeInterval mobileDictUpdateFrequency,[networkDictUpdateFrequency] NSTimeInterval networkDictUpdateFrequency,[deviceInfoMonitor] SPDeviceInfoMonitor *deviceInfoMonitor)</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_platform_context_8m_source.html#l00034">SPPlatformContext.m:48</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

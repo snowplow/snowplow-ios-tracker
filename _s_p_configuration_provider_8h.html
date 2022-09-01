@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -75,6 +75,7 @@ $(function() {
 <div class="textblock"><code>#import &lt;Foundation/Foundation.h&gt;</code><br />
 <code>#import &quot;SPRemoteConfiguration.h&quot;</code><br />
 <code>#import &quot;<a class="el" href="_s_p_fetched_configuration_bundle_8h_source.html">SPFetchedConfigurationBundle.h</a>&quot;</code><br />
+<code>#import &quot;<a class="el" href="_internal_2_remote_configuration_2_s_p_configuration_state_8h_source.html">SPConfigurationState.h</a>&quot;</code><br />
 </div>
 <p><a href="_s_p_configuration_provider_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -85,22 +86,32 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:a5c1e5d018c1873004b189b86ef26b66b"><td class="memItemLeft" align="right" valign="top">NS_ASSUME_NONNULL_BEGIN typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_configuration_provider_8h.html#a5c1e5d018c1873004b189b86ef26b66b">OnFetchCallback</a> )(<a class="el" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> *_Nonnull fetchedConfigurationBundle)</td></tr>
-<tr class="separator:a5c1e5d018c1873004b189b86ef26b66b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac20ed4e0d5b434303953ad4b13230b73"><td class="memItemLeft" align="right" valign="top">NS_ASSUME_NONNULL_BEGIN typedef void(^&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_s_p_configuration_provider_8h.html#ac20ed4e0d5b434303953ad4b13230b73">OnFetchCallback</a> )(<a class="el" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> *_Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState)</td></tr>
+<tr class="separator:ac20ed4e0d5b434303953ad4b13230b73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Variable Documentation</h2>
-<a id="a5c1e5d018c1873004b189b86ef26b66b" name="a5c1e5d018c1873004b189b86ef26b66b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5c1e5d018c1873004b189b86ef26b66b">&#9670;&nbsp;</a></span>OnFetchCallback</h2>
+<a id="ac20ed4e0d5b434303953ad4b13230b73" name="ac20ed4e0d5b434303953ad4b13230b73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac20ed4e0d5b434303953ad4b13230b73">&#9670;&nbsp;</a></span>OnFetchCallback</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">NS_ASSUME_NONNULL_BEGIN typedef void(^ OnFetchCallback) (<a class="el" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> *_Nonnull fetchedConfigurationBundle) </td>
+          <td class="memname">NS_ASSUME_NONNULL_BEGIN typedef void(^ OnFetchCallback) (<a class="el" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> *_Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="interface_s_p_fetched_configuration_bundle.html">SPFetchedConfigurationBundle</a> *_Nonnull&#160;</td>
-          <td class="paramname"><em>fetchedConfigurationBundle</em></td><td>)</td>
+          <td class="paramname"><em>fetchedConfigurationBundle</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">SPConfigurationState&#160;</td>
+          <td class="paramname"><em>configurationState</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">

@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;3.2.0</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.0</span>
    </div>
   </td>
  </tr>
@@ -153,8 +153,8 @@ $(function() {
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    [<span class="keyword">self</span>.tracker resumeEventTracking];</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>- (void)track:(nonnull <a class="code hl_class" href="interface_s_p_event.html">SPEvent</a> *)event {</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    [<span class="keyword">self</span>.tracker track:event];</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>- (NSUUID *)track:(nonnull <a class="code hl_class" href="interface_s_p_event.html">SPEvent</a> *)event {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordflow">return</span> [<span class="keyword">self</span>.tracker track:event];</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>}</div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span><span class="comment">// MARK: - Properties&#39; setters and getters</span></div>
@@ -335,25 +335,35 @@ $(function() {
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>    <span class="keywordflow">return</span> [<span class="keyword">self</span>.tracker sessionContext];</div>
 <div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>}</div>
 <div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span> </div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>- (BOOL)<a class="code hl_property" href="protocol_s_p_tracker_controller-p.html#a1efe250a1f3dd7844cd2c08dfb7b88c2">isTracking</a> {</div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keywordflow">return</span> [<span class="keyword">self</span>.tracker getIsTracking];</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>}</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span> </div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>- (NSString *)<a class="code hl_property" href="protocol_s_p_tracker_controller-p.html#a9cb5b196b8ffddbe8dd1f0578c0707eb">version</a> {</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="_s_p_tracker_constants_8m.html#a57d90235bdc31c00a00a5bd6ecf05b72">kSPVersion</a>;</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>}</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span> </div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span><span class="comment">// MARK: - Private methods</span></div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>- (void)setUserAnonymisation:(BOOL)userAnonymisation {</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>    <span class="keyword">self</span>.dirtyConfig.userAnonymisation = <a class="code hl_property" href="protocol_s_p_tracker_configuration_protocol-p.html#abf1323e03b81a32b2cfc57d07ca371d9">userAnonymisation</a>;</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <span class="keyword">self</span>.dirtyConfig.userAnonymisationUpdated = YES;</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    [<span class="keyword">self</span>.tracker setUserAnonymisation:userAnonymisation];</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>}</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>- (BOOL)<a class="code hl_property" href="protocol_s_p_tracker_configuration_protocol-p.html#abf1323e03b81a32b2cfc57d07ca371d9">userAnonymisation</a> {</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>.tracker.userAnonymisation;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>}</div>
 <div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span> </div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>- (<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>.serviceProvider.tracker;</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>- (BOOL)<a class="code hl_property" href="protocol_s_p_tracker_controller-p.html#a1efe250a1f3dd7844cd2c08dfb7b88c2">isTracking</a> {</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>    <span class="keywordflow">return</span> [<span class="keyword">self</span>.tracker getIsTracking];</div>
 <div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>}</div>
 <div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span> </div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>- (<a class="code hl_class" href="interface_s_p_tracker_configuration_update.html">SPTrackerConfigurationUpdate</a> *)dirtyConfig {</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>.serviceProvider.trackerConfigurationUpdate;</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>- (NSString *)<a class="code hl_property" href="protocol_s_p_tracker_controller-p.html#a9cb5b196b8ffddbe8dd1f0578c0707eb">version</a> {</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="_s_p_tracker_constants_8m.html#a57d90235bdc31c00a00a5bd6ecf05b72">kSPVersion</a>;</div>
 <div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>}</div>
 <div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="keyword">@end</span></div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span><span class="comment">// MARK: - Private methods</span></div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span> </div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>- (<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *)tracker {</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>.serviceProvider.tracker;</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>}</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span> </div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>- (<a class="code hl_class" href="interface_s_p_tracker_configuration_update.html">SPTrackerConfigurationUpdate</a> *)dirtyConfig {</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="keywordflow">return</span> <span class="keyword">self</span>.serviceProvider.trackerConfigurationUpdate;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>}</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span><span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_emitter_8h_html"><div class="ttname"><a href="_s_p_emitter_8h.html">SPEmitter.h</a></div></div>
 <div class="ttc" id="a_s_p_emitter_controller_impl_8h_html"><div class="ttname"><a href="_s_p_emitter_controller_impl_8h.html">SPEmitterControllerImpl.h</a></div></div>
 <div class="ttc" id="a_s_p_g_d_p_r_controller_impl_8h_html"><div class="ttname"><a href="_s_p_g_d_p_r_controller_impl_8h.html">SPGDPRControllerImpl.h</a></div></div>
@@ -377,7 +387,7 @@ $(function() {
 <div class="ttc" id="ainterface_s_p_session_controller_impl_html_aa1c61b65eb48984514ce82668cb00c88"><div class="ttname"><a href="interface_s_p_session_controller_impl.html#aa1c61b65eb48984514ce82668cb00c88">SPSessionControllerImpl::isEnabled</a></div><div class="ttdeci">BOOL isEnabled</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_session_controller_impl_8h_source.html#l00031">SPSessionControllerImpl.h:31</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_configuration_update_html"><div class="ttname"><a href="interface_s_p_tracker_configuration_update.html">SPTrackerConfigurationUpdate</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_configuration_update_8h_source.html#l00026">SPTrackerConfigurationUpdate.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_controller_impl_html"><div class="ttname"><a href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_controller_impl_8h_source.html#l00029">SPTrackerControllerImpl.h:29</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00221">SPTracker.h:221</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00227">SPTracker.h:227</a></div></div>
 <div class="ttc" id="aprotocol_s_p_emitter_controller-p_html"><div class="ttname"><a href="protocol_s_p_emitter_controller-p.html">SPEmitterController-p</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_emitter_controller_8h_source.html#l00028">SPEmitterController.h:28</a></div></div>
 <div class="ttc" id="aprotocol_s_p_g_d_p_r_controller-p_html"><div class="ttname"><a href="protocol_s_p_g_d_p_r_controller-p.html">SPGDPRController-p</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_g_d_p_r_controller_8h_source.html#l00028">SPGDPRController.h:28</a></div></div>
 <div class="ttc" id="aprotocol_s_p_global_contexts_controller-p_html"><div class="ttname"><a href="protocol_s_p_global_contexts_controller-p.html">SPGlobalContextsController-p</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_global_contexts_controller_8h_source.html#l00029">SPGlobalContextsController.h:29</a></div></div>
@@ -399,6 +409,7 @@ $(function() {
 <div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html_aac4981818b95f50d2a838fdb76a34f9f"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html#aac4981818b95f50d2a838fdb76a34f9f">SPTrackerConfigurationProtocol-p::platformContext</a></div><div class="ttdeci">BOOL platformContext</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00062">SPTrackerConfiguration.h:62</a></div></div>
 <div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html_abd4a17577664657d6838375947778d90"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html#abd4a17577664657d6838375947778d90">SPTrackerConfigurationProtocol-p::sessionContext</a></div><div class="ttdeci">BOOL sessionContext</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00070">SPTrackerConfiguration.h:70</a></div></div>
 <div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html_abd5afb706a3ab5fb9f149ebde2bc894f"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html#abd5afb706a3ab5fb9f149ebde2bc894f">SPTrackerConfigurationProtocol-p::applicationContext</a></div><div class="ttdeci">BOOL applicationContext</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00058">SPTrackerConfiguration.h:58</a></div></div>
+<div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html_abf1323e03b81a32b2cfc57d07ca371d9"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html#abf1323e03b81a32b2cfc57d07ca371d9">SPTrackerConfigurationProtocol-p::userAnonymisation</a></div><div class="ttdeci">BOOL userAnonymisation</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00107">SPTrackerConfiguration.h:107</a></div></div>
 <div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html_ad580431c1acbc1169d0fba512c288839"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html#ad580431c1acbc1169d0fba512c288839">SPTrackerConfigurationProtocol-p::deepLinkContext</a></div><div class="ttdeci">BOOL deepLinkContext</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00074">SPTrackerConfiguration.h:74</a></div></div>
 <div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html_ae345d7df5d65d0142686c9707b6bc0c6"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html#ae345d7df5d65d0142686c9707b6bc0c6">SPTrackerConfigurationProtocol-p::base64Encoding</a></div><div class="ttdeci">BOOL base64Encoding</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00044">SPTrackerConfiguration.h:44</a></div></div>
 <div class="ttc" id="aprotocol_s_p_tracker_configuration_protocol-p_html_aeb7d69d21f368888a32a72c26c6d67ff"><div class="ttname"><a href="protocol_s_p_tracker_configuration_protocol-p.html#aeb7d69d21f368888a32a72c26c6d67ff">SPTrackerConfigurationProtocol-p::appId</a></div><div class="ttdeci">NSString * appId</div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00035">SPTrackerConfiguration.h:35</a></div></div>
