@@ -166,6 +166,7 @@ extern NSString * const kSPSessionStorage;
 extern NSString * const kSPSessionFirstEventId;
 extern NSString * const kSPSessionFirstEventTimestamp;
 extern NSString * const kSPSessionEventIndex;
+extern NSString * const kSPSessionAnonymousUserId;
 
 // --- Geo-Location Context
 

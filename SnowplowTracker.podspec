@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SnowplowTracker"
-  s.version          = "3.2.0"
+  s.version          = "4.0.0"
   s.summary          = "Snowplow event tracker for iOS, macOS, tvOS, watchOS for apps and games."
   s.description      = <<-DESC
   Snowplow is a mobile and event analytics platform with a difference: rather than tell our users how they should analyze their data, we deliver their event-level data in their own data warehouse, on their own Amazon Redshift or Postgres database, so they can analyze it any way they choose. Snowplow mobile is used by data-savvy games companies and app developers to better understand their users and how they engage with their games and applications. Snowplow is open source using the business-friendly Apache License, Version 2.0 and scales horizontally to many billions of events.
@@ -81,7 +81,8 @@ Pod::Spec.new do |s|
     'Snowplow/Internal/**/SPSchemaRule.h',
     'Snowplow/Internal/**/SPTrackerStateSnapshot.h',
     'Snowplow/Internal/**/SPState.h',
-    'Snowplow/Internal/**/SPSessionState.h'
+    'Snowplow/Internal/**/SPSessionState.h',
+    'Snowplow/Internal/**/SPConfigurationState.h'
   ]
 
   s.osx.exclude_files = 'Snowplow/**/ScreenViewTracking/UIViewController+SPScreenView_SWIZZLE.*'

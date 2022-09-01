@@ -31,14 +31,14 @@
 
 - (void)testReturnsPlatformContextIfEnabled {
     SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
-    SPPayload *platformDict = [subject getPlatformDict];
+    SPPayload *platformDict = [subject getPlatformDictWithUserAnonymisation:NO];
     XCTAssertNotNil(platformDict);
     XCTAssertNotNil([[platformDict getAsDictionary] objectForKey:kSPPlatformOsType]);
 }
 
 - (void)testDoesntReturnPlatformContextIfDisabled {
     SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
-    SPPayload *platformDict = [subject getPlatformDict];
+    SPPayload *platformDict = [subject getPlatformDictWithUserAnonymisation:NO];
     XCTAssertNil(platformDict);
 }
 

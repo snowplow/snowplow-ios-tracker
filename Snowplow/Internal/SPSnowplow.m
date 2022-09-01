@@ -22,6 +22,7 @@
 #import "SPSnowplow.h"
 #import "SPServiceProvider.h"
 #import "SPConfigurationProvider.h"
+#import "SPWebViewMessageHandler.h"
 
 @interface SPSnowplow ()
 
@@ -33,23 +34,23 @@
 
 @implementation SPSnowplow
 
-+ (void)setupWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(NSArray<SPConfigurationBundle *> *)defaultBundles onSuccess:(void (^)(NSArray<NSString *> * _Nullable))onSuccess
++ (void)setupWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(NSArray<SPConfigurationBundle *> *)defaultBundles onSuccess:(void (^)(NSArray<NSString *> * _Nullable, SPConfigurationState configurationState))onSuccess
 {
     SPSnowplow *snowplow = [SPSnowplow sharedInstance];
     snowplow.configurationProvider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfiguration defaultConfigurationBundles:defaultBundles];
-    [snowplow.configurationProvider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [snowplow.configurationProvider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
         NSArray<SPConfigurationBundle *> *bundles = fetchedConfigurationBundle.configurationBundle;
         NSArray<NSString *> *namespaces = [SPSnowplow createTrackersWithConfigurationBundles:bundles];
-        onSuccess(namespaces);
+        onSuccess(namespaces, configurationState);
     }];
 }
 
-+ (void)refreshIfRemoteUpdate:(void (^)(NSArray<NSString *> * _Nullable))onSuccess {
++ (void)refreshIfRemoteUpdate:(void (^)(NSArray<NSString *> * _Nullable, SPConfigurationState configurationState))onSuccess {
     SPSnowplow *snowplow = [SPSnowplow sharedInstance];
-    [snowplow.configurationProvider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+    [snowplow.configurationProvider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
         NSArray<SPConfigurationBundle *> *bundles = fetchedConfigurationBundle.configurationBundle;
         NSArray<NSString *> *namespaces = [SPSnowplow createTrackersWithConfigurationBundles:bundles];
-        onSuccess(namespaces);
+        onSuccess(namespaces, configurationState);
     }];
 }
 
@@ -163,6 +164,16 @@
     }
     return namespaces;
 }
+
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_OSX
+
++ (void)subscribeToWebViewEventsWithConfiguration:(WKWebViewConfiguration *)webViewConfiguration {
+    SPWebViewMessageHandler *messageHandler = [[SPWebViewMessageHandler alloc] init];
+    
+    [webViewConfiguration.userContentController addScriptMessageHandler:messageHandler name:@"snowplow"];
+}
+
+#endif
 
 // Global singleton
 

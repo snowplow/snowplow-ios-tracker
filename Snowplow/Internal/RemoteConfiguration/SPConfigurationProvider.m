@@ -42,7 +42,7 @@
 - (instancetype)initWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(nullable NSArray<SPConfigurationBundle *> *)defaultBundles {
     if (self = [super init]) {
         self.remoteConfiguration = remoteConfiguration;
-        self.cache = [SPConfigurationCache new];
+        self.cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfiguration];
         if (defaultBundles) {
             SPFetchedConfigurationBundle *bundle = [[SPFetchedConfigurationBundle alloc] init];
             bundle.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
@@ -60,12 +60,13 @@
             if (!self.cacheBundle) {
                 self.cacheBundle = [self.cache readCache];
             }
-            SPFetchedConfigurationBundle *retrievedBundle = self.cacheBundle ?: self.defaultBundle;
-            if (retrievedBundle) {
-                onFetchCallback(retrievedBundle);
+            if (self.cacheBundle) {
+                onFetchCallback(self.cacheBundle, SPConfigurationStateCached);
+            } else if (self.defaultBundle) {
+                onFetchCallback(self.defaultBundle, SPConfigurationStateDefault);
             }
         }
-        self.fetcher = [[SPConfigurationFetcher alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
+        self.fetcher = [[SPConfigurationFetcher alloc] initWithRemoteSource:self.remoteConfiguration onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState) {
             if (![self schemaCompatibility:fetchedConfigurationBundle.schema]) {
                 return;
             }
@@ -75,7 +76,7 @@
                 }
                 [self.cache writeCache:fetchedConfigurationBundle];
                 self.cacheBundle = fetchedConfigurationBundle;
-                onFetchCallback(fetchedConfigurationBundle);
+                onFetchCallback(fetchedConfigurationBundle, SPConfigurationStateFetched);
             }
         }];
     }

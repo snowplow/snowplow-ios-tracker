@@ -82,8 +82,8 @@
     [self.tracker resumeEventTracking];
 }
 
-- (void)track:(nonnull SPEvent *)event {
-    [self.tracker track:event];
+- (NSUUID *)track:(nonnull SPEvent *)event {
+    return [self.tracker track:event];
 }
 
 // MARK: - Properties' setters and getters
@@ -262,6 +262,16 @@
 
 - (BOOL)sessionContext {
     return [self.tracker sessionContext];
+}
+
+- (void)setUserAnonymisation:(BOOL)userAnonymisation {
+    self.dirtyConfig.userAnonymisation = userAnonymisation;
+    self.dirtyConfig.userAnonymisationUpdated = YES;
+    [self.tracker setUserAnonymisation:userAnonymisation];
+}
+
+- (BOOL)userAnonymisation {
+    return self.tracker.userAnonymisation;
 }
 
 - (BOOL)isTracking {

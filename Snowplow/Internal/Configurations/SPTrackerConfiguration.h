@@ -101,6 +101,10 @@ NS_SWIFT_NAME(TrackerConfigurationProtocol)
  * @note Do not use. Internal use only.
  */
 @property (nonatomic, nullable) NSString *trackerVersionSuffix;
+/**
+ * Whether to anonymise client-side user identifiers in session and platform context entities.
+ */
+@property () BOOL userAnonymisation;
 
 @end
 
@@ -130,6 +134,7 @@ NS_SWIFT_NAME(TrackerConfiguration)
  *         installAutotracking = true;
  *         exceptionAutotracking = true;
  *         diagnosticAutotracking = false;
+ *         userAnonymisation = false;
  */
 - (instancetype)init;
 
@@ -201,6 +206,10 @@ SP_BUILDER_DECLARE(BOOL, diagnosticAutotracking)
  * Internal use only.
  */
 SP_BUILDER_DECLARE(NSString *, trackerVersionSuffix)
+/**
+ * Whether to anonymise client-side user identifiers in session and platform context entities
+ */
+SP_BUILDER_DECLARE(BOOL, userAnonymisation)
 
 @end
 

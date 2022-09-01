@@ -66,7 +66,7 @@
     }
     SPFetchedConfigurationBundle *fetchedConfigurationBundle = [[SPFetchedConfigurationBundle alloc] initWithDictionary:(NSDictionary *)jsonObject];
     if (fetchedConfigurationBundle) {
-        self.onFetchCallback(fetchedConfigurationBundle);
+        self.onFetchCallback(fetchedConfigurationBundle, SPConfigurationStateFetched);
     }
 }
 

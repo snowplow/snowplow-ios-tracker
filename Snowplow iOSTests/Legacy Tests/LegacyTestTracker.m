@@ -101,6 +101,7 @@ NSString *const TEST_SERVER_TRACKER = @"http://www.notarealurl.com";
     
     [tracker pauseEventTracking];
     XCTAssertEqual([tracker getIsTracking], NO);
+    XCTAssertNil([tracker track:[[SPStructured alloc] initWithCategory:@"c" action:@"a"]]);
     [tracker resumeEventTracking];
     XCTAssertEqual([tracker getIsTracking], YES);
     

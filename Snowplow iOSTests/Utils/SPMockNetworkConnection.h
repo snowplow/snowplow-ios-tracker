@@ -31,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) NSInteger statusCode;
 @property (nonatomic) SPHttpMethod httpMethod;
 @property (nonatomic) NSMutableArray<NSMutableArray<SPRequestResult *> *> *previousResults;
+@property (nonatomic) NSMutableArray<NSArray<SPRequest *> *> *previousRequests;
 @property (nonatomic) NSUInteger sendingCount;
 
 @end

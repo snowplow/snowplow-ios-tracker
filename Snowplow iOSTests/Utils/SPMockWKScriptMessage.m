@@ -1,5 +1,5 @@
 //
-//  SPEmitterConfigurationUpdate.m
+//  SPMockWKScriptMessage.m
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -15,23 +15,33 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Alex Benini
+//  Authors: Matus Tomlein
 //  License: Apache License Version 2.0
 //
 
-#import "SPEmitterConfigurationUpdate.h"
+#import "SPMockWKScriptMessage.h"
 
-@implementation SPEmitterConfigurationUpdate
+@interface SPMockWKScriptMessage()
 
-- (id<SPEventStore>)eventStore { return self.sourceConfig.eventStore; }
-- (id<SPRequestCallback>)requestCallback { return self.sourceConfig.requestCallback; }
+@property (nonatomic, strong) id messageBody;
 
-SP_DIRTY_GETTER(SPBufferOption, bufferOption)
-SP_DIRTY_GETTER(NSInteger, emitRange)
-SP_DIRTY_GETTER(NSInteger, threadPoolSize)
-SP_DIRTY_GETTER(NSInteger, byteLimitGet)
-SP_DIRTY_GETTER(NSInteger, byteLimitPost)
-SP_DIRTY_GETTER(NSDictionary *, customRetryForStatusCodes)
-SP_DIRTY_GETTER(BOOL, serverAnonymisation)
+@end
+
+@implementation SPMockWKScriptMessage
+
+- (id) initWithBody:(id)body {
+    self = [super init];
+    
+    if (self) {
+        _messageBody = body;
+    }
+    
+    return self;
+}
+
+- (id) body {
+    return self.messageBody;
+}
+
 
 @end

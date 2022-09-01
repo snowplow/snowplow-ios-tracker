@@ -56,16 +56,8 @@
     NSInteger   _eventIndex;
 }
 
-- (id) init {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andTracker:nil];
-}
-
-- (id) initWithTracker:(SPTracker *)tracker {
-    return [self initWithForegroundTimeout:600 andBackgroundTimeout:300 andTracker:tracker];
-}
-
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout {
-    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout];
+    return [self initWithForegroundTimeout:foregroundTimeout andBackgroundTimeout:backgroundTimeout andTracker:nil];
 }
 
 - (instancetype)initWithForegroundTimeout:(NSInteger)foregroundTimeout andBackgroundTimeout:(NSInteger)backgroundTimeout andTracker:(SPTracker *)tracker {
@@ -129,7 +121,8 @@
     _backgroundTimeout = backgroundTimeout;
 }
 
-- (NSDictionary *) getSessionDictWithEventId:(NSString *)eventId eventTimestamp:(long long)eventTimestamp {
+- (NSDictionary *) getSessionDictWithEventId:(NSString *)eventId eventTimestamp:(long long)eventTimestamp userAnonymisation:(BOOL)userAnonymisation {
+    NSMutableDictionary *context = nil;
     @synchronized (self) {
         if (_isSessionCheckerEnabled) {
             if ([self shouldUpdateSession]) {
@@ -145,8 +138,15 @@
         
         _eventIndex += 1;
         
-        NSMutableDictionary *context = _state.sessionContext;
+        context = _state.sessionContext;
         [context setObject:[NSNumber numberWithInteger:_eventIndex] forKey:kSPSessionEventIndex];
+    }
+    
+    if (userAnonymisation) { // mask the user identifier
+        NSMutableDictionary *copy = [[NSMutableDictionary alloc] initWithDictionary:context];
+        [copy setValue:kSPSessionAnonymousUserId forKey:kSPSessionUserId];
+        return copy;
+    } else {
         return context;
     }
 }

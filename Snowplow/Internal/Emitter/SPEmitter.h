@@ -97,6 +97,12 @@ NS_SWIFT_NAME(EmitterBuilder)
 - (void) setCustomPostPath:(NSString *)customPath;
 
 /*!
+ @brief Emitter builder method to set the server anonymisation flag.
+ @param serverAnonymisation  Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
+ */
+- (void) setServerAnonymisation:(BOOL)serverAnonymisation;
+
+/*!
  @brief Builder method to set request headers.
  @param requestHeadersKeyValue custom headers (key, value) for http requests.
  */
@@ -156,6 +162,8 @@ NS_SWIFT_NAME(Emitter)
 @property (readonly, nonatomic) id<SPNetworkConnection> networkConnection;
 /*! @brief Custom retry rules for HTTP status codes. */
 @property (readonly, nonatomic) NSDictionary<NSNumber *, NSNumber *> *customRetryForStatusCodes;
+/*! @brief Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`. */
+@property (readonly, nonatomic) BOOL serverAnonymisation;
 
 /*!
  @brief Builds the emitter using a build block of functions.

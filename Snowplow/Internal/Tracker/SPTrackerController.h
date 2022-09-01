@@ -85,8 +85,9 @@ NS_SWIFT_NAME(TrackerController)
  * Track the event.
  * The tracker will take care to process and send the event assigning `event_id` and `device_timestamp`.
  * @param event The event to track.
+ * @return The event ID or nil in case tracking is paused
  */
-- (void)track:(SPEvent *)event;
+- (NSUUID *)track:(SPEvent *)event;
 /**
  * Pause the tracker.
  * The tracker will stop any new activity tracking but it will continue to send remaining events

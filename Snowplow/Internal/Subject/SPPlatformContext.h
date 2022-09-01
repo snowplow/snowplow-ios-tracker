@@ -45,7 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
  * @param networkDictUpdateFrequency Minimal gap between subsequent updates of network platform information
  * @return a PlatformContext object
  */
-- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency;
+- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency
+                        networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency;
 
 /**
  * Initializes a newly allocated PlatformContext object with custom update frequency for mobile and network properties and a custom device info monitor
@@ -54,12 +55,15 @@ NS_ASSUME_NONNULL_BEGIN
  * @param deviceInfoMonitor Device monitor for fetching platform information
  * @return a PlatformContext object
  */
-- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency deviceInfoMonitor:(SPDeviceInfoMonitor *)deviceInfoMonitor;
+- (instancetype) initWithMobileDictUpdateFrequency:(NSTimeInterval)mobileDictUpdateFrequency
+                        networkDictUpdateFrequency:(NSTimeInterval)networkDictUpdateFrequency
+                                 deviceInfoMonitor:(SPDeviceInfoMonitor *)deviceInfoMonitor;
 
 /**
  * Updates and returns payload dictionary with device context information.
+ * @param userAnonymisation Whether to anonymise user identifiers (IDFA values)
  */
-- (nonnull SPPayload *) fetchPlatformDict;
+- (nonnull SPPayload *) fetchPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation;
 
 @end
 

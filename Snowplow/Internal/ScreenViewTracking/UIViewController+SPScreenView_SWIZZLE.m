@@ -66,7 +66,13 @@
 
 - (void) SP_viewDidAppear:(BOOL)animated {
     [self SP_viewDidAppear:animated];
-
+    
+    NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+    if (![bundle.bundlePath hasPrefix:[NSBundle mainBundle].bundlePath]) {
+        // Ignore view controllers that don't start with the main bundle path
+        return;
+    }
+    
     // Construct userInfo
     NSMutableDictionary * userInfo = [[NSMutableDictionary alloc] init];
     userInfo[@"viewControllerClassName"] = NSStringFromClass([self class]);
@@ -156,14 +162,7 @@
 }
 
 - (UIViewController *) _SP_topViewController {
-    UIWindow *keyWindow = nil;
-    NSArray<UIWindow *> *windows = [UIApplication sharedApplication].windows;
-    for (UIWindow *window in windows) {
-        if (window.isKeyWindow) {
-            keyWindow = window;
-            break;
-        }
-    }
+    UIWindow *keyWindow = self.view.window;
     if (!keyWindow) {
         return nil;
     }

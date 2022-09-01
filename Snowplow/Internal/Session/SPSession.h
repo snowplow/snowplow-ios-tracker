@@ -34,19 +34,6 @@ NS_SWIFT_NAME(Session)
 
 /**
  * Initializes a newly allocated SnowplowSession
- * @return a SnowplowSession
- */
-- (id) init;
-
-/**
- * Initializes a newly allocated SnowplowSession
- * @param tracker reference to the associated tracker of the session
- * @return a SnowplowSession
- */
-- (id) initWithTracker:(SPTracker *)tracker;
-
-/**
- * Initializes a newly allocated SnowplowSession
  * @param foregroundTimeout the session timeout while it is in the foreground
  * @param backgroundTimeout the session timeout while it is in the background
  * @return a SnowplowSession
@@ -107,9 +94,12 @@ NS_SWIFT_NAME(Session)
  * Returns the session dictionary
  * @param firstEventId The potential first event id of the session
  * @param firstEventTimestamp Device created timestamp of the first event of the session
+ * @param userAnonymisation Whether to anonymise user identifiers
  * @return a SnowplowPayload containing the session dictionary
  */
-- (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId eventTimestamp:(long long)firstEventTimestamp;
+- (NSDictionary *) getSessionDictWithEventId:(NSString *)firstEventId
+                              eventTimestamp:(long long)firstEventTimestamp
+                           userAnonymisation:(BOOL)userAnonymisation;
 
 /**
  * Returns the foreground index count

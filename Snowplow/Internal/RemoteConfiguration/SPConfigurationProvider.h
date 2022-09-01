@@ -22,10 +22,11 @@
 #import <Foundation/Foundation.h>
 #import "SPRemoteConfiguration.h"
 #import "SPFetchedConfigurationBundle.h"
+#import "SPConfigurationState.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-typedef void(^OnFetchCallback)(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle);
+typedef void(^OnFetchCallback)(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle, SPConfigurationState configurationState);
 
 /*!
  This class fetch a configuration from a remote source otherwise it provides a cached configuration.

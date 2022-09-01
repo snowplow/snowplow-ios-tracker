@@ -39,6 +39,7 @@ SP_DIRTY_GETTER(BOOL, lifecycleAutotracking)
 SP_DIRTY_GETTER(BOOL, installAutotracking)
 SP_DIRTY_GETTER(BOOL, exceptionAutotracking)
 SP_DIRTY_GETTER(BOOL, diagnosticAutotracking)
+SP_DIRTY_GETTER(BOOL, userAnonymisation)
 SP_DIRTY_GETTER(NSString *, trackerVersionSuffix)
 
 @end

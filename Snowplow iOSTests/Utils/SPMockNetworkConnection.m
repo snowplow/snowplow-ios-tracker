@@ -29,6 +29,7 @@
         self.httpMethod = httpMethod;
         self.statusCode = statusCode;
         self.previousResults = [NSMutableArray new];
+        self.previousRequests = [NSMutableArray new];
     }
     return self;
 }
@@ -40,6 +41,7 @@
         SPLogVerbose(@"Sent %@ with success %@", request.emitterEventIds, [result isSuccessful] ? @"YES" : @"NO");
         [requestResults addObject:result];
     }
+    [self.previousRequests addObject:requests];
     [self.previousResults addObject:requestResults];
     return requestResults;
 }

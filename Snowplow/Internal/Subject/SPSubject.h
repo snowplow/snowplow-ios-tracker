@@ -73,9 +73,10 @@ NS_SWIFT_NAME(Subject)
 
 /*!
  @brief Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
+ @param userAnonymisation Whether to anonymise user identifiers
  @return A SPPayload with all platform specific pairs.
  */
-- (SPPayload *) getPlatformDict;
+- (SPPayload *) getPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation;
 
 /*!
  @brief Gets the geolocation dictionary if the required keys are available. Returns nil if not enabled.

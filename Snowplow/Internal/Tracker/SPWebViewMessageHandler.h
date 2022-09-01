@@ -1,5 +1,5 @@
 //
-//  SPEmitterConfigurationUpdate.m
+//  SPWebViewMessageHandler.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -15,23 +15,28 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Alex Benini
+//  Authors: Matus Tomlein
 //  License: Apache License Version 2.0
 //
 
-#import "SPEmitterConfigurationUpdate.h"
+#import <Foundation/Foundation.h>
 
-@implementation SPEmitterConfigurationUpdate
+#import "SPTrackerConstants.h"
 
-- (id<SPEventStore>)eventStore { return self.sourceConfig.eventStore; }
-- (id<SPRequestCallback>)requestCallback { return self.sourceConfig.requestCallback; }
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_OSX
+@import WebKit;
 
-SP_DIRTY_GETTER(SPBufferOption, bufferOption)
-SP_DIRTY_GETTER(NSInteger, emitRange)
-SP_DIRTY_GETTER(NSInteger, threadPoolSize)
-SP_DIRTY_GETTER(NSInteger, byteLimitGet)
-SP_DIRTY_GETTER(NSInteger, byteLimitPost)
-SP_DIRTY_GETTER(NSDictionary *, customRetryForStatusCodes)
-SP_DIRTY_GETTER(BOOL, serverAnonymisation)
+NS_ASSUME_NONNULL_BEGIN
+
+/**
+ * Handler for messages from the JavaScript library embedded in Web views.
+ *
+ * The handler parses messages from the JavaScript library calls and forwards the tracked events to be tracked by the mobile tracker.
+ */
+@interface SPWebViewMessageHandler : NSObject <WKScriptMessageHandler>
 
 @end
+
+NS_ASSUME_NONNULL_END
+
+#endif

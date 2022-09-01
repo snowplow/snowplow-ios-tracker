@@ -25,6 +25,11 @@
 #import "SPTrackerConfiguration.h"
 #import "SPRemoteConfiguration.h"
 #import "SPConfigurationBundle.h"
+#import "SPConfigurationState.h"
+
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_OSX
+@import WebKit;
+#endif
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -60,10 +65,11 @@ NS_SWIFT_NAME(Snowplow)
  *
  * @param remoteConfiguration The remote configuration used to indicate where to download the configuration from.
  * @param defaultBundles The default configuration passed by default in case there isn't a cached version and it's able to download a new one.
- * @param onSuccess The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated
- *                  to the created trackers.
+ * @param onSuccess The callback called when a configuration (cached or downloaded) is set.
+ *                  It passes two arguments: list of the namespaces associated to the created trackers
+ *                  and the state of the configuration – whether it was retrieved from cache or fetched over the network.
  */
-+ (void)setupWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(nullable NSArray<SPConfigurationBundle *> *)defaultBundles onSuccess:(void(^)(NSArray<NSString *> * _Nullable namespaces))onSuccess NS_SWIFT_NAME(setup(remoteConfiguration:defaultConfiguration:onSuccess:));
++ (void)setupWithRemoteConfiguration:(SPRemoteConfiguration *)remoteConfiguration defaultConfigurationBundles:(nullable NSArray<SPConfigurationBundle *> *)defaultBundles onSuccess:(void(^)(NSArray<NSString *> * _Nullable namespaces, SPConfigurationState configurationState))onSuccess NS_SWIFT_NAME(setup(remoteConfiguration:defaultConfiguration:onSuccess:));
 
 /**
  * Reconfigure, create or delete the trackers based on the configuration downloaded remotely.
@@ -84,7 +90,7 @@ NS_SWIFT_NAME(Snowplow)
  * @param onSuccess The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated
  *                  to the created trackers.
  */
-+ (void)refreshIfRemoteUpdate:(void(^)(NSArray<NSString *> * _Nullable namespaces))onSuccess NS_SWIFT_NAME(refresh(onSuccess:));
++ (void)refreshIfRemoteUpdate:(void(^)(NSArray<NSString *> * _Nullable namespaces, SPConfigurationState configurationState))onSuccess NS_SWIFT_NAME(refresh(onSuccess:));
 
 /// Standard Configuration
 
@@ -212,6 +218,16 @@ NS_SWIFT_NAME(Snowplow)
  * @return Set of namespace of the active trackers in the app.
  */
 + (NSArray<NSString *> *)instancedTrackerNamespaces;
+
+#if SNOWPLOW_TARGET_IOS || SNOWPLOW_TARGET_OSX
+
+/**
+ * Subscribe to events tracked in a Web view using the Snowplow WebView tracker JavaScript library.
+ * @param webViewConfiguration Configuration of the Web view to subscribe to events from
+ */
++ (void)subscribeToWebViewEventsWithConfiguration:(WKWebViewConfiguration *)webViewConfiguration;
+
+#endif
 
 @end
 

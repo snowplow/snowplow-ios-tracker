@@ -1,5 +1,5 @@
 //
-//  SPEmitterConfigurationUpdate.m
+//  SPConfigurationState.h
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -15,23 +15,33 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Alex Benini
+//  Authors: Matus Tomlein
 //  License: Apache License Version 2.0
 //
 
-#import "SPEmitterConfigurationUpdate.h"
+#ifndef SPConfigurationState_h
+#define SPConfigurationState_h
 
-@implementation SPEmitterConfigurationUpdate
+NS_ASSUME_NONNULL_BEGIN
 
-- (id<SPEventStore>)eventStore { return self.sourceConfig.eventStore; }
-- (id<SPRequestCallback>)requestCallback { return self.sourceConfig.requestCallback; }
+/*!
+ @brief State of retrieved remote configuration that states where the configuration was retrieved from.
+ */
+typedef NS_ENUM(NSUInteger, SPConfigurationState) {
+    /**
+     * The default configuration was used.
+     */
+    SPConfigurationStateDefault,
+    /**
+     * The configuration was retrieved from local cache.
+     */
+    SPConfigurationStateCached,
+    /**
+     * The configuration was retrieved from the remote configuration endpoint.
+     */
+    SPConfigurationStateFetched,
+} NS_SWIFT_NAME(ConfigurationState);
 
-SP_DIRTY_GETTER(SPBufferOption, bufferOption)
-SP_DIRTY_GETTER(NSInteger, emitRange)
-SP_DIRTY_GETTER(NSInteger, threadPoolSize)
-SP_DIRTY_GETTER(NSInteger, byteLimitGet)
-SP_DIRTY_GETTER(NSInteger, byteLimitPost)
-SP_DIRTY_GETTER(NSDictionary *, customRetryForStatusCodes)
-SP_DIRTY_GETTER(BOOL, serverAnonymisation)
+NS_ASSUME_NONNULL_END
 
-@end
+#endif /* SPConfigurationState_h */
