@@ -87,7 +87,7 @@ NS_SWIFT_NAME(TrackerController)
  * @param event The event to track.
  * @return The event ID or nil in case tracking is paused
  */
-- (NSUUID *)track:(SPEvent *)event;
+- (nullable NSUUID *)track:(SPEvent *)event;
 /**
  * Pause the tracker.
  * The tracker will stop any new activity tracking but it will continue to send remaining events
