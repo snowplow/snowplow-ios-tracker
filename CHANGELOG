@@ -1,3 +1,7 @@
+Version 4.0.1 (2022-10-18)
+--------------------------
+Add nullable modifier to prevent crashes in track function (#713) (Thanks to @mylifeasdog)
+
 Version 4.0.0 (2022-09-01)
 --------------------------
 Do not resume remote configuration from cache in case it has different endpoint (#688)
