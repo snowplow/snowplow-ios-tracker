@@ -345,7 +345,7 @@ NS_SWIFT_NAME(TrackerBuilder)
  @param event The event to track
  @return The event ID or nil in case tracking is paused
  */
-- (NSUUID *)track:(SPEvent *)event;
+- (nullable NSUUID *)track:(SPEvent *)event;
 
 @end
 
