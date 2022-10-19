@@ -45,6 +45,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic, nonnull, readonly) NSString *namespace;
 
+- (BOOL)isTrackerInitialized;
+
 - (SPTracker *)tracker;
 - (SPEmitter *)emitter;
 - (SPSubject *)subject;
