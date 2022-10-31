@@ -194,6 +194,10 @@
 
 // MARK: - Getters
 
+- (BOOL)isTrackerInitialized {
+    return _tracker != nil;
+}
+
 - (SPSubject *)subject {
     if (_subject) return _subject;
     _subject = [self makeSubject];
