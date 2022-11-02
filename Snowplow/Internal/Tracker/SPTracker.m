@@ -623,7 +623,7 @@ void uncaughtExceptionHandler(NSException *exception) {
 /*
  This is needed because the campaign-attribution-enrichment (in the pipeline) is able to parse
  the `url` and `referrer` only if they are part of a PageView event.
- The PageView event is an atomic event but the DeepLinkReceived is a SelfDescribing event.
+ The PageView event is an atomic event but the DeepLinkReceived and ScreenView are SelfDescribing events.
  For this reason we copy these two fields in the atomic fields in order to let the enrichment
  to process correctly the fields even if the event is not a PageView and it's a SelfDescribing event.
  This is a hack that should be removed once the atomic event table is dismissed and all the events
