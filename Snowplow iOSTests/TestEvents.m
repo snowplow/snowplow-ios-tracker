@@ -93,6 +93,55 @@
     XCTAssertEqualObjects(referrer, @"referrer");
 }
 
+- (void)testDeepLinkContextAndAtomicPropertiesAddedToScreenView {
+    // Prepare DeepLinkReceived event
+    SPDeepLinkReceived *deepLink = [[SPDeepLinkReceived alloc] initWithUrl:@"the_url"];
+    deepLink.referrer = @"the_referrer";
+    
+    // Prepare ScreenView event
+    SPScreenView *screenView = [[SPScreenView alloc] initWithName:@"SV" screenId:[NSUUID UUID]];
+    
+    // Setup tracker
+    SPTrackerConfiguration *trackerConfiguration = [SPTrackerConfiguration new];
+    trackerConfiguration.base64Encoding = NO;
+    trackerConfiguration.installAutotracking = NO;
+    SPMockEventStore *eventStore = [SPMockEventStore new];
+    SPNetworkConfiguration *networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"fake-url" method:SPHttpMethodPost];
+    SPEmitterConfiguration *emitterConfiguration = [[SPEmitterConfiguration alloc] init];
+    emitterConfiguration.eventStore = eventStore;
+    emitterConfiguration.threadPoolSize = 10;
+    id<SPTrackerController> trackerController = [SPSnowplow createTrackerWithNamespace:@"namespace" network:networkConfiguration configurations:@[trackerConfiguration, emitterConfiguration]];
+
+    // Track event
+    [trackerController track:deepLink];
+    NSUUID *screenViewId = [trackerController track:screenView];
+    for (int i=0; eventStore.count < 2 && i < 10; i++) {
+        [NSThread sleepForTimeInterval:1];
+    }
+    NSArray<SPEmitterEvent *> *events = [eventStore emittableEventsWithQueryLimit:10];
+    [eventStore removeAllEvents];
+    XCTAssertEqual(2, events.count);
+    
+    SPPayload *screenViewPayload = nil;
+    for (SPEmitterEvent *event in events) {
+        if ([(NSString *)[[[event payload] getAsDictionary] objectForKey:@"eid"] isEqualToString:[screenViewId UUIDString]]) {
+            screenViewPayload = [event payload];
+        }
+    }
+    XCTAssertNotNil(screenViewPayload);
+    
+    // Check the DeepLink context entity properties
+    NSString *screenViewContext = (NSString *)[[screenViewPayload getAsDictionary] objectForKey:@"co"];
+    XCTAssertTrue([screenViewContext containsString:@"\"referrer\":\"the_referrer\""]);
+    XCTAssertTrue([screenViewContext containsString:@"\"url\":\"the_url\""]);
+    
+    // Check url and referrer fields for atomic table
+    NSString *url = (NSString *)[[screenViewPayload getAsDictionary] objectForKey:kSPPageUrl];
+    NSString *referrer = (NSString *)[[screenViewPayload getAsDictionary] objectForKey:kSPPageRefr];
+    XCTAssertEqualObjects(url, @"the_url");
+    XCTAssertEqualObjects(referrer, @"the_referrer");
+}
+
 - (void)testPageView {
     // Valid construction
     SPPageView *event = [[SPPageView alloc] initWithPageUrl:@"DemoPageUrl"];
