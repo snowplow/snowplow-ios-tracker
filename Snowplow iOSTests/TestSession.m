@@ -493,12 +493,16 @@
 
 - (void)testAnonymisesUserIdentifiers {
     SPSession *session = [[SPSession alloc] initWithForegroundTimeout:3 andBackgroundTimeout:3 andTracker:nil];
+    [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481345 userAnonymisation:NO];
+    [session startNewSession]; // create previous session ID reference
     
-    NSDictionary *withoutAnonymisation = [session getSessionDictWithEventId:@"event_1" eventTimestamp:1654496481346 userAnonymisation:NO];
+    NSDictionary *withoutAnonymisation = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481346 userAnonymisation:NO];
     XCTAssertFalse([[withoutAnonymisation objectForKey:kSPSessionUserId] isEqualToString:@"00000000-0000-0000-0000-000000000000"]);
+    XCTAssertNotNil([withoutAnonymisation objectForKey:kSPSessionPreviousId]);
     
-    NSDictionary *withAnonymisation = [session getSessionDictWithEventId:@"event_2" eventTimestamp:1654496481347 userAnonymisation:YES];
+    NSDictionary *withAnonymisation = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481347 userAnonymisation:YES];
     XCTAssertTrue([[withAnonymisation objectForKey:kSPSessionUserId] isEqualToString:@"00000000-0000-0000-0000-000000000000"]);
+    XCTAssertNil([withAnonymisation objectForKey:kSPSessionPreviousId]);
 }
 
 // Service methods

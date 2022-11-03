@@ -67,9 +67,10 @@ NS_SWIFT_NAME(Subject)
 
 /*!
  @brief Gets all standard dictionary pairs to decorate the event with.
+ @param userAnonymisation Whether to anonymise user identifiers
  @return A SPPayload with all standard pairs.
  */
-- (SPPayload *) getStandardDict;
+- (SPPayload *) getStandardDictWithUserAnonymisation:(BOOL)userAnonymisation;
 
 /*!
  @brief Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
