@@ -502,7 +502,7 @@
     
     NSDictionary *withAnonymisation = [session getSessionDictWithEventId:@"event_3" eventTimestamp:1654496481347 userAnonymisation:YES];
     XCTAssertTrue([[withAnonymisation objectForKey:kSPSessionUserId] isEqualToString:@"00000000-0000-0000-0000-000000000000"]);
-    XCTAssertNil([withAnonymisation objectForKey:kSPSessionPreviousId]);
+    XCTAssertEqualObjects([NSNull null], [withAnonymisation objectForKey:kSPSessionPreviousId]);
 }
 
 // Service methods
