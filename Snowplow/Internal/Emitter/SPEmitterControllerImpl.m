@@ -34,6 +34,7 @@
 @synthesize byteLimitPost;
 @synthesize emitRange;
 @synthesize threadPoolSize;
+@synthesize customRetryForStatusCodes;
 
 // MARK: - Properties
 
