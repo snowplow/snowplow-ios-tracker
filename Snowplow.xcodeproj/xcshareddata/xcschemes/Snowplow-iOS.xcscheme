@@ -43,8 +43,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "752DABD321CC38560065F874"
-               BuildableName = "Snowplow-iOSTests.xctest"
-               BlueprintName = "Snowplow-iOSTests"
+               BuildableName = "Tests.xctest"
+               BlueprintName = "Tests"
                ReferencedContainer = "container:Snowplow.xcodeproj">
             </BuildableReference>
          </TestableReference>

@@ -11,8 +11,8 @@ function create_link {
     fi
 
     # 3. Create the symlink
-    pushd $SRCROOT/Snowplow
-    path=$(find . -name $file_name)
+    pushd $SRCROOT/Sources/Snowplow/include
+    path=$(find ../../Core -name $file_name)
     ln -vs $path .
     popd
 }
@@ -43,4 +43,4 @@ function check_link {
 
 for i in `ls $TARGET_BUILD_DIR/$PUBLIC_HEADERS_FOLDER_PATH`; do create_link $i ; done
 
-for i in $SRCROOT/Snowplow/*.h; do check_link $i ; done 
+for i in $SRCROOT/Sources/Snowplow/include/*.h; do check_link $i ; done 
