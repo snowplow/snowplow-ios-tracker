@@ -35,7 +35,7 @@
 - (void)testJSONToConfigurations {
     NSString *config = @"{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0\",\"configurationVersion\":12,\"configurationBundle\": [\
     {\"namespace\": \"default1\",\
-    \"networkConfiguration\": {\"endpoint\":\"https://fake.snowplowanalytics.com\",\"method\":\"get\"},\
+    \"networkConfiguration\": {\"endpoint\":\"https://fake.snowplow.io\",\"method\":\"get\"},\
     \"trackerConfiguration\": {\"applicationContext\":false,\"screenContext\":false,},\
     \"sessionConfiguration\": {\"backgroundTimeout\":60,\"foregroundTimeout\":60}\
     },\
@@ -76,7 +76,7 @@
 }
 
 - (void)testDownloadConfiguration {
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
 
     [[LSNocilla sharedInstance] start];
     stubRequest(@"GET", endpoint)
@@ -126,7 +126,7 @@
 
 - (void)testConfigurationProvider_notDownloading_fails {
     // prepare test
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
@@ -149,7 +149,7 @@
 
 - (void)testConfigurationProvider_downloadOfWrongSchema_fails {
     // prepare test
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
     [cache clearCache];
@@ -174,7 +174,7 @@
 
 - (void)testConfigurationProvider_downloadSameConfigVersionThanCached_dontUpdate {
     // prepare test
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     
     SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
@@ -216,7 +216,7 @@
 
 - (void)testConfigurationProvider_downloadHigherConfigVersionThanCached_doUpdate {
     // prepare test
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     
     SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
@@ -259,7 +259,7 @@
 
 - (void)testConfigurationProvider_justRefresh_downloadSameConfigVersionThanCached_dontUpdate {
     // prepare test
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     
     SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
@@ -300,8 +300,8 @@
 
 - (void)testDoesntUseCachedConfigurationIfDifferentRemoteEndpoint {
     // prepare test
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
-    SPRemoteConfiguration *cachedRemoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:@"https://cached-snowplowanalytics.com/config.json" method:SPHttpMethodGet];
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
+    SPRemoteConfiguration *cachedRemoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:@"https://cached-snowplow.io/config.json" method:SPHttpMethodGet];
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
     
     // write configuration (version 2) to cache
@@ -340,7 +340,7 @@
 /*
 - (void)testConfigurationProvider_justRefresh_downloadHigherConfigVersionThanCached_doUpdate {
     // prepare test
-    NSString *endpoint = @"https://fake-snowplowanalytics.com/config.json";
+    NSString *endpoint = @"https://fake-snowplow.io/config.json";
     SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
 
     SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
