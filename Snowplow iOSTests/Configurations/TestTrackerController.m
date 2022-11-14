@@ -63,4 +63,24 @@
     XCTAssertEqualObjects([NSNumber numberWithFloat:0], tracker.subject.geoLatitude);
 }
 
+- (void)testStartsNewSessionWhenChangingAnonymousTracking {
+    id<SPTrackerController> tracker = [SPSnowplow createTrackerWithNamespace:@"namespace" endpoint:@"https://fake-url" method:SPHttpMethodPost];
+    [tracker.emitter pause];
+    
+    [tracker track:[[SPStructured alloc] initWithCategory:@"c" action:@"a"]];
+    NSString *sessionIdBefore = tracker.session.sessionId;
+    
+    tracker.userAnonymisation = true;
+    [tracker track:[[SPStructured alloc] initWithCategory:@"c" action:@"a"]];
+    NSString *sessionIdAnonymous = tracker.session.sessionId;
+    
+    XCTAssertFalse([sessionIdBefore isEqualToString:sessionIdAnonymous]);
+    
+    tracker.userAnonymisation = false;
+    [tracker track:[[SPStructured alloc] initWithCategory:@"c" action:@"a"]];
+    NSString *sessionIdNotAnonymous = tracker.session.sessionId;
+    
+    XCTAssertFalse([sessionIdAnonymous isEqualToString:sessionIdNotAnonymous]);
+}
+
 @end

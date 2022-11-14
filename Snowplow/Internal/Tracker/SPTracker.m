@@ -399,7 +399,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)setUserAnonymisation:(BOOL)userAnonymisation {
-    _userAnonymisation = userAnonymisation;
+    if (_userAnonymisation != userAnonymisation) {
+        _userAnonymisation = userAnonymisation;
+        if (_session != nil) {
+            [_session startNewSession];
+        }
+    }
 }
 
 #pragma mark - Global Contexts methods
