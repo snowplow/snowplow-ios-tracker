@@ -642,6 +642,7 @@ void uncaughtExceptionHandler(NSException *exception) {
                 NSDictionary *data = (NSDictionary *)[entity data];
                 url = (NSString *)[data valueForKey:kSPDeepLinkReceivedParamUrl];
                 referrer = (NSString *)[data valueForKey:kSPDeepLinkParamReferrer];
+                break;
             }
         }
     }
