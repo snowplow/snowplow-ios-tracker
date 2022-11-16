@@ -213,8 +213,8 @@ NS_SWIFT_NAME(TrackerBuilder)
             documentDescription:(nullable NSString *)documentDescription;
 
 /*!
- @brief Tracker builder method to set whether to anonymise client-side user identifiers in session and platform context entities.
- @param userAnonymisation Whether to anonymise client-side user identifiers in session and platform context entities
+ @brief Tracker builder method to set whether to anonymise client-side user identifiers in session (userId, previousSessionId), subject (userId, networkUserId, domainUserId, ipAddress) and platform context entities (IDFA)
+ @param userAnonymisation Whether to anonymise client-side user identifiers
  */
 - (void) setUserAnonymisation:(BOOL)userAnonymisation;
 

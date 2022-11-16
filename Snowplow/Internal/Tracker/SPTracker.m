@@ -400,7 +400,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)setUserAnonymisation:(BOOL)userAnonymisation {
-    _userAnonymisation = userAnonymisation;
+    if (_userAnonymisation != userAnonymisation) {
+        _userAnonymisation = userAnonymisation;
+        if (_session != nil) {
+            [_session startNewSession];
+        }
+    }
 }
 
 #pragma mark - Global Contexts methods
@@ -596,7 +601,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
     [payload addDictionaryToPayload:_trackerData];
     if (_subject != nil) {
-        [payload addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
+        [payload addDictionaryToPayload:[[_subject getStandardDictWithUserAnonymisation:self.userAnonymisation] getAsDictionary]];
     }
     [payload addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
 }

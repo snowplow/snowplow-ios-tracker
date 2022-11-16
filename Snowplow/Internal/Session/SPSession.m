@@ -145,6 +145,7 @@
     if (userAnonymisation) { // mask the user identifier
         NSMutableDictionary *copy = [[NSMutableDictionary alloc] initWithDictionary:context];
         [copy setValue:kSPSessionAnonymousUserId forKey:kSPSessionUserId];
+        [copy setValue:[NSNull null] forKey:kSPSessionPreviousId];
         return copy;
     } else {
         return context;

@@ -105,7 +105,15 @@
 
 #pragma clang diagnostic pop
 
-- (SPPayload *) getStandardDict {
+- (SPPayload *) getStandardDictWithUserAnonymisation:(BOOL)userAnonymisation {
+    if (userAnonymisation) {
+        NSMutableDictionary *copy = [[NSMutableDictionary alloc] initWithDictionary:[_standardDict getAsDictionary]];
+        [copy removeObjectForKey:kSPUid];
+        [copy removeObjectForKey:kSPDomainUid];
+        [copy removeObjectForKey:kSPNetworkUid];
+        [copy removeObjectForKey:kSPIpAddress];
+        return [[SPPayload alloc] initWithNSDictionary:copy];
+    }
     return _standardDict;
 }
 

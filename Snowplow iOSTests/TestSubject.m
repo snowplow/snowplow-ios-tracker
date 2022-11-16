@@ -59,4 +59,19 @@
     XCTAssertNil(geoLocationDict);
 }
 
+- (void)testAnonymisesUserIdentifiers {
+    SPSubject *subject = [[SPSubject alloc] initWithPlatformContext:NO andGeoContext:NO];
+    [subject setUserId:@"aUserId"];
+    [subject setIpAddress:@"127.0.0.1"];
+    [subject setNetworkUserId:@"aNuid"];
+    [subject setDomainUserId:@"aDuid"];
+    [subject setLanguage:@"EN"];
+
+    NSDictionary *values = [[subject getStandardDictWithUserAnonymisation:YES] getAsDictionary];
+    XCTAssertNil([values valueForKey:kSPUid]);
+    XCTAssertNil([values valueForKey:kSPIpAddress]);
+    XCTAssertNil([values valueForKey:kSPNetworkUid]);
+    XCTAssertNil([values valueForKey:kSPDomainUid]);
+    XCTAssertEqual([values valueForKey:kSPLanguage], @"EN");
+}
 @end

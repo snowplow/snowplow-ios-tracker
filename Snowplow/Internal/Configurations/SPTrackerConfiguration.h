@@ -102,7 +102,8 @@ NS_SWIFT_NAME(TrackerConfigurationProtocol)
  */
 @property (nonatomic, nullable) NSString *trackerVersionSuffix;
 /**
- * Whether to anonymise client-side user identifiers in session and platform context entities.
+ * Whether to anonymise client-side user identifiers in session (userId, previousSessionId), subject (userId, networkUserId, domainUserId, ipAddress) and platform context entities (IDFA)
+ * Setting this property on a running tracker instance starts a new session (if sessions are tracked).
  */
 @property () BOOL userAnonymisation;
 
@@ -207,7 +208,7 @@ SP_BUILDER_DECLARE(BOOL, diagnosticAutotracking)
  */
 SP_BUILDER_DECLARE(NSString *, trackerVersionSuffix)
 /**
- * Whether to anonymise client-side user identifiers in session and platform context entities
+ * Whether to anonymise client-side user identifiers in session (userId, previousSessionId), subject (userId, networkUserId, domainUserId, ipAddress) and platform context entities (IDFA)
  */
 SP_BUILDER_DECLARE(BOOL, userAnonymisation)
 
