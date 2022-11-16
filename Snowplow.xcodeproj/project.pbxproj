@@ -31,6 +31,7 @@
 		6B871F6727C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
 		6B871F6827C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
 		6B871F6927C3976D00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
+		6BA149392900607C00407200 /* SPMockLoggerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA1493029005EF700407200 /* SPMockLoggerDelegate.m */; };
 		6BABC50E270B40450043BB5C /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF15D1227035A480048F376 /* TestSubject.m */; };
 		6BACDF922897C2580013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BACDF932897C2580013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -956,6 +957,8 @@
 		6B871F6027C3913300BCF742 /* TestEmitterConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestEmitterConfiguration.m; sourceTree = "<group>"; };
 		6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockNetworkConnection.h; sourceTree = "<group>"; };
 		6B871F6327C3928900BCF742 /* SPMockNetworkConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockNetworkConnection.m; sourceTree = "<group>"; };
+		6BA1492F29005EF700407200 /* SPMockLoggerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockLoggerDelegate.h; sourceTree = "<group>"; };
+		6BA1493029005EF700407200 /* SPMockLoggerDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockLoggerDelegate.m; sourceTree = "<group>"; };
 		6BACDF912897C2580013276E /* SPConfigurationState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConfigurationState.h; sourceTree = "<group>"; };
 		6BBDCD4027019AF4001B547F /* SPPlatformContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPlatformContext.h; path = Snowplow/Internal/Subject/SPPlatformContext.h; sourceTree = SOURCE_ROOT; };
 		6BBDCD4127019AF4001B547F /* SPPlatformContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPPlatformContext.m; path = Snowplow/Internal/Subject/SPPlatformContext.m; sourceTree = SOURCE_ROOT; };
@@ -1501,6 +1504,8 @@
 				6B871F6327C3928900BCF742 /* SPMockNetworkConnection.m */,
 				6BD6A6AA288719C7002D6D40 /* SPMockWKScriptMessage.h */,
 				6BD6A6AB288719C7002D6D40 /* SPMockWKScriptMessage.m */,
+				6BA1492F29005EF700407200 /* SPMockLoggerDelegate.h */,
+				6BA1493029005EF700407200 /* SPMockLoggerDelegate.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2678,6 +2683,7 @@
 				D99BDC6D2834F89A00F6A14F /* TestLifecycleState.m in Sources */,
 				6BF15D0C2702ECD70048F376 /* TestPlatformContext.m in Sources */,
 				75CAC40821F2955100271FB3 /* LegacyTestSubject.m in Sources */,
+				6BA149392900607C00407200 /* SPMockLoggerDelegate.m in Sources */,
 				ED8BF8ED2570FB2F001DFDD9 /* TestTrackerConfiguration.m in Sources */,
 				75CAC41221F2955100271FB3 /* TestRequest.m in Sources */,
 				75CAC40621F2955100271FB3 /* TestSQLiteEventStore.m in Sources */,

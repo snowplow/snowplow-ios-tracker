@@ -101,7 +101,7 @@ const NSUInteger POST_WRAPPER_BYTES = 88;
     _networkConnection = [SPDefaultNetworkConnection build:^(id<SPDefaultNetworkConnectionBuilder> builder) {
         __typeof__(self) strongSelf = weakSelf;
         if (!strongSelf) return;
-        NSString *endpoint = strongSelf->_url;
+        NSString *endpoint = strongSelf->_url ? strongSelf->_url : @""; // use empty string in case nil to avoid crashing
         if (![endpoint hasPrefix:@"http"]) {
             NSString *protocol = strongSelf->_protocol == SPProtocolHttps ? @"https://" : @"http://";
             endpoint = [protocol stringByAppendingString:endpoint];

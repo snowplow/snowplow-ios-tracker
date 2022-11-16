@@ -44,6 +44,7 @@
 #import "SPBackground.h"
 #import "SPPushNotification.h"
 #import "SPDeepLinkReceived.h"
+#import "SPDeepLinkEntity.h"
 #import "SPTrackerEvent.h"
 #import "SPTrackerError.h"
 #import "SPLogger.h"
@@ -399,7 +400,12 @@ void uncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)setUserAnonymisation:(BOOL)userAnonymisation {
-    _userAnonymisation = userAnonymisation;
+    if (_userAnonymisation != userAnonymisation) {
+        _userAnonymisation = userAnonymisation;
+        if (_session != nil) {
+            [_session startNewSession];
+        }
+    }
 }
 
 #pragma mark - Global Contexts methods
@@ -579,6 +585,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     [self addGlobalContextsToContexts:contexts event:event];
     [self addStateMachineEntitiesToContexts:contexts event:event];
     [self wrapContexts:contexts toPayload:payload];
+    if (!event.isPrimitive) {
+        // TODO: To remove when Atomic table refactoring is finished
+        [self workaroundForCampaignAttributionEnrichment:payload event:event contexts:contexts];
+    }
     return payload;
 }
 
@@ -591,7 +601,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     }
     [payload addDictionaryToPayload:_trackerData];
     if (_subject != nil) {
-        [payload addDictionaryToPayload:[[_subject getStandardDict] getAsDictionary]];
+        [payload addDictionaryToPayload:[[_subject getStandardDictWithUserAnonymisation:self.userAnonymisation] getAsDictionary]];
     }
     [payload addValueToPayload:SPDevicePlatformToString(_devicePlatform) forKey:kSPPlatform];
 }
@@ -604,8 +614,6 @@ void uncaughtExceptionHandler(NSException *exception) {
 - (void)addSelfDescribingPropertiesToPayload:(SPPayload *)payload event:(SPTrackerEvent *)event {
     [payload addValueToPayload:kSPEventUnstructured forKey:kSPEvent];
 
-    [self workaroundForCampaignAttributionEnrichment:payload event:event]; // TODO: To remove when Atomic table refactoring is finished
-    
     SPSelfDescribingJson *data = [[SPSelfDescribingJson alloc] initWithSchema:event.schema andData:event.payload];
     NSDictionary *unstructuredEventPayload = @{
         kSPSchema: kSPUnstructSchema,
@@ -620,17 +628,34 @@ void uncaughtExceptionHandler(NSException *exception) {
 /*
  This is needed because the campaign-attribution-enrichment (in the pipeline) is able to parse
  the `url` and `referrer` only if they are part of a PageView event.
- The PageView event is an atomic event but the DeepLinkReceived is a SelfDescribing event.
+ The PageView event is an atomic event but the DeepLinkReceived and ScreenView are SelfDescribing events.
  For this reason we copy these two fields in the atomic fields in order to let the enrichment
  to process correctly the fields even if the event is not a PageView and it's a SelfDescribing event.
  This is a hack that should be removed once the atomic event table is dismissed and all the events
  will be SelfDescribing.
  */
-- (void)workaroundForCampaignAttributionEnrichment:(SPPayload *)payload event:(SPTrackerEvent *)event {
+- (void)workaroundForCampaignAttributionEnrichment:(SPPayload *)payload event:(SPTrackerEvent *)event contexts:(NSMutableArray<SPSelfDescribingJson *> *)contexts {
+    NSString *url = nil;
+    NSString *referrer = nil;
+    
     if ([event.schema isEqualToString:kSPDeepLinkReceivedSchema]) {
-        NSString *url = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamUrl];
-        NSString *referrer = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamReferrer];
+        url = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamUrl];
+        referrer = (NSString *)[event.payload objectForKey:kSPDeepLinkReceivedParamReferrer];
+    } else if ([event.schema isEqualToString:kSPScreenViewSchema]) {
+        for (SPSelfDescribingJson *entity in contexts) {
+            if ([[entity schema] isEqualToString:kSPDeepLinkSchema]) {
+                NSDictionary *data = (NSDictionary *)[entity data];
+                url = (NSString *)[data valueForKey:kSPDeepLinkReceivedParamUrl];
+                referrer = (NSString *)[data valueForKey:kSPDeepLinkParamReferrer];
+                break;
+            }
+        }
+    }
+    
+    if (url != nil) {
         [payload addValueToPayload:url forKey:kSPPageUrl];
+    }
+    if (referrer != nil) {
         [payload addValueToPayload:referrer forKey:kSPPageRefr];
     }
 }

@@ -44,13 +44,13 @@
 
 - (void)testSubjectInit {
     SPSubject * subject = [[SPSubject alloc] init];
-    XCTAssertNotNil([subject getStandardDict]);
+    XCTAssertNotNil([subject getStandardDictWithUserAnonymisation:NO]);
 }
 
 - (void)testSubjectInitWithOptions {
     SPSubject * subject = [[SPSubject alloc] initWithPlatformContext:YES andGeoContext:NO];
     XCTAssertNotNil([subject getPlatformDictWithUserAnonymisation:NO]);
-    XCTAssertNotNil([subject getStandardDict]);
+    XCTAssertNotNil([subject getStandardDictWithUserAnonymisation:NO]);
 }
 
 - (void)testSubjectSetterFunctions {
@@ -66,7 +66,7 @@
     [subject setNetworkUserId:@"aNuid"];
     [subject setDomainUserId:@"aDuid"];
     
-    NSDictionary * values = [[subject getStandardDict] getAsDictionary];
+    NSDictionary * values = [[subject getStandardDictWithUserAnonymisation:NO] getAsDictionary];
     
     XCTAssertEqual([values valueForKey:kSPUid], @"aUserId");
     XCTAssertTrue([[values valueForKey:kSPResolution] isEqualToString:@"1920x1080" ]);

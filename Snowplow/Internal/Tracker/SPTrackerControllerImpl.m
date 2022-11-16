@@ -285,6 +285,9 @@
 // MARK: - Private methods
 
 - (SPTracker *)tracker {
+    if (![self.serviceProvider isTrackerInitialized]) {
+        SPLogError(@"Recreating tracker instance after it was removed. This will not be supported in future versions.");
+    }
     return self.serviceProvider.tracker;
 }
 

@@ -1,3 +1,11 @@
+Version 4.1.0 (2022-11-16)
+--------------------------
+Anonymise previous session ID and user identifiers in subject when user anonymisation is enabled (#720)
+Add DeepLink entity referrer and url to atomic properties in ScreenView events (#718)
+Fix compiler warning in SPEmitterControllerImpl to synthesize customRetryForStatusCodes (#722)
+Log an error when recreating tracker after being removed (#716)
+Fix links in README (#724)
+
 Version 4.0.1 (2022-10-18)
 --------------------------
 Add nullable modifier to prevent crashes in track function (#713) (Thanks to @mylifeasdog)
