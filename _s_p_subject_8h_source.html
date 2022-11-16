@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.1</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.1.0</span>
    </div>
   </td>
  </tr>
@@ -119,82 +119,81 @@ $(function() {
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>- (instancetype)initWithPlatformContext:(BOOL)platformContext geoLocationContext:(BOOL)geoContext subjectConfiguration:(<a class="code hl_class" href="interface_s_p_subject_configuration.html">SPSubjectConfiguration</a> *)configuration;</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>- (<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) <a class="code hl_function" href="interface_s_p_subject.html#a3088f6f53485cd664c25a2501d02b0e3">getStandardDict</a>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>- (<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) getPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>- (NSDictionary *) <a class="code hl_function" href="interface_s_p_subject.html#a768b21e9f851fb197615d1584d2a377c">getGeoLocationDict</a>;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>- (void) setUserId:(NSString *)uid;</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>- (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>- (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>- (void) setColorDepth:(NSInteger)depth;</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>- (void) setTimezone:(NSString *)timezone;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>- (void) setLanguage:(NSString *)lang;</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>- (void) setIpAddress:(NSString *)ip;</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>- (void) setUseragent:(NSString *)useragent;</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>- (void) setNetworkUserId:(NSString *)nuid;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>- (void) setDomainUserId:(NSString *)duid;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>- (void) <a class="code hl_function" href="interface_s_p_subject.html#a794f8f3fee2db271dd5aa98b3cd2c7cd">setStandardDict</a>;</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>- (void) <a class="code hl_function" href="interface_s_p_subject.html#a53cf1059d843c34bd6986af9a93c12d1">setGeoDict</a>;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>- (void) setGeoLatitude:(<span class="keywordtype">float</span>)latitude;</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#acf4d1812e005130e0e87f9f538fb3590">geoLatitude</a>;</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span> </div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>- (void) setGeoLongitude:(<span class="keywordtype">float</span>)longitude;</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#af929f8270cae46cbfc5e9a8c986e6f29">geoLongitude</a>;</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>- (void) setGeoLatitudeLongitudeAccuracy:(<span class="keywordtype">float</span>)latitudeLongitudeAccuracy;</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a491fee5d3ac81bb3434d88c46cd24bff">geoLatitudeLongitudeAccuracy</a>;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>- (void) setGeoAltitude:(<span class="keywordtype">float</span>)altitude;</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#afed435cefae79457733bb10bb4535d20">geoAltitude</a>;</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>- (void) setGeoAltitudeAccuracy:(<span class="keywordtype">float</span>)altitudeAccuracy;</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a6ff8d54ed03896827357361c6f2c95c9">geoAltitudeAccuracy</a>;</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>- (void) setGeoBearing:(<span class="keywordtype">float</span>)bearing;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a06d5b0ed525704c6996e185e1e68af3a">geoBearing</a>;</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>- (void) setGeoSpeed:(<span class="keywordtype">float</span>)speed;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a3a203e19c32d051153ebb4b50bcfbfe3">geoSpeed</a>;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span> </div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>- (void) setGeoTimestamp:(NSNumber *)timestamp;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a1c2dec346ffb9b1dcfe9045ac81b2585">geoTimestamp</a>;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span><span class="keyword">@end</span></div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>- (<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) getStandardDictWithUserAnonymisation:(BOOL)userAnonymisation;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>- (<a class="code hl_class" href="interface_s_p_payload.html">SPPayload</a> *) getPlatformDictWithUserAnonymisation:(BOOL)userAnonymisation;</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>- (NSDictionary *) <a class="code hl_function" href="interface_s_p_subject.html#a768b21e9f851fb197615d1584d2a377c">getGeoLocationDict</a>;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>- (void) setUserId:(NSString *)uid;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>- (void) setResolutionWithWidth:(NSInteger)width andHeight:(NSInteger)height;</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>- (void) setViewPortWithWidth:(NSInteger)width andHeight:(NSInteger)height;</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>- (void) setColorDepth:(NSInteger)depth;</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>- (void) setTimezone:(NSString *)timezone;</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>- (void) setLanguage:(NSString *)lang;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>- (void) setIpAddress:(NSString *)ip;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>- (void) setUseragent:(NSString *)useragent;</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span> </div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>- (void) setNetworkUserId:(NSString *)nuid;</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>- (void) setDomainUserId:(NSString *)duid;</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span> </div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>- (void) <a class="code hl_function" href="interface_s_p_subject.html#a794f8f3fee2db271dd5aa98b3cd2c7cd">setStandardDict</a>;</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span> </div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>- (void) <a class="code hl_function" href="interface_s_p_subject.html#a53cf1059d843c34bd6986af9a93c12d1">setGeoDict</a>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>- (void) setGeoLatitude:(<span class="keywordtype">float</span>)latitude;</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#acf4d1812e005130e0e87f9f538fb3590">geoLatitude</a>;</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>- (void) setGeoLongitude:(<span class="keywordtype">float</span>)longitude;</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#af929f8270cae46cbfc5e9a8c986e6f29">geoLongitude</a>;</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span> </div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>- (void) setGeoLatitudeLongitudeAccuracy:(<span class="keywordtype">float</span>)latitudeLongitudeAccuracy;</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a491fee5d3ac81bb3434d88c46cd24bff">geoLatitudeLongitudeAccuracy</a>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>- (void) setGeoAltitude:(<span class="keywordtype">float</span>)altitude;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#afed435cefae79457733bb10bb4535d20">geoAltitude</a>;</div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>- (void) setGeoAltitudeAccuracy:(<span class="keywordtype">float</span>)altitudeAccuracy;</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a6ff8d54ed03896827357361c6f2c95c9">geoAltitudeAccuracy</a>;</div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>- (void) setGeoBearing:(<span class="keywordtype">float</span>)bearing;</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a06d5b0ed525704c6996e185e1e68af3a">geoBearing</a>;</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span> </div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>- (void) setGeoSpeed:(<span class="keywordtype">float</span>)speed;</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a3a203e19c32d051153ebb4b50bcfbfe3">geoSpeed</a>;</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>- (void) setGeoTimestamp:(NSNumber *)timestamp;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>- (NSNumber *)<a class="code hl_function" href="interface_s_p_subject.html#a1c2dec346ffb9b1dcfe9045ac81b2585">geoTimestamp</a>;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span><span class="keyword">@end</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span> </div>
 <div class="ttc" id="ainclude_2_s_p_configuration_state_8h_html_a32ea5063c2a974a383315bcdf5029ae4"><div class="ttname"><a href="include_2_s_p_configuration_state_8h.html#a32ea5063c2a974a383315bcdf5029ae4">NS_SWIFT_NAME</a></div><div class="ttdeci">NS_SWIFT_NAME(ConfigurationState)</div></div>
 <div class="ttc" id="ainterface_s_p_payload_html"><div class="ttname"><a href="interface_s_p_payload.html">SPPayload</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_payload_8h_source.html#l00025">SPPayload.h:26</a></div></div>
 <div class="ttc" id="ainterface_s_p_size_html"><div class="ttname"><a href="interface_s_p_size.html">SPSize</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_subject_configuration_8h_source.html#l00028">SPSubjectConfiguration.h:28</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_configuration_html"><div class="ttname"><a href="interface_s_p_subject_configuration.html">SPSubjectConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_subject_configuration_8h_source.html#l00141">SPSubjectConfiguration.h:141</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html"><div class="ttname"><a href="interface_s_p_subject.html">SPSubject</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00032">SPSubject.h:33</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a06d5b0ed525704c6996e185e1e68af3a"><div class="ttname"><a href="interface_s_p_subject.html#a06d5b0ed525704c6996e185e1e68af3a">-[SPSubject geoBearing]</a></div><div class="ttdeci">NSNumber * geoBearing()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:248</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a06d5b0ed525704c6996e185e1e68af3a"><div class="ttname"><a href="interface_s_p_subject.html#a06d5b0ed525704c6996e185e1e68af3a">-[SPSubject geoBearing]</a></div><div class="ttdeci">NSNumber * geoBearing()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:256</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a16b5f08f316920cc2cb6cd8527a81041"><div class="ttname"><a href="interface_s_p_subject.html#a16b5f08f316920cc2cb6cd8527a81041">SPSubject::language</a></div><div class="ttdeci">NSString * language</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00043">SPSubject.h:43</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a1c2dec346ffb9b1dcfe9045ac81b2585"><div class="ttname"><a href="interface_s_p_subject.html#a1c2dec346ffb9b1dcfe9045ac81b2585">-[SPSubject geoTimestamp]</a></div><div class="ttdeci">NSNumber * geoTimestamp()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:264</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a1c2dec346ffb9b1dcfe9045ac81b2585"><div class="ttname"><a href="interface_s_p_subject.html#a1c2dec346ffb9b1dcfe9045ac81b2585">-[SPSubject geoTimestamp]</a></div><div class="ttdeci">NSNumber * geoTimestamp()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:272</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a25211835b4b5dff492e975e6231df626"><div class="ttname"><a href="interface_s_p_subject.html#a25211835b4b5dff492e975e6231df626">SPSubject::userId</a></div><div class="ttdeci">NSString * userId</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00037">SPSubject.h:37</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a2c11a1c3f33271e978dc7a7cf79cad53"><div class="ttname"><a href="interface_s_p_subject.html#a2c11a1c3f33271e978dc7a7cf79cad53">SPSubject::screenViewPort</a></div><div class="ttdeci">SPSize * screenViewPort</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00045">SPSubject.h:45</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a3088f6f53485cd664c25a2501d02b0e3"><div class="ttname"><a href="interface_s_p_subject.html#a3088f6f53485cd664c25a2501d02b0e3">-[SPSubject getStandardDict]</a></div><div class="ttdeci">SPPayload * getStandardDict()</div><div class="ttdoc">Gets all standard dictionary pairs to decorate the event with.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:108</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a3a203e19c32d051153ebb4b50bcfbfe3"><div class="ttname"><a href="interface_s_p_subject.html#a3a203e19c32d051153ebb4b50bcfbfe3">-[SPSubject geoSpeed]</a></div><div class="ttdeci">NSNumber * geoSpeed()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:256</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a3a203e19c32d051153ebb4b50bcfbfe3"><div class="ttname"><a href="interface_s_p_subject.html#a3a203e19c32d051153ebb4b50bcfbfe3">-[SPSubject geoSpeed]</a></div><div class="ttdeci">NSNumber * geoSpeed()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:264</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a4213bb26f5207ee3f402fe463badc691"><div class="ttname"><a href="interface_s_p_subject.html#a4213bb26f5207ee3f402fe463badc691">-[SPSubject init]</a></div><div class="ttdeci">id init()</div><div class="ttdoc">Initializes a newly allocated SPSubject object.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:39</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a491fee5d3ac81bb3434d88c46cd24bff"><div class="ttname"><a href="interface_s_p_subject.html#a491fee5d3ac81bb3434d88c46cd24bff">-[SPSubject geoLatitudeLongitudeAccuracy]</a></div><div class="ttdeci">NSNumber * geoLatitudeLongitudeAccuracy()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:224</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a53cf1059d843c34bd6986af9a93c12d1"><div class="ttname"><a href="interface_s_p_subject.html#a53cf1059d843c34bd6986af9a93c12d1">-[SPSubject setGeoDict]</a></div><div class="ttdeci">void setGeoDict()</div><div class="ttdoc">Optional geolocation context, if run will allocate memory for the geolocation context.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:200</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a491fee5d3ac81bb3434d88c46cd24bff"><div class="ttname"><a href="interface_s_p_subject.html#a491fee5d3ac81bb3434d88c46cd24bff">-[SPSubject geoLatitudeLongitudeAccuracy]</a></div><div class="ttdeci">NSNumber * geoLatitudeLongitudeAccuracy()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:232</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a53cf1059d843c34bd6986af9a93c12d1"><div class="ttname"><a href="interface_s_p_subject.html#a53cf1059d843c34bd6986af9a93c12d1">-[SPSubject setGeoDict]</a></div><div class="ttdeci">void setGeoDict()</div><div class="ttdoc">Optional geolocation context, if run will allocate memory for the geolocation context.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:208</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a6379d52e90cb954cd393c6c3febd5835"><div class="ttname"><a href="interface_s_p_subject.html#a6379d52e90cb954cd393c6c3febd5835">SPSubject::geoLocationContext</a></div><div class="ttdeci">BOOL geoLocationContext</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00035">SPSubject.h:35</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a6bd5202c1d3f1306e3ffd35fa88338ee"><div class="ttname"><a href="interface_s_p_subject.html#a6bd5202c1d3f1306e3ffd35fa88338ee">SPSubject::useragent</a></div><div class="ttdeci">NSString * useragent</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00040">SPSubject.h:40</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a6ff8d54ed03896827357361c6f2c95c9"><div class="ttname"><a href="interface_s_p_subject.html#a6ff8d54ed03896827357361c6f2c95c9">-[SPSubject geoAltitudeAccuracy]</a></div><div class="ttdeci">NSNumber * geoAltitudeAccuracy()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:240</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a768b21e9f851fb197615d1584d2a377c"><div class="ttname"><a href="interface_s_p_subject.html#a768b21e9f851fb197615d1584d2a377c">-[SPSubject getGeoLocationDict]</a></div><div class="ttdeci">NSDictionary * getGeoLocationDict()</div><div class="ttdoc">Gets the geolocation dictionary if the required keys are available. Returns nil if not enabled.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:120</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_a794f8f3fee2db271dd5aa98b3cd2c7cd"><div class="ttname"><a href="interface_s_p_subject.html#a794f8f3fee2db271dd5aa98b3cd2c7cd">-[SPSubject setStandardDict]</a></div><div class="ttdeci">void setStandardDict()</div><div class="ttdoc">Sets the standard pairs for the Subject, called automatically on object creation.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:135</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a6ff8d54ed03896827357361c6f2c95c9"><div class="ttname"><a href="interface_s_p_subject.html#a6ff8d54ed03896827357361c6f2c95c9">-[SPSubject geoAltitudeAccuracy]</a></div><div class="ttdeci">NSNumber * geoAltitudeAccuracy()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:248</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a768b21e9f851fb197615d1584d2a377c"><div class="ttname"><a href="interface_s_p_subject.html#a768b21e9f851fb197615d1584d2a377c">-[SPSubject getGeoLocationDict]</a></div><div class="ttdeci">NSDictionary * getGeoLocationDict()</div><div class="ttdoc">Gets the geolocation dictionary if the required keys are available. Returns nil if not enabled.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:128</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_a794f8f3fee2db271dd5aa98b3cd2c7cd"><div class="ttname"><a href="interface_s_p_subject.html#a794f8f3fee2db271dd5aa98b3cd2c7cd">-[SPSubject setStandardDict]</a></div><div class="ttdeci">void setStandardDict()</div><div class="ttdoc">Sets the standard pairs for the Subject, called automatically on object creation.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:143</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a864eef85e11d3b306776aa9495bb951b"><div class="ttname"><a href="interface_s_p_subject.html#a864eef85e11d3b306776aa9495bb951b">SPSubject::timezone</a></div><div class="ttdeci">NSString * timezone</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00042">SPSubject.h:42</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_a97b558f2f50f52ef875e60f0662498b0"><div class="ttname"><a href="interface_s_p_subject.html#a97b558f2f50f52ef875e60f0662498b0">SPSubject::networkUserId</a></div><div class="ttdeci">NSString * networkUserId</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00038">SPSubject.h:38</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_aa523896c8e0c83b81a06ff310983f18b"><div class="ttname"><a href="interface_s_p_subject.html#aa523896c8e0c83b81a06ff310983f18b">SPSubject::colorDepth</a></div><div class="ttdeci">NSInteger colorDepth</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00046">SPSubject.h:46</a></div></div>
@@ -202,9 +201,9 @@ $(function() {
 <div class="ttc" id="ainterface_s_p_subject_html_aac4981818b95f50d2a838fdb76a34f9f"><div class="ttname"><a href="interface_s_p_subject.html#aac4981818b95f50d2a838fdb76a34f9f">SPSubject::platformContext</a></div><div class="ttdeci">BOOL platformContext</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00034">SPSubject.h:34</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_ab462cfb8062bd3f3df27bcc3238eba7a"><div class="ttname"><a href="interface_s_p_subject.html#ab462cfb8062bd3f3df27bcc3238eba7a">SPSubject::ipAddress</a></div><div class="ttdeci">NSString * ipAddress</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00041">SPSubject.h:41</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html_abfa32fbe03c80ec93124f47340ec5786"><div class="ttname"><a href="interface_s_p_subject.html#abfa32fbe03c80ec93124f47340ec5786">SPSubject::screenResolution</a></div><div class="ttdeci">SPSize * screenResolution</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00044">SPSubject.h:44</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_acf4d1812e005130e0e87f9f538fb3590"><div class="ttname"><a href="interface_s_p_subject.html#acf4d1812e005130e0e87f9f538fb3590">-[SPSubject geoLatitude]</a></div><div class="ttdeci">NSNumber * geoLatitude()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:208</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_af929f8270cae46cbfc5e9a8c986e6f29"><div class="ttname"><a href="interface_s_p_subject.html#af929f8270cae46cbfc5e9a8c986e6f29">-[SPSubject geoLongitude]</a></div><div class="ttdeci">NSNumber * geoLongitude()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:216</a></div></div>
-<div class="ttc" id="ainterface_s_p_subject_html_afed435cefae79457733bb10bb4535d20"><div class="ttname"><a href="interface_s_p_subject.html#afed435cefae79457733bb10bb4535d20">-[SPSubject geoAltitude]</a></div><div class="ttdeci">NSNumber * geoAltitude()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:232</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_acf4d1812e005130e0e87f9f538fb3590"><div class="ttname"><a href="interface_s_p_subject.html#acf4d1812e005130e0e87f9f538fb3590">-[SPSubject geoLatitude]</a></div><div class="ttdeci">NSNumber * geoLatitude()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:216</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_af929f8270cae46cbfc5e9a8c986e6f29"><div class="ttname"><a href="interface_s_p_subject.html#af929f8270cae46cbfc5e9a8c986e6f29">-[SPSubject geoLongitude]</a></div><div class="ttdeci">NSNumber * geoLongitude()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:224</a></div></div>
+<div class="ttc" id="ainterface_s_p_subject_html_afed435cefae79457733bb10bb4535d20"><div class="ttname"><a href="interface_s_p_subject.html#afed435cefae79457733bb10bb4535d20">-[SPSubject geoAltitude]</a></div><div class="ttdeci">NSNumber * geoAltitude()</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8m_source.html#l00033">SPSubject.m:240</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

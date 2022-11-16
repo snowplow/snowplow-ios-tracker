@@ -40,7 +40,7 @@ var searchData=
   ['getresolution_37',['getResolution',['../interface_s_p_utilities.html#a4fa7689e8f358b7fc15e35b833b94fbf',1,'SPUtilities']]],
   ['getsendingstatus_38',['getSendingStatus',['../interface_s_p_emitter.html#aea92337f1c8c74ba3bad1557f3660337',1,'SPEmitter']]],
   ['getsessiondictwitheventid_3aeventtimestamp_3auseranonymisation_3a_39',['getSessionDictWithEventId:eventTimestamp:userAnonymisation:',['../interface_s_p_session.html#a3b896c057676ac89f60dd07dcfae4640',1,'SPSession']]],
-  ['getstandarddict_40',['getStandardDict',['../interface_s_p_subject.html#a3088f6f53485cd664c25a2501d02b0e3',1,'SPSubject']]],
+  ['getstandarddictwithuseranonymisation_3a_40',['getStandardDictWithUserAnonymisation:',['../interface_s_p_subject.html#af7074f907ef14b8fec5e1d2483bda3c4',1,'SPSubject']]],
   ['gettimestamp_41',['getTimestamp',['../interface_s_p_utilities.html#ab647eb87a22c5930fe25820e6d3ed3b7',1,'SPUtilities']]],
   ['gettimezone_42',['getTimezone',['../interface_s_p_utilities.html#a98a87af2df9d8db803b1416c267a2fe3',1,'SPUtilities']]],
   ['gettracker_43',['getTracker',['../interface_s_p_session.html#ad85d58fd2b76f297786a18a54931a136',1,'SPSession']]],

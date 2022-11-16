@@ -95,8 +95,9 @@ var searchData=
   ['isservice_92',['isService',['../interface_s_p_tracker_event.html#aa9cffc5818ba877223443d7e7b8918de',1,'SPTrackerEvent']]],
   ['isstoredonfile_93',['isStoredOnFile',['../interface_s_p_data_persistence.html#a6946143c404fd564027dc58c8a5647a2',1,'SPDataPersistence']]],
   ['issuccessful_94',['isSuccessful',['../interface_s_p_request_result.html#a62c7d9e628dcdca2a2154bb529c2e41b',1,'SPRequestResult::isSuccessful()'],['../interface_s_p_request_result.html#a62c7d9e628dcdca2a2154bb529c2e41b',1,'SPRequestResult::isSuccessful()']]],
-  ['istracking_95',['isTracking',['../protocol_s_p_tracker_controller-p.html#a1efe250a1f3dd7844cd2c08dfb7b88c2',1,'SPTrackerController-p']]],
-  ['isuuidstring_3a_96',['isUUIDString:',['../interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a',1,'SPUtilities']]],
-  ['isvalid_97',['isValid',['../interface_s_p_screen_state.html#aa29c0e93357b1d83c72352cc03e84ca8',1,'SPScreenState']]],
-  ['items_98',['items',['../interface_s_p_ecommerce.html#a804e5cff1c02df5716db4a4c7d5a2023',1,'SPEcommerce::items()'],['../category_s_p_ecommerce_07_08.html#af204fc89946a046616ebcedcdd005ca0',1,'SPEcommerce()::items()']]]
+  ['istrackerinitialized_95',['isTrackerInitialized',['../protocol_s_p_service_provider_protocol-p.html#a24c68c0e23518bf4a01ae6e8dad8c234',1,'SPServiceProviderProtocol-p']]],
+  ['istracking_96',['isTracking',['../protocol_s_p_tracker_controller-p.html#a1efe250a1f3dd7844cd2c08dfb7b88c2',1,'SPTrackerController-p']]],
+  ['isuuidstring_3a_97',['isUUIDString:',['../interface_s_p_utilities.html#afedff29058e66fca587b7a272deeec5a',1,'SPUtilities']]],
+  ['isvalid_98',['isValid',['../interface_s_p_screen_state.html#aa29c0e93357b1d83c72352cc03e84ca8',1,'SPScreenState']]],
+  ['items_99',['items',['../interface_s_p_ecommerce.html#a804e5cff1c02df5716db4a4c7d5a2023',1,'SPEcommerce::items()'],['../category_s_p_ecommerce_07_08.html#af204fc89946a046616ebcedcdd005ca0',1,'SPEcommerce()::items()']]]
 ];

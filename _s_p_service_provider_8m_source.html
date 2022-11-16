@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.1</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.1.0</span>
    </div>
   </td>
  </tr>
@@ -265,202 +265,206 @@ $(function() {
 <div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span> </div>
 <div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span><span class="comment">// MARK: - Getters</span></div>
 <div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>- (<a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad867a59a2988499afa5d746498ad782c">subject</a> {</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keywordflow">if</span> (_subject) <span class="keywordflow">return</span> _subject;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    _subject = [<span class="keyword">self</span> makeSubject];</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordflow">return</span> _subject;</div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>}</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span> </div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>- (<a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a> {</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">if</span> (_emitter) <span class="keywordflow">return</span> _emitter;</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    _emitter = [<span class="keyword">self</span> makeEmitter];</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordflow">return</span> _emitter;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>}</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span> </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>- (<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a> {</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordflow">if</span> (_tracker) <span class="keywordflow">return</span> _tracker;</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>    _tracker = [<span class="keyword">self</span> makeTracker];</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordflow">return</span> _tracker;</div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>}</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span> </div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>- (<a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#acedb91a24e14e778098e01bc1055542e">trackerController</a> {</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">if</span> (_trackerController) <span class="keywordflow">return</span> _trackerController;</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    _trackerController = [<span class="keyword">self</span> makeTrackerController];</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="keywordflow">return</span> _trackerController;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>}</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>- (<a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a242b73a799cd71f3b99104cec86b21f3">sessionController</a> {</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">if</span> (_sessionController) <span class="keywordflow">return</span> _sessionController;</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>    _sessionController = [<span class="keyword">self</span> makeSessionController];</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>    <span class="keywordflow">return</span> _sessionController;</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>}</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span> </div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>- (<a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a0e74224d7cc6fefb1a05975275599847">emitterController</a> {</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">if</span> (_emitterController) <span class="keywordflow">return</span> _emitterController;</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    _emitterController = [<span class="keyword">self</span> makeEmitterController];</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>    <span class="keywordflow">return</span> _emitterController;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>}</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>- (<a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a02b7e98a4063f155d975df4143d729a0">gdprController</a> {</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">if</span> (_gdprController) <span class="keywordflow">return</span> _gdprController;</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    _gdprController = [<span class="keyword">self</span> makeGDPRController];</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="keywordflow">return</span> _gdprController;</div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>}</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span> </div>
-<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>- (<a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a1d1caf7679d0119670140f8879a9547a">globalContextsController</a> {</div>
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordflow">if</span> (_globalContextsController) <span class="keywordflow">return</span> _globalContextsController;</div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    _globalContextsController = [<span class="keyword">self</span> makeGlobalContextsController];</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">return</span> _globalContextsController;</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>}</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span> </div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>- (<a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a07b6c3bc500beb1a376e926877ce46df">subjectController</a> {</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">if</span> (_subjectController) <span class="keywordflow">return</span> _subjectController;</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    _subjectController = [<span class="keyword">self</span> makeSubjectController];</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <span class="keywordflow">return</span> _subjectController;</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>}</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span> </div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>- (<a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a0bb195e4c3e0262c89a12b783ee5642b">networkController</a> {</div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keywordflow">if</span> (_networkController) <span class="keywordflow">return</span> _networkController;</div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>    _networkController = [<span class="keyword">self</span> makeNetworkController];</div>
-<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>    <span class="keywordflow">return</span> _networkController;</div>
-<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>}</div>
-<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
-<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span><span class="comment">// MARK: - Factories</span></div>
-<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span> </div>
-<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span><span class="preprocessor">#pragma clang diagnostic push</span></div>
-<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span><span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wdeprecated-declarations&quot;</span></div>
-<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span> </div>
-<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>- (<a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> *)makeSubject {</div>
-<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">return</span> [[<a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> alloc] initWithPlatformContext:self.trackerConfigurationUpdate.platformContext</div>
-<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>                                   geoLocationContext:self.trackerConfigurationUpdate.geoLocationContext</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>                                 subjectConfiguration:self.subjectConfigurationUpdate];</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>}</div>
-<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
-<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>- (<a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *)makeEmitter {</div>
-<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    <a class="code hl_class" href="interface_s_p_network_configuration_update.html">SPNetworkConfigurationUpdate</a> *networkConfig = <span class="keyword">self</span>.networkConfigurationUpdate;</div>
-<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>    <a class="code hl_class" href="interface_s_p_emitter_configuration_update.html">SPEmitterConfigurationUpdate</a> *emitterConfig = <span class="keyword">self</span>.emitterConfigurationUpdate;</div>
-<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    <a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a> = [<a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> <a class="code hl_function" href="interface_s_p_emitter.html#a0a7eb06fc025584e893594c01284cf81">build</a>:^(id&lt;SPEmitterBuilder&gt; builder) {</div>
-<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>        if (networkConfig.networkConnection) {</div>
-<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            [builder setNetworkConnection:networkConfig.networkConnection];</div>
-<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>        } else {</div>
-<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>            [builder setHttpMethod:networkConfig.method];</div>
-<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>            [builder setProtocol:networkConfig.protocol];</div>
-<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>            [builder setUrlEndpoint:networkConfig.endpoint];</div>
-<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        }</div>
-<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>        [builder setCustomPostPath:networkConfig.customPostPath];</div>
-<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        [builder setRequestHeaders:networkConfig.requestHeaders];</div>
-<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>        if (emitterConfig) {</div>
-<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>            [builder setEmitRange:emitterConfig.emitRange];</div>
-<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            [builder setBufferOption:emitterConfig.bufferOption];</div>
-<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>            [builder setEventStore:emitterConfig.eventStore];</div>
-<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>            [builder setByteLimitPost:emitterConfig.byteLimitPost];</div>
-<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            [builder setByteLimitGet:emitterConfig.byteLimitGet];</div>
-<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            [builder setEmitThreadPoolSize:emitterConfig.threadPoolSize];</div>
-<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            [builder setCallback:emitterConfig.requestCallback];</div>
-<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            [builder setCustomRetryForStatusCodes:emitterConfig.customRetryForStatusCodes];</div>
-<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            [builder setServerAnonymisation:emitterConfig.serverAnonymisation];</div>
-<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>        }</div>
-<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    }];</div>
-<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordflow">if</span> (emitterConfig &amp;&amp; emitterConfig.<a class="code hl_property" href="interface_s_p_emitter_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">isPaused</a>) {</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        [emitter <a class="code hl_function" href="interface_s_p_emitter.html#a926758e93bcc49fd3007292c0a490dff">pauseEmit</a>];</div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>    }</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a>;</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>}</div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span> </div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>- (<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *)makeTracker {</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a> = <span class="keyword">self</span>.emitter;</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>    <a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad867a59a2988499afa5d746498ad782c">subject</a> = <span class="keyword">self</span>.subject;</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>    <a class="code hl_class" href="interface_s_p_tracker_configuration.html">SPTrackerConfiguration</a> *trackerConfig = <span class="keyword">self</span>.trackerConfigurationUpdate;</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>    <a class="code hl_class" href="interface_s_p_session_configuration.html">SPSessionConfiguration</a> *sessionConfig = <span class="keyword">self</span>.sessionConfigurationUpdate;</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_class" href="interface_s_p_global_contexts_configuration.html">SPGlobalContextsConfiguration</a> *gcConfig = <span class="keyword">self</span>.globalContextConfiguration;</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a> = [<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> <a class="code hl_function" href="interface_s_p_tracker.html#a1518c9fe54543f549e9932182b2355cc">build</a>:^(id&lt;SPTrackerBuilder&gt; builder) {</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        [builder setTrackerNamespace:self.namespace];</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>        [builder setEmitter:emitter];</div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        [builder setSubject:subject];</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        [builder setAppId:trackerConfig.appId];</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        [builder setTrackerVersionSuffix:trackerConfig.trackerVersionSuffix];</div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        [builder setBase64Encoded:trackerConfig.base64Encoding];</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        [builder setLogLevel:trackerConfig.logLevel];</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        [builder setLoggerDelegate:trackerConfig.loggerDelegate];</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        [builder setDevicePlatform:trackerConfig.devicePlatform];</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        [builder setSessionContext:trackerConfig.sessionContext];</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        [builder setApplicationContext:trackerConfig.applicationContext];</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        [builder setDeepLinkContext:trackerConfig.deepLinkContext];</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        [builder setScreenContext:trackerConfig.screenContext];</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        [builder setAutotrackScreenViews:trackerConfig.screenViewAutotracking];</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        [builder setLifecycleEvents:trackerConfig.lifecycleAutotracking];</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        [builder setInstallEvent:trackerConfig.installAutotracking];</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        [builder setExceptionEvents:trackerConfig.exceptionAutotracking];</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        [builder setTrackerDiagnostic:trackerConfig.diagnosticAutotracking];</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        [builder setUserAnonymisation:trackerConfig.userAnonymisation];</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        if (sessionConfig) {</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            [builder setBackgroundTimeout:sessionConfig.backgroundTimeoutInSeconds];</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            [builder setForegroundTimeout:sessionConfig.foregroundTimeoutInSeconds];</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        }</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        if (gcConfig) {</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>            [builder setGlobalContextGenerators:gcConfig.contextGenerators];</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>        }</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        SPGDPRConfigurationUpdate *gdprConfig = self.gdprConfigurationUpdate;</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        if (gdprConfig.sourceConfig) {</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>            [builder setGdprContextWithBasis:gdprConfig.basisForProcessing documentId:gdprConfig.documentId documentVersion:gdprConfig.documentVersion documentDescription:gdprConfig.documentDescription];</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>- (BOOL)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a24c68c0e23518bf4a01ae6e8dad8c234">isTrackerInitialized</a> {</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keywordflow">return</span> _tracker != nil;</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>}</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span> </div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>- (<a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad867a59a2988499afa5d746498ad782c">subject</a> {</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">if</span> (_subject) <span class="keywordflow">return</span> _subject;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>    _subject = [<span class="keyword">self</span> makeSubject];</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">return</span> _subject;</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>}</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>- (<a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a> {</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>    <span class="keywordflow">if</span> (_emitter) <span class="keywordflow">return</span> _emitter;</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    _emitter = [<span class="keyword">self</span> makeEmitter];</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    <span class="keywordflow">return</span> _emitter;</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>}</div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>- (<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a> {</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">if</span> (_tracker) <span class="keywordflow">return</span> _tracker;</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    _tracker = [<span class="keyword">self</span> makeTracker];</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>    <span class="keywordflow">return</span> _tracker;</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>}</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span> </div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>- (<a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#acedb91a24e14e778098e01bc1055542e">trackerController</a> {</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordflow">if</span> (_trackerController) <span class="keywordflow">return</span> _trackerController;</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>    _trackerController = [<span class="keyword">self</span> makeTrackerController];</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    <span class="keywordflow">return</span> _trackerController;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>}</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>- (<a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a242b73a799cd71f3b99104cec86b21f3">sessionController</a> {</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordflow">if</span> (_sessionController) <span class="keywordflow">return</span> _sessionController;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    _sessionController = [<span class="keyword">self</span> makeSessionController];</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>    <span class="keywordflow">return</span> _sessionController;</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>}</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span> </div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>- (<a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a0e74224d7cc6fefb1a05975275599847">emitterController</a> {</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    <span class="keywordflow">if</span> (_emitterController) <span class="keywordflow">return</span> _emitterController;</div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    _emitterController = [<span class="keyword">self</span> makeEmitterController];</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="keywordflow">return</span> _emitterController;</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>}</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>- (<a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a02b7e98a4063f155d975df4143d729a0">gdprController</a> {</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keywordflow">if</span> (_gdprController) <span class="keywordflow">return</span> _gdprController;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    _gdprController = [<span class="keyword">self</span> makeGDPRController];</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keywordflow">return</span> _gdprController;</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>}</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span> </div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>- (<a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a1d1caf7679d0119670140f8879a9547a">globalContextsController</a> {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>    <span class="keywordflow">if</span> (_globalContextsController) <span class="keywordflow">return</span> _globalContextsController;</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>    _globalContextsController = [<span class="keyword">self</span> makeGlobalContextsController];</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="keywordflow">return</span> _globalContextsController;</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>}</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span> </div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>- (<a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a07b6c3bc500beb1a376e926877ce46df">subjectController</a> {</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    <span class="keywordflow">if</span> (_subjectController) <span class="keywordflow">return</span> _subjectController;</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    _subjectController = [<span class="keyword">self</span> makeSubjectController];</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keywordflow">return</span> _subjectController;</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>}</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span> </div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>- (<a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> *)<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a0bb195e4c3e0262c89a12b783ee5642b">networkController</a> {</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    <span class="keywordflow">if</span> (_networkController) <span class="keywordflow">return</span> _networkController;</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    _networkController = [<span class="keyword">self</span> makeNetworkController];</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">return</span> _networkController;</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>}</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span><span class="comment">// MARK: - Factories</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span> </div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span><span class="preprocessor">#pragma clang diagnostic push</span></div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span><span class="preprocessor">#pragma clang diagnostic ignored &quot;-Wdeprecated-declarations&quot;</span></div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span> </div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>- (<a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> *)makeSubject {</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>    <span class="keywordflow">return</span> [[<a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> alloc] initWithPlatformContext:self.trackerConfigurationUpdate.platformContext</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>                                   geoLocationContext:self.trackerConfigurationUpdate.geoLocationContext</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>                                 subjectConfiguration:self.subjectConfigurationUpdate];</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>}</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span> </div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>- (<a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *)makeEmitter {</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>    <a class="code hl_class" href="interface_s_p_network_configuration_update.html">SPNetworkConfigurationUpdate</a> *networkConfig = <span class="keyword">self</span>.networkConfigurationUpdate;</div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>    <a class="code hl_class" href="interface_s_p_emitter_configuration_update.html">SPEmitterConfigurationUpdate</a> *emitterConfig = <span class="keyword">self</span>.emitterConfigurationUpdate;</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>    <a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a> = [<a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> <a class="code hl_function" href="interface_s_p_emitter.html#a0a7eb06fc025584e893594c01284cf81">build</a>:^(id&lt;SPEmitterBuilder&gt; builder) {</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>        if (networkConfig.networkConnection) {</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>            [builder setNetworkConnection:networkConfig.networkConnection];</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span>        } else {</div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            [builder setHttpMethod:networkConfig.method];</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>            [builder setProtocol:networkConfig.protocol];</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span>            [builder setUrlEndpoint:networkConfig.endpoint];</div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        }</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>        [builder setCustomPostPath:networkConfig.customPostPath];</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span>        [builder setRequestHeaders:networkConfig.requestHeaders];</div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        if (emitterConfig) {</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            [builder setEmitRange:emitterConfig.emitRange];</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>            [builder setBufferOption:emitterConfig.bufferOption];</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>            [builder setEventStore:emitterConfig.eventStore];</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span>            [builder setByteLimitPost:emitterConfig.byteLimitPost];</div>
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno">  290</span>            [builder setByteLimitGet:emitterConfig.byteLimitGet];</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            [builder setEmitThreadPoolSize:emitterConfig.threadPoolSize];</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>            [builder setCallback:emitterConfig.requestCallback];</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>            [builder setCustomRetryForStatusCodes:emitterConfig.customRetryForStatusCodes];</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>            [builder setServerAnonymisation:emitterConfig.serverAnonymisation];</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        }</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>    }];</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>    <span class="keywordflow">if</span> (emitterConfig &amp;&amp; emitterConfig.<a class="code hl_property" href="interface_s_p_emitter_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">isPaused</a>) {</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        [emitter <a class="code hl_function" href="interface_s_p_emitter.html#a926758e93bcc49fd3007292c0a490dff">pauseEmit</a>];</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    }</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a>;</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>}</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>- (<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *)makeTracker {</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>    <a class="code hl_class" href="interface_s_p_emitter.html">SPEmitter</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">emitter</a> = <span class="keyword">self</span>.emitter;</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <a class="code hl_class" href="interface_s_p_subject.html">SPSubject</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ad867a59a2988499afa5d746498ad782c">subject</a> = <span class="keyword">self</span>.subject;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <a class="code hl_class" href="interface_s_p_tracker_configuration.html">SPTrackerConfiguration</a> *trackerConfig = <span class="keyword">self</span>.trackerConfigurationUpdate;</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    <a class="code hl_class" href="interface_s_p_session_configuration.html">SPSessionConfiguration</a> *sessionConfig = <span class="keyword">self</span>.sessionConfigurationUpdate;</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>    <a class="code hl_class" href="interface_s_p_global_contexts_configuration.html">SPGlobalContextsConfiguration</a> *gcConfig = <span class="keyword">self</span>.globalContextConfiguration;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>    <a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> *<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a> = [<a class="code hl_class" href="interface_s_p_tracker.html">SPTracker</a> <a class="code hl_function" href="interface_s_p_tracker.html#a1518c9fe54543f549e9932182b2355cc">build</a>:^(id&lt;SPTrackerBuilder&gt; builder) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        [builder setTrackerNamespace:self.namespace];</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        [builder setEmitter:emitter];</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>        [builder setSubject:subject];</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>        [builder setAppId:trackerConfig.appId];</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>        [builder setTrackerVersionSuffix:trackerConfig.trackerVersionSuffix];</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>        [builder setBase64Encoded:trackerConfig.base64Encoding];</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>        [builder setLogLevel:trackerConfig.logLevel];</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>        [builder setLoggerDelegate:trackerConfig.loggerDelegate];</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>        [builder setDevicePlatform:trackerConfig.devicePlatform];</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        [builder setSessionContext:trackerConfig.sessionContext];</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        [builder setApplicationContext:trackerConfig.applicationContext];</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        [builder setDeepLinkContext:trackerConfig.deepLinkContext];</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        [builder setScreenContext:trackerConfig.screenContext];</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        [builder setAutotrackScreenViews:trackerConfig.screenViewAutotracking];</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        [builder setLifecycleEvents:trackerConfig.lifecycleAutotracking];</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        [builder setInstallEvent:trackerConfig.installAutotracking];</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        [builder setExceptionEvents:trackerConfig.exceptionAutotracking];</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        [builder setTrackerDiagnostic:trackerConfig.diagnosticAutotracking];</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        [builder setUserAnonymisation:trackerConfig.userAnonymisation];</div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>        if (sessionConfig) {</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>            [builder setBackgroundTimeout:sessionConfig.backgroundTimeoutInSeconds];</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>            [builder setForegroundTimeout:sessionConfig.foregroundTimeoutInSeconds];</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        }</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>        if (gcConfig) {</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>            [builder setGlobalContextGenerators:gcConfig.contextGenerators];</div>
 <div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        }</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>    }];</div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ae7ed3f38d28570a0f0da9bd0ba46db7b">trackerConfigurationUpdate</a>.<a class="code hl_property" href="interface_s_p_tracker_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">isPaused</a>) {</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>        [tracker <a class="code hl_function" href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">pauseEventTracking</a>];</div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>    }</div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a>.<a class="code hl_property" href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">session</a>) {</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>        <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a545a16595784f6ac8e0b4205c1e6130d">sessionConfigurationUpdate</a>.<a class="code hl_property" href="interface_s_p_session_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">isPaused</a>) {</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>            [tracker.session stopChecker];</div>
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>        }</div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>        <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a545a16595784f6ac8e0b4205c1e6130d">sessionConfigurationUpdate</a>.<a class="code hl_property" href="protocol_s_p_session_configuration_protocol-p.html#a600335216117c7338a5c9f6c799c01b9">onSessionStateUpdate</a>) {</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            <a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a>.<a class="code hl_property" href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">session</a>.<a class="code hl_property" href="interface_s_p_session.html#a600335216117c7338a5c9f6c799c01b9">onSessionStateUpdate</a> = <span class="keyword">self</span>.sessionConfigurationUpdate.onSessionStateUpdate;</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>        }</div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    }</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a>;</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>}</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>- (<a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> *)makeTrackerController {</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> alloc] initWithServiceProvider:self];</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>    <span class="keywordflow">return</span> controller;</div>
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>}</div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span> </div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>- (<a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> *)makeSessionController {</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> alloc] initWithServiceProvider:self];</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    <span class="keywordflow">return</span> controller;</div>
-<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>}</div>
-<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>- (<a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> *)makeEmitterController {</div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> alloc] initWithServiceProvider:self];</div>
-<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>    <span class="keywordflow">return</span> controller;</div>
-<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span>}</div>
-<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span> </div>
-<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>- (<a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> *)makeGDPRController {</div>
-<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> alloc] initWithServiceProvider:self];</div>
-<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    <a class="code hl_class" href="interface_s_p_gdpr_context.html">SPGdprContext</a> *gdpr = <span class="keyword">self</span>.tracker.gdprContext;</div>
-<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    <span class="keywordflow">if</span> (gdpr) {</div>
-<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>        [controller <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">resetWithBasis</a>:gdpr.basis <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">documentId</a>:gdpr.documentId <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">documentVersion</a>:gdpr.documentVersion <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">documentDescription</a>:gdpr.documentDescription];</div>
-<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    }</div>
-<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="keywordflow">return</span> controller;</div>
-<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>}</div>
-<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
-<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>- (<a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> *)makeGlobalContextsController {</div>
-<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> alloc] initWithServiceProvider:self];</div>
-<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    <span class="keywordflow">return</span> controller;</div>
-<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>}</div>
-<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span> </div>
-<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>- (<a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> *)makeSubjectController {</div>
-<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> alloc] initWithServiceProvider:self];</div>
-<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>    <span class="keywordflow">return</span> controller;</div>
-<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span>}</div>
-<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span> </div>
-<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>- (<a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> *)makeNetworkController {</div>
-<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> alloc] initWithServiceProvider:self];</div>
-<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>    <span class="keywordflow">return</span> controller;</div>
-<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span>}</div>
-<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span> </div>
-<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span><span class="preprocessor">#pragma clang diagnostic pop</span></div>
-<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span> </div>
-<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span><span class="keyword">@end</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        SPGDPRConfigurationUpdate *gdprConfig = self.gdprConfigurationUpdate;</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>        if (gdprConfig.sourceConfig) {</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>            [builder setGdprContextWithBasis:gdprConfig.basisForProcessing documentId:gdprConfig.documentId documentVersion:gdprConfig.documentVersion documentDescription:gdprConfig.documentDescription];</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>        }</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    }];</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>    <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#ae7ed3f38d28570a0f0da9bd0ba46db7b">trackerConfigurationUpdate</a>.<a class="code hl_property" href="interface_s_p_tracker_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">isPaused</a>) {</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>        [tracker <a class="code hl_function" href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">pauseEventTracking</a>];</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>    }</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span>    <span class="keywordflow">if</span> (<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a>.<a class="code hl_property" href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">session</a>) {</div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>        <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a545a16595784f6ac8e0b4205c1e6130d">sessionConfigurationUpdate</a>.<a class="code hl_property" href="interface_s_p_session_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">isPaused</a>) {</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>            [tracker.session stopChecker];</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>        }</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>        <span class="keywordflow">if</span> (<span class="keyword">self</span>.<a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#a545a16595784f6ac8e0b4205c1e6130d">sessionConfigurationUpdate</a>.<a class="code hl_property" href="protocol_s_p_session_configuration_protocol-p.html#a600335216117c7338a5c9f6c799c01b9">onSessionStateUpdate</a>) {</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>            <a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a>.<a class="code hl_property" href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">session</a>.<a class="code hl_property" href="interface_s_p_session.html#a600335216117c7338a5c9f6c799c01b9">onSessionStateUpdate</a> = <span class="keyword">self</span>.sessionConfigurationUpdate.onSessionStateUpdate;</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>        }</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    }</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="protocol_s_p_service_provider_protocol-p.html#af7d853f87d44cc29cdd6aece1b0ebff9">tracker</a>;</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>}</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span> </div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>- (<a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> *)makeTrackerController {</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    <a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a> alloc] initWithServiceProvider:self];</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keywordflow">return</span> controller;</div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>}</div>
+<div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
+<div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>- (<a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> *)makeSessionController {</div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_session_controller_impl.html">SPSessionControllerImpl</a> alloc] initWithServiceProvider:self];</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>    <span class="keywordflow">return</span> controller;</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span>}</div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span> </div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>- (<a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> *)makeEmitterController {</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    <a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_emitter_controller_impl.html">SPEmitterControllerImpl</a> alloc] initWithServiceProvider:self];</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>    <span class="keywordflow">return</span> controller;</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>}</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span> </div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>- (<a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> *)makeGDPRController {</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>    <a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_g_d_p_r_controller_impl.html">SPGDPRControllerImpl</a> alloc] initWithServiceProvider:self];</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <a class="code hl_class" href="interface_s_p_gdpr_context.html">SPGdprContext</a> *gdpr = <span class="keyword">self</span>.tracker.gdprContext;</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>    <span class="keywordflow">if</span> (gdpr) {</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>        [controller <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">resetWithBasis</a>:gdpr.basis <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">documentId</a>:gdpr.documentId <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">documentVersion</a>:gdpr.documentVersion <a class="code hl_function" href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">documentDescription</a>:gdpr.documentDescription];</div>
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno">  375</span>    }</div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span>    <span class="keywordflow">return</span> controller;</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>}</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span> </div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>- (<a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> *)makeGlobalContextsController {</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span>    <a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_global_contexts_controller_impl.html">SPGlobalContextsControllerImpl</a> alloc] initWithServiceProvider:self];</div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span>    <span class="keywordflow">return</span> controller;</div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>}</div>
+<div class="line"><a id="l00383" name="l00383"></a><span class="lineno">  383</span> </div>
+<div class="line"><a id="l00384" name="l00384"></a><span class="lineno">  384</span>- (<a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> *)makeSubjectController {</div>
+<div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span>    <a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a> alloc] initWithServiceProvider:self];</div>
+<div class="line"><a id="l00386" name="l00386"></a><span class="lineno">  386</span>    <span class="keywordflow">return</span> controller;</div>
+<div class="line"><a id="l00387" name="l00387"></a><span class="lineno">  387</span>}</div>
+<div class="line"><a id="l00388" name="l00388"></a><span class="lineno">  388</span> </div>
+<div class="line"><a id="l00389" name="l00389"></a><span class="lineno">  389</span>- (<a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> *)makeNetworkController {</div>
+<div class="line"><a id="l00390" name="l00390"></a><span class="lineno">  390</span>    <a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> *controller = [[<a class="code hl_class" href="interface_s_p_network_controller_impl.html">SPNetworkControllerImpl</a> alloc] initWithServiceProvider:self];</div>
+<div class="line"><a id="l00391" name="l00391"></a><span class="lineno">  391</span>    <span class="keywordflow">return</span> controller;</div>
+<div class="line"><a id="l00392" name="l00392"></a><span class="lineno">  392</span>}</div>
+<div class="line"><a id="l00393" name="l00393"></a><span class="lineno">  393</span> </div>
+<div class="line"><a id="l00394" name="l00394"></a><span class="lineno">  394</span><span class="preprocessor">#pragma clang diagnostic pop</span></div>
+<div class="line"><a id="l00395" name="l00395"></a><span class="lineno">  395</span> </div>
+<div class="line"><a id="l00396" name="l00396"></a><span class="lineno">  396</span><span class="keyword">@end</span></div>
 <div class="ttc" id="a_s_p_emitter_8h_html"><div class="ttname"><a href="_s_p_emitter_8h.html">SPEmitter.h</a></div></div>
 <div class="ttc" id="a_s_p_emitter_configuration_update_8h_html"><div class="ttname"><a href="_s_p_emitter_configuration_update_8h.html">SPEmitterConfigurationUpdate.h</a></div></div>
 <div class="ttc" id="a_s_p_emitter_controller_impl_8h_html"><div class="ttname"><a href="_s_p_emitter_controller_impl_8h.html">SPEmitterControllerImpl.h</a></div></div>
@@ -509,15 +513,15 @@ $(function() {
 <div class="ttc" id="ainterface_s_p_subject_configuration_update_html"><div class="ttname"><a href="interface_s_p_subject_configuration_update.html">SPSubjectConfigurationUpdate</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_configuration_update_8h_source.html#l00026">SPSubjectConfigurationUpdate.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_controller_impl_html"><div class="ttname"><a href="interface_s_p_subject_controller_impl.html">SPSubjectControllerImpl</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_controller_impl_8h_source.html#l00028">SPSubjectControllerImpl.h:28</a></div></div>
 <div class="ttc" id="ainterface_s_p_subject_html"><div class="ttname"><a href="interface_s_p_subject.html">SPSubject</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_subject_8h_source.html#l00032">SPSubject.h:33</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_configuration_html"><div class="ttname"><a href="interface_s_p_tracker_configuration.html">SPTrackerConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00117">SPTrackerConfiguration.h:117</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_configuration_html"><div class="ttname"><a href="interface_s_p_tracker_configuration.html">SPTrackerConfiguration</a></div><div class="ttdef"><b>Definition:</b> <a href="include_2_s_p_tracker_configuration_8h_source.html#l00118">SPTrackerConfiguration.h:118</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_configuration_update_html"><div class="ttname"><a href="interface_s_p_tracker_configuration_update.html">SPTrackerConfigurationUpdate</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_configuration_update_8h_source.html#l00026">SPTrackerConfigurationUpdate.h:27</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_configuration_update_html_a1e224414aaf8842bc20cd8916f590c43"><div class="ttname"><a href="interface_s_p_tracker_configuration_update.html#a1e224414aaf8842bc20cd8916f590c43">SPTrackerConfigurationUpdate::sourceConfig</a></div><div class="ttdeci">SPTrackerConfiguration * sourceConfig</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_configuration_update_8h_source.html#l00028">SPTrackerConfigurationUpdate.h:28</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_configuration_update_html_a59ca224bcac696f83266fa5f3b99fb64"><div class="ttname"><a href="interface_s_p_tracker_configuration_update.html#a59ca224bcac696f83266fa5f3b99fb64">SPTrackerConfigurationUpdate::isPaused</a></div><div class="ttdeci">BOOL isPaused</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_configuration_update_8h_source.html#l00030">SPTrackerConfigurationUpdate.h:30</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_controller_impl_html"><div class="ttname"><a href="interface_s_p_tracker_controller_impl.html">SPTrackerControllerImpl</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_controller_impl_8h_source.html#l00029">SPTrackerControllerImpl.h:29</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_html"><div class="ttname"><a href="interface_s_p_tracker.html">SPTracker</a></div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00227">SPTracker.h:227</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html_a1518c9fe54543f549e9932182b2355cc"><div class="ttname"><a href="interface_s_p_tracker.html#a1518c9fe54543f549e9932182b2355cc">+[SPTracker build:]</a></div><div class="ttdeci">instancetype build:(void(^ buildBlock)(id&lt; SPTrackerBuilder &gt;builder))</div><div class="ttdoc">Method that allows for builder pattern in creating the tracker.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00123">SPTracker.m:166</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html_a1518c9fe54543f549e9932182b2355cc"><div class="ttname"><a href="interface_s_p_tracker.html#a1518c9fe54543f549e9932182b2355cc">+[SPTracker build:]</a></div><div class="ttdeci">instancetype build:(void(^ buildBlock)(id&lt; SPTrackerBuilder &gt;builder))</div><div class="ttdoc">Method that allows for builder pattern in creating the tracker.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00124">SPTracker.m:167</a></div></div>
 <div class="ttc" id="ainterface_s_p_tracker_html_a20935b7ed4e202ab3bebb808712d0899"><div class="ttname"><a href="interface_s_p_tracker.html#a20935b7ed4e202ab3bebb808712d0899">SPTracker::session</a></div><div class="ttdeci">SPSession * session</div><div class="ttdoc">The object used for sessionization, i.e. it characterizes user activity.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8h_source.html#l00234">SPTracker.h:234</a></div></div>
-<div class="ttc" id="ainterface_s_p_tracker_html_a438132304bb8705edbb9a89512f81125"><div class="ttname"><a href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">-[SPTracker pauseEventTracking]</a></div><div class="ttdeci">void pauseEventTracking()</div><div class="ttdoc">Pauses all event tracking, storage and session checking.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00123">SPTracker.m:461</a></div></div>
+<div class="ttc" id="ainterface_s_p_tracker_html_a438132304bb8705edbb9a89512f81125"><div class="ttname"><a href="interface_s_p_tracker.html#a438132304bb8705edbb9a89512f81125">-[SPTracker pauseEventTracking]</a></div><div class="ttdeci">void pauseEventTracking()</div><div class="ttdoc">Pauses all event tracking, storage and session checking.</div><div class="ttdef"><b>Definition:</b> <a href="_s_p_tracker_8m_source.html#l00124">SPTracker.m:467</a></div></div>
 <div class="ttc" id="aprotocol_s_p_g_d_p_r_controller-p_html_ae20d1f9f0286b4ece7d416ee73aab6d4"><div class="ttname"><a href="protocol_s_p_g_d_p_r_controller-p.html#ae20d1f9f0286b4ece7d416ee73aab6d4">-[SPGDPRController-p resetWithBasis:documentId:documentVersion:documentDescription:]</a></div><div class="ttdeci">void resetWithBasis:documentId:documentVersion:documentDescription:(SPGdprProcessingBasis basisForProcessing,[documentId] nullable NSString *documentId,[documentVersion] nullable NSString *documentVersion,[documentDescription] reset(basis:documentId:documentVersion:documentDescription:) NS_SWIFT_NAME)</div></div>
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_a00b663d0be3ae4f7910db97b338df67e"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#a00b663d0be3ae4f7910db97b338df67e">-[SPServiceProviderProtocol-p emitterConfigurationUpdate]</a></div><div class="ttdeci">SPEmitterConfigurationUpdate * emitterConfigurationUpdate()</div></div>
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_a02b7e98a4063f155d975df4143d729a0"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#a02b7e98a4063f155d975df4143d729a0">-[SPServiceProviderProtocol-p gdprController]</a></div><div class="ttdeci">SPGDPRControllerImpl * gdprController()</div></div>
@@ -529,6 +533,7 @@ $(function() {
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_a21bb4d321cf3edd7f428afbc250a9ae8"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#a21bb4d321cf3edd7f428afbc250a9ae8">-[SPServiceProviderProtocol-p subjectConfigurationUpdate]</a></div><div class="ttdeci">SPSubjectConfigurationUpdate * subjectConfigurationUpdate()</div></div>
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_a21d6ac5d50f17db134334a390edf0257"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#a21d6ac5d50f17db134334a390edf0257">-[SPServiceProviderProtocol-p gdprConfigurationUpdate]</a></div><div class="ttdeci">SPGDPRConfigurationUpdate * gdprConfigurationUpdate()</div></div>
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_a242b73a799cd71f3b99104cec86b21f3"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#a242b73a799cd71f3b99104cec86b21f3">-[SPServiceProviderProtocol-p sessionController]</a></div><div class="ttdeci">SPSessionControllerImpl * sessionController()</div></div>
+<div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_a24c68c0e23518bf4a01ae6e8dad8c234"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#a24c68c0e23518bf4a01ae6e8dad8c234">-[SPServiceProviderProtocol-p isTrackerInitialized]</a></div><div class="ttdeci">BOOL isTrackerInitialized()</div></div>
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_a545a16595784f6ac8e0b4205c1e6130d"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#a545a16595784f6ac8e0b4205c1e6130d">-[SPServiceProviderProtocol-p sessionConfigurationUpdate]</a></div><div class="ttdeci">SPSessionConfigurationUpdate * sessionConfigurationUpdate()</div></div>
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_acedb91a24e14e778098e01bc1055542e"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#acedb91a24e14e778098e01bc1055542e">-[SPServiceProviderProtocol-p trackerController]</a></div><div class="ttdeci">id&lt; SPTrackerController &gt; trackerController()</div></div>
 <div class="ttc" id="aprotocol_s_p_service_provider_protocol-p_html_ad6c574118e6c752edd13ba93fd30e492"><div class="ttname"><a href="protocol_s_p_service_provider_protocol-p.html#ad6c574118e6c752edd13ba93fd30e492">-[SPServiceProviderProtocol-p emitter]</a></div><div class="ttdeci">SPEmitter * emitter()</div></div>

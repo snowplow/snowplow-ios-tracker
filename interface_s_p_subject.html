@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.1</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.1.0</span>
    </div>
   </td>
  </tr>
@@ -87,9 +87,9 @@ Instance Methods</h2></td></tr>
 <tr class="separator:a4ae51addd8adffc1db0824283e12149c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c0fd800be81e2941076440ddff419cf"><td class="memItemLeft" align="right" valign="top">(instancetype)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_subject.html#a2c0fd800be81e2941076440ddff419cf">initWithPlatformContext:geoLocationContext:subjectConfiguration:</a></td></tr>
 <tr class="separator:a2c0fd800be81e2941076440ddff419cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3088f6f53485cd664c25a2501d02b0e3"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_payload.html">SPPayload</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_subject.html#a3088f6f53485cd664c25a2501d02b0e3">getStandardDict</a></td></tr>
-<tr class="memdesc:a3088f6f53485cd664c25a2501d02b0e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all standard dictionary pairs to decorate the event with.  <a href="interface_s_p_subject.html#a3088f6f53485cd664c25a2501d02b0e3">More...</a><br /></td></tr>
-<tr class="separator:a3088f6f53485cd664c25a2501d02b0e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7074f907ef14b8fec5e1d2483bda3c4"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_payload.html">SPPayload</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_subject.html#af7074f907ef14b8fec5e1d2483bda3c4">getStandardDictWithUserAnonymisation:</a></td></tr>
+<tr class="memdesc:af7074f907ef14b8fec5e1d2483bda3c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all standard dictionary pairs to decorate the event with.  <a href="interface_s_p_subject.html#af7074f907ef14b8fec5e1d2483bda3c4">More...</a><br /></td></tr>
+<tr class="separator:af7074f907ef14b8fec5e1d2483bda3c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aed2db187d8ca77909c8edb23d5d5153c"><td class="memItemLeft" align="right" valign="top">(<a class="el" href="interface_s_p_payload.html">SPPayload</a> *)&#160;</td><td class="memItemRight" valign="bottom">- <a class="el" href="interface_s_p_subject.html#aed2db187d8ca77909c8edb23d5d5153c">getPlatformDictWithUserAnonymisation:</a></td></tr>
 <tr class="memdesc:aed2db187d8ca77909c8edb23d5d5153c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.  <a href="interface_s_p_subject.html#aed2db187d8ca77909c8edb23d5d5153c">More...</a><br /></td></tr>
 <tr class="separator:aed2db187d8ca77909c8edb23d5d5153c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -404,20 +404,27 @@ Properties</h2></td></tr>
 
 </div>
 </div>
-<a id="a3088f6f53485cd664c25a2501d02b0e3" name="a3088f6f53485cd664c25a2501d02b0e3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3088f6f53485cd664c25a2501d02b0e3">&#9670;&nbsp;</a></span>getStandardDict</h2>
+<a id="af7074f907ef14b8fec5e1d2483bda3c4" name="af7074f907ef14b8fec5e1d2483bda3c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7074f907ef14b8fec5e1d2483bda3c4">&#9670;&nbsp;</a></span>getStandardDictWithUserAnonymisation:</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">- (<a class="el" href="interface_s_p_payload.html">SPPayload</a> *) getStandardDict </td>
+          <td class="memname">- (<a class="el" href="interface_s_p_payload.html">SPPayload</a> *) getStandardDictWithUserAnonymisation: </td>
           <td></td>
-          <td class="paramname"></td>
+          <td class="paramtype">(BOOL)&#160;</td>
+          <td class="paramname"><em>userAnonymisation</em></td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">userAnonymisation</td><td>Whether to anonymise user identifiers </td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="interface_s_p_payload.html">SPPayload</a> with all standard pairs. </dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="_s_p_subject_8m_source.html#l00033">33</a> of file <a class="el" href="_s_p_subject_8m_source.html">SPSubject.m</a>.</p>

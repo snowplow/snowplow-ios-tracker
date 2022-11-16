@@ -21,7 +21,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.0.1</span>
+   <div id="projectname">Snowplow iOS Tracker<span id="projectnumber">&#160;4.1.0</span>
    </div>
   </td>
  </tr>
@@ -172,7 +172,7 @@ $(function() {
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    <a class="code hl_variable" href="_s_p_emitter_8m.html#aa1a78e5ef087a8906dc0ab24c87e58fb">_networkConnection</a> = [<a class="code hl_class" href="interface_s_p_default_network_connection.html">SPDefaultNetworkConnection</a> build:^(<span class="keywordtype">id</span>&lt;<a class="code hl_protocol" href="protocol_s_p_default_network_connection_builder-p.html">SPDefaultNetworkConnectionBuilder</a>&gt; builder) {</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        __typeof__(<span class="keyword">self</span>) strongSelf = weakSelf;</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        if (!strongSelf) return;</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        NSString *endpoint = strongSelf-&gt;<a class="code hl_variable" href="_s_p_emitter_8m.html#a27351e1d575a0d0195fc7c25cc7e2c40">_url</a>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        NSString *endpoint = strongSelf-&gt;<a class="code hl_variable" href="_s_p_emitter_8m.html#a27351e1d575a0d0195fc7c25cc7e2c40">_url</a> ? strongSelf-&gt;<a class="code hl_variable" href="_s_p_emitter_8m.html#a27351e1d575a0d0195fc7c25cc7e2c40">_url</a> : <span class="stringliteral">@&quot;&quot;</span>; <span class="comment">// use empty string in case nil to avoid crashing</span></div>
 <div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        if (![endpoint hasPrefix:<span class="stringliteral">@&quot;http&quot;</span>]) {</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            NSString *protocol = strongSelf-&gt;_protocol == SPProtocolHttps ? <span class="stringliteral">@&quot;https://&quot;</span> : <span class="stringliteral">@&quot;http://&quot;</span>;</div>
 <div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>            endpoint = [protocol stringByAppendingString:endpoint];</div>
