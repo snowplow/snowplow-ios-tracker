@@ -16,7 +16,7 @@ jobs:
     - name: Checkout demo app
       uses: actions/checkout@v2
       with:
-        repository: snowplow-incubator/snowplow-objc-tracker-examples
+        repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
         path: examples
       
     - name: Run Snyk to check for vulnerabilities in tracker
