@@ -53,11 +53,10 @@ jobs:
         run: |
           DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
           echo ::set-output name=name::${DEMO_BRANCH}
-
       - name: Checkout demo app
         uses: actions/checkout@v2
         with:
-          repository: snowplow-incubator/snowplow-objc-tracker-examples
+          repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
           path: examples
 
@@ -70,58 +69,10 @@ jobs:
         run: |
           cd examples/demo/ 
           . .scripts/setup.sh
-          .scripts/test_ios_demo.sh -app SnowplowDemo -podfile Podfile -ios "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
-
-  build_swift_carthage_demo_app:
-    name: "Swift demo (Carthage) (iOS ${{ matrix.version.ios }})"
-    needs: test_framework
-    runs-on: macos-${{ matrix.version.macos }}
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
-
-    strategy:
-      fail-fast: false
-      matrix:
-        version:
-          - {ios: '14.4', iphone: iPhone 11, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Get example branch name
-        id: example_branch
-        run: |
-          DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
-          echo ::set-output name=name::${DEMO_BRANCH}
-
-      - name: Checkout demo app
-        uses: actions/checkout@v2
-        with:
-          repository: snowplow-incubator/snowplow-objc-tracker-examples
-          ref: ${{ steps.example_branch.outputs.name }}
-          path: examples
-
-      - name: Build
-        env:
-          IOS: ${{ matrix.version.ios }}
-          WATCHOS: ${{ matrix.version.watchos }}
-          IPHONE: ${{ matrix.version.iphone }}
-          WATCH: ${{ matrix.version.watch }}
-        run: |
-          cd examples/demo/ 
-          . .scripts/setup.sh
-          .scripts/test_ios_demo.sh -app SnowplowSwiftCarthageDemo -carthage -log $GITHUB_WORKSPACE/cart.log -ios "${BUILD_PROJECT_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}"
-
-      - name: Load logs if failed
-        if: ${{ failure() }}
-        uses: actions/upload-artifact@v2
-        with: 
-          name: carthage-demo-log-${{ matrix.version.ios }}
-          path: cart.log
+          .scripts/test_ios_demo.sh -app SnowplowObjCDemo -podfile Podfile -ios "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
 
   build_swift_cocoapods_demo_app:
-    name: "Swift demo (Cocoapods ${{ matrix.podfile.type }}) (iOS ${{ matrix.version.ios }})"
+    name: "Swift demo (Cocoapods) (iOS ${{ matrix.version.ios }})"
     needs: test_framework
     runs-on: macos-${{ matrix.version.macos }}
     env:
@@ -132,10 +83,6 @@ jobs:
       matrix:
         version:
           - {ios: '14.4', iphone: iPhone 12 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
-        podfile:
-          - {file: Podfile, type: "no directive"}
-          - {file: Podfile_frameworks, type: "use_frameworks! directive"}
-          - {file: Podfile_modular_headers, type: "use_modular_headers! directive"}
 
     steps:
       - name: Checkout
@@ -146,11 +93,10 @@ jobs:
         run: |
           DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
           echo ::set-output name=name::${DEMO_BRANCH}
-
       - name: Checkout demo app
         uses: actions/checkout@v2
         with:
-          repository: snowplow-incubator/snowplow-objc-tracker-examples
+          repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
           path: examples
 
@@ -163,7 +109,7 @@ jobs:
         run: |
           cd examples/demo/ 
           . .scripts/setup.sh
-          .scripts/test_ios_demo.sh -app SnowplowSwiftCocoapodsDemo -podfile ${{matrix.podfile.file}} -ios "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" -watch "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
+          .scripts/test_ios_demo.sh -app SnowplowSwiftCocoapodsDemo -podfile Podfile -ios "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" -watch "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
 
   build_swift_spm_demo_app:
     name: "Swift demo (SPM) (iOS ${{ matrix.version.ios }})"
@@ -206,7 +152,7 @@ jobs:
       - name: Checkout demo app
         uses: actions/checkout@v2
         with:
-          repository: snowplow-incubator/snowplow-objc-tracker-examples
+          repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
           path: examples
 
