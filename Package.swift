@@ -4,6 +4,12 @@ import PackageDescription
 
 let package = Package(
     name: "SnowplowTracker",
+    platforms: [
+        .macOS("10.13"),
+        .iOS("11.0"),
+        .tvOS("11.0"),
+        .watchOS("4.0")
+    ],
     products: [
         .library(
             name: "SnowplowTracker",
@@ -16,30 +22,10 @@ let package = Package(
         .target(
             name: "SnowplowTracker",
             dependencies: ["FMDB"],
-            path: "./Snowplow",
-            publicHeadersPath: "./include",
-            cSettings: [
-                .headerSearchPath("./Internal/RemoteConfiguration"),
-                .headerSearchPath("./Internal/Configurations"),
-                .headerSearchPath("./Internal/Subject"),
-                .headerSearchPath("./Internal/GDPR"),
-                .headerSearchPath("./Internal/ScreenViewTracking"),
-                .headerSearchPath("./Internal/Session"),
-                .headerSearchPath("./Internal/Utils"),
-                .headerSearchPath("./Internal/Storage"),
-                .headerSearchPath("./Internal/NetworkConnection"),
-                .headerSearchPath("./Internal/Tracker"),
-                .headerSearchPath("./Internal/Payload"),
-                .headerSearchPath("./Internal/Logger"),
-                .headerSearchPath("./Internal/GlobalContexts"),
-                .headerSearchPath("./Internal/Emitter"),
-                .headerSearchPath("./Internal/Events"),
-                .headerSearchPath("./Internal/Entities"),
-                .headerSearchPath("./Internal"),
-            ]),
+            path: "./Sources"),
         .testTarget(
-            name: "Snowplow-iOSTests",
+            name: "Tests",
             dependencies: ["SnowplowTracker"],
-            path: "Snowplow iOSTests")
+            path: "Tests")
     ]
 )

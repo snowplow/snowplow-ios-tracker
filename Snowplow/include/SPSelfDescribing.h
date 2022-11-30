@@ -1,1 +1,0 @@
-../Internal/Events/SPSelfDescribing.h
