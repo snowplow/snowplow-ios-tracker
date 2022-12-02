@@ -19,6 +19,8 @@
 //  License: Apache License Version 2.0
 //
 
+#if os(iOS) || os(macOS)
+
 import XCTest
 @testable import SnowplowTracker
 
@@ -152,3 +154,5 @@ class TestSQLiteEventStore: XCTestCase {
         XCTAssertEqual(2, eventStore2.count())
     }
 }
+
+#endif

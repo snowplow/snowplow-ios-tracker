@@ -19,7 +19,7 @@
 //  License: Apache License Version 2.0
 //
 
-import Nocilla
+import Mocker
 import XCTest
 @testable import SnowplowTracker
 
@@ -28,21 +28,17 @@ let TEST_URL_ENDPOINT = "acme.test.url.com"
 class TestNetworkConnection: XCTestCase {
     override func setUp() {
         super.setUp()
-        if LSNocilla.sharedInstance().isStarted {
-            LSNocilla.sharedInstance().stop()
-        }
-        LSNocilla.sharedInstance().start()
+        Mocker.removeAll()
     }
 
     override func tearDown() {
         super.tearDown()
-        LSNocilla.sharedInstance().clearStubs()
-        LSNocilla.sharedInstance().stop()
     }
 
+#if !os(watchOS) // Mocker seems not to currently work on watchOS
     func testGetRequestWithSuccess() {
-        let regex = try? NSRegularExpression(pattern: "^\("https")://\(TEST_URL_ENDPOINT)/i?(.*?)")
-        _ = stubRequest("GET", regex).andReturn(200)
+        let endpoint = "https://\(TEST_URL_ENDPOINT)/i"
+        Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.get: Data()]).register()
         
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get)
 
@@ -56,10 +52,10 @@ class TestNetworkConnection: XCTestCase {
         XCTAssertTrue(result.isSuccessful)
         XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
     }
-
+    
     func testGetRequestWithNoSuccess() {
-        let regex = try? NSRegularExpression(pattern: "^\("https")://\(TEST_URL_ENDPOINT)/i?(.*?)")
-        _ = stubRequest("GET", regex).andReturn(404)
+        let endpoint = "https://\(TEST_URL_ENDPOINT)/i"
+        Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 404, data: [.get: Data()]).register()
 
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get)
         
@@ -73,10 +69,10 @@ class TestNetworkConnection: XCTestCase {
         XCTAssertFalse(result.isSuccessful)
         XCTAssertEqual(NSNumber(value: 1), (result.storeIds)?[0])
     }
-
+    
     func testPostRequestWithSuccess() {
-        let regex = try? NSRegularExpression(pattern: "^\("https")://\(TEST_URL_ENDPOINT)/i?(.*?)")
-        _ = stubRequest("POST", regex).andReturn(200)
+        let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
+        Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.post: Data()]).register()
 
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
         
@@ -90,10 +86,10 @@ class TestNetworkConnection: XCTestCase {
         XCTAssertTrue(result.isSuccessful)
         XCTAssertEqual(NSNumber(value: 1), (result.storeIds)?[0])
     }
-
+    
     func testPostRequestWithNoSuccess() {
-        let regex = try? NSRegularExpression(pattern: "^\("https")://\(TEST_URL_ENDPOINT)/i?(.*?)")
-        _ = stubRequest("POST", regex).andReturn(404)
+        let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
+        Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 404, data: [.post: Data()]).register()
 
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
 
@@ -107,7 +103,8 @@ class TestNetworkConnection: XCTestCase {
         XCTAssertFalse(result.isSuccessful)
         XCTAssertEqual(NSNumber(value: 1), (result.storeIds)?[0])
     }
-
+#endif
+    
     func testFreeEndpoint_GetHttpsUrl() {
         let connection = DefaultNetworkConnection(urlString: "acme.test.url.com", httpMethod: .post)
         XCTAssertTrue(connection.urlEndpoint!.absoluteString.hasPrefix("https://acme.test.url.com"))
@@ -128,15 +125,17 @@ class TestNetworkConnection: XCTestCase {
         XCTAssertTrue((connection.urlEndpoint?.absoluteString == "http://acme.test.url.com/i"))
     }
 
+#if !os(watchOS) // Mocker seems not to currently work on watchOS
     func testDoesntAddHeaderWithoutServerAnonymisation() {
-        let regex = try? NSRegularExpression(pattern: "^\("https")://\(TEST_URL_ENDPOINT)/i?(.*?)")
-        _ = stubRequest("POST", regex).withHeader(
-            "SP-Anonymous",
-            "*")?.andReturn(
-            500)
-        _ = stubRequest("POST", regex).andReturn(
-            200)
-
+        let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
+        var mock = Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.post: Data()])
+        let requestExpectation = expectation(description: "Checked the request")
+        mock.onRequestHandler = OnRequestHandler(requestCallback: { request in
+            XCTAssertNil(request.value(forHTTPHeaderField: "SP-Anonymous"))
+            requestExpectation.fulfill()
+        })
+        mock.register()
+        
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
         connection.serverAnonymisation = false
 
@@ -149,15 +148,19 @@ class TestNetworkConnection: XCTestCase {
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
         XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
+        wait(for: [requestExpectation], timeout: 2.0)
     }
 
     func testAddsHeaderForServerAnonymisationForPostRequest() {
-        let regex = try? NSRegularExpression(pattern: "^\("https")://\(TEST_URL_ENDPOINT)/i?(.*?)")
-        _ = stubRequest("POST", regex).withHeader(
-            "SP-Anonymous",
-            "*")?.andReturn(
-            200)
-
+        let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
+        var mock = Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.post: Data()])
+        let requestExpectation = expectation(description: "Checked the request")
+        mock.onRequestHandler = OnRequestHandler(requestCallback: { request in
+            XCTAssertEqual("*", request.value(forHTTPHeaderField: "SP-Anonymous"))
+            requestExpectation.fulfill()
+        })
+        mock.register()
+        
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
         connection.serverAnonymisation = true
 
@@ -170,15 +173,19 @@ class TestNetworkConnection: XCTestCase {
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
         XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
+        wait(for: [requestExpectation], timeout: 2.0)
     }
 
     func testAddsHeaderForServerAnonymisationForGetRequest() {
-        let regex = try? NSRegularExpression(pattern: "^\("https")://\(TEST_URL_ENDPOINT)/i?(.*?)")
-       _ = stubRequest("GET", regex).withHeader(
-            "SP-Anonymous",
-            "*")?.andReturn(
-            200)
-
+        let endpoint = "https://\(TEST_URL_ENDPOINT)/i"
+        var mock = Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.get: Data()])
+        let requestExpectation = expectation(description: "Checked the request")
+        mock.onRequestHandler = OnRequestHandler(requestCallback: { request in
+            XCTAssertEqual("*", request.value(forHTTPHeaderField: "SP-Anonymous"))
+            requestExpectation.fulfill()
+        })
+        mock.register()
+        
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get)
         connection.serverAnonymisation = true
 
@@ -191,5 +198,7 @@ class TestNetworkConnection: XCTestCase {
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
         XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
+        wait(for: [requestExpectation], timeout: 2.0)
     }
+#endif
 }

@@ -19,8 +19,8 @@
 //  License: Apache License Version 2.0
 //
 
-import Nocilla
 import XCTest
+import Mocker
 @testable import SnowplowTracker
 
 class TestRemoteConfiguration: XCTestCase {
@@ -73,17 +73,15 @@ class TestRemoteConfiguration: XCTestCase {
         XCTAssertEqual("testUserId", subjectConfiguration?.userId)
     }
 
+#if !os(watchOS) // Mocker seems not to currently work on watchOS
     func testDownloadConfiguration() {
         let endpoint = "https://fake-snowplow.io/config.json"
 
-        LSNocilla.sharedInstance().start()
-        _ = stubRequest("GET", endpoint as NSString)?
-            .andReturn(200)?
-            .withHeaders(
-                [ "Content-Type": "application/json" ]
-            )?
-            .withBody(
-                "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0\",\"configurationVersion\":12,\"configurationBundle\":[]}" as NSString)
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0\",\"configurationVersion\":12,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
+        
         let expectation = XCTestExpectation()
 
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
@@ -95,9 +93,10 @@ class TestRemoteConfiguration: XCTestCase {
         })
 
         wait(for: [expectation], timeout: 10)
-        LSNocilla.sharedInstance().stop()
     }
+#endif
 
+#if os(iOS) || os(macOS)
     func testCache() {
         let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
         let expected = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 12)
@@ -122,6 +121,7 @@ class TestRemoteConfiguration: XCTestCase {
         XCTAssertEqual(expectedBundle.networkConfiguration?.endpoint, configBundle?.networkConfiguration?.endpoint)
         XCTAssertNil(configBundle?.trackerConfiguration)
     }
+#endif
 
     func testProvider_notDownloading_fails() {
         // prepare test
@@ -129,35 +129,10 @@ class TestRemoteConfiguration: XCTestCase {
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
-        LSNocilla.sharedInstance().start()
-        _ = stubRequest("GET", endpoint as NSString).andReturn(404)
-        // test
-        let expectation = XCTestExpectation()
-        let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
-        provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
-            XCTFail()
-        })
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5)
-        XCTAssertEqual(XCTWaiter.Result.timedOut, result)
-
-        // close test
-        LSNocilla.sharedInstance().stop()
-    }
-
-    func testProvider_downloadOfWrongSchema_fails() {
-        // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
-        let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
-        let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
-        cache.clear()
-        LSNocilla.sharedInstance().start()
-        _ = stubRequest("GET", endpoint as NSString)?
-            .andReturn(200)?
-            .withHeaders([
-                "Content-Type": "application/json"
-            ])?
-            .withBody(
-                "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/2-0-0\",\"configurationVersion\":12,\"configurationBundle\":[]}" as NSString)
+        
+        // mock endpoint
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 404, data: [.get: Data()])
+        mock.register()
         
         // test
         let expectation = XCTestExpectation()
@@ -167,11 +142,31 @@ class TestRemoteConfiguration: XCTestCase {
         })
         let result = XCTWaiter.wait(for: [expectation], timeout: 5)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
-
-        // close test
-        LSNocilla.sharedInstance().stop()
     }
 
+    func testProvider_downloadOfWrongSchema_fails() {
+        // prepare test
+        let endpoint = "https://fake-snowplow.io/config.json"
+        let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
+        let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        cache.clear()
+
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/2-0-0\",\"configurationVersion\":12,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
+        
+        // test
+        let expectation = XCTestExpectation()
+        let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
+        provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
+            XCTFail()
+        })
+        let result = XCTWaiter.wait(for: [expectation], timeout: 5)
+        XCTAssertEqual(XCTWaiter.Result.timedOut, result)
+    }
+
+#if os(iOS) || os(macOS)
     func testProvider_downloadSameConfigVersionThanCached_dontUpdate() {
         // prepare test
         let endpoint = "https://fake-snowplow.io/config.json"
@@ -185,14 +180,10 @@ class TestRemoteConfiguration: XCTestCase {
         cache.write(cached)
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
 
-        LSNocilla.sharedInstance().start()
-        _ = stubRequest("GET", endpoint as NSString)?
-            .andReturn(200)?
-            .withHeaders([
-                "Content-Type": "application/json"
-            ] as [NSString: NSString])?
-            .withBody(
-                "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":1,\"configurationBundle\":[]}" as NSString)
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":1,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
 
         // test
         let expectation = XCTestExpectation()
@@ -210,9 +201,6 @@ class TestRemoteConfiguration: XCTestCase {
         let result = XCTWaiter.wait(for: [expectation], timeout: 5)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
         XCTAssertEqual(1, i)
-
-        // close test
-        LSNocilla.sharedInstance().stop()
     }
 
     func testProvider_downloadHigherConfigVersionThanCached_doUpdate() {
@@ -227,15 +215,11 @@ class TestRemoteConfiguration: XCTestCase {
         cached.configurationBundle = [bundle]
         cache.write(cached)
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
-
-        LSNocilla.sharedInstance().start()
-        _ = stubRequest("GET", endpoint as NSString)?
-            .andReturn(200)?
-            .withHeaders([
-                "Content-Type": "application/json"
-            ] as [NSString : NSString])?
-            .withBody(
-                "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":2,\"configurationBundle\":[]}" as NSString)
+        
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":2,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
 
         // test
         let expectation = XCTestExpectation()
@@ -255,9 +239,6 @@ class TestRemoteConfiguration: XCTestCase {
         let result = XCTWaiter.wait(for: [expectation], timeout: 5)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
         XCTAssertEqual(2, i)
-
-        // close test
-        LSNocilla.sharedInstance().stop()
     }
 
     func testProvider_justRefresh_downloadSameConfigVersionThanCached_dontUpdate() {
@@ -273,15 +254,10 @@ class TestRemoteConfiguration: XCTestCase {
         cache.write(cached)
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
         
-        // stub request for configuration (return version 1)
-        LSNocilla.sharedInstance().start()
-        _ = stubRequest("GET", endpoint as NSString)?
-            .andReturn(200)?
-            .withHeaders([
-                "Content-Type": "application/json"
-            ] as [NSString : NSString])?
-            .withBody(
-                "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":1,\"configurationBundle\":[]}" as NSString)
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":1,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
 
         // test
         let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
@@ -298,9 +274,6 @@ class TestRemoteConfiguration: XCTestCase {
         })
         let result = XCTWaiter.wait(for: [expectation], timeout: 5)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
-
-        // close test
-        LSNocilla.sharedInstance().stop()
     }
 
     func testDoesntUseCachedConfigurationIfDifferentRemoteEndpoint() {
@@ -319,14 +292,10 @@ class TestRemoteConfiguration: XCTestCase {
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
 
         // stub request for configuration (return version 1)
-        LSNocilla.sharedInstance().start()
-        _ = stubRequest("GET", endpoint as NSString)?
-            .andReturn(200)?
-            .withHeaders([
-                "Content-Type": "application/json"
-            ] as [NSString : NSString])?
-            .withBody(
-                "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":1,\"configurationBundle\":[]}" as NSString)
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":1,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
 
         // initialize tracker with remote config
         let expectation = XCTestExpectation()
@@ -339,8 +308,9 @@ class TestRemoteConfiguration: XCTestCase {
         })
 
         wait(for: [expectation], timeout: 10)
-        LSNocilla.sharedInstance().stop()
     }
+    
+#endif
     
     // TODO: Replace LSNocilla as it's unreliable and unsupported. It causes this test failure.
     /*

@@ -3,32 +3,77 @@ name: Build
 on: [push]
 
 jobs:
-  test_framework:
-    name: "Framework (iOS ${{ matrix.version.ios }})"
-    runs-on: macos-${{ matrix.version.macos }}
-    env:
-      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
-      
+  podspec:
+    name: Lint Podspec for ${{ matrix.platform }}
+    runs-on: macos-latest
     strategy:
-      fail-fast: false
       matrix:
-        version:
-          - {ios: 15.5, iphone: iPhone 12 Pro, watchos: 8.5, watch: Apple Watch Series 5 - 44mm, macos: '12', xcode: 13.4}
-          - {ios: 14.4, iphone: iPhone 8, watchos: 7.2, watch: Apple Watch Series 4 - 40mm, macos: '11', xcode: 12.4}
+        platform: [ios, osx, tvos, watchos]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Lint Podspec
+        run: pod lib lint --platforms=${{ matrix.platform }}
 
+  test_framework:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - name: "xcodebuild (iOS 14.0, Xcode 12.0.1)"
+            os: macos-10.15
+            xcode-version: "12"
+            sdk: iphonesimulator14.0
+            destination: "platform=iOS Simulator,OS=14.0,name=iPhone 11"
+          - name: "xcodebuild (iOS 15.2, Xcode 13.2.1)"
+            os: macos-11
+            xcode-version: "13.2.1"
+            sdk: iphonesimulator15.2
+            destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13"
+          - name: "xcodebuild (macOS 10.15, Xcode 12.0.1)"
+            os: macos-10.15
+            xcode-version: "12"
+            sdk: macosx10.15
+            destination: "platform=OS X"
+          - name: "xcodebuild (macOS 12.1, Xcode 13.2.1)"
+            os: macos-11
+            xcode-version: "13.2.1"
+            sdk: macosx12.1
+            destination: "platform=OS X"
+          - name: "xcodebuild (watchOS 7.0, Xcode 12.0.1)"
+            os: macos-10.15
+            xcode-version: "12"
+            sdk: watchos7.0
+            destination: "platform=watchOS Simulator,OS=7.0,name=Apple Watch Series 6 - 44mm"
+          - name: "xcodebuild (watchOS 8.3, Xcode 13.2.1)"
+            os: macos-11
+            xcode-version: "13.2.1"
+            sdk: watchos8.3
+            destination: "platform=watchOS Simulator,OS=8.3,name=Apple Watch Series 7 - 45mm"
+          - name: "xcodebuild (tvOS 14.0, Xcode 12.0.1)"
+            os: macos-10.15
+            xcode-version: "12"
+            sdk: appletvsimulator14.0
+            destination: "platform=tvOS Simulator,OS=14.0,name=Apple TV"
+          - name: "xcodebuild (tvOS 15.2, Xcode 13.2.1)"
+            os: macos-11
+            xcode-version: "13.2.1"
+            sdk: appletvsimulator15.2
+            destination: "platform=tvOS Simulator,OS=15.2,name=Apple TV"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Test
-        env:
-          IOS: ${{ matrix.version.ios }}
-          WATCHOS: ${{ matrix.version.watchos }}
-          IPHONE: ${{ matrix.version.iphone }}
-          WATCH: ${{ matrix.version.watch }}
+      - name: Select Xcode Version
+        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
+
+      - name: Build & Test
         run: |
-          . .scripts/setup.sh
-          .scripts/test_framework.sh "${BUILD_PROJECT_LIB}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_LIB_IOS}" "${BUILD_DEST_WATCH}" "${BUILD_SCHEME_LIB_WATCH}"  
+          xcodebuild \
+            -scheme SnowplowTracker \
+            -sdk "${{ matrix.sdk }}" \
+            -destination "${{ matrix.destination }}" \
+            clean test
 
   build_objc_demo_app:
     name: "ObjC demo (iOS ${{ matrix.version.ios }})"

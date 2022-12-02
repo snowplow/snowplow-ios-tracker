@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.5
 
 import PackageDescription
 
@@ -7,7 +7,7 @@ let package = Package(
     platforms: [
         .macOS("10.13"),
         .iOS("11.0"),
-        .tvOS("11.0"),
+        .tvOS("12.0"),
         .watchOS("4.0")
     ],
     products: [
@@ -16,7 +16,8 @@ let package = Package(
             targets: ["SnowplowTracker"]),
     ],
     dependencies: [
-        .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", from: "2.7.6")
+        .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", from: "2.7.6"),
+        .package(name: "Mocker", url: "https://github.com/WeTransfer/Mocker.git", from: "3.0.1"),
     ],
     targets: [
         .target(
@@ -25,7 +26,10 @@ let package = Package(
             path: "./Sources"),
         .testTarget(
             name: "Tests",
-            dependencies: ["SnowplowTracker"],
+            dependencies: [
+                "SnowplowTracker",
+                "Mocker"
+            ],
             path: "Tests")
     ]
 )
