@@ -97,7 +97,7 @@ jobs:
       - name: Checkout demo app
         uses: actions/checkout@v3
         with:
-          repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
+          repository: snowplow-incubator/snowplow-objc-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
           path: examples
 
@@ -138,7 +138,7 @@ jobs:
       - name: Checkout demo app
         uses: actions/checkout@v3
         with:
-          repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
+          repository: snowplow-incubator/snowplow-objc-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
           path: examples
 
@@ -194,7 +194,7 @@ jobs:
       - name: Checkout demo app
         uses: actions/checkout@v3
         with:
-          repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
+          repository: snowplow-incubator/snowplow-objc-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
           path: examples
 
