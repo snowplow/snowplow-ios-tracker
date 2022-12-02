@@ -130,10 +130,10 @@ class TestNetworkConnection: XCTestCase {
         let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
         var mock = Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.post: Data()])
         let requestExpectation = expectation(description: "Checked the request")
-        mock.onRequestHandler = OnRequestHandler(requestCallback: { request in
+        mock.onRequest = { request, postBodyArguments in
             XCTAssertNil(request.value(forHTTPHeaderField: "SP-Anonymous"))
             requestExpectation.fulfill()
-        })
+        }
         mock.register()
         
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
@@ -155,10 +155,10 @@ class TestNetworkConnection: XCTestCase {
         let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
         var mock = Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.post: Data()])
         let requestExpectation = expectation(description: "Checked the request")
-        mock.onRequestHandler = OnRequestHandler(requestCallback: { request in
+        mock.onRequest = { request, postBodyArguments in
             XCTAssertEqual("*", request.value(forHTTPHeaderField: "SP-Anonymous"))
             requestExpectation.fulfill()
-        })
+        }
         mock.register()
         
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
@@ -180,10 +180,10 @@ class TestNetworkConnection: XCTestCase {
         let endpoint = "https://\(TEST_URL_ENDPOINT)/i"
         var mock = Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.get: Data()])
         let requestExpectation = expectation(description: "Checked the request")
-        mock.onRequestHandler = OnRequestHandler(requestCallback: { request in
+        mock.onRequest = { request, postBodyArguments in
             XCTAssertEqual("*", request.value(forHTTPHeaderField: "SP-Anonymous"))
             requestExpectation.fulfill()
-        })
+        }
         mock.register()
         
         let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get)
