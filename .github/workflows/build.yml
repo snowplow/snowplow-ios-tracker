@@ -10,7 +10,7 @@ jobs:
       matrix:
         platform: [ios, osx, tvos, watchos]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Lint Podspec
         run: pod lib lint --platforms=${{ matrix.platform }}
 
@@ -57,7 +57,7 @@ jobs:
             destination: "platform=tvOS Simulator,OS=15.2,name=Apple TV"
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
@@ -86,15 +86,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get example branch name
         id: example_branch
         run: |
           DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
           echo ::set-output name=name::${DEMO_BRANCH}
+
       - name: Checkout demo app
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
@@ -126,15 +127,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get example branch name
         id: example_branch
         run: |
           DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
           echo ::set-output name=name::${DEMO_BRANCH}
+
       - name: Checkout demo app
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
@@ -166,7 +168,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Get example branch name
         id: example_branch
@@ -190,7 +192,7 @@ jobs:
           echo ::set-output name=name::${GIT_BRANCH}
 
       - name: Checkout demo app
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           repository: snowplow-incubator/snowplow-swift-ios-tracker-examples
           ref: ${{ steps.example_branch.outputs.name }}
