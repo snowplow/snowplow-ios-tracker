@@ -25,14 +25,14 @@ import XCTest
 #if os(iOS)
 class TestPlatformContext: XCTestCase {
     func testContainsPlatformInfo() {
-        let context = PlatformContext()
+        let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
         let platformDict = context.fetchPlatformDict(withUserAnonymisation: false).dictionary
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)
     }
 
     func testContainsMobileInfo() {
-        let context = PlatformContext()
+        let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
         let platformDict = context.fetchPlatformDict(withUserAnonymisation: false).dictionary
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)

@@ -67,13 +67,16 @@ jobs:
       - name: Select Xcode Version
         run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
 
+      - name: Install xcpretty
+        run: gem install xcpretty
+
       - name: Build & Test
         run: |
           xcodebuild \
             -scheme SnowplowTracker \
             -sdk "${{ matrix.sdk }}" \
             -destination "${{ matrix.destination }}" \
-            clean test
+            clean test | xcpretty
 
   build_objc_demo_app:
     name: "ObjC demo (iOS ${{ matrix.version.ios }})"
