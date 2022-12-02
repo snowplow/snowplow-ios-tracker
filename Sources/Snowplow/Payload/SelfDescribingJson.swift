@@ -93,7 +93,7 @@ public class SelfDescribingJson: NSObject {
     /// - Returns: An SPSelfDescribingJson.
     @objc
     public convenience init(schema: String, andPayload data: Payload) {
-        self.init(schema: schema, andData: data.dictionary as? NSObject)
+        self.init(schema: schema, andData: data.dictionary as NSObject?)
     }
 
     /// Initializes a newly allocated SPSelfDescribingJson.
@@ -103,7 +103,7 @@ public class SelfDescribingJson: NSObject {
     /// - Returns: An SPSelfDescribingJson.
     @objc
     public convenience init(schema: String, andSelfDescribingJson data: SelfDescribingJson) {
-        self.init(schema: schema, andData: data.dictionary as? NSObject)
+        self.init(schema: schema, andData: data.dictionary as NSObject?)
     }
 
     /// Sets the data field of the self-describing JSON.
@@ -117,13 +117,13 @@ public class SelfDescribingJson: NSObject {
     /// - Parameter data: An SPPayload to be nested into the data.
     @objc
     public func setData(withPayload data: Payload) {
-        return setData(withObject: data.dictionary as? NSObject)
+        return setData(withObject: data.dictionary as NSObject?)
     }
 
     /// Sets the data field of the self-describing JSON.
     /// - Parameter data: A self-describing JSON to be nested into the data.
     @objc
     public func setData(withSelfDescribingJson data: SelfDescribingJson) {
-        return setData(withObject: data.dictionary as? NSObject)
+        return setData(withObject: data.dictionary as NSObject?)
     }
 }

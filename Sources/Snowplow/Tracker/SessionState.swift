@@ -45,10 +45,10 @@ public class SessionState: NSObject, State {
 
     class func buildSessionDictionary(withFirstEventId firstEventId: String?, firstEventTimestamp: String?, currentSessionId: String, previousSessionId: String?, sessionIndex: Int, userId: String, storage: String) -> [String : NSObject] {
         var dictionary: [String : NSObject] = [:]
-        dictionary[kSPSessionPreviousId] = previousSessionId as? NSObject ?? NSNull()
+        dictionary[kSPSessionPreviousId] = previousSessionId as NSObject? ?? NSNull()
         dictionary[kSPSessionId] = currentSessionId as NSObject
-        dictionary[kSPSessionFirstEventId] = firstEventId as? NSObject
-        dictionary[kSPSessionFirstEventTimestamp] = firstEventTimestamp as? NSObject
+        dictionary[kSPSessionFirstEventId] = firstEventId as NSObject?
+        dictionary[kSPSessionFirstEventTimestamp] = firstEventTimestamp as NSObject?
         dictionary[kSPSessionIndex] = NSNumber(value: sessionIndex)
         dictionary[kSPSessionStorage] = storage as NSObject
         dictionary[kSPSessionUserId] = userId as NSObject
