@@ -59,4 +59,9 @@ public class SelfDescribing: SelfDescribingAbstract {
         self._schema = schema
         self._payload = payload
     }
+    
+    public init(schema: String, payload: [String : String]) {
+        self._schema = schema
+        self._payload = payload as [String : NSObject]
+    }
 }
