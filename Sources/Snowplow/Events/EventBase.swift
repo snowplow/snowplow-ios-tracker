@@ -27,11 +27,13 @@ public class Event: NSObject {
     /// The user event timestamp in milliseconds (epoch time).
     @objc
     public var trueTimestamp: Date?
+    
     /// The contexts attached to the event.
     @objc
     public var contexts: [SelfDescribingJson] = []
+    
     /// The payload of the event.
-    public var payload: [String : NSObject] {
+    var payload: [String : NSObject] {
         NSException(
             name: .internalInconsistencyException,
             reason: "You must override \(NSStringFromSelector(#function)) in a subclass",
@@ -55,7 +57,7 @@ public class Event: NSObject {
 public class SelfDescribingAbstract: Event {
     /// The schema of the event.
     @objc
-    public var schema: String {
+    var schema: String {
         NSException(
             name: .internalInconsistencyException,
             reason: "You must override \(NSStringFromSelector(#function)) in a subclass",

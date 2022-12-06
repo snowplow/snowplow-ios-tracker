@@ -20,11 +20,13 @@
 
 import Foundation
 
-/// Entity that indicates the state of the app is visible (foreground) when the event is tracked.
 let kSPLifecycleEntitySchema = "iglu:com.snowplowanalytics.mobile/application_lifecycle/jsonschema/1-0-0"
 let kSPLifecycleEntityParamIndex = "index"
 let kSPLifecycleEntityParamIsVisible = "isVisible"
 
+/// Entity that indicates the state of the app is visible (foreground) when the event is tracked.
+///
+/// Schema: `iglu:com.snowplowanalytics.mobile/application_lifecycle/jsonschema/1-0-0`
 @objc(SPLifecycleEntity)
 public class LifecycleEntity: SelfDescribingJson {
 

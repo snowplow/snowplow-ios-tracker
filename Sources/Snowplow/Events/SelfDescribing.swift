@@ -25,31 +25,6 @@ import Foundation
 @objc(SPSelfDescribing)
 public class SelfDescribing: SelfDescribingAbstract {
     @objc
-    public var eventData: SelfDescribingJson {
-        set {
-            schema = newValue.schema
-            payload = newValue.data as! [String : NSObject]
-        }
-        get {
-            return SelfDescribingJson(schema: schema, andDictionary: payload)
-        }
-    }
-    private var _schema: String
-    @objc
-    override public var schema: String {
-        get { return _schema }
-        set { _schema = newValue }
-    }
-    private var _payload: [String: NSObject]
-    @objc
-    override public var payload: [String : NSObject] {
-        get { return _payload }
-        set {
-            _payload = newValue
-        }
-    }
-
-    @objc
     public convenience init(eventData: SelfDescribingJson) {
         self.init(schema: eventData.schema, payload: eventData.data as! [String : NSObject])
     }
@@ -63,5 +38,29 @@ public class SelfDescribing: SelfDescribingAbstract {
     public init(schema: String, payload: [String : String]) {
         self._schema = schema
         self._payload = payload as [String : NSObject]
+    }
+    
+    private var _schema: String
+    override var schema: String {
+        get { return _schema }
+        set { _schema = newValue }
+    }
+    
+    private var _payload: [String: NSObject]
+    override var payload: [String : NSObject] {
+        get { return _payload }
+        set {
+            _payload = newValue
+        }
+    }
+    
+    var eventData: SelfDescribingJson {
+        set {
+            schema = newValue.schema
+            payload = newValue.data as! [String : NSObject]
+        }
+        get {
+            return SelfDescribingJson(schema: schema, andDictionary: payload)
+        }
     }
 }

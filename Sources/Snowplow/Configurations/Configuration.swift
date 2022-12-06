@@ -20,6 +20,7 @@
 
 import Foundation
 
+/// Common parent class for configuration classes.
 @objc(SPConfiguration)
 public class Configuration: NSObject, NSCopying, NSSecureCoding {
     @objc

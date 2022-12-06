@@ -22,6 +22,8 @@
 import Foundation
 
 /// A foreground transition event.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/application_foreground/jsonschema/1-0-0`
 @objc(SPForeground)
 public class Foreground: SelfDescribingAbstract {
     /// Indicate the current transition.
@@ -35,11 +37,11 @@ public class Foreground: SelfDescribingAbstract {
         self.index = index
     }
 
-    override public var schema: String {
+    override var schema: String {
         return kSPForegroundSchema
     }
 
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPForegroundIndex] = NSNumber(value: index)
         return payload

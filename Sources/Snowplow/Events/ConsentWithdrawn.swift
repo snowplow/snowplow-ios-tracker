@@ -22,6 +22,8 @@
 import Foundation
 
 /// A consent withdrawn event.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/consent_withdrawn/jsonschema/1-0-0`
 @objc(SPConsentWithdrawn)
 public class ConsentWithdrawn: SelfDescribingAbstract {
     /// Consent to all.
@@ -43,18 +45,18 @@ public class ConsentWithdrawn: SelfDescribingAbstract {
     @objc
     public var documents: [SelfDescribingJson]?
 
-    public override var schema: String {
+    override var schema: String {
         return kSPConsentWithdrawnSchema
     }
 
-    public override var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         return [
             KSPCwAll: all ? NSNumber(value: true) : NSNumber(value: false)
         ]
     }
 
     @objc
-    public var allDocuments: [SelfDescribingJson] {
+    var allDocuments: [SelfDescribingJson] {
         var results: [SelfDescribingJson] = []
         guard let documentId = documentId, let version = version else { return results }
 

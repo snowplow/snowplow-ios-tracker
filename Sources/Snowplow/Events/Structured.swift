@@ -24,14 +24,27 @@ import Foundation
 /// A structured event.
 @objc(SPStructured)
 public class Structured: PrimitiveAbstract {
+    /// Name you for the group of objects you want to track e.g. "media", "ecomm".
     @objc
     public var category: String
+    /// Defines the type of user interaction for the web object.
+    ///
+    /// E.g., "play-video", "add-to-basket".
     @objc
     public var action: String
+    /// Identifies the specific object being actioned.
+    ///
+    /// E.g., ID of the video being played, or the SKU or the product added-to-basket.
     @objc
     public var label: String?
+    /// Describes the object or the action performed on it.
+    ///
+    /// This might be the quantity of an item added to basket
     @objc
     public var property: String?
+    /// Quantifies or further describes the user action.
+    ///
+    /// This might be the price of an item added-to-basket, or the starting time of the video where play was just pressed.
     @objc
     public var value: NSNumber?
 
@@ -42,11 +55,11 @@ public class Structured: PrimitiveAbstract {
     }
 
     @objc
-    override public var eventName: String {
+    override var eventName: String {
         return kSPEventStructured
     }
 
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPStuctCategory] = category as NSObject
         payload[kSPStuctAction] = action as NSObject

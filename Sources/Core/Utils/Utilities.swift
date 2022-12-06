@@ -119,10 +119,11 @@ class Utilities {
         return Bundle.main.bundleIdentifier
     }
     
-    /// @brief URL encodes a dictionary as key=value pairs separated by &, so that it can be used in a query-string.
+    /// URL encodes a dictionary as key=value pairs separated by &, so that it can be used in a query-string.
+    ///
     /// This method can encode string, numbers, and bool values, and not embedded arrays or dictionaries.
     /// It encodes bool as 1 and 0.
-    /// @return The url encoded string of the dictionary.
+    /// - Returns: The url encoded string of the dictionary.
     class func urlEncode(_ dictionary: [String : NSObject]) -> String {
         return dictionary.map { (key: String, value: NSObject) in
             "\(self.urlEncode(key))=\(self.urlEncode(value.description))"

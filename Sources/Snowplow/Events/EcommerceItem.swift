@@ -52,12 +52,11 @@ public class EcommerceItem : PrimitiveAbstract {
         self.quantity = quantity
     }
 
-    @objc
-    override public var eventName: String {
+    override var eventName: String {
         return kSPEventEcommItem
     }
 
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPEcommItemId] = orderId as NSObject?
         payload[kSPEcommItemSku] = sku as NSObject

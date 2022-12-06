@@ -36,6 +36,8 @@ public enum ScreenType : Int {
 }
 
 /// A screenview event.
+///
+/// Schema: `iglu:com.snowplowanalytics.mobile/screen_view/jsonschema/1-0-0`
 @objc(SPScreenView)
 public class ScreenView: SelfDescribingAbstract {
     /// Name of the screen.
@@ -67,19 +69,19 @@ public class ScreenView: SelfDescribingAbstract {
     public var topViewControllerClassName: String?
 
     /// Creates a screenview event.
-    /// @param name Name of the screen.
-    /// @param screenId Identifier of the screen.
+    /// - Parameter name: Name of the screen.
+    /// - Parameter screenId: Identifier of the screen.
     @objc
     public init(name: String, screenId: UUID?) {
         self.screenId = screenId ?? UUID()
         self.name = name
     }
 
-    public override var schema: String {
+    override var schema: String {
         return kSPScreenViewSchema
     }
 
-    public override var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPSvName] = name as NSObject
         payload[kSPSvScreenId] = screenId.uuidString as NSObject
@@ -91,8 +93,7 @@ public class ScreenView: SelfDescribingAbstract {
         return payload
     }
 
-    @objc
-    public class func stringWithScreenType(_ screenType: ScreenType) -> String? {
+    class func stringWithScreenType(_ screenType: ScreenType) -> String? {
         let arr = [
             "Default",
             "Navigation",

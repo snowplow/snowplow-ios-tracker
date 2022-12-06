@@ -22,6 +22,8 @@
 import Foundation
 
 /// A consent granted event.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/consent_granted/jsonschema/1-0-0`
 @objc(SPConsentGranted)
 public class ConsentGranted: SelfDescribingAbstract {
     /// Expiration of the consent.
@@ -55,16 +57,6 @@ public class ConsentGranted: SelfDescribingAbstract {
         self.version = version
     }
 
-    override public var schema: String {
-        return kSPConsentGrantedSchema
-    }
-
-    override public var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[KSPCgExpiry] = expiry as NSObject
-        return payload
-    }
-
     /// Retuns the full list of attached documents.
     @objc
     public var allDocuments: [SelfDescribingJson] {
@@ -83,6 +75,16 @@ public class ConsentGranted: SelfDescribingAbstract {
             results.append(contentsOf: documents)
         }
         return results
+    }
+
+    override var schema: String {
+        return kSPConsentGrantedSchema
+    }
+
+    override var payload: [String : NSObject] {
+        var payload: [String : NSObject] = [:]
+        payload[KSPCgExpiry] = expiry as NSObject
+        return payload
     }
 
     override func beginProcessing(withTracker tracker: Tracker) {
