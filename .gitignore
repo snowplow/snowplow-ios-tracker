@@ -39,7 +39,8 @@ Carthage/
 Frameworks/
 
 # Documentation
-/docs/html/
+/docs
 
 # Swift Package Manager
 .swiftpm
+.build
