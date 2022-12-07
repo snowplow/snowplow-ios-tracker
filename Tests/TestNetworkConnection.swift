@@ -26,13 +26,9 @@ import XCTest
 let TEST_URL_ENDPOINT = "acme.test.url.com"
 
 class TestNetworkConnection: XCTestCase {
-    override func setUp() {
-        super.setUp()
-        Mocker.removeAll()
-    }
-
     override func tearDown() {
         super.tearDown()
+        Mocker.removeAll()
     }
 
 #if !os(watchOS) // Mocker seems not to currently work on watchOS
