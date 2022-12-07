@@ -24,7 +24,7 @@ With this tracker you can collect event data from your applications, games or fr
 
 ### Demo apps using the Snowplow iOS Tracker
 
-Some examples of demo apps instrumented with our iOS Tracker can be found in the [snowplow-swift-ios-tracker-examples](https://github.com/snowplow-incubator/snowplow-swift-ios-tracker-examples) repository.
+Some examples of demo apps instrumented with our iOS Tracker can be found in the [snowplow-objc-tracker-examples](https://github.com/snowplow-incubator/snowplow-objc-tracker-examples) repository.
 
 ### Instrument the iOS Tracker
 

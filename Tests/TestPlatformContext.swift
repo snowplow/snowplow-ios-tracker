@@ -22,21 +22,20 @@
 import XCTest
 @testable import SnowplowTracker
 
+#if os(iOS)
 class TestPlatformContext: XCTestCase {
     func testContainsPlatformInfo() {
-        let context = PlatformContext()
+        let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
         let platformDict = context.fetchPlatformDict(withUserAnonymisation: false).dictionary
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)
     }
 
     func testContainsMobileInfo() {
-        #if os(iOS)
-        let context = PlatformContext()
+        let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
         let platformDict = context.fetchPlatformDict(withUserAnonymisation: false).dictionary
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)
-        #endif
     }
 
     func testAddsAllMockedInfo() {
@@ -56,15 +55,9 @@ class TestPlatformContext: XCTestCase {
         XCTAssertEqual("wifi" as NSObject, platformDict[kSPMobileNetworkType])
         XCTAssertEqual(NSNumber(value: 20), platformDict[kSPMobileBatteryLevel])
         XCTAssertEqual("charging" as NSObject, platformDict[kSPMobileBatteryState])
-        XCTAssertEqual(NSNumber(value: false), platformDict[kSPMobileLowPowerMode])
-        XCTAssertEqual(NSNumber(value: 100000), platformDict[kSPMobilePhysicalMemory])
-        XCTAssertEqual(NSNumber(value: 1000), platformDict[kSPMobileAppAvailableMemory])
-        XCTAssertEqual(NSNumber(value: 9000), platformDict[kSPMobileAvailableStorage])
-        XCTAssertEqual(NSNumber(value: 900000), platformDict[kSPMobileTotalStorage])
     }
 
     func testUpdatesMobileInfo() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
@@ -75,11 +68,9 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(withUserAnonymisation: false)
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("appAvailableMemory"))
-        #endif
     }
 
     func testDoesntUpdateMobileInfoWithinUpdateWindow() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 1000, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
@@ -90,11 +81,9 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(withUserAnonymisation: false)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appAvailableMemory"))
-        #endif
     }
 
     func testUpdatesNetworkInfo() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 1, networkDictUpdateFrequency: 0, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
@@ -105,11 +94,9 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(withUserAnonymisation: false)
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("networkType"))
-        #endif
     }
 
     func testDoesntUpdateNetworkInfoWithinUpdateWindow() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1000, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
@@ -120,11 +107,9 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(withUserAnonymisation: false)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkType"))
-        #endif
     }
 
     func testDoesntUpdateNonEphemeralInfo() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 0, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
@@ -135,11 +120,9 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(withUserAnonymisation: false)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
-        #endif
     }
 
     func testDoesntUpdateIdfaAndIdfvIfNotNil() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfa"))
@@ -147,11 +130,9 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(withUserAnonymisation: false)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfa"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfv"))
-        #endif
     }
 
     func testUpdatesIdfaAndIdfvIfNil() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         deviceInfoMonitor.customAppleIdfa = nil
         deviceInfoMonitor.customAppleIdfv = nil
@@ -161,11 +142,9 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(withUserAnonymisation: false)
         XCTAssertEqual(2, deviceInfoMonitor.accessCount("appleIdfa"))
         XCTAssertEqual(2, deviceInfoMonitor.accessCount("appleIdfv"))
-        #endif
     }
 
     func testAnonymisesUserIdentifiers() {
-        #if os(iOS)
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
         guard let platformDict = context.fetchPlatformDict(withUserAnonymisation: true).dictionary else {
@@ -173,7 +152,6 @@ class TestPlatformContext: XCTestCase {
         }
         XCTAssertNil(platformDict[kSPMobileAppleIdfa])
         XCTAssertNil(platformDict[kSPMobileAppleIdfv])
-        #endif
     }
 
 //    func testPerformanceOfFetchingNetworkDict() {
@@ -195,3 +173,4 @@ class TestPlatformContext: XCTestCase {
 //        })
 //    }
 }
+#endif
