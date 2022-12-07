@@ -28,28 +28,11 @@ import UIKit
 /// Manages a dictionary (Payload) with platform context. Some properties for mobile platforms are updated on fetch in set intervals.
 class PlatformContext {
     private var platformDict: Payload = Payload()
-    private var mobileDictUpdateFrequency: TimeInterval = 0.0
-    private var networkDictUpdateFrequency: TimeInterval = 0.0
+    private var mobileDictUpdateFrequency: TimeInterval = 0.1
+    private var networkDictUpdateFrequency: TimeInterval = 10.0
     private var lastUpdatedEphemeralMobileDict: TimeInterval = 0.0
     private var lastUpdatedEphemeralNetworkDict: TimeInterval = 0.0
     private var deviceInfoMonitor: DeviceInfoMonitor
-
-    /// Initializes a newly allocated PlatformContext object with default update frequency
-    /// - Returns: a PlatformContext object
-    convenience init() {
-        self.init(mobileDictUpdateFrequency: 0.1, networkDictUpdateFrequency: 10.0)
-    }
-
-    /// Initializes a newly allocated PlatformContext object with custom update frequency for mobile and network properties
-    /// - Parameters:
-    ///   - mobileDictUpdateFrequency: Minimal gap between subsequent updates of mobile platform information
-    ///   - networkDictUpdateFrequency: Minimal gap between subsequent updates of network platform information
-    /// - Returns: a PlatformContext object
-    convenience init(mobileDictUpdateFrequency: TimeInterval, networkDictUpdateFrequency: TimeInterval) {
-        self.init(mobileDictUpdateFrequency: mobileDictUpdateFrequency,
-                  networkDictUpdateFrequency: networkDictUpdateFrequency,
-                  deviceInfoMonitor: DeviceInfoMonitor())
-    }
 
     /// Initializes a newly allocated PlatformContext object with custom update frequency for mobile and network properties and a custom device info monitor
     /// - Parameters:
@@ -57,7 +40,7 @@ class PlatformContext {
     ///   - networkDictUpdateFrequency: Minimal gap between subsequent updates of network platform information
     ///   - deviceInfoMonitor: Device monitor for fetching platform information
     /// - Returns: a PlatformContext object
-    init(mobileDictUpdateFrequency: TimeInterval, networkDictUpdateFrequency: TimeInterval, deviceInfoMonitor: DeviceInfoMonitor) {
+    init(mobileDictUpdateFrequency: TimeInterval = 0.1, networkDictUpdateFrequency: TimeInterval = 10.0, deviceInfoMonitor: DeviceInfoMonitor = DeviceInfoMonitor()) {
         self.mobileDictUpdateFrequency = mobileDictUpdateFrequency
         self.networkDictUpdateFrequency = networkDictUpdateFrequency
         self.deviceInfoMonitor = deviceInfoMonitor
