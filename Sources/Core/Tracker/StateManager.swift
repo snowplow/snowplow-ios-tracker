@@ -100,7 +100,7 @@ class StateManager: NSObject {
                  externally)
                  Remove the early state-computation only when these two problems are fixed.
                  */
-                _ = currentStateFuture.state // Early state-computation
+                _ = currentStateFuture.computeState() // Early state-computation
             }
         }
         return trackerState.snapshot()

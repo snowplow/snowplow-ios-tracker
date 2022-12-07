@@ -24,6 +24,10 @@ import Mocker
 @testable import SnowplowTracker
 
 class TestRemoteConfiguration: XCTestCase {
+    override func tearDown() {
+        Mocker.removeAll()
+    }
+    
     func testJSONToConfigurations() {
         let config = """
             {"$schema":"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0","configurationVersion":12,"configurationBundle": [\

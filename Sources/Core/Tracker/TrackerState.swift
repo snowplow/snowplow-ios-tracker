@@ -58,7 +58,7 @@ class TrackerState: NSObject, TrackerStateSnapshot {
     // Protocol SPTrackerStateSnapshot
 
     func state(withIdentifier stateIdentifier: String) -> State? {
-        return stateFuture(withIdentifier: stateIdentifier)?.state
+        return stateFuture(withIdentifier: stateIdentifier)?.computeState()
     }
 
     func state(withStateMachine stateMachine: StateMachineProtocol) -> State? {
