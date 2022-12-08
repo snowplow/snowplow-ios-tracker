@@ -298,7 +298,7 @@ class Subject : NSObject {
 
     //#pragma clang diagnostic pop
 
-    func getStandardDict(withUserAnonymisation userAnonymisation: Bool) -> Payload? {
+    func getStandardDict(userAnonymisation: Bool) -> Payload? {
         if userAnonymisation {
             var copy = standardDict.dictionary ?? [:]
             copy.removeValue(forKey: kSPUid)
@@ -313,9 +313,11 @@ class Subject : NSObject {
     /// Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
     /// - Parameter userAnonymisation: Whether to anonymise user identifiers
     /// - Returns: A SPPayload with all platform specific pairs.
-    func getPlatformDict(withUserAnonymisation userAnonymisation: Bool) -> Payload? {
+    func getPlatformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload? {
         if platformContext {
-            return platformContextManager.fetchPlatformDict(withUserAnonymisation: userAnonymisation)
+            return platformContextManager.fetchPlatformDict(
+                userAnonymisation: userAnonymisation,
+                advertisingIdentifierRetriever: advertisingIdentifierRetriever)
         } else {
             return nil
         }

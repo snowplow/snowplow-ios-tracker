@@ -22,26 +22,28 @@
 import Foundation
 
 class TrackerConfigurationUpdate: TrackerConfiguration {
+    private var appIdUpdated = false
+    private var devicePlatformUpdated = false
+    private var base64EncodingUpdated = false
+    private var logLevelUpdated = false
+    private var loggerDelegateUpdated = false
+    private var applicationContextUpdated = false
+    private var platformContextUpdated = false
+    private var geoLocationContextUpdated = false
+    private var deepLinkContextUpdated = false
+    private var sessionContextUpdated = false
+    private var screenContextUpdated = false
+    private var screenViewAutotrackingUpdated = false
+    private var lifecycleAutotrackingUpdated = false
+    private var installAutotrackingUpdated = false
+    private var exceptionAutotrackingUpdated = false
+    private var diagnosticAutotrackingUpdated = false
+    private var userAnonymisationUpdated = false
+    private var trackerVersionSuffixUpdated = false
+    private var advertisingIdentifierRetrieverUpdated = false
+    
     var sourceConfig: TrackerConfiguration?
     var isPaused = false
-    var appIdUpdated = false
-    var devicePlatformUpdated = false
-    var base64EncodingUpdated = false
-    var logLevelUpdated = false
-    var loggerDelegateUpdated = false
-    var applicationContextUpdated = false
-    var platformContextUpdated = false
-    var geoLocationContextUpdated = false
-    var deepLinkContextUpdated = false
-    var sessionContextUpdated = false
-    var screenContextUpdated = false
-    var screenViewAutotrackingUpdated = false
-    var lifecycleAutotrackingUpdated = false
-    var installAutotrackingUpdated = false
-    var exceptionAutotrackingUpdated = false
-    var diagnosticAutotrackingUpdated = false
-    var userAnonymisationUpdated = false
-    var trackerVersionSuffixUpdated = false
 
     override var appId: String {
         get {
@@ -217,6 +219,16 @@ class TrackerConfigurationUpdate: TrackerConfiguration {
         set {
             super.trackerVersionSuffix = newValue
             trackerVersionSuffixUpdated = true
+        }
+    }
+
+    override var advertisingIdentifierRetriever: (() -> UUID?)? {
+        get {
+            return ((sourceConfig == nil) || advertisingIdentifierRetrieverUpdated) ? super.advertisingIdentifierRetriever : sourceConfig?.advertisingIdentifierRetriever
+        }
+        set {
+            super.advertisingIdentifierRetriever = newValue
+            advertisingIdentifierRetrieverUpdated = true
         }
     }
 }
