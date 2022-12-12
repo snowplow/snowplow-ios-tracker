@@ -80,7 +80,7 @@ limitations under the License.
 [tech-docs]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/mobile-trackers/
 [tech-docs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
 
-[api-docs]: https://snowplow.github.io/snowplow-objc-tracker/
+[api-docs]: https://snowplow.github.io/snowplow-objc-tracker/documentation/snowplowtracker/snowplow/
 
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
