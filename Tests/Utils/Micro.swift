@@ -27,7 +27,7 @@ class Micro {
     
     static let timeout = 10.0
     static let retryDelay = 0.5
-    static let maxNumberOfRetries = 20
+    static let maxNumberOfRetries = 19
     static let endpoint = "http://0.0.0.0:9090"
     
     class func setUpMockerIgnores() {
@@ -75,7 +75,7 @@ class Micro {
                                      numberOfRetries: numberOfRetries + 1)
                     }
                 } else {
-                    XCTFail("Didn't find the expected event counts in Micro")
+                    XCTFail("Didn't find the expected event counts in Micro, actual: \(String(data: data, encoding: .utf8)!)")
                 }
             } else {
                 XCTFail("Failed to parse response from Micro")
@@ -131,7 +131,7 @@ class Micro {
                                         numberOfRetries: numberOfRetries + 1,
                                         completion: completion)
                     } else {
-                        XCTFail("Didn't find the expected event in Micro")
+                        XCTFail("Didn't find the expected event in Micro, actual: \(String(data: data, encoding: .utf8)!)")
                     }
                 } else {
                     XCTFail("Failed to parse response from Micro")
