@@ -84,12 +84,11 @@ jobs:
 
       - name: Build & Test
         run: |
-          xcodebuild \
+          set -o pipefail && xcodebuild \
             -scheme SnowplowTracker \
             -sdk "${{ matrix.sdk }}" \
             -destination "${{ matrix.destination }}" \
-            -quiet \
-            clean test
+            clean test | xcpretty
 
   build_objc_demo_app:
     name: "ObjC demo (iOS ${{ matrix.version.ios }})"
