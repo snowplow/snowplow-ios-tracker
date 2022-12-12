@@ -1,5 +1,5 @@
 //
-// SwiftUITracking.swift
+// ScreenViewModifier.swift
 // Snowplow
 //
 // Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -30,30 +30,42 @@ internal struct ScreenViewModifier: ViewModifier {
     let contexts: [(schema: String, data: [String: Any])]
     let trackerNamespace: String?
     
+    /// Transform the context entity definitions to self-describing objects
+    private var processedContexts: [SelfDescribingJson] {
+        return contexts.map({ entity in
+            if let data = entity.data as? [String : NSObject] {
+                return SelfDescribingJson(schema: entity.schema, andDictionary: data)
+            } else {
+                logError(message: "Failed to process context entity for screen view.")
+            }
+            return nil
+        }).filter({ $0 != nil }).map({ $0! })
+    }
+    
+    /// Get tracker by namespace if configured, otherwise return the default tracker
+    private var tracker: TrackerController? {
+        if let namespace = trackerNamespace {
+            return Snowplow.tracker(namespace: namespace)
+        } else {
+            return Snowplow.defaultTracker()
+        }
+    }
+
+    /// Modifies the view to track the screen view when it appears
     func body(content: Content) -> some View {
         content.onAppear {
-            let event = ScreenView(name: name)
-            event.contexts = contexts.map({ entity in
-                if let data = entity.data as? [String : NSObject] {
-                    return SelfDescribingJson(schema: entity.schema, andDictionary: data)
-                } else {
-                    logError(message: "Failed to process context entity for screen view.")
-                }
-                return nil
-            }).filter({ $0 != nil }).map({ $0! })
-            
-            var tracker: TrackerController?
-            if let namespace = trackerNamespace {
-                tracker = Snowplow.tracker(namespace: namespace)
-            } else {
-                tracker = Snowplow.defaultTracker()
-            }
-            
-            if let tracker = tracker {
-                _ = tracker.track(event)
-            } else {
-                logError(message: "Screen view not tracked – tracker not initialized.")
-            }
+            trackScreenView()
+        }
+    }
+
+    func trackScreenView() {
+        let event = ScreenView(name: name)
+        event.contexts = processedContexts
+
+        if let tracker = tracker {
+            _ = tracker.track(event)
+        } else {
+            logError(message: "Screen view not tracked – tracker not initialized.")
         }
     }
 }
