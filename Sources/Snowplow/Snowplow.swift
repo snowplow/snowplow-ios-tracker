@@ -25,6 +25,20 @@ import WebKit
 #endif
 
 /// Entry point to instance a new Snowplow tracker.
+///
+/// The following example initializes a tracker instance using the ``createTracker(namespace:network:)`` method and tracks a ``SelfDescribing`` event:
+///
+/// ```swift
+/// let tracker = Snowplow.createTracker(
+///     namespace: "ns1",
+///     endpoint: "https://collector.example.com"
+/// )
+/// let event = SelfDescribing(
+///     schema: "iglu:com.snowplowanalytics.snowplow/link_click/jsonschema/1-0-1",
+///     payload: ["targetUrl": "http://a-target-url.com"]
+/// )
+/// tracker?.track(event)
+/// ```
 @objc(SPSnowplow)
 public class Snowplow: NSObject {
     private static var serviceProviderInstances: [String : ServiceProvider] = [:]
@@ -34,6 +48,7 @@ public class Snowplow: NSObject {
     /// Remote Configuration
 
     /// Setup a single or a set of tracker instances which will be used inside the app to track events.
+    ///
     /// The app can run multiple tracker instances which will be identified by string `namespaces`.
     /// The trackers configuration is automatically download from the endpoint indicated in the `RemoteConfiguration`
     /// passed as argument. For more details see `RemoteConfiguration`.
@@ -68,6 +83,7 @@ public class Snowplow: NSObject {
     }
 
     /// Reconfigure, create or delete the trackers based on the configuration downloaded remotely.
+    ///
     /// The trackers configuration is automatically download from the endpoint indicated in the `RemoteConfiguration`
     /// previously used to setup the trackers.
     ///
@@ -96,6 +112,7 @@ public class Snowplow: NSObject {
     /// Standard Configuration
 
     /// Create a new tracker instance which will be used inside the app to track events.
+    ///
     /// The app can run multiple tracker instances which will be identified by string `namespaces`.
     /// The tracker will be configured with default setting and only the collector endpoint URL need
     /// to be passed for the configuration.
@@ -118,12 +135,13 @@ public class Snowplow: NSObject {
     ///   - method: The method for the requests to the collector (GET or POST).
     /// - Returns: The tracker instance created.
     @objc
-    public class func createTracker(namespace: String, endpoint: String, method: HttpMethodOptions) -> TrackerController? {
+    public class func createTracker(namespace: String, endpoint: String, method: HttpMethodOptions = .post) -> TrackerController? {
         let networkConfiguration = NetworkConfiguration(endpoint: endpoint, method: method)
         return createTracker(namespace: namespace, network: networkConfiguration, configurations: [])
     }
 
     /// Create a new tracker instance which will be used inside the app to track events.
+    ///
     /// The app can run multiple tracker instances which will be identified by string `namespaces`.
     /// The tracker will be configured with default setting and only the collector endpoint URL need
     /// to be passed for the configuration.
@@ -151,6 +169,7 @@ public class Snowplow: NSObject {
     }
 
     /// Create a new tracker instance which will be used inside the app to track events.
+    ///
     /// The app can run multiple tracker instances which will be identified by string `namespaces`.
     /// The tracker will be configured with default setting and only the collector endpoint URL need
     /// to be passed for the configuration.
@@ -186,6 +205,8 @@ public class Snowplow: NSObject {
         }
     }
 
+    /// Get the default tracker instance.
+    ///
     /// The default tracker instance is the first created in the app, but that can be overridden programmatically
     /// calling `setTrackerAsDefault(TrackerController)`.
     @objc
@@ -203,6 +224,7 @@ public class Snowplow: NSObject {
     }
 
     /// Set the passed tracker as default tracker if it's registered as an active tracker in the app.
+    ///
     /// If the passed instance is of a tracker which is already removed (see `removeTracker`) then it can't become the new default tracker
     /// and the operation fails.
     ///
@@ -221,7 +243,8 @@ public class Snowplow: NSObject {
         return false
     }
 
-    /// A tracker can be removed from the active trackers of the app.
+    /// Remove a tracker from the active trackers of the app.
+    ///
     /// Once it has been removed it can't be added again or set as default.
     /// The unique way to resume a removed tracker is creating a new tracker with same namespace and
     /// same configurations.
@@ -246,8 +269,10 @@ public class Snowplow: NSObject {
     }
 
     /// Remove all the trackers.
+    ///
     /// The removed tracker is always stopped.
-    /// See `removeTracker(TrackerController)`
+    ///
+    /// See ``remove(tracker:)`` to remove  a specific tracker.
     @objc
     public class func removeAllTrackers() {
         objc_sync_enter(self)
@@ -269,6 +294,7 @@ public class Snowplow: NSObject {
     #if os(iOS) || os(macOS)
 
     /// Subscribe to events tracked in a Web view using the Snowplow WebView tracker JavaScript library.
+    ///
     /// - Parameter webViewConfiguration: Configuration of the Web view to subscribe to events from
     @objc
     public class func subscribeToWebViewEvents(with webViewConfiguration: WKWebViewConfiguration) {

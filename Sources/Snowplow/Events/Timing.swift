@@ -22,6 +22,8 @@
 import Foundation
 
 /// A timing event.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/timing/jsonschema/1-0-0`
 @objc(SPTiming)
 public class Timing: SelfDescribingAbstract {
     /// The timing category
@@ -38,9 +40,9 @@ public class Timing: SelfDescribingAbstract {
     public var label: String?
 
     /// Creates a timing event
-    /// @param category The timing category
-    /// @param variable The timing variable
-    /// @param timing The time
+    /// - Parameter category: The timing category
+    /// - Parameter variable: The timing variable
+    /// - Parameter timing: The time
     @objc
     public init(category: String, variable: String, timing: Int) {
         self.category = category
@@ -48,11 +50,11 @@ public class Timing: SelfDescribingAbstract {
         self.timing = timing
     }
 
-    public override var schema: String {
+    override var schema: String {
         return kSPUserTimingsSchema
     }
 
-    public override var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPUtCategory] = category as NSObject
         payload[kSPUtVariable] = variable as NSObject

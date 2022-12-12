@@ -21,6 +21,7 @@
 import CoreGraphics
 import Foundation
 
+/// Configuration for the current user and device information that is tracked along with events.
 @objc(SPSubjectConfigurationProtocol)
 public protocol SubjectConfigurationProtocol: AnyObject {
     /// The custom UserID.

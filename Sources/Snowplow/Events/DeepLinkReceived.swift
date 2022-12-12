@@ -21,6 +21,8 @@
 import Foundation
 
 /// A deep-link received in the app.
+///
+/// Schema: `iglu:com.snowplowanalytics.mobile/deep_link_received/jsonschema/1-0-0`
 @objc(SPDeepLinkReceived)
 public class DeepLinkReceived: SelfDescribingAbstract {
     /// Referrer URL, source of this deep-link.
@@ -31,32 +33,32 @@ public class DeepLinkReceived: SelfDescribingAbstract {
     public var url: String
 
     /// Creates a deep-link received event.
-    /// @param url URL in the received deep-link.
+    /// - Parameter url: URL in the received deep-link.
     @objc
     public init(url: String) {
         self.url = url
     }
     
     @objc
-    public class var schema: String {
+    class var schema: String {
         return "iglu:com.snowplowanalytics.mobile/deep_link_received/jsonschema/1-0-0"
     }
 
     @objc
-    public class var paramUrl: String {
+    class var paramUrl: String {
         return "url"
     }
 
     @objc
-    public class var paramReferrer: String {
+    class var paramReferrer: String {
         return "referrer"
     }
 
-    public override var schema: String {
+    override var schema: String {
         return DeepLinkReceived.schema
     }
 
-    public override var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         if let referrer = referrer {
             payload[DeepLinkReceived.paramReferrer] = referrer as NSObject

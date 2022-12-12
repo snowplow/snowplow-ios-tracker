@@ -22,6 +22,8 @@
 import Foundation
 
 /// A background transition event.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/application_background/jsonschema/1-0-0`
 @objc(SPBackground)
 public class Background: SelfDescribingAbstract {
     /// Index indicating the current transition.
@@ -35,11 +37,11 @@ public class Background: SelfDescribingAbstract {
         self.index = index
     }
 
-    override public var schema: String {
+    override var schema: String {
         return kSPBackgroundSchema
     }
 
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [AnyHashable : Any] = [:]
         payload[kSPBackgroundIndex] = NSNumber(value: index)
         return payload as? [String : NSObject] ?? [:]

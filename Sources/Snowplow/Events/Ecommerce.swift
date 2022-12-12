@@ -61,12 +61,11 @@ public class Ecommerce : PrimitiveAbstract {
         self.items = items ?? []
     }
 
-    @objc
-    override public var eventName: String {
+    override var eventName: String {
         return kSPEventEcomm
     }
 
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPEcommTotal] = String(format: "%.02f", totalValue) as NSObject
         if let taxValue = taxValue {

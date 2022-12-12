@@ -20,6 +20,7 @@
 
 import Foundation
 
+/// Configuration for session management.
 @objc(SPSessionConfigurationProtocol)
 public protocol SessionConfigurationProtocol: AnyObject {
     /// The amount of time that can elapse before the

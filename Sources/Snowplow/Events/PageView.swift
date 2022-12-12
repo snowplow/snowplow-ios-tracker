@@ -36,20 +36,19 @@ public class PageView : PrimitiveAbstract {
     public var referrer: String?
 
     /// Creates a Page View event
-    /// @param pageUrl Page URL
-    /// @param pageTitle Page title
-    /// @param referrer Page referrer URL
+    /// - Parameter pageUrl: Page URL
+    /// - Parameter pageTitle: Page title
+    /// - Parameter referrer: Page referrer URL
     @objc
     public init(pageUrl: String) {
         self.pageUrl = pageUrl
     }
     
-    @objc
-    override public var eventName: String {
+    override var eventName: String {
         return kSPEventPageView
     }
     
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String: NSObject] = [
             kSPPageUrl: pageUrl as NSObject
         ]

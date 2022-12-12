@@ -21,25 +21,33 @@
 
 import Foundation
 
+/// Error event tracked by exception autotracking.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/application_error/jsonschema/1-0-2`
 @objc(SPSNOWError)
 public class SNOWError: SelfDescribingAbstract {
+    /// Error message
     @objc
     public var message: String
+    /// Error name
     @objc
     public var name: String?
+    /// Stacktrace for the error
     @objc
     public var stackTrace: String?
     
+    /// Creates a SNOWError event.
+    /// - Parameter message: Error message
     @objc
     public init(message: String) {
         self.message = message
     }
     
-    override public var schema: String {
+    override var schema: String {
         return kSPErrorSchema
     }
 
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPErrorMessage] = message as NSObject
         payload[kSPErrorStackTrace] = stackTrace as NSObject?

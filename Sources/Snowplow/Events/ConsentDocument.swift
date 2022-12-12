@@ -22,6 +22,8 @@
 import Foundation
 
 /// A consent document event.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0`
 @objc(SPConsentDocument)
 public class ConsentDocument: NSObject {
     /// Identifier of the document.
@@ -48,7 +50,7 @@ public class ConsentDocument: NSObject {
     }
 
     /// Returns the payload.
-    public var payload: SelfDescribingJson {
+    var payload: SelfDescribingJson {
         var event: [String : String] = [:]
         event[kSPCdId] = documentId
         event[kSPCdVersion] = version

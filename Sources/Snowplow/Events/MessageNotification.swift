@@ -57,6 +57,8 @@ func triggerToString(_ trigger: MessageNotificationTrigger) -> String {
 }
 
 /// An event that represents the reception of a push notification (or a locally generated one).
+///
+/// Schema: `iglu:com.snowplowanalytics.mobile/message_notification/jsonschema/1-0-0`
 @objc(SPMessageNotification)
 public class MessageNotification : SelfDescribingAbstract {
     /// The action associated with the notification.
@@ -117,9 +119,9 @@ public class MessageNotification : SelfDescribingAbstract {
     
     /// Creates a Message Notification event that represents a push notification or a local notification.
     /// @note The custom data of the push notification have to be tracked separately in custom entities that can be attached to this event.
-    /// @param title Title of message notification.
-    /// @param body Body content of the message notification.
-    /// @param trigger The trigger that raised this notification: remote notification (push), position related (location), date-time related (calendar, timeInterval) or app generated (other).
+    /// - Parameter title: Title of message notification.
+    /// - Parameter body: Body content of the message notification.
+    /// - Parameter trigger: The trigger that raised this notification: remote notification (push), position related (location), date-time related (calendar, timeInterval) or app generated (other).
     @objc
     public init(title: String, body: String, trigger: MessageNotificationTrigger) {
         self.title = title
@@ -127,8 +129,7 @@ public class MessageNotification : SelfDescribingAbstract {
         self.trigger = trigger
     }
     
-    @objc
-    public class func messageNotification(userInfo: [String: NSObject], defaultTitle: String?, defaultBody: String?) -> MessageNotification? {
+    class func messageNotification(userInfo: [String: NSObject], defaultTitle: String?, defaultBody: String?) -> MessageNotification? {
         guard let aps = userInfo["aps"] as? [String : NSObject] else {
             return nil
         }
@@ -156,11 +157,11 @@ public class MessageNotification : SelfDescribingAbstract {
         return event
     }
     
-    public override var schema: String {
+    override var schema: String {
         return kSPMessageNotificationSchema
     }
     
-    public override var payload: [String: NSObject] {
+    override var payload: [String: NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPMessageNotificationParamAction] = action as NSObject?
         if let attachments = attachments {
