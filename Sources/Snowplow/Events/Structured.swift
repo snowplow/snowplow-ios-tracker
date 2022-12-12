@@ -24,7 +24,7 @@ import Foundation
 /// A structured event.
 @objc(SPStructured)
 public class Structured: PrimitiveAbstract {
-    /// Name you for the group of objects you want to track e.g. "media", "ecomm".
+    /// Name for the group of objects you want to track e.g. "media", "ecomm".
     @objc
     public var category: String
     /// Defines the type of user interaction for the web object.

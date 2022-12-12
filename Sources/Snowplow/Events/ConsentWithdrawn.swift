@@ -42,6 +42,8 @@ public class ConsentWithdrawn: SelfDescribingAbstract {
     @objc
     public var documentDescription: String?
     /// Other documents.
+    ///
+    /// Schema for the documents: `iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0`
     @objc
     public var documents: [SelfDescribingJson]?
 

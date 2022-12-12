@@ -121,7 +121,7 @@ class Utilities {
     
     /// URL encodes a dictionary as key=value pairs separated by &, so that it can be used in a query-string.
     ///
-    /// This method can encode string, numbers, and bool values, and not embedded arrays or dictionaries.
+    /// This method can encode string, numbers, and bool values, but not embedded arrays or dictionaries.
     /// It encodes bool as 1 and 0.
     /// - Returns: The url encoded string of the dictionary.
     class func urlEncode(_ dictionary: [String : NSObject]) -> String {
