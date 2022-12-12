@@ -23,21 +23,37 @@ import Foundation
 import UserNotifications
 #endif
 
+/// Push notification event.
+///
+/// Schema: `iglu:com.apple/notification_event/jsonschema/1-0-1`
 @objc(SPPushNotification)
 public class PushNotification : SelfDescribingAbstract {
+    /// The delivery date of the notification.
     @objc
     public var date: String
+    /// The action associated with the notification.
     @objc
     public var action: String
+    /// The trigger that raised this notification: remote notification (`PUSH`), position related (`LOCATION`), date-time related (`CALENDAR`, `TIME_INTERVAL`).
     @objc
     public var trigger: String
+    /// The category associated to the notification.
     @objc
     public var category: String
+    /// An identifier for the thread.
     @objc
     public var thread: String
+    /// Notification content
     @objc
     public var notification: NotificationContent?
 
+    /// Creates a notification event
+    /// - Parameter date: The delivery date of the notification.
+    /// - Parameter action: The action associated with the notification.
+    /// - Parameter trigger: The trigger that raised this notification: remote notification (`PUSH`), position related (`LOCATION`), date-time related (`CALENDAR`, `TIME_INTERVAL`).
+    /// - Parameter category: The category associated to the notification.
+    /// - Parameter thread: An identifier for the thread.
+    /// - Parameter notification: Notification content.
     @objc
     public init(date: String, action: String, trigger: String, category: String, thread: String, notification: NotificationContent?) {
         self.date = date
@@ -50,6 +66,13 @@ public class PushNotification : SelfDescribingAbstract {
 
     #if os(iOS)
 
+    /// Creates a notification event
+    /// - Parameter date: The delivery date of the notification.
+    /// - Parameter action: The action associated with the notification.
+    /// - Parameter notificationTrigger: The trigger that raised this notification: remote notification (`PUSH`), position related (`LOCATION`), date-time related (`CALENDAR`, `TIME_INTERVAL`).
+    /// - Parameter category: The category associated to the notification.
+    /// - Parameter thread: An identifier for the thread.
+    /// - Parameter notification: Notification content.
     @objc
     public init(date: String, action: String, notificationTrigger trigger: UNNotificationTrigger?, category: String, thread: String, notification: NotificationContent?) {
         self.date = date
@@ -60,8 +83,7 @@ public class PushNotification : SelfDescribingAbstract {
         self.notification = notification
     }
 
-    @objc
-    public class func string(from trigger: UNNotificationTrigger?) -> String {
+    class func string(from trigger: UNNotificationTrigger?) -> String {
         var triggerType = "UNKNOWN"
         if let trigger = trigger {
             let triggerClass = NSStringFromClass(type(of: trigger).self)
@@ -80,11 +102,11 @@ public class PushNotification : SelfDescribingAbstract {
 
     #endif
 
-    public override var schema: String {
+    override var schema: String {
         return kSPPushNotificationSchema
     }
 
-    public override var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var data: [String: NSObject] = [
             kSPPushTrigger: trigger as NSObject,
             kSPPushAction: action as NSObject,
@@ -99,25 +121,38 @@ public class PushNotification : SelfDescribingAbstract {
 
 // MARK:- SPNotificationContent
 
+/// Content for a notification.
 @objc(SPNotificationContent)
 public class NotificationContent : NSObject {
+    /// Title of message notification.
     @objc
     public var title: String
+    /// Body content of the message notification.
     @objc
     public var body: String
+    /// The number that the app’s icon displays.
     @objc
     public var badge: NSNumber?
+    /// The notification's subtitle.
     @objc
     public var subtitle: String?
+    /// The sound played when the device receives the notification.
     @objc
     public var sound: String?
+    /// The name of the image or storyboard to use when your app launches because of the notification.
     @objc
     public var launchImageName: String?
+    /// The custom data associated with the notification.
     @objc
     public var userInfo: [String : NSObject]?
+    /// Attachments added to the notification (they can be part of the data object).
     @objc
     public var attachments: [NSObject]?
 
+    /// Creates a notification content
+    /// - Parameter title: Title of message notification.
+    /// - Parameter body: Body content of the message notification.
+    /// - Parameter badge: The number that the app’s icon displays.
     @objc
     public init(title: String, body: String, badge: NSNumber?) {
         self.title = title
@@ -125,8 +160,7 @@ public class NotificationContent : NSObject {
         self.badge = badge
     }
 
-    @objc
-    public var payload: [String : NSObject] {
+    var payload: [String : NSObject] {
         var event: [String : NSObject] = [:]
         event[kSPPnTitle] = title as NSObject
         event[kSPPnBody] = body as NSObject

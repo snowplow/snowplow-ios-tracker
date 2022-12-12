@@ -21,17 +21,21 @@
 import Foundation
 
 /// Entity that indicates a deep-link has been received and processed.
+///
+/// Schema: `iglu:com.snowplowanalytics.mobile/deep_link/jsonschema/1-0-0`
 @objc(SPDeepLinkEntity)
 public class DeepLinkEntity: SelfDescribingJson {
     @objc
-    public static let schema = "iglu:com.snowplowanalytics.mobile/deep_link/jsonschema/1-0-0"
+    static let schema = "iglu:com.snowplowanalytics.mobile/deep_link/jsonschema/1-0-0"
     @objc
-    public static let paramReferrer = "referrer"
+    static let paramReferrer = "referrer"
     @objc
-    public static let paramUrl = "url"
+    static let paramUrl = "url"
     
+    /// URL in the received deep-link
     @objc
     public var url: String
+    /// Referrer URL, source of this deep-link
     @objc
     public var referrer: String?
 

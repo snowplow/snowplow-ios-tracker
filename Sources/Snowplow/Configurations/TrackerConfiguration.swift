@@ -21,6 +21,7 @@
 
 import Foundation
 
+/// Configuration of tracker properties.
 @objc(SPTrackerConfigurationProtocol)
 public protocol TrackerConfigurationProtocol: AnyObject {
     /// Identifer of the app.

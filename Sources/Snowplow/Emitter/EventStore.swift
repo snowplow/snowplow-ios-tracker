@@ -21,6 +21,7 @@
 
 import Foundation
 
+/// Protocol to implement storage for events that are queued to be sent.
 @objc(SPEventStore)
 public protocol EventStore: NSObjectProtocol {
     /// Adds an event to the store.

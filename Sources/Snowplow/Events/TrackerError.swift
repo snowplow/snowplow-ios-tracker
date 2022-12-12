@@ -25,17 +25,29 @@ let kMaxExceptionNameLength = 1024
 
 import Foundation
 
+/// Tracker error event used in diagnostic autotracking.
+///
+/// Schema: `iglu:com.snowplowanalytics.snowplow/diagnostic_error/jsonschema/1-0-0`
 @objc(SPTrackerError)
 public class TrackerError : SelfDescribingAbstract {
+    /// Class name or source where the error appeared.
     @objc
     public var source: String
+    /// Message of the error.
     @objc
     public var message: String
+    /// Error involved in the error.
     @objc
     public var error: Error?
+    /// Exception involved in the error.
     @objc
     public var exception: NSException?
     
+    /// Create tracker error.
+    /// - Parameter source: Class name or source where the error appeared.
+    /// - Parameter message: Message of the error.
+    /// - Parameter error: Error involved in the error.
+    /// - Parameter exception: Exception involved in the error.
     @objc
     public init(source: String, message: String, error: Error? = nil, exception: NSException? = nil) {
         self.source = source
@@ -44,11 +56,11 @@ public class TrackerError : SelfDescribingAbstract {
         self.exception = exception
     }
     
-    override public var schema: String {
+    override var schema: String {
         return kSPDiagnosticErrorSchema
     }
     
-    override public var payload: [String : NSObject] {
+    override var payload: [String : NSObject] {
         var payload: [String : NSObject] = [:]
         payload[kSPDiagnosticErrorClassName] = source as NSObject
         payload[kSPDiagnosticErrorMessage] = truncate(message, maxLength: kMaxMessageLength) as NSObject

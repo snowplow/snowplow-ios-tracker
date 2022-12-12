@@ -37,8 +37,8 @@ public protocol InspectableEvent {
     @objc
     var state: TrackerStateSnapshot { get }
     /// Add payload values to the event.
-    /// @param payload Map of values to add to the event payload.
-    /// @return Whether or not the values have been successfully added to the event payload.
+    /// - Parameter payload: Map of values to add to the event payload.
+    /// - Returns: Whether or not the values have been successfully added to the event payload.
     @objc
     func addPayloadValues(_ payload: [String : NSObject]) -> Bool
 }

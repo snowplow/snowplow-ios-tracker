@@ -20,8 +20,7 @@
 
 import Foundation
 
-/// Represents the network communication configuration
-/// allowing the tracker to be able to send events to the Snowplow collector.
+/// Represents the network communication configuration allowing the tracker to be able to send events to the Snowplow collector.
 @objc(SPNetworkConfiguration)
 public class NetworkConfiguration: Configuration {
     /// URL (without schema/protocol) used to send events to the collector.

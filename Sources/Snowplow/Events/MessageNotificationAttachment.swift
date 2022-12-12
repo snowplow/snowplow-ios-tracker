@@ -42,8 +42,7 @@ public class MessageNotificationAttachment : NSObject {
         self.url = url
     }
     
-    @objc
-    public var data: [String : NSObject] {
+    var data: [String : NSObject] {
         return [
             kSPMessageNotificationAttachmentParamIdentifier: identifer as NSObject,
             kSPMessageNotificationAttachmentParamType: type as NSObject,
