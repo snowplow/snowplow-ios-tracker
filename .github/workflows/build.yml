@@ -108,19 +108,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Get example branch name
-        id: example_branch
-        run: |
-          DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
-          echo ::set-output name=name::${DEMO_BRANCH}
-
-      - name: Checkout demo app
-        uses: actions/checkout@v3
         with:
-          repository: snowplow-incubator/snowplow-objc-tracker-examples
-          ref: ${{ steps.example_branch.outputs.name }}
-          path: examples
+          submodules: true
 
       - name: Build
         env:
@@ -129,7 +118,7 @@ jobs:
           IPHONE: ${{ matrix.version.iphone }}
           WATCH: ${{ matrix.version.watch }}
         run: |
-          cd examples/demo/ 
+          cd Examples/demo/ 
           . .scripts/setup.sh
           .scripts/test_ios_demo.sh -app SnowplowObjCDemo -podfile Podfile -ios "${BUILD_WORKSPACE_OBJC_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_OBJC_DEMO}"
 
@@ -149,19 +138,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Get example branch name
-        id: example_branch
-        run: |
-          DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
-          echo ::set-output name=name::${DEMO_BRANCH}
-
-      - name: Checkout demo app
-        uses: actions/checkout@v3
         with:
-          repository: snowplow-incubator/snowplow-objc-tracker-examples
-          ref: ${{ steps.example_branch.outputs.name }}
-          path: examples
+          submodules: true
 
       - name: Build
         env:
@@ -170,7 +148,7 @@ jobs:
           IPHONE: ${{ matrix.version.iphone }}
           WATCH: ${{ matrix.version.watch }}
         run: |
-          cd examples/demo/ 
+          cd Examples/demo/ 
           . .scripts/setup.sh
           .scripts/test_ios_demo.sh -app SnowplowSwiftCocoapodsDemo -podfile Podfile -ios "${BUILD_WORKSPACE_SWIFT_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_DEMO_IOS}" -watch "${BUILD_DEST_PAIRED}" "${BUILD_SCHEME_SWIFT_DEMO_WATCH}"
 
@@ -190,12 +168,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Get example branch name
-        id: example_branch
-        run: |
-          DEMO_BRANCH=$(cat .scripts/demo_apps_branch_name)
-          echo ::set-output name=name::${DEMO_BRANCH}
+        with:
+          submodules: true
 
       - name: Get branch name
         id: branch
@@ -212,13 +186,6 @@ jobs:
           fi
           echo ::set-output name=name::${GIT_BRANCH}
 
-      - name: Checkout demo app
-        uses: actions/checkout@v3
-        with:
-          repository: snowplow-incubator/snowplow-objc-tracker-examples
-          ref: ${{ steps.example_branch.outputs.name }}
-          path: examples
-
       - name: Build
         env:
           IOS: ${{ matrix.version.ios }}
@@ -227,6 +194,35 @@ jobs:
           WATCH: ${{ matrix.version.watch }}
           BRANCH: ${{ steps.branch.outputs.name }}
         run: |
-          cd examples/demo/
+          cd Examples/demo/
           . .scripts/setup.sh
           .scripts/test_ios_demo.sh -app SnowplowSwiftSPMDemo -spm ${BRANCH} -ios "${BUILD_WORKSPACE_SWIFT_SPM_DEMO}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_SWIFT_SPM_DEMO_IOS}"
+
+  build_iglu_central_app:
+    name: "Iglu Central (SPM) (iOS ${{ matrix.version.ios }})"
+    needs: test_framework
+    runs-on: macos-${{ matrix.version.macos }}
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_${{ matrix.version.xcode }}.app/Contents/Developer
+
+    strategy:
+      fail-fast: false
+      matrix:
+        version:
+          - {ios: 15.5, iphone: iPhone 12 Pro, macos: '12', xcode: 13.4}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+
+      - name: Build
+        env:
+          IOS: ${{ matrix.version.ios }}
+          IPHONE: ${{ matrix.version.iphone }}
+          BRANCH: ${{ steps.branch.outputs.name }}
+        run: |
+          cd Examples/demo/
+          . .scripts/setup.sh
+          .scripts/test_ios_demo.sh -app IgluCentral -ios "${BUILD_WORKSPACE_IGLU_CENTRAL}" "${BUILD_DEST_IOS}" "${BUILD_SCHEME_IGLU_CENTRAL_IOS}"
