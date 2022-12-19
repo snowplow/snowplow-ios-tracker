@@ -294,6 +294,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             tracker.installEvent = trackerConfig.installAutotracking
             tracker.trackerDiagnostic = trackerConfig.diagnosticAutotracking
             tracker.userAnonymisation = trackerConfig.userAnonymisation
+            tracker.advertisingIdentifierRetriever = trackerConfig.advertisingIdentifierRetriever
             if let config = gcConfig {
                 tracker.globalContextGenerators = config.contextGenerators
             }

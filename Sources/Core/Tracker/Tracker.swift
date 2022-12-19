@@ -297,6 +297,8 @@ class Tracker: NSObject {
     var isTracking: Bool {
         return dataCollection
     }
+    
+    var advertisingIdentifierRetriever: (() -> UUID?)?
 
     init(trackerNamespace: String,
          appId: String?,
@@ -539,7 +541,7 @@ class Tracker: NSObject {
             payload.addValueToPayload(String(format: "%lld", ttInMilliSeconds), forKey: kSPTrueTimestamp)
         }
         payload.addDictionaryToPayload(trackerData)
-        if let subjectDict = subject?.getStandardDict(withUserAnonymisation: userAnonymisation)?.dictionary {
+        if let subjectDict = subject?.getStandardDict(userAnonymisation: userAnonymisation)?.dictionary {
             payload.addDictionaryToPayload(subjectDict)
         }
         payload.addValueToPayload(devicePlatformToString(devicePlatform), forKey: kSPPlatform)
@@ -611,7 +613,9 @@ class Tracker: NSObject {
 
     func addBasicContexts(toContexts contexts: inout [SelfDescribingJson], eventId: String, eventTimestamp: Int64, isService: Bool) {
         if subject != nil {
-            if let platformDict = subject?.getPlatformDict(withUserAnonymisation: userAnonymisation)?.dictionary {
+            if let platformDict = subject?.getPlatformDict(
+                userAnonymisation: userAnonymisation,
+                advertisingIdentifierRetriever: advertisingIdentifierRetriever)?.dictionary {
                 contexts.append(SelfDescribingJson(schema: platformContextSchema, andDictionary: platformDict))
             }
             if let geoLocationDict = subject?.getGeoLocationDict() {

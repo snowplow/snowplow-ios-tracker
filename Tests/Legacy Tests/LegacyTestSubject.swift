@@ -36,13 +36,13 @@ class LegacyTestSubject: XCTestCase {
 
     func testSubjectInit() {
         let subject = Subject()
-        XCTAssertNotNil(subject.getStandardDict(withUserAnonymisation: false))
+        XCTAssertNotNil(subject.getStandardDict(userAnonymisation: false))
     }
 
     func testSubjectInitWithOptions() {
         let subject = Subject(platformContext: true, andGeoContext: false)
-        XCTAssertNotNil(subject.getPlatformDict(withUserAnonymisation: false))
-        XCTAssertNotNil(subject.getStandardDict(withUserAnonymisation: false))
+        XCTAssertNotNil(subject.getPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil))
+        XCTAssertNotNil(subject.getStandardDict(userAnonymisation: false))
     }
 
     func testSubjectSetterFunctions() {
@@ -58,7 +58,7 @@ class LegacyTestSubject: XCTestCase {
         subject.networkUserId = "aNuid"
         subject.domainUserId = "aDuid"
 
-        guard var values = subject.getStandardDict(withUserAnonymisation: false)?.dictionary else {
+        guard var values = subject.getStandardDict(userAnonymisation: false)?.dictionary else {
             return XCTFail()
         }
 

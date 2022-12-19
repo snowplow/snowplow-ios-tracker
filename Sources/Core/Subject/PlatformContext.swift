@@ -52,7 +52,7 @@ class PlatformContext {
 
     /// Updates and returns payload dictionary with device context information.
     /// - Parameter userAnonymisation: Whether to anonymise user identifiers (IDFA values)
-    func fetchPlatformDict(withUserAnonymisation userAnonymisation: Bool) -> Payload {
+    func fetchPlatformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload {
         #if os(iOS)
         objc_sync_enter(self)
         let now = Date().timeIntervalSince1970
@@ -71,6 +71,11 @@ class PlatformContext {
             copy.addValueToPayload(nil, forKey: kSPMobileAppleIdfv)
             return copy
         } else {
+            if let retriever = advertisingIdentifierRetriever {
+                if platformDict.dictionary?[kSPMobileAppleIdfa] == nil {
+                    platformDict.addValueToPayload(retriever()?.uuidString, forKey: kSPMobileAppleIdfa)
+                }
+            }
             return platformDict
         }
     }
@@ -104,9 +109,6 @@ class PlatformContext {
         lastUpdatedEphemeralMobileDict = Date().timeIntervalSince1970
 
         if let currentDict = platformDict.dictionary {
-            if currentDict[kSPMobileAppleIdfa] == nil {
-                platformDict.addValueToPayload(deviceInfoMonitor.appleIdfa, forKey: kSPMobileAppleIdfa)
-            }
             if currentDict[kSPMobileAppleIdfv] == nil {
                 platformDict.addValueToPayload(deviceInfoMonitor.appleIdfv, forKey: kSPMobileAppleIdfv)
             }

@@ -24,13 +24,7 @@ import Foundation
 
 class MockDeviceInfoMonitor: DeviceInfoMonitor {
     var methodAccessCounts: [String : Int] = [:]
-    var customAppleIdfa: String? = "appleIdfa"
     var customAppleIdfv: String? = "appleIdfv"
-
-    override var appleIdfa: String? {
-        increaseMethodAccessCount("appleIdfa")
-        return customAppleIdfa
-    }
 
     override var appleIdfv: String? {
         increaseMethodAccessCount("appleIdfv")
