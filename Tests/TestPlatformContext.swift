@@ -26,14 +26,14 @@ import XCTest
 class TestPlatformContext: XCTestCase {
     func testContainsPlatformInfo() {
         let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
-        let platformDict = context.fetchPlatformDict(withUserAnonymisation: false).dictionary
+        let platformDict = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil).dictionary
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)
     }
 
     func testContainsMobileInfo() {
         let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
-        let platformDict = context.fetchPlatformDict(withUserAnonymisation: false).dictionary
+        let platformDict = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil).dictionary
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)
     }
@@ -41,10 +41,11 @@ class TestPlatformContext: XCTestCase {
     func testAddsAllMockedInfo() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
-        guard let platformDict = context.fetchPlatformDict(withUserAnonymisation: false).dictionary else {
+        let idfa = UUID()
+        guard let platformDict = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: { idfa }).dictionary else {
             return XCTFail()
         }
-        XCTAssertEqual("appleIdfa" as NSObject, platformDict[kSPMobileAppleIdfa])
+        XCTAssertEqual(idfa.uuidString as NSObject, platformDict[kSPMobileAppleIdfa])
         XCTAssertEqual("appleIdfv" as NSObject, platformDict[kSPMobileAppleIdfv])
         XCTAssertEqual("Apple Inc." as NSObject, platformDict[kSPPlatformDeviceManu])
         XCTAssertEqual("deviceModel" as NSObject, platformDict[kSPPlatformDeviceModel])
@@ -62,10 +63,10 @@ class TestPlatformContext: XCTestCase {
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appAvailableMemory"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(2, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(2, deviceInfoMonitor.accessCount("appAvailableMemory"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("appAvailableMemory"))
     }
@@ -75,10 +76,10 @@ class TestPlatformContext: XCTestCase {
         let context = PlatformContext(mobileDictUpdateFrequency: 1000, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appAvailableMemory"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appAvailableMemory"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appAvailableMemory"))
     }
@@ -88,10 +89,10 @@ class TestPlatformContext: XCTestCase {
         let context = PlatformContext(mobileDictUpdateFrequency: 1, networkDictUpdateFrequency: 0, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkType"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(2, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(2, deviceInfoMonitor.accessCount("networkType"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("networkType"))
     }
@@ -101,10 +102,10 @@ class TestPlatformContext: XCTestCase {
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1000, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkType"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkType"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkType"))
     }
@@ -114,40 +115,82 @@ class TestPlatformContext: XCTestCase {
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 0, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
     }
 
-    func testDoesntUpdateIdfaAndIdfvIfNotNil() {
+    func testDoesntUpdateIdfvIfNotNil() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
-        XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfa"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfv"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
-        XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfa"))
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfv"))
     }
 
-    func testUpdatesIdfaAndIdfvIfNil() {
+    func testUpdatesIdfvIfNil() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
-        deviceInfoMonitor.customAppleIdfa = nil
         deviceInfoMonitor.customAppleIdfv = nil
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
-        XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfa"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfv"))
-        _ = context.fetchPlatformDict(withUserAnonymisation: false)
-        XCTAssertEqual(2, deviceInfoMonitor.accessCount("appleIdfa"))
+        _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(2, deviceInfoMonitor.accessCount("appleIdfv"))
+    }
+    
+    func testUpdatesIdfaIfNil() {
+        let deviceInfoMonitor = MockDeviceInfoMonitor()
+        let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
+        
+        guard let platformDict1 = context.fetchPlatformDict(
+            userAnonymisation: false,
+            advertisingIdentifierRetriever: { nil }
+        ).dictionary else {
+            return XCTFail()
+        }
+        XCTAssertNil(platformDict1[kSPMobileAppleIdfa])
+        
+        let idfa = UUID()
+        guard let platformDict2 = context.fetchPlatformDict(
+            userAnonymisation: false,
+            advertisingIdentifierRetriever: { idfa }
+        ).dictionary else {
+            return XCTFail()
+        }
+        XCTAssertEqual(idfa.uuidString as NSObject, platformDict2[kSPMobileAppleIdfa])
+    }
+
+    func testDoesntUpdateIdfaIfAlreadyRetrieved() {
+        let deviceInfoMonitor = MockDeviceInfoMonitor()
+        let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
+        
+        let idfa1 = UUID()
+        guard let platformDict1 = context.fetchPlatformDict(
+            userAnonymisation: false,
+            advertisingIdentifierRetriever: { idfa1 }
+        ).dictionary else {
+            return XCTFail()
+        }
+        XCTAssertEqual(idfa1.uuidString as NSObject, platformDict1[kSPMobileAppleIdfa])
+        
+        guard let platformDict2 = context.fetchPlatformDict(
+            userAnonymisation: false,
+            advertisingIdentifierRetriever: { UUID() }
+        ).dictionary else {
+            return XCTFail()
+        }
+        XCTAssertEqual(idfa1.uuidString as NSObject, platformDict2[kSPMobileAppleIdfa])
     }
 
     func testAnonymisesUserIdentifiers() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
-        guard let platformDict = context.fetchPlatformDict(withUserAnonymisation: true).dictionary else {
+        guard let platformDict = context.fetchPlatformDict(
+            userAnonymisation: true,
+            advertisingIdentifierRetriever: { UUID() }
+        ).dictionary else {
             return XCTFail()
         }
         XCTAssertNil(platformDict[kSPMobileAppleIdfa])

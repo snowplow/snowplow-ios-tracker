@@ -78,7 +78,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.appId = newValue
-            dirtyConfig.appIdUpdated = true
             tracker.appId = newValue
         }
     }
@@ -93,7 +92,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.devicePlatform = newValue
-            dirtyConfig.devicePlatformUpdated = true
             tracker.devicePlatform = newValue
         }
     }
@@ -104,7 +102,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.base64Encoding = newValue
-            dirtyConfig.base64EncodingUpdated = true
             tracker.base64Encoded = newValue
         }
     }
@@ -115,7 +112,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.logLevel = newValue
-            dirtyConfig.logLevelUpdated = true
             tracker.logLevel = newValue
         }
     }
@@ -135,7 +131,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.applicationContext = newValue
-            dirtyConfig.applicationContextUpdated = true
             tracker.applicationContext = newValue
         }
     }
@@ -146,7 +141,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.platformContext = newValue
-            dirtyConfig.platformContextUpdated = true
             tracker.subject?.platformContext = newValue
         }
     }
@@ -157,7 +151,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.geoLocationContext = newValue
-            dirtyConfig.geoLocationContextUpdated = true
             tracker.subject?.geoLocationContext = newValue
         }
     }
@@ -168,7 +161,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.diagnosticAutotracking = newValue
-            dirtyConfig.diagnosticAutotrackingUpdated = true
             tracker.trackerDiagnostic = newValue
         }
     }
@@ -179,7 +171,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.exceptionAutotracking = newValue
-            dirtyConfig.exceptionAutotrackingUpdated = true
             tracker.exceptionEvents = newValue
         }
     }
@@ -190,7 +181,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.installAutotracking = newValue
-            dirtyConfig.installAutotrackingUpdated = true
             tracker.installEvent = newValue
         }
     }
@@ -201,7 +191,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.lifecycleAutotracking = newValue
-            dirtyConfig.lifecycleAutotrackingUpdated = true
             tracker.lifecycleEvents = newValue
         }
     }
@@ -212,7 +201,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.deepLinkContext = newValue
-            dirtyConfig.deepLinkContextUpdated = true
             tracker.deepLinkContext = newValue
         }
     }
@@ -223,7 +211,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.screenContext = newValue
-            dirtyConfig.screenContextUpdated = true
             tracker.screenContext = newValue
         }
     }
@@ -234,7 +221,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.screenViewAutotracking = newValue
-            dirtyConfig.screenViewAutotrackingUpdated = true
             tracker.autotrackScreenViews = newValue
         }
     }
@@ -245,7 +231,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.trackerVersionSuffix = newValue
-            dirtyConfig.trackerVersionSuffixUpdated = true
             if let value = newValue {
                 tracker.trackerVersionSuffix = value
             }
@@ -258,7 +243,6 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.sessionContext = newValue
-            dirtyConfig.sessionContextUpdated = true
             tracker.sessionContext = newValue
         }
     }
@@ -269,8 +253,17 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
         set {
             dirtyConfig.userAnonymisation = newValue
-            dirtyConfig.userAnonymisationUpdated = true
             tracker.userAnonymisation = newValue
+        }
+    }
+
+    var advertisingIdentifierRetriever: (() -> UUID?)? {
+        get {
+            return tracker.advertisingIdentifierRetriever
+        }
+        set {
+            dirtyConfig.advertisingIdentifierRetriever = newValue
+            tracker.advertisingIdentifierRetriever = newValue
         }
     }
 

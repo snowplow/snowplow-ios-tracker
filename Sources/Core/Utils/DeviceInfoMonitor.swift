@@ -32,94 +32,14 @@ import UIKit
 #endif
 
 class DeviceInfoMonitor {
-    /// Returns a generated string unique to each device, used only for serving advertisements. This works only if you have the AdSupport library in your project and you enable the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
-    /// - Returns: A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
-    /*
-     The IDFA can be retrieved using selectors rather than proper instance methods because
-     the compiler would complain about the missing AdSupport framework.
-     As stated in the header file, this only works if you have the AdSupport library in your project.
-     If you have it and you want to use IDFA, add the compiler flag <code>SNOWPLOW_IDFA_ENABLED</code> to your build settings.
-     If you haven't AdSupport framework in your project or SNOWPLOW_IDFA_ENABLED it's not set, it just compiles returning a nil advertisingIdentifier.
 
-     Note that `advertisingIdentifier` returns a sequence of 0s when used in the simulator.
-     Use a real device if you want a proper IDFA.
-     */
-    var appleIdfa: String? {
-        #if os(iOS) || os(tvOS)
-        #if SNOWPLOW_IDFA_ENABLED
-        var errorMsg = "ASIdentifierManager not found. Please, add the AdSupport.framework if you want to use it."
-        let identifierManagerClass: AnyClass? = NSClassFromString("ASIdentifierManager")
-        if identifierManagerClass == nil {
-            logError(message: errorMsg)
-            return nil
-        }
-
-        let sharedManagerSelector = NSSelectorFromString("sharedManager")
-        if !(identifierManagerClass?.responds(to: sharedManagerSelector) ?? false) {
-            logError(message: errorMsg)
-            return nil
-        }
-
-        let identifierManager = (identifierManagerClass?.method(for: sharedManagerSelector))(identifierManagerClass, sharedManagerSelector)
-
-        if #available(iOS 14.0, *) {
-            errorMsg = "ATTrackingManager not found. Please, add the AppTrackingTransparency.framework if you want to use it."
-            let trackingManagerClass: AnyClass? = NSClassFromString("ATTrackingManager")
-            if trackingManagerClass == nil {
-                logError(message: errorMsg)
-                return nil
-            }
-
-            let trackingStatusSelector = NSSelectorFromString("trackingAuthorizationStatus")
-            if !(trackingManagerClass?.responds(to: trackingStatusSelector) ?? false) {
-                logError(message: errorMsg)
-                return nil
-            }
-
-            //notDetermined = 0, restricted = 1, denied = 2, authorized = 3
-            let authorizationStatus = (Int(trackingManagerClass?.method(for: trackingStatusSelector) ?? 0))(trackingManagerClass, trackingStatusSelector)
-
-            if authorizationStatus != 3 {
-                logDebug(message: String(format: "The user didn't let tracking of IDFA. Authorization status is: %d", authorizationStatus))
-                return nil
-            }
-        } else {
-            let isAdvertisingTrackingEnabledSelector = NSSelectorFromString("isAdvertisingTrackingEnabled")
-            if !(identifierManager?.responds(to: isAdvertisingTrackingEnabledSelector) ?? false) {
-                logError(message: errorMsg)
-                return nil
-            }
-
-            let isAdvertisingTrackingEnabled = (Bool(identifierManager?.method(for: isAdvertisingTrackingEnabledSelector) ?? false))(identifierManager, isAdvertisingTrackingEnabledSelector)
-            if !isAdvertisingTrackingEnabled {
-                logError(message: "The user didn't let tracking of IDFA.")
-                return nil
-            }
-        }
-
-        let advertisingIdentifierSelector = NSSelectorFromString("advertisingIdentifier")
-        if !(identifierManager?.responds(to: advertisingIdentifierSelector) ?? false) {
-            logError(message: "ASIdentifierManager doesn't respond to selector `advertisingIdentifier`.")
-            return nil
-        }
-
-        if let uuid = (identifierManager?.method(for: advertisingIdentifierSelector) as? UUID)(identifierManager, advertisingIdentifierSelector) {
-            return uuid.uuidString
-        }
-        #endif
-        #endif
-        return nil
-    }
-
-    /// Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation. If you do not want to use IDFV, add the comiler flag <code>SNOWPLOW_NO_IDFV</code> to your build settings.
+    /// Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation.
     /// - Returns: A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
     var appleIdfv: String? {
         #if os(iOS) || os(tvOS)
-        #if !SNOWPLOW_NO_IDFV
         if let idfv = UIDevice.current.identifierForVendor?.uuidString {
             return idfv
         }
-        #endif
         #endif
         return nil
     }

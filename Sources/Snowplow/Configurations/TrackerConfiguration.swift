@@ -80,6 +80,10 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     /// @note Do not use. Internal use only.
     @objc
     var trackerVersionSuffix: String? { get set }
+    /// Closure called to retrieve the Identifier for Advertisers (IDFA) from AdSupport module
+    /// It is called repeatedly (on each tracked event) until a UUID is returned.
+    @objc
+    var advertisingIdentifierRetriever: (() -> UUID?)? { get set }
 }
 
 /// This class represents the configuration of the tracker and the core tracker properties.
@@ -143,6 +147,10 @@ public class TrackerConfiguration: Configuration, TrackerConfigurationProtocol {
     /// @note Do not use. Internal use only.
     @objc
     public var trackerVersionSuffix: String?
+    /// Closure called to retrieve the Identifier for Advertisers (IDFA) from AdSupport module
+    /// It is called repeatedly (on each tracked event) until a UUID is returned.
+    @objc
+    public var advertisingIdentifierRetriever: (() -> UUID?)?
 
     @objc
     public override init() {
@@ -234,6 +242,7 @@ public class TrackerConfiguration: Configuration, TrackerConfigurationProtocol {
         copy.diagnosticAutotracking = diagnosticAutotracking
         copy.trackerVersionSuffix = trackerVersionSuffix
         copy.userAnonymisation = userAnonymisation
+        copy.advertisingIdentifierRetriever = advertisingIdentifierRetriever
         return copy
     }
 
