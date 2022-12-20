@@ -1,5 +1,14 @@
+Version 5.0.0-alpha.2 (2022-12-21)
+----------------------------------
+Add screen view tracking for SwiftUI (#705)
+Drop Carthage and build using Swift Package Manager (#735)
+Add tests using Micro for payload validation (#736)
+Add a closure to tracker configuration that enables retrieving IDFA value and replaces the use of SNOWPLOW_IDFA_ENABLED macro (#678)
+Update API comments for Swift-DocC and add missing comments (#740)
+Add API docs using Swift-DocC (#739)
+
 Version 5.0.0-alpha.1 (2022-11-30)
---------------------------
+----------------------------------
 Migrate to Swift (#732)
 
 Version 4.1.0 (2022-11-16)
