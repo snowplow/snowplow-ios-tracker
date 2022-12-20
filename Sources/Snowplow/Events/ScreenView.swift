@@ -72,7 +72,7 @@ public class ScreenView: SelfDescribingAbstract {
     /// - Parameter name: Name of the screen.
     /// - Parameter screenId: Identifier of the screen.
     @objc
-    public init(name: String, screenId: UUID?) {
+    public init(name: String, screenId: UUID? = nil) {
         self.screenId = screenId ?? UUID()
         self.name = name
     }

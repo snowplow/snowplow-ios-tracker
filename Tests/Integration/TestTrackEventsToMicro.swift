@@ -26,6 +26,8 @@ class TestTrackEventsToMicro: XCTestCase {
     var tracker: TrackerController?
     
     override func setUp() {
+        super.setUp()
+        
         tracker = Snowplow.createTracker(namespace: "ns", network: NetworkConfiguration(endpoint: Micro.endpoint))!
         
         Micro.setUpMockerIgnores()
@@ -173,7 +175,7 @@ class TestTrackEventsToMicro: XCTestCase {
     }
 }
 
-struct ScreenViewExpected: Codable {
+private struct ScreenViewExpected: Codable {
     let name: String
     let id: String
     let type: String?
@@ -183,17 +185,17 @@ struct ScreenViewExpected: Codable {
     let transitionType: String?
 }
 
-struct ScreenContextExpected: Codable {
+private struct ScreenContextExpected: Codable {
     let name: String
     let id: String
 }
 
-struct DeepLinkExpected: Codable {
+private struct DeepLinkExpected: Codable {
     let url: String
     let referrer: String?
 }
 
-struct SessionExpected: Codable {
+private struct SessionExpected: Codable {
     let sessionId: String
     let userId: String
 }
