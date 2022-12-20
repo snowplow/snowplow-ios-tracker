@@ -2,6 +2,7 @@
 *xcuserdata*
 
 *.xccheckout
+.vscode/
 
 ### Xcode ###
 build/
