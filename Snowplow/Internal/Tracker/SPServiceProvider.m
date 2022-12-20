@@ -35,6 +35,7 @@
 #import "SPSessionControllerImpl.h"
 #import "SPGlobalContextsControllerImpl.h"
 #import "SPGDPRControllerImpl.h"
+#import "SPFocalMeterConfiguration.h"
 
 #import "SPNetworkConfigurationUpdate.h"
 #import "SPTrackerConfigurationUpdate.h"
@@ -63,6 +64,7 @@
 
 // Original configurations
 @property (nonatomic) SPGlobalContextsConfiguration *globalContextConfiguration;
+@property (nonatomic) SPFocalMeterConfiguration *focalMeterConfiguration;
 
 // Configuration updates
 @property (nonatomic) SPNetworkConfigurationUpdate *networkConfigurationUpdate;
@@ -148,6 +150,10 @@
         }
         if ([configuration isKindOfClass:SPGlobalContextsConfiguration.class]) {
             self.globalContextConfiguration = (SPGlobalContextsConfiguration *)configuration;
+            continue;
+        }
+        if ([configuration isKindOfClass:SPFocalMeterConfiguration.class]) {
+            self.focalMeterConfiguration = (SPFocalMeterConfiguration *)configuration;
             continue;
         }
     }
@@ -306,6 +312,7 @@
     SPTrackerConfiguration *trackerConfig = self.trackerConfigurationUpdate;
     SPSessionConfiguration *sessionConfig = self.sessionConfigurationUpdate;
     SPGlobalContextsConfiguration *gcConfig = self.globalContextConfiguration;
+    SPFocalMeterConfiguration *focalMeterConfig = self.focalMeterConfiguration;
     SPTracker *tracker = [SPTracker build:^(id<SPTrackerBuilder> builder) {
         [builder setTrackerNamespace:self.namespace];
         [builder setEmitter:emitter];
@@ -332,6 +339,9 @@
         }
         if (gcConfig) {
             [builder setGlobalContextGenerators:gcConfig.contextGenerators];
+        }
+        if (focalMeterConfig) {
+            [builder setFocalMeterEndpoint:focalMeterConfig.kantarEndpoint];
         }
         SPGDPRConfigurationUpdate *gdprConfig = self.gdprConfigurationUpdate;
         if (gdprConfig.sourceConfig) {

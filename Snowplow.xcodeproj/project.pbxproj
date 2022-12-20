@@ -32,6 +32,23 @@
 		6B871F6827C3976C00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
 		6B871F6927C3976D00BCF742 /* SPMockNetworkConnection.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B871F6227C3928900BCF742 /* SPMockNetworkConnection.h */; };
 		6BA149392900607C00407200 /* SPMockLoggerDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA1493029005EF700407200 /* SPMockLoggerDelegate.m */; };
+		6BA58B96294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58B94294B782E0081BC6C /* SPFocalMeterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BA58B97294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58B94294B782E0081BC6C /* SPFocalMeterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BA58B98294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58B94294B782E0081BC6C /* SPFocalMeterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BA58B99294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58B94294B782E0081BC6C /* SPFocalMeterConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6BA58B9A294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58B95294B782E0081BC6C /* SPFocalMeterConfiguration.m */; };
+		6BA58B9B294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58B95294B782E0081BC6C /* SPFocalMeterConfiguration.m */; };
+		6BA58B9C294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58B95294B782E0081BC6C /* SPFocalMeterConfiguration.m */; };
+		6BA58B9D294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58B95294B782E0081BC6C /* SPFocalMeterConfiguration.m */; };
+		6BA58BAC29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58BAA29505CD70081BC6C /* SPFocalMeterStateMachine.h */; };
+		6BA58BAD29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58BAA29505CD70081BC6C /* SPFocalMeterStateMachine.h */; };
+		6BA58BAE29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58BAA29505CD70081BC6C /* SPFocalMeterStateMachine.h */; };
+		6BA58BAF29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BA58BAA29505CD70081BC6C /* SPFocalMeterStateMachine.h */; };
+		6BA58BB029505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58BAB29505CD70081BC6C /* SPFocalMeterStateMachine.m */; };
+		6BA58BB129505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58BAB29505CD70081BC6C /* SPFocalMeterStateMachine.m */; };
+		6BA58BB229505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58BAB29505CD70081BC6C /* SPFocalMeterStateMachine.m */; };
+		6BA58BB329505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58BAB29505CD70081BC6C /* SPFocalMeterStateMachine.m */; };
+		6BA58BB529507F100081BC6C /* TestFocalMeterStateMachine.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BA58BB429507F100081BC6C /* TestFocalMeterStateMachine.m */; };
 		6BABC50E270B40450043BB5C /* TestSubject.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BF15D1227035A480048F376 /* TestSubject.m */; };
 		6BACDF922897C2580013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6BACDF932897C2580013276E /* SPConfigurationState.h in Headers */ = {isa = PBXBuildFile; fileRef = 6BACDF912897C2580013276E /* SPConfigurationState.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -959,6 +976,11 @@
 		6B871F6327C3928900BCF742 /* SPMockNetworkConnection.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockNetworkConnection.m; sourceTree = "<group>"; };
 		6BA1492F29005EF700407200 /* SPMockLoggerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPMockLoggerDelegate.h; sourceTree = "<group>"; };
 		6BA1493029005EF700407200 /* SPMockLoggerDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPMockLoggerDelegate.m; sourceTree = "<group>"; };
+		6BA58B94294B782E0081BC6C /* SPFocalMeterConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPFocalMeterConfiguration.h; sourceTree = "<group>"; };
+		6BA58B95294B782E0081BC6C /* SPFocalMeterConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPFocalMeterConfiguration.m; sourceTree = "<group>"; };
+		6BA58BAA29505CD70081BC6C /* SPFocalMeterStateMachine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPFocalMeterStateMachine.h; sourceTree = "<group>"; };
+		6BA58BAB29505CD70081BC6C /* SPFocalMeterStateMachine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPFocalMeterStateMachine.m; sourceTree = "<group>"; };
+		6BA58BB429507F100081BC6C /* TestFocalMeterStateMachine.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestFocalMeterStateMachine.m; sourceTree = "<group>"; };
 		6BACDF912897C2580013276E /* SPConfigurationState.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPConfigurationState.h; sourceTree = "<group>"; };
 		6BBDCD4027019AF4001B547F /* SPPlatformContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPPlatformContext.h; path = Snowplow/Internal/Subject/SPPlatformContext.h; sourceTree = SOURCE_ROOT; };
 		6BBDCD4127019AF4001B547F /* SPPlatformContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SPPlatformContext.m; path = Snowplow/Internal/Subject/SPPlatformContext.m; sourceTree = SOURCE_ROOT; };
@@ -1310,6 +1332,7 @@
 				6BF15D1227035A480048F376 /* TestSubject.m */,
 				6B4B77D127C64F6000F4E878 /* TestServiceProvider.m */,
 				6BD6A6A828871262002D6D40 /* TestWebViewMessageHandler.m */,
+				6BA58BB429507F100081BC6C /* TestFocalMeterStateMachine.m */,
 			);
 			path = "Snowplow iOSTests";
 			sourceTree = "<group>";
@@ -1468,6 +1491,8 @@
 				ED88B628257A3FE60048FAD1 /* SPGlobalContextsConfiguration.m */,
 				ED7F08282619199D005D377E /* SPRemoteConfiguration.h */,
 				ED7F08292619199D005D377E /* SPRemoteConfiguration.m */,
+				6BA58B94294B782E0081BC6C /* SPFocalMeterConfiguration.h */,
+				6BA58B95294B782E0081BC6C /* SPFocalMeterConfiguration.m */,
 			);
 			path = Configurations;
 			sourceTree = "<group>";
@@ -1629,6 +1654,8 @@
 		EDC9B351255AEEBC00F4136D /* Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				6BA58BAA29505CD70081BC6C /* SPFocalMeterStateMachine.h */,
+				6BA58BAB29505CD70081BC6C /* SPFocalMeterStateMachine.m */,
 				ED87A41B2577AC5B000C54EB /* SPTrackerController.h */,
 				ED87A42C2577ADFF000C54EB /* SPTrackerControllerImpl.h */,
 				ED87A42D2577ADFF000C54EB /* SPTrackerControllerImpl.m */,
@@ -1824,6 +1851,7 @@
 				CE4F9CA6244B066500968CFC /* SPTiming.h in Headers */,
 				EDAB665626D6AA940067755F /* SPDeepLinkStateMachine.h in Headers */,
 				ED87A41C2577AC5B000C54EB /* SPTrackerController.h in Headers */,
+				6BA58BAC29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */,
 				ED852B3323A0EEC600F2DF6B /* SNOWReachability.h in Headers */,
 				CE4F9CB2244B066500968CFC /* SNOWError.h in Headers */,
 				ED8866FE25715DD600DB53BB /* SPConfiguration.h in Headers */,
@@ -1848,6 +1876,7 @@
 				ED88B60D257956490048FAD1 /* SPGDPRControllerImpl.h in Headers */,
 				EDD8542024EFEFB900661F6B /* SPDefaultNetworkConnection.h in Headers */,
 				754774C02225FBB90043B814 /* SPScreenState.h in Headers */,
+				6BA58B96294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */,
 				CE4F9D0E244B066500968CFC /* SPConsentDocument.h in Headers */,
 				ED7CE17826DFBFA30035C323 /* SPTrackerStateSnapshot.h in Headers */,
 				CE4F9CAA244B066500968CFC /* SPTrackerEvent.h in Headers */,
@@ -1980,6 +2009,8 @@
 				75CAC46521F2A21B00271FB3 /* SPRequestCallback.h in Headers */,
 				ED7CE17E26DFC12C0035C323 /* SPState.h in Headers */,
 				EDDD7030264F25A200259404 /* SPSessionConfigurationUpdate.h in Headers */,
+				6BA58B97294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */,
+				6BA58BAD29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */,
 				CE4F9CAB244B066500968CFC /* SPTrackerEvent.h in Headers */,
 				ED7F081626190E00005D377E /* SPConfigurationProvider.h in Headers */,
 				EDD8540D24EE786900661F6B /* SPEventStore.h in Headers */,
@@ -2045,6 +2076,7 @@
 				75CAC42C21F2A0CC00271FB3 /* SPTracker.h in Headers */,
 				EDAB664626D699D90067755F /* SPStateMachineProtocol.h in Headers */,
 				ED8BF8B525700B40001DFDD9 /* SPTrackerConfiguration.h in Headers */,
+				6BA58BAE29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */,
 				ED88B62B257A3FE60048FAD1 /* SPGlobalContextsConfiguration.h in Headers */,
 				ED88B7932587B5620048FAD1 /* SPNetworkControllerImpl.h in Headers */,
 				ED88B60F257956490048FAD1 /* SPGDPRControllerImpl.h in Headers */,
@@ -2074,6 +2106,7 @@
 				ED88B6DD2583DFC90048FAD1 /* SPServiceProvider.h in Headers */,
 				EDD8542C24EFEFE600661F6B /* SPNetworkConnection.h in Headers */,
 				754774C22225FBB90043B814 /* SPScreenState.h in Headers */,
+				6BA58B98294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */,
 				ED8866E42571445300DB53BB /* SPSubjectConfiguration.h in Headers */,
 				CE4F9CD8244B066500968CFC /* SPScreenView.h in Headers */,
 				CE4F9CCC244B066500968CFC /* SPGlobalContext.h in Headers */,
@@ -2201,6 +2234,7 @@
 				ED88B5FE257954370048FAD1 /* SPGDPRController.h in Headers */,
 				75F9C5E921FA35BC00A5B8FC /* SPSubject.h in Headers */,
 				75F9C5EB21FA35BC00A5B8FC /* SPPayload.h in Headers */,
+				6BA58B99294B782E0081BC6C /* SPFocalMeterConfiguration.h in Headers */,
 				CE4F9CE9244B066500968CFC /* SPPushNotification.h in Headers */,
 				ED88B66B257A5A520048FAD1 /* SPGlobalContextsControllerImpl.h in Headers */,
 				ED88B610257956490048FAD1 /* SPGDPRControllerImpl.h in Headers */,
@@ -2236,6 +2270,7 @@
 				7534D20622569BFF00904EE5 /* SPInstallTracker.h in Headers */,
 				EDDD701E264F230400259404 /* SPSubjectConfigurationUpdate.h in Headers */,
 				ED7F082126191108005D377E /* SPConfigurationProvider.h in Headers */,
+				6BA58BAF29505CD70081BC6C /* SPFocalMeterStateMachine.h in Headers */,
 				EDDD7032264F25A200259404 /* SPSessionConfigurationUpdate.h in Headers */,
 				7534D20522569BFF00904EE5 /* UIViewController+SPScreenView_SWIZZLE.h in Headers */,
 				ED7CE17226DFB55C0035C323 /* SPTrackerState.h in Headers */,
@@ -2625,6 +2660,7 @@
 				EDAB65D226CBD5150067755F /* SPDeepLinkEntity.m in Sources */,
 				ED38D92326EBCD59002AEC8E /* SPLifecycleEntity.m in Sources */,
 				EDD8543824EFFFB300661F6B /* SPRequest.m in Sources */,
+				6BA58B9A294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */,
 				EDDD703D264F27E700259404 /* SPNetworkConfigurationUpdate.m in Sources */,
 				CE4F9CC2244B066500968CFC /* SPConsentGranted.m in Sources */,
 				ED38D92F26EBCEBE002AEC8E /* SPLifecycleStateMachine.m in Sources */,
@@ -2650,6 +2686,7 @@
 				CE4F9D1E244B066500968CFC /* SPEcommerce.m in Sources */,
 				752DAC2121CC42BC0065F874 /* SPPayload.m in Sources */,
 				CE4F9CCE244B066500968CFC /* SNOWError.m in Sources */,
+				6BA58BB029505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */,
 				752DAC2321CC42BC0065F874 /* SPSelfDescribingJson.m in Sources */,
 				CE4F9CEE244B066500968CFC /* SPSchemaRule.m in Sources */,
 				CE4F9C8E244B066500968CFC /* SPConsentWithdrawn.m in Sources */,
@@ -2712,6 +2749,7 @@
 				75CAC40E21F2955100271FB3 /* TestRequestResult.m in Sources */,
 				6BABC50E270B40450043BB5C /* TestSubject.m in Sources */,
 				75CAC40C21F2955100271FB3 /* LegacyTestEvent.m in Sources */,
+				6BA58BB529507F100081BC6C /* TestFocalMeterStateMachine.m in Sources */,
 				EDE54F4825EFA38D0073947D /* TestMultipleInstances.m in Sources */,
 				EDAB664D26D69A7B0067755F /* TestStateManager.m in Sources */,
 			);
@@ -2803,6 +2841,7 @@
 				EDFEEAC923A7CB3C001E6D03 /* SPInstallTracker.m in Sources */,
 				75CAC44421F2A17500271FB3 /* SPWeakTimerTarget.m in Sources */,
 				ED98971B2627006F00145157 /* NSDictionary+SP_TypeMethods.m in Sources */,
+				6BA58B9B294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */,
 				6BBDCD4727019AF4001B547F /* SPPlatformContext.m in Sources */,
 				EDB693FF26B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				CE4F9CD3244B066500968CFC /* SPTrackerEvent.m in Sources */,
@@ -2813,6 +2852,7 @@
 				ED88B62E257A3FE60048FAD1 /* SPGlobalContextsConfiguration.m in Sources */,
 				6BF08DAB270DEED6009C7E2B /* SPDeviceInfoMonitor.m in Sources */,
 				75CAC44721F2A17500271FB3 /* Snowplow-umbrella-header.h in Sources */,
+				6BA58BB129505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2902,6 +2942,7 @@
 				75CAC45021F2A19500271FB3 /* SPUtilities.m in Sources */,
 				75CAC45121F2A19500271FB3 /* SPRequestResult.m in Sources */,
 				ED98971C2627006F00145157 /* NSDictionary+SP_TypeMethods.m in Sources */,
+				6BA58B9C294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */,
 				6BBDCD4827019AF4001B547F /* SPPlatformContext.m in Sources */,
 				EDB6940026B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				CE4F9CD4244B066500968CFC /* SPTrackerEvent.m in Sources */,
@@ -2912,6 +2953,7 @@
 				ED88B62F257A3FE60048FAD1 /* SPGlobalContextsConfiguration.m in Sources */,
 				6BF08DAC270DEED6009C7E2B /* SPDeviceInfoMonitor.m in Sources */,
 				75CAC45221F2A19500271FB3 /* SPWeakTimerTarget.m in Sources */,
+				6BA58BB229505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3009,6 +3051,7 @@
 				75F9C5DF21FA357100A5B8FC /* SPRequestResult.m in Sources */,
 				ED87A4352577ADFF000C54EB /* SPTrackerControllerImpl.m in Sources */,
 				CE4F9C8D244B066500968CFC /* SPConsentDocument.m in Sources */,
+				6BA58B9D294B782E0081BC6C /* SPFocalMeterConfiguration.m in Sources */,
 				6BBDCD4927019AF4001B547F /* SPPlatformContext.m in Sources */,
 				EDB6940126B7F61D00B76A79 /* SPMemoryEventStore.m in Sources */,
 				ED98971D2627006F00145157 /* NSDictionary+SP_TypeMethods.m in Sources */,
@@ -3019,6 +3062,7 @@
 				ED8BF8D225701853001DFDD9 /* SPNetworkConfiguration.m in Sources */,
 				6BF08DAD270DEED6009C7E2B /* SPDeviceInfoMonitor.m in Sources */,
 				75F9C5E021FA357100A5B8FC /* SPWeakTimerTarget.m in Sources */,
+				6BA58BB329505CD70081BC6C /* SPFocalMeterStateMachine.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

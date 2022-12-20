@@ -60,6 +60,7 @@
 #import "SPScreenStateMachine.h"
 #import "SPDeepLinkStateMachine.h"
 #import "SPLifecycleStateMachine.h"
+#import "SPFocalMeterStateMachine.h"
 
 /** A class extension that makes the screen view states mutable internally. */
 @interface SPTracker ()
@@ -122,6 +123,7 @@ void uncaughtExceptionHandler(NSException *exception) {
     BOOL                   _trackerDiagnostic;
     BOOL                   _userAnonymisation;
     NSString *             _trackerVersionSuffix;
+    NSString *             _focalMeterEndpoint;
 }
 
 // MARK: - Added property methods
@@ -162,6 +164,10 @@ void uncaughtExceptionHandler(NSException *exception) {
     return _userAnonymisation;
 }
 
+- (NSString *)focalMeterEndpoint {
+    return _focalMeterEndpoint;
+}
+
 // MARK: - Methods
 
 + (instancetype) build:(void(^)(id<SPTrackerBuilder>builder))buildBlock {
@@ -197,6 +203,7 @@ void uncaughtExceptionHandler(NSException *exception) {
         _installEvent = NO;
         _trackerDiagnostic = NO;
         _userAnonymisation = NO;
+        _focalMeterEndpoint = nil;
 #if SNOWPLOW_TARGET_IOS
         _platformContextSchema = kSPMobileContextSchema;
 #else
@@ -404,6 +411,19 @@ void uncaughtExceptionHandler(NSException *exception) {
         _userAnonymisation = userAnonymisation;
         if (_session != nil) {
             [_session startNewSession];
+        }
+    }
+}
+
+- (void) setFocalMeterEndpoint:(NSString *)endpoint {
+    @synchronized (self) {
+        _focalMeterEndpoint = endpoint;
+        if (endpoint != nil) {
+            SPFocalMeterStateMachine *stateMachine = [[SPFocalMeterStateMachine alloc] initWithEndpoint:endpoint];
+            [self.stateManager addOrReplaceStateMachine:stateMachine
+                                             identifier:@"SPFocalMeter"];
+        } else {
+            [self.stateManager removeStateMachine:@"SPFocalMeter"];
         }
     }
 }

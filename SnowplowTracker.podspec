@@ -37,6 +37,7 @@ Pod::Spec.new do |s|
     'Snowplow/Internal/**/SPSubjectConfiguration.h',
     'Snowplow/Internal/**/SPSessionConfiguration.h',
     'Snowplow/Internal/**/SPEmitterConfiguration.h',
+    'Snowplow/Internal/**/SPFocalMeterConfiguration.h',
     'Snowplow/Internal/**/SPGDPRConfiguration.h',
     'Snowplow/Internal/**/SPGlobalContextsConfiguration.h',
     'Snowplow/Internal/**/SPConfigurationBundle.h',

@@ -218,6 +218,12 @@ NS_SWIFT_NAME(TrackerBuilder)
  */
 - (void) setUserAnonymisation:(BOOL)userAnonymisation;
 
+/*!
+ @brief Tracker builder method to set the endpoint for Focal Meter integration
+ @param endpoint URL for the Kantar Focal Meter endpoint
+ */
+- (void) setFocalMeterEndpoint:(nullable NSString *)endpoint;
+
 @end
 
 
@@ -262,6 +268,7 @@ NS_SWIFT_NAME(TrackerBuilder)
 - (BOOL)sessionContext;
 - (BOOL)trackerDiagnostic;
 - (BOOL)userAnonymisation;
+- (nullable NSString *)focalMeterEndpoint;
 
 // MARK: - methods
 

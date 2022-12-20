@@ -16,6 +16,7 @@
 #import "SPGDPRConfiguration.h"
 #import "SPGlobalContextsConfiguration.h"
 #import "SPConfigurationBundle.h"
+#import "SPFocalMeterConfiguration.h"
 
 // Controllers
 #import "SPTrackerController.h"
