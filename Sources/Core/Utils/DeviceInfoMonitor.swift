@@ -184,7 +184,7 @@ class DeviceInfoMonitor {
 
     /// Returns battery state for the device.
     /// - Returns: One of "charging", "full", "unplugged" or NULL
-    var batteryState: String {
+    var batteryState: String? {
         #if os(iOS)
         switch UIDevice.current.batteryState {
         case .charging:
@@ -194,10 +194,10 @@ class DeviceInfoMonitor {
         case .unplugged:
             return "unplugged"
         default:
-            return ""
+            return nil
         }
         #else
-        return ""
+        return nil
         #endif
     }
 

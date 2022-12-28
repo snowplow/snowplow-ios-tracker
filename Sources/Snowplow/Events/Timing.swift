@@ -54,12 +54,12 @@ public class Timing: SelfDescribingAbstract {
         return kSPUserTimingsSchema
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPUtCategory] = category as NSObject
-        payload[kSPUtVariable] = variable as NSObject
-        payload[kSPUtTiming] = NSNumber(value: timing)
-        if let label = label { payload[kSPUtLabel] = label as NSObject }
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPUtCategory] = category
+        payload[kSPUtVariable] = variable
+        payload[kSPUtTiming] = timing
+        if let label = label { payload[kSPUtLabel] = label }
         return payload
     }
 }

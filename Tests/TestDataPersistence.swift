@@ -63,18 +63,18 @@ class TestDataPersistence: XCTestCase {
     func commonTestDataIsCorrectlyStored(onFile isStoredOnFile: Bool) {
         let dp = DataPersistence.getFor(namespace: "namespace", storedOnFile: isStoredOnFile)
         var session = [
-            "key": "value" as NSObject
+            "key": "value"
         ]
         dp?.session = session
-        XCTAssertEqual(session, dp?.session)
-        XCTAssertEqual(session, dp?.data["session"])
+        XCTAssertEqual(session, dp?.session as! [String : String])
+        XCTAssertEqual(session, dp?.data["session"] as! [String : String])
         // Override session
         session = [
-            "key2": "value2" as NSObject
+            "key2": "value2"
         ]
         dp?.session = session
-        XCTAssertEqual(session, dp?.session)
-        XCTAssertEqual(session, dp?.data["session"])
+        XCTAssertEqual(session, dp?.session as! [String : String])
+        XCTAssertEqual(session, dp?.data["session"] as! [String : String])
     }
 
     func testDataIsStoredWithoutInterference() {
@@ -89,14 +89,14 @@ class TestDataPersistence: XCTestCase {
         let dp1 = DataPersistence.getFor(namespace: "namespace1", storedOnFile: isStoredOnFile)
         let dp2 = DataPersistence.getFor(namespace: "namespace2", storedOnFile: isStoredOnFile)
         let session = [
-            "key": "value" as NSObject
+            "key": "value"
         ]
         dp1?.session = session
         // Check dp1
-        XCTAssertEqual(session, dp1?.session)
-        XCTAssertEqual(session, dp1?.data["session"])
+        XCTAssertEqual(session, dp1?.session as? [String : String])
+        XCTAssertEqual(session, dp1?.data["session"] as? [String : String])
         // Check dp2
-        XCTAssertNotEqual(session, dp2?.session)
-        XCTAssertNotEqual(session, dp2?.data["session"])
+        XCTAssertNotEqual(session, dp2?.session as? [String : String])
+        XCTAssertNotEqual(session, dp2?.data["session"] as? [String : String])
     }
 }

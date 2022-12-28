@@ -42,16 +42,16 @@ public class DeepLinkEntity: SelfDescribingJson {
     @objc
     public init(url: String) {
         self.url = url
-        super.init(schema: DeepLinkEntity.schema, andData: nil)
+        super.init(schema: DeepLinkEntity.schema, andData: [:])
     }
 
     @objc
-    override public var data: NSObject? {
+    override public var data: [String : Any] {
         get {
-            var data: [String: NSObject] = [:]
-            data[DeepLinkEntity.paramUrl] = url as NSObject
-            data[DeepLinkEntity.paramReferrer] = referrer as NSObject?
-            return data as NSObject
+            var data: [String: Any] = [:]
+            data[DeepLinkEntity.paramUrl] = url
+            data[DeepLinkEntity.paramReferrer] = referrer
+            return data
         }
         set {}
     }

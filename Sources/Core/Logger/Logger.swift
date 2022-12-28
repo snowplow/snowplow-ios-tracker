@@ -129,11 +129,11 @@ class Logger: NSObject {
         }
 
         // Construct userInfo
-        var userInfo: [String : NSObject] = [:]
-        userInfo["tag"] = tag as NSObject
-        userInfo["message"] = message as NSObject
-        userInfo["error"] = error as NSObject?
-        userInfo["exception"] = exception as NSObject?
+        var userInfo: [String : Any] = [:]
+        userInfo["tag"] = tag
+        userInfo["message"] = message
+        userInfo["error"] = error
+        userInfo["exception"] = exception
 
         // Send notification to tracker
         NotificationCenter.default.post(

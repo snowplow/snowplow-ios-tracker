@@ -49,7 +49,7 @@ class TestLifecycleState: XCTestCase {
         }
         var payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
         _ = eventStore.removeAllEvents()
-        var entities = (payload?.dictionary?["co"]) as? String
+        var entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("\"isVisible\":true"))
 
@@ -60,7 +60,7 @@ class TestLifecycleState: XCTestCase {
         }
         payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
         _ = eventStore.removeAllEvents()
-        entities = (payload?.dictionary?["co"]) as? String
+        entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("\"isVisible\":false"))
 
@@ -71,7 +71,7 @@ class TestLifecycleState: XCTestCase {
         }
         payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
         _ = eventStore.removeAllEvents()
-        entities = (payload?.dictionary?["co"]) as? String
+        entities = (payload?["co"]) as? String
         XCTAssertTrue(entities!.contains("\"isVisible\":false"))
 
         _ = tracker.track(Foreground(index: 1))
@@ -81,7 +81,7 @@ class TestLifecycleState: XCTestCase {
         }
         payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
         _ = eventStore.removeAllEvents()
-        entities = (payload?.dictionary?["co"]) as? String
+        entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("\"isVisible\":true"))
 
@@ -93,7 +93,7 @@ class TestLifecycleState: XCTestCase {
         }
         payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
         _ = eventStore.removeAllEvents()
-        entities = (payload?.dictionary?["co"]) as? String
+        entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("\"isVisible\":true"))
     }

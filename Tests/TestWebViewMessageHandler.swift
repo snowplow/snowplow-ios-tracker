@@ -66,7 +66,7 @@ class TestWebViewMessageHandler: XCTestCase {
         XCTAssertEqual(1, networkConnection?.sendingCount)
         XCTAssertEqual(1, (networkConnection?.previousRequests)?[0].count)
         let request = (networkConnection?.previousRequests)?[0][0]
-        let payload = (request?.payload?.dictionary?["data"] as? [[String: Any]])?[0]
+        let payload = (request?.payload?["data"] as? [[String: Any]])?[0]
         XCTAssert((payload?["se_ca"] as? String == "cat"))
         XCTAssert((payload?["se_ac"] as? String == "act"))
         XCTAssert((payload?["se_pr"] as? String == "prop"))
@@ -129,7 +129,7 @@ class TestWebViewMessageHandler: XCTestCase {
         XCTAssertEqual(1, networkConnection?.sendingCount)
         XCTAssertEqual(1, (networkConnection?.previousRequests)?[0].count)
         let request = (networkConnection?.previousRequests)?[0][0]
-        let payload = (request?.payload?.dictionary?["data"] as? [[String : Any]])?[0]
+        let payload = (request?.payload?["data"] as? [[String : Any]])?[0]
 
         let context = payload?["co"] as? String
         XCTAssert(context?.contains("{\"a\":\"b\"}") ?? false)

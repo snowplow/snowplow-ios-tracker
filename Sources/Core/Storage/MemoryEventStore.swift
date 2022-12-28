@@ -86,10 +86,10 @@ class MemoryEventStore: NSObject, EventStore {
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {
-        return removeEvents(withIds: [NSNumber(value: storeId)])
+        return removeEvents(withIds: [storeId])
     }
 
-    func removeEvents(withIds storeIds: [NSNumber]) -> Bool {
+    func removeEvents(withIds storeIds: [Int64]) -> Bool {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
         var itemsToRemove: [EmitterEvent] = []
@@ -97,7 +97,7 @@ class MemoryEventStore: NSObject, EventStore {
             guard let item = item as? EmitterEvent else {
                 continue
             }
-            if storeIds.contains(NSNumber(value: item.storeId)) {
+            if storeIds.contains(item.storeId) {
                 itemsToRemove.append(item)
             }
         }

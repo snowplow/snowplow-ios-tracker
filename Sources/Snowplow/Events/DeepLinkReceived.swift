@@ -38,7 +38,7 @@ public class DeepLinkReceived: SelfDescribingAbstract {
     public init(url: String) {
         self.url = url
     }
-    
+
     @objc
     class var schema: String {
         return "iglu:com.snowplowanalytics.mobile/deep_link_received/jsonschema/1-0-0"
@@ -58,12 +58,12 @@ public class DeepLinkReceived: SelfDescribingAbstract {
         return DeepLinkReceived.schema
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
         if let referrer = referrer {
-            payload[DeepLinkReceived.paramReferrer] = referrer as NSObject
+            payload[DeepLinkReceived.paramReferrer] = referrer
         }
-        payload[DeepLinkReceived.paramUrl] = url as NSObject
+        payload[DeepLinkReceived.paramUrl] = url
         return payload
     }
 }

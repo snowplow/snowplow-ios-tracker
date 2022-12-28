@@ -72,9 +72,9 @@ class TestSession: XCTestCase {
         let sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         let sessionIndex = session.state!.sessionIndex
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual("event_1" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.346Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.346Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
     }
 
     func testForegroundEventsOnSameSession() {
@@ -82,41 +82,41 @@ class TestSession: XCTestCase {
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         var sessionIndex = session.state?.sessionIndex
-        let sessionId = sessionContext?[kSPSessionId]
+        let sessionId = sessionContext?[kSPSessionId] as? String
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual("event_1" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.346Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.346Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
 
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
         sessionIndex = session.state?.sessionIndex
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual("event_1" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.346Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
-        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.346Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
+        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
 
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
         sessionIndex = session.state?.sessionIndex
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual("event_1" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.346Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
-        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.346Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
+        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
 
         Thread.sleep(forTimeInterval: 3.1)
 
         sessionContext = session.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
         sessionIndex = session.state?.sessionIndex
         XCTAssertEqual(2, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual("event_4" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.349Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
-        XCTAssertNotEqual(sessionId, sessionContext?[kSPSessionId])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_4", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.349Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
+        XCTAssertNotEqual(sessionId, sessionContext?[kSPSessionId] as? String)
     }
 
     func testBackgroundEventsOnWhenLifecycleEventsDisabled() {
@@ -136,9 +136,9 @@ class TestSession: XCTestCase {
         let sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         let sessionIndex = session?.state?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue ?? 0)
-        XCTAssertEqual("event_1" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.346Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.346Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(0, session?.backgroundIndex)
     }
@@ -158,13 +158,13 @@ class TestSession: XCTestCase {
 
         session?.updateInBackground() // It sends a background event
 
-        let sessionId = session?.state?.sessionId as? NSString
+        let sessionId = session?.state?.sessionId
 
         var sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         var sessionIndex = session?.state?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue ?? 0)
-        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
         XCTAssertTrue(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
 
@@ -173,8 +173,8 @@ class TestSession: XCTestCase {
         sessionContext = session?.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
         sessionIndex = session?.state?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue ?? 0)
-        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
         XCTAssertTrue(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
 
@@ -183,8 +183,8 @@ class TestSession: XCTestCase {
         sessionContext = session?.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
         sessionIndex = session?.state?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue ?? 0)
-        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
         XCTAssertTrue(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
 
@@ -193,10 +193,10 @@ class TestSession: XCTestCase {
         sessionContext = session?.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
         sessionIndex = session?.state?.sessionIndex ?? 0
         XCTAssertEqual(2, sessionIndex)
-        XCTAssertEqual(sessionIndex, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue ?? 0)
-        XCTAssertEqual("event_4" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.349Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
-        XCTAssertNotEqual(sessionId, sessionContext?[kSPSessionId])
+        XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_4", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.349Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
+        XCTAssertNotEqual(sessionId, sessionContext?[kSPSessionId] as? String)
         XCTAssertTrue(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
     }
@@ -214,44 +214,44 @@ class TestSession: XCTestCase {
         let session = tracker.session
 
         var sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481351, userAnonymisation: false)
-        XCTAssertEqual("event_1" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.351Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.351Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(0, session?.backgroundIndex)
         XCTAssertEqual(0, session?.foregroundIndex)
-        var oldSessionId = sessionContext?[kSPSessionId]
+        var oldSessionId = sessionContext?[kSPSessionId] as? String
 
         session?.updateInBackground()
         Thread.sleep(forTimeInterval: 1.1)
 
         sessionContext = session?.getDictWithEventId("event_2", eventTimestamp: 1654496481352, userAnonymisation: false)
-        XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId])
-        XCTAssertEqual("event_2" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.352Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId] as? String)
+        XCTAssertEqual("event_2", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.352Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
         XCTAssertTrue(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
         XCTAssertEqual(0, session?.foregroundIndex)
-        oldSessionId = sessionContext?[kSPSessionId]
+        oldSessionId = sessionContext?[kSPSessionId] as? String
 
         session?.updateInForeground()
         Thread.sleep(forTimeInterval: 1.1)
 
         sessionContext = session?.getDictWithEventId("event_3", eventTimestamp: 1654496481353, userAnonymisation: false)
-        XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId])
-        XCTAssertEqual("event_3" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.353Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId] as? String)
+        XCTAssertEqual("event_3", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.353Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
         XCTAssertEqual(1, session?.foregroundIndex)
-        oldSessionId = sessionContext?[kSPSessionId]
+        oldSessionId = sessionContext?[kSPSessionId] as? String
 
         session?.updateInBackground()
         Thread.sleep(forTimeInterval: 1.1)
 
         sessionContext = session?.getDictWithEventId("event_4", eventTimestamp: 1654496481354, userAnonymisation: false)
-        XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId])
-        XCTAssertEqual("event_4" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.354Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId] as? String)
+        XCTAssertEqual("event_4", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.354Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
         XCTAssertTrue(session!.inBackground)
         XCTAssertEqual(2, session?.backgroundIndex)
         XCTAssertEqual(1, session?.foregroundIndex)
@@ -261,27 +261,27 @@ class TestSession: XCTestCase {
         let session = Session(foregroundTimeout: 1, andBackgroundTimeout: 1, andTracker: nil)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481355, userAnonymisation: false)
-        var prevSessionId = sessionContext?[kSPSessionId]
-        XCTAssertEqual("event_1" as NSString, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.355Z" as NSString, sessionContext?[kSPSessionFirstEventTimestamp])
+        var prevSessionId = sessionContext?[kSPSessionId] as? String
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.355Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
 
         session.stopChecker()
         Thread.sleep(forTimeInterval: 2)
 
         sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481356, userAnonymisation: false)
-        XCTAssertEqual(1, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual(prevSessionId, sessionContext?[kSPSessionId])
-        XCTAssertEqual("event_1" as NSObject, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.355Z" as NSObject, sessionContext?[kSPSessionFirstEventTimestamp])
-        prevSessionId = sessionContext?[kSPSessionId]
+        XCTAssertEqual(1, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual(prevSessionId, sessionContext?[kSPSessionId] as? String)
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.355Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
+        prevSessionId = sessionContext?[kSPSessionId] as? String
 
         session.startChecker()
 
         sessionContext = session.getDictWithEventId("event_3", eventTimestamp: 1654496481357, userAnonymisation: false)
-        XCTAssertEqual(2, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual(prevSessionId, sessionContext?[kSPSessionPreviousId])
-        XCTAssertEqual("event_3" as NSObject, sessionContext?[kSPSessionFirstEventId])
-        XCTAssertEqual("2022-06-06T06:21:21.357Z" as NSObject, sessionContext?[kSPSessionFirstEventTimestamp])
+        XCTAssertEqual(2, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual(prevSessionId, sessionContext?[kSPSessionPreviousId] as? String)
+        XCTAssertEqual("event_3", sessionContext?[kSPSessionFirstEventId] as? String)
+        XCTAssertEqual("2022-06-06T06:21:21.357Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
     }
 
     func testBackgroundTimeBiggerThanBackgroundTimeoutCausesNewSession() {
@@ -297,7 +297,7 @@ class TestSession: XCTestCase {
         let session = tracker.session
 
         let sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481361, userAnonymisation: false)
-        XCTAssertEqual("event_1" as NSObject, sessionContext?[kSPSessionFirstEventId])
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(0, session?.backgroundIndex)
         XCTAssertEqual(0, session?.foregroundIndex)
@@ -328,7 +328,7 @@ class TestSession: XCTestCase {
         let session = tracker.session
 
         let sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481358, userAnonymisation: false)
-        XCTAssertEqual("event_1" as NSObject, sessionContext?[kSPSessionFirstEventId])
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(0, session?.backgroundIndex)
         XCTAssertEqual(0, session?.foregroundIndex)
@@ -350,13 +350,13 @@ class TestSession: XCTestCase {
         let session = Session(foregroundTimeout: 1, andBackgroundTimeout: 1, andTracker: nil)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481359, userAnonymisation: false)
-        XCTAssertEqual("event_1" as NSObject, sessionContext?[kSPSessionFirstEventId])
+        XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
 
         Thread.sleep(forTimeInterval: 4)
 
         sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481360, userAnonymisation: false)
-        XCTAssertEqual(2, (sessionContext?[kSPSessionIndex] as? NSNumber)?.intValue)
-        XCTAssertEqual("event_2" as NSObject, sessionContext?[kSPSessionFirstEventId])
+        XCTAssertEqual(2, sessionContext?[kSPSessionIndex] as? Int)
+        XCTAssertEqual("event_2", sessionContext?[kSPSessionFirstEventId] as? String)
     }
 
     func testMultipleTrackersUpdateDifferentSessions() {
@@ -434,22 +434,22 @@ class TestSession: XCTestCase {
         let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
-        XCTAssertEqual(NSNumber(value: 1), sessionContext?[kSPSessionEventIndex])
+        XCTAssertEqual(1, sessionContext?[kSPSessionEventIndex] as? Int)
 
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
-        XCTAssertEqual(NSNumber(value: 2), sessionContext?[kSPSessionEventIndex])
+        XCTAssertEqual(2, sessionContext?[kSPSessionEventIndex] as? Int)
 
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
-        XCTAssertEqual(NSNumber(value: 3), sessionContext?[kSPSessionEventIndex])
+        XCTAssertEqual(3, sessionContext?[kSPSessionEventIndex] as? Int)
 
         Thread.sleep(forTimeInterval: 3.1)
 
         sessionContext = session.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
-        XCTAssertEqual(NSNumber(value: 1), sessionContext?[kSPSessionEventIndex])
+        XCTAssertEqual(1, sessionContext?[kSPSessionEventIndex] as? Int)
     }
 
     func testAnonymisesUserIdentifiers() {
@@ -458,11 +458,11 @@ class TestSession: XCTestCase {
         session.startNewSession() // create previous session ID reference
 
         let withoutAnonymisation = session.getDictWithEventId("event_2", eventTimestamp: 1654496481346, userAnonymisation: false)
-        XCTAssertNotEqual("00000000-0000-0000-0000-000000000000" as NSObject, withoutAnonymisation?[kSPSessionUserId])
+        XCTAssertNotEqual("00000000-0000-0000-0000-000000000000", withoutAnonymisation?[kSPSessionUserId] as? String)
         XCTAssertNotNil(withoutAnonymisation?[kSPSessionPreviousId])
 
         let withAnonymisation = session.getDictWithEventId("event_3", eventTimestamp: 1654496481347, userAnonymisation: true)
-        XCTAssertEqual("00000000-0000-0000-0000-000000000000" as NSObject, withAnonymisation?[kSPSessionUserId])
+        XCTAssertEqual("00000000-0000-0000-0000-000000000000", withAnonymisation?[kSPSessionUserId] as? String)
         XCTAssertNil(withAnonymisation?[kSPSessionPreviousId])
     }
 
@@ -476,10 +476,10 @@ class TestSession: XCTestCase {
 
     func storeAsV3_0(withNamespace namespace: String, eventId: String?, sessionId: String?, sessionIndex: Int, userId: String?) {
         let dataPersistence = DataPersistence.getFor(namespace: namespace)
-        var newSessionDict: [String : NSObject] = [:]
-        newSessionDict[kSPSessionFirstEventId] = eventId as? NSObject
-        newSessionDict[kSPSessionId] = sessionId as? NSObject
-        newSessionDict[kSPSessionIndex] = NSNumber(value: sessionIndex)
+        var newSessionDict: [String : Any] = [:]
+        newSessionDict[kSPSessionFirstEventId] = eventId
+        newSessionDict[kSPSessionId] = sessionId
+        newSessionDict[kSPSessionIndex] = sessionIndex
         dataPersistence?.session = newSessionDict
 
         //Store userId

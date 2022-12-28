@@ -23,8 +23,8 @@ import Foundation
 
 class TrackerEvent : InspectableEvent {
     
-    private var _payload: [String: NSObject]
-    var payload: [String: NSObject] {
+    private var _payload: [String: Any]
+    var payload: [String: Any] {
         get { return _payload }
         set { _payload = newValue }
     }
@@ -69,7 +69,7 @@ class TrackerEvent : InspectableEvent {
         }
     }
 
-    func addPayloadValues(_ payload: [String : NSObject]) -> Bool {
+    func addPayloadValues(_ payload: [String : Any]) -> Bool {
         var result = true
         for (key, obj) in payload {
             if self.payload[key] == nil {

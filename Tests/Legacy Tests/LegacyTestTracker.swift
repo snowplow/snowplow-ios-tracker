@@ -126,9 +126,9 @@ class LegacyTestTracker: XCTestCase {
         var payload = tracker.payload(with: trackerEvent)
         var payloadDict = payload.dictionary
 
-        XCTAssertEqual(payloadDict?[kSPPlatform] as? String, devicePlatformToString(.general))
-        XCTAssertEqual(payloadDict?[kSPAppId] as? String, "anAppId")
-        XCTAssertEqual(payloadDict?[kSPNamespace] as? String, "aNamespace")
+        XCTAssertEqual(payloadDict[kSPPlatform] as? String, devicePlatformToString(.general))
+        XCTAssertEqual(payloadDict[kSPAppId] as? String, "anAppId")
+        XCTAssertEqual(payloadDict[kSPNamespace] as? String, "aNamespace")
 
         // Test setting variables to new values
 
@@ -139,9 +139,9 @@ class LegacyTestTracker: XCTestCase {
         payload = tracker.payload(with: trackerEvent)
         payloadDict = payload.dictionary
 
-        XCTAssertEqual(payloadDict?[kSPPlatform] as? String, "pc")
-        XCTAssertEqual(payloadDict?[kSPAppId] as? String, "newAppId")
-        XCTAssertEqual(payloadDict?[kSPNamespace] as? String, "newNamespace")
+        XCTAssertEqual(payloadDict[kSPPlatform] as? String, "pc")
+        XCTAssertEqual(payloadDict[kSPAppId] as? String, "newAppId")
+        XCTAssertEqual(payloadDict[kSPNamespace] as? String, "newNamespace")
     }
 
     func testEventIdNotDuplicated() {

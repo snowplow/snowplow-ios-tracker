@@ -44,7 +44,7 @@ class TestRemoteConfiguration: XCTestCase {
         guard let jsonData = config.data(using: .utf8) else {
             return XCTFail()
         }
-        guard let dictionary = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : NSObject] else {
+        guard let dictionary = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any] else {
             return XCTFail()
         }
         guard let fetchedConfigurationBundle = FetchedConfigurationBundle(dictionary: dictionary) else {

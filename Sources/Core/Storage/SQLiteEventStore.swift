@@ -143,11 +143,11 @@ class SQLiteEventStore: NSObject, EventStore {
         return res
     }
 
-    func removeEvents(withIds storeIds: [NSNumber]) -> Bool {
+    func removeEvents(withIds storeIds: [Int64]) -> Bool {
         var res = false
         queue?.inDatabase({ db in
             if db.open() && storeIds.count != 0 {
-                let ids = storeIds.map { $0.stringValue }.joined(separator: ",")
+                let ids = storeIds.map { String(describing: $0) }.joined(separator: ",")
                 logDebug(message: String(format: "Removing [%@] from database now.", ids))
                 let query = String(format: _queryDeleteIds, ids)
                 res = db.executeUpdate(query, withArgumentsIn: [])
@@ -232,7 +232,7 @@ class SQLiteEventStore: NSObject, EventStore {
                 if let s = try? db.executeQuery(_querySelectId, values: [id_]) {
                     while s.next() {
                         if let data = s.data(forColumn: "eventData"),
-                           let dict = try? JSONSerialization.jsonObject(with: data) as? [String: NSObject] {
+                           let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
                             let payload = Payload(dictionary: dict)
                             event = EmitterEvent(payload: payload, storeId: id_)
                         }
@@ -265,7 +265,7 @@ class SQLiteEventStore: NSObject, EventStore {
                     while s.next() {
                         let index = s.longLongInt(forColumn: "ID")
                         if let data = s.data(forColumn: "eventData"),
-                           let dict = try? JSONSerialization.jsonObject(with: data) as? [String: NSObject] {
+                           let dict = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
                             let payload = Payload(dictionary: dict)
                             let event = EmitterEvent(payload: payload, storeId: index)
                             res.append(event)

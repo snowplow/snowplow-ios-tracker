@@ -54,13 +54,13 @@ class ScreenStateMachine: StateMachineProtocol {
         return nil
     }
 
-    func payloadValues(from event: InspectableEvent, state: State?) -> [String : NSObject]? {
+    func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]? {
         if let state = state as? ScreenState {
             let previousState = state.previousState
-            var addedValues: [String : NSObject] = [:]
-            addedValues[kSPSvPreviousName] = previousState?.name as NSObject?
-            addedValues[kSPSvPreviousType] = previousState?.type as NSObject?
-            addedValues[kSPSvPreviousScreenId] = previousState?.screenId as NSObject?
+            var addedValues: [String : Any] = [:]
+            addedValues[kSPSvPreviousName] = previousState?.name
+            addedValues[kSPSvPreviousType] = previousState?.type
+            addedValues[kSPSvPreviousScreenId] = previousState?.screenId
             return addedValues
         }
         return nil

@@ -49,7 +49,7 @@ class ConfigurationFetcher: NSObject {
     }
 
     func resolveRequest(with data: Data) {
-        if let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String : NSObject],
+        if let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String : Any],
            let fetchedConfigurationBundle = FetchedConfigurationBundle(dictionary: jsonObject) {
             onFetchCallback(fetchedConfigurationBundle, ConfigurationState.fetched)
         }

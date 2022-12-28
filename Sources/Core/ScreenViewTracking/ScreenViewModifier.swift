@@ -33,13 +33,8 @@ internal struct ScreenViewModifier: ViewModifier {
     /// Transform the context entity definitions to self-describing objects
     private var processedContexts: [SelfDescribingJson] {
         return contexts.map({ entity in
-            if let data = entity.data as? [String : NSObject] {
-                return SelfDescribingJson(schema: entity.schema, andDictionary: data)
-            } else {
-                logError(message: "Failed to process context entity for screen view.")
-            }
-            return nil
-        }).filter({ $0 != nil }).map({ $0! })
+            return SelfDescribingJson(schema: entity.schema, andDictionary: entity.data)
+        })
     }
     
     /// Get tracker by namespace if configured, otherwise return the default tracker

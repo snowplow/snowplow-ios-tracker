@@ -226,7 +226,7 @@ class TestRequest: XCTestCase, RequestCallback {
 
     func customContext() -> [SelfDescribingJson] {
         let data = [
-            "snowplow": "demo-tracker" as NSObject
+            "snowplow": "demo-tracker"
         ]
         let context = SelfDescribingJson(
             schema: "iglu:com.acme_company/demo_ios/jsonschema/1-0-0",

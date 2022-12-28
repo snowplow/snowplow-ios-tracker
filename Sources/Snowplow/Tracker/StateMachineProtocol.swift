@@ -36,5 +36,5 @@ public protocol StateMachineProtocol {
     @objc
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]?
     @objc
-    func payloadValues(from event: InspectableEvent, state: State?) -> [String : NSObject]?
+    func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]?
 }

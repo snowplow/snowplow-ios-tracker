@@ -66,7 +66,7 @@ class MockStateMachine: StateMachineProtocol {
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
         let mockState = state as? MockState
         let sdj = SelfDescribingJson(schema: "entity", andDictionary: [
-            "value": NSNumber(value: mockState?.value ?? 0)
+            "value": mockState?.value ?? 0
         ])
         return [sdj]
     }
@@ -75,9 +75,9 @@ class MockStateMachine: StateMachineProtocol {
         return ["event"]
     }
 
-    func payloadValues(from event: InspectableEvent, state: State?) -> [String : NSObject]? {
+    func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]? {
         return [
-            "newParam": "value" as NSObject
+            "newParam": "value"
         ]
     }
 }
@@ -103,13 +103,13 @@ class TestStateManager: XCTestCase {
         stateManager.addOrReplaceStateMachine(MockStateMachine())
 
         let eventInc = SelfDescribing(schema: "inc", payload: [
-            "value": NSNumber(value: 1)
+            "value": 1
         ])
         let eventDec = SelfDescribing(schema: "dec", payload: [
-            "value": NSNumber(value: 2)
+            "value": 2
         ])
         let event = SelfDescribing(schema: "event", payload: [
-            "value": NSNumber(value: 3)
+            "value": 3
         ])
 
         var trackerState = stateManager.trackerState(forProcessedEvent: eventInc)
@@ -117,7 +117,7 @@ class TestStateManager: XCTestCase {
         XCTAssertEqual(1, mockState?.value)
         var e = TrackerEvent(event: eventInc, state: trackerState)
         var entities = stateManager.entities(forProcessedEvent: e)
-        XCTAssertEqual(NSNumber(value: 1), ((entities[0].data) as? [String : NSNumber])?["value"])
+        XCTAssertEqual(1, ((entities[0].data) as? [String : Int])?["value"])
         XCTAssertTrue(stateManager.addPayloadValues(to: e))
         XCTAssertNil((e.payload)["newParam"])
 
@@ -125,7 +125,7 @@ class TestStateManager: XCTestCase {
         XCTAssertEqual(2, (trackerState?.state(withStateMachine: stateMachine) as? MockState)?.value)
         e = TrackerEvent(event: eventInc, state: trackerState)
         entities = stateManager.entities(forProcessedEvent: e)
-        XCTAssertEqual(NSNumber(value: 2), ((entities[0].data) as? [String : NSNumber])?["value"])
+        XCTAssertEqual(2, ((entities[0].data) as? [String : Int])?["value"])
         XCTAssertTrue(stateManager.addPayloadValues(to: e))
         XCTAssertNil((e.payload)["newParam"])
 
@@ -133,7 +133,7 @@ class TestStateManager: XCTestCase {
         XCTAssertEqual(1, (trackerState?.state(withStateMachine: stateMachine) as? MockState)?.value)
         e = TrackerEvent(event: eventDec, state: trackerState)
         entities = stateManager.entities(forProcessedEvent: e)
-        XCTAssertEqual(NSNumber(value: 1), ((entities[0].data) as? [String : NSNumber])?["value"])
+        XCTAssertEqual(1, ((entities[0].data) as? [String : Int])?["value"])
         XCTAssertTrue(stateManager.addPayloadValues(to: e))
         XCTAssertNil((e.payload)["newParam"])
 
@@ -141,9 +141,9 @@ class TestStateManager: XCTestCase {
         XCTAssertEqual(1, (trackerState?.state(withStateMachine: stateMachine) as? MockState)?.value)
         e = TrackerEvent(event: event, state: trackerState)
         entities = stateManager.entities(forProcessedEvent: e)
-        XCTAssertEqual(NSNumber(value: 1), ((entities[0].data) as? [String : NSNumber])?["value"])
+        XCTAssertEqual(1, ((entities[0].data) as? [String : Int])?["value"])
         XCTAssertTrue(stateManager.addPayloadValues(to: e))
-        XCTAssertEqual("value" as NSObject, (e.payload)["newParam"])
+        XCTAssertEqual("value", (e.payload)["newParam"] as? String)
     }
 
     func testAddRemoveStateMachine() {
@@ -153,7 +153,7 @@ class TestStateManager: XCTestCase {
         _ = stateManager.removeStateMachine("identifier")
 
         let eventInc = SelfDescribing(schema: "inc", payload: [
-            "value": NSNumber(value: 1)
+            "value": 1
         ])
 
         let trackerState = stateManager.trackerState(forProcessedEvent: eventInc)
@@ -170,7 +170,7 @@ class TestStateManager: XCTestCase {
         stateManager.addOrReplaceStateMachine(MockStateMachine2())
 
         let eventInc = SelfDescribing(schema: "inc", payload: [
-            "value": NSNumber(value: 1)
+            "value": 1
         ])
 
         let trackerState = stateManager.trackerState(forProcessedEvent: eventInc)
@@ -185,7 +185,7 @@ class TestStateManager: XCTestCase {
         stateManager.addOrReplaceStateMachine(MockStateMachine())
 
         let eventInc = SelfDescribing(schema: "inc", payload: [
-            "value": NSNumber(value: 1)
+            "value": 1
         ])
 
         let trackerState = stateManager.trackerState(forProcessedEvent: eventInc)
@@ -198,7 +198,7 @@ class TestStateManager: XCTestCase {
         let stateManager = StateManager()
         stateManager.addOrReplaceStateMachine(MockStateMachine("identifier"))
         let trackerState1 = stateManager.trackerState(forProcessedEvent: SelfDescribing(schema: "inc", payload: [
-            "value": NSNumber(value: 1)
+            "value": 1
         ]))
         XCTAssertEqual(1, (trackerState1?.state(withIdentifier: "identifier") as? MockState)?.value)
 
@@ -211,7 +211,7 @@ class TestStateManager: XCTestCase {
         let stateManager = StateManager()
         stateManager.addOrReplaceStateMachine(MockStateMachine1("identifier"))
         let trackerState1 = stateManager.trackerState(forProcessedEvent: SelfDescribing(schema: "inc", payload: [
-            "value": NSNumber(value: 1)
+            "value": 1
         ]))
         XCTAssertEqual(1, (trackerState1?.state(withIdentifier: "identifier") as? MockState)?.value)
 

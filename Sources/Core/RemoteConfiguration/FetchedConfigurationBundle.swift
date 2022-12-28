@@ -31,7 +31,7 @@ class FetchedConfigurationBundle: Configuration {
         self.configurationVersion = configurationVersion
     }
     
-    init?(dictionary: [String : NSObject]) {
+    init?(dictionary: [String : Any]) {
         guard let schema = dictionary["$schema"] as? String else {
             logDebug(message: "Error assigning: schema")
             return nil
@@ -42,7 +42,7 @@ class FetchedConfigurationBundle: Configuration {
             return nil
         }
         self.configurationVersion = configurationVersion
-        guard let bundles = dictionary["configurationBundle"] as? [[String : NSObject]] else {
+        guard let bundles = dictionary["configurationBundle"] as? [[String : Any]] else {
             logDebug(message: "Error assigning: configurationBundle")
             return nil
         }

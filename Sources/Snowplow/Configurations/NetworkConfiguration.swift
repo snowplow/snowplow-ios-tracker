@@ -48,7 +48,7 @@ public class NetworkConfiguration: Configuration {
 
     /// Allow endpoint and method only.
     @objc
-    public convenience init?(dictionary: [String : NSObject]) {
+    public convenience init?(dictionary: [String : Any]) {
         if let endpoint = dictionary["endpoint"] as? String {
             let method = dictionary["method"] as? String
             let httpMethod = (method == "get") ? HttpMethodOptions.get : HttpMethodOptions.post

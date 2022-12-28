@@ -38,20 +38,20 @@ public class SessionState: NSObject, State {
     @objc
     public private(set) var userId: String
 
-    var sessionContext: [String : NSObject] {
+    var sessionContext: [String : Any] {
         return sessionDictionary
     }
-    private var sessionDictionary: [String : NSObject] = [:]
+    private var sessionDictionary: [String : Any] = [:]
 
-    class func buildSessionDictionary(withFirstEventId firstEventId: String?, firstEventTimestamp: String?, currentSessionId: String, previousSessionId: String?, sessionIndex: Int, userId: String, storage: String) -> [String : NSObject] {
-        var dictionary: [String : NSObject] = [:]
-        dictionary[kSPSessionPreviousId] = previousSessionId as NSObject? ?? NSNull()
-        dictionary[kSPSessionId] = currentSessionId as NSObject
-        dictionary[kSPSessionFirstEventId] = firstEventId as NSObject?
-        dictionary[kSPSessionFirstEventTimestamp] = firstEventTimestamp as NSObject?
-        dictionary[kSPSessionIndex] = NSNumber(value: sessionIndex)
-        dictionary[kSPSessionStorage] = storage as NSObject
-        dictionary[kSPSessionUserId] = userId as NSObject
+    class func buildSessionDictionary(withFirstEventId firstEventId: String?, firstEventTimestamp: String?, currentSessionId: String, previousSessionId: String?, sessionIndex: Int, userId: String, storage: String) -> [String : Any] {
+        var dictionary: [String : Any] = [:]
+        dictionary[kSPSessionPreviousId] = previousSessionId ?? NSNull()
+        dictionary[kSPSessionId] = currentSessionId
+        dictionary[kSPSessionFirstEventId] = firstEventId
+        dictionary[kSPSessionFirstEventTimestamp] = firstEventTimestamp
+        dictionary[kSPSessionIndex] = sessionIndex
+        dictionary[kSPSessionStorage] = storage
+        dictionary[kSPSessionUserId] = userId
         return dictionary
     }
 
@@ -74,7 +74,7 @@ public class SessionState: NSObject, State {
             storage: storage)
     }
 
-    init?(storedState: [String : NSObject]) {
+    init?(storedState: [String : Any]) {
         guard let sessionId = storedState[kSPSessionId] as? String,
               let sessionIndex = storedState[kSPSessionIndex] as? Int,
               let userId = storedState[kSPSessionUserId] as? String else {

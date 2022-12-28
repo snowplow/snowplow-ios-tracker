@@ -48,12 +48,12 @@ public class PageView : PrimitiveAbstract {
         return kSPEventPageView
     }
     
-    override var payload: [String : NSObject] {
-        var payload: [String: NSObject] = [
-            kSPPageUrl: pageUrl as NSObject
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [
+            kSPPageUrl: pageUrl
         ]
-        payload[kSPPageTitle] = pageTitle as NSObject?
-        payload[kSPPageRefr] = referrer as NSObject?
+        payload[kSPPageTitle] = pageTitle
+        payload[kSPPageRefr] = referrer
         return payload
     }
 }
