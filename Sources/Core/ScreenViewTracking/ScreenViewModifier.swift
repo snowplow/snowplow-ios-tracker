@@ -27,12 +27,12 @@ import Foundation
 @available(watchOS, unavailable)
 internal struct ScreenViewModifier: ViewModifier {
     let name: String
-    let contexts: [(schema: String, data: [String: Any])]
+    let entities: [(schema: String, data: [String: Any])]
     let trackerNamespace: String?
     
     /// Transform the context entity definitions to self-describing objects
-    private var processedContexts: [SelfDescribingJson] {
-        return contexts.map({ entity in
+    private var processedEntities: [SelfDescribingJson] {
+        return entities.map({ entity in
             return SelfDescribingJson(schema: entity.schema, andDictionary: entity.data)
         })
     }
@@ -55,7 +55,7 @@ internal struct ScreenViewModifier: ViewModifier {
 
     func trackScreenView() {
         let event = ScreenView(name: name)
-        event.contexts = processedContexts
+        event.entities = processedEntities
 
         if let tracker = tracker {
             _ = tracker.track(event)

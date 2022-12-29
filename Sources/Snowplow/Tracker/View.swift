@@ -30,10 +30,10 @@ public extension View {
     /// - Parameter contexts: Context entities to attach to the event
     /// - Returns: View with the attached modifier to track screen views
     func snowplowScreen(name: String,
-                        contexts: [(schema: String, data: [String : Any])] = [],
+                        entities: [(schema: String, data: [String : Any])] = [],
                         trackerNamespace: String? = nil) -> some View {
         return modifier(ScreenViewModifier(name: name,
-                                           contexts: contexts,
+                                           entities: entities,
                                            trackerNamespace: trackerNamespace))
     }
 }

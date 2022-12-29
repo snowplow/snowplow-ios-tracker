@@ -90,6 +90,6 @@ public class ConsentGranted: SelfDescribingAbstract {
     }
 
     override func beginProcessing(withTracker tracker: Tracker) {
-        contexts.append(contentsOf: allDocuments) // TODO: Only the user should modify the public contexts property
+        entities.append(contentsOf: allDocuments) // TODO: Only the user should modify the public contexts property
     }
 }

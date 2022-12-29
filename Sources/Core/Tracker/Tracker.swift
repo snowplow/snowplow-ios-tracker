@@ -521,14 +521,14 @@ class Tracker: NSObject {
         } else {
             addSelfDescribingProperties(to: payload, event: event)
         }
-        var contexts = event.contexts
-        addBasicContexts(toContexts: &contexts, event: event)
-        addGlobalContexts(toContexts: &contexts, event: event)
-        addStateMachineEntities(toContexts: &contexts, event: event)
-        wrapContexts(contexts, to: payload)
+        var entities = event.entities
+        addBasicContexts(toContexts: &entities, event: event)
+        addGlobalContexts(toContexts: &entities, event: event)
+        addStateMachineEntities(toContexts: &entities, event: event)
+        wrapContexts(entities, to: payload)
         if !event.isPrimitive {
             // TODO: To remove when Atomic table refactoring is finished
-            workaround(forCampaignAttributionEnrichment: payload, event: event, contexts: &contexts)
+            workaround(forCampaignAttributionEnrichment: payload, event: event, contexts: &entities)
         }
         return payload
     }
@@ -653,7 +653,7 @@ class Tracker: NSObject {
         }
     }
 
-    func addStateMachineEntities(toContexts contexts: inout [SelfDescribingJson], event: InspectableEvent) {
+    func addStateMachineEntities(toContexts contexts: inout [SelfDescribingJson], event: InspectableEvent & StateMachineEvent) {
         let stateManagerEntities = stateManager.entities(forProcessedEvent: event)
         contexts.append(contentsOf: stateManagerEntities)
     }

@@ -21,54 +21,50 @@
 
 import Foundation
 
-class TrackerEvent : InspectableEvent {
+class TrackerEvent : InspectableEvent, StateMachineEvent {
+    /// Self-describing event data or primitive event payload
+    private(set) var payload: [String: Any]
     
-    private var _payload: [String: Any]
-    var payload: [String: Any] {
-        get { return _payload }
-        set { _payload = newValue }
-    }
-    private var _schema: String?
-    var schema: String? {
-        get { return _schema }
-        set { _schema = newValue }
-    }
-    private var _eventName: String?
-    var eventName: String? {
-        get { return _eventName }
-        set { _eventName = newValue }
-    }
-    var eventId: UUID
+    /// Self-describing event schema
+    private(set) var schema: String?
+    
+    /// Primitive event name
+    private(set) var eventName: String?
+    
+    /// Event ID
+    private(set) var eventId: UUID
+    
+    /// List of custom as well as automatically assigned context entities
+    private(set) var entities: [SelfDescribingJson]
+    
+    private(set) var state: TrackerStateSnapshot
+    
     var timestamp: Int64
+    
     var trueTimestamp: Date?
-    var contexts: [SelfDescribingJson]
-    private var _state: TrackerStateSnapshot
-    var state: TrackerStateSnapshot {
-        get { return _state }
-        set { _state = newValue }
-    }
-
-    var isPrimitive: Bool
-    var isService: Bool
+    
+    private(set) var isPrimitive: Bool
+    
+    private(set) var isService: Bool
     
     init(event: Event, state: TrackerStateSnapshot? = nil) {
         eventId = UUID()
         timestamp = Int64(Date().timeIntervalSince1970 * 1000)
         trueTimestamp = event.trueTimestamp
-        contexts = event.contexts
-        _payload = event.payload
-        _state = state ?? TrackerState()
-
+        entities = event.entities
+        payload = event.payload
+        self.state = state ?? TrackerState()
+        
         isService = (event is TrackerError)
         if let abstractEvent = event as? PrimitiveAbstract {
-            _eventName = abstractEvent.eventName
+            eventName = abstractEvent.eventName
             isPrimitive = true
         } else {
-            _schema = (event as! SelfDescribingAbstract).schema
+            schema = (event as! SelfDescribingAbstract).schema
             isPrimitive = false
         }
     }
-
+    
     func addPayloadValues(_ payload: [String : Any]) -> Bool {
         var result = true
         for (key, obj) in payload {

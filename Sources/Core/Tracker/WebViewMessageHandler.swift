@@ -139,7 +139,7 @@ class WebViewMessageHandler: NSObject, WKScriptMessageHandler {
     }
 
     func track(_ event: Event, withContext context: [[AnyHashable : Any]], andTrackers trackers: [String]) {
-        event.contexts = parseContext(context)
+        event.entities = parseContext(context)
         if trackers.count > 0 {
             for namespace in trackers {
                 if let tracker = Snowplow.tracker(namespace: namespace) {

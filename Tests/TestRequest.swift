@@ -160,7 +160,7 @@ class TestRequest: XCTestCase, RequestCallback {
         event.label = "DemoLabel"
         event.property = "DemoProperty"
         event.value = NSNumber(value: 5)
-        event.contexts = customContext()
+        event.entities = customContext()
         _ = tracker_.track(event)
         return 1
     }
@@ -173,7 +173,7 @@ class TestRequest: XCTestCase, RequestCallback {
             schema: "iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
             andDictionary: data)
         let event = SelfDescribing(eventData: sdj)
-        event.contexts = customContext()
+        event.entities = customContext()
         _ = tracker_.track(event)
         return 1
     }
@@ -182,14 +182,14 @@ class TestRequest: XCTestCase, RequestCallback {
         let event = PageView(pageUrl: "DemoPageUrl")
         event.pageTitle = "DemoPageTitle"
         event.referrer = "DemoPageReferrer"
-        event.contexts = customContext()
+        event.entities = customContext()
         _ = tracker_.track(event)
         return 1
     }
 
     func trackScreenView(with tracker_: Tracker) -> Int {
         let event = ScreenView(name: "DemoScreenName", screenId: nil)
-        event.contexts = customContext()
+        event.entities = customContext()
         _ = tracker_.track(event)
         return 1
     }
@@ -197,7 +197,7 @@ class TestRequest: XCTestCase, RequestCallback {
     func trackTimingWithCategory(with tracker_: Tracker) -> Int {
         let event = Timing(category: "DemoTimingCategory", variable: "DemoTimingVariable", timing: 5)
         event.label = "DemoTimingLabel"
-        event.contexts = customContext()
+        event.entities = customContext()
         _ = tracker_.track(event)
         return 1
     }
@@ -209,7 +209,7 @@ class TestRequest: XCTestCase, RequestCallback {
         item.name = "DemoItemName"
         item.category = "DemoItemCategory"
         item.currency = "USD"
-        item.contexts = customContext()
+        item.entities = customContext()
 
         let event = Ecommerce(orderId: transactionID, totalValue: 350, items: [item])
         event.affiliation = "DemoTranAffiliation"
@@ -219,7 +219,7 @@ class TestRequest: XCTestCase, RequestCallback {
         event.state = "Massachusetts"
         event.country = "USA"
         event.currency = "USD"
-        event.contexts = customContext()
+        event.entities = customContext()
         _ = tracker_.track(event)
         return 2
     }
