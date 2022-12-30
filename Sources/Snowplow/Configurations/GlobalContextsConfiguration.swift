@@ -1,4 +1,5 @@
-//  SPGlobalContextsConfiguration.swift
+//
+//  GlobalContextsConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -40,7 +41,7 @@ public protocol GlobalContextsConfigurationProtocol: AnyObject {
 
 /// This class allows the setup of Global Contexts which are attached to selected events.
 @objc(SPGlobalContextsConfiguration)
-public class GlobalContextsConfiguration: Configuration, GlobalContextsConfigurationProtocol {
+public class GlobalContextsConfiguration: NSObject, GlobalContextsConfigurationProtocol, ConfigurationProtocol {
     @objc
     public var contextGenerators: [String : GlobalContext] = [:]
 
@@ -61,17 +62,6 @@ public class GlobalContextsConfiguration: Configuration, GlobalContextsConfigura
         }
         return toDelete
     }
-
-    // MARK: - NSCopying
-
-    @objc
-    public override func copy(with zone: NSZone? = nil) -> Any {
-        let copy = GlobalContextsConfiguration()
-        copy.contextGenerators = contextGenerators
-        return copy
-    }
-
-    // MARK: - NSCoding (No coding possible as we can't encode and decode the contextGenerators)
     
     // MARK: - Internal functions
     

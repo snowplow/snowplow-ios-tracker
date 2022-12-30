@@ -1,4 +1,5 @@
-//  Configuration.swift
+//
+//  SerializableConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -21,8 +22,8 @@
 import Foundation
 
 /// Common parent class for configuration classes.
-@objc(SPConfiguration)
-public class Configuration: NSObject, NSCopying, NSSecureCoding {
+@objc(SPSerializableConfiguration)
+public class SerializableConfiguration: NSObject, NSCopying, NSSecureCoding {
     @objc
     public convenience init?(dictionary: [String : Any]) {
         self.init()
@@ -30,7 +31,7 @@ public class Configuration: NSObject, NSCopying, NSSecureCoding {
 
     @objc
     public func copy(with zone: NSZone? = nil) -> Any {
-        return Configuration()
+        return SerializableConfiguration()
     }
 
     @objc

@@ -122,7 +122,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
     
     // MARK: - Init
 
-    init(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [Configuration]) {
+    init(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol]) {
         self.namespace = namespace
         super.init()
         
@@ -134,7 +134,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         let _ = tracker // Build tracker to initialize NotificationCenter receivers
     }
 
-    func reset(configurations: [Configuration]) {
+    func reset(configurations: [ConfigurationProtocol]) {
         stopServices()
         resetConfigurationUpdates()
         processConfigurations(configurations)
@@ -152,7 +152,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
 
     // MARK: - Private methods
 
-    func processConfigurations(_ configurations: [Configuration]) {
+    func processConfigurations(_ configurations: [ConfigurationProtocol]) {
         for configuration in configurations {
             if let configuration = configuration as? NetworkConfiguration {
                 networkConfigurationUpdate.sourceConfig = configuration

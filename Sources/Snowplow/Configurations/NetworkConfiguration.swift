@@ -1,4 +1,5 @@
-//  SPNetworkConfiguration.swift
+//
+//  NetworkConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -22,7 +23,7 @@ import Foundation
 
 /// Represents the network communication configuration allowing the tracker to be able to send events to the Snowplow collector.
 @objc(SPNetworkConfiguration)
-public class NetworkConfiguration: Configuration {
+public class NetworkConfiguration: SerializableConfiguration, ConfigurationProtocol {
     /// URL (without schema/protocol) used to send events to the collector.
     @objc
     private(set) public var endpoint: String?

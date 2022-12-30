@@ -1,4 +1,5 @@
-//  SPSessionConfiguration.swift
+//
+//  SessionConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -59,7 +60,7 @@ public protocol SessionConfigurationProtocol: AnyObject {
 /// Session data is maintained for the life of the application being installed on a device.
 /// A new session will be created if the session information is not accessed within a configurable timeout.
 @objc(SPSessionConfiguration)
-public class SessionConfiguration: Configuration, SessionConfigurationProtocol {
+public class SessionConfiguration: SerializableConfiguration, SessionConfigurationProtocol, ConfigurationProtocol {
     @objc
     public var backgroundTimeoutInSeconds: Int
     @objc

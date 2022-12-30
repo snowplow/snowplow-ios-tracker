@@ -194,7 +194,7 @@ public class Snowplow: NSObject {
     ///                       the tracker.
     /// - Returns: The tracker instance created.
     @objc
-    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [Configuration]) -> TrackerController? {
+    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol]) -> TrackerController? {
         if let serviceProvider = serviceProviderInstances[namespace] {
             serviceProvider.reset(configurations: configurations + [networkConfiguration])
             return serviceProvider.trackerController

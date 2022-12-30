@@ -1,4 +1,5 @@
-//  SPRemoteConfiguration.swift
+//
+//  RemoteConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -23,7 +24,7 @@ import Foundation
 /// Represents the configuration for fetching configurations from a remote source.
 /// For details on the correct format of a remote configuration see the official documentation.
 @objc(SPRemoteConfiguration)
-public class RemoteConfiguration: Configuration {
+public class RemoteConfiguration: NSObject {
     /// URL of the remote configuration.
     @objc
     private(set) public var endpoint: String
@@ -55,34 +56,5 @@ public class RemoteConfiguration: Configuration {
     public convenience init(endpoint: String, method: HttpMethodOptions) {
         self.init(endpoint: endpoint)
         self.method = method
-    }
-
-    // MARK: - NSCopying
-
-    @objc
-    override public func copy(with zone: NSZone? = nil) -> Any {
-        let copy = RemoteConfiguration(endpoint: endpoint)
-        copy.method = method
-        return copy
-    }
-
-    // MARK: - NSSecureCoding
-
-    @objc
-    override public func encode(with coder: NSCoder) {
-        coder.encode(endpoint, forKey: "endpoint")
-        coder.encode(method?.rawValue, forKey: "method")
-    }
-    
-    @objc
-    public override class var supportsSecureCoding: Bool { return true }
-    
-    required init?(coder: NSCoder) {
-        if let endpoint = coder.decodeObject(forKey: "endpoint") as? String {
-            self.endpoint = endpoint
-            method = HttpMethodOptions(rawValue: coder.decodeInteger(forKey: "method"))
-        } else {
-            return nil
-        }
     }
 }

@@ -1,4 +1,5 @@
-//  SPGDPRConfiguration.swift
+//
+//  GDPRConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -38,7 +39,7 @@ public protocol GDPRConfigurationProtocol: AnyObject {
 
 /// This class allows the GDPR configuration of the tracker.
 @objc(SPGDPRConfiguration)
-public class GDPRConfiguration: Configuration, GDPRConfigurationProtocol {
+public class GDPRConfiguration: NSObject, GDPRConfigurationProtocol, ConfigurationProtocol {
     /// Basis for processing.
     @objc
     public var basisForProcessing: GDPRProcessingBasis
@@ -70,41 +71,5 @@ public class GDPRConfiguration: Configuration, GDPRConfigurationProtocol {
         self.documentVersion = documentVersion ?? ""
         self.documentDescription = documentDescription ?? ""
         super.init()
-    }
-
-    // MARK: - NSCopying
-
-    @objc
-    public override func copy(with zone: NSZone? = nil) -> Any {
-        let copy = GDPRConfiguration(basis: basisForProcessing,
-                                     documentId: documentId,
-                                     documentVersion: documentVersion,
-                                     documentDescription: documentDescription)
-        return copy
-    }
-
-    // MARK: - NSSecureCodin
-    
-    @objc
-    public override class var supportsSecureCoding: Bool { return true }
-
-    @objc
-    public override func encode(with coder: NSCoder) {
-        coder.encode(basisForProcessing.rawValue, forKey: "basisForProcessing")
-        coder.encode(documentId, forKey: "documentId")
-        coder.encode(documentVersion, forKey: "documentVersion")
-        coder.encode(documentDescription, forKey: "documentDescription")
-    }
-
-    required init?(coder: NSCoder) {
-        if let basisForProcessing = GDPRProcessingBasis(rawValue: coder.decodeInteger(forKey: "basisForProcessing")) {
-            self.basisForProcessing = basisForProcessing
-            self.documentId = coder.decodeObject(forKey: "documentId") as? String ?? ""
-            self.documentVersion = coder.decodeObject(forKey: "documentVersion") as? String ?? ""
-            self.documentDescription = coder.decodeObject(forKey: "documentDescription") as? String ?? ""
-            super.init()
-        } else {
-            return nil
-        }
     }
 }

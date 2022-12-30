@@ -1,5 +1,5 @@
 //
-//  ConfigurationState.h
+//  Configuration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -15,19 +15,13 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Matus Tomlein
+//  Authors: Alex Benini
 //  License: Apache License Version 2.0
 //
 
 import Foundation
 
-/// State of retrieved remote configuration that states where the configuration was retrieved from.
-@objc(SPConfigurationState)
-public enum ConfigurationState: Int {
-    /// The default configuration was used.
-    case `default`
-    /// The configuration was retrieved from local cache.
-    case cached
-    /// The configuration was retrieved from the remote configuration endpoint.
-    case fetched
+/// Common parent protocol for configuration classes.
+@objc(SPConfigurationProtocol)
+public protocol ConfigurationProtocol {
 }
