@@ -23,6 +23,7 @@ import XCTest
 @testable import SnowplowTracker
 
 class TestConfigurationBuilder: XCTestCase {
+#if swift(>=5.4)
     func testCreateTrackerUsingBuilder() {
         let pluginName: String? = "plugin"
         let tracker = Snowplow.createTracker(namespace: "ns",
@@ -54,4 +55,5 @@ class TestConfigurationBuilder: XCTestCase {
         XCTAssertEqual(33, tracker?.emitter?.threadPoolSize)
         XCTAssertEqual(["plugin"], tracker?.plugins.identifiers)
     }
+#endif
 }

@@ -21,6 +21,7 @@
 
 import Foundation
 
+#if swift(>=5.4)
 /// Result builder used to build a list of configuration objects when creating a new tracker
 @resultBuilder
 public struct ConfigurationBuilder {
@@ -72,3 +73,4 @@ public struct ConfigurationBuilder {
         return configurations ?? []
     }
 }
+#endif

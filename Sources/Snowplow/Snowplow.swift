@@ -140,6 +140,7 @@ public class Snowplow: NSObject {
         return createTracker(namespace: namespace, network: networkConfiguration, configurations: [])
     }
 
+#if swift(>=5.4)
     /// Create a new tracker instance which will be used inside the app to track events.
     ///
     /// The app can run multiple tracker instances which will be identified by string `namespaces`.
@@ -170,6 +171,7 @@ public class Snowplow: NSObject {
                              network: NetworkConfiguration(endpoint: endpoint, method: method),
                              configurations: configurations)
     }
+#endif
 
     /// Create a new tracker instance which will be used inside the app to track events.
     ///
@@ -208,6 +210,7 @@ public class Snowplow: NSObject {
         }
     }
 
+#if swift(>=5.4)
     /// Create a new tracker instance which will be used inside the app to track events.
     ///
     /// The app can run multiple tracker instances which will be identified by string `namespaces`.
@@ -238,7 +241,8 @@ public class Snowplow: NSObject {
                              network: networkConfiguration,
                              configurations: configurations)
     }
-
+#endif
+    
     /// Get the default tracker instance.
     ///
     /// The default tracker instance is the first created in the app, but that can be overridden programmatically
