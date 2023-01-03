@@ -64,4 +64,20 @@ public class ConsentDocument: NSObject {
             schema: kSPConsentDocumentSchema,
             andDictionary: event)
     }
+    
+    // MARK: - Builders
+    
+    /// Name of the document.
+    @objc
+    public func name(_ name: String?) -> Self {
+        self.name = name
+        return self
+    }
+    
+    /// Description of the document.
+    @objc
+    public func documentDescription(_ description: String?) -> Self {
+        self.documentDescription = description
+        return self
+    }
 }

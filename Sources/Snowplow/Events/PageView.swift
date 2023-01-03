@@ -56,4 +56,20 @@ public class PageView : PrimitiveAbstract {
         payload[kSPPageRefr] = referrer
         return payload
     }
+    
+    // MARK: - Builders
+    
+    /// Page title.
+    @objc
+    public func pageTitle(_ title: String?) -> Self {
+        self.pageTitle = title
+        return self
+    }
+    
+    /// Page referrer url.
+    @objc
+    public func referrer(_ referrer: String?) -> Self {
+        self.referrer = referrer
+        return self
+    }
 }

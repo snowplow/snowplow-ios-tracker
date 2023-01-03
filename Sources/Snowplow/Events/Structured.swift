@@ -70,4 +70,33 @@ public class Structured: PrimitiveAbstract {
         }
         return payload
     }
+    
+    // MARK: - Builders
+    
+    /// Identifies the specific object being actioned.
+    ///
+    /// E.g., ID of the video being played, or the SKU or the product added-to-basket.
+    @objc
+    public func label(_ label: String?) -> Self {
+        self.label = label
+        return self
+    }
+    
+    /// Describes the object or the action performed on it.
+    ///
+    /// This might be the quantity of an item added to basket
+    @objc
+    public func property(_ property: String?) -> Self {
+        self.property = property
+        return self
+    }
+    
+    /// Quantifies or further describes the user action.
+    ///
+    /// This might be the price of an item added-to-basket, or the starting time of the video where play was just pressed.
+    @objc
+    public func value(_ value: NSNumber?) -> Self {
+        self.value = value
+        return self
+    }
 }

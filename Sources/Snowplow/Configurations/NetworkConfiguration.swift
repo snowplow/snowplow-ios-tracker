@@ -93,6 +93,23 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         self.networkConnection = networkConnection
         customPostPath = nil
     }
+    
+    // MARK: - Builders
+    
+    /// A custom path which will be added to the endpoint URL to specify the
+    /// complete URL of the collector when paired with the POST method.
+    @objc
+    public func customPostPath(_ path: String?) -> Self {
+        self.customPostPath = path
+        return self
+    }
+    
+    ///  Custom headers for http requests.
+    @objc
+    public func requestHeaders(_ headers: [String : String]?) -> Self {
+        self.requestHeaders = headers
+        return self
+    }
 
     // MARK: - NSCopying
 

@@ -30,6 +30,8 @@ let kSPLifecycleEntityParamIsVisible = "isVisible"
 @objc(SPLifecycleEntity)
 public class LifecycleEntity: SelfDescribingJson {
 
+    /// - Parameters:
+    ///    - isVisible: Indicates if the app is in foreground state (true) or background state (false)
     @objc
     public init(isVisible: Bool) {
         var parameters: [String : Any] = [:]
@@ -37,6 +39,7 @@ public class LifecycleEntity: SelfDescribingJson {
         super.init(schema: kSPLifecycleEntitySchema, andData: parameters)
     }
 
+    /// Represents the foreground index or background index (tracked with com.snowplowanalytics.snowplow application_foreground and application_background events.
     @objc
     public var index: NSNumber? {
         set {
@@ -48,5 +51,13 @@ public class LifecycleEntity: SelfDescribingJson {
             }
             return nil
         }
+    }
+    
+    // MARK: - Builders
+    
+    /// Represents the foreground index or background index (tracked with com.snowplowanalytics.snowplow application_foreground and application_background events.
+    public func index(_ index: NSNumber?) -> Self {
+        self.index = index
+        return self
     }
 }

@@ -55,4 +55,20 @@ public class SNOWError: SelfDescribingAbstract {
         payload[kSPErrorLanguage] = "SWIFT"
         return payload
     }
+    
+    // MARK: - Builders
+    
+    /// Error name
+    @objc
+    public func name(_ name: String?) -> Self {
+        self.name = name
+        return self
+    }
+    
+    /// Stacktrace for the error
+    @objc
+    public func stackTrace(_ stackTrace: String?) -> Self {
+        self.stackTrace = stackTrace
+        return self
+    }
 }

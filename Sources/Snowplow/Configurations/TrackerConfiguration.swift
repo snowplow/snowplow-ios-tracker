@@ -219,6 +219,144 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         }
     }
 
+    // MARK: - Builders
+    
+    /// Identifer of the app.
+    @objc
+    public func appId(_ appId: String) -> Self {
+        self.appId = appId
+        return self
+    }
+    
+    /// It sets the device platform the tracker is running on.
+    @objc
+    public func devicePlatform(_ devicePlatform: DevicePlatform) -> Self {
+        self.devicePlatform = devicePlatform
+        return self
+    }
+    
+    /// It indicates whether the JSON data in the payload should be base64 encoded.
+    @objc
+    public func base64Encoding(_ base64Encoding: Bool) -> Self {
+        self.base64Encoding = base64Encoding
+        return self
+    }
+    
+    /// It sets the log level of tracker logs.
+    @objc
+    public func logLevel(_ logLevel: LogLevel) -> Self {
+        self.logLevel = logLevel
+        return self
+    }
+    
+    /// It sets the logger delegate that receive logs from the tracker.
+    @objc
+    public func loggerDelegate(_ loggerDelegate: LoggerDelegate?) -> Self {
+        self.loggerDelegate = loggerDelegate
+        return self
+    }
+    
+    /// Whether application context is sent with all the tracked events.
+    @objc
+    public func applicationContext(_ applicationContext: Bool) -> Self {
+        self.applicationContext = applicationContext
+        return self
+    }
+    
+    /// Whether mobile/platform context is sent with all the tracked events.
+    @objc
+    public func platformContext(_ platformContext: Bool) -> Self {
+        self.platformContext = platformContext
+        return self
+    }
+    
+    /// Whether geo-location context is sent with all the tracked events.
+    @objc
+    public func geoLocationContext(_ geoLocationContext: Bool) -> Self {
+        self.geoLocationContext = geoLocationContext
+        return self
+    }
+    
+    /// Whether session context is sent with all the tracked events.
+    @objc
+    public func sessionContext(_ sessionContext: Bool) -> Self {
+        self.sessionContext = sessionContext
+        return self
+    }
+    
+    /// Whether deepLink context is sent with all the ScreenView events.
+    @objc
+    public func deepLinkContext(_ deepLinkContext: Bool) -> Self {
+        self.deepLinkContext = deepLinkContext
+        return self
+    }
+    
+    /// Whether screen context is sent with all the tracked events.
+    @objc
+    public func screenContext(_ screenContext: Bool) -> Self {
+        self.screenContext = screenContext
+        return self
+    }
+    
+    /// Whether enable automatic tracking of ScreenView events.
+    @objc
+    public func screenViewAutotracking(_ screenViewAutotracking: Bool) -> Self {
+        self.screenViewAutotracking = screenViewAutotracking
+        return self
+    }
+    
+    /// Whether enable automatic tracking of background and foreground transitions.
+    @objc
+    public func lifecycleAutotracking(_ lifecycleAutotracking: Bool) -> Self {
+        self.lifecycleAutotracking = lifecycleAutotracking
+        return self
+    }
+    
+    /// Whether enable automatic tracking of install event.
+    @objc
+    public func installAutotracking(_ installAutotracking: Bool) -> Self {
+        self.installAutotracking = installAutotracking
+        return self
+    }
+    
+    /// Whether enable crash reporting.
+    @objc
+    public func exceptionAutotracking(_ exceptionAutotracking: Bool) -> Self {
+        self.exceptionAutotracking = exceptionAutotracking
+        return self
+    }
+    
+    /// Whether enable diagnostic reporting.
+    @objc
+    public func diagnosticAutotracking(_ diagnosticAutotracking: Bool) -> Self {
+        self.diagnosticAutotracking = diagnosticAutotracking
+        return self
+    }
+    
+    /// Whether to anonymise client-side user identifiers in session (userId, previousSessionId), subject (userId, networkUserId, domainUserId, ipAddress) and platform context entities (IDFA)
+    /// Setting this property on a running tracker instance starts a new session (if sessions are tracked).
+    @objc
+    public func userAnonymisation(_ userAnonymisation: Bool) -> Self {
+        self.userAnonymisation = userAnonymisation
+        return self
+    }
+    
+    /// Decorate the v_tracker field in the tracker protocol.
+    /// @note Do not use. Internal use only.
+    @objc
+    public func trackerVersionSuffix(_ trackerVersionSuffix: String?) -> Self {
+        self.trackerVersionSuffix = trackerVersionSuffix
+        return self
+    }
+    
+    /// Closure called to retrieve the Identifier for Advertisers (IDFA) from AdSupport module
+    /// It is called repeatedly (on each tracked event) until a UUID is returned.
+    @objc
+    public func advertisingIdentifierRetriever(_ retriever: (() -> UUID?)?) -> Self {
+        self.advertisingIdentifierRetriever = retriever
+        return self
+    }
+
     // MARK: - NSCopying
 
     @objc

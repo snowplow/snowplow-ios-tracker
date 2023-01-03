@@ -60,18 +60,17 @@ class TestScreenViewModifier: XCTestCase {
     }
     
     private func createTracker(afterTrack: @escaping (InspectableEvent) -> ()) {
-        let plugin = PluginConfiguration(identifier: "screenViewPlugin")
-        plugin.afterTrack(closure: afterTrack)
-        
         let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
         
-        let trackerConfig = TrackerConfiguration()
-        trackerConfig.installAutotracking = false
-        trackerConfig.lifecycleAutotracking = false
-        
         _ = Snowplow.createTracker(namespace: "screenViewTracker",
-                                      network: networkConfig,
-                                      configurations: [trackerConfig, plugin])!
+                                   network: networkConfig) {
+            PluginConfiguration(identifier: "screenViewPlugin")
+                .afterTrack(closure: afterTrack)
+            
+            TrackerConfiguration()
+                .installAutotracking(false)
+                .lifecycleAutotracking(false)
+        }
     }
 }
 

@@ -208,4 +208,41 @@ public class NotificationContent : NSObject {
         }
         return event // copyItems: true
     }
+    
+    // MARK: - Builders
+    
+    /// The notification's subtitle.
+    @objc
+    public func subtitle(_ subtitle: String?) -> Self {
+        self.subtitle = subtitle
+        return self
+    }
+    
+    /// The sound played when the device receives the notification.
+    @objc
+    public func sound(_ sound: String?) -> Self {
+        self.sound = sound
+        return self
+    }
+    
+    /// The name of the image or storyboard to use when your app launches because of the notification.
+    @objc
+    public func launchImageName(_ name: String?) -> Self {
+        self.launchImageName = name
+        return self
+    }
+    
+    /// The custom data associated with the notification.
+    @objc
+    public func userInfo(_ userInfo: [String : Any]?) -> Self {
+        self.userInfo = userInfo
+        return self
+    }
+    
+    /// Attachments added to the notification (they can be part of the data object).
+    @objc
+    public func attachments(_ attachments: [NSObject]?) -> Self {
+        self.attachments = attachments
+        return self
+    }
 }

@@ -106,4 +106,55 @@ public class ScreenView: SelfDescribingAbstract {
         ];
         return arr[screenType.rawValue];
     }
+    
+    // MARK: - Builders
+    
+    /// Type of screen.
+    @objc
+    public func type(_ type: String?) -> Self {
+        self.type = type
+        return self
+    }
+    
+    /// Name of the previous screen.
+    @objc
+    public func previousName(_ previousName: String?) -> Self {
+        self.previousName = previousName
+        return self
+    }
+    
+    /// Identifier of the previous screen.
+    @objc
+    public func previousId(_ previousId: String?) -> Self {
+        self.previousId = previousId
+        return self
+    }
+    
+    /// Type of the previous screen.
+    @objc
+    public func previousType(_ previousType: String?) -> Self {
+        self.previousType = previousType
+        return self
+    }
+    
+    /// Type of transition between previous and current screen,
+    @objc
+    public func transitionType(_ transitionType: String?) -> Self {
+        self.transitionType = transitionType
+        return self
+    }
+    
+    /// Name of the ViewController subclass.
+    @objc
+    public func viewControllerClassName(_ viewControllerClassName: String?) -> Self {
+        self.viewControllerClassName = viewControllerClassName
+        return self
+    }
+    
+    /// Name of the top ViewController subclass.
+    @objc
+    public func topViewControllerClassName(_ topViewControllerClassName: String?) -> Self {
+        self.topViewControllerClassName = topViewControllerClassName
+        return self
+    }
 }
