@@ -163,7 +163,7 @@ public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, Confi
 
     /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
     @objc
-    public func serverAnonymisation( serverAnonymisation: Bool) -> Self {
+    public func serverAnonymisation(_ serverAnonymisation: Bool) -> Self {
         self.serverAnonymisation = serverAnonymisation
         return self
     }
