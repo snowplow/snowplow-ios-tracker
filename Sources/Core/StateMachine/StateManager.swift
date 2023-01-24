@@ -26,6 +26,7 @@ class StateManager {
     private var eventSchemaToStateMachine: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToEntitiesGenerator: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToPayloadUpdater: [String : [StateMachineProtocol]] = [:]
+    private var eventSchemaToAfterTrackCallback: [String : [StateMachineProtocol]] = [:]
     private var trackerState = TrackerState()
 
     func addOrReplaceStateMachine(_ stateMachine: StateMachineProtocol) {
@@ -51,6 +52,10 @@ class StateManager {
             toSchemaRegistry: &eventSchemaToPayloadUpdater,
             schemas: stateMachine.subscribedEventSchemasForPayloadUpdating,
             stateMachine: stateMachine)
+        add(
+            toSchemaRegistry: &eventSchemaToAfterTrackCallback,
+            schemas: stateMachine.subscribedEventSchemasForAfterTrackCallback,
+            stateMachine: stateMachine)
     }
 
     func removeStateMachine(_ stateMachineIdentifier: String) -> Bool {
@@ -70,6 +75,10 @@ class StateManager {
         remove(
             fromSchemaRegistry: &eventSchemaToPayloadUpdater,
             schemas: stateMachine.subscribedEventSchemasForPayloadUpdating,
+            stateMachine: stateMachine)
+        remove(
+            fromSchemaRegistry: &eventSchemaToAfterTrackCallback,
+            schemas: stateMachine.subscribedEventSchemasForAfterTrackCallback,
             stateMachine: stateMachine)
         return true
     }
@@ -142,6 +151,23 @@ class StateManager {
             }
         }
         return failures == 0
+    }
+
+    func afterTrack(event: InspectableEvent & StateMachineEvent) {
+        guard let schema = event.schema ?? event.eventName else { return }
+
+        objc_sync_enter(self)
+        var stateMachines = eventSchemaToAfterTrackCallback[schema] ?? []
+        stateMachines.append(contentsOf: eventSchemaToAfterTrackCallback["*"] ?? [])
+        objc_sync_exit(self)
+
+        if !stateMachines.isEmpty {
+            DispatchQueue.global(qos: .default).async {
+                for stateMachine in stateMachines {
+                    stateMachine.afterTrack(event: event)
+                }
+            }
+        }
     }
 
     // MARK: - Private methods

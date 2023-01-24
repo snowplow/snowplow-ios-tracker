@@ -58,6 +58,9 @@ public protocol TrackerController: TrackerConfigurationProtocol {
     /// @apiNote Don't retain the reference. It may change on tracker reconfiguration.
     @objc
     var globalContexts: GlobalContextsController? { get }
+    /// 
+    @objc
+    var plugins: PluginsController { get }
     /// Track the event.
     /// The tracker will take care to process and send the event assigning `event_id` and `device_timestamp`.
     /// - Parameter event: The event to track.

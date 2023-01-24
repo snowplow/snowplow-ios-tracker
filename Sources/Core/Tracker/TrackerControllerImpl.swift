@@ -54,6 +54,10 @@ class TrackerControllerImpl: Controller, TrackerController {
         return sessionController.isEnabled ? sessionController : nil
     }
 
+    var plugins: PluginsController {
+        return serviceProvider.pluginsController
+    }
+
     // MARK: - Control methods
 
     func pause() {

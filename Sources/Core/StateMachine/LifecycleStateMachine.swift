@@ -63,4 +63,11 @@ class LifecycleStateMachine: StateMachineProtocol {
     func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]? {
         return nil
     }
+
+    var subscribedEventSchemasForAfterTrackCallback: [String] {
+        return []
+    }
+
+    func afterTrack(event: InspectableEvent) {
+    }
 }
