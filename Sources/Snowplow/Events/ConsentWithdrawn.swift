@@ -51,9 +51,9 @@ public class ConsentWithdrawn: SelfDescribingAbstract {
         return kSPConsentWithdrawnSchema
     }
 
-    override var payload: [String : NSObject] {
+    override var payload: [String : Any] {
         return [
-            KSPCwAll: all ? NSNumber(value: true) : NSNumber(value: false)
+            KSPCwAll: all
         ]
     }
 

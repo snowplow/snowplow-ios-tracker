@@ -129,11 +129,11 @@ public class MessageNotification : SelfDescribingAbstract {
         self.trigger = trigger
     }
     
-    class func messageNotification(userInfo: [String: NSObject], defaultTitle: String?, defaultBody: String?) -> MessageNotification? {
-        guard let aps = userInfo["aps"] as? [String : NSObject] else {
+    class func messageNotification(userInfo: [String: Any], defaultTitle: String?, defaultBody: String?) -> MessageNotification? {
+        guard let aps = userInfo["aps"] as? [String : Any] else {
             return nil
         }
-        guard let alert = aps["alert"] as? [String : NSObject] else {
+        guard let alert = aps["alert"] as? [String : Any] else {
             return nil
         }
         // alert fields
@@ -151,7 +151,11 @@ public class MessageNotification : SelfDescribingAbstract {
         // aps fields
         event.notificationCount = aps["badge"] as? Int
         event.sound = aps["sound"] as? String
-        event.contentAvailable = aps["content-available"] as? Bool
+        if let contentAvailable = aps["content-available"] as? Bool {
+            event.contentAvailable = contentAvailable
+        } else if let contentAvailable = aps["content-available"] as? Int {
+            event.contentAvailable = contentAvailable > 0
+        }
         event.category = aps["category"] as? String
         event.threadIdentifier = aps["thread-id"] as? String
         return event
@@ -161,35 +165,35 @@ public class MessageNotification : SelfDescribingAbstract {
         return kSPMessageNotificationSchema
     }
     
-    override var payload: [String: NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPMessageNotificationParamAction] = action as NSObject?
+    override var payload: [String: Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPMessageNotificationParamAction] = action
         if let attachments = attachments {
-            payload[kSPMessageNotificationParamMessageNotificationAttachments] = attachments.map { $0.data } as NSObject
+            payload[kSPMessageNotificationParamMessageNotificationAttachments] = attachments.map { $0.data }
         }
-        payload[kSPMessageNotificationParamBody] = body as NSObject?
+        payload[kSPMessageNotificationParamBody] = body
         if let bodyLocArgs = bodyLocArgs {
-            payload[kSPMessageNotificationParamBodyLocArgs] = bodyLocArgs as NSObject
+            payload[kSPMessageNotificationParamBodyLocArgs] = bodyLocArgs
         }
-        payload[kSPMessageNotificationParamBodyLocKey] = bodyLocKey as NSObject?
-        payload[kSPMessageNotificationParamCategory] = category as NSObject?
+        payload[kSPMessageNotificationParamBodyLocKey] = bodyLocKey
+        payload[kSPMessageNotificationParamCategory] = category
         if let contentAvailable = contentAvailable {
-            payload[kSPMessageNotificationParamContentAvailable] = NSNumber(value: contentAvailable)
+            payload[kSPMessageNotificationParamContentAvailable] = contentAvailable
         }
-        payload[kSPMessageNotificationParamGroup] = group as NSObject?
-        payload[kSPMessageNotificationParamIcon] = icon as NSObject?
-        payload[kSPMessageNotificationParamNotificationCount] = notificationCount as NSObject?
-        payload[kSPMessageNotificationParamNotificationTimestamp] = notificationTimestamp as NSObject?
-        payload[kSPMessageNotificationParamSound] = sound as NSObject?
-        payload[kSPMessageNotificationParamSubtitle] = subtitle as NSObject?
-        payload[kSPMessageNotificationParamTag] = tag as NSObject?
-        payload[kSPMessageNotificationParamThreadIdentifier] = threadIdentifier as NSObject?
-        payload[kSPMessageNotificationParamTitle] = title as NSObject?
+        payload[kSPMessageNotificationParamGroup] = group
+        payload[kSPMessageNotificationParamIcon] = icon
+        payload[kSPMessageNotificationParamNotificationCount] = notificationCount
+        payload[kSPMessageNotificationParamNotificationTimestamp] = notificationTimestamp
+        payload[kSPMessageNotificationParamSound] = sound
+        payload[kSPMessageNotificationParamSubtitle] = subtitle
+        payload[kSPMessageNotificationParamTag] = tag
+        payload[kSPMessageNotificationParamThreadIdentifier] = threadIdentifier
+        payload[kSPMessageNotificationParamTitle] = title
         if let titleLocArgs = titleLocArgs {
-            payload[kSPMessageNotificationParamTitleLocArgs] = titleLocArgs as NSObject
+            payload[kSPMessageNotificationParamTitleLocArgs] = titleLocArgs
         }
-        payload[kSPMessageNotificationParamTitleLocKey] = titleLocKey as NSObject?
-        payload[kSPMessageNotificationParamTrigger] = triggerToString(trigger) as NSObject
+        payload[kSPMessageNotificationParamTitleLocKey] = titleLocKey
+        payload[kSPMessageNotificationParamTrigger] = triggerToString(trigger)
         return payload
     }
 }

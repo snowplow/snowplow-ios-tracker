@@ -76,9 +76,9 @@ class Session {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
         }
         let storedSessionDict = dataPersistence?.session
-        userId = Session.retrieveUserId(withSessionDict: storedSessionDict)
+        userId = Session.retrieveUserId(sessionDict: storedSessionDict)
         if var storedSessionDict = storedSessionDict {
-            storedSessionDict[kSPSessionUserId] = userId as NSObject?
+            storedSessionDict[kSPSessionUserId] = userId
             state = SessionState(storedState: storedSessionDict)
             dataPersistence?.session = storedSessionDict
         }
@@ -128,12 +128,12 @@ class Session {
     ///   - firstEventTimestamp: Device created timestamp of the first event of the session
     ///   - userAnonymisation: Whether to anonymise user identifiers
     /// - Returns: a SnowplowPayload containing the session dictionary
-    func getDictWithEventId(_ eventId: String?, eventTimestamp: Int64, userAnonymisation: Bool) -> [String : NSObject]? {
-        var context: [String : NSObject]? = nil
+    func getDictWithEventId(_ eventId: String?, eventTimestamp: Int64, userAnonymisation: Bool) -> [String : Any]? {
+        var context: [String : Any]? = nil
         objc_sync_enter(self)
         if isSessionCheckerEnabled {
             if shouldUpdate() {
-                update(withEventId: eventId, eventTimestamp: eventTimestamp)
+                update(eventId: eventId, eventTimestamp: eventTimestamp)
                 if let onSessionStateUpdate = onSessionStateUpdate, let state = state {
                     DispatchQueue.global(qos: .default).async {
                         onSessionStateUpdate(state)
@@ -152,7 +152,7 @@ class Session {
         if userAnonymisation {
             // mask the user identifier
             var copy = context
-            copy?[kSPSessionUserId] = kSPSessionAnonymousUserId as NSObject
+            copy?[kSPSessionUserId] = kSPSessionAnonymousUserId
             copy?[kSPSessionPreviousId] = nil
             return copy
         } else {
@@ -163,7 +163,7 @@ class Session {
 
     // MARK: - Private
 
-    private static func retrieveUserId(withSessionDict sessionDict: [String : NSObject]?) -> String {
+    private static func retrieveUserId(sessionDict: [String : Any]?) -> String {
         var userId = sessionDict?[kSPSessionUserId] as? String ?? Utilities.getUUIDString()
         // Session_UserID is available only if the session context is enabled.
         // In a future version we would like to make it available even if the session context is disabled.
@@ -192,7 +192,7 @@ class Session {
         return now < lastAccess || Int(now - lastAccess) > timeout
     }
 
-    private func update(withEventId eventId: String?, eventTimestamp: Int64) {
+    private func update(eventId: String?, eventTimestamp: Int64) {
         isNewSession = false
         let sessionIndex = (state?.sessionIndex ?? 0) + 1
         let eventISOTimestamp = Utilities.timestamp(toISOString: eventTimestamp)

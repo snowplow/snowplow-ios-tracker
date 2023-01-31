@@ -47,12 +47,12 @@ public class SNOWError: SelfDescribingAbstract {
         return kSPErrorSchema
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPErrorMessage] = message as NSObject
-        payload[kSPErrorStackTrace] = stackTrace as NSObject?
-        payload[kSPErrorName] = name as NSObject?
-        payload[kSPErrorLanguage] = "SWIFT" as NSObject
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPErrorMessage] = message
+        payload[kSPErrorStackTrace] = stackTrace
+        payload[kSPErrorName] = name
+        payload[kSPErrorLanguage] = "SWIFT"
         return payload
     }
 }

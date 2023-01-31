@@ -106,15 +106,15 @@ public class PushNotification : SelfDescribingAbstract {
         return kSPPushNotificationSchema
     }
 
-    override var payload: [String : NSObject] {
-        var data: [String: NSObject] = [
-            kSPPushTrigger: trigger as NSObject,
-            kSPPushAction: action as NSObject,
-            kSPPushDeliveryDate: date as NSObject,
-            kSPPushCategoryId: category as NSObject,
-            kSPPushThreadId: thread as NSObject
+    override var payload: [String : Any] {
+        var data: [String: Any] = [
+            kSPPushTrigger: trigger,
+            kSPPushAction: action,
+            kSPPushDeliveryDate: date,
+            kSPPushCategoryId: category,
+            kSPPushThreadId: thread
         ]
-        if let notification = notification?.payload { data[kSPPushNotificationParam] = notification as NSObject }
+        if let notification = notification?.payload { data[kSPPushNotificationParam] = notification }
         return data
     }
 }
@@ -144,7 +144,7 @@ public class NotificationContent : NSObject {
     public var launchImageName: String?
     /// The custom data associated with the notification.
     @objc
-    public var userInfo: [String : NSObject]?
+    public var userInfo: [String : Any]?
     /// Attachments added to the notification (they can be part of the data object).
     @objc
     public var attachments: [NSObject]?
@@ -160,51 +160,51 @@ public class NotificationContent : NSObject {
         self.badge = badge
     }
 
-    var payload: [String : NSObject] {
-        var event: [String : NSObject] = [:]
-        event[kSPPnTitle] = title as NSObject
-        event[kSPPnBody] = body as NSObject
-        event[kSPPnBadge] = badge
+    var payload: [String : Any] {
+        var event: [String : Any] = [:]
+        event[kSPPnTitle] = title
+        event[kSPPnBody] = body
+        event[kSPPnBadge] = badge?.intValue
         if let subtitle = subtitle {
-            event[kSPPnSubtitle] = subtitle as NSObject
+            event[kSPPnSubtitle] = subtitle
         }
         if let sound = sound {
-            event[kSPPnSound] = sound as NSObject
+            event[kSPPnSound] = sound
         }
         if let launchImageName = launchImageName {
-            event[kSPPnLaunchImageName] = launchImageName as NSObject
+            event[kSPPnLaunchImageName] = launchImageName
         }
         if let userInfo = userInfo {
-            // modify contentAvailable value "1" and "0" to @YES and @NO to comply with schema
-            if var aps = userInfo["aps"] as? [NSString : NSObject],
-               let contentAvailable = aps["contentAvailable"] as? NSNumber {
+            // modify contentAvailable value 1 and 0 to true and false to comply with schema
+            if var aps = userInfo["aps"] as? [String : Any],
+               let contentAvailable = aps["contentAvailable"] as? Int {
 
-                if contentAvailable == NSNumber(value: 1) {
-                    aps["contentAvailable"] = NSNumber(value: true)
-                } else if contentAvailable == NSNumber(value: 0) {
-                    aps["contentAvailable"] = NSNumber(value: false)
+                if contentAvailable == 1 {
+                    aps["contentAvailable"] = true
+                } else if contentAvailable == 0 {
+                    aps["contentAvailable"] = false
                 }
                 var newUserInfo = userInfo
-                newUserInfo["aps"] = aps as NSObject
-                event[kSPPnUserInfo] = newUserInfo as NSObject
+                newUserInfo["aps"] = aps
+                event[kSPPnUserInfo] = newUserInfo
+            } else {
+                event[kSPPnUserInfo] = userInfo
             }
         }
         if let attachments = attachments {
-            var converting: [[AnyHashable : Any]] = []
-            for attachment in attachments {
-                var newAttachment: [String : NSObject] = [:]
-                if let value = attachment.value(forKey: "identifier") as? NSObject {
+            event[kSPPnAttachments] = attachments.map { (attachment: NSObject) -> [String : Any] in
+                var newAttachment: [String : Any] = [:]
+                if let value = attachment.value(forKey: "identifier") {
                     newAttachment[kSPPnAttachmentId] = value
                 }
-                if let value = attachment.value(forKey: "URL") as? NSObject {
+                if let value = attachment.value(forKey: "URL") {
                     newAttachment[kSPPnAttachmentUrl] = value
                 }
-                if let value = attachment.value(forKey: "type") as? NSObject {
+                if let value = attachment.value(forKey: "type") {
                     newAttachment[kSPPnAttachmentType] = value
                 }
-                converting.append(newAttachment)
+                return newAttachment
             }
-            event[kSPPnAttachments] = converting as NSObject
         }
         return event // copyItems: true
     }

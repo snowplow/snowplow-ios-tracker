@@ -30,9 +30,9 @@ func uncaughtExceptionHandler(_ exception: NSException) {
         if message.count == 0 { return }
     
         // Construct userInfo
-        var userInfo: [String : NSObject] = [:]
-        userInfo["message"] = message as NSObject
-        userInfo["stacktrace"] = stacktrace as NSObject
+        var userInfo: [String : Any] = [:]
+        userInfo["message"] = message
+        userInfo["stacktrace"] = stacktrace
     
         // Send notification to tracker
         NotificationCenter.default.post(
@@ -60,7 +60,7 @@ class Tracker: NSObject {
     private(set) var currentScreenState: ScreenState?
     /// List of tags associated to global contexts.
     
-    private var trackerData: [String : NSObject]? = nil
+    private var trackerData: [String : String]? = nil
     func setTrackerData() {
         var trackerVersion = kSPVersion
         if trackerVersionSuffix.count != 0 {
@@ -72,9 +72,9 @@ class Tracker: NSObject {
             }
         }
         trackerData = [
-            kSPTrackerVersion : trackerVersion as NSObject,
-            kSPNamespace : trackerNamespace as NSObject,
-            kSPAppId : appId as NSObject
+            kSPTrackerVersion : trackerVersion,
+            kSPNamespace : trackerNamespace,
+            kSPAppId : appId
         ]
     }
 
@@ -366,7 +366,7 @@ class Tracker: NSObject {
             if !installTracker.isNewInstall && previousTimestamp == nil {
                 return
             }
-            let data: [String: NSObject] = [:]
+            let data: [String: Any] = [:]
             let installEvent = SelfDescribingJson(schema: kSPApplicationInstallSchema, andDictionary: data)
             let event = SelfDescribing(eventData: installEvent)
             event.trueTimestamp = previousTimestamp // it can be nil
@@ -540,8 +540,10 @@ class Tracker: NSObject {
             let ttInMilliSeconds = Int64(trueTimestamp.timeIntervalSince1970 * 1000)
             payload.addValueToPayload(String(format: "%lld", ttInMilliSeconds), forKey: kSPTrueTimestamp)
         }
-        payload.addDictionaryToPayload(trackerData)
-        if let subjectDict = subject?.getStandardDict(userAnonymisation: userAnonymisation)?.dictionary {
+        if let trackerData = trackerData {
+            payload.addDictionaryToPayload(trackerData)
+        }
+        if let subjectDict = subject?.standardDict(userAnonymisation: userAnonymisation) {
             payload.addDictionaryToPayload(subjectDict)
         }
         payload.addValueToPayload(devicePlatformToString(devicePlatform), forKey: kSPPlatform)
@@ -557,18 +559,15 @@ class Tracker: NSObject {
 
         if let schema = event.schema {
             let eventPayload = event.payload
-            let data = SelfDescribingJson(schema: schema, andData: eventPayload as NSObject)
-            if let data = data.dictionary as NSObject? {
-                let unstructuredEventPayload: [String : NSObject] = [
-                    kSPSchema: kSPUnstructSchema as NSObject,
-                    kSPData: data
-                ]
-                payload.addDictionaryToPayload(
-                    unstructuredEventPayload,
-                    base64Encoded: base64Encoded,
-                    typeWhenEncoded: kSPUnstructuredEncoded,
-                    typeWhenNotEncoded: kSPUnstructured)
-            }
+            let data = SelfDescribingJson(schema: schema, andData: eventPayload)
+            let unstructuredEventPayload = SelfDescribingJson.dictionary(
+                schema: kSPUnstructSchema,
+                data: data.dictionary)
+            payload.addDictionaryToPayload(
+                unstructuredEventPayload,
+                base64Encoded: base64Encoded,
+                typeWhenEncoded: kSPUnstructuredEncoded,
+                typeWhenNotEncoded: kSPUnstructured)
         }
     }
 
@@ -591,9 +590,9 @@ class Tracker: NSObject {
         } else if event.schema == kSPScreenViewSchema {
             for entity in contexts {
                 if entity.schema == DeepLinkEntity.schema {
-                    let data = entity.data as? [AnyHashable : Any]
-                    url = data?[DeepLinkEntity.paramUrl] as? String
-                    referrer = data?[DeepLinkEntity.paramReferrer] as? String
+                    let data = entity.data
+                    url = data[DeepLinkEntity.paramUrl] as? String
+                    referrer = data[DeepLinkEntity.paramReferrer] as? String
                     break
                 }
             }
@@ -613,12 +612,12 @@ class Tracker: NSObject {
 
     func addBasicContexts(toContexts contexts: inout [SelfDescribingJson], eventId: String, eventTimestamp: Int64, isService: Bool) {
         if subject != nil {
-            if let platformDict = subject?.getPlatformDict(
+            if let platformDict = subject?.platformDict(
                 userAnonymisation: userAnonymisation,
                 advertisingIdentifierRetriever: advertisingIdentifierRetriever)?.dictionary {
                 contexts.append(SelfDescribingJson(schema: platformContextSchema, andDictionary: platformDict))
             }
-            if let geoLocationDict = subject?.getGeoLocationDict() {
+            if let geoLocationDict = subject?.geoLocationDict {
                 contexts.append(SelfDescribingJson(schema: kSPGeoContextSchema, andDictionary: geoLocationDict))
             }
         }
@@ -663,21 +662,17 @@ class Tracker: NSObject {
         if contexts.count == 0 {
             return
         }
-        var data: [[String : NSObject]] = []
-        for context in contexts {
-            if let dict = context.dictionary {
-                data.append(dict)
-            }
-        }
 
-        let finalContext = SelfDescribingJson(schema: kSPContextSchema, andData: data as NSObject)
-        if let dict = finalContext.dictionary {
-            payload.addDictionaryToPayload(
-                dict,
-                base64Encoded: base64Encoded,
-                typeWhenEncoded: kSPContextEncoded,
-                typeWhenNotEncoded: kSPContext)
-        }
+        let dict: [String : Any] = [
+            kSPSchema: kSPContextSchema,
+            kSPData: contexts.map { $0.dictionary }
+        ]
+
+        payload.addDictionaryToPayload(
+            dict,
+            base64Encoded: base64Encoded,
+            typeWhenEncoded: kSPContextEncoded,
+            typeWhenNotEncoded: kSPContext)
     }
 
     deinit {

@@ -30,7 +30,7 @@ public class RequestResult: NSObject {
     public private(set) var isOversize: Bool
     /// Returns the stored index array, needed to remove the events after sending.
     @objc
-    public private(set) var storeIds: [NSNumber]?
+    public private(set) var storeIds: [Int64]?
 
     @objc
     public convenience override init() {
@@ -42,7 +42,7 @@ public class RequestResult: NSObject {
     ///   - statusCode: HTTP status code from collector response
     ///   - storeIds: the event indexes in the database
     @objc
-    public init(statusCode: NSNumber?, oversize isOversize: Bool, storeIds: [NSNumber]?) {
+    public init(statusCode: NSNumber?, oversize isOversize: Bool, storeIds: [Int64]?) {
         self.statusCode = statusCode?.intValue
         self.isOversize = isOversize
         self.storeIds = storeIds

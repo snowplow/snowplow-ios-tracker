@@ -62,7 +62,7 @@ class WebViewMessageHandler: NSObject, WKScriptMessageHandler {
 
     func trackSelfDescribing(_ event: [AnyHashable : Any], withContext context: [[AnyHashable : Any]], andTrackers trackers: [String]) {
         if let schema = event["schema"] as? String,
-           let payload = event["data"] as? [String : NSObject] {
+           let payload = event["data"] as? [String : Any] {
             let selfDescribing = SelfDescribing(schema: schema, payload: payload)
             track(selfDescribing, withContext: context, andTrackers: trackers)
         }
@@ -156,7 +156,7 @@ class WebViewMessageHandler: NSObject, WKScriptMessageHandler {
 
         for entityJson in context {
             if let schema = entityJson["schema"] as? String,
-               let payload = entityJson["data"] as? [String : NSObject] {
+               let payload = entityJson["data"] as? [String : Any] {
                 let entity = SelfDescribingJson(schema: schema, andDictionary: payload)
                 contextEntities.append(entity)
             }

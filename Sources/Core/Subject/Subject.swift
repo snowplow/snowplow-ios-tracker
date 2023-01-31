@@ -24,9 +24,9 @@ import Foundation
 /// @class Subject
 /// This class is used to access and persist user information, it represents the current user being tracked.
 class Subject : NSObject {
-    private var standardDict = Payload()
+    private var standardDict: [String : String] = [:]
     private var platformContextManager = PlatformContext()
-    private var geoLocationDict: [String : NSObject] = [:]
+    private var geoDict: [String : NSObject] = [:]
 
     var platformContext = false
     var geoLocationContext = false
@@ -43,7 +43,7 @@ class Subject : NSObject {
         }
         set(uid) {
             _userId = uid
-            standardDict.addValueToPayload(uid, forKey: kSPUid)
+            standardDict[kSPUid] = uid
         }
     }
 
@@ -54,7 +54,7 @@ class Subject : NSObject {
         }
         set(nuid) {
             _networkUserId = nuid
-            standardDict.addValueToPayload(nuid, forKey: kSPNetworkUid)
+            standardDict[kSPNetworkUid] = nuid
         }
     }
 
@@ -66,7 +66,7 @@ class Subject : NSObject {
         }
         set(duid) {
             _domainUserId = duid
-            standardDict.addValueToPayload(duid, forKey: kSPDomainUid)
+            standardDict[kSPDomainUid] = duid
         }
     }
 
@@ -78,7 +78,7 @@ class Subject : NSObject {
         }
         set(useragent) {
             _useragent = useragent
-            standardDict.addValueToPayload(useragent, forKey: kSPUseragent)
+            standardDict[kSPUseragent] = useragent
         }
     }
 
@@ -90,7 +90,7 @@ class Subject : NSObject {
         }
         set(ip) {
             _ipAddress = ip
-            standardDict.addValueToPayload(ip, forKey: kSPIpAddress)
+            standardDict[kSPIpAddress] = ip
         }
     }
 
@@ -102,7 +102,7 @@ class Subject : NSObject {
         }
         set(timezone) {
             _timezone = timezone
-            standardDict.addValueToPayload(timezone, forKey: kSPTimezone)
+            standardDict[kSPTimezone] = timezone
         }
     }
 
@@ -114,7 +114,7 @@ class Subject : NSObject {
         }
         set(lang) {
             _language = lang
-            standardDict.addValueToPayload(lang, forKey: kSPLanguage)
+            standardDict[kSPLanguage] = lang
         }
     }
 
@@ -127,7 +127,7 @@ class Subject : NSObject {
         set(depth) {
             _colorDepth = depth
             let res = "\(depth?.stringValue ?? "")"
-            standardDict.addValueToPayload(res, forKey: kSPColorDepth)
+            standardDict[kSPColorDepth] = res
         }
     }
 
@@ -140,9 +140,9 @@ class Subject : NSObject {
             _screenResolution = newValue
             if let size = newValue {
                 let res = "\((NSNumber(value: size.width)).stringValue)x\((NSNumber(value: size.height)).stringValue)"
-                standardDict.addValueToPayload(res, forKey: kSPResolution)
+                standardDict[kSPResolution] = res
             } else {
-                standardDict.addValueToPayload(nil, forKey: kSPResolution)
+                standardDict.removeValue(forKey: kSPResolution)
             }
         }
     }
@@ -156,9 +156,9 @@ class Subject : NSObject {
             _screenViewPort = newValue
             if let size = newValue {
                 let res = "\((NSNumber(value: size.width)).stringValue)x\((NSNumber(value: size.height)).stringValue)"
-                standardDict.addValueToPayload(res, forKey: kSPViewPort)
+                standardDict[kSPViewPort] = res
             } else {
-                standardDict.addValueToPayload(nil, forKey: kSPViewPort)
+                standardDict.removeValue(forKey: kSPViewPort)
             }
             
         }
@@ -171,79 +171,79 @@ class Subject : NSObject {
     /// Latitude value for the geolocation context.
     var geoLatitude: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoLatitude] as? NSNumber
+            return geoDict[kSPGeoLatitude] as? NSNumber
         }
         set(latitude) {
-            geoLocationDict[kSPGeoLatitude] = latitude
+            geoDict[kSPGeoLatitude] = latitude
         }
     }
 
     /// Longitude value for the geo context.
     var geoLongitude: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoLongitude] as? NSNumber
+            return geoDict[kSPGeoLongitude] as? NSNumber
         }
         set(longitude) {
-            geoLocationDict[kSPGeoLongitude] = longitude
+            geoDict[kSPGeoLongitude] = longitude
         }
     }
 
     /// LatitudeLongitudeAccuracy value for the geolocation context.
     var geoLatitudeLongitudeAccuracy: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoLatLongAccuracy] as? NSNumber
+            return geoDict[kSPGeoLatLongAccuracy] as? NSNumber
         }
         set(latitudeLongitudeAccuracy) {
-            geoLocationDict[kSPGeoLatLongAccuracy] = latitudeLongitudeAccuracy
+            geoDict[kSPGeoLatLongAccuracy] = latitudeLongitudeAccuracy
         }
     }
 
     /// Altitude value for the geolocation context.
     var geoAltitude: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoAltitude] as? NSNumber
+            return geoDict[kSPGeoAltitude] as? NSNumber
         }
         set(altitude) {
-            geoLocationDict[kSPGeoAltitude] = altitude
+            geoDict[kSPGeoAltitude] = altitude
         }
     }
 
     /// AltitudeAccuracy value for the geolocation context.
     var geoAltitudeAccuracy: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoAltitudeAccuracy] as? NSNumber
+            return geoDict[kSPGeoAltitudeAccuracy] as? NSNumber
         }
         set(altitudeAccuracy) {
-            geoLocationDict[kSPGeoAltitudeAccuracy] = altitudeAccuracy
+            geoDict[kSPGeoAltitudeAccuracy] = altitudeAccuracy
         }
     }
 
     var geoBearing: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoBearing] as? NSNumber
+            return geoDict[kSPGeoBearing] as? NSNumber
         }
         set(bearing) {
-            geoLocationDict[kSPGeoBearing] = bearing
+            geoDict[kSPGeoBearing] = bearing
         }
     }
 
     /// Speed value for the geolocation context.
     var geoSpeed: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoSpeed] as? NSNumber
+            return geoDict[kSPGeoSpeed] as? NSNumber
         }
         set(speed) {
-            geoLocationDict[kSPGeoSpeed] = speed
+            geoDict[kSPGeoSpeed] = speed
         }
     }
 
     /// Timestamp value for the geolocation context.
     var geoTimestamp: NSNumber? {
         get {
-            return geoLocationDict[kSPGeoTimestamp] as? NSNumber
+            return geoDict[kSPGeoTimestamp] as? NSNumber
         }
         set(timestamp) {
-            geoLocationDict[kSPGeoTimestamp] = timestamp
+            geoDict[kSPGeoTimestamp] = timestamp
         }
     }
 
@@ -298,14 +298,14 @@ class Subject : NSObject {
 
     //#pragma clang diagnostic pop
 
-    func getStandardDict(userAnonymisation: Bool) -> Payload? {
+    func standardDict(userAnonymisation: Bool) -> [String : String] {
         if userAnonymisation {
-            var copy = standardDict.dictionary ?? [:]
+            var copy = standardDict
             copy.removeValue(forKey: kSPUid)
             copy.removeValue(forKey: kSPDomainUid)
             copy.removeValue(forKey: kSPNetworkUid)
             copy.removeValue(forKey: kSPIpAddress)
-            return Payload(dictionary: copy)
+            return copy
         }
         return standardDict
     }
@@ -313,7 +313,7 @@ class Subject : NSObject {
     /// Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
     /// - Parameter userAnonymisation: Whether to anonymise user identifiers
     /// - Returns: A SPPayload with all platform specific pairs.
-    func getPlatformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload? {
+    func platformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload? {
         if platformContext {
             return platformContextManager.fetchPlatformDict(
                 userAnonymisation: userAnonymisation,
@@ -325,10 +325,10 @@ class Subject : NSObject {
 
     /// Gets the geolocation dictionary if the required keys are available. Returns nil if not enabled.
     /// - Returns: A dictionary with key-value pairs of the geolocation context.
-    func getGeoLocationDict() -> [String : NSObject]? {
+    public var geoLocationDict: [String : NSObject]? {
         if geoLocationContext {
-            if geoLocationDict[kSPGeoLatitude] != nil && geoLocationDict[kSPGeoLongitude] != nil {
-                return geoLocationDict
+            if geoDict[kSPGeoLatitude] != nil && geoDict[kSPGeoLongitude] != nil {
+                return geoDict
             } else {
                 logDebug(message: "GeoLocation missing required fields; cannot get.")
                 return nil

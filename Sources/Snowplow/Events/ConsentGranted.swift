@@ -83,10 +83,10 @@ public class ConsentGranted: SelfDescribingAbstract {
         return kSPConsentGrantedSchema
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[KSPCgExpiry] = expiry as NSObject
-        return payload
+    override var payload: [String : Any] {
+        return [
+            KSPCgExpiry: expiry
+        ]
     }
 
     override func beginProcessing(withTracker tracker: Tracker) {

@@ -26,7 +26,7 @@ public class Request: NSObject {
     @objc
     public private(set) var payload: Payload?
     @objc
-    public private(set) var emitterEventIds: [NSNumber]?
+    public private(set) var emitterEventIds: [Int64]
     @objc
     public private(set) var oversize = false
     @objc
@@ -37,33 +37,30 @@ public class Request: NSObject {
     }
 
     init(payload: Payload, emitterEventId: Int64, oversize: Bool) {
+        emitterEventIds = [emitterEventId]
         super.init()
         self.payload = payload
-        emitterEventIds = [NSNumber(value: emitterEventId)]
         customUserAgent = userAgent(from: payload)
         self.oversize = oversize
     }
 
-    init(payloads: [Payload], emitterEventIds: [NSNumber]) {
+    init(payloads: [Payload], emitterEventIds: [Int64]) {
+        self.emitterEventIds = emitterEventIds
         super.init()
         var tempUserAgent: String? = nil
-        var payloadData: [[String : NSObject]] = []
+        var payloadData: [[String : Any]] = []
         for payload in payloads {
-            if let data = payload.dictionary {
-                payloadData.append(data)
-            }
+            payloadData.append(payload.dictionary)
             tempUserAgent = userAgent(from: payload)
         }
-        let payloadBundle = SelfDescribingJson(schema: kSPPayloadDataSchema, andData: payloadData as NSObject)
-        if let payloadBundleDict = payloadBundle.dictionary {
-            payload = Payload(dictionary: payloadBundleDict)
-        }
-        self.emitterEventIds = emitterEventIds
+        let payloadBundle = SelfDescribingJson.dictionary(schema: kSPPayloadDataSchema,
+                                                          data: payloadData)
+        payload = Payload(dictionary: payloadBundle)
         customUserAgent = tempUserAgent
         oversize = false
     }
 
     func userAgent(from payload: Payload) -> String? {
-        return (payload.dictionary?[kSPUseragent] as? String)
+        return (payload.dictionary[kSPUseragent] as? String)
     }
 }

@@ -95,7 +95,7 @@ public protocol SubjectConfigurationProtocol: AnyObject {
 /// The contexts to track can be enabled in the `TrackerConfiguration` class.
 @objc(SPSubjectConfiguration)
 public class SubjectConfiguration: Configuration, SubjectConfigurationProtocol {
-    convenience init(dictionary: [String : NSObject]) {
+    convenience init(dictionary: [String : Any]) {
         self.init()
         if let userId = dictionary["userId"] as? String { self.userId = userId }
         if let networkUserId = dictionary["networkUserId"] as? String { self.networkUserId = networkUserId }

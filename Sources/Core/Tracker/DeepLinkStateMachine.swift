@@ -77,7 +77,7 @@ class DeepLinkStateMachine: StateMachineProtocol {
         return nil
     }
 
-    func payloadValues(from event: InspectableEvent, state: State?) -> [String : NSObject]? {
+    func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]? {
         return nil
     }
 }

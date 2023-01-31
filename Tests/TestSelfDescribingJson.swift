@@ -32,45 +32,47 @@ class TestSelfDescribingJson: XCTestCase {
     }
 
     func testInitWithObject() {
-        let expected = [
-            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0" as NSObject,
+        let expected: [String : Any] = [
+            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0",
             "data": [
                 "hello": "world"
-            ] as NSObject
+            ]
         ]
         let data = [
-            "hello": "world" as NSObject
+            "hello": "world"
         ]
         let sdj = SelfDescribingJson(
             schema: "iglu:acme.com/test_event/jsonschema/1-0-0",
             andDictionary: data)
-        XCTAssertEqual(expected, sdj.dictionary)
+        XCTAssertEqual(NSDictionary(dictionary: expected),
+                       NSDictionary(dictionary: sdj.dictionary))
     }
 
     func testInitWithSPPayload() {
-        let expected = [
-            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0" as NSObject,
+        let expected: [String : Any] = [
+            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0",
             "data": [
                 "hello": "world"
-            ] as NSObject
+            ]
         ]
         let data = Payload()
         data.addValueToPayload("world", forKey: "hello")
         let sdj = SelfDescribingJson(
             schema: "iglu:acme.com/test_event/jsonschema/1-0-0",
             andPayload: data)
-        XCTAssertEqual(expected, sdj.dictionary)
+        XCTAssertEqual(NSDictionary(dictionary: expected),
+                       NSDictionary(dictionary: sdj.dictionary))
     }
 
     func testInitWithSPSelfDescribingJson() {
-        let expected = [
-            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0" as NSObject,
+        let expected: [String : Any] = [
+            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0",
             "data": [
                 "schema": "iglu:acme.com/nested_event/jsonschema/1-0-0",
                 "data": [
                     "hello": "world"
                 ]
-            ] as NSObject
+            ]
         ]
         let nestedData = [
             "hello": "world"
@@ -81,15 +83,16 @@ class TestSelfDescribingJson: XCTestCase {
         let sdj = SelfDescribingJson(
             schema: "iglu:acme.com/test_event/jsonschema/1-0-0",
             andSelfDescribingJson: data)
-        XCTAssertEqual(expected, sdj.dictionary)
+        XCTAssertEqual(NSDictionary(dictionary: expected),
+                       NSDictionary(dictionary: sdj.dictionary))
     }
 
     func testUpdateSchema() {
-        let expected = [
-            "schema": "iglu:acme.com/test_event_2/jsonschema/1-0-0" as NSObject,
+        let expected: [String : Any] = [
+            "schema": "iglu:acme.com/test_event_2/jsonschema/1-0-0",
             "data": [
                 "hello": "world"
-            ] as NSObject
+            ]
         ]
         let data = [
             "hello": "world"
@@ -98,33 +101,35 @@ class TestSelfDescribingJson: XCTestCase {
             schema: "iglu:acme.com/test_event/jsonschema/1-0-0",
             andDictionary: data)
         sdj.schema = "iglu:acme.com/test_event_2/jsonschema/1-0-0"
-        XCTAssertEqual(expected, sdj.dictionary)
+        XCTAssertEqual(NSDictionary(dictionary: expected),
+                       NSDictionary(dictionary: sdj.dictionary))
     }
-    
+
     func testUpdateDataWithObject() {
-        let expected = [
-            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0" as NSObject,
+        let expected: [String : Any] = [
+            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0",
             "data": [
                 "world": "hello"
-            ] as NSObject
+            ]
         ]
         let sdj = SelfDescribingJson(
             schema: "iglu:acme.com/test_event/jsonschema/1-0-0",
             andDictionary: [
                 "hello": "world"
             ])
-        sdj.setData(withObject: [
+        sdj.data = [
             "world": "hello"
-        ] as NSObject)
-        XCTAssertEqual(expected, sdj.dictionary)
+        ]
+        XCTAssertEqual(NSDictionary(dictionary: expected),
+                       NSDictionary(dictionary: sdj.dictionary))
     }
-    
+
     func testUpdateDataWithSPPayload() {
-        let expected = [
-            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0" as NSObject,
+        let expected: [String : Any] = [
+            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0",
             "data": [
                 "world": "hello"
-            ] as NSObject
+            ]
         ]
         let data = Payload()
         data.addValueToPayload("hello", forKey: "world")
@@ -134,18 +139,19 @@ class TestSelfDescribingJson: XCTestCase {
                 "hello": "world"
             ])
         sdj.setData(withPayload: data)
-        XCTAssertEqual(expected, sdj.dictionary)
+        XCTAssertEqual(NSDictionary(dictionary: expected),
+                       NSDictionary(dictionary: sdj.dictionary))
     }
 
     func testUpdateDataWithSPSelfDescribingJson() {
-        let expected = [
-            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0" as NSObject,
+        let expected: [String : Any] = [
+            "schema": "iglu:acme.com/test_event/jsonschema/1-0-0",
             "data": [
                 "schema": "iglu:acme.com/nested_event/jsonschema/1-0-0",
                 "data": [
                     "hello": "world"
                 ]
-            ] as NSObject
+            ]
         ]
         let nestedData = [
             "hello": "world"
@@ -159,7 +165,8 @@ class TestSelfDescribingJson: XCTestCase {
                 "hello": "world"
             ])
         sdj.setData(withSelfDescribingJson: data)
-        XCTAssertEqual(expected, sdj.dictionary)
+        XCTAssertEqual(NSDictionary(dictionary: expected),
+                       NSDictionary(dictionary: sdj.dictionary))
     }
 }
 

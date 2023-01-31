@@ -33,7 +33,7 @@ class GlobalContextGenerator: NSObject, ContextGenerator {
     func generator(from event: InspectableEvent) -> [SelfDescribingJson]? {
         return [
             SelfDescribingJson(schema: "schema", andDictionary: [
-                "key": "value" as NSObject
+                "key": "value"
             ])
         ]
     }
@@ -45,14 +45,14 @@ class TestGlobalContexts: XCTestCase {
     func testGlobalContexts() {
         let staticGC = GlobalContext(staticContexts: [
             SelfDescribingJson(schema: "schema", andDictionary: [
-                "key": "value" as NSObject
+                "key": "value"
             ])
         ])
         let generatorGC = GlobalContext(contextGenerator: GlobalContextGenerator())
         let blockGC = GlobalContext(generator: { event in
             return [
                 SelfDescribingJson(schema: "schemaBlock", andDictionary: [
-                    "key": "value" as NSObject
+                    "key": "value"
                 ])
             ]
         })
@@ -98,7 +98,7 @@ class TestGlobalContexts: XCTestCase {
     func testAddRemove() {
         let staticGC = GlobalContext(staticContexts: [
             SelfDescribingJson(schema: "schema", andDictionary: [
-                "key": "value" as NSObject
+                "key": "value"
             ])
         ])
         var generators: [String : GlobalContext] = [:]
@@ -129,7 +129,7 @@ class TestGlobalContexts: XCTestCase {
     func testStaticGenerator() {
         let staticGC = GlobalContext(staticContexts: [
             SelfDescribingJson(schema: "schema", andDictionary: [
-                "key": "value" as NSObject
+                "key": "value"
             ])
         ])
         var globalContexts = [
@@ -151,7 +151,7 @@ class TestGlobalContexts: XCTestCase {
         let filterMatchingGC = GlobalContext(
             staticContexts: [
                 SelfDescribingJson(schema: "schema", andDictionary: [
-                    "key": "value" as NSObject
+                    "key": "value"
                 ])
             ],
             filter: { event in
@@ -186,7 +186,7 @@ class TestGlobalContexts: XCTestCase {
 
         let rulesetGC = GlobalContext(staticContexts: [
             SelfDescribingJson(schema: "schema", andDictionary: [
-                "key": "value" as NSObject
+                "key": "value"
             ])
         ], ruleset: ruleset)
         var globalContexts = [

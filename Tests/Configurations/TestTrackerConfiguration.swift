@@ -225,7 +225,7 @@ class TestTrackerConfiguration: XCTestCase {
         let payload = events.first?.payload
 
         // Check v_tracker field
-        let versionTracker = payload?.dictionary?["tv"] as? String
+        let versionTracker = payload?["tv"] as? String
         let expected = "\(kSPVersion) testWithSpace1-2-3"
         XCTAssertEqual(expected, versionTracker)
     }
@@ -262,7 +262,7 @@ class TestTrackerConfiguration: XCTestCase {
         _ = eventStore.removeAllEvents()
         XCTAssertEqual(1, events.count)
         var payload = events.first?.payload
-        var contexts = payload?.dictionary?["co"] as? String
+        var contexts = payload?["co"] as? String
         XCTAssertTrue(contexts?.contains("\"basisForProcessing\":\"contract\"") ?? false)
         XCTAssertTrue(contexts?.contains("\"documentId\":\"id1\"") ?? false)
 
@@ -282,7 +282,7 @@ class TestTrackerConfiguration: XCTestCase {
         _ = eventStore.removeAllEvents()
         XCTAssertEqual(1, events.count)
         payload = events.first?.payload
-        contexts = payload?.dictionary?["co"] as? String
+        contexts = payload?["co"] as? String
         XCTAssertFalse(contexts?.contains("\"basisForProcessing\":\"contract\"") ?? false)
         XCTAssertFalse(contexts?.contains("\"documentId\":\"id1\"") ?? false)
 
@@ -315,7 +315,7 @@ class TestTrackerConfiguration: XCTestCase {
         _ = eventStore.removeAllEvents()
         XCTAssertEqual(1, events.count)
         var payload = events.first?.payload
-        var contexts = payload?.dictionary?["co"] as? String
+        var contexts = payload?["co"] as? String
         XCTAssertFalse(contexts?.contains("\"basisForProcessing\"") ?? true)
 
         // Check gdpr can be enabled again
@@ -334,7 +334,7 @@ class TestTrackerConfiguration: XCTestCase {
         _ = eventStore.removeAllEvents()
         XCTAssertEqual(1, events.count)
         payload = events.first?.payload
-        contexts = payload?.dictionary?["co"] as? String
+        contexts = payload?["co"] as? String
         XCTAssertTrue(contexts?.contains("\"basisForProcessing\":\"contract\"") ?? false)
         XCTAssertTrue(contexts?.contains("\"documentId\":\"id1\"") ?? false)
     }
@@ -363,7 +363,7 @@ class TestTrackerConfiguration: XCTestCase {
         _ = eventStore.removeAllEvents()
         XCTAssertEqual(1, events.count)
         guard let payload = events.first?.payload,
-              let contexts = payload.dictionary?["co"] as? String else { return XCTFail() }
+              let contexts = payload["co"] as? String else { return XCTFail() }
 
         // Check empty userId in session context
         XCTAssertTrue(contexts.contains("\"userId\":\"00000000-0000-0000-0000-000000000000\""))
@@ -394,7 +394,7 @@ class TestTrackerConfiguration: XCTestCase {
         let payload = events.first?.payload
 
         // Check eid field
-        let trackedEventId = payload?.dictionary?["eid"] as? String
+        let trackedEventId = payload?["eid"] as? String
         XCTAssertTrue((eventId?.uuidString == trackedEventId))
     }
 }

@@ -136,7 +136,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         let _ = tracker // Build tracker to initialize NotificationCenter receivers
     }
 
-    func reset(withConfigurations configurations: [Configuration]) {
+    func reset(configurations: [Configuration]) {
         stopServices()
         resetConfigurationUpdates()
         processConfigurations(configurations)

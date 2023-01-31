@@ -29,28 +29,28 @@ let kSessionFilenameV1 = "session.dict"
 let kSessionFilenamePrefixV2_2 = "session"
 var sessionKey = "session"
 
-class DataPersistence: NSObject {
-    var data: [String : [String : NSObject]] {
+class DataPersistence {
+    var data: [String : [String : Any]] {
         get {
             objc_sync_enter(self)
             defer { objc_sync_exit(self) }
             if !isStoredOnFile {
-                return ((UserDefaults.standard.dictionary(forKey: userDefaultsKey) ?? [:]) as? [String : [String : NSObject]]) ?? [:]
+                return ((UserDefaults.standard.dictionary(forKey: userDefaultsKey) ?? [:]) as? [String : [String : Any]]) ?? [:]
             }
-            var result: [String : [String : NSObject]]? = nil
+            var result: [String : [String : Any]]? = nil
             if let fileUrl = fileUrl {
-                result = NSDictionary(contentsOf: fileUrl) as Dictionary? as? [String : [String : NSObject]]
+                result = NSDictionary(contentsOf: fileUrl) as? [String : [String : Any]]
             }
 
             if result == nil {
                 // Initialise
                 result = [:]
-                var sessionDict: [AnyHashable : Any] = [:]
+                var sessionDict: [String : Any] = [:]
                 // Add missing fields
                 sessionDict[kSPSessionFirstEventId] = ""
                 sessionDict[kSPSessionStorage] = "LOCAL_STORAGE"
                 // Wrap up
-                result?[sessionKey] = sessionDict as? [String : NSObject]
+                result?[sessionKey] = sessionDict
                 if let result = result, let fileUrl = fileUrl {
                     let _ = storeDictionary(result, fileURL: fileUrl)
                 }
@@ -69,7 +69,7 @@ class DataPersistence: NSObject {
         }
     }
 
-    var session: [String : NSObject]? {
+    var session: [String : Any]? {
         get {
             return (data)[sessionKey]
         }
@@ -91,7 +91,6 @@ class DataPersistence: NSObject {
     private var fileUrl: URL?
 
     init(namespace escapedNamespace: String, storedOnFile isStoredOnFile: Bool) {
-        super.init()
         self.escapedNamespace = escapedNamespace
         userDefaultsKey = "\(kSPSessionDictionaryPrefix)_\(escapedNamespace)"
 #if !(os(tvOS) || os(watchOS))

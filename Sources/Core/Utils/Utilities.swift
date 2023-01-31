@@ -124,9 +124,9 @@ class Utilities {
     /// This method can encode string, numbers, and bool values, but not embedded arrays or dictionaries.
     /// It encodes bool as 1 and 0.
     /// - Returns: The url encoded string of the dictionary.
-    class func urlEncode(_ dictionary: [String : NSObject]) -> String {
-        return dictionary.map { (key: String, value: NSObject) in
-            "\(self.urlEncode(key))=\(self.urlEncode(value.description))"
+    class func urlEncode(_ dictionary: [String : Any]) -> String {
+        return dictionary.map { (key: String, value: Any) in
+            "\(self.urlEncode(key))=\(self.urlEncode(String(describing: value)))"
         }.joined(separator: "&")
     }
 

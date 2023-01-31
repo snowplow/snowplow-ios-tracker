@@ -33,8 +33,8 @@ class TestRequestResult: XCTestCase {
     }
 
     func testSuccessfulRequest() {
-        var emitterEventIds: [NSNumber]? = []
-        emitterEventIds?.append(NSNumber(value: 1))
+        var emitterEventIds: [Int64]? = []
+        emitterEventIds?.append(1)
         let result = RequestResult(statusCode: 200, oversize: false, storeIds: emitterEventIds)
 
         XCTAssertNotNil(result)
@@ -44,8 +44,8 @@ class TestRequestResult: XCTestCase {
     }
 
     func testFailedRequest() {
-        var emitterEventIds: [NSNumber]? = []
-        emitterEventIds?.append(NSNumber(value: 1))
+        var emitterEventIds: [Int64]? = []
+        emitterEventIds?.append(1)
         let result = RequestResult(statusCode: 500, oversize: false, storeIds: emitterEventIds)
         XCTAssertEqual(result.isSuccessful, false)
         XCTAssertEqual(result.shouldRetry([:]), true)

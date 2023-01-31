@@ -25,14 +25,14 @@ import XCTest
 class TestSubject: XCTestCase {
     func testReturnsPlatformContextIfEnabled() {
         let subject = Subject(platformContext: true, andGeoContext: false)
-        let platformDict = subject.getPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
+        let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertNotNil(platformDict)
-        XCTAssertNotNil(platformDict?.dictionary?[kSPPlatformOsType])
+        XCTAssertNotNil(platformDict?.dictionary[kSPPlatformOsType])
     }
 
     func testDoesntReturnPlatformContextIfDisabled() {
         let subject = Subject(platformContext: false, andGeoContext: false)
-        let platformDict = subject.getPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
+        let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertNil(platformDict)
     }
 
@@ -40,7 +40,7 @@ class TestSubject: XCTestCase {
         let subject = Subject(platformContext: false, andGeoContext: true)
         subject.geoLatitude = NSNumber(value: 10.0)
         subject.geoLongitude = NSNumber(value: 10.0)
-        let geoLocationDict = subject.getGeoLocationDict()
+        let geoLocationDict = subject.geoLocationDict
         XCTAssertNotNil(geoLocationDict)
         XCTAssertNotNil(geoLocationDict)
     }
@@ -49,7 +49,7 @@ class TestSubject: XCTestCase {
         let subject = Subject(platformContext: false, andGeoContext: false)
         subject.geoLatitude = NSNumber(value: 10.0)
         subject.geoLongitude = NSNumber(value: 10.0)
-        let geoLocationDict = subject.getGeoLocationDict()
+        let geoLocationDict = subject.geoLocationDict
         XCTAssertNil(geoLocationDict)
     }
 
@@ -61,13 +61,11 @@ class TestSubject: XCTestCase {
         subject.domainUserId = "aDuid"
         subject.language = "EN"
 
-        guard let values = subject.getStandardDict(userAnonymisation: true)?.dictionary else {
-            return XCTFail()
-        }
+        let values = subject.standardDict(userAnonymisation: true)
         XCTAssertNil(values[kSPUid])
         XCTAssertNil(values[kSPIpAddress])
         XCTAssertNil(values[kSPNetworkUid])
         XCTAssertNil(values[kSPDomainUid])
-        XCTAssertEqual(values[kSPLanguage], "EN" as NSObject)
+        XCTAssertEqual(values[kSPLanguage], "EN")
     }
 }

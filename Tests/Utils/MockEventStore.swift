@@ -48,10 +48,10 @@ class MockEventStore: NSObject, EventStore {
         return db.removeValue(forKey: storeId) != nil
     }
 
-    func removeEvents(withIds storeIds: [NSNumber]) -> Bool {
+    func removeEvents(withIds storeIds: [Int64]) -> Bool {
         let result = true
         for storeId in storeIds {
-            db.removeValue(forKey: storeId.int64Value)
+            db.removeValue(forKey: storeId)
         }
         return result
     }
@@ -76,7 +76,7 @@ class MockEventStore: NSObject, EventStore {
         var eventIds: [Int64] = []
         var events: [EmitterEvent] = []
         for (key, obj) in db {
-            let payloadCopy = Payload(dictionary: obj.dictionary ?? [:])
+            let payloadCopy = Payload(dictionary: obj.dictionary)
             let event = EmitterEvent(payload: payloadCopy, storeId: key)
             events.append(event)
             eventIds.append(event.storeId)

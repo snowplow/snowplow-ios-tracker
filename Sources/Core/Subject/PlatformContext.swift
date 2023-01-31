@@ -66,14 +66,14 @@ class PlatformContext {
         #endif
         if userAnonymisation {
             // mask user identifiers
-            let copy = Payload(dictionary: platformDict.dictionary ?? [:])
-            copy.addValueToPayload(nil, forKey: kSPMobileAppleIdfa)
-            copy.addValueToPayload(nil, forKey: kSPMobileAppleIdfv)
+            let copy = Payload(dictionary: platformDict.dictionary)
+            copy[kSPMobileAppleIdfa] = nil
+            copy[kSPMobileAppleIdfv] = nil
             return copy
         } else {
             if let retriever = advertisingIdentifierRetriever {
-                if platformDict.dictionary?[kSPMobileAppleIdfa] == nil {
-                    platformDict.addValueToPayload(retriever()?.uuidString, forKey: kSPMobileAppleIdfa)
+                if platformDict.dictionary[kSPMobileAppleIdfa] == nil {
+                    platformDict[kSPMobileAppleIdfa] = retriever()?.uuidString
                 }
             }
             return platformDict
@@ -84,10 +84,10 @@ class PlatformContext {
 
     func setPlatformDict() {
         platformDict = Payload()
-        platformDict.addValueToPayload(deviceInfoMonitor.osType, forKey: kSPPlatformOsType)
-        platformDict.addValueToPayload(deviceInfoMonitor.osVersion, forKey: kSPPlatformOsVersion)
-        platformDict.addValueToPayload(deviceInfoMonitor.deviceVendor, forKey: kSPPlatformDeviceManu)
-        platformDict.addValueToPayload(deviceInfoMonitor.deviceModel, forKey: kSPPlatformDeviceModel)
+        platformDict[kSPPlatformOsType] = deviceInfoMonitor.osType
+        platformDict[kSPPlatformOsVersion] = deviceInfoMonitor.osVersion
+        platformDict[kSPPlatformDeviceManu] = deviceInfoMonitor.deviceVendor
+        platformDict[kSPPlatformDeviceModel] = deviceInfoMonitor.deviceModel
 
         #if os(iOS)
         setMobileDict()
@@ -95,11 +95,11 @@ class PlatformContext {
     }
 
     func setMobileDict() {
-        platformDict.addValueToPayload(deviceInfoMonitor.carrierName, forKey: kSPMobileCarrier)
+        platformDict[kSPMobileCarrier] = deviceInfoMonitor.carrierName
         if let totalStorage = deviceInfoMonitor.totalStorage {
-            platformDict.addNumericValueToPayload(NSNumber(value: totalStorage), forKey: kSPMobileTotalStorage)
+            platformDict[kSPMobileTotalStorage] = totalStorage
         }
-        platformDict.addNumericValueToPayload(NSNumber(value: deviceInfoMonitor.physicalMemory), forKey: kSPMobilePhysicalMemory)
+        platformDict[kSPMobilePhysicalMemory] = deviceInfoMonitor.physicalMemory
         
         setEphemeralMobileDict()
         setEphemeralNetworkDict()
@@ -108,31 +108,29 @@ class PlatformContext {
     func setEphemeralMobileDict() {
         lastUpdatedEphemeralMobileDict = Date().timeIntervalSince1970
 
-        if let currentDict = platformDict.dictionary {
-            if currentDict[kSPMobileAppleIdfv] == nil {
-                platformDict.addValueToPayload(deviceInfoMonitor.appleIdfv, forKey: kSPMobileAppleIdfv)
-            }
-            
-            if let batteryLevel = deviceInfoMonitor.batteryLevel {
-                platformDict.addNumericValueToPayload(NSNumber(value: batteryLevel), forKey: kSPMobileBatteryLevel)
-            }
-            platformDict.addValueToPayload(deviceInfoMonitor.batteryState, forKey: kSPMobileBatteryState)
-            if let isLowPowerModeEnabled = deviceInfoMonitor.isLowPowerModeEnabled {
-                platformDict.addNumericValueToPayload(NSNumber(value: isLowPowerModeEnabled), forKey: kSPMobileLowPowerMode)
-            }
-            if let availableStorage = deviceInfoMonitor.availableStorage {
-                platformDict.addNumericValueToPayload(NSNumber(value: availableStorage), forKey: kSPMobileAvailableStorage)
-            }
-            if let appAvailableMemory = deviceInfoMonitor.appAvailableMemory {
-                platformDict.addNumericValueToPayload(NSNumber(value: appAvailableMemory), forKey: kSPMobileAppAvailableMemory)
-            }
+        if platformDict[kSPMobileAppleIdfv] == nil {
+            platformDict[kSPMobileAppleIdfv] = deviceInfoMonitor.appleIdfv
+        }
+        
+        if let batteryLevel = deviceInfoMonitor.batteryLevel {
+            platformDict[kSPMobileBatteryLevel] = batteryLevel
+        }
+        platformDict[kSPMobileBatteryState] = deviceInfoMonitor.batteryState
+        if let isLowPowerModeEnabled = deviceInfoMonitor.isLowPowerModeEnabled {
+            platformDict[kSPMobileLowPowerMode] = isLowPowerModeEnabled
+        }
+        if let availableStorage = deviceInfoMonitor.availableStorage {
+            platformDict[kSPMobileAvailableStorage] = availableStorage
+        }
+        if let appAvailableMemory = deviceInfoMonitor.appAvailableMemory {
+            platformDict[kSPMobileAppAvailableMemory] = appAvailableMemory
         }
     }
 
     func setEphemeralNetworkDict() {
         lastUpdatedEphemeralNetworkDict = Date().timeIntervalSince1970
 
-        platformDict.addValueToPayload(deviceInfoMonitor.networkTechnology, forKey: kSPMobileNetworkTech)
-        platformDict.addValueToPayload(deviceInfoMonitor.networkType, forKey: kSPMobileNetworkType)
+        platformDict[kSPMobileNetworkTech] = deviceInfoMonitor.networkTechnology
+        platformDict[kSPMobileNetworkType] = deviceInfoMonitor.networkType
     }
 }

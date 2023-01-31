@@ -30,10 +30,10 @@ class LifecycleStateMachine: StateMachineProtocol {
 
     func transition(from event: Event, state currentState: State?) -> State? {
         if let e = event as? Foreground {
-            return LifecycleState(asForegroundWithIndex: NSNumber(value: e.index))
+            return LifecycleState(asForegroundWithIndex: e.index)
         }
         if let e = event as? Background {
-            return LifecycleState(asBackgroundWithIndex: NSNumber(value: e.index))
+            return LifecycleState(asBackgroundWithIndex: e.index)
         }
         return nil
     }
@@ -50,7 +50,7 @@ class LifecycleStateMachine: StateMachineProtocol {
         }
         if let s = state as? LifecycleState {
             let entity = LifecycleEntity(isVisible: s.isForeground)
-            entity.index = s.index
+            entity.index = NSNumber(value: s.index)
             return [entity]
         }
         return nil
@@ -60,7 +60,7 @@ class LifecycleStateMachine: StateMachineProtocol {
         return []
     }
 
-    func payloadValues(from event: InspectableEvent, state: State?) -> [String : NSObject]? {
+    func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]? {
         return nil
     }
 }

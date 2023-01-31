@@ -64,23 +64,23 @@ public class ConfigurationBundle: Configuration {
     }
 
     @objc
-    public init?(dictionary: [String : NSObject]) {
+    public init?(dictionary: [String : Any]) {
         if let namespace = dictionary["namespace"] as? String {
             self.namespace = namespace
         } else {
             logDebug(message: "Error assigning: namespace")
             return nil
         }
-        if let config = dictionary["networkConfiguration"] as? [String : NSObject] {
+        if let config = dictionary["networkConfiguration"] as? [String : Any] {
             networkConfiguration = NetworkConfiguration(dictionary: config)
         }
-        if let config = dictionary["trackerConfiguration"] as? [String : NSObject] {
+        if let config = dictionary["trackerConfiguration"] as? [String : Any] {
             trackerConfiguration = TrackerConfiguration(dictionary: config)
         }
-        if let config = dictionary["subjectConfiguration"] as? [String : NSObject] {
+        if let config = dictionary["subjectConfiguration"] as? [String : Any] {
             subjectConfiguration = SubjectConfiguration(dictionary: config)
         }
-        if let config = dictionary["sessionConfiguration"] as? [String: NSObject] {
+        if let config = dictionary["sessionConfiguration"] as? [String: Any] {
             sessionConfiguration = SessionConfiguration(dictionary: config)
         }
     }

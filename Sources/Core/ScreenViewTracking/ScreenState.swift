@@ -47,7 +47,7 @@ class ScreenState: NSObject, State, NSCopying {
     ///   - theTopControllerName: The top view controller class name
     ///   - theControllerName: The view controller class name
     required init(name theName: String, type theType: String?, screenId theScreenId: String?, transitionType theTransitionType: String?, topViewControllerClassName theTopControllerName: String?, viewControllerClassName theControllerName: String?) {
-            name = theName
+        name = theName
         if theScreenId == nil {
             screenId = UUID().uuidString
         } else {
