@@ -36,20 +36,20 @@ class TestDataPersistence: XCTestCase {
     func testDataPersistenceForNamespaceWithDifferentNamespaces() {
         let dp1 = DataPersistence.getFor(namespace: "namespace1")
         let dp2 = DataPersistence.getFor(namespace: "namespace2")
-        XCTAssertNotEqual(dp1, dp2)
+        XCTAssertFalse(dp1 === dp2)
     }
 
     func testDataPersistenceForNamespaceWithSameNamespaces() {
         let dp1 = DataPersistence.getFor(namespace: "namespace")
         let dp2 = DataPersistence.getFor(namespace: "namespace")
-        XCTAssertEqual(dp1, dp2)
+        XCTAssertTrue(dp1 === dp2)
     }
 
     func testRemoveForNamespace() {
         let dp1 = DataPersistence.getFor(namespace: "namespace")
         _ = DataPersistence.remove(withNamespace: "namespace")
         let dp2 = DataPersistence.getFor(namespace: "namespace")
-        XCTAssertNotEqual(dp1, dp2)
+        XCTAssertFalse(dp1 === dp2)
     }
 
     func testDataIsCorrectlyStored() {

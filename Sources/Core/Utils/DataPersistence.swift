@@ -29,7 +29,7 @@ let kSessionFilenameV1 = "session.dict"
 let kSessionFilenamePrefixV2_2 = "session"
 var sessionKey = "session"
 
-class DataPersistence: NSObject {
+class DataPersistence {
     var data: [String : [String : Any]] {
         get {
             objc_sync_enter(self)
@@ -91,7 +91,6 @@ class DataPersistence: NSObject {
     private var fileUrl: URL?
 
     init(namespace escapedNamespace: String, storedOnFile isStoredOnFile: Bool) {
-        super.init()
         self.escapedNamespace = escapedNamespace
         userDefaultsKey = "\(kSPSessionDictionaryPrefix)_\(escapedNamespace)"
 #if !(os(tvOS) || os(watchOS))
