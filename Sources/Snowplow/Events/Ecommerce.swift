@@ -65,21 +65,21 @@ public class Ecommerce : PrimitiveAbstract {
         return kSPEventEcomm
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPEcommTotal] = String(format: "%.02f", totalValue) as NSObject
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPEcommTotal] = String(format: "%.02f", totalValue)
         if let taxValue = taxValue {
-            payload[kSPEcommTax] = String(format: "%.02f", taxValue.doubleValue) as NSObject
+            payload[kSPEcommTax] = String(format: "%.02f", taxValue.doubleValue)
         }
         if let shipping = shipping {
-            payload[kSPEcommShipping] = String(format: "%.02f", shipping.doubleValue) as NSObject
+            payload[kSPEcommShipping] = String(format: "%.02f", shipping.doubleValue)
         }
-        payload[kSPEcommId] = orderId as NSObject
-        payload[kSPEcommAffiliation] = affiliation as NSObject?
-        payload[kSPEcommCity] = city as NSObject?
-        payload[kSPEcommState] = state as NSObject?
-        payload[kSPEcommCountry] = country as NSObject?
-        payload[kSPEcommCurrency] = currency as NSObject?
+        payload[kSPEcommId] = orderId
+        payload[kSPEcommAffiliation] = affiliation
+        payload[kSPEcommCity] = city
+        payload[kSPEcommState] = state
+        payload[kSPEcommCountry] = country
+        payload[kSPEcommCurrency] = currency
         return payload
     }
 

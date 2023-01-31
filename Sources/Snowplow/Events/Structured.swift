@@ -59,14 +59,14 @@ public class Structured: PrimitiveAbstract {
         return kSPEventStructured
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPStuctCategory] = category as NSObject
-        payload[kSPStuctAction] = action as NSObject
-        if let label = label { payload[kSPStuctLabel] = label as NSObject }
-        if let property = property { payload[kSPStuctProperty] = property as NSObject }
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPStuctCategory] = category
+        payload[kSPStuctAction] = action
+        if let label = label { payload[kSPStuctLabel] = label }
+        if let property = property { payload[kSPStuctProperty] = property }
         if let value = value {
-            payload[kSPStuctValue] = String(format: "%.17g", value.doubleValue) as NSObject
+            payload[kSPStuctValue] = String(format: "%.17g", value.doubleValue)
         }
         return payload
     }

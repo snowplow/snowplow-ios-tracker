@@ -81,15 +81,15 @@ public class ScreenView: SelfDescribingAbstract {
         return kSPScreenViewSchema
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPSvName] = name as NSObject
-        payload[kSPSvScreenId] = screenId.uuidString as NSObject
-        if let type = type { payload[kSPSvType] = type as NSObject }
-        if let previousName = previousName { payload[kSPSvPreviousName] = previousName as NSObject }
-        if let previousType = previousType { payload[kSPSvPreviousType] = previousType as NSObject }
-        if let previousId = previousId { payload[kSPSvPreviousScreenId] = previousId as NSObject }
-        if let transitionType = transitionType { payload[kSPSvTransitionType] = transitionType as NSObject }
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPSvName] = name
+        payload[kSPSvScreenId] = screenId.uuidString
+        if let type = type { payload[kSPSvType] = type }
+        if let previousName = previousName { payload[kSPSvPreviousName] = previousName }
+        if let previousType = previousType { payload[kSPSvPreviousType] = previousType }
+        if let previousId = previousId { payload[kSPSvPreviousScreenId] = previousId }
+        if let transitionType = transitionType { payload[kSPSvTransitionType] = transitionType }
         return payload
     }
 

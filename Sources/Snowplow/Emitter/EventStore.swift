@@ -37,7 +37,7 @@ public protocol EventStore: NSObjectProtocol {
     /// - Parameter storeIds: the events' identifiers in the store.
     /// - Returns: a boolean of success to remove.
     @objc
-    func removeEvents(withIds storeIds: [NSNumber]) -> Bool
+    func removeEvents(withIds storeIds: [Int64]) -> Bool
     /// Empties the store of all the events.
     /// - Returns: a boolean of success to remove.
     @objc

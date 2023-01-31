@@ -23,14 +23,13 @@ import Foundation
 
 @objc(SPPayload)
 public class Payload: NSObject {
-    private var payload: [String : NSObject] = [:]
+    private var payload: [String : Any] = [:]
     @objc
     public var allowDiagnostic = true
     
     /// Returns the payload of that particular SPPayload object.
     /// - Returns: NSDictionary of data in the object.
-    @objc
-    public var dictionary: [String : NSObject]? {
+    public var dictionary: [String : Any] {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
         return payload
@@ -50,7 +49,7 @@ public class Payload: NSObject {
 
     @objc
     override public var description: String {
-        return dictionary?.description ?? ""
+        return dictionary.description
     }
 
     ///  Initializes a newly allocated SPPayload
@@ -64,7 +63,7 @@ public class Payload: NSObject {
     ///  - Parameter dictionary: An object of NSDictionary.
     ///  - Returns: A SnowplowPayload.
     @objc
-    public init(dictionary: [String : NSObject]) {
+    public init(dictionary: [String : Any]) {
         super.init()
         payload = dictionary
     }
@@ -74,48 +73,28 @@ public class Payload: NSObject {
     /// - value: A NSString value
     /// - key: A key of type NSString
     @objc
-    public func addValueToPayload(_ value: String?, forKey key: String) {
+    public func addValueToPayload(_ value: Any?, forKey key: String) {
         objc_sync_enter(self)
-        if value == nil || value?.count == 0 {
+        if value == nil {
             if payload[key] != nil {
                 payload.removeValue(forKey: key)
             }
         } else {
-            payload[key] = value as NSObject?
-        }
-        objc_sync_exit(self)
-    }
-
-    /// Adds a simple name-value pair into the SPPayload intance.
-    /// - Parameters:
-    /// - value: A NSNumber value
-    /// - key: A key of type NSString
-    @objc
-    public func addNumericValueToPayload(_ value: NSNumber?, forKey key: String) {
-        objc_sync_enter(self)
-        if let value = value {
             payload[key] = value
-        } else if payload[key] != nil {
-            payload.removeValue(forKey: key)
         }
         objc_sync_exit(self)
     }
 
     ///  Adds a dictionary of attributes to be appended into the SPPayload instance. It does NOT overwrite the existing data in the object.
-    ///  All attribute values must be NSString types to be added; all others are discarded.
+    ///  All attribute values must be String types to be added; all others are discarded.
     ///  - Parameter dictionary: An object of NSDictionary.
     @objc
-    public func addDictionaryToPayload(_ dictionary: [String : NSObject]?) {
-        if dictionary == nil {
-            return
-        }
-        (dictionary as NSDictionary?)?.enumerateKeysAndObjects({ [self] key, value, stop in
-            if value is NSString {
-                if let key = key as? String {
-                    addValueToPayload(value as? String, forKey: key)
-                }
+    public func addDictionaryToPayload(_ dictionary: [String : Any]) {
+        for (key, value) in dictionary {
+            if value is String {
+                addValueToPayload(value, forKey: key)
             }
-        })
+        }
     }
 
     ///  Adds a dictionary of attributes to be appended into the SPPayload instance. Gives you the option to Base64 encode the data before adding it into the object.
@@ -131,7 +110,7 @@ public class Payload: NSObject {
         typeWhenEncoded typeEncoded: String?,
         typeWhenNotEncoded typeNotEncoded: String?
     ) {
-        guard let _ = try? JSONSerialization.jsonObject(with: json) as? [String : NSObject] else { return }
+        guard let _ = try? JSONSerialization.jsonObject(with: json) as? [String : Any] else { return }
         if encode {
             guard let typeEncoded = typeEncoded else { return }
             var encodedString = json.base64EncodedString(options: [])
@@ -185,7 +164,7 @@ public class Payload: NSObject {
     ///  - typeNotEncoded: If the data is NOT going to be encoded, the result will be a value of the key in typeWhenNotEncoded.
     @objc
     public func addDictionaryToPayload(
-        _ dictionary: [String : NSObject],
+        _ dictionary: [String : Any],
         base64Encoded encode: Bool,
         typeWhenEncoded typeEncoded: String?,
         typeWhenNotEncoded typeNotEncoded: String?
@@ -197,5 +176,17 @@ public class Payload: NSObject {
             base64Encoded: encode,
             typeWhenEncoded: typeEncoded,
             typeWhenNotEncoded: typeNotEncoded)
+    }
+    
+    /// Shorthand to set and get payload values for keys.
+    /// Setting a null value will remove the key from payload.
+    @objc
+    public subscript(key: String) -> Any? {
+        get {
+            dictionary[key]
+        }
+        set {
+            addValueToPayload(newValue, forKey: key)
+        }
     }
 }

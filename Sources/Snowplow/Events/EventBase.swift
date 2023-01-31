@@ -33,7 +33,7 @@ public class Event: NSObject {
     public var contexts: [SelfDescribingJson] = []
     
     /// The payload of the event.
-    var payload: [String : NSObject] {
+    var payload: [String : Any] {
         NSException(
             name: .internalInconsistencyException,
             reason: "You must override \(NSStringFromSelector(#function)) in a subclass",

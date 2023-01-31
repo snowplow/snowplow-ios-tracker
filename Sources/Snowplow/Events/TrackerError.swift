@@ -60,19 +60,19 @@ public class TrackerError : SelfDescribingAbstract {
         return kSPDiagnosticErrorSchema
     }
     
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPDiagnosticErrorClassName] = source as NSObject
-        payload[kSPDiagnosticErrorMessage] = truncate(message, maxLength: kMaxMessageLength) as NSObject
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPDiagnosticErrorClassName] = source
+        payload[kSPDiagnosticErrorMessage] = truncate(message, maxLength: kMaxMessageLength)
         if let error = error {
-            payload[kSPDiagnosticErrorExceptionName] = error as NSObject
+            payload[kSPDiagnosticErrorExceptionName] = error
         }
         if let exception = exception {
-            payload[kSPDiagnosticErrorExceptionName] = truncate(exception.name.rawValue, maxLength: kMaxExceptionNameLength) as NSObject
+            payload[kSPDiagnosticErrorExceptionName] = truncate(exception.name.rawValue, maxLength: kMaxExceptionNameLength)
             let symbols = (exception).callStackSymbols
             if symbols.count != 0 {
                 let stackTrace = "Stacktrace:\n\(symbols)"
-                payload[kSPDiagnosticErrorStack] = truncate(stackTrace, maxLength: kMaxStackLength) as NSObject
+                payload[kSPDiagnosticErrorStack] = truncate(stackTrace, maxLength: kMaxStackLength)
             }
         }
         return payload

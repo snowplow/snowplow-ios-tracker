@@ -26,18 +26,13 @@ import Foundation
 public class SelfDescribing: SelfDescribingAbstract {
     @objc
     public convenience init(eventData: SelfDescribingJson) {
-        self.init(schema: eventData.schema, payload: eventData.data as! [String : NSObject])
+        self.init(schema: eventData.schema, payload: eventData.data)
     }
 
     @objc
-    public init(schema: String, payload: [String : NSObject]) {
+    public init(schema: String, payload: [String : Any]) {
         self._schema = schema
         self._payload = payload
-    }
-    
-    public init(schema: String, payload: [String : String]) {
-        self._schema = schema
-        self._payload = payload as [String : NSObject]
     }
     
     private var _schema: String
@@ -46,8 +41,8 @@ public class SelfDescribing: SelfDescribingAbstract {
         set { _schema = newValue }
     }
     
-    private var _payload: [String: NSObject]
-    override var payload: [String : NSObject] {
+    private var _payload: [String : Any]
+    override var payload: [String : Any] {
         get { return _payload }
         set {
             _payload = newValue
@@ -57,7 +52,7 @@ public class SelfDescribing: SelfDescribingAbstract {
     var eventData: SelfDescribingJson {
         set {
             schema = newValue.schema
-            payload = newValue.data as! [String : NSObject]
+            payload = newValue.data
         }
         get {
             return SelfDescribingJson(schema: schema, andDictionary: payload)

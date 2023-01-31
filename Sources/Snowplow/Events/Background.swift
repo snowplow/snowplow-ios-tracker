@@ -41,9 +41,9 @@ public class Background: SelfDescribingAbstract {
         return kSPBackgroundSchema
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [AnyHashable : Any] = [:]
-        payload[kSPBackgroundIndex] = NSNumber(value: index)
-        return payload as? [String : NSObject] ?? [:]
+    override var payload: [String : Any] {
+        return [
+            kSPBackgroundIndex: index
+        ]
     }
 }

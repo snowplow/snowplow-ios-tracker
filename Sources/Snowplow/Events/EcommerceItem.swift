@@ -56,15 +56,15 @@ public class EcommerceItem : PrimitiveAbstract {
         return kSPEventEcommItem
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPEcommItemId] = orderId as NSObject?
-        payload[kSPEcommItemSku] = sku as NSObject
-        payload[kSPEcommItemName] = name as NSObject?
-        payload[kSPEcommItemCategory] = category as NSObject?
-        payload[kSPEcommItemCurrency] = currency as NSObject?
-        payload[kSPEcommItemPrice] = String(format: "%.02f", price) as NSObject
-        payload[kSPEcommItemQuantity] = String(format: "%ld", quantity) as NSObject
+    override var payload: [String : Any] {
+        var payload: [String : Any] = [:]
+        payload[kSPEcommItemId] = orderId
+        payload[kSPEcommItemSku] = sku
+        payload[kSPEcommItemName] = name
+        payload[kSPEcommItemCategory] = category
+        payload[kSPEcommItemCurrency] = currency
+        payload[kSPEcommItemPrice] = String(format: "%.02f", price)
+        payload[kSPEcommItemQuantity] = String(format: "%ld", quantity)
         return payload
     }
 }

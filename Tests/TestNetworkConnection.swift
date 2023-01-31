@@ -46,7 +46,7 @@ class TestNetworkConnection: XCTestCase {
         // Check successful result
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
-        XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
+        XCTAssertEqual(1, result.storeIds?[0])
     }
     
     func testGetRequestWithNoSuccess() {
@@ -63,7 +63,7 @@ class TestNetworkConnection: XCTestCase {
         // Check unsuccessful result
         let result = results[0]
         XCTAssertFalse(result.isSuccessful)
-        XCTAssertEqual(NSNumber(value: 1), (result.storeIds)?[0])
+        XCTAssertEqual(1, (result.storeIds)?[0])
     }
     
     func testPostRequestWithSuccess() {
@@ -80,7 +80,7 @@ class TestNetworkConnection: XCTestCase {
         // Check successful result
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
-        XCTAssertEqual(NSNumber(value: 1), (result.storeIds)?[0])
+        XCTAssertEqual(1, (result.storeIds)?[0])
     }
     
     func testPostRequestWithNoSuccess() {
@@ -97,7 +97,7 @@ class TestNetworkConnection: XCTestCase {
         // Check unsuccessful result
         let result = results[0]
         XCTAssertFalse(result.isSuccessful)
-        XCTAssertEqual(NSNumber(value: 1), (result.storeIds)?[0])
+        XCTAssertEqual(1, (result.storeIds)?[0])
     }
 #endif
     
@@ -143,7 +143,7 @@ class TestNetworkConnection: XCTestCase {
         // Check successful result
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
-        XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
+        XCTAssertEqual(1, result.storeIds?[0])
         wait(for: [requestExpectation], timeout: 2.0)
     }
 
@@ -168,7 +168,7 @@ class TestNetworkConnection: XCTestCase {
         // Check successful result
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
-        XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
+        XCTAssertEqual(1, result.storeIds?[0])
         wait(for: [requestExpectation], timeout: 2.0)
     }
 
@@ -193,7 +193,7 @@ class TestNetworkConnection: XCTestCase {
         // Check successful result
         let result = results[0]
         XCTAssertTrue(result.isSuccessful)
-        XCTAssertEqual(NSNumber(value: 1), result.storeIds?[0])
+        XCTAssertEqual(1, result.storeIds?[0])
         wait(for: [requestExpectation], timeout: 2.0)
     }
 #endif

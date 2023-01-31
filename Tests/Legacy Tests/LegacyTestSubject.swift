@@ -36,13 +36,13 @@ class LegacyTestSubject: XCTestCase {
 
     func testSubjectInit() {
         let subject = Subject()
-        XCTAssertNotNil(subject.getStandardDict(userAnonymisation: false))
+        XCTAssertNotNil(subject.standardDict(userAnonymisation: false))
     }
 
     func testSubjectInitWithOptions() {
         let subject = Subject(platformContext: true, andGeoContext: false)
-        XCTAssertNotNil(subject.getPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil))
-        XCTAssertNotNil(subject.getStandardDict(userAnonymisation: false))
+        XCTAssertNotNil(subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil))
+        XCTAssertNotNil(subject.standardDict(userAnonymisation: false))
     }
 
     func testSubjectSetterFunctions() {
@@ -58,20 +58,18 @@ class LegacyTestSubject: XCTestCase {
         subject.networkUserId = "aNuid"
         subject.domainUserId = "aDuid"
 
-        guard var values = subject.getStandardDict(userAnonymisation: false)?.dictionary else {
-            return XCTFail()
-        }
+        let values = subject.standardDict(userAnonymisation: false)
 
-        XCTAssertEqual(values[kSPUid], "aUserId" as NSObject)
-        XCTAssertTrue((values[kSPResolution] == "1920x1080" as NSObject))
-        XCTAssertTrue((values[kSPViewPort] == "1080x1920" as NSObject))
-        XCTAssertTrue((values[kSPColorDepth] == "20" as NSObject))
-        XCTAssertEqual(values[kSPTimezone], "UTC" as NSObject)
-        XCTAssertEqual(values[kSPLanguage], "EN" as NSObject)
-        XCTAssertEqual(values[kSPIpAddress], "127.0.0.1" as NSObject)
-        XCTAssertEqual(values[kSPUseragent], "aUseragent" as NSObject)
-        XCTAssertEqual(values[kSPNetworkUid], "aNuid" as NSObject)
-        XCTAssertEqual(values[kSPDomainUid], "aDuid" as NSObject)
+        XCTAssertEqual(values[kSPUid], "aUserId")
+        XCTAssertTrue((values[kSPResolution] == "1920x1080"))
+        XCTAssertTrue((values[kSPViewPort] == "1080x1920"))
+        XCTAssertTrue((values[kSPColorDepth] == "20"))
+        XCTAssertEqual(values[kSPTimezone], "UTC")
+        XCTAssertEqual(values[kSPLanguage], "EN")
+        XCTAssertEqual(values[kSPIpAddress], "127.0.0.1")
+        XCTAssertEqual(values[kSPUseragent], "aUseragent")
+        XCTAssertEqual(values[kSPNetworkUid], "aNuid")
+        XCTAssertEqual(values[kSPDomainUid], "aDuid")
 
         // Setup GeoLocation
         subject.geoLongitude = NSNumber(value: 5)
@@ -83,26 +81,26 @@ class LegacyTestSubject: XCTestCase {
         subject.geoAltitude = NSNumber(value: 62.3)
         subject.geoAltitudeAccuracy = NSNumber(value: 16.3)
 
-        values = subject.getGeoLocationDict()!
+        let geoValues = subject.geoLocationDict!
 
-        XCTAssertTrue((NSNumber(value: 5) == values[kSPGeoLongitude]))
-        XCTAssertTrue((NSNumber(value: 89.2) == values[kSPGeoLatitude]))
-        XCTAssertTrue((NSNumber(value: 5.5) == values[kSPGeoLatLongAccuracy]))
-        XCTAssertTrue((NSNumber(value: 6.2) == values[kSPGeoSpeed]))
-        XCTAssertTrue((NSNumber(value: 82.3) == values[kSPGeoBearing]))
-        XCTAssertTrue((NSNumber(value: 62.3) == values[kSPGeoAltitude]))
-        XCTAssertTrue((NSNumber(value: 16.3) == values[kSPGeoAltitudeAccuracy]))
-        XCTAssertTrue((NSNumber(value: 5) == values[kSPGeoTimestamp]))
+        XCTAssertTrue((NSNumber(value: 5) == geoValues[kSPGeoLongitude]))
+        XCTAssertTrue((NSNumber(value: 89.2) == geoValues[kSPGeoLatitude]))
+        XCTAssertTrue((NSNumber(value: 5.5) == geoValues[kSPGeoLatLongAccuracy]))
+        XCTAssertTrue((NSNumber(value: 6.2) == geoValues[kSPGeoSpeed]))
+        XCTAssertTrue((NSNumber(value: 82.3) == geoValues[kSPGeoBearing]))
+        XCTAssertTrue((NSNumber(value: 62.3) == geoValues[kSPGeoAltitude]))
+        XCTAssertTrue((NSNumber(value: 16.3) == geoValues[kSPGeoAltitudeAccuracy]))
+        XCTAssertTrue((NSNumber(value: 5) == geoValues[kSPGeoTimestamp]))
     }
 
     func testGeoLocationGetWithoutNeededKeys() {
         let subject = Subject(platformContext: false, andGeoContext: true)
-        XCTAssertNil(subject.getGeoLocationDict())
+        XCTAssertNil(subject.geoLocationDict)
 
         subject.geoLongitude = NSNumber(value: 5)
         subject.geoLatitude = NSNumber(value: 89.2)
 
-        XCTAssertNotNil(subject.getGeoLocationDict())
+        XCTAssertNotNil(subject.geoLocationDict)
     }
 
     func testGeoLocationWithSubjectConfiguration() {
@@ -111,7 +109,7 @@ class LegacyTestSubject: XCTestCase {
         config.geoLongitude = NSNumber(value: 24.24)
         let subject = Subject(platformContext: false, geoLocationContext: true, subjectConfiguration: config)
 
-        let values = subject.getGeoLocationDict()
+        let values = subject.geoLocationDict
 
         XCTAssertEqual(NSNumber(value: 12.12), values?[kSPGeoLatitude])
         XCTAssertEqual(NSNumber(value: 24.24), values?[kSPGeoLongitude])

@@ -34,182 +34,158 @@ class TestPayload: XCTestCase {
     func testInit() {
         let sample_payload = Payload()
 
-        XCTAssertEqual(
-            sample_payload.dictionary,
-            [String : NSObject]())
+        XCTAssertTrue(sample_payload.dictionary.isEmpty)
 
     }
 
     func testInitWithNSDictionary() {
-        let sample_dict: [String : NSObject] = [
-            "Key1": "Value1" as NSObject,
-            "Key2": "Value2" as NSObject
+        let sample_dict = [
+            "Key1": "Value1",
+            "Key2": "Value2"
         ]
         let sample_payload = Payload(dictionary: sample_dict)
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dict)
-        XCTAssertTrue(sample_payload.description.contains("\"Key1\": Value1"))
-        XCTAssertTrue(sample_payload.description.contains("\"Key2\": Value2"))
+        XCTAssertTrue(sample_payload.description.contains("\"Key1\": \"Value1\""))
+        XCTAssertTrue(sample_payload.description.contains("\"Key2\": \"Value2\""))
     }
 
     func testInitWithWrongDictionary() {
-        let sample_dict: [String : NSObject] = [
-            "Key1": "Value1" as NSObject,
-            "Key2": "Value2" as NSObject
+        let sample_dict = [
+            "Key1": "Value1",
+            "Key2": "Value2"
         ]
-        let sample_dict2: [String : NSObject] = [
-            "Key2": "Value1" as NSObject,
-            "Key1": "Value2" as NSObject
+        let sample_dict2 = [
+            "Key2": "Value1",
+            "Key1": "Value2"
         ]
         let sample_payload = Payload(dictionary: sample_dict)
 
         XCTAssertNotEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dict2,
             "Payload is not initialized with the correct JSON or NSDictionary")
     }
 
     func testAddValueToPayload() {
-        let sample_dict: [String : NSObject] = [
-            "Key1": "Value1" as NSObject
+        let sample_dict = [
+            "Key1": "Value1"
         ]
         let sample_payload = Payload()
         sample_payload.addValueToPayload("Value1", forKey: "Key1")
 
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dict)
     }
 
     func testAddValueToPayload2() {
-        let sample_dict: [String : NSObject] = [
-            "Key2": "Value2" as NSObject
+        let sample_dict = [
+            "Key2": "Value2"
         ]
         let sample_payload = Payload()
         sample_payload.addValueToPayload("Value1", forKey: "Key1")
 
 
         XCTAssertNotEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dict,
             "Payload should not be the same as sample_dict")
     }
 
     func testAddValueToPayload3() {
-        let sample_dict_init: [String : NSObject] = [
-            "Key1": "Value1" as NSObject
+        let sample_dict_init = [
+            "Key1": "Value1"
         ]
-        let sample_dict_final: [String : NSObject] = [
-            "Key1": "Value1" as NSObject,
-            "Key2": "Value2" as NSObject
+        let sample_dict_final = [
+            "Key1": "Value1",
+            "Key2": "Value2"
         ]
         let sample_payload = Payload(dictionary: sample_dict_init)
         sample_payload.addValueToPayload("Value2", forKey: "Key2")
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dict_final)
     }
 
     func testAddNilValueToPayload() {
         let payload = Payload()
         payload.addValueToPayload(nil, forKey: "foo")
-        XCTAssertEqual(payload.dictionary, [String : NSObject]())
+        XCTAssertTrue(payload.dictionary.isEmpty)
     }
 
     func testAddNilValueToPayloadUnsetsKey() {
         let payload = Payload(dictionary: [
-            "foo": "bar" as NSObject
+            "foo": "bar"
         ])
         payload.addValueToPayload(nil, forKey: "foo")
-        XCTAssertEqual(payload.dictionary, [String : NSObject]())
+        XCTAssertTrue(payload.dictionary.isEmpty)
     }
 
     func testAddNumericValueToPayload() {
         let sample_dict = [
-            "Key1": NSNumber(value: 100)
+            "Key1": 100
         ]
         let sample_payload = Payload()
-        sample_payload.addNumericValueToPayload(NSNumber(value: 100), forKey: "Key1")
+        sample_payload.addValueToPayload(100, forKey: "Key1")
 
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : AnyHashable],
             sample_dict)
-    }
-
-    func testAddNilNumericValueToPayload() {
-        let sample_payload = Payload()
-        sample_payload.addNumericValueToPayload(nil, forKey: "Key1")
-
-
-        XCTAssertEqual(
-            sample_payload.dictionary,
-            [String : NSObject]())
-    }
-
-    func testAddNilNumericValueToPayloadUnsetsKey() {
-        let sample_payload = Payload(dictionary: [
-            "Key1": NSNumber(value: 100)
-        ])
-        sample_payload.addNumericValueToPayload(nil, forKey: "Key1")
-
-
-        XCTAssertEqual(
-            sample_payload.dictionary,
-            [String : NSObject]())
     }
 
     func testAddDictToPayload() {
         let sample_dic = [
-            "Key1": "Value1" as NSObject
+            "Key1": "Value1"
         ]
         let sample_payload = Payload()
         sample_payload.addDictionaryToPayload(sample_dic)
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dic)
     }
 
     func testAddDictToPayload2() {
         let sample_dic = [
-            "Key1": "Value1" as NSObject
+            "Key1": "Value1"
         ]
         let sample_dic2 = [
-            "Key2": "Value2" as NSObject
+            "Key2": "Value2"
         ]
         let sample_dict_final = [
-            "Key1": "Value1" as NSObject,
-            "Key2": "Value2" as NSObject
+            "Key1": "Value1",
+            "Key2": "Value2"
         ]
         let sample_payload = Payload(dictionary: sample_dic)
         sample_payload.addDictionaryToPayload(sample_dic2)
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dict_final)
     }
 
     func testAddDictToPayload3() {
         let sample_dic = [
-            "Key1": "Value1" as NSObject
+            "Key1": "Value1"
         ]
         let sample_dic2 = [
-            "Key2": NSNumber(value: 2)
+            "Key2": 2
         ]
         let sample_dict_final = [
-            "Key1": "Value1" as NSObject
+            "Key1": "Value1"
         ]
 
         let sample_payload = Payload(dictionary: sample_dic)
         sample_payload.addDictionaryToPayload(sample_dic2)
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : AnyHashable],
             sample_dict_final)
     }
 
@@ -220,7 +196,7 @@ class TestPayload: XCTestCase {
             "Key1": "Value1"
         ]
         let sample_enc = [
-            "type_enc": "eyJLZXkxIjoiVmFsdWUxIn0" as NSObject
+            "type_enc": "eyJLZXkxIjoiVmFsdWUxIn0"
         ]
 
         // NSDictionary conversion to JSON string
@@ -234,7 +210,7 @@ class TestPayload: XCTestCase {
             typeWhenNotEncoded: "type_notenc")
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as? [String : String],
             sample_enc)
     }
 
@@ -245,7 +221,7 @@ class TestPayload: XCTestCase {
             "Key1": "Value1"
         ]
         let sample_enc = [
-            "type_notenc": "{\"Key1\":\"Value1\"}" as NSObject
+            "type_notenc": "{\"Key1\":\"Value1\"}"
         ]
 
         // NSDictionary conversion to JSON string
@@ -259,7 +235,7 @@ class TestPayload: XCTestCase {
             typeWhenNotEncoded: "type_notenc")
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_enc)
     }
 
@@ -267,7 +243,7 @@ class TestPayload: XCTestCase {
         // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
 
         let sample_enc = [
-            "type_notenc": "{\"Key1\":\"Value1\"}" as NSObject
+            "type_notenc": "{\"Key1\":\"Value1\"}"
         ]
         let json_str = "{\"Key1\":\"Value1\"}"
 
@@ -279,7 +255,7 @@ class TestPayload: XCTestCase {
             typeWhenNotEncoded: "type_notenc")
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_enc)
     }
 
@@ -287,7 +263,7 @@ class TestPayload: XCTestCase {
         // {"Key1":"Value1"} -> eyJLZXkxIjoiVmFsdWUxIn0=
 
         let sample_enc = [
-            "type_enc": "eyJLZXkxIjoiVmFsdWUxIn0" as NSObject
+            "type_enc": "eyJLZXkxIjoiVmFsdWUxIn0"
         ]
         let json_str = "{\"Key1\":\"Value1\"}"
 
@@ -299,28 +275,26 @@ class TestPayload: XCTestCase {
             typeWhenNotEncoded: "type_notenc")
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_enc)
     }
 
     func testgetPayloadAsDictionary() {
         let sample_payload = Payload()
 
-        XCTAssertEqual(
-            sample_payload.dictionary,
-            [String : NSObject]())
+        XCTAssertTrue(sample_payload.dictionary.isEmpty)
     }
 
     func testgetPayloadAsDictionary2() {
         let sample_dict = [
-            "Key1": "Value1" as NSObject
+            "Key1": "Value1"
         ]
         let sample_payload = Payload(dictionary: [
-            "Key1": "Value1" as NSObject
+            "Key1": "Value1"
         ])
 
         XCTAssertEqual(
-            sample_payload.dictionary,
+            sample_payload.dictionary as! [String : String],
             sample_dict)
     }
 }

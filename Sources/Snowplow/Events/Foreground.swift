@@ -41,9 +41,9 @@ public class Foreground: SelfDescribingAbstract {
         return kSPForegroundSchema
     }
 
-    override var payload: [String : NSObject] {
-        var payload: [String : NSObject] = [:]
-        payload[kSPForegroundIndex] = NSNumber(value: index)
-        return payload
+    override var payload: [String : Any] {
+        return [
+            kSPForegroundIndex: index
+        ]
     }
 }

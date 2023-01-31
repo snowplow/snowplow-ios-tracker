@@ -44,7 +44,8 @@ class TestMemoryEventStore: XCTestCase {
 
         XCTAssertEqual(eventStore.count(), 1)
         let events = eventStore.emittableEvents(withQueryLimit: 1)
-        XCTAssertEqual(events[0].payload.dictionary, payload.dictionary)
+        XCTAssertEqual(events[0].payload.dictionary as! [String : String],
+                       payload.dictionary as! [String : String])
         _ = eventStore.removeEvent(withId: 0)
 
         XCTAssertEqual(eventStore.count(), 0)

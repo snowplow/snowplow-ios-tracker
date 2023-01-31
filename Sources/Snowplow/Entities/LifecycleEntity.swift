@@ -32,23 +32,19 @@ public class LifecycleEntity: SelfDescribingJson {
 
     @objc
     public init(isVisible: Bool) {
-        var parameters: [String : NSObject] = [:]
-        parameters[kSPLifecycleEntityParamIsVisible] = NSNumber(value: isVisible)
-        super.init(schema: kSPLifecycleEntitySchema, andData: parameters as NSObject)
+        var parameters: [String : Any] = [:]
+        parameters[kSPLifecycleEntityParamIsVisible] = isVisible
+        super.init(schema: kSPLifecycleEntitySchema, andData: parameters)
     }
 
     @objc
     public var index: NSNumber? {
         set {
-            if let data = data,
-               var parameters = data as? [String : NSObject] {
-                parameters[kSPLifecycleEntityParamIndex] = newValue
-            }
+            data[kSPLifecycleEntityParamIndex] = newValue?.intValue
         }
         get {
-            if let data = data,
-               let parameters = data as? [String : NSObject] {
-                return parameters[kSPLifecycleEntityParamIndex] as? NSNumber
+            if let value = data[kSPLifecycleEntityParamIndex] as? Int {
+                return NSNumber(value: value)
             }
             return nil
         }

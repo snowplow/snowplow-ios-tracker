@@ -406,7 +406,7 @@ class Emitter: NSObject, EmitterEventProcessing {
         var successCount = 0
         var failedWillRetryCount = 0
         var failedWontRetryCount = 0
-        var removableEvents: [NSNumber] = []
+        var removableEvents: [Int64] = []
 
         for result in sendResults ?? [] {
             let resultIndexArray = result.storeIds
@@ -469,18 +469,18 @@ class Emitter: NSObject, EmitterEventProcessing {
             var i = 0
             while i < events.count {
                 var eventArray: [Payload] = []
-                var indexArray: [NSNumber] = []
+                var indexArray: [Int64] = []
 
                 let iUntil = min(i + bufferOption.rawValue, events.count)
                 for j in i..<iUntil {
                     let event = events[j]
 
                     let payload = event.payload
-                    let emitterEventId = NSNumber(value: event.storeId)
+                    let emitterEventId = event.storeId
                     addSendingTime(to: payload, timestamp: sendingTime)
 
                     if isOversize(payload) {
-                        let request = Request(payload: payload, emitterEventId: emitterEventId.int64Value, oversize: true)
+                        let request = Request(payload: payload, emitterEventId: emitterEventId, oversize: true)
                         requests.append(request)
                     } else if isOversize(payload, previousPayloads: eventArray) {
                         let request = Request(payloads: eventArray, emitterEventIds: indexArray)

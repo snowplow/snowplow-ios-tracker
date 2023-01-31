@@ -63,7 +63,7 @@ class TestEvents: XCTestCase {
         let payload = events.first?.payload
 
         // Check v_tracker field
-        let deviceTimestamp = payload?.dictionary?["dtm"] as? String
+        let deviceTimestamp = payload?["dtm"] as? String
         let expected = String(format: "%lld", Int64(currentTimestamp.timeIntervalSince1970 * 1000))
         XCTAssertEqual(expected, deviceTimestamp)
     }
@@ -95,8 +95,8 @@ class TestEvents: XCTestCase {
         let payload = events.first?.payload
 
         // Check url and referrer fields
-        let url = payload?.dictionary?[kSPPageUrl] as? String
-        let referrer = payload?.dictionary?[kSPPageRefr] as? String
+        let url = payload?[kSPPageUrl] as? String
+        let referrer = payload?[kSPPageRefr] as? String
         XCTAssertEqual(url, "url")
         XCTAssertEqual(referrer, "referrer")
     }
@@ -132,20 +132,20 @@ class TestEvents: XCTestCase {
 
         var screenViewPayload: Payload? = nil
         for event in events {
-            if (event.payload.dictionary?["eid"] as? String) == screenViewId?.uuidString {
+            if (event.payload.dictionary["eid"] as? String) == screenViewId?.uuidString {
                 screenViewPayload = event.payload
             }
         }
         XCTAssertNotNil(screenViewPayload)
 
         // Check the DeepLink context entity properties
-        let screenViewContext = screenViewPayload?.dictionary?["co"] as? String
+        let screenViewContext = screenViewPayload?["co"] as? String
         XCTAssertTrue(screenViewContext?.contains("\"referrer\":\"the_referrer\"") ?? false)
         XCTAssertTrue(screenViewContext?.contains("\"url\":\"the_url\"") ?? false)
 
         // Check url and referrer fields for atomic table
-        let url = screenViewPayload?.dictionary?[kSPPageUrl] as? String
-        let referrer = screenViewPayload?.dictionary?[kSPPageRefr] as? String
+        let url = screenViewPayload?[kSPPageUrl] as? String
+        let referrer = screenViewPayload?[kSPPageRefr] as? String
         XCTAssertEqual(url, "the_url")
         XCTAssertEqual(referrer, "the_referrer")
     }
@@ -162,15 +162,15 @@ class TestEvents: XCTestCase {
     }
 
     func testUnstructured() {
-        var data: [String : NSObject] = [:]
-        data["level"] = NSNumber(value: 23)
-        data["score"] = NSNumber(value: 56473)
+        var data: [String : Any] = [:]
+        data["level"] = 23
+        data["score"] = 56473
         let sdj = SelfDescribingJson(
             schema: "iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
             andDictionary: data)
         let event = SelfDescribing(eventData: sdj)
         XCTAssertEqual("iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", event.schema)
-        XCTAssertEqual(NSNumber(value: 23), event.payload["level"])
+        XCTAssertEqual(23, event.payload["level"] as? Int)
     }
 
     func testConsentWithdrawn() {
@@ -180,7 +180,7 @@ class TestEvents: XCTestCase {
         event.version = "3"
         event.documentId = "1000"
         event.documentDescription = "description"
-        XCTAssertEqual(NSNumber(value: false), event.payload["all"])
+        XCTAssertEqual(false, event.payload["all"] as? Bool)
         XCTAssertEqual(1, event.allDocuments.count)
     }
 
@@ -239,7 +239,7 @@ class TestEvents: XCTestCase {
         event.subtitle = "subtitle"
         event.sound = "sound"
         event.launchImageName = "image"
-        event.userInfo = userInfo as [String : NSObject]
+        event.userInfo = userInfo
         event.attachments = attachments as [NSObject]
         XCTAssertEqual("sound", event.payload["sound"] as? String)
     }
@@ -271,7 +271,7 @@ class TestEvents: XCTestCase {
         content.subtitle = "subtitle"
         content.sound = "sound"
         content.launchImageName = "image"
-        content.userInfo = userInfo as [String : NSObject]
+        content.userInfo = userInfo
         content.attachments = attachments as [NSObject]
 
         let event = PushNotification(
@@ -313,10 +313,10 @@ class TestEvents: XCTestCase {
         XCTAssertEqual("chime.mp3", payload["sound"] as? String)
         //    XCTAssertEqualObjects(@9, payload["notificationCount"]);
         XCTAssertEqual("category1", payload["category"] as? String)
-        let attachments = (payload["attachments"]) as? [[String : NSObject]]
+        let attachments = (payload["attachments"]) as? [[String : Any]]
         XCTAssertNotNil(attachments)
         XCTAssertEqual(1, (attachments?.count ?? 0))
-        let attachment = attachments?[0] as? [String : NSObject]
+        let attachment = attachments?[0] as? [String : Any]
         XCTAssertEqual("id", attachment?["identifier"] as? String)
         XCTAssertEqual("type", attachment?["type"] as? String)
         XCTAssertEqual("url", attachment?["url"] as? String)
@@ -332,13 +332,13 @@ class TestEvents: XCTestCase {
                     "loc-args": ["loc arg1", "loc arg2"]
                 ],
                 "sound": "chime.aiff",
-                "badge": NSNumber(value: 9),
+                "badge": 9,
                 "category": "category1",
-                "content-available": NSNumber(value: 1)
+                "content-available": 1
             ],
-            "custom-element": NSNumber(value: 1)
+            "custom-element": 1
         ]
-        let event = MessageNotification.messageNotification(userInfo: userInfo as! [String : NSObject], defaultTitle: nil, defaultBody: nil)!
+        let event = MessageNotification.messageNotification(userInfo: userInfo, defaultTitle: nil, defaultBody: nil)!
         let payload = event.payload
         XCTAssertEqual("test-title", payload["title"] as? String)
         XCTAssertEqual("test-body", payload["body"] as? String)
@@ -347,10 +347,10 @@ class TestEvents: XCTestCase {
         XCTAssertEqual(2, (locArgs?.count ?? 0))
         XCTAssertEqual("loc arg1", locArgs?[0] as? String)
         XCTAssertEqual("loc arg2", locArgs?[1] as? String)
-        XCTAssertEqual(NSNumber(value: 9), payload["notificationCount"])
+        XCTAssertEqual(9, payload["notificationCount"] as? Int)
         XCTAssertEqual("chime.aiff", payload["sound"] as? String)
         XCTAssertEqual("category1", payload["category"] as? String)
-        XCTAssertEqual(NSNumber(value: true), payload["contentAvailable"])
+        XCTAssertEqual(true, payload["contentAvailable"] as? Bool)
     }
 
     func testError() {

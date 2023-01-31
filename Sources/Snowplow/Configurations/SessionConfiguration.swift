@@ -73,7 +73,7 @@ public class SessionConfiguration: Configuration, SessionConfigurationProtocol {
     }
 
     @objc
-    public convenience init?(dictionary: [String : NSObject]) {
+    public convenience init?(dictionary: [String : Any]) {
         let foregroundTimeout = dictionary["foregroundTimeout"] as? Int ?? TrackerDefaults.foregroundTimeout
         let backgroundTimeout = dictionary["backgroundTimeout"] as? Int ?? TrackerDefaults.backgroundTimeout
         self.init(foregroundTimeoutInSeconds: foregroundTimeout, backgroundTimeoutInSeconds: backgroundTimeout)

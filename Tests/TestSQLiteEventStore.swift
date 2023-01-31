@@ -49,7 +49,8 @@ class TestSQLiteEventStore: XCTestCase {
         _ = eventStore.insertEvent(payload)
 
         XCTAssertEqual(eventStore.count(), 1)
-        XCTAssertEqual(eventStore.getEventWithId(1)?.payload.dictionary, payload.dictionary)
+        XCTAssertEqual(eventStore.getEventWithId(1)?.payload.dictionary as! [String : String],
+                       payload.dictionary as! [String : String])
         XCTAssertEqual(eventStore.getLastInsertedRowId(), 1)
         _ = eventStore.removeEvent(withId: 1)
 
@@ -114,7 +115,7 @@ class TestSQLiteEventStore: XCTestCase {
     func testMigrationFromLegacyToNamespacedEventStore() {
         var eventStore = SQLiteEventStore(namespace: "aNamespace")
         eventStore.addEvent(Payload(dictionary: [
-            "key": "value" as NSObject
+            "key": "value"
         ]))
         XCTAssertEqual(1, eventStore.count())
 
@@ -136,20 +137,20 @@ class TestSQLiteEventStore: XCTestCase {
         XCTAssertTrue(FileManager.default.fileExists(atPath: newDbPath))
         XCTAssertEqual(1, eventStore.count())
         for event in eventStore.getAllEvents() ?? [] {
-            XCTAssertEqual("value", event.payload.dictionary?["key"] as? String)
+            XCTAssertEqual("value", event.payload.dictionary["key"] as? String)
         }
     }
 
     func testMultipleAccessToSameSQLiteFile() {
         let eventStore1 = SQLiteEventStore(namespace: "aNamespace")
         eventStore1.addEvent(Payload(dictionary: [
-            "key1": "value1" as NSObject
+            "key1": "value1"
         ]))
         XCTAssertEqual(1, eventStore1.count())
 
         let eventStore2 = SQLiteEventStore(namespace: "aNamespace")
         eventStore2.addEvent(Payload(dictionary: [
-            "key2": "value2" as NSObject
+            "key2": "value2"
         ]))
         XCTAssertEqual(2, eventStore2.count())
     }

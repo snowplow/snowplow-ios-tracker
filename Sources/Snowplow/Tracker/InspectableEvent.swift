@@ -32,7 +32,7 @@ public protocol InspectableEvent {
     var eventName: String? { get }
     /// The payload of the event
     @objc
-    var payload: [String : NSObject] { get }
+    var payload: [String : Any] { get }
     /// The tracker state at the time the event was sent.
     @objc
     var state: TrackerStateSnapshot { get }
@@ -40,5 +40,5 @@ public protocol InspectableEvent {
     /// - Parameter payload: Map of values to add to the event payload.
     /// - Returns: Whether or not the values have been successfully added to the event payload.
     @objc
-    func addPayloadValues(_ payload: [String : NSObject]) -> Bool
+    func addPayloadValues(_ payload: [String : Any]) -> Bool
 }

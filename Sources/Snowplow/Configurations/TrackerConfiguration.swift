@@ -164,7 +164,7 @@ public class TrackerConfiguration: Configuration, TrackerConfigurationProtocol {
     }
 
     @objc
-    public convenience init?(dictionary: [String : NSObject]) {
+    public convenience init?(dictionary: [String : Any]) {
         self.init()
         if let appId = dictionary["appId"] as? String {
             self.appId = appId

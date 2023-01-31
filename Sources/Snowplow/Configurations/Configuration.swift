@@ -24,7 +24,7 @@ import Foundation
 @objc(SPConfiguration)
 public class Configuration: NSObject, NSCopying, NSSecureCoding {
     @objc
-    public convenience init?(dictionary: [String : NSObject]) {
+    public convenience init?(dictionary: [String : Any]) {
         self.init()
     }
 
