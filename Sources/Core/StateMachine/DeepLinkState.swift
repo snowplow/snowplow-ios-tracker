@@ -1,5 +1,5 @@
 //
-//  TrackerStateSnapshot.swift
+//  SPDeepLinkState.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -21,12 +21,13 @@
 
 import Foundation
 
-@objc(SPTrackerStateSnapshot)
-public protocol TrackerStateSnapshot {
-    /// Get a computed state with a specific state identifier
-    @objc
-    func state(withIdentifier stateIdentifier: String) -> State?
-    /// Get a computed state with a specific state machine
-    @objc
-    func state(withStateMachine stateMachine: StateMachineProtocol) -> State?
+class DeepLinkState: State {
+    private(set) var url: String
+    private(set) var referrer: String?
+    var readyForOutput = false
+
+    init(url: String, referrer: String?) {
+        self.url = url
+        self.referrer = referrer
+    }
 }

@@ -21,7 +21,7 @@
 
 import Foundation
 
-class StateManager: NSObject {
+class StateManager {
     private var identifierToStateMachine: [String : StateMachineProtocol] = [:]
     private var eventSchemaToStateMachine: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToEntitiesGenerator: [String : [StateMachineProtocol]] = [:]
@@ -73,14 +73,15 @@ class StateManager: NSObject {
             stateMachine: stateMachine)
         return true
     }
-    
+
     func trackerState(forProcessedEvent event: Event) -> TrackerStateSnapshot? {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
+
         if let sdEvent = event as? SelfDescribingAbstract {
             var stateMachines = Array(eventSchemaToStateMachine[sdEvent.schema] ?? [])
             stateMachines.append(contentsOf: eventSchemaToStateMachine["*"] ?? [])
-            
+
             for stateMachine in stateMachines {
                 let previousStateFuture = trackerState.stateFuture(withIdentifier: stateMachine.identifier)
                 let currentStateFuture = StateFuture(
@@ -106,15 +107,15 @@ class StateManager: NSObject {
         return trackerState.snapshot()
     }
 
-    func entities(forProcessedEvent event: InspectableEvent) -> [SelfDescribingJson] {
+    func entities(forProcessedEvent event: InspectableEvent & StateMachineEvent) -> [SelfDescribingJson] {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
-        
-        guard let schema = event.schema else { return [] }
+
+        guard let schema = event.schema ?? event.eventName else { return [] }
         var result: [SelfDescribingJson] = []
         var stateMachines = eventSchemaToEntitiesGenerator[schema] ?? []
         stateMachines.append(contentsOf: eventSchemaToEntitiesGenerator["*"] ?? [])
-        
+
         for stateMachine in stateMachines {
             let state = event.state.state(withIdentifier: stateMachine.identifier)
             if let entities = stateMachine.entities(from: event, state: state) {
@@ -124,10 +125,10 @@ class StateManager: NSObject {
         return result
     }
 
-    func addPayloadValues(to event: InspectableEvent) -> Bool {
+    func addPayloadValues(to event: InspectableEvent & StateMachineEvent) -> Bool {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
-        
+
         guard let schema = event.schema else { return true }
         var failures = 0
         var stateMachines = eventSchemaToPayloadUpdater[schema] ?? []
@@ -145,7 +146,7 @@ class StateManager: NSObject {
 
     // MARK: - Private methods
 
-    func add(toSchemaRegistry schemaRegistry: inout [String : [StateMachineProtocol]], schemas: [String], stateMachine: StateMachineProtocol?) {
+    private func add(toSchemaRegistry schemaRegistry: inout [String : [StateMachineProtocol]], schemas: [String], stateMachine: StateMachineProtocol?) {
         for eventSchema in schemas {
             var array = schemaRegistry[eventSchema] ?? []
             if let stateMachine = stateMachine {
@@ -155,7 +156,7 @@ class StateManager: NSObject {
         }
     }
 
-    func remove(fromSchemaRegistry schemaRegistry: inout [String : [StateMachineProtocol]], schemas: [String], stateMachine: StateMachineProtocol) {
+    private func remove(fromSchemaRegistry schemaRegistry: inout [String : [StateMachineProtocol]], schemas: [String], stateMachine: StateMachineProtocol) {
         for eventSchema in schemas {
             var array = schemaRegistry[eventSchema]
             array?.removeAll { $0.identifier == stateMachine.identifier }

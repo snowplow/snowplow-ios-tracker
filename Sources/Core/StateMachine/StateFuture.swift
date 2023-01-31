@@ -26,19 +26,18 @@ import Foundation
 /// (event, previous StateFuture, StateMachine) needed to calculate the real state value.
 /// For this reason, the StateFuture can be the head of StateFuture chain which will collapse once the StateFuture
 /// head is asked to get the real state value.
-class StateFuture: NSObject {
+class StateFuture {
     private var event: Event?
     private var previousState: StateFuture?
     private var stateMachine: StateMachineProtocol?
     private var computedState: State?
 
     init(event: Event, previousState: StateFuture?, stateMachine: StateMachineProtocol) {
-        super.init()
         self.event = event
         self.previousState = previousState
         self.stateMachine = stateMachine
     }
-    
+
     func computeState() -> State? {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }

@@ -28,9 +28,17 @@ public class Event: NSObject {
     @objc
     public var trueTimestamp: Date?
     
-    /// The contexts attached to the event.
+    /// The context entities attached to the event.
     @objc
-    public var contexts: [SelfDescribingJson] = []
+    public var entities: [SelfDescribingJson] = []
+    
+    /// The context entities attached to the event.
+    @objc
+    @available(*, deprecated, renamed: "entities")
+    public var contexts: [SelfDescribingJson] {
+        get { return entities }
+        set { entities = newValue }
+    }
     
     /// The payload of the event.
     var payload: [String : Any] {
