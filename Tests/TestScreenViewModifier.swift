@@ -47,7 +47,7 @@ class TestScreenViewModifier: XCTestCase {
         if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, *) {
             let modifier = ScreenViewModifier(
                 name: "screen-1",
-                contexts: [
+                entities: [
                     (
                         schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0",
                         data: [

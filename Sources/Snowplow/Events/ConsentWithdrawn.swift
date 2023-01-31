@@ -78,6 +78,6 @@ public class ConsentWithdrawn: SelfDescribingAbstract {
     }
 
     override func beginProcessing(withTracker tracker: Tracker) {
-        contexts.append(contentsOf: allDocuments)
+        entities.append(contentsOf: allDocuments)
     }
 }

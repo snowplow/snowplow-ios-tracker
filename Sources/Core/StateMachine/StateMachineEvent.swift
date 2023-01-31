@@ -1,8 +1,8 @@
 //
-//  SPDeepLinkState.swift
+//  StateMachineEvent.swift
 //  Snowplow
 //
-//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -15,19 +15,19 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Alex Benini
+//  Authors: Joshua Beemster
 //  License: Apache License Version 2.0
 //
 
 import Foundation
 
-class DeepLinkState: NSObject, State {
-    private(set) var url: String
-    private(set) var referrer: String?
-    var readyForOutput = false
+/// The inspectable properties of the event used to generate contexts.
+protocol StateMachineEvent {
+    /// The tracker state at the time the event was sent.
+    var state: TrackerStateSnapshot { get }
 
-    init(url: String, referrer: String?) {
-        self.url = url
-        self.referrer = referrer
-    }
+    /// Add payload values to the event.
+    /// - Parameter payload: Map of values to add to the event payload.
+    /// - Returns: Whether or not the values have been successfully added to the event payload.
+    func addPayloadValues(_ payload: [String : Any]) -> Bool
 }

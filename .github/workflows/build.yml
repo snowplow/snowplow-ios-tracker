@@ -5,7 +5,7 @@ on: [push]
 jobs:
   podspec:
     name: Lint Podspec for ${{ matrix.platform }}
-    runs-on: macos-latest
+    runs-on: macos-11
     strategy:
       matrix:
         platform: [ios, osx, tvos, watchos]

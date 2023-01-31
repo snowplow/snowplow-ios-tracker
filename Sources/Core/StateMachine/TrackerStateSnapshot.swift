@@ -1,5 +1,5 @@
 //
-//  State.swift
+//  TrackerStateSnapshot.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -21,6 +21,10 @@
 
 import Foundation
 
-@objc(SPState)
-public protocol State {
+protocol TrackerStateSnapshot {
+    /// Get a computed state with a specific state identifier
+    func state(withIdentifier stateIdentifier: String) -> State?
+
+    /// Get a computed state with a specific state machine
+    func state(withStateMachine stateMachine: StateMachineProtocol) -> State?
 }

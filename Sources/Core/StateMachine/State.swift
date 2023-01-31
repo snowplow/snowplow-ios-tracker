@@ -1,8 +1,8 @@
 //
-//  InspectableEvent.swift
+//  State.swift
 //  Snowplow
 //
-//  Copyright (c) 2022 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -15,28 +15,12 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 //
-//  Authors: Joshua Beemster
+//  Authors: Alex Benini
 //  License: Apache License Version 2.0
 //
 
 import Foundation
 
-/// The inspectable properties of the event used to generate contexts.
-@objc(SPInspectableEvent)
-public protocol InspectableEvent {
-    /// The schema of the event
-    @objc
-    var schema: String? { get }
-
-    /// The name of the event
-    @objc
-    var eventName: String? { get }
-
-    /// The payload of the event
-    @objc
-    var payload: [String : Any] { get }
-
-    /// The list of context entities
-    @objc
-    var entities: [SelfDescribingJson] { get }
+@objc(SPState)
+protocol State {
 }

@@ -20,7 +20,7 @@
 
 import Foundation
 
-class LifecycleState: NSObject, State {
+class LifecycleState: State {
     private(set) var isForeground = false
     private(set) var index: Int
 
