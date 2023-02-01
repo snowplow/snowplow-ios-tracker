@@ -67,4 +67,34 @@ public class EcommerceItem : PrimitiveAbstract {
         payload[kSPEcommItemQuantity] = String(format: "%ld", quantity)
         return payload
     }
+    
+    // MARK: - Builders
+    
+    /// Name of the item.
+    @objc
+    public func name(_ name: String?) -> Self {
+        self.name = name
+        return self
+    }
+
+    /// Category of the item.
+    @objc
+    public func category(_ category: String?) -> Self {
+        self.category = category
+        return self
+    }
+    
+    /// Currency used for the price of the item.
+    @objc
+    public func currency(_ currency: String?) -> Self {
+        self.currency = currency
+        return self
+    }
+    
+    /// OrderID of the order that contains this item.
+    @objc
+    public func orderId(_ orderId: String?) -> Self {
+        self.orderId = orderId
+        return self
+    }
 }

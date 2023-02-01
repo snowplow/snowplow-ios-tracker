@@ -63,7 +63,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
@@ -95,7 +95,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameter onSuccess: The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated
@@ -125,7 +125,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
@@ -140,6 +140,7 @@ public class Snowplow: NSObject {
         return createTracker(namespace: namespace, network: networkConfiguration, configurations: [])
     }
 
+#if swift(>=5.4)
     /// Create a new tracker instance which will be used inside the app to track events.
     ///
     /// The app can run multiple tracker instances which will be identified by string `namespaces`.
@@ -154,19 +155,23 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
     ///   - namespace: The namespace used to identify the current tracker among the possible
     ///                  multiple tracker instances.
-    ///   - networkConfiguration: The NetworkConfiguration object with settings for the communication with the
-    ///                collector.
+    ///   - endpoint: The URL of the collector.
+    ///   - method: The method for the requests to the collector (GET or POST).
+    ///   - configurationBuilder: Swift DSL builder for your configuration objects (e.g, `EmitterConfiguration`, `TrackerConfiguration`)
     /// - Returns: The tracker instance created.
-    @objc
-    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration) -> TrackerController? {
-        return createTracker(namespace: namespace, network: networkConfiguration, configurations: [])
+    public class func createTracker(namespace: String, endpoint: String, method: HttpMethodOptions = .post, @ConfigurationBuilder _ configurationBuilder: () -> [ConfigurationProtocol]) -> TrackerController? {
+        let configurations = configurationBuilder()
+        return createTracker(namespace: namespace,
+                             network: NetworkConfiguration(endpoint: endpoint, method: method),
+                             configurations: configurations)
     }
+#endif
 
     /// Create a new tracker instance which will be used inside the app to track events.
     ///
@@ -182,7 +187,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
@@ -194,7 +199,7 @@ public class Snowplow: NSObject {
     ///                       the tracker.
     /// - Returns: The tracker instance created.
     @objc
-    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol]) -> TrackerController? {
+    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol] = []) -> TrackerController? {
         if let serviceProvider = serviceProviderInstances[namespace] {
             serviceProvider.reset(configurations: configurations + [networkConfiguration])
             return serviceProvider.trackerController
@@ -205,6 +210,39 @@ public class Snowplow: NSObject {
         }
     }
 
+#if swift(>=5.4)
+    /// Create a new tracker instance which will be used inside the app to track events.
+    ///
+    /// The app can run multiple tracker instances which will be identified by string `namespaces`.
+    /// The tracker will be configured with default setting and only the collector endpoint URL need
+    /// to be passed for the configuration.
+    /// For the default configuration of the tracker see `TrackerConfiguration(String)`.
+    ///
+    /// To configure tracker with more details see `createTracker(Context, String, NetworkConfiguration, Configuration...)`
+    /// To use the tracker as singleton see `getDefaultTracker()`
+    ///
+    /// IMPORTANT: The EventStore will persist all the events that have been tracked but not yet sent.
+    /// Those events are attached to the namespace.
+    /// If the tracker is removed or the app relaunched with a different namespace, those events can't
+    /// be sent to the collector and they remain in a zombie state inside the EventStore.
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
+    ///
+    /// - Parameters:
+    ///   - namespace: The namespace used to identify the current tracker among the possible
+    ///                  multiple tracker instances.
+    ///   - networkConfiguration: The NetworkConfiguration object with settings for the communication with the
+    ///                collector.
+    ///   - configurationBuilder: Swift DSL builder for your configuration objects (e.g, `EmitterConfiguration`, `TrackerConfiguration`)
+    /// - Returns: The tracker instance created.
+    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, @ConfigurationBuilder _ configurationBuilder: () -> [ConfigurationProtocol]) -> TrackerController? {
+        let configurations = configurationBuilder()
+        return createTracker(namespace: namespace,
+                             network: networkConfiguration,
+                             configurations: configurations)
+    }
+#endif
+    
     /// Get the default tracker instance.
     ///
     /// The default tracker instance is the first created in the app, but that can be overridden programmatically

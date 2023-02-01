@@ -62,4 +62,13 @@ public class Timing: SelfDescribingAbstract {
         if let label = label { payload[kSPUtLabel] = label }
         return payload
     }
+    
+    // MARK: - Builders
+    
+    /// The timing label
+    @objc
+    public func label(_ label: String?) -> Self {
+        self.label = label
+        return self
+    }
 }

@@ -1,5 +1,5 @@
 //
-//  Configuration.swift
+//  ConfigurationProtocol.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.

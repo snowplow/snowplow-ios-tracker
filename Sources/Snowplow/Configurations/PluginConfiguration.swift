@@ -107,16 +107,19 @@ public class PluginConfiguration: NSObject, PluginConfigurationProtocol, Configu
     public init(identifier: String) {
         self.identifier = identifier
     }
+    
+    // MARK: - Builders
 
     /// Add a closure that generates entities for a given tracked event.
     /// - Parameters:
     ///   - schemas: Optional list of event schemas to call the closure for. If null, the closure is called for all events.
     ///   - closure: Closure that produces entities, called when events are tracked.
-    public func entities(schemas: [String]? = nil, closure: @escaping PluginEntitiesClosure) {
+    public func entities(schemas: [String]? = nil, closure: @escaping PluginEntitiesClosure) -> Self {
         self.entitiesConfiguration = PluginEntitiesConfiguration(
             schemas: schemas,
             closure: closure
         )
+        return self
     }
 
     /// Add a closure that is called after the events are tracked.
@@ -124,10 +127,11 @@ public class PluginConfiguration: NSObject, PluginConfigurationProtocol, Configu
     /// - Parameters:
     ///   - schemas: Optional list of event schemas to call the closure for. If null, the closure is called for all events.
     ///   - closure: Closure block to call after events are tracked.
-    public func afterTrack(schemas: [String]? = nil, closure: @escaping PluginAfterTrackClosure) {
+    public func afterTrack(schemas: [String]? = nil, closure: @escaping PluginAfterTrackClosure) -> Self {
         self.afterTrackConfiguration = PluginAfterTrackConfiguration(
             schemas: schemas,
             closure: closure
         )
+        return self
     }
 }
