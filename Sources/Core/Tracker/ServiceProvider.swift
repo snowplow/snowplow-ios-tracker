@@ -85,14 +85,8 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return gdprController
     }
 
-    private var _globalContextsController: GlobalContextsControllerImpl?
     var globalContextsController: GlobalContextsControllerImpl {
-        if let controller = _globalContextsController {
-            return controller
-        }
-        let globalContextsController = makeGlobalContextsController()
-        _globalContextsController = globalContextsController
-        return globalContextsController
+        return GlobalContextsControllerImpl(serviceProvider: self)
     }
 
     private var _subjectController: SubjectControllerImpl?
@@ -110,9 +104,13 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         _networkController = networkController
         return networkController
     }
-
+    
+    var pluginsController: PluginsControllerImpl {
+        return PluginsControllerImpl(serviceProvider: self)
+    }
+    
     // Original configurations
-    private var globalContextConfiguration: GlobalContextsConfiguration?
+    private(set) var pluginConfigurations: [PluginConfigurationProtocol] = []
 
     // Configuration updates
     private(set) var networkConfigurationUpdate = NetworkConfigurationUpdate()
@@ -169,7 +167,11 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             } else if let configuration = configuration as? GDPRConfiguration {
                 gdprConfigurationUpdate.sourceConfig = configuration
             } else if let configuration = configuration as? GlobalContextsConfiguration {
-                globalContextConfiguration = configuration
+                for plugin in configuration.toPluginConfigurations() {
+                    pluginConfigurations.append(plugin)
+                }
+            } else if let configuration = configuration as? PluginConfigurationProtocol {
+                pluginConfigurations.append(configuration)
             }
         }
     }
@@ -189,7 +191,6 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         _sessionController = nil
         _emitterController = nil
         _gdprController = nil
-        _globalContextsController = nil
         _subjectController = nil
         _networkController = nil
     }
@@ -266,7 +267,6 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         
         let trackerConfig = trackerConfigurationUpdate
         let sessionConfig = sessionConfigurationUpdate
-        let gcConfig = globalContextConfiguration
         let gdprConfig = gdprConfigurationUpdate
         
         let tracker = Tracker(
@@ -295,15 +295,16 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             tracker.trackerDiagnostic = trackerConfig.diagnosticAutotracking
             tracker.userAnonymisation = trackerConfig.userAnonymisation
             tracker.advertisingIdentifierRetriever = trackerConfig.advertisingIdentifierRetriever
-            if let config = gcConfig {
-                tracker.globalContextGenerators = config.contextGenerators
-            }
             if gdprConfig.sourceConfig != nil {
                 tracker.gdprContext = GDPRContext(
                     basis: gdprConfig.basisForProcessing,
                     documentId: gdprConfig.documentId,
                     documentVersion: gdprConfig.documentVersion,
                     documentDescription: gdprConfig.documentDescription)
+            }
+
+            for plugin in pluginConfigurations {
+                tracker.addOrReplace(stateMachine: plugin.toStateMachine())
             }
         }
         
@@ -341,15 +342,22 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return controller
     }
 
-    func makeGlobalContextsController() -> GlobalContextsControllerImpl {
-        return GlobalContextsControllerImpl(serviceProvider: self)
-    }
-
     func makeSubjectController() -> SubjectControllerImpl {
         return SubjectControllerImpl(serviceProvider: self)
     }
 
     func makeNetworkController() -> NetworkControllerImpl {
         return NetworkControllerImpl(serviceProvider: self)
+    }
+    
+    func addPlugin(plugin: PluginConfigurationProtocol) {
+        removePlugin(identifier: plugin.identifier)
+        pluginConfigurations.append(plugin)
+        tracker.addOrReplace(stateMachine: plugin.toStateMachine())
+    }
+
+    func removePlugin(identifier: String) {
+        pluginConfigurations = pluginConfigurations.filter { $0.identifier != identifier }
+        tracker.remove(stateMachineIdentifier: identifier)
     }
 }

@@ -58,7 +58,6 @@ class Tracker: NSObject {
     private(set) var previousScreenState: ScreenState?
     /// Current screen view state.
     private(set) var currentScreenState: ScreenState?
-    /// List of tags associated to global contexts.
     
     private var trackerData: [String : String]? = nil
     func setTrackerData() {
@@ -187,7 +186,7 @@ class Tracker: NSObject {
             objc_sync_enter(self)
             _deepLinkContext = deepLinkContext
             if deepLinkContext {
-                stateManager.addOrReplaceStateMachine(DeepLinkStateMachine())
+                addOrReplace(stateMachine: DeepLinkStateMachine())
             } else {
                 _ = stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
             }
@@ -204,7 +203,7 @@ class Tracker: NSObject {
             objc_sync_enter(self)
             _screenContext = screenContext
             if screenContext {
-                stateManager.addOrReplaceStateMachine(ScreenStateMachine())
+                addOrReplace(stateMachine: ScreenStateMachine())
             } else {
                 _ = stateManager.removeStateMachine(ScreenStateMachine.identifier)
             }
@@ -253,7 +252,7 @@ class Tracker: NSObject {
             objc_sync_enter(self)
             _lifecycleEvents = lifecycleEvents
             if lifecycleEvents {
-                stateManager.addOrReplaceStateMachine(LifecycleStateMachine())
+                addOrReplace(stateMachine: LifecycleStateMachine())
             } else {
                 _ = stateManager.removeStateMachine(LifecycleStateMachine.identifier)
             }
@@ -277,12 +276,6 @@ class Tracker: NSObject {
             }
         }
     }
-
-    var globalContextTags: [String] {
-        return Array(globalContextGenerators.keys)
-    }
-    /// Dictionary of global contexts generators.
-    var globalContextGenerators: [String : GlobalContext] = [:]
 
     /// GDPR context
     /// You can enable or disable the context by setting this property
@@ -374,37 +367,19 @@ class Tracker: NSObject {
         }
     }
     
-
-    /// Add new generator for global contexts associated with a string tag.
-    /// If the string tag has been already set the new global context is not assigned.
-    /// - Parameters:
-    ///   - generator: The global context generator.
-    ///   - tag: The tag associated to the global context.
-    /// - Returns: Weather the global context has been added.
-    func add(_ generator: GlobalContext, tag: String) -> Bool {
-        if (globalContextGenerators)[tag] != nil {
-            return false
-        }
-        (globalContextGenerators)[tag] = generator
-        return true
+    /// Add or replace state machine in the state manager
+    func addOrReplace(stateMachine: StateMachineProtocol) {
+        stateManager.addOrReplaceStateMachine(stateMachine)
     }
-
-    /// Remove the global context associated with the string tag.
-    /// If the string tag exist it returns the global context generator associated with.
-    /// - Parameter tag: The tag associated to the global context.
-    /// - Returns: The global context associated with the tag or `nil` in case of any entry with that string tag.
-    func removeGlobalContext(_ tag: String) -> GlobalContext? {
-        let toDelete = (globalContextGenerators)[tag]
-        if toDelete != nil {
-            globalContextGenerators.removeValue(forKey: tag)
-        }
-        return toDelete
+    
+    /// Remove stata machine from the state manager
+    func remove(stateMachineIdentifier: String) {
+        _ = stateManager.removeStateMachine(stateMachineIdentifier)
     }
-
-    /// Pauses all event tracking, storage and session checking.
 
     // MARK: - Extra Functions
 
+    /// Pauses all event tracking, storage and session checking.
     func pauseEventTracking() {
         dataCollection = false
         emitter.pauseTimer()
@@ -417,11 +392,8 @@ class Tracker: NSObject {
         session?.startChecker()
     }
 
-    /// Returns whether the application is in the background or foreground.
-    /// - Returns: Whether application is suspended.
-
     // MARK: - Notifications management
-
+    
     @objc func receiveScreenViewNotification(_ notification: Notification) {
         guard let name = notification.userInfo?["name"] as? String else { return }
         
@@ -468,14 +440,11 @@ class Tracker: NSObject {
         }
     }
 
-    // MARK: - Events tracking methods
+    // MARK: - Event Tracking Functions
 
     /// Tracks an event despite its specific type.
     /// - Parameter event: The event to track
     /// - Returns: The event ID or nil in case tracking is paused
-
-    // MARK: - Event Tracking Functions
-
     func track(_ event: Event) -> UUID? {
         if !dataCollection {
             return nil
@@ -493,13 +462,36 @@ class Tracker: NSObject {
         let stateSnapshot = stateManager.trackerState(forProcessedEvent: event)
         objc_sync_exit(self)
         let trackerEvent = TrackerEvent(event: event, state: stateSnapshot)
-        transformEvent(trackerEvent)
         let payload = self.payload(with: trackerEvent)
         emitter.addPayload(toBuffer: payload)
+        stateManager.afterTrack(event: trackerEvent)
         return trackerEvent.eventId
     }
 
-    func transformEvent(_ event: TrackerEvent) {
+    func payload(with event: TrackerEvent) -> Payload {
+        let payload = Payload()
+        payload.allowDiagnostic = !event.isService
+
+        // Payload properties
+        setApplicationInstallEventTimestamp(event)
+        addBasicProperties(to: payload, event: event)
+        addStateMachinePayloadValues(event: event)
+        event.wrapProperties(to: payload, base64Encoded: base64Encoded)
+
+        // Context entities
+        addBasicContexts(event: event)
+        addStateMachineEntities(event: event)
+        event.wrapContexts(to: payload, base64Encoded: base64Encoded)
+
+        // Workaround for campaign attribution
+        if !event.isPrimitive {
+            // TODO: To remove when Atomic table refactoring is finished
+            workaround(forCampaignAttributionEnrichment: payload, event: event)
+        }
+        return payload
+    }
+    
+    private func setApplicationInstallEventTimestamp(_ event: TrackerEvent) {
         // Application_install event needs the timestamp to the real installation event.
         if (event.schema == kSPApplicationInstallSchema) {
             if let trueTimestamp = event.trueTimestamp {
@@ -507,67 +499,32 @@ class Tracker: NSObject {
                 event.trueTimestamp = nil
             }
         }
-        // Payload can be optionally updated with values based on internal state
-        let _ = stateManager.addPayloadValues(to: event)
-    }
-
-    func payload(with event: TrackerEvent) -> Payload {
-        let payload = Payload()
-        payload.allowDiagnostic = !event.isService
-
-        addBasicProperties(to: payload, event: event)
-        if event.isPrimitive {
-            addPrimitiveProperties(to: payload, event: event)
-        } else {
-            addSelfDescribingProperties(to: payload, event: event)
-        }
-        var entities = event.entities
-        addBasicContexts(toContexts: &entities, event: event)
-        addGlobalContexts(toContexts: &entities, event: event)
-        addStateMachineEntities(toContexts: &entities, event: event)
-        wrapContexts(entities, to: payload)
-        if !event.isPrimitive {
-            // TODO: To remove when Atomic table refactoring is finished
-            workaround(forCampaignAttributionEnrichment: payload, event: event, contexts: &entities)
-        }
-        return payload
     }
 
     func addBasicProperties(to payload: Payload, event: TrackerEvent) {
+        // Event ID
         payload.addValueToPayload(event.eventId.uuidString, forKey: kSPEid)
+        // Timestamps
         payload.addValueToPayload(String(format: "%lld", event.timestamp), forKey: kSPTimestamp)
         if let trueTimestamp = event.trueTimestamp {
             let ttInMilliSeconds = Int64(trueTimestamp.timeIntervalSince1970 * 1000)
             payload.addValueToPayload(String(format: "%lld", ttInMilliSeconds), forKey: kSPTrueTimestamp)
         }
+        // Tracker info (version, namespace, app ID)
         if let trackerData = trackerData {
             payload.addDictionaryToPayload(trackerData)
         }
+        // Subject
         if let subjectDict = subject?.standardDict(userAnonymisation: userAnonymisation) {
             payload.addDictionaryToPayload(subjectDict)
         }
+        // Platform
         payload.addValueToPayload(devicePlatformToString(devicePlatform), forKey: kSPPlatform)
-    }
-
-    func addPrimitiveProperties(to payload: Payload, event: TrackerEvent) {
-        payload.addValueToPayload(event.eventName, forKey: kSPEvent)
-        payload.addDictionaryToPayload(event.payload)
-    }
-
-    func addSelfDescribingProperties(to payload: Payload, event: TrackerEvent) {
-        payload.addValueToPayload(kSPEventUnstructured, forKey: kSPEvent)
-
-        if let schema = event.schema {
-            let eventPayload = event.payload
-            let data = SelfDescribingJson(schema: schema, andData: eventPayload)
-            let unstructuredEventPayload = SelfDescribingJson.dictionary(
-                schema: kSPUnstructSchema,
-                data: data.dictionary)
-            payload.addDictionaryToPayload(
-                unstructuredEventPayload,
-                base64Encoded: base64Encoded,
-                typeWhenEncoded: kSPUnstructuredEncoded,
-                typeWhenNotEncoded: kSPUnstructured)
+        // Event name
+        if event.isPrimitive {
+            payload.addValueToPayload(event.eventName, forKey: kSPEvent)
+        } else {
+            payload.addValueToPayload(kSPEventUnstructured, forKey: kSPEvent)
         }
     }
 
@@ -580,7 +537,7 @@ class Tracker: NSObject {
      This is a hack that should be removed once the atomic event table is dismissed and all the events
      will be SelfDescribing.
      */
-    func workaround(forCampaignAttributionEnrichment payload: Payload, event: TrackerEvent, contexts: inout [SelfDescribingJson]) {
+    func workaround(forCampaignAttributionEnrichment payload: Payload, event: TrackerEvent) {
         var url: String?
         var referrer: String?
 
@@ -588,7 +545,7 @@ class Tracker: NSObject {
             url = event.payload[DeepLinkReceived.paramUrl] as? String
             referrer = event.payload[DeepLinkReceived.paramReferrer] as? String
         } else if event.schema == kSPScreenViewSchema {
-            for entity in contexts {
+            for entity in event.entities {
                 if entity.schema == DeepLinkEntity.schema {
                     let data = entity.data
                     url = data[DeepLinkEntity.paramUrl] as? String
@@ -606,73 +563,54 @@ class Tracker: NSObject {
         }
     }
 
-    func addBasicContexts(toContexts contexts: inout [SelfDescribingJson], event: TrackerEvent) {
-        addBasicContexts(toContexts: &contexts, eventId: event.eventId.uuidString, eventTimestamp: event.timestamp, isService: event.isService)
-    }
-
-    func addBasicContexts(toContexts contexts: inout [SelfDescribingJson], eventId: String, eventTimestamp: Int64, isService: Bool) {
+    func addBasicContexts(event: TrackerEvent) {
         if subject != nil {
             if let platformDict = subject?.platformDict(
                 userAnonymisation: userAnonymisation,
                 advertisingIdentifierRetriever: advertisingIdentifierRetriever)?.dictionary {
-                contexts.append(SelfDescribingJson(schema: platformContextSchema, andDictionary: platformDict))
+                event.addContextEntity(SelfDescribingJson(schema: platformContextSchema, andDictionary: platformDict))
             }
             if let geoLocationDict = subject?.geoLocationDict {
-                contexts.append(SelfDescribingJson(schema: kSPGeoContextSchema, andDictionary: geoLocationDict))
+                event.addContextEntity(SelfDescribingJson(schema: kSPGeoContextSchema, andDictionary: geoLocationDict))
             }
         }
 
         if applicationContext {
             if let contextJson = Utilities.applicationContext {
-                contexts.append(contextJson)
+                event.addContextEntity(contextJson)
             }
         }
 
-        if isService {
+        if event.isService {
             return
         }
 
         // Add session
         if let session = session {
-            if let sessionDict = session.getDictWithEventId(eventId, eventTimestamp: eventTimestamp, userAnonymisation: userAnonymisation) {
-                contexts.append(SelfDescribingJson(schema: kSPSessionContextSchema, andDictionary: sessionDict))
+            if let sessionDict = session.getDictWithEventId(event.eventId.uuidString,
+                                                            eventTimestamp: event.timestamp,
+                                                            userAnonymisation: userAnonymisation) {
+                event.addContextEntity(SelfDescribingJson(schema: kSPSessionContextSchema, andDictionary: sessionDict))
             } else {
-                logDiagnostic(message: String(format: "Unable to get session context for eventId: %@", eventId))
+                logDiagnostic(message: String(format: "Unable to get session context for eventId: %@", event.eventId.uuidString))
             }
         }
 
         // Add GDPR context
         if let gdprContext = gdprContext?.context {
-            contexts.append(gdprContext)
+            event.addContextEntity(gdprContext)
         }
     }
 
-    func addGlobalContexts(toContexts contexts: inout [SelfDescribingJson], event: InspectableEvent) {
-        for (_, generator) in globalContextGenerators {
-            contexts.append(contentsOf: generator.contexts(from: event))
-        }
+    private func addStateMachinePayloadValues(event: TrackerEvent) {
+        _ = stateManager.addPayloadValues(to: event)
     }
 
-    func addStateMachineEntities(toContexts contexts: inout [SelfDescribingJson], event: InspectableEvent & StateMachineEvent) {
+    func addStateMachineEntities(event: TrackerEvent) {
         let stateManagerEntities = stateManager.entities(forProcessedEvent: event)
-        contexts.append(contentsOf: stateManagerEntities)
-    }
-
-    func wrapContexts(_ contexts: [SelfDescribingJson], to payload: Payload) {
-        if contexts.count == 0 {
-            return
+        for entity in stateManagerEntities {
+            event.addContextEntity(entity)
         }
-
-        let dict: [String : Any] = [
-            kSPSchema: kSPContextSchema,
-            kSPData: contexts.map { $0.dictionary }
-        ]
-
-        payload.addDictionaryToPayload(
-            dict,
-            base64Encoded: base64Encoded,
-            typeWhenEncoded: kSPContextEncoded,
-            typeWhenNotEncoded: kSPContext)
     }
 
     deinit {

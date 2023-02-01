@@ -56,41 +56,42 @@ class TestGlobalContexts: XCTestCase {
                 ])
             ]
         })
-        
+
         var generators = [
             "static": staticGC,
             "generator": generatorGC,
             "block": blockGC
         ]
-        let tracker = getTrackerWithGlobalContextGenerators(&generators)
+        let serviceProvider = getServiceProviderWithGlobalContextGenerators(&generators)
+        let controller = serviceProvider.globalContextsController
 
-        var result = Set<String>(tracker.globalContextTags)
+        var result = Set<String>(controller.tags)
         var expected = Set<String>(["static", "generator", "block"])
         XCTAssertEqual(result, expected)
 
         // Can't remove a not existing tag
-        var removedGC = tracker.removeGlobalContext("notExistingTag")
+        var removedGC = controller.remove(tag: "notExistingTag")
         XCTAssertNil(removedGC)
-        result = Set<String>(tracker.globalContextTags)
+        result = Set<String>(controller.tags)
         expected = Set<String>(["static", "generator", "block"])
         XCTAssertTrue(result == expected)
 
         // Remove an existing tag
-        removedGC = tracker.removeGlobalContext("static")
+        removedGC = controller.remove(tag: "static")
         XCTAssertNotNil(removedGC)
-        result = Set<String>(tracker.globalContextTags)
+        result = Set<String>(controller.tags)
         expected = Set<String>(["generator", "block"])
         XCTAssertTrue(result == expected)
 
         // Add a not existing tag
-        XCTAssertTrue(tracker.add(staticGC, tag: "static"))
-        result = Set<String>(tracker.globalContextTags)
+        XCTAssertTrue(controller.add(tag: "static", contextGenerator: staticGC))
+        result = Set<String>(controller.tags)
         expected = Set<String>(["generator", "block", "static"])
         XCTAssertTrue(result == expected)
 
         // Can't add an existing tag
-        XCTAssertFalse(tracker.add(staticGC, tag: "static"))
-        result = Set<String>(tracker.globalContextTags)
+        XCTAssertFalse(controller.add(tag: "static", contextGenerator: staticGC))
+        result = Set<String>(controller.tags)
         expected = Set<String>(["generator", "block", "static"])
         XCTAssertTrue(result == expected)
     }
@@ -102,26 +103,27 @@ class TestGlobalContexts: XCTestCase {
             ])
         ])
         var generators: [String : GlobalContext] = [:]
-        let tracker = getTrackerWithGlobalContextGenerators(&generators)
+        let serviceProvider = getServiceProviderWithGlobalContextGenerators(&generators)
+        let controller = serviceProvider.globalContextsController
 
-        var result = Set<String>(tracker.globalContextTags)
+        var result = Set<String>(controller.tags)
         var expected = Set<String>([])
         XCTAssertTrue(result == expected)
 
         // Can't remove a not existing tag
-        var removedGC = tracker.removeGlobalContext("notExistingTag")
+        var removedGC = controller.remove(tag: "notExistingTag")
         XCTAssertNil(removedGC)
 
         // Add a not existing tag
-        XCTAssertTrue(tracker.add(staticGC, tag: "static"))
-        result = Set<String>(tracker.globalContextTags)
+        XCTAssertTrue(controller.add(tag: "static", contextGenerator: staticGC))
+        result = Set<String>(controller.tags)
         expected = Set<String>(["static"])
         XCTAssertTrue(result == expected)
 
         // Remove an existing tag
-        removedGC = tracker.removeGlobalContext("static")
+        removedGC = controller.remove(tag: "static")
         XCTAssertNotNil(removedGC)
-        result = Set<String>(tracker.globalContextTags)
+        result = Set<String>(controller.tags)
         expected = Set<String>([])
         XCTAssertTrue(result == expected)
     }
@@ -135,15 +137,14 @@ class TestGlobalContexts: XCTestCase {
         var globalContexts = [
             "static": staticGC
         ]
-        let tracker = getTrackerWithGlobalContextGenerators(&globalContexts)
+        let serviceProvider = getServiceProviderWithGlobalContextGenerators(&globalContexts)
 
         let event = Structured(category: "Category", action: "Action")
         let trackerEvent = TrackerEvent(event: event, state: nil)
 
-        var contexts: [SelfDescribingJson] = []
-        tracker.addGlobalContexts(toContexts: &contexts, event: trackerEvent)
-        XCTAssertTrue(contexts.count == 1)
-        XCTAssertEqual(contexts[0].schema, "schema")
+        serviceProvider.tracker.addStateMachineEntities(event: trackerEvent)
+        XCTAssertTrue(trackerEvent.entities.count == 1)
+        XCTAssertEqual(trackerEvent.entities[0].schema, "schema")
     }
 
     func testStaticGeneratortWithFilter() {
@@ -168,15 +169,14 @@ class TestGlobalContexts: XCTestCase {
             "matching": filterMatchingGC,
             "notMatching": filterNotMatchingGC
         ]
-        let tracker = getTrackerWithGlobalContextGenerators(&globalContexts)
+        let serviceProvider = getServiceProviderWithGlobalContextGenerators(&globalContexts)
 
         let event = Structured(category: stringToMatch, action: "Action")
         let trackerEvent = TrackerEvent(event: event, state: nil)
 
-        var contexts: [SelfDescribingJson] = []
-        tracker.addGlobalContexts(toContexts: &contexts, event: trackerEvent)
-        XCTAssertTrue(contexts.count == 1)
-        XCTAssertEqual(contexts[0].schema, "schema")
+        serviceProvider.tracker.addStateMachineEntities(event: trackerEvent)
+        XCTAssertTrue(trackerEvent.entities.count == 1)
+        XCTAssertEqual(trackerEvent.entities[0].schema, "schema")
     }
 
     func testStaticGeneratorWithRuleset() {
@@ -192,30 +192,28 @@ class TestGlobalContexts: XCTestCase {
         var globalContexts = [
             "ruleset": rulesetGC
         ]
-        let tracker = getTrackerWithGlobalContextGenerators(&globalContexts)
-
-        var contexts: [SelfDescribingJson] = []
+        let serviceProvider = getServiceProviderWithGlobalContextGenerators(&globalContexts)
 
         // Not matching primitive event
         let primitiveEvent = Structured(category: "Category", action: "Action")
         var trackerEvent = TrackerEvent(event: primitiveEvent, state: nil)
-        tracker.addGlobalContexts(toContexts: &contexts, event: trackerEvent)
-        XCTAssertTrue(contexts.count == 0)
+        serviceProvider.tracker.addStateMachineEntities(event: trackerEvent)
+        XCTAssertTrue(trackerEvent.entities.count == 0)
 
         // Not matching self-describing event with mobile schema
         let screenView = ScreenView(name: "Name", screenId: nil)
         screenView.type = "Type"
         trackerEvent = TrackerEvent(event: screenView, state: nil)
-        tracker.addGlobalContexts(toContexts: &contexts, event: trackerEvent)
-        XCTAssertTrue(contexts.count == 0)
+        serviceProvider.tracker.addStateMachineEntities(event: trackerEvent)
+        XCTAssertTrue(trackerEvent.entities.count == 0)
 
         // Matching self-describing event with general schema
         let timing = Timing(category: "Category", variable: "Variable", timing: 123)
         timing.label = "Label"
         trackerEvent = TrackerEvent(event: timing, state: nil)
-        tracker.addGlobalContexts(toContexts: &contexts, event: trackerEvent)
-        XCTAssertTrue(contexts.count == 1)
-        XCTAssertEqual(contexts[0].schema, "schema")
+        serviceProvider.tracker.addStateMachineEntities(event: trackerEvent)
+        XCTAssertTrue(trackerEvent.entities.count == 1)
+        XCTAssertEqual(trackerEvent.entities[0].schema, "schema")
     }
 
     func testBlockGenerator() {
@@ -228,15 +226,14 @@ class TestGlobalContexts: XCTestCase {
                 ]
             })
         ]
-        let tracker = getTrackerWithGlobalContextGenerators(&generators)
+        let serviceProvider = getServiceProviderWithGlobalContextGenerators(&generators)
 
         let event = Structured(category: "Category", action: "Action")
         let trackerEvent = TrackerEvent(event: event, state: nil)
 
-        var contexts: [SelfDescribingJson] = []
-        tracker.addGlobalContexts(toContexts: &contexts, event: trackerEvent)
-        XCTAssertTrue(contexts.count == 1)
-        XCTAssertEqual(contexts[0].schema, "schema")
+        serviceProvider.tracker.addStateMachineEntities(event: trackerEvent)
+        XCTAssertTrue(trackerEvent.entities.count == 1)
+        XCTAssertEqual(trackerEvent.entities[0].schema, "schema")
     }
 
     func testContextGenerator() {
@@ -244,21 +241,20 @@ class TestGlobalContexts: XCTestCase {
         var generators = [
             "contextGenerator": contextGeneratorGC
         ]
-        let tracker = getTrackerWithGlobalContextGenerators(&generators)
+        let serviceProvider = getServiceProviderWithGlobalContextGenerators(&generators)
 
         let event = Structured(category: "StringToMatch", action: "Action")
         let trackerEvent = TrackerEvent(event: event, state: nil)
 
-        var contexts: [SelfDescribingJson] = []
-        tracker.addGlobalContexts(toContexts: &contexts, event: trackerEvent)
-        XCTAssertTrue(contexts.count == 1)
-        XCTAssertEqual(contexts[0].schema, "schema")
+        serviceProvider.tracker.addStateMachineEntities(event: trackerEvent)
+        XCTAssertTrue(trackerEvent.entities.count == 1)
+        XCTAssertEqual(trackerEvent.entities[0].schema, "schema")
     }
 
     // MARK: - Utility function
 
 
-    func getTrackerWithGlobalContextGenerators(_ generators: inout [String : GlobalContext]) -> Tracker {
+    func getServiceProviderWithGlobalContextGenerators(_ generators: inout [String : GlobalContext]) -> ServiceProvider {
         let networkConfig = NetworkConfiguration(
             endpoint: "https://com.acme.fake",
             method: .post)
@@ -274,6 +270,6 @@ class TestGlobalContexts: XCTestCase {
             namespace: "aNamespace",
             network: networkConfig,
             configurations: [gcConfig])
-        return serviceProvider.tracker
+        return serviceProvider
     }
 }

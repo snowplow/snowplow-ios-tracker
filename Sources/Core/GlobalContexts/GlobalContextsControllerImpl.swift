@@ -25,28 +25,53 @@ class GlobalContextsControllerImpl: Controller, GlobalContextsController {
 
     var contextGenerators: [String : GlobalContext] {
         get {
-            return tracker.globalContextGenerators
+            var contexts: [String : GlobalContext] = [:]
+            for configuration in pluginConfigurations {
+                contexts[configuration.identifier] = configuration.globalContext
+            }
+            return contexts
         }
         set {
-            tracker.globalContextGenerators = newValue
+            for configuration in pluginConfigurations {
+                serviceProvider.pluginsController.remove(identifier: configuration.identifier)
+            }
+            for (identifier, globalContext) in newValue {
+                let plugin = GlobalContextPluginConfiguration(identifier: identifier,
+                                                              globalContext: globalContext)
+                serviceProvider.pluginsController.add(plugin: plugin)
+            }
         }
     }
 
     func add(tag: String, contextGenerator generator: GlobalContext) -> Bool {
-        return tracker.add(generator, tag: tag)
+        if tags.contains(tag) {
+            return false
+        }
+        let plugin = GlobalContextPluginConfiguration(identifier: tag,
+                                                      globalContext: generator)
+        serviceProvider.pluginsController.add(plugin: plugin)
+        return true
     }
 
     func remove(tag: String) -> GlobalContext? {
-        return tracker.removeGlobalContext(tag)
+        let configuration = pluginConfigurations.first { configuration in
+            configuration.identifier == tag
+        }
+        serviceProvider.pluginsController.remove(identifier: tag)
+        return configuration?.globalContext
     }
 
     var tags: [String] {
-        return tracker.globalContextTags
+        return pluginConfigurations.map { $0.identifier }
     }
 
     // MARK: - Private methods
 
-    private var tracker: Tracker {
-        return serviceProvider.tracker
+    private var pluginConfigurations: [GlobalContextPluginConfiguration] {
+        return serviceProvider.pluginConfigurations.filter { configuration in
+            configuration is GlobalContextPluginConfiguration
+        }.map { configuration in
+            configuration as! GlobalContextPluginConfiguration
+        }
     }
 }

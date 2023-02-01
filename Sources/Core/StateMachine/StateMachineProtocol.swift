@@ -26,6 +26,7 @@ protocol StateMachineProtocol {
     var subscribedEventSchemasForTransitions: [String] { get }
     var subscribedEventSchemasForEntitiesGeneration: [String] { get }
     var subscribedEventSchemasForPayloadUpdating: [String] { get }
+    var subscribedEventSchemasForAfterTrackCallback: [String] { get }
     
     /// Only available for self-describing events (inheriting from SelfDescribingAbstract)
     func transition(from event: Event, state: State?) -> State?
@@ -35,4 +36,7 @@ protocol StateMachineProtocol {
     
     /// Only available for self-describing events (inheriting from SelfDescribingAbstract)
     func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]?
+    
+    /// Available for both self-describing and primitive events (when using `*` as the schema)
+    func afterTrack(event: InspectableEvent)
 }

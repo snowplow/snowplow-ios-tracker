@@ -76,4 +76,46 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
         }
         return result
     }
+    
+    func addContextEntity(_ entity: SelfDescribingJson) {
+        entities.append(entity)
+    }
+    
+    func wrapContexts(to payload: Payload, base64Encoded: Bool) {
+        if entities.count == 0 {
+            return
+        }
+        
+        let dict = SelfDescribingJson.dictionary(
+            schema: kSPContextSchema,
+            data: entities.map { $0.dictionary })
+        
+        payload.addDictionaryToPayload(
+            dict,
+            base64Encoded: base64Encoded,
+            typeWhenEncoded: kSPContextEncoded,
+            typeWhenNotEncoded: kSPContext)
+    }
+    
+    func wrapProperties(to payload: Payload, base64Encoded: Bool) {
+        if isPrimitive {
+            payload.addDictionaryToPayload(self.payload)
+        } else {
+            wrapSelfDescribing(to: payload, base64Encoded: base64Encoded)
+        }
+    }
+    
+    private func wrapSelfDescribing(to payload: Payload, base64Encoded: Bool) {
+        guard let schema = schema else { return }
+        
+        let data = SelfDescribingJson(schema: schema, andData: self.payload)
+        let unstructuredEventPayload = SelfDescribingJson.dictionary(
+            schema: kSPUnstructSchema,
+            data: data.dictionary)
+        payload.addDictionaryToPayload(
+            unstructuredEventPayload,
+            base64Encoded: base64Encoded,
+            typeWhenEncoded: kSPUnstructuredEncoded,
+            typeWhenNotEncoded: kSPUnstructured)
+    }
 }

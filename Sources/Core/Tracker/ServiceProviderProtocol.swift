@@ -34,10 +34,14 @@ protocol ServiceProviderProtocol: AnyObject {
     var globalContextsController: GlobalContextsControllerImpl { get }
     var subjectController: SubjectControllerImpl { get }
     var sessionController: SessionControllerImpl { get }
+    var pluginsController: PluginsControllerImpl { get }
     var networkConfigurationUpdate: NetworkConfigurationUpdate { get }
     var trackerConfigurationUpdate: TrackerConfigurationUpdate { get }
     var emitterConfigurationUpdate: EmitterConfigurationUpdate { get }
     var subjectConfigurationUpdate: SubjectConfigurationUpdate { get }
     var sessionConfigurationUpdate: SessionConfigurationUpdate { get }
     var gdprConfigurationUpdate: GDPRConfigurationUpdate { get }
+    var pluginConfigurations: [PluginConfigurationProtocol] { get }
+    func addPlugin(plugin: PluginConfigurationProtocol)
+    func removePlugin(identifier: String)
 }

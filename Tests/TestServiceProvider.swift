@@ -44,7 +44,9 @@ class TestServiceProvider: XCTestCase {
         trackerConfig.installAutotracking = false
         trackerConfig.screenViewAutotracking = false
         trackerConfig.lifecycleAutotracking = false
-        let serviceProvider = ServiceProvider(namespace: "ns", network: networkConfig, configurations: [emitterConfig, trackerConfig])
+        let serviceProvider = ServiceProvider(namespace: "serviceProviderTest",
+                                              network: networkConfig,
+                                              configurations: [emitterConfig, trackerConfig])
         XCTAssertNotNil(serviceProvider)
 
         // pause emitter
