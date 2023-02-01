@@ -58,6 +58,30 @@ public class Event: NSObject {
     /// @note Internal use only - Don't use in production, it can change without notice.
     func endProcessing(withTracker tracker: Tracker) {
     }
+    
+    // MARK: - Builders
+    
+    /// The user event timestamp in milliseconds (epoch time).
+    @objc
+    public func trueTimestamp(_ timestamp: Date?) -> Self {
+        self.trueTimestamp = timestamp
+        return self
+    }
+    
+    /// The context entities attached to the event.
+    @objc
+    public func entities(_ entities: [SelfDescribingJson]) -> Self {
+        self.entities = entities
+        return self
+    }
+    
+    /// The context entities attached to the event.
+    @objc
+    @available(*, deprecated, renamed: "entities")
+    public func contexts(_ entities: [SelfDescribingJson]) -> Self {
+        self.entities = entities
+        return self
+    }
 }
 
 /// The properties for all the self-describing events.

@@ -92,4 +92,29 @@ public class ConsentGranted: SelfDescribingAbstract {
     override func beginProcessing(withTracker tracker: Tracker) {
         entities.append(contentsOf: allDocuments) // TODO: Only the user should modify the public contexts property
     }
+    
+    // MARK: - Builders
+    
+    /// Name of the first document.
+    @objc
+    public func name(_ name: String?) -> Self {
+        self.name = name
+        return self
+    }
+    
+    /// Description of the first document.
+    @objc
+    public func documentDescription(_ description: String?) -> Self {
+        self.documentDescription = description
+        return self
+    }
+    
+    /// Other attached documents.
+    ///
+    /// Schema for the documents: `iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0`
+    @objc
+    public func documents(_ documents: [SelfDescribingJson]?) -> Self {
+        self.documents = documents
+        return self
+    }
 }

@@ -125,11 +125,10 @@ public class SessionConfiguration: SerializableConfiguration, SessionConfigurati
         }
     }
 
-    /// The callback called everytime the session is updated.
-
     // MARK: - Builders
 
-    func onSessionStateUpdate(_ value: ((_ sessionState: SessionState) -> Void)?) -> Self {
+    /// The callback called everytime the session is updated.
+    public func onSessionStateUpdate(_ value: ((_ sessionState: SessionState) -> Void)?) -> Self {
         onSessionStateUpdate = value
         return self
     }

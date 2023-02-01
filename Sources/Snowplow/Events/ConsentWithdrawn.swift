@@ -80,4 +80,50 @@ public class ConsentWithdrawn: SelfDescribingAbstract {
     override func beginProcessing(withTracker tracker: Tracker) {
         entities.append(contentsOf: allDocuments)
     }
+    
+    // MARK: - Builders
+    
+    /// Consent to all.
+    @objc
+    public func all(_ all: Bool) -> Self {
+        self.all = all
+        return self
+    }
+    
+    /// Identifier of the first document.
+    @objc
+    public func documentId(_ documentId: String?) -> Self {
+        self.documentId = documentId
+        return self
+    }
+    
+    /// Version of the first document.
+    @objc
+    public func version(_ version: String?) -> Self {
+        self.version = version
+        return self
+    }
+    
+    /// Name of the first document.
+    @objc
+    public func name(_ name: String?) -> Self {
+        self.name = name
+        return self
+    }
+    
+    /// Description of the first document.
+    @objc
+    public func documentDescription(_ description: String?) -> Self {
+        self.documentDescription = description
+        return self
+    }
+    
+    /// Other documents.
+    ///
+    /// Schema for the documents: `iglu:com.snowplowanalytics.snowplow/consent_document/jsonschema/1-0-0`
+    @objc
+    public func documents(_ documents: [SelfDescribingJson]?) -> Self {
+        self.documents = documents
+        return self
+    }
 }

@@ -55,4 +55,13 @@ public class DeepLinkEntity: SelfDescribingJson {
         }
         set {}
     }
+    
+    // MARK: - Builders
+    
+    /// Referrer URL, source of this deep-link
+    @objc
+    public func referrer(_ referrer: String?) -> Self {
+        self.referrer = referrer
+        return self
+    }
 }

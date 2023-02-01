@@ -196,4 +196,130 @@ public class MessageNotification : SelfDescribingAbstract {
         payload[kSPMessageNotificationParamTrigger] = triggerToString(trigger)
         return payload
     }
+    
+    // MARK: - Builders
+    
+    /// The action associated with the notification.
+    @objc
+    public func action(_ action: String?) -> Self {
+        self.action = action
+        return self
+    }
+    
+    /// Attachments added to the notification (they can be part of the data object).
+    @objc
+    public func attachments(_ attachments: [MessageNotificationAttachment]?) -> Self {
+        self.attachments = attachments
+        return self
+    }
+    
+    /// The notification's body.
+    @objc
+    public func body(_ body: String) -> Self {
+        self.body = body
+        return self
+    }
+    
+    /// Variable string values to be used in place of the format specifiers in bodyLocArgs to use to localize the body text to the user's current localization.
+    @objc
+    public func bodyLocArgs(_ args: [String]?) -> Self {
+        self.bodyLocArgs = args
+        return self
+    }
+    
+    /// The key to the body string in the app's string resources to use to localize the body text to the user's current localization.
+    @objc
+    public func bodyLocKey(_ key: String?) -> Self {
+        self.bodyLocKey = key
+        return self
+    }
+    
+    /// The category associated to the notification.
+    @objc
+    public func category(_ category: String?) -> Self {
+        self.category = category
+        return self
+    }
+    
+    /// The application is notified of the delivery of the notification if it's in the foreground or background, the app will be woken up (iOS only).
+    public func contentAvailable(_ available: Bool?) -> Self {
+        self.contentAvailable = available
+        return self
+    }
+    
+    /// The group which this notification is part of.
+    @objc
+    public func group(_ group: String?) -> Self {
+        self.group = group
+        return self
+    }
+    
+    /// The icon associated to the notification (Android only).
+    @objc
+    public func icon(_ icon: String?) -> Self {
+        self.icon = icon
+        return self
+    }
+    
+    /// The number of items this notification represents. It's the badge number on iOS.
+    public func notificationCount(_ count: Int?) -> Self {
+        self.notificationCount = count
+        return self
+    }
+    
+    /// The time when the event of the notification occurred.
+    @objc
+    public func notificationTimestamp(_ timestamp: String?) -> Self {
+        self.notificationTimestamp = timestamp
+        return self
+    }
+    
+    /// The sound played when the device receives the notification.
+    @objc
+    public func sound(_ sound: String?) -> Self {
+        self.sound = sound
+        return self
+    }
+    
+    /// The notification's subtitle. (iOS only)
+    @objc
+    public func subtitle(_ subtitle: String?) -> Self {
+        self.subtitle = subtitle
+        return self
+    }
+    
+    /// An identifier similar to 'group' but usable for different purposes (Android only).
+    @objc
+    public func tag(_ tag: String?) -> Self {
+        self.tag = tag
+        return self
+    }
+    
+    /// An identifier similar to 'group' but usable for different purposes (iOS only).
+    @objc
+    public func threadIdentifier(_ identifier: String?) -> Self {
+        self.threadIdentifier = identifier
+        return self
+    }
+    
+    /// The notification's title.
+    @objc
+    public func title(_ title: String) -> Self {
+        self.title = title
+        return self
+    }
+    
+    /// Variable string values to be used in place of the format specifiers in titleLocArgs to use to localize the title text to the user's current localization.
+    @objc
+    public func titleLocArgs(_ args: [String]?) -> Self {
+        self.titleLocArgs = args
+        return self
+    }
+    
+    /// The key to the title string in the app's string resources to use to localize the title text to the user's current localization.
+    @objc
+    public func titleLocKey(_ key: String?) -> Self {
+        self.titleLocKey = key
+        return self
+    }
 }

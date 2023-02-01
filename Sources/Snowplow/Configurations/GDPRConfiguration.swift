@@ -72,4 +72,34 @@ public class GDPRConfiguration: NSObject, GDPRConfigurationProtocol, Configurati
         self.documentDescription = documentDescription ?? ""
         super.init()
     }
+    
+    // MARK: - Builders
+    
+    /// Basis for processing.
+    @objc
+    public func basisForProcessing(_ basis: GDPRProcessingBasis) -> Self {
+        self.basisForProcessing = basis
+        return self
+    }
+    
+    /// ID of a GDPR basis document.
+    @objc
+    public func documentId(_ documentId: String?) -> Self {
+        self.documentId = documentId
+        return self
+    }
+    
+    /// Version of the document.
+    @objc
+    public func documentVersion(_ version: String?) -> Self {
+        self.documentVersion = version
+        return self
+    }
+    
+    /// Description of the document.
+    @objc
+    public func documentDescription(_ description: String?) -> Self {
+        self.documentDescription = description
+        return self
+    }
 }

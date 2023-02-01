@@ -63,6 +63,13 @@ public class GlobalContextsConfiguration: NSObject, GlobalContextsConfigurationP
         return toDelete
     }
     
+    // MARK: - Builders
+    
+    public func contextGenerators(_ generators: [String : GlobalContext]) -> Self {
+        self.contextGenerators = generators
+        return self
+    }
+    
     // MARK: - Internal functions
     
     func toPluginConfigurations() -> [GlobalContextPluginConfiguration] {

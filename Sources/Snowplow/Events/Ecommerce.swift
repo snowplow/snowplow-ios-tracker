@@ -38,7 +38,7 @@ public class Ecommerce : PrimitiveAbstract {
     /// Taxes applied to the purchase.
     @objc
     public var taxValue: NSNumber?
-    /// Shipping number.
+    /// Shipping cost.
     @objc
     public var shipping: NSNumber?
     /// City for shipping.
@@ -88,5 +88,55 @@ public class Ecommerce : PrimitiveAbstract {
             item.orderId = orderId
             _ = tracker?.track(item)
         }
+    }
+    
+    // MARK: - Builders
+    
+    @objc
+    public func affiliation(_ affiliation: String?) -> Self {
+        self.affiliation = affiliation
+        return self
+    }
+    
+    /// Taxes applied to the purchase.
+    @objc
+    public func taxValue(_ taxValue: NSNumber?) -> Self {
+        self.taxValue = taxValue
+        return self
+    }
+    
+    /// Shipping cost.
+    @objc
+    public func shipping(_ shipping: NSNumber?) -> Self {
+        self.shipping = shipping
+        return self
+    }
+    
+    /// City for shipping.
+    @objc
+    public func city(_ city: String?) -> Self {
+        self.city = city
+        return self
+    }
+    
+    /// State for shipping.
+    @objc
+    public func state(_ state: String?) -> Self {
+        self.state = state
+        return self
+    }
+    
+    /// Country for shipping.
+    @objc
+    public func country(_ country: String?) -> Self {
+        self.country = country
+        return self
+    }
+    
+    /// Currency used for totalValue and taxValue.
+    @objc
+    public func currency(_ currency: String?) -> Self {
+        self.currency = currency
+        return self
     }
 }
