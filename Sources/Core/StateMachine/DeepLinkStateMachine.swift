@@ -49,6 +49,10 @@ class DeepLinkStateMachine: StateMachineProtocol {
         return []
     }
 
+    var subscribedEventSchemasForAfterTrackCallback: [String] {
+        return []
+    }
+
     func transition(from event: Event, state: State?) -> State? {
         if let dlEvent = event as? DeepLinkReceived {
             return DeepLinkState(url: dlEvent.url, referrer: dlEvent.referrer)
@@ -79,5 +83,8 @@ class DeepLinkStateMachine: StateMachineProtocol {
 
     func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]? {
         return nil
+    }
+    
+    func afterTrack(event: InspectableEvent) {
     }
 }

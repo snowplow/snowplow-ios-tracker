@@ -80,6 +80,13 @@ class MockStateMachine: StateMachineProtocol {
             "newParam": "value"
         ]
     }
+
+    var subscribedEventSchemasForAfterTrackCallback: [String] {
+        return []
+    }
+
+    func afterTrack(event: SnowplowTracker.InspectableEvent) {
+    }
 }
 
 class MockStateMachine1: MockStateMachine {

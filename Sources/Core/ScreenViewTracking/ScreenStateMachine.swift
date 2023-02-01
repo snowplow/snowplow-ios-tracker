@@ -37,6 +37,10 @@ class ScreenStateMachine: StateMachineProtocol {
         return [kSPScreenViewSchema]
     }
 
+    var subscribedEventSchemasForAfterTrackCallback: [String] {
+        return []
+    }
+
     func transition(from event: Event, state currentState: State?) -> State? {
         if let screenView = event as? ScreenView {
             let newState: ScreenState = screenState(from: screenView)
@@ -83,5 +87,8 @@ class ScreenStateMachine: StateMachineProtocol {
             return SelfDescribingJson(schema: kSPScreenContextSchema, andPayload: contextPayload)
         }
         return nil
+    }
+    
+    func afterTrack(event: InspectableEvent) {
     }
 }

@@ -72,4 +72,13 @@ public class GlobalContextsConfiguration: Configuration, GlobalContextsConfigura
     }
 
     // MARK: - NSCoding (No coding possible as we can't encode and decode the contextGenerators)
+    
+    // MARK: - Internal functions
+    
+    func toPluginConfigurations() -> [GlobalContextPluginConfiguration] {
+        return contextGenerators.map { (identifier, globalContext) in
+            return GlobalContextPluginConfiguration(identifier: identifier,
+                                                    globalContext: globalContext)
+        }
+    }
 }

@@ -27,24 +27,20 @@ import XCTest
 #if os(iOS) || os(tvOS) || os(macOS)
 
 class TestScreenViewModifier: XCTestCase {
-    var tracker: TrackerController?
-    
-    override func setUp() {
-        super.setUp()
-        
-        tracker = Snowplow.createTracker(namespace: "ns",
-                                         network: NetworkConfiguration(endpoint: Micro.endpoint))!
-        
-        Micro.setUpMockerIgnores()
-        wait(for: [Micro.reset()], timeout: Micro.timeout)
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     func testTracksScreenViewWithContextEntity() {
         if #available(iOS 13.0, macOS 10.15, macCatalyst 13.0, tvOS 13.0, *) {
+            let expect = expectation(description: "Event received")
+            createTracker { event in
+                XCTAssertEqual("screen-1", event.payload["name"] as? String)
+                XCTAssertEqual(kSPScreenViewSchema, event.schema)
+                XCTAssertTrue(
+                    event.entities.filter({ entity in
+                        entity.schema == "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0"
+                    }).count == 1
+                )
+                expect.fulfill()
+            }
+
             let modifier = ScreenViewModifier(
                 name: "screen-1",
                 entities: [
@@ -55,19 +51,27 @@ class TestScreenViewModifier: XCTestCase {
                         ]
                     )
                 ],
-                trackerNamespace: "ns"
+                trackerNamespace: "screenViewTracker"
             )
             modifier.trackScreenView()
-            
-            wait(for: [
-                Micro.expectSelfDescribingEvent() { (actual: ScreenViewExpected) in
-                    XCTAssertEqual("screen-1", actual.name)
-                },
-                Micro.expectEventContext(schema: "iglu:com.snowplowanalytics.iglu/anything-a/jsonschema/1-0-0") { (actual: AnythingEntityExpected) in
-                    XCTAssertTrue(actual.works)
-                }
-            ], timeout: Micro.timeout)
+
+            wait(for: [expect], timeout: 1)
         }
+    }
+    
+    private func createTracker(afterTrack: @escaping (InspectableEvent) -> ()) {
+        let plugin = PluginConfiguration(identifier: "screenViewPlugin")
+        plugin.afterTrack(closure: afterTrack)
+        
+        let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
+        
+        let trackerConfig = TrackerConfiguration()
+        trackerConfig.installAutotracking = false
+        trackerConfig.lifecycleAutotracking = false
+        
+        _ = Snowplow.createTracker(namespace: "screenViewTracker",
+                                      network: networkConfig,
+                                      configurations: [trackerConfig, plugin])!
     }
 }
 
