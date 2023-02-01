@@ -38,7 +38,7 @@ public class Ecommerce : PrimitiveAbstract {
     /// Taxes applied to the purchase.
     @objc
     public var taxValue: NSNumber?
-    /// Shipping number.
+    /// Shipping cost.
     @objc
     public var shipping: NSNumber?
     /// City for shipping.
@@ -105,7 +105,7 @@ public class Ecommerce : PrimitiveAbstract {
         return self
     }
     
-    /// Shipping number.
+    /// Shipping cost.
     @objc
     public func shipping(_ shipping: NSNumber?) -> Self {
         self.shipping = shipping

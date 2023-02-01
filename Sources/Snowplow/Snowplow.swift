@@ -63,7 +63,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
@@ -95,7 +95,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameter onSuccess: The callback called when a configuration (cached or downloaded) is set It passes the list of the namespaces associated
@@ -125,7 +125,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
@@ -155,7 +155,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
@@ -187,7 +187,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
@@ -225,7 +225,7 @@ public class Snowplow: NSObject {
     /// Those events are attached to the namespace.
     /// If the tracker is removed or the app relaunched with a different namespace, those events can't
     /// be sent to the collector and they remain in a zombie state inside the EventStore.
-    /// To remove all the zombie events you can an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
+    /// To remove all the zombie events you can call an internal method `removeUnsentEventsExceptForNamespaces` on `SPSQLEventStore`
     /// which will delete all the EventStores instanced with namespaces not listed in the passed list.
     ///
     /// - Parameters:
