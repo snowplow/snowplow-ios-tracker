@@ -21,7 +21,7 @@
 
 import Foundation
 
-class GlobalContextPluginConfiguration: NSObject, ConfigurationProtocol, PluginConfigurationProtocol {
+class GlobalContextPluginConfiguration: ConfigurationProtocol, PluginConfigurationProtocol {
     private(set) var identifier: String
     private(set) var globalContext: GlobalContext
     private(set) var afterTrackConfiguration: PluginAfterTrackConfiguration? = nil
