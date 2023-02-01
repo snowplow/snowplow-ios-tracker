@@ -1,4 +1,5 @@
-//  SPConfigurationBundle.swift
+//
+//  ConfigurationBundle.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -22,7 +23,7 @@ import Foundation
 
 /// This class represents the default configuration applied in place of the remote configuration.
 @objc(SPConfigurationBundle)
-public class ConfigurationBundle: Configuration {
+public class ConfigurationBundle: SerializableConfiguration {
     @objc
     private(set) public var namespace: String
     @objc
@@ -35,8 +36,8 @@ public class ConfigurationBundle: Configuration {
     public var sessionConfiguration: SessionConfiguration?
 
     @objc
-    public var configurations: [Configuration] {
-        var array: [Configuration] = []
+    public var configurations: [ConfigurationProtocol] {
+        var array: [ConfigurationProtocol] = []
         if let networkConfiguration = networkConfiguration {
             array.append(networkConfiguration)
         }

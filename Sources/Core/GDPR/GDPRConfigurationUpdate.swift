@@ -90,8 +90,4 @@ class GDPRConfigurationUpdate: GDPRConfiguration {
     public init() {
         super.init(basis: .consent, documentId: nil, documentVersion: nil, documentDescription: nil)
     }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
 }

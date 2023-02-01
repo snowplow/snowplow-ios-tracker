@@ -1,4 +1,4 @@
-//  SPSubjectConfiguration.swift
+//  SubjectConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -94,7 +94,7 @@ public protocol SubjectConfigurationProtocol: AnyObject {
 /// user and the app which will be attached on all the events as contexts.
 /// The contexts to track can be enabled in the `TrackerConfiguration` class.
 @objc(SPSubjectConfiguration)
-public class SubjectConfiguration: Configuration, SubjectConfigurationProtocol {
+public class SubjectConfiguration: SerializableConfiguration, SubjectConfigurationProtocol, ConfigurationProtocol {
     convenience init(dictionary: [String : Any]) {
         self.init()
         if let userId = dictionary["userId"] as? String { self.userId = userId }

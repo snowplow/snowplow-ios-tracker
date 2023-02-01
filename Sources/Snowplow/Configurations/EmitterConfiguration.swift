@@ -1,4 +1,5 @@
-//  SPEmitterConfiguration.swift
+//
+//  EmitterConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -54,7 +55,7 @@ public protocol EmitterConfigurationProtocol: AnyObject {
 /// The EmitterConfiguration can be used to setup details about how the tracker should treat the events
 /// to emit to the collector.
 @objc(SPEmitterConfiguration)
-public class EmitterConfiguration: Configuration, EmitterConfigurationProtocol {
+public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, ConfigurationProtocol {
     /// Sets whether the buffer should send events instantly or after the buffer
     /// has reached it's limit. By default, this is set to BufferOption Default.
     @objc
@@ -105,51 +106,5 @@ public class EmitterConfiguration: Configuration, EmitterConfigurationProtocol {
     @objc
     public override init() {
         super.init()
-    }
-
-    // MARK: - NSCopying
-
-    @objc
-    public override func copy(with zone: NSZone? = nil) -> Any {
-        let copy = EmitterConfiguration()
-        copy.bufferOption = bufferOption
-        copy.emitRange = emitRange
-        copy.threadPoolSize = threadPoolSize
-        copy.byteLimitGet = byteLimitGet
-        copy.byteLimitPost = byteLimitPost
-        copy.requestCallback = requestCallback
-        copy.eventStore = eventStore
-        copy.customRetryForStatusCodes = customRetryForStatusCodes
-        copy.serverAnonymisation = serverAnonymisation
-        return copy
-    }
-
-    // MARK: - NSSecureCoding
-    
-    @objc
-    public override class var supportsSecureCoding: Bool { return true }
-
-    @objc
-    public override func encode(with coder: NSCoder) {
-        coder.encode(bufferOption, forKey: "bufferOption")
-        coder.encode(emitRange, forKey: "emitRange")
-        coder.encode(threadPoolSize, forKey: "threadPoolSize")
-        coder.encode(byteLimitGet, forKey: "byteLimitGet")
-        coder.encode(byteLimitPost, forKey: "byteLimitPost")
-        coder.encode(customRetryForStatusCodes, forKey: "customRetryForStatusCodes")
-        coder.encode(serverAnonymisation, forKey: "serverAnonymisation")
-    }
-
-    required init?(coder: NSCoder) {
-        super.init()
-        if let bufferOption = BufferOption(rawValue: coder.decodeInteger(forKey: "bufferOption")) {
-            self.bufferOption = bufferOption
-        }
-        emitRange = coder.decodeInteger(forKey: "emitRange")
-        threadPoolSize = coder.decodeInteger(forKey: "threadPoolSize")
-        byteLimitGet = coder.decodeInteger(forKey: "byteLimitGet")
-        byteLimitPost = coder.decodeInteger(forKey: "byteLimitPost")
-        customRetryForStatusCodes = coder.decodeObject(forKey: "customRetryForStatusCodes") as? [Int : Bool]
-        serverAnonymisation = coder.decodeBool(forKey: "serverAnonymisation")
     }
 }

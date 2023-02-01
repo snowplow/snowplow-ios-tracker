@@ -21,7 +21,7 @@
 
 import Foundation
 
-class FetchedConfigurationBundle: Configuration {
+class FetchedConfigurationBundle: SerializableConfiguration {
     var schema: String
     var configurationVersion: Int
     var configurationBundle: [ConfigurationBundle] = []
