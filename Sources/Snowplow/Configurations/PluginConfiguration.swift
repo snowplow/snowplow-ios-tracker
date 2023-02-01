@@ -91,7 +91,7 @@ extension PluginConfigurationProtocol {
 /// Configuration for a custom tracker plugin.
 /// Enables you to add closures to be called when and after events are tracked in the tracker.
 @objc(SPPluginConfiguration)
-public class PluginConfiguration: Configuration, PluginConfigurationProtocol {
+public class PluginConfiguration: NSObject, PluginConfigurationProtocol, ConfigurationProtocol {
     /// Unique identifier of the plugin within the tracker.
     public private(set) var identifier: String
     /// Closure configuration that is called after events are tracked.
@@ -130,34 +130,4 @@ public class PluginConfiguration: Configuration, PluginConfigurationProtocol {
             closure: closure
         )
     }
-
-    // MARK: - NSCopying
-
-    @objc
-    public override func copy(with zone: NSZone? = nil) -> Any {
-        let copy = PluginConfiguration(identifier: identifier)
-        if let afterTrack = afterTrackConfiguration {
-            copy.afterTrack(schemas: afterTrack.schemas, closure: afterTrack.closure)
-        }
-        if let entities = entitiesConfiguration {
-            copy.entities(schemas: entities.schemas, closure: entities.closure)
-        }
-        return copy
-    }
-
-    // MARK: - NSSecureCoding
-    
-    @objc
-    public override class var supportsSecureCoding: Bool { return true }
-    
-    @objc
-    public override func encode(with coder: NSCoder) {
-        coder.encode(identifier, forKey: "identifier")
-    }
-
-    required init?(coder: NSCoder) {
-        identifier = coder.decodeObject(forKey: "identifier") as? String ?? ""
-        super.init()
-    }
-
 }

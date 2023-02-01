@@ -21,7 +21,7 @@
 
 import Foundation
 
-class GlobalContextPluginConfiguration: Configuration, PluginConfigurationProtocol {
+class GlobalContextPluginConfiguration: NSObject, ConfigurationProtocol, PluginConfigurationProtocol {
     private(set) var identifier: String
     private(set) var globalContext: GlobalContext
     private(set) var afterTrackConfiguration: PluginAfterTrackConfiguration? = nil
@@ -31,21 +31,5 @@ class GlobalContextPluginConfiguration: Configuration, PluginConfigurationProtoc
         self.identifier = identifier
         self.globalContext = globalContext
         self.entitiesConfiguration = PluginEntitiesConfiguration(closure: globalContext.contexts)
-    }
-
-    // MARK: - NSCopying
-
-    override func copy(with zone: NSZone? = nil) -> Any {
-        let copy = GlobalContextPluginConfiguration(
-            identifier: identifier,
-            globalContext: globalContext
-        )
-        return copy
-    }
-
-    // MARK: - NSCoding (No coding possible as we can't encode and decode the contextGenerators)
-
-    required convenience public init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }

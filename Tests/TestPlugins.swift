@@ -176,7 +176,7 @@ class TestPlugins: XCTestCase {
         XCTAssertFalse(pluginCalled)
     }
 
-    private func createTracker(_ configurations: [Configuration]) -> TrackerController {
+    private func createTracker(_ configurations: [ConfigurationProtocol]) -> TrackerController {
         let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
         let trackerConfig = TrackerConfiguration()
         trackerConfig.installAutotracking = false

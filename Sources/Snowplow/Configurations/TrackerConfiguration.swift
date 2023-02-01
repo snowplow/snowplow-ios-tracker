@@ -1,5 +1,5 @@
 //
-//  SPTrackerConfiguration.swift
+//  TrackerConfiguration.swift
 //  Snowplow
 //
 //  Copyright (c) 2013-2022 Snowplow Analytics Ltd. All rights reserved.
@@ -90,7 +90,7 @@ public protocol TrackerConfigurationProtocol: AnyObject {
 /// The TrackerConfiguration can be used to setup the tracker behaviour indicating what should be
 /// tracked in term of automatic tracking and contexts/entities to track with the events.
 @objc(SPTrackerConfiguration)
-public class TrackerConfiguration: Configuration, TrackerConfigurationProtocol {
+public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurationProtocol, ConfigurationProtocol {
     /// Identifer of the app.
     @objc
     public var appId = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String ?? ""
@@ -254,9 +254,9 @@ public class TrackerConfiguration: Configuration, TrackerConfigurationProtocol {
     @objc
     public override func encode(with coder: NSCoder) {
         coder.encode(appId, forKey: "appId")
-        coder.encode(devicePlatform, forKey: "devicePlatform")
+        coder.encode(devicePlatform.rawValue, forKey: "devicePlatform")
         coder.encode(base64Encoding, forKey: "base64Encoding")
-        coder.encode(logLevel, forKey: "logLevel")
+        coder.encode(logLevel.rawValue, forKey: "logLevel")
         coder.encode(loggerDelegate, forKey: "loggerDelegate")
         coder.encode(sessionContext, forKey: "sessionContext")
         coder.encode(applicationContext, forKey: "applicationContext")
