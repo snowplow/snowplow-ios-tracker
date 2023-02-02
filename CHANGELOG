@@ -1,3 +1,12 @@
+Version 5.0.0-beta.1 (2022-02-02)
+----------------------------------
+Add ability to provide custom tracker plugins to inspect and enrich tracked events (#750)
+Use Swift DSL for building configurations and add builder functions for configurations and events (#755)
+Remove requirement for all configurations to be serializable (#753)
+Refactor event interface and rename contexts to entities (#757)
+Refactor APIs to replace usage of NSObject in dictionaries with the Any type (#748)
+Update year in copyright headers and remove authors from headers in source files (#759)
+
 Version 5.0.0-alpha.2 (2022-12-21)
 ----------------------------------
 Add screen view tracking for SwiftUI (#705)
