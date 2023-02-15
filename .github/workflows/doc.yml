@@ -17,6 +17,10 @@ jobs:
       - name: Generate documentation
         run: |
           swift package --allow-writing-to-directory docs generate-documentation --target SnowplowTracker --disable-indexing --output-path docs --transform-for-static-hosting --hosting-base-path snowplow-objc-tracker
+
+      - name: Redirect from the index page
+        run: |
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='https://snowplow.github.io/snowplow-objc-tracker/documentation/snowplowtracker/'" /></head><body></body></html>' > docs/index.html
     
       - name: Deploy to GitHub Pages
         if: success()
