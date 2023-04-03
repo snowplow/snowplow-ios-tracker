@@ -26,7 +26,7 @@ If you see an issue you would like to work on, please let us know in the issue! 
 not doubling the amount of work.
 
 If you don't know where to start contributing, you can look at
-[the issues labeled `good first issue`](https://github.com/snowplow/snowplow-objc-tracker/labels/category%3Agood_first_issue).
+[the issues labeled `good first issue`](https://github.com/snowplow/snowplow-ios-tracker/labels/category%3Agood_first_issue).
 
 ## Pull requests
 
