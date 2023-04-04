@@ -24,7 +24,7 @@ With this tracker you can collect event data from your applications, games or fr
 
 ### Demo apps using the Snowplow iOS Tracker
 
-Some examples of demo apps instrumented with our iOS Tracker can be found in the [snowplow-objc-tracker-examples](https://github.com/snowplow-incubator/snowplow-objc-tracker-examples) repository.
+Some examples of demo apps instrumented with our iOS Tracker can be found in the [snowplow-ios-tracker-examples](https://github.com/snowplow-incubator/snowplow-ios-tracker-examples) repository.
 
 ### Instrument the iOS Tracker
 
@@ -58,14 +58,14 @@ limitations under the License.
 [docs]: https://docs.snowplow.io/
 [mobile-docs]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/mobile-trackers/
 
-[gh-actions]: https://github.com/snowplow/snowplow-objc-tracker/actions
-[gh-actions-image]: https://github.com/snowplow/snowplow-objc-tracker/workflows/Build/badge.svg
+[gh-actions]: https://github.com/snowplow/snowplow-ios-tracker/actions
+[gh-actions-image]: https://github.com/snowplow/snowplow-ios-tracker/workflows/Build/badge.svg
 
-[coveralls]: https://coveralls.io/github/snowplow/snowplow-objc-tracker?branch=master
-[coveralls-image]: https://coveralls.io/repos/github/snowplow/snowplow-objc-tracker/badge.svg?branch=master
+[coveralls]: https://coveralls.io/github/snowplow/snowplow-ios-tracker?branch=master
+[coveralls-image]: https://coveralls.io/repos/github/snowplow/snowplow-ios-tracker/badge.svg?branch=master
 
 [license]: https://www.apache.org/licenses/LICENSE-2.0
-[license-image]: https://img.shields.io/github/license/snowplow/snowplow-objc-tracker
+[license-image]: https://img.shields.io/github/license/snowplow/snowplow-ios-tracker
 
 [cocoadocs]: https://cocoadocs.org/docsets/SnowplowTracker
 [cocoa-version]: https://cocoapod-badges.herokuapp.com/v/SnowplowTracker/badge.png
@@ -80,7 +80,7 @@ limitations under the License.
 [tech-docs]: https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/mobile-trackers/
 [tech-docs-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/techdocs.png
 
-[api-docs]: https://snowplow.github.io/snowplow-objc-tracker/documentation/snowplowtracker/snowplow/
+[api-docs]: https://snowplow.github.io/snowplow-ios-tracker/documentation/snowplowtracker/snowplow/
 
 [contributing-image]: https://d3i6fms1cm1j0i.cloudfront.net/github/images/contributing.png
 
