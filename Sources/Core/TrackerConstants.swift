@@ -15,13 +15,13 @@ import Foundation
 
 // --- Version
 #if os(iOS)
-let kSPVersion = "ios-5.0.0-beta.1"
+let kSPVersion = "ios-5.0.0"
 #elseif os(tvOS)
-let kSPVersion = "tvos-5.0.0-beta.1"
+let kSPVersion = "tvos-5.0.0"
 #elseif os(watchOS)
-let kSPVersion = "watchos-5.0.0-beta.1"
+let kSPVersion = "watchos-5.0.0"
 #else
-let kSPVersion = "osx-5.0.0-beta.1"
+let kSPVersion = "osx-5.0.0"
 #endif
 
 // --- Session Dictionary keys

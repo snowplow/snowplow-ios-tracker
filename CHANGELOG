@@ -1,4 +1,9 @@
-Version 5.0.0-beta.1 (2022-02-02)
+Version 5.0.0 (2023-04-04)
+--------------------------
+Rename the repository from snowplow-objc-tracker to snowplow-ios-tracker
+Add redirect from root documentation page
+
+Version 5.0.0-beta.1 (2023-02-02)
 ----------------------------------
 Add ability to provide custom tracker plugins to inspect and enrich tracked events (#750)
 Use Swift DSL for building configurations and add builder functions for configurations and events (#755)
