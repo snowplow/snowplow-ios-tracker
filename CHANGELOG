@@ -1,3 +1,30 @@
+Version 5.0.0 (2023-04-04)
+--------------------------
+Rename the repository from snowplow-objc-tracker to snowplow-ios-tracker
+Add redirect from root documentation page
+
+Version 5.0.0-beta.1 (2023-02-02)
+----------------------------------
+Add ability to provide custom tracker plugins to inspect and enrich tracked events (#750)
+Use Swift DSL for building configurations and add builder functions for configurations and events (#755)
+Remove requirement for all configurations to be serializable (#753)
+Refactor event interface and rename contexts to entities (#757)
+Refactor APIs to replace usage of NSObject in dictionaries with the Any type (#748)
+Update year in copyright headers and remove authors from headers in source files (#759)
+
+Version 5.0.0-alpha.2 (2022-12-21)
+----------------------------------
+Add screen view tracking for SwiftUI (#705)
+Drop Carthage and build using Swift Package Manager (#735)
+Add tests using Micro for payload validation (#736)
+Add a closure to tracker configuration that enables retrieving IDFA value and replaces the use of SNOWPLOW_IDFA_ENABLED macro (#678)
+Update API comments for Swift-DocC and add missing comments (#740)
+Add API docs using Swift-DocC (#739)
+
+Version 5.0.0-alpha.1 (2022-11-30)
+----------------------------------
+Migrate to Swift (#732)
+
 Version 4.1.0 (2022-11-16)
 --------------------------
 Anonymise previous session ID and user identifiers in subject when user anonymisation is enabled (#720)

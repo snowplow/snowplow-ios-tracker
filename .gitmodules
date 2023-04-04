@@ -1,0 +1,3 @@
+[submodule "Examples"]
+	path = Examples
+	url = https://github.com/snowplow-incubator/snowplow-ios-tracker-examples
