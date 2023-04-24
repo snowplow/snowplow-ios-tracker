@@ -27,6 +27,7 @@ protocol ServiceProviderProtocol: AnyObject {
     var subjectController: SubjectControllerImpl { get }
     var sessionController: SessionControllerImpl { get }
     var pluginsController: PluginsControllerImpl { get }
+    var mediaController: MediaController { get }
     var networkConfigurationUpdate: NetworkConfigurationUpdate { get }
     var trackerConfigurationUpdate: TrackerConfigurationUpdate { get }
     var emitterConfigurationUpdate: EmitterConfigurationUpdate { get }

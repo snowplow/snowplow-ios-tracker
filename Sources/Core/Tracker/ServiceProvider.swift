@@ -101,6 +101,14 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return PluginsControllerImpl(serviceProvider: self)
     }
     
+    private var _mediaController: MediaController?
+    var mediaController: MediaController {
+        if let controller = _mediaController { return controller }
+        let mediaController = MediaControllerImpl(serviceProvider: self)
+        _mediaController = mediaController
+        return mediaController
+    }
+    
     // Original configurations
     private(set) var pluginConfigurations: [PluginIdentifiable] = []
 
