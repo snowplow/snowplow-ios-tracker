@@ -123,6 +123,7 @@ class MediaTrackingImpl: MediaTracking {
         self.session?.update(eventType: eventType,
                              mediaPlayer: self.mediaPlayer,
                              adBreak: adTracking.adBreak)
+        self.pingInterval?.update(mediaPlayer: self.mediaPlayer)
         
         // track events
         if let eventType = eventType {

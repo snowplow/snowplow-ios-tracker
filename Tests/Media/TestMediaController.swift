@@ -192,6 +192,34 @@ class TestMediaController: XCTestCase {
         XCTAssertEqual(4, trackedEvents.count)
     }
     
+    func testShouldStopSendingPingEventsWhenPaused() {
+        let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
+        let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
+        
+        media.update(media: MediaUpdate(paused: true))
+        for _ in 0..<5 {
+            MockTimer.currentTimer.fire()
+        }
+        
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(2, trackedEvents.count)
+    }
+    
+    func testShouldNotStopSendingPingEventsWhenPlaying() {
+        let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
+        let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
+        
+        media.update(media: MediaUpdate(paused: false))
+        for _ in 0..<5 {
+            MockTimer.currentTimer.fire()
+        }
+        
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(5, trackedEvents.count)
+    }
+    
     // MARK: Percent progress
     
     func testShouldSendProgressEventsWhenBoundariesReached() {

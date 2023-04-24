@@ -46,6 +46,9 @@ public class MediaTrackingConfiguration: NSObject {
     /// Interval in seconds in which the media ping events are tracked. Defaults to 30 seconds unless `pings` are disabled.
     public var pingInterval: Int?
     
+    /// Maximum number of consecutive ping events to send when playback is paused. Defaults to 1 unless`pings` are disabled.
+    public var maxPausedPings: Int?
+    
     /// Whether to track the media player session context entity along with media events.
     /// The session entity contain the `id` identifier as well as statistics about the media playback.
     public var session: Bool

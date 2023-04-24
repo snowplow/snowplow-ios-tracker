@@ -38,7 +38,10 @@ class MediaControllerImpl: Controller, MediaController {
     
     func startMediaTracking(configuration: MediaTrackingConfiguration) -> MediaTracking {
         let pingInterval = (
-            configuration.pings ? MediaPingInterval(pingInterval: configuration.pingInterval) : nil
+            configuration.pings ? MediaPingInterval(
+                pingInterval: configuration.pingInterval,
+                maxPausedPings: configuration.maxPausedPings
+            ) : nil
         )
         
         let session = (
