@@ -67,13 +67,13 @@ public class MediaPlayerEvent: SelfDescribingAbstract {
         case .seekEnd:
             return String(format: schema, "seek_end")
         case .playbackRateChange:
-            return String(format: schema, "playbackrate_change")
+            return String(format: schema, "playback_rate_change")
         case .volumeChange:
             return String(format: schema, "volume_change")
         case .fullscreenChange:
             return String(format: schema, "fullscreen_change")
         case .pictureInPictureChange:
-            return String(format: schema, "pictureinpicture_change")
+            return String(format: schema, "picture_in_picture_change")
         case .ping:
             return String(format: schema, "ping")
         case .percentProgress:
