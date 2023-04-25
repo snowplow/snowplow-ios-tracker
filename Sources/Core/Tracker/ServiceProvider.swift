@@ -253,7 +253,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         if let networkConnection = networkConfig.networkConnection {
             emitter = Emitter(networkConnection: networkConnection, builder: builder)
         } else {
-            emitter = Emitter(urlEndpoint: networkConfig.endpoint!, builder: builder)
+            emitter = Emitter(urlEndpoint: networkConfig.endpoint ?? "", builder: builder)
         }
         
         if emitterConfig.isPaused {
