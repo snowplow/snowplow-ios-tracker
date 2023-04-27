@@ -64,12 +64,28 @@ public protocol MediaTracking {
     ///  Tracks a media player event.
     ///
     /// - Parameter eventType: Type of the event to track.
+    /// - Parameter ad: Updates to the properties for the ad context entity attached to media events during ad playback.
+    @objc
+    func track(_ eventType: MediaEventType,
+               ad: MediaAdUpdate?)
+    
+    ///  Tracks a media player event.
+    ///
+    /// - Parameter eventType: Type of the event to track.
     /// - Parameter media: Updates to the properties for the media player context entity attached to media events.
     /// - Parameter ad: Updates to the properties for the ad context entity attached to media events during ad playback.
     @objc
     func track(_ eventType: MediaEventType,
                media: MediaUpdate?,
                ad: MediaAdUpdate?)
+    
+    ///  Tracks a media player event.
+    ///
+    /// - Parameter eventType: Type of the event to track.
+    /// - Parameter adBreak: Updates to the properties for the ad break context entity attached to media events during ad break playback.
+    @objc
+    func track(_ eventType: MediaEventType,
+               adBreak: MediaAdBreakUpdate?)
     
     ///  Tracks a media player event.
     ///
@@ -93,4 +109,9 @@ public protocol MediaTracking {
                ad: MediaAdUpdate?,
                adBreak: MediaAdBreakUpdate?)
     
+    ///  Tracks a media player event.
+    ///
+    /// - Parameter event: Media event properties
+    @objc
+    func track(event: MediaEvent)
 }

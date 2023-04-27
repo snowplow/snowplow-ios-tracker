@@ -129,6 +129,21 @@ class TestMediaController: XCTestCase {
         XCTAssert(firstEvent?.entities.contains { $0.schema == "test" } ?? false)
     }
     
+    func testAddsEntitiesTrackedWithEvent() {
+        let media = mediaController?.startMediaTracking(id: "media1", label: nil)
+        
+        media?.track(
+            event: MediaEvent(.ready, entities: [
+                SelfDescribingJson(schema: "test1", andData: [:])
+            ])
+        )
+
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
+        XCTAssert(firstEvent?.entities.contains { $0.schema == "test1" } ?? false)
+    }
+    
     // MARK: Session
     
     func testAddsMediaSessionContextEntityWithGivenID() {

@@ -67,13 +67,15 @@ public class MediaAdBreakUpdate: NSObject {
     
     /// An identifier for the ad break
     @objc
-    public func breakId(_ breakId: String?) {
+    public func breakId(_ breakId: String?) -> Self {
         self.breakId = breakId
+        return self
     }
     
     /// Type of ads within the break
-    public func breakType(_ breakType: MediaAdBreakType) {
+    public func breakType(_ breakType: MediaAdBreakType) -> Self {
         self.breakType = breakType
+        return self
     }
     
     func update(from adBreak: MediaAdBreakUpdate, mediaPlayer: MediaUpdate) {

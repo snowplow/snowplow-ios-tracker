@@ -68,22 +68,23 @@ class MediaTrackingImpl: MediaTracking {
         }
     }
     
+    func end() {
+        self.pingInterval?.end()
+    }
+    
+    // MARK: Update methods overloads
+    
     func update(media: MediaUpdate?) {
-        self.update(eventType: nil, mediaPlayer: media, ad: nil, adBreak: nil)
+        self.update(mediaPlayer: media)
     }
     
     func update(media: MediaUpdate?,
-                       ad: MediaAdUpdate?,
-                       adBreak: MediaAdBreakUpdate?) {
-        self.update(eventType: nil, mediaPlayer: media, ad: ad, adBreak: adBreak)
+                ad: MediaAdUpdate?,
+                adBreak: MediaAdBreakUpdate?) {
+        self.update(mediaPlayer: media, ad: ad, adBreak: adBreak)
     }
     
-    func track(_ eventType: MediaEventType,
-                      media: MediaUpdate?,
-                      ad: MediaAdUpdate?,
-                      adBreak: MediaAdBreakUpdate?) {
-        self.update(eventType: eventType, mediaPlayer: media, ad: ad, adBreak: adBreak)
-    }
+    // MARK: Track methods overloads
     
     func track(_ eventType: MediaEventType) {
         self.track(eventType, media: nil, ad: nil, adBreak: nil)
@@ -93,22 +94,41 @@ class MediaTrackingImpl: MediaTracking {
         self.track(eventType, media: media, ad: nil, adBreak: nil)
     }
     
+    func track(_ eventType: MediaEventType, ad: MediaAdUpdate?) {
+        self.track(eventType, media: nil, ad: ad, adBreak: nil)
+    }
+    
     func track(_ eventType: MediaEventType, media: MediaUpdate?, ad: MediaAdUpdate?) {
         self.track(eventType, media: media, ad: ad, adBreak: nil)
+    }
+    
+    func track(_ eventType: MediaEventType, adBreak: MediaAdBreakUpdate?) {
+        self.track(eventType, media: nil, ad: nil, adBreak: adBreak)
     }
     
     func track(_ eventType: MediaEventType, media: MediaUpdate?, adBreak: MediaAdBreakUpdate?) {
         self.track(eventType, media: media, ad: nil, adBreak: adBreak)
     }
     
-    func end() {
-        self.pingInterval?.end()
+    func track(_ eventType: MediaEventType, media: MediaUpdate?, ad: MediaAdUpdate?, adBreak: MediaAdBreakUpdate?) {
+        self.track(event: MediaEvent(eventType, media: media, ad: ad, adBreak: adBreak))
     }
     
-    private func update(eventType: MediaEventType?,
-                        mediaPlayer: MediaUpdate?,
-                        ad: MediaAdUpdate?,
-                        adBreak: MediaAdBreakUpdate?) {
+    func track(event: MediaEvent) {
+        self.update(eventType: event.eventType,
+                    mediaPlayer: event.media,
+                    ad: event.ad,
+                    adBreak: event.adBreak,
+                    eventEntities: event.entities)
+    }
+    
+    // MARK: Private methods
+    
+    private func update(eventType: MediaEventType? = nil,
+                        mediaPlayer: MediaUpdate? = nil,
+                        ad: MediaAdUpdate? = nil,
+                        adBreak: MediaAdBreakUpdate? = nil,
+                        eventEntities: [SelfDescribingJson]? = nil) {
         // update state
         if let mediaPlayer = mediaPlayer {
             self.mediaPlayer.update(from: mediaPlayer)
@@ -127,7 +147,7 @@ class MediaTrackingImpl: MediaTracking {
         
         // track events
         if let eventType = eventType {
-            trackEvent(eventType: eventType)
+            trackEvent(eventType: eventType, eventEntities: eventEntities)
         }
         if shouldSendPercentProgress() {
             trackEvent(eventType: .percentProgress)
@@ -139,11 +159,11 @@ class MediaTrackingImpl: MediaTracking {
         }
     }
     
-    private func trackEvent(eventType: MediaEventType) {
+    private func trackEvent(eventType: MediaEventType, eventEntities: [SelfDescribingJson]? = nil) {
         guard shouldTrackEvent(eventType) else { return }
         
         let event = MediaPlayerEvent(type: eventType, label: label)
-        event.entities = entities
+        event.entities = entities + (eventEntities ?? [])
         
         _ = self.tracker.track(event)
     }
