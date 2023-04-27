@@ -148,7 +148,7 @@ class TestMediaSessionTrackingStats: XCTestCase {
     func testCalculatesStatsForNonLinearAds() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
         let mediaPlayer = MediaUpdate(paused: false)
-        let adBreak = MediaAdBreakUpdate(breakType: .nonLinear)
+        let adBreak = MediaAdBreakUpdate(breakId: "1", breakType: .nonLinear)
         
         stats.update(eventType: .play, mediaPlayer: mediaPlayer)
         

@@ -73,9 +73,9 @@ public enum MediaEventType: Int {
     case adPause
     /** Media player event fired when the user resumed playing the ad creative after it had been stopped or paused. */
     case adResume
-
+    
     // Data quality events
-
+    
     /** Media player event fired when the player goes into the buffering state and begins to buffer content. */
     case bufferStart
     /** Media player event fired when the the player finishes buffering content and resumes playback. */
@@ -88,3 +88,66 @@ public enum MediaEventType: Int {
     case error
 }
 
+extension MediaEventType {
+    var schema: String {
+        let schema = "iglu:com.snowplowanalytics.snowplow/media_player_event_%@/jsonschema/1-0-0"
+        switch self {
+        case .ready:
+            return String(format: schema, "ready")
+        case .play:
+            return String(format: schema, "play")
+        case .pause:
+            return String(format: schema, "pause")
+        case .end:
+            return String(format: schema, "end")
+        case .seekStart:
+            return String(format: schema, "seek_start")
+        case .seekEnd:
+            return String(format: schema, "seek_end")
+        case .playbackRateChange:
+            return String(format: schema, "playback_rate_change")
+        case .volumeChange:
+            return String(format: schema, "volume_change")
+        case .fullscreenChange:
+            return String(format: schema, "fullscreen_change")
+        case .pictureInPictureChange:
+            return String(format: schema, "picture_in_picture_change")
+        case .ping:
+            return String(format: schema, "ping")
+        case .percentProgress:
+            return String(format: schema, "percent_progress")
+        case .adBreakStart:
+            return String(format: schema, "ad_break_start")
+        case .adBreakEnd:
+            return String(format: schema, "ad_break_end")
+        case .adStart:
+            return String(format: schema, "ad_start")
+        case .adFirstQuartile:
+            return String(format: schema, "ad_quartile")
+        case .adMidpoint:
+            return String(format: schema, "ad_quartile")
+        case .adThirdQuartile:
+            return String(format: schema, "ad_quartile")
+        case .adComplete:
+            return String(format: schema, "ad_complete")
+        case .adSkip:
+            return String(format: schema, "ad_skip")
+        case .adClick:
+            return String(format: schema, "ad_click")
+        case .adPause:
+            return String(format: schema, "ad_pause")
+        case .adResume:
+            return String(format: schema, "ad_resume")
+        case .bufferStart:
+            return String(format: schema, "buffer_start")
+        case .bufferEnd:
+            return String(format: schema, "buffer_end")
+        case .qualityChange:
+            return String(format: schema, "quality_change")
+        case .userUpdateQuality:
+            return String(format: schema, "user_update_quality")
+        case .error:
+            return String(format: schema, "error")
+        }
+    }
+}

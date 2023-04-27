@@ -24,13 +24,9 @@ import AVKit
 @objc(SPMediaUpdate)
 public class MediaUpdate: NSObject {
     /// The current playback time
-    public var currentTime: Double? {
-        didSet { updatePercentProgress() }
-    }
+    public var currentTime: Double?
     /// A double-precision floating-point value indicating the duration of the media in seconds
-    public var duration: Double? {
-        didSet { updatePercentProgress() }
-    }
+    public var duration: Double?
     /// If playback of the media has ended
     public var ended: Bool?
     /// If the media is live
@@ -43,7 +39,12 @@ public class MediaUpdate: NSObject {
     public var paused: Bool?
     /// The percent of the way through the media" (0 to 100)
     /// It is automatically set by the tracker based on the `currentTime` and `duration` properties.
-    public var percentProgress: Int?
+    public var percentProgress: Int? {
+        if let duration = self.duration {
+            return Int((currentTime ?? 0.0) / duration * 100)
+        }
+        return nil
+    }
     /// Playback rate (1 is normal)
     public var playbackRate: Double?
     /// Volume percent (0 to 100)
@@ -195,7 +196,6 @@ public class MediaUpdate: NSObject {
         if let loop = mediaPlayer.loop { self.loop = loop }
         if let muted = mediaPlayer.muted { self.muted = muted }
         if let paused = mediaPlayer.paused { self.paused = paused }
-        if let percentProgress = mediaPlayer.percentProgress { self.percentProgress = percentProgress }
         if let playbackRate = mediaPlayer.playbackRate { self.playbackRate = playbackRate }
         if let volume = mediaPlayer.volume { self.volume = volume }
     }
@@ -211,12 +211,6 @@ public class MediaUpdate: NSObject {
             self.ended = true
         default:
             break
-        }
-    }
-    
-    private func updatePercentProgress() {
-        if let duration = self.duration {
-            self.percentProgress = Int((currentTime ?? 0.0) / duration * 100)
         }
     }
 }

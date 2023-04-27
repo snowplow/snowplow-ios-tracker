@@ -24,6 +24,19 @@ public enum MediaAdBreakType: Int {
     case companion
 }
 
+extension MediaAdBreakType {
+    var value: String {
+        switch self {
+        case .linear:
+            return "linear"
+        case .nonLinear:
+            return "nonlinear"
+        case .companion:
+            return "companion"
+        }
+    }
+}
+
 /**
  Properties for the ad break context entity attached to media events during ad break playback.
  Entity schema: `iglu:com.snowplowanalytics.snowplow/media_player_ad_break/jsonschema/1-0-0`
@@ -33,25 +46,37 @@ public class MediaAdBreakUpdate: NSObject {
     /// Ad break name (e.g., pre-roll, mid-roll, and post-roll)
     public var name: String?
     /// An identifier for the ad break
-    public var breakId: String?
+    public var breakId: String
     /// Playback time in seconds at the start of the ad break.
     public var startTime: Double?
     /// Type of ads within the break
     public var breakType: MediaAdBreakType?
     
     internal var entity: SelfDescribingJson {
-        return SelfDescribingJson(schema: "", andData: [:])
+        var data: [String : Any] = [
+            "breakId": breakId,
+            "startTime": startTime ?? 0.0
+        ]
+        if let name = name { data["name"] = name }
+        if let breakType = breakType { data["breakType"] = breakType.value }
+        
+        return SelfDescribingJson(
+            schema: "iglu:com.snowplowanalytics.snowplow/media_player_ad_break/jsonschema/1-0-0",
+            andData: data)
+
     }
     
-    @objc
-    public override init() {
-    }
-    
-    /// - Parameter name: Ad break name (e.g., pre-roll, mid-roll, and post-roll)
     /// - Parameter breakId: An identifier for the ad break
+    @objc
+    public init(breakId: String) {
+        self.breakId = breakId
+    }
+    
+    /// - Parameter breakId: An identifier for the ad break
+    /// - Parameter name: Ad break name (e.g., pre-roll, mid-roll, and post-roll)
     /// - Parameter breakType: Type of ads within the break
-    public init(name: String? = nil,
-                breakId: String? = nil,
+    public init(breakId: String,
+                name: String? = nil,
                 breakType: MediaAdBreakType? = nil) {
         self.name = name
         self.breakId = breakId
@@ -67,7 +92,7 @@ public class MediaAdBreakUpdate: NSObject {
     
     /// An identifier for the ad break
     @objc
-    public func breakId(_ breakId: String?) -> Self {
+    public func breakId(_ breakId: String) -> Self {
         self.breakId = breakId
         return self
     }
@@ -78,11 +103,13 @@ public class MediaAdBreakUpdate: NSObject {
         return self
     }
     
-    func update(from adBreak: MediaAdBreakUpdate, mediaPlayer: MediaUpdate) {
+    func update(adBreak: MediaAdBreakUpdate) {
+        self.breakId = adBreak.breakId
         if let name = adBreak.name { self.name = name }
-        if let breakId = adBreak.breakId { self.breakId = breakId }
         if let breakType = adBreak.breakType { self.breakType = breakType }
-        
+    }
+    
+    func update(mediaPlayer: MediaUpdate) {
         if startTime == nil { startTime = mediaPlayer.currentTime ?? 0 }
     }
 }

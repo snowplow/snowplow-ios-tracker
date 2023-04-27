@@ -162,7 +162,10 @@ class MediaTrackingImpl: MediaTracking {
     private func trackEvent(eventType: MediaEventType, eventEntities: [SelfDescribingJson]? = nil) {
         guard shouldTrackEvent(eventType) else { return }
         
-        let event = MediaPlayerEvent(type: eventType, label: label)
+        var data: [String : Any] = [:]
+        if let label = label { data["label"] = label }
+        
+        let event = SelfDescribing(schema: eventType.schema, payload: data)
         event.entities = entities + (eventEntities ?? [])
         
         _ = self.tracker.track(event)

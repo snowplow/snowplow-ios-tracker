@@ -40,13 +40,15 @@ class MediaAdTracking {
         }
         
         if let ad = ad {
-            self.ad = self.ad ?? MediaAdUpdate()
-            self.ad?.update(from: ad, podPosition: podPosition)
+            self.ad?.update(from: ad)
+            self.ad = self.ad ?? ad
+            if podPosition > 0 { self.ad?.podPosition = podPosition }
         }
         
         if let adBreak = adBreak {
-            self.adBreak = self.adBreak ?? MediaAdBreakUpdate()
-            self.adBreak?.update(from: adBreak, mediaPlayer: mediaPlayer)
+            self.adBreak?.update(adBreak: adBreak)
+            self.adBreak = self.adBreak ?? adBreak
+            self.adBreak?.update(mediaPlayer: mediaPlayer)
         }
         
         switch (eventType) {

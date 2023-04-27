@@ -22,7 +22,7 @@ public class MediaAdUpdate: NSObject {
     /// Friendly name of the ad
     public var name: String?
     /// Unique identifier for the ad
-    public var adId: String?
+    public var adId: String
     /// The ID of the ad creative
     public var creativeId: String?
     /// The position of the ad within the ad break, starting with 1
@@ -32,16 +32,30 @@ public class MediaAdUpdate: NSObject {
     public var duration: Double?
     /// The percent of the way through the ad
     /// It is automatically assigned by the tracker based on the ad quartile, midpoint and complete events.
-    public var percentProgress: Int?
+    public var percentProgress: Int? = 0
     /// Indicating whether skip controls are made available to the end user
     public var skippable: Bool?
     
     internal var entity: SelfDescribingJson {
-        return SelfDescribingJson(schema: "", andData: [:])
+        var data: [String : Any] = [
+            "adId": adId
+        ]
+        if let name = name { data["name"] = name }
+        if let creativeId = creativeId { data["creativeId"] = creativeId }
+        if let podPosition = podPosition { data["podPosition"] = podPosition }
+        if let duration = duration { data["duration"] = duration }
+        if let percentProgress = percentProgress { data["percentProgress"] = percentProgress }
+        if let skippable = skippable { data["skippable"] = skippable }
+        
+        return SelfDescribingJson(
+            schema: "iglu:com.snowplowanalytics.snowplow/media_player_ad/jsonschema/1-0-0",
+            andData: data)
     }
     
+    /// - Parameter adId: Unique identifier for the ad
     @objc
-    public override init() {
+    public init(adId: String) {
+        self.adId = adId
     }
     
     /// - Parameter name: Friendly name of the ad
@@ -49,8 +63,9 @@ public class MediaAdUpdate: NSObject {
     /// - Parameter creativeId: The ID of the ad creative
     /// - Parameter duration: Length of the video ad in seconds
     /// - Parameter skippable: Indicating whether skip controls are made available to the end user
-    public init(name: String? = nil,
-                adId: String? = nil,
+    public init(
+                adId: String,
+                name: String? = nil,
                 creativeId: String? = nil,
                 duration: Double? = nil,
                 skippable: Bool? = nil) {
@@ -70,7 +85,7 @@ public class MediaAdUpdate: NSObject {
     
     /// Unique identifier for the ad
     @objc
-    public func adId(_ adId: String?) -> Self {
+    public func adId(_ adId: String) -> Self {
         self.adId = adId
         return self
     }
@@ -112,12 +127,11 @@ public class MediaAdUpdate: NSObject {
         return self
     }
     
-    func update(from ad: MediaAdUpdate, podPosition: Int) {
+    func update(from ad: MediaAdUpdate) {
+        self.adId = ad.adId
         if let name = ad.name { self.name = name }
-        if let adId = ad.adId { self.adId = adId }
         if let creativeId = ad.creativeId { self.creativeId = creativeId }
         if let duration = ad.duration { self.duration = duration }
         if let skippable = ad.skippable { self.skippable = skippable }
-        if podPosition > 0 { self.podPosition = podPosition }
     }
 }
