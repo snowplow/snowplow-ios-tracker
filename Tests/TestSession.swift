@@ -454,7 +454,7 @@ class TestSession: XCTestCase {
 
         let withAnonymisation = session.getDictWithEventId("event_3", eventTimestamp: 1654496481347, userAnonymisation: true)
         XCTAssertEqual("00000000-0000-0000-0000-000000000000", withAnonymisation?[kSPSessionUserId] as? String)
-        XCTAssertNil(withAnonymisation?[kSPSessionPreviousId])
+        XCTAssertEqual(NSNull(), withAnonymisation?[kSPSessionPreviousId] as? NSNull)
     }
 
     // Service methods
