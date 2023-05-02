@@ -145,7 +145,7 @@ class Session {
             // mask the user identifier
             var copy = context
             copy?[kSPSessionUserId] = kSPSessionAnonymousUserId
-            copy?[kSPSessionPreviousId] = nil
+            copy?[kSPSessionPreviousId] = NSNull()
             return copy
         } else {
             return context
