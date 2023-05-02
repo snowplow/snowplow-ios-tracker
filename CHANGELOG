@@ -1,3 +1,7 @@
+Version 5.0.1 (2023-05-02)
+--------------------------
+Fix validation errors due to session schema tracked without required previousSessionId property when anonymous tracking (#767)
+
 Version 5.0.0 (2023-04-04)
 --------------------------
 Rename the repository from snowplow-objc-tracker to snowplow-ios-tracker
