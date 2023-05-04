@@ -23,10 +23,6 @@ public class MediaTrackingConfiguration: NSObject {
     @objc
     public var id: String
     
-    /// A custom optional identifier tracked as the `label` property in media events.
-    @objc
-    public var label: String? = nil
-    
     /// Percentage boundaries of the video to track progress events at
     @objc
     public var boundaries: [Int]?
@@ -37,7 +33,7 @@ public class MediaTrackingConfiguration: NSObject {
     
     /// Properties of the media player context entity attached to media events.
     @objc
-    public var media: MediaUpdate?
+    public var player: MediaPlayer?
     
     /// Whether to track media ping events. Defaults to true.
     @objc
@@ -56,7 +52,7 @@ public class MediaTrackingConfiguration: NSObject {
     /// List of event types to allow tracking.
     /// If not specified (`nil`), all tracked events will be allowed and tracked.
     /// Otherwise, tracked event types not present in the list will be discarded.
-    public var captureEvents: [MediaEventType]?
+    public var captureEvents: [Event.Type]?
     
     /// - Parameter id: Unique identifier for the media tracking instance. The same ID is used for media player session if enabled.
     /// - Parameter label: A custom optional identifier tracked as the `label` property in media events.
@@ -66,24 +62,15 @@ public class MediaTrackingConfiguration: NSObject {
     /// - Parameter entities: List of context entities to track with events
     @objc
     public init(id: String,
-                label: String? = nil,
                 pings: Bool = true,
-                media: MediaUpdate? = nil,
+                player: MediaPlayer? = nil,
                 session: Bool = true,
                 entities: [SelfDescribingJson]? = nil) {
         self.id = id
-        self.label = label
-        self.media = media
+        self.player = player
         self.pings = pings
         self.entities = entities
         self.session = session
-    }
-    
-    /// A custom optional identifier tracked as the `label` property in media events.
-    @objc
-    public func label(_ label: String?) -> Self {
-        self.label = label
-        return self
     }
     
     /// Percentage boundaries of the video to track progress events at
@@ -102,8 +89,8 @@ public class MediaTrackingConfiguration: NSObject {
     
     /// Properties of the media player context entity attached to media events.
     @objc
-    public func media(_ media: MediaUpdate?) -> Self {
-        self.media = media
+    public func player(_ player: MediaPlayer?) -> Self {
+        self.player = player
         return self
     }
     
@@ -132,7 +119,7 @@ public class MediaTrackingConfiguration: NSObject {
     /// List of event types to allow tracking.
     /// If not specified (`nil`), all tracked events will be allowed and tracked.
     /// Otherwise, tracked event types not present in the list will be discarded.
-    public func captureEvents(_ captureEvents: [MediaEventType]?) -> Self {
+    public func captureEvents(_ captureEvents: [Event.Type]?) -> Self {
         self.captureEvents = captureEvents
         return self
     }

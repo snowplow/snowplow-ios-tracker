@@ -13,7 +13,7 @@
 
 import Foundation
 
-class MediaPlayerSession {
+class MediaSession {
     var id: String
     var startedAt: Date
     var pingInterval: Int?
@@ -44,10 +44,7 @@ class MediaPlayerSession {
         if let startedAt = Utilities.dateToISOString(startedAt) { data["startedAt"] = startedAt }
         if let pingInterval = pingInterval { data["pingInterval"] = pingInterval }
         
-        return SelfDescribingJson(
-            schema: "iglu:com.snowplowanalytics.snowplow/media_player_session/jsonschema/1-0-0",
-            andData: data
-        )
+        return SelfDescribingJson(schema: MediaSchemata.sessionSchema, andData: data)
     }
     
     private func roundStat(_ value: Double) -> Double {

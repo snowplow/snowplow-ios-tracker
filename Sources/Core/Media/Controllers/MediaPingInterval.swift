@@ -33,8 +33,8 @@ class MediaPingInterval {
         self.timerProvider = timerProvider
     }
     
-    func update(mediaPlayer: MediaUpdate) {
-        paused = mediaPlayer.paused ?? true
+    func update(player: MediaPlayer) {
+        paused = player.paused ?? true
         if paused == false { numPausedPings = 0 }
     }
     

@@ -16,7 +16,6 @@ import Foundation
 fileprivate struct Log {
     var time: Date
     var contentTime: Double
-    var eventType: MediaEventType?
     var playbackRate: Double
     var paused: Bool
     var muted: Bool
@@ -24,7 +23,7 @@ fileprivate struct Log {
 }
 
 class MediaSessionTrackingStats {
-    private var session: MediaPlayerSession
+    private var session: MediaSession
     private var dateGenerator: () -> Date
     private var lastAdUpdateAt: Date?
     private var bufferingStartedAt: Date?
@@ -47,25 +46,24 @@ class MediaSessionTrackingStats {
     var adsSkipped = 0
     var adsClicked = 0
     
-    init(session: MediaPlayerSession, dateGenerator: @escaping () -> Date = Date.init) {
+    init(session: MediaSession, dateGenerator: @escaping () -> Date = Date.init) {
         self.session = session
         self.dateGenerator = dateGenerator
     }
     
-    func update(eventType: MediaEventType?, mediaPlayer: MediaUpdate, adBreak: MediaAdBreakUpdate? = nil) {
+    func update(event: Event?, player: MediaPlayer, adBreak: MediaAdBreak? = nil) {
         let log = Log(
             time: dateGenerator(),
-            contentTime: mediaPlayer.currentTime ?? 0,
-            eventType: eventType,
-            playbackRate: mediaPlayer.playbackRate ?? 1,
-            paused: mediaPlayer.paused ?? true,
-            muted: mediaPlayer.muted ?? false,
+            contentTime: player.currentTime ?? 0,
+            playbackRate: player.playbackRate ?? 1,
+            paused: player.paused ?? true,
+            muted: player.muted ?? false,
             linearAd: adBreak?.breakType ?? .linear == .linear
         )
         
         updateDurationStats(log: log)
-        updateAdStats(log: log)
-        updateBufferingStats(log: log)
+        updateAdStats(event: event, log: log)
+        updateBufferingStats(event: event, log: log)
         
         lastLog = log
     }
@@ -102,37 +100,38 @@ class MediaSessionTrackingStats {
         }
     }
     
-    private func updateAdStats(log: Log) {
-        // only works with ad event types
-        guard let eventType = log.eventType else { return }
-        
+    private func updateAdStats(event: Event?, log: Log) {
         // count ad actions
-        switch eventType {
-        case .adBreakStart:
+        switch event {
+        case is MediaAdBreakStartEvent:
             adBreaks += 1
-        case .adStart:
+            
+        case is MediaAdStartEvent:
             ads += 1
-        case .adSkip:
+            
+        case is MediaAdSkipEvent:
             adsSkipped += 1
-        case .adClick:
+            
+        case is MediaAdClickEvent:
             adsClicked += 1
+            
         default: break
         }
         
         // update ad playback duration
-        switch eventType {
-        case .adStart, .adResume: // ad start
+        switch event {
+        case is MediaAdStartEvent, is MediaAdResumeEvent: // ad start
             if lastAdUpdateAt == nil {
                 lastAdUpdateAt = log.time
             }
             
-        case .adClick, .adFirstQuartile, .adMidpoint, .adThirdQuartile: // ad progress
+        case is MediaAdClickEvent, is MediaAdFirstQuartileEvent, is MediaAdMidpointEvent, is MediaAdThirdQuartileEvent: // ad progress
             if let lastAdUpdateAt = lastAdUpdateAt {
                 timeSpentAds += timeDiff(since: lastAdUpdateAt, until: log.time)
             }
             lastAdUpdateAt = log.time
             
-        case .adComplete, .adSkip, .adPause: // ad end
+        case is MediaAdCompleteEvent, is MediaAdSkipEvent, is MediaAdPauseEvent: // ad end
             if let lastAdUpdateAt = lastAdUpdateAt {
                 timeSpentAds += timeDiff(since: lastAdUpdateAt, until: log.time)
             }
@@ -142,14 +141,14 @@ class MediaSessionTrackingStats {
         }
     }
     
-    private func updateBufferingStats(log: Log) {
-        if log.eventType == .bufferStart {
+    private func updateBufferingStats(event: Event?, log: Log) {
+        if event is MediaBufferStartEvent {
             bufferingStartedAt = log.time
             bufferingStartTime = log.contentTime
         } else if let bufferingStartedAt = bufferingStartedAt,
                   let bufferingStartTime = bufferingStartTime {
             if (log.contentTime != bufferingStartTime && !log.paused) ||
-                (log.eventType == .bufferEnd || log.eventType == .play) {
+                (event is MediaBufferEndEvent || event is MediaPlayEvent) {
                 // Either the playback moved or BufferEnd or Play events were tracked
                 timeBuffering += timeDiff(since: bufferingStartedAt, until: log.time)
                 self.bufferingStartTime = nil

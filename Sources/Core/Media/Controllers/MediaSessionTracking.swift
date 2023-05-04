@@ -15,7 +15,7 @@ import Foundation
 
 class MediaSessionTracking {
     
-    private var session: MediaPlayerSession
+    private var session: MediaSession
     private var stats: MediaSessionTrackingStats
     
     var entity: SelfDescribingJson {
@@ -26,14 +26,14 @@ class MediaSessionTracking {
          startedAt: Date? = nil,
          pingInterval: Int? = nil,
          dateGenerator: @escaping () -> Date = Date.init) {
-        session = MediaPlayerSession(id: id,
+        session = MediaSession(id: id,
                                      startedAt: startedAt,
                                      pingInterval: pingInterval)
         stats = MediaSessionTrackingStats(session: session,
                                           dateGenerator: dateGenerator)
     }
     
-    func update(eventType: MediaEventType?, mediaPlayer: MediaUpdate, adBreak: MediaAdBreakUpdate?) {
-        stats.update(eventType: eventType, mediaPlayer: mediaPlayer, adBreak: adBreak)
+    func update(event: Event?, player: MediaPlayer, adBreak: MediaAdBreak?) {
+        stats.update(event: event, player: player, adBreak: adBreak)
     }
 }

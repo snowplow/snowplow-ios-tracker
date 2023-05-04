@@ -25,20 +25,15 @@ public protocol MediaController {
     /// Starts media tracking for a single media content tracked in a media player.
     ///
     /// - Parameter id: Unique identifier for the media tracking instance. The same ID will be used for media player session if enabled.
-    /// - Parameter label: A custom optional identifier tracked as the `label` property in media events.
     @objc
-    func startMediaTracking(id: String,
-                            label: String?) -> MediaTracking
+    func startMediaTracking(id: String) -> MediaTracking
     
     /// Starts media tracking for a single media content tracked in a media player.
     ///
     /// - Parameter id: Unique identifier for the media tracking instance. The same ID will be used for media player session if enabled.
-    /// - Parameter label: A custom optional identifier for the media tracking.
     /// - Parameter media: Attributes for the media player context entity
     @objc
-    func startMediaTracking(id: String,
-                            label: String?,
-                            media: MediaUpdate?) -> MediaTracking
+    func startMediaTracking(id: String, player: MediaPlayer?) -> MediaTracking
     
     /// Starts media tracking for a single media content tracked in a media player.
     ///
@@ -52,8 +47,7 @@ public protocol MediaController {
     /// - Parameter player: AVPlayer instance of the player to track events from.
     /// - Parameter configuration: Configuration of the media tracking instance.
     @objc
-    func startMediaTracking(player: AVPlayer,
-                            configuration: MediaTrackingConfiguration) -> MediaTracking
+    func startMediaTracking(player: AVPlayer, configuration: MediaTrackingConfiguration) -> MediaTracking
 #endif
     
     /// Returns a media tracking instance for the given ID.

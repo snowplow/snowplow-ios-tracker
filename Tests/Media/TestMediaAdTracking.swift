@@ -19,17 +19,17 @@ class TestMediaAdTracking: XCTestCase {
     func testUpdatesStartTimeOfAdBreak() {
         let adTracking = MediaAdTracking()
         
-        adTracking.updateForThisEvent(eventType: .adBreakStart,
-                                      mediaPlayer: MediaUpdate().currentTime(33.0),
+        adTracking.updateForThisEvent(event: MediaAdBreakStartEvent(),
+                                      player: MediaPlayer().currentTime(33.0),
                                       ad: nil,
-                                      adBreak: MediaAdBreakUpdate(breakId: "b1"))
-        adTracking.updateForNextEvent(eventType: .adBreakStart)
+                                      adBreak: MediaAdBreak(breakId: "b1"))
+        adTracking.updateForNextEvent(event: MediaAdBreakStartEvent())
         
-        adTracking.updateForThisEvent(eventType: .adStart,
-                                      mediaPlayer: MediaUpdate().currentTime(44.0),
-                                      ad: MediaAdUpdate(adId: "a1"),
+        adTracking.updateForThisEvent(event: MediaAdStartEvent(),
+                                      player: MediaPlayer().currentTime(44.0),
+                                      ad: MediaAd(adId: "a1"),
                                       adBreak: nil)
-        adTracking.updateForNextEvent(eventType: .adStart)
+        adTracking.updateForNextEvent(event: MediaAdStartEvent())
         
         XCTAssertEqual("b1", adTracking.adBreak?.breakId)
         XCTAssertEqual(33.0, adTracking.adBreak?.startTime)
@@ -38,70 +38,26 @@ class TestMediaAdTracking: XCTestCase {
     func testUpdatesPodPositionOfAds() {
         let adTracking = MediaAdTracking()
         
-        adTracking.updateForThisEvent(eventType: .adBreakStart,
-                                      mediaPlayer: MediaUpdate(),
+        adTracking.updateForThisEvent(event: MediaAdBreakStartEvent(),
+                                      player: MediaPlayer(),
                                       ad: nil,
-                                      adBreak: MediaAdBreakUpdate(breakId: "b1"))
-        adTracking.updateForNextEvent(eventType: .adBreakStart)
+                                      adBreak: MediaAdBreak(breakId: "b1"))
+        adTracking.updateForNextEvent(event: MediaAdBreakStartEvent())
         
-        adTracking.updateForThisEvent(eventType: .adStart,
-                                      mediaPlayer: MediaUpdate(),
-                                      ad: MediaAdUpdate(adId: "a1"),
+        adTracking.updateForThisEvent(event: MediaAdStartEvent(),
+                                      player: MediaPlayer(),
+                                      ad: MediaAd(adId: "a1"),
                                       adBreak: nil)
         
         XCTAssertEqual(1, adTracking.ad?.podPosition)
         
-        adTracking.updateForNextEvent(eventType: .adStart)
+        adTracking.updateForNextEvent(event: MediaAdStartEvent())
         
-        adTracking.updateForThisEvent(eventType: .adStart,
-                                      mediaPlayer: MediaUpdate(),
-                                      ad: MediaAdUpdate(adId: "a1"),
+        adTracking.updateForThisEvent(event: MediaAdStartEvent(),
+                                      player: MediaPlayer(),
+                                      ad: MediaAd(adId: "a1"),
                                       adBreak: nil)
         
         XCTAssertEqual(2, adTracking.ad?.podPosition)
-    }
-    
-    func testUpdatesPercentProgressOfAds() {
-        let adTracking = MediaAdTracking()
-        
-        adTracking.updateForThisEvent(eventType: .adStart,
-                                      mediaPlayer: MediaUpdate(),
-                                      ad: MediaAdUpdate(adId: "a1").duration(100),
-                                      adBreak: nil)
-        
-        XCTAssertEqual(0, adTracking.ad?.percentProgress)
-        
-        adTracking.updateForNextEvent(eventType: .adStart)
-        adTracking.updateForThisEvent(eventType: .adFirstQuartile,
-                                      mediaPlayer: MediaUpdate(),
-                                      ad: nil,
-                                      adBreak: nil)
-        
-        XCTAssertEqual(25, adTracking.ad?.percentProgress)
-        
-        adTracking.updateForNextEvent(eventType: .adFirstQuartile)
-        adTracking.updateForThisEvent(eventType: .adMidpoint,
-                                      mediaPlayer: MediaUpdate(),
-                                      ad: nil,
-                                      adBreak: nil)
-        
-        XCTAssertEqual(50, adTracking.ad?.percentProgress)
-        
-        adTracking.updateForNextEvent(eventType: .adMidpoint)
-        adTracking.updateForThisEvent(eventType: .adThirdQuartile,
-                                      mediaPlayer: MediaUpdate(),
-                                      ad: nil,
-                                      adBreak: nil)
-        
-        
-        XCTAssertEqual(75, adTracking.ad?.percentProgress)
-        
-        adTracking.updateForNextEvent(eventType: .adThirdQuartile)
-        adTracking.updateForThisEvent(eventType: .adComplete,
-                                      mediaPlayer: MediaUpdate(),
-                                      ad: nil,
-                                      adBreak: nil)
-        
-        XCTAssertEqual(100, adTracking.ad?.percentProgress)
     }
 }

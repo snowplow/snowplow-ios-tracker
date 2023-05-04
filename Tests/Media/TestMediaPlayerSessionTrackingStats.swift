@@ -21,20 +21,20 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     override func setUp() {
         timeTraveler = TimeTraveler()
-        let session = MediaPlayerSession(id: "1")
+        let session = MediaSession(id: "1")
         stats = MediaSessionTrackingStats(session: session,
                                               dateGenerator: timeTraveler!.generateDate)
     }
     
     func testCalculatesPlayedDuration() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let mediaPlayer = MediaPlayer(paused: false)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: mediaPlayer)
         
         timeTraveler.travel(by: TimeInterval(60))
         mediaPlayer.currentTime = 60
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaEndEvent(), player: mediaPlayer)
         
         XCTAssertEqual(61, stats.contentWatched)
         XCTAssertEqual(60, stats.timePlayed)
@@ -45,23 +45,23 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testConsidersPauses() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
-        
-        timeTraveler.travel(by: TimeInterval(10))
-        mediaPlayer.currentTime = 10
-        stats.update(eventType: nil, mediaPlayer: mediaPlayer)
-        mediaPlayer.paused = true
-        stats.update(eventType: .pause, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(10))
-        mediaPlayer.paused = false
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
+        player.currentTime = 10
+        stats.update(event: nil, player: player)
+        player.paused = true
+        stats.update(event: MediaPauseEvent(), player: player)
+        
+        timeTraveler.travel(by: TimeInterval(10))
+        player.paused = false
+        stats.update(event: MediaPlayEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(50))
-        mediaPlayer.currentTime = 60
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 60
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(61, stats.contentWatched)
         XCTAssertEqual(60, stats.timePlayed)
@@ -72,18 +72,18 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testCalculatesPlayOnMute() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
-        
-        timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 30
-        mediaPlayer.muted = true
-        stats.update(eventType: .volumeChange, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 60
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 30
+        player.muted = true
+        stats.update(event: MediaVolumeChangeEvent(newVolume: 50), player: player)
+        
+        timeTraveler.travel(by: TimeInterval(30))
+        player.currentTime = 60
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(61, stats.contentWatched)
         XCTAssertEqual(60, stats.timePlayed)
@@ -94,18 +94,18 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testCalculatesAveragePlaybackRate() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
-        
-        timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 30
-        mediaPlayer.playbackRate = 2
-        stats.update(eventType: .playbackRateChange, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 90
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 30
+        player.playbackRate = 2
+        stats.update(event: MediaPlaybackRateChangeEvent(newRate: 2), player: player)
+        
+        timeTraveler.travel(by: TimeInterval(30))
+        player.currentTime = 90
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(91, stats.contentWatched)
         XCTAssertEqual(60, stats.timePlayed)
@@ -116,23 +116,23 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testCalculatesStatsForLinearAds() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 30
-        stats.update(eventType: .adStart, mediaPlayer: mediaPlayer)
+        player.currentTime = 30
+        stats.update(event: MediaAdStartEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(5))
-        stats.update(eventType: .adClick, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaAdClickEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(10))
-        stats.update(eventType: .adComplete, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaAdCompleteEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 60
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 60
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(15, stats.timeSpentAds)
         XCTAssertEqual(1, stats.ads)
@@ -147,24 +147,24 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testCalculatesStatsForNonLinearAds() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
-        let adBreak = MediaAdBreakUpdate(breakId: "1", breakType: .nonLinear)
+        let player = MediaPlayer(paused: false)
+        let adBreak = MediaAdBreak(breakId: "1", breakType: .nonLinear)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 30
-        stats.update(eventType: .adBreakStart, mediaPlayer: mediaPlayer, adBreak: adBreak)
-        stats.update(eventType: .adStart, mediaPlayer: mediaPlayer, adBreak: adBreak)
+        player.currentTime = 30
+        stats.update(event: MediaAdBreakStartEvent(), player: player, adBreak: adBreak)
+        stats.update(event: MediaAdStartEvent(), player: player, adBreak: adBreak)
         
         timeTraveler.travel(by: TimeInterval(15))
-        mediaPlayer.currentTime = 45
-        stats.update(eventType: .adComplete, mediaPlayer: mediaPlayer, adBreak: adBreak)
-        stats.update(eventType: .adBreakEnd, mediaPlayer: mediaPlayer, adBreak: adBreak)
+        player.currentTime = 45
+        stats.update(event: MediaAdCompleteEvent(), player: player, adBreak: adBreak)
+        stats.update(event: MediaAdBreakEndEvent(), player: player, adBreak: adBreak)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 75
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 75
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(15, stats.timeSpentAds)
         XCTAssertEqual(1, stats.ads)
@@ -175,19 +175,19 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testCountsRewatchedContentOnceInContentWatched() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 30
-        stats.update(eventType: .seekStart, mediaPlayer: mediaPlayer)
-        mediaPlayer.currentTime = 15
-        stats.update(eventType: .seekEnd, mediaPlayer: mediaPlayer)
+        player.currentTime = 30
+        stats.update(event: MediaSeekStartEvent(), player: player)
+        player.currentTime = 15
+        stats.update(event: MediaSeekEndEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(45))
-        mediaPlayer.currentTime = 60
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 60
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(61, stats.contentWatched)
         XCTAssertEqual(75, stats.timePlayed)
@@ -195,20 +195,20 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testConsidersChangesInPingEvents() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .play, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaPlayEvent(), player: player)
         
         for i in (1..<60) {
             timeTraveler.travel(by: TimeInterval(1))
-            mediaPlayer.currentTime = mediaPlayer.currentTime ?? 0 + 1
-            mediaPlayer.muted = i % 2 == 1
-            stats.update(eventType: nil, mediaPlayer: mediaPlayer)
+            player.currentTime = player.currentTime ?? 0 + 1
+            player.muted = i % 2 == 1
+            stats.update(event: nil, player: player)
         }
         
         timeTraveler.travel(by: TimeInterval(1))
-        mediaPlayer.currentTime = 60
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 60
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(61, stats.contentWatched)
         XCTAssertEqual(60, stats.timePlayed)
@@ -217,16 +217,16 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testCalculatesBufferingTime() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .bufferStart, mediaPlayer: mediaPlayer)
-        
-        timeTraveler.travel(by: TimeInterval(30))
-        stats.update(eventType: .bufferEnd, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaBufferStartEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 30
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaBufferEndEvent(), player: player)
+        
+        timeTraveler.travel(by: TimeInterval(30))
+        player.currentTime = 30
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(60, stats.timePlayed)
         XCTAssertEqual(30, stats.timeBuffering)
@@ -234,16 +234,16 @@ class TestMediaSessionTrackingStats: XCTestCase {
     
     func testEndsBufferingWhenPlaybackTimeMoves() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let mediaPlayer = MediaUpdate(paused: false)
+        let player = MediaPlayer(paused: false)
         
-        stats.update(eventType: .bufferStart, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaBufferStartEvent(), player: player)
         
         timeTraveler.travel(by: TimeInterval(30))
-        stats.update(eventType: .bufferEnd, mediaPlayer: mediaPlayer)
+        stats.update(event: MediaBufferEndEvent(), player: player)
 
         timeTraveler.travel(by: TimeInterval(30))
-        mediaPlayer.currentTime = 30
-        stats.update(eventType: .end, mediaPlayer: mediaPlayer)
+        player.currentTime = 30
+        stats.update(event: MediaEndEvent(), player: player)
         
         XCTAssertEqual(60, stats.timePlayed)
         XCTAssertEqual(30, stats.timeBuffering)

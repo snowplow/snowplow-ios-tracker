@@ -23,16 +23,12 @@ class MediaControllerImpl: Controller, MediaController {
     private var playerSubscriptions: [String: AVPlayerSubscription] = [:]
 #endif
     
-    func startMediaTracking(id: String, label: String? = nil) -> MediaTracking {
-        return startMediaTracking(id: id, label: label, media: nil)
+    func startMediaTracking(id: String) -> MediaTracking {
+        return startMediaTracking(id: id, player: nil)
     }
     
-    func startMediaTracking(id: String,
-                            label: String? = nil,
-                            media: MediaUpdate? = nil) -> MediaTracking {
-        let configuration = MediaTrackingConfiguration(id: id,
-                                                       label: label,
-                                                       media: media)
+    func startMediaTracking(id: String, player: MediaPlayer? = nil) -> MediaTracking {
+        let configuration = MediaTrackingConfiguration(id: id, player: player)
         return startMediaTracking(configuration: configuration)
     }
     
@@ -54,8 +50,7 @@ class MediaControllerImpl: Controller, MediaController {
 
         let mediaTracking = MediaTrackingImpl(id: configuration.id,
                                               tracker: serviceProvider.trackerController,
-                                              label: configuration.label,
-                                              mediaPlayer: configuration.media,
+                                              player: configuration.player,
                                               session: session,
                                               pingInterval: pingInterval,
                                               boundaries: configuration.boundaries,

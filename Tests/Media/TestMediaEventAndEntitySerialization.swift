@@ -17,62 +17,74 @@ import XCTest
 class TestMediaEventAndEntitySerialization: XCTestCase {
     
     func testSchemaForMediaEventTypes() {
-        XCTAssertEqual(mediaSchema(name: "media_player_event_play"), MediaEventType.play.schema)
-        XCTAssertEqual(mediaSchema(name: "media_player_event_playback_rate_change"), MediaEventType.playbackRateChange.schema)
-        XCTAssertEqual(mediaSchema(name: "media_player_event_ready"), MediaEventType.ready.schema)
-        XCTAssertEqual(mediaSchema(name: "media_player_event_ad_resume"), MediaEventType.adResume.schema)
+        XCTAssertEqual(mediaSchema(name: "play_event"), MediaPlayEvent().schema)
+        XCTAssertEqual(mediaSchema(name: "playback_rate_change_event"), MediaPlaybackRateChangeEvent(newRate: 1).schema)
+        XCTAssertEqual(mediaSchema(name: "ready_event"), MediaReadyEvent().schema)
+        XCTAssertEqual(mediaSchema(name: "ad_resume_event"), MediaAdResumeEvent().schema)
         
-        XCTAssertEqual(mediaSchema(name: "media_player_event_ad_quartile"), MediaEventType.adFirstQuartile.schema)
-        XCTAssertEqual(mediaSchema(name: "media_player_event_ad_quartile"), MediaEventType.adMidpoint.schema)
-        XCTAssertEqual(mediaSchema(name: "media_player_event_ad_quartile"), MediaEventType.adThirdQuartile.schema)
-        XCTAssertEqual(mediaSchema(name: "media_player_event_ad_complete"), MediaEventType.adComplete.schema)
+        XCTAssertEqual(mediaSchema(name: "ad_quartile_event"), MediaAdFirstQuartileEvent().schema)
+        XCTAssertEqual(mediaSchema(name: "ad_quartile_event"), MediaAdMidpointEvent().schema)
+        XCTAssertEqual(mediaSchema(name: "ad_quartile_event"), MediaAdThirdQuartileEvent().schema)
+        XCTAssertEqual(mediaSchema(name: "ad_complete_event"), MediaAdCompleteEvent().schema)
     }
     
     func testBuildsEntityWithDefaultValuesForEmptyMediaPlayer() {
-        let entity = MediaUpdate().entity
+        let entity = MediaPlayer().entity
         
-        XCTAssertEqual(mediaSchema(name: "media_player"), entity.schema)
+        XCTAssertEqual(mediaSchema(name: "player"), entity.schema)
         XCTAssertEqual(0.0, entity.data["currentTime"] as? Double)
         XCTAssertEqual(true, entity.data["paused"] as? Bool)
-        XCTAssertEqual(100, entity.data["volume"] as? Int)
+        XCTAssertEqual(false, entity.data["ended"] as? Bool)
     }
     
     func testBuildsEntityForMediaPlayer() {
-        let entity = MediaUpdate(
+        let entity = MediaPlayer(
             currentTime: 33.3,
             duration: 100,
             ended: true,
+            fullscreen: true,
             isLive: true,
+            label: "The Video",
             loop: true,
+            mediaType: .video,
             muted: true,
             paused: false,
-            playbackRate: 2.5
+            pictureInPicture: false,
+            playerType: "AVPlayer",
+            playbackRate: 2.5,
+            quality: "1080p",
+            volume: 80
         ).entity
         
-        XCTAssertEqual(mediaSchema(name: "media_player"), entity.schema)
+        XCTAssertEqual(mediaSchema(name: "player"), entity.schema)
         XCTAssertEqual(33.3, entity.data["currentTime"] as? Double)
         XCTAssertEqual(false, entity.data["paused"] as? Bool)
+        XCTAssertEqual(true, entity.data["fullscreen"] as? Bool)
         XCTAssertEqual(true, entity.data["isLive"] as? Bool)
+        XCTAssertEqual("The Video", entity.data["label"] as? String)
         XCTAssertEqual(true, entity.data["loop"] as? Bool)
+        XCTAssertEqual("video", entity.data["mediaType"] as? String)
         XCTAssertEqual(true, entity.data["muted"] as? Bool)
         XCTAssertEqual(100.0, entity.data["duration"] as? Double)
-        XCTAssertEqual(33, entity.data["percentProgress"] as? Int)
-        XCTAssertEqual(100, entity.data["volume"] as? Int)
+        XCTAssertEqual(80, entity.data["volume"] as? Int)
         XCTAssertEqual(2.5, entity.data["playbackRate"] as? Double)
+        XCTAssertEqual(false, entity.data["pictureInPicture"] as? Bool)
+        XCTAssertEqual("AVPlayer", entity.data["playerType"] as? String)
+        XCTAssertEqual("1080p", entity.data["quality"] as? String)
     }
     
     func testBuildsMediaSessionEntity() {
         let date = Date()
         let timeTraveler = TimeTraveler()
-        let session = MediaPlayerSession(id: "xxx", startedAt: date, pingInterval: 13)
+        let session = MediaSession(id: "xxx", startedAt: date, pingInterval: 13)
         let stats = MediaSessionTrackingStats(session: session, dateGenerator: timeTraveler.generateDate)
         
-        stats.update(eventType: .play, mediaPlayer: MediaUpdate().currentTime(0).paused(false))
+        stats.update(event: MediaPlayEvent(), player: MediaPlayer().currentTime(0).paused(false))
         timeTraveler.travel(by: 10)
-        stats.update(eventType: .pause, mediaPlayer: MediaUpdate().currentTime(10).paused(true))
+        stats.update(event: MediaPauseEvent(), player: MediaPlayer().currentTime(10).paused(true))
         
         let entity = session.entity(stats: stats)
-        XCTAssertEqual(mediaSchema(name: "media_player_session"), entity.schema)
+        XCTAssertEqual(mediaSchema(name: "session"), entity.schema)
         XCTAssertEqual("xxx", entity.data["mediaSessionId"] as? String)
         XCTAssertEqual(13, entity.data["pingInterval"] as? Int)
         XCTAssertEqual(Utilities.dateToISOString(date), entity.data["startedAt"] as? String)
@@ -81,7 +93,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     }
     
     func testBuildsAdEntity() {
-        let ad = MediaAdUpdate(
+        let ad = MediaAd(
             adId: "yyy",
             name: "Name",
             creativeId: "zzz",
@@ -89,27 +101,25 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
             skippable: true
         )
         ad.podPosition = 2
-        ad.percentProgress = 50
         let entity = ad.entity
         
-        XCTAssertEqual(mediaSchema(name: "media_player_ad"), entity.schema)
+        XCTAssertEqual(mediaSchema(name: "ad"), entity.schema)
         XCTAssertEqual("Name", entity.data["name"] as? String)
         XCTAssertEqual("yyy", entity.data["adId"] as? String)
         XCTAssertEqual("zzz", entity.data["creativeId"] as? String)
         XCTAssertEqual(11.0, entity.data["duration"] as? Double)
-        XCTAssertEqual(50, entity.data["percentProgress"] as? Int)
         XCTAssertEqual(2, entity.data["podPosition"] as? Int)
         XCTAssertEqual(true, entity.data["skippable"] as? Bool)
     }
     
     func testBuildsAdBreakEntity() {
-        let adBreak = MediaAdBreakUpdate(breakId: "xxx",
+        let adBreak = MediaAdBreak(breakId: "xxx",
                                          name: "Break 1",
                                          breakType: .nonLinear)
         adBreak.startTime = 100.1
         let entity = adBreak.entity
         
-        XCTAssertEqual(mediaSchema(name: "media_player_ad_break"), entity.schema)
+        XCTAssertEqual(mediaSchema(name: "ad_break"), entity.schema)
         XCTAssertEqual("Break 1", entity.data["name"] as? String)
         XCTAssertEqual("xxx", entity.data["breakId"] as? String)
         XCTAssertEqual("nonlinear", entity.data["breakType"] as? String)
@@ -117,6 +127,6 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     }
     
     private func mediaSchema(name: String, version: String = "1-0-0") -> String {
-        return "iglu:com.snowplowanalytics.snowplow/" + name + "/jsonschema/" + version
+        return "iglu:com.snowplowanalytics.snowplow.media/" + name + "/jsonschema/" + version
     }
 }

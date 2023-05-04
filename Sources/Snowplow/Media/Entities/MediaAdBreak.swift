@@ -16,9 +16,9 @@ import Foundation
 /// State of retrieved remote configuration that states where the configuration was retrieved from.
 @objc(SPMediaAdBreakType)
 public enum MediaAdBreakType: Int {
-    /// take full control of the video for a period of time
+    /// Take full control of the video for a period of time
     case linear
-    /// run concurrently to the video
+    /// Run concurrently to the video
     case nonLinear
     /// Accompany the video but placed outside the player
     case companion
@@ -39,10 +39,10 @@ extension MediaAdBreakType {
 
 /**
  Properties for the ad break context entity attached to media events during ad break playback.
- Entity schema: `iglu:com.snowplowanalytics.snowplow/media_player_ad_break/jsonschema/1-0-0`
+ Entity schema: `iglu:com.snowplowanalytics.snowplow.media/ad_break/jsonschema/1-0-0`
  */
-@objc(SPMediaAdBreakUpdate)
-public class MediaAdBreakUpdate: NSObject {
+@objc(SPMediaAdBreak)
+public class MediaAdBreak: NSObject {
     /// Ad break name (e.g., pre-roll, mid-roll, and post-roll)
     public var name: String?
     /// An identifier for the ad break
@@ -60,9 +60,7 @@ public class MediaAdBreakUpdate: NSObject {
         if let name = name { data["name"] = name }
         if let breakType = breakType { data["breakType"] = breakType.value }
         
-        return SelfDescribingJson(
-            schema: "iglu:com.snowplowanalytics.snowplow/media_player_ad_break/jsonschema/1-0-0",
-            andData: data)
+        return SelfDescribingJson(schema: MediaSchemata.adBreakSchema, andData: data)
 
     }
     
@@ -103,13 +101,13 @@ public class MediaAdBreakUpdate: NSObject {
         return self
     }
     
-    func update(adBreak: MediaAdBreakUpdate) {
+    func update(adBreak: MediaAdBreak) {
         self.breakId = adBreak.breakId
         if let name = adBreak.name { self.name = name }
         if let breakType = adBreak.breakType { self.breakType = breakType }
     }
     
-    func update(mediaPlayer: MediaUpdate) {
-        if startTime == nil { startTime = mediaPlayer.currentTime ?? 0 }
+    func update(player: MediaPlayer) {
+        if startTime == nil { startTime = player.currentTime ?? 0 }
     }
 }

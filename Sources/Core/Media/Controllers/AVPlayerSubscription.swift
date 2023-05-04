@@ -52,16 +52,16 @@ class AVPlayerSubscription {
 
             if oldRate != 0 && newRate == 0 { // paused
                 self?.lastPauseTime = player.currentTime()
-                self?.track(.pause)
+                self?.track(MediaPauseEvent())
             } else if oldRate == 0 && newRate != 0 { // started playing
                 // when the current time diverges significantly from what it was when last paused, track a seek event
                 if let lastPauseTime = self?.lastPauseTime {
                     if abs(player.currentTime().seconds - lastPauseTime.seconds) > 1 {
-                        self?.track(.seekEnd)
+                        self?.track(MediaSeekEndEvent())
                     }
                 }
                 self?.lastPauseTime = nil
-                self?.track(.play)
+                self?.track(MediaPlayEvent())
             }
         }
 
@@ -82,23 +82,23 @@ class AVPlayerSubscription {
 
     // MARK: private members
 
-    private func track(_ type: MediaEventType) {
-        mediaTracking.track(type, media: MediaUpdate(player: player))
+    private func track(_ event: Event) {
+        mediaTracking.track(event, player: MediaPlayer(player: player))
     }
     
     private func update() {
-        mediaTracking.update(media: MediaUpdate(player: player))
+        mediaTracking.update(player: MediaPlayer(player: player))
     }
 
     /// Handles notifications from the notification center subscriptions
     @objc private func handleNotification(_ notification: Notification) {
         switch notification.name {
         case .AVPlayerItemPlaybackStalled:
-            track(.bufferStart)
+            track(MediaBufferStartEvent())
         case .AVPlayerItemDidPlayToEndTime:
-            track(.end)
+            track(MediaEndEvent())
         case .AVPlayerItemFailedToPlayToEndTime:
-            track(.error)
+            track(MediaErrorEvent(errorDescription: player.error?.localizedDescription))
         default:
             return
         }

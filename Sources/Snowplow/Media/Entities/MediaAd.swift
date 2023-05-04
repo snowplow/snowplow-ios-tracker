@@ -15,10 +15,10 @@ import Foundation
 
 /**
  Properties for the ad context entity attached to media events during ad playback.
- Entity schema: `iglu:com.snowplowanalytics.snowplow/media_player_ad/jsonschema/1-0-0`
+ Entity schema: `iglu:com.snowplowanalytics.snowplow.media/ad/jsonschema/1-0-0`
  */
-@objc(SPMediaAdUpdate)
-public class MediaAdUpdate: NSObject {
+@objc(SPMediaAd)
+public class MediaAd: NSObject {
     /// Friendly name of the ad
     public var name: String?
     /// Unique identifier for the ad
@@ -30,9 +30,6 @@ public class MediaAdUpdate: NSObject {
     public var podPosition: Int?
     /// Length of the video ad in seconds
     public var duration: Double?
-    /// The percent of the way through the ad
-    /// It is automatically assigned by the tracker based on the ad quartile, midpoint and complete events.
-    public var percentProgress: Int? = 0
     /// Indicating whether skip controls are made available to the end user
     public var skippable: Bool?
     
@@ -44,12 +41,9 @@ public class MediaAdUpdate: NSObject {
         if let creativeId = creativeId { data["creativeId"] = creativeId }
         if let podPosition = podPosition { data["podPosition"] = podPosition }
         if let duration = duration { data["duration"] = duration }
-        if let percentProgress = percentProgress { data["percentProgress"] = percentProgress }
         if let skippable = skippable { data["skippable"] = skippable }
         
-        return SelfDescribingJson(
-            schema: "iglu:com.snowplowanalytics.snowplow/media_player_ad/jsonschema/1-0-0",
-            andData: data)
+        return SelfDescribingJson(schema: MediaSchemata.adSchema, andData: data)
     }
     
     /// - Parameter adId: Unique identifier for the ad
@@ -112,14 +106,6 @@ public class MediaAdUpdate: NSObject {
         return self
     }
     
-    /// The percent of the way through the ad
-    /// It is automatically assigned by the tracker based on the ad quartile, midpoint and complete events.
-    @objc
-    public func percentProgress(_ percentProgress: Int) -> Self {
-        self.percentProgress = percentProgress
-        return self
-    }
-    
     /// Indicating whether skip controls are made available to the end user
     @objc
     public func skippable(_ skippable: Bool) -> Self {
@@ -127,7 +113,7 @@ public class MediaAdUpdate: NSObject {
         return self
     }
     
-    func update(from ad: MediaAdUpdate) {
+    func update(from ad: MediaAd) {
         self.adId = ad.adId
         if let name = ad.name { self.name = name }
         if let creativeId = ad.creativeId { self.creativeId = creativeId }

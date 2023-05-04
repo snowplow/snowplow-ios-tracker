@@ -14,8 +14,8 @@
 import Foundation
 
 class MediaAdTracking {
-    var ad: MediaAdUpdate?
-    var adBreak: MediaAdBreakUpdate?
+    var ad: MediaAd?
+    var adBreak: MediaAdBreak?
     private var podPosition = 0
     
     var entities: [SelfDescribingJson] {
@@ -25,15 +25,12 @@ class MediaAdTracking {
         return entities
     }
     
-    func updateForThisEvent(eventType: MediaEventType,
-                            mediaPlayer: MediaUpdate,
-                            ad: MediaAdUpdate?,
-                            adBreak: MediaAdBreakUpdate?) {
-        switch (eventType) {
-        case .adStart:
+    func updateForThisEvent(event: Event, player: MediaPlayer, ad: MediaAd?, adBreak: MediaAdBreak?) {
+        switch (event) {
+        case is MediaAdStartEvent:
             self.ad = nil
             self.podPosition += 1
-        case .adBreakStart:
+        case is MediaAdBreakStartEvent:
             self.adBreak = nil
             self.podPosition = 0
         default: break
@@ -48,25 +45,16 @@ class MediaAdTracking {
         if let adBreak = adBreak {
             self.adBreak?.update(adBreak: adBreak)
             self.adBreak = self.adBreak ?? adBreak
-            self.adBreak?.update(mediaPlayer: mediaPlayer)
-        }
-        
-        switch (eventType) {
-        case .adStart: self.ad?.percentProgress = 0
-        case .adFirstQuartile: self.ad?.percentProgress = 25
-        case .adMidpoint: self.ad?.percentProgress = 50
-        case .adThirdQuartile: self.ad?.percentProgress = 75
-        case .adComplete: self.ad?.percentProgress = 100
-        default: break
+            self.adBreak?.update(player: player)
         }
     }
     
-    func updateForNextEvent(eventType: MediaEventType) {
-        switch (eventType) {
-        case .adBreakEnd:
+    func updateForNextEvent(event: Event) {
+        switch (event) {
+        case is MediaAdBreakEndEvent:
             self.adBreak = nil
             self.podPosition = 0
-        case .adComplete, .adSkip:
+        case is MediaAdCompleteEvent, is MediaAdSkipEvent:
             self.ad = nil
         default: break
         }
