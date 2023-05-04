@@ -21,9 +21,9 @@ class TestMediaController: XCTestCase {
     var mediaController: MediaController? { tracker?.media }
     var firstEvent: InspectableEvent? { trackedEvents.first }
     var secondEvent: InspectableEvent? { trackedEvents[1] }
-    var firstMediaPlayer: [String : Any]? { firstEvent?.mediaPlayerData }
-    var secondMediaPlayer: [String : Any]? { secondEvent?.mediaPlayerData }
-    var firstMediaSession: [String : Any]? { firstEvent?.mediaPlayerSessionData }
+    var firstPlayer: [String : Any]? { firstEvent?.mediaPlayerData }
+    var secondPlayer: [String : Any]? { secondEvent?.mediaPlayerData }
+    var firstSession: [String : Any]? { firstEvent?.mediaPlayerSessionData }
     
     override func setUp() {
         tracker = createTracker()
@@ -44,8 +44,8 @@ class TestMediaController: XCTestCase {
         
         XCTAssertEqual(1, trackedEvents.count)
         XCTAssert(firstEvent?.schema?.contains("play") ?? false)
-        XCTAssertNotNil(firstMediaPlayer)
-        XCTAssertFalse(firstMediaPlayer?["paused"] as? Bool ?? true)
+        XCTAssertNotNil(firstPlayer)
+        XCTAssertFalse(firstPlayer?["paused"] as? Bool ?? true)
         
         mediaController?.endMediaTracking(id: "media1")
     }
@@ -58,8 +58,8 @@ class TestMediaController: XCTestCase {
         
         XCTAssertEqual(1, trackedEvents.count)
         XCTAssert(firstEvent?.schema?.contains("pause") ?? false)
-        XCTAssertNotNil(firstMediaPlayer)
-        XCTAssertTrue(firstMediaPlayer?["paused"] as? Bool ?? false)
+        XCTAssertNotNil(firstPlayer)
+        XCTAssertTrue(firstPlayer?["paused"] as? Bool ?? false)
     }
     
     func testSetsPausedAndEndedToTrueWhenEndIsTracked() {
@@ -70,9 +70,9 @@ class TestMediaController: XCTestCase {
         
         XCTAssertEqual(1, trackedEvents.count)
         XCTAssert(firstEvent?.schema?.contains("end") ?? false)
-        XCTAssertNotNil(firstMediaPlayer)
-        XCTAssertTrue(firstMediaPlayer?["paused"] as? Bool ?? false)
-        XCTAssertTrue(firstMediaPlayer?["ended"] as? Bool ?? false)
+        XCTAssertNotNil(firstPlayer)
+        XCTAssertTrue(firstPlayer?["paused"] as? Bool ?? false)
+        XCTAssertTrue(firstPlayer?["ended"] as? Bool ?? false)
     }
     
     func testDoesntTrackSeekStartMultipleTimes() {
@@ -149,8 +149,8 @@ class TestMediaController: XCTestCase {
         XCTAssertEqual(2, trackedEvents.count)
         XCTAssertEqual(0.5, firstEvent?.payload["previousRate"] as? Double)
         XCTAssertEqual(1.5, firstEvent?.payload["newRate"] as? Double)
-        XCTAssertEqual(1.5, firstMediaPlayer?["playbackRate"] as? Double)
-        XCTAssertEqual(1.5, secondMediaPlayer?["playbackRate"] as? Double)
+        XCTAssertEqual(1.5, firstPlayer?["playbackRate"] as? Double)
+        XCTAssertEqual(1.5, secondPlayer?["playbackRate"] as? Double)
     }
     
     func testTrackingVolumeChangeEventUpdatesTheVolume() {
@@ -167,8 +167,8 @@ class TestMediaController: XCTestCase {
         XCTAssertEqual(2, trackedEvents.count)
         XCTAssertEqual(80, firstEvent?.payload["previousVolume"] as? Int)
         XCTAssertEqual(90, firstEvent?.payload["newVolume"] as? Int)
-        XCTAssertEqual(90, firstMediaPlayer?["volume"] as? Int)
-        XCTAssertEqual(90, secondMediaPlayer?["volume"] as? Int)
+        XCTAssertEqual(90, firstPlayer?["volume"] as? Int)
+        XCTAssertEqual(90, secondPlayer?["volume"] as? Int)
     }
     
     func testTrackingFullscreenChangeEventUpdatesFullscreenInMediaPlayer() {
@@ -182,7 +182,7 @@ class TestMediaController: XCTestCase {
         waitForEventsToBeTracked()
         
         XCTAssertEqual(true, firstEvent?.payload["fullscreen"] as? Bool)
-        XCTAssertEqual(true, firstMediaPlayer?["fullscreen"] as? Bool)
+        XCTAssertEqual(true, firstPlayer?["fullscreen"] as? Bool)
     }
     
     func testTrackingPictureInPictureChangeEventUpdatesPictureInPictureInMediaPlayer() {
@@ -196,7 +196,7 @@ class TestMediaController: XCTestCase {
         waitForEventsToBeTracked()
         
         XCTAssertEqual(true, firstEvent?.payload["pictureInPicture"] as? Bool)
-        XCTAssertEqual(true, firstMediaPlayer?["pictureInPicture"] as? Bool)
+        XCTAssertEqual(true, firstPlayer?["pictureInPicture"] as? Bool)
     }
     
     func testTrackingAdFirstQuartileSetsPercentProgress() {
@@ -261,7 +261,7 @@ class TestMediaController: XCTestCase {
         
         XCTAssertEqual("720p", firstEvent?.payload["previousQuality"] as? String)
         XCTAssertEqual("1080p", firstEvent?.payload["newQuality"] as? String)
-        XCTAssertEqual("1080p", firstMediaPlayer?["quality"] as? String)
+        XCTAssertEqual("1080p", firstPlayer?["quality"] as? String)
         XCTAssertEqual(3333, firstEvent?.payload["bitrate"] as? Int)
         XCTAssertEqual(60, firstEvent?.payload["framesPerSecond"] as? Int)
     }
@@ -280,6 +280,18 @@ class TestMediaController: XCTestCase {
         XCTAssertEqual("Failed to load resource", firstEvent?.payload["errorDescription"] as? String)
     }
     
+    func testTracksCustomEvent() {
+        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayer(label: "Video"))
+        
+        media?.track(ScreenView(name: "sv"))
+        
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(kSPScreenViewSchema, firstEvent?.schema)
+        XCTAssertEqual("Video", firstPlayer?["label"] as? String)
+        
+    }
+    
     // MARK: Session
     
     func testAddsMediaSessionContextEntityWithGivenID() {
@@ -289,8 +301,8 @@ class TestMediaController: XCTestCase {
 
         waitForEventsToBeTracked()
         
-        XCTAssertNotNil(firstMediaSession)
-        XCTAssertEqual("media1", firstMediaSession?["mediaSessionId"] as? String)
+        XCTAssertNotNil(firstSession)
+        XCTAssertEqual("media1", firstSession?["mediaSessionId"] as? String)
     }
     
     func testCalculatesSessionStats() {
