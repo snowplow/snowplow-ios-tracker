@@ -102,9 +102,6 @@ let kSPPlatformOsType = "osType"
 let kSPPlatformOsVersion = "osVersion"
 let kSPPlatformDeviceManu = "deviceManufacturer"
 let kSPPlatformDeviceModel = "deviceModel"
-let kSPPlatformResolution = "resolution"
-let kSPPlatformLanguage = "language"
-let kSPPlatformScale = "scale"
 
 // --- Mobile Context
 let kSPMobileCarrier = "carrier"
@@ -120,6 +117,9 @@ let kSPMobileLowPowerMode = "lowPowerMode"
 let kSPMobileAvailableStorage = "availableStorage"
 let kSPMobileTotalStorage = "totalStorage"
 let kSPMobileIsPortrait = "isPortrait"
+let kSPMobileResolution = "resolution"
+let kSPMobileLanguage = "language"
+let kSPMobileScale = "scale"
 
 // --- Application Context
 let kSPApplicationVersion = "version"

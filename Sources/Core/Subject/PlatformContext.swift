@@ -85,15 +85,6 @@ class PlatformContext {
         platformDict[kSPPlatformOsVersion] = deviceInfoMonitor.osVersion
         platformDict[kSPPlatformDeviceManu] = deviceInfoMonitor.deviceVendor
         platformDict[kSPPlatformDeviceModel] = deviceInfoMonitor.deviceModel
-        if shouldTrack(.resolution) {
-            platformDict[kSPPlatformResolution] = deviceInfoMonitor.resolution
-        }
-        if shouldTrack(.language) {
-            platformDict[kSPPlatformLanguage] = deviceInfoMonitor.language
-        }
-        if shouldTrack(.scale) {
-            platformDict[kSPPlatformScale] = deviceInfoMonitor.scale
-        }
 
         #if os(iOS)
         setMobileDict()
@@ -101,6 +92,15 @@ class PlatformContext {
     }
 
     func setMobileDict() {
+        if shouldTrack(.resolution) {
+            platformDict[kSPMobileResolution] = deviceInfoMonitor.resolution
+        }
+        if shouldTrack(.language) {
+            platformDict[kSPMobileLanguage] = deviceInfoMonitor.language
+        }
+        if shouldTrack(.scale) {
+            platformDict[kSPMobileScale] = deviceInfoMonitor.scale
+        }
         if shouldTrack(.carrier) {
             platformDict[kSPMobileCarrier] = deviceInfoMonitor.carrierName
         }

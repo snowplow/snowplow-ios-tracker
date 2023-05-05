@@ -27,8 +27,6 @@ public enum PlatformContextProperty: Int {
     case appleIdfv
     /// Total physical system memory in bytes
     case physicalMemory
-    /// Available memory on the system in bytes (Android only)
-    case systemAvailableMemory
     /// Amount of memory in bytes available to the current app
     case appAvailableMemory
     /// Remaining battery level as an integer percentage of total battery capacity
