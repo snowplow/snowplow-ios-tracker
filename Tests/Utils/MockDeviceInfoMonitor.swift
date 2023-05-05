@@ -105,8 +105,8 @@ class MockDeviceInfoMonitor: DeviceInfoMonitor {
         return "2400x1500"
     }
     
-    override var scale: CGFloat? {
-        return 2
+    override var scale: Double? {
+        return 2.0
     }
     
     override var language: String? {

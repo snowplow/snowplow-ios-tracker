@@ -270,9 +270,9 @@ class DeviceInfoMonitor {
     }
     
     /// Scale factor used to convert logical coordinates to device coordinates of the screen (uses UIScreen.scale on iOS)
-    var scale: CGFloat? {
+    var scale: Double? {
         #if os(iOS) || os(tvOS)
-        return UIScreen.main.scale
+        return Double(UIScreen.main.scale)
         #else
         return nil
         #endif
