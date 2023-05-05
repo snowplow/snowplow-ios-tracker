@@ -40,7 +40,7 @@ class TestPlatformContext: XCTestCase {
         XCTAssertEqual("13.0.0", platformDict[kSPPlatformOsVersion] as? String)
         XCTAssertEqual("ios", platformDict[kSPPlatformOsType] as? String)
         XCTAssertEqual("2400x1500", platformDict[kSPPlatformResolution] as? String)
-        XCTAssertEqual(2, platformDict[kSPPlatformScale] as? CGFloat)
+        XCTAssertEqual(2.0, platformDict[kSPPlatformScale] as? Double)
         XCTAssertEqual("EN", platformDict[kSPPlatformLanguage] as? String)
 #if os(iOS)
         XCTAssertEqual("appleIdfv", platformDict[kSPMobileAppleIdfv] as? String)
