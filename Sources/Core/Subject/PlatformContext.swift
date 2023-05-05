@@ -25,6 +25,7 @@ class PlatformContext {
     private var lastUpdatedEphemeralMobileDict: TimeInterval = 0.0
     private var lastUpdatedEphemeralNetworkDict: TimeInterval = 0.0
     private var deviceInfoMonitor: DeviceInfoMonitor
+    var platformContextProperties: [PlatformContextProperty]?
 
     /// Initializes a newly allocated PlatformContext object with custom update frequency for mobile and network properties and a custom device info monitor
     /// - Parameters:
@@ -32,7 +33,11 @@ class PlatformContext {
     ///   - networkDictUpdateFrequency: Minimal gap between subsequent updates of network platform information
     ///   - deviceInfoMonitor: Device monitor for fetching platform information
     /// - Returns: a PlatformContext object
-    init(mobileDictUpdateFrequency: TimeInterval = 0.1, networkDictUpdateFrequency: TimeInterval = 10.0, deviceInfoMonitor: DeviceInfoMonitor = DeviceInfoMonitor()) {
+    init(platformContextProperties: [PlatformContextProperty]? = nil,
+         mobileDictUpdateFrequency: TimeInterval = 0.1,
+         networkDictUpdateFrequency: TimeInterval = 10.0,
+         deviceInfoMonitor: DeviceInfoMonitor = DeviceInfoMonitor()) {
+        self.platformContextProperties = platformContextProperties
         self.mobileDictUpdateFrequency = mobileDictUpdateFrequency
         self.networkDictUpdateFrequency = networkDictUpdateFrequency
         self.deviceInfoMonitor = deviceInfoMonitor
@@ -64,7 +69,7 @@ class PlatformContext {
             return copy
         } else {
             if let retriever = advertisingIdentifierRetriever {
-                if platformDict.dictionary[kSPMobileAppleIdfa] == nil {
+                if shouldTrack(.appleIdfa) && platformDict.dictionary[kSPMobileAppleIdfa] == nil {
                     platformDict[kSPMobileAppleIdfa] = retriever()?.uuidString
                 }
             }
@@ -80,6 +85,15 @@ class PlatformContext {
         platformDict[kSPPlatformOsVersion] = deviceInfoMonitor.osVersion
         platformDict[kSPPlatformDeviceManu] = deviceInfoMonitor.deviceVendor
         platformDict[kSPPlatformDeviceModel] = deviceInfoMonitor.deviceModel
+        if shouldTrack(.resolution) {
+            platformDict[kSPPlatformResolution] = deviceInfoMonitor.resolution
+        }
+        if shouldTrack(.language) {
+            platformDict[kSPPlatformLanguage] = deviceInfoMonitor.language
+        }
+        if shouldTrack(.scale) {
+            platformDict[kSPPlatformScale] = deviceInfoMonitor.scale
+        }
 
         #if os(iOS)
         setMobileDict()
@@ -87,11 +101,15 @@ class PlatformContext {
     }
 
     func setMobileDict() {
-        platformDict[kSPMobileCarrier] = deviceInfoMonitor.carrierName
-        if let totalStorage = deviceInfoMonitor.totalStorage {
-            platformDict[kSPMobileTotalStorage] = totalStorage
+        if shouldTrack(.carrier) {
+            platformDict[kSPMobileCarrier] = deviceInfoMonitor.carrierName
         }
-        platformDict[kSPMobilePhysicalMemory] = deviceInfoMonitor.physicalMemory
+        if shouldTrack(.totalStorage) {
+            platformDict[kSPMobileTotalStorage] = deviceInfoMonitor.totalStorage
+        }
+        if shouldTrack(.physicalMemory) {
+            platformDict[kSPMobilePhysicalMemory] = deviceInfoMonitor.physicalMemory
+        }
         
         setEphemeralMobileDict()
         setEphemeralNetworkDict()
@@ -100,29 +118,45 @@ class PlatformContext {
     func setEphemeralMobileDict() {
         lastUpdatedEphemeralMobileDict = Date().timeIntervalSince1970
 
-        if platformDict[kSPMobileAppleIdfv] == nil {
+        if shouldTrack(.appleIdfv) && platformDict[kSPMobileAppleIdfv] == nil {
             platformDict[kSPMobileAppleIdfv] = deviceInfoMonitor.appleIdfv
         }
         
-        if let batteryLevel = deviceInfoMonitor.batteryLevel {
-            platformDict[kSPMobileBatteryLevel] = batteryLevel
+        if shouldTrack(.batteryLevel) {
+            platformDict[kSPMobileBatteryLevel] = deviceInfoMonitor.batteryLevel
         }
-        platformDict[kSPMobileBatteryState] = deviceInfoMonitor.batteryState
-        if let isLowPowerModeEnabled = deviceInfoMonitor.isLowPowerModeEnabled {
-            platformDict[kSPMobileLowPowerMode] = isLowPowerModeEnabled
+        if shouldTrack(.batteryState) {
+            platformDict[kSPMobileBatteryState] = deviceInfoMonitor.batteryState
         }
-        if let availableStorage = deviceInfoMonitor.availableStorage {
-            platformDict[kSPMobileAvailableStorage] = availableStorage
+        if shouldTrack(.lowPowerMode) {
+            platformDict[kSPMobileLowPowerMode] = deviceInfoMonitor.isLowPowerModeEnabled
         }
-        if let appAvailableMemory = deviceInfoMonitor.appAvailableMemory {
-            platformDict[kSPMobileAppAvailableMemory] = appAvailableMemory
+        if shouldTrack(.availableStorage) {
+            platformDict[kSPMobileAvailableStorage] = deviceInfoMonitor.availableStorage
+        }
+        if shouldTrack(.appAvailableMemory) {
+            platformDict[kSPMobileAppAvailableMemory] = deviceInfoMonitor.appAvailableMemory
+        }
+        if shouldTrack(.isPortrait) {
+            platformDict[kSPMobileIsPortrait] = deviceInfoMonitor.isPortrait
         }
     }
 
     func setEphemeralNetworkDict() {
         lastUpdatedEphemeralNetworkDict = Date().timeIntervalSince1970
 
-        platformDict[kSPMobileNetworkTech] = deviceInfoMonitor.networkTechnology
-        platformDict[kSPMobileNetworkType] = deviceInfoMonitor.networkType
+        if shouldTrack(.networkTechnology) {
+            platformDict[kSPMobileNetworkTech] = deviceInfoMonitor.networkTechnology
+        }
+        if shouldTrack(.networkType) {
+            platformDict[kSPMobileNetworkType] = deviceInfoMonitor.networkType
+        }
+    }
+    
+    private func shouldTrack(_ property: PlatformContextProperty) -> Bool {
+        if let platformContextProperties = platformContextProperties {
+            return platformContextProperties.contains(property)
+        }
+        return true
     }
 }

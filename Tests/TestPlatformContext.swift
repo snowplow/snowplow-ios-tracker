@@ -14,7 +14,6 @@
 import XCTest
 @testable import SnowplowTracker
 
-#if os(iOS)
 class TestPlatformContext: XCTestCase {
     func testContainsPlatformInfo() {
         let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
@@ -22,32 +21,39 @@ class TestPlatformContext: XCTestCase {
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)
     }
-
+    
     func testContainsMobileInfo() {
         let context = PlatformContext(deviceInfoMonitor: MockDeviceInfoMonitor())
         let platformDict = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil).dictionary
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict)
     }
-
+    
     func testAddsAllMockedInfo() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
         let idfa = UUID()
         let platformDict = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: { idfa })
         XCTAssertEqual(idfa.uuidString, platformDict[kSPMobileAppleIdfa] as? String)
-        XCTAssertEqual("appleIdfv", platformDict[kSPMobileAppleIdfv] as? String)
         XCTAssertEqual("Apple Inc.", platformDict[kSPPlatformDeviceManu] as? String)
         XCTAssertEqual("deviceModel", platformDict[kSPPlatformDeviceModel] as? String)
         XCTAssertEqual("13.0.0", platformDict[kSPPlatformOsVersion] as? String)
         XCTAssertEqual("ios", platformDict[kSPPlatformOsType] as? String)
+        XCTAssertEqual("2400x1500", platformDict[kSPPlatformResolution] as? String)
+        XCTAssertEqual(2, platformDict[kSPPlatformScale] as? CGFloat)
+        XCTAssertEqual("EN", platformDict[kSPPlatformLanguage] as? String)
+#if os(iOS)
+        XCTAssertEqual("appleIdfv", platformDict[kSPMobileAppleIdfv] as? String)
         XCTAssertEqual("att", platformDict[kSPMobileCarrier] as? String)
         XCTAssertEqual("3g", platformDict[kSPMobileNetworkTech] as? String)
         XCTAssertEqual("wifi", platformDict[kSPMobileNetworkType] as? String)
         XCTAssertEqual(20, platformDict[kSPMobileBatteryLevel] as? Int)
         XCTAssertEqual("charging", platformDict[kSPMobileBatteryState] as? String)
+        XCTAssertEqual(true, platformDict[kSPMobileIsPortrait] as? Bool)
+#endif
     }
-
+    
+#if os(iOS)
     func testUpdatesMobileInfo() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
@@ -60,7 +66,7 @@ class TestPlatformContext: XCTestCase {
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("appAvailableMemory"))
     }
-
+    
     func testDoesntUpdateMobileInfoWithinUpdateWindow() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 1000, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
@@ -73,7 +79,7 @@ class TestPlatformContext: XCTestCase {
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("batteryLevel"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appAvailableMemory"))
     }
-
+    
     func testUpdatesNetworkInfo() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 1, networkDictUpdateFrequency: 0, deviceInfoMonitor: deviceInfoMonitor)
@@ -86,7 +92,7 @@ class TestPlatformContext: XCTestCase {
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(3, deviceInfoMonitor.accessCount("networkType"))
     }
-
+    
     func testDoesntUpdateNetworkInfoWithinUpdateWindow() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1000, deviceInfoMonitor: deviceInfoMonitor)
@@ -99,7 +105,7 @@ class TestPlatformContext: XCTestCase {
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkTechnology"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("networkType"))
     }
-
+    
     func testDoesntUpdateNonEphemeralInfo() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 0, deviceInfoMonitor: deviceInfoMonitor)
@@ -112,7 +118,7 @@ class TestPlatformContext: XCTestCase {
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
     }
-
+    
     func testDoesntUpdateIdfvIfNotNil() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
@@ -120,7 +126,7 @@ class TestPlatformContext: XCTestCase {
         _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("appleIdfv"))
     }
-
+    
     func testUpdatesIdfvIfNil() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         deviceInfoMonitor.customAppleIdfv = nil
@@ -147,7 +153,7 @@ class TestPlatformContext: XCTestCase {
         )
         XCTAssertEqual(idfa.uuidString, platformDict2[kSPMobileAppleIdfa] as? String)
     }
-
+    
     func testDoesntUpdateIdfaIfAlreadyRetrieved() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
@@ -165,7 +171,7 @@ class TestPlatformContext: XCTestCase {
         )
         XCTAssertEqual(idfa1.uuidString, platformDict2[kSPMobileAppleIdfa] as? String)
     }
-
+    
     func testAnonymisesUserIdentifiers() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
@@ -176,24 +182,30 @@ class TestPlatformContext: XCTestCase {
         XCTAssertNil(platformDict[kSPMobileAppleIdfa])
         XCTAssertNil(platformDict[kSPMobileAppleIdfv])
     }
-
-//    func testPerformanceOfFetchingNetworkDict() {
-//        let context = PlatformContext(mobileDictUpdateFrequency: 1000, networkDictUpdateFrequency: 0)
-//        measure({
-//            for _ in 0..<100 {
-//                _ = context.fetchPlatformDict(withUserAnonymisation: false)
-//            }
-//        })
-//    }
-//
-//    func testPerformanceOfFetchingMobileDict() {
-//        _ = XCTSkip()
-//        let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1000)
-//        measure({
-//            for _ in 0..<10000 {
-//                _ = context.fetchPlatformDict(withUserAnonymisation: false)
-//            }
-//        })
-//    }
-}
 #endif
+
+    func testOnlyAddsRequestedProperties() {
+        let deviceInfoMonitor = MockDeviceInfoMonitor()
+        let context = PlatformContext(
+            platformContextProperties: [.appAvailableMemory, .availableStorage, .language],
+            mobileDictUpdateFrequency: 0,
+            networkDictUpdateFrequency: 1,
+            deviceInfoMonitor: deviceInfoMonitor)
+        let platformDict = context.fetchPlatformDict(
+            userAnonymisation: false,
+            advertisingIdentifierRetriever: { UUID() }
+        )
+        
+        XCTAssertNotNil(platformDict[kSPPlatformDeviceManu])
+        XCTAssertNotNil(platformDict[kSPPlatformLanguage])
+        XCTAssertNil(platformDict[kSPPlatformScale])
+        XCTAssertNil(platformDict[kSPPlatformResolution])
+#if os(iOS)
+        XCTAssertNotNil(platformDict[kSPMobileAppAvailableMemory])
+        XCTAssertNotNil(platformDict[kSPMobileAvailableStorage])
+        XCTAssertNil(platformDict[kSPMobilePhysicalMemory])
+        XCTAssertNil(platformDict[kSPMobileIsPortrait])
+        XCTAssertNil(platformDict[kSPMobileAppleIdfa])
+#endif
+    }
+}

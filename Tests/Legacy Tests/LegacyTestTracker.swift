@@ -23,7 +23,7 @@ class LegacyTestTracker: XCTestCase {
     func testTrackerSetup() {
         let emitter = Emitter(urlEndpoint: "not-real.com") { emitter in }
 
-        let subject = Subject(platformContext: true, andGeoContext: true)
+        let subject = Subject(platformContext: true, geoLocationContext: true)
 
         _ = Tracker(trackerNamespace: "aNamespace", appId: "anAppId", emitter: emitter) { tracker in
             tracker.subject = subject
@@ -35,7 +35,7 @@ class LegacyTestTracker: XCTestCase {
     func testTrackerBuilderAndOptions() {
         let emitter = Emitter(urlEndpoint: TEST_SERVER_TRACKER) { emitter in}
 
-        let subject = Subject(platformContext: true, andGeoContext: true)
+        let subject = Subject(platformContext: true, geoLocationContext: true)
 
         let tracker = Tracker(trackerNamespace: "aNamespace", appId: "anAppId", emitter: emitter) { tracker in
             tracker.subject = subject
@@ -77,7 +77,7 @@ class LegacyTestTracker: XCTestCase {
         tracker.devicePlatform = .general
         XCTAssertEqual(tracker.devicePlatform, .general)
 
-        let subject2 = Subject(platformContext: true, andGeoContext: true)
+        let subject2 = Subject(platformContext: true, geoLocationContext: true)
         tracker.subject = subject2
         XCTAssertNotEqual(tracker.subject, subject)
         XCTAssertEqual(tracker.subject, subject2)
@@ -101,7 +101,7 @@ class LegacyTestTracker: XCTestCase {
     func testTrackerPayload() {
         let emitter = Emitter(urlEndpoint: TEST_SERVER_TRACKER) { emitter in}
 
-        let subject = Subject(platformContext: true, andGeoContext: true)
+        let subject = Subject(platformContext: true, geoLocationContext: true)
 
         let tracker = Tracker(trackerNamespace: "aNamespace", appId: "anAppId", emitter: emitter) { tracker in
             tracker.subject = subject

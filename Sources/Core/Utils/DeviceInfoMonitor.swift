@@ -213,6 +213,7 @@ class DeviceInfoMonitor {
     /// - Returns: Amount of memory in bytes available to the current app (or 0 if not supported).
     var appAvailableMemory: Int? {
         // TODO: couldn't find a way to import <os/proc.h>
+        // https://github.com/snowplow/snowplow-ios-tracker/issues/772
 //        #if os(iOS)
 //        if #available(iOS 13.0, *) {
 //            return os_proc_available_memory()
@@ -249,5 +250,36 @@ class DeviceInfoMonitor {
         }
         #endif
         return nil
+    }
+    
+    /// Whether the device orientation is portrait (either upright or upside down)
+    var isPortrait: Bool? {
+        #if os(iOS)
+        return UIDevice.current.orientation.isPortrait
+        #else
+        return nil
+        #endif
+    }
+    
+    /// Resolution in pixels. Arrives in the form of WIDTHxHEIGHT (e.g., 1200x900). Doesn't change when device orientation changes
+    var resolution: String? {
+        if let size = Utilities.resolution {
+            return "\(size.width)x\(size.height)"
+        }
+        return nil
+    }
+    
+    /// Scale factor used to convert logical coordinates to device coordinates of the screen (uses UIScreen.scale on iOS)
+    var scale: CGFloat? {
+        #if os(iOS) || os(tvOS)
+        return UIScreen.main.scale
+        #else
+        return nil
+        #endif
+    }
+    
+    /// System language currently used on the device (ISO 639)
+    var language: String? {
+        return Utilities.language
     }
 }

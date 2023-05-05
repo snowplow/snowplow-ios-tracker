@@ -32,13 +32,13 @@ class LegacyTestSubject: XCTestCase {
     }
 
     func testSubjectInitWithOptions() {
-        let subject = Subject(platformContext: true, andGeoContext: false)
+        let subject = Subject(platformContext: true, geoLocationContext: false)
         XCTAssertNotNil(subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil))
         XCTAssertNotNil(subject.standardDict(userAnonymisation: false))
     }
 
     func testSubjectSetterFunctions() {
-        let subject = Subject(platformContext: false, andGeoContext: true)
+        let subject = Subject(platformContext: false, geoLocationContext: true)
         subject.userId = "aUserId"
         subject.screenResolution = SPSize(width: 1920, height: 1080)
         subject.screenViewPort = SPSize(width: 1080, height: 1920)
@@ -86,7 +86,7 @@ class LegacyTestSubject: XCTestCase {
     }
 
     func testGeoLocationGetWithoutNeededKeys() {
-        let subject = Subject(platformContext: false, andGeoContext: true)
+        let subject = Subject(platformContext: false, geoLocationContext: true)
         XCTAssertNil(subject.geoLocationDict)
 
         subject.geoLongitude = NSNumber(value: 5)

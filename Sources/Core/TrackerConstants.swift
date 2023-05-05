@@ -44,7 +44,7 @@ let kSPUserTimingsSchema = "iglu:com.snowplowanalytics.snowplow/timing/jsonschem
 let kSPScreenViewSchema = "iglu:com.snowplowanalytics.mobile/screen_view/jsonschema/1-0-0"
 let kSPUnstructSchema = "iglu:com.snowplowanalytics.snowplow/unstruct_event/jsonschema/1-0-0"
 let kSPContextSchema = "iglu:com.snowplowanalytics.snowplow/contexts/jsonschema/1-0-1"
-let kSPMobileContextSchema = "iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-2"
+let kSPMobileContextSchema = "iglu:com.snowplowanalytics.snowplow/mobile_context/jsonschema/1-0-3"
 let kSPDesktopContextSchema = "iglu:com.snowplowanalytics.snowplow/desktop_context/jsonschema/1-0-0"
 let kSPSessionContextSchema = "iglu:com.snowplowanalytics.snowplow/client_session/jsonschema/1-0-2"
 let kSPScreenContextSchema = "iglu:com.snowplowanalytics.mobile/screen/jsonschema/1-0-0"
@@ -102,6 +102,9 @@ let kSPPlatformOsType = "osType"
 let kSPPlatformOsVersion = "osVersion"
 let kSPPlatformDeviceManu = "deviceManufacturer"
 let kSPPlatformDeviceModel = "deviceModel"
+let kSPPlatformResolution = "resolution"
+let kSPPlatformLanguage = "language"
+let kSPPlatformScale = "scale"
 
 // --- Mobile Context
 let kSPMobileCarrier = "carrier"
@@ -116,6 +119,7 @@ let kSPMobileBatteryState = "batteryState"
 let kSPMobileLowPowerMode = "lowPowerMode"
 let kSPMobileAvailableStorage = "availableStorage"
 let kSPMobileTotalStorage = "totalStorage"
+let kSPMobileIsPortrait = "isPortrait"
 
 // --- Application Context
 let kSPApplicationVersion = "version"
