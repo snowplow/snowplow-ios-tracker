@@ -120,7 +120,7 @@ class ConfigurationCache: NSObject {
             }
         } catch {
         }
-        let fileName = String(format: "remoteConfig-%lu.data", UInt((remoteConfiguration.endpoint).hash))
+        let fileName = String(format: "remoteConfig-%lu.data", UInt(abs((remoteConfiguration.endpoint).hash)))
         url = url?.appendingPathComponent(fileName, isDirectory: false)
         if let url = url {
             cacheFileUrl = url
