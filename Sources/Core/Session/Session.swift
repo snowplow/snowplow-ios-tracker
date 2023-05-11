@@ -28,7 +28,7 @@ class Session {
     /// The event index
     private(set) var eventIndex = 0
     /// The current tracker associated with the session
-    private(set) var tracker: Tracker?
+    private(set) weak var tracker: Tracker?
     /// Returns the current session state
     private(set) var state: SessionState?
     /// Callback to be called when the session is updated

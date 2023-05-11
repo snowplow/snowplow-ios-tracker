@@ -16,20 +16,20 @@ import XCTest
 
 class TestSubject: XCTestCase {
     func testReturnsPlatformContextIfEnabled() {
-        let subject = Subject(platformContext: true, andGeoContext: false)
+        let subject = Subject(platformContext: true, geoLocationContext: false)
         let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict?.dictionary[kSPPlatformOsType])
     }
 
     func testDoesntReturnPlatformContextIfDisabled() {
-        let subject = Subject(platformContext: false, andGeoContext: false)
+        let subject = Subject(platformContext: false, geoLocationContext: false)
         let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertNil(platformDict)
     }
 
     func testReturnsGeolocationContextIfEnabled() {
-        let subject = Subject(platformContext: false, andGeoContext: true)
+        let subject = Subject(platformContext: false, geoLocationContext: true)
         subject.geoLatitude = NSNumber(value: 10.0)
         subject.geoLongitude = NSNumber(value: 10.0)
         let geoLocationDict = subject.geoLocationDict
@@ -38,7 +38,7 @@ class TestSubject: XCTestCase {
     }
 
     func testDoesntReturnGeolocationContextIfDisabled() {
-        let subject = Subject(platformContext: false, andGeoContext: false)
+        let subject = Subject(platformContext: false, geoLocationContext: false)
         subject.geoLatitude = NSNumber(value: 10.0)
         subject.geoLongitude = NSNumber(value: 10.0)
         let geoLocationDict = subject.geoLocationDict
@@ -46,7 +46,7 @@ class TestSubject: XCTestCase {
     }
 
     func testAnonymisesUserIdentifiers() {
-        let subject = Subject(platformContext: false, andGeoContext: false)
+        let subject = Subject(platformContext: false, geoLocationContext: false)
         subject.userId = "aUserId"
         subject.ipAddress = "127.0.0.1"
         subject.networkUserId = "aNuid"

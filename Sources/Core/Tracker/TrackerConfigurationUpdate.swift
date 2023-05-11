@@ -33,6 +33,7 @@ class TrackerConfigurationUpdate: TrackerConfiguration {
     private var userAnonymisationUpdated = false
     private var trackerVersionSuffixUpdated = false
     private var advertisingIdentifierRetrieverUpdated = false
+    private var platformContextPropertiesUpdated = false
     
     var sourceConfig: TrackerConfiguration?
     var isPaused = false
@@ -221,6 +222,17 @@ class TrackerConfigurationUpdate: TrackerConfiguration {
         set {
             super.advertisingIdentifierRetriever = newValue
             advertisingIdentifierRetrieverUpdated = true
+        }
+    }
+    
+    override var platformContextProperties: [PlatformContextProperty]? {
+        get {
+            return sourceConfig == nil || platformContextPropertiesUpdated ?
+                super.platformContextProperties : sourceConfig?.platformContextProperties
+        }
+        set {
+            super.platformContextProperties = newValue
+            platformContextPropertiesUpdated = true
         }
     }
 }

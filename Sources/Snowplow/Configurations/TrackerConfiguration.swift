@@ -78,11 +78,17 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     var advertisingIdentifierRetriever: (() -> UUID?)? { get set }
 }
 
+public protocol PlatformContextConfigurationProtocol {
+    /// List of properties of the platform context to track. If not passed and `platformContext` is enabled, all available properties will be tracked.
+    /// The required `osType`, `osVersion`, `deviceManufacturer`, and `deviceModel` properties will be tracked in the entity regardless of this setting.
+    var platformContextProperties: [PlatformContextProperty]? { get set }
+}
+
 /// This class represents the configuration of the tracker and the core tracker properties.
 /// The TrackerConfiguration can be used to setup the tracker behaviour indicating what should be
 /// tracked in term of automatic tracking and contexts/entities to track with the events.
 @objc(SPTrackerConfiguration)
-public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurationProtocol, ConfigurationProtocol {
+public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurationProtocol, PlatformContextConfigurationProtocol, ConfigurationProtocol {
     /// Identifer of the app.
     @objc
     public var appId = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String ?? ""
@@ -143,6 +149,9 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     /// It is called repeatedly (on each tracked event) until a UUID is returned.
     @objc
     public var advertisingIdentifierRetriever: (() -> UUID?)?
+    /// List of properties of the platform context to track. If not passed and `platformContext` is enabled, all available properties will be tracked.
+    /// The required `osType`, `osVersion`, `deviceManufacturer`, and `deviceModel` properties will be tracked in the entity regardless of this setting.
+    public var platformContextProperties: [PlatformContextProperty]?
 
     @objc
     public override init() {
@@ -262,6 +271,13 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
+    /// List of properties of the platform context to track. If not passed and `platformContext` is enabled, all available properties will be tracked.
+    /// The required `osType`, `osVersion`, `deviceManufacturer`, and `deviceModel` properties will be tracked in the entity regardless of this setting.
+    public func platformContextProperties(_ platformContextProperties: [PlatformContextProperty]?) -> Self {
+        self.platformContextProperties = platformContextProperties
+        return self
+    }
+    
     /// Whether geo-location context is sent with all the tracked events.
     @objc
     public func geoLocationContext(_ geoLocationContext: Bool) -> Self {
@@ -362,6 +378,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         copy.sessionContext = sessionContext
         copy.applicationContext = applicationContext
         copy.platformContext = platformContext
+        copy.platformContextProperties = platformContextProperties
         copy.geoLocationContext = geoLocationContext
         copy.deepLinkContext = deepLinkContext
         copy.screenContext = screenContext

@@ -20,7 +20,11 @@ class Micro {
     static let timeout = 10.0
     static let retryDelay = 0.5
     static let maxNumberOfRetries = 19
+#if os(macOS)
+    static let endpoint = "http://localhost:9090"
+#else
     static let endpoint = "http://0.0.0.0:9090"
+#endif
     
     class func setUpMockerIgnores() {
         Mocker.ignore(URL(string: "\(endpoint)/micro/good")!)

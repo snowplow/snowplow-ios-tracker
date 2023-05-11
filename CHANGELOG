@@ -1,3 +1,9 @@
+Version 5.1.0 (2023-05-11)
+--------------------------
+Track new properties in platform context version 1-0-3 and make it configurable which properties to track (#771)
+Fix remote config negative hash bug (#775)
+Fix memory leak when tracker is fetched in remote configuration (#776)
+
 Version 5.0.1 (2023-05-02)
 --------------------------
 Fix validation errors due to session schema tracked without required previousSessionId property when anonymous tracking (#767)

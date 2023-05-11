@@ -216,6 +216,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
     func makeSubject() -> Subject {
         return Subject(
             platformContext: trackerConfigurationUpdate.platformContext,
+            platformContextProperties: trackerConfigurationUpdate.platformContextProperties,
             geoLocationContext: trackerConfigurationUpdate.geoLocationContext,
             subjectConfiguration: subjectConfigurationUpdate)
     }

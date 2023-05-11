@@ -17,10 +17,18 @@ import Foundation
 /// This class is used to access and persist user information, it represents the current user being tracked.
 class Subject : NSObject {
     private var standardDict: [String : String] = [:]
-    private var platformContextManager = PlatformContext()
+    private var platformContextManager: PlatformContext
     private var geoDict: [String : NSObject] = [:]
 
     var platformContext = false
+    var platformContextProperties: [PlatformContextProperty]? {
+        get {
+            platformContextManager.platformContextProperties
+        }
+        set {
+            platformContextManager.platformContextProperties = newValue
+        }
+    }
     var geoLocationContext = false
     
     // MARK: - Standard Dictionary
@@ -239,19 +247,13 @@ class Subject : NSObject {
         }
     }
 
-    /// Creates a subject which optionally adds platform and geolocation pairs.
-    /// - Parameters:
-    ///   - platformContext: Whether to enable the platform context.
-    ///   - geoContext: Whether to enabled the geolocation context.
-    /// - Returns: A new SPSubject.
-    convenience init(platformContext: Bool = false, andGeoContext geoContext: Bool = false) {
-        self.init(platformContext: platformContext, geoLocationContext: geoContext, subjectConfiguration: nil)
-    }
-
-    /// @warning Internal method - do not use in production
-    init(platformContext: Bool, geoLocationContext geoContext: Bool, subjectConfiguration config: SubjectConfiguration?) {
+    init(platformContext: Bool = false,
+         platformContextProperties: [PlatformContextProperty]? = nil,
+         geoLocationContext geoContext: Bool = false,
+         subjectConfiguration config: SubjectConfiguration? = nil) {
+        self.platformContextManager = PlatformContext(platformContextProperties: platformContextProperties)
         super.init()
-        
+        self.platformContextProperties = platformContextProperties
         self.platformContext = platformContext
         geoLocationContext = geoContext
         
