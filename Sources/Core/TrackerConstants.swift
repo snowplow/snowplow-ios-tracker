@@ -14,7 +14,7 @@
 import Foundation
 
 // --- Version
-let kSPRawVersion = "5.0.1"
+let kSPRawVersion = "5.1.0"
 #if os(iOS)
 let kSPVersion = "ios-\(kSPRawVersion)"
 #elseif os(tvOS)
