@@ -140,6 +140,15 @@ class TrackerControllerImpl: Controller, TrackerController {
             tracker.subject?.platformContext = newValue
         }
     }
+    
+    var platformContextProperties: [PlatformContextProperty]? {
+        get {
+            return tracker.subject?.platformContextProperties
+        }
+        set {
+            tracker.subject?.platformContextProperties = newValue
+        }
+    }
 
     var geoLocationContext: Bool {
         get {

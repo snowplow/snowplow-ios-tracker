@@ -96,6 +96,22 @@ class MockDeviceInfoMonitor: DeviceInfoMonitor {
         increaseMethodAccessCount("totalStorage")
         return 900000
     }
+    
+    override var isPortrait: Bool? {
+        return true
+    }
+    
+    override var resolution: String? {
+        return "2400x1500"
+    }
+    
+    override var scale: Double? {
+        return 2.0
+    }
+    
+    override var language: String? {
+        return "EN"
+    }
 
     func accessCount(_ method: String) -> Int {
         let count = methodAccessCounts[method] ?? 0
