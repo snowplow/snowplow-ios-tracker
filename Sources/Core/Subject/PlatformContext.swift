@@ -25,10 +25,13 @@ class PlatformContext {
     private var lastUpdatedEphemeralMobileDict: TimeInterval = 0.0
     private var lastUpdatedEphemeralNetworkDict: TimeInterval = 0.0
     private var deviceInfoMonitor: DeviceInfoMonitor
+    
+    /// List of properties of the platform context to track
     var platformContextProperties: [PlatformContextProperty]?
 
     /// Initializes a newly allocated PlatformContext object with custom update frequency for mobile and network properties and a custom device info monitor
     /// - Parameters:
+    ///   - platformContextProperties: List of properties of the platform context to track
     ///   - mobileDictUpdateFrequency: Minimal gap between subsequent updates of mobile platform information
     ///   - networkDictUpdateFrequency: Minimal gap between subsequent updates of network platform information
     ///   - deviceInfoMonitor: Device monitor for fetching platform information

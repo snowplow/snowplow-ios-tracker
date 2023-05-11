@@ -28,6 +28,7 @@ public enum PlatformContextProperty: Int {
     /// Total physical system memory in bytes
     case physicalMemory
     /// Amount of memory in bytes available to the current app
+    /// The property is not tracked in the current version of the tracker due to the tracker not being able to access the API, see the issue here: https://github.com/snowplow/snowplow-ios-tracker/issues/772
     case appAvailableMemory
     /// Remaining battery level as an integer percentage of total battery capacity
     case batteryLevel
