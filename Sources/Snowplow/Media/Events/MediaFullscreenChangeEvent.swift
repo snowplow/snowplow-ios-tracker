@@ -17,7 +17,7 @@ import Foundation
 @objc(SPMediaFullscreenChangeEvent)
 public class MediaFullscreenChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatingEvent {
     
-    /// Whether the video element is fullscreen.
+    /// Whether the video element is fullscreen after the change.
     @objc
     public var fullscreen: Bool
     
@@ -29,13 +29,13 @@ public class MediaFullscreenChangeEvent: SelfDescribingAbstract, MediaPlayerUpda
         return ["fullscreen": fullscreen]
     }
     
-    /// - Parameter fullscreen: Whether the video element is fullscreen.
+    /// - Parameter fullscreen: Whether the video element is fullscreen after the change.
     @objc
     public init(fullscreen: Bool) {
         self.fullscreen = fullscreen
     }
     
-    /// Whether the video element is fullscreen.
+    /// Whether the video element is fullscreen after the change.
     @objc
     public func fullscreen(_ fullscreen: Bool) -> Self {
         self.fullscreen = fullscreen

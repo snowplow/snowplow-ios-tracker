@@ -17,7 +17,7 @@ import Foundation
 @objc(SPMediaPictureInPictureChangeEvent)
 public class MediaPictureInPictureChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatingEvent {
     
-    /// Whether the video element is showing picture-in-picture.
+    /// Whether the video element is showing picture-in-picture after the change.
     @objc
     public var pictureInPicture: Bool
     
@@ -29,13 +29,13 @@ public class MediaPictureInPictureChangeEvent: SelfDescribingAbstract, MediaPlay
         return ["pictureInPicture": pictureInPicture]
     }
     
-    /// - Parameter pictureInPicture: Whether the video element is showing picture-in-picture.
+    /// - Parameter pictureInPicture: Whether the video element is showing picture-in-picture after the change.
     @objc
     public init(pictureInPicture: Bool) {
         self.pictureInPicture = pictureInPicture
     }
     
-    /// Whether the video element is showing picture-in-picture.
+    /// Whether the video element is showing picture-in-picture after the change.
     @objc
     public func pictureInPicture(_ pictureInPicture: Bool) -> Self {
         self.pictureInPicture = pictureInPicture
