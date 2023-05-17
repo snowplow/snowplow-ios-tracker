@@ -19,10 +19,12 @@ let POST_WRAPPER_BYTES = 88
 class Emitter: NSObject, EmitterEventProcessing {
     
     private var timer: Timer?
-    /// Whether the emitter is currently sending.
-    private(set) var isSending = false
     private var dataOperationQueue: OperationQueue = OperationQueue()
     private var builderFinished = false
+    
+    private var sendingLock = SendingLock()
+    /// Whether the emitter is currently sending.
+    var isSending: Bool { return sendingLock.isSending }
 
     private var pausedEmit = false
 
@@ -369,23 +371,21 @@ class Emitter: NSObject, EmitterEventProcessing {
 
     // MARK: - Control methods
 
-    func sendGuard() {
-        if isSending || pausedEmit {
-            return
+    private func sendGuard() {
+        if sendingLock.startSendingIfNotSending() {
+            objc_sync_enter(self)
+            if !pausedEmit {
+                attemptEmit()
+            }
+            objc_sync_exit(self)
+            sendingLock.stopSending()
         }
-        objc_sync_enter(self)
-        if !isSending && !pausedEmit {
-            isSending = true
-            attemptEmit()
-        }
-        objc_sync_exit(self)
     }
-
-    func attemptEmit() {
+    
+    private func attemptEmit() {
         guard let eventStore = eventStore else { return }
         if eventStore.count() == 0 {
             logDebug(message: "Database empty. Returning.")
-            isSending = false
             return
         }
 
@@ -435,14 +435,13 @@ class Emitter: NSObject, EmitterEventProcessing {
         if failedWillRetryCount > 0 && successCount == 0 {
             logDebug(message: "Ending emitter run as all requests failed.")
             Thread.sleep(forTimeInterval: 5)
-            isSending = false
             return
         } else {
             self.attemptEmit()
         }
     }
 
-    func buildRequests(fromEvents events: [EmitterEvent]) -> [Request] {
+    private func buildRequests(fromEvents events: [EmitterEvent]) -> [Request] {
         var requests: [Request] = []
         guard let networkConnection = networkConnection else { return requests }
         
@@ -503,16 +502,16 @@ class Emitter: NSObject, EmitterEventProcessing {
         return requests
     }
 
-    func isOversize(_ payload: Payload) -> Bool {
+    private func isOversize(_ payload: Payload) -> Bool {
         return isOversize(payload, previousPayloads: [])
     }
 
-    func isOversize(_ payload: Payload, previousPayloads: [Payload]) -> Bool {
+    private func isOversize(_ payload: Payload, previousPayloads: [Payload]) -> Bool {
         let byteLimit = networkConnection?.httpMethod == .get ? byteLimitGet : byteLimitPost
         return isOversize(payload, byteLimit: byteLimit, previousPayloads: previousPayloads)
     }
 
-    func isOversize(_ payload: Payload, byteLimit: Int, previousPayloads: [Payload]) -> Bool {
+    private func isOversize(_ payload: Payload, byteLimit: Int, previousPayloads: [Payload]) -> Bool {
         var totalByteSize = payload.byteSize
         for previousPayload in previousPayloads {
             totalByteSize += previousPayload.byteSize
@@ -527,5 +526,34 @@ class Emitter: NSObject, EmitterEventProcessing {
 
     deinit {
         pauseTimer()
+    }
+}
+
+fileprivate class SendingLock {
+    private var sending = false
+    
+    var isSending: Bool {
+        var result = false
+        objc_sync_enter(self)
+        result = sending
+        objc_sync_exit(self)
+        return result
+    }
+    
+    func startSendingIfNotSending() -> Bool {
+        var startSending = false
+        objc_sync_enter(self)
+        if !sending {
+            sending = true
+            startSending = true
+        }
+        objc_sync_exit(self)
+        return startSending
+    }
+    
+    func stopSending() {
+        objc_sync_enter(self)
+        sending = false
+        objc_sync_exit(self)
     }
 }
