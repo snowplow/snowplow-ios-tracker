@@ -51,8 +51,8 @@ public class MediaPlayer: NSObject {
     public var ended: Bool?
     /// Whether the video element is fullscreen
     public var fullscreen: Bool?
-    /// If the media is live
-    public var isLive: Bool?
+    /// Whether the media is a live stream
+    public var livestream: Bool?
     /// Human readable name given to tracked media content.
     public var label: String?
     /// If the video should restart after ending
@@ -89,7 +89,7 @@ public class MediaPlayer: NSObject {
             "paused": paused ?? true,
         ]
         if let fullscreen = fullscreen { data["fullscreen"] = fullscreen }
-        if let isLive = isLive { data["isLive"] = isLive }
+        if let livestream = livestream { data["livestream"] = livestream }
         if let label = label { data["label"] = label }
         if let duration = duration { data["duration"] = duration }
         if let mediaType = mediaType { data["mediaType"] = mediaType.value }
@@ -112,7 +112,7 @@ public class MediaPlayer: NSObject {
     /// - Parameter duration: A double-precision floating-point value indicating the duration of the media in seconds
     /// - Parameter ended: If playback of the media has ended
     /// - Parameter fullscreen: Whether the video element is fullscreen
-    /// - Parameter isLive: If the media is live
+    /// - Parameter livestream: Whether the media is a live stream
     /// - Parameter label: Human readable name given to tracked media content
     /// - Parameter loop: If the video should restart after ending
     /// - Parameter mediaType: Type of media content
@@ -127,7 +127,7 @@ public class MediaPlayer: NSObject {
                 duration: Double? = nil,
                 ended: Bool? = nil,
                 fullscreen: Bool? = nil,
-                isLive: Bool? = nil,
+                livestream: Bool? = nil,
                 label: String? = nil,
                 loop: Bool? = nil,
                 mediaType: MediaType? = nil,
@@ -142,7 +142,7 @@ public class MediaPlayer: NSObject {
         self.duration = duration
         self.ended = ended
         self.fullscreen = fullscreen
-        self.isLive = isLive
+        self.livestream = livestream
         self.label = label
         self.loop = loop
         self.mediaType = mediaType
@@ -173,7 +173,7 @@ public class MediaPlayer: NSObject {
                 currentItem.duration.isIndefinite ?
                 false : currentTime == currentItem.duration
             )
-            isLive = player.status == .readyToPlay && currentItem.duration.isIndefinite
+            livestream = player.status == .readyToPlay && currentItem.duration.isIndefinite
         }
     }
 #endif
@@ -206,10 +206,10 @@ public class MediaPlayer: NSObject {
         return self
     }
     
-    /// If the media is live
+    /// Whether the media is a live stream
     @objc
-    public func isLive(_ isLive: Bool) -> Self {
-        self.isLive = isLive
+    public func livestream(_ livestream: Bool) -> Self {
+        self.livestream = livestream
         return self
     }
     
@@ -288,7 +288,7 @@ public class MediaPlayer: NSObject {
         if let duration = player.duration { self.duration = duration }
         if let currentTime = player.currentTime { self.currentTime = currentTime }
         if let ended = player.ended { self.ended = ended }
-        if let isLive = player.isLive { self.isLive = isLive }
+        if let livestream = player.livestream { self.livestream = livestream }
         if let loop = player.loop { self.loop = loop }
         if let muted = player.muted { self.muted = muted }
         if let paused = player.paused { self.paused = paused }

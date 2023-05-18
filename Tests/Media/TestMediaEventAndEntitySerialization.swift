@@ -43,7 +43,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
             duration: 100,
             ended: true,
             fullscreen: true,
-            isLive: true,
+            livestream: true,
             label: "The Video",
             loop: true,
             mediaType: .video,
@@ -60,7 +60,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
         XCTAssertEqual(33.3, entity.data["currentTime"] as? Double)
         XCTAssertEqual(false, entity.data["paused"] as? Bool)
         XCTAssertEqual(true, entity.data["fullscreen"] as? Bool)
-        XCTAssertEqual(true, entity.data["isLive"] as? Bool)
+        XCTAssertEqual(true, entity.data["livestream"] as? Bool)
         XCTAssertEqual("The Video", entity.data["label"] as? String)
         XCTAssertEqual(true, entity.data["loop"] as? Bool)
         XCTAssertEqual("video", entity.data["mediaType"] as? String)
