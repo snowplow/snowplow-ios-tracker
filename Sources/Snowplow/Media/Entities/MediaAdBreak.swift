@@ -51,6 +51,8 @@ public class MediaAdBreak: NSObject {
     public var startTime: Double?
     /// Type of ads within the break
     public var breakType: MediaAdBreakType?
+    /// The number of ads to be played within the ad break
+    public var podSize: Int?
     
     internal var entity: SelfDescribingJson {
         var data: [String : Any] = [
@@ -59,6 +61,7 @@ public class MediaAdBreak: NSObject {
         ]
         if let name = name { data["name"] = name }
         if let breakType = breakType { data["breakType"] = breakType.value }
+        if let podSize = podSize { data["podSize"] = podSize }
         
         return SelfDescribingJson(schema: MediaSchemata.adBreakSchema, andData: data)
 
@@ -75,10 +78,12 @@ public class MediaAdBreak: NSObject {
     /// - Parameter breakType: Type of ads within the break
     public init(breakId: String,
                 name: String? = nil,
-                breakType: MediaAdBreakType? = nil) {
+                breakType: MediaAdBreakType? = nil,
+                podSize: Int? = nil) {
         self.name = name
         self.breakId = breakId
         self.breakType = breakType
+        self.podSize = podSize
     }
     
     /// Ad break name (e.g., pre-roll, mid-roll, and post-roll)
@@ -98,6 +103,13 @@ public class MediaAdBreak: NSObject {
     /// Type of ads within the break
     public func breakType(_ breakType: MediaAdBreakType) -> Self {
         self.breakType = breakType
+        return self
+    }
+    
+    /// The number of ads to be played within the ad break
+    @objc
+    public func podSize(_ podSize: Int) -> Self {
+        self.podSize = podSize
         return self
     }
     

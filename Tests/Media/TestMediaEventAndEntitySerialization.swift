@@ -114,8 +114,9 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     
     func testBuildsAdBreakEntity() {
         let adBreak = MediaAdBreak(breakId: "xxx",
-                                         name: "Break 1",
-                                         breakType: .nonLinear)
+                                   name: "Break 1",
+                                   breakType: .nonLinear,
+                                   podSize: 3)
         adBreak.startTime = 100.1
         let entity = adBreak.entity
         
@@ -123,6 +124,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
         XCTAssertEqual("Break 1", entity.data["name"] as? String)
         XCTAssertEqual("xxx", entity.data["breakId"] as? String)
         XCTAssertEqual("nonlinear", entity.data["breakType"] as? String)
+        XCTAssertEqual(3, entity.data["podSize"] as? Int)
         XCTAssertEqual(100.1, entity.data["startTime"] as? Double)
     }
     
