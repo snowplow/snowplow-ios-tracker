@@ -55,7 +55,7 @@ class TestMediaAdTracking: XCTestCase {
         
         adTracking.updateForThisEvent(event: MediaAdStartEvent(),
                                       player: MediaPlayer(),
-                                      ad: MediaAd(adId: "a1"),
+                                      ad: MediaAd(adId: "a2"),
                                       adBreak: nil)
         
         XCTAssertEqual(2, adTracking.ad?.podPosition)
