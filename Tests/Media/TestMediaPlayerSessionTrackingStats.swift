@@ -226,7 +226,7 @@ class TestMediaSessionTrackingStats: XCTestCase {
         
         timeTraveler.travel(by: TimeInterval(30))
         player.currentTime = 30
-        stats.update(event: MediaEndEvent(), player: player)
+        stats.update(event: nil, player: player)
         
         XCTAssertEqual(60, stats.timePlayed)
         XCTAssertEqual(30, stats.timeBuffering)
@@ -245,7 +245,11 @@ class TestMediaSessionTrackingStats: XCTestCase {
         player.currentTime = 30
         stats.update(event: MediaEndEvent(), player: player)
         
-        XCTAssertEqual(60, stats.timePlayed)
+        timeTraveler.travel(by: TimeInterval(30))
+        player.currentTime = 60
+        stats.update(event: nil, player: player)
+        
+        XCTAssertEqual(90, stats.timePlayed)
         XCTAssertEqual(30, stats.timeBuffering)
     }
 }
