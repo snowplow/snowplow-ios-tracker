@@ -13,6 +13,9 @@
 
 import Foundation
 
+/**
+ Media player event tracked when the resource could not be loaded due to an error.
+ */
 @objc(SPMediaErrorEvent)
 public class MediaErrorEvent: SelfDescribingAbstract {
     
@@ -20,7 +23,7 @@ public class MediaErrorEvent: SelfDescribingAbstract {
     @objc
     public var errorCode: String?
     
-    /// Longer description for the error occurred in the playback.
+    /// Longer description for the error that occurred in the playback.
     @objc
     public var errorDescription: String?
     
@@ -36,7 +39,7 @@ public class MediaErrorEvent: SelfDescribingAbstract {
     }
     
     /// - Parameter errorCode: Error-identifying code for the playback issue. E.g. E522
-    /// - Parameter errorDescription: Longer description for the error occurred in the playback.
+    /// - Parameter errorDescription: Longer description for the error that occurred in the playback.
     @objc
     public init(errorCode: String? = nil, errorDescription: String? = nil) {
         self.errorCode = errorCode
@@ -50,7 +53,7 @@ public class MediaErrorEvent: SelfDescribingAbstract {
         return self
     }
     
-    /// Longer description for the error occurred in the playback.
+    /// Longer description for the error that occurred in the playback.
     @objc
     public func errorDescription(_ errorDescription: String?) -> Self {
         self.errorDescription = errorDescription

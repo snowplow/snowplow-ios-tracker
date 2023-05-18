@@ -13,7 +13,7 @@
 
 import Foundation
 
-/// State of retrieved remote configuration that states where the configuration was retrieved from.
+/// Type of ads within the break
 @objc(SPMediaAdBreakType)
 public enum MediaAdBreakType: Int {
     /// Take full control of the video for a period of time

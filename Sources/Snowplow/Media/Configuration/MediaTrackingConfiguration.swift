@@ -27,7 +27,7 @@ public class MediaTrackingConfiguration: NSObject {
     @objc
     public var boundaries: [Int]?
     
-    /// List of context entities to track with events
+    /// List of context entities to track with media events
     @objc
     public var entities: [SelfDescribingJson]?
     
@@ -55,11 +55,10 @@ public class MediaTrackingConfiguration: NSObject {
     public var captureEvents: [Event.Type]?
     
     /// - Parameter id: Unique identifier for the media tracking instance. The same ID is used for media player session if enabled.
-    /// - Parameter label: A custom optional identifier tracked as the `label` property in media events.
     /// - Parameter pings: Whether to track media ping events. Defaults to true.
-    /// - Parameter media: Properties of the media player context entity attached to media events.
+    /// - Parameter player: Properties of the media player context entity attached to media events.
     /// - Parameter session: Whether to track the media player session context entity along with media events.
-    /// - Parameter entities: List of context entities to track with events
+    /// - Parameter entities: List of context entities to track with media events
     @objc
     public init(id: String,
                 pings: Bool = true,
@@ -80,7 +79,7 @@ public class MediaTrackingConfiguration: NSObject {
         return self
     }
     
-    /// List of context entities to track with events
+    /// List of context entities to track with media events
     @objc
     public func entities(_ entities: [SelfDescribingJson]?) -> Self {
         self.entities = entities

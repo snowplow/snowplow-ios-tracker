@@ -18,6 +18,7 @@ import Foundation
 public class MediaVolumeChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatingEvent {
     
     /// Volume percentage before the change.
+    /// If not set, the previous volume is taken from the last setting in media player.
     public var previousVolume: Int?
     
     /// Volume percentage after the change.
@@ -48,6 +49,7 @@ public class MediaVolumeChangeEvent: SelfDescribingAbstract, MediaPlayerUpdating
     }
     
     /// Volume percentage before the change.
+    /// If not set, the previous volume is taken from the last setting in media player.
     @objc
     public func previousVolume(_ previousVolume: Int) -> Self {
         self.previousVolume = previousVolume

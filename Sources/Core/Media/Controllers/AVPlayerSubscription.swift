@@ -54,7 +54,7 @@ class AVPlayerSubscription {
                 self?.lastPauseTime = player.currentTime()
                 self?.track(MediaPauseEvent())
             } else if oldRate == 0 && newRate != 0 { // started playing
-                // when the current time diverges significantly from what it was when last paused, track a seek event
+                // when the current time diverges significantly, i.e. more than 1 second, from what it was when last paused, track a seek event
                 if let lastPauseTime = self?.lastPauseTime {
                     if abs(player.currentTime().seconds - lastPauseTime.seconds) > 1 {
                         self?.track(MediaSeekEndEvent())

@@ -13,6 +13,9 @@
 
 import Foundation
 
+/**
+ Media player event fired when the user resumed playing the ad creative after it had been stopped or paused.
+ */
 @objc(SPMediaAdResumeEvent)
 public class MediaAdResumeEvent: SelfDescribingAbstract {
     

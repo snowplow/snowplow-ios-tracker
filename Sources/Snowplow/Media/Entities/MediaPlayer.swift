@@ -43,7 +43,7 @@ extension MediaType {
  */
 @objc(SPMediaPlayer)
 public class MediaPlayer: NSObject {
-    /// The current playback time
+    /// The current playback time position within the media in seconds
     public var currentTime: Double?
     /// A double-precision floating-point value indicating the duration of the media in seconds
     public var duration: Double?
@@ -108,7 +108,7 @@ public class MediaPlayer: NSObject {
     public override init() {
     }
    
-    /// - Parameter currentTime: The current playback time
+    /// - Parameter currentTime: The current playback time position within the media in seconds
     /// - Parameter duration: A double-precision floating-point value indicating the duration of the media in seconds
     /// - Parameter ended: If playback of the media has ended
     /// - Parameter fullscreen: Whether the video element is fullscreen
@@ -178,7 +178,7 @@ public class MediaPlayer: NSObject {
     }
 #endif
     
-    /// The current playback time
+    /// The current playback time position within the media in seconds
     @objc
     public func currentTime(_ currentTime: Double) -> Self {
         self.currentTime = currentTime

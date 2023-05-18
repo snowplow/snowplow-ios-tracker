@@ -13,6 +13,9 @@
 
 import Foundation
 
+/**
+ Media player event tracked when the video playback quality changes automatically.
+ */
 @objc(SPMediaQualityChangeEvent)
 public class MediaQualityChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatingEvent {
     
