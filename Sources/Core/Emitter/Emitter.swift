@@ -22,11 +22,9 @@ class Emitter: NSObject, EmitterEventProcessing {
     private var dataOperationQueue: OperationQueue = OperationQueue()
     private var builderFinished = false
     
-    private var sendingLock = SendingLock()
+    private var sendingCheck = SendingCheck()
     /// Whether the emitter is currently sending.
-    var isSending: Bool { return sendingLock.isSending }
-
-    private var pausedEmit = false
+    var isSending: Bool { return sendingCheck.sending }
 
     private var _urlEndpoint: String?
     /// Collector endpoint.
@@ -332,29 +330,22 @@ class Emitter: NSObject, EmitterEventProcessing {
 
     /// Allows sending events to collector.
     func resumeEmit() {
-        pausedEmit = false
+        sendingCheck.pausedEmit = false
         flush()
     }
 
     /// Suspends sending events to collector.
     func pauseEmit() {
-        pausedEmit = true
+        sendingCheck.pausedEmit = true
     }
 
     /// Insert a Payload object into the buffer to be sent to collector.
     /// This method will add the payload to the database and flush (send all events).
     /// - Parameter eventPayload: A Payload containing a completed event to be added into the buffer.
     func addPayload(toBuffer eventPayload: Payload) {
-        weak var weakSelf = self
-
-        DispatchQueue.global(qos: .default).async {
-            let strongSelf = weakSelf
-            if strongSelf == nil {
-                return
-            }
-
-            strongSelf?.eventStore?.addEvent(eventPayload)
-            strongSelf?.flush()
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            self?.eventStore?.addEvent(eventPayload)
+            self?.flush()
         }
     }
 
@@ -372,13 +363,11 @@ class Emitter: NSObject, EmitterEventProcessing {
     // MARK: - Control methods
 
     private func sendGuard() {
-        if sendingLock.startSendingIfNotSending() {
+        if sendingCheck.requestToStartSending() {
             objc_sync_enter(self)
-            if !pausedEmit {
-                attemptEmit()
-            }
+            attemptEmit()
             objc_sync_exit(self)
-            sendingLock.stopSending()
+            sendingCheck.sending = false
         }
     }
     
@@ -529,31 +518,41 @@ class Emitter: NSObject, EmitterEventProcessing {
     }
 }
 
-fileprivate class SendingLock {
-    private var sending = false
-    
-    var isSending: Bool {
-        var result = false
-        objc_sync_enter(self)
-        result = sending
-        objc_sync_exit(self)
-        return result
-    }
-    
-    func startSendingIfNotSending() -> Bool {
-        var startSending = false
-        objc_sync_enter(self)
-        if !sending {
-            sending = true
-            startSending = true
+fileprivate class SendingCheck {
+    private var _sending = false
+    var sending: Bool {
+        get {
+            return lock { return _sending }
         }
-        objc_sync_exit(self)
-        return startSending
+        set {
+            lock { _sending = newValue }
+        }
     }
     
-    func stopSending() {
+    private var _pausedEmit = false
+    var pausedEmit: Bool {
+        get {
+            return lock { return _pausedEmit }
+        }
+        set {
+            lock { _pausedEmit = newValue }
+        }
+    }
+    
+    func requestToStartSending() -> Bool {
+        return lock {
+            if !_sending && !_pausedEmit {
+                _sending = true
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    private func lock<T: Any>(closure: () -> T) -> T {
         objc_sync_enter(self)
-        sending = false
-        objc_sync_exit(self)
+        defer { objc_sync_exit(self) }
+        return closure()
     }
 }
