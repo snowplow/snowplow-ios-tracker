@@ -19,94 +19,93 @@ class ConfigurationCache: NSObject {
 
     init(remoteConfiguration: RemoteConfiguration) {
         super.init()
-        #if !(os(tvOS)) && !(os(watchOS))
+#if !(os(tvOS)) && !(os(watchOS))
         createCachePath(with: remoteConfiguration)
-        #endif
+#endif
     }
-
+    
     func read() -> FetchedConfigurationBundle? {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        #if !(os(tvOS)) && !(os(watchOS))
-        if let configuration = configuration {
+        return lock {
+#if !(os(tvOS)) && !(os(watchOS))
+            if let configuration = configuration {
+                return configuration
+            }
+            load()
+#endif
             return configuration
         }
-        load()
-        #endif
-        return configuration
     }
-
+    
     func write(_ configuration: FetchedConfigurationBundle) {
-        objc_sync_enter(self)
-        self.configuration = configuration
-        #if !(os(tvOS)) && !(os(watchOS))
-        store()
-        #endif
-        objc_sync_exit(self)
-    }
-
-    func clear() {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        configuration = nil
-        #if !(os(tvOS)) && !(os(watchOS))
-        if let cacheFileUrl = cacheFileUrl {
-            do {
-                try FileManager.default.removeItem(at: cacheFileUrl)
-            } catch let error {
-                logError(message: String(format: "Error on clearing configuration from cache: %@", error.localizedDescription))
-            }
+        lock {
+            self.configuration = configuration
+#if !(os(tvOS)) && !(os(watchOS))
+            store()
+#endif
         }
-        #endif
     }
-
-    // Private method
-
-    func load() {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        guard let cacheFileUrl = cacheFileUrl,
-              let data = try? Data(contentsOf: cacheFileUrl) else { return }
-        if #available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *) {
-            do {
-                configuration = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? FetchedConfigurationBundle
-            } catch let error {
-                logError(message: String(format: "Exception on getting configuration from cache: %@", error.localizedDescription))
-                configuration = nil
+    
+    func clear() {
+        lock {
+            configuration = nil
+#if !(os(tvOS)) && !(os(watchOS))
+            if let cacheFileUrl = cacheFileUrl {
+                do {
+                    try FileManager.default.removeItem(at: cacheFileUrl)
+                } catch let error {
+                    logError(message: String(format: "Error on clearing configuration from cache: %@", error.localizedDescription))
+                }
             }
-        } else {
-            let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-            configuration = unarchiver.decodeObject() as? FetchedConfigurationBundle
-            unarchiver.finishDecoding()
+#endif
+        }
+    }
+    
+    // Private method
+    
+    func load() {
+        lock {
+            guard let cacheFileUrl = cacheFileUrl,
+                  let data = try? Data(contentsOf: cacheFileUrl) else { return }
+            if #available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *) {
+                do {
+                    configuration = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? FetchedConfigurationBundle
+                } catch let error {
+                    logError(message: String(format: "Exception on getting configuration from cache: %@", error.localizedDescription))
+                    configuration = nil
+                }
+            } else {
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                configuration = unarchiver.decodeObject() as? FetchedConfigurationBundle
+                unarchiver.finishDecoding()
+            }
         }
     }
     
     func store() {
         _ = DispatchQueue.global(qos: .default)
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
-        guard let configuration = configuration,
-              let cacheFileUrl = cacheFileUrl else { return }
-        
-        do {
-            var data = Data()
-            var archiver: NSKeyedArchiver?
+        lock {
+            guard let configuration = configuration,
+                  let cacheFileUrl = cacheFileUrl else { return }
             
-            if #available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *) {
-                archiver = NSKeyedArchiver(requiringSecureCoding: true)
-                archiver?.encode(configuration, forKey: "root")
-                if let encodedData = archiver?.encodedData {
-                    data = encodedData
+            do {
+                var data = Data()
+                var archiver: NSKeyedArchiver?
+                
+                if #available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *) {
+                    archiver = NSKeyedArchiver(requiringSecureCoding: true)
+                    archiver?.encode(configuration, forKey: "root")
+                    if let encodedData = archiver?.encodedData {
+                        data = encodedData
+                    }
+                } else {
+                    archiver = NSKeyedArchiver(forWritingWith: data as! NSMutableData)
+                    archiver?.encode(configuration)
+                    archiver?.finishEncoding()
                 }
-            } else {
-                archiver = NSKeyedArchiver(forWritingWith: data as! NSMutableData)
-                archiver?.encode(configuration)
-                archiver?.finishEncoding()
+                try data.write(to: cacheFileUrl, options: .atomic)
+            } catch let error {
+                logError(message: String(format: "Error on caching configuration: %@", error.localizedDescription))
             }
-            try data.write(to: cacheFileUrl, options: .atomic)
-        } catch let error {
-            logError(message: String(format: "Error on caching configuration: %@", error.localizedDescription))
         }
     }
 
@@ -125,5 +124,11 @@ class ConfigurationCache: NSObject {
         if let url = url {
             cacheFileUrl = url
         }
+    }
+    
+    private func lock<T>(closure: () -> T) -> T {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        return closure()
     }
 }
