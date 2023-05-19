@@ -550,7 +550,7 @@ fileprivate class SendingCheck {
         }
     }
     
-    private func lock<T: Any>(closure: () -> T) -> T {
+    private func lock<T>(closure: () -> T) -> T {
         objc_sync_enter(self)
         defer { objc_sync_exit(self) }
         return closure()
