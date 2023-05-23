@@ -23,6 +23,10 @@ public class MediaErrorEvent: SelfDescribingAbstract {
     @objc
     public var errorCode: String?
     
+    /// Name for the type of error that occurred in the playback. E.g. forbidden
+    @objc
+    public var errorName: String?
+    
     /// Longer description for the error that occurred in the playback.
     @objc
     public var errorDescription: String?
@@ -34,15 +38,18 @@ public class MediaErrorEvent: SelfDescribingAbstract {
     override var payload: [String : Any] {
         var data: [String : Any] = [:]
         if let errorCode = errorCode { data["errorCode"] = errorCode }
+        if let errorName = errorName { data["errorName"] = errorName }
         if let errorDescription = errorDescription { data["errorDescription"] = errorDescription }
         return data
     }
     
     /// - Parameter errorCode: Error-identifying code for the playback issue. E.g. E522
+    /// - Parameter errorName: Name for the type of error that occurred in the playback. E.g. forbidden
     /// - Parameter errorDescription: Longer description for the error that occurred in the playback.
     @objc
-    public init(errorCode: String? = nil, errorDescription: String? = nil) {
+    public init(errorCode: String? = nil, errorName: String? = nil, errorDescription: String? = nil) {
         self.errorCode = errorCode
+        self.errorName = errorName
         self.errorDescription = errorDescription
     }
     
@@ -50,6 +57,13 @@ public class MediaErrorEvent: SelfDescribingAbstract {
     @objc
     public func errorCode(_ errorCode: String?) -> Self {
         self.errorCode = errorCode
+        return self
+    }
+    
+    /// Name for the type of error that occurred in the playback. E.g. forbidden
+    @objc
+    public func errorName(_ errorName: String?) -> Self {
+        self.errorName = errorName
         return self
     }
     

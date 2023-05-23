@@ -271,12 +271,14 @@ class TestMediaController: XCTestCase {
         
         media?.track(MediaErrorEvent(
             errorCode: "501",
+            errorName: "forbidden",
             errorDescription: "Failed to load resource"
         ))
         
         waitForEventsToBeTracked()
         
         XCTAssertEqual("501", firstEvent?.payload["errorCode"] as? String)
+        XCTAssertEqual("forbidden", firstEvent?.payload["errorName"] as? String)
         XCTAssertEqual("Failed to load resource", firstEvent?.payload["errorDescription"] as? String)
     }
     
