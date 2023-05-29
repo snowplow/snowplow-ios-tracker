@@ -19,6 +19,7 @@ class StateManager {
     private var eventSchemaToEntitiesGenerator: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToPayloadUpdater: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToAfterTrackCallback: [String : [StateMachineProtocol]] = [:]
+    private var eventSchemaToFilter: [String : [StateMachineProtocol]] = [:]
     private var trackerState = TrackerState()
 
     func addOrReplaceStateMachine(_ stateMachine: StateMachineProtocol) {
@@ -48,6 +49,10 @@ class StateManager {
             toSchemaRegistry: &eventSchemaToAfterTrackCallback,
             schemas: stateMachine.subscribedEventSchemasForAfterTrackCallback,
             stateMachine: stateMachine)
+        add(
+            toSchemaRegistry: &eventSchemaToFilter,
+            schemas: stateMachine.subscribedEventSchemasForFiltering,
+            stateMachine: stateMachine)
     }
 
     func removeStateMachine(_ stateMachineIdentifier: String) -> Bool {
@@ -71,6 +76,10 @@ class StateManager {
         remove(
             fromSchemaRegistry: &eventSchemaToAfterTrackCallback,
             schemas: stateMachine.subscribedEventSchemasForAfterTrackCallback,
+            stateMachine: stateMachine)
+        remove(
+            fromSchemaRegistry: &eventSchemaToFilter,
+            schemas: stateMachine.subscribedEventSchemasForFiltering,
             stateMachine: stateMachine)
         return true
     }
@@ -106,6 +115,23 @@ class StateManager {
             }
         }
         return trackerState.snapshot()
+    }
+    
+    func filter(event: InspectableEvent & StateMachineEvent) -> Bool {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+
+        guard let schema = event.schema ?? event.eventName else { return true }
+        var stateMachines = eventSchemaToFilter[schema] ?? []
+        stateMachines.append(contentsOf: eventSchemaToFilter["*"] ?? [])
+
+        for stateMachine in stateMachines {
+            let state = event.state.state(withIdentifier: stateMachine.identifier)
+            if let filter = stateMachine.filter(event: event, state: state) {
+                if !filter { return false }
+            }
+        }
+        return true
     }
 
     func entities(forProcessedEvent event: InspectableEvent & StateMachineEvent) -> [SelfDescribingJson] {

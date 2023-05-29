@@ -18,7 +18,7 @@ class PluginsControllerImpl: Controller, PluginsController {
         return serviceProvider.pluginConfigurations.map { $0.identifier }
     }
     
-    func add(plugin: PluginConfigurationProtocol) {
+    func add(plugin: PluginIdentifiable) {
         serviceProvider.addPlugin(plugin: plugin)
     }
 
