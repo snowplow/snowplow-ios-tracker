@@ -23,7 +23,7 @@ fileprivate struct Log {
 }
 
 class MediaSessionTrackingStats {
-    private var session: MediaSession
+    private var session: MediaSessionEntity
     private var dateGenerator: () -> Date
     private var lastAdUpdateAt: Date?
     private var bufferingStartedAt: Date?
@@ -46,12 +46,12 @@ class MediaSessionTrackingStats {
     var adsSkipped = 0
     var adsClicked = 0
     
-    init(session: MediaSession, dateGenerator: @escaping () -> Date = Date.init) {
+    init(session: MediaSessionEntity, dateGenerator: @escaping () -> Date = Date.init) {
         self.session = session
         self.dateGenerator = dateGenerator
     }
     
-    func update(event: Event?, player: MediaPlayer, adBreak: MediaAdBreak? = nil) {
+    func update(event: Event?, player: MediaPlayerEntity, adBreak: MediaAdBreakEntity? = nil) {
         let log = Log(
             time: dateGenerator(),
             contentTime: player.currentTime ?? 0,

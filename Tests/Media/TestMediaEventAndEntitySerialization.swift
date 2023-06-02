@@ -29,7 +29,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     }
     
     func testBuildsEntityWithDefaultValuesForEmptyMediaPlayer() {
-        let entity = MediaPlayer().entity
+        let entity = MediaPlayerEntity().entity
         
         XCTAssertEqual(mediaSchema(name: "player"), entity.schema)
         XCTAssertEqual(0.0, entity.data["currentTime"] as? Double)
@@ -38,7 +38,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     }
     
     func testBuildsEntityForMediaPlayer() {
-        let entity = MediaPlayer(
+        let entity = MediaPlayerEntity(
             currentTime: 33.3,
             duration: 100,
             ended: true,
@@ -76,12 +76,12 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     func testBuildsMediaSessionEntity() {
         let date = Date()
         let timeTraveler = TimeTraveler()
-        let session = MediaSession(id: "xxx", startedAt: date, pingInterval: 13)
+        let session = MediaSessionEntity(id: "xxx", startedAt: date, pingInterval: 13)
         let stats = MediaSessionTrackingStats(session: session, dateGenerator: timeTraveler.generateDate)
         
-        stats.update(event: MediaPlayEvent(), player: MediaPlayer().currentTime(0).paused(false))
+        stats.update(event: MediaPlayEvent(), player: MediaPlayerEntity().currentTime(0).paused(false))
         timeTraveler.travel(by: 10)
-        stats.update(event: MediaPauseEvent(), player: MediaPlayer().currentTime(10).paused(true))
+        stats.update(event: MediaPauseEvent(), player: MediaPlayerEntity().currentTime(10).paused(true))
         
         let entity = session.entity(stats: stats)
         XCTAssertEqual(mediaSchema(name: "session"), entity.schema)
@@ -93,7 +93,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     }
     
     func testBuildsAdEntity() {
-        let ad = MediaAd(
+        let ad = MediaAdEntity(
             adId: "yyy",
             name: "Name",
             creativeId: "zzz",
@@ -113,10 +113,10 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     }
     
     func testBuildsAdBreakEntity() {
-        let adBreak = MediaAdBreak(breakId: "xxx",
-                                   name: "Break 1",
-                                   breakType: .nonLinear,
-                                   podSize: 3)
+        let adBreak = MediaAdBreakEntity(breakId: "xxx",
+                                         name: "Break 1",
+                                         breakType: .nonLinear,
+                                         podSize: 3)
         adBreak.startTime = 100.1
         let entity = adBreak.entity
         

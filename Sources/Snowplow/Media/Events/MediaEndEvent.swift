@@ -25,7 +25,7 @@ public class MediaEndEvent: SelfDescribingAbstract, MediaPlayerUpdatingEvent {
         return [:]
     }
     
-    func update(player: MediaPlayer) {
+    func update(player: MediaPlayerEntity) {
         player.ended = true
         player.paused = true
     }

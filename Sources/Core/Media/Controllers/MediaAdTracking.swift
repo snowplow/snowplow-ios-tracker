@@ -14,8 +14,8 @@
 import Foundation
 
 class MediaAdTracking {
-    var ad: MediaAd?
-    var adBreak: MediaAdBreak?
+    var ad: MediaAdEntity?
+    var adBreak: MediaAdBreakEntity?
     private var podPosition = 0
     
     var entities: [SelfDescribingJson] {
@@ -25,7 +25,7 @@ class MediaAdTracking {
         return entities
     }
     
-    func updateForThisEvent(event: Event, player: MediaPlayer, ad: MediaAd?, adBreak: MediaAdBreak?) {
+    func updateForThisEvent(event: Event?, player: MediaPlayerEntity, ad: MediaAdEntity?, adBreak: MediaAdBreakEntity?) {
         switch (event) {
         case is MediaAdStartEvent:
             self.ad = nil
@@ -49,7 +49,7 @@ class MediaAdTracking {
         }
     }
     
-    func updateForNextEvent(event: Event) {
+    func updateForNextEvent(event: Event?) {
         switch (event) {
         case is MediaAdBreakEndEvent:
             self.adBreak = nil

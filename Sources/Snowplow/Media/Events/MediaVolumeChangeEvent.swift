@@ -63,7 +63,7 @@ public class MediaVolumeChangeEvent: SelfDescribingAbstract, MediaPlayerUpdating
         return self
     }
     
-    func update(player: MediaPlayer) {
+    func update(player: MediaPlayerEntity) {
         if previousVolume == nil {
             if let volume = player.volume {
                 previousVolume = volume

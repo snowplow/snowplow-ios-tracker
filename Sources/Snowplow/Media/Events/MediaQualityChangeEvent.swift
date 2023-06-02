@@ -14,12 +14,13 @@
 import Foundation
 
 /**
- Media player event tracked when the video playback quality changes automatically.
+ Media player event tracked when the video playback quality changes.
  */
 @objc(SPMediaQualityChangeEvent)
 public class MediaQualityChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatingEvent {
     
     /// Quality level before the change (e.g., 1080p).
+    /// If not set, the previous quality is taken from the last setting in media player.
     @objc
     public var previousQuality: String?
     
@@ -46,6 +47,7 @@ public class MediaQualityChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatin
         if let newQuality = newQuality { data["newQuality"] = newQuality }
         if let bitrate = bitrate { data["bitrate"] = bitrate }
         if let framesPerSecond = framesPerSecond { data["framesPerSecond"] = framesPerSecond }
+        if let automatic = automatic { data["automatic"] = automatic }
         return data
     }
     
@@ -71,6 +73,7 @@ public class MediaQualityChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatin
     }
     
     /// Quality level before the change (e.g., 1080p).
+    /// If not set, the previous quality is taken from the last setting in media player.
     @objc
     public func previousQuality(_ previousQuality: String?) -> Self {
         self.previousQuality = previousQuality
@@ -105,7 +108,7 @@ public class MediaQualityChangeEvent: SelfDescribingAbstract, MediaPlayerUpdatin
         return self
     }
     
-    func update(player: MediaPlayer) {
+    func update(player: MediaPlayerEntity) {
         if previousQuality == nil {
             if let quality = player.quality {
                 previousQuality = quality

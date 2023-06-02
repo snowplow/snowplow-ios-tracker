@@ -83,11 +83,11 @@ class AVPlayerSubscription {
     // MARK: private members
 
     private func track(_ event: Event) {
-        mediaTracking.track(event, player: MediaPlayer(player: player))
+        mediaTracking.track(event, player: MediaPlayerEntity(player: player))
     }
     
     private func update() {
-        mediaTracking.update(player: MediaPlayer(player: player))
+        mediaTracking.update(player: MediaPlayerEntity(player: player))
     }
 
     /// Handles notifications from the notification center subscriptions

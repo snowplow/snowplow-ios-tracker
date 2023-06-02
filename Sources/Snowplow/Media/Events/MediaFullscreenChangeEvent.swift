@@ -42,7 +42,7 @@ public class MediaFullscreenChangeEvent: SelfDescribingAbstract, MediaPlayerUpda
         return self
     }
     
-    func update(player: MediaPlayer) {
+    func update(player: MediaPlayerEntity) {
         player.fullscreen = fullscreen
     }
 }

@@ -13,7 +13,7 @@
 
 import Foundation
 
-class MediaSession {
+class MediaSessionEntity {
     var id: String
     var startedAt: Date
     var pingInterval: Int?

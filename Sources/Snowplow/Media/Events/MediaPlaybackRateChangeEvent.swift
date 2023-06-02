@@ -65,7 +65,7 @@ public class MediaPlaybackRateChangeEvent: SelfDescribingAbstract, MediaPlayerUp
         return self
     }
     
-    func update(player: MediaPlayer) {
+    func update(player: MediaPlayerEntity) {
         if previousRate == nil {
             if let previousRate = player.playbackRate {
                 self.previousRate = previousRate

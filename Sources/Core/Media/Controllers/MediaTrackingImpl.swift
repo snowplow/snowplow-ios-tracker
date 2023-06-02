@@ -18,7 +18,7 @@ class MediaTrackingImpl: MediaTracking {
 
     private var session: MediaSessionTracking?
     private var adTracking = MediaAdTracking()
-    private var player = MediaPlayer()
+    private var player = MediaPlayerEntity()
     private var pingInterval: MediaPingInterval?
     private var sentBoundaries: [Int] = []
     private var seeking = false
@@ -41,7 +41,7 @@ class MediaTrackingImpl: MediaTracking {
     
     init(id: String,
          tracker: TrackerController,
-         player: MediaPlayer? = nil,
+         player: MediaPlayerEntity? = nil,
          session: MediaSessionTracking? = nil,
          pingInterval: MediaPingInterval? = nil,
          boundaries: [Int]? = nil,
@@ -71,11 +71,11 @@ class MediaTrackingImpl: MediaTracking {
     
     // MARK: Update methods overloads
     
-    func update(player: MediaPlayer?) {
+    func update(player: MediaPlayerEntity?) {
         self.update(event: nil, player: player, ad: nil, adBreak: nil)
     }
     
-    func update(player: MediaPlayer?, ad: MediaAd?, adBreak: MediaAdBreak?) {
+    func update(player: MediaPlayerEntity?, ad: MediaAdEntity?, adBreak: MediaAdBreakEntity?) {
         self.update(event: nil, player: player, ad: ad, adBreak: adBreak)
     }
     
@@ -85,55 +85,51 @@ class MediaTrackingImpl: MediaTracking {
         self.track(event, player: nil, ad: nil, adBreak: nil)
     }
     
-    func track(_ event: Event, player: MediaPlayer?) {
+    func track(_ event: Event, player: MediaPlayerEntity?) {
         self.track(event, player: player, ad: nil, adBreak: nil)
     }
     
-    func track(_ event: Event, ad: MediaAd?) {
+    func track(_ event: Event, ad: MediaAdEntity?) {
         self.track(event, player: nil, ad: ad, adBreak: nil)
     }
     
-    func track(_ event: Event, player: MediaPlayer?, ad: MediaAd?) {
+    func track(_ event: Event, player: MediaPlayerEntity?, ad: MediaAdEntity?) {
         self.track(event, player: player, ad: ad, adBreak: nil)
     }
     
-    func track(_ event: Event, adBreak: MediaAdBreak?) {
+    func track(_ event: Event, adBreak: MediaAdBreakEntity?) {
         self.track(event, player: nil, ad: nil, adBreak: adBreak)
     }
     
-    func track(_ event: Event, player: MediaPlayer?, adBreak: MediaAdBreak?) {
+    func track(_ event: Event, player: MediaPlayerEntity?, adBreak: MediaAdBreakEntity?) {
         self.track(event, player: player, ad: nil, adBreak: adBreak)
     }
     
-    func track(_ event: Event, player: MediaPlayer?, ad: MediaAd?, adBreak: MediaAdBreak?) {
+    func track(_ event: Event, player: MediaPlayerEntity?, ad: MediaAdEntity?, adBreak: MediaAdBreakEntity?) {
         self.update(event: event, player: player, ad: ad, adBreak: adBreak)
     }
     
     // MARK: Private methods
     
     private func update(event: Event? = nil,
-                        player: MediaPlayer? = nil,
-                        ad: MediaAd? = nil,
-                        adBreak: MediaAdBreak? = nil) {
+                        player: MediaPlayerEntity? = nil,
+                        ad: MediaAdEntity? = nil,
+                        adBreak: MediaAdBreakEntity? = nil) {
         objc_sync_enter(self)
 
         // update state
         if let player = player {
             self.player.update(from: player)
         }
-        if let event = event as? MediaPlayerUpdatingEvent {
-            event.update(player: self.player)
-        }
-        if let event = event {
-            adTracking.updateForThisEvent(event: event,
-                                          player: self.player,
-                                          ad: ad,
-                                          adBreak: adBreak)
-        }
-        self.session?.update(event: event,
-                             player: self.player,
-                             adBreak: adTracking.adBreak)
-        self.pingInterval?.update(player: self.player)
+        (event as? MediaPlayerUpdatingEvent)?.update(player: self.player)
+        adTracking.updateForThisEvent(event: event,
+                                      player: self.player,
+                                      ad: ad,
+                                      adBreak: adBreak)
+        session?.update(event: event,
+                        player: self.player,
+                        adBreak: adTracking.adBreak)
+        pingInterval?.update(player: self.player)
         
         // track events
         if let event = event {

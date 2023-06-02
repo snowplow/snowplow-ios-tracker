@@ -42,7 +42,7 @@ extension MediaAdBreakType {
  Entity schema: `iglu:com.snowplowanalytics.snowplow.media/ad_break/jsonschema/1-0-0`
  */
 @objc(SPMediaAdBreak)
-public class MediaAdBreak: NSObject {
+public class MediaAdBreakEntity: NSObject {
     /// Ad break name (e.g., pre-roll, mid-roll, and post-roll)
     public var name: String?
     /// An identifier for the ad break
@@ -113,13 +113,14 @@ public class MediaAdBreak: NSObject {
         return self
     }
     
-    func update(adBreak: MediaAdBreak) {
+    func update(adBreak: MediaAdBreakEntity) {
         self.breakId = adBreak.breakId
         if let name = adBreak.name { self.name = name }
         if let breakType = adBreak.breakType { self.breakType = breakType }
+        if let podSize = adBreak.podSize { self.podSize = podSize }
     }
     
-    func update(player: MediaPlayer) {
+    func update(player: MediaPlayerEntity) {
         if startTime == nil { startTime = player.currentTime ?? 0 }
     }
 }

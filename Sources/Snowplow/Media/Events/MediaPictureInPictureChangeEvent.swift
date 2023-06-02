@@ -42,7 +42,7 @@ public class MediaPictureInPictureChangeEvent: SelfDescribingAbstract, MediaPlay
         return self
     }
     
-    func update(player: MediaPlayer) {
+    func update(player: MediaPlayerEntity) {
         player.pictureInPicture = pictureInPicture
     }
 }

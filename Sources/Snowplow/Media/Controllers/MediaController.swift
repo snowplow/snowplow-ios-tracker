@@ -33,7 +33,7 @@ public protocol MediaController {
     /// - Parameter id: Unique identifier for the media tracking instance. The same ID will be used for media player session if enabled.
     /// - Parameter media: Attributes for the media player context entity
     @objc
-    func startMediaTracking(id: String, player: MediaPlayer?) -> MediaTracking
+    func startMediaTracking(id: String, player: MediaPlayerEntity?) -> MediaTracking
     
     /// Starts media tracking for a single media content tracked in a media player.
     ///

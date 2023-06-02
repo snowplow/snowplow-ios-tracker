@@ -42,7 +42,7 @@ extension MediaType {
  Entity schema: `iglu:com.snowplowanalytics.snowplow.media/player/jsonschema/1-0-0`
  */
 @objc(SPMediaPlayer)
-public class MediaPlayer: NSObject {
+public class MediaPlayerEntity: NSObject {
     /// The current playback time position within the media in seconds
     public var currentTime: Double?
     /// A double-precision floating-point value indicating the duration of the media in seconds
@@ -284,7 +284,7 @@ public class MediaPlayer: NSObject {
         return self
     }
     
-    func update(from player: MediaPlayer) {
+    func update(from player: MediaPlayerEntity) {
         if let duration = player.duration { self.duration = duration }
         if let currentTime = player.currentTime { self.currentTime = currentTime }
         if let ended = player.ended { self.ended = ended }

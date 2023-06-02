@@ -33,7 +33,7 @@ public class MediaTrackingConfiguration: NSObject {
     
     /// Properties of the media player context entity attached to media events.
     @objc
-    public var player: MediaPlayer?
+    public var player: MediaPlayerEntity?
     
     /// Whether to track media ping events. Defaults to true.
     @objc
@@ -62,7 +62,7 @@ public class MediaTrackingConfiguration: NSObject {
     @objc
     public init(id: String,
                 pings: Bool = true,
-                player: MediaPlayer? = nil,
+                player: MediaPlayerEntity? = nil,
                 session: Bool = true,
                 entities: [SelfDescribingJson]? = nil) {
         self.id = id
@@ -88,7 +88,7 @@ public class MediaTrackingConfiguration: NSObject {
     
     /// Properties of the media player context entity attached to media events.
     @objc
-    public func player(_ player: MediaPlayer?) -> Self {
+    public func player(_ player: MediaPlayerEntity?) -> Self {
         self.player = player
         return self
     }

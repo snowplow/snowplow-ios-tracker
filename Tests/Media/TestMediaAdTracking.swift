@@ -20,14 +20,14 @@ class TestMediaAdTracking: XCTestCase {
         let adTracking = MediaAdTracking()
         
         adTracking.updateForThisEvent(event: MediaAdBreakStartEvent(),
-                                      player: MediaPlayer().currentTime(33.0),
+                                      player: MediaPlayerEntity().currentTime(33.0),
                                       ad: nil,
-                                      adBreak: MediaAdBreak(breakId: "b1"))
+                                      adBreak: MediaAdBreakEntity(breakId: "b1"))
         adTracking.updateForNextEvent(event: MediaAdBreakStartEvent())
         
         adTracking.updateForThisEvent(event: MediaAdStartEvent(),
-                                      player: MediaPlayer().currentTime(44.0),
-                                      ad: MediaAd(adId: "a1"),
+                                      player: MediaPlayerEntity().currentTime(44.0),
+                                      ad: MediaAdEntity(adId: "a1"),
                                       adBreak: nil)
         adTracking.updateForNextEvent(event: MediaAdStartEvent())
         
@@ -39,14 +39,14 @@ class TestMediaAdTracking: XCTestCase {
         let adTracking = MediaAdTracking()
         
         adTracking.updateForThisEvent(event: MediaAdBreakStartEvent(),
-                                      player: MediaPlayer(),
+                                      player: MediaPlayerEntity(),
                                       ad: nil,
-                                      adBreak: MediaAdBreak(breakId: "b1"))
+                                      adBreak: MediaAdBreakEntity(breakId: "b1"))
         adTracking.updateForNextEvent(event: MediaAdBreakStartEvent())
         
         adTracking.updateForThisEvent(event: MediaAdStartEvent(),
-                                      player: MediaPlayer(),
-                                      ad: MediaAd(adId: "a1"),
+                                      player: MediaPlayerEntity(),
+                                      ad: MediaAdEntity(adId: "a1"),
                                       adBreak: nil)
         
         XCTAssertEqual(1, adTracking.ad?.podPosition)
@@ -54,8 +54,8 @@ class TestMediaAdTracking: XCTestCase {
         adTracking.updateForNextEvent(event: MediaAdStartEvent())
         
         adTracking.updateForThisEvent(event: MediaAdStartEvent(),
-                                      player: MediaPlayer(),
-                                      ad: MediaAd(adId: "a2"),
+                                      player: MediaPlayerEntity(),
+                                      ad: MediaAdEntity(adId: "a2"),
                                       adBreak: nil)
         
         XCTAssertEqual(2, adTracking.ad?.podPosition)

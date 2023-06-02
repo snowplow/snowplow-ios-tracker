@@ -18,7 +18,7 @@ import Foundation
  Entity schema: `iglu:com.snowplowanalytics.snowplow.media/ad/jsonschema/1-0-0`
  */
 @objc(SPMediaAd)
-public class MediaAd: NSObject {
+public class MediaAdEntity: NSObject {
     /// Friendly name of the ad
     public var name: String?
     /// Unique identifier for the ad
@@ -113,7 +113,7 @@ public class MediaAd: NSObject {
         return self
     }
     
-    func update(from ad: MediaAd) {
+    func update(from ad: MediaAdEntity) {
         self.adId = ad.adId
         if let name = ad.name { self.name = name }
         if let creativeId = ad.creativeId { self.creativeId = creativeId }

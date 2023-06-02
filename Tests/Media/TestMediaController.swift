@@ -37,7 +37,7 @@ class TestMediaController: XCTestCase {
     // MARK: Media player event tests
     
     func testSetsPausedToFalseWhenPlayEventIsTracked() {
-        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayer(paused: true))
+        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayerEntity(paused: true))
         media?.track(MediaPlayEvent())
         
         waitForEventsToBeTracked()
@@ -51,7 +51,7 @@ class TestMediaController: XCTestCase {
     }
     
     func testSetsPausedToTrueWhenPauseIsTracked() {
-        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayer(paused: false))
+        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayerEntity(paused: false))
         media?.track(MediaPauseEvent())
         
         waitForEventsToBeTracked()
@@ -63,7 +63,7 @@ class TestMediaController: XCTestCase {
     }
     
     func testSetsPausedAndEndedToTrueWhenEndIsTracked() {
-        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayer(ended: false, paused: false))
+        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayerEntity(ended: false, paused: false))
         media?.track(MediaEndEvent())
         
         waitForEventsToBeTracked()
@@ -78,11 +78,11 @@ class TestMediaController: XCTestCase {
     func testDoesntTrackSeekStartMultipleTimes() {
         let media = mediaController?.startMediaTracking(id: "media1")
         
-        media?.track(MediaSeekStartEvent(), player: MediaPlayer(currentTime: 1))
-        media?.track(MediaSeekStartEvent(), player: MediaPlayer(currentTime: 2))
-        media?.track(MediaSeekEndEvent(), player: MediaPlayer(currentTime: 2))
-        media?.track(MediaSeekStartEvent(), player: MediaPlayer(currentTime: 3))
-
+        media?.track(MediaSeekStartEvent(), player: MediaPlayerEntity(currentTime: 1))
+        media?.track(MediaSeekStartEvent(), player: MediaPlayerEntity(currentTime: 2))
+        media?.track(MediaSeekEndEvent(), player: MediaPlayerEntity(currentTime: 2))
+        media?.track(MediaSeekStartEvent(), player: MediaPlayerEntity(currentTime: 3))
+        
         waitForEventsToBeTracked()
         
         XCTAssertEqual(3, trackedEvents.count)
@@ -96,7 +96,7 @@ class TestMediaController: XCTestCase {
         
         media?.track(MediaPlayEvent())
         media?.track(MediaPauseEvent())
-
+        
         waitForEventsToBeTracked()
         
         XCTAssertEqual(1, trackedEvents.count)
@@ -111,7 +111,7 @@ class TestMediaController: XCTestCase {
         let media = mediaController?.startMediaTracking(configuration: configuration)
         
         media?.track(MediaPlayEvent())
-
+        
         waitForEventsToBeTracked()
         
         XCTAssertEqual(1, trackedEvents.count)
@@ -127,7 +127,7 @@ class TestMediaController: XCTestCase {
                     SelfDescribingJson(schema: "test1", andData: [:])
                 ])
         )
-
+        
         waitForEventsToBeTracked()
         
         XCTAssertEqual(1, trackedEvents.count)
@@ -138,7 +138,7 @@ class TestMediaController: XCTestCase {
     func testTrackingPlaybackRateChangeEventUpdatesThePlaybackRate() {
         let media = mediaController?.startMediaTracking(
             id: "media1",
-            player: MediaPlayer(playbackRate: 0.5)
+            player: MediaPlayerEntity(playbackRate: 0.5)
         )
         
         media?.track(MediaPlaybackRateChangeEvent(newRate: 1.5))
@@ -156,7 +156,7 @@ class TestMediaController: XCTestCase {
     func testTrackingVolumeChangeEventUpdatesTheVolume() {
         let media = mediaController?.startMediaTracking(
             id: "media1",
-            player: MediaPlayer(volume: 80)
+            player: MediaPlayerEntity(volume: 80)
         )
         
         media?.track(MediaVolumeChangeEvent(newVolume: 90))
@@ -174,7 +174,7 @@ class TestMediaController: XCTestCase {
     func testTrackingFullscreenChangeEventUpdatesFullscreenInMediaPlayer() {
         let media = mediaController?.startMediaTracking(
             id: "media1",
-            player: MediaPlayer(fullscreen: false)
+            player: MediaPlayerEntity(fullscreen: false)
         )
         
         media?.track(MediaFullscreenChangeEvent(fullscreen: true))
@@ -188,7 +188,7 @@ class TestMediaController: XCTestCase {
     func testTrackingPictureInPictureChangeEventUpdatesPictureInPictureInMediaPlayer() {
         let media = mediaController?.startMediaTracking(
             id: "media1",
-            player: MediaPlayer(pictureInPicture: false)
+            player: MediaPlayerEntity(pictureInPicture: false)
         )
         
         media?.track(MediaPictureInPictureChangeEvent(pictureInPicture: true))
@@ -248,7 +248,7 @@ class TestMediaController: XCTestCase {
     func testSetsQualityPropertiesInQualityChangeEvent() {
         let media = mediaController?.startMediaTracking(
             id: "media1",
-            player: MediaPlayer(quality: "720p")
+            player: MediaPlayerEntity(quality: "720p")
         )
         
         media?.track(MediaQualityChangeEvent(
@@ -283,7 +283,7 @@ class TestMediaController: XCTestCase {
     }
     
     func testTracksCustomEvent() {
-        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayer(label: "Video"))
+        let media = mediaController?.startMediaTracking(id: "media1", player: MediaPlayerEntity(label: "Video"))
         
         media?.track(ScreenView(name: "sv"))
         
@@ -300,7 +300,7 @@ class TestMediaController: XCTestCase {
         let media = mediaController?.startMediaTracking(id: "media1")
         
         media?.track(MediaReadyEvent())
-
+        
         waitForEventsToBeTracked()
         
         XCTAssertNotNil(firstSession)
@@ -313,14 +313,14 @@ class TestMediaController: XCTestCase {
                                            dateGenerator: timeTraveler.generateDate)
         let media = MediaTrackingImpl(id: "media1",
                                       tracker: tracker!,
-                                      player: MediaPlayer(duration: 10),
+                                      player: MediaPlayerEntity(duration: 10),
                                       session: session)
         
         media.track(MediaPlayEvent())
         timeTraveler.travel(by: 10.0)
-        media.update(player: MediaPlayer(currentTime: 10.0))
+        media.update(player: MediaPlayerEntity(currentTime: 10.0))
         media.track(MediaEndEvent())
-
+        
         waitForEventsToBeTracked()
         
         let sessionEntity = trackedEvents.last?.mediaPlayerSessionData
@@ -361,7 +361,7 @@ class TestMediaController: XCTestCase {
         let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.update(player: MediaPlayer(paused: true))
+        media.update(player: MediaPlayerEntity(paused: true))
         for _ in 0..<5 {
             MockTimer.currentTimer.fire()
         }
@@ -375,7 +375,7 @@ class TestMediaController: XCTestCase {
         let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.update(player: MediaPlayer(paused: false))
+        media.update(player: MediaPlayerEntity(paused: false))
         for _ in 0..<5 {
             MockTimer.currentTimer.fire()
         }
@@ -389,13 +389,13 @@ class TestMediaController: XCTestCase {
     
     func testShouldSendProgressEventsWhenBoundariesReached() {
         let configuration = MediaTrackingConfiguration(id: "media",
-                                                       player: MediaPlayer(duration: 100))
+                                                       player: MediaPlayerEntity(duration: 100))
             .boundaries([10, 50, 90])
         let media = mediaController?.startMediaTracking(configuration: configuration)
         
         media?.track(MediaPlayEvent())
         for i in 1..<100 {
-            media?.update(player: MediaPlayer(currentTime: Double(i)))
+            media?.update(player: MediaPlayerEntity(currentTime: Double(i)))
         }
         
         waitForEventsToBeTracked()
@@ -406,13 +406,13 @@ class TestMediaController: XCTestCase {
     
     func testDoesntSendProgressEventsIfPaused() {
         let configuration = MediaTrackingConfiguration(id: "media",
-                                                       player: MediaPlayer(duration: 100))
+                                                       player: MediaPlayerEntity(duration: 100))
             .boundaries([10, 50, 90])
         let media = mediaController?.startMediaTracking(configuration: configuration)
         
         media?.track(MediaPauseEvent())
         for i in 1..<100 {
-            media?.update(player: MediaPlayer(currentTime: Double(i)))
+            media?.update(player: MediaPlayerEntity(currentTime: Double(i)))
         }
         
         waitForEventsToBeTracked()
@@ -422,17 +422,17 @@ class TestMediaController: XCTestCase {
     
     func testDoesntSendProgressEventMultipleTimes() {
         let configuration = MediaTrackingConfiguration(id: "media",
-                                                       player: MediaPlayer(duration: 100))
+                                                       player: MediaPlayerEntity(duration: 100))
             .boundaries([10, 50, 90])
         let media = mediaController?.startMediaTracking(configuration: configuration)
         
         media?.track(MediaPlayEvent())
         for i in 1..<100 {
-            media?.update(player: MediaPlayer(currentTime: Double(i)))
+            media?.update(player: MediaPlayerEntity(currentTime: Double(i)))
         }
-        media?.track(MediaSeekEndEvent(), player: MediaPlayer(currentTime: 0))
+        media?.track(MediaSeekEndEvent(), player: MediaPlayerEntity(currentTime: 0))
         for i in 1..<100 {
-            media?.update(player: MediaPlayer(currentTime: Double(i)))
+            media?.update(player: MediaPlayerEntity(currentTime: Double(i)))
         }
         
         waitForEventsToBeTracked()

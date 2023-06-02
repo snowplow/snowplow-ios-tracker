@@ -27,7 +27,7 @@ class MediaControllerImpl: Controller, MediaController {
         return startMediaTracking(id: id, player: nil)
     }
     
-    func startMediaTracking(id: String, player: MediaPlayer? = nil) -> MediaTracking {
+    func startMediaTracking(id: String, player: MediaPlayerEntity? = nil) -> MediaTracking {
         let configuration = MediaTrackingConfiguration(id: id, player: player)
         return startMediaTracking(configuration: configuration)
     }
