@@ -71,7 +71,7 @@ class TestRemoteConfiguration: XCTestCase {
 
 #if !os(watchOS) // Mocker seems not to currently work on watchOS
     func testDownloadConfiguration() {
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
 
         let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
             .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0\",\"configurationVersion\":12,\"configurationBundle\":[]}".data(using: .utf8)!
@@ -98,7 +98,7 @@ class TestRemoteConfiguration: XCTestCase {
         let expected = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 12)
         expected.configurationBundle = [bundle]
 
-        let remoteConfig = RemoteConfiguration(endpoint: "http://example.com", method: .get)
+        let remoteConfig = RemoteConfiguration(endpoint: generateRemoteConfigEndpoint(), method: .get)
 
         var cache = ConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
@@ -121,7 +121,7 @@ class TestRemoteConfiguration: XCTestCase {
 
     func testProvider_notDownloading_fails() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
@@ -142,7 +142,7 @@ class TestRemoteConfiguration: XCTestCase {
 
     func testProvider_downloadOfWrongSchema_fails() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
@@ -165,7 +165,7 @@ class TestRemoteConfiguration: XCTestCase {
 #if os(iOS) || os(macOS)
     func testProvider_downloadSameConfigVersionThanCached_dontUpdate() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
@@ -201,7 +201,7 @@ class TestRemoteConfiguration: XCTestCase {
 
     func testProvider_downloadHigherConfigVersionThanCached_doUpdate() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
@@ -239,7 +239,7 @@ class TestRemoteConfiguration: XCTestCase {
 
     func testProvider_justRefresh_downloadSameConfigVersionThanCached_dontUpdate() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
@@ -274,7 +274,7 @@ class TestRemoteConfiguration: XCTestCase {
 
     func testDoesntUseCachedConfigurationIfDifferentRemoteEndpoint() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let cachedRemoteConfig = RemoteConfiguration(endpoint: "https://cached-snowplow.io/config.json", method: .get)
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
@@ -308,7 +308,7 @@ class TestRemoteConfiguration: XCTestCase {
     
     func testUsesDefaultConfigurationIfTheSameConfigurationVersionAsFetched() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         ConfigurationCache(remoteConfiguration: remoteConfig).clear()
 
@@ -341,7 +341,7 @@ class TestRemoteConfiguration: XCTestCase {
     
     func testReplacesDefaultConfigurationIfFetchedHasNewerVersion() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         ConfigurationCache(remoteConfiguration: remoteConfig).clear()
 
@@ -369,4 +369,17 @@ class TestRemoteConfiguration: XCTestCase {
     }
     
 #endif
+    
+    private func generateRemoteConfigEndpoint() -> String {
+        return [
+            "https://json-configs5432.com/files/ghi789.json",
+            "https://myserver0987.net/configurations/jkl012.json",
+            "https://config-storage6543.org/data/mno345.json",
+            "https://fake-json-server3210.io/settings/pqr678.json",
+            "https://json-configs9876.netlify.app/files/stu901.json",
+            "https://config-server5432.xyz/configurations/vwx234.json",
+            "https://my-configs-server6789.com/data/yza567.json",
+            "https://json-config-storage0123.herokuapp.com/settings/bcd890.json"
+        ].randomElement()!
+    }
 }
