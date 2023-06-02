@@ -71,7 +71,7 @@ class TestRemoteConfiguration: XCTestCase {
 
 #if !os(watchOS) // Mocker seems not to currently work on watchOS
     func testDownloadConfiguration() {
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
 
         let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
             .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0\",\"configurationVersion\":12,\"configurationBundle\":[]}".data(using: .utf8)!
@@ -98,7 +98,7 @@ class TestRemoteConfiguration: XCTestCase {
         let expected = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 12)
         expected.configurationBundle = [bundle]
 
-        let remoteConfig = RemoteConfiguration(endpoint: "http://example.com", method: .get)
+        let remoteConfig = RemoteConfiguration(endpoint: generateRemoteConfigEndpoint(), method: .get)
 
         var cache = ConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
@@ -121,7 +121,7 @@ class TestRemoteConfiguration: XCTestCase {
 
     func testProvider_notDownloading_fails() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
@@ -136,13 +136,13 @@ class TestRemoteConfiguration: XCTestCase {
         provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTFail()
         })
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5)
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
     }
 
     func testProvider_downloadOfWrongSchema_fails() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
@@ -158,14 +158,14 @@ class TestRemoteConfiguration: XCTestCase {
         provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTFail()
         })
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5)
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
     }
 
 #if os(iOS) || os(macOS)
     func testProvider_downloadSameConfigVersionThanCached_dontUpdate() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
@@ -194,14 +194,14 @@ class TestRemoteConfiguration: XCTestCase {
                 i += 1
             }
         })
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5)
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
         XCTAssertEqual(1, i)
     }
 
     func testProvider_downloadHigherConfigVersionThanCached_doUpdate() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
@@ -232,14 +232,14 @@ class TestRemoteConfiguration: XCTestCase {
                 i += 1
             }
         })
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5)
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
         XCTAssertEqual(2, i)
     }
 
     func testProvider_justRefresh_downloadSameConfigVersionThanCached_dontUpdate() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
         let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
@@ -268,13 +268,13 @@ class TestRemoteConfiguration: XCTestCase {
         provider.retrieveConfigurationOnlyRemote(true, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTFail()
         })
-        let result = XCTWaiter.wait(for: [expectation], timeout: 5)
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1)
         XCTAssertEqual(XCTWaiter.Result.timedOut, result)
     }
 
     func testDoesntUseCachedConfigurationIfDifferentRemoteEndpoint() {
         // prepare test
-        let endpoint = "https://fake-snowplow.io/config.json"
+        let endpoint = generateRemoteConfigEndpoint()
         let cachedRemoteConfig = RemoteConfiguration(endpoint: "https://cached-snowplow.io/config.json", method: .get)
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
@@ -306,53 +306,80 @@ class TestRemoteConfiguration: XCTestCase {
         wait(for: [expectation], timeout: 10)
     }
     
+    func testUsesDefaultConfigurationIfTheSameConfigurationVersionAsFetched() {
+        // prepare test
+        let endpoint = generateRemoteConfigEndpoint()
+        let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
+        ConfigurationCache(remoteConfiguration: remoteConfig).clear()
+
+        // stub request for configuration (return version 2)
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":2,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
+        
+        // test
+        let defaultBundle = ConfigurationBundle(namespace: "ns",
+                                                networkConfiguration: NetworkConfiguration(endpoint: "http://localhost"))
+        let provider = ConfigurationProvider(
+            remoteConfiguration: remoteConfig,
+            defaultConfigurationBundles: [defaultBundle],
+            defaultBundleVersion: 2
+        )
+        let expectation = XCTestExpectation()
+        var receivedConfigurationState: ConfigurationState?
+        provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
+            receivedConfigurationState = configurationState
+            if configurationState != .default {
+                XCTFail()
+            }
+        })
+        let result = XCTWaiter.wait(for: [expectation], timeout: 1)
+        XCTAssertEqual(XCTWaiter.Result.timedOut, result)
+        XCTAssertEqual(ConfigurationState.default, receivedConfigurationState)
+    }
+    
+    func testReplacesDefaultConfigurationIfFetchedHasNewerVersion() {
+        // prepare test
+        let endpoint = generateRemoteConfigEndpoint()
+        let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
+        ConfigurationCache(remoteConfiguration: remoteConfig).clear()
+
+        // stub request for configuration (return version 2)
+        let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
+            .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":2,\"configurationBundle\":[]}".data(using: .utf8)!
+        ])
+        mock.register()
+        
+        // test
+        let defaultBundle = ConfigurationBundle(namespace: "ns",
+                                                networkConfiguration: NetworkConfiguration(endpoint: "http://localhost"))
+        let provider = ConfigurationProvider(
+            remoteConfiguration: remoteConfig,
+            defaultConfigurationBundles: [defaultBundle],
+            defaultBundleVersion: 1
+        )
+        let expectation = XCTestExpectation()
+        provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
+            if configurationState == .fetched {
+                expectation.fulfill()
+            }
+        })
+        wait(for: [expectation], timeout: 1)
+    }
+    
 #endif
     
-    // TODO: Replace LSNocilla as it's unreliable and unsupported. It causes this test failure.
-    /*
-    - (void)testConfigurationProvider_justRefresh_downloadHigherConfigVersionThanCached_doUpdate {
-        // prepare test
-        NSString *endpoint = @"https://fake-snowplow.io/config.json";
-        SPRemoteConfiguration *remoteConfig = [[SPRemoteConfiguration alloc] initWithEndpoint:endpoint method:SPHttpMethodGet];
-
-        SPConfigurationCache *cache = [[SPConfigurationCache alloc] initWithRemoteConfiguration:remoteConfig];
-        [cache clearCache];
-        SPConfigurationBundle *bundle = [[SPConfigurationBundle alloc] init];
-        bundle.networkConfiguration = [[SPNetworkConfiguration alloc] initWithEndpoint:@"endpoint"];
-        SPFetchedConfigurationBundle *cached = [[SPFetchedConfigurationBundle alloc] init];
-        cached.schema = @"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0";
-        cached.configurationVersion = 1;
-        cached.configurationBundle = @[bundle];
-        [cache writeCache:cached];
-        [NSThread sleepForTimeInterval:5]; // wait to write on cache
-
-        SPConfigurationProvider *provider = [[SPConfigurationProvider alloc] initWithRemoteConfiguration:remoteConfig];
-        XCTestExpectation *expectation = [XCTestExpectation new];
-        [provider retrieveConfigurationOnlyRemote:NO onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
-            [expectation fulfill];
-        }];
-        [self waitForExpectations:@[expectation] timeout:5];
-
-        [[LSNocilla sharedInstance] start];
-        stubRequest(@"GET", endpoint)
-        .andReturn(200)
-        .withHeaders(@{@"Content-Type": @"application/json"})
-        .withBody(@"{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":2,\"configurationBundle\":[]}");
-
-        // test
-        expectation = [XCTestExpectation new];
-        __block int i = 0;
-        [provider retrieveConfigurationOnlyRemote:YES onFetchCallback:^(SPFetchedConfigurationBundle * _Nonnull fetchedConfigurationBundle) {
-            if ([fetchedConfigurationBundle.schema isEqualToString:@"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0"]) {
-                i++;
-            }
-        }];
-        XCTWaiterResult result = [XCTWaiter waitForExpectations:@[expectation] timeout:5];
-        XCTAssertEqual(XCTWaiterResultTimedOut, result);
-        XCTAssertEqual(1, i);
-
-        // close test
-        [[LSNocilla sharedInstance] stop];
+    private func generateRemoteConfigEndpoint() -> String {
+        return [
+            "https://json-configs5432.com/files/ghi789.json",
+            "https://myserver0987.net/configurations/jkl012.json",
+            "https://config-storage6543.org/data/mno345.json",
+            "https://fake-json-server3210.io/settings/pqr678.json",
+            "https://json-configs9876.netlify.app/files/stu901.json",
+            "https://config-server5432.xyz/configurations/vwx234.json",
+            "https://my-configs-server6789.com/data/yza567.json",
+            "https://json-config-storage0123.herokuapp.com/settings/bcd890.json"
+        ].randomElement()!
     }
-    */
 }

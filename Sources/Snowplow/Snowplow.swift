@@ -61,12 +61,19 @@ public class Snowplow: NSObject {
     /// - Parameters:
     ///   - remoteConfiguration: The remote configuration used to indicate where to download the configuration from.
     ///   - defaultBundles: The default configuration passed by default in case there isn't a cached version and it's able to download a new one.
+    ///   - defaultBundleVersion: Version of the default configuration that will be used to compare with the fetched remote config to decide whether to replace it.
     ///   - onSuccess: The callback called when a configuration (cached or downloaded) is set.
     ///                  It passes two arguments: list of the namespaces associated to the created trackers
     ///                  and the state of the configuration – whether it was retrieved from cache or fetched over the network.
     @objc
-    public class func setup(remoteConfiguration: RemoteConfiguration, defaultConfiguration defaultBundles: [ConfigurationBundle]?, onSuccess: @escaping (_ namespaces: [String]?, _ configurationState: ConfigurationState) -> Void) {
-        configurationProvider = ConfigurationProvider(remoteConfiguration: remoteConfiguration, defaultConfigurationBundles: defaultBundles)
+    public class func setup(remoteConfiguration: RemoteConfiguration,
+                            defaultConfiguration defaultBundles: [ConfigurationBundle]?,
+                            defaultConfigurationVersion defaultBundleVersion: Int = NSInteger.min,
+                            onSuccess: @escaping (_ namespaces: [String]?, _ configurationState: ConfigurationState) -> Void) {
+        configurationProvider = ConfigurationProvider(remoteConfiguration: remoteConfiguration,
+                                                      defaultConfigurationBundles: defaultBundles,
+                                                      defaultBundleVersion: defaultBundleVersion)
+        
         configurationProvider?.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             let bundles = fetchedConfigurationBundle.configurationBundle
             let namespaces = createTrackers(configurationBundles: bundles)
