@@ -312,7 +312,7 @@ class TestRemoteConfiguration: XCTestCase {
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
         ConfigurationCache(remoteConfiguration: remoteConfig).clear()
 
-        // stub request for configuration (return version 1)
+        // stub request for configuration (return version 2)
         let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
             .get: "{\"$schema\":\"http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0\",\"configurationVersion\":2,\"configurationBundle\":[]}".data(using: .utf8)!
         ])
