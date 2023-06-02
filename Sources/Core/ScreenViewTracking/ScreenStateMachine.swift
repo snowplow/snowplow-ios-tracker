@@ -32,6 +32,10 @@ class ScreenStateMachine: StateMachineProtocol {
     var subscribedEventSchemasForAfterTrackCallback: [String] {
         return []
     }
+    
+    var subscribedEventSchemasForFiltering: [String] {
+        return []
+    }
 
     func transition(from event: Event, state currentState: State?) -> State? {
         if let screenView = event as? ScreenView {
@@ -59,6 +63,10 @@ class ScreenStateMachine: StateMachineProtocol {
             addedValues[kSPSvPreviousScreenId] = previousState?.screenId
             return addedValues
         }
+        return nil
+    }
+
+    func filter(event: InspectableEvent, state: State?) -> Bool? {
         return nil
     }
 

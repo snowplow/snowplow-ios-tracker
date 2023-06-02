@@ -15,20 +15,24 @@ import Foundation
 
 typealias EntitiesConfiguration = (schemas: [String]?, closure: (InspectableEvent) -> ([SelfDescribingJson]))
 typealias AfterTrackConfiguration = (schemas: [String]?, closure: (InspectableEvent) -> ())
+typealias FilterConfiguration = (schemas: [String]?, closure: (InspectableEvent) -> Bool)
 
 class PluginStateMachine: StateMachineProtocol {
     var identifier: String
     private var entitiesConfiguration: EntitiesConfiguration?
     private var afterTrackConfiguration: AfterTrackConfiguration?
+    private var filterConfiguration: FilterConfiguration?
 
     init(
         identifier: String,
         entitiesConfiguration: EntitiesConfiguration?,
-        afterTrackConfiguration: AfterTrackConfiguration?
+        afterTrackConfiguration: AfterTrackConfiguration?,
+        filterConfiguration: FilterConfiguration?
     ) {
         self.identifier = identifier
         self.entitiesConfiguration = entitiesConfiguration
         self.afterTrackConfiguration = afterTrackConfiguration
+        self.filterConfiguration = filterConfiguration
     }
 
     var subscribedEventSchemasForTransitions: [String] {
@@ -80,5 +84,23 @@ class PluginStateMachine: StateMachineProtocol {
         if let afterTrackConfiguration = afterTrackConfiguration {
             afterTrackConfiguration.closure(event)
         }
+    }
+    
+    var subscribedEventSchemasForFiltering: [String] {
+        if let filterConfiguration = filterConfiguration {
+            if let schemas = filterConfiguration.schemas {
+                return schemas
+            } else {
+                return ["*"]
+            }
+        }
+        return []
+    }
+    
+    func filter(event: InspectableEvent, state: State?) -> Bool? {
+        if let filterConfiguration = filterConfiguration {
+            return filterConfiguration.closure(event)
+        }
+        return nil
     }
 }

@@ -102,7 +102,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
     }
     
     // Original configurations
-    private(set) var pluginConfigurations: [PluginConfigurationProtocol] = []
+    private(set) var pluginConfigurations: [PluginIdentifiable] = []
 
     // Configuration updates
     private(set) var networkConfigurationUpdate = NetworkConfigurationUpdate()
@@ -162,7 +162,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
                 for plugin in configuration.toPluginConfigurations() {
                     pluginConfigurations.append(plugin)
                 }
-            } else if let configuration = configuration as? PluginConfigurationProtocol {
+            } else if let configuration = configuration as? PluginIdentifiable {
                 pluginConfigurations.append(configuration)
             }
         }
@@ -343,7 +343,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return NetworkControllerImpl(serviceProvider: self)
     }
     
-    func addPlugin(plugin: PluginConfigurationProtocol) {
+    func addPlugin(plugin: PluginIdentifiable) {
         removePlugin(identifier: plugin.identifier)
         pluginConfigurations.append(plugin)
         tracker.addOrReplace(stateMachine: plugin.toStateMachine())

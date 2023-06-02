@@ -116,7 +116,7 @@ class LegacyTestTracker: XCTestCase {
         let event = Structured(category: "Category", action: "Action")
         let trackerEvent = TrackerEvent(event: event, state: nil)
         var payload = tracker.payload(with: trackerEvent)
-        var payloadDict = payload.dictionary
+        var payloadDict = payload!.dictionary
 
         XCTAssertEqual(payloadDict[kSPPlatform] as? String, devicePlatformToString(.general))
         XCTAssertEqual(payloadDict[kSPAppId] as? String, "anAppId")
@@ -129,7 +129,7 @@ class LegacyTestTracker: XCTestCase {
         tracker.trackerNamespace = "newNamespace"
 
         payload = tracker.payload(with: trackerEvent)
-        payloadDict = payload.dictionary
+        payloadDict = payload!.dictionary
 
         XCTAssertEqual(payloadDict[kSPPlatform] as? String, "pc")
         XCTAssertEqual(payloadDict[kSPAppId] as? String, "newAppId")

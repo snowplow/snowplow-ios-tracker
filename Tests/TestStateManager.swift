@@ -79,6 +79,14 @@ class MockStateMachine: StateMachineProtocol {
 
     func afterTrack(event: SnowplowTracker.InspectableEvent) {
     }
+    
+    var subscribedEventSchemasForFiltering: [String] {
+        return ["s1"]
+    }
+    
+    func filter(event: InspectableEvent, state: State?) -> Bool? {
+        return false
+    }
 }
 
 class MockStateMachine1: MockStateMachine {
@@ -217,5 +225,23 @@ class TestStateManager: XCTestCase {
         stateManager.addOrReplaceStateMachine(MockStateMachine2("identifier"))
         let trackerState2 = stateManager.trackerState(forProcessedEvent: Structured(category: "category", action: "action"))
         XCTAssertNil(trackerState2?.state(withIdentifier: "identifier"))
+    }
+    
+    func testFilterReturnsSettingOfStateMachine() {
+        let stateManager = StateManager()
+        stateManager.addOrReplaceStateMachine(MockStateMachine1("identifier"))
+        
+        
+        XCTAssertFalse(
+            stateManager.filter(
+                event: TrackerEvent(event: SelfDescribing(schema: "s1", payload: [:]))
+            )
+        )
+
+        XCTAssertTrue(
+            stateManager.filter(
+                event: TrackerEvent(event: SelfDescribing(schema: "s2", payload: [:]))
+            )
+        )
     }
 }

@@ -63,4 +63,12 @@ class LifecycleStateMachine: StateMachineProtocol {
 
     func afterTrack(event: InspectableEvent) {
     }
+    
+    var subscribedEventSchemasForFiltering: [String] {
+        return []
+    }
+    
+    func filter(event: InspectableEvent, state: State?) -> Bool? {
+        return nil
+    }
 }

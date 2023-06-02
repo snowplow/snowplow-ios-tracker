@@ -449,18 +449,21 @@ class Tracker: NSObject {
 
     // MARK: - Event Decoration
 
-    func processEvent(_ event: Event) -> UUID {
+    func processEvent(_ event: Event) -> UUID? {
         objc_sync_enter(self)
         let stateSnapshot = stateManager.trackerState(forProcessedEvent: event)
         objc_sync_exit(self)
         let trackerEvent = TrackerEvent(event: event, state: stateSnapshot)
-        let payload = self.payload(with: trackerEvent)
-        emitter.addPayload(toBuffer: payload)
-        stateManager.afterTrack(event: trackerEvent)
-        return trackerEvent.eventId
+        if let payload = self.payload(with: trackerEvent) {
+            emitter.addPayload(toBuffer: payload)
+            stateManager.afterTrack(event: trackerEvent)
+            return trackerEvent.eventId
+        }
+        logDebug(message: "Event not tracked due to filtering")
+        return nil
     }
 
-    func payload(with event: TrackerEvent) -> Payload {
+    func payload(with event: TrackerEvent) -> Payload? {
         let payload = Payload()
         payload.allowDiagnostic = !event.isService
 
@@ -474,6 +477,11 @@ class Tracker: NSObject {
         addBasicContexts(event: event)
         addStateMachineEntities(event: event)
         event.wrapContexts(to: payload, base64Encoded: base64Encoded)
+        
+        // Decide whether to track the event or not
+        if !stateManager.filter(event: event) {
+            return nil
+        }
 
         // Workaround for campaign attribution
         if !event.isPrimitive {
