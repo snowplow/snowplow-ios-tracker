@@ -19,12 +19,12 @@ let POST_WRAPPER_BYTES = 88
 class Emitter: NSObject, EmitterEventProcessing {
     
     private var timer: Timer?
-    /// Whether the emitter is currently sending.
-    private(set) var isSending = false
     private var dataOperationQueue: OperationQueue = OperationQueue()
     private var builderFinished = false
-
-    private var pausedEmit = false
+    
+    private var sendingCheck = SendingCheck()
+    /// Whether the emitter is currently sending.
+    var isSending: Bool { return sendingCheck.sending }
 
     private var _urlEndpoint: String?
     /// Collector endpoint.
@@ -330,29 +330,22 @@ class Emitter: NSObject, EmitterEventProcessing {
 
     /// Allows sending events to collector.
     func resumeEmit() {
-        pausedEmit = false
+        sendingCheck.pausedEmit = false
         flush()
     }
 
     /// Suspends sending events to collector.
     func pauseEmit() {
-        pausedEmit = true
+        sendingCheck.pausedEmit = true
     }
 
     /// Insert a Payload object into the buffer to be sent to collector.
     /// This method will add the payload to the database and flush (send all events).
     /// - Parameter eventPayload: A Payload containing a completed event to be added into the buffer.
     func addPayload(toBuffer eventPayload: Payload) {
-        weak var weakSelf = self
-
-        DispatchQueue.global(qos: .default).async {
-            let strongSelf = weakSelf
-            if strongSelf == nil {
-                return
-            }
-
-            strongSelf?.eventStore?.addEvent(eventPayload)
-            strongSelf?.flush()
+        DispatchQueue.global(qos: .default).async { [weak self] in
+            self?.eventStore?.addEvent(eventPayload)
+            self?.flush()
         }
     }
 
@@ -369,23 +362,19 @@ class Emitter: NSObject, EmitterEventProcessing {
 
     // MARK: - Control methods
 
-    func sendGuard() {
-        if isSending || pausedEmit {
-            return
-        }
-        objc_sync_enter(self)
-        if !isSending && !pausedEmit {
-            isSending = true
+    private func sendGuard() {
+        if sendingCheck.requestToStartSending() {
+            objc_sync_enter(self)
             attemptEmit()
+            objc_sync_exit(self)
+            sendingCheck.sending = false
         }
-        objc_sync_exit(self)
     }
-
-    func attemptEmit() {
+    
+    private func attemptEmit() {
         guard let eventStore = eventStore else { return }
         if eventStore.count() == 0 {
             logDebug(message: "Database empty. Returning.")
-            isSending = false
             return
         }
 
@@ -435,14 +424,13 @@ class Emitter: NSObject, EmitterEventProcessing {
         if failedWillRetryCount > 0 && successCount == 0 {
             logDebug(message: "Ending emitter run as all requests failed.")
             Thread.sleep(forTimeInterval: 5)
-            isSending = false
             return
         } else {
             self.attemptEmit()
         }
     }
 
-    func buildRequests(fromEvents events: [EmitterEvent]) -> [Request] {
+    private func buildRequests(fromEvents events: [EmitterEvent]) -> [Request] {
         var requests: [Request] = []
         guard let networkConnection = networkConnection else { return requests }
         
@@ -503,16 +491,16 @@ class Emitter: NSObject, EmitterEventProcessing {
         return requests
     }
 
-    func isOversize(_ payload: Payload) -> Bool {
+    private func isOversize(_ payload: Payload) -> Bool {
         return isOversize(payload, previousPayloads: [])
     }
 
-    func isOversize(_ payload: Payload, previousPayloads: [Payload]) -> Bool {
+    private func isOversize(_ payload: Payload, previousPayloads: [Payload]) -> Bool {
         let byteLimit = networkConnection?.httpMethod == .get ? byteLimitGet : byteLimitPost
         return isOversize(payload, byteLimit: byteLimit, previousPayloads: previousPayloads)
     }
 
-    func isOversize(_ payload: Payload, byteLimit: Int, previousPayloads: [Payload]) -> Bool {
+    private func isOversize(_ payload: Payload, byteLimit: Int, previousPayloads: [Payload]) -> Bool {
         var totalByteSize = payload.byteSize
         for previousPayload in previousPayloads {
             totalByteSize += previousPayload.byteSize
@@ -527,5 +515,44 @@ class Emitter: NSObject, EmitterEventProcessing {
 
     deinit {
         pauseTimer()
+    }
+}
+
+fileprivate class SendingCheck {
+    private var _sending = false
+    var sending: Bool {
+        get {
+            return lock { return _sending }
+        }
+        set {
+            lock { _sending = newValue }
+        }
+    }
+    
+    private var _pausedEmit = false
+    var pausedEmit: Bool {
+        get {
+            return lock { return _pausedEmit }
+        }
+        set {
+            lock { _pausedEmit = newValue }
+        }
+    }
+    
+    func requestToStartSending() -> Bool {
+        return lock {
+            if !_sending && !_pausedEmit {
+                _sending = true
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    private func lock<T>(closure: () -> T) -> T {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        return closure()
     }
 }

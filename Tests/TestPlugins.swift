@@ -168,6 +168,35 @@ class TestPlugins: XCTestCase {
         XCTAssertFalse(pluginCalled)
     }
     
+    func testFiltersEvents() {
+        let filterPlugin = PluginConfiguration(identifier: "filter")
+            .filter(schemas: ["s1"]) { _ in false }
+        
+        var afterTrackCalled = false
+        let afterTrackPlugin = PluginConfiguration(identifier: "afterTrack")
+            .afterTrack { _ in afterTrackCalled = true }
+        
+        let tracker = createTracker([filterPlugin, afterTrackPlugin])
+        
+        // track event with the schema to filter out
+        _ = tracker.track(SelfDescribing(schema: "s1", payload: [:]))
+        
+        let expect1 = expectation(description: "Wait for events to be tracked")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { () -> Void in expect1.fulfill() }
+        wait(for: [expect1], timeout: 1)
+        
+        XCTAssertFalse(afterTrackCalled)
+        
+        // track event with a different schema
+        _ = tracker.track(SelfDescribing(schema: "s2", payload: [:]))
+        
+        let expect2 = expectation(description: "Wait for events to be tracked")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { () -> Void in expect2.fulfill() }
+        wait(for: [expect2], timeout: 1)
+        
+        XCTAssertTrue(afterTrackCalled)
+    }
+    
     private func createTracker(_ configurations: [ConfigurationProtocol]) -> TrackerController {
         let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
         let trackerConfig = TrackerConfiguration()

@@ -28,51 +28,62 @@ class ConfigurationProvider {
         self.init(remoteConfiguration: remoteConfiguration, defaultConfigurationBundles: nil)
     }
 
-    init(remoteConfiguration: RemoteConfiguration, defaultConfigurationBundles defaultBundles: [ConfigurationBundle]?) {
+    init(remoteConfiguration: RemoteConfiguration,
+         defaultConfigurationBundles defaultBundles: [ConfigurationBundle]?,
+         defaultBundleVersion: Int = NSInteger.min) {
         self.remoteConfiguration = remoteConfiguration
         cache = ConfigurationCache(remoteConfiguration: remoteConfiguration)
         if let defaultBundles = defaultBundles {
             let bundle = FetchedConfigurationBundle(
                 schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0",
-                configurationVersion: NSInteger.min)
+                configurationVersion: defaultBundleVersion)
             bundle.configurationBundle = defaultBundles
             defaultBundle = bundle
         }
     }
 
     func retrieveConfigurationOnlyRemote(_ onlyRemote: Bool, onFetchCallback: @escaping OnFetchCallback) {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         if !onlyRemote {
-            if cacheBundle == nil {
-                cacheBundle = cache.read()
-            }
-            if let cacheBundle = cacheBundle {
-                onFetchCallback(cacheBundle, .cached)
-            } else if let defaultBundle = defaultBundle {
-                onFetchCallback(defaultBundle, .default)
+            lock {
+                if cacheBundle == nil {
+                    cacheBundle = cache.read()
+                }
+                if let cacheBundle = cacheBundle {
+                    onFetchCallback(cacheBundle, .cached)
+                } else if let defaultBundle = defaultBundle {
+                    onFetchCallback(defaultBundle, .default)
+                }
             }
         }
         fetcher = ConfigurationFetcher(remoteSource: remoteConfiguration) { bundle, state in
             if !self.schemaCompatibility(bundle.schema) {
                 return
             }
-            objc_sync_enter(self)
-            defer { objc_sync_exit(self) }
-            if let cacheBundle = self.cacheBundle {
-                if cacheBundle.configurationVersion >= bundle.configurationVersion {
-                    return
+            let updated: Bool = self.lock {
+                if let oldBundle = self.cacheBundle ?? self.defaultBundle {
+                    if oldBundle.configurationVersion >= bundle.configurationVersion {
+                        return false
+                    }
                 }
+                self.cache.write(bundle)
+                self.cacheBundle = bundle
+                return true
             }
-            self.cache.write(bundle)
-            self.cacheBundle = bundle
-            onFetchCallback(bundle, ConfigurationState.fetched)
+            if updated {
+                onFetchCallback(bundle, ConfigurationState.fetched)
+            }
         }
     }
-
+    
     // Private methods
-
+    
     private func schemaCompatibility(_ schema: String) -> Bool {
         return schema.hasPrefix("http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-")
+    }
+    
+    private func lock<T>(closure: () -> T) -> T {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        return closure()
     }
 }

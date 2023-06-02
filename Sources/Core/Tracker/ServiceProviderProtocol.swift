@@ -33,7 +33,7 @@ protocol ServiceProviderProtocol: AnyObject {
     var subjectConfigurationUpdate: SubjectConfigurationUpdate { get }
     var sessionConfigurationUpdate: SessionConfigurationUpdate { get }
     var gdprConfigurationUpdate: GDPRConfigurationUpdate { get }
-    var pluginConfigurations: [PluginConfigurationProtocol] { get }
-    func addPlugin(plugin: PluginConfigurationProtocol)
+    var pluginConfigurations: [PluginIdentifiable] { get }
+    func addPlugin(plugin: PluginIdentifiable)
     func removePlugin(identifier: String)
 }
