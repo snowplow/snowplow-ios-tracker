@@ -39,7 +39,7 @@ class TestRemoteConfiguration: XCTestCase {
         guard let dictionary = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String : Any] else {
             return XCTFail()
         }
-        guard let fetchedConfigurationBundle = FetchedConfigurationBundle(dictionary: dictionary) else {
+        guard let fetchedConfigurationBundle = RemoteConfigurationBundle(dictionary: dictionary) else {
             return XCTFail()
         }
         XCTAssertEqual("http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", fetchedConfigurationBundle.schema)
@@ -81,7 +81,7 @@ class TestRemoteConfiguration: XCTestCase {
         let expectation = XCTestExpectation()
 
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
-        _ = ConfigurationFetcher(remoteSource: remoteConfig, onFetchCallback: { fetchedConfigurationBundle, configurationState in
+        _ = RemoteConfigurationFetcher(remoteSource: remoteConfig, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTAssertNotNil(fetchedConfigurationBundle)
             XCTAssertEqual("http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", fetchedConfigurationBundle.schema)
             XCTAssertEqual(.fetched, configurationState)
@@ -95,18 +95,18 @@ class TestRemoteConfiguration: XCTestCase {
 #if os(iOS) || os(macOS)
     func testCache() {
         let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
-        let expected = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 12)
+        let expected = RemoteConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 12)
         expected.configurationBundle = [bundle]
 
         let remoteConfig = RemoteConfiguration(endpoint: generateRemoteConfigEndpoint(), method: .get)
 
-        var cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        var cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
         cache.write(expected)
 
         Thread.sleep(forTimeInterval: 5) // wait the config is written on cache.
 
-        cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
         let config = cache.read()
 
         XCTAssertEqual(expected.configurationVersion, config?.configurationVersion)
@@ -123,7 +123,7 @@ class TestRemoteConfiguration: XCTestCase {
         // prepare test
         let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
-        let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        let cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
         
         // mock endpoint
@@ -132,7 +132,7 @@ class TestRemoteConfiguration: XCTestCase {
         
         // test
         let expectation = XCTestExpectation()
-        let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
+        let provider = RemoteConfigurationProvider(remoteConfiguration: remoteConfig)
         provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTFail()
         })
@@ -144,7 +144,7 @@ class TestRemoteConfiguration: XCTestCase {
         // prepare test
         let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
-        let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        let cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
 
         let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
@@ -154,7 +154,7 @@ class TestRemoteConfiguration: XCTestCase {
         
         // test
         let expectation = XCTestExpectation()
-        let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
+        let provider = RemoteConfigurationProvider(remoteConfiguration: remoteConfig)
         provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTFail()
         })
@@ -168,10 +168,10 @@ class TestRemoteConfiguration: XCTestCase {
         let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
-        let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        let cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
         let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
-        let cached = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 1)
+        let cached = RemoteConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 1)
         cached.configurationBundle = [bundle]
         cache.write(cached)
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
@@ -183,7 +183,7 @@ class TestRemoteConfiguration: XCTestCase {
 
         // test
         let expectation = XCTestExpectation()
-        let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
+        let provider = RemoteConfigurationProvider(remoteConfiguration: remoteConfig)
         var i = 0
         provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTAssertEqual(.cached, configurationState)
@@ -204,10 +204,10 @@ class TestRemoteConfiguration: XCTestCase {
         let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
-        let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        let cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
         let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
-        let cached = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 1)
+        let cached = RemoteConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 1)
         cached.configurationBundle = [bundle]
         cache.write(cached)
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
@@ -219,7 +219,7 @@ class TestRemoteConfiguration: XCTestCase {
 
         // test
         let expectation = XCTestExpectation()
-        let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
+        let provider = RemoteConfigurationProvider(remoteConfiguration: remoteConfig)
         var i = 0
         provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTAssertEqual(
@@ -242,10 +242,10 @@ class TestRemoteConfiguration: XCTestCase {
         let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
-        let cache = ConfigurationCache(remoteConfiguration: remoteConfig)
+        let cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
         cache.clear()
         let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
-        let cached = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 1)
+        let cached = RemoteConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 1)
         cached.configurationBundle = [bundle]
         cache.write(cached)
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
@@ -256,7 +256,7 @@ class TestRemoteConfiguration: XCTestCase {
         mock.register()
 
         // test
-        let provider = ConfigurationProvider(remoteConfiguration: remoteConfig)
+        let provider = RemoteConfigurationProvider(remoteConfiguration: remoteConfig)
         var expectation = XCTestExpectation()
         provider.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTAssertEqual(.cached, configurationState)
@@ -279,10 +279,10 @@ class TestRemoteConfiguration: XCTestCase {
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
 
         // write configuration (version 2) to cache
-        let cache = ConfigurationCache(remoteConfiguration: cachedRemoteConfig)
+        let cache = RemoteConfigurationCache(remoteConfiguration: cachedRemoteConfig)
         cache.clear()
         let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
-        let cached = FetchedConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 2)
+        let cached = RemoteConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 2)
         cached.configurationBundle = [bundle]
         cache.write(cached)
         Thread.sleep(forTimeInterval: 5) // wait to write on cache
@@ -295,7 +295,7 @@ class TestRemoteConfiguration: XCTestCase {
 
         // initialize tracker with remote config
         let expectation = XCTestExpectation()
-        _ = ConfigurationFetcher(remoteSource: remoteConfig, onFetchCallback: { fetchedConfigurationBundle, configurationState in
+        _ = RemoteConfigurationFetcher(remoteSource: remoteConfig, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             XCTAssertNotNil(fetchedConfigurationBundle)
             // should be the non-cache configuration (version 1)
             XCTAssertEqual("http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-1-0", fetchedConfigurationBundle.schema)
@@ -310,7 +310,7 @@ class TestRemoteConfiguration: XCTestCase {
         // prepare test
         let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
-        ConfigurationCache(remoteConfiguration: remoteConfig).clear()
+        RemoteConfigurationCache(remoteConfiguration: remoteConfig).clear()
 
         // stub request for configuration (return version 2)
         let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
@@ -321,7 +321,7 @@ class TestRemoteConfiguration: XCTestCase {
         // test
         let defaultBundle = ConfigurationBundle(namespace: "ns",
                                                 networkConfiguration: NetworkConfiguration(endpoint: "http://localhost"))
-        let provider = ConfigurationProvider(
+        let provider = RemoteConfigurationProvider(
             remoteConfiguration: remoteConfig,
             defaultConfigurationBundles: [defaultBundle],
             defaultBundleVersion: 2
@@ -343,7 +343,7 @@ class TestRemoteConfiguration: XCTestCase {
         // prepare test
         let endpoint = generateRemoteConfigEndpoint()
         let remoteConfig = RemoteConfiguration(endpoint: endpoint, method: .get)
-        ConfigurationCache(remoteConfiguration: remoteConfig).clear()
+        RemoteConfigurationCache(remoteConfiguration: remoteConfig).clear()
 
         // stub request for configuration (return version 2)
         let mock = Mock(url: URL(string: endpoint)!, dataType: .json, statusCode: 200, data: [
@@ -354,7 +354,7 @@ class TestRemoteConfiguration: XCTestCase {
         // test
         let defaultBundle = ConfigurationBundle(namespace: "ns",
                                                 networkConfiguration: NetworkConfiguration(endpoint: "http://localhost"))
-        let provider = ConfigurationProvider(
+        let provider = RemoteConfigurationProvider(
             remoteConfiguration: remoteConfig,
             defaultConfigurationBundles: [defaultBundle],
             defaultBundleVersion: 1

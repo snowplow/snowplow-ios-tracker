@@ -34,7 +34,7 @@ import WebKit
 @objc(SPSnowplow)
 public class Snowplow: NSObject {
     private static var serviceProviderInstances: [String : ServiceProvider] = [:]
-    private static var configurationProvider: ConfigurationProvider?
+    private static var configurationProvider: RemoteConfigurationProvider?
     private static var defaultServiceProvider: ServiceProvider?
     
     /// Remote Configuration
@@ -70,7 +70,7 @@ public class Snowplow: NSObject {
                             defaultConfiguration defaultBundles: [ConfigurationBundle]?,
                             defaultConfigurationVersion defaultBundleVersion: Int = NSInteger.min,
                             onSuccess: @escaping (_ namespaces: [String]?, _ configurationState: ConfigurationState) -> Void) {
-        configurationProvider = ConfigurationProvider(remoteConfiguration: remoteConfiguration,
+        configurationProvider = RemoteConfigurationProvider(remoteConfiguration: remoteConfiguration,
                                                       defaultConfigurationBundles: defaultBundles,
                                                       defaultBundleVersion: defaultBundleVersion)
         

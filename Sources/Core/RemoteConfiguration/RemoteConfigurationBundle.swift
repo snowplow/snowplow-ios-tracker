@@ -13,7 +13,7 @@
 
 import Foundation
 
-class FetchedConfigurationBundle: SerializableConfiguration {
+class RemoteConfigurationBundle: SerializableConfiguration {
     var schema: String
     var configurationVersion: Int
     var configurationBundle: [ConfigurationBundle] = []
@@ -44,7 +44,7 @@ class FetchedConfigurationBundle: SerializableConfiguration {
     // MARK: - NSCopying
 
     override func copy(with zone: NSZone? = nil) -> Any {
-        let copy: FetchedConfigurationBundle? = nil
+        let copy: RemoteConfigurationBundle? = nil
         copy?.schema = schema
         copy?.configurationVersion = configurationVersion
         copy?.configurationBundle = configurationBundle.map { $0.copy(with: zone) as! ConfigurationBundle }
