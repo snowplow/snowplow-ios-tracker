@@ -60,4 +60,31 @@ class TestEmitterConfiguration: XCTestCase {
 
         XCTAssertTrue(tracker?.emitter?.serverAnonymisation ?? false)
     }
+    
+    func testRespectsEmitRange() {
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let emitterConfig = EmitterConfiguration()
+        emitterConfig.eventStore = MockEventStore()
+        emitterConfig.emitRange = 2
+        let networkConfig = NetworkConfiguration(networkConnection: networkConnection)
+
+        let trackerConfig = TrackerConfiguration(appId: "appid")
+        trackerConfig.installAutotracking = false
+        trackerConfig.screenViewAutotracking = false
+        trackerConfig.lifecycleAutotracking = false
+        let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, emitterConfig])
+        XCTAssertNotNil(tracker)
+
+        tracker?.emitter?.pause()
+        for i in 0..<10 {
+            _ = tracker?.track(Structured(category: "cat", action: "act").value(NSNumber(value: i)))
+        }
+        XCTAssertEqual(10, tracker?.emitter?.dbCount)
+        XCTAssertEqual(0, networkConnection.previousResults.count)
+
+        tracker?.emitter?.resume()
+        Thread.sleep(forTimeInterval: 3)
+        XCTAssertEqual(5, networkConnection.previousResults.count) // 5 requests for 10 events – emit range 2
+        XCTAssertEqual(0, tracker?.emitter?.dbCount)
+    }
 }
