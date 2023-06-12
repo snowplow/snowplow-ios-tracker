@@ -13,16 +13,16 @@
 
 import Foundation
 
-typealias OnFetchCallback = (FetchedConfigurationBundle, ConfigurationState) -> Void
+typealias OnFetchCallback = (RemoteConfigurationBundle, ConfigurationState) -> Void
 
 /// This class fetches a configuration from a remote source otherwise it provides a cached configuration.
 /// It can manage multiple sources and multiple caches.
-class ConfigurationProvider {
+class RemoteConfigurationProvider {
     private var remoteConfiguration: RemoteConfiguration
-    private var cache: ConfigurationCache
-    private var fetcher: ConfigurationFetcher?
-    private var defaultBundle: FetchedConfigurationBundle?
-    private var cacheBundle: FetchedConfigurationBundle?
+    private var cache: RemoteConfigurationCache
+    private var fetcher: RemoteConfigurationFetcher?
+    private var defaultBundle: RemoteConfigurationBundle?
+    private var cacheBundle: RemoteConfigurationBundle?
 
     convenience init(remoteConfiguration: RemoteConfiguration) {
         self.init(remoteConfiguration: remoteConfiguration, defaultConfigurationBundles: nil)
@@ -32,9 +32,9 @@ class ConfigurationProvider {
          defaultConfigurationBundles defaultBundles: [ConfigurationBundle]?,
          defaultBundleVersion: Int = NSInteger.min) {
         self.remoteConfiguration = remoteConfiguration
-        cache = ConfigurationCache(remoteConfiguration: remoteConfiguration)
+        cache = RemoteConfigurationCache(remoteConfiguration: remoteConfiguration)
         if let defaultBundles = defaultBundles {
-            let bundle = FetchedConfigurationBundle(
+            let bundle = RemoteConfigurationBundle(
                 schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0",
                 configurationVersion: defaultBundleVersion)
             bundle.configurationBundle = defaultBundles
@@ -55,7 +55,7 @@ class ConfigurationProvider {
                 }
             }
         }
-        fetcher = ConfigurationFetcher(remoteSource: remoteConfiguration) { bundle, state in
+        fetcher = RemoteConfigurationFetcher(remoteSource: remoteConfiguration) { bundle, state in
             if !self.schemaCompatibility(bundle.schema) {
                 return
             }

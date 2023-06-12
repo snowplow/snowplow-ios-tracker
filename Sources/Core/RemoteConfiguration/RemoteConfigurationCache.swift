@@ -13,9 +13,9 @@
 
 import Foundation
 
-class ConfigurationCache: NSObject {
+class RemoteConfigurationCache: NSObject {
     private var cacheFileUrl: URL?
-    private var configuration: FetchedConfigurationBundle?
+    private var configuration: RemoteConfigurationBundle?
 
     init(remoteConfiguration: RemoteConfiguration) {
         super.init()
@@ -24,7 +24,7 @@ class ConfigurationCache: NSObject {
 #endif
     }
     
-    func read() -> FetchedConfigurationBundle? {
+    func read() -> RemoteConfigurationBundle? {
         return lock {
 #if !(os(tvOS)) && !(os(watchOS))
             if let configuration = configuration {
@@ -36,7 +36,7 @@ class ConfigurationCache: NSObject {
         }
     }
     
-    func write(_ configuration: FetchedConfigurationBundle) {
+    func write(_ configuration: RemoteConfigurationBundle) {
         lock {
             self.configuration = configuration
 #if !(os(tvOS)) && !(os(watchOS))
@@ -68,14 +68,14 @@ class ConfigurationCache: NSObject {
                   let data = try? Data(contentsOf: cacheFileUrl) else { return }
             if #available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *) {
                 do {
-                    configuration = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? FetchedConfigurationBundle
+                    configuration = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? RemoteConfigurationBundle
                 } catch let error {
                     logError(message: String(format: "Exception on getting configuration from cache: %@", error.localizedDescription))
                     configuration = nil
                 }
             } else {
                 let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
-                configuration = unarchiver.decodeObject() as? FetchedConfigurationBundle
+                configuration = unarchiver.decodeObject() as? RemoteConfigurationBundle
                 unarchiver.finishDecoding()
             }
         }
