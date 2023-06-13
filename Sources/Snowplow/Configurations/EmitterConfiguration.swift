@@ -48,44 +48,91 @@ public protocol EmitterConfigurationProtocol: AnyObject {
 /// to emit to the collector.
 @objc(SPEmitterConfiguration)
 public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, ConfigurationProtocol {
+    private var _bufferOption: BufferOption?
     /// Sets whether the buffer should send events instantly or after the buffer
     /// has reached it's limit. By default, this is set to BufferOption Default.
     @objc
-    public var bufferOption: BufferOption = EmitterDefaults.bufferOption
+    public var bufferOption: BufferOption {
+        get { return _bufferOption ?? sourceConfig?.bufferOption ?? EmitterDefaults.bufferOption }
+        set { _bufferOption = newValue }
+    }
 
+    private var _emitRange: Int?
     /// Maximum number of events collected from the EventStore to be sent in a request.
     @objc
-    public var emitRange: Int = EmitterDefaults.emitRange
+    public var emitRange: Int {
+        get { return _emitRange ?? sourceConfig?.emitRange ?? EmitterDefaults.emitRange }
+        set { _emitRange = newValue }
+    }
 
+    private var _threadPoolSize: Int?
     /// Maximum number of threads working in parallel in the tracker to send requests.
     @objc
-    public var threadPoolSize: Int = EmitterDefaults.emitThreadPoolSize
+    public var threadPoolSize: Int {
+        get { return _threadPoolSize ?? sourceConfig?.threadPoolSize ?? EmitterDefaults.emitThreadPoolSize }
+        set { _threadPoolSize = newValue }
+    }
 
+    private var _byteLimitGet: Int?
     /// Maximum amount of bytes allowed to be sent in a payload in a GET request.
     @objc
-    public var byteLimitGet: Int = EmitterDefaults.byteLimitGet
+    public var byteLimitGet: Int {
+        get { return _byteLimitGet ?? sourceConfig?.byteLimitGet ?? EmitterDefaults.byteLimitGet }
+        set { _byteLimitGet = newValue }
+    }
 
+    private var _byteLimitPost: Int?
     /// Maximum amount of bytes allowed to be sent in a payload in a POST request.
     @objc
-    public var byteLimitPost: Int = EmitterDefaults.byteLimitPost
+    public var byteLimitPost: Int {
+        get { return _byteLimitPost ?? sourceConfig?.byteLimitPost ?? EmitterDefaults.byteLimitPost }
+        set { _byteLimitPost = newValue }
+    }
 
+    private var _requestCallback: RequestCallback?
     /// Callback called for each request performed by the tracker to the collector.
     @objc
-    public var requestCallback: RequestCallback?
+    public var requestCallback: RequestCallback? {
+        get { return _requestCallback ?? sourceConfig?.requestCallback }
+        set { _requestCallback = newValue }
+    }
 
+    private var _customRetryForStatusCodes: [Int : Bool]?
     /// Custom retry rules for HTTP status codes returned from the Collector.
     /// The dictionary is a mapping of integers (status codes) to booleans (true for retry and false for not retry).
     @objc
-    public var customRetryForStatusCodes: [Int : Bool]?
+    public var customRetryForStatusCodes: [Int : Bool]? {
+        get { return _customRetryForStatusCodes ?? sourceConfig?.customRetryForStatusCodes }
+        set { _customRetryForStatusCodes = newValue }
+    }
 
+    private var _serverAnonymisation: Bool?
     /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
     @objc
-    public var serverAnonymisation: Bool = EmitterDefaults.serverAnonymisation
+    public var serverAnonymisation: Bool {
+        get { return _serverAnonymisation ?? sourceConfig?.serverAnonymisation ?? EmitterDefaults.serverAnonymisation }
+        set { _serverAnonymisation = newValue }
+    }
 
+    private var _eventStore: EventStore?
     /// Custom component with full ownership for persisting events before to be sent to the collector.
     /// If it's not set the tracker will use a SQLite database as default EventStore.
     @objc
-    public var eventStore: EventStore?
+    public var eventStore: EventStore? {
+        get { return _eventStore ?? sourceConfig?.eventStore }
+        set { _eventStore = newValue }
+    }
+    
+    // MARK: - Internal
+    
+    /// Fallback configuration to read from in case requested values are not present in this configuraiton.
+    internal var sourceConfig: EmitterConfiguration?
+    
+    private var _isPaused: Bool?
+    internal var isPaused: Bool {
+        get { return _isPaused ?? sourceConfig?.isPaused ?? false }
+        set { _isPaused = newValue }
+    }
 
     /// It sets a default EmitterConfiguration.
     /// Default values:

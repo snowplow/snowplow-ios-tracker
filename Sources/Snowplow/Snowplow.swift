@@ -71,8 +71,8 @@ public class Snowplow: NSObject {
                             defaultConfigurationVersion defaultBundleVersion: Int = NSInteger.min,
                             onSuccess: @escaping (_ namespaces: [String]?, _ configurationState: ConfigurationState) -> Void) {
         configurationProvider = RemoteConfigurationProvider(remoteConfiguration: remoteConfiguration,
-                                                      defaultConfigurationBundles: defaultBundles,
-                                                      defaultBundleVersion: defaultBundleVersion)
+                                                            defaultConfigurationBundles: defaultBundles,
+                                                            defaultBundleVersion: defaultBundleVersion)
         
         configurationProvider?.retrieveConfigurationOnlyRemote(false, onFetchCallback: { fetchedConfigurationBundle, configurationState in
             let bundles = fetchedConfigurationBundle.configurationBundle

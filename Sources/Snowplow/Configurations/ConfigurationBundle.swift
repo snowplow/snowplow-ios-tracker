@@ -77,7 +77,26 @@ public class ConfigurationBundle: SerializableConfiguration {
             sessionConfiguration = SessionConfiguration(dictionary: config)
         }
     }
-
+    
+    func updateSourceConfig(_ sourceBundle: ConfigurationBundle) {
+        if let sourceNetworkConfig = sourceBundle.networkConfiguration {
+            if networkConfiguration == nil { networkConfiguration = NetworkConfiguration() }
+            networkConfiguration?.sourceConfig = sourceNetworkConfig
+        }
+        if let sourceTrackerConfig = sourceBundle.trackerConfiguration {
+            if trackerConfiguration == nil { trackerConfiguration = TrackerConfiguration() }
+            trackerConfiguration?.sourceConfig = sourceTrackerConfig
+        }
+        if let sourceSubjectConfig = sourceBundle.subjectConfiguration {
+            if subjectConfiguration == nil { subjectConfiguration = SubjectConfiguration() }
+            subjectConfiguration?.sourceConfig = sourceSubjectConfig
+        }
+        if let sourceSessionConfig = sourceBundle.sessionConfiguration {
+            if sessionConfiguration == nil { sessionConfiguration = SessionConfiguration() }
+            sessionConfiguration?.sourceConfig = sourceSessionConfig
+        }
+    }
+    
     // MARK: - NSCopying
 
     @objc

@@ -31,7 +31,6 @@ class GDPRControllerImpl: Controller, GDPRController {
             documentDescription: documentDescription)
         tracker.gdprContext = gdpr
         dirtyConfig.gdpr = gdpr
-        dirtyConfig.gdprUpdated = true
     }
 
     func disable() {
@@ -84,9 +83,9 @@ class GDPRControllerImpl: Controller, GDPRController {
         }
     }
 
-    private var dirtyConfig: GDPRConfigurationUpdate {
+    private var dirtyConfig: GDPRConfiguration {
         get {
-            return serviceProvider.gdprConfigurationUpdate
+            return serviceProvider.gdprConfiguration
         }
     }
 }

@@ -22,7 +22,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.userId = newValue
-            dirtyConfig.userIdUpdated = true
             subject?.userId = newValue
         }
     }
@@ -33,7 +32,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.networkUserId = newValue
-            dirtyConfig.networkUserIdUpdated = true
             subject?.networkUserId = newValue
         }
     }
@@ -44,7 +42,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.domainUserId = newValue
-            dirtyConfig.domainUserIdUpdated = true
             subject?.domainUserId = newValue
         }
     }
@@ -55,7 +52,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.useragent = newValue
-            dirtyConfig.useragentUpdated = true
             subject?.useragent = newValue
         }
     }
@@ -66,7 +62,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.ipAddress = newValue
-            dirtyConfig.ipAddressUpdated = true
             subject?.ipAddress = newValue
         }
     }
@@ -77,7 +72,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.timezone = newValue
-            dirtyConfig.timezoneUpdated = true
             subject?.timezone = newValue
         }
     }
@@ -88,7 +82,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.language = newValue
-            dirtyConfig.languageUpdated = true
             subject?.language = newValue
         }
     }
@@ -99,7 +92,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.screenResolution = newValue
-            dirtyConfig.screenResolutionUpdated = true
             subject?.screenResolution = newValue
         }
     }
@@ -110,7 +102,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.screenViewPort = newValue
-            dirtyConfig.screenViewPortUpdated = true
             subject?.screenViewPort = newValue
         }
     }
@@ -124,7 +115,6 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
         set {
             dirtyConfig.colorDepth = newValue
-            dirtyConfig.colorDepthUpdated = true
             subject?.colorDepth = newValue
         }
     }
@@ -211,7 +201,7 @@ class SubjectControllerImpl: Controller, SubjectController {
         }
     }
 
-    private var dirtyConfig: SubjectConfigurationUpdate {
-        return serviceProvider.subjectConfigurationUpdate
+    private var dirtyConfig: SubjectConfiguration {
+        return serviceProvider.subjectConfiguration
     }
 }

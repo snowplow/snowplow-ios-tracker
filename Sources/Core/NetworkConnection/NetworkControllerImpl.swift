@@ -46,7 +46,6 @@ class NetworkControllerImpl: Controller, NetworkController {
         }
         set {
             dirtyConfig.customPostPath = newValue
-            dirtyConfig.customPostPathUpdated = true
             emitter.customPostPath = newValue
         }
     }
@@ -57,7 +56,6 @@ class NetworkControllerImpl: Controller, NetworkController {
         }
         set {
             dirtyConfig.requestHeaders = requestHeaders
-            dirtyConfig.requestHeadersUpdated = true
             emitter.requestHeaders = newValue
         }
     }
@@ -68,7 +66,7 @@ class NetworkControllerImpl: Controller, NetworkController {
         return serviceProvider.tracker.emitter
     }
 
-    private var dirtyConfig: NetworkConfigurationUpdate {
-        return serviceProvider.networkConfigurationUpdate
+    private var dirtyConfig: NetworkConfiguration {
+        return serviceProvider.networkConfiguration
     }
 }

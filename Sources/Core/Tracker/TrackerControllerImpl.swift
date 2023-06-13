@@ -290,7 +290,7 @@ class TrackerControllerImpl: Controller, TrackerController {
         return serviceProvider.tracker
     }
 
-    private var dirtyConfig: TrackerConfigurationUpdate {
-        return serviceProvider.trackerConfigurationUpdate
+    private var dirtyConfig: TrackerConfiguration {
+        return serviceProvider.trackerConfiguration
     }
 }
