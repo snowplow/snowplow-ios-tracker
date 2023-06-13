@@ -21,6 +21,7 @@ class TestEmitterConfiguration: XCTestCase {
     }
 
     override func tearDown() {
+        Snowplow.removeAllTrackers()
         super.tearDown()
     }
 
@@ -31,23 +32,18 @@ class TestEmitterConfiguration: XCTestCase {
         emitterConfig.bufferOption = .single
         let networkConfig = NetworkConfiguration(networkConnection: networkConnection)
 
-        let trackerConfig = TrackerConfiguration(appId: "appid")
-        trackerConfig.installAutotracking = false
-        trackerConfig.screenViewAutotracking = false
-        trackerConfig.lifecycleAutotracking = false
-        let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, emitterConfig])
-        XCTAssertNotNil(tracker)
+        let tracker = createTracker(networkConfig: networkConfig, emitterConfig: emitterConfig)
 
-        tracker?.emitter?.pause()
-        _ = tracker?.track(Structured(category: "cat", action: "act"))
-        Thread.sleep(forTimeInterval: 3)
-        XCTAssertEqual(1, tracker?.emitter?.dbCount)
+        tracker.emitter?.pause()
+        _ = tracker.track(Structured(category: "cat", action: "act"))
+        Thread.sleep(forTimeInterval: 1)
+        XCTAssertEqual(1, tracker.emitter?.dbCount)
         XCTAssertEqual(0, networkConnection.previousResults.count)
 
-        tracker?.emitter?.resume()
-        Thread.sleep(forTimeInterval: 3)
+        tracker.emitter?.resume()
+        Thread.sleep(forTimeInterval: 1)
         XCTAssertEqual(1, networkConnection.previousResults.count)
-        XCTAssertEqual(0, tracker?.emitter?.dbCount)
+        XCTAssertEqual(0, tracker.emitter?.dbCount)
     }
 
     func testActivatesServerAnonymisationInEmitter() {
@@ -56,8 +52,43 @@ class TestEmitterConfiguration: XCTestCase {
 
         let networkConfig = NetworkConfiguration(endpoint: "", method: .post)
 
-        let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [emitterConfig])
+        let tracker = createTracker(networkConfig: networkConfig, emitterConfig: emitterConfig)
 
-        XCTAssertTrue(tracker?.emitter?.serverAnonymisation ?? false)
+        XCTAssertTrue(tracker.emitter?.serverAnonymisation ?? false)
     }
+    
+    func testRespectsEmitRange() {
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let emitterConfig = EmitterConfiguration()
+        emitterConfig.eventStore = MockEventStore()
+        emitterConfig.emitRange = 2
+        let networkConfig = NetworkConfiguration(networkConnection: networkConnection)
+
+        let tracker = createTracker(networkConfig: networkConfig, emitterConfig: emitterConfig)
+
+        tracker.emitter?.pause()
+        for i in 0..<10 {
+            _ = tracker.track(Structured(category: "cat", action: "act").value(NSNumber(value: i)))
+        }
+        Thread.sleep(forTimeInterval: 1)
+        XCTAssertEqual(10, tracker.emitter?.dbCount)
+        XCTAssertEqual(0, networkConnection.previousResults.count)
+
+        tracker.emitter?.resume()
+        Thread.sleep(forTimeInterval: 1)
+        XCTAssertEqual(5, networkConnection.previousResults.count) // 5 requests for 10 events – emit range 2
+        XCTAssertEqual(0, tracker.emitter?.dbCount)
+    }
+    
+    private func createTracker(networkConfig: NetworkConfiguration, emitterConfig: EmitterConfiguration) -> TrackerController {
+        let trackerConfig = TrackerConfiguration()
+        trackerConfig.installAutotracking = false
+        trackerConfig.screenViewAutotracking = false
+        trackerConfig.lifecycleAutotracking = false
+        let namespace = "testEmitter" + String(describing: Int.random(in: 0..<100))
+        return Snowplow.createTracker(namespace: namespace,
+                                      network: networkConfig,
+                                      configurations: [trackerConfig, emitterConfig])!
+    }
+    
 }

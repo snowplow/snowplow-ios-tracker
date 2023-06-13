@@ -175,7 +175,7 @@ class SQLiteEventStore: NSObject, EventStore {
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
-        return getAllEventsLimited(UInt(sendLimit)) ?? []
+        return getAllEventsLimited(min(queryLimit, UInt(sendLimit))) ?? []
     }
 
     // MARK: SPSQLiteEventStore methods
