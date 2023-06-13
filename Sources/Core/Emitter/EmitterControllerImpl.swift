@@ -23,7 +23,6 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
         set {
             dirtyConfig.bufferOption = newValue
-            dirtyConfig.bufferOptionUpdated = true
             emitter.bufferOption = newValue
         }
     }
@@ -34,7 +33,6 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
         set {
             dirtyConfig.byteLimitGet = newValue
-            dirtyConfig.byteLimitGetUpdated = true
             emitter.byteLimitGet = newValue
         }
     }
@@ -45,7 +43,6 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
         set {
             dirtyConfig.byteLimitPost = newValue
-            dirtyConfig.byteLimitPostUpdated = true
             emitter.byteLimitPost = newValue
         }
     }
@@ -56,7 +53,6 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
         set {
             dirtyConfig.serverAnonymisation = newValue
-            dirtyConfig.serverAnonymisationUpdated = true
             emitter.serverAnonymisation = newValue
         }
     }
@@ -67,7 +63,6 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
         set {
             dirtyConfig.emitRange = newValue
-            dirtyConfig.emitRangeUpdated = true
             emitter.emitRange = newValue
         }
     }
@@ -78,7 +73,6 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
         set {
             dirtyConfig.threadPoolSize = newValue
-            dirtyConfig.threadPoolSizeUpdated = true
             emitter.emitThreadPoolSize = newValue
         }
     }
@@ -108,7 +102,6 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
         set {
             dirtyConfig.customRetryForStatusCodes = newValue
-            dirtyConfig.customRetryForStatusCodesUpdated = true
             emitter.customRetryForStatusCodes = newValue
         }
     }
@@ -135,7 +128,7 @@ class EmitterControllerImpl: Controller, EmitterController {
         return serviceProvider.tracker.emitter
     }
 
-    private var dirtyConfig: EmitterConfigurationUpdate {
-        return serviceProvider.emitterConfigurationUpdate
+    private var dirtyConfig: EmitterConfiguration {
+        return serviceProvider.emitterConfiguration
     }
 }

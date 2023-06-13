@@ -370,6 +370,32 @@ class TestRemoteConfiguration: XCTestCase {
     
 #endif
     
+    func testKeepsPropertiesOfSourceConfigurationIfNotOverridenInRemote() {
+        let bundle1 = ConfigurationBundle(namespace: "ns1")
+        bundle1.trackerConfiguration = TrackerConfiguration()
+            .appId("app-1")
+        bundle1.subjectConfiguration = SubjectConfiguration()
+            .domainUserId("duid1")
+            .userId("u1")
+        
+        let bundle2 = ConfigurationBundle(namespace: "ns1")
+        bundle2.subjectConfiguration = SubjectConfiguration()
+            .domainUserId("duid2")
+        
+        let remoteBundle1 = RemoteConfigurationBundle(schema: "", configurationVersion: 1)
+        remoteBundle1.configurationBundle = [bundle1]
+        
+        let remoteBundle2 = RemoteConfigurationBundle(schema: "", configurationVersion: 2)
+        remoteBundle2.configurationBundle = [bundle2]
+        
+        remoteBundle2.updateSourceConfig(remoteBundle1)
+        
+        let finalBundle = remoteBundle2.configurationBundle.first
+        XCTAssertEqual("app-1", finalBundle?.trackerConfiguration?.appId)
+        XCTAssertEqual("u1", finalBundle?.subjectConfiguration?.userId)
+        XCTAssertEqual("duid2", finalBundle?.subjectConfiguration?.domainUserId)
+    }
+    
     private func generateRemoteConfigEndpoint() -> String {
         return [
             "https://json-configs5432.com/files/ghi789.json",

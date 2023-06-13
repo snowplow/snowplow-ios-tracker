@@ -40,6 +40,14 @@ class RemoteConfigurationBundle: SerializableConfiguration {
         }
         self.configurationBundle = bundles.map { ConfigurationBundle(dictionary: $0) }.filter { $0 != nil }.map { $0! }
     }
+    
+    func updateSourceConfig(_ sourceRemoteBundle: RemoteConfigurationBundle) {
+        for bundle in configurationBundle {
+            if let sourceBundle = sourceRemoteBundle.configurationBundle.first(where: { $0.namespace == bundle.namespace }) {
+                bundle.updateSourceConfig(sourceBundle)
+            }
+        }
+    }
 
     // MARK: - NSCopying
 

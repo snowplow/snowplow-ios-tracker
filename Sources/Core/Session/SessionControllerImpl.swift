@@ -57,7 +57,6 @@ class SessionControllerImpl: Controller, SessionController {
         }
         set {
             dirtyConfig.foregroundTimeoutInSeconds = newValue
-            dirtyConfig.foregroundTimeoutInSecondsUpdated = true
             session?.foregroundTimeout = newValue * 1000
         }
     }
@@ -85,7 +84,6 @@ class SessionControllerImpl: Controller, SessionController {
         }
         set {
             dirtyConfig.backgroundTimeoutInSeconds = newValue
-            dirtyConfig.backgroundTimeoutInSecondsUpdated = true
             session?.backgroundTimeout = newValue * 1000
         }
     }
@@ -100,7 +98,6 @@ class SessionControllerImpl: Controller, SessionController {
         }
         set {
             dirtyConfig.onSessionStateUpdate = newValue
-            dirtyConfig.onSessionStateUpdateUpdated = true
             session?.onSessionStateUpdate = newValue
         }
     }
@@ -161,9 +158,9 @@ class SessionControllerImpl: Controller, SessionController {
         }
     }
 
-    private var dirtyConfig: SessionConfigurationUpdate {
+    private var dirtyConfig: SessionConfiguration {
         get {
-            return serviceProvider.sessionConfigurationUpdate
+            return serviceProvider.sessionConfiguration
         }
     }
 }

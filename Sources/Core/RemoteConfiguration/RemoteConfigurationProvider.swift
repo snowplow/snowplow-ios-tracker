@@ -49,6 +49,9 @@ class RemoteConfigurationProvider {
                     cacheBundle = cache.read()
                 }
                 if let cacheBundle = cacheBundle {
+                    if let defaultBundle = defaultBundle {
+                        cacheBundle.updateSourceConfig(defaultBundle)
+                    }
                     onFetchCallback(cacheBundle, .cached)
                 } else if let defaultBundle = defaultBundle {
                     onFetchCallback(defaultBundle, .default)
@@ -64,6 +67,9 @@ class RemoteConfigurationProvider {
                     if oldBundle.configurationVersion >= bundle.configurationVersion {
                         return false
                     }
+                }
+                if let defaultBundle = self.defaultBundle {
+                    bundle.updateSourceConfig(defaultBundle)
                 }
                 self.cache.write(bundle)
                 self.cacheBundle = bundle

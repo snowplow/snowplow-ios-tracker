@@ -53,23 +53,50 @@ public protocol SessionConfigurationProtocol: AnyObject {
 /// A new session will be created if the session information is not accessed within a configurable timeout.
 @objc(SPSessionConfiguration)
 public class SessionConfiguration: SerializableConfiguration, SessionConfigurationProtocol, ConfigurationProtocol {
+    internal var sourceConfig: SessionConfiguration?
+    
+    private var _isPaused: Bool?
+    internal var isPaused: Bool {
+        get { return _isPaused ?? sourceConfig?.isPaused ?? false }
+        set { _isPaused = newValue }
+    }
+    
+    private var _backgroundTimeoutInSeconds: Int?
+    /// The timeout set for the inactivity of app when in background.
     @objc
-    public var backgroundTimeoutInSeconds: Int
+    public var backgroundTimeoutInSeconds: Int {
+        get { return _backgroundTimeoutInSeconds ?? sourceConfig?.backgroundTimeoutInSeconds ?? 1800 }
+        set { _backgroundTimeoutInSeconds = newValue }
+    }
+    
+    private var _foregroundTimeoutInSeconds: Int?
+    /// The timeout set for the inactivity of app when in foreground.
     @objc
-    public var foregroundTimeoutInSeconds: Int
+    public var foregroundTimeoutInSeconds: Int {
+        get { return _foregroundTimeoutInSeconds ?? sourceConfig?.foregroundTimeoutInSeconds ?? 1800 }
+        set { _foregroundTimeoutInSeconds = newValue }
+    }
+    
+    private var _onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
+    /// The callback called everytime the session is updated.
     @objc
-    public var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
+    public var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)? {
+        get { return _onSessionStateUpdate ?? sourceConfig?.onSessionStateUpdate }
+        set { _onSessionStateUpdate = newValue }
+    }
 
     @objc
-    public convenience override init() {
-        self.init(foregroundTimeoutInSeconds: 1800, backgroundTimeoutInSeconds: 1800)
+    public override init() {
     }
 
     @objc
     public convenience init?(dictionary: [String : Any]) {
-        let foregroundTimeout = dictionary["foregroundTimeout"] as? Int ?? TrackerDefaults.foregroundTimeout
-        let backgroundTimeout = dictionary["backgroundTimeout"] as? Int ?? TrackerDefaults.backgroundTimeout
-        self.init(foregroundTimeoutInSeconds: foregroundTimeout, backgroundTimeoutInSeconds: backgroundTimeout)
+        self.init()
+        if let foregroundTimeout = dictionary["foregroundTimeout"] as? Int,
+           let backgroundTimeout = dictionary["backgroundTimeout"] as? Int {
+            self._foregroundTimeoutInSeconds = foregroundTimeout
+            self._backgroundTimeoutInSeconds = backgroundTimeout
+        }
     }
 
     /// This will setup the session behaviour of the tracker.
@@ -91,10 +118,11 @@ public class SessionConfiguration: SerializableConfiguration, SessionConfigurati
     ///   - backgroundTimeout: The timeout set for the inactivity of app when in background.
     @objc
     public init(foregroundTimeoutInSeconds foregroundTimeout: Int, backgroundTimeoutInSeconds backgroundTimeout: Int) {
-        self.backgroundTimeoutInSeconds = backgroundTimeout
-        self.foregroundTimeoutInSeconds = foregroundTimeout
+        self._backgroundTimeoutInSeconds = backgroundTimeout
+        self._foregroundTimeoutInSeconds = foregroundTimeout
     }
 
+    /// The timeout set for the inactivity of app when in foreground.
     @objc
     public var foregroundTimeout: Measurement<UnitDuration> {
         get {
@@ -106,6 +134,7 @@ public class SessionConfiguration: SerializableConfiguration, SessionConfigurati
         }
     }
 
+    /// The timeout set for the inactivity of app when in background.
     @objc
     public var backgroundTimeout: Measurement<UnitDuration> {
         get {
@@ -148,8 +177,8 @@ public class SessionConfiguration: SerializableConfiguration, SessionConfigurati
     }
 
     required init?(coder: NSCoder) {
+        super.init()
         backgroundTimeoutInSeconds = coder.decodeInteger(forKey: "backgroundTimeoutInSeconds")
         foregroundTimeoutInSeconds = coder.decodeInteger(forKey: "foregroundTimeoutInSeconds")
-        super.init()
     }
 }

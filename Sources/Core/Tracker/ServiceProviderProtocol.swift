@@ -28,12 +28,12 @@ protocol ServiceProviderProtocol: AnyObject {
     var sessionController: SessionControllerImpl { get }
     var pluginsController: PluginsControllerImpl { get }
     var mediaController: MediaController { get }
-    var networkConfigurationUpdate: NetworkConfigurationUpdate { get }
-    var trackerConfigurationUpdate: TrackerConfigurationUpdate { get }
-    var emitterConfigurationUpdate: EmitterConfigurationUpdate { get }
-    var subjectConfigurationUpdate: SubjectConfigurationUpdate { get }
-    var sessionConfigurationUpdate: SessionConfigurationUpdate { get }
-    var gdprConfigurationUpdate: GDPRConfigurationUpdate { get }
+    var networkConfiguration: NetworkConfiguration { get }
+    var trackerConfiguration: TrackerConfiguration { get }
+    var emitterConfiguration: EmitterConfiguration { get }
+    var subjectConfiguration: SubjectConfiguration { get }
+    var sessionConfiguration: SessionConfiguration { get }
+    var gdprConfiguration: GDPRConfiguration { get }
     var pluginConfigurations: [PluginIdentifiable] { get }
     func addPlugin(plugin: PluginIdentifiable)
     func removePlugin(identifier: String)
