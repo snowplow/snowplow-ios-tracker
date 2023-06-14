@@ -26,6 +26,8 @@ public class ConfigurationBundle: SerializableConfiguration {
     public var subjectConfiguration: SubjectConfiguration?
     @objc
     public var sessionConfiguration: SessionConfiguration?
+    @objc
+    public var emitterConfiguration: EmitterConfiguration?
 
     @objc
     public var configurations: [ConfigurationProtocol] {
@@ -41,6 +43,9 @@ public class ConfigurationBundle: SerializableConfiguration {
         }
         if let sessionConfiguration = sessionConfiguration {
             array.append(sessionConfiguration)
+        }
+        if let emitterConfiguration = emitterConfiguration {
+            array.append(emitterConfiguration)
         }
         return array
     }
@@ -73,8 +78,11 @@ public class ConfigurationBundle: SerializableConfiguration {
         if let config = dictionary["subjectConfiguration"] as? [String : Any] {
             subjectConfiguration = SubjectConfiguration(dictionary: config)
         }
-        if let config = dictionary["sessionConfiguration"] as? [String: Any] {
+        if let config = dictionary["sessionConfiguration"] as? [String : Any] {
             sessionConfiguration = SessionConfiguration(dictionary: config)
+        }
+        if let config = dictionary["emitterConfiguration"] as? [String : Any] {
+            emitterConfiguration = EmitterConfiguration(dictionary: config)
         }
     }
     
@@ -95,6 +103,10 @@ public class ConfigurationBundle: SerializableConfiguration {
             if sessionConfiguration == nil { sessionConfiguration = SessionConfiguration() }
             sessionConfiguration?.sourceConfig = sourceSessionConfig
         }
+        if let sourceEmitterConfig = sourceBundle.emitterConfiguration {
+            if emitterConfiguration == nil { emitterConfiguration = EmitterConfiguration() }
+            emitterConfiguration?.sourceConfig = sourceEmitterConfig
+        }
     }
     
     // MARK: - NSCopying
@@ -106,6 +118,7 @@ public class ConfigurationBundle: SerializableConfiguration {
         copy.trackerConfiguration = trackerConfiguration?.copy(with: zone) as? TrackerConfiguration
         copy.subjectConfiguration = subjectConfiguration?.copy(with: zone) as? SubjectConfiguration
         copy.sessionConfiguration = sessionConfiguration?.copy(with: zone) as? SessionConfiguration
+        copy.emitterConfiguration = emitterConfiguration?.copy(with: zone) as? EmitterConfiguration
         return copy
     }
 
@@ -121,6 +134,7 @@ public class ConfigurationBundle: SerializableConfiguration {
         coder.encode(trackerConfiguration, forKey: "trackerConfiguration")
         coder.encode(subjectConfiguration, forKey: "subjectConfiguration")
         coder.encode(sessionConfiguration, forKey: "sessionConfiguration")
+        coder.encode(emitterConfiguration, forKey: "emitterConfiguration")
     }
 
     required init?(coder: NSCoder) {
@@ -133,5 +147,6 @@ public class ConfigurationBundle: SerializableConfiguration {
         trackerConfiguration = coder.decodeObject(forKey: "trackerConfiguration") as? TrackerConfiguration
         subjectConfiguration = coder.decodeObject(forKey: "subjectConfiguration") as? SubjectConfiguration
         sessionConfiguration = coder.decodeObject(forKey: "sessionConfiguration") as? SessionConfiguration
+        emitterConfiguration = coder.decodeObject(forKey: "emitterConfiguration") as? EmitterConfiguration
     }
 }

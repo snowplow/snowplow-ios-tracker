@@ -26,7 +26,8 @@ class TestRemoteConfiguration: XCTestCase {
                 {"namespace": "default1",\
                 "networkConfiguration": {"endpoint":"https://fake.snowplow.io","method":"get"},\
                 "trackerConfiguration": {"applicationContext":false,"screenContext":false,},\
-                "sessionConfiguration": {"backgroundTimeout":60,"foregroundTimeout":60}\
+                "sessionConfiguration": {"backgroundTimeout":60,"foregroundTimeout":60},\
+                "emitterConfiguration": {"serverAnonymisation":true,"customRetryForStatusCodes":{"500":true}}\
                 },\
                 {"namespace": "default2",\
                 "subjectConfiguration": {"userId":"testUserId"}\
@@ -59,6 +60,9 @@ class TestRemoteConfiguration: XCTestCase {
         XCTAssertFalse(trackerConfiguration.applicationContext)
         let sessionConfiguration = configurationBundle.sessionConfiguration
         XCTAssertEqual(60, sessionConfiguration?.backgroundTimeoutInSeconds)
+        let emitterConfiguration = configurationBundle.emitterConfiguration
+        XCTAssertTrue(emitterConfiguration?.serverAnonymisation ?? false)
+        XCTAssertEqual([500: true], emitterConfiguration?.customRetryForStatusCodes)
 
         // Regular setup without NetworkConfiguration
         configurationBundle = fetchedConfigurationBundle.configurationBundle[1]
@@ -116,6 +120,29 @@ class TestRemoteConfiguration: XCTestCase {
         let configBundle = config?.configurationBundle[0]
         XCTAssertEqual(expectedBundle.networkConfiguration?.endpoint, configBundle?.networkConfiguration?.endpoint)
         XCTAssertNil(configBundle?.trackerConfiguration)
+    }
+    
+    func testCacheEmitterConfiguration() {
+        let bundle = ConfigurationBundle(namespace: "namespace",
+                                         networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
+        bundle.emitterConfiguration = EmitterConfiguration()
+            .serverAnonymisation(true)
+            .customRetryForStatusCodes([500: true])
+        let remoteBundle = RemoteConfigurationBundle(schema: "", configurationVersion: 1)
+        remoteBundle.configurationBundle = [bundle]
+        let remoteConfig = RemoteConfiguration(endpoint: generateRemoteConfigEndpoint(), method: .get)
+        var cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
+        cache.clear()
+        cache.write(remoteBundle)
+
+        Thread.sleep(forTimeInterval: 1) // wait the config is written on cache.
+
+        cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
+        let config = cache.read()
+
+        let configBundle = config?.configurationBundle[0]
+        XCTAssertTrue(configBundle?.emitterConfiguration?.serverAnonymisation ?? false)
+        XCTAssertEqual([500: true], configBundle?.emitterConfiguration?.customRetryForStatusCodes)
     }
 #endif
 
