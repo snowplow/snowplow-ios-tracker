@@ -47,7 +47,7 @@ public protocol EmitterConfigurationProtocol: AnyObject {
 /// The EmitterConfiguration can be used to setup details about how the tracker should treat the events
 /// to emit to the collector.
 @objc(SPEmitterConfiguration)
-public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, ConfigurationProtocol {
+public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurationProtocol, ConfigurationProtocol {
     private var _bufferOption: BufferOption?
     /// Sets whether the buffer should send events instantly or after the buffer
     /// has reached it's limit. By default, this is set to BufferOption Default.
@@ -147,6 +147,27 @@ public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, Confi
         super.init()
     }
     
+    @objc
+    internal convenience init?(dictionary: [String : Any]) {
+        self.init()
+        if let bufferOption = dictionary["bufferOption"] as? String {
+            self._bufferOption = BufferOption.fromString(value: bufferOption)
+        }
+        self._emitRange = dictionary["emitRange"] as? Int
+        self._threadPoolSize = dictionary["threadPoolSize"] as? Int
+        self._byteLimitGet = dictionary["byteLimitGet"] as? Int
+        self._byteLimitPost = dictionary["byteLimitPost"] as? Int
+        if let retryCodes = dictionary["customRetryForStatusCodes"] as? [String : Bool] {
+            self._customRetryForStatusCodes = Dictionary(
+                uniqueKeysWithValues: retryCodes
+                    .filter { Int($0.key) != nil }
+                    .map { (Int($0.key)!, $0.value) }
+            )
+        }
+        self._serverAnonymisation = dictionary["serverAnonymisation"] as? Bool
+    }
+
+    
     // MARK: - Builders
     
     /// Sets whether the buffer should send events instantly or after the buffer
@@ -213,5 +234,53 @@ public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, Confi
     public func eventStore(_ eventStore: EventStore?) -> Self {
         self.eventStore = eventStore
         return self
+    }
+    
+    // MARK: - NSCopying
+
+    @objc
+    override public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = EmitterConfiguration()
+        copy.bufferOption = bufferOption
+        copy.emitRange = emitRange
+        copy.threadPoolSize = threadPoolSize
+        copy.byteLimitGet = byteLimitGet
+        copy.byteLimitPost = byteLimitPost
+        copy.requestCallback = requestCallback
+        copy.customRetryForStatusCodes = customRetryForStatusCodes
+        copy.serverAnonymisation = serverAnonymisation
+        copy.eventStore = eventStore
+        return copy
+    }
+
+    // MARK: - NSSecureCoding
+    
+    @objc
+    public override class var supportsSecureCoding: Bool { return true }
+
+    @objc
+    public override func encode(with coder: NSCoder) {
+        coder.encode(bufferOption.rawValue, forKey: "bufferOption")
+        coder.encode(emitRange, forKey: "emitRange")
+        coder.encode(threadPoolSize, forKey: "threadPoolSize")
+        coder.encode(byteLimitGet, forKey: "byteLimitGet")
+        coder.encode(byteLimitPost, forKey: "byteLimitPost")
+        coder.encode(customRetryForStatusCodes, forKey: "customRetryForStatusCodes")
+        coder.encode(serverAnonymisation, forKey: "serverAnonymisation")
+    }
+
+    required init?(coder: NSCoder) {
+        super.init()
+        if let bufferOption = BufferOption(rawValue: coder.decodeInteger(forKey: "bufferOption")) {
+            self.bufferOption = bufferOption
+        }
+        emitRange = coder.decodeInteger(forKey: "emitRange")
+        threadPoolSize = coder.decodeInteger(forKey: "threadPoolSize")
+        byteLimitGet = coder.decodeInteger(forKey: "byteLimitGet")
+        byteLimitPost = coder.decodeInteger(forKey: "byteLimitPost")
+        if let retryCodes = coder.decodeObject(forKey: "customRetryForStatusCodes") as? [Int: Bool] {
+            customRetryForStatusCodes = retryCodes
+        }
+        serverAnonymisation = coder.decodeBool(forKey: "serverAnonymisation")
     }
 }
