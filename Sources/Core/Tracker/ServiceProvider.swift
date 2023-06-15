@@ -101,6 +101,14 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return PluginsControllerImpl(serviceProvider: self)
     }
     
+    private var _mediaController: MediaController?
+    var mediaController: MediaController {
+        if let controller = _mediaController { return controller }
+        let mediaController = MediaControllerImpl(serviceProvider: self)
+        _mediaController = mediaController
+        return mediaController
+    }
+    
     // Original configurations
     private(set) var pluginConfigurations: [PluginIdentifiable] = []
 
@@ -245,7 +253,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         if let networkConnection = networkConfig.networkConnection {
             emitter = Emitter(networkConnection: networkConnection, builder: builder)
         } else {
-            emitter = Emitter(urlEndpoint: networkConfig.endpoint!, builder: builder)
+            emitter = Emitter(urlEndpoint: networkConfig.endpoint ?? "", builder: builder)
         }
         
         if emitterConfig.isPaused {

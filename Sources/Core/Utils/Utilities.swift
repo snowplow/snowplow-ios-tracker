@@ -68,6 +68,10 @@ class Utilities {
 
     class func timestamp(toISOString timestamp: Int64) -> String? {
         let eventDate = Date(timeIntervalSince1970: Double(timestamp) / 1000.0)
+        return dateToISOString(eventDate)
+    }
+
+    class func dateToISOString(_ eventDate: Date) -> String? {
         let formatter = DateFormatter()
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
