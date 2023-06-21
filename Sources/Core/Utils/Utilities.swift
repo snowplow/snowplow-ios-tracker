@@ -247,5 +247,17 @@ class Utilities {
     class var appBuild: String? {
         return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
     }
+    
+    /// Truncates the scheme of a URL to 16 characters to satisfy the validation for the page_url and page_refr properties.
+    class func truncateUrlScheme(_ url: String) -> String {
+        let parts = url.components(separatedBy: "://")
+        if parts.count > 1 {
+            if let scheme = parts.first?.prefix(16) {
+                let updatedParts = [String(scheme)] + Array(parts.dropFirst())
+                return updatedParts.joined(separator: "://")
+            }
+        }
+        return url
+    }
 }
 

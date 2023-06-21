@@ -157,6 +157,23 @@ class TestUtils: XCTestCase {
         XCTAssertEqual(result.count, 1)
     }
     
+    func testTruncateUrlSchemeDoesntChangeValidUrl() {
+        let url = "https://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/snowplow-tracker-protocol/#snowplow-events"
+        XCTAssertEqual(url, Utilities.truncateUrlScheme(url))
+    }
+    
+    func testTruncateUrlSchemeDoesntChangeInvalidUrl() {
+        let url = "this is not a valid URL"
+        XCTAssertEqual(url, Utilities.truncateUrlScheme(url))
+    }
+    
+    func testTruncateUrlSchemeTruncatesLongUrlScheme() {
+        let url = "12345678901234567890://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/snowplow-tracker-protocol/#snowplow-events"
+        let expected = "1234567890123456://docs.snowplow.io/docs/collecting-data/collecting-from-own-applications/snowplow-tracker-protocol/#snowplow-events"
+        
+        XCTAssertEqual(expected, Utilities.truncateUrlScheme(url))
+    }
+    
     private func assertEqualUrlEncode(_ now: String, _ then: String) {
         XCTAssertEqual(
             Set<String>(now.split(separator: "&").map { String($0) }),

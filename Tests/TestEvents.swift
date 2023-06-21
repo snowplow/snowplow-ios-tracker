@@ -94,8 +94,8 @@ class TestEvents: XCTestCase {
 
     func testDeepLinkContextAndAtomicPropertiesAddedToScreenView() {
         // Prepare DeepLinkReceived event
-        let deepLink = DeepLinkReceived(url: "the_url")
-        deepLink.referrer = "the_referrer"
+        let deepLink = DeepLinkReceived(url: "someappwithaverylongscheme://the_url")
+        deepLink.referrer = "someappwithaverylongscheme://the_referrer"
 
         // Prepare ScreenView event
         let screenView = ScreenView(name: "SV", screenId: UUID())
@@ -131,14 +131,14 @@ class TestEvents: XCTestCase {
 
         // Check the DeepLink context entity properties
         let screenViewContext = screenViewPayload?["co"] as? String
-        XCTAssertTrue(screenViewContext?.contains("\"referrer\":\"the_referrer\"") ?? false)
-        XCTAssertTrue(screenViewContext?.contains("\"url\":\"the_url\"") ?? false)
+        XCTAssertTrue(screenViewContext?.contains("\"referrer\":\"someappwithaverylongscheme:\\/\\/the_referrer\"") ?? false)
+        XCTAssertTrue(screenViewContext?.contains("\"url\":\"someappwithaverylongscheme:\\/\\/the_url\"") ?? false)
 
         // Check url and referrer fields for atomic table
         let url = screenViewPayload?[kSPPageUrl] as? String
         let referrer = screenViewPayload?[kSPPageRefr] as? String
-        XCTAssertEqual(url, "the_url")
-        XCTAssertEqual(referrer, "the_referrer")
+        XCTAssertEqual(url, "someappwithavery://the_url")
+        XCTAssertEqual(referrer, "someappwithavery://the_referrer")
     }
 
     func testPageView() {
