@@ -63,9 +63,9 @@ public class PromotionEntity: NSObject {
     /// - Parameter slot: The UI slot in which the promotional content was added to.
     public init(
                 id: String,
-                name: String?,
-                productIds: [String]?,
-                position: Int?,
+                name: String? = nil,
+                productIds: [String]? = nil,
+                position: Int? = nil,
                 creativeId: String? = nil,
                 type: String? = nil,
                 slot: String? = nil) {
