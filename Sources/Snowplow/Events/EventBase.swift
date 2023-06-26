@@ -32,6 +32,12 @@ public class Event: NSObject {
         set { entities = newValue }
     }
     
+    /// Used for events whose properties are added as entities, e.g. Ecommerce events
+    @objc
+    public var entitiesForProcessing: [SelfDescribingJson]? {
+        get { return nil }
+    }
+    
     /// The payload of the event.
     var payload: [String : Any] {
         NSException(
