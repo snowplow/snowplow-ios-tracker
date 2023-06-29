@@ -258,8 +258,6 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         let emitter = self.emitter
         let subject = self.subject
         
-        let sessionConfig = sessionConfiguration
-        
         let tracker = Tracker(
             trackerNamespace: namespace,
             appId: trackerConfiguration.appId,
@@ -269,8 +267,8 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
                 tracker.trackerVersionSuffix = suffix
             }
             tracker.sessionContext = trackerConfiguration.sessionContext
-            tracker.foregroundTimeout = sessionConfig.foregroundTimeoutInSeconds
-            tracker.backgroundTimeout = sessionConfig.backgroundTimeoutInSeconds
+            tracker.foregroundTimeout = sessionConfiguration.foregroundTimeoutInSeconds
+            tracker.backgroundTimeout = sessionConfiguration.backgroundTimeoutInSeconds
             tracker.exceptionEvents = trackerConfiguration.exceptionAutotracking
             tracker.subject = subject
             tracker.base64Encoded = trackerConfiguration.base64Encoding

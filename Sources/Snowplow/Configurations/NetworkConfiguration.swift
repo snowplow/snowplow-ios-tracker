@@ -33,7 +33,6 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
     }
     
     private var _protocol: ProtocolOptions?
-    /// Method used to send events to the collector.
     /// Protocol used to send events to the collector.
     @objc
     private(set) public var `protocol`: ProtocolOptions {
