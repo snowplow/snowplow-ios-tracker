@@ -398,14 +398,14 @@ class TestRemoteConfiguration: XCTestCase {
     
     private func generateRemoteConfigEndpoint() -> String {
         return [
-            "https://json-configs5432.com/files/ghi789.json",
-            "https://myserver0987.net/configurations/jkl012.json",
-            "https://config-storage6543.org/data/mno345.json",
-            "https://fake-json-server3210.io/settings/pqr678.json",
-            "https://json-configs9876.netlify.app/files/stu901.json",
-            "https://config-server5432.xyz/configurations/vwx234.json",
-            "https://my-configs-server6789.com/data/yza567.json",
-            "https://json-config-storage0123.herokuapp.com/settings/bcd890.json"
-        ].randomElement()!
+            "https://json-configs5432.com/files/",
+            "https://myserver0987.net/configurations/",
+            "https://config-storage6543.org/data/",
+            "https://fake-json-server3210.io/settings/",
+            "https://json-configs9876.netlify.app/files/",
+            "https://config-server5432.xyz/configurations/",
+            "https://my-configs-server6789.com/data/",
+            "https://json-config-storage0123.herokuapp.com/settings/"
+        ][Int.random(in: 0..<8)] + String(describing: Int.random(in: 0..<100)) + ".json"
     }
 }
