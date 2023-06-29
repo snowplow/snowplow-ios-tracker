@@ -99,7 +99,8 @@ class PlatformContext {
             platformDict[kSPMobileResolution] = deviceInfoMonitor.resolution
         }
         if shouldTrack(.language) {
-            platformDict[kSPMobileLanguage] = deviceInfoMonitor.language
+            // the schema has a max-length 8 for language which iOS exceeds sometimes
+            if let language = deviceInfoMonitor.language { platformDict[kSPMobileLanguage] = String(language.prefix(8)) }
         }
         if shouldTrack(.scale) {
             platformDict[kSPMobileScale] = deviceInfoMonitor.scale

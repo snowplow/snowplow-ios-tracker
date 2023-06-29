@@ -182,6 +182,17 @@ class TestPlatformContext: XCTestCase {
         XCTAssertNil(platformDict[kSPMobileAppleIdfa])
         XCTAssertNil(platformDict[kSPMobileAppleIdfv])
     }
+    
+    func testTruncatesLanguageToMax8Chars() {
+        let deviceInfoMonitor = MockDeviceInfoMonitor()
+        deviceInfoMonitor.language = "1234567890"
+        let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 1, deviceInfoMonitor: deviceInfoMonitor)
+        let platformDict = context.fetchPlatformDict(
+            userAnonymisation: true,
+            advertisingIdentifierRetriever: { UUID() }
+        )
+        XCTAssertEqual("12345678", platformDict[kSPMobileLanguage] as? String)
+    }
 #endif
 
     func testOnlyAddsRequestedProperties() {
