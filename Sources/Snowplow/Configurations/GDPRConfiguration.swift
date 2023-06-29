@@ -32,18 +32,40 @@ public protocol GDPRConfigurationProtocol: AnyObject {
 /// This class allows the GDPR configuration of the tracker.
 @objc(SPGDPRConfiguration)
 public class GDPRConfiguration: NSObject, GDPRConfigurationProtocol, ConfigurationProtocol {
+    private var _basisForProcessing: GDPRProcessingBasis?
     /// Basis for processing.
     @objc
-    public var basisForProcessing: GDPRProcessingBasis
+    public var basisForProcessing: GDPRProcessingBasis {
+        get { return _basisForProcessing ?? sourceConfig?.basisForProcessing ?? .contract }
+        set { _basisForProcessing = newValue }
+    }
+    
+    private var _documentId: String?
     /// ID of a GDPR basis document.
     @objc
-    public var documentId: String?
+    public var documentId: String? {
+        get { return _documentId ?? sourceConfig?.documentId }
+        set { _documentId = newValue }
+    }
+    
+    private var _documentVersion: String?
     /// Version of the document.
     @objc
-    public var documentVersion: String?
+    public var documentVersion: String? {
+        get { return _documentVersion ?? sourceConfig?.documentVersion }
+        set { _documentVersion = newValue }
+    }
+    
+    private var _documentDescription: String?
     /// Description of the document.
     @objc
-    public var documentDescription: String?
+    public var documentDescription: String? {
+        get { return _documentDescription ?? sourceConfig?.documentDescription }
+        set { _documentDescription = newValue }
+    }
+    
+    internal override init() {
+    }
 
     /// Enables GDPR context to be sent with each event.
     /// - Parameters:
@@ -58,11 +80,28 @@ public class GDPRConfiguration: NSObject, GDPRConfigurationProtocol, Configurati
         documentVersion: String?,
         documentDescription: String?
     ) {
-        self.basisForProcessing = basisForProcessing
-        self.documentId = documentId ?? ""
-        self.documentVersion = documentVersion ?? ""
-        self.documentDescription = documentDescription ?? ""
+        self._basisForProcessing = basisForProcessing
+        self._documentId = documentId
+        self._documentVersion = documentVersion
+        self._documentDescription = documentDescription
         super.init()
+    }
+    
+    // MARK: - Internal
+    
+    /// Fallback configuration to read from in case requested values are not present in this configuraiton.
+    internal var sourceConfig: GDPRConfiguration?
+    
+    private var _gdpr: GDPRContext?
+    internal var gdpr: GDPRContext? {
+        get { return _gdpr ?? sourceConfig?.gdpr }
+        set { _gdpr = newValue }
+    }
+    
+    private var _isEnabled: Bool?
+    internal var isEnabled : Bool {
+        get { return _isEnabled ?? sourceConfig?.isEnabled ?? false }
+        set { _isEnabled = newValue }
     }
     
     // MARK: - Builders
