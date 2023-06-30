@@ -17,9 +17,11 @@ import Foundation
 @objc(SPEcommRemoveFromCartEvent)
 public class RemoveFromCartEvent: SelfDescribingAbstract {
     /// List of product(s) that were removed from the cart.
+    @objc
     public var products: [ProductEntity]
 
     /// State of the cart after the removal.
+    @objc
     public var cart: CartEntity
     
     override var schema: String {
@@ -44,6 +46,7 @@ public class RemoveFromCartEvent: SelfDescribingAbstract {
     
     /// - Parameter products: List of product(s) that were removed from the cart.
     /// - Parameter cart: State of the cart after this addition.
+    @objc
     public init(products: [ProductEntity], cart: CartEntity) {
         self.products = products
         self.cart = cart

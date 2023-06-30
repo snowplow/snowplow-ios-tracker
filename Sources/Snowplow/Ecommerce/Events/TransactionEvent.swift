@@ -17,18 +17,23 @@ import Foundation
 @objc(SPEcommTransactionEvent)
 public class TransactionEvent: SelfDescribingAbstract {
     /// The ID of the transaction.
+    @objc
     public var transactionId: String
     
     /// The total value of the transaction.
+    @objc
     public var revenue: Double
     
     /// The currency used for the transaction (ISO 4217).
+    @objc
     public var currency: String
     
     /// The payment method used for the transaction.
+    @objc
     public var paymentMethod: String
     
     /// Total quantity of items in the transaction.
+    @objc
     public var totalQuantity: Int
     
     /// Total amount of tax on the transaction.
@@ -38,6 +43,7 @@ public class TransactionEvent: SelfDescribingAbstract {
     public var shipping: Double?
     
     /// Discount code used.
+    @objc
     public var discountCode: String?
     
     /// Discount amount taken off.
@@ -47,6 +53,7 @@ public class TransactionEvent: SelfDescribingAbstract {
     public var creditOrder: Bool?
     
     /// Products in the transaction.
+    @objc
     public var products: [ProductEntity]?
     
     override var schema: String {
@@ -122,5 +129,33 @@ public class TransactionEvent: SelfDescribingAbstract {
         self.discountAmount = discountAmount
         self.creditOrder = creditOrder
         self.products = products
+    }
+    
+    /// Total amount of tax on the transaction.
+    @objc
+    public func tax(_ tax: Double) -> Self {
+        self.tax = tax
+        return self
+    }
+    
+    /// Total cost of shipping on the transaction.
+    @objc
+    public func shipping(_ shipping: Double) -> Self {
+        self.shipping = shipping
+        return self
+    }
+    
+    /// Discount amount taken off.
+    @objc
+    public func discountAmount(_ discountAmount: Double) -> Self {
+        self.discountAmount = discountAmount
+        return self
+    }
+    
+    /// Whether the transaction is a credit order or not.
+    @objc
+    public func creditOrder(_ creditOrder: Bool) -> Self {
+        self.creditOrder = creditOrder
+        return self
     }
 }

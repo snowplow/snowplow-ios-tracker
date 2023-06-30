@@ -17,9 +17,11 @@ import Foundation
 @objc(SPEcommProductListViewEvent)
 public class ProductListViewEvent: SelfDescribingAbstract {
     /// List of products viewed.
+    @objc
     public var products: [ProductEntity]
     
     /// The list name.
+    @objc
     public var name: String?
     
     override var schema: String {
@@ -44,6 +46,7 @@ public class ProductListViewEvent: SelfDescribingAbstract {
     
     /// - Parameter promotion List of products viewed.
     /// - Parameter name The list name.
+    @objc
     public init(products: [ProductEntity], name: String? = nil) {
         self.products = products
         self.name = name

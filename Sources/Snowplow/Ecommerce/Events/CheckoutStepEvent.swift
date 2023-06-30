@@ -17,36 +17,47 @@ import Foundation
 @objc(SPEcommCheckoutStepEvent)
 public class CheckoutStepEvent: SelfDescribingAbstract {
     /// Checkout step index.
+    @objc
     public var step: Int
     
     /// Shipping address postcode.
+    @objc
     public var shippingPostcode: String?
     
     /// Billing address postcode.
+    @objc
     public var billingPostcode: String?
     
     /// Full shipping address.
+    @objc
     public var shippingFullAddress: String?
     
     /// Full billing address.
+    @objc
     public var billingFullAddress: String?
     
     /// Can be used to discern delivery providers DHL, PostNL etc.
+    @objc
     public var deliveryProvider: String?
     
     /// E.g. store pickup, standard delivery, express delivery, international.
+    @objc
     public var deliveryMethod: String?
     
     /// Coupon applied at checkout.
+    @objc
     public var couponCode: String?
     
     /// Type of account used on checkout, e.g. existing user, guest.
+    @objc
     public var accountType: String?
     
     /// Any kind of payment method the user selected to proceed. Card, PayPal, Alipay etc.
+    @objc
     public var paymentMethod: String?
     
     /// E.g. invoice or receipt
+    @objc
     public var proofOfPayment: String?
     
     /// If opted in to marketing campaigns to the email address.
@@ -119,5 +130,12 @@ public class CheckoutStepEvent: SelfDescribingAbstract {
         self.paymentMethod = paymentMethod
         self.proofOfPayment = proofOfPayment
         self.marketingOptIn = marketingOptIn
+    }
+    
+    /// If opted in to marketing campaigns to the email address.
+    @objc
+    public func marketingOptIn(_ marketingOptIn: Bool) -> Self {
+        self.marketingOptIn = marketingOptIn
+        return self
     }
 }

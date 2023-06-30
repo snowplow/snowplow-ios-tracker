@@ -20,42 +20,52 @@ import Foundation
 @objc(SPProductEntity)
 public class ProductEntity: NSObject {
     /// The SKU or product ID.
+    @objc
     public var id: String
 
     /// The category the product belongs to. Use a consistent separator to express multiple levels. E.g. Woman/Shoes/Sneakers.
+    @objc
     public var category: String
 
     /// The currency in which the product is being priced (ISO 4217).
+    @objc
     public var currency: String
 
     /// The price of the product at the current time.
+    @objc
     public var price: Double
 
     /// The recommended or list price of a product.
     public var listPrice: Double?
 
     /// The name or title of the product.
+    @objc
     public var name: String?
 
     /// The quantity of the product taking part in the action. Used for Cart events.
     public var quantity: Int?
 
     /// The size of the product.
+    @objc
     public var size: String?
 
     /// The variant of the product.
+    @objc
     public var variant: String?
 
     /// The brand of the product.
+    @objc
     public var brand: String?
 
     /// The inventory status of the product (e.g. in stock, out of stock, preorder, backorder, etc).
+    @objc
     public var inventoryStatus: String?
 
     /// The position the product was presented in a list of products (search results, product list page, etc).
     public var position: Int?
 
     /// Identifier, name, or url for the creative presented on the associated promotion.
+    @objc
     public var creativeId: String?
     
     internal var entity: SelfDescribingJson {
@@ -118,5 +128,26 @@ public class ProductEntity: NSObject {
         self.inventoryStatus = inventoryStatus
         self.position = position
         self.creativeId = creativeId
+    }
+    
+    /// The recommended or list price of a product.
+    @objc
+    public func listPrice(_ listPrice: Double) -> Self {
+        self.listPrice = listPrice
+        return self
+    }
+    
+    /// The quantity of the product taking part in the action. Used for Cart events.
+    @objc
+    public func quantity(_ quantity: Int) -> Self {
+        self.quantity = quantity
+        return self
+    }
+    
+    /// The position the product was presented in a list of products (search results, product list page, etc).
+    @objc
+    public func position(_ position: Int) -> Self {
+        self.position = position
+        return self
     }
 }

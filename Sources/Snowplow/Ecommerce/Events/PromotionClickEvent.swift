@@ -17,6 +17,7 @@ import Foundation
 @objc(SPEcommPromotionClickEvent)
 public class PromotionClickEvent: SelfDescribingAbstract {
     /// The promotion selected.
+    @objc
     public var promotion: PromotionEntity
     
     override var schema: String {
@@ -33,6 +34,7 @@ public class PromotionClickEvent: SelfDescribingAbstract {
     }
     
     /// - Parameter promotion The promotion selected.
+    @objc
     public init(promotion: PromotionEntity) {
         self.promotion = promotion
     }

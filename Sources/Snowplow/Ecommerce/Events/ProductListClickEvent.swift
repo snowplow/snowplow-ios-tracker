@@ -17,9 +17,11 @@ import Foundation
 @objc(SPEcommProductListClickEvent)
 public class ProductListClickEvent: SelfDescribingAbstract {
     /// Information about the product that was selected.
+    @objc
     public var product: ProductEntity
     
     /// The list name.
+    @objc
     public var name: String?
     
     override var schema: String {
@@ -38,6 +40,7 @@ public class ProductListClickEvent: SelfDescribingAbstract {
     
     /// - Parameter promotion Information about the product that was selected.
     /// - Parameter name The list name.
+    @objc
     public init(product: ProductEntity, name: String? = nil) {
         self.product = product
         self.name = name

@@ -21,18 +21,23 @@ import Foundation
 @objc(SPEcommRefundEvent)
 public class RefundEvent: SelfDescribingAbstract {
     /// The ID of the relevant transaction.
+    @objc
     public var transactionId: String
     
     /// The monetary amount refunded.
+    @objc
     public var refundAmount: Double
 
     /// The currency in which the product is being priced (ISO 4217).
+    @objc
     public var currency: String
     
     /// Reason for refunding the whole or part of the transaction.
+    @objc
     public var refundReason: String?
     
     /// Products in the transaction.
+    @objc
     public var products: [ProductEntity]?
     
     override var schema: String {
@@ -72,6 +77,7 @@ public class RefundEvent: SelfDescribingAbstract {
     /// - Parameter refundAmount The monetary amount refunded.
     /// - Parameter refundReason Reason for refunding the whole or part of the transaction.
     /// - Parameter products The products to be refunded.
+    @objc
     public init(
         transactionId: String,
         refundAmount: Double,

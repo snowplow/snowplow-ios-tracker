@@ -17,6 +17,7 @@ import Foundation
 @objc(SPEcommProductViewEvent)
 public class ProductViewEvent: SelfDescribingAbstract {
     /// The product that was viewed in a product detail page.
+    @objc
     public var product: ProductEntity
     
     override var schema: String {
@@ -33,6 +34,7 @@ public class ProductViewEvent: SelfDescribingAbstract {
     }
     
     /// - Parameter product The product that was viewed in a product detail page.
+    @objc
     public init(product: ProductEntity) {
         self.product = product
     }

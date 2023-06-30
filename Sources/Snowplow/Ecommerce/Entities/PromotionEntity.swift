@@ -20,24 +20,30 @@ import Foundation
 @objc(SPPromotionEntity)
 public class PromotionEntity: NSObject {
     /// The ID of the promotion.
+    @objc
     public var id: String
 
     /// The name of the promotion.
+    @objc
     public var name: String?
 
     /// List of SKUs or product IDs showcased in the promotion.
+    @objc
     public var productIds: [String]?
 
     /// The position the promotion was presented in a list of promotions such as a banner or slider, e.g. 2.
     public var position: Int?
 
     /// Identifier, name, or url for the creative presented on the promotion.
+    @objc
     public var creativeId: String?
 
     /// Type of the promotion delivery mechanism. E.g. popup, banner, intra-content.
+    @objc
     public var type: String?
 
     /// The UI slot in which the promotional content was added to.
+    @objc
     public var slot: String?
     
     internal var entity: SelfDescribingJson {
@@ -76,5 +82,12 @@ public class PromotionEntity: NSObject {
         self.creativeId = creativeId
         self.type = type
         self.slot = slot
+    }
+    
+    /// The position the promotion was presented in a list of promotions such as a banner or slider, e.g. 2.
+    @objc
+    public func position(_ position: Int) -> Self {
+        self.position = position
+        return self
     }
 }
