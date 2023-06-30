@@ -101,16 +101,22 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return PluginsControllerImpl(serviceProvider: self)
     }
     
-    // Original configurations
+    private var _mediaController: MediaController?
+    var mediaController: MediaController {
+        if let controller = _mediaController { return controller }
+        let mediaController = MediaControllerImpl(serviceProvider: self)
+        _mediaController = mediaController
+        return mediaController
+    }
+    
+    // Configurations
+    private(set) var networkConfiguration = NetworkConfiguration()
+    private(set) var trackerConfiguration = TrackerConfiguration()
+    private(set) var emitterConfiguration = EmitterConfiguration()
+    private(set) var subjectConfiguration = SubjectConfiguration()
+    private(set) var sessionConfiguration = SessionConfiguration()
+    private(set) var gdprConfiguration = GDPRConfiguration()
     private(set) var pluginConfigurations: [PluginIdentifiable] = []
-
-    // Configuration updates
-    private(set) var networkConfigurationUpdate = NetworkConfigurationUpdate()
-    private(set) var trackerConfigurationUpdate = TrackerConfigurationUpdate()
-    private(set) var emitterConfigurationUpdate = EmitterConfigurationUpdate()
-    private(set) var subjectConfigurationUpdate = SubjectConfigurationUpdate()
-    private(set) var sessionConfigurationUpdate = SessionConfigurationUpdate()
-    private(set) var gdprConfigurationUpdate = GDPRConfigurationUpdate()
     
     // MARK: - Init
 
@@ -118,17 +124,14 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         self.namespace = namespace
         super.init()
         
-        networkConfigurationUpdate.sourceConfig = networkConfiguration
+        self.networkConfiguration.sourceConfig = networkConfiguration
         processConfigurations(configurations)
-        if trackerConfigurationUpdate.sourceConfig == nil {
-            trackerConfigurationUpdate.sourceConfig = TrackerConfiguration()
-        }
         let _ = tracker // Build tracker to initialize NotificationCenter receivers
     }
 
     func reset(configurations: [ConfigurationProtocol]) {
         stopServices()
-        resetConfigurationUpdates()
+        resetSourceConfigurations()
         processConfigurations(configurations)
         resetServices()
         let _ = tracker
@@ -139,7 +142,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         stopServices()
         resetServices()
         resetControllers()
-        initializeConfigurationUpdates()
+        initializeConfigurations()
     }
 
     // MARK: - Private methods
@@ -147,17 +150,17 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
     func processConfigurations(_ configurations: [ConfigurationProtocol]) {
         for configuration in configurations {
             if let configuration = configuration as? NetworkConfiguration {
-                networkConfigurationUpdate.sourceConfig = configuration
+                networkConfiguration.sourceConfig = configuration
             } else if let configuration = configuration as? TrackerConfiguration {
-                trackerConfigurationUpdate.sourceConfig = configuration
+                trackerConfiguration.sourceConfig = configuration
             } else if let configuration = configuration as? SubjectConfiguration {
-                subjectConfigurationUpdate.sourceConfig = configuration
+                subjectConfiguration.sourceConfig = configuration
             } else if let configuration = configuration as? SessionConfiguration {
-                sessionConfigurationUpdate.sourceConfig = configuration
+                sessionConfiguration.sourceConfig = configuration
             } else if let configuration = configuration as? EmitterConfiguration {
-                emitterConfigurationUpdate.sourceConfig = configuration
+                emitterConfiguration.sourceConfig = configuration
             } else if let configuration = configuration as? GDPRConfiguration {
-                gdprConfigurationUpdate.sourceConfig = configuration
+                gdprConfiguration.sourceConfig = configuration
             } else if let configuration = configuration as? GlobalContextsConfiguration {
                 for plugin in configuration.toPluginConfigurations() {
                     pluginConfigurations.append(plugin)
@@ -187,23 +190,23 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         _networkController = nil
     }
 
-    func resetConfigurationUpdates() {
+    func resetSourceConfigurations() {
         // Don't reset networkConfiguration as it's needed in case it's not passed in the new configurations.
         // Set a default trackerConfiguration to reset to default if not passed.
-        trackerConfigurationUpdate.sourceConfig = TrackerConfiguration()
-        emitterConfigurationUpdate.sourceConfig = nil
-        subjectConfigurationUpdate.sourceConfig = nil
-        sessionConfigurationUpdate.sourceConfig = nil
-        gdprConfigurationUpdate.sourceConfig = nil
+        trackerConfiguration.sourceConfig = nil
+        emitterConfiguration.sourceConfig = nil
+        subjectConfiguration.sourceConfig = nil
+        sessionConfiguration.sourceConfig = nil
+        gdprConfiguration.sourceConfig = nil
     }
 
-    func initializeConfigurationUpdates() {
-        networkConfigurationUpdate = NetworkConfigurationUpdate()
-        trackerConfigurationUpdate = TrackerConfigurationUpdate()
-        emitterConfigurationUpdate = EmitterConfigurationUpdate()
-        subjectConfigurationUpdate = SubjectConfigurationUpdate()
-        sessionConfigurationUpdate = SessionConfigurationUpdate()
-        gdprConfigurationUpdate = GDPRConfigurationUpdate()
+    func initializeConfigurations() {
+        networkConfiguration = NetworkConfiguration()
+        trackerConfiguration = TrackerConfiguration()
+        emitterConfiguration = EmitterConfiguration()
+        subjectConfiguration = SubjectConfiguration()
+        sessionConfiguration = SessionConfiguration()
+        gdprConfiguration = GDPRConfiguration()
     }
 
     // MARK: - Getters
@@ -215,40 +218,37 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
 
     func makeSubject() -> Subject {
         return Subject(
-            platformContext: trackerConfigurationUpdate.platformContext,
-            platformContextProperties: trackerConfigurationUpdate.platformContextProperties,
-            geoLocationContext: trackerConfigurationUpdate.geoLocationContext,
-            subjectConfiguration: subjectConfigurationUpdate)
+            platformContext: trackerConfiguration.platformContext,
+            platformContextProperties: trackerConfiguration.platformContextProperties,
+            geoLocationContext: trackerConfiguration.geoLocationContext,
+            subjectConfiguration: subjectConfiguration)
     }
 
     func makeEmitter() -> Emitter {
-        let networkConfig = networkConfigurationUpdate
-        let emitterConfig = emitterConfigurationUpdate
-        
         let builder = { (emitter: Emitter) in
-            if let method = networkConfig.method { emitter.method = method }
-            if let prtcl = networkConfig.protocol { emitter.protocol = prtcl }
-            emitter.customPostPath = networkConfig.customPostPath
-            emitter.requestHeaders = networkConfig.requestHeaders
-            emitter.emitThreadPoolSize = emitterConfig.threadPoolSize
-            emitter.byteLimitGet = emitterConfig.byteLimitGet
-            emitter.byteLimitPost = emitterConfig.byteLimitPost
-            emitter.serverAnonymisation = emitterConfig.serverAnonymisation
-            emitter.emitRange = emitterConfig.emitRange
-            emitter.bufferOption = emitterConfig.bufferOption
-            emitter.eventStore = emitterConfig.eventStore
-            emitter.callback = emitterConfig.requestCallback
-            emitter.customRetryForStatusCodes = emitterConfig.customRetryForStatusCodes
+            emitter.method = self.networkConfiguration.method
+            emitter.protocol = self.networkConfiguration.protocol
+            emitter.customPostPath = self.networkConfiguration.customPostPath
+            emitter.requestHeaders = self.networkConfiguration.requestHeaders
+            emitter.emitThreadPoolSize = self.emitterConfiguration.threadPoolSize
+            emitter.byteLimitGet = self.emitterConfiguration.byteLimitGet
+            emitter.byteLimitPost = self.emitterConfiguration.byteLimitPost
+            emitter.serverAnonymisation = self.emitterConfiguration.serverAnonymisation
+            emitter.emitRange = self.emitterConfiguration.emitRange
+            emitter.bufferOption = self.emitterConfiguration.bufferOption
+            emitter.eventStore = self.emitterConfiguration.eventStore
+            emitter.callback = self.emitterConfiguration.requestCallback
+            emitter.customRetryForStatusCodes = self.emitterConfiguration.customRetryForStatusCodes
         }
 
         let emitter: Emitter
-        if let networkConnection = networkConfig.networkConnection {
+        if let networkConnection = networkConfiguration.networkConnection {
             emitter = Emitter(networkConnection: networkConnection, builder: builder)
         } else {
-            emitter = Emitter(urlEndpoint: networkConfig.endpoint!, builder: builder)
+            emitter = Emitter(urlEndpoint: networkConfiguration.endpoint ?? "", builder: builder)
         }
         
-        if emitterConfig.isPaused {
+        if emitterConfiguration.isPaused {
             emitter.pauseEmit()
         }
         return emitter
@@ -258,42 +258,38 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         let emitter = self.emitter
         let subject = self.subject
         
-        let trackerConfig = trackerConfigurationUpdate
-        let sessionConfig = sessionConfigurationUpdate
-        let gdprConfig = gdprConfigurationUpdate
-        
         let tracker = Tracker(
             trackerNamespace: namespace,
-            appId: trackerConfig.appId,
+            appId: trackerConfiguration.appId,
             emitter: emitter
         ) { tracker in
-            if let suffix = trackerConfig.trackerVersionSuffix {
+            if let suffix = trackerConfiguration.trackerVersionSuffix {
                 tracker.trackerVersionSuffix = suffix
             }
-            tracker.sessionContext = trackerConfig.sessionContext
-            tracker.foregroundTimeout = sessionConfig.foregroundTimeoutInSeconds
-            tracker.backgroundTimeout = sessionConfig.backgroundTimeoutInSeconds
-            tracker.exceptionEvents = trackerConfig.exceptionAutotracking
+            tracker.sessionContext = trackerConfiguration.sessionContext
+            tracker.foregroundTimeout = sessionConfiguration.foregroundTimeoutInSeconds
+            tracker.backgroundTimeout = sessionConfiguration.backgroundTimeoutInSeconds
+            tracker.exceptionEvents = trackerConfiguration.exceptionAutotracking
             tracker.subject = subject
-            tracker.base64Encoded = trackerConfig.base64Encoding
-            tracker.logLevel = trackerConfig.logLevel
-            tracker.loggerDelegate = trackerConfig.loggerDelegate
-            tracker.devicePlatform = trackerConfig.devicePlatform
-            tracker.applicationContext = trackerConfig.applicationContext
-            tracker.deepLinkContext = trackerConfig.deepLinkContext
-            tracker.screenContext = trackerConfig.screenContext
-            tracker.autotrackScreenViews = trackerConfig.screenViewAutotracking
-            tracker.lifecycleEvents = trackerConfig.lifecycleAutotracking
-            tracker.installEvent = trackerConfig.installAutotracking
-            tracker.trackerDiagnostic = trackerConfig.diagnosticAutotracking
-            tracker.userAnonymisation = trackerConfig.userAnonymisation
-            tracker.advertisingIdentifierRetriever = trackerConfig.advertisingIdentifierRetriever
-            if gdprConfig.sourceConfig != nil {
+            tracker.base64Encoded = trackerConfiguration.base64Encoding
+            tracker.logLevel = trackerConfiguration.logLevel
+            tracker.loggerDelegate = trackerConfiguration.loggerDelegate
+            tracker.devicePlatform = trackerConfiguration.devicePlatform
+            tracker.applicationContext = trackerConfiguration.applicationContext
+            tracker.deepLinkContext = trackerConfiguration.deepLinkContext
+            tracker.screenContext = trackerConfiguration.screenContext
+            tracker.autotrackScreenViews = trackerConfiguration.screenViewAutotracking
+            tracker.lifecycleEvents = trackerConfiguration.lifecycleAutotracking
+            tracker.installEvent = trackerConfiguration.installAutotracking
+            tracker.trackerDiagnostic = trackerConfiguration.diagnosticAutotracking
+            tracker.userAnonymisation = trackerConfiguration.userAnonymisation
+            tracker.advertisingIdentifierRetriever = trackerConfiguration.advertisingIdentifierRetriever
+            if gdprConfiguration.sourceConfig != nil {
                 tracker.gdprContext = GDPRContext(
-                    basis: gdprConfig.basisForProcessing,
-                    documentId: gdprConfig.documentId,
-                    documentVersion: gdprConfig.documentVersion,
-                    documentDescription: gdprConfig.documentDescription)
+                    basis: gdprConfiguration.basisForProcessing,
+                    documentId: gdprConfiguration.documentId,
+                    documentVersion: gdprConfiguration.documentVersion,
+                    documentDescription: gdprConfiguration.documentDescription)
             }
 
             for plugin in pluginConfigurations {
@@ -301,14 +297,14 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             }
         }
         
-        if trackerConfigurationUpdate.isPaused {
+        if trackerConfiguration.isPaused {
             tracker.pauseEventTracking()
         }
         if let session = tracker.session {
-            if sessionConfigurationUpdate.isPaused {
+            if sessionConfiguration.isPaused {
                 session.stopChecker()
             }
-            if let callback = sessionConfigurationUpdate.onSessionStateUpdate {
+            if let callback = sessionConfiguration.onSessionStateUpdate {
                 session.onSessionStateUpdate = callback
             }
         }

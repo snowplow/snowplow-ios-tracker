@@ -109,8 +109,10 @@ class MockDeviceInfoMonitor: DeviceInfoMonitor {
         return 2.0
     }
     
+    private var _language: String? = "EN"
     override var language: String? {
-        return "EN"
+        get { return _language }
+        set { _language = newValue }
     }
 
     func accessCount(_ method: String) -> Int {

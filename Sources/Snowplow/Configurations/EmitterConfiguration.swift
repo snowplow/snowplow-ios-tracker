@@ -47,45 +47,92 @@ public protocol EmitterConfigurationProtocol: AnyObject {
 /// The EmitterConfiguration can be used to setup details about how the tracker should treat the events
 /// to emit to the collector.
 @objc(SPEmitterConfiguration)
-public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, ConfigurationProtocol {
+public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurationProtocol, ConfigurationProtocol {
+    private var _bufferOption: BufferOption?
     /// Sets whether the buffer should send events instantly or after the buffer
     /// has reached it's limit. By default, this is set to BufferOption Default.
     @objc
-    public var bufferOption: BufferOption = EmitterDefaults.bufferOption
+    public var bufferOption: BufferOption {
+        get { return _bufferOption ?? sourceConfig?.bufferOption ?? EmitterDefaults.bufferOption }
+        set { _bufferOption = newValue }
+    }
 
+    private var _emitRange: Int?
     /// Maximum number of events collected from the EventStore to be sent in a request.
     @objc
-    public var emitRange: Int = EmitterDefaults.emitRange
+    public var emitRange: Int {
+        get { return _emitRange ?? sourceConfig?.emitRange ?? EmitterDefaults.emitRange }
+        set { _emitRange = newValue }
+    }
 
+    private var _threadPoolSize: Int?
     /// Maximum number of threads working in parallel in the tracker to send requests.
     @objc
-    public var threadPoolSize: Int = EmitterDefaults.emitThreadPoolSize
+    public var threadPoolSize: Int {
+        get { return _threadPoolSize ?? sourceConfig?.threadPoolSize ?? EmitterDefaults.emitThreadPoolSize }
+        set { _threadPoolSize = newValue }
+    }
 
+    private var _byteLimitGet: Int?
     /// Maximum amount of bytes allowed to be sent in a payload in a GET request.
     @objc
-    public var byteLimitGet: Int = EmitterDefaults.byteLimitGet
+    public var byteLimitGet: Int {
+        get { return _byteLimitGet ?? sourceConfig?.byteLimitGet ?? EmitterDefaults.byteLimitGet }
+        set { _byteLimitGet = newValue }
+    }
 
+    private var _byteLimitPost: Int?
     /// Maximum amount of bytes allowed to be sent in a payload in a POST request.
     @objc
-    public var byteLimitPost: Int = EmitterDefaults.byteLimitPost
+    public var byteLimitPost: Int {
+        get { return _byteLimitPost ?? sourceConfig?.byteLimitPost ?? EmitterDefaults.byteLimitPost }
+        set { _byteLimitPost = newValue }
+    }
 
+    private var _requestCallback: RequestCallback?
     /// Callback called for each request performed by the tracker to the collector.
     @objc
-    public var requestCallback: RequestCallback?
+    public var requestCallback: RequestCallback? {
+        get { return _requestCallback ?? sourceConfig?.requestCallback }
+        set { _requestCallback = newValue }
+    }
 
+    private var _customRetryForStatusCodes: [Int : Bool]?
     /// Custom retry rules for HTTP status codes returned from the Collector.
     /// The dictionary is a mapping of integers (status codes) to booleans (true for retry and false for not retry).
     @objc
-    public var customRetryForStatusCodes: [Int : Bool]?
+    public var customRetryForStatusCodes: [Int : Bool]? {
+        get { return _customRetryForStatusCodes ?? sourceConfig?.customRetryForStatusCodes }
+        set { _customRetryForStatusCodes = newValue }
+    }
 
+    private var _serverAnonymisation: Bool?
     /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
     @objc
-    public var serverAnonymisation: Bool = EmitterDefaults.serverAnonymisation
+    public var serverAnonymisation: Bool {
+        get { return _serverAnonymisation ?? sourceConfig?.serverAnonymisation ?? EmitterDefaults.serverAnonymisation }
+        set { _serverAnonymisation = newValue }
+    }
 
+    private var _eventStore: EventStore?
     /// Custom component with full ownership for persisting events before to be sent to the collector.
     /// If it's not set the tracker will use a SQLite database as default EventStore.
     @objc
-    public var eventStore: EventStore?
+    public var eventStore: EventStore? {
+        get { return _eventStore ?? sourceConfig?.eventStore }
+        set { _eventStore = newValue }
+    }
+    
+    // MARK: - Internal
+    
+    /// Fallback configuration to read from in case requested values are not present in this configuraiton.
+    internal var sourceConfig: EmitterConfiguration?
+    
+    private var _isPaused: Bool?
+    internal var isPaused: Bool {
+        get { return _isPaused ?? sourceConfig?.isPaused ?? false }
+        set { _isPaused = newValue }
+    }
 
     /// It sets a default EmitterConfiguration.
     /// Default values:
@@ -99,6 +146,27 @@ public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, Confi
     public override init() {
         super.init()
     }
+    
+    @objc
+    internal convenience init?(dictionary: [String : Any]) {
+        self.init()
+        if let bufferOption = dictionary["bufferOption"] as? String {
+            self._bufferOption = BufferOption.fromString(value: bufferOption)
+        }
+        self._emitRange = dictionary["emitRange"] as? Int
+        self._threadPoolSize = dictionary["threadPoolSize"] as? Int
+        self._byteLimitGet = dictionary["byteLimitGet"] as? Int
+        self._byteLimitPost = dictionary["byteLimitPost"] as? Int
+        if let retryCodes = dictionary["customRetryForStatusCodes"] as? [String : Bool] {
+            self._customRetryForStatusCodes = Dictionary(
+                uniqueKeysWithValues: retryCodes
+                    .filter { Int($0.key) != nil }
+                    .map { (Int($0.key)!, $0.value) }
+            )
+        }
+        self._serverAnonymisation = dictionary["serverAnonymisation"] as? Bool
+    }
+
     
     // MARK: - Builders
     
@@ -166,5 +234,53 @@ public class EmitterConfiguration: NSObject, EmitterConfigurationProtocol, Confi
     public func eventStore(_ eventStore: EventStore?) -> Self {
         self.eventStore = eventStore
         return self
+    }
+    
+    // MARK: - NSCopying
+
+    @objc
+    override public func copy(with zone: NSZone? = nil) -> Any {
+        let copy = EmitterConfiguration()
+        copy.bufferOption = bufferOption
+        copy.emitRange = emitRange
+        copy.threadPoolSize = threadPoolSize
+        copy.byteLimitGet = byteLimitGet
+        copy.byteLimitPost = byteLimitPost
+        copy.requestCallback = requestCallback
+        copy.customRetryForStatusCodes = customRetryForStatusCodes
+        copy.serverAnonymisation = serverAnonymisation
+        copy.eventStore = eventStore
+        return copy
+    }
+
+    // MARK: - NSSecureCoding
+    
+    @objc
+    public override class var supportsSecureCoding: Bool { return true }
+
+    @objc
+    public override func encode(with coder: NSCoder) {
+        coder.encode(bufferOption.rawValue, forKey: "bufferOption")
+        coder.encode(emitRange, forKey: "emitRange")
+        coder.encode(threadPoolSize, forKey: "threadPoolSize")
+        coder.encode(byteLimitGet, forKey: "byteLimitGet")
+        coder.encode(byteLimitPost, forKey: "byteLimitPost")
+        coder.encode(customRetryForStatusCodes, forKey: "customRetryForStatusCodes")
+        coder.encode(serverAnonymisation, forKey: "serverAnonymisation")
+    }
+
+    required init?(coder: NSCoder) {
+        super.init()
+        if let bufferOption = BufferOption(rawValue: coder.decodeInteger(forKey: "bufferOption")) {
+            self.bufferOption = bufferOption
+        }
+        emitRange = coder.decodeInteger(forKey: "emitRange")
+        threadPoolSize = coder.decodeInteger(forKey: "threadPoolSize")
+        byteLimitGet = coder.decodeInteger(forKey: "byteLimitGet")
+        byteLimitPost = coder.decodeInteger(forKey: "byteLimitPost")
+        if let retryCodes = coder.decodeObject(forKey: "customRetryForStatusCodes") as? [Int: Bool] {
+            customRetryForStatusCodes = retryCodes
+        }
+        serverAnonymisation = coder.decodeBool(forKey: "serverAnonymisation")
     }
 }

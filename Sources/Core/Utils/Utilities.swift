@@ -68,6 +68,10 @@ class Utilities {
 
     class func timestamp(toISOString timestamp: Int64) -> String? {
         let eventDate = Date(timeIntervalSince1970: Double(timestamp) / 1000.0)
+        return dateToISOString(eventDate)
+    }
+
+    class func dateToISOString(_ eventDate: Date) -> String? {
         let formatter = DateFormatter()
         formatter.locale = NSLocale(localeIdentifier: "en_US_POSIX") as Locale
         formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
@@ -242,6 +246,18 @@ class Utilities {
     /// - Returns: App build string.
     class var appBuild: String? {
         return Bundle.main.object(forInfoDictionaryKey: kCFBundleVersionKey as String) as? String
+    }
+    
+    /// Truncates the scheme of a URL to 16 characters to satisfy the validation for the page_url and page_refr properties.
+    class func truncateUrlScheme(_ url: String) -> String {
+        let parts = url.components(separatedBy: "://")
+        if parts.count > 1 {
+            if let scheme = parts.first?.prefix(16) {
+                let updatedParts = [String(scheme)] + Array(parts.dropFirst())
+                return updatedParts.joined(separator: "://")
+            }
+        }
+        return url
     }
 }
 

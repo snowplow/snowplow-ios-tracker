@@ -26,3 +26,18 @@ public enum BufferOption : Int {
     /// need to be sent.  All GET requests will still emit one at a time.
     case largeGroup = 25
 }
+
+extension BufferOption {
+    static func fromString(value: String) -> BufferOption? {
+        switch value {
+        case "Single":
+            return .single
+        case "DefaultGroup":
+            return .defaultGroup
+        case "HeavyGroup":
+            return .largeGroup
+        default:
+            return nil
+        }
+    }
+}

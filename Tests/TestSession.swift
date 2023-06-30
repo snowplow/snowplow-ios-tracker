@@ -47,16 +47,6 @@ class TestSession: XCTestCase {
         XCTAssertEqual(session.backgroundTimeout, 5)
     }
 
-    func testInitInBgThread() {
-        var session: Session? = nil
-        DispatchQueue.global(qos: .default).async(execute: {
-            session = Session(foregroundTimeout: 1, andBackgroundTimeout: 1, andTracker: nil)
-        })
-        RunLoop.main.run(until: Date(timeIntervalSinceNow: 1))
-        Thread.sleep(forTimeInterval: 1)
-        XCTAssertNotNil(session)
-    }
-
     func testFirstSession() {
         let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
 

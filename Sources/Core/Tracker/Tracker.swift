@@ -556,10 +556,10 @@ class Tracker: NSObject {
         }
 
         if let url = url {
-            payload.addValueToPayload(url, forKey: kSPPageUrl)
+            payload.addValueToPayload(Utilities.truncateUrlScheme(url), forKey: kSPPageUrl)
         }
         if let referrer = referrer {
-            payload.addValueToPayload(referrer, forKey: kSPPageRefr)
+            payload.addValueToPayload(Utilities.truncateUrlScheme(referrer), forKey: kSPPageRefr)
         }
     }
 

@@ -13,7 +13,7 @@
 
 import Foundation
 
-class ConfigurationFetcher: NSObject {
+class RemoteConfigurationFetcher: NSObject {
     private var remoteConfiguration: RemoteConfiguration
     private var onFetchCallback: OnFetchCallback
 
@@ -42,7 +42,7 @@ class ConfigurationFetcher: NSObject {
 
     func resolveRequest(with data: Data) {
         if let jsonObject = try? JSONSerialization.jsonObject(with: data) as? [String : Any],
-           let fetchedConfigurationBundle = FetchedConfigurationBundle(dictionary: jsonObject) {
+           let fetchedConfigurationBundle = RemoteConfigurationBundle(dictionary: jsonObject) {
             onFetchCallback(fetchedConfigurationBundle, ConfigurationState.fetched)
         }
     }

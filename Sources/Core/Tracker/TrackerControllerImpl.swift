@@ -49,6 +49,10 @@ class TrackerControllerImpl: Controller, TrackerController {
     var plugins: PluginsController {
         return serviceProvider.pluginsController
     }
+    
+    var media: MediaController {
+        return serviceProvider.mediaController
+    }
 
     // MARK: - Control methods
 
@@ -290,7 +294,7 @@ class TrackerControllerImpl: Controller, TrackerController {
         return serviceProvider.tracker
     }
 
-    private var dirtyConfig: TrackerConfigurationUpdate {
-        return serviceProvider.trackerConfigurationUpdate
+    private var dirtyConfig: TrackerConfiguration {
+        return serviceProvider.trackerConfiguration
     }
 }

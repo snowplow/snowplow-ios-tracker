@@ -1,3 +1,12 @@
+Version 5.3.0 (2023-06-30)
+--------------------------
+Add media controller with APIs to track media events (#765)
+Add emitter configuration support to remote configuration (#782)
+Use default configuration for properties that are not configured using remote configuration (#785)
+Truncate URL scheme for page_url and page_refr properties (#793)
+Truncate language in platform context entity to max 8 characters (#795)
+Fix emit range configuration in Emitter not respected if using SQLite event store (#789)
+
 Version 5.2.0 (2023-06-02)
 --------------------------
 Add a filter API to plugins to decide whether to track an event or not (#783)

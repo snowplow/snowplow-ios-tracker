@@ -45,7 +45,7 @@ class TestServiceProvider: XCTestCase {
         serviceProvider.emitterController.pause()
 
         // refresh configuration
-        serviceProvider.reset(configurations: [EmitterConfigurationUpdate()])
+        serviceProvider.reset(configurations: [EmitterConfiguration()])
 
         // track event and check that emitter is paused
         _ = serviceProvider.trackerController.track(Structured(category: "cat", action: "act"))
