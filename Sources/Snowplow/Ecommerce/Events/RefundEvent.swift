@@ -59,7 +59,7 @@ public class RefundEvent: SelfDescribingAbstract {
                 "currency": currency
             ]
             if let refundReason = refundReason { data["refund_reason"] = refundReason }
-            let refundEntity = SelfDescribingJson(schema: ecommerceTransactionSchema, andData: data)
+            let refundEntity = SelfDescribingJson(schema: ecommerceRefundSchema, andData: data)
             
             entities.append(refundEntity)
             if let products = products {
