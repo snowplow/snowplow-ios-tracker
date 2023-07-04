@@ -13,7 +13,8 @@
 
 import Foundation
 
-/** Track a checkout step. */
+/// Track a checkout step.
+/// Entity schema: `iglu:com.snowplowanalytics.snowplow.ecommerce/checkout_step/jsonschema/1-0-0`
 @objc(SPEcommCheckoutStepEvent)
 public class CheckoutStepEvent: SelfDescribingAbstract {
     /// Checkout step index.

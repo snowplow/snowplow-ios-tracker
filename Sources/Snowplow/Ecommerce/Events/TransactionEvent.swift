@@ -13,7 +13,8 @@
 
 import Foundation
 
-/** Track a transaction event. */
+/// Track a transaction event.
+/// Entity schema: `iglu:com.snowplowanalytics.snowplow.ecommerce/transaction/jsonschema/1-0-0`
 @objc(SPEcommTransactionEvent)
 public class TransactionEvent: SelfDescribingAbstract {
     /// The ID of the transaction.
