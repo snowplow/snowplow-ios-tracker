@@ -27,7 +27,7 @@ class InstallTracker: NSObject {
             return value as? Date
         } else if value is NSNumber {
             // v1.7 format
-            let timeInterval = TimeInterval((value as? NSNumber)?.doubleValue ?? 0.0 / 1000)
+            let timeInterval = TimeInterval(((value as? NSNumber)?.doubleValue ?? 0.0) / 1000)
             return Date(timeIntervalSince1970: timeInterval)
         }
         return nil
