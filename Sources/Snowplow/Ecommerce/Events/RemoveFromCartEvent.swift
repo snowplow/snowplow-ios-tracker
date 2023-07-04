@@ -29,11 +29,11 @@ public class RemoveFromCartEvent: SelfDescribingAbstract {
     }
     
     override var payload: [String : Any] {
-        var data: [String: Any] = ["type": "remove_from_cart"]
+        let data: [String: Any] = ["type": "remove_from_cart"]
         return data
     }
     
-    override public var entitiesForProcessing: [SelfDescribingJson]? {
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
         get {
             var entities = [SelfDescribingJson]()
             for product in products {

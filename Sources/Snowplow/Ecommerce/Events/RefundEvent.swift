@@ -45,11 +45,11 @@ public class RefundEvent: SelfDescribingAbstract {
     }
     
     override var payload: [String : Any] {
-        var data: [String: Any] = ["type": "refund"]
+        let data: [String: Any] = ["type": "refund"]
         return data
     }
     
-    override public var entitiesForProcessing: [SelfDescribingJson]? {
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
         get {
             var entities = [SelfDescribingJson]()
             

@@ -34,7 +34,7 @@ public class Event: NSObject {
     
     /// Used for events whose properties are added as entities, e.g. Ecommerce events
     @objc
-    public var entitiesForProcessing: [SelfDescribingJson]? {
+    internal var entitiesForProcessing: [SelfDescribingJson]? {
         get { return nil }
     }
     

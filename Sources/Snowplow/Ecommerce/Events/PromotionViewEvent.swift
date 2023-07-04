@@ -25,11 +25,11 @@ public class PromotionViewEvent: SelfDescribingAbstract {
     }
     
     override var payload: [String : Any] {
-        var data: [String: Any] = ["type": "promo_view"]
+        let data: [String: Any] = ["type": "promo_view"]
         return data
     }
     
-    override public var entitiesForProcessing: [SelfDescribingJson]? {
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
         get { [promotion.entity] }
     }
     

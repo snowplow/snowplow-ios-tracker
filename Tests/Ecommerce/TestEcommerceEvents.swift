@@ -68,7 +68,7 @@ class TestEcommerceEvents: XCTestCase {
         let entities = event.entitiesForProcessing
         
         XCTAssertEqual(ecommerceActionSchema, event.schema)
-        XCTAssertEqual("list_click", event.payload["type"] as? String)
+        XCTAssertEqual("product_view", event.payload["type"] as? String)
         XCTAssertEqual(1, entities?.count)
         XCTAssertEqual(1, getProductEntities(entities).count)
     }

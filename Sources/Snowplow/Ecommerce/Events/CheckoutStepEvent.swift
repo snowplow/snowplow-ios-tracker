@@ -68,11 +68,11 @@ public class CheckoutStepEvent: SelfDescribingAbstract {
     }
     
     override var payload: [String : Any] {
-        var data: [String: Any] = ["type": "checkout_step"]
+        let data: [String: Any] = ["type": "checkout_step"]
         return data
     }
     
-    override public var entitiesForProcessing: [SelfDescribingJson]? {
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
         get {
             var data: [String : Any] = ["step": step]
             

@@ -29,11 +29,11 @@ public class AddToCartEvent: SelfDescribingAbstract {
     }
     
     override var payload: [String : Any] {
-        var data: [String: Any] = ["type": "add_to_cart"]
+        let data: [String: Any] = ["type": "add_to_cart"]
         return data
     }
     
-    override public var entitiesForProcessing: [SelfDescribingJson]? {
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
         get {
             var entities = [SelfDescribingJson]()
             for product in products {

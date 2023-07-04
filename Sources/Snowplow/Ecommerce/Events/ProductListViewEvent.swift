@@ -34,7 +34,7 @@ public class ProductListViewEvent: SelfDescribingAbstract {
         return data
     }
     
-    override public var entitiesForProcessing: [SelfDescribingJson]? {
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
         get {
             var entities = [SelfDescribingJson]()
             for product in products {

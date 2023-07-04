@@ -25,11 +25,11 @@ public class ProductViewEvent: SelfDescribingAbstract {
     }
     
     override var payload: [String : Any] {
-        var data: [String: Any] = ["type": "product_view"]
+        let data: [String: Any] = ["type": "product_view"]
         return data
     }
     
-    override public var entitiesForProcessing: [SelfDescribingJson]? {
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
         get { [product.entity] }
     }
     
