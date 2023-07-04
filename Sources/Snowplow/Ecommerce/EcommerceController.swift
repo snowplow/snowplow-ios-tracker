@@ -16,27 +16,24 @@ import Foundation
 /**
  Controller for managing Ecommerce entities.
  */
-//@objc(SPEcommController)
+@objc(SPEcommController)
 public protocol EcommerceController {
     
     /// Add an ecommerce Screen/Page entity to all subsequent events.
-    /// - Parameter type The type of screen that was visited, e.g. homepage, product details, cart, checkout, etc.
-    /// - Parameter language The language that the screen is based in.
-    /// - Parameter locale The locale version of the app that is running.
-//    @objc
-    func setEcommerceScreen(type: String, language: String?, locale: String?)
+    /// - Parameter screen: A EcommScreenEntity.
+    @objc
+    func setEcommerceScreen(_ screen: EcommScreenEntity)
     
     /// Add an ecommerce User entity to all subsequent events.
-    /// - Parameter id The user ID.
-    /// - Parameter is_guest Whether or not the user is a guest.
-    /// - Parameter email The user's email address.
-    func setEcommerceUser(id: String, isGuest: Bool?, email: String?)
+    /// - Parameter user: A EcommUserEntity.
+    @objc
+    func setEcommerceUser(_ user: EcommUserEntity)
     
     /// Stop adding a Screen/Page entity to events.
-//    @objc
+    @objc
     func removeEcommerceScreen()
     
     /// Stop adding a User entity to events.
-//    @objc
+    @objc
     func removeEcommerceUser()
 }

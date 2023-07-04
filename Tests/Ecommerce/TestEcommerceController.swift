@@ -29,18 +29,71 @@ class TestEcommerceController: XCTestCase {
     }
     
     func testAddScreenEntity() {
+        tracker?.ecommerce.setEcommerceScreen(EcommScreenEntity(type: "product", language: "EN-GB", locale: "UK"))
         
+        tracker?.track(ScreenView(name: "screenId"))
+        waitForEventsToBeTracked()
         
-//        let cart = CartEntity(totalValue: 500, currency: "GBP")
-//
-//        let event = AddToCartEvent(products: [product1, product2], cart: cart)
-//        let entities = event.entitiesForProcessing
-//
-//        XCTAssertEqual(ecommerceActionSchema, event.schema)
-//        XCTAssertEqual("add_to_cart", event.payload["type"] as? String)
-//        XCTAssertEqual(3, entities?.count)
-//        XCTAssertEqual(2, getProductEntities(entities).count)
-//        XCTAssertEqual(1, getCartEntities(entities).count)
+        XCTAssertEqual(1, trackedEvents.count)
+        XCTAssert(trackedEvents[0].entities.contains { $0.schema == ecommercePageSchema })
+        
+        var screenEntities = getScreenEntities(trackedEvents[0].entities)
+        XCTAssertEqual(1, screenEntities.count)
+        
+        var entity = screenEntities[0]
+        XCTAssertEqual("product", entity.data["type"] as? String)
+        XCTAssertEqual("EN-GB", entity.data["language"] as? String)
+        XCTAssertEqual("UK", entity.data["locale"] as? String)
+        
+        // replacing earlier Screen
+        tracker?.ecommerce.setEcommerceScreen(EcommScreenEntity(type: "listing", locale: "USA"))
+        tracker?.track(ScreenView(name: "screenId2"))
+        waitForEventsToBeTracked()
+        
+        entity = getScreenEntities(trackedEvents[1].entities)[0]
+        XCTAssertEqual("listing", entity.data["type"] as? String)
+        XCTAssertEqual("USA", entity.data["locale"] as? String)
+        
+        // removing Screen
+        tracker?.ecommerce.removeEcommerceScreen()
+        tracker?.track(ScreenView(name: "screenId3"))
+        waitForEventsToBeTracked()
+        
+        XCTAssertFalse(trackedEvents[2].entities.contains { $0.schema == ecommercePageSchema })
+    }
+    
+    func testAddUserEntity() {
+        tracker?.ecommerce.setEcommerceUser(EcommUserEntity(id: "userId", isGuest: true, email: "email@email.com"))
+        
+        tracker?.track(ScreenView(name: "screenId"))
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
+        XCTAssert(trackedEvents[0].entities.contains { $0.schema == ecommerceUserSchema })
+        
+        var userEntities = getUserEntities(trackedEvents[0].entities)
+        XCTAssertEqual(1, userEntities.count)
+        
+        var entity = userEntities[0]
+        XCTAssertEqual("userId", entity.data["id"] as? String)
+        XCTAssertEqual(true, entity.data["is_guest"] as? Bool)
+        XCTAssertEqual("email@email.com", entity.data["email"] as? String)
+        
+        // replacing earlier User
+        tracker?.ecommerce.setEcommerceUser(EcommUserEntity(id: "newUser", isGuest: false))
+        tracker?.track(ScreenView(name: "screenId2"))
+        waitForEventsToBeTracked()
+        
+        entity = getUserEntities(trackedEvents[1].entities)[0]
+        XCTAssertEqual("newUser", entity.data["id"] as? String)
+        XCTAssertEqual(false, entity.data["is_guest"] as? Bool)
+        
+        // removing Screen
+        tracker?.ecommerce.removeEcommerceUser()
+        tracker?.track(ScreenView(name: "screenId3"))
+        waitForEventsToBeTracked()
+        
+        XCTAssertFalse(trackedEvents[2].entities.contains { $0.schema == ecommerceUserSchema })
     }
     
     private func createTracker() -> TrackerController {
@@ -60,5 +113,37 @@ class TestEcommerceController: XCTestCase {
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
                                       configurations: [trackerConfig, plugin])!
+    }
+    
+    private func waitForEventsToBeTracked() {
+        let expect = expectation(description: "Wait for events to be tracked")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { () -> Void in
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 1)
+    }
+    
+    private func getScreenEntities(_ all: [SelfDescribingJson]?) -> [SelfDescribingJson] {
+        var entities: [SelfDescribingJson] = []
+        if let all = all {
+            for entity in all {
+                if (entity.schema == ecommercePageSchema) {
+                    entities.append(entity)
+                }
+            }
+        }
+        return entities
+    }
+    
+    private func getUserEntities(_ all: [SelfDescribingJson]?) -> [SelfDescribingJson] {
+        var entities: [SelfDescribingJson] = []
+        if let all = all {
+            for entity in all {
+                if (entity.schema == ecommerceUserSchema) {
+                    entities.append(entity)
+                }
+            }
+        }
+        return entities
     }
 }

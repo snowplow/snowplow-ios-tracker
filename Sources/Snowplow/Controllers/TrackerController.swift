@@ -56,6 +56,9 @@ public protocol TrackerController: TrackerConfigurationProtocol {
     /// Media controller for managing media tracking instances and tracking media events.
     @objc
     var media: MediaController { get }
+    /// Ecommerce controller for managing ecommerce entity addition.
+    @objc
+    var ecommerce: EcommerceController { get }
     /// Track the event.
     /// The tracker will take care to process and send the event assigning `event_id` and `device_timestamp`.
     /// - Parameter event: The event to track.

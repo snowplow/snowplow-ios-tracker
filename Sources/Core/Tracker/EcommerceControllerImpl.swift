@@ -15,26 +15,18 @@ import Foundation
 
 class EcommerceControllerImpl: Controller, EcommerceController {
     
-    func setEcommerceScreen(type: String, language: String? = nil, locale: String? = nil) {
+    func setEcommerceScreen(_ screen: EcommScreenEntity) {
         let plugin = PluginConfiguration(identifier: "ecommercePageTypePluginInternal")
         plugin.entities { _ in
-            var data: [String: Any] = ["type": type]
-            if let language = language { data["language"] = language }
-            if let locale = locale { data["locale"] = locale }
-            
-            return [SelfDescribingJson(schema: ecommercePageSchema, andData: data)]
+            return [screen.entity]
         }
         serviceProvider.addPlugin(plugin: plugin)
     }
     
-    func setEcommerceUser(id: String, isGuest: Bool? = nil, email: String? = nil) {
+    func setEcommerceUser(_ user: EcommUserEntity) {
         let plugin = PluginConfiguration(identifier: "ecommerceUserPluginInternal")
         plugin.entities { _ in
-            var data: [String: Any] = ["id": id]
-            if let isGuest = isGuest { data["is_guest"] = isGuest }
-            if let email = email { data["email"] = email }
-            
-            return [SelfDescribingJson(schema: ecommercePageSchema, andData: data)]
+            return [user.entity]
         }
         serviceProvider.addPlugin(plugin: plugin)
     }

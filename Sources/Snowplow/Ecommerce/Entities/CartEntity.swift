@@ -20,15 +20,12 @@ import Foundation
 @objc(SPCartEntity)
 public class CartEntity: NSObject {
     /// The total value of the cart after this interaction.
-    @objc
     public var totalValue: Double
 
     /// The currency used for this cart (ISO 4217).
-    @objc
     public var currency: String
 
     /// The unique ID representing this cart.
-    @objc
     public var cartId: String?
     
     internal var entity: SelfDescribingJson {
@@ -44,7 +41,6 @@ public class CartEntity: NSObject {
     /// - Parameter totalValue: The total value of the cart after this interaction.
     /// - Parameter currency: The currency used for this cart (ISO 4217).
     /// - Parameter cartId: The unique ID representing this cart.
-    @objc
     public init(
             totalValue: Double,
             currency: String,

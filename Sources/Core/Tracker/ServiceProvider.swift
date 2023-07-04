@@ -109,6 +109,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return mediaController
     }
     
+<<<<<<< HEAD
     // Configurations
     private(set) var networkConfiguration = NetworkConfiguration()
     private(set) var trackerConfiguration = TrackerConfiguration()
@@ -116,6 +117,17 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
     private(set) var subjectConfiguration = SubjectConfiguration()
     private(set) var sessionConfiguration = SessionConfiguration()
     private(set) var gdprConfiguration = GDPRConfiguration()
+=======
+    private var _ecommerceController: EcommerceController?
+    var ecommerceController: EcommerceController {
+        if let controller = _ecommerceController { return controller }
+        let ecommerceController = EcommerceControllerImpl(serviceProvider: self)
+        _ecommerceController = ecommerceController
+        return ecommerceController
+    }
+    
+    // Original configurations
+>>>>>>> 5ba80b705 (Add screen and user entities)
     private(set) var pluginConfigurations: [PluginIdentifiable] = []
     
     // MARK: - Init

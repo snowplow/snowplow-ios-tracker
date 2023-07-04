@@ -53,6 +53,10 @@ class TrackerControllerImpl: Controller, TrackerController {
     var media: MediaController {
         return serviceProvider.mediaController
     }
+    
+    var ecommerce: EcommerceController {
+        return serviceProvider.ecommerceController
+    }
 
     // MARK: - Control methods
 
