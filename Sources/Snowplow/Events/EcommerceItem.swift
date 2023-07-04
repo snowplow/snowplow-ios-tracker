@@ -13,6 +13,8 @@
 
 import Foundation
 
+/// @deprecated Use the ecommerce package instead.
+@available(*, deprecated, message: "Use the ecommerce package instead.")
 @objc(SPEcommerceItem)
 public class EcommerceItem : PrimitiveAbstract {
     /// Stock Keeping Unit of the item.
