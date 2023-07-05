@@ -17,17 +17,13 @@ class EcommerceControllerImpl: Controller, EcommerceController {
     
     func setEcommerceScreen(_ screen: EcommScreenEntity) {
         let plugin = PluginConfiguration(identifier: "ecommercePageTypePluginInternal")
-        plugin.entities { _ in
-            return [screen.entity]
-        }
+        _ = plugin.entities { _ in [screen.entity] }
         serviceProvider.addPlugin(plugin: plugin)
     }
     
     func setEcommerceUser(_ user: EcommUserEntity) {
         let plugin = PluginConfiguration(identifier: "ecommerceUserPluginInternal")
-        plugin.entities { _ in
-            return [user.entity]
-        }
+        _ = plugin.entities { _ in [user.entity] }
         serviceProvider.addPlugin(plugin: plugin)
     }
     
