@@ -22,12 +22,12 @@ class InstallTracker: NSObject {
         let value = userDefaults.object(forKey: kSPInstallTimestamp)
         if value == nil {
             return nil
-        } else if value is Date {
+        } else if let value = value as? Date {
             // v2.0 format
-            return value as? Date
-        } else if value is NSNumber {
+            return value
+        } else if let value = value as? NSNumber {
             // v1.7 format
-            let timeInterval = TimeInterval((value as? NSNumber)?.doubleValue ?? 0.0 / 1000)
+            let timeInterval = TimeInterval(value.doubleValue / 1000)
             return Date(timeIntervalSince1970: timeInterval)
         }
         return nil

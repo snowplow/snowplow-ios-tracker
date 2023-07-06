@@ -1,3 +1,8 @@
+Version 5.3.1 (2023-07-06)
+--------------------------
+Fix incorrect date deserialization when reading the install timestamp from 1.7 version of the tracker (#801)
+Fix disabling screen view autotracking in tracker configuration (#802)
+
 Version 5.3.0 (2023-06-30)
 --------------------------
 Add media controller with APIs to track media events (#765)
