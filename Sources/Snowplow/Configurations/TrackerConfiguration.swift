@@ -181,7 +181,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     /// Whether enable automatic tracking of ScreenView events.
     @objc
     public var screenViewAutotracking: Bool {
-        get { return _screenViewAutotracking ?? TrackerDefaults.autotrackScreenViews }
+        get { return _screenViewAutotracking ?? sourceConfig?.screenViewAutotracking ?? TrackerDefaults.autotrackScreenViews }
         set { _screenViewAutotracking = newValue }
     }
     
