@@ -14,7 +14,7 @@
 import Foundation
 
 /** Track a product or products being added to cart. */
-@objc(SPEcommAddToCartEvent)
+@objc(SPAddToCartEvent)
 public class AddToCartEvent: SelfDescribingAbstract {
     /// List of product(s) that were added to the cart.
     @objc

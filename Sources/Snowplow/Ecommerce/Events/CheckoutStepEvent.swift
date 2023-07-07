@@ -15,7 +15,7 @@ import Foundation
 
 /// Track a checkout step.
 /// Entity schema: `iglu:com.snowplowanalytics.snowplow.ecommerce/checkout_step/jsonschema/1-0-0`
-@objc(SPEcommCheckoutStepEvent)
+@objc(SPCheckoutStepEvent)
 public class CheckoutStepEvent: SelfDescribingAbstract {
     /// Checkout step index.
     @objc
@@ -93,18 +93,18 @@ public class CheckoutStepEvent: SelfDescribingAbstract {
         }
     }
     
-    /// - Parameter step Checkout step index.
-    /// - Parameter shippingPostcode Shipping address postcode.
-    /// - Parameter billingPostcode Billing address postcode.
-    /// - Parameter shippingFullAddress Full shipping address.
-    /// - Parameter billingFullAddress Full billing address.
-    /// - Parameter deliveryProvider Can be used to discern delivery providers e.g. DHL, PostNL etc.
-    /// - Parameter deliveryMethod Store pickup, standard delivery, express delivery, international, etc.
-    /// - Parameter couponCode Coupon applied at checkout.
-    /// - Parameter accountType Type of account used on checkout, e.g. existing user, guest.
-    /// - Parameter paymentMethod Any kind of payment method the user selected to proceed. Card, PayPal, Alipay etc.
-    /// - Parameter proofOfPayment E.g. invoice or receipt.
-    /// - Parameter marketingOptIn If opted in to marketing campaigns to the email address.
+    /// - Parameter step: Checkout step index.
+    /// - Parameter shippingPostcode: Shipping address postcode.
+    /// - Parameter billingPostcode: Billing address postcode.
+    /// - Parameter shippingFullAddress: Full shipping address.
+    /// - Parameter billingFullAddress: Full billing address.
+    /// - Parameter deliveryProvider: Can be used to discern delivery providers e.g. DHL, PostNL etc.
+    /// - Parameter deliveryMethod: Store pickup, standard delivery, express delivery, international, etc.
+    /// - Parameter couponCode: Coupon applied at checkout.
+    /// - Parameter accountType: Type of account used on checkout, e.g. existing user, guest.
+    /// - Parameter paymentMethod: Any kind of payment method the user selected to proceed. Card, PayPal, Alipay etc.
+    /// - Parameter proofOfPayment: E.g. invoice or receipt.
+    /// - Parameter marketingOptIn: If opted in to marketing campaigns to the email address.
     public init(
         step: Int,
         shippingPostcode: String? = nil,
@@ -131,6 +131,44 @@ public class CheckoutStepEvent: SelfDescribingAbstract {
         self.paymentMethod = paymentMethod
         self.proofOfPayment = proofOfPayment
         self.marketingOptIn = marketingOptIn
+    }
+    
+    /// - Parameter step: Checkout step index.
+    /// - Parameter shippingPostcode: Shipping address postcode.
+    /// - Parameter billingPostcode: Billing address postcode.
+    /// - Parameter shippingFullAddress: Full shipping address.
+    /// - Parameter billingFullAddress: Full billing address.
+    /// - Parameter deliveryProvider: Can be used to discern delivery providers e.g. DHL, PostNL etc.
+    /// - Parameter deliveryMethod: Store pickup, standard delivery, express delivery, international, etc.
+    /// - Parameter couponCode: Coupon applied at checkout.
+    /// - Parameter accountType: Type of account used on checkout, e.g. existing user, guest.
+    /// - Parameter paymentMethod: Any kind of payment method the user selected to proceed. Card, PayPal, Alipay etc.
+    /// - Parameter proofOfPayment: E.g. invoice or receipt.
+    @objc
+    public init(
+        step: Int,
+        shippingPostcode: String? = nil,
+        billingPostcode: String? = nil,
+        shippingFullAddress: String? = nil,
+        billingFullAddress: String? = nil,
+        deliveryProvider: String? = nil,
+        deliveryMethod: String? = nil,
+        couponCode: String? = nil,
+        accountType: String? = nil,
+        paymentMethod: String? = nil,
+        proofOfPayment: String? = nil
+    ) {
+        self.step = step
+        self.shippingPostcode = shippingPostcode
+        self.billingPostcode = billingPostcode
+        self.shippingFullAddress = shippingFullAddress
+        self.billingFullAddress = billingFullAddress
+        self.deliveryProvider = deliveryProvider
+        self.deliveryMethod = deliveryMethod
+        self.couponCode = couponCode
+        self.accountType = accountType
+        self.paymentMethod = paymentMethod
+        self.proofOfPayment = proofOfPayment
     }
     
     /// If opted in to marketing campaigns to the email address.

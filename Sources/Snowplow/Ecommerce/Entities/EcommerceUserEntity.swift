@@ -14,11 +14,11 @@
 import Foundation
 
 /**
- Attach Ecommerce User details to events.
+ Attach Ecommerce User details to events. It is designed to help in modeling guest/non-guest account activity.
  Entity schema: `iglu:com.snowplowanalytics.snowplow.ecommerce/user/jsonschema/1-0-0`
  */
-@objc(SPEcommUserEntity)
-public class EcommUserEntity: NSObject {
+@objc(SPEcommerceUserEntity)
+public class EcommerceUserEntity: NSObject {
     /// The user ID.
     @objc
     public var id: String
@@ -48,6 +48,17 @@ public class EcommUserEntity: NSObject {
     ) {
         self.id = id
         self.isGuest = isGuest
+        self.email = email
+    }
+    
+    /// - Parameter id: The user ID.
+    /// - Parameter email: The user's email address.
+    @objc
+    public init(
+            id: String,
+            email: String? = nil
+    ) {
+        self.id = id
         self.email = email
     }
     

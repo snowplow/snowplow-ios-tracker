@@ -14,7 +14,7 @@
 import Foundation
 
 /** Track a product or products being removed from cart. */
-@objc(SPEcommRemoveFromCartEvent)
+@objc(SPRemoveFromCartEvent)
 public class RemoveFromCartEvent: SelfDescribingAbstract {
     /// List of product(s) that were removed from the cart.
     @objc

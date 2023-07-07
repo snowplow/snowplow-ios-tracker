@@ -130,6 +130,40 @@ public class ProductEntity: NSObject {
         self.creativeId = creativeId
     }
     
+    /// - Parameter id: The SKU or product ID.
+    /// - Parameter category: The category the product belongs to. Use a consistent separator to express multiple levels. E.g. Woman/Shoes/Sneakers.
+    /// - Parameter currency: The currency in which the product is being priced (ISO 4217).
+    /// - Parameter price: The price of the product at the current time.
+    /// - Parameter name: The name or title of the product.
+    /// - Parameter size: The size of the product.
+    /// - Parameter variant: The variant of the product.
+    /// - Parameter brand: The brand of the product.
+    /// - Parameter inventoryStatus: The inventory status of the product (e.g. in stock, out of stock, preorder, backorder, etc).
+    /// - Parameter creativeId: Identifier, name, or url for the creative presented on the associated promotion.
+    @objc
+    public init(
+                id: String,
+                category: String,
+                currency: String,
+                price: Double,
+                name: String? = nil,
+                size: String? = nil,
+                variant: String? = nil,
+                brand: String? = nil,
+                inventoryStatus: String? = nil,
+                creativeId: String? = nil) {
+        self.id = id
+        self.category = category
+        self.currency = currency
+        self.price = price
+        self.name = name
+        self.size = size
+        self.variant = variant
+        self.brand = brand
+        self.inventoryStatus = inventoryStatus
+        self.creativeId = creativeId
+    }
+    
     /// The recommended or list price of a product.
     @objc
     public func listPrice(_ listPrice: Double) -> Self {

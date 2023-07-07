@@ -14,7 +14,7 @@
 import Foundation
 
 /** Track a product view/detail. */
-@objc(SPEcommProductViewEvent)
+@objc(SPProductViewEvent)
 public class ProductViewEvent: SelfDescribingAbstract {
     /// The product that was viewed in a product detail page.
     @objc
@@ -33,7 +33,7 @@ public class ProductViewEvent: SelfDescribingAbstract {
         get { [product.entity] }
     }
     
-    /// - Parameter product The product that was viewed in a product detail page.
+    /// - Parameter product: The product that was viewed in a product detail page.
     @objc
     public init(product: ProductEntity) {
         self.product = product

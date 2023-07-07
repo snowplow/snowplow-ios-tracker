@@ -14,7 +14,7 @@
 import Foundation
 
 /** Track a product list view. */
-@objc(SPEcommProductListViewEvent)
+@objc(SPProductListViewEvent)
 public class ProductListViewEvent: SelfDescribingAbstract {
     /// List of products viewed.
     @objc
@@ -44,8 +44,8 @@ public class ProductListViewEvent: SelfDescribingAbstract {
         }
     }
     
-    /// - Parameter promotion List of products viewed.
-    /// - Parameter name The list name.
+    /// - Parameter promotion: List of products viewed.
+    /// - Parameter name: The list name.
     @objc
     public init(products: [ProductEntity], name: String? = nil) {
         self.products = products

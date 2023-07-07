@@ -15,7 +15,7 @@ import Foundation
 
 /// Track a transaction event.
 /// Entity schema: `iglu:com.snowplowanalytics.snowplow.ecommerce/transaction/jsonschema/1-0-0`
-@objc(SPEcommTransactionEvent)
+@objc(SPTransactionEvent)
 public class TransactionEvent: SelfDescribingAbstract {
     /// The ID of the transaction.
     @objc
@@ -95,17 +95,17 @@ public class TransactionEvent: SelfDescribingAbstract {
         }
     }
     
-    /// - Parameter transactionId The ID of the transaction.
-    /// - Parameter revenue The total value of the transaction.
-    /// - Parameter currency The currency used (ISO 4217).
-    /// - Parameter paymentMethod The payment method used.
-    /// - Parameter totalQuantity Total quantity of items in the transaction.
-    /// - Parameter tax Total amount of tax on the transaction.
-    /// - Parameter shipping Total cost of shipping on the transaction.
-    /// - Parameter discountCode Discount code used.
-    /// - Parameter discountAmount Discount amount taken off.
-    /// - Parameter creditOrder Whether it is a credit order or not.
-    /// - Parameter products The product(s) included in the transaction.
+    /// - Parameter transactionId: The ID of the transaction.
+    /// - Parameter revenue: The total value of the transaction.
+    /// - Parameter currency: The currency used (ISO 4217).
+    /// - Parameter paymentMethod: The payment method used.
+    /// - Parameter totalQuantity: Total quantity of items in the transaction.
+    /// - Parameter tax: Total amount of tax on the transaction.
+    /// - Parameter shipping: Total cost of shipping on the transaction.
+    /// - Parameter discountCode: Discount code used.
+    /// - Parameter discountAmount: Discount amount taken off.
+    /// - Parameter creditOrder: Whether it is a credit order or not.
+    /// - Parameter products: The product(s) included in the transaction.
     public init(
         transactionId: String,
         revenue: Double,
@@ -129,6 +129,32 @@ public class TransactionEvent: SelfDescribingAbstract {
         self.discountCode = discountCode
         self.discountAmount = discountAmount
         self.creditOrder = creditOrder
+        self.products = products
+    }
+    
+    /// - Parameter transactionId: The ID of the transaction.
+    /// - Parameter revenue: The total value of the transaction.
+    /// - Parameter currency: The currency used (ISO 4217).
+    /// - Parameter paymentMethod: The payment method used.
+    /// - Parameter totalQuantity: Total quantity of items in the transaction.
+    /// - Parameter discountCode: Discount code used.
+    /// - Parameter products: The product(s) included in the transaction.
+    @objc
+    public init(
+        transactionId: String,
+        revenue: Double,
+        currency: String,
+        paymentMethod: String,
+        totalQuantity: Int,
+        discountCode: String? = nil,
+        products: [ProductEntity]? = nil
+    ) {
+        self.transactionId = transactionId
+        self.revenue = revenue
+        self.currency = currency
+        self.paymentMethod = paymentMethod
+        self.totalQuantity = totalQuantity
+        self.discountCode = discountCode
         self.products = products
     }
     

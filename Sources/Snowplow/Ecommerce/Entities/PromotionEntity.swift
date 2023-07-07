@@ -84,6 +84,28 @@ public class PromotionEntity: NSObject {
         self.slot = slot
     }
     
+    /// - Parameter id: The ID of the promotion.
+    /// - Parameter name: The name of the promotion.
+    /// - Parameter productIds: List of SKUs or product IDs showcased in the promotion.
+    /// - Parameter creativeId: Identifier, name, or url for the creative presented on the promotion.
+    /// - Parameter type: Type of the promotion delivery mechanism. E.g. popup, banner, intra-content.
+    /// - Parameter slot: The UI slot in which the promotional content was added to.
+    @objc
+    public init(
+                id: String,
+                name: String? = nil,
+                productIds: [String]? = nil,
+                creativeId: String? = nil,
+                type: String? = nil,
+                slot: String? = nil) {
+        self.id = id
+        self.name = name
+        self.productIds = productIds
+        self.creativeId = creativeId
+        self.type = type
+        self.slot = slot
+    }
+    
     /// The position the promotion was presented in a list of promotions such as a banner or slider, e.g. 2.
     @objc
     public func position(_ position: Int) -> Self {

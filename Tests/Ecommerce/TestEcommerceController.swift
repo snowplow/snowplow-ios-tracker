@@ -29,15 +29,15 @@ class TestEcommerceController: XCTestCase {
     }
     
     func testAddScreenEntity() {
-        tracker?.ecommerce.setEcommerceScreen(EcommScreenEntity(type: "product", language: "EN-GB", locale: "UK"))
+        tracker?.ecommerce.setEcommerceScreen(EcommerceScreenEntity(type: "product", language: "EN-GB", locale: "UK"))
         
-        tracker?.track(ScreenView(name: "screenId"))
+        _ = tracker?.track(ScreenView(name: "screenId"))
         waitForEventsToBeTracked()
         
         XCTAssertEqual(1, trackedEvents.count)
         XCTAssert(trackedEvents[0].entities.contains { $0.schema == ecommercePageSchema })
         
-        var screenEntities = getScreenEntities(trackedEvents[0].entities)
+        let screenEntities = getScreenEntities(trackedEvents[0].entities)
         XCTAssertEqual(1, screenEntities.count)
         
         var entity = screenEntities[0]
@@ -46,8 +46,8 @@ class TestEcommerceController: XCTestCase {
         XCTAssertEqual("UK", entity.data["locale"] as? String)
         
         // replacing earlier Screen
-        tracker?.ecommerce.setEcommerceScreen(EcommScreenEntity(type: "listing", locale: "USA"))
-        tracker?.track(ScreenView(name: "screenId2"))
+        tracker?.ecommerce.setEcommerceScreen(EcommerceScreenEntity(type: "listing", locale: "USA"))
+        _ = tracker?.track(ScreenView(name: "screenId2"))
         waitForEventsToBeTracked()
         
         entity = getScreenEntities(trackedEvents[1].entities)[0]
@@ -56,22 +56,22 @@ class TestEcommerceController: XCTestCase {
         
         // removing Screen
         tracker?.ecommerce.removeEcommerceScreen()
-        tracker?.track(ScreenView(name: "screenId3"))
+        _ = tracker?.track(ScreenView(name: "screenId3"))
         waitForEventsToBeTracked()
         
         XCTAssertFalse(trackedEvents[2].entities.contains { $0.schema == ecommercePageSchema })
     }
     
     func testAddUserEntity() {
-        tracker?.ecommerce.setEcommerceUser(EcommUserEntity(id: "userId", isGuest: true, email: "email@email.com"))
+        tracker?.ecommerce.setEcommerceUser(EcommerceUserEntity(id: "userId", isGuest: true, email: "email@email.com"))
         
-        tracker?.track(ScreenView(name: "screenId"))
+        _ = tracker?.track(ScreenView(name: "screenId"))
         waitForEventsToBeTracked()
         
         XCTAssertEqual(1, trackedEvents.count)
         XCTAssert(trackedEvents[0].entities.contains { $0.schema == ecommerceUserSchema })
         
-        var userEntities = getUserEntities(trackedEvents[0].entities)
+        let userEntities = getUserEntities(trackedEvents[0].entities)
         XCTAssertEqual(1, userEntities.count)
         
         var entity = userEntities[0]
@@ -80,8 +80,8 @@ class TestEcommerceController: XCTestCase {
         XCTAssertEqual("email@email.com", entity.data["email"] as? String)
         
         // replacing earlier User
-        tracker?.ecommerce.setEcommerceUser(EcommUserEntity(id: "newUser", isGuest: false))
-        tracker?.track(ScreenView(name: "screenId2"))
+        tracker?.ecommerce.setEcommerceUser(EcommerceUserEntity(id: "newUser", isGuest: false))
+        _ = tracker?.track(ScreenView(name: "screenId2"))
         waitForEventsToBeTracked()
         
         entity = getUserEntities(trackedEvents[1].entities)[0]
@@ -90,7 +90,7 @@ class TestEcommerceController: XCTestCase {
         
         // removing Screen
         tracker?.ecommerce.removeEcommerceUser()
-        tracker?.track(ScreenView(name: "screenId3"))
+        _ = tracker?.track(ScreenView(name: "screenId3"))
         waitForEventsToBeTracked()
         
         XCTAssertFalse(trackedEvents[2].entities.contains { $0.schema == ecommerceUserSchema })

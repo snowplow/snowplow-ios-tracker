@@ -19,7 +19,7 @@ import Foundation
  will be marked as refunded.
  Entity schema: `iglu:com.snowplowanalytics.snowplow.ecommerce/refund/jsonschema/1-0-0`
  */
-@objc(SPEcommRefundEvent)
+@objc(SPRefundEvent)
 public class RefundEvent: SelfDescribingAbstract {
     /// The ID of the relevant transaction.
     @objc
@@ -73,11 +73,11 @@ public class RefundEvent: SelfDescribingAbstract {
         }
     }
     
-    /// - Parameter transactionId The ID of the relevant transaction.
-    /// - Parameter currency The currency in which the product(s) are being priced (ISO 4217).
-    /// - Parameter refundAmount The monetary amount refunded.
-    /// - Parameter refundReason Reason for refunding the whole or part of the transaction.
-    /// - Parameter products The products to be refunded.
+    /// - Parameter transactionId: The ID of the relevant transaction.
+    /// - Parameter currency: The currency in which the product(s) are being priced (ISO 4217).
+    /// - Parameter refundAmount: The monetary amount refunded.
+    /// - Parameter refundReason: Reason for refunding the whole or part of the transaction.
+    /// - Parameter products: The products to be refunded.
     @objc
     public init(
         transactionId: String,

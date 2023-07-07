@@ -14,11 +14,12 @@
 import Foundation
 
 /**
- Attach Ecommerce Screen (Page) details to events.
+ Attach Ecommerce Screen (Page) details to events. It is designed to help with grouping insights by 
+ screen/page type, e.g. Product description, Product list, Home.
  Entity schema: `iglu:com.snowplowanalytics.snowplow.ecommerce/page/jsonschema/1-0-0`
  */
-@objc(SPEcommScreenEntity)
-public class EcommScreenEntity: NSObject {
+@objc(SPEcommerceScreenEntity)
+public class EcommerceScreenEntity: NSObject {
     /// The type of screen that was visited, e.g. homepage, product details, cart, checkout, etc.
     @objc
     public var type: String

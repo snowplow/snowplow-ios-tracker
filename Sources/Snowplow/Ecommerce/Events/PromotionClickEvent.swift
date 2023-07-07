@@ -14,7 +14,7 @@
 import Foundation
 
 /** Track a promotion click or selection. */
-@objc(SPEcommPromotionClickEvent)
+@objc(SPPromotionClickEvent)
 public class PromotionClickEvent: SelfDescribingAbstract {
     /// The promotion selected.
     @objc
@@ -33,7 +33,7 @@ public class PromotionClickEvent: SelfDescribingAbstract {
         get { [promotion.entity] }
     }
     
-    /// - Parameter promotion The promotion selected.
+    /// - Parameter promotion: The promotion selected.
     @objc
     public init(promotion: PromotionEntity) {
         self.promotion = promotion

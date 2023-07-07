@@ -14,7 +14,7 @@
 import Foundation
 
 /** Track a product list click or selection event. */
-@objc(SPEcommProductListClickEvent)
+@objc(SPProductListClickEvent)
 public class ProductListClickEvent: SelfDescribingAbstract {
     /// Information about the product that was selected.
     @objc
@@ -38,8 +38,8 @@ public class ProductListClickEvent: SelfDescribingAbstract {
         get { [product.entity] }
     }
     
-    /// - Parameter promotion Information about the product that was selected.
-    /// - Parameter name The list name.
+    /// - Parameter promotion: Information about the product that was selected.
+    /// - Parameter name: The list name.
     @objc
     public init(product: ProductEntity, name: String? = nil) {
         self.product = product
