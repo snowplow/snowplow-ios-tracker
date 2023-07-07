@@ -1,3 +1,8 @@
+Version 5.4.0 (2023-07-07)
+--------------------------
+Increase interval for updating platform context properties from 0.1s to 1s (#798)
+Expose property for retrieving payload in ConsentDocument that was removed in v5 (#804)
+
 Version 5.3.1 (2023-07-06)
 --------------------------
 Fix incorrect date deserialization when reading the install timestamp from 1.7 version of the tracker (#801)
