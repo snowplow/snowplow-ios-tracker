@@ -149,7 +149,7 @@ class TestEcommerceEvents: XCTestCase {
     }
     
     func testTransaction() {
-        let event = TransactionEvent(
+        let transaction = TransactionEntity(
             transactionId: "id",
             revenue: 55.55,
             currency: "CAD",
@@ -159,9 +159,9 @@ class TestEcommerceEvents: XCTestCase {
             shipping: 0,
             discountCode: "new",
             discountAmount: 0.5,
-            creditOrder: false,
-            products: [product1, product2]
+            creditOrder: false
         )
+        let event = TransactionEvent(transaction: transaction, products: [product1, product2])
         
         _ = tracker?.track(event)
         waitForEventsToBeTracked()
@@ -187,6 +187,49 @@ class TestEcommerceEvents: XCTestCase {
         XCTAssertEqual("new", entity.data["discount_code"] as? String)
         XCTAssertEqual(0.5, entity.data["discount_amount"] as? Decimal)
         XCTAssertEqual(false, entity.data["credit_order"] as? Bool)
+    }
+    
+    func testTransactionError() {
+        let transaction = TransactionEntity(
+            transactionId: "id",
+            revenue: 55.55,
+            currency: "CAD",
+            paymentMethod: "cash",
+            totalQuantity: 2,
+            tax: 11.11,
+            shipping: 0,
+            discountCode: "new",
+            discountAmount: 0.5,
+            creditOrder: false
+        )
+        let event = TransactionErrorEvent(
+            transaction: transaction,
+            errorCode: "E123",
+            errorShortcode: "card_declined",
+            errorDescription: "card_expired",
+            errorType: .hard,
+            resolution: "user_notification"
+        )
+        
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
+        XCTAssertEqual(ecommerceActionSchema, event.schema)
+        XCTAssertEqual("trns_error", event.payload["type"] as? String)
+        
+        let entities = trackedEvents[0].entities
+        let errorEntities = getTransactionErrorEntities(entities)
+        XCTAssertEqual(1, errorEntities.count)
+        XCTAssertEqual(1, getTransactionEntities(entities).count)
+        
+        let entity = errorEntities[0]
+        
+        XCTAssertEqual("E123", entity.data["error_code"] as? String)
+        XCTAssertEqual("card_declined", entity.data["error_shortcode"] as? String)
+        XCTAssertEqual("card_expired", entity.data["error_description"] as? String)
+        XCTAssertEqual("hard", entity.data["error_type"] as? String)
+        XCTAssertEqual("user_notification", entity.data["resolution"] as? String)
     }
     
     func testRefund() {
@@ -339,6 +382,18 @@ class TestEcommerceEvents: XCTestCase {
         if let all = all {
             for entity in all {
                 if (entity.schema == ecommerceTransactionSchema) {
+                    entities.append(entity)
+                }
+            }
+        }
+        return entities
+    }
+    
+    private func getTransactionErrorEntities(_ all: [SelfDescribingJson]?) -> [SelfDescribingJson] {
+        var entities: [SelfDescribingJson] = []
+        if let all = all {
+            for entity in all {
+                if (entity.schema == ecommerceTransactionErrorSchema) {
                     entities.append(entity)
                 }
             }
