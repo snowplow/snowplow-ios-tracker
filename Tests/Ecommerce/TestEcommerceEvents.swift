@@ -178,14 +178,14 @@ class TestEcommerceEvents: XCTestCase {
         let entity = transactionEntities[0]
         
         XCTAssertEqual("id", entity.data["transaction_id"] as? String)
-        XCTAssertEqual(55.55, entity.data["revenue"] as? Double)
+        XCTAssertEqual(55.55, entity.data["revenue"] as? Decimal)
         XCTAssertEqual("CAD", entity.data["currency"] as? String)
         XCTAssertEqual("cash", entity.data["payment_method"] as? String)
         XCTAssertEqual(2, entity.data["total_quantity"] as? Int)
-        XCTAssertEqual(11.11, entity.data["tax"] as? Double)
-        XCTAssertEqual(0, entity.data["shipping"] as? Double)
+        XCTAssertEqual(11.11, entity.data["tax"] as? Decimal)
+        XCTAssertEqual(0, entity.data["shipping"] as? Decimal)
         XCTAssertEqual("new", entity.data["discount_code"] as? String)
-        XCTAssertEqual(0.5, entity.data["discount_amount"] as? Double)
+        XCTAssertEqual(0.5, entity.data["discount_amount"] as? Decimal)
         XCTAssertEqual(false, entity.data["credit_order"] as? Bool)
     }
     
@@ -213,7 +213,7 @@ class TestEcommerceEvents: XCTestCase {
 
         XCTAssertEqual("id", entity.data["transaction_id"] as? String)
         XCTAssertEqual("INR", entity.data["currency"] as? String)
-        XCTAssertEqual(300, entity.data["refund_amount"] as? Double)
+        XCTAssertEqual(300, entity.data["refund_amount"] as? Decimal)
         XCTAssertEqual("reason", entity.data["refund_reason"] as? String)
     }
     

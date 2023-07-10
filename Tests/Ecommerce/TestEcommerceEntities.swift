@@ -26,7 +26,7 @@ class TestEcommerceEntities: XCTestCase {
         XCTAssertEqual(ecommerceCartSchema, entity.schema)
         XCTAssertEqual("id", entity.data["cart_id"] as? String)
         XCTAssertEqual("USD", entity.data["currency"] as? String)
-        XCTAssertEqual(1000, entity.data["total_value"] as? Double)
+        XCTAssertEqual(1000, entity.data["total_value"] as? Decimal)
     }
     
     func testBuildsProductEntity() {
@@ -51,8 +51,8 @@ class TestEcommerceEntities: XCTestCase {
         XCTAssertEqual("id", entity.data["id"] as? String)
         XCTAssertEqual("category", entity.data["category"] as? String)
         XCTAssertEqual("GBP", entity.data["currency"] as? String)
-        XCTAssertEqual(123.45, entity.data["price"] as? Double)
-        XCTAssertEqual(130, entity.data["list_price"] as? Double)
+        XCTAssertEqual(123.45, entity.data["price"] as? Decimal)
+        XCTAssertEqual(130, entity.data["list_price"] as? Decimal)
         XCTAssertEqual("name", entity.data["name"] as? String)
         XCTAssertEqual(1, entity.data["quantity"] as? Int)
         XCTAssertEqual("small", entity.data["size"] as? String)
