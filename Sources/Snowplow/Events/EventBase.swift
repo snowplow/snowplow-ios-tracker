@@ -20,7 +20,7 @@ public class Event: NSObject {
     @objc
     public var trueTimestamp: Date?
     
-    private var _entities: [SelfDescribingJson]
+    private var _entities: [SelfDescribingJson] = []
     /// The context entities attached to the event.
     @objc
     public var entities: [SelfDescribingJson] {
@@ -58,11 +58,6 @@ public class Event: NSObject {
             reason: "You must override \(NSStringFromSelector(#function)) in a subclass",
             userInfo: nil).raise()
         abort()
-    }
-    
-    @objc
-    override public init() {
-        self._entities = []
     }
 
     private var isProcessing = false

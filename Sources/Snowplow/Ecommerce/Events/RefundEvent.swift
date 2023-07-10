@@ -27,7 +27,7 @@ public class RefundEvent: SelfDescribingAbstract {
     
     /// The monetary amount refunded.
     @objc
-    public var refundAmount: Double
+    public var refundAmount: Decimal
 
     /// The currency in which the product is being priced (ISO 4217).
     @objc
@@ -81,7 +81,7 @@ public class RefundEvent: SelfDescribingAbstract {
     @objc
     public init(
         transactionId: String,
-        refundAmount: Double,
+        refundAmount: Decimal,
         currency: String,
         refundReason: String? = nil,
         products: [ProductEntity]? = nil

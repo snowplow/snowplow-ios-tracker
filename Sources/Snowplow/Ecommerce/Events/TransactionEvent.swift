@@ -23,7 +23,7 @@ public class TransactionEvent: SelfDescribingAbstract {
     
     /// The total value of the transaction.
     @objc
-    public var revenue: Double
+    public var revenue: Decimal
     
     /// The currency used for the transaction (ISO 4217).
     @objc
@@ -38,17 +38,17 @@ public class TransactionEvent: SelfDescribingAbstract {
     public var totalQuantity: Int
     
     /// Total amount of tax on the transaction.
-    public var tax: Double?
+    public var tax: Decimal?
     
     /// Total cost of shipping on the transaction.
-    public var shipping: Double?
+    public var shipping: Decimal?
     
     /// Discount code used.
     @objc
     public var discountCode: String?
     
     /// Discount amount taken off.
-    public var discountAmount: Double?
+    public var discountAmount: Decimal?
     
     /// Whether the transaction is a credit order or not.
     public var creditOrder: Bool?
@@ -108,14 +108,14 @@ public class TransactionEvent: SelfDescribingAbstract {
     /// - Parameter products: The product(s) included in the transaction.
     public init(
         transactionId: String,
-        revenue: Double,
+        revenue: Decimal,
         currency: String,
         paymentMethod: String,
         totalQuantity: Int,
-        tax: Double? = nil,
-        shipping: Double? = nil,
+        tax: Decimal? = nil,
+        shipping: Decimal? = nil,
         discountCode: String? = nil,
-        discountAmount: Double? = nil,
+        discountAmount: Decimal? = nil,
         creditOrder: Bool? = nil,
         products: [ProductEntity]? = nil
     ) {
@@ -142,7 +142,7 @@ public class TransactionEvent: SelfDescribingAbstract {
     @objc
     public init(
         transactionId: String,
-        revenue: Double,
+        revenue: Decimal,
         currency: String,
         paymentMethod: String,
         totalQuantity: Int,
@@ -160,21 +160,21 @@ public class TransactionEvent: SelfDescribingAbstract {
     
     /// Total amount of tax on the transaction.
     @objc
-    public func tax(_ tax: Double) -> Self {
+    public func tax(_ tax: Decimal) -> Self {
         self.tax = tax
         return self
     }
     
     /// Total cost of shipping on the transaction.
     @objc
-    public func shipping(_ shipping: Double) -> Self {
+    public func shipping(_ shipping: Decimal) -> Self {
         self.shipping = shipping
         return self
     }
     
     /// Discount amount taken off.
     @objc
-    public func discountAmount(_ discountAmount: Double) -> Self {
+    public func discountAmount(_ discountAmount: Decimal) -> Self {
         self.discountAmount = discountAmount
         return self
     }

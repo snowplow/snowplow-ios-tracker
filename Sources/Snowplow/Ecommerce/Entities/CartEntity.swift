@@ -21,7 +21,7 @@ import Foundation
 public class CartEntity: NSObject {
     /// The total value of the cart after this interaction.
     @objc
-    public var totalValue: Double
+    public var totalValue: Decimal
 
     /// The currency used for this cart (ISO 4217).
     @objc
@@ -46,7 +46,7 @@ public class CartEntity: NSObject {
     /// - Parameter cartId: The unique ID representing this cart.
     @objc
     public init(
-            totalValue: Double,
+            totalValue: Decimal,
             currency: String,
             cartId: String? = nil) {
         self.totalValue = totalValue

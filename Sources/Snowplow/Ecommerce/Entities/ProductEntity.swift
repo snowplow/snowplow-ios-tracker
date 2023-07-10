@@ -33,10 +33,10 @@ public class ProductEntity: NSObject {
 
     /// The price of the product at the current time.
     @objc
-    public var price: Double
+    public var price: Decimal
 
     /// The recommended or list price of a product.
-    public var listPrice: Double?
+    public var listPrice: Decimal?
 
     /// The name or title of the product.
     @objc
@@ -105,8 +105,8 @@ public class ProductEntity: NSObject {
                 id: String,
                 category: String,
                 currency: String,
-                price: Double,
-                listPrice: Double? = nil,
+                price: Decimal,
+                listPrice: Decimal? = nil,
                 name: String? = nil,
                 quantity: Int? = nil,
                 size: String? = nil,
@@ -145,7 +145,7 @@ public class ProductEntity: NSObject {
                 id: String,
                 category: String,
                 currency: String,
-                price: Double,
+                price: Decimal,
                 name: String? = nil,
                 size: String? = nil,
                 variant: String? = nil,
@@ -166,7 +166,7 @@ public class ProductEntity: NSObject {
     
     /// The recommended or list price of a product.
     @objc
-    public func listPrice(_ listPrice: Double) -> Self {
+    public func listPrice(_ listPrice: Decimal) -> Self {
         self.listPrice = listPrice
         return self
     }
