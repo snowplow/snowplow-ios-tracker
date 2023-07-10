@@ -471,11 +471,12 @@ class Tracker: NSObject {
         setApplicationInstallEventTimestamp(event)
         addBasicProperties(to: payload, event: event)
         addStateMachinePayloadValues(event: event)
-        event.wrapProperties(to: payload, base64Encoded: base64Encoded)
-
+        
         // Context entities
         addBasicContexts(event: event)
         addStateMachineEntities(event: event)
+        
+        event.wrapProperties(to: payload, base64Encoded: base64Encoded)
         event.wrapContexts(to: payload, base64Encoded: base64Encoded)
         
         // Decide whether to track the event or not

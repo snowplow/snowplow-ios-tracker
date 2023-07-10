@@ -15,15 +15,32 @@ import XCTest
 @testable import SnowplowTracker
 
 class TestEcommerceEvents: XCTestCase {
+    
+    var trackedEvents: [InspectableEvent] = []
+    var tracker: TrackerController?
+    
+    override func setUp() {
+        tracker = createTracker()
+    }
+    
+    override func tearDown() {
+        Snowplow.removeAllTrackers()
+        trackedEvents.removeAll()
+    }
+    
     func testAddToCart() {
         let cart = CartEntity(totalValue: 500, currency: "GBP")
         
         let event = AddToCartEvent(products: [product1, product2], cart: cart)
-        let entities = event.entitiesForProcessing
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("add_to_cart", event.payload["type"] as? String)
-        XCTAssertEqual(3, entities?.count)
+        
+        let entities = trackedEvents[0].entities
         XCTAssertEqual(2, getProductEntities(entities).count)
         XCTAssertEqual(1, getCartEntities(entities).count)
     }
@@ -32,44 +49,60 @@ class TestEcommerceEvents: XCTestCase {
         let cart = CartEntity(totalValue: 500, currency: "GBP")
         
         let event = RemoveFromCartEvent(products: [product1], cart: cart)
-        let entities = event.entitiesForProcessing
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("remove_from_cart", event.payload["type"] as? String)
-        XCTAssertEqual(2, entities?.count)
+        
+        let entities = trackedEvents[0].entities
         XCTAssertEqual(1, getProductEntities(entities).count)
         XCTAssertEqual(1, getCartEntities(entities).count)
     }
     
     func testProductListClick() {
         let event = ProductListClickEvent(product: product1, name: "list_name")
-        let entities = event.entitiesForProcessing
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("list_click", event.payload["type"] as? String)
         XCTAssertEqual("list_name", event.payload["name"] as? String)
-        XCTAssertEqual(1, entities?.count)
+        
+        let entities = trackedEvents[0].entities
         XCTAssertEqual(1, getProductEntities(entities).count)
     }
     
     func testProductListView() {
         let event = ProductListViewEvent(products: [product1, product2], name: "list_name")
-        let entities = event.entitiesForProcessing
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("list_view", event.payload["type"] as? String)
         XCTAssertEqual("list_name", event.payload["name"] as? String)
-        XCTAssertEqual(2, entities?.count)
+        
+        let entities = trackedEvents[0].entities
         XCTAssertEqual(2, getProductEntities(entities).count)
     }
     
     func testProductView() {
         let event = ProductViewEvent(product: product1)
-        let entities = event.entitiesForProcessing
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("product_view", event.payload["type"] as? String)
-        XCTAssertEqual(1, entities?.count)
+        
+        let entities = trackedEvents[0].entities
         XCTAssertEqual(1, getProductEntities(entities).count)
     }
     
@@ -88,12 +121,15 @@ class TestEcommerceEvents: XCTestCase {
             proofOfPayment: "proof",
             marketingOptIn: false
         )
-        let entities = event.entitiesForProcessing
-        let checkoutEntities = getCheckoutStepEntities(entities)
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
         
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("checkout_step", event.payload["type"] as? String)
-        XCTAssertEqual(1, entities?.count)
+        
+        let entities = trackedEvents[0].entities
+        let checkoutEntities = getCheckoutStepEntities(entities)
         XCTAssertEqual(1, checkoutEntities.count)
         
         let entity = checkoutEntities[0]
@@ -126,12 +162,16 @@ class TestEcommerceEvents: XCTestCase {
             creditOrder: false,
             products: [product1, product2]
         )
-        let entities = event.entitiesForProcessing
-        let transactionEntities = getTransactionEntities(entities)
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("transaction", event.payload["type"] as? String)
-        XCTAssertEqual(3, entities?.count)
+        
+        let entities = trackedEvents[0].entities
+        let transactionEntities = getTransactionEntities(entities)
         XCTAssertEqual(1, transactionEntities.count)
         XCTAssertEqual(2, getProductEntities(entities).count)
         
@@ -157,12 +197,15 @@ class TestEcommerceEvents: XCTestCase {
             refundReason: "reason",
             products: [product1]
         )
-        let entities = event.entitiesForProcessing
-        let refundEntities = getRefundEntities(entities)
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
         
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("refund", event.payload["type"] as? String)
-        XCTAssertEqual(2, entities?.count)
+        
+        let entities = trackedEvents[0].entities
+        let refundEntities = getRefundEntities(entities)
         XCTAssertEqual(1, refundEntities.count)
         XCTAssertEqual(1, getProductEntities(entities).count)
         
@@ -176,21 +219,29 @@ class TestEcommerceEvents: XCTestCase {
     
     func testPromotionClick() {
         let event = PromotionClickEvent(promotion: PromotionEntity(id: "promo"))
-        let entities = event.entitiesForProcessing
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("promo_click", event.payload["type"] as? String)
-        XCTAssertEqual(1, entities?.count)
+        
+        let entities = trackedEvents[0].entities
         XCTAssertEqual(1, getPromotionEntities(entities).count)
     }
     
     func testPromotionView() {
         let event = PromotionViewEvent(promotion: PromotionEntity(id: "promo"))
-        let entities = event.entitiesForProcessing
         
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
         XCTAssertEqual(ecommerceActionSchema, event.schema)
         XCTAssertEqual("promo_view", event.payload["type"] as? String)
-        XCTAssertEqual(1, entities?.count)
+        
+        let entities = trackedEvents[0].entities
         XCTAssertEqual(1, getPromotionEntities(entities).count)
     }
     
@@ -207,6 +258,33 @@ class TestEcommerceEvents: XCTestCase {
         currency: "GBP",
         price: 0.99
     )
+    
+    private func createTracker() -> TrackerController {
+        let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
+        let trackerConfig = TrackerConfiguration()
+        trackerConfig.installAutotracking = false
+        trackerConfig.lifecycleAutotracking = false
+        
+        let namespace = "testEcommerce" + String(describing: Int.random(in: 0..<100))
+        let plugin = PluginConfiguration(identifier: "testPlugin" + namespace)
+            .afterTrack { event in
+                if namespace == self.tracker?.namespace {
+                    self.trackedEvents.append(event)
+                }
+            }
+        
+        return Snowplow.createTracker(namespace: namespace,
+                                      network: networkConfig,
+                                      configurations: [trackerConfig, plugin])!
+    }
+    
+    private func waitForEventsToBeTracked() {
+        let expect = expectation(description: "Wait for events to be tracked")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { () -> Void in
+            expect.fulfill()
+        }
+        wait(for: [expect], timeout: 1)
+    }
     
     private func getProductEntities(_ all: [SelfDescribingJson]?) -> [SelfDescribingJson] {
         var entities: [SelfDescribingJson] = []
