@@ -20,9 +20,22 @@ public class Event: NSObject {
     @objc
     public var trueTimestamp: Date?
     
+    private var _entities: [SelfDescribingJson] = []
     /// The context entities attached to the event.
     @objc
-    public var entities: [SelfDescribingJson] = []
+    public var entities: [SelfDescribingJson] {
+        get {
+            if (isProcessing) {
+                if let entitiesForProcessing = entitiesForProcessing {
+                    return _entities + entitiesForProcessing
+                }
+            }
+            return _entities
+        }
+        set {
+            _entities = newValue
+        }
+    }
     
     /// The context entities attached to the event.
     @objc
@@ -30,6 +43,12 @@ public class Event: NSObject {
     public var contexts: [SelfDescribingJson] {
         get { return entities }
         set { entities = newValue }
+    }
+    
+    /// Used for events whose properties are added as entities, e.g. Ecommerce events
+    @objc
+    internal var entitiesForProcessing: [SelfDescribingJson]? {
+        get { return nil }
     }
     
     /// The payload of the event.
@@ -41,14 +60,17 @@ public class Event: NSObject {
         abort()
     }
 
+    private var isProcessing = false
     /// Hook method called just before the event processing in order to execute special operations.
     /// @note Internal use only - Don't use in production, it can change without notice.
     func beginProcessing(withTracker tracker: Tracker) {
+        isProcessing = true
     }
 
     /// Hook method called just after the event processing in order to execute special operations.
     /// @note Internal use only - Don't use in production, it can change without notice.
     func endProcessing(withTracker tracker: Tracker) {
+        isProcessing = false
     }
     
     // MARK: - Builders
@@ -60,14 +82,14 @@ public class Event: NSObject {
         return self
     }
     
-    /// The context entities attached to the event.
+    /// Replace the context entities attached to the event with a new list of entities.
     @objc
     public func entities(_ entities: [SelfDescribingJson]) -> Self {
         self.entities = entities
         return self
     }
     
-    /// The context entities attached to the event.
+    /// Replace the context entities attached to the event with a new list of entities.
     @objc
     @available(*, deprecated, renamed: "entities")
     public func contexts(_ entities: [SelfDescribingJson]) -> Self {

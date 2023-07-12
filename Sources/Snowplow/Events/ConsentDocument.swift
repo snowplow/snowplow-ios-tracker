@@ -42,7 +42,8 @@ public class ConsentDocument: NSObject {
     }
 
     /// Returns the payload.
-    var payload: SelfDescribingJson {
+    @objc
+    public var payload: SelfDescribingJson {
         var event: [String : String] = [:]
         event[kSPCdId] = documentId
         event[kSPCdVersion] = version

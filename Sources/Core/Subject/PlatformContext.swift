@@ -20,7 +20,7 @@ import UIKit
 /// Manages a dictionary (Payload) with platform context. Some properties for mobile platforms are updated on fetch in set intervals.
 class PlatformContext {
     private var platformDict: Payload = Payload()
-    private var mobileDictUpdateFrequency: TimeInterval = 0.1
+    private var mobileDictUpdateFrequency: TimeInterval = 1.0
     private var networkDictUpdateFrequency: TimeInterval = 10.0
     private var lastUpdatedEphemeralMobileDict: TimeInterval = 0.0
     private var lastUpdatedEphemeralNetworkDict: TimeInterval = 0.0
@@ -37,7 +37,7 @@ class PlatformContext {
     ///   - deviceInfoMonitor: Device monitor for fetching platform information
     /// - Returns: a PlatformContext object
     init(platformContextProperties: [PlatformContextProperty]? = nil,
-         mobileDictUpdateFrequency: TimeInterval = 0.1,
+         mobileDictUpdateFrequency: TimeInterval = 1.0,
          networkDictUpdateFrequency: TimeInterval = 10.0,
          deviceInfoMonitor: DeviceInfoMonitor = DeviceInfoMonitor()) {
         self.platformContextProperties = platformContextProperties
