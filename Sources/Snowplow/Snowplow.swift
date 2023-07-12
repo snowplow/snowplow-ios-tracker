@@ -18,7 +18,7 @@ import WebKit
 
 /// Entry point to instance a new Snowplow tracker.
 ///
-/// The following example initializes a tracker instance using the ``createTracker(namespace:network:)`` method and tracks a ``SelfDescribing`` event:
+/// The following example initializes a tracker instance using the ``createTracker(namespace:endpoint:method:)`` method and tracks a ``SelfDescribing`` event:
 ///
 /// ```swift
 /// let tracker = Snowplow.createTracker(

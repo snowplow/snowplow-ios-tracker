@@ -13,6 +13,8 @@
 
 import Foundation
 
+/// @deprecated Use the ecommerce package instead.
+@available(*, deprecated, message: "Use the ecommerce package instead.")
 @objc(SPEcommerce)
 public class Ecommerce : PrimitiveAbstract {
     /// Identifier of the order.

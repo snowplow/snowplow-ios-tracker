@@ -109,7 +109,14 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return mediaController
     }
     
-    // Configurations
+    private var _ecommerceController: EcommerceController?
+    var ecommerceController: EcommerceController {
+        if let controller = _ecommerceController { return controller }
+        let ecommerceController = EcommerceControllerImpl(serviceProvider: self)
+        _ecommerceController = ecommerceController
+        return ecommerceController
+    }
+    
     private(set) var networkConfiguration = NetworkConfiguration()
     private(set) var trackerConfiguration = TrackerConfiguration()
     private(set) var emitterConfiguration = EmitterConfiguration()

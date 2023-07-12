@@ -34,6 +34,7 @@ protocol ServiceProviderProtocol: AnyObject {
     var subjectConfiguration: SubjectConfiguration { get }
     var sessionConfiguration: SessionConfiguration { get }
     var gdprConfiguration: GDPRConfiguration { get }
+    var ecommerceController: EcommerceController { get }
     var pluginConfigurations: [PluginIdentifiable] { get }
     func addPlugin(plugin: PluginIdentifiable)
     func removePlugin(identifier: String)

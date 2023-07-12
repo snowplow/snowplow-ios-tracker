@@ -60,6 +60,16 @@ let kSPErrorSchema = "iglu:com.snowplowanalytics.snowplow/application_error/json
 let kSPApplicationInstallSchema = "iglu:com.snowplowanalytics.mobile/application_install/jsonschema/1-0-0"
 let kSPGdprContextSchema = "iglu:com.snowplowanalytics.snowplow/gdpr/jsonschema/1-0-0"
 let kSPDiagnosticErrorSchema = "iglu:com.snowplowanalytics.snowplow/diagnostic_error/jsonschema/1-0-0"
+let ecommerceActionSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/snowplow_ecommerce_action/jsonschema/1-0-2"
+let ecommerceProductSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/product/jsonschema/1-0-0"
+let ecommerceCartSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/cart/jsonschema/1-0-0"
+let ecommerceTransactionSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/transaction/jsonschema/1-0-0"
+let ecommerceTransactionErrorSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/transaction_error/jsonschema/1-0-0"
+let ecommerceCheckoutStepSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/checkout_step/jsonschema/1-0-0"
+let ecommercePromotionSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/promotion/jsonschema/1-0-0"
+let ecommerceRefundSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/refund/jsonschema/1-0-0"
+let ecommerceUserSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/user/jsonschema/1-0-0"
+let ecommercePageSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/page/jsonschema/1-0-0"
 
 // --- Event Keys
 let kSPEventPageView = "pv"
