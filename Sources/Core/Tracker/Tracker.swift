@@ -345,17 +345,19 @@ class Tracker: NSObject {
 
     private func checkInstall() {
         if installEvent {
-            let installTracker = InstallTracker()
-            let previousTimestamp = installTracker.previousInstallTimestamp
-            installTracker.clearPreviousInstallTimestamp()
-            if !installTracker.isNewInstall && previousTimestamp == nil {
-                return
+            DispatchQueue.global(qos: .default).async { [weak self] in
+                let installTracker = InstallTracker()
+                let previousTimestamp = installTracker.previousInstallTimestamp
+                installTracker.clearPreviousInstallTimestamp()
+                if !installTracker.isNewInstall && previousTimestamp == nil {
+                    return
+                }
+                let data: [String: Any] = [:]
+                let installEvent = SelfDescribingJson(schema: kSPApplicationInstallSchema, andDictionary: data)
+                let event = SelfDescribing(eventData: installEvent)
+                event.trueTimestamp = previousTimestamp // it can be nil
+                let _ = self?.track(event)
             }
-            let data: [String: Any] = [:]
-            let installEvent = SelfDescribingJson(schema: kSPApplicationInstallSchema, andDictionary: data)
-            let event = SelfDescribing(eventData: installEvent)
-            event.trueTimestamp = previousTimestamp // it can be nil
-            let _ = track(event)
         }
     }
     
