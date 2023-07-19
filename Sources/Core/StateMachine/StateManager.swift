@@ -56,6 +56,9 @@ class StateManager {
     }
 
     func removeStateMachine(_ stateMachineIdentifier: String) -> Bool {
+        objc_sync_enter(self)
+        defer { objc_sync_exit(self) }
+        
         guard let stateMachine = identifierToStateMachine[stateMachineIdentifier] else {
             return false
         }
