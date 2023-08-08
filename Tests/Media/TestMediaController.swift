@@ -132,7 +132,7 @@ class TestMediaController: XCTestCase {
         
         XCTAssertEqual(1, trackedEvents.count)
         XCTAssert(firstEvent?.entities.contains { $0.schema == "test1" } ?? false)
-        XCTAssert(firstEvent?.entities.contains { $0.schema.contains("/player/") } ?? false)
+        XCTAssert(firstEvent?.entities.contains { $0.schema.contains("/media_player/") } ?? false)
     }
     
     func testTrackingPlaybackRateChangeEventUpdatesThePlaybackRate() {

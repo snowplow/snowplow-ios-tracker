@@ -31,7 +31,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     func testBuildsEntityWithDefaultValuesForEmptyMediaPlayer() {
         let entity = MediaPlayerEntity().entity
         
-        XCTAssertEqual(mediaSchema(name: "player"), entity.schema)
+        XCTAssertEqual(mediaPlayerSchema, entity.schema)
         XCTAssertEqual(0.0, entity.data["currentTime"] as? Double)
         XCTAssertEqual(true, entity.data["paused"] as? Bool)
         XCTAssertEqual(false, entity.data["ended"] as? Bool)
@@ -56,7 +56,7 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
             volume: 80
         ).entity
         
-        XCTAssertEqual(mediaSchema(name: "player"), entity.schema)
+        XCTAssertEqual(mediaPlayerSchema, entity.schema)
         XCTAssertEqual(33.3, entity.data["currentTime"] as? Double)
         XCTAssertEqual(false, entity.data["paused"] as? Bool)
         XCTAssertEqual(true, entity.data["fullscreen"] as? Bool)
@@ -130,5 +130,9 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
     
     private func mediaSchema(name: String, version: String = "1-0-0") -> String {
         return "iglu:com.snowplowanalytics.snowplow.media/" + name + "/jsonschema/" + version
+    }
+    
+    private var mediaPlayerSchema: String {
+        return "iglu:com.snowplowanalytics.snowplow/media_player/jsonschema/2-0-0"
     }
 }
