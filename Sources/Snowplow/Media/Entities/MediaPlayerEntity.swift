@@ -39,7 +39,7 @@ extension MediaType {
 
 /**
  Properties for the media player context entity attached to media events.
- Entity schema: `iglu:com.snowplowanalytics.snowplow.media/player/jsonschema/1-0-0`
+ Entity schema: `iglu:com.snowplowanalytics.snowplow/media_player/jsonschema/2-0-0`
  */
 @objc(SPMediaPlayer)
 public class MediaPlayerEntity: NSObject {
