@@ -75,4 +75,40 @@ public protocol TrackerController: TrackerConfigurationProtocol {
     /// The tracker will start tracking again.
     @objc
     func resume()
+    /// Adds user and session information to a URL.
+    ///
+    /// For example, calling decorateLink on `appSchema://path/to/page` will return:
+    ///
+    ///      `appSchema://path/to/page?_sp=domainUserId.timestamp.sessionId..sourceId`
+    ///
+    /// Filled by this method:
+    /// - `domainUserId`: Value of ``SessionController.userId``
+    /// - `timestamp`: ms precision epoch timestamp
+    /// - `sessionId`: Value of ``SessionController.sessionId``
+    /// - `sourceId`: Value of ``Tracker.appId``
+    ///
+    /// - Parameter uri The URI to add the query string to
+    ///
+    /// - Returns Optional URL
+    /// - nil if ``SnowplowTracker/SessionController/userId`` is null from `sessionContext(false)` being passed in ``TrackerConfiguration``
+    /// - otherwise, decorated URL
+    @objc
+    func decorateLink(_ url: URL) -> URL?
+    /// Adds user and session information to a URL.
+    ///
+    /// For example, calling decorateLink on `appSchema://path/to/page` with all extended parameters enabled will return:
+    ///
+    ///      `appSchema://path/to/page?_sp=domainUserId.timestamp.sessionId.subjectUserId.sourceId.platform.reason`
+    ///
+    /// - Parameter url The URL to add the query string to
+    /// - Parameter extendedParameters Any optional parameters to include in the query string.
+    ///
+    /// - Returns Optional URL
+    /// - nil if:
+    ///
+    ///     - ``SnowplowTracker/SessionController/userId`` is null from `sessionContext(false)` being passed in ``TrackerConfiguration``
+    ///     - An enabled CrossDeviceParameter isn't set in the tracker
+    /// - otherwise, decorated URL
+    @objc
+    func decorateLink(_ url: URL, extendedParameters: CrossDeviceParameterConfiguration) -> URL?
 }
