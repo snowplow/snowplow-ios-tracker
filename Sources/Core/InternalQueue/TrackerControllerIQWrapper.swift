@@ -110,6 +110,14 @@ class TrackerControllerIQWrapper: TrackerController {
         InternalQueue.async { self.controller.track(event, eventId: eventId) }
         return eventId
     }
+    
+    func decorateLink(_ url: URL) -> URL? {
+        return InternalQueue.sync { controller.decorateLink(url) }
+    }
+    
+    func decorateLink(_ url: URL, extendedParameters: CrossDeviceParameterConfiguration) -> URL? {
+        return InternalQueue.sync { controller.decorateLink(url, extendedParameters: extendedParameters) }
+    }
 
     // MARK: - Properties' setters and getters
 

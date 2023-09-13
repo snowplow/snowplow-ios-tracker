@@ -26,7 +26,7 @@ public enum DevicePlatform : Int {
     case headset
 }
 
-func devicePlatformToString(_ devicePlatform: DevicePlatform) -> String? {
+func devicePlatformToString(_ devicePlatform: DevicePlatform) -> String {
     switch devicePlatform {
     case .web:
         return "web"
