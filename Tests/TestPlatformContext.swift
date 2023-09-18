@@ -110,13 +110,13 @@ class TestPlatformContext: XCTestCase {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(mobileDictUpdateFrequency: 0, networkDictUpdateFrequency: 0, deviceInfoMonitor: deviceInfoMonitor)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
-        XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
+        XCTAssertEqual(1, deviceInfoMonitor.accessCount("carrierName"))
         _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
-        XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
+        XCTAssertEqual(1, deviceInfoMonitor.accessCount("carrierName"))
         _ = context.fetchPlatformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
         XCTAssertEqual(1, deviceInfoMonitor.accessCount("physicalMemory"))
-        XCTAssertEqual(1, deviceInfoMonitor.accessCount("totalStorage"))
+        XCTAssertEqual(1, deviceInfoMonitor.accessCount("carrierName"))
     }
     
     func testDoesntUpdateIdfvIfNotNil() {
@@ -198,7 +198,7 @@ class TestPlatformContext: XCTestCase {
     func testOnlyAddsRequestedProperties() {
         let deviceInfoMonitor = MockDeviceInfoMonitor()
         let context = PlatformContext(
-            platformContextProperties: [.appAvailableMemory, .availableStorage, .language],
+            platformContextProperties: [.appAvailableMemory, .language],
             mobileDictUpdateFrequency: 0,
             networkDictUpdateFrequency: 1,
             deviceInfoMonitor: deviceInfoMonitor)
@@ -213,7 +213,6 @@ class TestPlatformContext: XCTestCase {
         XCTAssertNil(platformDict[kSPMobileScale])
         XCTAssertNil(platformDict[kSPMobileResolution])
         XCTAssertNotNil(platformDict[kSPMobileAppAvailableMemory])
-        XCTAssertNotNil(platformDict[kSPMobileAvailableStorage])
         XCTAssertNil(platformDict[kSPMobilePhysicalMemory])
         XCTAssertNil(platformDict[kSPMobileIsPortrait])
         XCTAssertNil(platformDict[kSPMobileAppleIdfa])
