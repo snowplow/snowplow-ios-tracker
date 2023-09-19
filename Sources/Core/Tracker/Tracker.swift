@@ -443,9 +443,15 @@ class Tracker: NSObject {
         if !dataCollection {
             return nil
         }
-        event.beginProcessing(withTracker: self)
-        let eventId = processEvent(event)
-        event.endProcessing(withTracker: self)
+        let eventId = DispatchQueue.global(qos: .default).sync {
+            event.beginProcessing(withTracker: self)
+            let eventId = self.processEvent(event)
+//            Thread.sleep(forTimeInterval: 10)
+//            print("❗️ after sleep")
+            event.endProcessing(withTracker: self)
+            return eventId
+        }
+        print("❗️ after queue block")
         return eventId
     }
 
