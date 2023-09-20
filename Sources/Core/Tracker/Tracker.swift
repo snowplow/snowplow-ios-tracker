@@ -443,32 +443,26 @@ class Tracker: NSObject {
         if !dataCollection {
             return nil
         }
-        let eventId = DispatchQueue.global(qos: .default).sync {
+        let eventId = UUID()
+        DispatchQueue(label: "snowplow.track").async {
             event.beginProcessing(withTracker: self)
-            let eventId = self.processEvent(event)
-//            Thread.sleep(forTimeInterval: 10)
-//            print("❗️ after sleep")
+            self.processEvent(event, eventId)
             event.endProcessing(withTracker: self)
-            return eventId
         }
-        print("❗️ after queue block")
         return eventId
     }
 
     // MARK: - Event Decoration
 
-    func processEvent(_ event: Event) -> UUID? {
-        objc_sync_enter(self)
+    func processEvent(_ event: Event, _ eventId: UUID) {
         let stateSnapshot = stateManager.trackerState(forProcessedEvent: event)
-        objc_sync_exit(self)
-        let trackerEvent = TrackerEvent(event: event, state: stateSnapshot)
+        let trackerEvent = TrackerEvent(event: event, eventId: eventId, state: stateSnapshot)
         if let payload = self.payload(with: trackerEvent) {
             emitter.addPayload(toBuffer: payload)
             stateManager.afterTrack(event: trackerEvent)
-            return trackerEvent.eventId
+            return
         }
         logDebug(message: "Event not tracked due to filtering")
-        return nil
     }
 
     func payload(with event: TrackerEvent) -> Payload? {
