@@ -40,8 +40,8 @@ func uncaughtExceptionHandler(_ exception: NSException) {
 class Tracker: NSObject {
     private var platformContextSchema: String = ""
     private var dataCollection = true
-
     private var builderFinished = false
+    private let eventProcessQueue = DispatchQueue(label: "snowplow.track")
 
 
     /// The object used for sessionization, i.e. it characterizes user activity.
@@ -444,7 +444,7 @@ class Tracker: NSObject {
             return nil
         }
         let eventId = UUID()
-        DispatchQueue(label: "snowplow.track").async {
+        eventProcessQueue.async {
             event.beginProcessing(withTracker: self)
             self.processEvent(event, eventId)
             event.endProcessing(withTracker: self)
