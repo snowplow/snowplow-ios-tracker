@@ -11,12 +11,10 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-#if os(iOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
-#elseif os(tvOS)
-import UIKit
 #elseif os(watchOS)
 import WatchKit
 #endif
@@ -40,6 +38,8 @@ class Utilities {
     class var platform: DevicePlatform {
         #if os(iOS)
         return .mobile
+        #elseif os(visionOS)
+        return .headset
         #else
         return .desktop
         #endif

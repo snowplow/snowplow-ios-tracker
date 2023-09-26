@@ -1,14 +1,16 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.9
 
 import PackageDescription
 
 let package = Package(
     name: "SnowplowTracker",
+    defaultLocalization: "en",
     platforms: [
         .macOS("10.13"),
         .iOS("11.0"),
         .tvOS("12.0"),
-        .watchOS("6.0")
+        .watchOS("6.0"),
+        .visionOS("1.0")
     ],
     products: [
         .library(

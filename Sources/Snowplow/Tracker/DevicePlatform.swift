@@ -23,6 +23,7 @@ public enum DevicePlatform : Int {
     case connectedTV
     case gameConsole
     case internetOfThings
+    case headset
 }
 
 func devicePlatformToString(_ devicePlatform: DevicePlatform) -> String? {
@@ -43,11 +44,13 @@ func devicePlatformToString(_ devicePlatform: DevicePlatform) -> String? {
         return "cnsl"
     case .internetOfThings:
         return "iot"
+    case .headset:
+        return "headset"
     }
 }
 
 func stringToDevicePlatform(_ devicePlatformString: String) -> DevicePlatform? {
-    if let index = ["web", "mob", "pc", "srv", "app", "tv", "cnsl", "iot"].firstIndex(of: devicePlatformString) {
+    if let index = ["web", "mob", "pc", "srv", "app", "tv", "cnsl", "iot", "headset"].firstIndex(of: devicePlatformString) {
         return DevicePlatform(rawValue: index)
     }
     return nil

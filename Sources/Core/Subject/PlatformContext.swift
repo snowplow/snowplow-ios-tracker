@@ -12,7 +12,7 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 import UIKit
 #endif
 
@@ -44,7 +44,7 @@ class PlatformContext {
         self.mobileDictUpdateFrequency = mobileDictUpdateFrequency
         self.networkDictUpdateFrequency = networkDictUpdateFrequency
         self.deviceInfoMonitor = deviceInfoMonitor
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         UIDevice.current.isBatteryMonitoringEnabled = true
         #endif
         setPlatformDict()
@@ -53,7 +53,7 @@ class PlatformContext {
     /// Updates and returns payload dictionary with device context information.
     /// - Parameter userAnonymisation: Whether to anonymise user identifiers (IDFA values)
     func fetchPlatformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let now = Date().timeIntervalSince1970
         if now - lastUpdatedEphemeralMobileDict >= mobileDictUpdateFrequency {
             setEphemeralMobileDict()
@@ -87,7 +87,7 @@ class PlatformContext {
         platformDict[kSPPlatformDeviceManu] = deviceInfoMonitor.deviceVendor
         platformDict[kSPPlatformDeviceModel] = deviceInfoMonitor.deviceModel
 
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         setMobileDict()
         #endif
     }
