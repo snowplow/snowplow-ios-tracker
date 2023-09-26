@@ -128,7 +128,7 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "t1")
         
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "t1", appId: nil, emitter: emitter) { tracker in
+        let tracker = Tracker(trackerNamespace: "t1", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
             tracker.installEvent = false
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
@@ -269,7 +269,7 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker")
         
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
             tracker.foregroundTimeout = 100
@@ -300,7 +300,7 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker")
         
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
             tracker.foregroundTimeout = 100
@@ -345,12 +345,13 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker2")
 
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker1 = Tracker(trackerNamespace: "tracker1", appId: nil, emitter: emitter) { tracker in
+        let queue2 = MockDispatchQueueWrapper(label: "test2")
+        let tracker1 = Tracker(trackerNamespace: "tracker1", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test1")) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
         }
-        let tracker2 = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter) { tracker in
+        let tracker2 = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter, dispatchQueue: queue2) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
@@ -378,7 +379,7 @@ class TestSession: XCTestCase {
         XCTAssertEqual(1, tracker2.session!.state!.sessionIndex - initialValue2) // timed out
 
         //Recreate tracker2
-        let tracker2b = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter) { tracker in
+        let tracker2b = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter, dispatchQueue: queue2) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 5
             tracker.backgroundTimeout = 5
@@ -398,7 +399,7 @@ class TestSession: XCTestCase {
         storeAsV3_0(withNamespace: "tracker", eventId: "eventId", sessionId: "sessionId", sessionIndex: 123, userId: "userId")
 
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
             tracker.sessionContext = true
         }
         let event = Structured(category: "c", action: "a")

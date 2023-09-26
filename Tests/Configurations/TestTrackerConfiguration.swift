@@ -186,8 +186,10 @@ class TestTrackerConfiguration: XCTestCase {
         let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, sessionConfig])
 
         _ = tracker?.track(Timing(category: "cat", variable: "var", timing: 123))
+        Thread.sleep(forTimeInterval: 3)
         tracker?.session?.startNewSession()
         _ = tracker?.track(Timing(category: "cat", variable: "var", timing: 123))
+        Thread.sleep(forTimeInterval: 3)
 
         wait(for: [expectation], timeout: 10)
     }
