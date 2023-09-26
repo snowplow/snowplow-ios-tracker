@@ -41,8 +41,7 @@ class Tracker: NSObject {
     private var platformContextSchema: String = ""
     private var dataCollection = true
     private var builderFinished = false
-    private let eventProcessQueue = DispatchQueue(label: "snowplow.track")
-
+    private let eventProcessQueue = DispatchQueueWrapper(label: "snowplow.track")
 
     /// The object used for sessionization, i.e. it characterizes user activity.
     private(set) var session: Session?

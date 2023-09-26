@@ -39,7 +39,7 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
     
     private(set) var isService: Bool
     
-    init(event: Event, eventId: UUID, state: TrackerStateSnapshot? = nil) {
+    init(event: Event, eventId: UUID = UUID(), state: TrackerStateSnapshot? = nil) {
         self.eventId = eventId
         timestamp = Int64(Date().timeIntervalSince1970 * 1000)
         trueTimestamp = event.trueTimestamp
