@@ -41,7 +41,7 @@ class Tracker: NSObject {
     private var platformContextSchema: String = ""
     private var dataCollection = true
     private var builderFinished = false
-    private let eventProcessQueue: DispatchQueueWrapperProtocol
+    private let serialQueue: DispatchQueueWrapperProtocol
 
     /// The object used for sessionization, i.e. it characterizes user activity.
     private(set) var session: Session?
@@ -174,14 +174,14 @@ class Tracker: NSObject {
             return _deepLinkContext
         }
         set(deepLinkContext) {
-            objc_sync_enter(self)
-            _deepLinkContext = deepLinkContext
-            if deepLinkContext {
-                addOrReplace(stateMachine: DeepLinkStateMachine())
-            } else {
-                _ = stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
+            serialQueue.async {
+                self._deepLinkContext = deepLinkContext
+                if deepLinkContext {
+                    self.addOrReplace(stateMachine: DeepLinkStateMachine())
+                } else {
+                    _ = self.stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
+                }
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -191,14 +191,14 @@ class Tracker: NSObject {
             return _screenContext
         }
         set(screenContext) {
-            objc_sync_enter(self)
-            _screenContext = screenContext
-            if screenContext {
-                addOrReplace(stateMachine: ScreenStateMachine())
-            } else {
-                _ = stateManager.removeStateMachine(ScreenStateMachine.identifier)
+            serialQueue.async {
+                self._screenContext = screenContext
+                if screenContext {
+                    self.addOrReplace(stateMachine: ScreenStateMachine())
+                } else {
+                    _ = self.stateManager.removeStateMachine(ScreenStateMachine.identifier)
+                }
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -240,14 +240,14 @@ class Tracker: NSObject {
             return _lifecycleEvents
         }
         set(lifecycleEvents) {
-            objc_sync_enter(self)
-            _lifecycleEvents = lifecycleEvents
-            if lifecycleEvents {
-                addOrReplace(stateMachine: LifecycleStateMachine())
-            } else {
-                _ = stateManager.removeStateMachine(LifecycleStateMachine.identifier)
+            serialQueue.async {
+                self._lifecycleEvents = lifecycleEvents
+                if lifecycleEvents {
+                    self.addOrReplace(stateMachine: LifecycleStateMachine())
+                } else {
+                    _ = self.stateManager.removeStateMachine(LifecycleStateMachine.identifier)
+                }
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -292,7 +292,7 @@ class Tracker: NSObject {
         self._emitter = emitter
         self._appId = appId ?? ""
         self._trackerNamespace = trackerNamespace
-        self.eventProcessQueue = dispatchQueue
+        self.serialQueue = dispatchQueue
         
         super.init()
         builder(self)
@@ -445,7 +445,7 @@ class Tracker: NSObject {
             return nil
         }
         let eventId = UUID()
-        eventProcessQueue.async {
+        serialQueue.async {
             event.beginProcessing(withTracker: self)
             self.processEvent(event, eventId)
             event.endProcessing(withTracker: self)

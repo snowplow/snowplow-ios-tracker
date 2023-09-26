@@ -23,7 +23,6 @@ class MockDispatchQueueWrapper: DispatchQueueWrapperProtocol {
     
     func async(_ callback: @escaping () -> Void) {
         // execute synchronously!
-        print("❗️ I'm in fake async call")
         queue.sync(execute: callback)
     }
 }
