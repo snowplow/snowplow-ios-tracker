@@ -30,7 +30,13 @@ let package = Package(
                 "SnowplowTracker",
                 "Mocker"
             ],
-            path: "Tests")
+            path: "Tests"),
+        .testTarget(
+            name: "IntegrationTests",
+            dependencies: [
+                "SnowplowTracker"
+            ],
+            path: "IntegrationTests")
     ]
 )
 #if swift(>=5.6)

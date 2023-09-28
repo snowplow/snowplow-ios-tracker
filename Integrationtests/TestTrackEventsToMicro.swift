@@ -19,11 +19,14 @@ class TestTrackEventsToMicro: XCTestCase {
     
     override func setUp() {
         super.setUp()
+        
+        let trackerConfig = TrackerConfiguration()
+            .logLevel(.debug)
 
-        tracker = Snowplow.createTracker(namespace: "testMicro",
-                                         network: NetworkConfiguration(endpoint: Micro.endpoint))!
+        tracker = Snowplow.createTracker(namespace: "testMicro-" + UUID().uuidString,
+                                         network: NetworkConfiguration(endpoint: Micro.endpoint),
+                                         configurations: [trackerConfig])!
 
-        Micro.setUpMockerIgnores()
         wait(for: [Micro.reset()], timeout: Micro.timeout)
     }
     

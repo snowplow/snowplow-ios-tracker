@@ -8,7 +8,7 @@ jobs:
     runs-on: macos-11
     strategy:
       matrix:
-        platform: [ios, osx, tvos, watchos]
+        platform: [ios, ios, osx, tvos, watchos]
     steps:
       - uses: actions/checkout@v3
       - name: Lint Podspec
@@ -18,28 +18,39 @@ jobs:
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         include:
-          - name: "xcodebuild (iOS 15.2, Xcode 13.2.1)"
+          - name: "Integration (iOS 15.2, Xcode 13.2.1)"
             os: macos-12
             xcode-version: "13.2.1"
             sdk: iphonesimulator15.2
             destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13"
-          - name: "xcodebuild (macOS 12.1, Xcode 13.2.1)"
+            target: IntegrationTests
+          - name: "Unit (iOS 15.2, Xcode 13.2.1)"
+            os: macos-12
+            xcode-version: "13.2.1"
+            sdk: iphonesimulator15.2
+            destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13"
+            target: Tests
+          - name: "Unit (macOS 12.1, Xcode 13.2.1)"
             os: macos-12
             xcode-version: "13.2.1"
             sdk: macosx12.1
             destination: "platform=OS X"
-          - name: "xcodebuild (watchOS 8.3, Xcode 13.2.1)"
+            target: Tests
+          - name: "Unit (watchOS 8.3, Xcode 13.2.1)"
             os: macos-12
             xcode-version: "13.2.1"
             sdk: watchos8.3
             destination: "platform=watchOS Simulator,OS=8.3,name=Apple Watch Series 7 - 45mm"
-          - name: "xcodebuild (tvOS 15.2, Xcode 13.2.1)"
+            target: Tests
+          - name: "Unit (tvOS 15.2, Xcode 13.2.1)"
             os: macos-12
             xcode-version: "13.2.1"
             sdk: appletvsimulator15.2
             destination: "platform=tvOS Simulator,OS=15.2,name=Apple TV"
+            target: Tests
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -53,13 +64,15 @@ jobs:
           key: ${{ runner.os }}-micro
 
       - name: Get micro
-        if: steps.cache-micro.outputs.cache-hit != 'true'
+        if: steps.cache-micro.outputs.cache-hit != 'true' && matrix.target == 'IntegrationTests'
         run: curl -o micro.jar -L https://github.com/snowplow-incubator/snowplow-micro/releases/download/micro-1.7.0/snowplow-micro-1.7.0.jar
 
       - name: Run Micro in background
+        if: matrix.target == 'IntegrationTests'
         run: java -jar micro.jar &
 
       - name: Wait on Micro endpoint
+        if: matrix.target == 'IntegrationTests'
         timeout-minutes: 2
         run: while ! nc -z '0.0.0.0' 9090; do sleep 1; done
       # -- Micro --
@@ -73,6 +86,7 @@ jobs:
             -scheme SnowplowTracker \
             -sdk "${{ matrix.sdk }}" \
             -destination "${{ matrix.destination }}" \
+            -only-testing ${{ matrix.target }} \
             clean test | xcpretty
 
   build_objc_demo_app:
