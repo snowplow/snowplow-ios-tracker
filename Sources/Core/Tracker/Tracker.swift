@@ -174,7 +174,7 @@ class Tracker: NSObject {
             return _deepLinkContext
         }
         set(deepLinkContext) {
-            serialQueue.async {
+            serialQueue.sync {
                 self._deepLinkContext = deepLinkContext
                 if deepLinkContext {
                     self.addOrReplace(stateMachine: DeepLinkStateMachine())
@@ -191,7 +191,7 @@ class Tracker: NSObject {
             return _screenContext
         }
         set(screenContext) {
-            serialQueue.async {
+            serialQueue.sync {
                 self._screenContext = screenContext
                 if screenContext {
                     self.addOrReplace(stateMachine: ScreenStateMachine())
@@ -240,7 +240,7 @@ class Tracker: NSObject {
             return _lifecycleEvents
         }
         set(lifecycleEvents) {
-            serialQueue.async {
+            serialQueue.sync {
                 self._lifecycleEvents = lifecycleEvents
                 if lifecycleEvents {
                     self.addOrReplace(stateMachine: LifecycleStateMachine())
@@ -461,9 +461,9 @@ class Tracker: NSObject {
         if let payload = self.payload(with: trackerEvent) {
             emitter.addPayload(toBuffer: payload)
             stateManager.afterTrack(event: trackerEvent)
-            return
+        } else {
+            logDebug(message: "Event not tracked due to filtering")
         }
-        logDebug(message: "Event not tracked due to filtering")
     }
 
     func payload(with event: TrackerEvent) -> Payload? {

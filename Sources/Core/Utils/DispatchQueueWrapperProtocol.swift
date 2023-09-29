@@ -14,5 +14,6 @@
 import Foundation
 
 protocol DispatchQueueWrapperProtocol: AnyObject {
+    func sync(_ callback: @escaping () -> Void)
     func async(_ callback: @escaping () -> Void)
 }

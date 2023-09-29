@@ -20,6 +20,10 @@ class DispatchQueueWrapper: DispatchQueueWrapperProtocol {
         queue = DispatchQueue(label: label)
     }
     
+    func sync(_ callback: @escaping () -> Void) {
+        queue.sync(execute: callback)
+    }
+    
     func async(_ callback: @escaping () -> Void) {
         queue.async(execute: callback)
     }
