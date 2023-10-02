@@ -249,6 +249,9 @@ class Emitter: NSObject, EmitterEventProcessing {
             _customRetryForStatusCodes = customRetryForStatusCodes ?? [:]
         }
     }
+    
+    /// Whether retrying failed requests is allowed
+    var retryFailedRequests: Bool = EmitterDefaults.retryFailedRequests
 
     /// Returns the number of events in the DB.
     var dbCount: Int {
@@ -396,7 +399,7 @@ class Emitter: NSObject, EmitterEventProcessing {
                 if let array = resultIndexArray {
                     removableEvents.append(contentsOf: array)
                 }
-            } else if result.shouldRetry(customRetryForStatusCodes) {
+            } else if result.shouldRetry(customRetryForStatusCodes, retryAllowed: retryFailedRequests) {
                 failedWillRetryCount += resultIndexArray?.count ?? 0
             } else {
                 failedWontRetryCount += resultIndexArray?.count ?? 0

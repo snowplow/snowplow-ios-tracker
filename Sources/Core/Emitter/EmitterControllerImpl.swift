@@ -105,6 +105,16 @@ class EmitterControllerImpl: Controller, EmitterController {
             emitter.customRetryForStatusCodes = newValue
         }
     }
+    
+    var retryFailedRequests: Bool {
+        get {
+            return emitter.retryFailedRequests
+        }
+        set {
+            dirtyConfig.retryFailedRequests = newValue
+            emitter.retryFailedRequests = newValue
+        }
+    }
 
     // MARK: - Methods
 

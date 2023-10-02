@@ -41,6 +41,10 @@ public protocol EmitterConfigurationProtocol: AnyObject {
     /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
     @objc
     var serverAnonymisation: Bool { get set }
+    /// Whether to retry sending events that failed to be sent to the collector.
+    /// If disabled, events that failed to be sent will be dropped regardless of other configuration (such as the customRetryForStatusCodes).
+    @objc
+    var retryFailedRequests: Bool { get set }
 }
 
 /// It allows the tracker configuration from the emission perspective.
@@ -123,6 +127,15 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         set { _eventStore = newValue }
     }
     
+    private var _retryFailedRequests: Bool?
+    /// Whether to retry sending events that failed to be sent to the collector.
+    /// If disabled, events that failed to be sent will be dropped regardless of other configuration (such as the customRetryForStatusCodes).
+    @objc
+    public var retryFailedRequests: Bool {
+        get { return _retryFailedRequests ?? sourceConfig?.retryFailedRequests ?? EmitterDefaults.retryFailedRequests }
+        set { _retryFailedRequests = newValue }
+    }
+    
     // MARK: - Internal
     
     /// Fallback configuration to read from in case requested values are not present in this configuraiton.
@@ -165,6 +178,7 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
             )
         }
         self._serverAnonymisation = dictionary["serverAnonymisation"] as? Bool
+        self._retryFailedRequests = dictionary["retryFailedRequests"] as? Bool
     }
 
     
@@ -236,6 +250,14 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         return self
     }
     
+    /// Whether to retry sending events that failed to be sent to the collector.
+    /// If disabled, events that failed to be sent will be dropped regardless of other configuration (such as the customRetryForStatusCodes).
+    @objc
+    public func retryFailedRequests(_ retryFailedRequests: Bool) -> Self {
+        self.retryFailedRequests = retryFailedRequests
+        return self
+    }
+    
     // MARK: - NSCopying
 
     @objc
@@ -250,6 +272,7 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         copy.customRetryForStatusCodes = customRetryForStatusCodes
         copy.serverAnonymisation = serverAnonymisation
         copy.eventStore = eventStore
+        copy.retryFailedRequests = retryFailedRequests
         return copy
     }
 
@@ -267,6 +290,7 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         coder.encode(byteLimitPost, forKey: "byteLimitPost")
         coder.encode(customRetryForStatusCodes, forKey: "customRetryForStatusCodes")
         coder.encode(serverAnonymisation, forKey: "serverAnonymisation")
+        coder.encode(retryFailedRequests, forKey: "retryFailedRequests")
     }
 
     required init?(coder: NSCoder) {
@@ -282,5 +306,8 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
             customRetryForStatusCodes = retryCodes
         }
         serverAnonymisation = coder.decodeBool(forKey: "serverAnonymisation")
+        if coder.containsValue(forKey: "retryFailedRequests") {
+            retryFailedRequests = coder.decodeBool(forKey: "retryFailedRequests")
+        }
     }
 }

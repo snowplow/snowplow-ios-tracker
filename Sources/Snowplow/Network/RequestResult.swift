@@ -51,9 +51,14 @@ public class RequestResult: NSObject {
 
     /// - Parameter customRetryForStatusCodes: mapping of custom retry rules for HTTP status codes in Collector response.
     /// - Returns: Whether sending the events to the Collector should be retried.
-    func shouldRetry(_ customRetryForStatusCodes: [Int : Bool]?) -> Bool {
+    func shouldRetry(_ customRetryForStatusCodes: [Int : Bool]?, retryAllowed: Bool) -> Bool {
         // don't retry if successful
         if isSuccessful {
+            return false
+        }
+        
+        // don't retry if retries are not allowed
+        if !retryAllowed {
             return false
         }
 
