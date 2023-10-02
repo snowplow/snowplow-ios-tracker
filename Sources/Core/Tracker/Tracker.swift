@@ -40,9 +40,8 @@ func uncaughtExceptionHandler(_ exception: NSException) {
 class Tracker: NSObject {
     private var platformContextSchema: String = ""
     private var dataCollection = true
-
     private var builderFinished = false
-
+    private let serialQueue: DispatchQueueWrapperProtocol
 
     /// The object used for sessionization, i.e. it characterizes user activity.
     private(set) var session: Session?
@@ -175,14 +174,14 @@ class Tracker: NSObject {
             return _deepLinkContext
         }
         set(deepLinkContext) {
-            objc_sync_enter(self)
-            _deepLinkContext = deepLinkContext
-            if deepLinkContext {
-                addOrReplace(stateMachine: DeepLinkStateMachine())
-            } else {
-                _ = stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
+            serialQueue.sync {
+                self._deepLinkContext = deepLinkContext
+                if deepLinkContext {
+                    self.addOrReplace(stateMachine: DeepLinkStateMachine())
+                } else {
+                    _ = self.stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
+                }
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -192,14 +191,14 @@ class Tracker: NSObject {
             return _screenContext
         }
         set(screenContext) {
-            objc_sync_enter(self)
-            _screenContext = screenContext
-            if screenContext {
-                addOrReplace(stateMachine: ScreenStateMachine())
-            } else {
-                _ = stateManager.removeStateMachine(ScreenStateMachine.identifier)
+            serialQueue.sync {
+                self._screenContext = screenContext
+                if screenContext {
+                    self.addOrReplace(stateMachine: ScreenStateMachine())
+                } else {
+                    _ = self.stateManager.removeStateMachine(ScreenStateMachine.identifier)
+                }
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -241,14 +240,14 @@ class Tracker: NSObject {
             return _lifecycleEvents
         }
         set(lifecycleEvents) {
-            objc_sync_enter(self)
-            _lifecycleEvents = lifecycleEvents
-            if lifecycleEvents {
-                addOrReplace(stateMachine: LifecycleStateMachine())
-            } else {
-                _ = stateManager.removeStateMachine(LifecycleStateMachine.identifier)
+            serialQueue.sync {
+                self._lifecycleEvents = lifecycleEvents
+                if lifecycleEvents {
+                    self.addOrReplace(stateMachine: LifecycleStateMachine())
+                } else {
+                    _ = self.stateManager.removeStateMachine(LifecycleStateMachine.identifier)
+                }
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -288,10 +287,12 @@ class Tracker: NSObject {
     init(trackerNamespace: String,
          appId: String?,
          emitter: Emitter,
+         dispatchQueue: DispatchQueueWrapperProtocol = DispatchQueueWrapper(label: "snowplow.tracker"),
          builder: ((Tracker) -> (Void))) {
         self._emitter = emitter
         self._appId = appId ?? ""
         self._trackerNamespace = trackerNamespace
+        self.serialQueue = dispatchQueue
         
         super.init()
         builder(self)
@@ -443,26 +444,26 @@ class Tracker: NSObject {
         if !dataCollection {
             return nil
         }
-        event.beginProcessing(withTracker: self)
-        let eventId = processEvent(event)
-        event.endProcessing(withTracker: self)
+        let eventId = UUID()
+        serialQueue.async {
+            event.beginProcessing(withTracker: self)
+            self.processEvent(event, eventId)
+            event.endProcessing(withTracker: self)
+        }
         return eventId
     }
 
     // MARK: - Event Decoration
 
-    func processEvent(_ event: Event) -> UUID? {
-        objc_sync_enter(self)
+    func processEvent(_ event: Event, _ eventId: UUID) {
         let stateSnapshot = stateManager.trackerState(forProcessedEvent: event)
-        objc_sync_exit(self)
-        let trackerEvent = TrackerEvent(event: event, state: stateSnapshot)
+        let trackerEvent = TrackerEvent(event: event, eventId: eventId, state: stateSnapshot)
         if let payload = self.payload(with: trackerEvent) {
             emitter.addPayload(toBuffer: payload)
             stateManager.afterTrack(event: trackerEvent)
-            return trackerEvent.eventId
+        } else {
+            logDebug(message: "Event not tracked due to filtering")
         }
-        logDebug(message: "Event not tracked due to filtering")
-        return nil
     }
 
     func payload(with event: TrackerEvent) -> Payload? {
