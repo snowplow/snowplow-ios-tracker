@@ -13,7 +13,6 @@
 
 import Foundation
 import XCTest
-import Mocker
 
 class Micro {
     
@@ -25,14 +24,6 @@ class Micro {
 #else
     static let endpoint = "http://0.0.0.0:9090"
 #endif
-    
-    class func setUpMockerIgnores() {
-        Mocker.ignore(URL(string: "\(endpoint)/micro/good")!)
-        Mocker.ignore(URL(string: "\(endpoint)/micro/reset")!)
-        Mocker.ignore(URL(string: "\(endpoint)/micro/all")!)
-        Mocker.ignore(URL(string: "\(endpoint)/com.snowplowanalytics.snowplow/tp2")!)
-        Mocker.ignore(URL(string: "\(endpoint)/i")!)
-    }
     
     class func reset() -> XCTestExpectation {
         let expectation = XCTestExpectation(description: "Reset Micro")
