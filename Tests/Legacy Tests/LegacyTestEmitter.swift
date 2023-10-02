@@ -339,6 +339,30 @@ class LegacyTestEmitter: XCTestCase {
 
         emitter.flush()
     }
+    
+    func testDoesNotRetryFailedRequestsIfDisabled() {
+        let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 500)
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        emitter.retryFailedRequests = false
+
+        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+
+        Thread.sleep(forTimeInterval: 1)
+
+        // no events in queue since they were dropped because retrying is disabled
+        XCTAssertEqual(0, emitter.dbCount)
+
+        emitter.retryFailedRequests = true
+
+        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+
+        Thread.sleep(forTimeInterval: 1)
+
+        // event still in queue because retrying is enabled
+        XCTAssertEqual(1, emitter.dbCount)
+
+        emitter.flush()
+    }
 
     // MARK: - Emitter builder
 
