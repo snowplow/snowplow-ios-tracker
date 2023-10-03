@@ -387,6 +387,9 @@ class Emitter: NSObject, EmitterEventProcessing {
         }
 
         let events = eventStore.emittableEvents(withQueryLimit: UInt(emitRange))
+        if !retryFailedRequests {
+            let _ = eventStore.removeEvents(withIds: events.map { $0.storeId })
+        }
         let requests = buildRequests(fromEvents: events)
         let sendResults = networkConnection?.sendRequests(requests)
 
@@ -434,7 +437,11 @@ class Emitter: NSObject, EmitterEventProcessing {
             Thread.sleep(forTimeInterval: 5)
             return
         } else {
-            self.attemptEmit()
+            if let eventsCount = self.eventStore?.count() {
+                if eventsCount >= self.bufferOption.rawValue {
+                    self.attemptEmit()
+                }
+            }
         }
     }
 
