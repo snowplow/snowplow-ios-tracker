@@ -88,13 +88,20 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     public var serverAnonymisation = false
     private var dataOperationQueue = OperationQueue()
     private var builderFinished = false
+    /// Custom timeout for the requests
+    @objc
+    public var timeout: NSNumber
+    private let defaultTimeout: NSNumber = 60
+    private var urlSession: URLSession?
     
     @objc
     public init(urlString: String,
                 httpMethod: HttpMethodOptions = EmitterDefaults.httpMethod,
                 protocol: ProtocolOptions = EmitterDefaults.httpProtocol,
-                customPostPath: String? = nil) {
+                customPostPath: String? = nil,
+                timeout: NSNumber? = nil) {
         self._urlString = urlString
+        self.timeout = timeout ?? defaultTimeout
         super.init()
         self.httpMethod = httpMethod
         self.protocol = `protocol`
@@ -160,7 +167,14 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
 
                 sem = DispatchSemaphore(value: 0)
 
-                URLSession.shared.dataTask(with: urlRequest) { data, urlResponse, error in
+                if self.urlSession == nil {
+                    let sessionConfig: URLSessionConfiguration = .default
+                    sessionConfig.timeoutIntervalForRequest = TimeInterval(self.timeout)
+                    sessionConfig.timeoutIntervalForResource = TimeInterval(self.timeout)
+                    self.urlSession = URLSession(configuration: sessionConfig)
+                }
+
+                self.urlSession?.dataTask(with: urlRequest) { data, urlResponse, error in
                     connectionError = error
                     httpResponse = urlResponse as? HTTPURLResponse
                     sem.signal()
