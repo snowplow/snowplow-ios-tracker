@@ -106,6 +106,10 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
     }
 
+    var eventStore: EventStore? {
+        return emitter.eventStore
+    }
+
     // MARK: - Methods
 
     func flush() {
