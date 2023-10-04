@@ -78,17 +78,39 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     @objc
     public var serverAnonymisation = false
     private var dataOperationQueue = OperationQueue()
+    /// Custom timeout for the requests
+    @objc
+    public var timeout: TimeInterval
+    
+    private var protocolClasses: [AnyClass]?
+    private var _urlSession: URLSession?
+    private var urlSession: URLSession {
+        if let urlSession = _urlSession { return urlSession }
+        
+        let sessionConfig: URLSessionConfiguration = .default
+        sessionConfig.timeoutIntervalForRequest = TimeInterval(self.timeout)
+        sessionConfig.timeoutIntervalForResource = TimeInterval(self.timeout)
+        sessionConfig.protocolClasses = protocolClasses
+        
+        let urlSession = URLSession(configuration: sessionConfig)
+        self._urlSession = urlSession
+        return urlSession
+    }
     
     @objc
     public init(urlString: String,
                 httpMethod: HttpMethodOptions = EmitterDefaults.httpMethod,
                 protocol: ProtocolOptions = EmitterDefaults.httpProtocol,
-                customPostPath: String? = nil) {
+                customPostPath: String? = nil,
+                timeout: TimeInterval = 60,
+                protocolClasses: [AnyClass]? = nil) {
         self._urlString = urlString
+        self.timeout = timeout
         super.init()
         self._httpMethod = httpMethod
         self._protocol = `protocol`
         self._customPostPath = customPostPath
+        self.protocolClasses = protocolClasses
         setup()
     }
 
@@ -97,14 +119,15 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     @objc
     public func sendRequests(_ requests: [Request]) -> [RequestResult] {
         let urlRequests = requests.map { _httpMethod == .get ? buildGet($0) : buildPost($0) }
-        
+
         var results: [RequestResult] = []
         // if there is only one request, make it directly
         if requests.count == 1 {
             if let request = requests.first, let urlRequest = urlRequests.first {
                 let result = DefaultNetworkConnection.makeRequest(
                     request: request,
-                    urlRequest: urlRequest
+                    urlRequest: urlRequest,
+                    urlSession: urlSession
                 )
                 
                 results.append(result)
@@ -116,7 +139,8 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
                 dataOperationQueue.addOperation({
                     let result = DefaultNetworkConnection.makeRequest(
                         request: request,
-                        urlRequest: urlRequest
+                        urlRequest: urlRequest,
+                        urlSession: self.urlSession
                     )
                     
                     objc_sync_enter(self)
@@ -132,7 +156,7 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
 
     // MARK: - Private methods
     
-    private static func makeRequest(request: Request, urlRequest: URLRequest) -> RequestResult {
+    private static func makeRequest(request: Request, urlRequest: URLRequest, urlSession: URLSession?) -> RequestResult {
         //source: https://forums.developer.apple.com/thread/11519
         var httpResponse: HTTPURLResponse? = nil
         var connectionError: Error? = nil
@@ -140,7 +164,7 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
 
         sem = DispatchSemaphore(value: 0)
 
-        URLSession.shared.dataTask(with: urlRequest) { data, urlResponse, error in
+        urlSession?.dataTask(with: urlRequest) { data, urlResponse, error in
             connectionError = error
             httpResponse = urlResponse as? HTTPURLResponse
             sem.signal()
