@@ -276,11 +276,14 @@ class Emitter: EmitterEventProcessing {
     }
 
     /// Insert a Payload object into the buffer to be sent to collector.
-    /// This method will add the payload to the database and flush (send all events).
+    /// This method will add the payload to the database and flush (send all events) when the buffer is full.
     /// - Parameter eventPayload: A Payload containing a completed event to be added into the buffer.
     func addPayload(toBuffer eventPayload: Payload) {
         self.eventStore.addEvent(eventPayload)
-        self.flush()
+        
+        if self.eventStore.count() >= self.bufferOption.rawValue {
+            self.flush()
+        }
     }
 
     /// Empties the buffer of events using the respective HTTP request method.
