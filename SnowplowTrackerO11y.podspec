@@ -1,5 +1,5 @@
 Pod::Spec.new do |s|
-    s.name             = "SnowplowTracker"
+    s.name             = "SnowplowTrackerO11y"
     s.version          = "5.5.0"
     s.summary          = "Snowplow event tracker for iOS, macOS, tvOS, watchOS for apps and games."
     s.description      = <<-DESC
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
     s.screenshots      = "https://d3i6fms1cm1j0i.cloudfront.net/github-wiki/images/snowplow-logo-large.png"
     s.license          = 'Apache License, Version 2.0'
     s.author           = { "Snowplow Analytics Ltd" => "support@snowplow.io" }
-    s.source           = { :git => "https://github.com/snowplow/snowplow-ios-tracker.git", :tag => s.version.to_s }
+    s.source           = { :git => "https://github.com/danigutierrezayuso/snowplow-ios-tracker.git", :tag => "o11y" }
     s.social_media_url = 'https://twitter.com/SnowPlowData'
     s.documentation_url	= 'https://github.com/snowplow/snowplow/wiki/iOS-Tracker'
   
