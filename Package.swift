@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "SnowplowTracker",
+    name: "SnowplowTrackerO11y",
     platforms: [
         .macOS("10.13"),
         .iOS("11.0"),
@@ -12,8 +12,8 @@ let package = Package(
     ],
     products: [
         .library(
-            name: "SnowplowTracker",
-            targets: ["SnowplowTracker"]),
+            name: "SnowplowTrackerO11y",
+            targets: ["SnowplowTrackerO11y"]),
     ],
     dependencies: [
         .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", from: "2.7.6"),
@@ -21,20 +21,20 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "SnowplowTracker",
+            name: "SnowplowTrackerO11y",
             dependencies: ["FMDB"],
             path: "./Sources"),
         .testTarget(
             name: "Tests",
             dependencies: [
-                "SnowplowTracker",
+                "SnowplowTrackerO11y",
                 "Mocker"
             ],
             path: "Tests"),
         .testTarget(
             name: "IntegrationTests",
             dependencies: [
-                "SnowplowTracker"
+                "SnowplowTrackerO11y"
             ],
             path: "IntegrationTests")
     ]
