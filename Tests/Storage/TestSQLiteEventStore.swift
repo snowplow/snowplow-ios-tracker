@@ -68,7 +68,7 @@ class TestSQLiteEventStore: XCTestCase {
                 expectations[i].fulfill()
             }
         }
-        wait(for: expectations)
+        wait(for: expectations, timeout: 3)
         
         XCTAssertEqual(eventStore.count(), 2500)
         XCTAssertEqual(eventStore.emittableEvents(withQueryLimit: 600).count, 250)
