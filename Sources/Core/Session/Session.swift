@@ -48,23 +48,14 @@ class Session {
     /// - Parameters:
     ///   - foregroundTimeout: the session timeout while it is in the foreground
     ///   - backgroundTimeout: the session timeout while it is in the background
-    /// - Returns: a SnowplowSession
-    convenience init(foregroundTimeout: Int, andBackgroundTimeout backgroundTimeout: Int) {
-        self.init(foregroundTimeout: foregroundTimeout, andBackgroundTimeout: backgroundTimeout, andTracker: nil)
-    }
-
-    /// Initializes a newly allocated SnowplowSession
-    /// - Parameters:
-    ///   - foregroundTimeout: the session timeout while it is in the foreground
-    ///   - backgroundTimeout: the session timeout while it is in the background
     ///   - tracker: reference to the associated tracker of the session
     /// - Returns: a SnowplowSession
-    init(foregroundTimeout: Int, andBackgroundTimeout backgroundTimeout: Int, andTracker tracker: Tracker?) {
+    init(foregroundTimeout: Int, backgroundTimeout: Int, trackerNamespace: String? = nil, tracker: Tracker? = nil) {
         
         self.foregroundTimeout = foregroundTimeout * 1000
         self.backgroundTimeout = backgroundTimeout * 1000
         self.tracker = tracker
-        if let namespace = tracker?.trackerNamespace {
+        if let namespace = trackerNamespace {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
         }
         let storedSessionDict = dataPersistence?.session
@@ -224,23 +215,23 @@ class Session {
         }
     }
 
-    func sendBackgroundEvent() {
+    private func sendBackgroundEvent() {
         if let tracker = tracker {
             let backgroundEvent = Background(index: backgroundIndex)
-            let _ = tracker.track(backgroundEvent)
+            let _ = tracker.track(backgroundEvent, synchronous: true)
         }
     }
 
-    func sendForegroundEvent() {
+    private func sendForegroundEvent() {
         if let tracker = tracker {
             let foregroundEvent = Foreground(index: foregroundIndex)
-            let _ = tracker.track(foregroundEvent)
+            let _ = tracker.track(foregroundEvent, synchronous: true)
         }
     }
 
     deinit {
-        #if os(iOS)
+#if os(iOS) || os(tvOS)
         NotificationCenter.default.removeObserver(self)
-        #endif
+#endif
     }
 }

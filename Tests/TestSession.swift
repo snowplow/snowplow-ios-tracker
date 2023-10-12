@@ -26,7 +26,7 @@ class TestSession: XCTestCase {
     }
 
     func testInit() {
-        let session = Session(foregroundTimeout: 600, andBackgroundTimeout: 300)
+        let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
         XCTAssertNil(session.tracker)
         XCTAssertTrue(!session.inBackground)
         XCTAssertNotNil(session.getDictWithEventId("eventid-1", eventTimestamp: 1654496481346, userAnonymisation: false))
@@ -36,7 +36,7 @@ class TestSession: XCTestCase {
     }
 
     func testInitWithOptions() {
-        let session = Session(foregroundTimeout: 5, andBackgroundTimeout: 300, andTracker: nil)
+        let session = Session(foregroundTimeout: 5, backgroundTimeout: 300)
         XCTAssertEqual(session.foregroundTimeout, 5000)
         XCTAssertEqual(session.backgroundTimeout, 300000)
 
@@ -48,7 +48,7 @@ class TestSession: XCTestCase {
     }
 
     func testFirstSession() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
         let sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         let sessionIndex = session.state!.sessionIndex
@@ -59,7 +59,7 @@ class TestSession: XCTestCase {
     }
 
     func testForegroundEventsOnSameSession() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         var sessionIndex = session.state?.sessionIndex
@@ -128,7 +128,7 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "t1")
         
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "t1", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let tracker = Tracker(trackerNamespace: "t1", appId: nil, emitter: emitter) { tracker in
             tracker.installEvent = false
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
@@ -239,7 +239,7 @@ class TestSession: XCTestCase {
     }
 
     func testTimeoutSessionWhenPauseAndResume() {
-        let session = Session(foregroundTimeout: 1, andBackgroundTimeout: 1, andTracker: nil)
+        let session = Session(foregroundTimeout: 1, backgroundTimeout: 1)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481355, userAnonymisation: false)
         var prevSessionId = sessionContext?[kSPSessionId] as? String
@@ -269,7 +269,7 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker")
         
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
             tracker.foregroundTimeout = 100
@@ -300,7 +300,7 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker")
         
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
             tracker.foregroundTimeout = 100
@@ -328,7 +328,7 @@ class TestSession: XCTestCase {
     }
 
     func testNoEventsForLongTimeDontIncreaseIndexMultipleTimes() {
-        let session = Session(foregroundTimeout: 1, andBackgroundTimeout: 1, andTracker: nil)
+        let session = Session(foregroundTimeout: 1, backgroundTimeout: 1)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481359, userAnonymisation: false)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -345,13 +345,12 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker2")
 
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let queue2 = MockDispatchQueueWrapper(label: "test2")
-        let tracker1 = Tracker(trackerNamespace: "tracker1", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test1")) { tracker in
+        let tracker1 = Tracker(trackerNamespace: "tracker1", appId: nil, emitter: emitter) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
         }
-        let tracker2 = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter, dispatchQueue: queue2) { tracker in
+        let tracker2 = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
@@ -379,7 +378,7 @@ class TestSession: XCTestCase {
         XCTAssertEqual(1, tracker2.session!.state!.sessionIndex - initialValue2) // timed out
 
         //Recreate tracker2
-        let tracker2b = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter, dispatchQueue: queue2) { tracker in
+        let tracker2b = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 5
             tracker.backgroundTimeout = 5
@@ -399,7 +398,7 @@ class TestSession: XCTestCase {
         storeAsV3_0(withNamespace: "tracker", eventId: "eventId", sessionId: "sessionId", sessionIndex: 123, userId: "userId")
 
         let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.sessionContext = true
         }
         let event = Structured(category: "c", action: "a")
@@ -413,7 +412,7 @@ class TestSession: XCTestCase {
     }
 
     func testIncrementsEventIndex() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         XCTAssertEqual(1, sessionContext?[kSPSessionEventIndex] as? Int)
@@ -435,7 +434,7 @@ class TestSession: XCTestCase {
     }
 
     func testAnonymisesUserIdentifiers() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
         _ = session.getDictWithEventId("event_1", eventTimestamp: 1654496481345, userAnonymisation: false)
         session.startNewSession() // create previous session ID reference
 

@@ -62,9 +62,9 @@ public protocol TrackerController: TrackerConfigurationProtocol {
     /// Track the event.
     /// The tracker will take care to process and send the event assigning `event_id` and `device_timestamp`.
     /// - Parameter event: The event to track.
-    /// - Returns: The event ID or nil in case tracking is paused
+    /// - Returns: The event ID
     @objc
-    func track(_ event: Event) -> UUID?
+    func track(_ event: Event) -> UUID
     /// Pause the tracker.
     /// The tracker will stop any new activity tracking but it will continue to send remaining events
     /// already tracked but not sent yet.

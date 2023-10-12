@@ -11,15 +11,12 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
 import XCTest
 @testable import SnowplowTracker
 
 let TEST_SERVER_TRACKER = "http://www.notarealurl.com"
 
-class LegacyTestTracker: XCTestCase {
+class TestTracker: XCTestCase {
     func testTrackerSetup() {
         let emitter = Emitter(urlEndpoint: "not-real.com") { emitter in }
 
@@ -33,7 +30,8 @@ class LegacyTestTracker: XCTestCase {
     }
 
     func testTrackerBuilderAndOptions() {
-        let emitter = Emitter(urlEndpoint: TEST_SERVER_TRACKER) { emitter in}
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let emitter = Emitter(networkConnection: networkConnection) { emitter in}
 
         let subject = Subject(platformContext: true, geoLocationContext: true)
 
@@ -62,16 +60,23 @@ class LegacyTestTracker: XCTestCase {
 
         tracker.pauseEventTracking()
         XCTAssertEqual(tracker.isTracking, false)
-        XCTAssertNil(tracker.track(Structured(category: "c", action: "a")))
+        _ = tracker.track(Structured(category: "c", action: "a"))
         tracker.resumeEventTracking()
         XCTAssertEqual(tracker.isTracking, true)
+        
+        // check that no events were tracked
+        Thread.sleep(forTimeInterval: 0.5)
+        XCTAssertEqual(networkConnection.previousRequests.count, 0)
+        
+        // tracks event after tracking resumed
+        _ = tracker.track(Structured(category: "c", action: "a"))
+        Thread.sleep(forTimeInterval: 0.5)
+        XCTAssertEqual(networkConnection.previousRequests.count, 1)
 
         // Test setting variables to new values
 
         tracker.appId = "newAppId"
         XCTAssertEqual(tracker.appId, "newAppId")
-        tracker.trackerNamespace = "newNamespace"
-        XCTAssertEqual(tracker.trackerNamespace, "newNamespace")
         tracker.base64Encoded = true
         XCTAssertEqual(tracker.base64Encoded, true)
         tracker.devicePlatform = .general
@@ -81,11 +86,6 @@ class LegacyTestTracker: XCTestCase {
         tracker.subject = subject2
         XCTAssertNotEqual(tracker.subject, subject)
         XCTAssertEqual(tracker.subject, subject2)
-
-        let emitter2 = Emitter(urlEndpoint: TEST_SERVER_TRACKER) { emitter in}
-        tracker.emitter = emitter2
-        XCTAssertNotEqual(tracker.emitter, emitter)
-        XCTAssertEqual(tracker.emitter, emitter2)
 
         // Test Session Switch on/off
 
@@ -98,51 +98,4 @@ class LegacyTestTracker: XCTestCase {
         XCTAssertFalse(oldSessionManager === tracker.session)
     }
 
-    func testTrackerPayload() {
-        let emitter = Emitter(urlEndpoint: TEST_SERVER_TRACKER) { emitter in}
-
-        let subject = Subject(platformContext: true, geoLocationContext: true)
-
-        let tracker = Tracker(trackerNamespace: "aNamespace", appId: "anAppId", emitter: emitter) { tracker in
-            tracker.subject = subject
-            tracker.devicePlatform = .general
-            tracker.appId = "anAppId"
-            tracker.base64Encoded = false
-            tracker.sessionContext = true
-            tracker.foregroundTimeout = 300
-            tracker.backgroundTimeout = 150
-        }
-
-        let event = Structured(category: "Category", action: "Action")
-        let trackerEvent = TrackerEvent(event: event, state: nil)
-        var payload = tracker.payload(with: trackerEvent)
-        var payloadDict = payload!.dictionary
-
-        XCTAssertEqual(payloadDict[kSPPlatform] as? String, devicePlatformToString(.general))
-        XCTAssertEqual(payloadDict[kSPAppId] as? String, "anAppId")
-        XCTAssertEqual(payloadDict[kSPNamespace] as? String, "aNamespace")
-
-        // Test setting variables to new values
-
-        tracker.devicePlatform = .desktop
-        tracker.appId = "newAppId"
-        tracker.trackerNamespace = "newNamespace"
-
-        payload = tracker.payload(with: trackerEvent)
-        payloadDict = payload!.dictionary
-
-        XCTAssertEqual(payloadDict[kSPPlatform] as? String, "pc")
-        XCTAssertEqual(payloadDict[kSPAppId] as? String, "newAppId")
-        XCTAssertEqual(payloadDict[kSPNamespace] as? String, "newNamespace")
-    }
-
-    func testEventIdNotDuplicated() {
-        let event = Structured(category: "Category", action: "Action")
-        let eventId = TrackerEvent(event: event, state: nil).eventId
-        XCTAssertNotNil(eventId)
-        let newEventId = TrackerEvent(event: event, state: nil).eventId
-        XCTAssertNotNil(newEventId)
-        XCTAssertNotEqual(eventId, newEventId)
-    }
 }
-//#pragma clang diagnostic pop

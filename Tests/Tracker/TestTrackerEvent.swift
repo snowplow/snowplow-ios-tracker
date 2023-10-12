@@ -11,22 +11,21 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-import Foundation
+import XCTest
 @testable import SnowplowTracker
 
-class MockDispatchQueueWrapper: DispatchQueueWrapperProtocol {
-    private let queue: DispatchQueue
-    
-    init(label: String) {
-        queue = DispatchQueue(label: label)
+class TestTrackerEvent: XCTestCase {
+
+    func testEventIdNotDuplicated() {
+        let event = Structured(category: "Category", action: "Action")
+        
+        let eventId = TrackerEvent(event: event, state: nil).eventId
+        XCTAssertNotNil(eventId)
+        
+        let newEventId = TrackerEvent(event: event, state: nil).eventId
+        XCTAssertNotNil(newEventId)
+        
+        XCTAssertNotEqual(eventId, newEventId)
     }
     
-    func sync(_ callback: @escaping () -> Void) {
-        queue.sync(execute: callback)
-    }
-    
-    func async(_ callback: @escaping () -> Void) {
-        // execute synchronously!
-        queue.sync(execute: callback)
-    }
 }

@@ -37,147 +37,111 @@ func uncaughtExceptionHandler(_ exception: NSException) {
 }
 
 /// This class is used for tracking events, and delegates them to other classes responsible for sending, storage, etc.
-class Tracker: NSObject {
-    private var platformContextSchema: String = ""
+class Tracker {
+    
+    // MARK: - Private properties
+    
     private var dataCollection = true
     private var builderFinished = false
-    private let serialQueue: DispatchQueueWrapperProtocol
-
-    /// The object used for sessionization, i.e. it characterizes user activity.
-    private(set) var session: Session?
-    /// Previous screen view state.
-    private(set) var previousScreenState: ScreenState?
-    /// Current screen view state.
-    private(set) var currentScreenState: ScreenState?
+    private let trackerData: TrackerData
     
-    private var trackerData: [String : String]? = nil
-    func setTrackerData() {
-        var trackerVersion = kSPVersion
-        if trackerVersionSuffix.count != 0 {
-            var allowedCharSet = CharacterSet.alphanumerics
-            allowedCharSet.formUnion(CharacterSet(charactersIn: ".-"))
-            let suffix = trackerVersionSuffix.components(separatedBy: allowedCharSet.inverted).joined(separator: "")
-            if suffix.count != 0 {
-                trackerVersion = "\(trackerVersion) \(suffix)"
-            }
-        }
-        trackerData = [
-            kSPTrackerVersion : trackerVersion,
-            kSPNamespace : trackerNamespace,
-            kSPAppId : appId
-        ]
+    /// The object used for sessionization, i.e. it characterizes user activity.
+    private(set) var session: Session? {
+        get { return sync { self.trackerData.session } }
+        set { sync { self.trackerData.session = newValue } }
     }
-
-    // MARK: - Setter
-
-    private var _emitter: Emitter
+    /// Previous screen view state.
+    private(set) var previousScreenState: ScreenState? {
+        get { return sync { self.trackerData.previousScreenState } }
+        set { sync { self.trackerData.previousScreenState = newValue } }
+    }
+    /// Current screen view state.
+    private(set) var currentScreenState: ScreenState? {
+        get { return sync { self.trackerData.currentScreenState } }
+        set { sync { self.trackerData.currentScreenState = newValue } }
+    }
+    
+    private let stateManager = StateManager()
+    private let _emitter: Emitter
+    
+    // MARK: - Properties
+    
     /// The emitter used to send events.
     var emitter: Emitter {
-        get {
-            return _emitter
-        }
-        set(emitter) {
-            _emitter = emitter
-        }
+        return sync { self._emitter }
     }
-
+    
     /// The subject used to represent the current user and persist user information.
-    var subject: Subject?
+    var subject: Subject? {
+        get { return sync { self.trackerData.subject } }
+        set { sync { self.trackerData.subject = newValue } }
+    }
     
     /// Whether to use Base64 encoding for events.
-    var base64Encoded = TrackerDefaults.base64Encoded
-    
-    /// A unique identifier for an application.
-    private var _appId: String
-    var appId: String {
-        get {
-            return _appId
-        }
-        set(appId) {
-            _appId = appId
-            if builderFinished && trackerData != nil {
-                setTrackerData()
-            }
-        }
+    var base64Encoded: Bool {
+        get { return sync { self.trackerData.base64Encoded } }
+        set { sync { self.trackerData.base64Encoded = newValue } }
     }
     
-    private(set) var _trackerNamespace: String
+    /// A unique identifier for an application.
+    var appId: String {
+        get { return sync { self.trackerData.appId } }
+        set { sync { self.trackerData.appId = newValue } }
+    }
+    
     /// The identifier for the current tracker.
     var trackerNamespace: String {
-        get {
-            return _trackerNamespace
-        }
-        set(trackerNamespace) {
-            _trackerNamespace = trackerNamespace
-            if builderFinished && trackerData != nil {
-                setTrackerData()
-            }
-        }
+        get { return sync { self.trackerData.trackerNamespace } }
     }
     
     /// Version suffix for tracker wrappers.
-    private var _trackerVersionSuffix: String = TrackerDefaults.trackerVersionSuffix
     var trackerVersionSuffix: String {
-        get {
-            return _trackerVersionSuffix
-        }
-        set(trackerVersionSuffix) {
-            _trackerVersionSuffix = trackerVersionSuffix
-            if builderFinished && trackerData != nil {
-                setTrackerData()
-            }
-        }
+        get { return sync { self.trackerData.trackerVersionSuffix } }
+        set { sync { self.trackerData.trackerVersionSuffix = newValue } }
     }
     
-    var devicePlatform: DevicePlatform = TrackerDefaults.devicePlatform
-
+    var devicePlatform: DevicePlatform {
+        get { return sync { self.trackerData.devicePlatform } }
+        set { sync { self.trackerData.devicePlatform = newValue } }
+    }
+    
     var logLevel: LogLevel {
-        get {
-            return Logger.logLevel
-        }
-        set {
-            Logger.logLevel = newValue
-        }
-    }
-
-    var loggerDelegate: LoggerDelegate? {
-        get {
-            return Logger.delegate
-        }
-        set(delegate) {
-            Logger.delegate = delegate
-        }
+        get { return sync { self.trackerData.logLevel } }
+        set { sync { self.trackerData.logLevel = newValue } }
     }
     
-    private var _sessionContext = false
+    var loggerDelegate: LoggerDelegate? {
+        get { return sync { self.trackerData.loggerDelegate } }
+        set { sync { self.trackerData.loggerDelegate = newValue } }
+    }
+    
     var sessionContext: Bool {
-        get {
-            return _sessionContext
-        }
+        get { return sync { self.trackerData.sessionContext } }
         set(sessionContext) {
-            _sessionContext = sessionContext
-            if session != nil && !sessionContext {
-                session?.stopChecker()
-                session = nil
-            } else if builderFinished && session == nil && sessionContext {
-                session = Session(
-                    foregroundTimeout: foregroundTimeout,
-                    andBackgroundTimeout: backgroundTimeout,
-                    andTracker: self)
+            sync {
+                self.trackerData.sessionContext = sessionContext
+                if self.trackerData.session != nil && !self.trackerData.sessionContext {
+                    self.trackerData.session?.stopChecker()
+                    self.trackerData.session = nil
+                } else if self.builderFinished && self.trackerData.session == nil && sessionContext {
+                    self.trackerData.session = Session(
+                        foregroundTimeout: self.trackerData.foregroundTimeout,
+                        backgroundTimeout: self.trackerData.backgroundTimeout,
+                        trackerNamespace: self.trackerData.trackerNamespace,
+                        tracker: self
+                    )
+                }
             }
         }
     }
     
-    private var _deepLinkContext = false
     var deepLinkContext: Bool {
-        get {
-            return _deepLinkContext
-        }
+        get { sync { return self.trackerData.deepLinkContext } }
         set(deepLinkContext) {
-            serialQueue.sync {
-                self._deepLinkContext = deepLinkContext
+            sync {
+                self.trackerData.deepLinkContext = deepLinkContext
                 if deepLinkContext {
-                    self.addOrReplace(stateMachine: DeepLinkStateMachine())
+                    self.stateManager.addOrReplaceStateMachine(DeepLinkStateMachine())
                 } else {
                     _ = self.stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
                 }
@@ -185,16 +149,13 @@ class Tracker: NSObject {
         }
     }
     
-    private var _screenContext = false
     var screenContext: Bool {
-        get {
-            return _screenContext
-        }
+        get { return sync { self.trackerData.screenContext } }
         set(screenContext) {
-            serialQueue.sync {
-                self._screenContext = screenContext
+            sync {
+                self.trackerData.screenContext = screenContext
                 if screenContext {
-                    self.addOrReplace(stateMachine: ScreenStateMachine())
+                    self.stateManager.addOrReplaceStateMachine(ScreenStateMachine())
                 } else {
                     _ = self.stateManager.removeStateMachine(ScreenStateMachine.identifier)
                 }
@@ -202,48 +163,49 @@ class Tracker: NSObject {
         }
     }
     
-    var applicationContext = TrackerDefaults.applicationContext
+    var applicationContext: Bool {
+        get { return sync { self.trackerData.applicationContext } }
+        set { sync { self.trackerData.applicationContext = newValue } }
+    }
     
-    var autotrackScreenViews = TrackerDefaults.autotrackScreenViews
+    var autotrackScreenViews: Bool {
+        get { return sync { self.trackerData.autotrackScreenViews } }
+        set { sync { self.trackerData.autotrackScreenViews = newValue } }
+    }
     
-    private var _foregroundTimeout = TrackerDefaults.foregroundTimeout
     var foregroundTimeout: Int {
-        get {
-            return _foregroundTimeout
-        }
+        get { return sync { self.trackerData.foregroundTimeout } }
         set(foregroundTimeout) {
-            _foregroundTimeout = foregroundTimeout
-            if builderFinished && session != nil {
-                session?.foregroundTimeout = foregroundTimeout
+            sync {
+                self.trackerData.foregroundTimeout = foregroundTimeout
+                if self.builderFinished {
+                    self.trackerData.session?.foregroundTimeout = foregroundTimeout
+                }
             }
         }
     }
     
-    private var _backgroundTimeout = TrackerDefaults.backgroundTimeout
     var backgroundTimeout: Int {
-        get {
-            return _backgroundTimeout
-        }
+        get { return sync { self.trackerData.backgroundTimeout } }
         set(backgroundTimeout) {
-            _backgroundTimeout = backgroundTimeout
-            if builderFinished && session != nil {
-                session?.backgroundTimeout = backgroundTimeout
+            sync {
+                self.trackerData.backgroundTimeout = backgroundTimeout
+                if self.builderFinished {
+                    self.trackerData.session?.backgroundTimeout = backgroundTimeout
+                }
             }
         }
     }
     
-    private var _lifecycleEvents = false
     /// Returns whether lifecyle events is enabled.
     /// - Returns: Whether background and foreground events are sent.
     var lifecycleEvents: Bool {
-        get {
-            return _lifecycleEvents
-        }
+        get { return sync { self.trackerData.lifecycleEvents } }
         set(lifecycleEvents) {
-            serialQueue.sync {
-                self._lifecycleEvents = lifecycleEvents
+            sync {
+                self.trackerData.lifecycleEvents = lifecycleEvents
                 if lifecycleEvents {
-                    self.addOrReplace(stateMachine: LifecycleStateMachine())
+                    self.stateManager.addOrReplaceStateMachine(LifecycleStateMachine())
                 } else {
                     _ = self.stateManager.removeStateMachine(LifecycleStateMachine.identifier)
                 }
@@ -251,99 +213,109 @@ class Tracker: NSObject {
         }
     }
     
-    var exceptionEvents = TrackerDefaults.exceptionEvents
-    var installEvent = TrackerDefaults.installEvent
-    var trackerDiagnostic = TrackerDefaults.trackerDiagnostic
+    var exceptionEvents: Bool {
+        get { return sync { self.trackerData.exceptionEvents } }
+        set { sync { self.trackerData.exceptionEvents = newValue } }
+    }
+    var installEvent: Bool {
+        get { return sync { self.trackerData.installEvent } }
+        set { sync { self.trackerData.installEvent = newValue } }
+    }
+    var trackerDiagnostic: Bool {
+        get { return sync { self.trackerData.trackerDiagnostic } }
+        set { sync { self.trackerData.trackerDiagnostic = newValue } }
+    }
     
-    private var _userAnonymisation = TrackerDefaults.userAnonymisation
     var userAnonymisation: Bool {
-        get {
-            return _userAnonymisation
-        }
+        get { return sync { self.trackerData.userAnonymisation } }
         set(userAnonymisation) {
-            if _userAnonymisation != userAnonymisation {
-                _userAnonymisation = userAnonymisation
-                if let session = session { session.startNewSession() }
+            sync {
+                if self.trackerData.userAnonymisation != userAnonymisation {
+                    self.trackerData.userAnonymisation = userAnonymisation
+                    if self.builderFinished {
+                        self.trackerData.session?.startNewSession()
+                    }
+                }
             }
         }
     }
-
+    
     /// GDPR context
     /// You can enable or disable the context by setting this property
-    var gdprContext: GDPRContext?
+    var gdprContext: GDPRContext? {
+        get { return sync { self.trackerData.gdprContext } }
+        set { sync { self.trackerData.gdprContext = newValue } }
+    }
     
-    private var stateManager = StateManager()
-
     var inBackground: Bool {
-        return session?.inBackground ?? false
-    }
-
-    var isTracking: Bool {
-        return dataCollection
+        return sync { self.trackerData.session?.inBackground ?? false }
     }
     
-    var advertisingIdentifierRetriever: (() -> UUID?)?
-
+    var isTracking: Bool {
+        return sync { self.dataCollection }
+    }
+    
+    var advertisingIdentifierRetriever: (() -> UUID?)? {
+        get { return sync { self.trackerData.advertisingIdentifierRetriever } }
+        set { sync { self.trackerData.advertisingIdentifierRetriever = newValue } }
+    }
+    
+    // MARK: - Constructor and destructor and related functions
+    
     init(trackerNamespace: String,
          appId: String?,
          emitter: Emitter,
-         dispatchQueue: DispatchQueueWrapperProtocol = DispatchQueueWrapper(label: "snowplow.tracker"),
          builder: ((Tracker) -> (Void))) {
+        self.trackerData = TrackerData(appId: appId ?? "", trackerNamespace: trackerNamespace)
         self._emitter = emitter
-        self._appId = appId ?? ""
-        self._trackerNamespace = trackerNamespace
-        self.serialQueue = dispatchQueue
         
-        super.init()
         builder(self)
-        
-        #if os(iOS)
-        platformContextSchema = kSPMobileContextSchema
-        #else
-        platformContextSchema = kSPDesktopContextSchema
-        #endif
         
         setup()
         checkInstall()
     }
-
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func setup() {
-        emitter.namespace = trackerNamespace // Needed to correctly send events to the right EventStore
-        setTrackerData()
+        _emitter.namespace = self.trackerData.trackerNamespace // Needed to correctly send events to the right EventStore
         
         if sessionContext {
-            session = Session(
-                foregroundTimeout: foregroundTimeout,
-                andBackgroundTimeout: backgroundTimeout,
-                andTracker: self)
+            self.trackerData.session = Session(
+                foregroundTimeout: self.trackerData.foregroundTimeout,
+                backgroundTimeout: self.trackerData.backgroundTimeout,
+                trackerNamespace: self.trackerData.trackerNamespace,
+                tracker: self)
         }
-
+        
         UIKitScreenViewTracking.setup()
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(receiveScreenViewNotification(_:)),
             name: NSNotification.Name("SPScreenViewDidAppear"),
             object: nil)
-
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(receiveDiagnosticNotification(_:)),
             name: NSNotification.Name("SPTrackerDiagnostic"),
             object: nil)
-
+        
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(receiveCrashReporting(_:)),
             name: NSNotification.Name("SPCrashReporting"),
             object: nil)
-
+        
         if exceptionEvents {
             NSSetUncaughtExceptionHandler(uncaughtExceptionHandler)
         }
-
+        
         builderFinished = true
     }
-
+    
     private func checkInstall() {
         if installEvent {
             DispatchQueue.global(qos: .default).async { [weak self] in
@@ -362,262 +334,152 @@ class Tracker: NSObject {
         }
     }
     
+    // MARK: - Functions
+    
     /// Add or replace state machine in the state manager
     func addOrReplace(stateMachine: StateMachineProtocol) {
-        stateManager.addOrReplaceStateMachine(stateMachine)
+        sync {
+            self.stateManager.addOrReplaceStateMachine(stateMachine)
+        }
     }
     
     /// Remove stata machine from the state manager
     func remove(stateMachineIdentifier: String) {
-        _ = stateManager.removeStateMachine(stateMachineIdentifier)
+        sync {
+            _ = self.stateManager.removeStateMachine(stateMachineIdentifier)
+        }
     }
-
-    // MARK: - Extra Functions
-
+    
     /// Pauses all event tracking, storage and session checking.
     func pauseEventTracking() {
-        dataCollection = false
-        emitter.pauseTimer()
-        session?.stopChecker()
+        sync {
+            self.dataCollection = false
+            self._emitter.pauseTimer()
+            self.trackerData.session?.stopChecker()
+        }
     }
-
+    
     func resumeEventTracking() {
-        dataCollection = true
-        emitter.resumeTimer()
-        session?.startChecker()
+        sync {
+            self.dataCollection = true
+            self._emitter.resumeTimer()
+            self.trackerData.session?.startChecker()
+        }
     }
-
+    
     // MARK: - Notifications management
     
     @objc func receiveScreenViewNotification(_ notification: Notification) {
-        guard let name = notification.userInfo?["name"] as? String else { return }
-        
-        var type: String?
-        if let typeId = (notification.userInfo?["type"] as? NSNumber)?.intValue,
-           let screenType = ScreenType(rawValue: typeId) {
-            type = ScreenView.stringWithScreenType(screenType)
-        }
-        
-        let topViewControllerClassName = notification.userInfo?["topViewControllerClassName"] as? String
-        let viewControllerClassName = notification.userInfo?["viewControllerClassName"] as? String
-
-        if autotrackScreenViews {
-            let event = ScreenView(name: name, screenId: nil)
-            event.type = type
-            event.viewControllerClassName = viewControllerClassName
-            event.topViewControllerClassName = topViewControllerClassName
-            let _ = track(event)
+        asyncNotification {
+            guard let name = notification.userInfo?["name"] as? String else { return }
+            
+            var type: String?
+            if let typeId = (notification.userInfo?["type"] as? NSNumber)?.intValue,
+               let screenType = ScreenType(rawValue: typeId) {
+                type = ScreenView.stringWithScreenType(screenType)
+            }
+            
+            let topViewControllerClassName = notification.userInfo?["topViewControllerClassName"] as? String
+            let viewControllerClassName = notification.userInfo?["viewControllerClassName"] as? String
+            
+            if self.autotrackScreenViews {
+                let event = ScreenView(name: name, screenId: nil)
+                event.type = type
+                event.viewControllerClassName = viewControllerClassName
+                event.topViewControllerClassName = topViewControllerClassName
+                let _ = self.track(event)
+            }
         }
     }
-
+    
     @objc func receiveDiagnosticNotification(_ notification: Notification) {
-        let userInfo = notification.userInfo
-        guard let tag = userInfo?["tag"] as? String,
-              let message = userInfo?["message"] as? String else { return }
-        let error = userInfo?["error"] as? Error
-        let exception = userInfo?["exception"] as? NSException
-
-        if trackerDiagnostic {
-            let event = TrackerError(source: tag, message: message, error: error, exception: exception)
-            let _ = track(event)
+        asyncNotification {
+            let userInfo = notification.userInfo
+            guard let tag = userInfo?["tag"] as? String,
+                  let message = userInfo?["message"] as? String else { return }
+            let error = userInfo?["error"] as? Error
+            let exception = userInfo?["exception"] as? NSException
+            
+            if self.trackerDiagnostic {
+                let event = TrackerError(source: tag, message: message, error: error, exception: exception)
+                let _ = self.track(event)
+            }
         }
     }
-
+    
     @objc func receiveCrashReporting(_ notification: Notification) {
-        let userInfo = notification.userInfo
-        guard let message = userInfo?["message"] as? String else { return }
-        let stacktrace = userInfo?["stacktrace"] as? String
-
-        if exceptionEvents {
-            let event = SNOWError(message: message)
-            event.stackTrace = stacktrace
-            let _ = track(event)
+        asyncNotification {
+            let userInfo = notification.userInfo
+            guard let message = userInfo?["message"] as? String else { return }
+            let stacktrace = userInfo?["stacktrace"] as? String
+            
+            if self.exceptionEvents {
+                let event = SNOWError(message: message)
+                event.stackTrace = stacktrace
+                let _ = self.track(event)
+            }
         }
     }
-
+    
     // MARK: - Event Tracking Functions
-
+    
     /// Tracks an event despite its specific type.
     /// - Parameter event: The event to track
-    /// - Returns: The event ID or nil in case tracking is paused
-    func track(_ event: Event) -> UUID? {
-        if !dataCollection {
-            return nil
-        }
+    /// - Parameter synchronous: Whether to track the event synchronously or asynchronously
+    /// - Returns: The event ID
+    func track(_ event: Event, synchronous: Bool = false) -> UUID {
         let eventId = UUID()
-        serialQueue.async {
+        
+        let track = {
+            if !self.dataCollection { return }
+            
             event.beginProcessing(withTracker: self)
             self.processEvent(event, eventId)
             event.endProcessing(withTracker: self)
         }
+        
+        if synchronous {
+            self.sync(track)
+        } else {
+            self.async(track)
+        }
+        
         return eventId
     }
-
+    
     // MARK: - Event Decoration
 
-    func processEvent(_ event: Event, _ eventId: UUID) {
+    private func processEvent(_ event: Event, _ eventId: UUID) {
         let stateSnapshot = stateManager.trackerState(forProcessedEvent: event)
         let trackerEvent = TrackerEvent(event: event, eventId: eventId, state: stateSnapshot)
-        if let payload = self.payload(with: trackerEvent) {
-            emitter.addPayload(toBuffer: payload)
+        let payloadBuilder = TrackerPayloadBuilder()
+        if let payload = payloadBuilder.payload(event: trackerEvent, tracker: self.trackerData, stateManager: self.stateManager) {
+            _emitter.addPayload(toBuffer: payload)
             stateManager.afterTrack(event: trackerEvent)
         } else {
             logDebug(message: "Event not tracked due to filtering")
         }
     }
+    
+    // MARK: - Serial dispatch queue
+    
+    private let serialQueue = DispatchQueue(label: "snowplow.tracker")
+    
+    private func sync<T>(_ callback: () -> T) -> T {
+        dispatchPrecondition(condition: .notOnQueue(serialQueue))
 
-    func payload(with event: TrackerEvent) -> Payload? {
-        let payload = Payload()
-        payload.allowDiagnostic = !event.isService
-
-        // Payload properties
-        setApplicationInstallEventTimestamp(event)
-        addBasicProperties(to: payload, event: event)
-        addStateMachinePayloadValues(event: event)
-        
-        // Context entities
-        addBasicContexts(event: event)
-        addStateMachineEntities(event: event)
-        
-        event.wrapProperties(to: payload, base64Encoded: base64Encoded)
-        event.wrapContexts(to: payload, base64Encoded: base64Encoded)
-        
-        // Decide whether to track the event or not
-        if !stateManager.filter(event: event) {
-            return nil
-        }
-
-        // Workaround for campaign attribution
-        if !event.isPrimitive {
-            // TODO: To remove when Atomic table refactoring is finished
-            workaround(forCampaignAttributionEnrichment: payload, event: event)
-        }
-        return payload
+        return serialQueue.sync(execute: callback)
     }
     
-    private func setApplicationInstallEventTimestamp(_ event: TrackerEvent) {
-        // Application_install event needs the timestamp to the real installation event.
-        if (event.schema == kSPApplicationInstallSchema) {
-            if let trueTimestamp = event.trueTimestamp {
-                event.timestamp = Int64(trueTimestamp.timeIntervalSince1970 * 1000)
-                event.trueTimestamp = nil
-            }
-        }
+    private func async(_ callback: @escaping () -> Void) {
+        serialQueue.async(execute: callback)
     }
-
-    func addBasicProperties(to payload: Payload, event: TrackerEvent) {
-        // Event ID
-        payload.addValueToPayload(event.eventId.uuidString, forKey: kSPEid)
-        // Timestamps
-        payload.addValueToPayload(String(format: "%lld", event.timestamp), forKey: kSPTimestamp)
-        if let trueTimestamp = event.trueTimestamp {
-            let ttInMilliSeconds = Int64(trueTimestamp.timeIntervalSince1970 * 1000)
-            payload.addValueToPayload(String(format: "%lld", ttInMilliSeconds), forKey: kSPTrueTimestamp)
-        }
-        // Tracker info (version, namespace, app ID)
-        if let trackerData = trackerData {
-            payload.addDictionaryToPayload(trackerData)
-        }
-        // Subject
-        if let subjectDict = subject?.standardDict(userAnonymisation: userAnonymisation) {
-            payload.addDictionaryToPayload(subjectDict)
-        }
-        // Platform
-        payload.addValueToPayload(devicePlatformToString(devicePlatform), forKey: kSPPlatform)
-        // Event name
-        if event.isPrimitive {
-            payload.addValueToPayload(event.eventName, forKey: kSPEvent)
-        } else {
-            payload.addValueToPayload(kSPEventUnstructured, forKey: kSPEvent)
-        }
-    }
-
-    /*
-     This is needed because the campaign-attribution-enrichment (in the pipeline) is able to parse
-     the `url` and `referrer` only if they are part of a PageView event.
-     The PageView event is an atomic event but the DeepLinkReceived and ScreenView are SelfDescribing events.
-     For this reason we copy these two fields in the atomic fields in order to let the enrichment
-     to process correctly the fields even if the event is not a PageView and it's a SelfDescribing event.
-     This is a hack that should be removed once the atomic event table is dismissed and all the events
-     will be SelfDescribing.
-     */
-    func workaround(forCampaignAttributionEnrichment payload: Payload, event: TrackerEvent) {
-        var url: String?
-        var referrer: String?
-
-        if event.schema == DeepLinkReceived.schema {
-            url = event.payload[DeepLinkReceived.paramUrl] as? String
-            referrer = event.payload[DeepLinkReceived.paramReferrer] as? String
-        } else if event.schema == kSPScreenViewSchema {
-            for entity in event.entities {
-                if entity.schema == DeepLinkEntity.schema {
-                    let data = entity.data
-                    url = data[DeepLinkEntity.paramUrl] as? String
-                    referrer = data[DeepLinkEntity.paramReferrer] as? String
-                    break
-                }
-            }
-        }
-
-        if let url = url {
-            payload.addValueToPayload(Utilities.truncateUrlScheme(url), forKey: kSPPageUrl)
-        }
-        if let referrer = referrer {
-            payload.addValueToPayload(Utilities.truncateUrlScheme(referrer), forKey: kSPPageRefr)
-        }
-    }
-
-    func addBasicContexts(event: TrackerEvent) {
-        if subject != nil {
-            if let platformDict = subject?.platformDict(
-                userAnonymisation: userAnonymisation,
-                advertisingIdentifierRetriever: advertisingIdentifierRetriever)?.dictionary {
-                event.addContextEntity(SelfDescribingJson(schema: platformContextSchema, andDictionary: platformDict))
-            }
-            if let geoLocationDict = subject?.geoLocationDict {
-                event.addContextEntity(SelfDescribingJson(schema: kSPGeoContextSchema, andDictionary: geoLocationDict))
-            }
-        }
-
-        if applicationContext {
-            if let contextJson = Utilities.applicationContext {
-                event.addContextEntity(contextJson)
-            }
-        }
-
-        if event.isService {
-            return
-        }
-
-        // Add session
-        if let session = session {
-            if let sessionDict = session.getDictWithEventId(event.eventId.uuidString,
-                                                            eventTimestamp: event.timestamp,
-                                                            userAnonymisation: userAnonymisation) {
-                event.addContextEntity(SelfDescribingJson(schema: kSPSessionContextSchema, andDictionary: sessionDict))
-            } else {
-                logDiagnostic(message: String(format: "Unable to get session context for eventId: %@", event.eventId.uuidString))
-            }
-        }
-
-        // Add GDPR context
-        if let gdprContext = gdprContext?.context {
-            event.addContextEntity(gdprContext)
-        }
-    }
-
-    private func addStateMachinePayloadValues(event: TrackerEvent) {
-        _ = stateManager.addPayloadValues(to: event)
-    }
-
-    func addStateMachineEntities(event: TrackerEvent) {
-        let stateManagerEntities = stateManager.entities(forProcessedEvent: event)
-        for entity in stateManagerEntities {
-            event.addContextEntity(entity)
-        }
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    
+    // MARK: - Notification dispatch queue
+    
+    private let notificationQueue = DispatchQueue(label: "snowplow.tracker.notifications", attributes: .concurrent)
+    
+    private func asyncNotification(_ callback: @escaping () -> Void) {
+        notificationQueue.async(execute: callback)
     }
 }

@@ -70,7 +70,7 @@ class TrackerControllerImpl: Controller, TrackerController {
         tracker.resumeEventTracking()
     }
 
-    func track(_ event: Event) -> UUID? {
+    func track(_ event: Event) -> UUID {
         return tracker.track(event)
     }
 
