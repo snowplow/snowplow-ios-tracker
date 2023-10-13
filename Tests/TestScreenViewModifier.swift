@@ -58,8 +58,7 @@ class TestScreenViewModifier: XCTestCase {
             namespace: "screenViewTracker",
             network: networkConfig,
             configurations: [
-                PluginConfiguration(identifier: "screenViewPlugin")
-                    .afterTrack(closure: afterTrack),
+                EventSink(callback: afterTrack),
                 TrackerConfiguration()
                     .installAutotracking(false)
                     .lifecycleAutotracking(false)

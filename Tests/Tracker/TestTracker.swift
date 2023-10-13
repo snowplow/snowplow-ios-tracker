@@ -30,8 +30,8 @@ class TestTracker: XCTestCase {
     }
 
     func testTrackerBuilderAndOptions() {
-        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
-        let emitter = Emitter(networkConnection: networkConnection) { emitter in}
+        let eventSink = EventSink()
+        let emitter = Emitter(urlEndpoint: "http://localhost") { emitter in}
 
         let subject = Subject(platformContext: true, geoLocationContext: true)
 
@@ -42,6 +42,7 @@ class TestTracker: XCTestCase {
             tracker.foregroundTimeout = 300
             tracker.backgroundTimeout = 150
         }
+        tracker.addOrReplace(stateMachine: eventSink.toStateMachine())
 
         // Test builder setting properly
 
@@ -66,12 +67,12 @@ class TestTracker: XCTestCase {
         
         // check that no events were tracked
         Thread.sleep(forTimeInterval: 0.5)
-        XCTAssertEqual(networkConnection.previousRequests.count, 0)
+        XCTAssertEqual(eventSink.trackedEvents.count, 0)
         
         // tracks event after tracking resumed
         _ = tracker.track(Structured(category: "c", action: "a"))
         Thread.sleep(forTimeInterval: 0.5)
-        XCTAssertEqual(networkConnection.previousRequests.count, 1)
+        XCTAssertEqual(eventSink.trackedEvents.count, 1)
 
         // Test setting variables to new values
 

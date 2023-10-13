@@ -287,8 +287,7 @@ class TestGlobalContexts: XCTestCase {
             namespace: namespace,
             network: networkConfig,
             configurations: [
-                PluginConfiguration(identifier: "testPlugin")
-                    .afterTrack(closure: afterTrack),
+                EventSink(callback: afterTrack),
                 trackerConfig,
                 gcConfig
             ])

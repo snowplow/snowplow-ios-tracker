@@ -16,7 +16,8 @@ import XCTest
 
 class TestMediaController: XCTestCase {
     
-    var trackedEvents: [InspectableEvent] = []
+    var eventSink: EventSink?
+    var trackedEvents: [InspectableEvent] { return eventSink?.trackedEvents ?? [] }
     var tracker: TrackerController?
     var mediaController: MediaController? { tracker?.media }
     var firstEvent: InspectableEvent? { trackedEvents.first }
@@ -31,7 +32,7 @@ class TestMediaController: XCTestCase {
     
     override func tearDown() {
         Snowplow.removeAllTrackers()
-        trackedEvents.removeAll()
+        eventSink = nil
     }
     
     // MARK: Media player event tests
@@ -239,10 +240,14 @@ class TestMediaController: XCTestCase {
         
         waitForEventsToBeTracked()
         
-        XCTAssertEqual(15, firstEvent?.payload["percentProgress"] as? Int)
-        XCTAssertEqual(30, secondEvent?.payload["percentProgress"] as? Int)
-        XCTAssertEqual(40, trackedEvents[2].payload["percentProgress"] as? Int)
-        XCTAssertEqual(50, trackedEvents[3].payload["percentProgress"] as? Int)
+        let adClickEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_click") }
+        XCTAssertEqual(15, adClickEvent?.payload["percentProgress"] as? Int)
+        let adSkipEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_skip") }
+        XCTAssertEqual(30, adSkipEvent?.payload["percentProgress"] as? Int)
+        let adResumeEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_resume") }
+        XCTAssertEqual(40, adResumeEvent?.payload["percentProgress"] as? Int)
+        let adPauseEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_pause") }
+        XCTAssertEqual(50, adPauseEvent?.payload["percentProgress"] as? Int)
     }
     
     func testSetsQualityPropertiesInQualityChangeEvent() {
@@ -450,21 +455,15 @@ class TestMediaController: XCTestCase {
         trackerConfig.lifecycleAutotracking = false
         
         let namespace = "testMedia" + String(describing: Int.random(in: 0..<100))
-        let plugin = PluginConfiguration(identifier: "testPlugin" + namespace)
-            .afterTrack { event in
-                if namespace == self.tracker?.namespace {
-                    self.trackedEvents.append(event)
-                }
-            }
-        
+        self.eventSink = EventSink()
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: [trackerConfig, plugin])
+                                      configurations: [trackerConfig, eventSink!])
     }
     
     private func waitForEventsToBeTracked() {
         let expect = expectation(description: "Wait for events to be tracked")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { () -> Void in
             expect.fulfill()
         }
         wait(for: [expect], timeout: 1)
@@ -480,4 +479,3 @@ extension InspectableEvent {
         return entities.first { $0.schema == MediaSchemata.sessionSchema }?.data
     }
 }
-
