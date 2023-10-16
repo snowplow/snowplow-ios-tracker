@@ -49,13 +49,16 @@ class LegacyTestEmitter: XCTestCase {
     func testEmitterBuilderAndOptions() {
         let `protocol` = "https"
 
-        let emitter = Emitter(urlEndpoint: TEST_SERVER_EMITTER) { emitter in
-            emitter.method = .post
-            emitter.protocol = .https
-            emitter.emitThreadPoolSize = 30
+        let emitter = Emitter(
+            namespace: "ns1",
+            urlEndpoint: TEST_SERVER_EMITTER,
+            method: .post,
+            protocol: .https
+        ) { emitter in
             emitter.byteLimitGet = 30000
             emitter.byteLimitPost = 35000
             emitter.emitRange = 500
+            emitter.emitThreadPoolSize = 30
         }
 
         var url = "\(`protocol`)://\(TEST_SERVER_EMITTER)/com.snowplowanalytics.snowplow/tp2"
@@ -71,11 +74,13 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertEqual(emitter.byteLimitPost, 35000)
         XCTAssertEqual(emitter.protocol, .https)
 
-        let customPathEmitter = Emitter(urlEndpoint: TEST_SERVER_EMITTER) { emitter in
-            emitter.method = .post
-            emitter.protocol = .https
-            emitter.customPostPath = "/com.acme.company/tpx"
-            emitter.emitThreadPoolSize = 30
+        let customPathEmitter = Emitter(
+            namespace: "ns2",
+            urlEndpoint: TEST_SERVER_EMITTER,
+            method: .post,
+            protocol: .https,
+            customPostPath: "/com.acme.company/tpx"
+        ) { emitter in
             emitter.byteLimitGet = 30000
             emitter.byteLimitPost = 35000
             emitter.emitRange = 500
@@ -367,12 +372,11 @@ class LegacyTestEmitter: XCTestCase {
     // MARK: - Emitter builder
 
     func emitter(with networkConnection: NetworkConnection, bufferOption: BufferOption = .single) -> Emitter {
-        let emitter = Emitter(networkConnection: networkConnection) { emitter in
+        let emitter = Emitter(networkConnection: networkConnection, namespace: "ns1", eventStore: MockEventStore()) { emitter in
             emitter.bufferOption = bufferOption
             emitter.emitRange = 200
             emitter.byteLimitGet = 20000
             emitter.byteLimitPost = 25000
-            emitter.eventStore = MockEventStore()
         }
         return emitter
     }

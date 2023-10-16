@@ -59,9 +59,7 @@ class TestScreenState: XCTestCase {
 
     func testScreenStateMachine() {
         let eventStore = MockEventStore()
-        let emitter = Emitter(urlEndpoint: "http://snowplow-fake-url.com") { emitter in
-            emitter.eventStore = eventStore
-        }
+        let emitter = Emitter(namespace: "namespace", urlEndpoint: "http://snowplow-fake-url.com", eventStore: eventStore)
         let tracker = Tracker(trackerNamespace: "namespace", appId: nil, emitter: emitter) { tracker in
             tracker.base64Encoded = false
             tracker.screenContext = true

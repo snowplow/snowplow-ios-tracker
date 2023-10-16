@@ -280,8 +280,6 @@ class Tracker {
     }
     
     private func setup() {
-        _emitter.namespace = self.trackerData.trackerNamespace // Needed to correctly send events to the right EventStore
-        
         if sessionContext {
             self.trackerData.session = Session(
                 foregroundTimeout: self.trackerData.foregroundTimeout,

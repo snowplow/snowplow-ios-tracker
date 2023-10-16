@@ -18,7 +18,7 @@ let TEST_SERVER_TRACKER = "http://www.notarealurl.com"
 
 class TestTracker: XCTestCase {
     func testTrackerSetup() {
-        let emitter = Emitter(urlEndpoint: "not-real.com") { emitter in }
+        let emitter = Emitter(namespace: "aNamespace", urlEndpoint: "not-real.com")
 
         let subject = Subject(platformContext: true, geoLocationContext: true)
 
@@ -31,7 +31,7 @@ class TestTracker: XCTestCase {
 
     func testTrackerBuilderAndOptions() {
         let eventSink = EventSink()
-        let emitter = Emitter(urlEndpoint: "http://localhost") { emitter in}
+        let emitter = Emitter(namespace: "aNamespace", urlEndpoint: "http://localhost")
 
         let subject = Subject(platformContext: true, geoLocationContext: true)
 
@@ -47,7 +47,7 @@ class TestTracker: XCTestCase {
         // Test builder setting properly
 
         XCTAssertNotNil(tracker.emitter)
-        XCTAssertEqual(tracker.emitter, emitter)
+        XCTAssertEqual(tracker.emitter.namespace, tracker.trackerNamespace)
         XCTAssertNotNil(tracker.subject)
         XCTAssertEqual(tracker.subject, subject)
         XCTAssertEqual(tracker.devicePlatform, Utilities.platform)

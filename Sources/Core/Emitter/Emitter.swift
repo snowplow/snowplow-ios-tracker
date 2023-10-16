@@ -16,143 +16,124 @@ import Foundation
 /// This class sends events to the collector.
 let POST_WRAPPER_BYTES = 88
 
-class Emitter: NSObject, EmitterEventProcessing {
+class Emitter: EmitterEventProcessing {
     
     private var timer: Timer?
-    private var dataOperationQueue: OperationQueue = OperationQueue()
-    private var builderFinished = false
     
-    private var sendingCheck = SendingCheck()
+    private var _pausedEmit = false
+    
+    /// Custom NetworkConnection istance to handle connection outside the emitter.
+    private let networkConnection: NetworkConnection
+    
+    /// Tracker namespace – required by SQLiteEventStore to name the database
+    let namespace: String
+    
+    let eventStore: EventStore
+    
+    private var _sending = false
     /// Whether the emitter is currently sending.
-    var isSending: Bool { return sendingCheck.sending }
+    var isSending: Bool { return sync { _sending } }
 
-    private var _urlEndpoint: String?
     /// Collector endpoint.
     var urlEndpoint: String? {
         get {
-            if builderFinished {
-                return networkConnection?.urlEndpoint?.absoluteString
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                return networkConnection.urlEndpoint?.absoluteString
             }
-            return _urlEndpoint
+            return nil
         }
         set {
-            _urlEndpoint = newValue
-            if builderFinished {
-                setupNetworkConnection()
-            }
-        }
-    }
-
-    private var _namespace: String?
-    var namespace: String? {
-        get {
-            return _namespace
-        }
-        set(namespace) {
-            _namespace = namespace
-            if builderFinished && eventStore == nil {
-                #if os(tvOS) || os(watchOS)
-                eventStore = MemoryEventStore()
-                #else
-                eventStore = SQLiteEventStore(namespace: _namespace)
-                #endif
-            }
-        }
-    }
-
-    private var _method: HttpMethodOptions = EmitterDefaults.httpMethod
-    /// Chosen HTTP method - .get or .post.
-    var method: HttpMethodOptions {
-        get {
-            return _method
-        }
-        set(method) {
-            _method = method
-            if builderFinished && networkConnection != nil {
-                setupNetworkConnection()
+            if let urlString = newValue,
+               let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.urlString = urlString
             }
         }
     }
     
-    private var _protocol: ProtocolOptions = EmitterDefaults.httpProtocol
     /// Security of requests - ProtocolHttp or ProtocolHttps.
     var `protocol`: ProtocolOptions {
         get {
-            return _protocol
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                return networkConnection.protocol
+            }
+            return EmitterDefaults.httpProtocol
         }
-        set(`protocol`) {
-            _protocol = `protocol`
-            if builderFinished && networkConnection != nil {
-                setupNetworkConnection()
+        set {
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.protocol = newValue
             }
         }
     }
+    
+    /// Chosen HTTP method - .get or .post.
+    var method: HttpMethodOptions {
+        get {
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                return networkConnection.httpMethod
+            }
+            return EmitterDefaults.httpMethod
+        }
+        set(method) {
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.httpMethod = method
+            }
+        }
+    }
+        
     private var _bufferOption: BufferOption = EmitterDefaults.bufferOption
     /// Buffer option
     var bufferOption: BufferOption {
-        get {
-            return _bufferOption
-        }
-        set(bufferOption) {
-            if !isSending {
-                _bufferOption = bufferOption
-            }
-        }
+        get { return sync { _bufferOption } }
+        set(bufferOption) { sync { _bufferOption = bufferOption } }
     }
     
     private weak var _callback: RequestCallback?
     /// Callbacks supplied with number of failures and successes of sent events.
     var callback: RequestCallback? {
-        get {
-            return _callback
-        }
-        set(callback) {
-            _callback = callback
-        }
+        get { return sync { _callback } }
+        set(callback) { sync { _callback = callback } }
     }
     
     private var _emitRange = EmitterDefaults.emitRange
     /// Number of events retrieved from the database when needed.
     var emitRange: Int {
-        get {
-            return _emitRange
-        }
+        get { return sync { _emitRange } }
         set(emitRange) {
-            if emitRange > 0 {
-                _emitRange = emitRange
+            sync {
+                if emitRange > 0 {
+                    _emitRange = emitRange
+                }
             }
         }
     }
     
-    private var _emitThreadPoolSize = EmitterDefaults.emitThreadPoolSize
     /// Number of threads used for emitting events.
     var emitThreadPoolSize: Int {
         get {
-            return _emitThreadPoolSize
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                return networkConnection.emitThreadPoolSize
+            }
+            return EmitterDefaults.emitThreadPoolSize
         }
         set(emitThreadPoolSize) {
             if emitThreadPoolSize > 0 {
-                _emitThreadPoolSize = emitThreadPoolSize
-                if dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize {
-                    dataOperationQueue.maxConcurrentOperationCount = _emitThreadPoolSize
-                }
-                if builderFinished && networkConnection != nil {
-                    setupNetworkConnection()
+                if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                    networkConnection.emitThreadPoolSize = emitThreadPoolSize
                 }
             }
         }
     }
     
-    private var _byteLimitGet = EmitterDefaults.byteLimitGet
     /// Byte limit for GET requests.
+    private var _byteLimitGet = EmitterDefaults.byteLimitGet
     var byteLimitGet: Int {
-        get {
-            return _byteLimitGet
-        }
+        get { return sync { _byteLimitGet } }
         set(byteLimitGet) {
-            _byteLimitGet = byteLimitGet
-            if builderFinished && networkConnection != nil {
-                setupNetworkConnection()
+            sync {
+                _byteLimitGet = byteLimitGet
+                if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                    networkConnection.byteLimitGet = byteLimitGet
+                }
             }
         }
     }
@@ -160,81 +141,58 @@ class Emitter: NSObject, EmitterEventProcessing {
     private var _byteLimitPost = EmitterDefaults.byteLimitPost
     /// Byte limit for POST requests.
     var byteLimitPost: Int {
-        get {
-            return _byteLimitPost
-        }
+        get { return sync { _byteLimitPost } }
         set(byteLimitPost) {
-            _byteLimitPost = byteLimitPost
-            if builderFinished && networkConnection != nil {
-                setupNetworkConnection()
+            sync {
+                _byteLimitPost = byteLimitPost
+                if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                    networkConnection.byteLimitPost = byteLimitPost
+                }
             }
         }
     }
 
-    private var _serverAnonymisation = EmitterDefaults.serverAnonymisation
     /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`.
     var serverAnonymisation: Bool {
         get {
-            return _serverAnonymisation
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                return networkConnection.serverAnonymisation
+            }
+            return EmitterDefaults.serverAnonymisation
         }
         set(serverAnonymisation) {
-            _serverAnonymisation = serverAnonymisation
-            if builderFinished && networkConnection != nil {
-                setupNetworkConnection()
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.serverAnonymisation = serverAnonymisation
             }
         }
     }
 
-    private var _customPostPath: String?
     /// Custom endpoint path for POST requests.
     var customPostPath: String? {
         get {
-            return _customPostPath
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                return networkConnection.customPostPath
+            }
+            return nil
         }
         set(customPath) {
-            _customPostPath = customPath
-            if builderFinished && networkConnection != nil {
-                setupNetworkConnection()
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.customPostPath = customPath
             }
         }
     }
 
     /// Custom header requests.
-    private var _requestHeaders: [String : String]?
     var requestHeaders: [String : String]? {
         get {
-            return _requestHeaders
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                return networkConnection.requestHeaders
+            }
+            return nil
         }
         set(requestHeaders) {
-            _requestHeaders = requestHeaders
-            if builderFinished && networkConnection != nil {
-                setupNetworkConnection()
-            }
-        }
-    }
-
-    private var _networkConnection: NetworkConnection?
-    /// Custom NetworkConnection istance to handle connection outside the emitter.
-    var networkConnection: NetworkConnection? {
-        get {
-            return _networkConnection
-        }
-        set(networkConnection) {
-            _networkConnection = networkConnection
-            if builderFinished && _networkConnection != nil {
-                setupNetworkConnection()
-            }
-        }
-    }
-    
-    private var _eventStore: EventStore?
-    var eventStore: EventStore? {
-        get {
-            return _eventStore
-        }
-        set(eventStore) {
-            if !builderFinished || self.eventStore == nil || self.eventStore?.count() == 0 {
-                _eventStore = eventStore
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.requestHeaders = requestHeaders
             }
         }
     }
@@ -242,71 +200,71 @@ class Emitter: NSObject, EmitterEventProcessing {
     /// Custom retry rules for HTTP status codes.
     private var _customRetryForStatusCodes: [Int : Bool] = [:]
     var customRetryForStatusCodes: [Int : Bool]? {
-        get {
-            return _customRetryForStatusCodes
-        }
-        set(customRetryForStatusCodes) {
-            _customRetryForStatusCodes = customRetryForStatusCodes ?? [:]
-        }
+        get { return sync { return _customRetryForStatusCodes } }
+        set { sync { _customRetryForStatusCodes = newValue ?? [:] } }
     }
     
     /// Whether retrying failed requests is allowed
-    var retryFailedRequests: Bool = EmitterDefaults.retryFailedRequests
+    private var _retryFailedRequests: Bool = EmitterDefaults.retryFailedRequests
+    var retryFailedRequests: Bool {
+        get { return sync { _retryFailedRequests } }
+        set { sync { _retryFailedRequests = newValue } }
+    }
 
     /// Returns the number of events in the DB.
     var dbCount: Int {
-        return Int(eventStore?.count() ?? 0)
+        return Int(eventStore.count())
     }
     
     // MARK: - Initialization
     
-    init(urlEndpoint: String,
-         builder: ((Emitter) -> (Void))) {
-        super.init()
-        self._urlEndpoint = urlEndpoint
+    init(namespace: String,
+         urlEndpoint: String,
+         method: HttpMethodOptions? = nil,
+         protocol: ProtocolOptions? = nil,
+         customPostPath: String? = nil,
+         requestHeaders: [String: String]? = nil,
+         serverAnonymisation: Bool? = nil,
+         eventStore: EventStore? = nil,
+         builder: ((Emitter) -> (Void))? = nil) {
+        self.namespace = namespace
+        self.eventStore = eventStore ?? Emitter.defaultEventStore(namespace: namespace)
         
-        builder(self)
-        setup()
-   }
+        let defaultNetworkConnection = DefaultNetworkConnection(
+            urlString: urlEndpoint,
+            httpMethod: method ?? EmitterDefaults.httpMethod,
+            customPostPath: customPostPath
+        )
+        defaultNetworkConnection.requestHeaders = requestHeaders
+        defaultNetworkConnection.serverAnonymisation = serverAnonymisation ?? EmitterDefaults.serverAnonymisation
+        networkConnection = defaultNetworkConnection
+        
+        builder?(self)
+        resumeTimer()
+    }
     
     init(networkConnection: NetworkConnection,
-         builder: ((Emitter) -> (Void))) {
-        super.init()
-        self._networkConnection = networkConnection
+         namespace: String,
+         eventStore: EventStore? = nil,
+         builder: ((Emitter) -> (Void))? = nil) {
+        self.networkConnection = networkConnection
+        self.namespace = namespace
+        self.eventStore = eventStore ?? Emitter.defaultEventStore(namespace: namespace)
         
-        builder(self)
-        setup()
-    }
-
-    private func setup() {
-        dataOperationQueue.maxConcurrentOperationCount = emitThreadPoolSize
-        setupNetworkConnection()
+        builder?(self)
         resumeTimer()
-        builderFinished = true
     }
-
-    private func setupNetworkConnection() {
-        if !builderFinished && networkConnection != nil {
-            return
-        }
-        if let url = _urlEndpoint {
-            var endpoint = "\(url)"
-            if !endpoint.hasPrefix("http") {
-                let `protocol` = self.protocol == .https ? "https://" : "http://"
-                endpoint = `protocol` + endpoint
-            }
-            let defaultNetworkConnection = DefaultNetworkConnection(
-                urlString: endpoint,
-                httpMethod: method,
-                customPostPath: customPostPath
-            )
-            defaultNetworkConnection.requestHeaders = requestHeaders
-            defaultNetworkConnection.emitThreadPoolSize = emitThreadPoolSize
-            defaultNetworkConnection.byteLimitGet = byteLimitGet
-            defaultNetworkConnection.byteLimitPost = byteLimitPost
-            defaultNetworkConnection.serverAnonymisation = serverAnonymisation
-            _networkConnection = defaultNetworkConnection
-        }
+ 
+    deinit {
+        pauseTimer()
+    }
+   
+    private static func defaultEventStore(namespace: String) -> EventStore {
+#if os(tvOS) || os(watchOS)
+        return MemoryEventStore()
+#else
+        return SQLiteEventStore(namespace: namespace)
+#endif
     }
 
     // MARK: - Pause/Resume methods
@@ -314,32 +272,36 @@ class Emitter: NSObject, EmitterEventProcessing {
     func resumeTimer() {
         weak var weakSelf = self
 
-        if timer != nil {
-            pauseTimer()
-        }
+        pauseTimer()
 
+        // NOTE: consider whether it is really necessary to use the main queue or we can dispatch on a background queue
         DispatchQueue.main.async {
-            weakSelf?.timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(kSPDefaultBufferTimeout), repeats: true) { [weak self] timer in
+            let timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(kSPDefaultBufferTimeout), repeats: true) { [weak self] timer in
                 self?.flush()
+            }
+            weakSelf?.sync {
+                weakSelf?.timer = timer
             }
         }
     }
 
     /// Suspends timer for periodically sending events to collector.
     func pauseTimer() {
-        timer?.invalidate()
-        timer = nil
+        sync {
+            timer?.invalidate()
+            timer = nil
+        }
     }
 
     /// Allows sending events to collector.
     func resumeEmit() {
-        sendingCheck.pausedEmit = false
+        sync { _pausedEmit = false }
         flush()
     }
 
     /// Suspends sending events to collector.
     func pauseEmit() {
-        sendingCheck.pausedEmit = true
+        sync { _pausedEmit = true }
     }
 
     /// Insert a Payload object into the buffer to be sent to collector.
@@ -347,35 +309,24 @@ class Emitter: NSObject, EmitterEventProcessing {
     /// - Parameter eventPayload: A Payload containing a completed event to be added into the buffer.
     func addPayload(toBuffer eventPayload: Payload) {
         DispatchQueue.global(qos: .default).async { [weak self] in
-            self?.eventStore?.addEvent(eventPayload)
+            self?.eventStore.addEvent(eventPayload)
             self?.flush()
         }
     }
 
     /// Empties the buffer of events using the respective HTTP request method.
     func flush() {
-        if Thread.isMainThread {
-            DispatchQueue.global(qos: .default).async { [self] in
-                sendGuard()
+        if requestToStartSending() {
+            emitAsync {
+                self.attemptEmit()
+                self.sync { self._sending = false }
             }
-        } else {
-            sendGuard()
         }
     }
 
     // MARK: - Control methods
 
-    private func sendGuard() {
-        if sendingCheck.requestToStartSending() {
-            objc_sync_enter(self)
-            attemptEmit()
-            objc_sync_exit(self)
-            sendingCheck.sending = false
-        }
-    }
-    
     private func attemptEmit() {
-        guard let eventStore = eventStore else { return }
         if eventStore.count() == 0 {
             logDebug(message: "Database empty. Returning.")
             return
@@ -383,7 +334,7 @@ class Emitter: NSObject, EmitterEventProcessing {
 
         let events = eventStore.emittableEvents(withQueryLimit: UInt(emitRange))
         let requests = buildRequests(fromEvents: events)
-        let sendResults = networkConnection?.sendRequests(requests)
+        let sendResults = networkConnection.sendRequests(requests)
 
         logVerbose(message: "Processing emitter results.")
 
@@ -392,7 +343,7 @@ class Emitter: NSObject, EmitterEventProcessing {
         var failedWontRetryCount = 0
         var removableEvents: [Int64] = []
 
-        for result in sendResults ?? [] {
+        for result in sendResults {
             let resultIndexArray = result.storeIds
             if result.isSuccessful {
                 successCount += resultIndexArray?.count ?? 0
@@ -416,11 +367,11 @@ class Emitter: NSObject, EmitterEventProcessing {
         logDebug(message: String(format: "Success Count: %d", successCount))
         logDebug(message: String(format: "Failure Count: %d", allFailureCount))
 
-        if callback != nil {
+        if let callback = callback {
             if allFailureCount == 0 {
-                callback?.onSuccess(withCount: successCount)
+                callback.onSuccess(withCount: successCount)
             } else {
-                callback?.onFailure(withCount: allFailureCount, successCount: successCount)
+                callback.onFailure(withCount: allFailureCount, successCount: successCount)
             }
         }
 
@@ -435,16 +386,21 @@ class Emitter: NSObject, EmitterEventProcessing {
 
     private func buildRequests(fromEvents events: [EmitterEvent]) -> [Request] {
         var requests: [Request] = []
-        guard let networkConnection = networkConnection else { return requests }
         
         let sendingTime = Utilities.getTimestamp()
-        let httpMethod = networkConnection.httpMethod
+        let httpMethod = method
+        let (bufferOptionValue, byteLimit) = sync {
+            return (
+                _bufferOption.rawValue,
+                httpMethod == .get ? _byteLimitGet : _byteLimitPost
+            )
+        }
 
         if httpMethod == .get {
             for event in events {
                 let payload = event.payload
                 addSendingTime(to: payload, timestamp: sendingTime)
-                let oversize = isOversize(payload)
+                let oversize = isOversize(payload, byteLimit: byteLimit)
                 let request = Request(payload: payload, emitterEventId: event.storeId, oversize: oversize)
                 requests.append(request)
             }
@@ -454,7 +410,7 @@ class Emitter: NSObject, EmitterEventProcessing {
                 var eventArray: [Payload] = []
                 var indexArray: [Int64] = []
 
-                let iUntil = min(i + bufferOption.rawValue, events.count)
+                let iUntil = min(i + bufferOptionValue, events.count)
                 for j in i..<iUntil {
                     let event = events[j]
 
@@ -462,10 +418,10 @@ class Emitter: NSObject, EmitterEventProcessing {
                     let emitterEventId = event.storeId
                     addSendingTime(to: payload, timestamp: sendingTime)
 
-                    if isOversize(payload) {
+                    if isOversize(payload, byteLimit: byteLimit) {
                         let request = Request(payload: payload, emitterEventId: emitterEventId, oversize: true)
                         requests.append(request)
-                    } else if isOversize(payload, previousPayloads: eventArray) {
+                    } else if isOversize(payload, byteLimit: byteLimit, previousPayloads: eventArray) {
                         let request = Request(payloads: eventArray, emitterEventIds: indexArray)
                         requests.append(request)
 
@@ -488,22 +444,13 @@ class Emitter: NSObject, EmitterEventProcessing {
                     let request = Request(payloads: eventArray, emitterEventIds: indexArray)
                     requests.append(request)
                 }
-                i += bufferOption.rawValue
+                i += bufferOptionValue
             }
         }
         return requests
     }
 
-    private func isOversize(_ payload: Payload) -> Bool {
-        return isOversize(payload, previousPayloads: [])
-    }
-
-    private func isOversize(_ payload: Payload, previousPayloads: [Payload]) -> Bool {
-        let byteLimit = networkConnection?.httpMethod == .get ? byteLimitGet : byteLimitPost
-        return isOversize(payload, byteLimit: byteLimit, previousPayloads: previousPayloads)
-    }
-
-    private func isOversize(_ payload: Payload, byteLimit: Int, previousPayloads: [Payload]) -> Bool {
+    private func isOversize(_ payload: Payload, byteLimit: Int, previousPayloads: [Payload] = []) -> Bool {
         var totalByteSize = payload.byteSize
         for previousPayload in previousPayloads {
             totalByteSize += previousPayload.byteSize
@@ -512,38 +459,12 @@ class Emitter: NSObject, EmitterEventProcessing {
         return totalByteSize + wrapperBytes > byteLimit
     }
 
-    func addSendingTime(to payload: Payload, timestamp: NSNumber) {
+    private func addSendingTime(to payload: Payload, timestamp: NSNumber) {
         payload.addValueToPayload(String(format: "%lld", timestamp.int64Value), forKey: kSPSentTimestamp)
     }
-
-    deinit {
-        pauseTimer()
-    }
-}
-
-fileprivate class SendingCheck {
-    private var _sending = false
-    var sending: Bool {
-        get {
-            return lock { return _sending }
-        }
-        set {
-            lock { _sending = newValue }
-        }
-    }
     
-    private var _pausedEmit = false
-    var pausedEmit: Bool {
-        get {
-            return lock { return _pausedEmit }
-        }
-        set {
-            lock { _pausedEmit = newValue }
-        }
-    }
-    
-    func requestToStartSending() -> Bool {
-        return lock {
+    private func requestToStartSending() -> Bool {
+        return sync {
             if !_sending && !_pausedEmit {
                 _sending = true
                 return true
@@ -553,9 +474,19 @@ fileprivate class SendingCheck {
         }
     }
     
-    private func lock<T>(closure: () -> T) -> T {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        return closure()
+    // MARK: - dispatch queues
+    
+    private let dispatchQueue = DispatchQueue(label: "snowplow.tracker.emitter")
+    
+    private func sync<T>(_ callback: () -> T) -> T {
+        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
+
+        return dispatchQueue.sync(execute: callback)
+    }
+    
+    private let emitQueue = DispatchQueue(label: "snowplow.tracker.emitter.emit")
+
+    private func emitAsync(_ callback: @escaping () -> Void) {
+        emitQueue.async(execute: callback)
     }
 }

@@ -19,75 +19,84 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     // The protocol for connection to the collector
     @objc
     public var `protocol`: ProtocolOptions {
-        get {
-            return _protocol
-        }
-        set {
-            _protocol = newValue
-            if builderFinished { setup() }
-        }
+        get { return sync { _protocol } }
+        set { sync { _protocol = newValue; setup() } }
     }
 
     private var _urlString: String
     /// The collector endpoint.
     @objc
     public var urlString: String {
-        get {
-            return urlEndpoint?.absoluteString ?? _urlString
-        }
-        set {
-            _urlString = newValue
-            if builderFinished { setup() }
-        }
+        get { return sync { urlEndpoint?.absoluteString ?? _urlString } }
+        set { sync { _urlString = newValue; setup() } }
     }
-    @objc
-    private(set) public var urlEndpoint: URL?
+    
+    private var _urlEndpoint: URL?
+    public var urlEndpoint: URL? { sync { return _urlEndpoint } }
 
     private var _httpMethod: HttpMethodOptions = .post
     /// HTTP method, should be .get or .post.
     @objc
     public var httpMethod: HttpMethodOptions {
-        get {
-            return _httpMethod
-        }
-        set(method) {
-            _httpMethod = method
-            if builderFinished && urlEndpoint != nil {
-                setup()
-            }
-        }
+        get { return sync { _httpMethod } }
+        set(method) { sync { _httpMethod = method; setup() } }
     }
 
     private var _emitThreadPoolSize = 15
     /// The number of threads used by the emitter.
     @objc
     public var emitThreadPoolSize: Int {
-        get {
-            return _emitThreadPoolSize
-        }
+        get { sync { return _emitThreadPoolSize } }
         set(emitThreadPoolSize) {
-            self._emitThreadPoolSize = emitThreadPoolSize
-            if dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize {
-                dataOperationQueue.maxConcurrentOperationCount = emitThreadPoolSize
+            sync {
+                self._emitThreadPoolSize = emitThreadPoolSize
+                if dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize {
+                    dataOperationQueue.maxConcurrentOperationCount = emitThreadPoolSize
+                }
             }
         }
     }
+    
+    private var _byteLimitGet: Int = 40000
     /// Maximum event size for a GET request.
-    public var byteLimitGet: Int = 40000
+    @objc
+    public var byteLimitGet: Int {
+        get { return sync { _byteLimitGet } }
+        set { sync { _byteLimitGet = newValue } }
+    }
+    
+    private var _byteLimitPost = 40000
     /// Maximum event size for a POST request.
     @objc
-    public var byteLimitPost = 40000
+    public var byteLimitPost: Int {
+        get { return sync { _byteLimitPost } }
+        set { sync { _byteLimitPost = newValue } }
+    }
+    
+    private var _customPostPath: String?
     /// A custom path that is used on the endpoint to send requests.
     @objc
-    public var customPostPath: String?
+    public var customPostPath: String? {
+        get { return sync { _customPostPath } }
+        set { sync { _customPostPath = newValue; setup() } }
+    }
+    
+    private var _requestHeaders: [String : String]?
     /// Custom headers (key, value) for http requests.
     @objc
-    public var requestHeaders: [String : String]?
+    public var requestHeaders: [String : String]? {
+        get { return sync { _requestHeaders } }
+        set { sync { _requestHeaders = newValue } }
+    }
     /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
+    
+    private var _serverAnonymisation = false
     @objc
-    public var serverAnonymisation = false
+    public var serverAnonymisation: Bool {
+        get { return sync { _serverAnonymisation } }
+        set { sync { _serverAnonymisation = newValue } }
+    }
     private var dataOperationQueue = OperationQueue()
-    private var builderFinished = false
     
     @objc
     public init(urlString: String,
@@ -96,52 +105,13 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
                 customPostPath: String? = nil) {
         self._urlString = urlString
         super.init()
-        self.httpMethod = httpMethod
-        self.protocol = `protocol`
-        self.customPostPath = customPostPath
+        self._httpMethod = httpMethod
+        self._protocol = `protocol`
+        self._customPostPath = customPostPath
         setup()
     }
 
     // MARK: - Implement SPNetworkConnection protocol
-    
-    private func setup() {
-        // Decode url to extract protocol
-        let url = URL(string: _urlString)
-        var endpoint = _urlString
-        if url?.scheme == "https" {
-            `protocol` = .https
-        } else if url?.scheme == "http" {
-            `protocol` = .http
-        } else {
-            `protocol` = .https
-            endpoint = "https://\(_urlString)"
-        }
-
-        // Configure
-        let urlPrefix = `protocol` == .http ? "http://" : "https://"
-        var urlSuffix = _httpMethod == .get ? kSPEndpointGet : kSPEndpointPost
-        if _httpMethod == .post {
-            if let customPostPath = customPostPath { urlSuffix = customPostPath }
-        }
-
-        // Remove trailing slashes from endpoint to avoid double slashes when appending path
-        endpoint = endpoint.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
-
-        urlEndpoint = URL(string: endpoint)?.appendingPathComponent(urlSuffix)
-
-        // Log
-        if urlEndpoint?.scheme != nil && urlEndpoint?.host != nil {
-            logDebug(message: "Emitter URL created successfully '\(urlEndpoint?.absoluteString ?? "-")'")
-        } else {
-            logDebug(message: "Invalid emitter URL: '\(urlEndpoint?.absoluteString ?? "-")'")
-        }
-        let userDefaults = UserDefaults.standard
-        userDefaults.set(endpoint, forKey: kSPErrorTrackerUrl)
-        userDefaults.set(urlSuffix, forKey: kSPErrorTrackerProtocol)
-        userDefaults.set(urlPrefix, forKey: kSPErrorTrackerMethod)
-
-        builderFinished = true
-    }
 
     @objc
     public func sendRequests(_ requests: [Request]) -> [RequestResult] {
@@ -185,8 +155,45 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     }
 
     // MARK: - Private methods
+    
+    private func setup() {
+        // Decode url to extract protocol
+        let url = URL(string: _urlString)
+        var endpoint = _urlString
+        if url?.scheme == "https" {
+            _protocol = .https
+        } else if url?.scheme == "http" {
+            _protocol = .http
+        } else {
+            _protocol = .https
+            endpoint = "https://\(_urlString)"
+        }
 
-    func buildPost(_ request: Request) -> URLRequest {
+        // Configure
+        let urlPrefix = _protocol == .http ? "http://" : "https://"
+        var urlSuffix = _httpMethod == .get ? kSPEndpointGet : kSPEndpointPost
+        if _httpMethod == .post {
+            if let customPostPath = _customPostPath { urlSuffix = customPostPath }
+        }
+
+        // Remove trailing slashes from endpoint to avoid double slashes when appending path
+        endpoint = endpoint.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+
+        _urlEndpoint = URL(string: endpoint)?.appendingPathComponent(urlSuffix)
+
+        // Log
+        if _urlEndpoint?.scheme != nil && _urlEndpoint?.host != nil {
+            logDebug(message: "Emitter URL created successfully '\(_urlEndpoint?.absoluteString ?? "-")'")
+        } else {
+            logDebug(message: "Invalid emitter URL: '\(_urlEndpoint?.absoluteString ?? "-")'")
+        }
+        let userDefaults = UserDefaults.standard
+        userDefaults.set(endpoint, forKey: kSPErrorTrackerUrl)
+        userDefaults.set(urlSuffix, forKey: kSPErrorTrackerProtocol)
+        userDefaults.set(urlPrefix, forKey: kSPErrorTrackerMethod)
+    }
+    
+    private func buildPost(_ request: Request) -> URLRequest {
         var requestData: Data? = nil
         do {
             requestData = try JSONSerialization.data(withJSONObject: request.payload?.dictionary ?? [:], options: [])
@@ -208,7 +215,7 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
         return urlRequest
     }
 
-    func buildGet(_ request: Request) -> URLRequest {
+    private func buildGet(_ request: Request) -> URLRequest {
         let payload = request.payload?.dictionary ?? [:]
         let url = "\(urlEndpoint!.absoluteString)?\(Utilities.urlEncode(payload))"
         let anUrl = URL(string: url)!
@@ -224,11 +231,21 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
         return urlRequest
     }
 
-    func applyValuesAndHeaderFields(_ requestHeaders: [String : String], to request: inout URLRequest) {
+    private func applyValuesAndHeaderFields(_ requestHeaders: [String : String], to request: inout URLRequest) {
         (requestHeaders as NSDictionary).enumerateKeysAndObjects({ key, obj, stop in
             if let key = key as? String, let obj = obj as? String {
                 request.setValue(obj, forHTTPHeaderField: key)
             }
         })
+    }
+    
+    // MARK: - dispatch queues
+    
+    private let dispatchQueue = DispatchQueue(label: "snowplow.tracker.network_connection")
+    
+    private func sync<T>(_ callback: () -> T) -> T {
+        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
+
+        return dispatchQueue.sync(execute: callback)
     }
 }
