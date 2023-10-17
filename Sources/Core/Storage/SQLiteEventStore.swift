@@ -16,7 +16,7 @@
 import Foundation
 
 class SQLiteEventStore: NSObject, EventStore {
-    private var database: Database
+    private let database: Database
     private var sendLimit: Int
 
     init(namespace: String?, limit: Int = 250) {

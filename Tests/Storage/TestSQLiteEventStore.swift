@@ -80,7 +80,6 @@ class TestSQLiteEventStore: XCTestCase {
 
     func testSQLiteEventStoreCreateSQLiteFile() {
         let eventStore = createEventStore("aNamespace")
-        _ = eventStore.count()
         
         let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).map(\.path)[0]
         let snowplowDirPath = URL(fileURLWithPath: libraryPath).appendingPathComponent("snowplow").path
@@ -90,7 +89,6 @@ class TestSQLiteEventStore: XCTestCase {
 
     func testSQLiteEventStoreInvalidNamespaceConversion() {
         let eventStore = createEventStore("namespace*.^?1ò2@")
-        _ = eventStore.count()
         
         let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).map(\.path)[0]
         let snowplowDirPath = URL(fileURLWithPath: libraryPath).appendingPathComponent("snowplow").path
