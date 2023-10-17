@@ -16,13 +16,11 @@ let package = Package(
             targets: ["SnowplowTracker"]),
     ],
     dependencies: [
-        .package(name: "FMDB", url: "https://github.com/ccgus/fmdb", from: "2.7.6"),
         .package(name: "Mocker", url: "https://github.com/WeTransfer/Mocker.git", from: "2.5.4"),
     ],
     targets: [
         .target(
             name: "SnowplowTracker",
-            dependencies: ["FMDB"],
             path: "./Sources"),
         .testTarget(
             name: "Tests",
