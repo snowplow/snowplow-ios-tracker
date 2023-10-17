@@ -18,7 +18,6 @@ import Foundation
 class SQLiteEventStore: NSObject, EventStore {
     private var database: Database
     private var sendLimit: Int
-    private var dispatchQueue = DispatchQueue(label: "snowplow.event_store")
 
     init(namespace: String?, limit: Int = 250) {
         let namespace = namespace ?? ""
@@ -38,31 +37,31 @@ class SQLiteEventStore: NSObject, EventStore {
     // MARK: SPEventStore implementation methods
 
     func addEvent(_ payload: Payload) {
-        dispatchQueue.sync {
+        sync {
             self.database.insertRow(payload.dictionary)
         }
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {
-        dispatchQueue.sync {
+        sync {
             return database.deleteRows(ids: [storeId])
         }
     }
 
     func removeEvents(withIds storeIds: [Int64]) -> Bool {
-        dispatchQueue.sync {
+        sync {
             return database.deleteRows(ids: storeIds)
         }
     }
 
     func removeAllEvents() -> Bool {
-        dispatchQueue.sync {
+        sync {
             return database.deleteRows()
         }
     }
 
     func count() -> UInt {
-        dispatchQueue.sync {
+        sync {
             if let count = database.countRows() {
                 return UInt(count)
             }
@@ -71,7 +70,7 @@ class SQLiteEventStore: NSObject, EventStore {
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
-        dispatchQueue.sync {
+        sync {
             let limit = min(Int(queryLimit), sendLimit)
             let rows = database.readRows(numRows: limit)
             return rows.map { row in
@@ -79,6 +78,16 @@ class SQLiteEventStore: NSObject, EventStore {
                 return EmitterEvent(payload: payload, storeId: row.id)
             }
         }
+    }
+    
+    // MARK: - Dispatch queue
+    
+    private let dispatchQueue = DispatchQueue(label: "snowplow.event_store")
+    
+    private func sync<T>(_ callback: () -> T) -> T {
+        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
+        
+        return dispatchQueue.sync(execute: callback)
     }
 }
 
