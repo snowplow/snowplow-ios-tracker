@@ -26,6 +26,4 @@ Pod::Spec.new do |s|
     s.tvos.frameworks = 'UIKit', 'Foundation'
   
     s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
-  
-    s.dependency 'FMDB', '~> 2.7'
   end

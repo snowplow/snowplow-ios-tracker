@@ -17,17 +17,9 @@ import XCTest
 @testable import SnowplowTracker
 
 class TestSQLiteEventStore: XCTestCase {
-    override func setUp() {
-        _ = SQLiteEventStore.removeUnsentEventsExcept(forNamespaces: [])
-    }
-
-    func testInit() {
-        let eventStore = SQLiteEventStore(namespace: "aNamespace")
-        XCTAssertNotNil(eventStore)
-    }
 
     func testInsertPayload() {
-        let eventStore = SQLiteEventStore(namespace: "aNamespace")
+        let eventStore = createEventStore("aNamespace")
         _ = eventStore.removeAllEvents()
 
         // Build an event
@@ -38,19 +30,19 @@ class TestSQLiteEventStore: XCTestCase {
         payload.addValueToPayload("MEEEE", forKey: "refr")
 
         // Insert an event
-        _ = eventStore.insertEvent(payload)
+        eventStore.addEvent(payload)
 
         XCTAssertEqual(eventStore.count(), 1)
-        XCTAssertEqual(eventStore.getEventWithId(1)?.payload.dictionary as! [String : String],
+        let emittableEvents = eventStore.emittableEvents(withQueryLimit: 10)
+        XCTAssertEqual(emittableEvents.first?.payload.dictionary as! [String : String],
                        payload.dictionary as! [String : String])
-        XCTAssertEqual(eventStore.getLastInsertedRowId(), 1)
-        _ = eventStore.removeEvent(withId: 1)
+        _ = eventStore.removeEvent(withId: emittableEvents.first?.storeId ?? 0)
 
         XCTAssertEqual(eventStore.count(), 0)
     }
 
     func testInsertManyPayloads() {
-        let eventStore = SQLiteEventStore(namespace: "aNamespace")
+        let eventStore = createEventStore("aNamespace")
         _ = eventStore.removeAllEvents()
 
         // Build an event
@@ -60,44 +52,44 @@ class TestSQLiteEventStore: XCTestCase {
         payload.addValueToPayload("Welcome to foobar!", forKey: "page")
         payload.addValueToPayload("MEEEE", forKey: "refr")
 
-        for _ in 0..<250 {
-            _ = eventStore.insertEvent(payload)
+        let dispatchQueue = DispatchQueue(label: "Save events", attributes: .concurrent)
+        let expectations = [
+            XCTestExpectation(),
+            XCTestExpectation(),
+            XCTestExpectation(),
+            XCTestExpectation(),
+            XCTestExpectation()
+        ]
+        for i in 0..<5 {
+            dispatchQueue.async {
+                for _ in 0..<250 {
+                    eventStore.addEvent(payload)
+                }
+                expectations[i].fulfill()
+            }
         }
-
-        XCTAssertEqual(eventStore.count(), 250)
-        XCTAssertEqual(eventStore.getAllEventsLimited(600)?.count, 250)
-        XCTAssertEqual(eventStore.getAllEventsLimited(150)?.count, 150)
-        XCTAssertEqual(eventStore.getAllEvents()?.count, 250)
-
+        wait(for: expectations, timeout: 10)
+        
+        XCTAssertEqual(eventStore.count(), 1250)
+        XCTAssertEqual(eventStore.emittableEvents(withQueryLimit: 600).count, 250)
+        XCTAssertEqual(eventStore.emittableEvents(withQueryLimit: 150).count, 150)
+        
         _ = eventStore.removeAllEvents()
         XCTAssertEqual(eventStore.count(), 0)
     }
 
     func testSQLiteEventStoreCreateSQLiteFile() {
-        _ = SQLiteEventStore(namespace: "aNamespace")
+        let eventStore = createEventStore("aNamespace")
+        
         let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).map(\.path)[0]
         let snowplowDirPath = URL(fileURLWithPath: libraryPath).appendingPathComponent("snowplow").path
         let dbPath = URL(fileURLWithPath: snowplowDirPath).appendingPathComponent("snowplowEvents-aNamespace.sqlite").path
         XCTAssertTrue(FileManager.default.fileExists(atPath: dbPath))
     }
 
-    func testSQLiteEventStoreRemoveFiles() {
-        _ = SQLiteEventStore(namespace: "aNamespace1")
-        _ = SQLiteEventStore(namespace: "aNamespace2")
-        _ = SQLiteEventStore(namespace: "aNamespace3")
-        let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).map(\.path)[0]
-        let snowplowDirPath = URL(fileURLWithPath: libraryPath).appendingPathComponent("snowplow").path
-        _ = SQLiteEventStore.removeUnsentEventsExcept(forNamespaces: ["aNamespace2"])
-        var dbPath = URL(fileURLWithPath: snowplowDirPath).appendingPathComponent("snowplowEvents-aNamespace1.sqlite").path
-        XCTAssertFalse(FileManager.default.fileExists(atPath: dbPath))
-        dbPath = URL(fileURLWithPath: snowplowDirPath).appendingPathComponent("snowplowEvents-aNamespace2.sqlite").path
-        XCTAssertTrue(FileManager.default.fileExists(atPath: dbPath))
-        dbPath = URL(fileURLWithPath: snowplowDirPath).appendingPathComponent("snowplowEvents-aNamespace3.sqlite").path
-        XCTAssertFalse(FileManager.default.fileExists(atPath: dbPath))
-    }
-
     func testSQLiteEventStoreInvalidNamespaceConversion() {
-        _ = SQLiteEventStore(namespace: "namespace*.^?1ò2@")
+        let eventStore = createEventStore("namespace*.^?1ò2@")
+        
         let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).map(\.path)[0]
         let snowplowDirPath = URL(fileURLWithPath: libraryPath).appendingPathComponent("snowplow").path
         let dbPath = URL(fileURLWithPath: snowplowDirPath).appendingPathComponent("snowplowEvents-namespace-1-2-.sqlite").path
@@ -105,7 +97,7 @@ class TestSQLiteEventStore: XCTestCase {
     }
 
     func testMigrationFromLegacyToNamespacedEventStore() {
-        var eventStore = SQLiteEventStore(namespace: "aNamespace")
+        var eventStore = self.createEventStore("aNamespace")
         eventStore.addEvent(Payload(dictionary: [
             "key": "value"
         ]))
@@ -123,18 +115,18 @@ class TestSQLiteEventStore: XCTestCase {
         XCTAssertFalse(FileManager.default.fileExists(atPath: newDbPath))
 
         // Migrate database when SQLiteEventStore is launched the first time
-        eventStore = SQLiteEventStore(namespace: "aNewNamespace")
+        eventStore = createEventStore("aNewNamespace")
+        XCTAssertEqual(1, eventStore.count())
         newDbPath = URL(fileURLWithPath: snowplowDirPath).appendingPathComponent("snowplowEvents-aNewNamespace.sqlite").path
         XCTAssertFalse(FileManager.default.fileExists(atPath: oldDbPath))
         XCTAssertTrue(FileManager.default.fileExists(atPath: newDbPath))
-        XCTAssertEqual(1, eventStore.count())
-        for event in eventStore.getAllEvents() ?? [] {
+        for event in eventStore.emittableEvents(withQueryLimit: 100) {
             XCTAssertEqual("value", event.payload.dictionary["key"] as? String)
         }
     }
 
     func testMultipleAccessToSameSQLiteFile() {
-        let eventStore1 = SQLiteEventStore(namespace: "aNamespace")
+        let eventStore1 = createEventStore("aNamespace")
         eventStore1.addEvent(Payload(dictionary: [
             "key1": "value1"
         ]))
@@ -145,6 +137,11 @@ class TestSQLiteEventStore: XCTestCase {
             "key2": "value2"
         ]))
         XCTAssertEqual(2, eventStore2.count())
+    }
+    
+    private func createEventStore(_ namespace: String, limit: Int = 250) -> SQLiteEventStore {
+        DatabaseHelpers.clearPreviousDatabase(namespace)
+        return SQLiteEventStore(namespace: namespace, limit: limit)
     }
 }
 
