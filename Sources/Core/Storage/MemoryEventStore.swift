@@ -19,7 +19,6 @@ class MemoryEventStore: NSObject, EventStore {
     var index: Int64
     var orderedSet: NSMutableOrderedSet
 
-
     convenience override init() {
         self.init(limit: 250)
     }
@@ -33,22 +32,16 @@ class MemoryEventStore: NSObject, EventStore {
     // Interface methods
 
     func addEvent(_ payload: Payload) {
-        objc_sync_enter(self)
         let item = EmitterEvent(payload: payload, storeId: index)
         orderedSet.add(item)
-        objc_sync_exit(self)
         index += 1
     }
 
     func count() -> UInt {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         return UInt(orderedSet.count)
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         let setCount = (orderedSet).count
         if setCount <= 0 {
             return []
@@ -71,8 +64,6 @@ class MemoryEventStore: NSObject, EventStore {
     }
 
     func removeAllEvents() -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         orderedSet.removeAllObjects()
         return true
     }
@@ -82,8 +73,6 @@ class MemoryEventStore: NSObject, EventStore {
     }
 
     func removeEvents(withIds storeIds: [Int64]) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         var itemsToRemove: [EmitterEvent] = []
         for item in orderedSet {
             guard let item = item as? EmitterEvent else {

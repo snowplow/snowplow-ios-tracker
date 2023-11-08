@@ -28,6 +28,42 @@ class TestTracker: XCTestCase {
             tracker.sessionContext = true
         }
     }
+    
+    func testTrackerPayload() {
+        let subject = Subject(platformContext: true, geoLocationContext: true)
+        let emitter = Emitter(namespace: "aNamespace", urlEndpoint: "not-real.com")
+        
+        let tracker = Tracker(trackerNamespace: "aNamespace", appId: "anAppId", emitter: emitter) { tracker in
+            tracker.subject = subject
+            tracker.devicePlatform = .general
+            tracker.base64Encoded = false
+            tracker.sessionContext = true
+            tracker.foregroundTimeout = 300
+            tracker.backgroundTimeout = 150
+        }
+        
+        let event = Structured(category: "Category", action: "Action")
+        let trackerEvent = TrackerEvent(event: event, state: nil)
+        
+        var payload = tracker.payload(with: trackerEvent)
+
+        var payloadDict = payload!.dictionary
+
+        XCTAssertEqual(payloadDict[kSPPlatform] as? String, devicePlatformToString(.general))
+        XCTAssertEqual(payloadDict[kSPAppId] as? String, "anAppId")
+        XCTAssertEqual(payloadDict[kSPNamespace] as? String, "aNamespace")
+
+        // Test setting variables to new values
+
+        tracker.devicePlatform = .desktop
+        tracker.appId = "newAppId"
+
+        payload = tracker.payload(with: trackerEvent)
+        payloadDict = payload!.dictionary
+
+        XCTAssertEqual(payloadDict[kSPPlatform] as? String, "pc")
+        XCTAssertEqual(payloadDict[kSPAppId] as? String, "newAppId")
+    }
 
     func testTrackerBuilderAndOptions() {
         let eventSink = EventSink()
@@ -61,7 +97,7 @@ class TestTracker: XCTestCase {
 
         tracker.pauseEventTracking()
         XCTAssertEqual(tracker.isTracking, false)
-        _ = tracker.track(Structured(category: "c", action: "a"))
+        track(Structured(category: "c", action: "a"), tracker)
         tracker.resumeEventTracking()
         XCTAssertEqual(tracker.isTracking, true)
         
@@ -70,7 +106,7 @@ class TestTracker: XCTestCase {
         XCTAssertEqual(eventSink.trackedEvents.count, 0)
         
         // tracks event after tracking resumed
-        _ = tracker.track(Structured(category: "c", action: "a"))
+        track(Structured(category: "c", action: "a"), tracker)
         Thread.sleep(forTimeInterval: 0.5)
         XCTAssertEqual(eventSink.trackedEvents.count, 1)
 
@@ -97,6 +133,12 @@ class TestTracker: XCTestCase {
         tracker.sessionContext = true
         XCTAssertNotNil(tracker.session)
         XCTAssertFalse(oldSessionManager === tracker.session)
+    }
+    
+    private func track(_ event: Event, _ tracker: Tracker) {
+        InternalQueue.sync {
+            _ = tracker.track(event)
+        }
     }
 
 }

@@ -12,31 +12,28 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-@testable import SnowplowTracker
 
-class MockTimer: InternalQueueTimer {
+class EcommerceControllerIQWrapper: EcommerceController {
     
-    var block: (() -> Void)
+    private let controller: EcommerceController
     
-    init(block: @escaping () -> Void) {
-        self.block = block
+    init(controller: EcommerceController) {
+        self.controller = controller
     }
     
-    static var currentTimer: MockTimer!
-    
-    func fire() {
-        InternalQueue.sync {
-            block()
-        }
+    func setEcommerceScreen(_ screen: EcommerceScreenEntity) {
+        InternalQueue.sync { controller.setEcommerceScreen(screen) }
     }
     
-    static func startTimer(_ interval: TimeInterval,
-                           _ block: @escaping () -> Void) -> InternalQueueTimer {
-        let mockTimer = MockTimer(block: block)
-        mockTimer.block = block
-        
-        MockTimer.currentTimer = mockTimer
-        
-        return mockTimer
+    func setEcommerceUser(_ user: EcommerceUserEntity) {
+        InternalQueue.sync { controller.setEcommerceUser(user) }
+    }
+    
+    func removeEcommerceScreen() {
+        InternalQueue.sync { controller.removeEcommerceScreen() }
+    }
+
+    func removeEcommerceUser() {
+        InternalQueue.sync { controller.removeEcommerceUser() }
     }
 }

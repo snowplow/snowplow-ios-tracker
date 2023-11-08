@@ -12,31 +12,24 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-@testable import SnowplowTracker
 
-class MockTimer: InternalQueueTimer {
+class PluginsControllerIQWrapper: PluginsController {
     
-    var block: (() -> Void)
+    private let controller: PluginsController
     
-    init(block: @escaping () -> Void) {
-        self.block = block
+    init(controller: PluginsController) {
+        self.controller = controller
     }
     
-    static var currentTimer: MockTimer!
-    
-    func fire() {
-        InternalQueue.sync {
-            block()
-        }
+    var identifiers: [String] {
+        return InternalQueue.sync { controller.identifiers }
     }
     
-    static func startTimer(_ interval: TimeInterval,
-                           _ block: @escaping () -> Void) -> InternalQueueTimer {
-        let mockTimer = MockTimer(block: block)
-        mockTimer.block = block
-        
-        MockTimer.currentTimer = mockTimer
-        
-        return mockTimer
+    func add(plugin: PluginIdentifiable) {
+        InternalQueue.sync { controller.add(plugin: plugin) }
+    }
+
+    func remove(identifier: String) {
+        InternalQueue.sync { controller.remove(identifier: identifier) }
     }
 }

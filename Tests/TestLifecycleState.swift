@@ -25,15 +25,18 @@ class TestLifecycleState: XCTestCase {
 
     func testLifecycleStateMachine() {
         let eventStore = MockEventStore()
-        let emitter = Emitter(namespace: "namespace", urlEndpoint: "http://snowplow-fake-url.com", eventStore: eventStore)
+        let emitter = Emitter(
+            networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
+            namespace: "namespace",
+            eventStore: eventStore
+        )
         let tracker = Tracker(trackerNamespace: "namespace", appId: nil, emitter: emitter) { tracker in
             tracker.base64Encoded = false
             tracker.lifecycleEvents = true
         }
 
         // Send events
-        _ = tracker.track(Timing(category: "category", variable: "variable", timing: 123))
-        Thread.sleep(forTimeInterval: 1)
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
         }
@@ -43,8 +46,7 @@ class TestLifecycleState: XCTestCase {
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("\"isVisible\":true"))
 
-        _ = tracker.track(Background(index: 1))
-        Thread.sleep(forTimeInterval: 1)
+        track(Background(index: 1), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
         }
@@ -54,8 +56,7 @@ class TestLifecycleState: XCTestCase {
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("\"isVisible\":false"))
 
-        _ = tracker.track(Timing(category: "category", variable: "variable", timing: 123))
-        Thread.sleep(forTimeInterval: 1)
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
         }
@@ -64,8 +65,7 @@ class TestLifecycleState: XCTestCase {
         entities = (payload?["co"]) as? String
         XCTAssertTrue(entities!.contains("\"isVisible\":false"))
 
-        _ = tracker.track(Foreground(index: 1))
-        Thread.sleep(forTimeInterval: 1)
+        track(Foreground(index: 1), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
         }
@@ -76,8 +76,7 @@ class TestLifecycleState: XCTestCase {
         XCTAssertTrue(entities!.contains("\"isVisible\":true"))
 
         let uuid = UUID()
-        _ = tracker.track(ScreenView(name: "screen1", screenId: uuid))
-        Thread.sleep(forTimeInterval: 1)
+        track(ScreenView(name: "screen1", screenId: uuid), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
         }
@@ -86,5 +85,11 @@ class TestLifecycleState: XCTestCase {
         entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("\"isVisible\":true"))
+    }
+    
+    private func track(_ event: Event, _ tracker: Tracker) {
+        InternalQueue.sync {
+            _ = tracker.track(event)
+        }
     }
 }

@@ -115,8 +115,6 @@ class MediaTrackingImpl: MediaTracking {
                         player: MediaPlayerEntity? = nil,
                         ad: MediaAdEntity? = nil,
                         adBreak: MediaAdBreakEntity? = nil) {
-        objc_sync_enter(self)
-
         // update state
         if let player = player {
             self.player.update(from: player)
@@ -143,8 +141,6 @@ class MediaTrackingImpl: MediaTracking {
         if let event = event {
             adTracking.updateForNextEvent(event: event)
         }
-        
-        objc_sync_exit(self)
     }
     
     private func addEntitiesAndTrack(event: Event) {

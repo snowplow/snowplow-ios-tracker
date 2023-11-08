@@ -19,83 +19,64 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     // The protocol for connection to the collector
     @objc
     public var `protocol`: ProtocolOptions {
-        get { return sync { _protocol } }
-        set { sync { _protocol = newValue; setup() } }
+        get { return _protocol }
+        set { _protocol = newValue; setup() }
     }
 
     private var _urlString: String
     /// The collector endpoint.
     @objc
     public var urlString: String {
-        get { return sync { urlEndpoint?.absoluteString ?? _urlString } }
-        set { sync { _urlString = newValue; setup() } }
+        get { return urlEndpoint?.absoluteString ?? _urlString }
+        set { _urlString = newValue; setup() }
     }
     
     private var _urlEndpoint: URL?
-    public var urlEndpoint: URL? { sync { return _urlEndpoint } }
+    public var urlEndpoint: URL? { return _urlEndpoint }
 
     private var _httpMethod: HttpMethodOptions = .post
     /// HTTP method, should be .get or .post.
     @objc
     public var httpMethod: HttpMethodOptions {
-        get { return sync { _httpMethod } }
-        set(method) { sync { _httpMethod = method; setup() } }
+        get { return _httpMethod }
+        set(method) { _httpMethod = method; setup() }
     }
 
     private var _emitThreadPoolSize = 15
     /// The number of threads used by the emitter.
     @objc
     public var emitThreadPoolSize: Int {
-        get { sync { return _emitThreadPoolSize } }
+        get { return _emitThreadPoolSize }
         set(emitThreadPoolSize) {
-            sync {
-                self._emitThreadPoolSize = emitThreadPoolSize
-                if dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize {
-                    dataOperationQueue.maxConcurrentOperationCount = emitThreadPoolSize
-                }
+            self._emitThreadPoolSize = emitThreadPoolSize
+            if dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize {
+                dataOperationQueue.maxConcurrentOperationCount = emitThreadPoolSize
             }
         }
     }
     
-    private var _byteLimitGet: Int = 40000
     /// Maximum event size for a GET request.
     @objc
-    public var byteLimitGet: Int {
-        get { return sync { _byteLimitGet } }
-        set { sync { _byteLimitGet = newValue } }
-    }
+    public var byteLimitGet: Int = 40000
     
-    private var _byteLimitPost = 40000
     /// Maximum event size for a POST request.
     @objc
-    public var byteLimitPost: Int {
-        get { return sync { _byteLimitPost } }
-        set { sync { _byteLimitPost = newValue } }
-    }
+    public var byteLimitPost = 40000
     
     private var _customPostPath: String?
     /// A custom path that is used on the endpoint to send requests.
-    @objc
-    public var customPostPath: String? {
-        get { return sync { _customPostPath } }
-        set { sync { _customPostPath = newValue; setup() } }
+    @objc public var customPostPath: String? {
+        get { return _customPostPath }
+        set { _customPostPath = newValue; setup() }
     }
     
-    private var _requestHeaders: [String : String]?
     /// Custom headers (key, value) for http requests.
     @objc
-    public var requestHeaders: [String : String]? {
-        get { return sync { _requestHeaders } }
-        set { sync { _requestHeaders = newValue } }
-    }
-    /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
+    public var requestHeaders: [String : String]?
     
-    private var _serverAnonymisation = false
+    /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
     @objc
-    public var serverAnonymisation: Bool {
-        get { return sync { _serverAnonymisation } }
-        set { sync { _serverAnonymisation = newValue } }
-    }
+    public var serverAnonymisation = false
     private var dataOperationQueue = OperationQueue()
     
     @objc
@@ -239,13 +220,4 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
         })
     }
     
-    // MARK: - dispatch queues
-    
-    private let dispatchQueue = DispatchQueue(label: "snowplow.tracker.network_connection")
-    
-    private func sync<T>(_ callback: () -> T) -> T {
-        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
-
-        return dispatchQueue.sync(execute: callback)
-    }
 }

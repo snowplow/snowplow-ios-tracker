@@ -244,22 +244,4 @@ class TestStateManager: XCTestCase {
             )
         )
     }
-    
-    @available(iOS 13, macOS 10.15, watchOS 6, tvOS 13, *)
-    func testConcurrentRemoveStateMachineWithAddOrReplaceStateMachine() async throws {
-        let stateManager = StateManager()
-        await withTaskGroup(of: Task<Void, Never>.self) { group in
-            (1...100).forEach { element in
-                group.addTask {
-                    Task.detached {
-                        if Int(element).isMultiple(of: 2) {
-                            _ = stateManager.removeStateMachine("MockStateMachine-»\(element-1)")
-                        } else {
-                            stateManager.addOrReplaceStateMachine(MockStateMachine("MockStateMachine-»\(element)"))
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

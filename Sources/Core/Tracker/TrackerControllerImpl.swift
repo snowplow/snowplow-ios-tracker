@@ -69,6 +69,10 @@ class TrackerControllerImpl: Controller, TrackerController {
         dirtyConfig.isPaused = false
         tracker.resumeEventTracking()
     }
+    
+    func track(_ event: Event, eventId: UUID) {
+        _ = tracker.track(event, eventId: eventId)
+    }
 
     func track(_ event: Event) -> UUID {
         return tracker.track(event)

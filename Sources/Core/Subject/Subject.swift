@@ -20,22 +20,14 @@ class Subject : NSObject {
     private var platformContextManager: PlatformContext
     private var geoDict: [String : NSObject] = [:]
 
-    private var _platformContext = false
-    var platformContext: Bool {
-        get { return sync { _platformContext } }
-        set { sync { _platformContext = newValue } }
-    }
+    var platformContext = false
     
     var platformContextProperties: [PlatformContextProperty]? {
-        get { return sync { platformContextManager.platformContextProperties } }
-        set { sync { platformContextManager.platformContextProperties = newValue } }
+        get { return platformContextManager.platformContextProperties }
+        set { platformContextManager.platformContextProperties = newValue }
     }
     
-    var _geoLocationContext = false
-    var geoLocationContext: Bool {
-        get { return sync { _geoLocationContext } }
-        set { sync { _geoLocationContext = newValue } }
-    }
+    var geoLocationContext = false
     
     // MARK: - Standard Dictionary
     
@@ -44,127 +36,107 @@ class Subject : NSObject {
     private var _userId: String?
     /// The user's ID.
     var userId: String? {
-        get { return sync { _userId } }
+        get { return _userId }
         set(uid) {
-            sync {
-                _userId = uid
-                standardDict[kSPUid] = uid
-            }
+            _userId = uid
+            standardDict[kSPUid] = uid
         }
     }
 
     private var _networkUserId: String?
     var networkUserId: String? {
-        get { return sync { _networkUserId } }
+        get { return _networkUserId }
         set(nuid) {
-            sync {
-                _networkUserId = nuid
-                standardDict[kSPNetworkUid] = nuid
-            }
+            _networkUserId = nuid
+            standardDict[kSPNetworkUid] = nuid
         }
     }
 
     private var _domainUserId: String?
     /// The domain UID.
     var domainUserId: String? {
-        get { return sync { _domainUserId } }
+        get { return _domainUserId }
         set(duid) {
-            sync {
-                _domainUserId = duid
-                standardDict[kSPDomainUid] = duid
-            }
+            _domainUserId = duid
+            standardDict[kSPDomainUid] = duid
         }
     }
 
     private var _useragent: String?
     /// The user agent (also known as browser string).
     var useragent: String? {
-        get { return sync { _useragent } }
+        get { return _useragent }
         set(useragent) {
-            sync {
-                _useragent = useragent
-                standardDict[kSPUseragent] = useragent
-            }
+            _useragent = useragent
+            standardDict[kSPUseragent] = useragent
         }
     }
 
     private var _ipAddress: String?
     /// The user's IP address.
     var ipAddress: String? {
-        get { return sync { _ipAddress } }
+        get { return _ipAddress }
         set(ip) {
-            sync {
-                _ipAddress = ip
-                standardDict[kSPIpAddress] = ip
-            }
+            _ipAddress = ip
+            standardDict[kSPIpAddress] = ip
         }
     }
 
     private var _timezone: String?
     /// The user's timezone.
     var timezone: String? {
-        get { return sync { _timezone } }
+        get { return _timezone }
         set(timezone) {
-            sync {
-                _timezone = timezone
-                standardDict[kSPTimezone] = timezone
-            }
+            _timezone = timezone
+            standardDict[kSPTimezone] = timezone
         }
     }
 
     private var _language: String?
     /// The user's language.
     var language: String? {
-        get { return sync { _language } }
+        get { return _language }
         set(lang) {
-            sync {
-                _language = lang
-                standardDict[kSPLanguage] = lang
-            }
+            _language = lang
+            standardDict[kSPLanguage] = lang
         }
     }
 
     private var _colorDepth: NSNumber?
     /// The user's color depth.
     var colorDepth: NSNumber? {
-        get { return sync { _colorDepth } }
+        get { return _colorDepth }
         set(depth) {
-            sync {
-                _colorDepth = depth
-                let res = "\(depth?.stringValue ?? "")"
-                standardDict[kSPColorDepth] = res
-            }
+            _colorDepth = depth
+            let res = "\(depth?.stringValue ?? "")"
+            standardDict[kSPColorDepth] = res
         }
     }
 
     var _screenResolution: SPSize?
     var screenResolution: SPSize? {
-        get { return sync { _screenResolution } }
+        get { return _screenResolution }
         set {
-            sync {
-                _screenResolution = newValue
-                if let size = newValue {
-                    let res = "\((NSNumber(value: size.width)).stringValue)x\((NSNumber(value: size.height)).stringValue)"
-                    standardDict[kSPResolution] = res
-                } else {
-                    standardDict.removeValue(forKey: kSPResolution)
-                }
+            _screenResolution = newValue
+            if let size = newValue {
+                let res = "\((NSNumber(value: size.width)).stringValue)x\((NSNumber(value: size.height)).stringValue)"
+                standardDict[kSPResolution] = res
+            } else {
+                standardDict.removeValue(forKey: kSPResolution)
             }
         }
     }
 
     var _screenViewPort: SPSize?
     var screenViewPort: SPSize? {
-        get { return sync { _screenViewPort } }
+        get { return _screenViewPort }
         set {
-            sync {
-                _screenViewPort = newValue
-                if let size = newValue {
-                    let res = "\((NSNumber(value: size.width)).stringValue)x\((NSNumber(value: size.height)).stringValue)"
-                    standardDict[kSPViewPort] = res
-                } else {
-                    standardDict.removeValue(forKey: kSPViewPort)
-                }
+            _screenViewPort = newValue
+            if let size = newValue {
+                let res = "\((NSNumber(value: size.width)).stringValue)x\((NSNumber(value: size.height)).stringValue)"
+                standardDict[kSPViewPort] = res
+            } else {
+                standardDict.removeValue(forKey: kSPViewPort)
             }
         }
     }
@@ -175,49 +147,49 @@ class Subject : NSObject {
 
     /// Latitude value for the geolocation context.
     var geoLatitude: NSNumber? {
-        get { return sync { geoDict[kSPGeoLatitude] as? NSNumber } }
-        set(latitude) { sync { geoDict[kSPGeoLatitude] = latitude } }
+        get { return geoDict[kSPGeoLatitude] as? NSNumber }
+        set(latitude) { geoDict[kSPGeoLatitude] = latitude }
     }
 
     /// Longitude value for the geo context.
     var geoLongitude: NSNumber? {
-        get { return sync { geoDict[kSPGeoLongitude] as? NSNumber } }
-        set(longitude) { sync { geoDict[kSPGeoLongitude] = longitude } }
+        get { return geoDict[kSPGeoLongitude] as? NSNumber }
+        set(longitude) { geoDict[kSPGeoLongitude] = longitude }
     }
 
     /// LatitudeLongitudeAccuracy value for the geolocation context.
     var geoLatitudeLongitudeAccuracy: NSNumber? {
-        get { return sync { geoDict[kSPGeoLatLongAccuracy] as? NSNumber } }
-        set { sync { geoDict[kSPGeoLatLongAccuracy] = newValue } }
+        get { return geoDict[kSPGeoLatLongAccuracy] as? NSNumber }
+        set { geoDict[kSPGeoLatLongAccuracy] = newValue }
     }
 
     /// Altitude value for the geolocation context.
     var geoAltitude: NSNumber? {
-        get { return sync { geoDict[kSPGeoAltitude] as? NSNumber } }
-        set(altitude) { sync { geoDict[kSPGeoAltitude] = altitude } }
+        get { return geoDict[kSPGeoAltitude] as? NSNumber }
+        set(altitude) { geoDict[kSPGeoAltitude] = altitude }
     }
 
     /// AltitudeAccuracy value for the geolocation context.
     var geoAltitudeAccuracy: NSNumber? {
-        get { return sync { geoDict[kSPGeoAltitudeAccuracy] as? NSNumber } }
-        set(altitudeAccuracy) { sync { geoDict[kSPGeoAltitudeAccuracy] = altitudeAccuracy } }
+        get { return geoDict[kSPGeoAltitudeAccuracy] as? NSNumber }
+        set(altitudeAccuracy) { geoDict[kSPGeoAltitudeAccuracy] = altitudeAccuracy }
     }
 
     var geoBearing: NSNumber? {
-        get { return sync { geoDict[kSPGeoBearing] as? NSNumber } }
-        set(bearing) { sync { geoDict[kSPGeoBearing] = bearing } }
+        get { return geoDict[kSPGeoBearing] as? NSNumber }
+        set(bearing) { geoDict[kSPGeoBearing] = bearing }
     }
 
     /// Speed value for the geolocation context.
     var geoSpeed: NSNumber? {
-        get { return sync { geoDict[kSPGeoSpeed] as? NSNumber } }
-        set(speed) { sync { geoDict[kSPGeoSpeed] = speed } }
+        get { return geoDict[kSPGeoSpeed] as? NSNumber }
+        set(speed) { geoDict[kSPGeoSpeed] = speed }
     }
 
     /// Timestamp value for the geolocation context.
     var geoTimestamp: NSNumber? {
-        get { return sync { geoDict[kSPGeoTimestamp] as? NSNumber } }
-        set(timestamp) { sync { geoDict[kSPGeoTimestamp] = timestamp } }
+        get { return geoDict[kSPGeoTimestamp] as? NSNumber }
+        set(timestamp) { geoDict[kSPGeoTimestamp] = timestamp }
     }
 
     init(platformContext: Bool = false,
@@ -227,8 +199,8 @@ class Subject : NSObject {
         self.platformContextManager = PlatformContext(platformContextProperties: platformContextProperties)
         super.init()
         platformContextManager.platformContextProperties = platformContextProperties
-        _platformContext = platformContext
-        _geoLocationContext = geoContext
+        self.platformContext = platformContext
+        self.geoLocationContext = geoContext
         
         screenResolution = Utilities.resolution
         screenViewPort = Utilities.viewPort
@@ -266,56 +238,43 @@ class Subject : NSObject {
     //#pragma clang diagnostic pop
 
     func standardDict(userAnonymisation: Bool) -> [String : String] {
-        var copy = sync { self.standardDict }
         if userAnonymisation {
+            var copy = self.standardDict
             copy.removeValue(forKey: kSPUid)
             copy.removeValue(forKey: kSPDomainUid)
             copy.removeValue(forKey: kSPNetworkUid)
             copy.removeValue(forKey: kSPIpAddress)
+            return copy
         }
-        return copy
+        return self.standardDict
     }
 
     /// Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
     /// - Parameter userAnonymisation: Whether to anonymise user identifiers
     /// - Returns: A SPPayload with all platform specific pairs.
     func platformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload? {
-        return sync {
-            if _platformContext {
-                return platformContextManager.fetchPlatformDict(
-                    userAnonymisation: userAnonymisation,
-                    advertisingIdentifierRetriever: advertisingIdentifierRetriever)
-            } else {
-                return nil
-            }
+        if platformContext {
+            return platformContextManager.fetchPlatformDict(
+                userAnonymisation: userAnonymisation,
+                advertisingIdentifierRetriever: advertisingIdentifierRetriever)
+        } else {
+            return nil
         }
     }
 
     /// Gets the geolocation dictionary if the required keys are available. Returns nil if not enabled.
     /// - Returns: A dictionary with key-value pairs of the geolocation context.
     public var geoLocationDict: [String : NSObject]? {
-        return sync {
-            if _geoLocationContext {
-                if geoDict[kSPGeoLatitude] != nil && geoDict[kSPGeoLongitude] != nil {
-                    return geoDict
-                } else {
-                    logDebug(message: "GeoLocation missing required fields; cannot get.")
-                    return nil
-                }
+        if geoLocationContext {
+            if geoDict[kSPGeoLatitude] != nil && geoDict[kSPGeoLongitude] != nil {
+                return geoDict
             } else {
+                logDebug(message: "GeoLocation missing required fields; cannot get.")
                 return nil
             }
+        } else {
+            return nil
         }
-    }
-    
-    // MARK: - Dispatch queue
-    
-    private let dispatchQueue = DispatchQueue(label: "snowplow.subject")
-    
-    private func sync<T>(_ callback: () -> T) -> T {
-        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
-
-        return dispatchQueue.sync(execute: callback)
     }
     
 }

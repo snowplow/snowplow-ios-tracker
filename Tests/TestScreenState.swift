@@ -68,7 +68,7 @@ class TestScreenState: XCTestCase {
         emitter.pauseEmit()
 
         // Send events
-        _ = tracker.track(Timing(category: "category", variable: "variable", timing: 123))
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
         Thread.sleep(forTimeInterval: 1)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -79,7 +79,7 @@ class TestScreenState: XCTestCase {
         XCTAssertNil(entities)
 
         let uuid = UUID()
-        _ = tracker.track(ScreenView(name: "screen1", screenId: uuid))
+        track(ScreenView(name: "screen1", screenId: uuid), tracker)
         Thread.sleep(forTimeInterval: 1)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -90,7 +90,7 @@ class TestScreenState: XCTestCase {
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains(uuid.uuidString))
 
-        _ = tracker.track(Timing(category: "category", variable: "variable", timing: 123))
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
         Thread.sleep(forTimeInterval: 1)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -102,7 +102,7 @@ class TestScreenState: XCTestCase {
         XCTAssertTrue(entities!.contains(uuid.uuidString))
 
         let uuid2 = UUID()
-        _ = tracker.track(ScreenView(name: "screen2", screenId: uuid2))
+        track(ScreenView(name: "screen2", screenId: uuid2), tracker)
         Thread.sleep(forTimeInterval: 1)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -117,7 +117,7 @@ class TestScreenState: XCTestCase {
         XCTAssertTrue(eventPayload!.contains(uuid.uuidString))
         XCTAssertTrue(eventPayload!.contains(uuid2.uuidString))
 
-        _ = tracker.track(Timing(category: "category", variable: "variable", timing: 123))
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
         Thread.sleep(forTimeInterval: 1)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -127,5 +127,11 @@ class TestScreenState: XCTestCase {
         entities = (payload?.dictionary["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains(uuid2.uuidString))
+    }
+    
+    private func track(_ event: Event, _ tracker: Tracker) {
+        InternalQueue.sync {
+            _ = tracker.track(event)
+        }
     }
 }

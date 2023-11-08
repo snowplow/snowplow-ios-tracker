@@ -47,21 +47,23 @@ class AVPlayerSubscription {
 
         // add a playback rate observer to find out when the user plays or pauses the videos
         rateObserver = player.observe(\.rate, options: [.old, .new]) { [weak self] player, change in
-            guard let oldRate = change.oldValue else { return }
-            guard let newRate = change.newValue else { return }
-
-            if oldRate != 0 && newRate == 0 { // paused
-                self?.lastPauseTime = player.currentTime()
-                self?.track(MediaPauseEvent())
-            } else if oldRate == 0 && newRate != 0 { // started playing
-                // when the current time diverges significantly, i.e. more than 1 second, from what it was when last paused, track a seek event
-                if let lastPauseTime = self?.lastPauseTime {
-                    if abs(player.currentTime().seconds - lastPauseTime.seconds) > 1 {
-                        self?.track(MediaSeekEndEvent())
+            InternalQueue.async {
+                guard let oldRate = change.oldValue else { return }
+                guard let newRate = change.newValue else { return }
+                
+                if oldRate != 0 && newRate == 0 { // paused
+                    self?.lastPauseTime = player.currentTime()
+                    self?.track(MediaPauseEvent())
+                } else if oldRate == 0 && newRate != 0 { // started playing
+                    // when the current time diverges significantly, i.e. more than 1 second, from what it was when last paused, track a seek event
+                    if let lastPauseTime = self?.lastPauseTime {
+                        if abs(player.currentTime().seconds - lastPauseTime.seconds) > 1 {
+                            self?.track(MediaSeekEndEvent())
+                        }
                     }
+                    self?.lastPauseTime = nil
+                    self?.track(MediaPlayEvent())
                 }
-                self?.lastPauseTime = nil
-                self?.track(MediaPlayEvent())
             }
         }
 
@@ -92,15 +94,17 @@ class AVPlayerSubscription {
 
     /// Handles notifications from the notification center subscriptions
     @objc private func handleNotification(_ notification: Notification) {
-        switch notification.name {
-        case .AVPlayerItemPlaybackStalled:
-            track(MediaBufferStartEvent())
-        case .AVPlayerItemDidPlayToEndTime:
-            track(MediaEndEvent())
-        case .AVPlayerItemFailedToPlayToEndTime:
-            track(MediaErrorEvent(errorDescription: player.error?.localizedDescription))
-        default:
-            return
+        InternalQueue.async {
+            switch notification.name {
+            case .AVPlayerItemPlaybackStalled:
+                self.track(MediaBufferStartEvent())
+            case .AVPlayerItemDidPlayToEndTime:
+                self.track(MediaEndEvent())
+            case .AVPlayerItemFailedToPlayToEndTime:
+                self.track(MediaErrorEvent(errorDescription: self.player.error?.localizedDescription))
+            default:
+                return
+            }
         }
     }
 
@@ -135,7 +139,9 @@ class AVPlayerSubscription {
         positionObserverToken =
             player.addPeriodicTimeObserver(forInterval: interval, queue: .main) {
                 [weak self] _ in
-                self?.update()
+                InternalQueue.async {
+                    self?.update()
+                }
         }
     }
 

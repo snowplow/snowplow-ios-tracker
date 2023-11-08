@@ -115,7 +115,7 @@ class LegacyTestEmitter: XCTestCase {
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 1))
         emitter.resumeTimer()
         
-        emitter.flush()
+        flush(emitter)
     }
 
     // MARK: - Emitting tests
@@ -135,7 +135,7 @@ class LegacyTestEmitter: XCTestCase {
     func testEmitSingleGetEventWithSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 200)
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         for _ in 0..<10 {
             Thread.sleep(forTimeInterval: 1)
@@ -146,13 +146,13 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertTrue(networkConnection.previousResults.first!.first!.isSuccessful)
         XCTAssertEqual(0, emitter.dbCount)
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testEmitSingleGetEventWithNoSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 500)
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         for _ in 0..<10 {
             Thread.sleep(forTimeInterval: 1)
@@ -163,7 +163,7 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertFalse(networkConnection.previousResults.first!.first!.isSuccessful)
         XCTAssertEqual(1, emitter.dbCount)
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testEmitTwoGetEventsWithSuccess() {
@@ -171,7 +171,7 @@ class LegacyTestEmitter: XCTestCase {
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
 
         for payload in generatePayloads(2) {
-            emitter.addPayload(toBuffer: payload)
+            addPayload(payload, emitter)
         }
 
         for _ in 0..<10 {
@@ -188,7 +188,7 @@ class LegacyTestEmitter: XCTestCase {
         }
         XCTAssertEqual(2, totEvents)
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testEmitTwoGetEventsWithNoSuccess() {
@@ -196,7 +196,7 @@ class LegacyTestEmitter: XCTestCase {
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
 
         for payload in generatePayloads(2) {
-            emitter.addPayload(toBuffer: payload)
+            addPayload(payload, emitter)
         }
 
         for _ in 0..<10 {
@@ -210,14 +210,14 @@ class LegacyTestEmitter: XCTestCase {
             }
         }
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testEmitSinglePostEventWithSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
 
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         for _ in 0..<10 {
             Thread.sleep(forTimeInterval: 1)
@@ -228,16 +228,17 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertTrue(networkConnection.previousResults.first!.first!.isSuccessful)
         XCTAssertEqual(0, emitter.dbCount)
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testEmitEventsPostAsGroup() {
+        let payloads = generatePayloads(15)
+        
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 500)
         let emitter = self.emitter(with: networkConnection, bufferOption: .defaultGroup)
-
-        let payloads = generatePayloads(15)
+        
         for i in 0..<14 {
-            emitter.addPayload(toBuffer: payloads[i])
+            addPayload(payloads[i], emitter)
         }
 
         for _ in 0..<10 {
@@ -247,7 +248,7 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertEqual(14, emitter.dbCount)
         networkConnection.statusCode = 200
         let prevSendingCount = networkConnection.sendingCount
-        emitter.addPayload(toBuffer: payloads[14])
+        addPayload(payloads[14], emitter)
 
         for _ in 0..<10 {
             Thread.sleep(forTimeInterval: 1)
@@ -268,7 +269,7 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertEqual(15, totEvents)
         XCTAssertTrue(areGrouped)
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testEmitOversizeEventsPostAsGroup() {
@@ -278,7 +279,7 @@ class LegacyTestEmitter: XCTestCase {
 
         let payloads = generatePayloads(15)
         for i in 0..<14 {
-            emitter.addPayload(toBuffer: payloads[i])
+            addPayload(payloads[i], emitter)
         }
 
         for _ in 0..<10 {
@@ -288,7 +289,7 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertEqual(0, emitter.dbCount)
         networkConnection.statusCode = 200
         _ = networkConnection.sendingCount
-        emitter.addPayload(toBuffer: payloads[14])
+        addPayload(payloads[14], emitter)
 
         for _ in 0..<10 {
             Thread.sleep(forTimeInterval: 1)
@@ -296,14 +297,14 @@ class LegacyTestEmitter: XCTestCase {
 
         XCTAssertEqual(0, emitter.dbCount)
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testRemovesEventsFromQueueOnNoRetryStatus() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 403)
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
 
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         Thread.sleep(forTimeInterval: 1)
 
@@ -314,7 +315,7 @@ class LegacyTestEmitter: XCTestCase {
             }
         }
 
-        emitter.flush()
+        flush(emitter)
     }
 
     func testFollowCustomRetryRules() {
@@ -326,7 +327,7 @@ class LegacyTestEmitter: XCTestCase {
         customRules[500] = false
         emitter.customRetryForStatusCodes = customRules
 
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         Thread.sleep(forTimeInterval: 1)
 
@@ -335,14 +336,14 @@ class LegacyTestEmitter: XCTestCase {
 
         networkConnection.statusCode = 403
 
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         Thread.sleep(forTimeInterval: 1)
 
         // event still in queue because retrying is enabled for 403
         XCTAssertEqual(1, emitter.dbCount)
 
-        emitter.flush()
+        flush(emitter)
     }
     
     func testDoesNotRetryFailedRequestsIfDisabled() {
@@ -350,7 +351,7 @@ class LegacyTestEmitter: XCTestCase {
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
         emitter.retryFailedRequests = false
 
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         Thread.sleep(forTimeInterval: 1)
 
@@ -359,14 +360,14 @@ class LegacyTestEmitter: XCTestCase {
 
         emitter.retryFailedRequests = true
 
-        emitter.addPayload(toBuffer: generatePayloads(1).first!)
+        addPayload(generatePayloads(1).first!, emitter)
 
         Thread.sleep(forTimeInterval: 1)
 
         // event still in queue because retrying is enabled
         XCTAssertEqual(1, emitter.dbCount)
 
-        emitter.flush()
+        flush(emitter)
     }
 
     // MARK: - Emitter builder
@@ -391,6 +392,18 @@ class LegacyTestEmitter: XCTestCase {
             payloads.append(payload)
         }
         return payloads
+    }
+    
+    private func addPayload(_ eventPayload: Payload, _ emitter: Emitter) {
+        InternalQueue.sync {
+            emitter.addPayload(toBuffer: eventPayload)
+        }
+    }
+    
+    private func flush(_ emitter: Emitter) {
+        InternalQueue.sync {
+            emitter.flush()
+        }
     }
 }
 //#pragma clang diagnostic pop

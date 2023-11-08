@@ -29,7 +29,7 @@ class TestMultipleInstances: XCTestCase {
         let t2 = Snowplow.createTracker(namespace: "t1", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake2"))
         XCTAssertEqual(t2.network?.endpoint, "https://snowplowanalytics.fake2/com.snowplowanalytics.snowplow/tp2")
         XCTAssertEqual(["t1"], Snowplow.instancedTrackerNamespaces)
-        XCTAssertTrue(t1 === t2)
+        XCTAssertTrue(t1?.network?.endpoint == t2?.network?.endpoint)
     }
 
     func testMultipleInstances() {

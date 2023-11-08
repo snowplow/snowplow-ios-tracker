@@ -23,9 +23,6 @@ class StateManager {
     private var trackerState = TrackerState()
 
     func addOrReplaceStateMachine(_ stateMachine: StateMachineProtocol) {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
         if let previousStateMachine = identifierToStateMachine[stateMachine.identifier] {
             if type(of: stateMachine) == type(of: previousStateMachine) {
                 return
@@ -56,9 +53,6 @@ class StateManager {
     }
 
     func removeStateMachine(_ stateMachineIdentifier: String) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
         guard let stateMachine = identifierToStateMachine[stateMachineIdentifier] else {
             return false
         }
@@ -88,9 +82,6 @@ class StateManager {
     }
 
     func trackerState(forProcessedEvent event: Event) -> TrackerStateSnapshot? {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         if let sdEvent = event as? SelfDescribingAbstract {
             var stateMachines = Array(eventSchemaToStateMachine[sdEvent.schema] ?? [])
             stateMachines.append(contentsOf: eventSchemaToStateMachine["*"] ?? [])
@@ -121,9 +112,6 @@ class StateManager {
     }
     
     func filter(event: InspectableEvent & StateMachineEvent) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         guard let schema = event.schema ?? event.eventName else { return true }
         var stateMachines = eventSchemaToFilter[schema] ?? []
         stateMachines.append(contentsOf: eventSchemaToFilter["*"] ?? [])
@@ -138,9 +126,6 @@ class StateManager {
     }
 
     func entities(forProcessedEvent event: InspectableEvent & StateMachineEvent) -> [SelfDescribingJson] {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         guard let schema = event.schema ?? event.eventName else { return [] }
         var result: [SelfDescribingJson] = []
         var stateMachines = eventSchemaToEntitiesGenerator[schema] ?? []
@@ -156,9 +141,6 @@ class StateManager {
     }
 
     func addPayloadValues(to event: InspectableEvent & StateMachineEvent) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         guard let schema = event.schema else { return true }
         var failures = 0
         var stateMachines = eventSchemaToPayloadUpdater[schema] ?? []
@@ -177,10 +159,8 @@ class StateManager {
     func afterTrack(event: InspectableEvent & StateMachineEvent) {
         guard let schema = event.schema ?? event.eventName else { return }
 
-        objc_sync_enter(self)
         var stateMachines = eventSchemaToAfterTrackCallback[schema] ?? []
         stateMachines.append(contentsOf: eventSchemaToAfterTrackCallback["*"] ?? [])
-        objc_sync_exit(self)
 
         if !stateMachines.isEmpty {
             DispatchQueue.global(qos: .default).async {

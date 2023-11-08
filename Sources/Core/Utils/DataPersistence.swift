@@ -24,8 +24,6 @@ var sessionKey = "session"
 class DataPersistence {
     var data: [String : [String : Any]] {
         get {
-            objc_sync_enter(self)
-            defer { objc_sync_exit(self) }
             if !isStoredOnFile {
                 return ((UserDefaults.standard.dictionary(forKey: userDefaultsKey) ?? [:]) as? [String : [String : Any]]) ?? [:]
             }
@@ -51,13 +49,11 @@ class DataPersistence {
             return result ?? [:]
         }
         set(data) {
-            objc_sync_enter(self)
             if let fileUrl = fileUrl {
                 let _ = storeDictionary(data, fileURL: fileUrl)
             } else {
                 UserDefaults.standard.set(data, forKey: userDefaultsKey)
             }
-            objc_sync_exit(self)
         }
     }
 
@@ -66,11 +62,9 @@ class DataPersistence {
             return (data)[sessionKey]
         }
         set(session) {
-            objc_sync_enter(self)
             var data = self.data
             data[sessionKey] = session
             self.data = data
-            objc_sync_exit(self)
         }
     }
 
@@ -100,8 +94,6 @@ class DataPersistence {
         if escapedNamespace.count <= 0 {
             return nil
         }
-        objc_sync_enter(DataPersistence.self)
-        defer { objc_sync_exit(DataPersistence.self) }
         
         if let instances = instances {
             if let instance = instances[escapedNamespace] {
@@ -118,9 +110,7 @@ class DataPersistence {
 
     class func remove(withNamespace namespace: String) -> Bool {
         if let instance = DataPersistence.getFor(namespace: namespace) {
-            objc_sync_enter(DataPersistence.self)
             instances?.removeValue(forKey: instance.escapedNamespace)
-            objc_sync_exit(DataPersistence.self)
             let _ = instance.removeAll()
         }
         return true
@@ -139,9 +129,6 @@ class DataPersistence {
 
 
     func removeAll() -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
         UserDefaults.standard.removeObject(forKey: userDefaultsKey)
         
         if let fileUrl = fileUrl {

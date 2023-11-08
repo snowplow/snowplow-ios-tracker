@@ -102,7 +102,7 @@ class TestSession: XCTestCase {
     func testBackgroundEventsOnWhenLifecycleEventsDisabled() {
         cleanFile(withNamespace: "tracker")
 
-        let emitter = Emitter(namespace: "tracker", urlEndpoint: "")
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
         let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = false
             tracker.sessionContext = true
@@ -126,7 +126,7 @@ class TestSession: XCTestCase {
     func testBackgroundEventsOnSameSession() {
         cleanFile(withNamespace: "t1")
         
-        let emitter = Emitter(namespace: "t1", urlEndpoint: "")
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "t1")
         let tracker = Tracker(trackerNamespace: "t1", appId: nil, emitter: emitter) { tracker in
             tracker.installEvent = false
             tracker.lifecycleEvents = true
@@ -137,6 +137,8 @@ class TestSession: XCTestCase {
         let session = tracker.session
 
         session?.updateInBackground() // It sends a background event
+        
+        Thread.sleep(forTimeInterval: 1)
 
         let sessionId = session?.sessionId
 
@@ -184,7 +186,7 @@ class TestSession: XCTestCase {
     func testMixedEventsOnManySessions() {
         cleanFile(withNamespace: "t2")
         
-        let emitter = Emitter(namespace: "t2", urlEndpoint: "")
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "t2")
         let tracker = Tracker(trackerNamespace: "t2", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
@@ -267,7 +269,7 @@ class TestSession: XCTestCase {
     func testBackgroundTimeBiggerThanBackgroundTimeoutCausesNewSession() {
         cleanFile(withNamespace: "tracker")
         
-        let emitter = Emitter(namespace: "tracker", urlEndpoint: "")
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
         let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
@@ -287,6 +289,7 @@ class TestSession: XCTestCase {
         session?.updateInBackground() // Sends a background event
         Thread.sleep(forTimeInterval: 3) // Bigger than background timeout
         session?.updateInForeground() // Sends a foreground event
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(oldSessionId, session?.previousSessionId)
         XCTAssertEqual(2, session?.sessionIndex)
@@ -298,7 +301,7 @@ class TestSession: XCTestCase {
     func testBackgroundTimeSmallerThanBackgroundTimeoutDoesntCauseNewSession() {
         cleanFile(withNamespace: "tracker")
         
-        let emitter = Emitter(namespace: "tracker", urlEndpoint: "")
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
         let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
@@ -318,6 +321,7 @@ class TestSession: XCTestCase {
         session?.updateInBackground() // Sends a background event
         Thread.sleep(forTimeInterval: 1) // Smaller than background timeout
         session?.updateInForeground() // Sends a foreground event
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(oldSessionId, session?.sessionId)
         XCTAssertEqual(1, session?.sessionIndex)
@@ -343,21 +347,21 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker1")
         cleanFile(withNamespace: "tracker2")
 
-        let emitter1 = Emitter(namespace: "tracker1", urlEndpoint: "")
+        let emitter1 = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker1")
         let tracker1 = Tracker(trackerNamespace: "tracker1", appId: nil, emitter: emitter1) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
         }
-        let emitter2 = Emitter(namespace: "tracker2", urlEndpoint: "")
+        let emitter2 = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker2")
         let tracker2 = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter2) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
         }
         let event = Structured(category: "c", action: "a")
-        _ = tracker1.track(event)
-        _ = tracker2.track(event)
+        track(event, tracker1)
+        track(event, tracker2)
 
         guard let initialValue1 = tracker1.session?.sessionIndex else { return XCTFail() }
         guard let id1 = tracker1.session?.sessionId else { return XCTFail() }
@@ -366,11 +370,11 @@ class TestSession: XCTestCase {
 
         // Retrigger session in tracker1
         Thread.sleep(forTimeInterval: 7)
-        _ = tracker1.track(event)
+        track(event, tracker1)
         Thread.sleep(forTimeInterval: 5)
 
         // Send event to force update of session on tracker2
-        _ = tracker2.track(event)
+        track(event, tracker2)
         id2 = tracker2.session!.sessionId!
 
         // Check sessions have the correct state
@@ -383,7 +387,7 @@ class TestSession: XCTestCase {
             tracker.foregroundTimeout = 5
             tracker.backgroundTimeout = 5
         }
-        _ = tracker2b.track(event)
+        track(event, tracker2b)
         guard let initialValue2b = tracker2b.session?.sessionIndex else { return XCTFail() }
         guard let previousId2b = tracker2b.session?.previousSessionId else { return XCTFail() }
 
@@ -397,12 +401,12 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker")
         storeAsV3_0(withNamespace: "tracker", eventId: "eventId", sessionId: "sessionId", sessionIndex: 123, userId: "userId")
 
-        let emitter = Emitter(namespace: "tracker", urlEndpoint: "")
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
         let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.sessionContext = true
         }
         let event = Structured(category: "c", action: "a")
-        _ = tracker.track(event)
+        track(event, tracker)
 
         guard let session = tracker.session else { return XCTFail() }
         XCTAssertEqual("sessionId", session.previousSessionId!)
@@ -466,5 +470,11 @@ class TestSession: XCTestCase {
         //Store userId
         let userDefaults = UserDefaults.standard
         userDefaults.set(userId, forKey: kSPInstallationUserId)
+    }
+    
+    private func track(_ event: Event, _ tracker: Tracker) {
+        InternalQueue.sync {
+            _ = tracker.track(event)
+        }
     }
 }

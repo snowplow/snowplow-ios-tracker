@@ -20,18 +20,12 @@ class Session {
     
     // MARK: - Private properties
     
-    private var _backgroundIndex = 0
-    private var _backgroundTimeout = TrackerDefaults.backgroundTimeout
     private var dataPersistence: DataPersistence?
     /// The event index
     private var eventIndex = 0
-    private var _foregroundIndex = 0
-    private var _foregroundTimeout = TrackerDefaults.foregroundTimeout
     private var isNewSession = true
     private var isSessionCheckerEnabled = false
-    private var _inBackground = false
     private var lastSessionCheck: NSNumber = Utilities.getTimestamp()
-    private var _onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
     /// Returns the current session state
     private var state: SessionState?
     /// The current tracker associated with the session
@@ -42,30 +36,21 @@ class Session {
     /// The session's userId
     let userId: String
     /// Whether the application is in the background or foreground
-    var inBackground: Bool { return sync { self._inBackground } }
+    var inBackground: Bool = false
     /// The foreground index count
-    var foregroundIndex: Int { return sync { self._foregroundIndex } }
+    var foregroundIndex = 0
     /// The background index count
-    var backgroundIndex: Int { return sync { self._backgroundIndex } }
+    var backgroundIndex = 0
     /// Callback to be called when the session is updated
-    var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)? {
-        get { return sync { self._onSessionStateUpdate } }
-        set { sync { self._onSessionStateUpdate = newValue } }
-    }
+    var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
     /// The currently set Foreground Timeout in milliseconds
-    var foregroundTimeout: Int {
-        get { return sync { self._foregroundTimeout } }
-        set { sync { self._foregroundTimeout = newValue } }
-    }
+    var foregroundTimeout = TrackerDefaults.foregroundTimeout
     /// The currently set Background Timeout in milliseconds
-    var backgroundTimeout: Int {
-        get { return sync { self._backgroundTimeout } }
-        set { sync { self._backgroundTimeout = newValue } }
-    }
-    var sessionIndex: Int? { return sync { state?.sessionIndex } }
-    var sessionId: String? { return sync { state?.sessionId } }
-    var previousSessionId: String? { return sync { state?.previousSessionId } }
-    var firstEventId: String? { return sync { state?.firstEventId } }
+    var backgroundTimeout = TrackerDefaults.backgroundTimeout
+    var sessionIndex: Int? { return state?.sessionIndex }
+    var sessionId: String? { return state?.sessionId }
+    var previousSessionId: String? { return state?.previousSessionId }
+    var firstEventId: String? { return state?.firstEventId }
     
     // MARK: - Constructor and destructor
 
@@ -77,8 +62,8 @@ class Session {
     /// - Returns: a SnowplowSession
     init(foregroundTimeout: Int, backgroundTimeout: Int, trackerNamespace: String? = nil, tracker: Tracker? = nil) {
         
-        self._foregroundTimeout = foregroundTimeout * 1000
-        self._backgroundTimeout = backgroundTimeout * 1000
+        self.foregroundTimeout = foregroundTimeout * 1000
+        self.backgroundTimeout = backgroundTimeout * 1000
         self.tracker = tracker
         if let namespace = trackerNamespace {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
@@ -122,18 +107,18 @@ class Session {
 
     /// Starts the recurring timer check for sessions
     func startChecker() {
-        sync { isSessionCheckerEnabled = true }
+        isSessionCheckerEnabled = true
     }
 
     /// Stops the recurring timer check for sessions
     func stopChecker() {
-        sync { isSessionCheckerEnabled = false }
+        isSessionCheckerEnabled = false
     }
 
     /// Expires the current session and starts a new one
     func startNewSession() {
         // TODO: when the sesssion has been renewed programmatically, it has to be reported in the session context to the collector.
-        sync { isNewSession = true }
+        isNewSession = true
     }
 
     /// Returns the session dictionary
@@ -145,24 +130,22 @@ class Session {
     func getDictWithEventId(_ eventId: String?, eventTimestamp: Int64, userAnonymisation: Bool) -> [String : Any]? {
         var context: [String : Any]? = nil
         
-        sync {
-            if isSessionCheckerEnabled {
-                if shouldUpdate() {
-                    update(eventId: eventId, eventTimestamp: eventTimestamp)
-                    if let onSessionStateUpdate = _onSessionStateUpdate, let state = state {
-                        DispatchQueue.global(qos: .default).async {
-                            onSessionStateUpdate(state)
-                        }
+        if isSessionCheckerEnabled {
+            if shouldUpdate() {
+                update(eventId: eventId, eventTimestamp: eventTimestamp)
+                if let onSessionStateUpdate = onSessionStateUpdate, let state = state {
+                    DispatchQueue.global(qos: .default).async {
+                        onSessionStateUpdate(state)
                     }
                 }
-                lastSessionCheck = Utilities.getTimestamp()
             }
-            
-            eventIndex += 1
-            
-            context = state?.sessionContext
-            context?[kSPSessionEventIndex] = NSNumber(value: eventIndex)
+            lastSessionCheck = Utilities.getTimestamp()
         }
+        
+        eventIndex += 1
+        
+        context = state?.sessionContext
+        context?[kSPSessionEventIndex] = NSNumber(value: eventIndex)
 
         if userAnonymisation {
             // mask the user identifier
@@ -203,7 +186,7 @@ class Session {
         }
         let lastAccess = lastSessionCheck.int64Value
         let now = Utilities.getTimestamp().int64Value
-        let timeout = _inBackground ? _backgroundTimeout : _foregroundTimeout
+        let timeout = inBackground ? backgroundTimeout : foregroundTimeout
         return now < lastAccess || Int(now - lastAccess) > timeout
     }
 
@@ -234,56 +217,34 @@ class Session {
     // MARK: - background and foreground notifications
 
     @objc func updateInBackground() {
-        backgroundUpdateSync {
-            if tracker?.lifecycleEvents ?? false {
+        InternalQueue.async {
+            if self.tracker?.lifecycleEvents ?? false {
                 guard let backgroundIndex = self.incrementBackgroundIndexIfNotInBackground() else { return }
-                _ = self.tracker?.track(Background(index: backgroundIndex), synchronous: true)
-                sync { self._inBackground = true }
+                _ = self.tracker?.track(Background(index: backgroundIndex))
+                self.inBackground = true
             }
         }
     }
 
     @objc func updateInForeground() {
-        backgroundUpdateSync {
-            if tracker?.lifecycleEvents ?? false {
+        InternalQueue.async {
+            if self.tracker?.lifecycleEvents ?? false {
                 guard let foregroundIndex = self.incrementForegroundIndexIfInBackground() else { return }
-                _ = self.tracker?.track(Foreground(index: foregroundIndex), synchronous: true)
-                sync { self._inBackground = false }
+                _ = self.tracker?.track(Foreground(index: foregroundIndex))
+                self.inBackground = false
             }
         }
     }
     
     private func incrementBackgroundIndexIfNotInBackground() -> Int? {
-        return sync {
-            if self._inBackground { return nil }
-            self._backgroundIndex += 1
-            return self._backgroundIndex
-        }
+        if self.inBackground { return nil }
+        self.backgroundIndex += 1
+        return self.backgroundIndex
     }
   
     private func incrementForegroundIndexIfInBackground() -> Int? {
-        return sync {
-            if !self._inBackground { return nil }
-            self._foregroundIndex += 1
-            return self._foregroundIndex
-        }
-    }
-    
-    // MARK: - Dispatch queues
-    
-    private let dispatchQueue = DispatchQueue(label: "snowplow.session")
-    
-    private func sync<T>(_ callback: () -> T) -> T {
-        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
-
-        return dispatchQueue.sync(execute: callback)
-    }
-    
-    private let backgroundUpdateQueue = DispatchQueue(label: "snowplow.session.background")
-    
-    private func backgroundUpdateSync<T>(_ callback: () -> T) -> T {
-        dispatchPrecondition(condition: .notOnQueue(backgroundUpdateQueue))
-
-        return backgroundUpdateQueue.sync(execute: callback)
+        if !self.inBackground { return nil }
+        self.foregroundIndex += 1
+        return self.foregroundIndex
     }
 }

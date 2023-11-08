@@ -337,7 +337,7 @@ class TestMediaController: XCTestCase {
     // MARK: Ping events
     
     func testStartsSendingPingEventsAfterSessionStarts() {
-        let pingInterval = MediaPingInterval(timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(startTimer: MockTimer.startTimer)
         _ = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
         MockTimer.currentTimer.fire()
@@ -349,7 +349,7 @@ class TestMediaController: XCTestCase {
     }
     
     func testShouldSendPingEventsRegardlessOfOtherEvents() {
-        let pingInterval = MediaPingInterval(timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
         media.track(MediaPlayEvent())
@@ -363,7 +363,7 @@ class TestMediaController: XCTestCase {
     }
     
     func testShouldStopSendingPingEventsWhenPaused() {
-        let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(maxPausedPings: 2, startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
         media.update(player: MediaPlayerEntity(paused: true))
@@ -377,7 +377,7 @@ class TestMediaController: XCTestCase {
     }
     
     func testShouldNotStopSendingPingEventsWhenPlaying() {
-        let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(maxPausedPings: 2, startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
         media.update(player: MediaPlayerEntity(paused: false))

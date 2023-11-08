@@ -18,9 +18,9 @@ let POST_WRAPPER_BYTES = 88
 
 class Emitter: EmitterEventProcessing {
     
-    private var timer: Timer?
+    private var timer: InternalQueueTimer?
     
-    private var _pausedEmit = false
+    private var pausedEmit = false
     
     /// Custom NetworkConnection istance to handle connection outside the emitter.
     private let networkConnection: NetworkConnection
@@ -30,9 +30,8 @@ class Emitter: EmitterEventProcessing {
     
     let eventStore: EventStore
     
-    private var _sending = false
     /// Whether the emitter is currently sending.
-    var isSending: Bool { return sync { _sending } }
+    var isSending: Bool = false
 
     /// Collector endpoint.
     var urlEndpoint: String? {
@@ -80,29 +79,19 @@ class Emitter: EmitterEventProcessing {
         }
     }
         
-    private var _bufferOption: BufferOption = EmitterDefaults.bufferOption
     /// Buffer option
-    var bufferOption: BufferOption {
-        get { return sync { _bufferOption } }
-        set(bufferOption) { sync { _bufferOption = bufferOption } }
-    }
+    var bufferOption: BufferOption = EmitterDefaults.bufferOption
     
-    private weak var _callback: RequestCallback?
     /// Callbacks supplied with number of failures and successes of sent events.
-    var callback: RequestCallback? {
-        get { return sync { _callback } }
-        set(callback) { sync { _callback = callback } }
-    }
+    weak var callback: RequestCallback?
     
     private var _emitRange = EmitterDefaults.emitRange
     /// Number of events retrieved from the database when needed.
     var emitRange: Int {
-        get { return sync { _emitRange } }
+        get { return _emitRange }
         set(emitRange) {
-            sync {
-                if emitRange > 0 {
-                    _emitRange = emitRange
-                }
+            if emitRange > 0 {
+                _emitRange = emitRange
             }
         }
     }
@@ -127,13 +116,11 @@ class Emitter: EmitterEventProcessing {
     /// Byte limit for GET requests.
     private var _byteLimitGet = EmitterDefaults.byteLimitGet
     var byteLimitGet: Int {
-        get { return sync { _byteLimitGet } }
+        get { return _byteLimitGet }
         set(byteLimitGet) {
-            sync {
-                _byteLimitGet = byteLimitGet
-                if let networkConnection = networkConnection as? DefaultNetworkConnection {
-                    networkConnection.byteLimitGet = byteLimitGet
-                }
+            _byteLimitGet = byteLimitGet
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.byteLimitGet = byteLimitGet
             }
         }
     }
@@ -141,13 +128,11 @@ class Emitter: EmitterEventProcessing {
     private var _byteLimitPost = EmitterDefaults.byteLimitPost
     /// Byte limit for POST requests.
     var byteLimitPost: Int {
-        get { return sync { _byteLimitPost } }
+        get { return _byteLimitPost }
         set(byteLimitPost) {
-            sync {
-                _byteLimitPost = byteLimitPost
-                if let networkConnection = networkConnection as? DefaultNetworkConnection {
-                    networkConnection.byteLimitPost = byteLimitPost
-                }
+            _byteLimitPost = byteLimitPost
+            if let networkConnection = networkConnection as? DefaultNetworkConnection {
+                networkConnection.byteLimitPost = byteLimitPost
             }
         }
     }
@@ -200,16 +185,12 @@ class Emitter: EmitterEventProcessing {
     /// Custom retry rules for HTTP status codes.
     private var _customRetryForStatusCodes: [Int : Bool] = [:]
     var customRetryForStatusCodes: [Int : Bool]? {
-        get { return sync { return _customRetryForStatusCodes } }
-        set { sync { _customRetryForStatusCodes = newValue ?? [:] } }
+        get { return _customRetryForStatusCodes }
+        set { _customRetryForStatusCodes = newValue ?? [:] }
     }
     
     /// Whether retrying failed requests is allowed
-    private var _retryFailedRequests: Bool = EmitterDefaults.retryFailedRequests
-    var retryFailedRequests: Bool {
-        get { return sync { _retryFailedRequests } }
-        set { sync { _retryFailedRequests = newValue } }
-    }
+    var retryFailedRequests: Bool = EmitterDefaults.retryFailedRequests
 
     /// Returns the number of events in the DB.
     var dbCount: Int {
@@ -270,117 +251,114 @@ class Emitter: EmitterEventProcessing {
     // MARK: - Pause/Resume methods
 
     func resumeTimer() {
-        weak var weakSelf = self
-
         pauseTimer()
 
-        // NOTE: consider whether it is really necessary to use the main queue or we can dispatch on a background queue
-        DispatchQueue.main.async {
-            let timer = Timer.scheduledTimer(withTimeInterval: TimeInterval(kSPDefaultBufferTimeout), repeats: true) { [weak self] timer in
-                self?.flush()
-            }
-            weakSelf?.sync {
-                weakSelf?.timer = timer
-            }
+        self.timer = InternalQueue.startTimer(TimeInterval(kSPDefaultBufferTimeout)) { [weak self] in
+            self?.flush()
         }
     }
 
     /// Suspends timer for periodically sending events to collector.
     func pauseTimer() {
-        sync {
-            timer?.invalidate()
-            timer = nil
-        }
+        timer?.invalidate()
+        timer = nil
     }
 
     /// Allows sending events to collector.
     func resumeEmit() {
-        sync { _pausedEmit = false }
+        pausedEmit = false
         flush()
     }
 
     /// Suspends sending events to collector.
     func pauseEmit() {
-        sync { _pausedEmit = true }
+        pausedEmit = true
     }
 
     /// Insert a Payload object into the buffer to be sent to collector.
     /// This method will add the payload to the database and flush (send all events).
     /// - Parameter eventPayload: A Payload containing a completed event to be added into the buffer.
     func addPayload(toBuffer eventPayload: Payload) {
-        DispatchQueue.global(qos: .default).async { [weak self] in
-            self?.eventStore.addEvent(eventPayload)
-            self?.flush()
-        }
+        self.eventStore.addEvent(eventPayload)
+        self.flush()
     }
 
     /// Empties the buffer of events using the respective HTTP request method.
     func flush() {
         if requestToStartSending() {
-            emitAsync {
-                self.attemptEmit()
-                self.sync { self._sending = false }
-            }
+            self.attemptEmit()
         }
     }
 
     // MARK: - Control methods
 
     private func attemptEmit() {
-        if eventStore.count() == 0 {
-            logDebug(message: "Database empty. Returning.")
-            return
-        }
-
+        InternalQueue.onQueuePrecondition()
+        
         let events = eventStore.emittableEvents(withQueryLimit: UInt(emitRange))
-        let requests = buildRequests(fromEvents: events)
-        let sendResults = networkConnection.sendRequests(requests)
-
-        logVerbose(message: "Processing emitter results.")
-
-        var successCount = 0
-        var failedWillRetryCount = 0
-        var failedWontRetryCount = 0
-        var removableEvents: [Int64] = []
-
-        for result in sendResults {
-            let resultIndexArray = result.storeIds
-            if result.isSuccessful {
-                successCount += resultIndexArray?.count ?? 0
-                if let array = resultIndexArray {
-                    removableEvents.append(contentsOf: array)
-                }
-            } else if result.shouldRetry(customRetryForStatusCodes, retryAllowed: retryFailedRequests) {
-                failedWillRetryCount += resultIndexArray?.count ?? 0
-            } else {
-                failedWontRetryCount += resultIndexArray?.count ?? 0
-                if let array = resultIndexArray {
-                    removableEvents.append(contentsOf: array)
-                }
-                logError(message: String(format: "Sending events to Collector failed with status %ld. Events will be dropped.", result.statusCode ?? -1))
-            }
-        }
-        let allFailureCount = failedWillRetryCount + failedWontRetryCount
-
-        let _ = eventStore.removeEvents(withIds: removableEvents)
-
-        logDebug(message: String(format: "Success Count: %d", successCount))
-        logDebug(message: String(format: "Failure Count: %d", allFailureCount))
-
-        if let callback = callback {
-            if allFailureCount == 0 {
-                callback.onSuccess(withCount: successCount)
-            } else {
-                callback.onFailure(withCount: allFailureCount, successCount: successCount)
-            }
-        }
-
-        if failedWillRetryCount > 0 && successCount == 0 {
-            logDebug(message: "Ending emitter run as all requests failed.")
-            Thread.sleep(forTimeInterval: 5)
+        if events.isEmpty {
+            logDebug(message: "Database empty. Returning.")
+            stopSending()
             return
-        } else {
-            self.attemptEmit()
+        }
+        
+        let requests = buildRequests(fromEvents: events)
+        
+        let processResults: ([RequestResult]) -> Void = { sendResults in
+            logVerbose(message: "Processing emitter results.")
+            
+            var successCount = 0
+            var failedWillRetryCount = 0
+            var failedWontRetryCount = 0
+            var removableEvents: [Int64] = []
+            
+            for result in sendResults {
+                let resultIndexArray = result.storeIds
+                if result.isSuccessful {
+                    successCount += resultIndexArray?.count ?? 0
+                    if let array = resultIndexArray {
+                        removableEvents.append(contentsOf: array)
+                    }
+                } else if result.shouldRetry(self.customRetryForStatusCodes, retryAllowed: self.retryFailedRequests) {
+                    failedWillRetryCount += resultIndexArray?.count ?? 0
+                } else {
+                    failedWontRetryCount += resultIndexArray?.count ?? 0
+                    if let array = resultIndexArray {
+                        removableEvents.append(contentsOf: array)
+                    }
+                    logError(message: String(format: "Sending events to Collector failed with status %ld. Events will be dropped.", result.statusCode ?? -1))
+                }
+            }
+            let allFailureCount = failedWillRetryCount + failedWontRetryCount
+            
+            _ = self.eventStore.removeEvents(withIds: removableEvents)
+            
+            logDebug(message: String(format: "Success Count: %d", successCount))
+            logDebug(message: String(format: "Failure Count: %d", allFailureCount))
+            
+            if let callback = self.callback {
+                if allFailureCount == 0 {
+                    callback.onSuccess(withCount: successCount)
+                } else {
+                    callback.onFailure(withCount: allFailureCount, successCount: successCount)
+                }
+            }
+            
+            if failedWillRetryCount > 0 && successCount == 0 {
+                logDebug(message: "Ending emitter run as all requests failed.")
+                
+                self.scheduleStopSending()
+            } else {
+                self.attemptEmit()
+            }
+        }
+        
+        emitAsync {
+            let sendResults = self.networkConnection.sendRequests(requests)
+            
+            InternalQueue.async {
+                processResults(sendResults)
+            }
         }
     }
 
@@ -388,15 +366,9 @@ class Emitter: EmitterEventProcessing {
         var requests: [Request] = []
         
         let sendingTime = Utilities.getTimestamp()
-        let httpMethod = method
-        let (bufferOptionValue, byteLimit) = sync {
-            return (
-                _bufferOption.rawValue,
-                httpMethod == .get ? _byteLimitGet : _byteLimitPost
-            )
-        }
+        let byteLimit = method == .get ? byteLimitGet : byteLimitPost
 
-        if httpMethod == .get {
+        if method == .get {
             for event in events {
                 let payload = event.payload
                 addSendingTime(to: payload, timestamp: sendingTime)
@@ -410,7 +382,7 @@ class Emitter: EmitterEventProcessing {
                 var eventArray: [Payload] = []
                 var indexArray: [Int64] = []
 
-                let iUntil = min(i + bufferOptionValue, events.count)
+                let iUntil = min(i + bufferOption.rawValue, events.count)
                 for j in i..<iUntil {
                     let event = events[j]
 
@@ -444,7 +416,7 @@ class Emitter: EmitterEventProcessing {
                     let request = Request(payloads: eventArray, emitterEventIds: indexArray)
                     requests.append(request)
                 }
-                i += bufferOptionValue
+                i += bufferOption.rawValue
             }
         }
         return requests
@@ -464,27 +436,27 @@ class Emitter: EmitterEventProcessing {
     }
     
     private func requestToStartSending() -> Bool {
-        return sync {
-            if !_sending && !_pausedEmit {
-                _sending = true
-                return true
-            } else {
-                return false
-            }
+        if !isSending && !pausedEmit {
+            isSending = true
+            return true
+        } else {
+            return false
         }
+    }
+    
+    private func scheduleStopSending() {
+        InternalQueue.asyncAfter(TimeInterval(5)) { [weak self] in
+            self?.stopSending()
+        }
+    }
+    
+    private func stopSending() {
+        isSending = false
     }
     
     // MARK: - dispatch queues
     
-    private let dispatchQueue = DispatchQueue(label: "snowplow.tracker.emitter")
-    
-    private func sync<T>(_ callback: () -> T) -> T {
-        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
-
-        return dispatchQueue.sync(execute: callback)
-    }
-    
-    private let emitQueue = DispatchQueue(label: "snowplow.tracker.emitter.emit")
+    private let emitQueue = DispatchQueue(label: "snowplow.emitter")
 
     private func emitAsync(_ callback: @escaping () -> Void) {
         emitQueue.async(execute: callback)
