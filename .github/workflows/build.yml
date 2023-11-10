@@ -87,7 +87,15 @@ jobs:
             -sdk "${{ matrix.sdk }}" \
             -destination "${{ matrix.destination }}" \
             -only-testing ${{ matrix.target }} \
+            -resultBundlePath TestResults \
             clean test | xcpretty
+
+      - name: Create test results
+        uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults.xcresult
+          title: Test results: ${{ matrix.name }} 
+        if: success() || failure()
 
   build_objc_demo_app:
     name: "ObjC demo (iOS ${{ matrix.version.ios }})"
