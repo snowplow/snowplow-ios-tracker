@@ -115,6 +115,8 @@ class MediaTrackingImpl: MediaTracking {
                         player: MediaPlayerEntity? = nil,
                         ad: MediaAdEntity? = nil,
                         adBreak: MediaAdBreakEntity? = nil) {
+        InternalQueue.onQueuePrecondition()
+        
         // update state
         if let player = player {
             self.player.update(from: player)

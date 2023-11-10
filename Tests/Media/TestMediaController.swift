@@ -321,10 +321,10 @@ class TestMediaController: XCTestCase {
                                       player: MediaPlayerEntity(duration: 10),
                                       session: session)
         
-        media.track(MediaPlayEvent())
+        track(MediaPlayEvent(), media: media)
         timeTraveler.travel(by: 10.0)
-        media.update(player: MediaPlayerEntity(currentTime: 10.0))
-        media.track(MediaEndEvent())
+        update(player: MediaPlayerEntity(currentTime: 10.0), media: media)
+        track(MediaEndEvent(), media: media)
         
         waitForEventsToBeTracked()
         
@@ -352,9 +352,9 @@ class TestMediaController: XCTestCase {
         let pingInterval = MediaPingInterval(startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.track(MediaPlayEvent())
+        track(MediaPlayEvent(), media: media)
         MockTimer.currentTimer.fire()
-        media.track(MediaPauseEvent())
+        track(MediaPauseEvent(), media: media)
         MockTimer.currentTimer.fire()
         
         waitForEventsToBeTracked()
@@ -366,7 +366,7 @@ class TestMediaController: XCTestCase {
         let pingInterval = MediaPingInterval(maxPausedPings: 2, startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.update(player: MediaPlayerEntity(paused: true))
+        update(player: MediaPlayerEntity(paused: true), media: media)
         for _ in 0..<5 {
             MockTimer.currentTimer.fire()
         }
@@ -380,7 +380,7 @@ class TestMediaController: XCTestCase {
         let pingInterval = MediaPingInterval(maxPausedPings: 2, startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.update(player: MediaPlayerEntity(paused: false))
+        update(player: MediaPlayerEntity(paused: false), media: media)
         for _ in 0..<5 {
             MockTimer.currentTimer.fire()
         }
@@ -467,6 +467,14 @@ class TestMediaController: XCTestCase {
             expect.fulfill()
         }
         wait(for: [expect], timeout: 1)
+    }
+    
+    private func track(_ event: Event, player: MediaPlayerEntity? = nil, ad: MediaAdEntity? = nil, adBreak: MediaAdBreakEntity? = nil, media: MediaTracking?) {
+        InternalQueue.sync { media?.track(event, player: player, ad: ad, adBreak: adBreak) }
+    }
+    
+    private func update(player: MediaPlayerEntity? = nil, ad: MediaAdEntity? = nil, adBreak: MediaAdBreakEntity? = nil, media: MediaTracking?) {
+        InternalQueue.sync { media?.update(player: player, ad: ad, adBreak: adBreak) }
     }
 }
 
