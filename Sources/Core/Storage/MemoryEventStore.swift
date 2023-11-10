@@ -32,16 +32,22 @@ class MemoryEventStore: NSObject, EventStore {
     // Interface methods
 
     func addEvent(_ payload: Payload) {
+        InternalQueue.onQueuePrecondition()
+        
         let item = EmitterEvent(payload: payload, storeId: index)
         orderedSet.add(item)
         index += 1
     }
 
     func count() -> UInt {
+        InternalQueue.onQueuePrecondition()
+        
         return UInt(orderedSet.count)
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
+        InternalQueue.onQueuePrecondition()
+        
         let setCount = (orderedSet).count
         if setCount <= 0 {
             return []
@@ -64,15 +70,21 @@ class MemoryEventStore: NSObject, EventStore {
     }
 
     func removeAllEvents() -> Bool {
+        InternalQueue.onQueuePrecondition()
+        
         orderedSet.removeAllObjects()
         return true
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {
+        InternalQueue.onQueuePrecondition()
+        
         return removeEvents(withIds: [storeId])
     }
 
     func removeEvents(withIds storeIds: [Int64]) -> Bool {
+        InternalQueue.onQueuePrecondition()
+        
         var itemsToRemove: [EmitterEvent] = []
         for item in orderedSet {
             guard let item = item as? EmitterEvent else {

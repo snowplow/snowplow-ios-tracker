@@ -20,7 +20,7 @@ class TestSQLiteEventStore: XCTestCase {
 
     func testInsertPayload() {
         let eventStore = createEventStore("aNamespace")
-        _ = eventStore.removeAllEvents()
+        removeAllEvents(eventStore)
 
         // Build an event
         let payload = Payload()
@@ -30,20 +30,20 @@ class TestSQLiteEventStore: XCTestCase {
         payload.addValueToPayload("MEEEE", forKey: "refr")
 
         // Insert an event
-        eventStore.addEvent(payload)
+        addEvent(payload, eventStore)
 
-        XCTAssertEqual(eventStore.count(), 1)
-        let emittableEvents = eventStore.emittableEvents(withQueryLimit: 10)
+        XCTAssertEqual(count(eventStore), 1)
+        let emittableEvents = emittableEvents(withQueryLimit: 10, eventStore)
         XCTAssertEqual(emittableEvents.first?.payload.dictionary as! [String : String],
                        payload.dictionary as! [String : String])
-        _ = eventStore.removeEvent(withId: emittableEvents.first?.storeId ?? 0)
+        removeEvent(withId: emittableEvents.first?.storeId ?? 0, eventStore)
 
-        XCTAssertEqual(eventStore.count(), 0)
+        XCTAssertEqual(count(eventStore), 0)
     }
 
     func testInsertManyPayloads() {
         let eventStore = createEventStore("aNamespace")
-        _ = eventStore.removeAllEvents()
+        removeAllEvents(eventStore)
 
         // Build an event
         let payload = Payload()
@@ -52,30 +52,16 @@ class TestSQLiteEventStore: XCTestCase {
         payload.addValueToPayload("Welcome to foobar!", forKey: "page")
         payload.addValueToPayload("MEEEE", forKey: "refr")
 
-        let dispatchQueue = DispatchQueue(label: "Save events", attributes: .concurrent)
-        let expectations = [
-            XCTestExpectation(),
-            XCTestExpectation(),
-            XCTestExpectation(),
-            XCTestExpectation(),
-            XCTestExpectation()
-        ]
-        for i in 0..<5 {
-            dispatchQueue.async {
-                for _ in 0..<250 {
-                    eventStore.addEvent(payload)
-                }
-                expectations[i].fulfill()
-            }
+        for _ in 0..<250 {
+            addEvent(payload, eventStore)
         }
-        wait(for: expectations, timeout: 10)
         
-        XCTAssertEqual(eventStore.count(), 1250)
-        XCTAssertEqual(eventStore.emittableEvents(withQueryLimit: 600).count, 250)
-        XCTAssertEqual(eventStore.emittableEvents(withQueryLimit: 150).count, 150)
+        XCTAssertEqual(count(eventStore), 250)
+        XCTAssertEqual(emittableEvents(withQueryLimit: 600, eventStore).count, 250)
+        XCTAssertEqual(emittableEvents(withQueryLimit: 150, eventStore).count, 150)
         
-        _ = eventStore.removeAllEvents()
-        XCTAssertEqual(eventStore.count(), 0)
+        removeAllEvents(eventStore)
+        XCTAssertEqual(count(eventStore), 0)
     }
 
     func testSQLiteEventStoreCreateSQLiteFile() {
@@ -98,10 +84,10 @@ class TestSQLiteEventStore: XCTestCase {
 
     func testMigrationFromLegacyToNamespacedEventStore() {
         var eventStore = self.createEventStore("aNamespace")
-        eventStore.addEvent(Payload(dictionary: [
+        addEvent(Payload(dictionary: [
             "key": "value"
-        ]))
-        XCTAssertEqual(1, eventStore.count())
+        ]), eventStore)
+        XCTAssertEqual(1, count(eventStore))
 
         // Create fake legacy database
         let libraryPath = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).map(\.path)[0]
@@ -116,32 +102,52 @@ class TestSQLiteEventStore: XCTestCase {
 
         // Migrate database when SQLiteEventStore is launched the first time
         eventStore = createEventStore("aNewNamespace")
-        XCTAssertEqual(1, eventStore.count())
+        XCTAssertEqual(1, count(eventStore))
         newDbPath = URL(fileURLWithPath: snowplowDirPath).appendingPathComponent("snowplowEvents-aNewNamespace.sqlite").path
         XCTAssertFalse(FileManager.default.fileExists(atPath: oldDbPath))
         XCTAssertTrue(FileManager.default.fileExists(atPath: newDbPath))
-        for event in eventStore.emittableEvents(withQueryLimit: 100) {
+        for event in emittableEvents(withQueryLimit: 100, eventStore) {
             XCTAssertEqual("value", event.payload.dictionary["key"] as? String)
         }
     }
 
     func testMultipleAccessToSameSQLiteFile() {
         let eventStore1 = createEventStore("aNamespace")
-        eventStore1.addEvent(Payload(dictionary: [
+        addEvent(Payload(dictionary: [
             "key1": "value1"
-        ]))
-        XCTAssertEqual(1, eventStore1.count())
+        ]), eventStore1)
+        XCTAssertEqual(1, count(eventStore1))
 
         let eventStore2 = SQLiteEventStore(namespace: "aNamespace")
-        eventStore2.addEvent(Payload(dictionary: [
+        addEvent(Payload(dictionary: [
             "key2": "value2"
-        ]))
-        XCTAssertEqual(2, eventStore2.count())
+        ]), eventStore2)
+        XCTAssertEqual(2, count(eventStore2))
     }
     
     private func createEventStore(_ namespace: String, limit: Int = 250) -> SQLiteEventStore {
         DatabaseHelpers.clearPreviousDatabase(namespace)
         return SQLiteEventStore(namespace: namespace, limit: limit)
+    }
+    
+    private func addEvent(_ payload: Payload, _ eventStore: EventStore) {
+        InternalQueue.sync { eventStore.addEvent(payload) }
+    }
+    
+    private func removeAllEvents(_ eventStore: EventStore) {
+        InternalQueue.sync { _ = eventStore.removeAllEvents() }
+    }
+    
+    private func removeEvent(withId: Int64, _ eventStore: EventStore) {
+        InternalQueue.sync { _ = eventStore.removeEvent(withId: withId) }
+    }
+    
+    private func count(_ eventStore: EventStore) -> UInt {
+        InternalQueue.sync { return eventStore.count() }
+    }
+    
+    private func emittableEvents(withQueryLimit: UInt, _ eventStore: EventStore) -> [EmitterEvent] {
+        InternalQueue.sync { return eventStore.emittableEvents(withQueryLimit: withQueryLimit) }
     }
 }
 

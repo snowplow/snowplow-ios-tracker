@@ -109,7 +109,7 @@ class LegacyTestEmitter: XCTestCase {
 
         // Test extra functions
         XCTAssertFalse(emitter.isSending)
-        XCTAssertTrue(emitter.dbCount >= 0)
+        XCTAssertTrue(dbCount(emitter) >= 0)
 
         // Allow timer to be set
         RunLoop.main.run(until: Date(timeIntervalSinceNow: 1))
@@ -144,7 +144,7 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first!.count)
         XCTAssertTrue(networkConnection.previousResults.first!.first!.isSuccessful)
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
 
         flush(emitter)
     }
@@ -161,7 +161,7 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first!.count)
         XCTAssertFalse(networkConnection.previousResults.first!.first!.isSuccessful)
-        XCTAssertEqual(1, emitter.dbCount)
+        XCTAssertEqual(1, dbCount(emitter))
 
         flush(emitter)
     }
@@ -178,7 +178,7 @@ class LegacyTestEmitter: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
         var totEvents = 0
         for results in networkConnection.previousResults {
             for result in results {
@@ -203,7 +203,7 @@ class LegacyTestEmitter: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        XCTAssertEqual(2, emitter.dbCount)
+        XCTAssertEqual(2, dbCount(emitter))
         for results in networkConnection.previousResults {
             for result in results {
                 XCTAssertFalse(result.isSuccessful)
@@ -226,7 +226,7 @@ class LegacyTestEmitter: XCTestCase {
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first?.count)
         XCTAssertTrue(networkConnection.previousResults.first!.first!.isSuccessful)
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
 
         flush(emitter)
     }
@@ -245,7 +245,7 @@ class LegacyTestEmitter: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        XCTAssertEqual(14, emitter.dbCount)
+        XCTAssertEqual(14, dbCount(emitter))
         networkConnection.statusCode = 200
         let prevSendingCount = networkConnection.sendingCount
         addPayload(payloads[14], emitter)
@@ -254,7 +254,7 @@ class LegacyTestEmitter: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
         var totEvents = 0
         var areGrouped = false
         let prevResults = networkConnection.previousResults[prevSendingCount..<networkConnection.previousResults.count]
@@ -286,7 +286,7 @@ class LegacyTestEmitter: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
         networkConnection.statusCode = 200
         _ = networkConnection.sendingCount
         addPayload(payloads[14], emitter)
@@ -295,7 +295,7 @@ class LegacyTestEmitter: XCTestCase {
             Thread.sleep(forTimeInterval: 1)
         }
 
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
 
         flush(emitter)
     }
@@ -308,7 +308,7 @@ class LegacyTestEmitter: XCTestCase {
 
         Thread.sleep(forTimeInterval: 1)
 
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
         for results in networkConnection.previousResults {
             for result in results {
                 XCTAssertFalse(result.isSuccessful)
@@ -332,7 +332,7 @@ class LegacyTestEmitter: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         // no events in queue since they were dropped because retrying is disabled for 500
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
 
         networkConnection.statusCode = 403
 
@@ -341,7 +341,7 @@ class LegacyTestEmitter: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         // event still in queue because retrying is enabled for 403
-        XCTAssertEqual(1, emitter.dbCount)
+        XCTAssertEqual(1, dbCount(emitter))
 
         flush(emitter)
     }
@@ -356,7 +356,7 @@ class LegacyTestEmitter: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         // no events in queue since they were dropped because retrying is disabled
-        XCTAssertEqual(0, emitter.dbCount)
+        XCTAssertEqual(0, dbCount(emitter))
 
         emitter.retryFailedRequests = true
 
@@ -365,7 +365,7 @@ class LegacyTestEmitter: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         // event still in queue because retrying is enabled
-        XCTAssertEqual(1, emitter.dbCount)
+        XCTAssertEqual(1, dbCount(emitter))
 
         flush(emitter)
     }
@@ -403,6 +403,12 @@ class LegacyTestEmitter: XCTestCase {
     private func flush(_ emitter: Emitter) {
         InternalQueue.sync {
             emitter.flush()
+        }
+    }
+    
+    private func dbCount(_ emitter: Emitter) -> Int {
+        return InternalQueue.sync {
+            emitter.dbCount
         }
     }
 }

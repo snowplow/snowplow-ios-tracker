@@ -22,7 +22,7 @@ class TestMemoryEventStore: XCTestCase {
 
     func testInsertPayload() {
         let eventStore = MemoryEventStore()
-        _ = eventStore.removeAllEvents()
+        removeAllEvents(eventStore)
 
         // Build an event
         let payload = Payload()
@@ -32,20 +32,20 @@ class TestMemoryEventStore: XCTestCase {
         payload.addValueToPayload("MEEEE", forKey: "refr")
 
         // Insert an event
-        eventStore.addEvent(payload)
+        addEvent(payload, eventStore)
 
-        XCTAssertEqual(eventStore.count(), 1)
-        let events = eventStore.emittableEvents(withQueryLimit: 1)
+        XCTAssertEqual(count(eventStore), 1)
+        let events = emittableEvents(withQueryLimit: 1, eventStore)
         XCTAssertEqual(events[0].payload.dictionary as! [String : String],
                        payload.dictionary as! [String : String])
-        _ = eventStore.removeEvent(withId: 0)
+        removeEvent(withId: 0, eventStore)
 
-        XCTAssertEqual(eventStore.count(), 0)
+        XCTAssertEqual(count(eventStore), 0)
     }
 
     func testInsertManyPayloads() {
         let eventStore = MemoryEventStore()
-        _ = eventStore.removeAllEvents()
+        removeAllEvents(eventStore)
 
         // Build an event
         let payload = Payload()
@@ -55,14 +55,34 @@ class TestMemoryEventStore: XCTestCase {
         payload.addValueToPayload("MEEEE", forKey: "refr")
 
         for _ in 0..<250 {
-            eventStore.addEvent(payload)
+            addEvent(payload, eventStore)
         }
 
-        XCTAssertEqual(eventStore.count(), 250)
-        XCTAssertEqual(eventStore.emittableEvents(withQueryLimit: 600).count, 250)
-        XCTAssertEqual(eventStore.emittableEvents(withQueryLimit: 150).count, 150)
+        XCTAssertEqual(count(eventStore), 250)
+        XCTAssertEqual(emittableEvents(withQueryLimit: 600, eventStore).count, 250)
+        XCTAssertEqual(emittableEvents(withQueryLimit: 150, eventStore).count, 150)
 
-        _ = eventStore.removeAllEvents()
-        XCTAssertEqual(eventStore.count(), 0)
+        removeAllEvents(eventStore)
+        XCTAssertEqual(count(eventStore), 0)
+    }
+    
+    private func addEvent(_ payload: Payload, _ eventStore: EventStore) {
+        InternalQueue.sync { eventStore.addEvent(payload) }
+    }
+    
+    private func removeAllEvents(_ eventStore: EventStore) {
+        InternalQueue.sync { _ = eventStore.removeAllEvents() }
+    }
+    
+    private func removeEvent(withId: Int64, _ eventStore: EventStore) {
+        InternalQueue.sync { _ = eventStore.removeEvent(withId: withId) }
+    }
+    
+    private func count(_ eventStore: EventStore) -> UInt {
+        InternalQueue.sync { return eventStore.count() }
+    }
+    
+    private func emittableEvents(withQueryLimit: UInt, _ eventStore: EventStore) -> [EmitterEvent] {
+        InternalQueue.sync { return eventStore.emittableEvents(withQueryLimit: withQueryLimit) }
     }
 }
