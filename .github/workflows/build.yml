@@ -94,7 +94,7 @@ jobs:
         uses: kishikawakatsumi/xcresulttool@v1
         with:
           path: TestResults.xcresult
-          title: Test results: ${{ matrix.name }} 
+          title: "Test results: ${{ matrix.name }}"
         if: success() || failure()
 
   build_objc_demo_app:

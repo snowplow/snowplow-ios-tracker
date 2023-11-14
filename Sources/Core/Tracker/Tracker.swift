@@ -294,7 +294,9 @@ class Tracker: NSObject {
 
     private func checkInstall() {
         if installEvent {
-            DispatchQueue.global(qos: .default).async { [weak self] in
+            InternalQueue.async { [weak self] in
+                guard let self = self else { return }
+                
                 let installTracker = InstallTracker()
                 let previousTimestamp = installTracker.previousInstallTimestamp
                 installTracker.clearPreviousInstallTimestamp()
@@ -305,7 +307,7 @@ class Tracker: NSObject {
                 let installEvent = SelfDescribingJson(schema: kSPApplicationInstallSchema, andDictionary: data)
                 let event = SelfDescribing(eventData: installEvent)
                 event.trueTimestamp = previousTimestamp // it can be nil
-                let _ = self?.track(event)
+                let _ = self.track(event)
             }
         }
     }
