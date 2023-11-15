@@ -82,6 +82,19 @@ public class SelfDescribingJson: NSObject {
     public convenience init(schema: String, andSelfDescribingJson data: SelfDescribingJson) {
         self.init(schema: schema, andData: data.dictionary)
     }
+    
+    /// Creates a self-describing JSON using data represented as an Encodable struct.
+    /// - Parameters:
+    ///   - schema: A valid schema URI.
+    ///   - data: Data represented using an Encodable struct.
+    /// - Returns: A SelfDescribingJson.
+    public convenience init<T: Encodable>(schema: String, data: T) throws {
+        let data = try JSONEncoder().encode(data)
+        let jsonObject = try JSONSerialization.jsonObject(with: data)
+        let dict = jsonObject as! [String: Any]
+        
+        self.init(schema: schema, andData: dict)
+    }
 
     /// Sets the data field of the self-describing JSON.
     /// - Parameter data: An SPPayload to be nested into the data.
