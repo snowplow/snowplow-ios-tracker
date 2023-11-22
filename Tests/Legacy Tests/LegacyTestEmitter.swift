@@ -235,7 +235,7 @@ class LegacyTestEmitter: XCTestCase {
         let payloads = generatePayloads(15)
         
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .defaultGroup)
+        let emitter = self.emitter(with: networkConnection, bufferOption: .smallGroup)
         
         for i in 0..<14 {
             addPayload(payloads[i], emitter)
@@ -274,7 +274,7 @@ class LegacyTestEmitter: XCTestCase {
 
     func testEmitOversizeEventsPostAsGroup() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .defaultGroup)
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
         emitter.byteLimitPost = 5
 
         let payloads = generatePayloads(15)
@@ -366,6 +366,30 @@ class LegacyTestEmitter: XCTestCase {
 
         // event still in queue because retrying is enabled
         XCTAssertEqual(1, dbCount(emitter))
+
+        flush(emitter)
+    }
+    
+    func testDoesntMakeRequestUnlessBufferSizeIsReached() {
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let emitter = self.emitter(with: networkConnection, bufferOption: .smallGroup)
+        emitter.retryFailedRequests = false
+
+        for payload in generatePayloads(9) {
+            addPayload(payload, emitter)
+        }
+
+        Thread.sleep(forTimeInterval: 1)
+
+        // all events waiting in queue
+        XCTAssertEqual(9, dbCount(emitter))
+        
+        addPayload(generatePayloads(1).first!, emitter)
+
+        Thread.sleep(forTimeInterval: 1)
+
+        // all events sent
+        XCTAssertEqual(0, dbCount(emitter))
 
         flush(emitter)
     }
