@@ -16,7 +16,7 @@ import Foundation
 @objc(SPEmitterConfigurationProtocol)
 public protocol EmitterConfigurationProtocol: AnyObject {
     /// Sets whether the buffer should send events instantly or after the buffer
-    /// has reached it's limit. By default, this is set to BufferOption Default.
+    /// has reached it's limit. By default, this is set to BufferOption single.
     @objc
     var bufferOption: BufferOption { get set }
     /// Maximum number of events collected from the EventStore to be sent in a request.
