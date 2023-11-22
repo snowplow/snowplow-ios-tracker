@@ -21,6 +21,6 @@ public class EmitterDefaults {
     public private(set) static var byteLimitGet = 40000
     public private(set) static var byteLimitPost = 40000
     public private(set) static var serverAnonymisation = false
-    public private(set) static var bufferOption: BufferOption = .defaultGroup
+    public private(set) static var bufferOption: BufferOption = .single
     public private(set) static var retryFailedRequests = true
 }
