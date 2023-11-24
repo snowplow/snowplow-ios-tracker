@@ -27,6 +27,19 @@ public class SelfDescribing: SelfDescribingAbstract {
         self._payload = payload
     }
     
+    /// Creates a self-describing event using data represented as an Encodable struct.
+    /// - Parameters:
+    ///   - schema: A valid schema URI.
+    ///   - data: Data represented using an Encodable struct.
+    /// - Returns: A SelfDescribing event.
+    public convenience init<T: Encodable>(schema: String, data: T) throws {
+        let data = try JSONEncoder().encode(data)
+        let jsonObject = try JSONSerialization.jsonObject(with: data)
+        let dict = jsonObject as! [String: Any]
+        
+        self.init(schema: schema, payload: dict)
+    }
+    
     private var _schema: String
     override var schema: String {
         get { return _schema }

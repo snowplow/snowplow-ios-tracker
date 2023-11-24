@@ -152,7 +152,7 @@ class TestEvents: XCTestCase {
         XCTAssertEqual("action", event.payload["se_ac"] as? String)
     }
 
-    func testUnstructured() {
+    func testSelfDescribing() {
         var data: [String : Any] = [:]
         data["level"] = 23
         data["score"] = 56473
@@ -162,6 +162,22 @@ class TestEvents: XCTestCase {
         let event = SelfDescribing(eventData: sdj)
         XCTAssertEqual("iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", event.schema)
         XCTAssertEqual(23, event.payload["level"] as? Int)
+    }
+
+    func testSelfDescribingWithEncodableData() {
+        struct Data: Encodable {
+            var level: Int
+            var score: Int
+        }
+        
+        let data = Data(level: 23, score: 56473)
+        let event = try? SelfDescribing(
+            schema: "iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
+            data: data
+        )
+        XCTAssertNotNil(event)
+        XCTAssertEqual("iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", event?.schema)
+        XCTAssertEqual(23, event?.payload["level"] as? Int)
     }
 
     func testConsentWithdrawn() {
