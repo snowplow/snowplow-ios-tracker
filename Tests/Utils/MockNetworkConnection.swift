@@ -48,4 +48,9 @@ class MockNetworkConnection: NSObject, NetworkConnection {
         previousResults.append(requestResults)
         return requestResults
     }
+    
+    func clear() {
+        previousRequests = []
+        previousResults = []
+    }
 }
