@@ -96,46 +96,67 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
 
     @objc
     public func sendRequests(_ requests: [Request]) -> [RequestResult] {
+        let urlRequests = requests.map { _httpMethod == .get ? buildGet($0) : buildPost($0) }
+        
         var results: [RequestResult] = []
-
-        for request in requests {
-            let urlRequest = _httpMethod == .get
-                ? buildGet(request)
-                : buildPost(request)
-
-            dataOperationQueue.addOperation({
-                //source: https://forums.developer.apple.com/thread/11519
-                var httpResponse: HTTPURLResponse? = nil
-                var connectionError: Error? = nil
-                var sem: DispatchSemaphore
-
-                sem = DispatchSemaphore(value: 0)
-
-                URLSession.shared.dataTask(with: urlRequest) { data, urlResponse, error in
-                    connectionError = error
-                    httpResponse = urlResponse as? HTTPURLResponse
-                    sem.signal()
-                }.resume()
-
-                let _ = sem.wait(timeout: .distantFuture)
-                var statusCode: NSNumber?
-                if let httpResponse = httpResponse { statusCode = NSNumber(value: httpResponse.statusCode) }
-
-                let result = RequestResult(statusCode: statusCode, oversize: request.oversize, storeIds: request.emitterEventIds)
-                if !result.isSuccessful {
-                    logError(message: "Connection error: " + (connectionError?.localizedDescription ?? "-"))
-                }
-
-                objc_sync_enter(self)
+        // if there is only one request, make it directly
+        if requests.count == 1 {
+            if let request = requests.first, let urlRequest = urlRequests.first {
+                let result = DefaultNetworkConnection.makeRequest(
+                    request: request,
+                    urlRequest: urlRequest
+                )
+                
                 results.append(result)
-                objc_sync_exit(self)
-            })
+            }
         }
-        dataOperationQueue.waitUntilAllOperationsAreFinished()
+        // if there are more than 1 request, use the operation queue
+        else if requests.count > 1 {
+            for (request, urlRequest) in zip(requests, urlRequests) {
+                dataOperationQueue.addOperation({
+                    let result = DefaultNetworkConnection.makeRequest(
+                        request: request,
+                        urlRequest: urlRequest
+                    )
+                    
+                    objc_sync_enter(self)
+                    results.append(result)
+                    objc_sync_exit(self)
+                })
+            }
+            dataOperationQueue.waitUntilAllOperationsAreFinished()
+        }
+        
         return results
     }
 
     // MARK: - Private methods
+    
+    private static func makeRequest(request: Request, urlRequest: URLRequest) -> RequestResult {
+        //source: https://forums.developer.apple.com/thread/11519
+        var httpResponse: HTTPURLResponse? = nil
+        var connectionError: Error? = nil
+        var sem: DispatchSemaphore
+
+        sem = DispatchSemaphore(value: 0)
+
+        URLSession.shared.dataTask(with: urlRequest) { data, urlResponse, error in
+            connectionError = error
+            httpResponse = urlResponse as? HTTPURLResponse
+            sem.signal()
+        }.resume()
+
+        let _ = sem.wait(timeout: .distantFuture)
+        var statusCode: NSNumber?
+        if let httpResponse = httpResponse { statusCode = NSNumber(value: httpResponse.statusCode) }
+
+        let result = RequestResult(statusCode: statusCode, oversize: request.oversize, storeIds: request.emitterEventIds)
+        if !result.isSuccessful {
+            logError(message: "Connection error: " + (connectionError?.localizedDescription ?? "-"))
+        }
+        
+        return result
+    }
     
     private func setup() {
         // Decode url to extract protocol

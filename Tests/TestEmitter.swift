@@ -14,29 +14,9 @@
 import XCTest
 @testable import SnowplowTracker
 
-//class BrokenNetworkConnection: NetworkConnection {
-//    func sendRequests(_ requests: [Request]) -> [RequestResult] {
-//        NSException.raise("BrokenNetworkConnection", format: "Fake exception on network connection.")
-//        return nil
-//    }
-//
-//    var urlEndpoint: URL? {
-//        NSException.raise("BrokenNetworkConnection", format: "Fake exception on network connection.")
-//        return nil
-//    }
-//
-//    var httpMethod: HttpMethodOptions {
-//        NSException.raise("BrokenNetworkConnection", format: "Fake exception on network connection.")
-//        return .get
-//    }
-//}
-
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-
 let TEST_SERVER_EMITTER = "www.notarealurl.com"
 
-class LegacyTestEmitter: XCTestCase {
+class TestEmitter: XCTestCase {
     override func setUp() {
         super.setUp()
         Logger.logLevel = .verbose
@@ -120,26 +100,12 @@ class LegacyTestEmitter: XCTestCase {
 
     // MARK: - Emitting tests
 
-//    func testEmitEventWithBrokenNetworkConnectionDoesntFreezeStatus() {
-//        let networkConnection = SPBrokenNetworkConnection()
-//        let emitter = self.emitter(with: networkConnection, bufferOption: SPBufferOptionSingle)
-//        emitter?.addPayload(toBuffer: generatePayloads(1)?.first)
-//
-//        Thread.sleep(forTimeInterval: 1)
-//
-//        XCTAssertFalse(emitter?.getSendingStatus())
-//
-//        emitter?.flush()
-//    }
-
     func testEmitSingleGetEventWithSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 200)
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
         addPayload(generatePayloads(1).first!, emitter)
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first!.count)
@@ -154,9 +120,7 @@ class LegacyTestEmitter: XCTestCase {
         let emitter = self.emitter(with: networkConnection, bufferOption: .single)
         addPayload(generatePayloads(1).first!, emitter)
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first!.count)
@@ -174,11 +138,10 @@ class LegacyTestEmitter: XCTestCase {
             addPayload(payload, emitter)
         }
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(0, dbCount(emitter))
+        XCTAssertEqual(2, networkConnection.previousResults.count)
         var totEvents = 0
         for results in networkConnection.previousResults {
             for result in results {
@@ -199,9 +162,7 @@ class LegacyTestEmitter: XCTestCase {
             addPayload(payload, emitter)
         }
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(2, dbCount(emitter))
         for results in networkConnection.previousResults {
@@ -219,9 +180,7 @@ class LegacyTestEmitter: XCTestCase {
 
         addPayload(generatePayloads(1).first!, emitter)
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first?.count)
@@ -241,18 +200,15 @@ class LegacyTestEmitter: XCTestCase {
             addPayload(payloads[i], emitter)
         }
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        // wait longer than the stop sending timeout
+        Thread.sleep(forTimeInterval: 6)
 
         XCTAssertEqual(14, dbCount(emitter))
         networkConnection.statusCode = 200
         let prevSendingCount = networkConnection.sendingCount
         addPayload(payloads[14], emitter)
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(0, dbCount(emitter))
         var totEvents = 0
@@ -282,18 +238,14 @@ class LegacyTestEmitter: XCTestCase {
             addPayload(payloads[i], emitter)
         }
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(0, dbCount(emitter))
         networkConnection.statusCode = 200
         _ = networkConnection.sendingCount
         addPayload(payloads[14], emitter)
 
-        for _ in 0..<10 {
-            Thread.sleep(forTimeInterval: 1)
-        }
+        Thread.sleep(forTimeInterval: 1)
 
         XCTAssertEqual(0, dbCount(emitter))
 
@@ -393,6 +345,56 @@ class LegacyTestEmitter: XCTestCase {
 
         flush(emitter)
     }
+    
+    func testNumberOfRequestsMatchesEmitRangeAndOversize() {
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        emitter.emitRange = 20
+        
+        InternalQueue.sync { emitter.pauseEmit() }
+        for payload in generatePayloads(20) {
+            addPayload(payload, emitter)
+        }
+        InternalQueue.sync { emitter.resumeEmit() }
+        
+        Thread.sleep(forTimeInterval: 0.5)
+        
+        // made a single request
+        XCTAssertEqual(1, networkConnection.sendingCount)
+        XCTAssertEqual(1, networkConnection.previousRequests.first?.count ?? 0)
+        
+        networkConnection.clear()
+        
+        InternalQueue.sync { emitter.pauseEmit() }
+        for payload in generatePayloads(40) {
+            addPayload(payload, emitter)
+        }
+        InternalQueue.sync { emitter.resumeEmit() }
+        
+        Thread.sleep(forTimeInterval: 0.5)
+        
+        // made two requests one after the other
+        XCTAssertEqual(2, networkConnection.sendingCount)
+        XCTAssertEqual(1, networkConnection.previousRequests.map { $0.count }.max())
+        
+        networkConnection.clear()
+        
+        // test with oversize requests
+        emitter.byteLimitPost = 5
+        InternalQueue.sync { emitter.pauseEmit() }
+        for payload in generatePayloads(2) {
+            addPayload(payload, emitter)
+        }
+        InternalQueue.sync { emitter.resumeEmit() }
+
+        Thread.sleep(forTimeInterval: 0.5)
+        
+        // made two requests at once
+        XCTAssertEqual(1, networkConnection.sendingCount)
+        XCTAssertEqual(2, networkConnection.previousRequests.first?.count ?? 0)
+
+        flush(emitter)
+    }
 
     // MARK: - Emitter builder
 
@@ -436,4 +438,3 @@ class LegacyTestEmitter: XCTestCase {
         }
     }
 }
-//#pragma clang diagnostic pop

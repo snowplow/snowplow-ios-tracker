@@ -380,46 +380,43 @@ class Emitter: EmitterEventProcessing {
                 requests.append(request)
             }
         } else {
-            var i = 0
-            while i < events.count {
-                var eventArray: [Payload] = []
-                var indexArray: [Int64] = []
-
-                let iUntil = min(i + bufferOption.rawValue, events.count)
-                for j in i..<iUntil {
-                    let event = events[j]
-
-                    let payload = event.payload
-                    let emitterEventId = event.storeId
-                    addSendingTime(to: payload, timestamp: sendingTime)
-
-                    if isOversize(payload, byteLimit: byteLimit) {
-                        let request = Request(payload: payload, emitterEventId: emitterEventId, oversize: true)
-                        requests.append(request)
-                    } else if isOversize(payload, byteLimit: byteLimit, previousPayloads: eventArray) {
-                        let request = Request(payloads: eventArray, emitterEventIds: indexArray)
-                        requests.append(request)
-
-                        // Clear collection and build a new POST
-                        eventArray = []
-                        indexArray = []
-
-                        // Build and store the request
-                        eventArray.append(payload)
-                        indexArray.append(emitterEventId)
-                    } else {
-                        // Add event to collections
-                        eventArray.append(payload)
-                        indexArray.append(emitterEventId)
-                    }
-                }
-
-                // Check if all payloads have been processed
-                if eventArray.count != 0 {
-                    let request = Request(payloads: eventArray, emitterEventIds: indexArray)
+            var eventPayloads: [Payload] = []
+            var eventIds: [Int64] = []
+            
+            for event in events {
+                let payload = event.payload
+                let emitterEventId = event.storeId
+                addSendingTime(to: payload, timestamp: sendingTime)
+                
+                // Oversize event -> separate requests
+                if isOversize(payload, byteLimit: byteLimit) {
+                    let request = Request(payload: payload, emitterEventId: emitterEventId, oversize: true)
                     requests.append(request)
                 }
-                i += bufferOption.rawValue
+                // Events up to this one are oversize -> create request for them
+                else if isOversize(payload, byteLimit: byteLimit, previousPayloads: eventPayloads) {
+                    let request = Request(payloads: eventPayloads, emitterEventIds: eventIds)
+                    requests.append(request)
+                    
+                    // Clear collection and build a new POST
+                    eventPayloads = []
+                    eventIds = []
+                    
+                    // Build and store the request
+                    eventPayloads.append(payload)
+                    eventIds.append(emitterEventId)
+                }
+                // Add to the list of events for the request
+                else {
+                    eventPayloads.append(payload)
+                    eventIds.append(emitterEventId)
+                }
+            }
+            
+            // Check if there are any remaining events not in a request
+            if !eventPayloads.isEmpty {
+                let request = Request(payloads: eventPayloads, emitterEventIds: eventIds)
+                requests.append(request)
             }
         }
         return requests
