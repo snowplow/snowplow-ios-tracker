@@ -21,14 +21,12 @@ class Subject : NSObject {
     private var geoDict: [String : NSObject] = [:]
 
     var platformContext = false
+    
     var platformContextProperties: [PlatformContextProperty]? {
-        get {
-            platformContextManager.platformContextProperties
-        }
-        set {
-            platformContextManager.platformContextProperties = newValue
-        }
+        get { return platformContextManager.platformContextProperties }
+        set { platformContextManager.platformContextProperties = newValue }
     }
+    
     var geoLocationContext = false
     
     // MARK: - Standard Dictionary
@@ -38,9 +36,7 @@ class Subject : NSObject {
     private var _userId: String?
     /// The user's ID.
     var userId: String? {
-        get {
-            _userId
-        }
+        get { return _userId }
         set(uid) {
             _userId = uid
             standardDict[kSPUid] = uid
@@ -49,9 +45,7 @@ class Subject : NSObject {
 
     private var _networkUserId: String?
     var networkUserId: String? {
-        get {
-            _networkUserId
-        }
+        get { return _networkUserId }
         set(nuid) {
             _networkUserId = nuid
             standardDict[kSPNetworkUid] = nuid
@@ -61,9 +55,7 @@ class Subject : NSObject {
     private var _domainUserId: String?
     /// The domain UID.
     var domainUserId: String? {
-        get {
-            _domainUserId
-        }
+        get { return _domainUserId }
         set(duid) {
             _domainUserId = duid
             standardDict[kSPDomainUid] = duid
@@ -73,9 +65,7 @@ class Subject : NSObject {
     private var _useragent: String?
     /// The user agent (also known as browser string).
     var useragent: String? {
-        get {
-            _useragent
-        }
+        get { return _useragent }
         set(useragent) {
             _useragent = useragent
             standardDict[kSPUseragent] = useragent
@@ -85,9 +75,7 @@ class Subject : NSObject {
     private var _ipAddress: String?
     /// The user's IP address.
     var ipAddress: String? {
-        get {
-            _ipAddress
-        }
+        get { return _ipAddress }
         set(ip) {
             _ipAddress = ip
             standardDict[kSPIpAddress] = ip
@@ -97,9 +85,7 @@ class Subject : NSObject {
     private var _timezone: String?
     /// The user's timezone.
     var timezone: String? {
-        get {
-            _timezone
-        }
+        get { return _timezone }
         set(timezone) {
             _timezone = timezone
             standardDict[kSPTimezone] = timezone
@@ -109,9 +95,7 @@ class Subject : NSObject {
     private var _language: String?
     /// The user's language.
     var language: String? {
-        get {
-            _language
-        }
+        get { return _language }
         set(lang) {
             _language = lang
             standardDict[kSPLanguage] = lang
@@ -121,9 +105,7 @@ class Subject : NSObject {
     private var _colorDepth: NSNumber?
     /// The user's color depth.
     var colorDepth: NSNumber? {
-        get {
-            _colorDepth
-        }
+        get { return _colorDepth }
         set(depth) {
             _colorDepth = depth
             let res = "\(depth?.stringValue ?? "")"
@@ -133,9 +115,7 @@ class Subject : NSObject {
 
     var _screenResolution: SPSize?
     var screenResolution: SPSize? {
-        get {
-            _screenResolution
-        }
+        get { return _screenResolution }
         set {
             _screenResolution = newValue
             if let size = newValue {
@@ -149,9 +129,7 @@ class Subject : NSObject {
 
     var _screenViewPort: SPSize?
     var screenViewPort: SPSize? {
-        get {
-            _screenViewPort
-        }
+        get { return _screenViewPort }
         set {
             _screenViewPort = newValue
             if let size = newValue {
@@ -160,7 +138,6 @@ class Subject : NSObject {
             } else {
                 standardDict.removeValue(forKey: kSPViewPort)
             }
-            
         }
     }
     
@@ -170,81 +147,49 @@ class Subject : NSObject {
 
     /// Latitude value for the geolocation context.
     var geoLatitude: NSNumber? {
-        get {
-            return geoDict[kSPGeoLatitude] as? NSNumber
-        }
-        set(latitude) {
-            geoDict[kSPGeoLatitude] = latitude
-        }
+        get { return geoDict[kSPGeoLatitude] as? NSNumber }
+        set(latitude) { geoDict[kSPGeoLatitude] = latitude }
     }
 
     /// Longitude value for the geo context.
     var geoLongitude: NSNumber? {
-        get {
-            return geoDict[kSPGeoLongitude] as? NSNumber
-        }
-        set(longitude) {
-            geoDict[kSPGeoLongitude] = longitude
-        }
+        get { return geoDict[kSPGeoLongitude] as? NSNumber }
+        set(longitude) { geoDict[kSPGeoLongitude] = longitude }
     }
 
     /// LatitudeLongitudeAccuracy value for the geolocation context.
     var geoLatitudeLongitudeAccuracy: NSNumber? {
-        get {
-            return geoDict[kSPGeoLatLongAccuracy] as? NSNumber
-        }
-        set(latitudeLongitudeAccuracy) {
-            geoDict[kSPGeoLatLongAccuracy] = latitudeLongitudeAccuracy
-        }
+        get { return geoDict[kSPGeoLatLongAccuracy] as? NSNumber }
+        set { geoDict[kSPGeoLatLongAccuracy] = newValue }
     }
 
     /// Altitude value for the geolocation context.
     var geoAltitude: NSNumber? {
-        get {
-            return geoDict[kSPGeoAltitude] as? NSNumber
-        }
-        set(altitude) {
-            geoDict[kSPGeoAltitude] = altitude
-        }
+        get { return geoDict[kSPGeoAltitude] as? NSNumber }
+        set(altitude) { geoDict[kSPGeoAltitude] = altitude }
     }
 
     /// AltitudeAccuracy value for the geolocation context.
     var geoAltitudeAccuracy: NSNumber? {
-        get {
-            return geoDict[kSPGeoAltitudeAccuracy] as? NSNumber
-        }
-        set(altitudeAccuracy) {
-            geoDict[kSPGeoAltitudeAccuracy] = altitudeAccuracy
-        }
+        get { return geoDict[kSPGeoAltitudeAccuracy] as? NSNumber }
+        set(altitudeAccuracy) { geoDict[kSPGeoAltitudeAccuracy] = altitudeAccuracy }
     }
 
     var geoBearing: NSNumber? {
-        get {
-            return geoDict[kSPGeoBearing] as? NSNumber
-        }
-        set(bearing) {
-            geoDict[kSPGeoBearing] = bearing
-        }
+        get { return geoDict[kSPGeoBearing] as? NSNumber }
+        set(bearing) { geoDict[kSPGeoBearing] = bearing }
     }
 
     /// Speed value for the geolocation context.
     var geoSpeed: NSNumber? {
-        get {
-            return geoDict[kSPGeoSpeed] as? NSNumber
-        }
-        set(speed) {
-            geoDict[kSPGeoSpeed] = speed
-        }
+        get { return geoDict[kSPGeoSpeed] as? NSNumber }
+        set(speed) { geoDict[kSPGeoSpeed] = speed }
     }
 
     /// Timestamp value for the geolocation context.
     var geoTimestamp: NSNumber? {
-        get {
-            return geoDict[kSPGeoTimestamp] as? NSNumber
-        }
-        set(timestamp) {
-            geoDict[kSPGeoTimestamp] = timestamp
-        }
+        get { return geoDict[kSPGeoTimestamp] as? NSNumber }
+        set(timestamp) { geoDict[kSPGeoTimestamp] = timestamp }
     }
 
     init(platformContext: Bool = false,
@@ -253,9 +198,9 @@ class Subject : NSObject {
          subjectConfiguration config: SubjectConfiguration? = nil) {
         self.platformContextManager = PlatformContext(platformContextProperties: platformContextProperties)
         super.init()
-        self.platformContextProperties = platformContextProperties
+        platformContextManager.platformContextProperties = platformContextProperties
         self.platformContext = platformContext
-        geoLocationContext = geoContext
+        self.geoLocationContext = geoContext
         
         screenResolution = Utilities.resolution
         screenViewPort = Utilities.viewPort
@@ -294,14 +239,14 @@ class Subject : NSObject {
 
     func standardDict(userAnonymisation: Bool) -> [String : String] {
         if userAnonymisation {
-            var copy = standardDict
+            var copy = self.standardDict
             copy.removeValue(forKey: kSPUid)
             copy.removeValue(forKey: kSPDomainUid)
             copy.removeValue(forKey: kSPNetworkUid)
             copy.removeValue(forKey: kSPIpAddress)
             return copy
         }
-        return standardDict
+        return self.standardDict
     }
 
     /// Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
@@ -331,4 +276,5 @@ class Subject : NSObject {
             return nil
         }
     }
+    
 }

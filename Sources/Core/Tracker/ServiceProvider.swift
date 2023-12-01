@@ -14,7 +14,7 @@
 import Foundation
 
 class ServiceProvider: NSObject, ServiceProviderProtocol {
-    private(set) var namespace: String
+    let namespace: String
     
     var isTrackerInitialized: Bool { return _tracker != nil }
 
@@ -233,17 +233,11 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
 
     func makeEmitter() -> Emitter {
         let builder = { (emitter: Emitter) in
-            emitter.method = self.networkConfiguration.method
-            emitter.protocol = self.networkConfiguration.protocol
-            emitter.customPostPath = self.networkConfiguration.customPostPath
-            emitter.requestHeaders = self.networkConfiguration.requestHeaders
             emitter.emitThreadPoolSize = self.emitterConfiguration.threadPoolSize
             emitter.byteLimitGet = self.emitterConfiguration.byteLimitGet
             emitter.byteLimitPost = self.emitterConfiguration.byteLimitPost
-            emitter.serverAnonymisation = self.emitterConfiguration.serverAnonymisation
             emitter.emitRange = self.emitterConfiguration.emitRange
             emitter.bufferOption = self.emitterConfiguration.bufferOption
-            emitter.eventStore = self.emitterConfiguration.eventStore
             emitter.callback = self.emitterConfiguration.requestCallback
             emitter.customRetryForStatusCodes = self.emitterConfiguration.customRetryForStatusCodes
             emitter.retryFailedRequests = self.emitterConfiguration.retryFailedRequests
@@ -251,9 +245,24 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
 
         let emitter: Emitter
         if let networkConnection = networkConfiguration.networkConnection {
-            emitter = Emitter(networkConnection: networkConnection, builder: builder)
+            emitter = Emitter(
+                networkConnection: networkConnection,
+                namespace: self.namespace,
+                eventStore: self.emitterConfiguration.eventStore,
+                builder: builder
+            )
         } else {
-            emitter = Emitter(urlEndpoint: networkConfiguration.endpoint ?? "", builder: builder)
+            emitter = Emitter(
+                namespace: self.namespace,
+                urlEndpoint: networkConfiguration.endpoint ?? "",
+                method: self.networkConfiguration.method,
+                protocol: self.networkConfiguration.protocol,
+                customPostPath: self.networkConfiguration.customPostPath,
+                requestHeaders: self.networkConfiguration.requestHeaders,
+                serverAnonymisation: self.emitterConfiguration.serverAnonymisation,
+                eventStore: self.emitterConfiguration.eventStore,
+                builder: builder
+            )
         }
         
         if emitterConfiguration.isPaused {

@@ -124,7 +124,9 @@ class TestRequest: XCTestCase, RequestCallback {
             if emitter?.dbCount == 0 {
                 break
             }
-            emitter?.flush()
+            InternalQueue.sync {
+                emitter?.flush()
+            }
             Thread.sleep(forTimeInterval: 5)
         }
         Thread.sleep(forTimeInterval: 3)
@@ -153,7 +155,7 @@ class TestRequest: XCTestCase, RequestCallback {
         event.property = "DemoProperty"
         event.value = NSNumber(value: 5)
         event.entities = customContext()
-        _ = tracker_.track(event)
+        track(event, tracker_)
         return 1
     }
 
@@ -166,7 +168,7 @@ class TestRequest: XCTestCase, RequestCallback {
             andDictionary: data)
         let event = SelfDescribing(eventData: sdj)
         event.entities = customContext()
-        _ = tracker_.track(event)
+        track(event, tracker_)
         return 1
     }
 
@@ -175,14 +177,14 @@ class TestRequest: XCTestCase, RequestCallback {
         event.pageTitle = "DemoPageTitle"
         event.referrer = "DemoPageReferrer"
         event.entities = customContext()
-        _ = tracker_.track(event)
+        track(event, tracker_)
         return 1
     }
 
     func trackScreenView(with tracker_: Tracker) -> Int {
         let event = ScreenView(name: "DemoScreenName", screenId: nil)
         event.entities = customContext()
-        _ = tracker_.track(event)
+        track(event, tracker_)
         return 1
     }
 
@@ -190,7 +192,7 @@ class TestRequest: XCTestCase, RequestCallback {
         let event = Timing(category: "DemoTimingCategory", variable: "DemoTimingVariable", timing: 5)
         event.label = "DemoTimingLabel"
         event.entities = customContext()
-        _ = tracker_.track(event)
+        track(event, tracker_)
         return 1
     }
 
@@ -212,7 +214,7 @@ class TestRequest: XCTestCase, RequestCallback {
         event.country = "USA"
         event.currency = "USD"
         event.entities = customContext()
-        _ = tracker_.track(event)
+        track(event, tracker_)
         return 2
     }
 
@@ -224,5 +226,11 @@ class TestRequest: XCTestCase, RequestCallback {
             schema: "iglu:com.acme_company/demo_ios/jsonschema/1-0-0",
             andDictionary: data)
         return [context]
+    }
+    
+    private func track(_ event: Event, _ tracker: Tracker) {
+        InternalQueue.sync {
+            _ = tracker.track(event)
+        }
     }
 }

@@ -19,29 +19,20 @@ class TrackerState: TrackerStateSnapshot {
 
     /// Set a future computable state with a specific state identifier
     func setStateFuture(_ state: StateFuture, identifier stateIdentifier: String) {
-        objc_sync_enter(self)
         trackerState[stateIdentifier] = state
-        objc_sync_exit(self)
     }
 
     /// Get a future computable state associated with a state identifier
     func stateFuture(withIdentifier stateIdentifier: String) -> StateFuture? {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         return trackerState[stateIdentifier]
     }
 
     func remove(withIdentifier stateIdentifer: String) {
-        objc_sync_enter(self)
         trackerState.removeValue(forKey: stateIdentifer)
-        objc_sync_exit(self)
     }
 
     /// Get an immutable copy of the whole tracker state
     func snapshot() -> TrackerStateSnapshot? {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
         let newTrackerState = TrackerState()
         newTrackerState.trackerState = trackerState
         return newTrackerState

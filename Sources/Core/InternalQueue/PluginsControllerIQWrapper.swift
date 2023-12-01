@@ -12,21 +12,24 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-@testable import SnowplowTracker
 
-class MockDispatchQueueWrapper: DispatchQueueWrapperProtocol {
-    private let queue: DispatchQueue
+class PluginsControllerIQWrapper: PluginsController {
     
-    init(label: String) {
-        queue = DispatchQueue(label: label)
+    private let controller: PluginsController
+    
+    init(controller: PluginsController) {
+        self.controller = controller
     }
     
-    func sync(_ callback: @escaping () -> Void) {
-        queue.sync(execute: callback)
+    var identifiers: [String] {
+        return InternalQueue.sync { controller.identifiers }
     }
     
-    func async(_ callback: @escaping () -> Void) {
-        // execute synchronously!
-        queue.sync(execute: callback)
+    func add(plugin: PluginIdentifiable) {
+        InternalQueue.sync { controller.add(plugin: plugin) }
+    }
+
+    func remove(identifier: String) {
+        InternalQueue.sync { controller.remove(identifier: identifier) }
     }
 }

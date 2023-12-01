@@ -123,7 +123,7 @@ class TestEvents: XCTestCase {
 
         var screenViewPayload: Payload? = nil
         for event in events {
-            if (event.payload.dictionary["eid"] as? String) == screenViewId?.uuidString {
+            if (event.payload.dictionary["eid"] as? String) == screenViewId.uuidString {
                 screenViewPayload = event.payload
             }
         }

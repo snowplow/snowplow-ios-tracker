@@ -16,8 +16,8 @@ import Foundation
 class MediaPingInterval {
     var pingInterval: Int
     
-    private var timer: Timer?
-    private var timerProvider: Timer.Type
+    private var timer: InternalQueueTimer?
+    private var startTimer: (TimeInterval, @escaping () -> Void) -> InternalQueueTimer
     private var paused: Bool?
     private var numPausedPings: Int = 0
     private var maxPausedPings: Int = 1
@@ -25,12 +25,12 @@ class MediaPingInterval {
     
     init(pingInterval: Int? = nil,
          maxPausedPings: Int? = nil,
-         timerProvider: Timer.Type = Timer.self) {
+         startTimer: @escaping (TimeInterval, @escaping () -> Void) -> InternalQueueTimer = InternalQueue.startTimer) {
         if let maxPausedPings = maxPausedPings {
             self.maxPausedPings = maxPausedPings
         }
         self.pingInterval = pingInterval ?? 30
-        self.timerProvider = timerProvider
+        self.startTimer = startTimer
     }
     
     func update(player: MediaPlayerEntity) {
@@ -41,8 +41,8 @@ class MediaPingInterval {
     func subscribe(callback: @escaping () -> ()) {
         end()
         
-        timer = timerProvider.scheduledTimer(withTimeInterval: TimeInterval(pingInterval),
-                                             repeats: true) { _ in
+        timer = startTimer(TimeInterval(pingInterval)) { [weak self] in
+            guard let self = self else { return }
             if !self.isPaused || self.numPausedPings < self.maxPausedPings {
                 if self.isPaused {
                     self.numPausedPings += 1

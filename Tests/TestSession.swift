@@ -26,17 +26,16 @@ class TestSession: XCTestCase {
     }
 
     func testInit() {
-        let session = Session(foregroundTimeout: 600, andBackgroundTimeout: 300)
-        XCTAssertNil(session.tracker)
+        let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
         XCTAssertTrue(!session.inBackground)
         XCTAssertNotNil(session.getDictWithEventId("eventid-1", eventTimestamp: 1654496481346, userAnonymisation: false))
-        XCTAssertTrue(session.state!.sessionIndex >= 1)
+        XCTAssertTrue(session.sessionIndex ?? 0 >= 1)
         XCTAssertEqual(session.foregroundTimeout, 600000)
         XCTAssertEqual(session.backgroundTimeout, 300000)
     }
 
     func testInitWithOptions() {
-        let session = Session(foregroundTimeout: 5, andBackgroundTimeout: 300, andTracker: nil)
+        let session = Session(foregroundTimeout: 5, backgroundTimeout: 300)
         XCTAssertEqual(session.foregroundTimeout, 5000)
         XCTAssertEqual(session.backgroundTimeout, 300000)
 
@@ -48,10 +47,10 @@ class TestSession: XCTestCase {
     }
 
     func testFirstSession() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
         let sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
-        let sessionIndex = session.state!.sessionIndex
+        let sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -59,10 +58,10 @@ class TestSession: XCTestCase {
     }
 
     func testForegroundEventsOnSameSession() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
-        var sessionIndex = session.state?.sessionIndex
+        var sessionIndex = session.sessionIndex ?? 0
         let sessionId = sessionContext?[kSPSessionId] as? String
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -72,7 +71,7 @@ class TestSession: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
-        sessionIndex = session.state?.sessionIndex
+        sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -82,7 +81,7 @@ class TestSession: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
-        sessionIndex = session.state?.sessionIndex
+        sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -92,7 +91,7 @@ class TestSession: XCTestCase {
         Thread.sleep(forTimeInterval: 3.1)
 
         sessionContext = session.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
-        sessionIndex = session.state?.sessionIndex
+        sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(2, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual("event_4", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -103,7 +102,7 @@ class TestSession: XCTestCase {
     func testBackgroundEventsOnWhenLifecycleEventsDisabled() {
         cleanFile(withNamespace: "tracker")
 
-        let emitter = Emitter(urlEndpoint: "") { emitter in}
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
         let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = false
             tracker.sessionContext = true
@@ -115,7 +114,7 @@ class TestSession: XCTestCase {
         session?.updateInBackground()
 
         let sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
-        let sessionIndex = session?.state?.sessionIndex ?? 0
+        let sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -127,8 +126,8 @@ class TestSession: XCTestCase {
     func testBackgroundEventsOnSameSession() {
         cleanFile(withNamespace: "t1")
         
-        let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "t1", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "t1")
+        let tracker = Tracker(trackerNamespace: "t1", appId: nil, emitter: emitter) { tracker in
             tracker.installEvent = false
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
@@ -138,11 +137,13 @@ class TestSession: XCTestCase {
         let session = tracker.session
 
         session?.updateInBackground() // It sends a background event
+        
+        Thread.sleep(forTimeInterval: 1)
 
-        let sessionId = session?.state?.sessionId
+        let sessionId = session?.sessionId
 
         var sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
-        var sessionIndex = session?.state?.sessionIndex ?? 0
+        var sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
@@ -152,7 +153,7 @@ class TestSession: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session?.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
-        sessionIndex = session?.state?.sessionIndex ?? 0
+        sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
@@ -162,7 +163,7 @@ class TestSession: XCTestCase {
         Thread.sleep(forTimeInterval: 1)
 
         sessionContext = session?.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
-        sessionIndex = session?.state?.sessionIndex ?? 0
+        sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual(sessionId, sessionContext?[kSPSessionId] as? String)
@@ -172,7 +173,7 @@ class TestSession: XCTestCase {
         Thread.sleep(forTimeInterval: 2.1)
 
         sessionContext = session?.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
-        sessionIndex = session?.state?.sessionIndex ?? 0
+        sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(2, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual("event_4", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -185,7 +186,7 @@ class TestSession: XCTestCase {
     func testMixedEventsOnManySessions() {
         cleanFile(withNamespace: "t2")
         
-        let emitter = Emitter(urlEndpoint: "") { emitter in}
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "t2")
         let tracker = Tracker(trackerNamespace: "t2", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
@@ -239,7 +240,7 @@ class TestSession: XCTestCase {
     }
 
     func testTimeoutSessionWhenPauseAndResume() {
-        let session = Session(foregroundTimeout: 1, andBackgroundTimeout: 1, andTracker: nil)
+        let session = Session(foregroundTimeout: 1, backgroundTimeout: 1)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481355, userAnonymisation: false)
         var prevSessionId = sessionContext?[kSPSessionId] as? String
@@ -268,8 +269,8 @@ class TestSession: XCTestCase {
     func testBackgroundTimeBiggerThanBackgroundTimeoutCausesNewSession() {
         cleanFile(withNamespace: "tracker")
         
-        let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
             tracker.foregroundTimeout = 100
@@ -288,9 +289,10 @@ class TestSession: XCTestCase {
         session?.updateInBackground() // Sends a background event
         Thread.sleep(forTimeInterval: 3) // Bigger than background timeout
         session?.updateInForeground() // Sends a foreground event
+        Thread.sleep(forTimeInterval: 1)
 
-        XCTAssertEqual(oldSessionId, session?.state?.previousSessionId)
-        XCTAssertEqual(2, session?.state?.sessionIndex)
+        XCTAssertEqual(oldSessionId, session?.previousSessionId)
+        XCTAssertEqual(2, session?.sessionIndex)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
         XCTAssertEqual(1, session?.foregroundIndex)
@@ -299,8 +301,8 @@ class TestSession: XCTestCase {
     func testBackgroundTimeSmallerThanBackgroundTimeoutDoesntCauseNewSession() {
         cleanFile(withNamespace: "tracker")
         
-        let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.lifecycleEvents = true
             tracker.sessionContext = true
             tracker.foregroundTimeout = 100
@@ -319,16 +321,17 @@ class TestSession: XCTestCase {
         session?.updateInBackground() // Sends a background event
         Thread.sleep(forTimeInterval: 1) // Smaller than background timeout
         session?.updateInForeground() // Sends a foreground event
+        Thread.sleep(forTimeInterval: 1)
 
-        XCTAssertEqual(oldSessionId, session?.state?.sessionId)
-        XCTAssertEqual(1, session?.state?.sessionIndex)
+        XCTAssertEqual(oldSessionId, session?.sessionId)
+        XCTAssertEqual(1, session?.sessionIndex)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(1, session?.backgroundIndex)
         XCTAssertEqual(1, session?.foregroundIndex)
     }
 
     func testNoEventsForLongTimeDontIncreaseIndexMultipleTimes() {
-        let session = Session(foregroundTimeout: 1, andBackgroundTimeout: 1, andTracker: nil)
+        let session = Session(foregroundTimeout: 1, backgroundTimeout: 1)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481359, userAnonymisation: false)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -344,49 +347,49 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker1")
         cleanFile(withNamespace: "tracker2")
 
-        let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let queue2 = MockDispatchQueueWrapper(label: "test2")
-        let tracker1 = Tracker(trackerNamespace: "tracker1", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test1")) { tracker in
+        let emitter1 = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker1")
+        let tracker1 = Tracker(trackerNamespace: "tracker1", appId: nil, emitter: emitter1) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
         }
-        let tracker2 = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter, dispatchQueue: queue2) { tracker in
+        let emitter2 = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker2")
+        let tracker2 = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter2) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 10
             tracker.backgroundTimeout = 10
         }
         let event = Structured(category: "c", action: "a")
-        _ = tracker1.track(event)
-        _ = tracker2.track(event)
+        track(event, tracker1)
+        track(event, tracker2)
 
-        guard let initialValue1 = tracker1.session?.state?.sessionIndex else { return XCTFail() }
-        guard let id1 = tracker1.session?.state?.sessionId else { return XCTFail() }
-        guard let initialValue2 = tracker2.session?.state?.sessionIndex else { return XCTFail() }
-        guard var id2 = tracker2.session?.state?.sessionId else { return XCTFail() }
+        guard let initialValue1 = tracker1.session?.sessionIndex else { return XCTFail() }
+        guard let id1 = tracker1.session?.sessionId else { return XCTFail() }
+        guard let initialValue2 = tracker2.session?.sessionIndex else { return XCTFail() }
+        guard var id2 = tracker2.session?.sessionId else { return XCTFail() }
 
         // Retrigger session in tracker1
         Thread.sleep(forTimeInterval: 7)
-        _ = tracker1.track(event)
+        track(event, tracker1)
         Thread.sleep(forTimeInterval: 5)
 
         // Send event to force update of session on tracker2
-        _ = tracker2.track(event)
-        id2 = tracker2.session!.state!.sessionId
+        track(event, tracker2)
+        id2 = tracker2.session!.sessionId!
 
         // Check sessions have the correct state
-        XCTAssertEqual(0, tracker1.session!.state!.sessionIndex - initialValue1) // retriggered
-        XCTAssertEqual(1, tracker2.session!.state!.sessionIndex - initialValue2) // timed out
+        XCTAssertEqual(0, tracker1.session!.sessionIndex! - initialValue1) // retriggered
+        XCTAssertEqual(1, tracker2.session!.sessionIndex! - initialValue2) // timed out
 
         //Recreate tracker2
-        let tracker2b = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter, dispatchQueue: queue2) { tracker in
+        let tracker2b = Tracker(trackerNamespace: "tracker2", appId: nil, emitter: emitter2) { tracker in
             tracker.sessionContext = true
             tracker.foregroundTimeout = 5
             tracker.backgroundTimeout = 5
         }
-        _ = tracker2b.track(event)
-        guard let initialValue2b = tracker2b.session?.state?.sessionIndex else { return XCTFail() }
-        guard let previousId2b = tracker2b.session?.state?.previousSessionId else { return XCTFail() }
+        track(event, tracker2b)
+        guard let initialValue2b = tracker2b.session?.sessionIndex else { return XCTFail() }
+        guard let previousId2b = tracker2b.session?.previousSessionId else { return XCTFail() }
 
         // Check the new tracker session gets the data from the old tracker2 session
         XCTAssertEqual(initialValue2 + 2, initialValue2b)
@@ -398,22 +401,22 @@ class TestSession: XCTestCase {
         cleanFile(withNamespace: "tracker")
         storeAsV3_0(withNamespace: "tracker", eventId: "eventId", sessionId: "sessionId", sessionIndex: 123, userId: "userId")
 
-        let emitter = Emitter(urlEndpoint: "") { emitter in}
-        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter, dispatchQueue: MockDispatchQueueWrapper(label: "test")) { tracker in
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500), namespace: "tracker")
+        let tracker = Tracker(trackerNamespace: "tracker", appId: nil, emitter: emitter) { tracker in
             tracker.sessionContext = true
         }
         let event = Structured(category: "c", action: "a")
-        _ = tracker.track(event)
+        track(event, tracker)
 
-        guard let sessionState = tracker.session?.state else { return XCTFail() }
-        XCTAssertEqual("sessionId", sessionState.previousSessionId)
-        XCTAssertEqual(124, sessionState.sessionIndex)
-        XCTAssertEqual("userId", sessionState.userId)
-        XCTAssertNotEqual("eventId", sessionState.firstEventId)
+        guard let session = tracker.session else { return XCTFail() }
+        XCTAssertEqual("sessionId", session.previousSessionId!)
+        XCTAssertEqual(124, session.sessionIndex!)
+        XCTAssertEqual("userId", session.userId)
+        XCTAssertNotEqual("eventId", session.firstEventId!)
     }
 
     func testIncrementsEventIndex() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
         var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         XCTAssertEqual(1, sessionContext?[kSPSessionEventIndex] as? Int)
@@ -435,7 +438,7 @@ class TestSession: XCTestCase {
     }
 
     func testAnonymisesUserIdentifiers() {
-        let session = Session(foregroundTimeout: 3, andBackgroundTimeout: 3, andTracker: nil)
+        let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
         _ = session.getDictWithEventId("event_1", eventTimestamp: 1654496481345, userAnonymisation: false)
         session.startNewSession() // create previous session ID reference
 
@@ -467,5 +470,11 @@ class TestSession: XCTestCase {
         //Store userId
         let userDefaults = UserDefaults.standard
         userDefaults.set(userId, forKey: kSPInstallationUserId)
+    }
+    
+    private func track(_ event: Event, _ tracker: Tracker) {
+        InternalQueue.sync {
+            _ = tracker.track(event)
+        }
     }
 }

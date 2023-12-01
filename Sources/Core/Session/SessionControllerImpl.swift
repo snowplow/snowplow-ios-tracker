@@ -107,7 +107,7 @@ class SessionControllerImpl: Controller, SessionController {
             logDiagnostic(message: "Attempt to access SessionController fields when disabled")
             return -1
         }
-        return session?.state?.sessionIndex ?? -1
+        return session?.sessionIndex ?? -1
     }
 
     var sessionId: String? {
@@ -115,7 +115,7 @@ class SessionControllerImpl: Controller, SessionController {
             logDiagnostic(message: "Attempt to access SessionController fields when disabled")
             return nil
         }
-        return session?.state?.sessionId
+        return session?.sessionId
     }
 
     var userId: String? {
