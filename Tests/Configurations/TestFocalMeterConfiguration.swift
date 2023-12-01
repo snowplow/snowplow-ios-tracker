@@ -130,7 +130,7 @@ class TestFocalMeterConfiguration: XCTestCase {
                                       configurations: [
                                         trackerConfig,
                                         focalMeterConfig ?? FocalMeterConfiguration(kantarEndpoint: endpoint)
-                                      ])!
+                                      ])
     }
     
 #endif

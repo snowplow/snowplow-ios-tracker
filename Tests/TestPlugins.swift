@@ -205,7 +205,7 @@ class TestPlugins: XCTestCase {
         let namespace = "testPlugins" + String(describing: Int.random(in: 0..<100))
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: configurations + [trackerConfig])!
+                                      configurations: configurations + [trackerConfig])
     }
     
     private func waitForEventsToBeTracked() {

@@ -88,7 +88,7 @@ class TestEmitterConfiguration: XCTestCase {
         let namespace = "testEmitter" + String(describing: Int.random(in: 0..<100))
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: [trackerConfig, emitterConfig])!
+                                      configurations: [trackerConfig, emitterConfig])
     }
     
 }
