@@ -25,7 +25,7 @@ class TestTrackEventsToMicro: XCTestCase {
 
         tracker = Snowplow.createTracker(namespace: "testMicro-" + UUID().uuidString,
                                          network: NetworkConfiguration(endpoint: Micro.endpoint),
-                                         configurations: [trackerConfig])!
+                                         configurations: [trackerConfig])
 
         wait(for: [Micro.reset()], timeout: Micro.timeout)
     }
