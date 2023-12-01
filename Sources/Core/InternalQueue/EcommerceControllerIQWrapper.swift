@@ -13,18 +13,27 @@
 
 import Foundation
 
-class DispatchQueueWrapper: DispatchQueueWrapperProtocol {
-    private let queue: DispatchQueue
+class EcommerceControllerIQWrapper: EcommerceController {
     
-    init(label: String) {
-        queue = DispatchQueue(label: label)
+    private let controller: EcommerceController
+    
+    init(controller: EcommerceController) {
+        self.controller = controller
     }
     
-    func sync(_ callback: @escaping () -> Void) {
-        queue.sync(execute: callback)
+    func setEcommerceScreen(_ screen: EcommerceScreenEntity) {
+        InternalQueue.sync { controller.setEcommerceScreen(screen) }
     }
     
-    func async(_ callback: @escaping () -> Void) {
-        queue.async(execute: callback)
+    func setEcommerceUser(_ user: EcommerceUserEntity) {
+        InternalQueue.sync { controller.setEcommerceUser(user) }
+    }
+    
+    func removeEcommerceScreen() {
+        InternalQueue.sync { controller.removeEcommerceScreen() }
+    }
+
+    func removeEcommerceUser() {
+        InternalQueue.sync { controller.removeEcommerceUser() }
     }
 }

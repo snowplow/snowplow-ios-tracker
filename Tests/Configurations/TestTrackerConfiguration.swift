@@ -389,6 +389,6 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Check eid field
         let trackedEventId = payload?["eid"] as? String
-        XCTAssertTrue((eventId?.uuidString == trackedEventId))
+        XCTAssertTrue((eventId.uuidString == trackedEventId))
     }
 }

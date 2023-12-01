@@ -16,7 +16,8 @@ import XCTest
 
 class TestEcommerceController: XCTestCase {
     
-    var trackedEvents: [InspectableEvent] = []
+    var eventSink: EventSink?
+    var trackedEvents: [InspectableEvent] { return eventSink?.trackedEvents ?? [] }
     var tracker: TrackerController?
     
     override func setUp() {
@@ -25,7 +26,7 @@ class TestEcommerceController: XCTestCase {
     
     override func tearDown() {
         Snowplow.removeAllTrackers()
-        trackedEvents.removeAll()
+        eventSink = nil
     }
     
     func testAddScreenEntity() {
@@ -103,16 +104,10 @@ class TestEcommerceController: XCTestCase {
         trackerConfig.lifecycleAutotracking = false
         
         let namespace = "testEcommerce" + String(describing: Int.random(in: 0..<100))
-        let plugin = PluginConfiguration(identifier: "testPlugin" + namespace)
-            .afterTrack { event in
-                if namespace == self.tracker?.namespace {
-                    self.trackedEvents.append(event)
-                }
-            }
-        
+        eventSink = EventSink()
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: [trackerConfig, plugin])
+                                      configurations: [trackerConfig, eventSink!])
     }
     
     private func waitForEventsToBeTracked() {

@@ -54,7 +54,6 @@ class PlatformContext {
     /// - Parameter userAnonymisation: Whether to anonymise user identifiers (IDFA values)
     func fetchPlatformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload {
         #if os(iOS)
-        objc_sync_enter(self)
         let now = Date().timeIntervalSince1970
         if now - lastUpdatedEphemeralMobileDict >= mobileDictUpdateFrequency {
             setEphemeralMobileDict()
@@ -62,7 +61,6 @@ class PlatformContext {
         if now - lastUpdatedEphemeralNetworkDict >= networkDictUpdateFrequency {
             setEphemeralNetworkDict()
         }
-        objc_sync_exit(self)
         #endif
         if userAnonymisation {
             // mask user identifiers

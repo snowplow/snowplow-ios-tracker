@@ -16,10 +16,6 @@ import Foundation
 class NetworkControllerImpl: Controller, NetworkController {
     private var requestCallback: RequestCallback?
 
-    var isCustomNetworkConnection: Bool {
-        return emitter.networkConnection != nil && !(emitter.networkConnection is DefaultNetworkConnection)
-    }
-
     // MARK: - Properties
 
     var endpoint: String? {

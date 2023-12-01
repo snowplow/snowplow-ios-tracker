@@ -37,57 +37,47 @@ class SQLiteEventStore: NSObject, EventStore {
     // MARK: SPEventStore implementation methods
 
     func addEvent(_ payload: Payload) {
-        sync {
-            self.database.insertRow(payload.dictionary)
-        }
+        InternalQueue.onQueuePrecondition()
+        
+        self.database.insertRow(payload.dictionary)
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {
-        sync {
-            return database.deleteRows(ids: [storeId])
-        }
+        InternalQueue.onQueuePrecondition()
+        
+        return database.deleteRows(ids: [storeId])
     }
 
     func removeEvents(withIds storeIds: [Int64]) -> Bool {
-        sync {
-            return database.deleteRows(ids: storeIds)
-        }
+        InternalQueue.onQueuePrecondition()
+        
+        return database.deleteRows(ids: storeIds)
     }
 
     func removeAllEvents() -> Bool {
-        sync {
-            return database.deleteRows()
-        }
+        InternalQueue.onQueuePrecondition()
+        
+        return database.deleteRows()
     }
 
     func count() -> UInt {
-        sync {
-            if let count = database.countRows() {
-                return UInt(count)
-            }
-            return 0
+        InternalQueue.onQueuePrecondition()
+        
+        if let count = database.countRows() {
+            return UInt(count)
         }
+        return 0
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
-        sync {
-            let limit = min(Int(queryLimit), sendLimit)
-            let rows = database.readRows(numRows: limit)
-            return rows.map { row in
-                let payload = Payload(dictionary: row.data)
-                return EmitterEvent(payload: payload, storeId: row.id)
-            }
-        }
-    }
-    
-    // MARK: - Dispatch queue
-    
-    private let dispatchQueue = DispatchQueue(label: "snowplow.event_store")
-    
-    private func sync<T>(_ callback: () -> T) -> T {
-        dispatchPrecondition(condition: .notOnQueue(dispatchQueue))
+        InternalQueue.onQueuePrecondition()
         
-        return dispatchQueue.sync(execute: callback)
+        let limit = min(Int(queryLimit), sendLimit)
+        let rows = database.readRows(numRows: limit)
+        return rows.map { row in
+            let payload = Payload(dictionary: row.data)
+            return EmitterEvent(payload: payload, storeId: row.id)
+        }
     }
 }
 
