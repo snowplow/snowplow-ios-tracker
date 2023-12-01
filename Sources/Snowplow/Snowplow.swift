@@ -198,7 +198,7 @@ public class Snowplow: NSObject {
     ///                       the tracker.
     /// - Returns: The tracker instance created.
     @objc
-    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol] = []) -> TrackerController? {
+    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol] = []) -> TrackerController {
         if let serviceProvider = serviceProviderInstances[namespace] {
             serviceProvider.reset(configurations: configurations + [networkConfiguration])
             return serviceProvider.trackerController
@@ -234,7 +234,7 @@ public class Snowplow: NSObject {
     ///                collector.
     ///   - configurationBuilder: Swift DSL builder for your configuration objects (e.g, `EmitterConfiguration`, `TrackerConfiguration`)
     /// - Returns: The tracker instance created.
-    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, @ConfigurationBuilder _ configurationBuilder: () -> [ConfigurationProtocol]) -> TrackerController? {
+    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, @ConfigurationBuilder _ configurationBuilder: () -> [ConfigurationProtocol]) -> TrackerController {
         let configurations = configurationBuilder()
         return createTracker(namespace: namespace,
                              network: networkConfiguration,
@@ -361,12 +361,8 @@ public class Snowplow: NSObject {
         for bundle in bundles {
             objc_sync_enter(self)
             if let networkConfiguration = bundle.networkConfiguration {
-                if let _ = createTracker(
-                    namespace: bundle.namespace,
-                    network: networkConfiguration,
-                    configurations: bundle.configurations) {
-                    namespaces?.append(bundle.namespace)
-                }
+                _ = createTracker(namespace: bundle.namespace, network: networkConfiguration, configurations: bundle.configurations)
+                namespaces?.append(bundle.namespace)
             } else {
                 // remove tracker if it exists
                 if let tracker = tracker(namespace: bundle.namespace) {

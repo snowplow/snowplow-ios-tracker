@@ -112,7 +112,7 @@ class TestEcommerceController: XCTestCase {
         
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: [trackerConfig, plugin])!
+                                      configurations: [trackerConfig, plugin])
     }
     
     private func waitForEventsToBeTracked() {

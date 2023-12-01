@@ -44,7 +44,7 @@ class TestEvents: XCTestCase {
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, emitterConfiguration])
 
         // Track event
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -76,7 +76,7 @@ class TestEvents: XCTestCase {
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, emitterConfiguration])
 
         // Track event
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -112,8 +112,8 @@ class TestEvents: XCTestCase {
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, emitterConfiguration])
 
         // Track event
-        _ = trackerController?.track(deepLink)
-        let screenViewId = trackerController?.track(screenView)
+        _ = trackerController.track(deepLink)
+        let screenViewId = trackerController.track(screenView)
         for _ in 0..<2 {
             Thread.sleep(forTimeInterval: 1)
         }
