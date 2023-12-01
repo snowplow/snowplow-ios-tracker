@@ -395,7 +395,7 @@ class Tracker: NSObject {
 
     /// Tracks an event despite its specific type.
     /// - Parameter event: The event to track
-    /// - Returns: The event ID or nil in case tracking is paused
+    /// - Returns: The event ID
     func track(_ event: Event, eventId: UUID = UUID()) -> UUID {
         InternalQueue.onQueuePrecondition()
         

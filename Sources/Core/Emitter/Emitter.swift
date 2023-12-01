@@ -22,7 +22,7 @@ class Emitter: EmitterEventProcessing {
     
     private var pausedEmit = false
     
-    /// Custom NetworkConnection istance to handle connection outside the emitter.
+    /// Custom NetworkConnection instance to handle connection outside the emitter.
     private let networkConnection: NetworkConnection
     
     /// Tracker namespace – required by SQLiteEventStore to name the database
