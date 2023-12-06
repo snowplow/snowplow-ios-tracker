@@ -52,6 +52,10 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     /// Whether enable automatic tracking of ScreenView events.
     @objc
     var screenViewAutotracking: Bool { get set }
+    /// Whether enable tracking the screen end event and the screen summary context entity.
+    /// Make sure that you have lifecycle autotracking enabled for screen summary to have complete information.
+    @objc
+    var screenEngagementAutotracking: Bool { get set }
     /// Whether enable automatic tracking of background and foreground transitions.
     @objc
     var lifecycleAutotracking: Bool { get set }
@@ -185,6 +189,15 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         set { _screenViewAutotracking = newValue }
     }
     
+    private var _screenEngagementAutotracking: Bool?
+    /// Whether enable tracking the screen end event and the screen summary context entity.
+    /// Make sure that you have lifecycle autotracking enabled for screen summary to have complete information.
+    @objc
+    public var screenEngagementAutotracking: Bool {
+        get { return _screenEngagementAutotracking ?? sourceConfig?.screenEngagementAutotracking ?? TrackerDefaults.screenEngagementAutotracking }
+        set { _screenEngagementAutotracking = newValue }
+    }
+    
     private var _lifecycleAutotracking: Bool?
     /// Whether enable automatic tracking of background and foreground transitions.
     @objc
@@ -313,6 +326,9 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         if let screenViewAutotracking = dictionary["screenViewAutotracking"] as? Bool {
             self.screenViewAutotracking = screenViewAutotracking
         }
+        if let screenEngagementAutotracking = dictionary["screenEngagementAutotracking"] as? Bool {
+            self.screenEngagementAutotracking = screenEngagementAutotracking
+        }
         if let lifecycleAutotracking = dictionary["lifecycleAutotracking"] as? Bool {
             self.lifecycleAutotracking = lifecycleAutotracking
         }
@@ -423,6 +439,13 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
+    /// Whether enable tracking the screen end event and the screen summary context entity.
+    @objc
+    public func screenEngagementAutotracking(_ screenEngagementAutotracking: Bool) -> Self {
+        self.screenEngagementAutotracking = screenEngagementAutotracking
+        return self
+    }
+    
     /// Whether enable automatic tracking of background and foreground transitions.
     @objc
     public func lifecycleAutotracking(_ lifecycleAutotracking: Bool) -> Self {
@@ -493,6 +516,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         copy.deepLinkContext = deepLinkContext
         copy.screenContext = screenContext
         copy.screenViewAutotracking = screenViewAutotracking
+        copy.screenEngagementAutotracking = screenEngagementAutotracking
         copy.lifecycleAutotracking = lifecycleAutotracking
         copy.installAutotracking = installAutotracking
         copy.exceptionAutotracking = exceptionAutotracking
@@ -522,6 +546,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         coder.encode(deepLinkContext, forKey: "deepLinkContext")
         coder.encode(screenContext, forKey: "screenContext")
         coder.encode(screenViewAutotracking, forKey: "screenViewAutotracking")
+        coder.encode(screenEngagementAutotracking, forKey: "screenEngagementAutotracking")
         coder.encode(lifecycleAutotracking, forKey: "lifecycleAutotracking")
         coder.encode(installAutotracking, forKey: "installAutotracking")
         coder.encode(exceptionAutotracking, forKey: "exceptionAutotracking")
@@ -552,6 +577,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         deepLinkContext = coder.decodeBool(forKey: "deepLinkContext")
         screenContext = coder.decodeBool(forKey: "screenContext")
         screenViewAutotracking = coder.decodeBool(forKey: "screenViewAutotracking")
+        screenEngagementAutotracking = coder.decodeBool(forKey: "screenEngagementAutotracking")
         lifecycleAutotracking = coder.decodeBool(forKey: "lifecycleAutotracking")
         installAutotracking = coder.decodeBool(forKey: "installAutotracking")
         exceptionAutotracking = coder.decodeBool(forKey: "exceptionAutotracking")

@@ -13,18 +13,14 @@
 
 import Foundation
 
-class TimeTraveler {
-    private var date = Date()
+class ScreenEnd: SelfDescribingAbstract {
 
-    func travel(by timeInterval: TimeInterval) {
-        date = date.addingTimeInterval(timeInterval)
+    override var schema: String {
+        return kSPScreenEndSchema
     }
 
-    func generateDate() -> Date {
-        return date
+    override var payload: [String : Any] {
+        return [:]
     }
-    
-    func generateTimeInterval() -> TimeInterval {
-        return date.timeIntervalSince1970
-    }
+
 }
