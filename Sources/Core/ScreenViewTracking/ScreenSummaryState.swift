@@ -23,7 +23,9 @@ class ScreenSummaryState: State {
     var lastItemIndex: Int?
     var itemsCount: Int?
     var maxYOffset: Int?
+    var maxXOffset: Int?
     var contentHeight: Int?
+    var contentWidth: Int?
     
     var data: [String: Any] {
         var data: [String: Any] = [
@@ -33,7 +35,9 @@ class ScreenSummaryState: State {
         if let lastItemIndex = lastItemIndex { data["last_item_index"] = lastItemIndex }
         if let itemsCount = itemsCount { data["items_count"] = itemsCount }
         if let maxYOffset = maxYOffset { data["max_y_offset"] = maxYOffset }
+        if let maxXOffset = maxXOffset { data["max_x_offset"] = maxXOffset }
         if let contentHeight = contentHeight { data["content_height"] = contentHeight }
+        if let contentWidth = contentWidth { data["content_width"] = contentWidth }
         return data
     }
     
@@ -66,8 +70,10 @@ class ScreenSummaryState: State {
     }
     
     func updateWithScrollChanged(_ event: ScrollChanged) {
-        maxYOffset = max(event.yOffset, maxYOffset ?? 0)
-        contentHeight = max(event.contentHeight, contentHeight ?? 0)
+        if let yOffset = event.yOffset { maxYOffset = max(yOffset, maxYOffset ?? 0) }
+        if let xOffset = event.xOffset { maxXOffset = max(xOffset, maxXOffset ?? 0) }
+        if let height = event.contentHeight { contentHeight = max(height, contentHeight ?? 0) }
+        if let width = event.contentWidth { contentWidth = max(width, contentWidth ?? 0) }
     }
 
 }

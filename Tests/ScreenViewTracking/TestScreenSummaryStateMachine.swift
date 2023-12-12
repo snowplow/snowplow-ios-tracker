@@ -109,7 +109,9 @@ class TestScreenSummaryStateMachine: XCTestCase {
             if event.schema == kSPScreenEndSchema {
                 let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
                 XCTAssertEqual((entity?.data as? [String: Any])?["max_y_offset"] as? Int, 30)
+                XCTAssertEqual((entity?.data as? [String: Any])?["max_x_offset"] as? Int, 15)
                 XCTAssertEqual((entity?.data as? [String: Any])?["content_height"] as? Int, 100)
+                XCTAssertEqual((entity?.data as? [String: Any])?["content_width"] as? Int, 200)
                 expectScreenEnd.fulfill()
             }
         }
@@ -118,7 +120,7 @@ class TestScreenSummaryStateMachine: XCTestCase {
         
         _ = tracker.track(ScreenView(name: "Screen 1"))
         _ = tracker.track(ScrollChanged(yOffset: 10, contentHeight: 100))
-        _ = tracker.track(ScrollChanged(yOffset: 30, contentHeight: 100))
+        _ = tracker.track(ScrollChanged(xOffset: 15, yOffset: 30, contentWidth: 200, contentHeight: 100))
         _ = tracker.track(ScrollChanged(yOffset: 20, contentHeight: 100))
         _ = tracker.track(ScreenView(name: "Screen 2"))
         

@@ -20,18 +20,50 @@ import Foundation
 @objc(SPScrollChanged)
 public class ScrollChanged: SelfDescribingAbstract {
     /// Vertical scroll offset in pixels
-    @objc
-    public var yOffset: Int
+    public var yOffset: Int?
+    /// Horizontal scroll offset in pixels
+    public var xOffset: Int?
     /// The height of the scroll view content in pixels
-    public var contentHeight: Int
+    public var contentHeight: Int?
+    /// The width of the scroll view content in pixels
+    public var contentWidth: Int?
 
     /// - Parameters:
     ///   - yOffset: Vertical scroll offset in pixels
     ///   - contentHeight: The height of the scroll view content in pixels
-    @objc
-    public init(yOffset: Int, contentHeight: Int) {
+    public init(xOffset: Int? = nil, yOffset: Int? = nil, contentWidth: Int? = nil, contentHeight: Int? = nil) {
         self.yOffset = yOffset
+        self.xOffset = xOffset
         self.contentHeight = contentHeight
+        self.contentWidth = contentWidth
+    }
+    
+    /// Vertical scroll offset in pixels
+    @objc
+    public func yOffset(_ yOffset: Int) -> Self {
+        self.yOffset = yOffset
+        return self
+    }
+    
+    /// Horizontal scroll offset in pixels
+    @objc
+    public func xOffset(_ xOffset: Int) -> Self {
+        self.xOffset = xOffset
+        return self
+    }
+    
+    /// The height of the scroll view content in pixels
+    @objc
+    public func contentHeight(_ contentHeight: Int) -> Self {
+        self.contentHeight = contentHeight
+        return self
+    }
+    
+    /// The width of the scroll view content in pixels
+    @objc
+    public func contentWidth(_ contentWidth: Int) -> Self {
+        self.contentWidth = contentWidth
+        return self
     }
     
     override var schema: String {
@@ -39,9 +71,11 @@ public class ScrollChanged: SelfDescribingAbstract {
     }
 
     override var payload: [String : Any] {
-        return [
-            "y_offset": yOffset,
-            "content_height": contentHeight
-        ]
+        var data: [String: Any] = [:]
+        if let xOffset = xOffset { data["x_offset"] = xOffset }
+        if let yOffset = yOffset { data["y_offset"] = yOffset }
+        if let contentWidth = contentWidth { data["content_width"] = contentWidth }
+        if let contentHeight = contentHeight { data["content_height"] = contentHeight }
+        return data
     }
 }
