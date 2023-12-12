@@ -101,6 +101,29 @@ class TestScreenSummaryStateMachine: XCTestCase {
         
         wait(for: [expectScreenEnd], timeout: 10)
     }
+    
+    func testUpdatesScrollMetrics() {
+        let expectScreenEnd = expectation(description: "Screen end event")
+        
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["max_y_offset"] as? Int, 30)
+                XCTAssertEqual((entity?.data as? [String: Any])?["content_height"] as? Int, 100)
+                expectScreenEnd.fulfill()
+            }
+        }
+        
+        let tracker = createTracker([eventSink])
+        
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        _ = tracker.track(ScrollChanged(yOffset: 10, contentHeight: 100))
+        _ = tracker.track(ScrollChanged(yOffset: 30, contentHeight: 100))
+        _ = tracker.track(ScrollChanged(yOffset: 20, contentHeight: 100))
+        _ = tracker.track(ScreenView(name: "Screen 2"))
+        
+        wait(for: [expectScreenEnd], timeout: 10)
+    }
 
     private func createTracker(_ configurations: [ConfigurationProtocol]) -> TrackerController {
         let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))

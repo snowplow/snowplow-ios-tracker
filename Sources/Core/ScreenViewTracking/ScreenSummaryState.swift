@@ -22,14 +22,18 @@ class ScreenSummaryState: State {
     var backgroundSeconds: TimeInterval = 0
     var lastItemIndex: Int?
     var itemsCount: Int?
+    var maxYOffset: Int?
+    var contentHeight: Int?
     
     var data: [String: Any] {
         var data: [String: Any] = [
-            "foreground_sec": foregroundSeconds,
-            "background_sec": backgroundSeconds
+            "foreground_sec": round(foregroundSeconds * 100) / 100,
+            "background_sec": round(backgroundSeconds * 100) / 100
         ]
         if let lastItemIndex = lastItemIndex { data["last_item_index"] = lastItemIndex }
         if let itemsCount = itemsCount { data["items_count"] = itemsCount }
+        if let maxYOffset = maxYOffset { data["max_y_offset"] = maxYOffset }
+        if let contentHeight = contentHeight { data["content_height"] = contentHeight }
         return data
     }
     
@@ -59,6 +63,11 @@ class ScreenSummaryState: State {
         if let totalItems = event.itemsCount {
             self.itemsCount = max(totalItems, self.itemsCount ?? 0)
         }
+    }
+    
+    func updateWithScrollChanged(_ event: ScrollChanged) {
+        maxYOffset = max(event.yOffset, maxYOffset ?? 0)
+        contentHeight = max(event.contentHeight, contentHeight ?? 0)
     }
 
 }

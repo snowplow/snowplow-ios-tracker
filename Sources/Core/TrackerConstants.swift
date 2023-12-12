@@ -73,6 +73,7 @@ let ecommercePageSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/page/js
 let kSPScreenEndSchema = "iglu:com.snowplowanalytics.mobile/screen_end/jsonschema/1-0-0"
 let kSPScreenSummarySchema = "iglu:com.snowplowanalytics.mobile/screen_summary/jsonschema/1-0-0"
 let kSPListItemViewSchema = "iglu:com.snowplowanalytics.mobile/list_item_view/jsonschema/1-0-0"
+let kSPScrollChangedSchema = "iglu:com.snowplowanalytics.mobile/scroll_changed/jsonschema/1-0-0"
 
 // --- Event Keys
 let kSPEventPageView = "pv"

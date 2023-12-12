@@ -25,11 +25,16 @@ public class ListItemView: SelfDescribingAbstract {
     /// Total number of items in the list
     public var itemsCount: Int?
 
+    /// - Parameters:
+    ///   - index: Index of the item in the list
     @objc
     public init(index: Int) {
         self.index = index
     }
     
+    /// - Parameters:
+    ///   - index: Index of the item in the list
+    ///   - totalItems: Total number of items in the list
     @objc
     public init(index: Int, totalItems: Int) {
         self.index = index

@@ -22,7 +22,7 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
     }
 
     var subscribedEventSchemasForTransitions: [String] {
-        return [kSPScreenViewSchema, kSPScreenEndSchema, kSPForegroundSchema, kSPBackgroundSchema, kSPListItemViewSchema]
+        return [kSPScreenViewSchema, kSPScreenEndSchema, kSPForegroundSchema, kSPBackgroundSchema, kSPListItemViewSchema, kSPScrollChangedSchema]
     }
 
     var subscribedEventSchemasForEntitiesGeneration: [String] {
@@ -38,7 +38,7 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
     }
     
     var subscribedEventSchemasForFiltering: [String] {
-        return [kSPListItemViewSchema, kSPScreenEndSchema]
+        return [kSPListItemViewSchema, kSPScrollChangedSchema, kSPScreenEndSchema]
     }
     
     func eventsBefore(event: Event) -> [Event]? {
@@ -59,6 +59,8 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
                 state.updateForScreenEnd()
             case let itemView as ListItemView:
                 state.updateWithListItemView(itemView)
+            case let scrollChanged as ScrollChanged:
+                state.updateWithScrollChanged(scrollChanged)
             default:
                 break
             }
@@ -82,7 +84,7 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
         if event.schema == kSPScreenEndSchema {
             return state != nil
         }
-        // do not track list item view events
+        // do not track list item view or scroll changed events
         return false
     }
 
