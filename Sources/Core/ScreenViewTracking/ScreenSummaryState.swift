@@ -22,7 +22,9 @@ class ScreenSummaryState: State {
     var backgroundSeconds: TimeInterval = 0
     var lastItemIndex: Int?
     var itemsCount: Int?
+    var minYOffset: Int?
     var maxYOffset: Int?
+    var minXOffset: Int?
     var maxXOffset: Int?
     var contentHeight: Int?
     var contentWidth: Int?
@@ -34,8 +36,10 @@ class ScreenSummaryState: State {
         ]
         if let lastItemIndex = lastItemIndex { data["last_item_index"] = lastItemIndex }
         if let itemsCount = itemsCount { data["items_count"] = itemsCount }
-        if let maxYOffset = maxYOffset { data["max_y_offset"] = maxYOffset }
+        if let minXOffset = minXOffset { data["min_x_offset"] = minXOffset }
         if let maxXOffset = maxXOffset { data["max_x_offset"] = maxXOffset }
+        if let minYOffset = minYOffset { data["min_y_offset"] = minYOffset }
+        if let maxYOffset = maxYOffset { data["max_y_offset"] = maxYOffset }
         if let contentHeight = contentHeight { data["content_height"] = contentHeight }
         if let contentWidth = contentWidth { data["content_width"] = contentWidth }
         return data
@@ -70,8 +74,20 @@ class ScreenSummaryState: State {
     }
     
     func updateWithScrollChanged(_ event: ScrollChanged) {
-        if let yOffset = event.yOffset { maxYOffset = max(yOffset, maxYOffset ?? 0) }
-        if let xOffset = event.xOffset { maxXOffset = max(xOffset, maxXOffset ?? 0) }
+        if let yOffset = event.yOffset {
+            var maxYOffset = yOffset
+            if let viewHeight = event.viewHeight { maxYOffset += viewHeight }
+            
+            minYOffset = min(yOffset, minYOffset ?? yOffset)
+            self.maxYOffset = max(maxYOffset, self.maxYOffset ?? maxYOffset)
+        }
+        if let xOffset = event.xOffset {
+            var maxXOffset = xOffset
+            if let viewWidth = event.viewWidth { maxXOffset += viewWidth }
+            
+            minXOffset = min(xOffset, minXOffset ?? xOffset)
+            self.maxXOffset = max(maxXOffset, self.maxXOffset ?? maxXOffset)
+        }
         if let height = event.contentHeight { contentHeight = max(height, contentHeight ?? 0) }
         if let width = event.contentWidth { contentWidth = max(width, contentWidth ?? 0) }
     }

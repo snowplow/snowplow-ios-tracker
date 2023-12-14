@@ -108,8 +108,10 @@ class TestScreenSummaryStateMachine: XCTestCase {
         let eventSink = EventSink { event in
             if event.schema == kSPScreenEndSchema {
                 let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
-                XCTAssertEqual((entity?.data as? [String: Any])?["max_y_offset"] as? Int, 30)
-                XCTAssertEqual((entity?.data as? [String: Any])?["max_x_offset"] as? Int, 15)
+                XCTAssertEqual((entity?.data as? [String: Any])?["min_y_offset"] as? Int, 10)
+                XCTAssertEqual((entity?.data as? [String: Any])?["min_x_offset"] as? Int, 15)
+                XCTAssertEqual((entity?.data as? [String: Any])?["max_y_offset"] as? Int, 50)
+                XCTAssertEqual((entity?.data as? [String: Any])?["max_x_offset"] as? Int, 30)
                 XCTAssertEqual((entity?.data as? [String: Any])?["content_height"] as? Int, 100)
                 XCTAssertEqual((entity?.data as? [String: Any])?["content_width"] as? Int, 200)
                 expectScreenEnd.fulfill()
@@ -119,9 +121,9 @@ class TestScreenSummaryStateMachine: XCTestCase {
         let tracker = createTracker([eventSink])
         
         _ = tracker.track(ScreenView(name: "Screen 1"))
-        _ = tracker.track(ScrollChanged(yOffset: 10, contentHeight: 100))
-        _ = tracker.track(ScrollChanged(xOffset: 15, yOffset: 30, contentWidth: 200, contentHeight: 100))
-        _ = tracker.track(ScrollChanged(yOffset: 20, contentHeight: 100))
+        _ = tracker.track(ScrollChanged(yOffset: 10, viewHeight: 20, contentHeight: 100))
+        _ = tracker.track(ScrollChanged(xOffset: 15, yOffset: 30, viewWidth: 15, viewHeight: 20, contentWidth: 200, contentHeight: 100))
+        _ = tracker.track(ScrollChanged(yOffset: 20, viewHeight: 20, contentHeight: 100))
         _ = tracker.track(ScreenView(name: "Screen 2"))
         
         wait(for: [expectScreenEnd], timeout: 10)

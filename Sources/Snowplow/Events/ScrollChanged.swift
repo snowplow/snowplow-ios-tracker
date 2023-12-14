@@ -23,17 +23,34 @@ public class ScrollChanged: SelfDescribingAbstract {
     public var yOffset: Int?
     /// Horizontal scroll offset in pixels
     public var xOffset: Int?
-    /// The height of the scroll view content in pixels
+    /// The height of the scroll view in pixels
+    public var viewHeight: Int?
+    /// The width of the scroll view in pixels
+    public var viewWidth: Int?
+    /// The height of the content in the scroll view in pixels
     public var contentHeight: Int?
-    /// The width of the scroll view content in pixels
+    /// The width of the content in the scroll view in pixels
     public var contentWidth: Int?
 
     /// - Parameters:
+    ///   - xOffset: Horizontal scroll offset in pixels
     ///   - yOffset: Vertical scroll offset in pixels
-    ///   - contentHeight: The height of the scroll view content in pixels
-    public init(xOffset: Int? = nil, yOffset: Int? = nil, contentWidth: Int? = nil, contentHeight: Int? = nil) {
+    ///   - viewWidth: The width of the scroll view in pixels
+    ///   - viewHeight: The height of the scroll view in pixels
+    ///   - contentWidth: The width of the content in the scroll view in pixels
+    ///   - contentHeight: The height of the content in the scroll view in pixels
+    public init(
+        xOffset: Int? = nil,
+        yOffset: Int? = nil,
+        viewWidth: Int? = nil,
+        viewHeight: Int? = nil,
+        contentWidth: Int? = nil,
+        contentHeight: Int? = nil
+    ) {
         self.yOffset = yOffset
         self.xOffset = xOffset
+        self.viewHeight = viewHeight
+        self.viewWidth = viewWidth
         self.contentHeight = contentHeight
         self.contentWidth = contentWidth
     }
@@ -49,6 +66,20 @@ public class ScrollChanged: SelfDescribingAbstract {
     @objc
     public func xOffset(_ xOffset: Int) -> Self {
         self.xOffset = xOffset
+        return self
+    }
+    
+    /// The height of the scroll view in pixels
+    @objc
+    public func viewHeight(_ viewHeight: Int) -> Self {
+        self.viewHeight = viewHeight
+        return self
+    }
+    
+    /// The width of the scroll view in pixels
+    @objc
+    public func viewWidth(_ viewWidth: Int) -> Self {
+        self.viewWidth = viewWidth
         return self
     }
     
@@ -74,6 +105,8 @@ public class ScrollChanged: SelfDescribingAbstract {
         var data: [String: Any] = [:]
         if let xOffset = xOffset { data["x_offset"] = xOffset }
         if let yOffset = yOffset { data["y_offset"] = yOffset }
+        if let viewWidth = viewWidth { data["view_width"] = viewWidth }
+        if let viewHeight = viewHeight { data["view_height"] = viewHeight }
         if let contentWidth = contentWidth { data["content_width"] = contentWidth }
         if let contentHeight = contentHeight { data["content_height"] = contentHeight }
         return data
