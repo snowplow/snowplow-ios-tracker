@@ -18,36 +18,61 @@ import Foundation
  Entity schema: `iglu:com.apple.swiftui/window/jsonschema/1-0-0`
  */
 @objc(SPWindowEntity)
-public class WindowEntity: NSObject {
+public class WindowEntity: SelfDescribingJson {
     
     /// A unique string identifier that you can use to open the window.
-    public var id: UUID?
-    /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
-    public var titleKey: String?
-    /// A specification for the appearance and interaction of a window.
-    public var windowStyle: WindowStyle
+    @objc
+    public var id: String?
     
-    internal var entity: SelfDescribingJson {
-        var data: [String : Any] = [
-            "window_style": windowStyle.value
-        ]
-        if let id = id { data["id"] = id.uuidString }
-        if let titleKey = titleKey { data["title_key"] = titleKey }
-
-        return SelfDescribingJson(schema: visionOsWindow, andData: data)
+    /// A string to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
+    @objc
+    public var title: String?
+    
+    /// A specification for the appearance and interaction of a window.
+    public var windowStyle: WindowStyle?
+    
+    @objc
+    override public var data: [String : Any] {
+        get {
+            var data: [String : Any] = [:]
+            if let id = id { data["id"] = id }
+            if let title = title { data["title"] = title }
+            if let style = windowStyle { data["window_style"] = style.value }
+            return data
+        }
+        set {}
     }
     
-    /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     /// - Parameter id: A unique string identifier that you can use to open the window.
-    /// - Parameter titleKey: A localized string key to use for the window's title in system menus and in the window's title bar.
-    @objc
+    /// - Parameter title: A string to use for the window's title in system menus and in the window's title bar.
+    /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     public init(
-        windowStyle: WindowStyle,
-        id: UUID? = nil,
-        titleKey: String? = nil
+        id: String? = nil,
+        title: String? = nil,
+        windowStyle: WindowStyle? = nil
     ) {
         self.id = id
-        self.titleKey = titleKey
+        self.title = title
         self.windowStyle = windowStyle
+        super.init(schema: visionOsWindow, andData: [:])
+    }
+    
+    /// - Parameter id: A unique string identifier that you can use to open the window.
+    /// - Parameter title: A string to use for the window's title in system menus and in the window's title bar.
+    @objc
+    public init(
+        id: String? = nil,
+        title: String? = nil
+    ) {
+        self.id = id
+        self.title = title
+        super.init(schema: visionOsWindow, andData: [:])
+    }
+    
+    /// A specification for the appearance and interaction of a window.
+    @objc
+    public func windowStyle(_ windowStyle: WindowStyle) -> Self {
+        self.windowStyle = windowStyle
+        return self
     }
 }
