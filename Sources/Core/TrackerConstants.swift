@@ -81,11 +81,7 @@ let visionOsDismissWindow = "iglu:com.apple.swiftui/dismiss_window/jsonschema/1-
 let visionOsOpenSpace = "iglu:com.apple.swiftui/open_immersive_space/jsonschema/1-0-0"
 let visionOsDismissSpace = "iglu:com.apple.swiftui/dismiss_immersive_space/jsonschema/1-0-0"
 let visionOsWindowGroup = "iglu:com.apple.swiftui/window_group/jsonschema/1-0-0"
-let visionOsWindow = "iglu:com.apple.swiftui/window/jsonschema/1-0-0"
 let visionOsImmersiveSpace = "iglu:com.apple.swiftui/immersive_space/jsonschema/1-0-0"
-let visionOsRealityKitEntity = "iglu:com.apple.realitykit/entity/jsonschema/1-0-0"
-let visionOsComponent = "iglu:com.apple.realitykit/component/jsonschema/1-0-0"
-let visionOsTrackableAnchor = "iglu:com.apple.arkit/trackable_anchor/jsonschema/1-0-0"
 
 // --- Event Keys
 let kSPEventPageView = "pv"

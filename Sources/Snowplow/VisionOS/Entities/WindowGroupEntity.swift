@@ -13,6 +13,38 @@
 
 import Foundation
 
+/// A specification for the appearance and interaction of a window.
+@objc(SPWindowStyle)
+public enum WindowStyle: Int {
+    /// Default window style.
+    case automatic
+    /// Hides both the window’s title and the backing of the titlebar area.
+    case hiddenTitleBar
+    /// Plain window style.
+    case plain
+    /// Displays the title bar section of the window.
+    case titleBar
+    /// Creates a 3D volumetric window.
+    case volumetric
+}
+
+extension WindowStyle {
+    var value: String {
+        switch self {
+        case .automatic:
+            return "automatic"
+        case .hiddenTitleBar:
+            return "hiddenTitleBar"
+        case .plain:
+            return "plain"
+        case .titleBar:
+            return "titleBar"
+        case .volumetric:
+            return "volumetric"
+        }
+    }
+}
+
 /**
  Properties for the VisionOS window group entity.
  Entity schema: `iglu:com.apple.swiftui/window_group/jsonschema/1-0-0`
