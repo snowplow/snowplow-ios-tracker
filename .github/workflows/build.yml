@@ -110,8 +110,22 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 15.5, iphone: iPhone 12 Pro, watchos: 8.5, watch: Apple Watch Series 5 - 44mm, macos: '12', xcode: 13.4}
-          - {ios: 14.4, iphone: iPhone 8, watchos: 7.2, watch: Apple Watch Series 4 - 40mm, macos: '11', xcode: 12.4}
+          - {
+              ios: 15.5,
+              iphone: iPhone 12 Pro,
+              watchos: 8.5,
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "12",
+              xcode: 13.4,
+            }
+          - {
+              ios: 14.4,
+              iphone: iPhone 8,
+              watchos: 7.2,
+              watch: Apple Watch Series 4 - 40mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -141,7 +155,14 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.4', iphone: iPhone 12 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
+          - {
+              ios: "14.4",
+              iphone: iPhone 12 Pro,
+              watchos: "7.2",
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -171,7 +192,14 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.4', iphone: iPhone 11 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
+          - {
+              ios: "14.4",
+              iphone: iPhone 11 Pro,
+              watchos: "7.2",
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -217,7 +245,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 15.5, iphone: iPhone 12 Pro, macos: '12', xcode: 13.4}
+          - { ios: 15.5, iphone: iPhone 12 Pro, macos: "12", xcode: 13.4 }
 
     steps:
       - name: Checkout
