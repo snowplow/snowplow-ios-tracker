@@ -5,11 +5,14 @@ on: [push]
 jobs:
   podspec:
     name: Lint Podspec for ${{ matrix.platform }}
-    runs-on: macos-11
+    runs-on: macos-latest
     strategy:
       matrix:
         platform: [ios, ios, osx, tvos, watchos]
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - uses: actions/checkout@v3
       - name: Lint Podspec
         run: pod lib lint --platforms=${{ matrix.platform }}
