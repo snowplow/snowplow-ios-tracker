@@ -21,35 +21,39 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: "Integration (iOS 15.2, Xcode 13.2.1)"
+          - name: "Integration (iOS 15.5, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: iphonesimulator15.2
-            destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13"
+            xcode-version: 13.4
+            sdk: iphonesimulator15.5
+            destination: "platform=iOS Simulator,OS=15.5,name=iPhone 13"
             target: IntegrationTests
-          - name: "Unit (iOS 15.2, Xcode 13.2.1)"
+
+          - name: "Unit (iOS 15.5, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: iphonesimulator15.2
-            destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13"
+            xcode-version: 13.4
+            sdk: iphonesimulator15.5
+            destination: "platform=iOS Simulator,OS=15.5,name=iPhone 13"
             target: Tests
-          - name: "Unit (macOS 12.1, Xcode 13.2.1)"
+
+          - name: "Unit (macOS 12.1, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
+            xcode-version: 13.4
             sdk: macosx12.1
             destination: "platform=OS X"
             target: Tests
-          - name: "Unit (watchOS 8.3, Xcode 13.2.1)"
+
+          - name: "Unit (watchOS 8.5, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: watchos8.3
-            destination: "platform=watchOS Simulator,OS=8.3,name=Apple Watch Series 7 - 45mm"
+            xcode-version: 13.4
+            sdk: watchos8.5
+            destination: "platform=watchOS Simulator,OS=8.5,name=Apple Watch Series 7 - 45mm"
             target: Tests
-          - name: "Unit (tvOS 15.2, Xcode 13.2.1)"
+
+          - name: "Unit (tvOS 15.5, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
+            xcode-version: 13.4
             sdk: appletvsimulator15.2
-            destination: "platform=tvOS Simulator,OS=15.2,name=Apple TV"
+            destination: "platform=tvOS Simulator,OS=15.5,name=Apple TV"
             target: Tests
     steps:
       - name: Checkout
