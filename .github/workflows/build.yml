@@ -5,7 +5,7 @@ on: [push]
 jobs:
   podspec:
     name: Lint Podspec for ${{ matrix.platform }}
-    runs-on: macos-latest
+    runs-on: macos-13
     strategy:
       matrix:
         platform: [ios, ios, osx, tvos, watchos]
@@ -53,6 +53,7 @@ jobs:
             xcode-version: 13.4
             destination: "platform=tvOS Simulator,name=Apple TV"
             target: Tests
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
