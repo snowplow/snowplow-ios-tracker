@@ -68,7 +68,23 @@ class RemoteConfigurationCache: NSObject {
                   let data = try? Data(contentsOf: cacheFileUrl) else { return }
             if #available(iOS 12, tvOS 12, watchOS 5, macOS 10.14, *) {
                 do {
-                    configuration = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? RemoteConfigurationBundle
+                    configuration = try NSKeyedUnarchiver.unarchivedObject(
+                        ofClasses: [
+                            ConfigurationBundle.self,
+                            RemoteConfigurationBundle.self,
+                            NetworkConfiguration.self,
+                            TrackerConfiguration.self,
+                            SubjectConfiguration.self,
+                            SessionConfiguration.self,
+                            EmitterConfiguration.self,
+                            SPSize.self,
+                            NSString.self,
+                            NSArray.self,
+                            NSDictionary.self,
+                            NSNumber.self
+                        ],
+                        from: data
+                    ) as? RemoteConfigurationBundle
                 } catch let error {
                     logError(message: String(format: "Exception on getting configuration from cache: %@", error.localizedDescription))
                     configuration = nil
