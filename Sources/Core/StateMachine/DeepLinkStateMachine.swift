@@ -29,6 +29,10 @@ class DeepLinkStateMachine: StateMachineProtocol {
     static var identifier: String { return "DeepLinkContext" }
     var identifier: String { return DeepLinkStateMachine.identifier }
 
+    var subscribedEventSchemasForEventsBefore: [String] {
+        return []
+    }
+    
     var subscribedEventSchemasForTransitions: [String] {
         return [DeepLinkReceived.schema, kSPScreenViewSchema]
     }
@@ -49,6 +53,10 @@ class DeepLinkStateMachine: StateMachineProtocol {
         return []
     }
 
+    func eventsBefore(event: Event) -> [Event]? {
+        return nil
+    }
+    
     func transition(from event: Event, state: State?) -> State? {
         if let dlEvent = event as? DeepLinkReceived {
             return DeepLinkState(url: dlEvent.url, referrer: dlEvent.referrer)

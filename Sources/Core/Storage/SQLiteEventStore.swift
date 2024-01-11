@@ -36,10 +36,10 @@ class SQLiteEventStore: NSObject, EventStore {
 
     // MARK: SPEventStore implementation methods
 
-    func addEvent(_ payload: Payload) {
+    func addEvent(_ data: Payload) {
         InternalQueue.onQueuePrecondition()
         
-        self.database.insertRow(payload.dictionary)
+        self.database.insertRow(data.dictionary)
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {

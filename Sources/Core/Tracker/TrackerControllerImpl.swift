@@ -241,6 +241,14 @@ class TrackerControllerImpl: Controller, TrackerController {
             tracker.autotrackScreenViews = newValue
         }
     }
+    
+    var screenEngagementAutotracking: Bool {
+        get { return tracker.screenEngagementAutotracking }
+        set {
+            dirtyConfig.screenEngagementAutotracking = newValue
+            tracker.screenEngagementAutotracking = newValue
+        }
+    }
 
     var trackerVersionSuffix: String? {
         get {

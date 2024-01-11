@@ -196,6 +196,11 @@ class TrackerControllerIQWrapper: TrackerController {
         get { return InternalQueue.sync { controller.screenViewAutotracking } }
         set { InternalQueue.sync { controller.screenViewAutotracking = newValue } }
     }
+    
+    var screenEngagementAutotracking: Bool {
+        get { return InternalQueue.sync { controller.screenEngagementAutotracking } }
+        set { InternalQueue.sync { controller.screenEngagementAutotracking = newValue } }
+    }
 
     var trackerVersionSuffix: String? {
         get { return InternalQueue.sync { controller.trackerVersionSuffix } }

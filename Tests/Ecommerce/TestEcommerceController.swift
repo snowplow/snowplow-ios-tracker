@@ -102,6 +102,7 @@ class TestEcommerceController: XCTestCase {
         let trackerConfig = TrackerConfiguration()
         trackerConfig.installAutotracking = false
         trackerConfig.lifecycleAutotracking = false
+        trackerConfig.screenEngagementAutotracking = false
         
         let namespace = "testEcommerce" + String(describing: Int.random(in: 0..<100))
         eventSink = EventSink()
