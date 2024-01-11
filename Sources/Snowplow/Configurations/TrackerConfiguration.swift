@@ -52,7 +52,7 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     /// Whether enable automatic tracking of ScreenView events.
     @objc
     var screenViewAutotracking: Bool { get set }
-    /// Whether enable tracking the screen end event and the screen summary context entity.
+    /// Whether to enable tracking the screen end event and the screen summary context entity.
     /// Make sure that you have lifecycle autotracking enabled for screen summary to have complete information.
     @objc
     var screenEngagementAutotracking: Bool { get set }
