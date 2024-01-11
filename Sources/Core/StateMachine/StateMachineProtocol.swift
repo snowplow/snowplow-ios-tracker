@@ -15,11 +15,15 @@ import Foundation
 
 protocol StateMachineProtocol {
     var identifier: String { get }
+    var subscribedEventSchemasForEventsBefore: [String] { get }
     var subscribedEventSchemasForTransitions: [String] { get }
     var subscribedEventSchemasForEntitiesGeneration: [String] { get }
     var subscribedEventSchemasForPayloadUpdating: [String] { get }
     var subscribedEventSchemasForAfterTrackCallback: [String] { get }
     var subscribedEventSchemasForFiltering: [String] { get }
+    
+    /// Only available for self-describing events (inheriting from SelfDescribingAbstract)
+    func eventsBefore(event: Event) -> [Event]?
     
     /// Only available for self-describing events (inheriting from SelfDescribingAbstract)
     func transition(from event: Event, state: State?) -> State?

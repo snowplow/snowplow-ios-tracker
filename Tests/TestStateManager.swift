@@ -35,6 +35,14 @@ class MockStateMachine: StateMachineProtocol {
         self.identifier = identifier
     }
     
+    var subscribedEventSchemasForEventsBefore: [String] {
+        return []
+    }
+    
+    func eventsBefore(event: SnowplowTracker.Event) -> [SnowplowTracker.Event]? {
+        return nil
+    }
+    
     var subscribedEventSchemasForTransitions: [String] {
         return ["inc", "dec"]
     }

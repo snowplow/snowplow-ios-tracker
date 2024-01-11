@@ -35,6 +35,14 @@ class PluginStateMachine: StateMachineProtocol {
         self.filterConfiguration = filterConfiguration
     }
 
+    var subscribedEventSchemasForEventsBefore: [String] {
+        return []
+    }
+    
+    func eventsBefore(event: Event) -> [Event]? {
+        return nil
+    }
+    
     var subscribedEventSchemasForTransitions: [String] {
         return []
     }

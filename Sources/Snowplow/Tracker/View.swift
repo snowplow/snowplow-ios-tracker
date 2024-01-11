@@ -29,6 +29,16 @@ public extension View {
                                            entities: entities,
                                            trackerNamespace: trackerNamespace))
     }
+    
+    /// Sets up tracking of list item views that will be aggregated into the `screen_summary` entity if screen engagement tracking is enabled.
+    /// - Parameter index: Index of the item in the list
+    /// - Parameter itemsCount: Total number of items in the list
+    /// - Returns: View with the attached modifier to track list item views
+    func snowplowListItem(index: Int, itemsCount: Int?, trackerNamespace: String? = nil) -> some View {
+        return modifier(ListItemViewModifier(index: index,
+                                             itemsCount: itemsCount,
+                                             trackerNamespace: trackerNamespace))
+    }
 }
 
 #endif

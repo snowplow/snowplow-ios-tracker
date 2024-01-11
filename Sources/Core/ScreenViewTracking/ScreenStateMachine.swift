@@ -17,6 +17,10 @@ class ScreenStateMachine: StateMachineProtocol {
     static var identifier: String { return "ScreenContext" }
     var identifier: String { return ScreenStateMachine.identifier }
 
+    var subscribedEventSchemasForEventsBefore: [String] {
+        return []
+    }
+    
     var subscribedEventSchemasForTransitions: [String] {
         return [kSPScreenViewSchema]
     }
@@ -37,6 +41,10 @@ class ScreenStateMachine: StateMachineProtocol {
         return []
     }
 
+    func eventsBefore(event: Event) -> [Event]? {
+        return nil
+    }
+    
     func transition(from event: Event, state currentState: State?) -> State? {
         if let screenView = event as? ScreenView {
             let newState: ScreenState = screenState(from: screenView)

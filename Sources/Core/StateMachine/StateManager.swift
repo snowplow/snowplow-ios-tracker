@@ -20,6 +20,7 @@ class StateManager {
     private var eventSchemaToPayloadUpdater: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToAfterTrackCallback: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToFilter: [String : [StateMachineProtocol]] = [:]
+    private var eventSchemaToEventsBefore: [String : [StateMachineProtocol]] = [:]
     private var trackerState = TrackerState()
 
     func addOrReplaceStateMachine(_ stateMachine: StateMachineProtocol) {
@@ -50,6 +51,10 @@ class StateManager {
             toSchemaRegistry: &eventSchemaToFilter,
             schemas: stateMachine.subscribedEventSchemasForFiltering,
             stateMachine: stateMachine)
+        add(
+            toSchemaRegistry: &eventSchemaToEventsBefore,
+            schemas: stateMachine.subscribedEventSchemasForEventsBefore,
+            stateMachine: stateMachine)
     }
 
     func removeStateMachine(_ stateMachineIdentifier: String) -> Bool {
@@ -77,6 +82,10 @@ class StateManager {
         remove(
             fromSchemaRegistry: &eventSchemaToFilter,
             schemas: stateMachine.subscribedEventSchemasForFiltering,
+            stateMachine: stateMachine)
+        remove(
+            fromSchemaRegistry: &eventSchemaToEventsBefore,
+            schemas: stateMachine.subscribedEventSchemasForEventsBefore,
             stateMachine: stateMachine)
         return true
     }
@@ -123,6 +132,22 @@ class StateManager {
             }
         }
         return true
+    }
+    
+    func eventsBefore(forProcessedEvent event: Event) -> [Event] {
+        var result: [Event] = []
+        guard let sdEvent = event as? SelfDescribingAbstract else { return result }
+        
+        let schema = sdEvent.schema
+        var stateMachines = eventSchemaToEventsBefore[schema] ?? []
+        stateMachines.append(contentsOf: eventSchemaToEventsBefore["*"] ?? [])
+        
+        for stateMachine in stateMachines {
+            if let eventsBefore = stateMachine.eventsBefore(event: event) {
+                result.append(contentsOf: eventsBefore)
+            }
+        }
+        return result
     }
 
     func entities(forProcessedEvent event: InspectableEvent & StateMachineEvent) -> [SelfDescribingJson] {

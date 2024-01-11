@@ -21,6 +21,7 @@ class TestTrackEventsToMicro: XCTestCase {
         super.setUp()
         
         let trackerConfig = TrackerConfiguration()
+            .screenEngagementAutotracking(false)
             .logLevel(.debug)
 
         tracker = Snowplow.createTracker(namespace: "testMicro-" + UUID().uuidString,

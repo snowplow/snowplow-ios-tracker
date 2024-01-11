@@ -156,6 +156,19 @@ class Tracker: NSObject {
         }
     }
     
+    private var _screenEngagementAutotracking = false
+    var screenEngagementAutotracking: Bool {
+        get { return _screenEngagementAutotracking }
+        set {
+            self._screenEngagementAutotracking = newValue
+            if newValue {
+                self.addOrReplace(stateMachine: ScreenSummaryStateMachine())
+            } else {
+                _ = self.stateManager.removeStateMachine(ScreenSummaryStateMachine.identifier)
+            }
+        }
+    }
+    
     var applicationContext = TrackerDefaults.applicationContext
     
     var autotrackScreenViews = TrackerDefaults.autotrackScreenViews
@@ -400,14 +413,23 @@ class Tracker: NSObject {
         InternalQueue.onQueuePrecondition()
         
         if dataCollection {
-            event.beginProcessing(withTracker: self)
-            self.processEvent(event, eventId)
-            event.endProcessing(withTracker: self)
+            let events = withEventsBefore(event: event, eventId: eventId)
+            for (event, eventId) in events {
+                event.beginProcessing(withTracker: self)
+                self.processEvent(event, eventId)
+                event.endProcessing(withTracker: self)
+            }
         }
         return eventId
     }
 
     // MARK: - Event Decoration
+    
+    private func withEventsBefore(event: Event, eventId: UUID) -> [(event: Event, eventId: UUID)] {
+        let eventsBefore = stateManager.eventsBefore(forProcessedEvent: event)
+        
+        return eventsBefore.map { (event: $0, eventId: UUID()) } + [(event: event, eventId: eventId)]
+    }
 
     func processEvent(_ event: Event, _ eventId: UUID) {
         let stateSnapshot = stateManager.trackerState(forProcessedEvent: event)
