@@ -198,7 +198,7 @@ jobs:
               iphone: iPhone 11 Pro,
               watchos: "7.2",
               watch: Apple Watch Series 5 - 44mm,
-              macos: "11",
+              macos: "13",
               xcode: 12.4,
             }
 
