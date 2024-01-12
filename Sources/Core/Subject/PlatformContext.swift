@@ -106,9 +106,6 @@ class PlatformContext {
         if shouldTrack(.carrier) {
             platformDict[kSPMobileCarrier] = deviceInfoMonitor.carrierName
         }
-        if shouldTrack(.totalStorage) {
-            platformDict[kSPMobileTotalStorage] = deviceInfoMonitor.totalStorage
-        }
         if shouldTrack(.physicalMemory) {
             platformDict[kSPMobilePhysicalMemory] = deviceInfoMonitor.physicalMemory
         }
@@ -132,9 +129,6 @@ class PlatformContext {
         }
         if shouldTrack(.lowPowerMode) {
             platformDict[kSPMobileLowPowerMode] = deviceInfoMonitor.isLowPowerModeEnabled
-        }
-        if shouldTrack(.availableStorage) {
-            platformDict[kSPMobileAvailableStorage] = deviceInfoMonitor.availableStorage
         }
         if shouldTrack(.appAvailableMemory) {
             platformDict[kSPMobileAppAvailableMemory] = deviceInfoMonitor.appAvailableMemory

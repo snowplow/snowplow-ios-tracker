@@ -36,10 +36,6 @@ public enum PlatformContextProperty: Int {
     case batteryState
     /// A Boolean indicating whether Low Power Mode is enabled
     case lowPowerMode
-    /// Bytes of storage remaining
-    case availableStorage
-    /// Total size of storage in bytes
-    case totalStorage
     /// A Boolean indicating whether the device orientation is portrait (either upright or upside down)
     case isPortrait
     /// Screen resolution in pixels. Arrives in the form of WIDTHxHEIGHT (e.g., 1200x900). Doesn't change when device orientation changes
