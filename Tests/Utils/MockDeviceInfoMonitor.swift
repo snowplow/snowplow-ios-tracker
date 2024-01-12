@@ -86,16 +86,6 @@ class MockDeviceInfoMonitor: DeviceInfoMonitor {
         increaseMethodAccessCount("appAvailableMemory")
         return 1000
     }
-
-    override var availableStorage: Int64? {
-        increaseMethodAccessCount("availableStorage")
-        return 9000
-    }
-
-    override var totalStorage: Int? {
-        increaseMethodAccessCount("totalStorage")
-        return 900000
-    }
     
     override var isPortrait: Bool? {
         return true

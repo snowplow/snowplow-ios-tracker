@@ -221,36 +221,6 @@ class DeviceInfoMonitor {
 //        #endif
         return nil
     }
-
-    /// Returns number of bytes of storage remaining. The information is requested from the home directory.
-    /// - Returns: Bytes of storage remaining.
-    var availableStorage: Int64? {
-        #if os(iOS)
-        let fileURL = URL(fileURLWithPath: NSHomeDirectory() as String)
-        do {
-            let values = try fileURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
-            return values.volumeAvailableCapacityForImportantUsage
-        } catch {
-            logError(message: "Failed to read available storage size: \(error.localizedDescription)")
-        }
-        #endif
-        return nil
-    }
-
-    /// Returns the total number of bytes of storage. The information is requested from the home directory.
-    /// - Returns: Total size of storage in bytes.
-    var totalStorage: Int? {
-        #if os(iOS)
-        let fileURL = URL(fileURLWithPath: NSHomeDirectory() as String)
-        do {
-            let values = try fileURL.resourceValues(forKeys: [.volumeTotalCapacityKey])
-            return values.volumeTotalCapacity
-        } catch {
-            logError(message: "Failed to read available storage size: \(error.localizedDescription)")
-        }
-        #endif
-        return nil
-    }
     
     /// Whether the device orientation is portrait (either upright or upside down)
     var isPortrait: Bool? {
