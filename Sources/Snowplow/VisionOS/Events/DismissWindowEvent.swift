@@ -18,7 +18,7 @@ import Foundation
 public class DismissWindowEvent: SelfDescribingAbstract {
     
     override var schema: String {
-        return visionOsDismissWindow
+        return swiftuiDismissWindow
     }
     
     override var payload: [String : Any] {
