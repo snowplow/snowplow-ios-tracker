@@ -13,7 +13,7 @@
 
 import Foundation
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 import WebKit
 
 /// Handler for messages from the JavaScript library embedded in Web views.

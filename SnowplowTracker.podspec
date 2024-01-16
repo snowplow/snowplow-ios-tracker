@@ -24,6 +24,11 @@ Pod::Spec.new do |s|
     s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
     s.osx.frameworks = 'AppKit', 'Foundation'
     s.tvos.frameworks = 'UIKit', 'Foundation'
+
+    if s.respond_to?(:visionos)
+      s.visionos.deployment_target = '1.0'
+      s.visionos.frameworks = 'UIKit', 'Foundation'
+    end
   
     s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
   end
