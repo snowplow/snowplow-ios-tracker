@@ -14,7 +14,7 @@
 import XCTest
 @testable import SnowplowTracker
 
-class TestVisionOSSerialisation: XCTestCase {
+class TestVisionOSEntities: XCTestCase {
     let id = UUID()
     
     func testBuildsImmersiveSpaceEntity() {
@@ -26,7 +26,7 @@ class TestVisionOSSerialisation: XCTestCase {
         )
         let entity = space.data
         
-        XCTAssertEqual(swiftuiImmersiveSpace, space.schema)
+        XCTAssertEqual(swiftuiImmersiveSpaceSchema, space.schema)
         XCTAssertEqual(id.uuidString, entity["id"] as? String)
         XCTAssertEqual("space_123", entity["immersive_space_id"] as? String)
         XCTAssertEqual("automatic", entity["immersion_style"] as? String)
@@ -37,12 +37,12 @@ class TestVisionOSSerialisation: XCTestCase {
         let windows = WindowGroupEntity(
             id: id,
             titleKey: "title",
-            windowGroupId: "group_id",
+            stringId: "group_id",
             windowStyle: .plain
         )
         let entity = windows.data
         
-        XCTAssertEqual(swiftuiWindowGroup, windows.schema)
+        XCTAssertEqual(swiftuiWindowGroupSchema, windows.schema)
         XCTAssertEqual(id.uuidString, entity["id"] as? String)
         XCTAssertEqual("title", entity["title_key"] as? String)
         XCTAssertEqual("group_id", entity["window_group_id"] as? String)

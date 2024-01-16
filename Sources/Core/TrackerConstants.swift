@@ -76,12 +76,12 @@ let kSPScreenSummarySchema = "iglu:com.snowplowanalytics.mobile/screen_summary/j
 let kSPListItemViewSchema = "iglu:com.snowplowanalytics.mobile/list_item_view/jsonschema/1-0-0"
 let kSPScrollChangedSchema = "iglu:com.snowplowanalytics.mobile/scroll_changed/jsonschema/1-0-0"
 
-let swiftuiOpenWindow = "iglu:com.apple.swiftui/open_window/jsonschema/1-0-0"
-let swiftuiDismissWindow = "iglu:com.apple.swiftui/dismiss_window/jsonschema/1-0-0"
-let swiftuiOpenImmersiveSpace = "iglu:com.apple.swiftui/open_immersive_space/jsonschema/1-0-0"
-let swiftuiDismissImmersiveSpace = "iglu:com.apple.swiftui/dismiss_immersive_space/jsonschema/1-0-0"
-let swiftuiWindowGroup = "iglu:com.apple.swiftui/window_group/jsonschema/1-0-0"
-let swiftuiImmersiveSpace = "iglu:com.apple.swiftui/immersive_space/jsonschema/1-0-0"
+let swiftuiOpenWindowSchema = "iglu:com.apple.swiftui/open_window/jsonschema/1-0-0"
+let swiftuiDismissWindowSchema = "iglu:com.apple.swiftui/dismiss_window/jsonschema/1-0-0"
+let swiftuiOpenImmersiveSpaceSchema = "iglu:com.apple.swiftui/open_immersive_space/jsonschema/1-0-0"
+let swiftuiDismissImmersiveSpaceSchema = "iglu:com.apple.swiftui/dismiss_immersive_space/jsonschema/1-0-0"
+let swiftuiWindowGroupSchema = "iglu:com.apple.swiftui/window_group/jsonschema/1-0-0"
+let swiftuiImmersiveSpaceSchema = "iglu:com.apple.swiftui/immersive_space/jsonschema/1-0-0"
 
 // --- Event Keys
 let kSPEventPageView = "pv"

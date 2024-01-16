@@ -13,12 +13,12 @@
 
 import Foundation
 
-/** VisionOS event for an immersive space being opened. */
+/** Event for a VisionOS immersive space being opened. */
 @objc(SPOpenImmersiveSpaceEvent)
 public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
     
     override var schema: String {
-        return swiftuiOpenImmersiveSpace
+        return swiftuiOpenImmersiveSpaceSchema
     }
     
     override var payload: [String : Any] {
