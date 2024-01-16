@@ -11,12 +11,10 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-#if os(iOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
-#elseif os(tvOS)
-import UIKit
 #elseif os(watchOS)
 import WatchKit
 #endif
@@ -38,8 +36,11 @@ class Utilities {
     /// Returns the platform type of the device..
     /// - Returns: A string of the platform type.
     class var platform: DevicePlatform {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         return .mobile
+// TODO: use the headset platform by default in visionOS once Enrich 4 is commonly used
+//        #elseif os(visionOS)
+//        return .headset
         #else
         return .desktop
         #endif

@@ -5,7 +5,7 @@ on: [push]
 jobs:
   podspec:
     name: Lint Podspec for ${{ matrix.platform }}
-    runs-on: macos-latest
+    runs-on: macos-13
     strategy:
       matrix:
         platform: [ios, ios, osx, tvos, watchos]
@@ -53,6 +53,7 @@ jobs:
             xcode-version: 13.4
             destination: "platform=tvOS Simulator,name=Apple TV"
             target: Tests
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -110,8 +111,22 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 15.5, iphone: iPhone 12 Pro, watchos: 8.5, watch: Apple Watch Series 5 - 44mm, macos: '12', xcode: 13.4}
-          - {ios: 14.4, iphone: iPhone 8, watchos: 7.2, watch: Apple Watch Series 4 - 40mm, macos: '11', xcode: 12.4}
+          - {
+              ios: 15.5,
+              iphone: iPhone 12 Pro,
+              watchos: 8.5,
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "12",
+              xcode: 13.4,
+            }
+          - {
+              ios: 14.4,
+              iphone: iPhone 8,
+              watchos: 7.2,
+              watch: Apple Watch Series 4 - 40mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -141,7 +156,14 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.4', iphone: iPhone 12 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
+          - {
+              ios: "14.4",
+              iphone: iPhone 12 Pro,
+              watchos: "7.2",
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -171,7 +193,14 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.4', iphone: iPhone 11 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
+          - {
+              ios: "14.4",
+              iphone: iPhone 11 Pro,
+              watchos: "7.2",
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -217,7 +246,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 15.5, iphone: iPhone 12 Pro, macos: '12', xcode: 13.4}
+          - { ios: 15.5, iphone: iPhone 12 Pro, macos: "12", xcode: 13.4 }
 
     steps:
       - name: Checkout

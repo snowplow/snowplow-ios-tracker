@@ -34,7 +34,7 @@ class TestUtils: XCTestCase {
     }
     
     func testGetPlatform() {
-#if os(iOS)
+#if os(iOS) || os(visionOS)
         XCTAssertEqual(Utilities.platform, .mobile)
 #else
         XCTAssertEqual(Utilities.platform, .desktop)
@@ -42,8 +42,10 @@ class TestUtils: XCTestCase {
     }
     
     func testGetResolution() {
+        #if !os(visionOS)
         let actualResolution = Utilities.resolution
         XCTAssertTrue(actualResolution != nil)
+        #endif
     }
     
     func testGetEventId() {

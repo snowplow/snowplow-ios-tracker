@@ -11,7 +11,7 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 import Foundation
 import SystemConfiguration
 
@@ -65,7 +65,7 @@ class SNOWReachability: NSObject {
             return .offline
         }
 
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let isWWAN = (flags.rawValue & SCNetworkReachabilityFlags.isWWAN.rawValue) == SCNetworkReachabilityFlags.isWWAN.rawValue
         if isWWAN {
             return .wwan
