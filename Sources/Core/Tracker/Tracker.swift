@@ -260,7 +260,7 @@ class Tracker: NSObject {
         super.init()
         builder(self)
         
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         platformContextSchema = kSPMobileContextSchema
         #else
         platformContextSchema = kSPDesktopContextSchema

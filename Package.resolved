@@ -1,25 +1,23 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "Mocker",
-        "repositoryURL": "https://github.com/WeTransfer/Mocker.git",
-        "state": {
-          "branch": null,
-          "revision": "5d86f27a8f80d4ba388bc1a379a3c2289a1f3d18",
-          "version": "2.6.0"
-        }
-      },
-      {
-        "package": "SwiftDocCPlugin",
-        "repositoryURL": "https://github.com/apple/swift-docc-plugin",
-        "state": {
-          "branch": null,
-          "revision": "3303b164430d9a7055ba484c8ead67a52f7b74f6",
-          "version": "1.0.0"
-        }
+  "pins" : [
+    {
+      "identity" : "mocker",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/WeTransfer/Mocker.git",
+      "state" : {
+        "revision" : "5d86f27a8f80d4ba388bc1a379a3c2289a1f3d18",
+        "version" : "2.6.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "swift-docc-plugin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-docc-plugin",
+      "state" : {
+        "revision" : "3303b164430d9a7055ba484c8ead67a52f7b74f6",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
 }

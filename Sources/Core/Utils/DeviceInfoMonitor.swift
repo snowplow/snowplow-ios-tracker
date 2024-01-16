@@ -19,7 +19,7 @@ import WatchKit
 #if os(iOS)
 import CoreTelephony
 #endif
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 #endif
 
@@ -28,7 +28,7 @@ class DeviceInfoMonitor {
     /// Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation.
     /// - Returns: A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
     var appleIdfv: String? {
-        #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS) || os(visionOS)
         if let idfv = UIDevice.current.identifierForVendor?.uuidString {
             return idfv
         }
@@ -60,7 +60,7 @@ class DeviceInfoMonitor {
     /// This is to detect what the version of mobile OS of the current device.
     /// - Returns: The current device's OS version type as a string.
     var osVersion: String? {
-        #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS) || os(visionOS)
         return UIDevice.current.systemVersion
         #elseif os(watchOS)
         return WKInterfaceDevice.current().systemVersion
@@ -85,6 +85,8 @@ class DeviceInfoMonitor {
         return "tvos"
         #elseif os(watchOS)
         return "watchos"
+        #elseif os(visionOS)
+        return "visionos"
         #else
         return "osx"
         #endif
@@ -146,7 +148,7 @@ class DeviceInfoMonitor {
     /// Returns the Network Type the device is connected to.
     /// - Returns: A string containing the Network Type.
     var networkType: String? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let networkStatus = SNOWReachability.forInternetConnection()?.networkStatus
         switch networkStatus {
         case .offline:
@@ -165,7 +167,7 @@ class DeviceInfoMonitor {
     /// Returns remaining battery level as an integer percentage of total battery capacity.
     /// - Returns: Battery level.
     var batteryLevel: Int? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let batteryLevel = UIDevice.current.batteryLevel
         if batteryLevel != Float(UIDevice.BatteryState.unknown.rawValue) && batteryLevel >= 0 {
             return Int(batteryLevel * 100)
@@ -177,7 +179,7 @@ class DeviceInfoMonitor {
     /// Returns battery state for the device.
     /// - Returns: One of "charging", "full", "unplugged" or NULL
     var batteryState: String? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         switch UIDevice.current.batteryState {
         case .charging:
             return "charging"
@@ -196,7 +198,7 @@ class DeviceInfoMonitor {
     /// Returns whether low power mode is activated.
     /// - Returns: Boolean indicating the state of low power mode.
     var isLowPowerModeEnabled: Bool? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         return ProcessInfo.processInfo.isLowPowerModeEnabled
         #else
         return nil
