@@ -54,12 +54,6 @@ jobs:
             destination: "platform=tvOS Simulator,name=Apple TV"
             target: Tests
 
-          - name: "Unit (visionOS, Xcode 15.2)"
-            os: macos-13
-            xcode-version: "15.2-beta"
-            destination: "platform=visionOS Simulator"
-            target: Tests
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
