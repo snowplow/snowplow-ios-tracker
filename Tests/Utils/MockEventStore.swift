@@ -69,4 +69,8 @@ class MockEventStore: NSObject, EventStore {
         logVerbose(message: "emittableEventsWithQueryLimit: \(eventIds)")
         return events
     }
+    
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval) {
+        // Not implemented in the mock event store.
+    }
 }

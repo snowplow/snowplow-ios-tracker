@@ -111,6 +111,38 @@ class TestDatabase: XCTestCase {
         XCTAssertEqual(db.countRows(), 0)
     }
     
+    func testRemoveOldEventsByAge() {
+        let db = createDatabase("db")
+        
+        db.insertRow(["test": 1])
+        Thread.sleep(forTimeInterval: 1)
+        db.insertRow(["test": 2])
+        Thread.sleep(forTimeInterval: 1)
+        db.removeOldEvents(maxSize: 5, maxAge: 1)
+        
+        let rows = db.readRows(numRows: 5)
+        XCTAssertEqual(rows.count, 1)
+        XCTAssertEqual(rows.first?.data["test"] as? Int, 2)
+    }
+    
+    func testRemoveOldestEventsByMaxSize() {
+        let db = createDatabase("db")
+        
+        db.insertRow(["test": 1])
+        db.insertRow(["test": 2])
+        db.insertRow(["test": 3])
+        db.insertRow(["test": 4])
+        db.insertRow(["test": 5])
+        db.removeOldEvents(maxSize: 3, maxAge: 5)
+        
+        let rows = db.readRows(numRows: 5)
+        XCTAssertEqual(rows.count, 3)
+        XCTAssertEqual(
+            rows.map { $0.data["test"] as! Int }.min(),
+            3
+        )
+    }
+    
     private func createDatabase(_ namespace: String) -> Database {
         DatabaseHelpers.clearPreviousDatabase(namespace)
         return Database(namespace: namespace)
