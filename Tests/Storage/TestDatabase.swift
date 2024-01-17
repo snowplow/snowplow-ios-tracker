@@ -114,25 +114,32 @@ class TestDatabase: XCTestCase {
     func testRemoveOldEventsByAge() {
         let db = createDatabase("db")
         
-        db.insertRow(["test": 1])
-        Thread.sleep(forTimeInterval: 1)
-        db.insertRow(["test": 2])
-        Thread.sleep(forTimeInterval: 1)
+        for i in 1...5 {
+            db.insertRow(["test": i])
+        }
+        
+        Thread.sleep(forTimeInterval: 2)
+        
+        for i in 6...10 {
+            db.insertRow(["test": i])
+        }
+        
         db.removeOldEvents(maxSize: 5, maxAge: 1)
         
-        let rows = db.readRows(numRows: 5)
-        XCTAssertEqual(rows.count, 1)
-        XCTAssertEqual(rows.first?.data["test"] as? Int, 2)
+        let rows = db.readRows(numRows: 10)
+        XCTAssertEqual(rows.count, 5)
+        XCTAssertEqual(
+            rows.map { $0.data["test"] as! Int }.min(),
+            6
+        )
     }
     
     func testRemoveOldestEventsByMaxSize() {
         let db = createDatabase("db")
         
-        db.insertRow(["test": 1])
-        db.insertRow(["test": 2])
-        db.insertRow(["test": 3])
-        db.insertRow(["test": 4])
-        db.insertRow(["test": 5])
+        for i in 1...5 {
+            db.insertRow(["test": i])
+        }
         db.removeOldEvents(maxSize: 3, maxAge: 5)
         
         let rows = db.readRows(numRows: 5)
