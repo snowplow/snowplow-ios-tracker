@@ -52,6 +52,7 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
                 if s.dismissEventTracked == true {
                     return newState
                 }
+                // Returns the existing state if sequential Open events are tracked by mistake
                 let currentState = ImmersiveSpaceState(
                     id: s.id,
                     uuid: s.uuid,
@@ -67,6 +68,7 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
                 if s.dismissEventTracked {
                     return nil
                 }
+                // state persists for the first Dismiss event after an Open
                 let currentState = ImmersiveSpaceState(
                     id: s.id,
                     uuid: s.uuid,

@@ -14,7 +14,6 @@
 import Foundation
 
 /** Event for a SwiftUI window group being dismissed. */
-@objc(SPDismissWindowEvent)
 public class DismissWindowEvent: SelfDescribingAbstract {
     
     /// A string that uniquely identifies the window group. Identifiers must be unique among the window groups in your app.

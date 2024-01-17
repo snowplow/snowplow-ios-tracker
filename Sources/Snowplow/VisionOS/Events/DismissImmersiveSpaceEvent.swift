@@ -14,7 +14,6 @@
 import Foundation
 
 /** Event for a VisionOS immersive space being dismissed. */
-@objc(SPDismissImmersiveSpaceEvent)
 public class DismissImmersiveSpaceEvent: SelfDescribingAbstract {
     
     override var schema: String {

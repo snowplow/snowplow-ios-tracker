@@ -49,7 +49,7 @@ class TestImmersiveSpaceState: XCTestCase {
         XCTAssertFalse(entities!.contains("immersive_space"))
         
         // OpenImmersiveSpaceEvent has the entity
-        track(OpenImmersiveSpaceEvent(id: "space"), tracker)
+        track(OpenImmersiveSpaceEvent(id: "original space state"), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
         }
@@ -58,6 +58,7 @@ class TestImmersiveSpaceState: XCTestCase {
         entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("immersive_space"))
+        
         
         // as do subsequent events
         track(Timing(category: "category", variable: "variable", timing: 123), tracker)
@@ -70,7 +71,20 @@ class TestImmersiveSpaceState: XCTestCase {
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("immersive_space"))
         
-        // including DismissImmersiveSpaceEvent
+        // tracking multiple OpenImmersiveSpaceEvent doesn't change the ImmersiveSpaceState
+        // because only one immersive space can be open at once
+        track(OpenImmersiveSpaceEvent(id: "second space"), tracker)
+        if eventStore.lastInsertedRow == -1 {
+            XCTFail()
+        }
+        payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        _ = eventStore.removeAllEvents()
+        entities = (payload?["co"]) as? String
+        XCTAssertNotNil(entities)
+        XCTAssertTrue(entities!.contains("original space state"))
+        XCTAssertFalse(entities!.contains("second space"))
+        
+        // entity is also attached to the DismissImmersiveSpaceEvent
         track(DismissImmersiveSpaceEvent(), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -82,17 +96,7 @@ class TestImmersiveSpaceState: XCTestCase {
         XCTAssertTrue(entities!.contains("immersive_space"))
         
         // events following the dismiss event do not have the entity
-        track(Foreground(index: 1), tracker)
-        if eventStore.lastInsertedRow == -1 {
-            XCTFail()
-        }
-        payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
-        _ = eventStore.removeAllEvents()
-        entities = (payload?["co"]) as? String
-        XCTAssertNotNil(entities)
-        XCTAssertFalse(entities!.contains("immersive_space"))
-        
-        // including further dismiss events
+        // including other dismiss events
         track(DismissImmersiveSpaceEvent(), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -103,16 +107,7 @@ class TestImmersiveSpaceState: XCTestCase {
         XCTAssertNotNil(entities)
         XCTAssertFalse(entities!.contains("immersive_space"))
         
-        // tracking multiple OpenImmersiveSpaceEvent doesn't change the ImmersiveSpaceState
-        // because only one immersive space can be open at once
-        track(OpenImmersiveSpaceEvent(id: "original space state"), tracker)
-        if eventStore.lastInsertedRow == -1 {
-            XCTFail()
-        }
-        payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
-        _ = eventStore.removeAllEvents()
-        
-        track(OpenImmersiveSpaceEvent(id: "second space"), tracker)
+        track(Foreground(index: 1), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
         }
@@ -120,8 +115,18 @@ class TestImmersiveSpaceState: XCTestCase {
         _ = eventStore.removeAllEvents()
         entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
-        XCTAssertTrue(entities!.contains("original space state"))
-        XCTAssertFalse(entities!.contains("second space"))
+        XCTAssertFalse(entities!.contains("immersive_space"))
+        
+        // can start adding the entity again if open event is tracked
+        track(OpenImmersiveSpaceEvent(id: "a new space"), tracker)
+        if eventStore.lastInsertedRow == -1 {
+            XCTFail()
+        }
+        payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        _ = eventStore.removeAllEvents()
+        entities = (payload?["co"]) as? String
+        XCTAssertNotNil(entities)
+        XCTAssertTrue(entities!.contains("immersive_space"))
     }
     
     private func track(_ event: Event, _ tracker: Tracker) {
