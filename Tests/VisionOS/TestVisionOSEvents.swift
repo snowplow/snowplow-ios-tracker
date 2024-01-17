@@ -15,8 +15,6 @@ import XCTest
 @testable import SnowplowTracker
 
 class TestVisionOSEvents: XCTestCase {
-    let id = UUID()
-    
     var eventSink: EventSink?
     var trackedEvents: [InspectableEvent] { return eventSink?.trackedEvents ?? [] }
     var tracker: TrackerController?
@@ -32,8 +30,7 @@ class TestVisionOSEvents: XCTestCase {
     
     func testTrackOpenWindow() {
         let event = OpenWindowEvent(
-            id: id,
-            stringId: "group_id"
+            id: "group_id"
         )
         
         _ = tracker?.track(event)
@@ -48,7 +45,7 @@ class TestVisionOSEvents: XCTestCase {
     
     func testTrackDismissWindow() {
         let event = DismissWindowEvent(
-            id: id,
+            id: "window",
             windowStyle: .automatic
         )
         

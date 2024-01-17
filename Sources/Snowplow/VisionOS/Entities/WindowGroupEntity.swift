@@ -51,14 +51,14 @@ extension WindowStyle {
  */
 public class WindowGroupEntity: SelfDescribingJson {
     
+    /// A string that uniquely identifies the window group. Identifiers must be unique among the window groups in your app.
+    public var id: String
+    
     /// UUID for the current window within the group.
-    public var id: UUID
+    public var uuid: UUID?
     
     /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     public var titleKey: String?
-    
-    /// A string that uniquely identifies the window group. Identifiers must be unique among the window groups in your app.
-    public var stringId: String?
     
     /// A specification for the appearance and interaction of a window.
     public var windowStyle: WindowStyle?
@@ -66,29 +66,29 @@ public class WindowGroupEntity: SelfDescribingJson {
     override public var data: [String : Any] {
         get {
             var data: [String : Any] = [
-                "id": id.uuidString
+                "id": id
             ]
+            if let uuid = uuid { data["uuid"] = uuid.uuidString }
             if let titleKey = titleKey { data["title_key"] = titleKey }
-            if let stringId = stringId { data["window_group_id"] = stringId }
             if let windowStyle = windowStyle { data["window_style"] = windowStyle.value }
             return data
         }
         set {}
     }
     
-    /// - Parameter id: UUID for the current window within the group.
+    /// - Parameter id: A string that uniquely identifies the window group.
+    /// - Parameter uuid: UUID for the current window within the group.
     /// - Parameter titleKey: A localized string key to use for the window's title in system menus and in the window's title bar.
-    /// - Parameter stringId: A string that uniquely identifies the window group.
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     public init(
-        id: UUID = UUID(),
+        id: String,
+        uuid: UUID? = nil,
         titleKey: String? = nil,
-        stringId: String? = nil,
         windowStyle: WindowStyle? = nil
     ) {
         self.id = id
+        self.uuid = uuid
         self.titleKey = titleKey
-        self.stringId = stringId
         self.windowStyle = windowStyle
         super.init(schema: swiftuiWindowGroupSchema, andData: [:])
     }

@@ -16,15 +16,16 @@ import Foundation
 /** Event for a SwiftUI window group being dismissed. */
 @objc(SPDismissWindowEvent)
 public class DismissWindowEvent: SelfDescribingAbstract {
+    
+    /// A string that uniquely identifies the window group. Identifiers must be unique among the window groups in your app.
+    public var id: String
+    
     /// UUID for the current window within the group.
-    public var id: UUID
+    public var uuid: UUID?
     
     /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     public var titleKey: String?
-    
-    /// A string that uniquely identifies the window group. Identifiers must be unique among the window groups in your app.
-    public var stringId: String?
-    
+
     /// A specification for the appearance and interaction of a window.
     public var windowStyle: WindowStyle?
     
@@ -40,29 +41,29 @@ public class DismissWindowEvent: SelfDescribingAbstract {
         get {
             var entities = [SelfDescribingJson]()
             let windowGroup = WindowGroupEntity(
-                id: id,
-                titleKey: titleKey,
-                stringId: stringId,
-                windowStyle: windowStyle
+                id: self.id,
+                uuid: self.uuid,
+                titleKey: self.titleKey,
+                windowStyle: self.windowStyle
             )
             entities.append(windowGroup)
             return entities
         }
     }
     
-    /// - Parameter id: UUID for the current window within the group.
+    /// - Parameter id: A string that uniquely identifies the window group.
+    /// - Parameter uuid: UUID for the current window within the group.
     /// - Parameter titleKey: A localized string key to use for the window's title in system menus and in the window's title bar.
-    /// - Parameter stringId: A string that uniquely identifies the window group.
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     public init(
-        id: UUID,
+        id: String,
+        uuid: UUID? = nil,
         titleKey: String? = nil,
-        stringId: String? = nil,
         windowStyle: WindowStyle? = nil
     ) {
         self.id = id
+        self.uuid = uuid
         self.titleKey = titleKey
-        self.stringId = stringId
         self.windowStyle = windowStyle
     }
 }

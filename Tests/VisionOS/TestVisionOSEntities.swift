@@ -15,37 +15,37 @@ import XCTest
 @testable import SnowplowTracker
 
 class TestVisionOSEntities: XCTestCase {
-    let id = UUID()
+    let uuid = UUID()
     
     func testBuildsImmersiveSpaceEntity() {
         let space = ImmersiveSpaceEntity(
-            id: id,
-            immersiveSpaceId: "space_123",
+            id: "space_123",
+            uuid: uuid,
             immersionStyle: ImmersionStyle.automatic,
             upperLimbVisibility: UpperLimbVisibility.visible
         )
         let entity = space.data
         
         XCTAssertEqual(swiftuiImmersiveSpaceSchema, space.schema)
-        XCTAssertEqual(id.uuidString, entity["id"] as? String)
-        XCTAssertEqual("space_123", entity["immersive_space_id"] as? String)
+        XCTAssertEqual("space_123", entity["id"] as? String)
+        XCTAssertEqual(uuid.uuidString, entity["uuid"] as? String)
         XCTAssertEqual("automatic", entity["immersion_style"] as? String)
         XCTAssertEqual("visible", entity["upper_limb_visibility"] as? String)
     }
     
     func testBuildsWindowGroupEntity() {
         let windows = WindowGroupEntity(
-            id: id,
+            id: "group_id",
+            uuid: uuid,
             titleKey: "title",
-            stringId: "group_id",
             windowStyle: .plain
         )
         let entity = windows.data
         
         XCTAssertEqual(swiftuiWindowGroupSchema, windows.schema)
-        XCTAssertEqual(id.uuidString, entity["id"] as? String)
+        XCTAssertEqual("group_id", entity["id"] as? String)
+        XCTAssertEqual(uuid.uuidString, entity["uuid"] as? String)
         XCTAssertEqual("title", entity["title_key"] as? String)
-        XCTAssertEqual("group_id", entity["window_group_id"] as? String)
         XCTAssertEqual("plain", entity["window_style"] as? String)
     }
 }
