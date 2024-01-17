@@ -315,6 +315,8 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         copy.serverAnonymisation = serverAnonymisation
         copy.eventStore = eventStore
         copy.retryFailedRequests = retryFailedRequests
+        copy.maxEventStoreAge = maxEventStoreAge
+        copy.maxEventStoreSize = maxEventStoreSize
         return copy
     }
 
@@ -333,6 +335,8 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         coder.encode(customRetryForStatusCodes, forKey: "customRetryForStatusCodes")
         coder.encode(serverAnonymisation, forKey: "serverAnonymisation")
         coder.encode(retryFailedRequests, forKey: "retryFailedRequests")
+        coder.encode(maxEventStoreAge, forKey: "maxEventStoreAge")
+        coder.encode(maxEventStoreSize, forKey: "maxEventStoreSize")
     }
 
     required init?(coder: NSCoder) {
@@ -350,6 +354,12 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         serverAnonymisation = coder.decodeBool(forKey: "serverAnonymisation")
         if coder.containsValue(forKey: "retryFailedRequests") {
             retryFailedRequests = coder.decodeBool(forKey: "retryFailedRequests")
+        }
+        if coder.containsValue(forKey: "maxEventStoreAge") {
+            maxEventStoreAge = coder.decodeDouble(forKey: "maxEventStoreAge")
+        }
+        if coder.containsValue(forKey: "maxEventStoreSize") {
+            maxEventStoreSize = coder.decodeInt64(forKey: "maxEventStoreSize")
         }
     }
 }
