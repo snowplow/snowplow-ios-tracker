@@ -281,6 +281,16 @@ class TrackerControllerImpl: Controller, TrackerController {
             tracker.userAnonymisation = newValue
         }
     }
+    
+    var immersiveSpaceContext: Bool {
+        get {
+            return tracker.immersiveSpaceContext
+        }
+        set {
+            dirtyConfig.immersiveSpaceContext = newValue
+            tracker.immersiveSpaceContext = newValue
+        }
+    }
 
     var advertisingIdentifierRetriever: (() -> UUID?)? {
         get {

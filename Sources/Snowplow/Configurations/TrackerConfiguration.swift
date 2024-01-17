@@ -31,47 +31,50 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     /// It sets the logger delegate that receive logs from the tracker.
     @objc
     var loggerDelegate: LoggerDelegate? { get set }
-    /// Whether application context is sent with all the tracked events.
+    /// Whether the application context entity is sent with all the tracked events.
     @objc
     var applicationContext: Bool { get set }
-    /// Whether mobile/platform context is sent with all the tracked events.
+    /// Whether the mobile/platform context entity is sent with all the tracked events.
     @objc
     var platformContext: Bool { get set }
-    /// Whether geo-location context is sent with all the tracked events.
+    /// Whether the geo-location context entity is sent with all the tracked events.
     @objc
     var geoLocationContext: Bool { get set }
-    /// Whether session context is sent with all the tracked events.
+    /// Whether the session context entity is sent with all the tracked events.
     @objc
     var sessionContext: Bool { get set }
-    /// Whether deepLink context is sent with all the ScreenView events.
+    /// Whether the deepLink context entity is sent with all the ScreenView events.
     @objc
     var deepLinkContext: Bool { get set }
-    /// Whether screen context is sent with all the tracked events.
+    /// Whether the screen context entity is sent with all the tracked events.
     @objc
     var screenContext: Bool { get set }
-    /// Whether enable automatic tracking of ScreenView events.
+    /// Whether to enable automatic tracking of ScreenView events.
     @objc
     var screenViewAutotracking: Bool { get set }
-    /// Whether to enable tracking the screen end event and the screen summary context entity.
+    /// Whether to enable tracking of the screen end event and the screen summary context entity.
     /// Make sure that you have lifecycle autotracking enabled for screen summary to have complete information.
     @objc
     var screenEngagementAutotracking: Bool { get set }
-    /// Whether enable automatic tracking of background and foreground transitions.
+    /// Whether to enable automatic tracking of background and foreground transitions.
     @objc
     var lifecycleAutotracking: Bool { get set }
-    /// Whether enable automatic tracking of install event.
+    /// Whether to enable automatic tracking of install event.
     @objc
     var installAutotracking: Bool { get set }
-    /// Whether enable crash reporting.
+    /// Whether to enable crash reporting.
     @objc
     var exceptionAutotracking: Bool { get set }
-    /// Whether enable diagnostic reporting.
+    /// Whether to enable diagnostic reporting.
     @objc
     var diagnosticAutotracking: Bool { get set }
     /// Whether to anonymise client-side user identifiers in session (userId, previousSessionId), subject (userId, networkUserId, domainUserId, ipAddress) and platform context entities (IDFA)
     /// Setting this property on a running tracker instance starts a new session (if sessions are tracked).
     @objc
     var userAnonymisation: Bool { get set }
+    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (VisionOS).
+    @objc
+    var immersiveSpaceContext: Bool { get set }
     /// Decorate the v_tracker field in the tracker protocol.
     /// @note Do not use. Internal use only.
     @objc
@@ -134,7 +137,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _applicationContext: Bool?
-    /// Whether application context is sent with all the tracked events.
+    /// Whether the application context entity is sent with all the tracked events.
     @objc
     public var applicationContext: Bool {
         get { return _applicationContext ?? sourceConfig?.applicationContext ?? TrackerDefaults.applicationContext }
@@ -142,7 +145,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _platformContext: Bool?
-    /// Whether mobile/platform context is sent with all the tracked events.
+    /// Whether the mobile/platform context entity is sent with all the tracked events.
     @objc
     public var platformContext: Bool {
         get { return _platformContext ?? sourceConfig?.platformContext ?? TrackerDefaults.platformContext }
@@ -150,7 +153,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _geoLocationContext: Bool?
-    /// Whether geo-location context is sent with all the tracked events.
+    /// Whether the geo-location context entity is sent with all the tracked events.
     @objc
     public var geoLocationContext: Bool {
         get { return _geoLocationContext ?? sourceConfig?.geoLocationContext ?? TrackerDefaults.geoLocationContext }
@@ -158,7 +161,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _sessionContext: Bool?
-    /// Whether session context is sent with all the tracked events.
+    /// Whether the session context entity is sent with all the tracked events.
     @objc
     public var sessionContext: Bool {
         get { return _sessionContext ?? sourceConfig?.sessionContext ?? TrackerDefaults.sessionContext }
@@ -166,7 +169,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _deepLinkContext: Bool?
-    /// Whether deepLink context is sent with all the ScreenView events.
+    /// Whether the deepLink context entity is sent with all the ScreenView events.
     @objc
     public var deepLinkContext: Bool {
         get { return _deepLinkContext ?? sourceConfig?.deepLinkContext ?? TrackerDefaults.deepLinkContext }
@@ -174,7 +177,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _screenContext: Bool?
-    /// Whether screen context is sent with all the tracked events.
+    /// Whether the screen context entity is sent with all the tracked events.
     @objc
     public var screenContext: Bool {
         get { return _screenContext ?? sourceConfig?.screenContext ?? TrackerDefaults.screenContext }
@@ -182,7 +185,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _screenViewAutotracking: Bool?
-    /// Whether enable automatic tracking of ScreenView events.
+    /// Whether to enable automatic tracking of ScreenView events.
     @objc
     public var screenViewAutotracking: Bool {
         get { return _screenViewAutotracking ?? sourceConfig?.screenViewAutotracking ?? TrackerDefaults.autotrackScreenViews }
@@ -190,7 +193,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _screenEngagementAutotracking: Bool?
-    /// Whether enable tracking the screen end event and the screen summary context entity.
+    /// Whether to enable tracking of the screen end event and the screen summary context entity.
     /// Make sure that you have lifecycle autotracking enabled for screen summary to have complete information.
     @objc
     public var screenEngagementAutotracking: Bool {
@@ -199,7 +202,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _lifecycleAutotracking: Bool?
-    /// Whether enable automatic tracking of background and foreground transitions.
+    /// Whether to enable automatic tracking of background and foreground transitions.
     @objc
     public var lifecycleAutotracking: Bool {
         get { return _lifecycleAutotracking ?? sourceConfig?.lifecycleAutotracking ?? TrackerDefaults.lifecycleEvents }
@@ -207,7 +210,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _installAutotracking: Bool?
-    /// Whether enable automatic tracking of install event.
+    /// Whether to enable automatic tracking of install event.
     @objc
     public var installAutotracking: Bool {
         get { return _installAutotracking ?? sourceConfig?.installAutotracking ?? TrackerDefaults.installEvent }
@@ -215,7 +218,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _exceptionAutotracking: Bool?
-    /// Whether enable crash reporting.
+    /// Whether to enable crash reporting.
     @objc
     public var exceptionAutotracking: Bool {
         get { return _exceptionAutotracking ?? sourceConfig?.exceptionAutotracking ?? TrackerDefaults.exceptionEvents }
@@ -223,7 +226,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _diagnosticAutotracking: Bool?
-    /// Whether enable diagnostic reporting.
+    /// Whether to enable diagnostic reporting.
     @objc
     public var diagnosticAutotracking: Bool {
         get { return _diagnosticAutotracking ?? sourceConfig?.diagnosticAutotracking ?? TrackerDefaults.trackerDiagnostic }
@@ -237,6 +240,14 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     public var userAnonymisation: Bool {
         get { return _userAnonymisation ?? sourceConfig?.userAnonymisation ?? TrackerDefaults.userAnonymisation }
         set { _userAnonymisation = newValue }
+    }
+    
+    private var _immersiveSpaceContext: Bool?
+    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (VisionOS).
+    @objc
+    public var immersiveSpaceContext: Bool {
+        get { return _immersiveSpaceContext ?? sourceConfig?.immersiveSpaceContext ?? TrackerDefaults.immersiveSpaceContext }
+        set { _immersiveSpaceContext = newValue }
     }
     
     private var _trackerVersionSuffix: String?
@@ -344,6 +355,9 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         if let userAnonymisation = dictionary["userAnonymisation"] as? Bool {
             self.userAnonymisation = userAnonymisation
         }
+        if let immersiveSpaceContext = dictionary["immersiveSpaceContext"] as? Bool {
+            self.immersiveSpaceContext = immersiveSpaceContext
+        }
     }
 
     // MARK: - Builders
@@ -383,56 +397,56 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
-    /// Whether application context is sent with all the tracked events.
+    /// Whether the application context entity is sent with all the tracked events.
     @objc
     public func applicationContext(_ applicationContext: Bool) -> Self {
         self.applicationContext = applicationContext
         return self
     }
     
-    /// Whether mobile/platform context is sent with all the tracked events.
+    /// Whether the mobile/platform context entity is sent with all the tracked events.
     @objc
     public func platformContext(_ platformContext: Bool) -> Self {
         self.platformContext = platformContext
         return self
     }
     
-    /// List of properties of the platform context to track. If not passed and `platformContext` is enabled, all available properties will be tracked.
+    /// List of properties of the platform context entity to track. If not passed and `platformContext` is enabled, all available properties will be tracked.
     /// The required `osType`, `osVersion`, `deviceManufacturer`, and `deviceModel` properties will be tracked in the entity regardless of this setting.
     public func platformContextProperties(_ platformContextProperties: [PlatformContextProperty]?) -> Self {
         self.platformContextProperties = platformContextProperties
         return self
     }
     
-    /// Whether geo-location context is sent with all the tracked events.
+    /// Whether the geo-location context entity is sent with all the tracked events.
     @objc
     public func geoLocationContext(_ geoLocationContext: Bool) -> Self {
         self.geoLocationContext = geoLocationContext
         return self
     }
     
-    /// Whether session context is sent with all the tracked events.
+    /// Whether the session context entity is sent with all the tracked events.
     @objc
     public func sessionContext(_ sessionContext: Bool) -> Self {
         self.sessionContext = sessionContext
         return self
     }
     
-    /// Whether deepLink context is sent with all the ScreenView events.
+    /// Whether the deepLink context entity is sent with all the ScreenView events.
     @objc
     public func deepLinkContext(_ deepLinkContext: Bool) -> Self {
         self.deepLinkContext = deepLinkContext
         return self
     }
     
-    /// Whether screen context is sent with all the tracked events.
+    /// Whether the screen context entity is sent with all the tracked events.
     @objc
     public func screenContext(_ screenContext: Bool) -> Self {
         self.screenContext = screenContext
         return self
     }
     
-    /// Whether enable automatic tracking of ScreenView events.
+    /// Whether to enable automatic tracking of ScreenView events.
     @objc
     public func screenViewAutotracking(_ screenViewAutotracking: Bool) -> Self {
         self.screenViewAutotracking = screenViewAutotracking
@@ -446,39 +460,45 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
-    /// Whether enable automatic tracking of background and foreground transitions.
+    /// Whether to enable tracking the screen end event and the screen summary context entity.
+    @objc
+    public func screenEngagementAutotracking(_ screenEngagementAutotracking: Bool) -> Self {
+        self.screenEngagementAutotracking = screenEngagementAutotracking
+        return self
+    }
+    
+    /// Whether to enable automatic tracking of background and foreground transitions.
     @objc
     public func lifecycleAutotracking(_ lifecycleAutotracking: Bool) -> Self {
         self.lifecycleAutotracking = lifecycleAutotracking
         return self
     }
     
-    /// Whether enable automatic tracking of install event.
+    /// Whether to enable automatic tracking of install event.
     @objc
     public func installAutotracking(_ installAutotracking: Bool) -> Self {
         self.installAutotracking = installAutotracking
         return self
     }
     
-    /// Whether enable crash reporting.
+    /// Whether to enable crash reporting.
     @objc
     public func exceptionAutotracking(_ exceptionAutotracking: Bool) -> Self {
         self.exceptionAutotracking = exceptionAutotracking
         return self
     }
     
-    /// Whether enable diagnostic reporting.
+    /// Whether to enable diagnostic reporting.
     @objc
     public func diagnosticAutotracking(_ diagnosticAutotracking: Bool) -> Self {
         self.diagnosticAutotracking = diagnosticAutotracking
         return self
     }
     
-    /// Whether to anonymise client-side user identifiers in session (userId, previousSessionId), subject (userId, networkUserId, domainUserId, ipAddress) and platform context entities (IDFA)
-    /// Setting this property on a running tracker instance starts a new session (if sessions are tracked).
+    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (VisionOS).
     @objc
-    public func userAnonymisation(_ userAnonymisation: Bool) -> Self {
-        self.userAnonymisation = userAnonymisation
+    public func immersiveSpaceContext(_ immersiveSpaceContext: Bool) -> Self {
+        self.immersiveSpaceContext = immersiveSpaceContext
         return self
     }
     
@@ -523,6 +543,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         copy.diagnosticAutotracking = diagnosticAutotracking
         copy.trackerVersionSuffix = trackerVersionSuffix
         copy.userAnonymisation = userAnonymisation
+        copy.immersiveSpaceContext = immersiveSpaceContext
         copy.advertisingIdentifierRetriever = advertisingIdentifierRetriever
         return copy
     }
@@ -553,6 +574,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         coder.encode(diagnosticAutotracking, forKey: "diagnosticAutotracking")
         coder.encode(trackerVersionSuffix, forKey: "trackerVersionSuffix")
         coder.encode(userAnonymisation, forKey: "userAnonymisation")
+        coder.encode(immersiveSpaceContext, forKey: "immersiveSpaceContext")
     }
 
     required init?(coder: NSCoder) {
@@ -586,5 +608,6 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
             self.trackerVersionSuffix = trackerVersionSuffix
         }
         userAnonymisation = coder.decodeBool(forKey: "userAnonymisation")
+        immersiveSpaceContext = coder.decodeBool(forKey: "immersiveSpaceContext")
     }
 }

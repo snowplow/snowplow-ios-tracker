@@ -14,8 +14,19 @@
 import Foundation
 
 /** Event for a VisionOS immersive space being opened. */
-@objc(SPOpenImmersiveSpaceEvent)
 public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
+    
+    /// The identifier of the immersive space to present.
+    public var id: String
+    
+    /// UUID for the view of the immersive space.
+    public var uuid: UUID?
+    
+    /// The style of an immersive space.
+    public var immersionStyle: ImmersionStyle?
+    
+    /// Preferred visibility of the user's upper limbs, while an immersive space scene is presented.
+    public var upperLimbVisibility: UpperLimbVisibility?
     
     override var schema: String {
         return swiftuiOpenImmersiveSpaceSchema
@@ -23,5 +34,21 @@ public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
     
     override var payload: [String : Any] {
         return [:]
+    }
+    
+    /// - Parameter id: A localized string key to use for the window's title in system menus and in the window's title bar.
+    /// - Parameter uuid: UUID for the view of the immersive space.
+    /// - Parameter immersionStyle: A specification for the appearance and interaction of a window.
+    /// - Parameter upperLimbVisibility: A specification for the appearance and interaction of a window.
+    public init(
+        id: String,
+        uuid: UUID? = nil,
+        immersionStyle: ImmersionStyle? = nil,
+        upperLimbVisibility: UpperLimbVisibility? =  nil
+    ) {
+        self.id = id
+        self.uuid = uuid
+        self.immersionStyle = immersionStyle
+        self.upperLimbVisibility = upperLimbVisibility
     }
 }
