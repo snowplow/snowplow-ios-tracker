@@ -453,14 +453,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
-    /// Whether enable tracking the screen end event and the screen summary context entity.
-    @objc
-    public func screenEngagementAutotracking(_ screenEngagementAutotracking: Bool) -> Self {
-        self.screenEngagementAutotracking = screenEngagementAutotracking
-        return self
-    }
-    
-    /// Whether to enable tracking the screen end event and the screen summary context entity.
+    /// Whether to enable tracking of the screen end event and the screen summary context entity.
     @objc
     public func screenEngagementAutotracking(_ screenEngagementAutotracking: Bool) -> Self {
         self.screenEngagementAutotracking = screenEngagementAutotracking

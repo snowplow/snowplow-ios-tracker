@@ -14,8 +14,13 @@
 import Foundation
 
 class ImmersiveSpaceStateMachine: StateMachineProtocol {
+    
     static var identifier: String { return "ImmersiveSpace" }
     var identifier: String { return ImmersiveSpaceStateMachine.identifier }
+    
+    var subscribedEventSchemasForEventsBefore: [String] {
+        return []
+    }
 
     var subscribedEventSchemasForTransitions: [String] {
         return [swiftuiOpenImmersiveSpaceSchema, swiftuiDismissImmersiveSpaceSchema]
@@ -35,6 +40,10 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
 
     var subscribedEventSchemasForFiltering: [String] {
         return []
+    }
+    
+    func eventsBefore(event: Event) -> [Event]? {
+        return nil
     }
     
     func transition(from event: Event, state: State?) -> State? {
