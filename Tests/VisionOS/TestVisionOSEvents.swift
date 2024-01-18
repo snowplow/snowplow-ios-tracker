@@ -59,11 +59,39 @@ class TestVisionOSEvents: XCTestCase {
         XCTAssertEqual(1, getWindowGroupEntities(entities).count)
     }
     
+    func testTrackOpenImmersiveSpace() {
+        let event = OpenImmersiveSpaceEvent(
+            id: "space",
+            immersionStyle: .full
+        )
+        
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
+        XCTAssertEqual(swiftuiOpenImmersiveSpaceSchema, event.schema)
+        
+        let entities = trackedEvents[0].entities
+        XCTAssertEqual(1, getImmersiveSpaceEntities(entities).count)
+    }
+    
+    func testTrackDismissImmersiveSpace() {
+        let event = DismissImmersiveSpaceEvent()
+        
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(1, trackedEvents.count)
+        XCTAssertEqual(swiftuiDismissImmersiveSpaceSchema, event.schema)
+        
+        let entities = trackedEvents[0].entities
+        XCTAssertEqual(0, getImmersiveSpaceEntities(entities).count)
+    }
+    
     private func createTracker() -> TrackerController {
         let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
         let trackerConfig = TrackerConfiguration()
-        trackerConfig.installAutotracking = false
-        trackerConfig.lifecycleAutotracking = false
+        trackerConfig.immersiveSpaceContext = true
         
         let namespace = "testVisionOS" + String(describing: Int.random(in: 0..<100))
         eventSink = EventSink()
@@ -86,6 +114,18 @@ class TestVisionOSEvents: XCTestCase {
         if let all = all {
             for entity in all {
                 if (entity.schema == swiftuiWindowGroupSchema) {
+                    entities.append(entity)
+                }
+            }
+        }
+        return entities
+    }
+    
+    private func getImmersiveSpaceEntities(_ all: [SelfDescribingJson]?) -> [SelfDescribingJson] {
+        var entities: [SelfDescribingJson] = []
+        if let all = all {
+            for entity in all {
+                if (entity.schema == swiftuiImmersiveSpaceSchema) {
                     entities.append(entity)
                 }
             }

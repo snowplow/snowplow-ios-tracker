@@ -36,6 +36,20 @@ public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
         return [:]
     }
     
+    override internal var entitiesForProcessing: [SelfDescribingJson]? {
+        get {
+            var entities = [SelfDescribingJson]()
+            let space = ImmersiveSpaceEntity(
+                id: self.id,
+                uuid: self.uuid,
+                immersionStyle: self.immersionStyle,
+                upperLimbVisibility: self.upperLimbVisibility
+            )
+            entities.append(space)
+            return entities
+        }
+    }
+    
     /// - Parameter id: A localized string key to use for the window's title in system menus and in the window's title bar.
     /// - Parameter uuid: UUID for the view of the immersive space.
     /// - Parameter immersionStyle: A specification for the appearance and interaction of a window.

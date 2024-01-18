@@ -95,6 +95,11 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
         if state == nil {
             return nil
         }
+        
+        // the open event already has the entity
+        if event.schema == swiftuiOpenImmersiveSpaceSchema {
+            return nil
+        }
 
         if let s = state as? ImmersiveSpaceState {
             if s.dismissEventTracked == true && event.schema != swiftuiDismissImmersiveSpaceSchema {
