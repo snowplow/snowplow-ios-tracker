@@ -301,6 +301,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             tracker.installEvent = trackerConfiguration.installAutotracking
             tracker.trackerDiagnostic = trackerConfiguration.diagnosticAutotracking
             tracker.userAnonymisation = trackerConfiguration.userAnonymisation
+            tracker.immersiveSpaceContext = trackerConfiguration.immersiveSpaceContext
             tracker.advertisingIdentifierRetriever = trackerConfiguration.advertisingIdentifierRetriever
             if gdprConfiguration.sourceConfig != nil {
                 tracker.gdprContext = GDPRContext(

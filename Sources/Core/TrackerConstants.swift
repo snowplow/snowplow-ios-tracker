@@ -60,6 +60,7 @@ let kSPErrorSchema = "iglu:com.snowplowanalytics.snowplow/application_error/json
 let kSPApplicationInstallSchema = "iglu:com.snowplowanalytics.mobile/application_install/jsonschema/1-0-0"
 let kSPGdprContextSchema = "iglu:com.snowplowanalytics.snowplow/gdpr/jsonschema/1-0-0"
 let kSPDiagnosticErrorSchema = "iglu:com.snowplowanalytics.snowplow/diagnostic_error/jsonschema/1-0-0"
+
 let ecommerceActionSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/snowplow_ecommerce_action/jsonschema/1-0-2"
 let ecommerceProductSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/product/jsonschema/1-0-0"
 let ecommerceCartSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/cart/jsonschema/1-0-0"
@@ -74,6 +75,13 @@ let kSPScreenEndSchema = "iglu:com.snowplowanalytics.mobile/screen_end/jsonschem
 let kSPScreenSummarySchema = "iglu:com.snowplowanalytics.mobile/screen_summary/jsonschema/1-0-0"
 let kSPListItemViewSchema = "iglu:com.snowplowanalytics.mobile/list_item_view/jsonschema/1-0-0"
 let kSPScrollChangedSchema = "iglu:com.snowplowanalytics.mobile/scroll_changed/jsonschema/1-0-0"
+
+let swiftuiOpenWindowSchema = "iglu:com.apple.swiftui/open_window/jsonschema/1-0-0"
+let swiftuiDismissWindowSchema = "iglu:com.apple.swiftui/dismiss_window/jsonschema/1-0-0"
+let swiftuiOpenImmersiveSpaceSchema = "iglu:com.apple.swiftui/open_immersive_space/jsonschema/1-0-0"
+let swiftuiDismissImmersiveSpaceSchema = "iglu:com.apple.swiftui/dismiss_immersive_space/jsonschema/1-0-0"
+let swiftuiWindowGroupSchema = "iglu:com.apple.swiftui/window_group/jsonschema/1-0-0"
+let swiftuiImmersiveSpaceSchema = "iglu:com.apple.swiftui/immersive_space/jsonschema/1-0-0"
 
 // --- Event Keys
 let kSPEventPageView = "pv"
