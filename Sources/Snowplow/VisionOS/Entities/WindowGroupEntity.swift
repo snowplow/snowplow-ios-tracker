@@ -14,7 +14,6 @@
 import Foundation
 
 /// A specification for the appearance and interaction of a window.
-@objc(SPWindowStyle)
 public enum WindowStyle: Int {
     /// Default window style.
     case automatic
@@ -55,7 +54,7 @@ public class WindowGroupEntity: SelfDescribingJson {
     public var id: String
     
     /// UUID for the current window within the group.
-    public var uuid: UUID?
+    public var windowId: UUID?
     
     /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     public var titleKey: String?
@@ -68,7 +67,7 @@ public class WindowGroupEntity: SelfDescribingJson {
             var data: [String : Any] = [
                 "id": id
             ]
-            if let uuid = uuid { data["uuid"] = uuid.uuidString }
+            if let windowId = windowId { data["window_id"] = windowId.uuidString }
             if let titleKey = titleKey { data["title_key"] = titleKey }
             if let windowStyle = windowStyle { data["window_style"] = windowStyle.value }
             return data
@@ -77,17 +76,17 @@ public class WindowGroupEntity: SelfDescribingJson {
     }
     
     /// - Parameter id: A string that uniquely identifies the window group.
-    /// - Parameter uuid: UUID for the current window within the group.
+    /// - Parameter windowId: UUID for the current window within the group.
     /// - Parameter titleKey: A localized string key to use for the window's title in system menus and in the window's title bar.
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     public init(
         id: String,
-        uuid: UUID? = nil,
+        windowId: UUID? = nil,
         titleKey: String? = nil,
         windowStyle: WindowStyle? = nil
     ) {
         self.id = id
-        self.uuid = uuid
+        self.windowId = windowId
         self.titleKey = titleKey
         self.windowStyle = windowStyle
         super.init(schema: swiftuiWindowGroupSchema, andData: [:])

@@ -17,13 +17,13 @@ class ImmersiveSpaceState: State {
     var dismissEventTracked = false
     
     var id: String
-    var uuid: UUID?
+    var viewId: UUID?
     var immersionStyle: ImmersionStyle?
     var upperLimbVisibility: UpperLimbVisibility?
     
-    init(id: String, uuid: UUID? = nil, immersionStyle: ImmersionStyle? = nil, upperLimbVisibility: UpperLimbVisibility? = nil) {
+    init(id: String, viewId: UUID? = nil, immersionStyle: ImmersionStyle? = nil, upperLimbVisibility: UpperLimbVisibility? = nil) {
         self.id = id
-        self.uuid = uuid
+        self.viewId = viewId
         self.immersionStyle = immersionStyle
         self.upperLimbVisibility = upperLimbVisibility
     }

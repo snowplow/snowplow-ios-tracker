@@ -20,7 +20,7 @@ public class OpenWindowEvent: SelfDescribingAbstract {
     public var id: String
     
     /// UUID for the current window within the group.
-    public var uuid: UUID?
+    public var windowId: UUID?
     
     /// A localized string key to use for the window's title in system menus and in the window's title bar. Provide a title that describes the purpose of the window.
     public var titleKey: String?
@@ -41,7 +41,7 @@ public class OpenWindowEvent: SelfDescribingAbstract {
             var entities = [SelfDescribingJson]()
             let windowGroup = WindowGroupEntity(
                 id: self.id,
-                uuid: self.uuid,
+                windowId: self.windowId,
                 titleKey: self.titleKey,
                 windowStyle: self.windowStyle
             )
@@ -51,17 +51,17 @@ public class OpenWindowEvent: SelfDescribingAbstract {
     }
     
     /// - Parameter id: A string that uniquely identifies the window group.
-    /// - Parameter uuid: UUID for the current window within the group.
+    /// - Parameter windowId: UUID for the current window within the group.
     /// - Parameter titleKey: A localized string key to use for the window's title in system menus and in the window's title bar.
     /// - Parameter windowStyle: A specification for the appearance and interaction of a window.
     public init(
         id: String,
-        uuid: UUID? = nil,
+        windowId: UUID? = nil,
         titleKey: String? = nil,
         windowStyle: WindowStyle? = nil
     ) {
         self.id = id
-        self.uuid = uuid
+        self.windowId = windowId
         self.titleKey = titleKey
         self.windowStyle = windowStyle
     }

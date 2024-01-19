@@ -20,7 +20,7 @@ class TestVisionOSEntities: XCTestCase {
     func testBuildsImmersiveSpaceEntity() {
         let space = ImmersiveSpaceEntity(
             id: "space_123",
-            uuid: uuid,
+            viewId: uuid,
             immersionStyle: ImmersionStyle.automatic,
             upperLimbVisibility: UpperLimbVisibility.visible
         )
@@ -28,7 +28,7 @@ class TestVisionOSEntities: XCTestCase {
         
         XCTAssertEqual(swiftuiImmersiveSpaceSchema, space.schema)
         XCTAssertEqual("space_123", entity["id"] as? String)
-        XCTAssertEqual(uuid.uuidString, entity["uuid"] as? String)
+        XCTAssertEqual(uuid.uuidString, entity["view_id"] as? String)
         XCTAssertEqual("automatic", entity["immersion_style"] as? String)
         XCTAssertEqual("visible", entity["upper_limb_visibility"] as? String)
     }
@@ -36,7 +36,7 @@ class TestVisionOSEntities: XCTestCase {
     func testBuildsWindowGroupEntity() {
         let windows = WindowGroupEntity(
             id: "group_id",
-            uuid: uuid,
+            windowId: uuid,
             titleKey: "title",
             windowStyle: .plain
         )
@@ -44,7 +44,7 @@ class TestVisionOSEntities: XCTestCase {
         
         XCTAssertEqual(swiftuiWindowGroupSchema, windows.schema)
         XCTAssertEqual("group_id", entity["id"] as? String)
-        XCTAssertEqual(uuid.uuidString, entity["uuid"] as? String)
+        XCTAssertEqual(uuid.uuidString, entity["window_id"] as? String)
         XCTAssertEqual("title", entity["title_key"] as? String)
         XCTAssertEqual("plain", entity["window_style"] as? String)
     }

@@ -50,7 +50,7 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
         if let e = event as? OpenImmersiveSpaceEvent {
             let newState = ImmersiveSpaceState(
                 id: e.id,
-                uuid: e.uuid,
+                viewId: e.viewId,
                 immersionStyle: e.immersionStyle,
                 upperLimbVisibility: e.upperLimbVisibility
             )
@@ -64,15 +64,13 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
                 // Returns the existing state if sequential Open events are tracked by mistake
                 let currentState = ImmersiveSpaceState(
                     id: s.id,
-                    uuid: s.uuid,
+                    viewId: s.viewId,
                     immersionStyle: s.immersionStyle,
                     upperLimbVisibility: s.upperLimbVisibility
                 )
                 return currentState
             }
         } else {
-            if state == nil { return nil }
-            
             if let s = state as? ImmersiveSpaceState {
                 if s.dismissEventTracked {
                     return nil
@@ -80,7 +78,7 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
                 // state persists for the first Dismiss event after an Open
                 let currentState = ImmersiveSpaceState(
                     id: s.id,
-                    uuid: s.uuid,
+                    viewId: s.viewId,
                     immersionStyle: s.immersionStyle,
                     upperLimbVisibility: s.upperLimbVisibility
                 )
@@ -92,10 +90,6 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
     }
     
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
-        if state == nil {
-            return nil
-        }
-        
         // the open event already has the entity
         if event.schema == swiftuiOpenImmersiveSpaceSchema {
             return nil
@@ -107,7 +101,7 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
             }
             let entity = ImmersiveSpaceEntity(
                 id: s.id,
-                uuid: s.uuid,
+                viewId: s.viewId,
                 immersionStyle: s.immersionStyle,
                 upperLimbVisibility: s.upperLimbVisibility
             )

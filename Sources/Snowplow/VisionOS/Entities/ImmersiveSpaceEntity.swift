@@ -73,7 +73,7 @@ public class ImmersiveSpaceEntity: SelfDescribingJson {
     public var id: String
     
     /// UUID for the view of the immersive space.
-    public var uuid: UUID?
+    public var viewId: UUID?
     
     /// The style of an immersive space.
     public var immersionStyle: ImmersionStyle?
@@ -86,7 +86,7 @@ public class ImmersiveSpaceEntity: SelfDescribingJson {
             var data: [String : Any] = [
                 "id": id
             ]
-            if let uuid = uuid { data["uuid"] = uuid.uuidString }
+            if let viewId = viewId { data["view_id"] = viewId.uuidString }
             if let immersionStyle = immersionStyle { data["immersion_style"] = immersionStyle.value }
             if let upperLimbVisibility = upperLimbVisibility { data["upper_limb_visibility"] = upperLimbVisibility.value }
             return data
@@ -95,17 +95,17 @@ public class ImmersiveSpaceEntity: SelfDescribingJson {
     }
     
     /// - Parameter id: A localized string key to use for the window's title in system menus and in the window's title bar.
-    /// - Parameter uuid: UUID for the view of the immersive space.
+    /// - Parameter viewId: UUID for the view of the immersive space.
     /// - Parameter immersionStyle: A specification for the appearance and interaction of a window.
     /// - Parameter upperLimbVisibility: A specification for the appearance and interaction of a window.
     public init(
         id: String,
-        uuid: UUID? = nil,
+        viewId: UUID? = nil,
         immersionStyle: ImmersionStyle? = nil,
         upperLimbVisibility: UpperLimbVisibility? =  nil
     ) {
         self.id = id
-        self.uuid = uuid
+        self.viewId = viewId
         self.immersionStyle = immersionStyle
         self.upperLimbVisibility = upperLimbVisibility
         super.init(schema: swiftuiImmersiveSpaceSchema, andData: [:])

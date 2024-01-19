@@ -20,7 +20,7 @@ public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
     public var id: String
     
     /// UUID for the view of the immersive space.
-    public var uuid: UUID?
+    public var viewId: UUID?
     
     /// The style of an immersive space.
     public var immersionStyle: ImmersionStyle?
@@ -41,7 +41,7 @@ public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
             var entities = [SelfDescribingJson]()
             let space = ImmersiveSpaceEntity(
                 id: self.id,
-                uuid: self.uuid,
+                viewId: self.viewId,
                 immersionStyle: self.immersionStyle,
                 upperLimbVisibility: self.upperLimbVisibility
             )
@@ -51,17 +51,17 @@ public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
     }
     
     /// - Parameter id: A localized string key to use for the window's title in system menus and in the window's title bar.
-    /// - Parameter uuid: UUID for the view of the immersive space.
+    /// - Parameter viewId: UUID for the view of the immersive space.
     /// - Parameter immersionStyle: A specification for the appearance and interaction of a window.
     /// - Parameter upperLimbVisibility: A specification for the appearance and interaction of a window.
     public init(
         id: String,
-        uuid: UUID? = nil,
+        viewId: UUID? = nil,
         immersionStyle: ImmersionStyle? = nil,
         upperLimbVisibility: UpperLimbVisibility? =  nil
     ) {
         self.id = id
-        self.uuid = uuid
+        self.viewId = viewId
         self.immersionStyle = immersionStyle
         self.upperLimbVisibility = upperLimbVisibility
     }

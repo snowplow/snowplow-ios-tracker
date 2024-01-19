@@ -488,6 +488,14 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
+    /// Whether to anonymise client-side user identifiers in session (userId, previousSessionId), subject (userId, networkUserId, domainUserId, ipAddress) and platform context entities (IDFA).
+    /// Setting this property on a running tracker instance starts a new session (if sessions are tracked).
+    @objc
+    public func userAnonymisation(_ userAnonymisation: Bool) -> Self {
+        self.userAnonymisation = userAnonymisation
+        return self
+    }
+    
     /// Whether the immersive space context entity should be sent with events tracked within an immersive space (VisionOS).
     @objc
     public func immersiveSpaceContext(_ immersiveSpaceContext: Bool) -> Self {
