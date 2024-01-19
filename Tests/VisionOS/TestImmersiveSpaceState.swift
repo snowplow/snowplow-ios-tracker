@@ -70,8 +70,7 @@ class TestImmersiveSpaceState: XCTestCase {
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("original_space_state"))
         
-        // accidentally tracking multiple OpenImmersiveSpaceEvents doesn't change the ImmersiveSpaceState
-        // although the second open event itself will have the wrong entity
+        // tracking another OpenImmersiveSpaceEvent updates the state
         track(OpenImmersiveSpaceEvent(id: "second_space"), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -83,7 +82,7 @@ class TestImmersiveSpaceState: XCTestCase {
         XCTAssertFalse(entities!.contains("original_space_state"))
         XCTAssertTrue(entities!.contains("second_space"))
         
-        // other events still have the correct original entity
+        // subsequent events have the new entity
         track(Timing(category: "category", variable: "variable", timing: 123), tracker)
         if eventStore.lastInsertedRow == -1 {
             XCTFail()
@@ -92,7 +91,7 @@ class TestImmersiveSpaceState: XCTestCase {
         _ = eventStore.removeAllEvents()
         entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
-        XCTAssertTrue(entities!.contains("original_space_state"))
+        XCTAssertTrue(entities!.contains("second_space"))
         
         // the entity is also attached to the DismissImmersiveSpaceEvent
         track(DismissImmersiveSpaceEvent(), tracker)
@@ -104,7 +103,7 @@ class TestImmersiveSpaceState: XCTestCase {
         entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("immersive_space"))
-        XCTAssertTrue(entities!.contains("original_space_state"))
+        XCTAssertTrue(entities!.contains("second_space"))
         
         // events following the dismiss event do not have the entity
         // including other dismiss events
@@ -138,7 +137,7 @@ class TestImmersiveSpaceState: XCTestCase {
         entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("immersive_space"))
-        XCTAssertFalse(entities!.contains("original_space_state"))
+        XCTAssertFalse(entities!.contains("second_space"))
         XCTAssertTrue(entities!.contains("a_new_space"))
     }
     
@@ -177,7 +176,6 @@ class TestImmersiveSpaceState: XCTestCase {
         entities = (payload?["co"]) as? String
         XCTAssertNotNil(entities)
         XCTAssertTrue(entities!.contains("immersive_space"))
-        
         
         // other events do not
         track(Timing(category: "category", variable: "variable", timing: 123), tracker)

@@ -48,28 +48,12 @@ class ImmersiveSpaceStateMachine: StateMachineProtocol {
     
     func transition(from event: Event, state: State?) -> State? {
         if let e = event as? OpenImmersiveSpaceEvent {
-            let newState = ImmersiveSpaceState(
+            return ImmersiveSpaceState(
                 id: e.id,
                 viewId: e.viewId,
                 immersionStyle: e.immersionStyle,
                 upperLimbVisibility: e.upperLimbVisibility
             )
-            
-            if state == nil { return newState }
-            
-            if let s = state as? ImmersiveSpaceState {
-                if s.dismissEventTracked == true {
-                    return newState
-                }
-                // Returns the existing state if sequential Open events are tracked by mistake
-                let currentState = ImmersiveSpaceState(
-                    id: s.id,
-                    viewId: s.viewId,
-                    immersionStyle: s.immersionStyle,
-                    upperLimbVisibility: s.upperLimbVisibility
-                )
-                return currentState
-            }
         } else {
             if let s = state as? ImmersiveSpaceState {
                 if s.dismissEventTracked {
