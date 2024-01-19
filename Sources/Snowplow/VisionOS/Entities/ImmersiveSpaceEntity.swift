@@ -13,7 +13,7 @@
 
 import Foundation
 
-/// The style of a VisionOS immersive space.
+/// The style of a visionOS immersive space.
 public enum ImmersionStyle: Int {
     /// Default immersion style.
     case automatic
@@ -40,7 +40,7 @@ extension ImmersionStyle {
     }
 }
 
-/// The visibility of the user's upper limbs in a VisionOS immersive space.
+/// The visibility of the user's upper limbs in a visionOS immersive space.
 public enum UpperLimbVisibility: Int {
     /// Limbs may be visible or hidden depending on the policies of the component accepting the visibility configuration.
     case automatic
@@ -64,7 +64,7 @@ extension UpperLimbVisibility {
 }
 
 /**
- Properties for the VisionOS immersive space entity.
+ Properties for the visionOS immersive space entity.
  Entity schema: `iglu:com.apple.swiftui/immersive_space/jsonschema/1-0-0`
  */
 public class ImmersiveSpaceEntity: SelfDescribingJson {

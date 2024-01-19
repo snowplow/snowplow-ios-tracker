@@ -13,7 +13,7 @@
 
 import Foundation
 
-/** Event for a VisionOS immersive space being opened. */
+/** Event for a visionOS immersive space being opened. */
 public class OpenImmersiveSpaceEvent: SelfDescribingAbstract {
     
     /// The identifier of the immersive space to present.

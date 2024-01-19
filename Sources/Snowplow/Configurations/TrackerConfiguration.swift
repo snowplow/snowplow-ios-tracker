@@ -72,7 +72,7 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     /// Setting this property on a running tracker instance starts a new session (if sessions are tracked).
     @objc
     var userAnonymisation: Bool { get set }
-    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (VisionOS).
+    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (visionOS).
     @objc
     var immersiveSpaceContext: Bool { get set }
     /// Decorate the v_tracker field in the tracker protocol.
@@ -243,7 +243,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     private var _immersiveSpaceContext: Bool?
-    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (VisionOS).
+    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (visionOS).
     @objc
     public var immersiveSpaceContext: Bool {
         get { return _immersiveSpaceContext ?? sourceConfig?.immersiveSpaceContext ?? TrackerDefaults.immersiveSpaceContext }
@@ -496,7 +496,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
-    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (VisionOS).
+    /// Whether the immersive space context entity should be sent with events tracked within an immersive space (visionOS).
     @objc
     public func immersiveSpaceContext(_ immersiveSpaceContext: Bool) -> Self {
         self.immersiveSpaceContext = immersiveSpaceContext

@@ -13,7 +13,7 @@
 
 import Foundation
 
-/** Event for a VisionOS immersive space being dismissed. */
+/** Event for a visionOS immersive space being dismissed. */
 public class DismissImmersiveSpaceEvent: SelfDescribingAbstract {
     
     override var schema: String {
