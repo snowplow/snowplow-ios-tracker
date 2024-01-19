@@ -232,6 +232,21 @@ class Tracker: NSObject {
             }
         }
     }
+    
+    private var _immersiveSpaceContext = false
+    var immersiveSpaceContext: Bool {
+        get {
+            return _immersiveSpaceContext
+        }
+        set(immersiveSpaceContext) {
+            self._immersiveSpaceContext = immersiveSpaceContext
+            if immersiveSpaceContext {
+                self.addOrReplace(stateMachine: ImmersiveSpaceStateMachine())
+            } else {
+                _ = self.stateManager.removeStateMachine(ImmersiveSpaceStateMachine.identifier)
+            }
+        }
+    }
 
     /// GDPR context
     /// You can enable or disable the context by setting this property

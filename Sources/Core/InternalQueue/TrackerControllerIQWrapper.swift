@@ -216,6 +216,11 @@ class TrackerControllerIQWrapper: TrackerController {
         get { return InternalQueue.sync { controller.userAnonymisation } }
         set { InternalQueue.sync { controller.userAnonymisation = newValue } }
     }
+    
+    var immersiveSpaceContext: Bool {
+        get { return InternalQueue.sync { controller.immersiveSpaceContext } }
+        set { InternalQueue.sync { controller.immersiveSpaceContext = newValue } }
+    }
 
     var advertisingIdentifierRetriever: (() -> UUID?)? {
         get { return InternalQueue.sync { controller.advertisingIdentifierRetriever } }

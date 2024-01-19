@@ -32,4 +32,5 @@ class TrackerDefaults {
     private(set) static var platformContext = true
     private(set) static var geoLocationContext = false
     private(set) static var screenEngagementAutotracking = true
+    private(set) static var immersiveSpaceContext = true
 }
