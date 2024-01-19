@@ -73,6 +73,10 @@ class TestVisionOSEvents: XCTestCase {
         
         let entities = trackedEvents[0].entities
         XCTAssertEqual(1, getImmersiveSpaceEntities(entities).count)
+        
+        let spaceEntity = getImmersiveSpaceEntities(entities)[0] as? ImmersiveSpaceEntity
+        let viewId = spaceEntity!.viewId
+        XCTAssertNotNil(viewId)        
     }
     
     func testTrackDismissImmersiveSpace() {
