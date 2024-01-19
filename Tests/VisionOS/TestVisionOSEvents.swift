@@ -88,10 +88,26 @@ class TestVisionOSEvents: XCTestCase {
         XCTAssertEqual(0, getImmersiveSpaceEntities(entities).count)
     }
     
+    func testImmersiveSpaceEntityAddedByDefault() {
+        let event = OpenImmersiveSpaceEvent(id: "space")
+        
+        _ = tracker?.track(event)
+        waitForEventsToBeTracked()
+        
+        let event2 = ScreenView(name: "screen")
+        
+        _ = tracker?.track(event2)
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(2, trackedEvents.count)
+        
+        let entities = trackedEvents[1].entities
+        XCTAssertEqual(1, getImmersiveSpaceEntities(entities).count)
+    }
+    
     private func createTracker() -> TrackerController {
         let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
         let trackerConfig = TrackerConfiguration()
-        trackerConfig.immersiveSpaceContext = true
         
         let namespace = "testVisionOS" + String(describing: Int.random(in: 0..<100))
         eventSink = EventSink()

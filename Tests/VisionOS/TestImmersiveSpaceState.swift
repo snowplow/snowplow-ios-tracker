@@ -150,7 +150,7 @@ class TestImmersiveSpaceState: XCTestCase {
         )
         let tracker = Tracker(trackerNamespace: "namespace", appId: nil, emitter: emitter) { tracker in
             tracker.base64Encoded = false
-            tracker.immersiveSpaceContext = false // default
+            tracker.immersiveSpaceContext = false
         }
 
         // Send events
