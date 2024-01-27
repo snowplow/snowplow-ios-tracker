@@ -124,6 +124,20 @@ class Database {
         return rows
     }
     
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval) {
+        let sql = """
+            DELETE FROM 'events'
+            WHERE id NOT IN (
+                SELECT id FROM events
+                WHERE dateCreated >= datetime('now','-\(maxAge) seconds')
+                ORDER BY dateCreated DESC, id DESC
+                LIMIT \(maxSize)
+            )
+            """
+        
+        _ = execute(sql: sql, name: "Delete old events")
+    }
+    
     private func prepare(sql: String, name: String, closure: (OpaquePointer?, OpaquePointer?) -> ()) {
         withConnection { db in
             var statement: OpaquePointer?

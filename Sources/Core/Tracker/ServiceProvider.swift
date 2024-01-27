@@ -241,6 +241,8 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             emitter.callback = self.emitterConfiguration.requestCallback
             emitter.customRetryForStatusCodes = self.emitterConfiguration.customRetryForStatusCodes
             emitter.retryFailedRequests = self.emitterConfiguration.retryFailedRequests
+            emitter.maxEventStoreSize = self.emitterConfiguration.maxEventStoreSize
+            emitter.maxEventStoreAge = self.emitterConfiguration.maxEventStoreAge
         }
 
         let emitter: Emitter

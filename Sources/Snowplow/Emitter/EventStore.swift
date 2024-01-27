@@ -43,4 +43,10 @@ public protocol EventStore: NSObjectProtocol {
     /// - Returns: EmitterEvent objects containing storeIds and event payloads.
     @objc
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent]
+    /// Remove events older than `maxAge` seconds and keep only the latest `maxSize` events.
+    /// - Parameters:
+    ///   - maxSize: Limit for the maximum number of unsent events to keep
+    ///   - maxAge: Limit for the maximum duration of how long events should be kept
+    @objc
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval)
 }

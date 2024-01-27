@@ -197,6 +197,12 @@ class Emitter: EmitterEventProcessing {
         return Int(eventStore.count())
     }
     
+    /// Limit for the maximum number of unsent events to keep in the event store.
+    var maxEventStoreSize: Int64 = EmitterDefaults.maxEventStoreSize
+    
+    /// Limit for the maximum duration of how long events should be kept in the event store if they fail to be sent.
+    var maxEventStoreAge: TimeInterval = EmitterDefaults.maxEventStoreAge
+    
     // MARK: - Initialization
     
     init(namespace: String,
@@ -289,11 +295,19 @@ class Emitter: EmitterEventProcessing {
     /// Empties the buffer of events using the respective HTTP request method.
     func flush() {
         if requestToStartSending() {
+            self.removeOldEvents()
             self.attemptEmit()
         }
     }
 
     // MARK: - Control methods
+    
+    private func removeOldEvents() {
+        eventStore.removeOldEvents(
+            maxSize: maxEventStoreSize,
+            maxAge: maxEventStoreAge
+        )
+    }
 
     private func attemptEmit() {
         InternalQueue.onQueuePrecondition()
