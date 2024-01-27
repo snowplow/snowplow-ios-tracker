@@ -124,7 +124,7 @@ class TestDatabase: XCTestCase {
             db.insertRow(["test": i])
         }
         
-        db.removeOldEvents(maxSize: 5, maxAge: 1)
+        db.removeOldEvents(maxSize: 10, maxAge: 1)
         
         let rows = db.readRows(numRows: 10)
         XCTAssertEqual(rows.count, 5)
