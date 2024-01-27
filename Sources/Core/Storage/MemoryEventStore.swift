@@ -15,16 +15,15 @@ import Foundation
 
 class MemoryEventStore: NSObject, EventStore {
 
-    var sendLimit: UInt
-    var index: Int64
-    var orderedSet: NSMutableOrderedSet
+    private var sendLimit: UInt
+    private var index: Int64
+    private var eventBuffer: [EmitterEvent] = []
 
     convenience override init() {
         self.init(limit: 250)
     }
 
     init(limit: UInt) {
-        orderedSet = NSMutableOrderedSet()
         sendLimit = limit
         index = 0
     }
@@ -35,44 +34,28 @@ class MemoryEventStore: NSObject, EventStore {
         InternalQueue.onQueuePrecondition()
         
         let item = EmitterEvent(payload: payload, storeId: index)
-        orderedSet.add(item)
+        eventBuffer.append(item)
         index += 1
     }
 
     func count() -> UInt {
         InternalQueue.onQueuePrecondition()
         
-        return UInt(orderedSet.count)
+        return UInt(eventBuffer.count)
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
         InternalQueue.onQueuePrecondition()
         
-        let setCount = (orderedSet).count
-        if setCount <= 0 {
-            return []
-        }
-        let len = min(Int(queryLimit), setCount)
-        _ = NSRange(location: 0, length: len)
-        var count = 0
-        let indexes = orderedSet.indexes { _, _, _ in
-            count += 1
-            return count <= queryLimit
-        }
-        let objects = orderedSet.objects(at: indexes)
-        var result: [EmitterEvent] = []
-        for object in objects {
-            if let event = object as? EmitterEvent {
-                result.append(event)
-            }
-        }
-        return result
+        let limit = min(queryLimit, sendLimit)
+        
+        return Array(eventBuffer.prefix(Int(limit)))
     }
 
     func removeAllEvents() -> Bool {
         InternalQueue.onQueuePrecondition()
         
-        orderedSet.removeAllObjects()
+        eventBuffer.removeAll()
         return true
     }
 
@@ -85,16 +68,26 @@ class MemoryEventStore: NSObject, EventStore {
     func removeEvents(withIds storeIds: [Int64]) -> Bool {
         InternalQueue.onQueuePrecondition()
         
-        var itemsToRemove: [EmitterEvent] = []
-        for item in orderedSet {
-            guard let item = item as? EmitterEvent else {
-                continue
-            }
-            if storeIds.contains(item.storeId) {
-                itemsToRemove.append(item)
-            }
-        }
-        orderedSet.removeObjects(in: itemsToRemove)
+        eventBuffer = eventBuffer.filter { !storeIds.contains($0.storeId) }
         return true
+    }
+    
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval) {
+        InternalQueue.onQueuePrecondition()
+        
+        let currentTimestamp = Date().timeIntervalSince1970
+        
+        // remove old events by age
+        eventBuffer = eventBuffer.filter { emitterEvent in
+            if let timestampString = emitterEvent.payload[kSPTimestamp] as? String,
+               let timestamp = Double(timestampString) {
+                let timestampSecs = timestamp / 1000.0
+                return currentTimestamp - timestampSecs <= maxAge
+            }
+            return true
+        }
+        
+        // remove old events by size limit
+        eventBuffer = Array(eventBuffer.suffix(Int(maxSize)))
     }
 }

@@ -45,6 +45,14 @@ public protocol EmitterConfigurationProtocol: AnyObject {
     /// If disabled, events that failed to be sent will be dropped regardless of other configuration (such as the customRetryForStatusCodes).
     @objc
     var retryFailedRequests: Bool { get set }
+    /// Limit for the maximum number of unsent events to keep in the event store.
+    /// Defaults to 1000.
+    @objc
+    var maxEventStoreSize: Int64 { get set }
+    /// Limit for the maximum duration of how long events should be kept in the event store if they fail to be sent.
+    /// Defaults to 30 days.
+    @objc
+    var maxEventStoreAge: TimeInterval { get set }
 }
 
 /// It allows the tracker configuration from the emission perspective.
@@ -134,6 +142,24 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
     public var retryFailedRequests: Bool {
         get { return _retryFailedRequests ?? sourceConfig?.retryFailedRequests ?? EmitterDefaults.retryFailedRequests }
         set { _retryFailedRequests = newValue }
+    }
+    
+    private var _maxEventStoreSize: Int64?
+    /// Limit for the maximum number of unsent events to keep in the event store.
+    /// Defaults to 1000.
+    @objc
+    public var maxEventStoreSize: Int64 {
+        get { return _maxEventStoreSize ?? sourceConfig?.maxEventStoreSize ?? EmitterDefaults.maxEventStoreSize }
+        set { _maxEventStoreSize = newValue }
+    }
+    
+    private var _maxEventStoreAge: TimeInterval?
+    /// Limit for the maximum duration of how long events should be kept in the event store if they fail to be sent.
+    /// Defaults to 30 days.
+    @objc
+    public var maxEventStoreAge: TimeInterval {
+        get { return _maxEventStoreAge ?? sourceConfig?.maxEventStoreAge ?? EmitterDefaults.maxEventStoreAge }
+        set { _maxEventStoreAge = newValue }
     }
     
     // MARK: - Internal
@@ -258,6 +284,22 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         return self
     }
     
+    /// Limit for the maximum number of unsent events to keep in the event store.
+    /// Defaults to 1000.
+    @objc
+    public func maxEventStoreSize(_ maxEventStoreSize: Int64) -> Self {
+        self.maxEventStoreSize = maxEventStoreSize
+        return self
+    }
+    
+    /// Limit for the maximum duration of how long events should be kept in the event store if they fail to be sent.
+    /// Defaults to 30 days.
+    @objc
+    public func maxEventStoreAge(_ maxEventStoreAge: TimeInterval) -> Self {
+        self.maxEventStoreAge = maxEventStoreAge
+        return self
+    }
+    
     // MARK: - NSCopying
 
     @objc
@@ -273,6 +315,8 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         copy.serverAnonymisation = serverAnonymisation
         copy.eventStore = eventStore
         copy.retryFailedRequests = retryFailedRequests
+        copy.maxEventStoreAge = maxEventStoreAge
+        copy.maxEventStoreSize = maxEventStoreSize
         return copy
     }
 
@@ -291,6 +335,8 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         coder.encode(customRetryForStatusCodes, forKey: "customRetryForStatusCodes")
         coder.encode(serverAnonymisation, forKey: "serverAnonymisation")
         coder.encode(retryFailedRequests, forKey: "retryFailedRequests")
+        coder.encode(maxEventStoreAge, forKey: "maxEventStoreAge")
+        coder.encode(maxEventStoreSize, forKey: "maxEventStoreSize")
     }
 
     required init?(coder: NSCoder) {
@@ -308,6 +354,12 @@ public class EmitterConfiguration: SerializableConfiguration, EmitterConfigurati
         serverAnonymisation = coder.decodeBool(forKey: "serverAnonymisation")
         if coder.containsValue(forKey: "retryFailedRequests") {
             retryFailedRequests = coder.decodeBool(forKey: "retryFailedRequests")
+        }
+        if coder.containsValue(forKey: "maxEventStoreAge") {
+            maxEventStoreAge = coder.decodeDouble(forKey: "maxEventStoreAge")
+        }
+        if coder.containsValue(forKey: "maxEventStoreSize") {
+            maxEventStoreSize = coder.decodeInt64(forKey: "maxEventStoreSize")
         }
     }
 }

@@ -79,6 +79,12 @@ class SQLiteEventStore: NSObject, EventStore {
             return EmitterEvent(payload: payload, storeId: row.id)
         }
     }
+    
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval) {
+        InternalQueue.onQueuePrecondition()
+        
+        return database.removeOldEvents(maxSize: maxSize, maxAge: maxAge)
+    }
 }
 
 #endif

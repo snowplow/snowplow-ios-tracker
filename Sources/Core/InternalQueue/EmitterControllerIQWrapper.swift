@@ -75,6 +75,16 @@ class EmitterControllerIQWrapper: EmitterController {
         get { return InternalQueue.sync { controller.retryFailedRequests } }
         set { InternalQueue.sync { controller.retryFailedRequests = newValue } }
     }
+    
+    var maxEventStoreSize: Int64 {
+        get { return InternalQueue.sync { controller.maxEventStoreSize } }
+        set { InternalQueue.sync { controller.maxEventStoreSize = newValue } }
+    }
+    
+    var maxEventStoreAge: TimeInterval {
+        get { return InternalQueue.sync { controller.maxEventStoreAge } }
+        set { InternalQueue.sync { controller.maxEventStoreAge = newValue } }
+    }
 
     // MARK: - Methods
 

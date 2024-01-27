@@ -115,6 +115,22 @@ class EmitterControllerImpl: Controller, EmitterController {
             emitter.retryFailedRequests = newValue
         }
     }
+    
+    var maxEventStoreSize: Int64 {
+        get { return emitter.maxEventStoreSize }
+        set {
+            dirtyConfig.maxEventStoreSize = newValue
+            emitter.maxEventStoreSize = newValue
+        }
+    }
+    
+    var maxEventStoreAge: TimeInterval {
+        get { return emitter.maxEventStoreAge }
+        set {
+            dirtyConfig.maxEventStoreAge = newValue
+            emitter.maxEventStoreAge = newValue
+        }
+    }
 
     // MARK: - Methods
 
