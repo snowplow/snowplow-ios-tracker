@@ -17,16 +17,16 @@ import Foundation
 public class PlatformContextRetriever {
     
     /// Operating system type (e.g., ios, tvos, watchos, osx, android)
-    public var osType: (() -> String?)? = nil
+    public var osType: (() -> String)? = nil
     
     /// The current version of the operating system
-    public var osVersion: (() -> String?)? = nil
+    public var osVersion: (() -> String)? = nil
     
     /// The manufacturer of the product/hardware
-    public var deviceVendor: (() -> String?)? = nil
+    public var deviceVendor: (() -> String)? = nil
     
     /// The end-user-visible name for the end product
-    public var deviceModel: (() -> String?)? = nil
+    public var deviceModel: (() -> String)? = nil
 
     /// The carrier of the SIM inserted in the device
     public var carrier: (() -> String?)? = nil
@@ -98,10 +98,10 @@ public class PlatformContextRetriever {
     ///   - scale: Scale factor used to convert logical coordinates to device coordinates of the screen (uses UIScreen.scale on iOS)
     ///   - language: System language currently used on the device (ISO 639)
     public init(
-        osType: (() -> String?)? = nil,
-        osVersion: (() -> String?)? = nil,
-        deviceVendor: (() -> String?)? = nil,
-        deviceModel: (() -> String?)? = nil,
+        osType: (() -> String)? = nil,
+        osVersion: (() -> String)? = nil,
+        deviceVendor: (() -> String)? = nil,
+        deviceModel: (() -> String)? = nil,
         carrier: (() -> String?)? = nil,
         networkType: (() -> String?)? = nil,
         networkTechnology: (() -> String?)? = nil,

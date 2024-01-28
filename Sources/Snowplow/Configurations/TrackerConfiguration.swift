@@ -270,7 +270,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     public var advertisingIdentifierRetriever: (() -> UUID?)? {
         get { return platformContextRetriever?.appleIdfa }
         set {
-            if var retriever = platformContextRetriever {
+            if let retriever = platformContextRetriever {
                 retriever.appleIdfa = newValue
             } else {
                 platformContextRetriever = PlatformContextRetriever(appleIdfa: newValue)
