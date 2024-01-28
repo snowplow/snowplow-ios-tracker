@@ -227,6 +227,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return Subject(
             platformContext: trackerConfiguration.platformContext,
             platformContextProperties: trackerConfiguration.platformContextProperties,
+            platformContextRetriever: trackerConfiguration.platformContextRetriever,
             geoLocationContext: trackerConfiguration.geoLocationContext,
             subjectConfiguration: subjectConfiguration)
     }
@@ -304,7 +305,6 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             tracker.trackerDiagnostic = trackerConfiguration.diagnosticAutotracking
             tracker.userAnonymisation = trackerConfiguration.userAnonymisation
             tracker.immersiveSpaceContext = trackerConfiguration.immersiveSpaceContext
-            tracker.advertisingIdentifierRetriever = trackerConfiguration.advertisingIdentifierRetriever
             if gdprConfiguration.sourceConfig != nil {
                 tracker.gdprContext = GDPRContext(
                     basis: gdprConfiguration.basisForProcessing,

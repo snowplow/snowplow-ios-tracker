@@ -156,6 +156,11 @@ class TrackerControllerIQWrapper: TrackerController {
         get { return InternalQueue.sync { controller.platformContextProperties } }
         set { InternalQueue.sync { controller.platformContextProperties = newValue } }
     }
+    
+    var platformContextRetriever: PlatformContextRetriever? {
+        get { return InternalQueue.sync { controller.platformContextRetriever } }
+        set { InternalQueue.sync { controller.platformContextRetriever = newValue } }
+    }
 
     var geoLocationContext: Bool {
         get { return InternalQueue.sync { controller.geoLocationContext } }

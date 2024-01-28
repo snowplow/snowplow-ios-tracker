@@ -36,6 +36,12 @@ public enum PlatformContextProperty: Int {
     case batteryState
     /// A Boolean indicating whether Low Power Mode is enabled
     case lowPowerMode
+    /// Bytes of storage remaining
+    /// Note: This is not automatically assigned by the tracker as it may be considered as fingerprinting. You can assign it using the PlatformContextRetriever.
+    case availableStorage
+    /// Total size of storage in bytes
+    /// Note: This is not automatically assigned by the tracker as it may be considered as fingerprinting. You can assign it using the PlatformContextRetriever.
+    case totalStorage
     /// A Boolean indicating whether the device orientation is portrait (either upright or upside down)
     case isPortrait
     /// Screen resolution in pixels. Arrives in the form of WIDTHxHEIGHT (e.g., 1200x900). Doesn't change when device orientation changes
