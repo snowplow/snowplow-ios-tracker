@@ -42,7 +42,7 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
         set(method) { _httpMethod = method; setup() }
     }
 
-    private var _emitThreadPoolSize = 15
+    private var _emitThreadPoolSize = EmitterDefaults.emitThreadPoolSize
     /// The number of threads used by the emitter.
     @objc
     public var emitThreadPoolSize: Int {
@@ -57,11 +57,11 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     
     /// Maximum event size for a GET request.
     @objc
-    public var byteLimitGet: Int = 40000
+    public var byteLimitGet: Int = EmitterDefaults.byteLimitGet
     
     /// Maximum event size for a POST request.
     @objc
-    public var byteLimitPost = 40000
+    public var byteLimitPost = EmitterDefaults.byteLimitPost
     
     private var _customPostPath: String?
     /// A custom path that is used on the endpoint to send requests.
@@ -78,9 +78,9 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     @objc
     public var serverAnonymisation = false
     private var dataOperationQueue = OperationQueue()
+    
     /// Custom timeout for the requests
-    @objc
-    public var timeout: TimeInterval
+    private var timeout: TimeInterval
     
     private var protocolClasses: [AnyClass]?
     private var _urlSession: URLSession?
@@ -102,7 +102,7 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
                 httpMethod: HttpMethodOptions = EmitterDefaults.httpMethod,
                 protocol: ProtocolOptions = EmitterDefaults.httpProtocol,
                 customPostPath: String? = nil,
-                timeout: TimeInterval = 60,
+                timeout: TimeInterval = EmitterDefaults.emitTimeout,
                 protocolClasses: [AnyClass]? = nil) {
         self._urlString = urlString
         self.timeout = timeout

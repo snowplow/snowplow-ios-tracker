@@ -264,6 +264,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
                 requestHeaders: self.networkConfiguration.requestHeaders,
                 serverAnonymisation: self.emitterConfiguration.serverAnonymisation,
                 eventStore: self.emitterConfiguration.eventStore,
+                timeout: self.networkConfiguration.timeout,
                 builder: builder
             )
         }
