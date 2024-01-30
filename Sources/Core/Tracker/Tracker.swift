@@ -261,8 +261,6 @@ class Tracker: NSObject {
     var isTracking: Bool {
         return dataCollection
     }
-    
-    var advertisingIdentifierRetriever: (() -> UUID?)?
 
     init(trackerNamespace: String,
          appId: String?,
@@ -558,9 +556,7 @@ class Tracker: NSObject {
 
     func addBasicContexts(event: TrackerEvent) {
         if subject != nil {
-            if let platformDict = subject?.platformDict(
-                userAnonymisation: userAnonymisation,
-                advertisingIdentifierRetriever: advertisingIdentifierRetriever)?.dictionary {
+            if let platformDict = subject?.platformDict(userAnonymisation: userAnonymisation)?.dictionary {
                 event.addContextEntity(SelfDescribingJson(schema: platformContextSchema, andDictionary: platformDict))
             }
             if let geoLocationDict = subject?.geoLocationDict {

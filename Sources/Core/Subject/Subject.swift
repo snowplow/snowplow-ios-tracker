@@ -17,17 +17,30 @@ import Foundation
 /// This class is used to access and persist user information, it represents the current user being tracked.
 class Subject : NSObject {
     private var standardDict: [String : String] = [:]
-    private var platformContextManager: PlatformContext
     private var geoDict: [String : NSObject] = [:]
+  
+    var geoLocationContext = false
+    
+    // MARK: - Platform context
 
+    private var platformContextManager: PlatformContext
+    
     var platformContext = false
     
     var platformContextProperties: [PlatformContextProperty]? {
         get { return platformContextManager.platformContextProperties }
         set { platformContextManager.platformContextProperties = newValue }
     }
+      
+    var platformContextRetriever: PlatformContextRetriever {
+        get { return platformContextManager.platformContextRetriever }
+        set { platformContextManager.platformContextRetriever = newValue }
+    }
     
-    var geoLocationContext = false
+    var advertisingIdentifierRetriever: (() -> UUID?)? {
+        get { return platformContextManager.platformContextRetriever.appleIdfa }
+        set { platformContextManager.platformContextRetriever.appleIdfa = newValue }
+    }
     
     // MARK: - Standard Dictionary
     
@@ -194,9 +207,13 @@ class Subject : NSObject {
 
     init(platformContext: Bool = false,
          platformContextProperties: [PlatformContextProperty]? = nil,
+         platformContextRetriever: PlatformContextRetriever? = nil,
          geoLocationContext geoContext: Bool = false,
          subjectConfiguration config: SubjectConfiguration? = nil) {
-        self.platformContextManager = PlatformContext(platformContextProperties: platformContextProperties)
+        self.platformContextManager = PlatformContext(
+            platformContextProperties: platformContextProperties,
+            platformContextRetriever: platformContextRetriever
+        )
         super.init()
         platformContextManager.platformContextProperties = platformContextProperties
         self.platformContext = platformContext
@@ -252,11 +269,9 @@ class Subject : NSObject {
     /// Gets all platform dictionary pairs to decorate event with. Returns nil if not enabled.
     /// - Parameter userAnonymisation: Whether to anonymise user identifiers
     /// - Returns: A SPPayload with all platform specific pairs.
-    func platformDict(userAnonymisation: Bool, advertisingIdentifierRetriever: (() -> UUID?)?) -> Payload? {
+    func platformDict(userAnonymisation: Bool) -> Payload? {
         if platformContext {
-            return platformContextManager.fetchPlatformDict(
-                userAnonymisation: userAnonymisation,
-                advertisingIdentifierRetriever: advertisingIdentifierRetriever)
+            return platformContextManager.fetchPlatformDict(userAnonymisation: userAnonymisation)
         } else {
             return nil
         }

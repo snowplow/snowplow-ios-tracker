@@ -161,6 +161,11 @@ class TrackerControllerImpl: Controller, TrackerController {
             tracker.subject?.platformContextProperties = newValue
         }
     }
+    
+    var platformContextRetriever: PlatformContextRetriever? {
+        get { return tracker.subject?.platformContextRetriever }
+        set { if let retriever = newValue { tracker.subject?.platformContextRetriever = retriever } }
+    }
 
     var geoLocationContext: Bool {
         get {
@@ -294,11 +299,11 @@ class TrackerControllerImpl: Controller, TrackerController {
 
     var advertisingIdentifierRetriever: (() -> UUID?)? {
         get {
-            return tracker.advertisingIdentifierRetriever
+            return tracker.subject?.advertisingIdentifierRetriever
         }
         set {
             dirtyConfig.advertisingIdentifierRetriever = newValue
-            tracker.advertisingIdentifierRetriever = newValue
+            tracker.subject?.advertisingIdentifierRetriever = newValue
         }
     }
 
