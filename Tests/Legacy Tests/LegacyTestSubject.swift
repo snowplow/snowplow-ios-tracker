@@ -33,7 +33,7 @@ class LegacyTestSubject: XCTestCase {
 
     func testSubjectInitWithOptions() {
         let subject = Subject(platformContext: true, geoLocationContext: false)
-        XCTAssertNotNil(subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil))
+        XCTAssertNotNil(subject.platformDict(userAnonymisation: false))
         XCTAssertNotNil(subject.standardDict(userAnonymisation: false))
     }
 

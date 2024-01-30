@@ -23,22 +23,22 @@ class MockDeviceInfoMonitor: DeviceInfoMonitor {
         return customAppleIdfv
     }
 
-    override var deviceVendor: String? {
+    override var deviceVendor: String {
         increaseMethodAccessCount("deviceVendor")
         return "Apple Inc."
     }
 
-    override var deviceModel: String? {
+    override var deviceModel: String {
         increaseMethodAccessCount("deviceModel")
         return "deviceModel"
     }
 
-    override var osVersion: String? {
+    override var osVersion: String {
         increaseMethodAccessCount("osVersion")
         return "13.0.0"
     }
 
-    override var osType: String? {
+    override var osType: String {
         increaseMethodAccessCount("osType")
         return "ios"
     }

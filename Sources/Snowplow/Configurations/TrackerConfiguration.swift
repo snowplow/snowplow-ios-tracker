@@ -89,6 +89,10 @@ public protocol PlatformContextConfigurationProtocol {
     /// List of properties of the platform context to track. If not passed and `platformContext` is enabled, all available properties will be tracked.
     /// The required `osType`, `osVersion`, `deviceManufacturer`, and `deviceModel` properties will be tracked in the entity regardless of this setting.
     var platformContextProperties: [PlatformContextProperty]? { get set }
+    
+    /// Set of callbacks to be used to retrieve properties of the platform context.
+    /// Overrides the tracker implementation for setting the properties.
+    var platformContextRetriever: PlatformContextRetriever? { get set }
 }
 
 /// This class represents the configuration of the tracker and the core tracker properties.
@@ -264,8 +268,14 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     /// It is called repeatedly (on each tracked event) until a UUID is returned.
     @objc
     public var advertisingIdentifierRetriever: (() -> UUID?)? {
-        get { return _advertisingIdentifierRetriever ?? sourceConfig?.advertisingIdentifierRetriever }
-        set { _advertisingIdentifierRetriever = newValue }
+        get { return platformContextRetriever?.appleIdfa }
+        set {
+            if let retriever = platformContextRetriever {
+                retriever.appleIdfa = newValue
+            } else {
+                platformContextRetriever = PlatformContextRetriever(appleIdfa: newValue)
+            }
+        }
     }
     
     private var _platformContextProperties: [PlatformContextProperty]?
@@ -274,6 +284,14 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     public var platformContextProperties: [PlatformContextProperty]? {
         get { return _platformContextProperties ?? sourceConfig?.platformContextProperties }
         set { _platformContextProperties = newValue }
+    }
+    
+    private var _platformContextRetriever: PlatformContextRetriever?
+    /// Set of callbacks to be used to retrieve properties of the platform context.
+    /// Overrides the tracker implementation for setting the properties.
+    public var platformContextRetriever: PlatformContextRetriever? {
+        get { return _platformContextRetriever ?? sourceConfig?.platformContextRetriever }
+        set { _platformContextRetriever = newValue }
     }
     
     // MARK: - Internal
@@ -518,6 +536,13 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         self.advertisingIdentifierRetriever = retriever
         return self
     }
+    
+    /// Set of callbacks to be used to retrieve properties of the platform context.
+    /// Overrides the tracker implementation for setting the properties.
+    public func platformContextRetriever(_ retriever: PlatformContextRetriever?) -> Self {
+        self.platformContextRetriever = retriever
+        return self
+    }
 
     // MARK: - NSCopying
 
@@ -533,6 +558,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         copy.applicationContext = applicationContext
         copy.platformContext = platformContext
         copy.platformContextProperties = platformContextProperties
+        copy.platformContextRetriever = platformContextRetriever
         copy.geoLocationContext = geoLocationContext
         copy.deepLinkContext = deepLinkContext
         copy.screenContext = screenContext
@@ -545,7 +571,6 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         copy.trackerVersionSuffix = trackerVersionSuffix
         copy.userAnonymisation = userAnonymisation
         copy.immersiveSpaceContext = immersiveSpaceContext
-        copy.advertisingIdentifierRetriever = advertisingIdentifierRetriever
         return copy
     }
 

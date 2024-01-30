@@ -38,15 +38,15 @@ class DeviceInfoMonitor {
 
     /// Returns the current device's vendor in the form of a string.
     /// - Returns: A string with vendor, i.e. "Apple Inc."
-    var deviceVendor: String? {
+    var deviceVendor: String {
         return "Apple Inc."
     }
 
     /// Returns the current device's model in the form of a string.
     /// - Returns: A string with device model.
-    var deviceModel: String? {
+    var deviceModel: String {
         let simulatorModel = (ProcessInfo.processInfo.environment)["SIMULATOR_MODEL_IDENTIFIER"]
-        if simulatorModel != nil {
+        if let simulatorModel = simulatorModel {
             return simulatorModel
         }
         
@@ -59,7 +59,7 @@ class DeviceInfoMonitor {
 
     /// This is to detect what the version of mobile OS of the current device.
     /// - Returns: The current device's OS version type as a string.
-    var osVersion: String? {
+    var osVersion: String {
         #if os(iOS) || os(tvOS) || os(visionOS)
         return UIDevice.current.systemVersion
         #elseif os(watchOS)
@@ -78,7 +78,7 @@ class DeviceInfoMonitor {
         #endif
     }
 
-    var osType: String? {
+    var osType: String {
         #if os(iOS)
         return "ios"
         #elseif os(tvOS)

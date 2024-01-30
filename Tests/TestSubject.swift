@@ -17,14 +17,14 @@ import XCTest
 class TestSubject: XCTestCase {
     func testReturnsPlatformContextIfEnabled() {
         let subject = Subject(platformContext: true, geoLocationContext: false)
-        let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
+        let platformDict = subject.platformDict(userAnonymisation: false)
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict?.dictionary[kSPPlatformOsType])
     }
 
     func testDoesntReturnPlatformContextIfDisabled() {
         let subject = Subject(platformContext: false, geoLocationContext: false)
-        let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
+        let platformDict = subject.platformDict(userAnonymisation: false)
         XCTAssertNil(platformDict)
     }
 
