@@ -17,7 +17,7 @@ class EventStoreIQWrapper: NSObject, EventStore {
     
     private let eventStore: EventStore
     
-    public init(eventStore: EventStore) {
+    init(eventStore: EventStore) {
         self.eventStore = eventStore
     }
     
