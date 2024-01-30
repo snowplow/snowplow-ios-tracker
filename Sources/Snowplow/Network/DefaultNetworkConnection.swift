@@ -80,7 +80,7 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     private var dataOperationQueue = OperationQueue()
     
     /// Custom timeout for the requests
-    private var timeout: TimeInterval
+    private let timeout: TimeInterval
     
     private var protocolClasses: [AnyClass]?
     private var _urlSession: URLSession?
