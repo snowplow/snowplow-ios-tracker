@@ -23,7 +23,7 @@ public protocol EmitterController: EmitterConfigurationProtocol {
     var isSending: Bool { get }
     /// The EventStore being used by the emitter.
     @objc
-    var eventStore: EventStore? { get }
+    var eventStore: EventStore { get }
     @objc
     func flush()
     /// Pause emitting events.

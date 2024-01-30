@@ -132,7 +132,7 @@ class EmitterControllerImpl: Controller, EmitterController {
         }
     }
 
-    var eventStore: EventStore? {
+    var eventStore: EventStore {
         return emitter.eventStore
     }
 
