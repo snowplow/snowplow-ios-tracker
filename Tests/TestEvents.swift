@@ -25,6 +25,27 @@ class TestEvents: XCTestCase {
         XCTAssertEqual(event.trueTimestamp, testDate)
     }
 
+    func testEntities() {
+        let event = ScreenView(name: "screen")
+        let entity1 = SelfDescribingJson(schema: "schema1", andData: [String:NSObject]())
+        let entity2 = SelfDescribingJson(schema: "schema2", andData: [String:NSObject]())
+        let entity3 = SelfDescribingJson(schema: "schema3", andData: [String:NSObject]())
+        
+        event.entities.append(entity1)
+        XCTAssertEqual(1, event.entities.count)
+        
+        _ = event.entities([entity2])
+        XCTAssertEqual(2, event.entities.count)
+
+        _ = event.contexts([entity3])
+        XCTAssertEqual(3, event.entities.count)
+        
+        XCTAssertEqual(3, event.contexts.count)
+        XCTAssertTrue(event.entities.contains(entity1))
+        XCTAssertTrue(event.entities.contains(entity2))
+        XCTAssertTrue(event.entities.contains(entity3))
+    }
+
     func testApplicationInstall() {
         // Prepare ApplicationInstall event
         let installEvent = SelfDescribingJson(schema: kSPApplicationInstallSchema, andDictionary: [String:NSObject]())
