@@ -85,6 +85,10 @@ class EmitterControllerIQWrapper: EmitterController {
         get { return InternalQueue.sync { controller.maxEventStoreAge } }
         set { InternalQueue.sync { controller.maxEventStoreAge = newValue } }
     }
+    
+    var eventStore: EventStore {
+        get { return InternalQueue.sync { EventStoreIQWrapper(eventStore: controller.eventStore) } }
+    }
 
     // MARK: - Methods
 

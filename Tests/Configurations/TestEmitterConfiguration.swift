@@ -80,6 +80,27 @@ class TestEmitterConfiguration: XCTestCase {
         XCTAssertEqual(0, tracker.emitter?.dbCount)
     }
     
+    func testAllowsAccessToTheEventStore() {
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let networkConfig = NetworkConfiguration(networkConnection: networkConnection)
+
+        let tracker = createTracker(networkConfig: networkConfig, emitterConfig: EmitterConfiguration())
+
+        tracker.emitter?.pause()
+        for i in 0..<10 {
+            _ = tracker.track(Structured(category: "cat", action: "act").value(NSNumber(value: i)))
+        }
+        Thread.sleep(forTimeInterval: 0.5)
+        
+        XCTAssertEqual(10, tracker.emitter?.dbCount)
+        XCTAssertEqual(10, tracker.emitter?.eventStore.count())
+        
+        XCTAssertTrue(tracker.emitter?.eventStore.removeAllEvents() ?? false)
+        
+        XCTAssertEqual(0, tracker.emitter?.dbCount)
+        XCTAssertEqual(0, tracker.emitter?.eventStore.count())
+    }
+    
     private func createTracker(networkConfig: NetworkConfiguration, emitterConfig: EmitterConfiguration) -> TrackerController {
         let trackerConfig = TrackerConfiguration()
         trackerConfig.installAutotracking = false

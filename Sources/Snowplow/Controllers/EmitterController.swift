@@ -21,6 +21,9 @@ public protocol EmitterController: EmitterConfigurationProtocol {
     /// Whether the emitter is currently sending events.
     @objc
     var isSending: Bool { get }
+    /// The EventStore being used by the emitter.
+    @objc
+    var eventStore: EventStore { get }
     @objc
     func flush()
     /// Pause emitting events.
