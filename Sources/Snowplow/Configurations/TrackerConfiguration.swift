@@ -57,6 +57,7 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     @objc
     var screenEngagementAutotracking: Bool { get set }
     /// Whether to enable automatic tracking of background and foreground transitions.
+    /// Enabled by default.
     @objc
     var lifecycleAutotracking: Bool { get set }
     /// Whether to enable automatic tracking of install event.
@@ -207,6 +208,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     
     private var _lifecycleAutotracking: Bool?
     /// Whether to enable automatic tracking of background and foreground transitions.
+    /// Enabled by default.
     @objc
     public var lifecycleAutotracking: Bool {
         get { return _lifecycleAutotracking ?? sourceConfig?.lifecycleAutotracking ?? TrackerDefaults.lifecycleEvents }
@@ -479,6 +481,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     }
     
     /// Whether to enable automatic tracking of background and foreground transitions.
+    /// Enabled by default.
     @objc
     public func lifecycleAutotracking(_ lifecycleAutotracking: Bool) -> Self {
         self.lifecycleAutotracking = lifecycleAutotracking

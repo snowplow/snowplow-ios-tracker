@@ -24,7 +24,7 @@ class TrackerDefaults {
     private(set) static var screenContext = true
     private(set) static var applicationContext = true
     private(set) static var autotrackScreenViews = true
-    private(set) static var lifecycleEvents = false
+    private(set) static var lifecycleEvents = true
     private(set) static var exceptionEvents = true
     private(set) static var installEvent = true
     private(set) static var trackerDiagnostic = false
