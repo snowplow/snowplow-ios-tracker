@@ -213,6 +213,7 @@ class Emitter: EmitterEventProcessing {
          requestHeaders: [String: String]? = nil,
          serverAnonymisation: Bool? = nil,
          eventStore: EventStore? = nil,
+         timeout: TimeInterval = EmitterDefaults.emitTimeout,
          builder: ((Emitter) -> (Void))? = nil) {
         self.namespace = namespace
         self.eventStore = eventStore ?? Emitter.defaultEventStore(namespace: namespace)
@@ -220,7 +221,8 @@ class Emitter: EmitterEventProcessing {
         let defaultNetworkConnection = DefaultNetworkConnection(
             urlString: urlEndpoint,
             httpMethod: method ?? EmitterDefaults.httpMethod,
-            customPostPath: customPostPath
+            customPostPath: customPostPath,
+            timeout: timeout
         )
         defaultNetworkConnection.requestHeaders = requestHeaders
         defaultNetworkConnection.serverAnonymisation = serverAnonymisation ?? EmitterDefaults.serverAnonymisation

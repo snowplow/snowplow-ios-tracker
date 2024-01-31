@@ -65,12 +65,18 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         set { _requestHeaders = newValue }
     }
     
+    private var _timeout: TimeInterval?
+    /// The maximum timeout for emitting events to the collector.
+    /// Defaults to 30 seconds.
+    @objc var timeout: TimeInterval {
+        get { return _timeout ?? sourceConfig?.timeout ?? EmitterDefaults.emitTimeout }
+        set { _timeout = newValue }
+    }
+    
     // MARK: - Internal
     
     /// Fallback configuration to read from in case requested values are not present in this configuraiton.
     internal var sourceConfig: NetworkConfiguration?
-
-    // TODO: add -> @property () NSInteger timeout;
     
     internal override init() {
     }
@@ -132,6 +138,14 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         self.requestHeaders = headers
         return self
     }
+    
+    /// The maximum timeout for emitting events to the collector.
+    /// Defaults to 30 seconds.
+    @objc
+    public func timeout(_ timeout: TimeInterval) -> Self {
+        self.timeout = timeout
+        return self
+    }
 
     // MARK: - NSCopying
 
@@ -144,6 +158,7 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
             copy = NetworkConfiguration(endpoint: endpoint ?? "", method: method )
         }
         copy?.customPostPath = customPostPath
+        copy?.timeout = timeout
         return copy!
     }
 
@@ -159,6 +174,7 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         coder.encode(method.rawValue, forKey: "method")
         coder.encode(customPostPath, forKey: "customPostPath")
         coder.encode(requestHeaders, forKey: "requestHeaders")
+        coder.encode(timeout, forKey: "timeout")
     }
 
     required init?(coder: NSCoder) {
@@ -167,5 +183,6 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         _method = HttpMethodOptions(rawValue: coder.decodeInteger(forKey: "method"))
         _customPostPath = coder.decodeObject(forKey: "customPostPath") as? String
         _requestHeaders = coder.decodeObject(forKey: "requestHeaders") as? [String : String]
+        _timeout = coder.decodeObject(forKey: "timeout") as? TimeInterval
     }
 }

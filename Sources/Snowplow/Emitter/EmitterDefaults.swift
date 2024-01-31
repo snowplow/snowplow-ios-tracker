@@ -25,4 +25,5 @@ public class EmitterDefaults {
     public private(set) static var retryFailedRequests = true
     public private(set) static var maxEventStoreSize: Int64 = 1000 // events
     public private(set) static var maxEventStoreAge: TimeInterval = TimeInterval(60 * 60 * 24 * 30) // 30 days
+    public private(set) static var emitTimeout: TimeInterval = TimeInterval(30) // 30 seconds
 }
