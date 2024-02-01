@@ -1,3 +1,30 @@
+Version 6.0.0 (2024-02-01)
+--------------------------
+- Add screen engagement tracking of time spent and list items scrolled on a screen (#851)
+- Enable lifecycle autotracking by default (#852)
+- Add support for visionOS (#830)
+- Add VisionOS events and entities (#857)
+- Improve concurrency model using a single internal dispatch queue (#820)
+- Process tracked events on a serial background queue (#822)
+- Add API to decorate link with user/session info (#819)
+- Add configurable limit for the maximum age and number of events in the event store and remove old events before sending (#860)
+- Add request timeout to network connection and configuration (#836) thanks to @danigutierrezayuso
+- Expose event store from emitter controller to be able to remove all events from database (#834) thanks to @danigutierrezayuso
+- Make network requests serially in network connection (#846)
+- Change default buffer option to single (#849)
+- Flush events only when the buffer is full (#827) thanks to @danigutierrezayuso
+- Add SDK privacy manifest file (#811)
+- Remove available storage and total storage from platform context (#824)
+- Add an option to override platform context properties (#865)
+- Remove the use of the FMDB dependency in SQLiteEventStore (#823)
+- Return non-optional TrackerController instance from `createTracker` (#847) thanks to @Kymer
+- Enable representing self-describing data using Codable structs (#844)
+- Match BaseEvent entities API with Android tracker (#867)
+- Fix bundle path check to handle symbolic links (#858) thanks to @mylifeasdog
+- Set the platform event property to tv on tvOS and mobile on watchOS (#872)
+- Update copyright notices (#868)
+- Update CI build (#856)
+
 Version 5.6.0 (2023-10-12)
 --------------------------
 Add configuration to send requests with user ID to a Focal Meter endpoint (#745)
