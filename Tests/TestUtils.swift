@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -34,16 +34,20 @@ class TestUtils: XCTestCase {
     }
     
     func testGetPlatform() {
-#if os(iOS)
+#if os(iOS) || os(visionOS) || os(watchOS)
         XCTAssertEqual(Utilities.platform, .mobile)
+#elseif os(tvOS)
+        XCTAssertEqual(Utilities.platform, .connectedTV)
 #else
         XCTAssertEqual(Utilities.platform, .desktop)
 #endif
     }
     
     func testGetResolution() {
+        #if !os(visionOS)
         let actualResolution = Utilities.resolution
         XCTAssertTrue(actualResolution != nil)
+        #endif
     }
     
     func testGetEventId() {

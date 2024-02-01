@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+// Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 // This program is licensed to you under the Apache License Version 2.0,
 // and you may not use this file except in compliance with the Apache License
@@ -17,10 +17,16 @@ class LifecycleStateMachine: StateMachineProtocol {
     static var identifier: String { return "Lifecycle" }
     var identifier: String { return LifecycleStateMachine.identifier }
 
+    var subscribedEventSchemasForEventsBefore: [String] = []
+    
+    func eventsBefore(event: Event) -> [Event]? {
+        return nil
+    }
+    
     var subscribedEventSchemasForTransitions: [String] {
         return [kSPBackgroundSchema, kSPForegroundSchema]
     }
-
+    
     func transition(from event: Event, state currentState: State?) -> State? {
         if let e = event as? Foreground {
             return LifecycleState(asForegroundWithIndex: e.index)

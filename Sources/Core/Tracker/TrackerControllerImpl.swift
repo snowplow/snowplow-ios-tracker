@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -69,9 +69,63 @@ class TrackerControllerImpl: Controller, TrackerController {
         dirtyConfig.isPaused = false
         tracker.resumeEventTracking()
     }
+    
+    func track(_ event: Event, eventId: UUID) {
+        _ = tracker.track(event, eventId: eventId)
+    }
 
-    func track(_ event: Event) -> UUID? {
+    func track(_ event: Event) -> UUID {
         return tracker.track(event)
+    }
+    
+    func decorateLink(_ url: URL) -> URL? {
+        self.decorateLink(url, extendedParameters: CrossDeviceParameterConfiguration())
+    }
+    
+    func decorateLink(_ url: URL, extendedParameters: CrossDeviceParameterConfiguration) -> URL? {
+        var userId: String
+        switch self.session?.userId {
+        case .none:
+            logError(message: "\(url) could not be decorated as session.userId is nil")
+            return nil
+        case .some(let id):
+            userId = id
+        }
+        
+        let sessionId = extendedParameters.sessionId ? self.session?.sessionId ?? "" : ""
+        if (extendedParameters.sessionId && sessionId.isEmpty) {
+            logDebug(message: "\(decorateLinkErrorTemplate("sessionId")) Ensure an event has been tracked to generate a session before calling this method.")
+        }
+        
+        let sourceId = extendedParameters.sourceId ? self.appId : ""
+        
+        let sourcePlatform = extendedParameters.sourcePlatform ? devicePlatformToString(self.devicePlatform) : ""
+        
+        let subjectUserId = extendedParameters.subjectUserId ? self.subject?.userId ?? "" : ""
+        if (extendedParameters.subjectUserId && subjectUserId.isEmpty) {
+            logDebug(message: "\(decorateLinkErrorTemplate("subjectUserId")) Ensure SubjectConfiguration.userId has been set on your tracker.")
+        }
+        
+        let reason = extendedParameters.reason ?? ""
+        
+        let spParameters = [
+            userId,
+            String(Int(Date().timeIntervalSince1970 * 1000)),
+            sessionId,
+            subjectUserId.toBase64(),
+            sourceId.toBase64(),
+            sourcePlatform,
+            reason.toBase64()
+        ].joined(separator: ".").trimmingCharacters(in: ["."])
+        
+        var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        let spQueryParam = URLQueryItem(name: "_sp", value: spParameters)
+        
+        // Modification requires exclusive access, we must make a copy
+        let queryItems = components?.queryItems
+        components?.queryItems = (queryItems?.filter { $0.name != "_sp" } ?? []) + [spQueryParam]
+        
+        return components?.url
     }
 
     // MARK: - Properties' setters and getters
@@ -157,6 +211,11 @@ class TrackerControllerImpl: Controller, TrackerController {
             tracker.subject?.platformContextProperties = newValue
         }
     }
+    
+    var platformContextRetriever: PlatformContextRetriever? {
+        get { return tracker.subject?.platformContextRetriever }
+        set { if let retriever = newValue { tracker.subject?.platformContextRetriever = retriever } }
+    }
 
     var geoLocationContext: Bool {
         get {
@@ -237,6 +296,14 @@ class TrackerControllerImpl: Controller, TrackerController {
             tracker.autotrackScreenViews = newValue
         }
     }
+    
+    var screenEngagementAutotracking: Bool {
+        get { return tracker.screenEngagementAutotracking }
+        set {
+            dirtyConfig.screenEngagementAutotracking = newValue
+            tracker.screenEngagementAutotracking = newValue
+        }
+    }
 
     var trackerVersionSuffix: String? {
         get {
@@ -269,14 +336,24 @@ class TrackerControllerImpl: Controller, TrackerController {
             tracker.userAnonymisation = newValue
         }
     }
+    
+    var immersiveSpaceContext: Bool {
+        get {
+            return tracker.immersiveSpaceContext
+        }
+        set {
+            dirtyConfig.immersiveSpaceContext = newValue
+            tracker.immersiveSpaceContext = newValue
+        }
+    }
 
     var advertisingIdentifierRetriever: (() -> UUID?)? {
         get {
-            return tracker.advertisingIdentifierRetriever
+            return tracker.subject?.advertisingIdentifierRetriever
         }
         set {
             dirtyConfig.advertisingIdentifierRetriever = newValue
-            tracker.advertisingIdentifierRetriever = newValue
+            tracker.subject?.advertisingIdentifierRetriever = newValue
         }
     }
 
@@ -300,5 +377,9 @@ class TrackerControllerImpl: Controller, TrackerController {
 
     private var dirtyConfig: TrackerConfiguration {
         return serviceProvider.trackerConfiguration
+    }
+    
+    private func decorateLinkErrorTemplate(_ extendedParameterName: String) -> String {
+        "\(extendedParameterName) has been requested in CrossDeviceParameterConfiguration, but it is not set."
     }
 }

@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
     s.name             = "SnowplowTracker"
-    s.version          = "5.6.0"
+    s.version          = "6.0.0"
     s.summary          = "Snowplow event tracker for iOS, macOS, tvOS, watchOS for apps and games."
     s.description      = <<-DESC
     Snowplow is a mobile and event analytics platform with a difference: rather than tell our users how they should analyze their data, we deliver their event-level data in their own data warehouse, on their own Amazon Redshift or Postgres database, so they can analyze it any way they choose. Snowplow mobile is used by data-savvy games companies and app developers to better understand their users and how they engage with their games and applications. Snowplow is open source using the business-friendly Apache License, Version 2.0 and scales horizontally to many billions of events.
@@ -24,8 +24,11 @@ Pod::Spec.new do |s|
     s.ios.frameworks = 'CoreTelephony', 'UIKit', 'Foundation'
     s.osx.frameworks = 'AppKit', 'Foundation'
     s.tvos.frameworks = 'UIKit', 'Foundation'
+
+    if s.respond_to?(:visionos)
+      s.visionos.deployment_target = '1.0'
+      s.visionos.frameworks = 'UIKit', 'Foundation'
+    end
   
     s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
-  
-    s.dependency 'FMDB', '~> 2.7'
   end

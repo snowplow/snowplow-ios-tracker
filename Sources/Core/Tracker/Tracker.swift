@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -40,9 +40,7 @@ func uncaughtExceptionHandler(_ exception: NSException) {
 class Tracker: NSObject {
     private var platformContextSchema: String = ""
     private var dataCollection = true
-
     private var builderFinished = false
-
 
     /// The object used for sessionization, i.e. it characterizes user activity.
     private(set) var session: Session?
@@ -51,8 +49,7 @@ class Tracker: NSObject {
     /// Current screen view state.
     private(set) var currentScreenState: ScreenState?
     
-    private var trackerData: [String : String]? = nil
-    func setTrackerData() {
+    private func trackerPayloadData() -> [String : String] {
         var trackerVersion = kSPVersion
         if trackerVersionSuffix.count != 0 {
             var allowedCharSet = CharacterSet.alphanumerics
@@ -62,25 +59,17 @@ class Tracker: NSObject {
                 trackerVersion = "\(trackerVersion) \(suffix)"
             }
         }
-        trackerData = [
-            kSPTrackerVersion : trackerVersion,
-            kSPNamespace : trackerNamespace,
-            kSPAppId : appId
+        return [
+            kSPTrackerVersion: trackerVersion,
+            kSPNamespace: trackerNamespace,
+            kSPAppId: appId
         ]
     }
 
     // MARK: - Setter
 
-    private var _emitter: Emitter
     /// The emitter used to send events.
-    var emitter: Emitter {
-        get {
-            return _emitter
-        }
-        set(emitter) {
-            _emitter = emitter
-        }
-    }
+    let emitter: Emitter
 
     /// The subject used to represent the current user and persist user information.
     var subject: Subject?
@@ -89,46 +78,13 @@ class Tracker: NSObject {
     var base64Encoded = TrackerDefaults.base64Encoded
     
     /// A unique identifier for an application.
-    private var _appId: String
-    var appId: String {
-        get {
-            return _appId
-        }
-        set(appId) {
-            _appId = appId
-            if builderFinished && trackerData != nil {
-                setTrackerData()
-            }
-        }
-    }
+    var appId: String
     
-    private(set) var _trackerNamespace: String
     /// The identifier for the current tracker.
-    var trackerNamespace: String {
-        get {
-            return _trackerNamespace
-        }
-        set(trackerNamespace) {
-            _trackerNamespace = trackerNamespace
-            if builderFinished && trackerData != nil {
-                setTrackerData()
-            }
-        }
-    }
+    let trackerNamespace: String
     
     /// Version suffix for tracker wrappers.
-    private var _trackerVersionSuffix: String = TrackerDefaults.trackerVersionSuffix
-    var trackerVersionSuffix: String {
-        get {
-            return _trackerVersionSuffix
-        }
-        set(trackerVersionSuffix) {
-            _trackerVersionSuffix = trackerVersionSuffix
-            if builderFinished && trackerData != nil {
-                setTrackerData()
-            }
-        }
-    }
+    var trackerVersionSuffix: String = TrackerDefaults.trackerVersionSuffix
     
     var devicePlatform: DevicePlatform = TrackerDefaults.devicePlatform
 
@@ -163,8 +119,9 @@ class Tracker: NSObject {
             } else if builderFinished && session == nil && sessionContext {
                 session = Session(
                     foregroundTimeout: foregroundTimeout,
-                    andBackgroundTimeout: backgroundTimeout,
-                    andTracker: self)
+                    backgroundTimeout: backgroundTimeout,
+                    trackerNamespace: trackerNamespace,
+                    tracker: self)
             }
         }
     }
@@ -175,14 +132,12 @@ class Tracker: NSObject {
             return _deepLinkContext
         }
         set(deepLinkContext) {
-            objc_sync_enter(self)
-            _deepLinkContext = deepLinkContext
+            self._deepLinkContext = deepLinkContext
             if deepLinkContext {
-                addOrReplace(stateMachine: DeepLinkStateMachine())
+                self.addOrReplace(stateMachine: DeepLinkStateMachine())
             } else {
-                _ = stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
+                _ = self.stateManager.removeStateMachine(DeepLinkStateMachine.identifier)
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -192,14 +147,25 @@ class Tracker: NSObject {
             return _screenContext
         }
         set(screenContext) {
-            objc_sync_enter(self)
-            _screenContext = screenContext
+            self._screenContext = screenContext
             if screenContext {
-                addOrReplace(stateMachine: ScreenStateMachine())
+                self.addOrReplace(stateMachine: ScreenStateMachine())
             } else {
-                _ = stateManager.removeStateMachine(ScreenStateMachine.identifier)
+                _ = self.stateManager.removeStateMachine(ScreenStateMachine.identifier)
             }
-            objc_sync_exit(self)
+        }
+    }
+    
+    private var _screenEngagementAutotracking = false
+    var screenEngagementAutotracking: Bool {
+        get { return _screenEngagementAutotracking }
+        set {
+            self._screenEngagementAutotracking = newValue
+            if newValue {
+                self.addOrReplace(stateMachine: ScreenSummaryStateMachine())
+            } else {
+                _ = self.stateManager.removeStateMachine(ScreenSummaryStateMachine.identifier)
+            }
         }
     }
     
@@ -241,14 +207,12 @@ class Tracker: NSObject {
             return _lifecycleEvents
         }
         set(lifecycleEvents) {
-            objc_sync_enter(self)
-            _lifecycleEvents = lifecycleEvents
+            self._lifecycleEvents = lifecycleEvents
             if lifecycleEvents {
-                addOrReplace(stateMachine: LifecycleStateMachine())
+                self.addOrReplace(stateMachine: LifecycleStateMachine())
             } else {
-                _ = stateManager.removeStateMachine(LifecycleStateMachine.identifier)
+                _ = self.stateManager.removeStateMachine(LifecycleStateMachine.identifier)
             }
-            objc_sync_exit(self)
         }
     }
     
@@ -268,6 +232,21 @@ class Tracker: NSObject {
             }
         }
     }
+    
+    private var _immersiveSpaceContext = false
+    var immersiveSpaceContext: Bool {
+        get {
+            return _immersiveSpaceContext
+        }
+        set(immersiveSpaceContext) {
+            self._immersiveSpaceContext = immersiveSpaceContext
+            if immersiveSpaceContext {
+                self.addOrReplace(stateMachine: ImmersiveSpaceStateMachine())
+            } else {
+                _ = self.stateManager.removeStateMachine(ImmersiveSpaceStateMachine.identifier)
+            }
+        }
+    }
 
     /// GDPR context
     /// You can enable or disable the context by setting this property
@@ -282,21 +261,19 @@ class Tracker: NSObject {
     var isTracking: Bool {
         return dataCollection
     }
-    
-    var advertisingIdentifierRetriever: (() -> UUID?)?
 
     init(trackerNamespace: String,
          appId: String?,
          emitter: Emitter,
          builder: ((Tracker) -> (Void))) {
-        self._emitter = emitter
-        self._appId = appId ?? ""
-        self._trackerNamespace = trackerNamespace
+        self.emitter = emitter
+        self.appId = appId ?? ""
+        self.trackerNamespace = trackerNamespace
         
         super.init()
         builder(self)
         
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         platformContextSchema = kSPMobileContextSchema
         #else
         platformContextSchema = kSPDesktopContextSchema
@@ -307,14 +284,12 @@ class Tracker: NSObject {
     }
 
     private func setup() {
-        emitter.namespace = trackerNamespace // Needed to correctly send events to the right EventStore
-        setTrackerData()
-        
         if sessionContext {
             session = Session(
                 foregroundTimeout: foregroundTimeout,
-                andBackgroundTimeout: backgroundTimeout,
-                andTracker: self)
+                backgroundTimeout: backgroundTimeout,
+                trackerNamespace: trackerNamespace,
+                tracker: self)
         }
 
         UIKitScreenViewTracking.setup()
@@ -345,7 +320,9 @@ class Tracker: NSObject {
 
     private func checkInstall() {
         if installEvent {
-            DispatchQueue.global(qos: .default).async { [weak self] in
+            InternalQueue.async { [weak self] in
+                guard let self = self else { return }
+                
                 let installTracker = InstallTracker()
                 let previousTimestamp = installTracker.previousInstallTimestamp
                 installTracker.clearPreviousInstallTimestamp()
@@ -356,7 +333,7 @@ class Tracker: NSObject {
                 let installEvent = SelfDescribingJson(schema: kSPApplicationInstallSchema, andDictionary: data)
                 let event = SelfDescribing(eventData: installEvent)
                 event.trueTimestamp = previousTimestamp // it can be nil
-                let _ = self?.track(event)
+                let _ = self.track(event)
             }
         }
     }
@@ -399,13 +376,15 @@ class Tracker: NSObject {
         
         let topViewControllerClassName = notification.userInfo?["topViewControllerClassName"] as? String
         let viewControllerClassName = notification.userInfo?["viewControllerClassName"] as? String
-
-        if autotrackScreenViews {
-            let event = ScreenView(name: name, screenId: nil)
-            event.type = type
-            event.viewControllerClassName = viewControllerClassName
-            event.topViewControllerClassName = topViewControllerClassName
-            let _ = track(event)
+            
+        InternalQueue.async {
+            if self.autotrackScreenViews {
+                let event = ScreenView(name: name, screenId: nil)
+                event.type = type
+                event.viewControllerClassName = viewControllerClassName
+                event.topViewControllerClassName = topViewControllerClassName
+                let _ = self.track(event)
+            }
         }
     }
 
@@ -416,9 +395,11 @@ class Tracker: NSObject {
         let error = userInfo?["error"] as? Error
         let exception = userInfo?["exception"] as? NSException
 
-        if trackerDiagnostic {
-            let event = TrackerError(source: tag, message: message, error: error, exception: exception)
-            let _ = track(event)
+        InternalQueue.async {
+            if self.trackerDiagnostic {
+                let event = TrackerError(source: tag, message: message, error: error, exception: exception)
+                let _ = self.track(event)
+            }
         }
     }
 
@@ -427,10 +408,12 @@ class Tracker: NSObject {
         guard let message = userInfo?["message"] as? String else { return }
         let stacktrace = userInfo?["stacktrace"] as? String
 
-        if exceptionEvents {
-            let event = SNOWError(message: message)
-            event.stackTrace = stacktrace
-            let _ = track(event)
+        InternalQueue.async {
+            if self.exceptionEvents {
+                let event = SNOWError(message: message)
+                event.stackTrace = stacktrace
+                let _ = self.track(event)
+            }
         }
     }
 
@@ -438,31 +421,38 @@ class Tracker: NSObject {
 
     /// Tracks an event despite its specific type.
     /// - Parameter event: The event to track
-    /// - Returns: The event ID or nil in case tracking is paused
-    func track(_ event: Event) -> UUID? {
-        if !dataCollection {
-            return nil
+    /// - Returns: The event ID
+    func track(_ event: Event, eventId: UUID = UUID()) -> UUID {
+        InternalQueue.onQueuePrecondition()
+        
+        if dataCollection {
+            let events = withEventsBefore(event: event, eventId: eventId)
+            for (event, eventId) in events {
+                event.beginProcessing(withTracker: self)
+                self.processEvent(event, eventId)
+                event.endProcessing(withTracker: self)
+            }
         }
-        event.beginProcessing(withTracker: self)
-        let eventId = processEvent(event)
-        event.endProcessing(withTracker: self)
         return eventId
     }
 
     // MARK: - Event Decoration
+    
+    private func withEventsBefore(event: Event, eventId: UUID) -> [(event: Event, eventId: UUID)] {
+        let eventsBefore = stateManager.eventsBefore(forProcessedEvent: event)
+        
+        return eventsBefore.map { (event: $0, eventId: UUID()) } + [(event: event, eventId: eventId)]
+    }
 
-    func processEvent(_ event: Event) -> UUID? {
-        objc_sync_enter(self)
+    func processEvent(_ event: Event, _ eventId: UUID) {
         let stateSnapshot = stateManager.trackerState(forProcessedEvent: event)
-        objc_sync_exit(self)
-        let trackerEvent = TrackerEvent(event: event, state: stateSnapshot)
+        let trackerEvent = TrackerEvent(event: event, eventId: eventId, state: stateSnapshot)
         if let payload = self.payload(with: trackerEvent) {
             emitter.addPayload(toBuffer: payload)
             stateManager.afterTrack(event: trackerEvent)
-            return trackerEvent.eventId
+        } else {
+            logDebug(message: "Event not tracked due to filtering")
         }
-        logDebug(message: "Event not tracked due to filtering")
-        return nil
     }
 
     func payload(with event: TrackerEvent) -> Payload? {
@@ -514,9 +504,7 @@ class Tracker: NSObject {
             payload.addValueToPayload(String(format: "%lld", ttInMilliSeconds), forKey: kSPTrueTimestamp)
         }
         // Tracker info (version, namespace, app ID)
-        if let trackerData = trackerData {
-            payload.addDictionaryToPayload(trackerData)
-        }
+        payload.addDictionaryToPayload(trackerPayloadData())
         // Subject
         if let subjectDict = subject?.standardDict(userAnonymisation: userAnonymisation) {
             payload.addDictionaryToPayload(subjectDict)
@@ -568,9 +556,7 @@ class Tracker: NSObject {
 
     func addBasicContexts(event: TrackerEvent) {
         if subject != nil {
-            if let platformDict = subject?.platformDict(
-                userAnonymisation: userAnonymisation,
-                advertisingIdentifierRetriever: advertisingIdentifierRetriever)?.dictionary {
+            if let platformDict = subject?.platformDict(userAnonymisation: userAnonymisation)?.dictionary {
                 event.addContextEntity(SelfDescribingJson(schema: platformContextSchema, andDictionary: platformDict))
             }
             if let geoLocationDict = subject?.geoLocationDict {

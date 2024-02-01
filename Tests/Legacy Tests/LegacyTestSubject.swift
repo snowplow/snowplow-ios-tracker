@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -33,7 +33,7 @@ class LegacyTestSubject: XCTestCase {
 
     func testSubjectInitWithOptions() {
         let subject = Subject(platformContext: true, geoLocationContext: false)
-        XCTAssertNotNil(subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil))
+        XCTAssertNotNil(subject.platformDict(userAnonymisation: false))
         XCTAssertNotNil(subject.standardDict(userAnonymisation: false))
     }
 

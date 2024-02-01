@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -69,9 +69,15 @@ extension UIViewController {
     @objc func sp_viewDidAppear(_ animated: Bool) {
         sp_viewDidAppear(animated)
 
-        let bundle = Bundle(for: self.classForCoder)
-        if !bundle.bundlePath.hasPrefix(Bundle.main.bundlePath) {
-            // Ignore view controllers that don't start with the main bundle path
+        let bundleURL = Bundle(for: self.classForCoder).bundleURL
+        let mainBundleURL = Bundle.main.bundleURL
+
+        // Resolve any symbolic links and standardize the file paths
+        let resolvedBundlePath = bundleURL.resolvingSymlinksInPath().path
+        let resolvedMainBundlePath = mainBundleURL.resolvingSymlinksInPath().path
+        
+        // Ignore view controllers that don't start with the main bundle path
+        guard resolvedBundlePath.hasPrefix(resolvedMainBundlePath) else {
             return
         }
         
@@ -81,7 +87,7 @@ extension UIViewController {
         // Construct userInfo
         var userInfo: [AnyHashable : Any] = [:]
         userInfo["viewControllerClassName"] = String(describing: self.classForCoder)
-        userInfo["topViewControllerClassName"] = String(describing: top.self.classForCoder)
+        userInfo["topViewControllerClassName"] = String(describing: top.classForCoder)
         
         // `name` is set to snowplowId class instance variable if it exists (hence no @"id" in userInfo)
         userInfo["name"] = _SP_getName(self) ?? _SP_getName(top) ?? "Unknown"

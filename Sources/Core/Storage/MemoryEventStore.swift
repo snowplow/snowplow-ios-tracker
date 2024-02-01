@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -15,17 +15,15 @@ import Foundation
 
 class MemoryEventStore: NSObject, EventStore {
 
-    var sendLimit: UInt
-    var index: Int64
-    var orderedSet: NSMutableOrderedSet
-
+    private var sendLimit: UInt
+    private var index: Int64
+    private var eventBuffer: [EmitterEvent] = []
 
     convenience override init() {
         self.init(limit: 250)
     }
 
     init(limit: UInt) {
-        orderedSet = NSMutableOrderedSet()
         sendLimit = limit
         index = 0
     }
@@ -33,67 +31,63 @@ class MemoryEventStore: NSObject, EventStore {
     // Interface methods
 
     func addEvent(_ payload: Payload) {
-        objc_sync_enter(self)
+        InternalQueue.onQueuePrecondition()
+        
         let item = EmitterEvent(payload: payload, storeId: index)
-        orderedSet.add(item)
-        objc_sync_exit(self)
+        eventBuffer.append(item)
         index += 1
     }
 
     func count() -> UInt {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        return UInt(orderedSet.count)
+        InternalQueue.onQueuePrecondition()
+        
+        return UInt(eventBuffer.count)
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        let setCount = (orderedSet).count
-        if setCount <= 0 {
-            return []
-        }
-        let len = min(Int(queryLimit), setCount)
-        _ = NSRange(location: 0, length: len)
-        var count = 0
-        let indexes = orderedSet.indexes { _, _, _ in
-            count += 1
-            return count <= queryLimit
-        }
-        let objects = orderedSet.objects(at: indexes)
-        var result: [EmitterEvent] = []
-        for object in objects {
-            if let event = object as? EmitterEvent {
-                result.append(event)
-            }
-        }
-        return result
+        InternalQueue.onQueuePrecondition()
+        
+        let limit = min(queryLimit, sendLimit)
+        
+        return Array(eventBuffer.prefix(Int(limit)))
     }
 
     func removeAllEvents() -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        orderedSet.removeAllObjects()
+        InternalQueue.onQueuePrecondition()
+        
+        eventBuffer.removeAll()
         return true
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {
+        InternalQueue.onQueuePrecondition()
+        
         return removeEvents(withIds: [storeId])
     }
 
     func removeEvents(withIds storeIds: [Int64]) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        var itemsToRemove: [EmitterEvent] = []
-        for item in orderedSet {
-            guard let item = item as? EmitterEvent else {
-                continue
-            }
-            if storeIds.contains(item.storeId) {
-                itemsToRemove.append(item)
-            }
-        }
-        orderedSet.removeObjects(in: itemsToRemove)
+        InternalQueue.onQueuePrecondition()
+        
+        eventBuffer = eventBuffer.filter { !storeIds.contains($0.storeId) }
         return true
+    }
+    
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval) {
+        InternalQueue.onQueuePrecondition()
+        
+        let currentTimestamp = Date().timeIntervalSince1970
+        
+        // remove old events by age
+        eventBuffer = eventBuffer.filter { emitterEvent in
+            if let timestampString = emitterEvent.payload[kSPTimestamp] as? String,
+               let timestamp = Double(timestampString) {
+                let timestampSecs = timestamp / 1000.0
+                return currentTimestamp - timestampSecs <= maxAge
+            }
+            return true
+        }
+        
+        // remove old events by size limit
+        eventBuffer = Array(eventBuffer.suffix(Int(maxSize)))
     }
 }

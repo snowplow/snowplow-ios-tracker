@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -107,7 +107,7 @@ class SessionControllerImpl: Controller, SessionController {
             logDiagnostic(message: "Attempt to access SessionController fields when disabled")
             return -1
         }
-        return session?.state?.sessionIndex ?? -1
+        return session?.sessionIndex ?? -1
     }
 
     var sessionId: String? {
@@ -115,7 +115,7 @@ class SessionControllerImpl: Controller, SessionController {
             logDiagnostic(message: "Attempt to access SessionController fields when disabled")
             return nil
         }
-        return session?.state?.sessionId
+        return session?.sessionId
     }
 
     var userId: String? {

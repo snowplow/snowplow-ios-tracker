@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -24,11 +24,13 @@ class TrackerDefaults {
     private(set) static var screenContext = true
     private(set) static var applicationContext = true
     private(set) static var autotrackScreenViews = true
-    private(set) static var lifecycleEvents = false
+    private(set) static var lifecycleEvents = true
     private(set) static var exceptionEvents = true
     private(set) static var installEvent = true
     private(set) static var trackerDiagnostic = false
     private(set) static var userAnonymisation = false
     private(set) static var platformContext = true
     private(set) static var geoLocationContext = false
+    private(set) static var screenEngagementAutotracking = true
+    private(set) static var immersiveSpaceContext = true
 }

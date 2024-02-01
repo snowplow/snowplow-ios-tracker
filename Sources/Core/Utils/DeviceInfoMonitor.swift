@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -19,7 +19,7 @@ import WatchKit
 #if os(iOS)
 import CoreTelephony
 #endif
-#if os(iOS) || os(tvOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 #endif
 
@@ -28,7 +28,7 @@ class DeviceInfoMonitor {
     /// Returns the generated identifier for vendors. More info can be found in UIDevice's identifierForVendor documentation.
     /// - Returns: A string containing a formatted UUID for example E621E1F8-C36C-495A-93FC-0C247A3E6E5F.
     var appleIdfv: String? {
-        #if os(iOS) || os(tvOS)
+        #if os(iOS) || os(tvOS) || os(visionOS)
         if let idfv = UIDevice.current.identifierForVendor?.uuidString {
             return idfv
         }
@@ -38,15 +38,15 @@ class DeviceInfoMonitor {
 
     /// Returns the current device's vendor in the form of a string.
     /// - Returns: A string with vendor, i.e. "Apple Inc."
-    var deviceVendor: String? {
+    var deviceVendor: String {
         return "Apple Inc."
     }
 
     /// Returns the current device's model in the form of a string.
     /// - Returns: A string with device model.
-    var deviceModel: String? {
+    var deviceModel: String {
         let simulatorModel = (ProcessInfo.processInfo.environment)["SIMULATOR_MODEL_IDENTIFIER"]
-        if simulatorModel != nil {
+        if let simulatorModel = simulatorModel {
             return simulatorModel
         }
         
@@ -59,8 +59,8 @@ class DeviceInfoMonitor {
 
     /// This is to detect what the version of mobile OS of the current device.
     /// - Returns: The current device's OS version type as a string.
-    var osVersion: String? {
-        #if os(iOS) || os(tvOS)
+    var osVersion: String {
+        #if os(iOS) || os(tvOS) || os(visionOS)
         return UIDevice.current.systemVersion
         #elseif os(watchOS)
         return WKInterfaceDevice.current().systemVersion
@@ -78,13 +78,15 @@ class DeviceInfoMonitor {
         #endif
     }
 
-    var osType: String? {
+    var osType: String {
         #if os(iOS)
         return "ios"
         #elseif os(tvOS)
         return "tvos"
         #elseif os(watchOS)
         return "watchos"
+        #elseif os(visionOS)
+        return "visionos"
         #else
         return "osx"
         #endif
@@ -146,7 +148,7 @@ class DeviceInfoMonitor {
     /// Returns the Network Type the device is connected to.
     /// - Returns: A string containing the Network Type.
     var networkType: String? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let networkStatus = SNOWReachability.forInternetConnection()?.networkStatus
         switch networkStatus {
         case .offline:
@@ -165,7 +167,7 @@ class DeviceInfoMonitor {
     /// Returns remaining battery level as an integer percentage of total battery capacity.
     /// - Returns: Battery level.
     var batteryLevel: Int? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let batteryLevel = UIDevice.current.batteryLevel
         if batteryLevel != Float(UIDevice.BatteryState.unknown.rawValue) && batteryLevel >= 0 {
             return Int(batteryLevel * 100)
@@ -177,7 +179,7 @@ class DeviceInfoMonitor {
     /// Returns battery state for the device.
     /// - Returns: One of "charging", "full", "unplugged" or NULL
     var batteryState: String? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         switch UIDevice.current.batteryState {
         case .charging:
             return "charging"
@@ -196,7 +198,7 @@ class DeviceInfoMonitor {
     /// Returns whether low power mode is activated.
     /// - Returns: Boolean indicating the state of low power mode.
     var isLowPowerModeEnabled: Bool? {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         return ProcessInfo.processInfo.isLowPowerModeEnabled
         #else
         return nil
@@ -219,36 +221,6 @@ class DeviceInfoMonitor {
 //            return os_proc_available_memory()
 //        }
 //        #endif
-        return nil
-    }
-
-    /// Returns number of bytes of storage remaining. The information is requested from the home directory.
-    /// - Returns: Bytes of storage remaining.
-    var availableStorage: Int64? {
-        #if os(iOS)
-        let fileURL = URL(fileURLWithPath: NSHomeDirectory() as String)
-        do {
-            let values = try fileURL.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
-            return values.volumeAvailableCapacityForImportantUsage
-        } catch {
-            logError(message: "Failed to read available storage size: \(error.localizedDescription)")
-        }
-        #endif
-        return nil
-    }
-
-    /// Returns the total number of bytes of storage. The information is requested from the home directory.
-    /// - Returns: Total size of storage in bytes.
-    var totalStorage: Int? {
-        #if os(iOS)
-        let fileURL = URL(fileURLWithPath: NSHomeDirectory() as String)
-        do {
-            let values = try fileURL.resourceValues(forKeys: [.volumeTotalCapacityKey])
-            return values.volumeTotalCapacity
-        } catch {
-            logError(message: "Failed to read available storage size: \(error.localizedDescription)")
-        }
-        #endif
         return nil
     }
     

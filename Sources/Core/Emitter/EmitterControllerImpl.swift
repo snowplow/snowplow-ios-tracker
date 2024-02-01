@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -114,6 +114,26 @@ class EmitterControllerImpl: Controller, EmitterController {
             dirtyConfig.retryFailedRequests = newValue
             emitter.retryFailedRequests = newValue
         }
+    }
+    
+    var maxEventStoreSize: Int64 {
+        get { return emitter.maxEventStoreSize }
+        set {
+            dirtyConfig.maxEventStoreSize = newValue
+            emitter.maxEventStoreSize = newValue
+        }
+    }
+    
+    var maxEventStoreAge: TimeInterval {
+        get { return emitter.maxEventStoreAge }
+        set {
+            dirtyConfig.maxEventStoreAge = newValue
+            emitter.maxEventStoreAge = newValue
+        }
+    }
+
+    var eventStore: EventStore {
+        return emitter.eventStore
     }
 
     // MARK: - Methods

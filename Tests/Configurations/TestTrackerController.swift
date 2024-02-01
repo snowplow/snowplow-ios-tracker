@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -50,16 +50,19 @@ class TestTrackerController: XCTestCase {
         tracker?.emitter?.pause()
 
         _ = tracker?.track(Structured(category: "c", action: "a"))
+        Thread.sleep(forTimeInterval: 0.1)
         let sessionIdBefore = tracker?.session?.sessionId
 
         tracker?.userAnonymisation = true
         _ = tracker?.track(Structured(category: "c", action: "a"))
+        Thread.sleep(forTimeInterval: 0.1)
         let sessionIdAnonymous = tracker?.session?.sessionId
 
         XCTAssertFalse((sessionIdBefore == sessionIdAnonymous))
 
         tracker?.userAnonymisation = false
         _ = tracker?.track(Structured(category: "c", action: "a"))
+        Thread.sleep(forTimeInterval: 0.1)
         let sessionIdNotAnonymous = tracker?.session?.sessionId
 
         XCTAssertFalse((sessionIdAnonymous == sessionIdNotAnonymous))

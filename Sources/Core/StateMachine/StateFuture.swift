@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -31,8 +31,6 @@ class StateFuture {
     }
 
     func computeState() -> State? {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         if computedState == nil {
             if let stateMachine = stateMachine, let event = event {
                 computedState = stateMachine.transition(from: event, state: previousState?.computeState())

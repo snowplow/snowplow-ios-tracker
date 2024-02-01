@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -28,7 +28,7 @@ class TestNetworkConnection: XCTestCase {
         let endpoint = "https://\(TEST_URL_ENDPOINT)/i"
         Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.get: Data()]).register()
         
-        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get)
+        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get, protocolClasses: [MockingURLProtocol.self])
 
         let payload = Payload()
         payload.addValueToPayload("value", forKey: "key")
@@ -45,7 +45,7 @@ class TestNetworkConnection: XCTestCase {
         let endpoint = "https://\(TEST_URL_ENDPOINT)/i"
         Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 404, data: [.get: Data()]).register()
 
-        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get)
+        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get, protocolClasses: [MockingURLProtocol.self])
         
         let payload = Payload()
         payload.addValueToPayload("value", forKey: "key")
@@ -62,7 +62,7 @@ class TestNetworkConnection: XCTestCase {
         let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
         Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 200, data: [.post: Data()]).register()
 
-        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
+        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post, protocolClasses: [MockingURLProtocol.self])
         
         let payload = Payload()
         payload.addValueToPayload("value", forKey: "key")
@@ -79,7 +79,7 @@ class TestNetworkConnection: XCTestCase {
         let endpoint = "https://\(TEST_URL_ENDPOINT)/com.snowplowanalytics.snowplow/tp2"
         Mock(url: URL(string: endpoint)!, ignoreQuery: true, dataType: .json, statusCode: 404, data: [.post: Data()]).register()
 
-        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
+        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post, protocolClasses:  [MockingURLProtocol.self])
 
         let payload = Payload()
         payload.addValueToPayload("value", forKey: "key")
@@ -124,7 +124,7 @@ class TestNetworkConnection: XCTestCase {
         }
         mock.register()
         
-        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
+        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post, protocolClasses: [MockingURLProtocol.self])
         connection.serverAnonymisation = false
 
         let payload = Payload()
@@ -149,7 +149,7 @@ class TestNetworkConnection: XCTestCase {
         }
         mock.register()
         
-        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post)
+        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .post, protocolClasses: [MockingURLProtocol.self])
         connection.serverAnonymisation = true
 
         let payload = Payload()
@@ -174,7 +174,7 @@ class TestNetworkConnection: XCTestCase {
         }
         mock.register()
         
-        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get)
+        let connection = DefaultNetworkConnection(urlString: TEST_URL_ENDPOINT, httpMethod: .get, protocolClasses: [MockingURLProtocol.self])
         connection.serverAnonymisation = true
 
         let payload = Payload()

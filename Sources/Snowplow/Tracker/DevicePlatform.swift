@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -23,9 +23,10 @@ public enum DevicePlatform : Int {
     case connectedTV
     case gameConsole
     case internetOfThings
+    case headset
 }
 
-func devicePlatformToString(_ devicePlatform: DevicePlatform) -> String? {
+func devicePlatformToString(_ devicePlatform: DevicePlatform) -> String {
     switch devicePlatform {
     case .web:
         return "web"
@@ -43,11 +44,13 @@ func devicePlatformToString(_ devicePlatform: DevicePlatform) -> String? {
         return "cnsl"
     case .internetOfThings:
         return "iot"
+    case .headset:
+        return "headset"
     }
 }
 
 func stringToDevicePlatform(_ devicePlatformString: String) -> DevicePlatform? {
-    if let index = ["web", "mob", "pc", "srv", "app", "tv", "cnsl", "iot"].firstIndex(of: devicePlatformString) {
+    if let index = ["web", "mob", "pc", "srv", "app", "tv", "cnsl", "iot", "headset"].firstIndex(of: devicePlatformString) {
         return DevicePlatform(rawValue: index)
     }
     return nil

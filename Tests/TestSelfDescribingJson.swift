@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -78,7 +78,40 @@ class TestSelfDescribingJson: XCTestCase {
         XCTAssertEqual(NSDictionary(dictionary: expected),
                        NSDictionary(dictionary: sdj.dictionary))
     }
-
+    
+    func testInitWithEncodable() {
+        struct EncodableUserData: Encodable {
+            var firstName: String
+            var lastName: String
+            var nickname: String?
+            var age: Decimal
+            var children: [EncodableUserData]?
+        }
+        
+        let user = EncodableUserData(
+            firstName: "John",
+            lastName: "Doe",
+            age: 32.5,
+            children: [
+                EncodableUserData(firstName: "Emily", lastName: "Doe", age: 1.2)
+            ]
+        )
+        
+        let json = try? SelfDescribingJson(schema: "iglu:acme.com/user/jsonschema/1-0-0", andEncodable: user)
+        XCTAssertNotNil(json)
+        XCTAssertEqual(json?.data["firstName"] as? String, "John")
+        XCTAssertEqual(json?.data["lastName"] as? String, "Doe")
+        XCTAssertFalse(json?.data.keys.contains("nickname") ?? false)
+        XCTAssertNotNil(json?.data["children"])
+        XCTAssertEqual((json?.data["children"] as? Array<Any>)?.count, 1)
+        XCTAssertEqual(json?.data["age"] as? Double, 32.5)
+        let children = json?.data["children"] as? Array<Dictionary<String, Any>>
+        XCTAssertEqual(children?.count, 1)
+        XCTAssertEqual(children?[0]["firstName"] as? String, "Emily")
+        XCTAssertEqual(children?[0]["lastName"] as? String, "Doe")
+        XCTAssertEqual(children?[0]["age"] as? Double, 1.2)
+    }
+    
     func testUpdateSchema() {
         let expected: [String : Any] = [
             "schema": "iglu:acme.com/test_event_2/jsonschema/1-0-0",
@@ -161,4 +194,3 @@ class TestSelfDescribingJson: XCTestCase {
                        NSDictionary(dictionary: sdj.dictionary))
     }
 }
-

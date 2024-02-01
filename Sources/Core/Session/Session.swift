@@ -1,4 +1,4 @@
-//  Copyright (c) 2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -17,41 +17,42 @@ import UIKit
 #endif
 
 class Session {
-    /// Whether the application is in the background or foreground
-    private(set) var inBackground = false
-    /// The session's userId
-    private(set) var userId: String
-    /// The foreground index count
-    private(set) var foregroundIndex = 0
-    /// The background index count
-    private(set) var backgroundIndex = 0
-    /// The event index
-    private(set) var eventIndex = 0
-    /// The current tracker associated with the session
-    private(set) weak var tracker: Tracker?
-    /// Returns the current session state
-    private(set) var state: SessionState?
-    /// Callback to be called when the session is updated
-    public var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
     
-    /// The currently set Foreground Timeout in milliseconds
-    public var foregroundTimeout = TrackerDefaults.foregroundTimeout
-    /// The currently set Background Timeout in milliseconds
-    public var backgroundTimeout = TrackerDefaults.backgroundTimeout
-
+    // MARK: - Private properties
+    
+    private var dataPersistence: DataPersistence?
+    /// The event index
+    private var eventIndex = 0
     private var isNewSession = true
     private var isSessionCheckerEnabled = false
     private var lastSessionCheck: NSNumber = Utilities.getTimestamp()
-    private var dataPersistence: DataPersistence?
-
-    /// Initializes a newly allocated SnowplowSession
-    /// - Parameters:
-    ///   - foregroundTimeout: the session timeout while it is in the foreground
-    ///   - backgroundTimeout: the session timeout while it is in the background
-    /// - Returns: a SnowplowSession
-    convenience init(foregroundTimeout: Int, andBackgroundTimeout backgroundTimeout: Int) {
-        self.init(foregroundTimeout: foregroundTimeout, andBackgroundTimeout: backgroundTimeout, andTracker: nil)
-    }
+    /// Returns the current session state
+    private var state: SessionState?
+    /// The current tracker associated with the session
+    private weak var tracker: Tracker?
+  
+    // MARK: - Properties
+    
+    /// The session's userId
+    let userId: String
+    /// Whether the application is in the background or foreground
+    var inBackground: Bool = false
+    /// The foreground index count
+    var foregroundIndex = 0
+    /// The background index count
+    var backgroundIndex = 0
+    /// Callback to be called when the session is updated
+    var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
+    /// The currently set Foreground Timeout in milliseconds
+    var foregroundTimeout = TrackerDefaults.foregroundTimeout
+    /// The currently set Background Timeout in milliseconds
+    var backgroundTimeout = TrackerDefaults.backgroundTimeout
+    var sessionIndex: Int? { return state?.sessionIndex }
+    var sessionId: String? { return state?.sessionId }
+    var previousSessionId: String? { return state?.previousSessionId }
+    var firstEventId: String? { return state?.firstEventId }
+    
+    // MARK: - Constructor and destructor
 
     /// Initializes a newly allocated SnowplowSession
     /// - Parameters:
@@ -59,12 +60,12 @@ class Session {
     ///   - backgroundTimeout: the session timeout while it is in the background
     ///   - tracker: reference to the associated tracker of the session
     /// - Returns: a SnowplowSession
-    init(foregroundTimeout: Int, andBackgroundTimeout backgroundTimeout: Int, andTracker tracker: Tracker?) {
+    init(foregroundTimeout: Int, backgroundTimeout: Int, trackerNamespace: String? = nil, tracker: Tracker? = nil) {
         
         self.foregroundTimeout = foregroundTimeout * 1000
         self.backgroundTimeout = backgroundTimeout * 1000
         self.tracker = tracker
-        if let namespace = tracker?.trackerNamespace {
+        if let namespace = trackerNamespace {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
         }
         let storedSessionDict = dataPersistence?.session
@@ -96,6 +97,12 @@ class Session {
 #endif
     }
 
+    deinit {
+#if os(iOS) || os(tvOS)
+        NotificationCenter.default.removeObserver(self)
+#endif
+    }
+
     // MARK: - Public
 
     /// Starts the recurring timer check for sessions
@@ -122,7 +129,7 @@ class Session {
     /// - Returns: a SnowplowPayload containing the session dictionary
     func getDictWithEventId(_ eventId: String?, eventTimestamp: Int64, userAnonymisation: Bool) -> [String : Any]? {
         var context: [String : Any]? = nil
-        objc_sync_enter(self)
+        
         if isSessionCheckerEnabled {
             if shouldUpdate() {
                 update(eventId: eventId, eventTimestamp: eventTimestamp)
@@ -134,12 +141,11 @@ class Session {
             }
             lastSessionCheck = Utilities.getTimestamp()
         }
-
+        
         eventIndex += 1
-
+        
         context = state?.sessionContext
         context?[kSPSessionEventIndex] = NSNumber(value: eventIndex)
-        objc_sync_exit(self)
 
         if userAnonymisation {
             // mask the user identifier
@@ -207,40 +213,38 @@ class Session {
         dataPersistence?.session = sessionToPersist
         eventIndex = 0
     }
+    
+    // MARK: - background and foreground notifications
 
     @objc func updateInBackground() {
-        if !inBackground && tracker?.lifecycleEvents ?? false {
-            backgroundIndex += 1
-            sendBackgroundEvent()
-            inBackground = true
+        InternalQueue.async {
+            if self.tracker?.lifecycleEvents ?? false {
+                guard let backgroundIndex = self.incrementBackgroundIndexIfNotInBackground() else { return }
+                _ = self.tracker?.track(Background(index: backgroundIndex))
+                self.inBackground = true
+            }
         }
     }
 
     @objc func updateInForeground() {
-        if inBackground && tracker?.lifecycleEvents ?? false {
-            foregroundIndex += 1
-            sendForegroundEvent()
-            inBackground = false
+        InternalQueue.async {
+            if self.tracker?.lifecycleEvents ?? false {
+                guard let foregroundIndex = self.incrementForegroundIndexIfInBackground() else { return }
+                _ = self.tracker?.track(Foreground(index: foregroundIndex))
+                self.inBackground = false
+            }
         }
     }
-
-    func sendBackgroundEvent() {
-        if let tracker = tracker {
-            let backgroundEvent = Background(index: backgroundIndex)
-            let _ = tracker.track(backgroundEvent)
-        }
+    
+    private func incrementBackgroundIndexIfNotInBackground() -> Int? {
+        if self.inBackground { return nil }
+        self.backgroundIndex += 1
+        return self.backgroundIndex
     }
-
-    func sendForegroundEvent() {
-        if let tracker = tracker {
-            let foregroundEvent = Foreground(index: foregroundIndex)
-            let _ = tracker.track(foregroundEvent)
-        }
-    }
-
-    deinit {
-        #if os(iOS)
-        NotificationCenter.default.removeObserver(self)
-        #endif
+  
+    private func incrementForegroundIndexIfInBackground() -> Int? {
+        if !self.inBackground { return nil }
+        self.foregroundIndex += 1
+        return self.foregroundIndex
     }
 }

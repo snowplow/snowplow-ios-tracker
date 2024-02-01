@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -15,11 +15,15 @@ import Foundation
 
 protocol StateMachineProtocol {
     var identifier: String { get }
+    var subscribedEventSchemasForEventsBefore: [String] { get }
     var subscribedEventSchemasForTransitions: [String] { get }
     var subscribedEventSchemasForEntitiesGeneration: [String] { get }
     var subscribedEventSchemasForPayloadUpdating: [String] { get }
     var subscribedEventSchemasForAfterTrackCallback: [String] { get }
     var subscribedEventSchemasForFiltering: [String] { get }
+    
+    /// Only available for self-describing events (inheriting from SelfDescribingAbstract)
+    func eventsBefore(event: Event) -> [Event]?
     
     /// Only available for self-describing events (inheriting from SelfDescribingAbstract)
     func transition(from event: Event, state: State?) -> State?

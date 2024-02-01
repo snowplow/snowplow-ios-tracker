@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -19,52 +19,34 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
     // The protocol for connection to the collector
     @objc
     public var `protocol`: ProtocolOptions {
-        get {
-            return _protocol
-        }
-        set {
-            _protocol = newValue
-            if builderFinished { setup() }
-        }
+        get { return _protocol }
+        set { _protocol = newValue; setup() }
     }
 
     private var _urlString: String
     /// The collector endpoint.
     @objc
     public var urlString: String {
-        get {
-            return urlEndpoint?.absoluteString ?? _urlString
-        }
-        set {
-            _urlString = newValue
-            if builderFinished { setup() }
-        }
+        get { return urlEndpoint?.absoluteString ?? _urlString }
+        set { _urlString = newValue; setup() }
     }
-    @objc
-    private(set) public var urlEndpoint: URL?
+    
+    private var _urlEndpoint: URL?
+    public var urlEndpoint: URL? { return _urlEndpoint }
 
     private var _httpMethod: HttpMethodOptions = .post
     /// HTTP method, should be .get or .post.
     @objc
     public var httpMethod: HttpMethodOptions {
-        get {
-            return _httpMethod
-        }
-        set(method) {
-            _httpMethod = method
-            if builderFinished && urlEndpoint != nil {
-                setup()
-            }
-        }
+        get { return _httpMethod }
+        set(method) { _httpMethod = method; setup() }
     }
 
-    private var _emitThreadPoolSize = 15
+    private var _emitThreadPoolSize = EmitterDefaults.emitThreadPoolSize
     /// The number of threads used by the emitter.
     @objc
     public var emitThreadPoolSize: Int {
-        get {
-            return _emitThreadPoolSize
-        }
+        get { return _emitThreadPoolSize }
         set(emitThreadPoolSize) {
             self._emitThreadPoolSize = emitThreadPoolSize
             if dataOperationQueue.maxConcurrentOperationCount != emitThreadPoolSize {
@@ -72,121 +54,172 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
             }
         }
     }
+    
     /// Maximum event size for a GET request.
-    public var byteLimitGet: Int = 40000
+    @objc
+    public var byteLimitGet: Int = EmitterDefaults.byteLimitGet
+    
     /// Maximum event size for a POST request.
     @objc
-    public var byteLimitPost = 40000
+    public var byteLimitPost = EmitterDefaults.byteLimitPost
+    
+    private var _customPostPath: String?
     /// A custom path that is used on the endpoint to send requests.
-    @objc
-    public var customPostPath: String?
+    @objc public var customPostPath: String? {
+        get { return _customPostPath }
+        set { _customPostPath = newValue; setup() }
+    }
+    
     /// Custom headers (key, value) for http requests.
     @objc
     public var requestHeaders: [String : String]?
+    
     /// Whether to anonymise server-side user identifiers including the `network_userid` and `user_ipaddress`
     @objc
     public var serverAnonymisation = false
     private var dataOperationQueue = OperationQueue()
-    private var builderFinished = false
+    
+    /// Custom timeout for the requests
+    private let timeout: TimeInterval
+    
+    private var protocolClasses: [AnyClass]?
+    private var _urlSession: URLSession?
+    private var urlSession: URLSession {
+        if let urlSession = _urlSession { return urlSession }
+        
+        let sessionConfig: URLSessionConfiguration = .default
+        sessionConfig.timeoutIntervalForRequest = TimeInterval(self.timeout)
+        sessionConfig.timeoutIntervalForResource = TimeInterval(self.timeout)
+        sessionConfig.protocolClasses = protocolClasses
+        
+        let urlSession = URLSession(configuration: sessionConfig)
+        self._urlSession = urlSession
+        return urlSession
+    }
     
     @objc
     public init(urlString: String,
                 httpMethod: HttpMethodOptions = EmitterDefaults.httpMethod,
                 protocol: ProtocolOptions = EmitterDefaults.httpProtocol,
-                customPostPath: String? = nil) {
+                customPostPath: String? = nil,
+                timeout: TimeInterval = EmitterDefaults.emitTimeout,
+                protocolClasses: [AnyClass]? = nil) {
         self._urlString = urlString
+        self.timeout = timeout
         super.init()
-        self.httpMethod = httpMethod
-        self.protocol = `protocol`
-        self.customPostPath = customPostPath
+        self._httpMethod = httpMethod
+        self._protocol = `protocol`
+        self._customPostPath = customPostPath
+        self.protocolClasses = protocolClasses
         setup()
     }
 
     // MARK: - Implement SPNetworkConnection protocol
+
+    @objc
+    public func sendRequests(_ requests: [Request]) -> [RequestResult] {
+        let urlRequests = requests.map { _httpMethod == .get ? buildGet($0) : buildPost($0) }
+
+        var results: [RequestResult] = []
+        // if there is only one request, make it directly
+        if requests.count == 1 {
+            if let request = requests.first, let urlRequest = urlRequests.first {
+                let result = DefaultNetworkConnection.makeRequest(
+                    request: request,
+                    urlRequest: urlRequest,
+                    urlSession: urlSession
+                )
+                
+                results.append(result)
+            }
+        }
+        // if there are more than 1 request, use the operation queue
+        else if requests.count > 1 {
+            for (request, urlRequest) in zip(requests, urlRequests) {
+                dataOperationQueue.addOperation({
+                    let result = DefaultNetworkConnection.makeRequest(
+                        request: request,
+                        urlRequest: urlRequest,
+                        urlSession: self.urlSession
+                    )
+                    
+                    objc_sync_enter(self)
+                    results.append(result)
+                    objc_sync_exit(self)
+                })
+            }
+            dataOperationQueue.waitUntilAllOperationsAreFinished()
+        }
+        
+        return results
+    }
+
+    // MARK: - Private methods
+    
+    private static func makeRequest(request: Request, urlRequest: URLRequest, urlSession: URLSession?) -> RequestResult {
+        //source: https://forums.developer.apple.com/thread/11519
+        var httpResponse: HTTPURLResponse? = nil
+        var connectionError: Error? = nil
+        var sem: DispatchSemaphore
+
+        sem = DispatchSemaphore(value: 0)
+
+        urlSession?.dataTask(with: urlRequest) { data, urlResponse, error in
+            connectionError = error
+            httpResponse = urlResponse as? HTTPURLResponse
+            sem.signal()
+        }.resume()
+
+        let _ = sem.wait(timeout: .distantFuture)
+        var statusCode: NSNumber?
+        if let httpResponse = httpResponse { statusCode = NSNumber(value: httpResponse.statusCode) }
+
+        let result = RequestResult(statusCode: statusCode, oversize: request.oversize, storeIds: request.emitterEventIds)
+        if !result.isSuccessful {
+            logError(message: "Connection error: " + (connectionError?.localizedDescription ?? "-"))
+        }
+        
+        return result
+    }
     
     private func setup() {
         // Decode url to extract protocol
         let url = URL(string: _urlString)
         var endpoint = _urlString
         if url?.scheme == "https" {
-            `protocol` = .https
+            _protocol = .https
         } else if url?.scheme == "http" {
-            `protocol` = .http
+            _protocol = .http
         } else {
-            `protocol` = .https
+            _protocol = .https
             endpoint = "https://\(_urlString)"
         }
 
         // Configure
-        let urlPrefix = `protocol` == .http ? "http://" : "https://"
+        let urlPrefix = _protocol == .http ? "http://" : "https://"
         var urlSuffix = _httpMethod == .get ? kSPEndpointGet : kSPEndpointPost
         if _httpMethod == .post {
-            if let customPostPath = customPostPath { urlSuffix = customPostPath }
+            if let customPostPath = _customPostPath { urlSuffix = customPostPath }
         }
 
         // Remove trailing slashes from endpoint to avoid double slashes when appending path
         endpoint = endpoint.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
 
-        urlEndpoint = URL(string: endpoint)?.appendingPathComponent(urlSuffix)
+        _urlEndpoint = URL(string: endpoint)?.appendingPathComponent(urlSuffix)
 
         // Log
-        if urlEndpoint?.scheme != nil && urlEndpoint?.host != nil {
-            logDebug(message: "Emitter URL created successfully '\(urlEndpoint?.absoluteString ?? "-")'")
+        if _urlEndpoint?.scheme != nil && _urlEndpoint?.host != nil {
+            logDebug(message: "Emitter URL created successfully '\(_urlEndpoint?.absoluteString ?? "-")'")
         } else {
-            logDebug(message: "Invalid emitter URL: '\(urlEndpoint?.absoluteString ?? "-")'")
+            logDebug(message: "Invalid emitter URL: '\(_urlEndpoint?.absoluteString ?? "-")'")
         }
         let userDefaults = UserDefaults.standard
         userDefaults.set(endpoint, forKey: kSPErrorTrackerUrl)
         userDefaults.set(urlSuffix, forKey: kSPErrorTrackerProtocol)
         userDefaults.set(urlPrefix, forKey: kSPErrorTrackerMethod)
-
-        builderFinished = true
     }
-
-    @objc
-    public func sendRequests(_ requests: [Request]) -> [RequestResult] {
-        var results: [RequestResult] = []
-
-        for request in requests {
-            let urlRequest = _httpMethod == .get
-                ? buildGet(request)
-                : buildPost(request)
-
-            dataOperationQueue.addOperation({
-                //source: https://forums.developer.apple.com/thread/11519
-                var httpResponse: HTTPURLResponse? = nil
-                var connectionError: Error? = nil
-                var sem: DispatchSemaphore
-
-                sem = DispatchSemaphore(value: 0)
-
-                URLSession.shared.dataTask(with: urlRequest) { data, urlResponse, error in
-                    connectionError = error
-                    httpResponse = urlResponse as? HTTPURLResponse
-                    sem.signal()
-                }.resume()
-
-                let _ = sem.wait(timeout: .distantFuture)
-                var statusCode: NSNumber?
-                if let httpResponse = httpResponse { statusCode = NSNumber(value: httpResponse.statusCode) }
-
-                let result = RequestResult(statusCode: statusCode, oversize: request.oversize, storeIds: request.emitterEventIds)
-                if !result.isSuccessful {
-                    logError(message: "Connection error: " + (connectionError?.localizedDescription ?? "-"))
-                }
-
-                objc_sync_enter(self)
-                results.append(result)
-                objc_sync_exit(self)
-            })
-        }
-        dataOperationQueue.waitUntilAllOperationsAreFinished()
-        return results
-    }
-
-    // MARK: - Private methods
-
-    func buildPost(_ request: Request) -> URLRequest {
+    
+    private func buildPost(_ request: Request) -> URLRequest {
         var requestData: Data? = nil
         do {
             requestData = try JSONSerialization.data(withJSONObject: request.payload?.dictionary ?? [:], options: [])
@@ -208,7 +241,7 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
         return urlRequest
     }
 
-    func buildGet(_ request: Request) -> URLRequest {
+    private func buildGet(_ request: Request) -> URLRequest {
         let payload = request.payload?.dictionary ?? [:]
         let url = "\(urlEndpoint!.absoluteString)?\(Utilities.urlEncode(payload))"
         let anUrl = URL(string: url)!
@@ -224,11 +257,12 @@ public class DefaultNetworkConnection: NSObject, NetworkConnection {
         return urlRequest
     }
 
-    func applyValuesAndHeaderFields(_ requestHeaders: [String : String], to request: inout URLRequest) {
+    private func applyValuesAndHeaderFields(_ requestHeaders: [String : String], to request: inout URLRequest) {
         (requestHeaders as NSDictionary).enumerateKeysAndObjects({ key, obj, stop in
             if let key = key as? String, let obj = obj as? String {
                 request.setValue(obj, forHTTPHeaderField: key)
             }
         })
     }
+    
 }

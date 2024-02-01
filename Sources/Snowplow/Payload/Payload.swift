@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -22,8 +22,6 @@ public class Payload: NSObject {
     /// Returns the payload of that particular SPPayload object.
     /// - Returns: NSDictionary of data in the object.
     public var dictionary: [String : Any] {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         return payload
     }
 
@@ -31,8 +29,6 @@ public class Payload: NSObject {
     /// - Returns: A long representing the byte size of the payload.
     @objc
     public var byteSize: Int {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         if let data = try? JSONSerialization.data(withJSONObject: payload) {
             return data.count
         }
@@ -66,7 +62,6 @@ public class Payload: NSObject {
     /// - key: A key of type NSString
     @objc
     public func addValueToPayload(_ value: Any?, forKey key: String) {
-        objc_sync_enter(self)
         if value == nil {
             if payload[key] != nil {
                 payload.removeValue(forKey: key)
@@ -74,7 +69,6 @@ public class Payload: NSObject {
         } else {
             payload[key] = value
         }
-        objc_sync_exit(self)
     }
 
     ///  Adds a dictionary of attributes to be appended into the SPPayload instance. It does NOT overwrite the existing data in the object.

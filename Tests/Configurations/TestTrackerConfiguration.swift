@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -94,8 +94,8 @@ class TestTrackerConfiguration: XCTestCase {
         let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig])
 
         XCTAssertNotNil(tracker)
-        XCTAssertNotNil(tracker?.emitter)
-        let url = URL(string: tracker?.network?.endpoint ?? "")
+        XCTAssertNotNil(tracker.emitter)
+        let url = URL(string: tracker.network?.endpoint ?? "")
         XCTAssertNotNil(url)
         let host = url?.host
         let scheme = url?.scheme
@@ -106,8 +106,8 @@ class TestTrackerConfiguration: XCTestCase {
         XCTAssertEqual(networkConfig.endpoint, derivedEndpoint)
         XCTAssertEqual(`protocol`, scheme)
 
-        XCTAssertEqual(trackerConfig.appId, tracker?.appId)
-        XCTAssertEqual("namespace", tracker?.namespace)
+        XCTAssertEqual(trackerConfig.appId, tracker.appId)
+        XCTAssertEqual("namespace", tracker.namespace)
     }
 
     func testSessionInitialization() {
@@ -120,13 +120,13 @@ class TestTrackerConfiguration: XCTestCase {
             backgroundTimeoutInSeconds: expectedBackground)
         let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, sessionConfig])
 
-        let foreground = tracker?.session?.foregroundTimeoutInSeconds ?? 0
-        let background = tracker?.session?.backgroundTimeoutInSeconds ?? 0
+        let foreground = tracker.session?.foregroundTimeoutInSeconds ?? 0
+        let background = tracker.session?.backgroundTimeoutInSeconds ?? 0
         XCTAssertEqual(expectedForeground, foreground)
         XCTAssertEqual(expectedBackground, background)
 
-        let foregroundMeasure = (tracker?.session)?.foregroundTimeout
-        let backgroundMeasure = (tracker?.session)?.backgroundTimeout
+        let foregroundMeasure = (tracker.session)?.foregroundTimeout
+        let backgroundMeasure = (tracker.session)?.backgroundTimeout
         XCTAssertEqual(Measurement(value: Double(expectedForeground), unit: UnitDuration.seconds), foregroundMeasure)
         XCTAssertEqual(Measurement(value: Double(expectedBackground), unit: UnitDuration.seconds), backgroundMeasure)
     }
@@ -136,11 +136,11 @@ class TestTrackerConfiguration: XCTestCase {
         let trackerConfig = TrackerConfiguration(appId: "appid")
         trackerConfig.sessionContext = true
         var tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig])
-        XCTAssertNotNil(tracker?.session)
+        XCTAssertNotNil(tracker.session)
 
         trackerConfig.sessionContext = false
         tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig])
-        XCTAssertNil(tracker?.session)
+        XCTAssertNil(tracker.session)
     }
 
     func testSessionConfigurationCallback() {
@@ -157,7 +157,7 @@ class TestTrackerConfiguration: XCTestCase {
             expectation.fulfill()
         }
 
-        guard let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, sessionConfig]) else { return XCTFail() }
+        let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, sessionConfig])
 
         _ = tracker.track(Timing(category: "cat", variable: "var", timing: 123))
 
@@ -185,9 +185,11 @@ class TestTrackerConfiguration: XCTestCase {
 
         let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, sessionConfig])
 
-        _ = tracker?.track(Timing(category: "cat", variable: "var", timing: 123))
-        tracker?.session?.startNewSession()
-        _ = tracker?.track(Timing(category: "cat", variable: "var", timing: 123))
+        _ = tracker.track(Timing(category: "cat", variable: "var", timing: 123))
+        Thread.sleep(forTimeInterval: 0.1)
+        tracker.session?.startNewSession()
+        _ = tracker.track(Timing(category: "cat", variable: "var", timing: 123))
+        Thread.sleep(forTimeInterval: 0.1)
 
         wait(for: [expectation], timeout: 10)
     }
@@ -207,7 +209,7 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Track fake event
         let event = Structured(category: "category", action: "action")
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -232,7 +234,7 @@ class TestTrackerConfiguration: XCTestCase {
         emitterConfiguration.threadPoolSize = 10
         let gdprConfiguration = GDPRConfiguration(basis: .consent, documentId: "id", documentVersion: "ver", documentDescription: "desc")
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, gdprConfiguration, emitterConfiguration])
-        let gdprController = trackerController?.gdpr
+        let gdprController = trackerController.gdpr
 
         // Check gdpr settings
         XCTAssertEqual(.consent, gdprController?.basisForProcessing)
@@ -246,7 +248,7 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Check gdpr context added
         var event = Structured(category: "category", action: "action")
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -266,7 +268,7 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Check gdpr context not added
         event = Structured(category: "category", action: "action")
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -292,14 +294,14 @@ class TestTrackerConfiguration: XCTestCase {
         emitterConfiguration.eventStore = eventStore
         emitterConfiguration.threadPoolSize = 10
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, emitterConfiguration])
-        let gdprController = trackerController?.gdpr
+        let gdprController = trackerController.gdpr
 
         // Check gdpr settings
         XCTAssertFalse(gdprController?.isEnabled ?? false)
 
         // Check gdpr context not added
         var event = Structured(category: "category", action: "action")
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -318,7 +320,7 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Check gdpr context added
         event = Structured(category: "category", action: "action")
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -347,7 +349,7 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Track an event and retrieve tracked context JSON from event store
         let event = Structured(category: "category", action: "action")
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -376,7 +378,7 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Track fake event
         let event = Structured(category: "category", action: "action")
-        let eventId = trackerController?.track(event)
+        let eventId = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -387,6 +389,6 @@ class TestTrackerConfiguration: XCTestCase {
 
         // Check eid field
         let trackedEventId = payload?["eid"] as? String
-        XCTAssertTrue((eventId?.uuidString == trackedEventId))
+        XCTAssertTrue((eventId.uuidString == trackedEventId))
     }
 }

@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -17,14 +17,14 @@ import XCTest
 class TestSubject: XCTestCase {
     func testReturnsPlatformContextIfEnabled() {
         let subject = Subject(platformContext: true, geoLocationContext: false)
-        let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
+        let platformDict = subject.platformDict(userAnonymisation: false)
         XCTAssertNotNil(platformDict)
         XCTAssertNotNil(platformDict?.dictionary[kSPPlatformOsType])
     }
 
     func testDoesntReturnPlatformContextIfDisabled() {
         let subject = Subject(platformContext: false, geoLocationContext: false)
-        let platformDict = subject.platformDict(userAnonymisation: false, advertisingIdentifierRetriever: nil)
+        let platformDict = subject.platformDict(userAnonymisation: false)
         XCTAssertNil(platformDict)
     }
 

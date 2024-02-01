@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -39,8 +39,8 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
     
     private(set) var isService: Bool
     
-    init(event: Event, state: TrackerStateSnapshot? = nil) {
-        eventId = UUID()
+    init(event: Event, eventId: UUID = UUID(), state: TrackerStateSnapshot? = nil) {
+        self.eventId = eventId
         timestamp = Int64(Date().timeIntervalSince1970 * 1000)
         trueTimestamp = event.trueTimestamp
         entities = event.entities

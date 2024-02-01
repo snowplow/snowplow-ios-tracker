@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -115,8 +115,8 @@ class MediaTrackingImpl: MediaTracking {
                         player: MediaPlayerEntity? = nil,
                         ad: MediaAdEntity? = nil,
                         adBreak: MediaAdBreakEntity? = nil) {
-        objc_sync_enter(self)
-
+        InternalQueue.onQueuePrecondition()
+        
         // update state
         if let player = player {
             self.player.update(from: player)
@@ -143,8 +143,6 @@ class MediaTrackingImpl: MediaTracking {
         if let event = event {
             adTracking.updateForNextEvent(event: event)
         }
-        
-        objc_sync_exit(self)
     }
     
     private func addEntitiesAndTrack(event: Event) {

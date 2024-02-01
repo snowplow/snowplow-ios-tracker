@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -21,11 +21,12 @@ class TestTrackEventsToMicro: XCTestCase {
         super.setUp()
         
         let trackerConfig = TrackerConfiguration()
+            .screenEngagementAutotracking(false)
             .logLevel(.debug)
 
         tracker = Snowplow.createTracker(namespace: "testMicro-" + UUID().uuidString,
                                          network: NetworkConfiguration(endpoint: Micro.endpoint),
-                                         configurations: [trackerConfig])!
+                                         configurations: [trackerConfig])
 
         wait(for: [Micro.reset()], timeout: Micro.timeout)
     }

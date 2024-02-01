@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,6 +25,27 @@ class TestEvents: XCTestCase {
         XCTAssertEqual(event.trueTimestamp, testDate)
     }
 
+    func testEntities() {
+        let event = ScreenView(name: "screen")
+        let entity1 = SelfDescribingJson(schema: "schema1", andData: [String:NSObject]())
+        let entity2 = SelfDescribingJson(schema: "schema2", andData: [String:NSObject]())
+        let entity3 = SelfDescribingJson(schema: "schema3", andData: [String:NSObject]())
+        
+        event.entities.append(entity1)
+        XCTAssertEqual(1, event.entities.count)
+        
+        _ = event.entities([entity2])
+        XCTAssertEqual(2, event.entities.count)
+
+        _ = event.contexts([entity3])
+        XCTAssertEqual(3, event.entities.count)
+        
+        XCTAssertEqual(3, event.contexts.count)
+        XCTAssertTrue(event.entities.contains(entity1))
+        XCTAssertTrue(event.entities.contains(entity2))
+        XCTAssertTrue(event.entities.contains(entity3))
+    }
+
     func testApplicationInstall() {
         // Prepare ApplicationInstall event
         let installEvent = SelfDescribingJson(schema: kSPApplicationInstallSchema, andDictionary: [String:NSObject]())
@@ -44,7 +65,7 @@ class TestEvents: XCTestCase {
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, emitterConfiguration])
 
         // Track event
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -76,7 +97,7 @@ class TestEvents: XCTestCase {
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, emitterConfiguration])
 
         // Track event
-        _ = trackerController?.track(event)
+        _ = trackerController.track(event)
         for _ in 0..<1 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -112,8 +133,8 @@ class TestEvents: XCTestCase {
         let trackerController = Snowplow.createTracker(namespace: "namespace", network: networkConfiguration, configurations: [trackerConfiguration, emitterConfiguration])
 
         // Track event
-        _ = trackerController?.track(deepLink)
-        let screenViewId = trackerController?.track(screenView)
+        _ = trackerController.track(deepLink)
+        let screenViewId = trackerController.track(screenView)
         for _ in 0..<2 {
             Thread.sleep(forTimeInterval: 1)
         }
@@ -123,7 +144,7 @@ class TestEvents: XCTestCase {
 
         var screenViewPayload: Payload? = nil
         for event in events {
-            if (event.payload.dictionary["eid"] as? String) == screenViewId?.uuidString {
+            if (event.payload.dictionary["eid"] as? String) == screenViewId.uuidString {
                 screenViewPayload = event.payload
             }
         }
@@ -152,7 +173,7 @@ class TestEvents: XCTestCase {
         XCTAssertEqual("action", event.payload["se_ac"] as? String)
     }
 
-    func testUnstructured() {
+    func testSelfDescribing() {
         var data: [String : Any] = [:]
         data["level"] = 23
         data["score"] = 56473
@@ -162,6 +183,22 @@ class TestEvents: XCTestCase {
         let event = SelfDescribing(eventData: sdj)
         XCTAssertEqual("iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", event.schema)
         XCTAssertEqual(23, event.payload["level"] as? Int)
+    }
+
+    func testSelfDescribingWithEncodableData() {
+        struct Data: Encodable {
+            var level: Int
+            var score: Int
+        }
+        
+        let data = Data(level: 23, score: 56473)
+        let event = try? SelfDescribing(
+            schema: "iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0",
+            data: data
+        )
+        XCTAssertNotNil(event)
+        XCTAssertEqual("iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", event?.schema)
+        XCTAssertEqual(23, event?.payload["level"] as? Int)
     }
 
     func testConsentWithdrawn() {

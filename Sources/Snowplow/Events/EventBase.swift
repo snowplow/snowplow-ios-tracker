@@ -1,4 +1,4 @@
-//  Copyright (c) 2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -13,7 +13,7 @@
 
 import Foundation
 
-/// This class has the basic functionality needed to represent all events
+/// This class has the basic functionality needed to represent all events.
 @objc(SPEvent)
 public class Event: NSObject {
     /// The user event timestamp in milliseconds (epoch time).
@@ -82,19 +82,18 @@ public class Event: NSObject {
         return self
     }
     
-    /// Replace the context entities attached to the event with a new list of entities.
+    /// Adds a list of context entities to the existing ones.
     @objc
     public func entities(_ entities: [SelfDescribingJson]) -> Self {
-        self.entities = entities
+        self._entities.append(contentsOf: entities)
         return self
     }
     
-    /// Replace the context entities attached to the event with a new list of entities.
+    /// Adds a list of context entities to the existing ones.
     @objc
     @available(*, deprecated, renamed: "entities")
     public func contexts(_ entities: [SelfDescribingJson]) -> Self {
-        self.entities = entities
-        return self
+        return self.entities(entities)
     }
 }
 

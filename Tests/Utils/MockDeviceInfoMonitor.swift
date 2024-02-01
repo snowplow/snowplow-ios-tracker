@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -23,22 +23,22 @@ class MockDeviceInfoMonitor: DeviceInfoMonitor {
         return customAppleIdfv
     }
 
-    override var deviceVendor: String? {
+    override var deviceVendor: String {
         increaseMethodAccessCount("deviceVendor")
         return "Apple Inc."
     }
 
-    override var deviceModel: String? {
+    override var deviceModel: String {
         increaseMethodAccessCount("deviceModel")
         return "deviceModel"
     }
 
-    override var osVersion: String? {
+    override var osVersion: String {
         increaseMethodAccessCount("osVersion")
         return "13.0.0"
     }
 
-    override var osType: String? {
+    override var osType: String {
         increaseMethodAccessCount("osType")
         return "ios"
     }
@@ -85,16 +85,6 @@ class MockDeviceInfoMonitor: DeviceInfoMonitor {
     override var appAvailableMemory: Int? {
         increaseMethodAccessCount("appAvailableMemory")
         return 1000
-    }
-
-    override var availableStorage: Int64? {
-        increaseMethodAccessCount("availableStorage")
-        return 9000
-    }
-
-    override var totalStorage: Int? {
-        increaseMethodAccessCount("totalStorage")
-        return 900000
     }
     
     override var isPortrait: Bool? {

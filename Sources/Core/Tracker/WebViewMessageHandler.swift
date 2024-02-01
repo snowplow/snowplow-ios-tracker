@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -13,7 +13,7 @@
 
 import Foundation
 
-#if os(iOS) || os(macOS)
+#if os(iOS) || os(macOS) || os(visionOS)
 import WebKit
 
 /// Handler for messages from the JavaScript library embedded in Web views.

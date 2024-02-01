@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -33,6 +33,14 @@ class MockStateMachine: StateMachineProtocol {
     
     init(_ identifier: String = "MockStateMachine") {
         self.identifier = identifier
+    }
+    
+    var subscribedEventSchemasForEventsBefore: [String] {
+        return []
+    }
+    
+    func eventsBefore(event: SnowplowTracker.Event) -> [SnowplowTracker.Event]? {
+        return nil
     }
     
     var subscribedEventSchemasForTransitions: [String] {
@@ -243,23 +251,5 @@ class TestStateManager: XCTestCase {
                 event: TrackerEvent(event: SelfDescribing(schema: "s2", payload: [:]))
             )
         )
-    }
-    
-    @available(iOS 13, macOS 10.15, watchOS 6, tvOS 13, *)
-    func testConcurrentRemoveStateMachineWithAddOrReplaceStateMachine() async throws {
-        let stateManager = StateManager()
-        await withTaskGroup(of: Task<Void, Never>.self) { group in
-            (1...100).forEach { element in
-                group.addTask {
-                    Task.detached {
-                        if Int(element).isMultiple(of: 2) {
-                            _ = stateManager.removeStateMachine("MockStateMachine-»\(element-1)")
-                        } else {
-                            stateManager.addOrReplaceStateMachine(MockStateMachine("MockStateMachine-»\(element)"))
-                        }
-                    }
-                }
-            }
-        }
     }
 }

@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -80,6 +80,27 @@ class TestEmitterConfiguration: XCTestCase {
         XCTAssertEqual(0, tracker.emitter?.dbCount)
     }
     
+    func testAllowsAccessToTheEventStore() {
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let networkConfig = NetworkConfiguration(networkConnection: networkConnection)
+
+        let tracker = createTracker(networkConfig: networkConfig, emitterConfig: EmitterConfiguration())
+
+        tracker.emitter?.pause()
+        for i in 0..<10 {
+            _ = tracker.track(Structured(category: "cat", action: "act").value(NSNumber(value: i)))
+        }
+        Thread.sleep(forTimeInterval: 0.5)
+        
+        XCTAssertEqual(10, tracker.emitter?.dbCount)
+        XCTAssertEqual(10, tracker.emitter?.eventStore.count())
+        
+        XCTAssertTrue(tracker.emitter?.eventStore.removeAllEvents() ?? false)
+        
+        XCTAssertEqual(0, tracker.emitter?.dbCount)
+        XCTAssertEqual(0, tracker.emitter?.eventStore.count())
+    }
+    
     private func createTracker(networkConfig: NetworkConfiguration, emitterConfig: EmitterConfiguration) -> TrackerController {
         let trackerConfig = TrackerConfiguration()
         trackerConfig.installAutotracking = false
@@ -88,7 +109,7 @@ class TestEmitterConfiguration: XCTestCase {
         let namespace = "testEmitter" + String(describing: Int.random(in: 0..<100))
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: [trackerConfig, emitterConfig])!
+                                      configurations: [trackerConfig, emitterConfig])
     }
     
 }

@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -21,6 +21,9 @@ public protocol EmitterController: EmitterConfigurationProtocol {
     /// Whether the emitter is currently sending events.
     @objc
     var isSending: Bool { get }
+    /// The EventStore being used by the emitter.
+    @objc
+    var eventStore: EventStore { get }
     @objc
     func flush()
     /// Pause emitting events.

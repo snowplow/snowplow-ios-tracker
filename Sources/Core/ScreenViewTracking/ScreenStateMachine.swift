@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -17,6 +17,10 @@ class ScreenStateMachine: StateMachineProtocol {
     static var identifier: String { return "ScreenContext" }
     var identifier: String { return ScreenStateMachine.identifier }
 
+    var subscribedEventSchemasForEventsBefore: [String] {
+        return []
+    }
+    
     var subscribedEventSchemasForTransitions: [String] {
         return [kSPScreenViewSchema]
     }
@@ -37,6 +41,10 @@ class ScreenStateMachine: StateMachineProtocol {
         return []
     }
 
+    func eventsBefore(event: Event) -> [Event]? {
+        return nil
+    }
+    
     func transition(from event: Event, state currentState: State?) -> State? {
         if let screenView = event as? ScreenView {
             let newState: ScreenState = screenState(from: screenView)

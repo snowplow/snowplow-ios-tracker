@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -26,16 +26,12 @@ class MockEventStore: NSObject, EventStore {
     }
 
     func addEvent(_ payload: Payload) {
-        objc_sync_enter(self)
         lastInsertedRow += 1
         logVerbose(message: "Add \(payload)")
         db[Int64(lastInsertedRow)] = payload
-        objc_sync_exit(self)
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         logVerbose(message: "Remove \(storeId)")
         return db.removeValue(forKey: storeId) != nil
     }
@@ -49,22 +45,16 @@ class MockEventStore: NSObject, EventStore {
     }
 
     func removeAllEvents() -> Bool {
-        objc_sync_enter(self)
         db.removeAll()
         lastInsertedRow = -1
-        objc_sync_exit(self)
         return true
     }
 
     func count() -> UInt {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         return UInt(db.count)
     }
 
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent] {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         var eventIds: [Int64] = []
         var events: [EmitterEvent] = []
         for (key, obj) in db {
@@ -78,5 +68,9 @@ class MockEventStore: NSObject, EventStore {
         }
         logVerbose(message: "emittableEventsWithQueryLimit: \(eventIds)")
         return events
+    }
+    
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval) {
+        // Not implemented in the mock event store.
     }
 }

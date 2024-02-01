@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,7 +16,8 @@ import XCTest
 
 class TestMediaController: XCTestCase {
     
-    var trackedEvents: [InspectableEvent] = []
+    var eventSink: EventSink?
+    var trackedEvents: [InspectableEvent] { return eventSink?.trackedEvents ?? [] }
     var tracker: TrackerController?
     var mediaController: MediaController? { tracker?.media }
     var firstEvent: InspectableEvent? { trackedEvents.first }
@@ -31,7 +32,7 @@ class TestMediaController: XCTestCase {
     
     override func tearDown() {
         Snowplow.removeAllTrackers()
-        trackedEvents.removeAll()
+        eventSink = nil
     }
     
     // MARK: Media player event tests
@@ -239,10 +240,14 @@ class TestMediaController: XCTestCase {
         
         waitForEventsToBeTracked()
         
-        XCTAssertEqual(15, firstEvent?.payload["percentProgress"] as? Int)
-        XCTAssertEqual(30, secondEvent?.payload["percentProgress"] as? Int)
-        XCTAssertEqual(40, trackedEvents[2].payload["percentProgress"] as? Int)
-        XCTAssertEqual(50, trackedEvents[3].payload["percentProgress"] as? Int)
+        let adClickEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_click") }
+        XCTAssertEqual(15, adClickEvent?.payload["percentProgress"] as? Int)
+        let adSkipEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_skip") }
+        XCTAssertEqual(30, adSkipEvent?.payload["percentProgress"] as? Int)
+        let adResumeEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_resume") }
+        XCTAssertEqual(40, adResumeEvent?.payload["percentProgress"] as? Int)
+        let adPauseEvent = trackedEvents.first { $0.schema == MediaSchemata.eventSchema("ad_pause") }
+        XCTAssertEqual(50, adPauseEvent?.payload["percentProgress"] as? Int)
     }
     
     func testSetsQualityPropertiesInQualityChangeEvent() {
@@ -316,10 +321,10 @@ class TestMediaController: XCTestCase {
                                       player: MediaPlayerEntity(duration: 10),
                                       session: session)
         
-        media.track(MediaPlayEvent())
+        track(MediaPlayEvent(), media: media)
         timeTraveler.travel(by: 10.0)
-        media.update(player: MediaPlayerEntity(currentTime: 10.0))
-        media.track(MediaEndEvent())
+        update(player: MediaPlayerEntity(currentTime: 10.0), media: media)
+        track(MediaEndEvent(), media: media)
         
         waitForEventsToBeTracked()
         
@@ -332,7 +337,7 @@ class TestMediaController: XCTestCase {
     // MARK: Ping events
     
     func testStartsSendingPingEventsAfterSessionStarts() {
-        let pingInterval = MediaPingInterval(timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(startTimer: MockTimer.startTimer)
         _ = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
         MockTimer.currentTimer.fire()
@@ -344,12 +349,12 @@ class TestMediaController: XCTestCase {
     }
     
     func testShouldSendPingEventsRegardlessOfOtherEvents() {
-        let pingInterval = MediaPingInterval(timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.track(MediaPlayEvent())
+        track(MediaPlayEvent(), media: media)
         MockTimer.currentTimer.fire()
-        media.track(MediaPauseEvent())
+        track(MediaPauseEvent(), media: media)
         MockTimer.currentTimer.fire()
         
         waitForEventsToBeTracked()
@@ -358,10 +363,10 @@ class TestMediaController: XCTestCase {
     }
     
     func testShouldStopSendingPingEventsWhenPaused() {
-        let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(maxPausedPings: 2, startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.update(player: MediaPlayerEntity(paused: true))
+        update(player: MediaPlayerEntity(paused: true), media: media)
         for _ in 0..<5 {
             MockTimer.currentTimer.fire()
         }
@@ -372,10 +377,10 @@ class TestMediaController: XCTestCase {
     }
     
     func testShouldNotStopSendingPingEventsWhenPlaying() {
-        let pingInterval = MediaPingInterval(maxPausedPings: 2, timerProvider: MockTimer.self)
+        let pingInterval = MediaPingInterval(maxPausedPings: 2, startTimer: MockTimer.startTimer)
         let media = MediaTrackingImpl(id: "media1", tracker: tracker!, pingInterval: pingInterval)
         
-        media.update(player: MediaPlayerEntity(paused: false))
+        update(player: MediaPlayerEntity(paused: false), media: media)
         for _ in 0..<5 {
             MockTimer.currentTimer.fire()
         }
@@ -450,24 +455,26 @@ class TestMediaController: XCTestCase {
         trackerConfig.lifecycleAutotracking = false
         
         let namespace = "testMedia" + String(describing: Int.random(in: 0..<100))
-        let plugin = PluginConfiguration(identifier: "testPlugin" + namespace)
-            .afterTrack { event in
-                if namespace == self.tracker?.namespace {
-                    self.trackedEvents.append(event)
-                }
-            }
-        
+        self.eventSink = EventSink()
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: [trackerConfig, plugin])!
+                                      configurations: [trackerConfig, eventSink!])
     }
     
     private func waitForEventsToBeTracked() {
         let expect = expectation(description: "Wait for events to be tracked")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { () -> Void in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { () -> Void in
             expect.fulfill()
         }
         wait(for: [expect], timeout: 1)
+    }
+    
+    private func track(_ event: Event, player: MediaPlayerEntity? = nil, ad: MediaAdEntity? = nil, adBreak: MediaAdBreakEntity? = nil, media: MediaTracking?) {
+        InternalQueue.sync { media?.track(event, player: player, ad: ad, adBreak: adBreak) }
+    }
+    
+    private func update(player: MediaPlayerEntity? = nil, ad: MediaAdEntity? = nil, adBreak: MediaAdBreakEntity? = nil, media: MediaTracking?) {
+        InternalQueue.sync { media?.update(player: player, ad: ad, adBreak: adBreak) }
     }
 }
 
@@ -480,4 +487,3 @@ extension InspectableEvent {
         return entities.first { $0.schema == MediaSchemata.sessionSchema }?.data
     }
 }
-

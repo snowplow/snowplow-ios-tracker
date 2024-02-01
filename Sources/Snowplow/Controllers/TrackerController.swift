@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -62,9 +62,9 @@ public protocol TrackerController: TrackerConfigurationProtocol {
     /// Track the event.
     /// The tracker will take care to process and send the event assigning `event_id` and `device_timestamp`.
     /// - Parameter event: The event to track.
-    /// - Returns: The event ID or nil in case tracking is paused
+    /// - Returns: The event ID
     @objc
-    func track(_ event: Event) -> UUID?
+    func track(_ event: Event) -> UUID
     /// Pause the tracker.
     /// The tracker will stop any new activity tracking but it will continue to send remaining events
     /// already tracked but not sent yet.
@@ -75,4 +75,40 @@ public protocol TrackerController: TrackerConfigurationProtocol {
     /// The tracker will start tracking again.
     @objc
     func resume()
+    /// Adds user and session information to a URL.
+    ///
+    /// For example, calling decorateLink on `appSchema://path/to/page` will return:
+    ///
+    ///      `appSchema://path/to/page?_sp=domainUserId.timestamp.sessionId..sourceId`
+    ///
+    /// Filled by this method:
+    /// - `domainUserId`: Value of ``SessionController.userId``
+    /// - `timestamp`: ms precision epoch timestamp
+    /// - `sessionId`: Value of ``SessionController.sessionId``
+    /// - `sourceId`: Value of ``Tracker.appId``
+    ///
+    /// - Parameter uri The URI to add the query string to
+    ///
+    /// - Returns Optional URL
+    /// - nil if ``SnowplowTracker/SessionController/userId`` is null from `sessionContext(false)` being passed in ``TrackerConfiguration``
+    /// - otherwise, decorated URL
+    @objc
+    func decorateLink(_ url: URL) -> URL?
+    /// Adds user and session information to a URL.
+    ///
+    /// For example, calling decorateLink on `appSchema://path/to/page` with all extended parameters enabled will return:
+    ///
+    ///      `appSchema://path/to/page?_sp=domainUserId.timestamp.sessionId.subjectUserId.sourceId.platform.reason`
+    ///
+    /// - Parameter url The URL to add the query string to
+    /// - Parameter extendedParameters Any optional parameters to include in the query string.
+    ///
+    /// - Returns Optional URL
+    /// - nil if:
+    ///
+    ///     - ``SnowplowTracker/SessionController/userId`` is null from `sessionContext(false)` being passed in ``TrackerConfiguration``
+    ///     - An enabled CrossDeviceParameter isn't set in the tracker
+    /// - otherwise, decorated URL
+    @objc
+    func decorateLink(_ url: URL, extendedParameters: CrossDeviceParameterConfiguration) -> URL?
 }

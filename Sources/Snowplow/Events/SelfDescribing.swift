@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,6 +25,19 @@ public class SelfDescribing: SelfDescribingAbstract {
     public init(schema: String, payload: [String : Any]) {
         self._schema = schema
         self._payload = payload
+    }
+    
+    /// Creates a self-describing event using data represented as an Encodable struct.
+    /// - Parameters:
+    ///   - schema: A valid schema URI.
+    ///   - data: Data represented using an Encodable struct.
+    /// - Returns: A SelfDescribing event.
+    public convenience init<T: Encodable>(schema: String, data: T) throws {
+        let data = try JSONEncoder().encode(data)
+        let jsonObject = try JSONSerialization.jsonObject(with: data)
+        let dict = jsonObject as! [String: Any]
+        
+        self.init(schema: schema, payload: dict)
     }
     
     private var _schema: String

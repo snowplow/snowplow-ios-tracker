@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -43,4 +43,10 @@ public protocol EventStore: NSObjectProtocol {
     /// - Returns: EmitterEvent objects containing storeIds and event payloads.
     @objc
     func emittableEvents(withQueryLimit queryLimit: UInt) -> [EmitterEvent]
+    /// Remove events older than `maxAge` seconds and keep only the latest `maxSize` events.
+    /// - Parameters:
+    ///   - maxSize: Limit for the maximum number of unsent events to keep
+    ///   - maxAge: Limit for the maximum duration of how long events should be kept
+    @objc
+    func removeOldEvents(maxSize: Int64, maxAge: TimeInterval)
 }

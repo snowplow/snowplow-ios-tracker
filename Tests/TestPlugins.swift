@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,17 +25,16 @@ class TestPlugins: XCTestCase {
             .entities { [SelfDescribingJson(schema: "schema", andData: ["val": $0.payload["se_ca"]!])] }
         
         let expect = expectation(description: "Has context entity on event")
-        let testPlugin = PluginConfiguration(identifier: "test")
-            .afterTrack { event in
-                XCTAssertTrue(
-                    event.entities.filter({ entity in
-                        entity.schema == "schema" && entity.data["val"] as? String == "cat"
-                    }).count == 1
-                )
-                expect.fulfill()
-            }
+        let eventSink = EventSink { event in
+            XCTAssertTrue(
+                event.entities.filter({ entity in
+                    entity.schema == "schema" && entity.data["val"] as? String == "cat"
+                }).count == 1
+            )
+            expect.fulfill()
+        }
         
-        let tracker = createTracker([plugin, testPlugin])
+        let tracker = createTracker([plugin, eventSink])
         _ = tracker.track(Structured(category: "cat", action: "act"))
         
         wait(for: [expect], timeout: 10)
@@ -49,18 +48,17 @@ class TestPlugins: XCTestCase {
             .entities { _ in [SelfDescribingJson(schema: "schema2", andData: [:])] }
         
         let expect = expectation(description: "Has both context entities on event")
-        let testPlugin = PluginConfiguration(identifier: "test")
-            .afterTrack { event in
-                XCTAssertTrue(
-                    event.entities.filter({ $0.schema == "schema1" }).count == 1
-                )
-                XCTAssertTrue(
-                    event.entities.filter({ $0.schema == "schema2" }).count == 1
-                )
-                expect.fulfill()
-            }
+        let eventSink = EventSink { event in
+            XCTAssertTrue(
+                event.entities.filter({ $0.schema == "schema1" }).count == 1
+            )
+            XCTAssertTrue(
+                event.entities.filter({ $0.schema == "schema2" }).count == 1
+            )
+            expect.fulfill()
+        }
         
-        let tracker = createTracker([plugin1, plugin2, testPlugin])
+        let tracker = createTracker([plugin1, plugin2, eventSink])
         _ = tracker.track(ScreenView(name: "sv"))
         
         wait(for: [expect], timeout: 1)
@@ -73,17 +71,16 @@ class TestPlugins: XCTestCase {
         var event1HasEntity: Bool? = nil
         var event2HasEntity: Bool? = nil
         
-        let testPlugin = PluginConfiguration(identifier: "test")
-            .afterTrack { event in
-                if event.schema == "schema1" {
-                    event1HasEntity = event.entities.contains(where: { $0.schema == "xx" })
-                }
-                if event.schema == "schema2" {
-                    event2HasEntity = event.entities.contains(where: { $0.schema == "xx" })
-                }
+        let eventSink = EventSink { event in
+            if event.schema == "schema1" {
+                event1HasEntity = event.entities.contains(where: { $0.schema == "xx" })
             }
+            if event.schema == "schema2" {
+                event2HasEntity = event.entities.contains(where: { $0.schema == "xx" })
+            }
+        }
         
-        let tracker = createTracker([plugin, testPlugin])
+        let tracker = createTracker([plugin, eventSink])
         _ = tracker.track(SelfDescribing(schema: "schema1", payload: [:]))
         _ = tracker.track(SelfDescribing(schema: "schema2", payload: [:]))
         
@@ -205,7 +202,7 @@ class TestPlugins: XCTestCase {
         let namespace = "testPlugins" + String(describing: Int.random(in: 0..<100))
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
-                                      configurations: configurations + [trackerConfig])!
+                                      configurations: configurations + [trackerConfig])
     }
     
     private func waitForEventsToBeTracked() {

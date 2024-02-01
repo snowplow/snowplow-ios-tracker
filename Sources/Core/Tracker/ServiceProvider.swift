@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -14,7 +14,7 @@
 import Foundation
 
 class ServiceProvider: NSObject, ServiceProviderProtocol {
-    private(set) var namespace: String
+    let namespace: String
     
     var isTrackerInitialized: Bool { return _tracker != nil }
 
@@ -227,33 +227,46 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return Subject(
             platformContext: trackerConfiguration.platformContext,
             platformContextProperties: trackerConfiguration.platformContextProperties,
+            platformContextRetriever: trackerConfiguration.platformContextRetriever,
             geoLocationContext: trackerConfiguration.geoLocationContext,
             subjectConfiguration: subjectConfiguration)
     }
 
     func makeEmitter() -> Emitter {
         let builder = { (emitter: Emitter) in
-            emitter.method = self.networkConfiguration.method
-            emitter.protocol = self.networkConfiguration.protocol
-            emitter.customPostPath = self.networkConfiguration.customPostPath
-            emitter.requestHeaders = self.networkConfiguration.requestHeaders
             emitter.emitThreadPoolSize = self.emitterConfiguration.threadPoolSize
             emitter.byteLimitGet = self.emitterConfiguration.byteLimitGet
             emitter.byteLimitPost = self.emitterConfiguration.byteLimitPost
-            emitter.serverAnonymisation = self.emitterConfiguration.serverAnonymisation
             emitter.emitRange = self.emitterConfiguration.emitRange
             emitter.bufferOption = self.emitterConfiguration.bufferOption
-            emitter.eventStore = self.emitterConfiguration.eventStore
             emitter.callback = self.emitterConfiguration.requestCallback
             emitter.customRetryForStatusCodes = self.emitterConfiguration.customRetryForStatusCodes
             emitter.retryFailedRequests = self.emitterConfiguration.retryFailedRequests
+            emitter.maxEventStoreSize = self.emitterConfiguration.maxEventStoreSize
+            emitter.maxEventStoreAge = self.emitterConfiguration.maxEventStoreAge
         }
 
         let emitter: Emitter
         if let networkConnection = networkConfiguration.networkConnection {
-            emitter = Emitter(networkConnection: networkConnection, builder: builder)
+            emitter = Emitter(
+                networkConnection: networkConnection,
+                namespace: self.namespace,
+                eventStore: self.emitterConfiguration.eventStore,
+                builder: builder
+            )
         } else {
-            emitter = Emitter(urlEndpoint: networkConfiguration.endpoint ?? "", builder: builder)
+            emitter = Emitter(
+                namespace: self.namespace,
+                urlEndpoint: networkConfiguration.endpoint ?? "",
+                method: self.networkConfiguration.method,
+                protocol: self.networkConfiguration.protocol,
+                customPostPath: self.networkConfiguration.customPostPath,
+                requestHeaders: self.networkConfiguration.requestHeaders,
+                serverAnonymisation: self.emitterConfiguration.serverAnonymisation,
+                eventStore: self.emitterConfiguration.eventStore,
+                timeout: self.networkConfiguration.timeout,
+                builder: builder
+            )
         }
         
         if emitterConfiguration.isPaused {
@@ -286,12 +299,13 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             tracker.applicationContext = trackerConfiguration.applicationContext
             tracker.deepLinkContext = trackerConfiguration.deepLinkContext
             tracker.screenContext = trackerConfiguration.screenContext
+            tracker.screenEngagementAutotracking = trackerConfiguration.screenEngagementAutotracking
             tracker.autotrackScreenViews = trackerConfiguration.screenViewAutotracking
             tracker.lifecycleEvents = trackerConfiguration.lifecycleAutotracking
             tracker.installEvent = trackerConfiguration.installAutotracking
             tracker.trackerDiagnostic = trackerConfiguration.diagnosticAutotracking
             tracker.userAnonymisation = trackerConfiguration.userAnonymisation
-            tracker.advertisingIdentifierRetriever = trackerConfiguration.advertisingIdentifierRetriever
+            tracker.immersiveSpaceContext = trackerConfiguration.immersiveSpaceContext
             if gdprConfiguration.sourceConfig != nil {
                 tracker.gdprContext = GDPRContext(
                     basis: gdprConfiguration.basisForProcessing,

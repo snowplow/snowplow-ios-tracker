@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -11,7 +11,7 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-#if os(iOS)
+#if os(iOS) || os(visionOS)
 import Foundation
 import SystemConfiguration
 
@@ -65,7 +65,7 @@ class SNOWReachability: NSObject {
             return .offline
         }
 
-        #if os(iOS)
+        #if os(iOS) || os(visionOS)
         let isWWAN = (flags.rawValue & SCNetworkReachabilityFlags.isWWAN.rawValue) == SCNetworkReachabilityFlags.isWWAN.rawValue
         if isWWAN {
             return .wwan

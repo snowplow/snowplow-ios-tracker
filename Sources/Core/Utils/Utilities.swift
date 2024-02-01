@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -11,12 +11,10 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-#if os(iOS)
+#if os(iOS) || os(tvOS) || os(visionOS)
 import UIKit
 #elseif os(macOS)
 import AppKit
-#elseif os(tvOS)
-import UIKit
 #elseif os(watchOS)
 import WatchKit
 #endif
@@ -38,8 +36,13 @@ class Utilities {
     /// Returns the platform type of the device..
     /// - Returns: A string of the platform type.
     class var platform: DevicePlatform {
-        #if os(iOS)
+        #if os(iOS) || os(visionOS) || os(watchOS)
         return .mobile
+// TODO: use the headset platform by default in visionOS once Enrich 4 is commonly used
+//        #elseif os(visionOS)
+//        return .headset
+        #elseif os(tvOS)
+        return .connectedTV
         #else
         return .desktop
         #endif

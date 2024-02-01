@@ -5,11 +5,14 @@ on: [push]
 jobs:
   podspec:
     name: Lint Podspec for ${{ matrix.platform }}
-    runs-on: macos-11
+    runs-on: macos-13
     strategy:
       matrix:
         platform: [ios, ios, osx, tvos, watchos]
     steps:
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: latest-stable
       - uses: actions/checkout@v3
       - name: Lint Podspec
         run: pod lib lint --platforms=${{ matrix.platform }}
@@ -21,36 +24,36 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: "Integration (iOS 15.2, Xcode 13.2.1)"
+          - name: "Integration (iOS, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: iphonesimulator15.2
-            destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13"
+            xcode-version: 13.4
+            destination: "platform=iOS Simulator,name=iPhone 13"
             target: IntegrationTests
-          - name: "Unit (iOS 15.2, Xcode 13.2.1)"
+
+          - name: "Unit (iOS, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: iphonesimulator15.2
-            destination: "platform=iOS Simulator,OS=15.2,name=iPhone 13"
+            xcode-version: 13.4
+            destination: "platform=iOS Simulator,name=iPhone 13"
             target: Tests
-          - name: "Unit (macOS 12.1, Xcode 13.2.1)"
+
+          - name: "Unit (macOS, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: macosx12.1
-            destination: "platform=OS X"
+            xcode-version: 13.4
+            destination: "platform=macOS"
             target: Tests
-          - name: "Unit (watchOS 8.3, Xcode 13.2.1)"
+
+          - name: "Unit (watchOS, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: watchos8.3
-            destination: "platform=watchOS Simulator,OS=8.3,name=Apple Watch Series 7 - 45mm"
+            xcode-version: 13.4
+            destination: "platform=watchOS Simulator,name=Apple Watch Series 7 - 45mm"
             target: Tests
-          - name: "Unit (tvOS 15.2, Xcode 13.2.1)"
+
+          - name: "Unit (tvOS, Xcode 13.4)"
             os: macos-12
-            xcode-version: "13.2.1"
-            sdk: appletvsimulator15.2
-            destination: "platform=tvOS Simulator,OS=15.2,name=Apple TV"
+            xcode-version: 13.4
+            destination: "platform=tvOS Simulator,name=Apple TV"
             target: Tests
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -77,17 +80,25 @@ jobs:
         run: while ! nc -z '0.0.0.0' 9090; do sleep 1; done
       # -- Micro --
 
-      - name: Select Xcode Version
-        run: sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode-version }}.app/Contents/Developer
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ matrix.xcode-version }}
 
       - name: Build & Test
         run: |
           set -o pipefail && xcodebuild \
             -scheme SnowplowTracker \
-            -sdk "${{ matrix.sdk }}" \
             -destination "${{ matrix.destination }}" \
             -only-testing ${{ matrix.target }} \
+            -resultBundlePath TestResults \
             clean test | xcpretty
+
+      - name: Create test results
+        uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults.xcresult
+          title: "Test results: ${{ matrix.name }}"
+        if: success() || failure()
 
   build_objc_demo_app:
     name: "ObjC demo (iOS ${{ matrix.version.ios }})"
@@ -100,8 +111,22 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 15.5, iphone: iPhone 12 Pro, watchos: 8.5, watch: Apple Watch Series 5 - 44mm, macos: '12', xcode: 13.4}
-          - {ios: 14.4, iphone: iPhone 8, watchos: 7.2, watch: Apple Watch Series 4 - 40mm, macos: '11', xcode: 12.4}
+          - {
+              ios: 15.5,
+              iphone: iPhone 12 Pro,
+              watchos: 8.5,
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "12",
+              xcode: 13.4,
+            }
+          - {
+              ios: 14.4,
+              iphone: iPhone 8,
+              watchos: 7.2,
+              watch: Apple Watch Series 4 - 40mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -131,7 +156,14 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.4', iphone: iPhone 12 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
+          - {
+              ios: "14.4",
+              iphone: iPhone 12 Pro,
+              watchos: "7.2",
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -161,7 +193,14 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: '14.4', iphone: iPhone 11 Pro, watchos: '7.2', watch: Apple Watch Series 5 - 44mm, macos: '11', xcode: 12.4}
+          - {
+              ios: "14.4",
+              iphone: iPhone 11 Pro,
+              watchos: "7.2",
+              watch: Apple Watch Series 5 - 44mm,
+              macos: "11",
+              xcode: 12.4,
+            }
 
     steps:
       - name: Checkout
@@ -207,7 +246,7 @@ jobs:
       fail-fast: false
       matrix:
         version:
-          - {ios: 15.5, iphone: iPhone 12 Pro, macos: '12', xcode: 13.4}
+          - { ios: 15.5, iphone: iPhone 12 Pro, macos: "12", xcode: 13.4 }
 
     steps:
       - name: Checkout

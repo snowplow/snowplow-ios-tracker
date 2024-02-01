@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -20,12 +20,10 @@ class StateManager {
     private var eventSchemaToPayloadUpdater: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToAfterTrackCallback: [String : [StateMachineProtocol]] = [:]
     private var eventSchemaToFilter: [String : [StateMachineProtocol]] = [:]
+    private var eventSchemaToEventsBefore: [String : [StateMachineProtocol]] = [:]
     private var trackerState = TrackerState()
 
     func addOrReplaceStateMachine(_ stateMachine: StateMachineProtocol) {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
         if let previousStateMachine = identifierToStateMachine[stateMachine.identifier] {
             if type(of: stateMachine) == type(of: previousStateMachine) {
                 return
@@ -53,12 +51,13 @@ class StateManager {
             toSchemaRegistry: &eventSchemaToFilter,
             schemas: stateMachine.subscribedEventSchemasForFiltering,
             stateMachine: stateMachine)
+        add(
+            toSchemaRegistry: &eventSchemaToEventsBefore,
+            schemas: stateMachine.subscribedEventSchemasForEventsBefore,
+            stateMachine: stateMachine)
     }
 
     func removeStateMachine(_ stateMachineIdentifier: String) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
         guard let stateMachine = identifierToStateMachine[stateMachineIdentifier] else {
             return false
         }
@@ -84,13 +83,14 @@ class StateManager {
             fromSchemaRegistry: &eventSchemaToFilter,
             schemas: stateMachine.subscribedEventSchemasForFiltering,
             stateMachine: stateMachine)
+        remove(
+            fromSchemaRegistry: &eventSchemaToEventsBefore,
+            schemas: stateMachine.subscribedEventSchemasForEventsBefore,
+            stateMachine: stateMachine)
         return true
     }
 
     func trackerState(forProcessedEvent event: Event) -> TrackerStateSnapshot? {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         if let sdEvent = event as? SelfDescribingAbstract {
             var stateMachines = Array(eventSchemaToStateMachine[sdEvent.schema] ?? [])
             stateMachines.append(contentsOf: eventSchemaToStateMachine["*"] ?? [])
@@ -121,9 +121,6 @@ class StateManager {
     }
     
     func filter(event: InspectableEvent & StateMachineEvent) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         guard let schema = event.schema ?? event.eventName else { return true }
         var stateMachines = eventSchemaToFilter[schema] ?? []
         stateMachines.append(contentsOf: eventSchemaToFilter["*"] ?? [])
@@ -136,11 +133,24 @@ class StateManager {
         }
         return true
     }
+    
+    func eventsBefore(forProcessedEvent event: Event) -> [Event] {
+        var result: [Event] = []
+        guard let sdEvent = event as? SelfDescribingAbstract else { return result }
+        
+        let schema = sdEvent.schema
+        var stateMachines = eventSchemaToEventsBefore[schema] ?? []
+        stateMachines.append(contentsOf: eventSchemaToEventsBefore["*"] ?? [])
+        
+        for stateMachine in stateMachines {
+            if let eventsBefore = stateMachine.eventsBefore(event: event) {
+                result.append(contentsOf: eventsBefore)
+            }
+        }
+        return result
+    }
 
     func entities(forProcessedEvent event: InspectableEvent & StateMachineEvent) -> [SelfDescribingJson] {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         guard let schema = event.schema ?? event.eventName else { return [] }
         var result: [SelfDescribingJson] = []
         var stateMachines = eventSchemaToEntitiesGenerator[schema] ?? []
@@ -156,9 +166,6 @@ class StateManager {
     }
 
     func addPayloadValues(to event: InspectableEvent & StateMachineEvent) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-
         guard let schema = event.schema else { return true }
         var failures = 0
         var stateMachines = eventSchemaToPayloadUpdater[schema] ?? []
@@ -177,10 +184,8 @@ class StateManager {
     func afterTrack(event: InspectableEvent & StateMachineEvent) {
         guard let schema = event.schema ?? event.eventName else { return }
 
-        objc_sync_enter(self)
         var stateMachines = eventSchemaToAfterTrackCallback[schema] ?? []
         stateMachines.append(contentsOf: eventSchemaToAfterTrackCallback["*"] ?? [])
-        objc_sync_exit(self)
 
         if !stateMachines.isEmpty {
             DispatchQueue.global(qos: .default).async {

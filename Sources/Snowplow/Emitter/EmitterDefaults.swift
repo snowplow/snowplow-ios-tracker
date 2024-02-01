@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -16,11 +16,14 @@ import Foundation
 public class EmitterDefaults {
     public private(set) static var httpMethod: HttpMethodOptions = .post
     public private(set) static var httpProtocol: ProtocolOptions = .https
-    public private(set) static var emitRange = 150
+    public private(set) static var emitRange = BufferOption.largeGroup.rawValue
     public private(set) static var emitThreadPoolSize = 15
     public private(set) static var byteLimitGet = 40000
     public private(set) static var byteLimitPost = 40000
     public private(set) static var serverAnonymisation = false
-    public private(set) static var bufferOption: BufferOption = .defaultGroup
+    public private(set) static var bufferOption: BufferOption = .single
     public private(set) static var retryFailedRequests = true
+    public private(set) static var maxEventStoreSize: Int64 = 1000 // events
+    public private(set) static var maxEventStoreAge: TimeInterval = TimeInterval(60 * 60 * 24 * 30) // 30 days
+    public private(set) static var emitTimeout: TimeInterval = TimeInterval(30) // 30 seconds
 }

@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -25,18 +25,18 @@ class TestMultipleInstances: XCTestCase {
 
     func testSingleInstanceIsReconfigurable() {
         let t1 = Snowplow.createTracker(namespace: "t1", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake"))
-        XCTAssertEqual(t1?.network?.endpoint, "https://snowplowanalytics.fake/com.snowplowanalytics.snowplow/tp2")
+        XCTAssertEqual(t1.network?.endpoint, "https://snowplowanalytics.fake/com.snowplowanalytics.snowplow/tp2")
         let t2 = Snowplow.createTracker(namespace: "t1", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake2"))
-        XCTAssertEqual(t2?.network?.endpoint, "https://snowplowanalytics.fake2/com.snowplowanalytics.snowplow/tp2")
+        XCTAssertEqual(t2.network?.endpoint, "https://snowplowanalytics.fake2/com.snowplowanalytics.snowplow/tp2")
         XCTAssertEqual(["t1"], Snowplow.instancedTrackerNamespaces)
-        XCTAssertTrue(t1 === t2)
+        XCTAssertTrue(t1.network?.endpoint == t2.network?.endpoint)
     }
 
     func testMultipleInstances() {
         let t1 = Snowplow.createTracker(namespace: "t1", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake"))
-        XCTAssertEqual(t1?.network?.endpoint, "https://snowplowanalytics.fake/com.snowplowanalytics.snowplow/tp2")
+        XCTAssertEqual(t1.network?.endpoint, "https://snowplowanalytics.fake/com.snowplowanalytics.snowplow/tp2")
         let t2 = Snowplow.createTracker(namespace: "t2", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake2"))
-        XCTAssertEqual(t2?.network?.endpoint, "https://snowplowanalytics.fake2/com.snowplowanalytics.snowplow/tp2")
+        XCTAssertEqual(t2.network?.endpoint, "https://snowplowanalytics.fake2/com.snowplowanalytics.snowplow/tp2")
         XCTAssertFalse(t1 === t2)
         let expectedNamespaces = Set<String>(["t1", "t2"])
         XCTAssertEqual(expectedNamespaces, Set<String>(Snowplow.instancedTrackerNamespaces))
@@ -46,7 +46,7 @@ class TestMultipleInstances: XCTestCase {
         let t1 = Snowplow.createTracker(namespace: "t1", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake"))
         _ = Snowplow.createTracker(namespace: "t2", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake2"))
         let td = Snowplow.defaultTracker()
-        XCTAssertEqual(t1?.namespace, td?.namespace)
+        XCTAssertEqual(t1.namespace, td?.namespace)
     }
 
     func testUpdateDefaultTracker() {
@@ -54,7 +54,7 @@ class TestMultipleInstances: XCTestCase {
         let t2 = Snowplow.createTracker(namespace: "t2", network: NetworkConfiguration(endpoint: "snowplowanalytics.fake2"))
         _ = Snowplow.setAsDefault(tracker: t2)
         let td = Snowplow.defaultTracker()
-        XCTAssertEqual(t2?.namespace, td?.namespace)
+        XCTAssertEqual(t2.namespace, td?.namespace)
     }
 
     func testRemoveTracker() {

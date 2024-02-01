@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -48,16 +48,20 @@ class TestServiceProvider: XCTestCase {
         serviceProvider.reset(configurations: [EmitterConfiguration()])
 
         // track event and check that emitter is paused
-        _ = serviceProvider.trackerController.track(Structured(category: "cat", action: "act"))
+        InternalQueue.sync {
+            _ = serviceProvider.trackerController.track(Structured(category: "cat", action: "act"))
+        }
         Thread.sleep(forTimeInterval: 3)
-        XCTAssertEqual(1, serviceProvider.emitter.dbCount)
+        InternalQueue.sync { XCTAssertEqual(1, serviceProvider.emitter.dbCount) }
         XCTAssertEqual(0, networkConnection.sendingCount)
 
         // resume emitting
-        serviceProvider.emitterController.resume()
+        InternalQueue.sync {
+            serviceProvider.emitterController.resume()
+        }
         Thread.sleep(forTimeInterval: 3)
         XCTAssertEqual(1, networkConnection.sendingCount)
-        XCTAssertEqual(0, serviceProvider.emitter.dbCount)
+        InternalQueue.sync { XCTAssertEqual(0, serviceProvider.emitter.dbCount) }
     }
     // TODO: fix logging and handle the case
     //- (void)testLogsErrorWhenAccessingShutDownTracker {

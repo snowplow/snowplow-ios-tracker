@@ -1,4 +1,4 @@
-//  Copyright (c) 2013-2023 Snowplow Analytics Ltd. All rights reserved.
+//  Copyright (c) 2013-present Snowplow Analytics Ltd. All rights reserved.
 //
 //  This program is licensed to you under the Apache License Version 2.0,
 //  and you may not use this file except in compliance with the Apache License
@@ -198,14 +198,16 @@ public class Snowplow: NSObject {
     ///                       the tracker.
     /// - Returns: The tracker instance created.
     @objc
-    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol] = []) -> TrackerController? {
-        if let serviceProvider = serviceProviderInstances[namespace] {
-            serviceProvider.reset(configurations: configurations + [networkConfiguration])
-            return serviceProvider.trackerController
-        } else {
-            let serviceProvider = ServiceProvider(namespace: namespace, network: networkConfiguration, configurations: configurations)
-            let _ = registerInstance(serviceProvider)
-            return serviceProvider.trackerController
+    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol] = []) -> TrackerController {
+        InternalQueue.sync {
+            if let serviceProvider = serviceProviderInstances[namespace] {
+                serviceProvider.reset(configurations: configurations + [networkConfiguration])
+                return TrackerControllerIQWrapper(controller: serviceProvider.trackerController)
+            } else {
+                let serviceProvider = ServiceProvider(namespace: namespace, network: networkConfiguration, configurations: configurations)
+                let _ = registerInstance(serviceProvider)
+                return TrackerControllerIQWrapper(controller: serviceProvider.trackerController)
+            }
         }
     }
 
@@ -234,7 +236,7 @@ public class Snowplow: NSObject {
     ///                collector.
     ///   - configurationBuilder: Swift DSL builder for your configuration objects (e.g, `EmitterConfiguration`, `TrackerConfiguration`)
     /// - Returns: The tracker instance created.
-    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, @ConfigurationBuilder _ configurationBuilder: () -> [ConfigurationProtocol]) -> TrackerController? {
+    public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, @ConfigurationBuilder _ configurationBuilder: () -> [ConfigurationProtocol]) -> TrackerController {
         let configurations = configurationBuilder()
         return createTracker(namespace: namespace,
                              network: networkConfiguration,
@@ -248,7 +250,12 @@ public class Snowplow: NSObject {
     /// calling `setTrackerAsDefault(TrackerController)`.
     @objc
     public class func defaultTracker() -> TrackerController? {
-        return defaultServiceProvider?.trackerController
+        InternalQueue.sync {
+            if let controller = defaultServiceProvider?.trackerController {
+                return TrackerControllerIQWrapper(controller: controller)
+            }
+            return nil
+        }
     }
 
     /// Using the namespace identifier is possible to get the trackerController if already instanced.
@@ -257,7 +264,12 @@ public class Snowplow: NSObject {
     /// - Returns: The tracker if it exist with that namespace.
     @objc
     public class func tracker(namespace: String) -> TrackerController? {
-        return serviceProviderInstances[namespace]?.trackerController
+        InternalQueue.sync {
+            if let controller = serviceProviderInstances[namespace]?.trackerController {
+                return TrackerControllerIQWrapper(controller: controller)
+            }
+            return nil
+        }
     }
 
     /// Set the passed tracker as default tracker if it's registered as an active tracker in the app.
@@ -269,13 +281,14 @@ public class Snowplow: NSObject {
     /// - Returns: Whether the tracker passed is registered among the active trackers of the app.
     @objc
     public class func setAsDefault(tracker trackerController: TrackerController?) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        
-        if let namespace = trackerController?.namespace,
-           let serviceProvider = serviceProviderInstances[namespace] {
-            defaultServiceProvider = serviceProvider
-            return true
+        if let namespace = trackerController?.namespace {
+            return InternalQueue.sync {
+                if let serviceProvider = serviceProviderInstances[namespace] {
+                    defaultServiceProvider = serviceProvider
+                    return true
+                }
+                return false
+            }
         }
         return false
     }
@@ -291,20 +304,12 @@ public class Snowplow: NSObject {
     /// - Returns: Whether it has been able to remove it.
     @objc
     public class func remove(tracker trackerController: TrackerController?) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
-        if let namespace = trackerController?.namespace,
-           let serviceProvider = (serviceProviderInstances)[namespace] {
-            serviceProvider.shutdown()
-            serviceProviderInstances.removeValue(forKey: namespace)
-            if serviceProvider == defaultServiceProvider {
-                defaultServiceProvider = nil
-            }
-            return true
+        if let namespace = trackerController?.namespace {
+            return remove(namespace: namespace)
         }
         return false
     }
-
+    
     /// Remove all the trackers.
     ///
     /// The removed tracker is always stopped.
@@ -312,20 +317,22 @@ public class Snowplow: NSObject {
     /// See ``remove(tracker:)`` to remove  a specific tracker.
     @objc
     public class func removeAllTrackers() {
-        objc_sync_enter(self)
-        defaultServiceProvider = nil
-        let serviceProviders = serviceProviderInstances.values
-        serviceProviderInstances.removeAll()
-        for sp in serviceProviders {
-            sp.shutdown()
+        InternalQueue.sync {
+            defaultServiceProvider = nil
+            let serviceProviders = serviceProviderInstances.values
+            serviceProviderInstances.removeAll()
+            for sp in serviceProviders {
+                sp.shutdown()
+            }
         }
-        objc_sync_exit(self)
     }
 
     /// - Returns: Set of namespace of the active trackers in the app.
     @objc
     class public var instancedTrackerNamespaces: [String] {
-        return Array(serviceProviderInstances.keys)
+        InternalQueue.sync {
+            return Array(serviceProviderInstances.keys)
+        }
     }
 
     #if os(iOS) || os(macOS)
@@ -345,8 +352,6 @@ public class Snowplow: NSObject {
     // MARK: - Private methods
 
     private class func registerInstance(_ serviceProvider: ServiceProvider) -> Bool {
-        objc_sync_enter(self)
-        defer { objc_sync_exit(self) }
         let namespace = serviceProvider.namespace
         let isOverriding = serviceProviderInstances[namespace] != nil
         serviceProviderInstances[namespace] = serviceProvider
@@ -359,22 +364,29 @@ public class Snowplow: NSObject {
     private class func createTrackers(configurationBundles bundles: [ConfigurationBundle]) -> [String] {
         var namespaces: [String]? = []
         for bundle in bundles {
-            objc_sync_enter(self)
             if let networkConfiguration = bundle.networkConfiguration {
-                if let _ = createTracker(
-                    namespace: bundle.namespace,
-                    network: networkConfiguration,
-                    configurations: bundle.configurations) {
-                    namespaces?.append(bundle.namespace)
-                }
+                _ = createTracker(namespace: bundle.namespace, network: networkConfiguration, configurations: bundle.configurations)
+                namespaces?.append(bundle.namespace)
             } else {
                 // remove tracker if it exists
-                if let tracker = tracker(namespace: bundle.namespace) {
-                    let _ = remove(tracker: tracker)
-                }
+                _ = remove(namespace: bundle.namespace)
             }
-            objc_sync_exit(self)
         }
         return namespaces ?? []
     }
+    
+    private class func remove(namespace: String) -> Bool {
+        InternalQueue.sync {
+            if let serviceProvider = (serviceProviderInstances)[namespace] {
+                serviceProvider.shutdown()
+                serviceProviderInstances.removeValue(forKey: namespace)
+                if serviceProvider == defaultServiceProvider {
+                    defaultServiceProvider = nil
+                }
+                return true
+            }
+            return false
+        }
+    }
+
 }
