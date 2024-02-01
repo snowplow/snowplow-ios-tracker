@@ -36,11 +36,13 @@ class Utilities {
     /// Returns the platform type of the device..
     /// - Returns: A string of the platform type.
     class var platform: DevicePlatform {
-        #if os(iOS) || os(visionOS)
+        #if os(iOS) || os(visionOS) || os(watchOS)
         return .mobile
 // TODO: use the headset platform by default in visionOS once Enrich 4 is commonly used
 //        #elseif os(visionOS)
 //        return .headset
+        #elseif os(tvOS)
+        return .connectedTV
         #else
         return .desktop
         #endif

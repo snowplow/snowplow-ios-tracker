@@ -34,8 +34,10 @@ class TestUtils: XCTestCase {
     }
     
     func testGetPlatform() {
-#if os(iOS) || os(visionOS)
+#if os(iOS) || os(visionOS) || os(watchOS)
         XCTAssertEqual(Utilities.platform, .mobile)
+#elseif os(tvOS)
+        XCTAssertEqual(Utilities.platform, .connectedTV)
 #else
         XCTAssertEqual(Utilities.platform, .desktop)
 #endif
