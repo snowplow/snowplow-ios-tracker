@@ -16,11 +16,20 @@ import Foundation
 /** Media player event fired when a percentage boundary set in the `boundaries` list in `MediaTrackingConfiguration` is reached. */
 class MediaPercentProgressEvent: SelfDescribingAbstract {
     
+    let percentProgress: Int?
+    
     override var schema: String {
         return MediaSchemata.eventSchema("percent_progress")
     }
     
     override var payload: [String : Any] {
+        if let percentProgress = percentProgress {
+            return ["percentProgress": percentProgress]
+        }
         return [:]
+    }
+    
+    public init(percentProgress: Int?) {
+        self.percentProgress = percentProgress
     }
 }

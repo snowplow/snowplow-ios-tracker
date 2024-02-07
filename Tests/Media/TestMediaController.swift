@@ -409,6 +409,25 @@ class TestMediaController: XCTestCase {
         XCTAssertEqual(3, trackedEvents.filter { $0.schema?.contains("percent_progress") ?? false }.count)
     }
     
+    func testProgressEventsShouldHavePercentValue() {
+        let configuration = MediaTrackingConfiguration(id: "media",
+                                                       player: MediaPlayerEntity(duration: 100))
+            .boundaries([5])
+        let media = mediaController?.startMediaTracking(configuration: configuration)
+        
+        media?.track(MediaPlayEvent())
+        for i in 1..<10 {
+            media?.update(player: MediaPlayerEntity(currentTime: Double(i)))
+        }
+        
+        waitForEventsToBeTracked()
+        
+        XCTAssertEqual(2, trackedEvents.count)
+        let progressEvents = trackedEvents.filter { $0.schema?.contains("percent_progress") ?? false }
+        XCTAssertEqual(1, progressEvents.count)
+        XCTAssertEqual(5, progressEvents[0].payload["percentProgress"] as? Int)
+    }
+    
     func testDoesntSendProgressEventsIfPaused() {
         let configuration = MediaTrackingConfiguration(id: "media",
                                                        player: MediaPlayerEntity(duration: 100))
