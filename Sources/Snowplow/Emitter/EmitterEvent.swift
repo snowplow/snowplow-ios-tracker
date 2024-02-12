@@ -18,7 +18,7 @@ public class EmitterEvent: NSObject {
     private(set) var payload: Payload
     private(set) var storeId: Int64
 
-    init(payload: Payload, storeId: Int64) {
+    public init(payload: Payload, storeId: Int64) {
         self.payload = payload
         self.storeId = storeId
     }
