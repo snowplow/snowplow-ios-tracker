@@ -136,7 +136,7 @@ class MediaTrackingImpl: MediaTracking {
             addEntitiesAndTrack(event: event)
         }
         if shouldSendPercentProgress() {
-            addEntitiesAndTrack(event: MediaPercentProgressEvent())
+            addEntitiesAndTrack(event: MediaPercentProgressEvent(percentProgress: self.player.percentProgress))
         }
         
         // update state for events after this one
