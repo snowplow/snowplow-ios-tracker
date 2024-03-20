@@ -18,7 +18,7 @@ let package = Package(
             targets: ["SnowplowTracker"]),
     ],
     dependencies: [
-        .package(name: "Mocker", url: "https://github.com/WeTransfer/Mocker.git", from: "2.5.4"),
+        .package(url: "https://github.com/WeTransfer/Mocker.git", from: "2.5.4"),
     ],
     targets: [
         .target(
