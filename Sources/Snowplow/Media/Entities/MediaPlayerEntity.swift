@@ -13,7 +13,7 @@
 
 import Foundation
 
-#if !os(watchOS)
+#if canImport(AVKit)
 import AVKit
 #endif
 
@@ -155,7 +155,7 @@ public class MediaPlayerEntity: NSObject {
         self.volume = volume
     }
     
-#if !os(watchOS)
+#if canImport(AVKit)
     /// - Parameter player: AVPlayer instance to load current playback properties from.
     @objc
     public convenience init(player: AVPlayer) {

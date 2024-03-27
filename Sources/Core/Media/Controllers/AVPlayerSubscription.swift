@@ -11,7 +11,7 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-#if !os(watchOS)
+#if canImport(AVKit)
 import Foundation
 import AVKit
 

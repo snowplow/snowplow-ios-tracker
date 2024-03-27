@@ -12,14 +12,14 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-#if !os(watchOS)
+#if canImport(AVKit)
 import AVKit
 #endif
 
 class MediaControllerImpl: Controller, MediaController {
     
     private var mediaTrackings: [String: MediaTrackingImpl] = [:]
-#if !os(watchOS)
+#if canImport(AVKit)
     private var playerSubscriptions: [String: AVPlayerSubscription] = [:]
 #endif
     
@@ -62,7 +62,7 @@ class MediaControllerImpl: Controller, MediaController {
         return mediaTracking
     }
     
-#if !os(watchOS)
+#if canImport(AVKit)
     func startMediaTracking(player: AVPlayer,
                             configuration: MediaTrackingConfiguration) -> MediaTracking {
         let tracking = startMediaTracking(configuration: configuration)
@@ -79,7 +79,7 @@ class MediaControllerImpl: Controller, MediaController {
     }
     
     func endMediaTracking(id: String) {
-#if !os(watchOS)
+#if canImport(AVKit)
         if let subscription = playerSubscriptions[id] {
             subscription.unsubscribe()
             playerSubscriptions.removeValue(forKey: id)
