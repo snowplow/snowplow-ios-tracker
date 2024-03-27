@@ -12,7 +12,7 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-#if !os(watchOS)
+#if canImport(AVKit)
 import AVKit
 #endif
 
@@ -41,7 +41,7 @@ public protocol MediaController {
     @objc
     func startMediaTracking(configuration: MediaTrackingConfiguration) -> MediaTracking
     
-#if !os(watchOS)
+#if canImport(AVKit)
     /// Starts tracking media events from a given AVPlayer instance.
     ///
     /// - Parameter player: AVPlayer instance of the player to track events from.

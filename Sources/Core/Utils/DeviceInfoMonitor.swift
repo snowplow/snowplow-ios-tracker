@@ -12,7 +12,6 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-import os
 #if os(watchOS)
 import WatchKit
 #endif

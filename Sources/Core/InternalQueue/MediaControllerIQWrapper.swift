@@ -12,7 +12,7 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
-#if !os(watchOS)
+#if canImport(AVKit)
 import AVKit
 #endif
 
@@ -42,7 +42,7 @@ class MediaControllerIQWrapper: MediaController {
         }
     }
     
-#if !os(watchOS)
+#if canImport(AVKit)
     func startMediaTracking(player: AVPlayer,
                             configuration: MediaTrackingConfiguration) -> MediaTracking {
         return InternalQueue.sync { controller.startMediaTracking(player: player, configuration: configuration) }
