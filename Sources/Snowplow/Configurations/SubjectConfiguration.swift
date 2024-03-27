@@ -11,7 +11,6 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
-import CoreGraphics
 import Foundation
 
 /// Configuration for the current user and device information that is tracked along with events.
