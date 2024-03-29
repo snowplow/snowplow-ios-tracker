@@ -35,7 +35,7 @@ public class ScreenView: SelfDescribingAbstract {
     /// Name of the screen.
     @objc
     public var name: String
-    /// Identifier of the screen.
+    /// Identifier of the screen view (unique for each screen view event).
     @objc
     public var screenId: UUID
     /// Type of screen.
@@ -44,7 +44,7 @@ public class ScreenView: SelfDescribingAbstract {
     /// Name of the previous screen.
     @objc
     public var previousName: String?
-    /// Identifier of the previous screen.
+    /// Identifier of the previous screen view.
     @objc
     public var previousId: String?
     /// Type of the previous screen.
@@ -62,7 +62,7 @@ public class ScreenView: SelfDescribingAbstract {
 
     /// Creates a screenview event.
     /// - Parameter name: Name of the screen.
-    /// - Parameter screenId: Identifier of the screen.
+    /// - Parameter screenId: Identifier of the screen view (unique for each screen view event).
     @objc
     public init(name: String, screenId: UUID? = nil) {
         self.screenId = screenId ?? UUID()
@@ -115,7 +115,7 @@ public class ScreenView: SelfDescribingAbstract {
         return self
     }
     
-    /// Identifier of the previous screen.
+    /// Identifier of the previous screen view.
     @objc
     public func previousId(_ previousId: String?) -> Self {
         self.previousId = previousId

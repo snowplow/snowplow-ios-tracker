@@ -1,3 +1,10 @@
+Version 6.0.2 (2024-04-02)
+--------------------------
+Fix non-published constructor for MediaPlaybackRateChangeEvent (#884)
+Remove deprecated name property in SPM package file for the Mocker dependency on Swift 5.9 (#881) thanks to @nvelichkin
+Fix accessing media tracking instance not on internal queue (#886)
+Expose a public getter for EmitterEvent's payload and storeId properties (#879)
+
 Version 6.0.1 (2024-02-14)
 --------------------------
 Make EmitterEvent constructor public (#876)
