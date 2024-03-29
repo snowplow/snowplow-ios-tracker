@@ -50,7 +50,13 @@ class MediaControllerIQWrapper: MediaController {
 #endif
     
     func mediaTracking(id: String) -> MediaTracking? {
-        return InternalQueue.sync { controller.mediaTracking(id: id) }
+        return InternalQueue.sync {
+            if let mediaTracking = controller.mediaTracking(id: id) {
+                return MediaTrackingIQWrapper(tracking: mediaTracking)
+            } else {
+                return nil
+            }
+        }
     }
     
     func endMediaTracking(id: String) {
