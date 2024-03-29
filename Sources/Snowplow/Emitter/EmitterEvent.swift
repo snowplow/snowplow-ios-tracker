@@ -15,8 +15,8 @@ import Foundation
 
 @objc(SPEmitterEvent)
 public class EmitterEvent: NSObject {
-    private(set) var payload: Payload
-    private(set) var storeId: Int64
+    public private(set) var payload: Payload
+    public private(set) var storeId: Int64
 
     @objc
     public init(payload: Payload, storeId: Int64) {
