@@ -39,14 +39,14 @@ public class MediaPlaybackRateChangeEvent: SelfDescribingAbstract, MediaPlayerUp
     
     /// - Parameter previousRate: Playback rate before the change (1 is normal). If not set, it is taken from the last setting in media player.
     /// - Parameter newRate: Playback rate after the change (1 is normal)
-    init(previousRate: Double? = nil, newRate: Double) {
+    public init(previousRate: Double? = nil, newRate: Double) {
         self.previousRate = previousRate
         self.newRate = newRate
     }
     
     /// - Parameter newRate: Playback rate after the change (1 is normal)
     @objc
-    init(newRate: Double) {
+    public init(newRate: Double) {
         self.newRate = newRate
     }
     
