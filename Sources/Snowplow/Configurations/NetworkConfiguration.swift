@@ -40,6 +40,15 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         set { _protocol = newValue }
     }
     
+    
+    private var _protocolClasses: [AnyClass]?
+    /// Array of `NSURLProtocol` in order to supply to `DefaultNetworkConnection`.
+    @objc
+    private(set) public var protocolClasses: [AnyClass]? {
+        get { return _protocolClasses }
+        set { _protocolClasses = newValue }
+    }
+
     private var _networkConnection: NetworkConnection?
     /// See `NetworkConfiguration(NetworkConnection)`
     @objc
