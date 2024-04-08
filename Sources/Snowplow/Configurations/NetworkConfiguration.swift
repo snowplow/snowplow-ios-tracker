@@ -155,6 +155,13 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         self.timeout = timeout
         return self
     }
+    
+    /// Array of `NSURLProtocol` in order to supply to `DefaultNetworkConnection`.
+    @objc
+    public func protocolClasses(_ protocolClasses: [AnyClass]?) -> Self {
+        self.protocolClasses = protocolClasses
+        return self
+    }
 
     // MARK: - NSCopying
 
