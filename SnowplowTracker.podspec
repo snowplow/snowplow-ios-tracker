@@ -31,4 +31,5 @@ Pod::Spec.new do |s|
     end
   
     s.pod_target_xcconfig = { "DEFINES_MODULE" => "YES" }
+    s.resource_bundles = {'SnowplowTracker_Privacy' => ['PrivacyInfo.xcprivacy']}
   end
