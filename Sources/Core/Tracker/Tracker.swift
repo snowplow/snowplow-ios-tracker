@@ -171,7 +171,17 @@ class Tracker: NSObject {
     
     var applicationContext = TrackerDefaults.applicationContext
     
-    var autotrackScreenViews = TrackerDefaults.autotrackScreenViews
+    private var _autotrackScreenViews = TrackerDefaults.autotrackScreenViews
+    var autotrackScreenViews: Bool {
+        get { return _autotrackScreenViews }
+        set {
+            _autotrackScreenViews = newValue
+            if builderFinished && _autotrackScreenViews {
+                UIKitScreenViewTracking.setup()
+            }
+        }
+    }
+    
     
     private var _foregroundTimeout = TrackerDefaults.foregroundTimeout
     var foregroundTimeout: Int {
@@ -292,7 +302,9 @@ class Tracker: NSObject {
                 tracker: self)
         }
 
-        UIKitScreenViewTracking.setup()
+        if autotrackScreenViews {
+            UIKitScreenViewTracking.setup()
+        }
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(receiveScreenViewNotification(_:)),
