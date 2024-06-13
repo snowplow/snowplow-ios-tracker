@@ -26,7 +26,7 @@ import Foundation
     /// Optional identifier/information for cross-navigation
     @objc var reason: String?
     
-    @objc init(
+    @objc public init(
         sessionId: Bool = true,
         subjectUserId: Bool = false,
         sourceId: Bool = true,
