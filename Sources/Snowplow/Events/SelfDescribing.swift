@@ -21,6 +21,12 @@ public class SelfDescribing: SelfDescribingAbstract {
         self.init(schema: eventData.schema, payload: eventData.data)
     }
 
+    /// Creates a self-describing event using data represented as an Encodable struct.
+    /// NOTE: The data should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
+    /// - Parameters:
+    ///   - schema: A valid schema URI.
+    ///   - payload: Payload for the event.
+    /// - Returns: A SelfDescribing event.
     @objc
     public init(schema: String, payload: [String : Any]) {
         self._schema = schema
@@ -28,6 +34,7 @@ public class SelfDescribing: SelfDescribingAbstract {
     }
     
     /// Creates a self-describing event using data represented as an Encodable struct.
+    /// NOTE: The data should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
     /// - Parameters:
     ///   - schema: A valid schema URI.
     ///   - data: Data represented using an Encodable struct.
