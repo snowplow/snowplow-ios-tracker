@@ -42,6 +42,7 @@ public class SelfDescribingJson: NSObject {
     }
 
     /// Initializes a newly allocated SPSelfDescribingJson.
+    /// NOTE: The data should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
     /// - Parameters:
     ///   - schema: A valid schema string.
     ///   - data: Data to set for data field of the self-describing JSON, should be an NSDictionary.
@@ -54,6 +55,7 @@ public class SelfDescribingJson: NSObject {
     }
 
     /// Initializes a newly allocated SPSelfDescribingJson.
+    /// NOTE: The data should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
     /// - Parameters:
     ///   - schema: A valid schema string.
     ///   - data: Dictionary to set for data field of the self-describing JSON.
@@ -64,6 +66,7 @@ public class SelfDescribingJson: NSObject {
     }
 
     /// Initializes a newly allocated SPSelfDescribingJson.
+    /// NOTE: The payload should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
     /// - Parameters:
     ///   - schema: A valid schema string.
     ///   - data: Payload to set for data field of the self-describing JSON.
@@ -74,6 +77,7 @@ public class SelfDescribingJson: NSObject {
     }
 
     /// Initializes a newly allocated SPSelfDescribingJson.
+    /// NOTE: The data should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
     /// - Parameters:
     ///   - schema: A valid schema URI.
     ///   - data: Self-describing JSON to set for data field of the self-describing JSON.
@@ -104,6 +108,7 @@ public class SelfDescribingJson: NSObject {
     }
 
     /// Sets the data field of the self-describing JSON.
+    /// NOTE: The data should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
     /// - Parameter data: A self-describing JSON to be nested into the data.
     @objc
     public func setData(withSelfDescribingJson data: SelfDescribingJson) {
