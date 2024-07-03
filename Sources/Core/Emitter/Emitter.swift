@@ -350,7 +350,7 @@ class Emitter: EmitterEventProcessing {
             }
             let allFailureCount = failedWillRetryCount + failedWontRetryCount
             
-            _ = self.eventStore.removeEvents(withIds: removableEvents)
+            let eventsRemoved = removableEvents.isEmpty ? true : self.eventStore.removeEvents(withIds: removableEvents)
             
             logDebug(message: String(format: "Success Count: %d", successCount))
             logDebug(message: String(format: "Failure Count: %d", allFailureCount))
@@ -365,6 +365,10 @@ class Emitter: EmitterEventProcessing {
             
             if failedWillRetryCount > 0 && successCount == 0 {
                 logDebug(message: "Ending emitter run as all requests failed.")
+                
+                self.scheduleStopSending()
+            } else if !eventsRemoved {
+                logDebug(message: "Ending emitter run as failed to remove events from event store.")
                 
                 self.scheduleStopSending()
             } else {

@@ -18,6 +18,7 @@ class MockEventStore: NSObject, EventStore {
     
     var db: [Int64 : Payload] = [:]
     var lastInsertedRow = 0
+    var failToRemoveEvents = false
 
     override init() {
         super.init()
@@ -32,22 +33,34 @@ class MockEventStore: NSObject, EventStore {
     }
 
     func removeEvent(withId storeId: Int64) -> Bool {
-        logVerbose(message: "Remove \(storeId)")
-        return db.removeValue(forKey: storeId) != nil
+        if failToRemoveEvents {
+            return false
+        } else {
+            logVerbose(message: "Remove \(storeId)")
+            return db.removeValue(forKey: storeId) != nil
+        }
     }
 
     func removeEvents(withIds storeIds: [Int64]) -> Bool {
-        let result = true
-        for storeId in storeIds {
-            db.removeValue(forKey: storeId)
+        if failToRemoveEvents {
+            return false
+        } else {
+            let result = true
+            for storeId in storeIds {
+                db.removeValue(forKey: storeId)
+            }
+            return result
         }
-        return result
     }
 
     func removeAllEvents() -> Bool {
-        db.removeAll()
-        lastInsertedRow = -1
-        return true
+        if failToRemoveEvents {
+            return false
+        } else {
+            db.removeAll()
+            lastInsertedRow = -1
+            return true
+        }
     }
 
     func count() -> UInt {
