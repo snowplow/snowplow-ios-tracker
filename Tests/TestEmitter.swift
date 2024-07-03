@@ -395,11 +395,26 @@ class TestEmitter: XCTestCase {
 
         flush(emitter)
     }
+    
+    func testPausesEmitIfFailedToRemoveFromEventStore() {
+        let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
+        let mockStore = MockEventStore()
+        mockStore.failToRemoveEvents = true
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, eventStore: mockStore)
+        
+        addPayload(generatePayloads(1).first!, emitter)
+        Thread.sleep(forTimeInterval: 0.5)
+        addPayload(generatePayloads(1).first!, emitter)
+        Thread.sleep(forTimeInterval: 0.5)
+
+        XCTAssertEqual(1, networkConnection.sendingCount)
+        XCTAssertEqual(2, mockStore.count())
+    }
 
     // MARK: - Emitter builder
 
-    func emitter(with networkConnection: NetworkConnection, bufferOption: BufferOption = .single) -> Emitter {
-        let emitter = Emitter(networkConnection: networkConnection, namespace: "ns1", eventStore: MockEventStore()) { emitter in
+    func emitter(with networkConnection: NetworkConnection, bufferOption: BufferOption = .single, eventStore: EventStore = MockEventStore()) -> Emitter {
+        let emitter = Emitter(networkConnection: networkConnection, namespace: "ns1", eventStore: eventStore) { emitter in
             emitter.bufferOption = bufferOption
             emitter.emitRange = 200
             emitter.byteLimitGet = 20000
