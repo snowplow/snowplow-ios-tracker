@@ -1,3 +1,8 @@
+Version 6.0.5 (2024-07-03)
+--------------------------
+Stop sending if events fail to be removed from the event store
+Add warning for the serialization of data in self-describing event and entity (#898)
+
 Version 6.0.4 (2024-06-12)
 --------------------------
 Fix CrossDeviceParameterConfiguration constructor to be public (#894) thanks to @thomas-brx
