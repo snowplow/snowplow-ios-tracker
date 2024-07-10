@@ -122,6 +122,30 @@ class TestRemoteConfiguration: XCTestCase {
         XCTAssertNil(configBundle?.trackerConfiguration)
     }
     
+    func testCacheTrackerConfigurationWithoutLoggerDelegate() {
+        let bundle = ConfigurationBundle(namespace: "namespace",
+                                         networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
+        bundle.trackerConfiguration = TrackerConfiguration()
+            .appId("my-test-app")
+            .loggerDelegate(MockLoggerDelegate())
+        
+        let remoteBundle = RemoteConfigurationBundle(schema: "", configurationVersion: 1)
+        remoteBundle.configurationBundle = [bundle]
+        let remoteConfig = RemoteConfiguration(endpoint: generateRemoteConfigEndpoint(), method: .get)
+        var cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
+        cache.clear()
+        cache.write(remoteBundle)
+
+        Thread.sleep(forTimeInterval: 1) // wait the config is written on cache.
+
+        cache = RemoteConfigurationCache(remoteConfiguration: remoteConfig)
+        let config = cache.read()
+
+        let configBundle = config?.configurationBundle[0]
+        XCTAssertTrue(configBundle?.trackerConfiguration?.appId == "my-test-app")
+        XCTAssertNil(configBundle?.trackerConfiguration?.loggerDelegate)
+    }
+    
     func testCacheEmitterConfiguration() {
         let bundle = ConfigurationBundle(namespace: "namespace",
                                          networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
@@ -401,6 +425,7 @@ class TestRemoteConfiguration: XCTestCase {
         let bundle1 = ConfigurationBundle(namespace: "ns1")
         bundle1.trackerConfiguration = TrackerConfiguration()
             .appId("app-1")
+            .loggerDelegate(MockLoggerDelegate())
         bundle1.subjectConfiguration = SubjectConfiguration()
             .domainUserId("duid1")
             .userId("u1")
@@ -421,6 +446,7 @@ class TestRemoteConfiguration: XCTestCase {
         XCTAssertEqual("app-1", finalBundle?.trackerConfiguration?.appId)
         XCTAssertEqual("u1", finalBundle?.subjectConfiguration?.userId)
         XCTAssertEqual("duid2", finalBundle?.subjectConfiguration?.domainUserId)
+        XCTAssertNotNil(finalBundle?.trackerConfiguration?.loggerDelegate)
     }
     
     private func generateRemoteConfigEndpoint() -> String {
