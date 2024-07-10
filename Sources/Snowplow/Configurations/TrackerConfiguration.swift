@@ -588,7 +588,6 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         coder.encode(devicePlatform.rawValue, forKey: "devicePlatform")
         coder.encode(base64Encoding, forKey: "base64Encoding")
         coder.encode(logLevel.rawValue, forKey: "logLevel")
-        coder.encode(loggerDelegate, forKey: "loggerDelegate")
         coder.encode(sessionContext, forKey: "sessionContext")
         coder.encode(applicationContext, forKey: "applicationContext")
         coder.encode(platformContext, forKey: "platformContext")
@@ -617,9 +616,6 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         base64Encoding = coder.decodeBool(forKey: "base64Encoding")
         if let logLevel = LogLevel(rawValue: coder.decodeInteger(forKey: "logLevel")) {
             self.logLevel = logLevel
-        }
-        if let loggerDelegate = coder.decodeObject(forKey: "loggerDelegate") as? LoggerDelegate {
-            self.loggerDelegate = loggerDelegate
         }
         sessionContext = coder.decodeBool(forKey: "sessionContext")
         applicationContext = coder.decodeBool(forKey: "applicationContext")
