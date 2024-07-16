@@ -98,7 +98,9 @@ class TestRemoteConfiguration: XCTestCase {
 
 #if os(iOS) || os(macOS)
     func testCache() {
-        let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: NetworkConfiguration(endpoint: "endpoint"))
+        let networkConfig = NetworkConfiguration(endpoint: "endpoint")
+        networkConfig.timeout = 100
+        let bundle = ConfigurationBundle(namespace: "namespace", networkConfiguration: networkConfig)
         let expected = RemoteConfigurationBundle(schema: "http://iglucentral.com/schemas/com.snowplowanalytics.mobile/remote_config/jsonschema/1-0-0", configurationVersion: 12)
         expected.configurationBundle = [bundle]
 
@@ -119,6 +121,7 @@ class TestRemoteConfiguration: XCTestCase {
         let expectedBundle = expected.configurationBundle[0]
         let configBundle = config?.configurationBundle[0]
         XCTAssertEqual(expectedBundle.networkConfiguration?.endpoint, configBundle?.networkConfiguration?.endpoint)
+        XCTAssertEqual(configBundle?.networkConfiguration?.timeout, 100)
         XCTAssertNil(configBundle?.trackerConfiguration)
     }
     
