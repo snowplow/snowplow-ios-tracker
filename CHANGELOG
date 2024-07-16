@@ -1,3 +1,7 @@
+Version 6.0.7 (2024-07-16)
+--------------------------
+Fix incorrect decoding of timeout property in network configuration (#902)
+
 Version 6.0.6 (2024-07-10)
 --------------------------
 Fix remote configuration attempting to serialize a logger class after new configuration is fetched (#900)

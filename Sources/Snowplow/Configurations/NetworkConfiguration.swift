@@ -183,6 +183,8 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         _method = HttpMethodOptions(rawValue: coder.decodeInteger(forKey: "method"))
         _customPostPath = coder.decodeObject(forKey: "customPostPath") as? String
         _requestHeaders = coder.decodeObject(forKey: "requestHeaders") as? [String : String]
-        _timeout = coder.decodeObject(forKey: "timeout") as? TimeInterval
+        if coder.containsValue(forKey: "timeout") {
+            _timeout = coder.decodeDouble(forKey: "timeout")
+        }
     }
 }
