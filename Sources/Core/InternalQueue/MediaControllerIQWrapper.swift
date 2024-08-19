@@ -45,7 +45,9 @@ class MediaControllerIQWrapper: MediaController {
 #if !os(watchOS)
     func startMediaTracking(player: AVPlayer,
                             configuration: MediaTrackingConfiguration) -> MediaTracking {
-        return InternalQueue.sync { controller.startMediaTracking(player: player, configuration: configuration) }
+        return InternalQueue.sync {
+            MediaTrackingIQWrapper(tracking: controller.startMediaTracking(player: player, configuration: configuration))
+        }
     }
 #endif
     
