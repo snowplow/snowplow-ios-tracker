@@ -13,6 +13,9 @@
 
 import XCTest
 import SnowplowTracker
+#if !os(watchOS)
+import AVKit
+#endif
 
 class TestTrackEventsToMicro: XCTestCase {
     var tracker: TrackerController?
@@ -165,6 +168,16 @@ class TestTrackEventsToMicro: XCTestCase {
             }
         ], timeout: Micro.timeout)
     }
+    
+#if !os(watchOS)
+    func testMediaTrackingUsingAVPlayer() {
+        let player = AVPlayer()
+        let mediaTracking = tracker?.media.startMediaTracking(player: player, configuration: MediaTrackingConfiguration(id: "integration-test"))
+        mediaTracking?.track(MediaReadyEvent())
+        
+        wait(for: [Micro.expectCounts(good: 1)], timeout: Micro.timeout)
+    }
+#endif
     
     private func track(_ event: Event) {
         _ = tracker!.track(event)
