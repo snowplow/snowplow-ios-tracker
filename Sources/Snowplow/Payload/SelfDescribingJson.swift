@@ -18,7 +18,7 @@ import Foundation
 /// This class holds the information of a self-describing JSON.
 /// - seealso: SPPayload
 @objc(SPSelfDescribingJson)
-public class SelfDescribingJson: NSObject {
+open class SelfDescribingJson: NSObject {
     /// the schema URI for this self-describing JSON.
     @objc
     public var schema: String
