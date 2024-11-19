@@ -40,6 +40,11 @@ class WebViewMessageHandler: NSObject, WKScriptMessageHandler {
             let context = body["context"] as? [[AnyHashable : Any]] ?? []
             let trackers = body["trackers"] as? [String] ?? []
             
+            if !JSONSerialization.isValidJSONObject(event) || !JSONSerialization.isValidJSONObject(context) {
+                logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
+                return
+            }
+            
             if command == "trackSelfDescribingEvent" {
                 trackSelfDescribing(event, withContext: context, andTrackers: trackers)
             } else if command == "trackStructEvent" {
