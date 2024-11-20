@@ -126,5 +126,41 @@ class TestWebViewMessageHandler: XCTestCase {
         let context = payload?["co"] as? String
         XCTAssert(context?.contains("{\"a\":\"b\"}") ?? false)
     }
+    
+    func testHandlesNonJSONSerializableDataInEvent() {
+        let message = MockWKScriptMessage(
+            body: [
+                "command": "trackSelfDescribingEvent",
+                "event": [
+                    "schema": "http://schema.com",
+                    "data": [
+                        "key": Double.nan
+                    ]
+                ]
+            ])
+        webViewMessageHandler?.receivedMesssage(message) // shouldn't crash
+    }
+    
+    func testHandlesNonJSONSerializableDataInContext() {
+        let message = MockWKScriptMessage(
+            body: [
+                "command": "trackSelfDescribingEvent",
+                "event": [
+                    "schema": "http://schema.com",
+                    "data": [
+                        "key": "val"
+                    ]
+                ],
+                "context": [
+                    [
+                        "schema": "http://context-schema.com",
+                        "data": [
+                            "a": Double.nan
+                        ]
+                    ]
+                ]
+            ])
+        webViewMessageHandler?.receivedMesssage(message) // shouldn't crash
+    }
 }
 #endif
