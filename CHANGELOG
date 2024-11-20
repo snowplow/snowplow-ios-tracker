@@ -1,3 +1,7 @@
+Version 6.0.9 (2024-11-21)
+--------------------------
+Handle nan values and other non-serializable data in events from the WebView tracker (#909)
+
 Version 6.0.8 (2024-08-19)
 --------------------------
 Fix media tracking calls not being dispatched on the correct queue when tracking using AVPlayer
