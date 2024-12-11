@@ -53,12 +53,12 @@ public class Structured: PrimitiveAbstract {
 
     override var payload: [String : Any] {
         var payload: [String : Any] = [:]
-        payload[kSPStuctCategory] = category
-        payload[kSPStuctAction] = action
-        if let label = label { payload[kSPStuctLabel] = label }
-        if let property = property { payload[kSPStuctProperty] = property }
+        payload[kSPStructCategory] = category
+        payload[kSPStructAction] = action
+        if let label = label { payload[kSPStructLabel] = label }
+        if let property = property { payload[kSPStructProperty] = property }
         if let value = value {
-            payload[kSPStuctValue] = String(format: "%.17g", value.doubleValue)
+            payload[kSPStructValue] = String(format: "%.17g", value.doubleValue)
         }
         return payload
     }

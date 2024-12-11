@@ -181,11 +181,11 @@ let kSPPageTitle = "page"
 let kSPPageRefr = "refr"
 
 // --- Structured Event
-let kSPStuctCategory = "se_ca"
-let kSPStuctAction = "se_ac"
-let kSPStuctLabel = "se_la"
-let kSPStuctProperty = "se_pr"
-let kSPStuctValue = "se_va"
+let kSPStructCategory = "se_ca"
+let kSPStructAction = "se_ac"
+let kSPStructLabel = "se_la"
+let kSPStructProperty = "se_pr"
+let kSPStructValue = "se_va"
 
 // --- E-commerce Transaction Event
 let kSPEcommId = "tr_id"

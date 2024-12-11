@@ -18,7 +18,7 @@ import XCTest
 
 class GlobalContextGenerator: NSObject, ContextGenerator {
     func filter(from event: InspectableEvent) -> Bool {
-        return "StringToMatch" == event.payload[kSPStuctCategory] as? String
+        return "StringToMatch" == event.payload[kSPStructCategory] as? String
     }
 
     func generator(from event: InspectableEvent) -> [SelfDescribingJson]? {
@@ -151,7 +151,7 @@ class TestGlobalContexts: XCTestCase {
                 ])
             ],
             filter: { event in
-                return stringToMatch == event.payload[kSPStuctCategory] as? String
+                return stringToMatch == event.payload[kSPStructCategory] as? String
             })
         let filterNotMatchingGC = GlobalContext(staticContexts: [
             SelfDescribingJson(schema: "schemaNotMatching", andDictionary: [
