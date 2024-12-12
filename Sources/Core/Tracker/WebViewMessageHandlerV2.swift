@@ -45,14 +45,12 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
                 logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
                 return
             }
-            
             if let selfDescribingEventData = selfDescribingEventData {
                 if !JSONSerialization.isValidJSONObject(selfDescribingEventData) {
                     logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
                     return
                 }
             }
-            
             trackWebView(atomicProperties, withEventData: selfDescribingEventData, withEntities: entities, andTrackers: trackers)
         }
     }

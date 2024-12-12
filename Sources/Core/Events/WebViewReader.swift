@@ -74,7 +74,7 @@ class WebViewReader: Event {
         var payload: [String: Any] = [:]
                 
         if let selfDescribingEventData = selfDescribingEventData {
-            payload[Parameters.WEBVIEW_EVENT_DATA] = selfDescribingEventData
+            payload[kSPWebViewEventData] = selfDescribingEventData
         }
         if let eventName = eventName {
             payload[kSPEvent] = eventName
@@ -101,30 +101,26 @@ class WebViewReader: Event {
             payload[kSPStuctAction] = action
         }
         if let label = label {
-            payload[Parameters.SE_LABEL] = label
+            payload[kSPStuctLabel] = label
         }
         if let property = property {
-            payload[Parameters.SE_PROPERTY] = property
+            payload[kSPStuctProperty] = property
         }
         if let value = value {
-            payload[Parameters.SE_VALUE] = value
+            payload[kSPStuctValue] = value
         }
         if let pingXOffsetMin = pingXOffsetMin {
-            payload[Parameters.PING_XOFFSET_MIN] = pingXOffsetMin
+            payload[kSPPingXOffsetMin] = pingXOffsetMin
         }
         if let pingXOffsetMax = pingXOffsetMax {
-            payload[Parameters.PING_XOFFSET_MAX] = pingXOffsetMax
+            payload[kSPPingXOffsetMax] = pingXOffsetMax
         }
         if let pingYOffsetMin = pingYOffsetMin {
-            payload[Parameters.PING_YOFFSET_MIN] = pingYOffsetMin
+            payload[kSPPingYOffsetMin] = pingYOffsetMin
         }
         if let pingYOffsetMax = pingYOffsetMax {
-            payload[Parameters.PING_YOFFSET_MAX] = pingYOffsetMax
+            payload[kSPPingYOffsetMax] = pingYOffsetMax
         }
-        
         return payload
-//    }
-//return [:]
     }
-
 }
