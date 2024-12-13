@@ -157,6 +157,7 @@ let kSPSessionFirstEventId = "firstEventId"
 let kSPSessionFirstEventTimestamp = "firstEventTimestamp"
 let kSPSessionEventIndex = "eventIndex"
 let kSPSessionAnonymousUserId = "00000000-0000-0000-0000-000000000000"
+let ksSPSessionLastUpdate = "lastUpdate"
 
 // --- Geo-Location Context
 let kSPGeoLatitude = "latitude"

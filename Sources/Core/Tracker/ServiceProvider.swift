@@ -290,6 +290,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             tracker.sessionContext = trackerConfiguration.sessionContext
             tracker.foregroundTimeout = sessionConfiguration.foregroundTimeoutInSeconds
             tracker.backgroundTimeout = sessionConfiguration.backgroundTimeoutInSeconds
+            tracker.continueSessionOnRestart = sessionConfiguration.continueSessionOnRestart
             tracker.exceptionEvents = trackerConfiguration.exceptionAutotracking
             tracker.subject = subject
             tracker.base64Encoded = trackerConfiguration.base64Encoding

@@ -87,6 +87,17 @@ class SessionControllerImpl: Controller, SessionController {
             session?.backgroundTimeout = newValue * 1000
         }
     }
+    
+    var continueSessionOnRestart: Bool {
+        get {
+            return session?.continueSessionOnRestart ?? TrackerDefaults.continueSessionOnRestart
+        }
+        set {
+            dirtyConfig.continueSessionOnRestart = newValue
+            session?.continueSessionOnRestart = newValue
+        }
+    }
+    
 
     var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)? {
         get {
