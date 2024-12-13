@@ -29,41 +29,64 @@ public class SessionState: NSObject, State {
     public private(set) var storage: String
     @objc
     public private(set) var userId: String
+    public private(set) var eventIndex: Int?
+    public private(set) var lastUpdate: Int64?
 
     var sessionContext: [String : Any] {
-        return sessionDictionary
-    }
-    private var sessionDictionary: [String : Any] = [:]
-
-    class func buildSessionDictionary(withFirstEventId firstEventId: String?, firstEventTimestamp: String?, currentSessionId: String, previousSessionId: String?, sessionIndex: Int, userId: String, storage: String) -> [String : Any] {
         var dictionary: [String : Any] = [:]
-        dictionary[kSPSessionPreviousId] = previousSessionId ?? NSNull()
-        dictionary[kSPSessionId] = currentSessionId
-        dictionary[kSPSessionFirstEventId] = firstEventId
-        dictionary[kSPSessionFirstEventTimestamp] = firstEventTimestamp
+        
+        // required
+        dictionary[kSPSessionUserId] = userId
+        dictionary[kSPSessionId] = sessionId
         dictionary[kSPSessionIndex] = sessionIndex
         dictionary[kSPSessionStorage] = storage
-        dictionary[kSPSessionUserId] = userId
+
+        // optional
+        if let previousSessionId = previousSessionId {
+            dictionary[kSPSessionPreviousId] = previousSessionId
+        }
+        if let firstEventId = firstEventId {
+            dictionary[kSPSessionFirstEventId] = firstEventId
+        }
+        if let firstEventTimestamp = firstEventTimestamp {
+            dictionary[kSPSessionFirstEventTimestamp] = firstEventTimestamp
+        }
+        if let eventIndex = eventIndex {
+            dictionary[kSPSessionEventIndex] = eventIndex
+        }
+        return dictionary
+    }
+    
+    var dataToPersist: [String : Any] {
+        var dictionary = sessionContext
+        
+        if let lastUpdate = lastUpdate {
+            dictionary[ksSPSessionLastUpdate] = lastUpdate
+        }
+        
         return dictionary
     }
 
-    init(firstEventId: String?, firstEventTimestamp: String?, currentSessionId: String, previousSessionId: String?, sessionIndex: Int, userId: String, storage: String) {
+    init(
+        firstEventId: String?,
+        firstEventTimestamp: String?,
+        currentSessionId: String,
+        previousSessionId: String?,
+        sessionIndex: Int,
+        userId: String,
+        storage: String,
+        eventIndex: Int? = nil,
+        lastUpdate: Int64? = nil
+    ) {
         self.firstEventId = firstEventId
         self.firstEventTimestamp = firstEventTimestamp
-        sessionId = currentSessionId
+        self.sessionId = currentSessionId
         self.previousSessionId = previousSessionId
         self.sessionIndex = sessionIndex
         self.userId = userId
         self.storage = storage
-
-        sessionDictionary = SessionState.buildSessionDictionary(
-            withFirstEventId: firstEventId,
-            firstEventTimestamp: firstEventTimestamp,
-            currentSessionId: currentSessionId,
-            previousSessionId: previousSessionId,
-            sessionIndex: sessionIndex,
-            userId: userId,
-            storage: storage)
+        self.eventIndex = eventIndex
+        self.lastUpdate = lastUpdate
     }
 
     init?(storedState: [String : Any]) {
@@ -86,14 +109,39 @@ public class SessionState: NSObject, State {
         firstEventTimestamp = storedState[kSPSessionFirstEventTimestamp] as? String
 
         storage = storedState[kSPSessionStorage] as? String ?? "LOCAL_STORAGE"
-
-        sessionDictionary = SessionState.buildSessionDictionary(
-            withFirstEventId: firstEventId,
-            firstEventTimestamp: firstEventTimestamp,
-            currentSessionId: sessionId,
-            previousSessionId: previousSessionId,
-            sessionIndex: sessionIndex,
-            userId: userId,
-            storage: storage)
+        
+        eventIndex = storedState[kSPSessionEventIndex] as? Int
+        
+        lastUpdate = storedState[ksSPSessionLastUpdate] as? Int64
+    }
+    
+    convenience init(eventId: String?, eventTimestamp: Int64) {
+        self.init(
+            firstEventId: eventId,
+            firstEventTimestamp: Utilities.timestamp(toISOString: eventTimestamp),
+            currentSessionId: Utilities.getUUIDString(),
+            previousSessionId: nil,
+            sessionIndex: 1,
+            userId: Utilities.getUUIDString(),
+            storage: "LOCAL_STORAGE",
+            lastUpdate: Utilities.getTimestamp().int64Value
+        )
+    }
+    
+    func startNewSession(eventId: String?, eventTimestamp: Int64) {
+        self.previousSessionId = self.sessionId
+        self.sessionId = Utilities.getUUIDString()
+        self.sessionIndex = self.sessionIndex + 1
+        self.eventIndex = 0
+        self.firstEventId = eventId
+        self.firstEventTimestamp = Utilities.timestamp(toISOString: eventTimestamp)
+        self.lastUpdate = Utilities.getTimestamp().int64Value
+    }
+    
+    func updateForNextEvent(isSessionCheckerEnabled: Bool) {
+        self.eventIndex = (self.eventIndex ?? 0) + 1
+        if isSessionCheckerEnabled {
+            self.lastUpdate = Utilities.getTimestamp().int64Value
+        }
     }
 }

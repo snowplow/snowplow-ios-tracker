@@ -117,7 +117,9 @@ class TestTrackerConfiguration: XCTestCase {
         let trackerConfig = TrackerConfiguration(appId: "appid")
         let sessionConfig = SessionConfiguration(
             foregroundTimeoutInSeconds: expectedForeground,
-            backgroundTimeoutInSeconds: expectedBackground)
+            backgroundTimeoutInSeconds: expectedBackground
+        )
+        sessionConfig.continueSessionOnRestart = true
         let tracker = Snowplow.createTracker(namespace: "namespace", network: networkConfig, configurations: [trackerConfig, sessionConfig])
 
         let foreground = tracker.session?.foregroundTimeoutInSeconds ?? 0
@@ -129,6 +131,8 @@ class TestTrackerConfiguration: XCTestCase {
         let backgroundMeasure = (tracker.session)?.backgroundTimeout
         XCTAssertEqual(Measurement(value: Double(expectedForeground), unit: UnitDuration.seconds), foregroundMeasure)
         XCTAssertEqual(Measurement(value: Double(expectedBackground), unit: UnitDuration.seconds), backgroundMeasure)
+        
+        XCTAssertTrue(tracker.session?.continueSessionOnRestart ?? false)
     }
 
     func testSessionControllerUnavailableWhenContextTurnedOff() {
