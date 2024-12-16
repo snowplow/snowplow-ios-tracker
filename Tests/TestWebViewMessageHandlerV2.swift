@@ -67,15 +67,15 @@ class TestWebViewMessageHandlerV2: XCTestCase {
         XCTAssert(payload?[kSPPageUrl] as? String == "http://snowplow.com")
         XCTAssert(payload?[kSPPageTitle] as? String == "Snowplow")
         XCTAssert(payload?[kSPPageRefr] as? String == "http://google.com")
-        XCTAssert(payload?[kSPPingXOffsetMin] as? Int == 10)
-        XCTAssert(payload?[kSPPingXOffsetMax] as? Int == 20)
-        XCTAssert(payload?[kSPPingYOffsetMin] as? Int == 30)
-        XCTAssert(payload?[kSPPingYOffsetMax] as? Int == 40)
+        XCTAssert(payload?[kSPPingXOffsetMin] as? String == "10")
+        XCTAssert(payload?[kSPPingXOffsetMax] as? String == "20")
+        XCTAssert(payload?[kSPPingYOffsetMin] as? String == "30")
+        XCTAssert(payload?[kSPPingYOffsetMax] as? String == "40")
         XCTAssert(payload?[kSPStructCategory] as? String == "cat")
         XCTAssert(payload?[kSPStructAction] as? String == "act")
         XCTAssert(payload?[kSPStructProperty] as? String == "prop")
         XCTAssert(payload?[kSPStructLabel] as? String == "lbl")
-        XCTAssert(payload?[kSPStructValue] as? Double == 10.0)
+        XCTAssert(payload?[kSPStructValue] as? String == "10.0")
         
         XCTAssertTrue(payload?[kSPUnstructured] != nil)
         
@@ -83,7 +83,14 @@ class TestWebViewMessageHandlerV2: XCTestCase {
            let jsonData = unstructuredJson.data(using: .utf8),
            let selfDescJson = try? JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
             XCTAssert(selfDescJson["schema"] as? String == kSPUnstructSchema)
-            XCTAssert(selfDescJson["data"] as? String == data)
+            
+            if let data = selfDescJson["data"] as? [String : Any] {
+                XCTAssert(data["schema"] as? String == "iglu:etc")
+                
+                if let customData = data["data"] as? [String : Any] {
+                    XCTAssert(customData["key"] as? String == "val")
+                }
+            }
         }
     }
     

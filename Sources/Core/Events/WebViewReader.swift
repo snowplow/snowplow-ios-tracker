@@ -107,19 +107,19 @@ class WebViewReader: Event {
             payload[kSPStructProperty] = property
         }
         if let value = value {
-            payload[kSPStructValue] = value
+            payload[kSPStructValue] = String(value)
         }
         if let pingXOffsetMin = pingXOffsetMin {
-            payload[kSPPingXOffsetMin] = pingXOffsetMin
+            payload[kSPPingXOffsetMin] = String(pingXOffsetMin)
         }
         if let pingXOffsetMax = pingXOffsetMax {
-            payload[kSPPingXOffsetMax] = pingXOffsetMax
+            payload[kSPPingXOffsetMax] = String(pingXOffsetMax)
         }
         if let pingYOffsetMin = pingYOffsetMin {
-            payload[kSPPingYOffsetMin] = pingYOffsetMin
+            payload[kSPPingYOffsetMin] = String(pingYOffsetMin)
         }
         if let pingYOffsetMax = pingYOffsetMax {
-            payload[kSPPingYOffsetMax] = pingYOffsetMax
+            payload[kSPPingYOffsetMax] = String(pingYOffsetMax)
         }
         return payload
     }

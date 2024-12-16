@@ -82,11 +82,11 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
                 action: atomicJson["action"] as? String? ?? nil,
                 label: atomicJson["label"] as? String? ?? nil,
                 property: atomicJson["property"] as? String? ?? nil,
-                value: atomicJson["value"] as? Double? ?? nil,
-                pingXOffsetMin: atomicJson["pingXOffsetMin"] as? Int? ?? nil,
-                pingXOffsetMax: atomicJson["pingXOffsetMax"] as? Int? ?? nil,
-                pingYOffsetMin: atomicJson["pingYOffsetMin"] as? Int? ?? nil,
-                pingYOffsetMax: atomicJson["pingYOffsetMax"] as? Int? ?? nil
+                value: atomicJson["value"] as? Double,
+                pingXOffsetMin: atomicJson["pingXOffsetMin"] as? Int ?? nil,
+                pingXOffsetMax: atomicJson["pingXOffsetMax"] as? Int ?? nil,
+                pingYOffsetMin: atomicJson["pingYOffsetMin"] as? Int ?? nil,
+                pingYOffsetMax: atomicJson["pingYOffsetMax"] as? Int ?? nil
             )
             
             track(event, withEntities: entitiesJson, andTrackers: trackers)
@@ -105,10 +105,6 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
         } else {
             _ = Snowplow.defaultTracker()?.track(event)
         }
-    }
-    
-    func getProperty(atomicProperties: [AnyHashable : Any], property: String) {
-        
     }
     
     func createSelfDescribingJson(_ map: [AnyHashable : Any]) -> SelfDescribingJson? {
