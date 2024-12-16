@@ -95,19 +95,19 @@ class WebViewReader: Event {
             payload[kSPPageRefr] = referrer
         }
         if let category = category {
-            payload[kSPStuctCategory] = category
+            payload[kSPStructCategory] = category
         }
         if let action = action {
-            payload[kSPStuctAction] = action
+            payload[kSPStructAction] = action
         }
         if let label = label {
-            payload[kSPStuctLabel] = label
+            payload[kSPStructLabel] = label
         }
         if let property = property {
-            payload[kSPStuctProperty] = property
+            payload[kSPStructProperty] = property
         }
         if let value = value {
-            payload[kSPStuctValue] = value
+            payload[kSPStructValue] = value
         }
         if let pingXOffsetMin = pingXOffsetMin {
             payload[kSPPingXOffsetMin] = pingXOffsetMin

@@ -71,11 +71,11 @@ class TestWebViewMessageHandlerV2: XCTestCase {
         XCTAssert(payload?[kSPPingXOffsetMax] as? Int == 20)
         XCTAssert(payload?[kSPPingYOffsetMin] as? Int == 30)
         XCTAssert(payload?[kSPPingYOffsetMax] as? Int == 40)
-        XCTAssert(payload?[kSPStuctCategory] as? String == "cat")
-        XCTAssert(payload?[kSPStuctAction] as? String == "act")
-        XCTAssert(payload?[kSPStuctProperty] as? String == "prop")
-        XCTAssert(payload?[kSPStuctLabel] as? String == "lbl")
-        XCTAssert(payload?[kSPStuctValue] as? Double == 10.0)
+        XCTAssert(payload?[kSPStructCategory] as? String == "cat")
+        XCTAssert(payload?[kSPStructAction] as? String == "act")
+        XCTAssert(payload?[kSPStructProperty] as? String == "prop")
+        XCTAssert(payload?[kSPStructLabel] as? String == "lbl")
+        XCTAssert(payload?[kSPStructValue] as? Double == 10.0)
         
         XCTAssertTrue(payload?[kSPUnstructured] != nil)
         
