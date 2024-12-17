@@ -342,9 +342,11 @@ public class Snowplow: NSObject {
     /// - Parameter webViewConfiguration: Configuration of the Web view to subscribe to events from
     @objc
     public class func subscribeToWebViewEvents(with webViewConfiguration: WKWebViewConfiguration) {
-        let messageHandler = WebViewMessageHandler()
+        let messageHandlerOld = WebViewMessageHandler()
+        let messageHandlerV2 = WebViewMessageHandlerV2()
 
-        webViewConfiguration.userContentController.add(messageHandler, name: "snowplow")
+        webViewConfiguration.userContentController.add(messageHandlerOld, name: "snowplow")
+        webViewConfiguration.userContentController.add(messageHandlerV2, name: "snowplow")
     }
 
     #endif
