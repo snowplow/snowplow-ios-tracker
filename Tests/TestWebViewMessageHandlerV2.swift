@@ -202,6 +202,11 @@ class TestWebViewMessageHandlerV2: XCTestCase {
             ])
         webViewMessageHandler?.receivedMessage(message) // shouldn't crash
     }
+    
+    func testHandlesMissingAtomicPropertiesInEvent() {
+        let message = MockWKScriptMessage(body: [])
+        webViewMessageHandler?.receivedMessage(message) // shouldn't crash
+    }
         
     private func waitForEventsToBeTracked() {
         let expect = expectation(description: "Wait for events to be tracked")
