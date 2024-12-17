@@ -38,11 +38,12 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
         if let body = message.body as? [AnyHashable : Any],
            let atomicProperties = body["atomicProperties"] as? String {
             
-            guard let atomicData = atomicProperties.data(using: .utf8) else { return }
-            guard let atomicJson = try? JSONSerialization.jsonObject(with: atomicData) as? [String : Any] else {
-                logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
-                return
-            }
+//            guard let atomicData = atomicProperties.data(using: .utf8) else { return }
+//            guard let atomicJson = try? JSONSerialization.jsonObject(with: atomicData) as? [String : Any] else {
+//                logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
+//                return
+//            }
+            guard let atomicJson = parseAtomicPropertiesFromMessage(atomicProperties) else { return }
             
             let selfDescribingEventData = body["selfDescribingEventData"] as? String? ?? nil
             var selfDescribingDataJson: [AnyHashable : Any] = [:]
@@ -126,9 +127,18 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
         return contextEntities
     }
     
-    func parseSelfDescribingEventData(_ eventData: [AnyHashable : Any]) -> SelfDescribingJson? {
-        //         TODO this function not used?
-        return createSelfDescribingJson(eventData)
+    func parseAtomicPropertiesFromMessage(_ messageString: String?) -> [String : Any]? {
+        let atomicData = messageString?.data(using: .utf8)
+        
+        var atomicJson: [String : Any]? = [:]
+        if let data = atomicData {
+            atomicJson = try? JSONSerialization.jsonObject(with: data) as? [String : Any]
+        }
+        if (atomicData == nil) || (atomicJson == nil) {
+            logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
+            return nil
+        }
+        return atomicJson
     }
 }
 

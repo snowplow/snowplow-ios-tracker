@@ -55,7 +55,7 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
         
         switch event {
         case _ as WebViewReader:
-            eventName = (payload[kSPEvent] as? String)
+            eventName = (payload[kSPEvent] as? String) ?? "ue"
             schema = getWebViewSchema()
             isWebView = true
             

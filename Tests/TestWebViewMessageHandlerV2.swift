@@ -121,23 +121,6 @@ class TestWebViewMessageHandlerV2: XCTestCase {
         if let trackerVersion = payload?[kSPTrackerVersion] as? String {
             XCTAssertTrue(trackerVersion.range(of: #"^(ios|watchos|tvos|osx)"#, options: .regularExpression) != nil)
         }
-        
-        // TODO delete this part
-        let eventSink = EventSink()
-        _ = createTracker("ns2", eventSink)
-        Thread.sleep(forTimeInterval: 0.2)
-        
-        let message2 = MockWKScriptMessage(
-            body: [
-                "atomicProperties": "{}",
-                "trackers": ["ns2"]
-            ])
-        webViewMessageHandler?.receivedMessage(message2)
-        waitForEventsToBeTracked()
-        
-        let events = eventSink.trackedEvents
-        
-        XCTAssertEqual(1, events.count)
     }
 
     func testTracksEventWithCorrectTracker() {
@@ -155,7 +138,7 @@ class TestWebViewMessageHandlerV2: XCTestCase {
                 "trackers": ["ns2"]
             ])
         webViewMessageHandler?.receivedMessage(message)
-        waitForEventsToBeTracked()
+        Thread.sleep(forTimeInterval: 0.2)
         
         XCTAssertEqual(0, eventSink1.trackedEvents.count)
         XCTAssertEqual(1, eventSink2.trackedEvents.count)
@@ -163,7 +146,7 @@ class TestWebViewMessageHandlerV2: XCTestCase {
         // tracks using default tracker if not specified
         let message2 = MockWKScriptMessage(body: ["atomicProperties": "{}"])
         webViewMessageHandler?.receivedMessage(message2)
-        waitForEventsToBeTracked()
+        Thread.sleep(forTimeInterval: 0.2)
         
         XCTAssertEqual(1, eventSink1.trackedEvents.count)
         XCTAssertEqual(1, eventSink2.trackedEvents.count)
@@ -180,7 +163,7 @@ class TestWebViewMessageHandlerV2: XCTestCase {
                 "entities": "[{\"schema\":\"iglu:com.example/etc\",\"data\":{\"key\":\"val\"}}]"
             ])
         webViewMessageHandler?.receivedMessage(message)
-        waitForEventsToBeTracked()
+        Thread.sleep(forTimeInterval: 0.2)
         
         XCTAssertEqual(1, eventSink.trackedEvents.count)
         let relevantEntities = eventSink.trackedEvents[0].entities.filter { $0.schema == "iglu:com.example/etc" }
@@ -202,7 +185,7 @@ class TestWebViewMessageHandlerV2: XCTestCase {
                 "selfDescribingEventData": "{\"schema\":\"iglu:etc\",\"data\":{\"key\":\"val\"}}"
             ])
         webViewMessageHandler?.receivedMessage(message)
-        waitForEventsToBeTracked()
+        Thread.sleep(forTimeInterval: 0.2)
         
         let events = eventSink.trackedEvents
         
