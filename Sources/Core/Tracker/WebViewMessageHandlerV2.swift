@@ -60,7 +60,7 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
             var entitiesJson: [[AnyHashable : Any]] = []
                         
             if (entitiesData != nil) {
-                let data = selfDescribingEventData?.data(using: .utf8) ?? Data()
+                let data = entitiesData?.data(using: .utf8) ?? Data()
                 guard let json = try? JSONSerialization.jsonObject(with: data) as? [[AnyHashable : Any]] else {
                     logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
                     return
@@ -130,89 +130,6 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
         //         TODO this function not used?
         return createSelfDescribingJson(eventData)
     }
-    
-    
-    //
-    //
-    //
-    //    func trackSelfDescribing(_ event: [AnyHashable : Any], withContext context: [[AnyHashable : Any]], andTrackers trackers: [String]) {
-    //        if let schema = event["schema"] as? String,
-    //           let payload = event["data"] as? [String : Any] {
-    //            let selfDescribing = SelfDescribing(schema: schema, payload: payload)
-    //            track(selfDescribing, withEntities: context, andTrackers: trackers)
-    //        }
-    //    }
-    //
-    //    func trackStructEvent(_ event: [AnyHashable : Any], withContext context: [[AnyHashable : Any]], andTrackers trackers: [String]) {
-    //        let category = event["category"] as? String
-    //        let action = event["action"] as? String
-    //        let label = event["label"] as? String
-    //        let property = event["property"] as? String
-    //        let value = event["value"] as? NSNumber
-    //
-    //        if let category = category, let action = action {
-    //            let structured = Structured(category: category, action: action)
-    //            if let label = label {
-    //                structured.label = label
-    //            }
-    //            if let property = property {
-    //                structured.property = property
-    //            }
-    //            if let value = value {
-    //                structured.value = value
-    //            }
-    //            track(structured, withEntities: context, andTrackers: trackers)
-    //        }
-    //    }
-    //
-    //    func trackPageView(_ event: [AnyHashable : Any], withContext context: [[AnyHashable : Any]], andTrackers trackers: [String]) {
-    //        let url = event["url"] as? String
-    //        let title = event["title"] as? String
-    //        let referrer = event["referrer"] as? String
-    //
-    //        if let url = url {
-    //            let pageView = PageView(pageUrl: url)
-    //            if let title = title {
-    //                pageView.pageTitle = title
-    //            }
-    //            if let referrer = referrer {
-    //                pageView.referrer = referrer
-    //            }
-    //            track(pageView, withEntities: context, andTrackers: trackers)
-    //        }
-    //    }
-    //
-    //    func trackScreenView(_ event: [AnyHashable : Any], withContext context: [[AnyHashable : Any]], andTrackers trackers: [String]) {
-    //        let name = event["name"] as? String
-    //        let screenId = event["id"] as? String
-    //        let type = event["type"] as? String
-    //        let previousName = event["previousName"] as? String
-    //        let previousId = event["previousId"] as? String
-    //        let previousType = event["previousType"] as? String
-    //        let transitionType = event["transitionType"] as? String
-    //
-    //        if let name = name, let screenId = screenId {
-    //            let screenUuid = UUID(uuidString: screenId)
-    //            let screenView = ScreenView(name: name, screenId: screenUuid)
-    //            if let type = type {
-    //                screenView.type = type
-    //            }
-    //            if let previousName = previousName {
-    //                screenView.previousName = previousName
-    //            }
-    //            if let previousId = previousId {
-    //                screenView.previousId = previousId
-    //            }
-    //            if let previousType = previousType {
-    //                screenView.previousType = previousType
-    //            }
-    //            if let transitionType = transitionType {
-    //                screenView.transitionType = transitionType
-    //            }
-    //            track(screenView, withEntities: context, andTrackers: trackers)
-    //        }
-    //    }
-    //}
 }
 
 

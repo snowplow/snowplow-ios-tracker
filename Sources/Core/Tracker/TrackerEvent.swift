@@ -112,7 +112,7 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
     
     private func getWebViewSchema() -> String? {
         let selfDescribingData = payload[kSPWebViewEventData] as? SelfDescribingJson
-        return selfDescribingData?.data[kSPSchema] as? String
+        return selfDescribingData?.schema
     }
     
     private func addSelfDescribingDataToPayload(to payload: Payload, base64Encoded: Bool, data: SelfDescribingJson) {
