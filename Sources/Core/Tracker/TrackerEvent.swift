@@ -35,11 +35,11 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
     
     var trueTimestamp: Date?
     
-    private(set) var isPrimitive: Bool
+    private(set) var isPrimitive: Bool = false
     
     private(set) var isService: Bool
     
-    private(set) var isWebView: Bool
+    private(set) var isWebView: Bool = false
     
     init(event: Event, eventId: UUID = UUID(), state: TrackerStateSnapshot? = nil) {
         self.eventId = eventId
@@ -50,12 +50,10 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
         self.state = state ?? TrackerState()
         
         isService = (event is TrackerError)
-        isWebView = false
-        isPrimitive = false
         
         switch event {
         case _ as WebViewReader:
-            eventName = (payload[kSPEvent] as? String) ?? "ue"
+            eventName = (payload[kSPEvent] as? String) ?? kSPEventUnstructured
             schema = getWebViewSchema()
             isWebView = true
             

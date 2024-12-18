@@ -112,12 +112,9 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
     }
     
     func parseSelfDescribingEventDataFromMessage(_ messageString: String?) -> [String : Any]? {
-        guard (messageString != nil) else { return nil }
-        guard let eventData = messageString?.data(using: .utf8) else {
-            logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
-            return nil
-        }
-        guard let eventJson = try? JSONSerialization.jsonObject(with: eventData) as? [String : Any] else {
+        if messageString == nil { return nil }
+        guard let eventData = messageString?.data(using: .utf8),
+              let eventJson = try? JSONSerialization.jsonObject(with: eventData) as? [String : Any] else {
             logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
             return nil
         }
@@ -125,12 +122,9 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
     }
     
     func parseEntitiesFromMessage(_ messageString: String?) -> [[AnyHashable : Any]]? {
-        guard (messageString != nil) else { return nil }
-        guard let entitiesData = messageString?.data(using: .utf8) else {
-            logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
-            return nil
-        }
-        guard let entitiesJson = try? JSONSerialization.jsonObject(with: entitiesData) as? [[AnyHashable : Any]] else {
+        if messageString == nil { return nil }
+        guard let entitiesData = messageString?.data(using: .utf8),
+              let entitiesJson = try? JSONSerialization.jsonObject(with: entitiesData) as? [[AnyHashable : Any]] else {
             logError(message: "WebView: Received event payload is not serializable to JSON, skipping.")
             return nil
         }

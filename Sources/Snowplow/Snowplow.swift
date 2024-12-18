@@ -346,7 +346,7 @@ public class Snowplow: NSObject {
         let messageHandlerV2 = WebViewMessageHandlerV2()
 
         webViewConfiguration.userContentController.add(messageHandlerOld, name: "snowplow")
-        webViewConfiguration.userContentController.add(messageHandlerV2, name: "snowplow")
+        webViewConfiguration.userContentController.add(messageHandlerV2, name: "snowplowV2")
     }
 
     #endif
