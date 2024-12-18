@@ -45,21 +45,21 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
             
             let event = WebViewReader(
                 selfDescribingEventData: createSelfDescribingJson(selfDescribingDataJson),
-                eventName: atomicJson["eventName"] as? String? ?? nil,
-                trackerVersion: atomicJson["trackerVersion"] as? String? ?? nil,
-                useragent: atomicJson["useragent"] as? String? ?? nil,
-                pageUrl: atomicJson["pageUrl"] as? String? ?? nil,
-                pageTitle: atomicJson["pageTitle"] as? String? ?? nil,
-                referrer: atomicJson["referrer"] as? String? ?? nil,
-                category: atomicJson["category"] as? String? ?? nil,
-                action: atomicJson["action"] as? String? ?? nil,
-                label: atomicJson["label"] as? String? ?? nil,
-                property: atomicJson["property"] as? String? ?? nil,
+                eventName: atomicJson["eventName"] as? String,
+                trackerVersion: atomicJson["trackerVersion"] as? String,
+                useragent: atomicJson["useragent"] as? String,
+                pageUrl: atomicJson["pageUrl"] as? String,
+                pageTitle: atomicJson["pageTitle"] as? String,
+                referrer: atomicJson["referrer"] as? String,
+                category: atomicJson["category"] as? String,
+                action: atomicJson["action"] as? String,
+                label: atomicJson["label"] as? String,
+                property: atomicJson["property"] as? String,
                 value: atomicJson["value"] as? Double,
-                pingXOffsetMin: atomicJson["pingXOffsetMin"] as? Int ?? nil,
-                pingXOffsetMax: atomicJson["pingXOffsetMax"] as? Int ?? nil,
-                pingYOffsetMin: atomicJson["pingYOffsetMin"] as? Int ?? nil,
-                pingYOffsetMax: atomicJson["pingYOffsetMax"] as? Int ?? nil
+                pingXOffsetMin: atomicJson["pingXOffsetMin"] as? Int,
+                pingXOffsetMax: atomicJson["pingXOffsetMax"] as? Int,
+                pingYOffsetMin: atomicJson["pingYOffsetMin"] as? Int,
+                pingYOffsetMax: atomicJson["pingYOffsetMax"] as? Int
             )
             
             track(event, withEntities: entitiesJson, andTrackers: trackers)
