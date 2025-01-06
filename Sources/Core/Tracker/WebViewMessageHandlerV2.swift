@@ -73,6 +73,8 @@ class WebViewMessageHandlerV2: NSObject, WKScriptMessageHandler {
             for namespace in trackers {
                 if let tracker = Snowplow.tracker(namespace: namespace) {
                     _ = tracker.track(event)
+                } else {
+                    logError(message: "WebView: Tracker with namespace \(namespace) not found.")
                 }
             }
         } else {
