@@ -289,3 +289,10 @@ let kSPDiagnosticErrorMessage = "message"
 let kSPDiagnosticErrorStack = "stackTrace"
 let kSPDiagnosticErrorClassName = "className"
 let kSPDiagnosticErrorExceptionName = "exceptionName"
+
+// --- Page Pings (for WebView tracking)
+let kSPPingXOffsetMin = "pp_mix"
+let kSPPingXOffsetMax = "pp_max"
+let kSPPingYOffsetMin = "pp_miy"
+let kSPPingYOffsetMax = "pp_may"
+let kSPWebViewEventData = "selfDescribingEventData"
