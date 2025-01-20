@@ -35,9 +35,11 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
     
     var trueTimestamp: Date?
     
-    private(set) var isPrimitive: Bool
+    private(set) var isPrimitive: Bool = false
     
     private(set) var isService: Bool
+    
+    private(set) var isWebView: Bool = false
     
     init(event: Event, eventId: UUID = UUID(), state: TrackerStateSnapshot? = nil) {
         self.eventId = eventId
@@ -48,12 +50,19 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
         self.state = state ?? TrackerState()
         
         isService = (event is TrackerError)
-        if let abstractEvent = event as? PrimitiveAbstract {
-            eventName = abstractEvent.eventName
+        
+        switch event {
+        case _ as WebViewReader:
+            eventName = (payload[kSPEvent] as? String) ?? kSPEventUnstructured
+            schema = getWebViewSchema()
+            isWebView = true
+            
+        case let primitive as PrimitiveAbstract:
+            eventName = primitive.eventName
             isPrimitive = true
-        } else {
-            schema = (event as! SelfDescribingAbstract).schema
-            isPrimitive = false
+
+        default:
+            schema = (event as? SelfDescribingAbstract)?.schema
         }
     }
     
@@ -90,17 +99,21 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
     }
     
     func wrapProperties(to payload: Payload, base64Encoded: Bool) {
-        if isPrimitive {
+        if isWebView {
+            wrapWebViewToPayload(to: payload, base64Encoded: base64Encoded)
+        } else if isPrimitive {
             payload.addDictionaryToPayload(self.payload)
         } else {
-            wrapSelfDescribing(to: payload, base64Encoded: base64Encoded)
+            wrapSelfDescribingEventToPayload(to: payload, base64Encoded: base64Encoded)
         }
     }
     
-    private func wrapSelfDescribing(to payload: Payload, base64Encoded: Bool) {
-        guard let schema = schema else { return }
-        
-        let data = SelfDescribingJson(schema: schema, andData: self.payload)
+    private func getWebViewSchema() -> String? {
+        let selfDescribingData = payload[kSPWebViewEventData] as? SelfDescribingJson
+        return selfDescribingData?.schema
+    }
+    
+    private func addSelfDescribingDataToPayload(to payload: Payload, base64Encoded: Bool, data: SelfDescribingJson) {
         let unstructuredEventPayload = SelfDescribingJson.dictionary(
             schema: kSPUnstructSchema,
             data: data.dictionary)
@@ -108,6 +121,21 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
             unstructuredEventPayload,
             base64Encoded: base64Encoded,
             typeWhenEncoded: kSPUnstructuredEncoded,
-            typeWhenNotEncoded: kSPUnstructured)
+            typeWhenNotEncoded: kSPUnstructured
+        )
+    }
+    
+    private func wrapWebViewToPayload(to payload: Payload, base64Encoded: Bool) {
+        let selfDescribingData = self.payload[kSPWebViewEventData] as? SelfDescribingJson
+        if let data = selfDescribingData {
+            addSelfDescribingDataToPayload(to: payload, base64Encoded: base64Encoded, data: data)
+        }
+        payload.addDictionaryToPayload(self.payload.filter { $0.key != kSPWebViewEventData })
+    }
+    
+    private func wrapSelfDescribingEventToPayload(to payload: Payload, base64Encoded: Bool) {
+        guard let schema = schema else { return }
+        let data = SelfDescribingJson(schema: schema, andData: self.payload)
+        addSelfDescribingDataToPayload(to: payload, base64Encoded: base64Encoded, data: data)
     }
 }

@@ -14,7 +14,7 @@
 import Foundation
 
 // --- Version
-let kSPRawVersion = "6.0.9"
+let kSPRawVersion = "6.1.0"
 #if os(iOS)
 let kSPVersion = "ios-\(kSPRawVersion)"
 #elseif os(tvOS)
@@ -181,11 +181,11 @@ let kSPPageTitle = "page"
 let kSPPageRefr = "refr"
 
 // --- Structured Event
-let kSPStuctCategory = "se_ca"
-let kSPStuctAction = "se_ac"
-let kSPStuctLabel = "se_la"
-let kSPStuctProperty = "se_pr"
-let kSPStuctValue = "se_va"
+let kSPStructCategory = "se_ca"
+let kSPStructAction = "se_ac"
+let kSPStructLabel = "se_la"
+let kSPStructProperty = "se_pr"
+let kSPStructValue = "se_va"
 
 // --- E-commerce Transaction Event
 let kSPEcommId = "tr_id"
@@ -289,3 +289,10 @@ let kSPDiagnosticErrorMessage = "message"
 let kSPDiagnosticErrorStack = "stackTrace"
 let kSPDiagnosticErrorClassName = "className"
 let kSPDiagnosticErrorExceptionName = "exceptionName"
+
+// --- Page Pings (for WebView tracking)
+let kSPPingXOffsetMin = "pp_mix"
+let kSPPingXOffsetMax = "pp_max"
+let kSPPingYOffsetMin = "pp_miy"
+let kSPPingYOffsetMax = "pp_may"
+let kSPWebViewEventData = "selfDescribingEventData"
