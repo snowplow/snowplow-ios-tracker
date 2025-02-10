@@ -24,33 +24,33 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: "Integration (iOS, Xcode 13.4)"
-            os: macos-12
-            xcode-version: 13.4
-            destination: "platform=iOS Simulator,name=iPhone 13"
+          - name: "Integration (iOS, Xcode 14.1)"
+            os: macos-13
+            xcode-version: 14.1
+            destination: "platform=iOS Simulator,name=iPhone 14"
             target: IntegrationTests
 
-          - name: "Unit (iOS, Xcode 13.4)"
-            os: macos-12
-            xcode-version: 13.4
-            destination: "platform=iOS Simulator,name=iPhone 13"
+          - name: "Unit (iOS, Xcode 14.1)"
+            os: macos-13
+            xcode-version: 14.1
+            destination: "platform=iOS Simulator,name=iPhone 14"
             target: Tests
 
-          - name: "Unit (macOS, Xcode 13.4)"
-            os: macos-12
-            xcode-version: 13.4
+          - name: "Unit (macOS, Xcode 14.1)"
+            os: macos-13
+            xcode-version: 14.1
             destination: "platform=macOS"
             target: Tests
 
-          - name: "Unit (watchOS, Xcode 13.4)"
-            os: macos-12
-            xcode-version: 13.4
-            destination: "platform=watchOS Simulator,name=Apple Watch Series 7 - 45mm"
+          - name: "Unit (watchOS, Xcode 14.1)"
+            os: macos-13
+            xcode-version: 14.1
+            destination: "platform=watchOS Simulator,name=Apple Watch Series 8 (45mm)"
             target: Tests
 
-          - name: "Unit (tvOS, Xcode 13.4)"
-            os: macos-12
-            xcode-version: 13.4
+          - name: "Unit (tvOS, Xcode 14.1)"
+            os: macos-13
+            xcode-version: 14.1
             destination: "platform=tvOS Simulator,name=Apple TV"
             target: Tests
 
@@ -90,15 +90,7 @@ jobs:
             -scheme SnowplowTracker \
             -destination "${{ matrix.destination }}" \
             -only-testing ${{ matrix.target }} \
-            -resultBundlePath TestResults \
             clean test | xcpretty
-
-      - name: Create test results
-        uses: kishikawakatsumi/xcresulttool@v1
-        with:
-          path: TestResults.xcresult
-          title: "Test results: ${{ matrix.name }}"
-        if: success() || failure()
 
   build_objc_demo_app:
     name: "ObjC demo (iOS ${{ matrix.version.ios }})"
