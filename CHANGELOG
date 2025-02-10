@@ -1,3 +1,8 @@
+Version 6.2.0 (2025-02-11)
+--------------------------
+Add an option to continue previously persisted session when the app restarts rather than starting a new one (#912)
+Make SelfDescribingJson class open to allow for inheritance (#906) thanks to @TwoDollarsEsq
+
 Version 6.1.0 (2025-01-16)
 --------------------------
 Add new WebView interface (#913)
