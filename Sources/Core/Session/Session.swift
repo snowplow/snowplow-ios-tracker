@@ -206,7 +206,7 @@ class Session {
         if let state = state {
             state.startNewSession(eventId: eventId, eventTimestamp: eventTimestamp)
         } else {
-            state = SessionState(eventId: eventId, eventTimestamp: eventTimestamp)
+            state = SessionState(eventId: eventId, eventTimestamp: eventTimestamp, userId: userId)
         }
     }
     

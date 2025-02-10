@@ -115,14 +115,14 @@ public class SessionState: NSObject, State {
         lastUpdate = storedState[ksSPSessionLastUpdate] as? Int64
     }
     
-    convenience init(eventId: String?, eventTimestamp: Int64) {
+    convenience init(eventId: String?, eventTimestamp: Int64, userId: String?) {
         self.init(
             firstEventId: eventId,
             firstEventTimestamp: Utilities.timestamp(toISOString: eventTimestamp),
             currentSessionId: Utilities.getUUIDString(),
             previousSessionId: nil,
             sessionIndex: 1,
-            userId: Utilities.getUUIDString(),
+            userId: userId ?? Utilities.getUUIDString(),
             storage: "LOCAL_STORAGE",
             lastUpdate: Utilities.getTimestamp().int64Value
         )
