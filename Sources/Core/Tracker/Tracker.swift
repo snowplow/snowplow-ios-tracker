@@ -209,6 +209,20 @@ class Tracker: NSObject {
         }
     }
     
+    private var _continueSessionOnRestart = TrackerDefaults.continueSessionOnRestart
+    public var continueSessionOnRestart: Bool {
+        get {
+            return _continueSessionOnRestart
+        }
+        set(continueSessionOnRestart) {
+            _continueSessionOnRestart = continueSessionOnRestart
+            if builderFinished && session != nil {
+                session?.continueSessionOnRestart = continueSessionOnRestart
+            }
+        }
+    }
+
+    
     private var _lifecycleEvents = false
     /// Returns whether lifecyle events is enabled.
     /// - Returns: Whether background and foreground events are sent.
@@ -299,7 +313,9 @@ class Tracker: NSObject {
                 foregroundTimeout: foregroundTimeout,
                 backgroundTimeout: backgroundTimeout,
                 trackerNamespace: trackerNamespace,
-                tracker: self)
+                tracker: self,
+                continueSessionOnRestart: continueSessionOnRestart
+            )
         }
 
         if autotrackScreenViews {
@@ -588,9 +604,9 @@ class Tracker: NSObject {
 
         // Add session
         if let session = session {
-            if let sessionDict = session.getDictWithEventId(event.eventId.uuidString,
-                                                            eventTimestamp: event.timestamp,
-                                                            userAnonymisation: userAnonymisation) {
+            if let sessionDict = session.getAndUpdateSessionForEvent(event.eventId.uuidString,
+                                                                     eventTimestamp: event.timestamp,
+                                                                     userAnonymisation: userAnonymisation) {
                 event.addContextEntity(SelfDescribingJson(schema: kSPSessionContextSchema, andDictionary: sessionDict))
             } else {
                 logDiagnostic(message: String(format: "Unable to get session context for eventId: %@", event.eventId.uuidString))
