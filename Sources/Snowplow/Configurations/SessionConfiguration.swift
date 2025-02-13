@@ -39,6 +39,11 @@ public protocol SessionConfigurationProtocol: AnyObject {
     /// The callback called everytime the session is updated.
     @objc
     var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)? { get set }
+    /// If enabled, will be able to continue the previous session when the app is closed and reopened (if it doesn't timeout).
+    /// Disabled by default, which means that every restart of the app starts a new session.
+    /// When enabled, every event will result in the session being updated in the UserDefaults.
+    @objc
+    var continueSessionOnRestart: Bool { get set }
 }
 
 /// This class represents the configuration from of the applications session.
@@ -65,7 +70,7 @@ public class SessionConfiguration: SerializableConfiguration, SessionConfigurati
     /// The timeout set for the inactivity of app when in background.
     @objc
     public var backgroundTimeoutInSeconds: Int {
-        get { return _backgroundTimeoutInSeconds ?? sourceConfig?.backgroundTimeoutInSeconds ?? 1800 }
+        get { return _backgroundTimeoutInSeconds ?? sourceConfig?.backgroundTimeoutInSeconds ?? TrackerDefaults.backgroundTimeout }
         set { _backgroundTimeoutInSeconds = newValue }
     }
     
@@ -73,10 +78,20 @@ public class SessionConfiguration: SerializableConfiguration, SessionConfigurati
     /// The timeout set for the inactivity of app when in foreground.
     @objc
     public var foregroundTimeoutInSeconds: Int {
-        get { return _foregroundTimeoutInSeconds ?? sourceConfig?.foregroundTimeoutInSeconds ?? 1800 }
+        get { return _foregroundTimeoutInSeconds ?? sourceConfig?.foregroundTimeoutInSeconds ?? TrackerDefaults.foregroundTimeout }
         set { _foregroundTimeoutInSeconds = newValue }
     }
     
+    private var _continueSessionOnRestart: Bool?
+    /// If enabled, will be able to continue the previous session when the app is closed and reopened (if it doesn't timeout).
+    /// Disabled by default, which means that every restart of the app starts a new session.
+    /// When enabled, every event will result in the session being updated in the UserDefaults.
+    @objc
+    public var continueSessionOnRestart: Bool {
+        get { return _continueSessionOnRestart ?? sourceConfig?.continueSessionOnRestart ?? TrackerDefaults.continueSessionOnRestart }
+        set { _continueSessionOnRestart = newValue }
+    }
+
     private var _onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
     /// The callback called everytime the session is updated.
     @objc
@@ -149,8 +164,18 @@ public class SessionConfiguration: SerializableConfiguration, SessionConfigurati
     // MARK: - Builders
 
     /// The callback called everytime the session is updated.
+    @objc
     public func onSessionStateUpdate(_ value: ((_ sessionState: SessionState) -> Void)?) -> Self {
         onSessionStateUpdate = value
+        return self
+    }
+    
+    /// If enabled, will be able to continue the previous session when the app is closed and reopened (if it doesn't timeout).
+    /// Disabled by default, which means that every restart of the app starts a new session.
+    /// When enabled, every event will result in the session being updated in the UserDefaults.
+    @objc
+    public func continueSessionOnRestart(_ value: Bool) -> Self {
+        self.continueSessionOnRestart = value
         return self
     }
 

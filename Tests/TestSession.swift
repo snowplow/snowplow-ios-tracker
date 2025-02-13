@@ -28,7 +28,7 @@ class TestSession: XCTestCase {
     func testInit() {
         let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
         XCTAssertTrue(!session.inBackground)
-        XCTAssertNotNil(session.getDictWithEventId("eventid-1", eventTimestamp: 1654496481346, userAnonymisation: false))
+        XCTAssertNotNil(session.getAndUpdateSessionForEvent("eventid-1", eventTimestamp: 1654496481346, userAnonymisation: false))
         XCTAssertTrue(session.sessionIndex ?? 0 >= 1)
         XCTAssertEqual(session.foregroundTimeout, 600000)
         XCTAssertEqual(session.backgroundTimeout, 300000)
@@ -49,7 +49,7 @@ class TestSession: XCTestCase {
     func testFirstSession() {
         let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
-        let sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
+        let sessionContext = session.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         let sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -60,7 +60,7 @@ class TestSession: XCTestCase {
     func testForegroundEventsOnSameSession() {
         let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
-        var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
+        var sessionContext = session.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         var sessionIndex = session.sessionIndex ?? 0
         let sessionId = sessionContext?[kSPSessionId] as? String
         XCTAssertEqual(1, sessionIndex)
@@ -70,7 +70,7 @@ class TestSession: XCTestCase {
 
         Thread.sleep(forTimeInterval: 1)
 
-        sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
         sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -80,7 +80,7 @@ class TestSession: XCTestCase {
 
         Thread.sleep(forTimeInterval: 1)
 
-        sessionContext = session.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
         sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -90,7 +90,7 @@ class TestSession: XCTestCase {
 
         Thread.sleep(forTimeInterval: 3.1)
 
-        sessionContext = session.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
         sessionIndex = session.sessionIndex ?? 0
         XCTAssertEqual(2, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -113,7 +113,7 @@ class TestSession: XCTestCase {
         let session = tracker.session
         session?.updateInBackground()
 
-        let sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
+        let sessionContext = session?.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         let sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -142,7 +142,7 @@ class TestSession: XCTestCase {
 
         let sessionId = session?.sessionId
 
-        var sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
+        var sessionContext = session?.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         var sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -152,7 +152,7 @@ class TestSession: XCTestCase {
 
         Thread.sleep(forTimeInterval: 1)
 
-        sessionContext = session?.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
+        sessionContext = session?.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
         sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -162,7 +162,7 @@ class TestSession: XCTestCase {
 
         Thread.sleep(forTimeInterval: 1)
 
-        sessionContext = session?.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
+        sessionContext = session?.getAndUpdateSessionForEvent("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
         sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(1, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -172,7 +172,7 @@ class TestSession: XCTestCase {
 
         Thread.sleep(forTimeInterval: 2.1)
 
-        sessionContext = session?.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
+        sessionContext = session?.getAndUpdateSessionForEvent("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
         sessionIndex = session?.sessionIndex ?? 0
         XCTAssertEqual(2, sessionIndex)
         XCTAssertEqual(sessionIndex, sessionContext?[kSPSessionIndex] as? Int)
@@ -195,7 +195,7 @@ class TestSession: XCTestCase {
         }
         let session = tracker.session
 
-        var sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481351, userAnonymisation: false)
+        var sessionContext = session?.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481351, userAnonymisation: false)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertEqual("2022-06-06T06:21:21.351Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
         XCTAssertFalse(session!.inBackground)
@@ -206,7 +206,7 @@ class TestSession: XCTestCase {
         session?.updateInBackground()
         Thread.sleep(forTimeInterval: 1.1)
 
-        sessionContext = session?.getDictWithEventId("event_2", eventTimestamp: 1654496481352, userAnonymisation: false)
+        sessionContext = session?.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481352, userAnonymisation: false)
         XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId] as? String)
         XCTAssertEqual("event_2", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertEqual("2022-06-06T06:21:21.352Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
@@ -218,7 +218,7 @@ class TestSession: XCTestCase {
         session?.updateInForeground()
         Thread.sleep(forTimeInterval: 1.1)
 
-        sessionContext = session?.getDictWithEventId("event_3", eventTimestamp: 1654496481353, userAnonymisation: false)
+        sessionContext = session?.getAndUpdateSessionForEvent("event_3", eventTimestamp: 1654496481353, userAnonymisation: false)
         XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId] as? String)
         XCTAssertEqual("event_3", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertEqual("2022-06-06T06:21:21.353Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
@@ -230,7 +230,7 @@ class TestSession: XCTestCase {
         session?.updateInBackground()
         Thread.sleep(forTimeInterval: 1.1)
 
-        sessionContext = session?.getDictWithEventId("event_4", eventTimestamp: 1654496481354, userAnonymisation: false)
+        sessionContext = session?.getAndUpdateSessionForEvent("event_4", eventTimestamp: 1654496481354, userAnonymisation: false)
         XCTAssertEqual(oldSessionId, sessionContext?[kSPSessionPreviousId] as? String)
         XCTAssertEqual("event_4", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertEqual("2022-06-06T06:21:21.354Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
@@ -242,7 +242,7 @@ class TestSession: XCTestCase {
     func testTimeoutSessionWhenPauseAndResume() {
         let session = Session(foregroundTimeout: 1, backgroundTimeout: 1)
 
-        var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481355, userAnonymisation: false)
+        var sessionContext = session.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481355, userAnonymisation: false)
         var prevSessionId = sessionContext?[kSPSessionId] as? String
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertEqual("2022-06-06T06:21:21.355Z", sessionContext?[kSPSessionFirstEventTimestamp] as? String)
@@ -250,7 +250,7 @@ class TestSession: XCTestCase {
         session.stopChecker()
         Thread.sleep(forTimeInterval: 2)
 
-        sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481356, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481356, userAnonymisation: false)
         XCTAssertEqual(1, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual(prevSessionId, sessionContext?[kSPSessionId] as? String)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -259,7 +259,7 @@ class TestSession: XCTestCase {
 
         session.startChecker()
 
-        sessionContext = session.getDictWithEventId("event_3", eventTimestamp: 1654496481357, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_3", eventTimestamp: 1654496481357, userAnonymisation: false)
         XCTAssertEqual(2, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual(prevSessionId, sessionContext?[kSPSessionPreviousId] as? String)
         XCTAssertEqual("event_3", sessionContext?[kSPSessionFirstEventId] as? String)
@@ -278,7 +278,7 @@ class TestSession: XCTestCase {
         }
         let session = tracker.session
 
-        let sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481361, userAnonymisation: false)
+        let sessionContext = session?.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481361, userAnonymisation: false)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(0, session?.backgroundIndex)
@@ -310,7 +310,7 @@ class TestSession: XCTestCase {
         }
         let session = tracker.session
 
-        let sessionContext = session?.getDictWithEventId("event_1", eventTimestamp: 1654496481358, userAnonymisation: false)
+        let sessionContext = session?.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481358, userAnonymisation: false)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
         XCTAssertFalse(session!.inBackground)
         XCTAssertEqual(0, session?.backgroundIndex)
@@ -333,12 +333,12 @@ class TestSession: XCTestCase {
     func testNoEventsForLongTimeDontIncreaseIndexMultipleTimes() {
         let session = Session(foregroundTimeout: 1, backgroundTimeout: 1)
 
-        var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481359, userAnonymisation: false)
+        var sessionContext = session.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481359, userAnonymisation: false)
         XCTAssertEqual("event_1", sessionContext?[kSPSessionFirstEventId] as? String)
 
         Thread.sleep(forTimeInterval: 4)
 
-        sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481360, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481360, userAnonymisation: false)
         XCTAssertEqual(2, sessionContext?[kSPSessionIndex] as? Int)
         XCTAssertEqual("event_2", sessionContext?[kSPSessionFirstEventId] as? String)
     }
@@ -418,37 +418,73 @@ class TestSession: XCTestCase {
     func testIncrementsEventIndex() {
         let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
 
-        var sessionContext = session.getDictWithEventId("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
+        var sessionContext = session.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
         XCTAssertEqual(1, sessionContext?[kSPSessionEventIndex] as? Int)
 
         Thread.sleep(forTimeInterval: 1)
 
-        sessionContext = session.getDictWithEventId("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
         XCTAssertEqual(2, sessionContext?[kSPSessionEventIndex] as? Int)
 
         Thread.sleep(forTimeInterval: 1)
 
-        sessionContext = session.getDictWithEventId("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_3", eventTimestamp: 1654496481348, userAnonymisation: false)
         XCTAssertEqual(3, sessionContext?[kSPSessionEventIndex] as? Int)
 
         Thread.sleep(forTimeInterval: 3.1)
 
-        sessionContext = session.getDictWithEventId("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
+        sessionContext = session.getAndUpdateSessionForEvent("event_4", eventTimestamp: 1654496481349, userAnonymisation: false)
         XCTAssertEqual(1, sessionContext?[kSPSessionEventIndex] as? Int)
     }
 
     func testAnonymisesUserIdentifiers() {
         let session = Session(foregroundTimeout: 3, backgroundTimeout: 3)
-        _ = session.getDictWithEventId("event_1", eventTimestamp: 1654496481345, userAnonymisation: false)
+        _ = session.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481345, userAnonymisation: false)
         session.startNewSession() // create previous session ID reference
 
-        let withoutAnonymisation = session.getDictWithEventId("event_2", eventTimestamp: 1654496481346, userAnonymisation: false)
+        let withoutAnonymisation = session.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481346, userAnonymisation: false)
         XCTAssertNotEqual("00000000-0000-0000-0000-000000000000", withoutAnonymisation?[kSPSessionUserId] as? String)
         XCTAssertNotNil(withoutAnonymisation?[kSPSessionPreviousId])
 
-        let withAnonymisation = session.getDictWithEventId("event_3", eventTimestamp: 1654496481347, userAnonymisation: true)
+        let withAnonymisation = session.getAndUpdateSessionForEvent("event_3", eventTimestamp: 1654496481347, userAnonymisation: true)
         XCTAssertEqual("00000000-0000-0000-0000-000000000000", withAnonymisation?[kSPSessionUserId] as? String)
         XCTAssertEqual(NSNull(), withAnonymisation?[kSPSessionPreviousId] as? NSNull)
+    }
+    
+    func testStartsNewSessionOnRestartByDefault() {
+        let session1 = Session(foregroundTimeout: 3, backgroundTimeout: 3, trackerNamespace: "t1")
+        let firstSession = session1.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481345, userAnonymisation: false)
+        
+        let session2 = Session(foregroundTimeout: 3, backgroundTimeout: 3, trackerNamespace: "t1")
+        let secondSession = session2.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481345, userAnonymisation: false)
+        
+        XCTAssertNotEqual(firstSession?[kSPSessionId] as! String, secondSession?[kSPSessionId] as! String)
+        XCTAssertEqual(firstSession?[kSPSessionId] as! String, secondSession?[kSPSessionPreviousId] as! String)
+    }
+
+    func testResumesPreviouslyPersistedSessionIfEnabled() {
+        let session1 = Session(foregroundTimeout: 3, backgroundTimeout: 3, trackerNamespace: "t1", continueSessionOnRestart: true)
+        _ = session1.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481345, userAnonymisation: false)
+        let firstSession = session1.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481346, userAnonymisation: false)
+
+        let session2 = Session(foregroundTimeout: 3, backgroundTimeout: 3, trackerNamespace: "t1", continueSessionOnRestart: true)
+        let secondSession = session2.getAndUpdateSessionForEvent("event_3", eventTimestamp: 1654496481347, userAnonymisation: false)
+        
+        XCTAssertEqual(firstSession?[kSPSessionId] as! String, secondSession?[kSPSessionId] as! String)
+        XCTAssertEqual(secondSession?[kSPSessionEventIndex] as! Int, 3)
+    }
+    
+    func testStartsNewSessionOnRestartOnTimeout() {
+        let session1 = Session(foregroundTimeout: 1, backgroundTimeout: 1, trackerNamespace: "t1", continueSessionOnRestart: true)
+        let firstSession = session1.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481345, userAnonymisation: false)
+        
+        Thread.sleep(forTimeInterval: 2)
+        
+        let session2 = Session(foregroundTimeout: 1, backgroundTimeout: 1, trackerNamespace: "t1", continueSessionOnRestart: true)
+        let secondSession = session2.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481345, userAnonymisation: false)
+        
+        XCTAssertNotEqual(firstSession?[kSPSessionId] as! String, secondSession?[kSPSessionId] as! String)
+        XCTAssertEqual(firstSession?[kSPSessionId] as! String, secondSession?[kSPSessionPreviousId] as! String)
     }
 
     // Service methods

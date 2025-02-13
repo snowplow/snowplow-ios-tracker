@@ -59,6 +59,11 @@ class SessionControllerIQWrapper: SessionController {
         get { InternalQueue.sync { controller.onSessionStateUpdate } }
         set { InternalQueue.sync { controller.onSessionStateUpdate = newValue } }
     }
+    
+    var continueSessionOnRestart: Bool {
+        get { InternalQueue.sync { controller.continueSessionOnRestart } }
+        set { InternalQueue.sync { controller.continueSessionOnRestart = newValue } }
+    }
 
     var sessionIndex: Int {
         InternalQueue.sync { controller.sessionIndex }

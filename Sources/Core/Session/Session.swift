@@ -21,11 +21,8 @@ class Session {
     // MARK: - Private properties
     
     private var dataPersistence: DataPersistence?
-    /// The event index
-    private var eventIndex = 0
     private var isNewSession = true
     private var isSessionCheckerEnabled = false
-    private var lastSessionCheck: NSNumber = Utilities.getTimestamp()
     /// Returns the current session state
     private var state: SessionState?
     /// The current tracker associated with the session
@@ -51,6 +48,8 @@ class Session {
     var sessionId: String? { return state?.sessionId }
     var previousSessionId: String? { return state?.previousSessionId }
     var firstEventId: String? { return state?.firstEventId }
+    /// If enabled, will persist all session updates (also changes to eventIndex) and will be able to continue the previous session when the app is closed and reopened.
+    var continueSessionOnRestart: Bool
     
     // MARK: - Constructor and destructor
 
@@ -59,11 +58,20 @@ class Session {
     ///   - foregroundTimeout: the session timeout while it is in the foreground
     ///   - backgroundTimeout: the session timeout while it is in the background
     ///   - tracker: reference to the associated tracker of the session
+    ///   - continueSessionOnRestart: whether to resume previous persisted session
     /// - Returns: a SnowplowSession
-    init(foregroundTimeout: Int, backgroundTimeout: Int, trackerNamespace: String? = nil, tracker: Tracker? = nil) {
+    init(
+        foregroundTimeout: Int,
+        backgroundTimeout: Int,
+        trackerNamespace: String? = nil,
+        tracker: Tracker? = nil,
+        continueSessionOnRestart: Bool = false
+    ) {
         
         self.foregroundTimeout = foregroundTimeout * 1000
         self.backgroundTimeout = backgroundTimeout * 1000
+        self.continueSessionOnRestart = continueSessionOnRestart
+        self.isNewSession = !continueSessionOnRestart
         self.tracker = tracker
         if let namespace = trackerNamespace {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
@@ -73,7 +81,6 @@ class Session {
         if var storedSessionDict = storedSessionDict {
             storedSessionDict[kSPSessionUserId] = userId
             state = SessionState(storedState: storedSessionDict)
-            dataPersistence?.session = storedSessionDict
         }
         if state == nil {
             logDiagnostic(message: "No previous session info available")
@@ -127,25 +134,27 @@ class Session {
     ///   - firstEventTimestamp: Device created timestamp of the first event of the session
     ///   - userAnonymisation: Whether to anonymise user identifiers
     /// - Returns: a SnowplowPayload containing the session dictionary
-    func getDictWithEventId(_ eventId: String?, eventTimestamp: Int64, userAnonymisation: Bool) -> [String : Any]? {
+    func getAndUpdateSessionForEvent(_ eventId: String?, eventTimestamp: Int64, userAnonymisation: Bool) -> [String : Any]? {
         var context: [String : Any]? = nil
         
         if isSessionCheckerEnabled {
-            if shouldUpdate() {
-                update(eventId: eventId, eventTimestamp: eventTimestamp)
+            if shouldStartNewSession() {
+                startNewSession(eventId: eventId, eventTimestamp: eventTimestamp)
                 if let onSessionStateUpdate = onSessionStateUpdate, let state = state {
                     DispatchQueue.global(qos: .default).async {
                         onSessionStateUpdate(state)
                     }
                 }
+                // only persist session changes
+                if !continueSessionOnRestart { persist() }
             }
-            lastSessionCheck = Utilities.getTimestamp()
         }
         
-        eventIndex += 1
+        state?.updateForNextEvent(isSessionCheckerEnabled: isSessionCheckerEnabled)
+        // persist every session update
+        if continueSessionOnRestart { persist() }
         
         context = state?.sessionContext
-        context?[kSPSessionEventIndex] = NSNumber(value: eventIndex)
 
         if userAnonymisation {
             // mask the user identifier
@@ -180,38 +189,29 @@ class Session {
         return userId
     }
 
-    private func shouldUpdate() -> Bool {
+    private func shouldStartNewSession() -> Bool {
         if isNewSession {
             return true
         }
-        let lastAccess = lastSessionCheck.int64Value
-        let now = Utilities.getTimestamp().int64Value
-        let timeout = inBackground ? backgroundTimeout : foregroundTimeout
-        return now < lastAccess || Int(now - lastAccess) > timeout
+        if let state = state, let lastAccess = state.lastUpdate {
+            let now = Utilities.getTimestamp().int64Value
+            let timeout = inBackground ? backgroundTimeout : foregroundTimeout
+            return now < lastAccess || Int(now - lastAccess) > timeout
+        }
+        return true
     }
 
-    private func update(eventId: String?, eventTimestamp: Int64) {
+    private func startNewSession(eventId: String?, eventTimestamp: Int64) {
         isNewSession = false
-        let sessionIndex = (state?.sessionIndex ?? 0) + 1
-        let eventISOTimestamp = Utilities.timestamp(toISOString: eventTimestamp)
-        state = SessionState(
-            firstEventId: eventId,
-            firstEventTimestamp: eventISOTimestamp,
-            currentSessionId: Utilities.getUUIDString(),
-            previousSessionId: state?.sessionId,
-            sessionIndex: sessionIndex,
-            userId: userId,
-            storage: "LOCAL_STORAGE")
-        var sessionToPersist = state?.sessionContext
-        // Remove previousSessionId if nil because dictionaries with nil values aren't plist serializable
-        // and can't be stored with SPDataPersistence.
-        if state?.previousSessionId == nil {
-            var sessionCopy = sessionToPersist
-            sessionCopy?.removeValue(forKey: kSPSessionPreviousId)
-            sessionToPersist = sessionCopy
+        if let state = state {
+            state.startNewSession(eventId: eventId, eventTimestamp: eventTimestamp)
+        } else {
+            state = SessionState(eventId: eventId, eventTimestamp: eventTimestamp, userId: userId)
         }
-        dataPersistence?.session = sessionToPersist
-        eventIndex = 0
+    }
+    
+    private func persist() {
+        dataPersistence?.session = state?.dataToPersist
     }
     
     // MARK: - background and foreground notifications
