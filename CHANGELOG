@@ -1,3 +1,7 @@
+Version 6.2.1 (2025-04-03)
+--------------------------
+Fix handling NaN and infinite current time in media player stats
+
 Version 6.2.0 (2025-02-11)
 --------------------------
 Add an option to continue previously persisted session when the app restarts rather than starting a new one (#912)
