@@ -44,7 +44,15 @@ extension MediaType {
 @objc(SPMediaPlayer)
 public class MediaPlayerEntity: NSObject {
     /// The current playback time position within the media in seconds
-    public var currentTime: Double?
+    private var _currentTime: Double?
+    public var currentTime: Double? {
+        set {
+            if newValue?.isNaN != true && newValue?.isInfinite != true {
+                _currentTime = newValue
+            }
+        }
+        get { return _currentTime }
+    }
     /// A double-precision floating-point value indicating the duration of the media in seconds
     public var duration: Double?
     /// If playback of the media has ended
@@ -138,6 +146,7 @@ public class MediaPlayerEntity: NSObject {
                 playbackRate: Double? = nil,
                 quality: String? = nil,
                 volume: Int? = nil) {
+        super.init()
         self.currentTime = currentTime
         self.duration = duration
         self.ended = ended
