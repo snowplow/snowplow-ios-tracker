@@ -252,4 +252,25 @@ class TestMediaSessionTrackingStats: XCTestCase {
         XCTAssertEqual(60, stats.timePlayed)
         XCTAssertEqual(31, stats.timeBuffering)
     }
+    
+    func testNaNAndInfCurrentTime() {
+        guard let stats = stats else { return XCTFail() }
+        let mediaPlayer = MediaPlayerEntity(paused: false)
+        
+        stats.update(event: MediaPlayEvent(), player: mediaPlayer)
+        
+        mediaPlayer.currentTime = Double.nan
+        stats.update(event: MediaEndEvent(), player: mediaPlayer)
+        
+        XCTAssertEqual(0, stats.timePlayed)
+        XCTAssertEqual(0, stats.timePlayedMuted)
+        XCTAssertEqual(0, stats.timePaused)
+        
+        mediaPlayer.currentTime = Double.infinity
+        stats.update(event: MediaEndEvent(), player: mediaPlayer)
+
+        XCTAssertEqual(0, stats.timePlayed)
+        XCTAssertEqual(0, stats.timePlayedMuted)
+        XCTAssertEqual(0, stats.timePaused)
+    }
 }
