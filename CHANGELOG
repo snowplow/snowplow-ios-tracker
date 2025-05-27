@@ -1,3 +1,7 @@
+Version 6.2.2 (2025-05-27)
+--------------------------
+Expose WebViewReader event so that it can be tracked externally
+
 Version 6.2.1 (2025-04-03)
 --------------------------
 Fix handling NaN and infinite current time in media player stats

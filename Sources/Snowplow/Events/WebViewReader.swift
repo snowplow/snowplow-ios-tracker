@@ -14,7 +14,7 @@
 import Foundation
 
 /// Allows the tracking of JavaScript events from WebViews.
-class WebViewReader: Event {
+public class WebViewReader: Event {
     let selfDescribingEventData: SelfDescribingJson?
     let eventName: String?
     let trackerVersion: String?
@@ -32,7 +32,7 @@ class WebViewReader: Event {
     let pingYOffsetMin: Int?
     let pingYOffsetMax: Int?
     
-    init(
+    public init(
         selfDescribingEventData: SelfDescribingJson? = nil,
         eventName: String? = nil,
         trackerVersion: String? = nil,
