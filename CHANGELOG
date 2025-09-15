@@ -1,3 +1,7 @@
+Version 6.2.3 (2025-09-15)
+--------------------------
+Declare weak self for callback provided to RemoteConfigurationFetcher (#926)
+
 Version 6.2.2 (2025-05-27)
 --------------------------
 Expose WebViewReader event so that it can be tracked externally
