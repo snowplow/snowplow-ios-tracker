@@ -58,7 +58,9 @@ class RemoteConfigurationProvider {
                 }
             }
         }
-        fetcher = RemoteConfigurationFetcher(remoteSource: remoteConfiguration) { bundle, state in
+        fetcher = RemoteConfigurationFetcher(remoteSource: remoteConfiguration) { [weak self] bundle, state in
+            guard let self else { return }
+
             if !self.schemaCompatibility(bundle.schema) {
                 return
             }
