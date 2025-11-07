@@ -88,14 +88,25 @@ open class SelfDescribingJson: NSObject {
     }
     
     /// Creates a self-describing JSON using data represented as an Encodable struct.
+    /// 
+    /// This convenience initializer allows you to create a SelfDescribingJson from any Encodable type.
+    /// The provided Encodable data is encoded to JSON using the specified JSONEncoder,
+    /// then converted to a dictionary representation for the self-describing JSON structure.
+    /// 
     /// - Parameters:
-    ///   - schema: A valid schema URI.
-    ///   - data: Data represented using an Encodable struct.
-    /// - Returns: A SelfDescribingJson.
-    public convenience init<T: Encodable>(schema: String, andEncodable data: T) throws {
-        let data = try JSONEncoder().encode(data)
+    ///   - schema: A valid schema URI that describes the structure of the data.
+    ///   - encoder: The JSONEncoder to use for encoding the data. Defaults to a new JSONEncoder instance.
+    ///   - data: Data represented using an Encodable struct that will be encoded to JSON.
+    /// - Throws: 
+    ///   - `EncodingError` if the data cannot be encoded by the JSONEncoder.
+    ///   - `PayloadError.jsonSerializationToDictionaryFailed` if the encoded JSON cannot be converted to a dictionary.
+    /// - Returns: A SelfDescribingJson containing the encoded data.
+    public convenience init<T: Encodable>(schema: String, encoder: JSONEncoder = JSONEncoder(), andEncodable data: T) throws {
+        let data = try encoder.encode(data)
         let jsonObject = try JSONSerialization.jsonObject(with: data)
-        let dict = jsonObject as! [String: Any]
+        guard let dict = jsonObject as? [String: Any] else {
+            throw PayloadError.jsonSerializationToDictionaryFailed
+        }
         
         self.init(schema: schema, andData: dict)
     }

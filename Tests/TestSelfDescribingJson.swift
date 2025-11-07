@@ -193,4 +193,159 @@ class TestSelfDescribingJson: XCTestCase {
         XCTAssertEqual(NSDictionary(dictionary: expected),
                        NSDictionary(dictionary: sdj.dictionary))
     }
+    
+    // MARK: - Encodable Serialization Tests
+    
+    func testInitWithEncodableAndCustomEncoder() {
+        struct Product: Encodable {
+            var name: String
+            var price: Double
+            var createdAt: Date
+        }
+        
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
+        
+        let product = Product(
+            name: "Test Product",
+            price: 29.99,
+            createdAt: Date(timeIntervalSince1970: 1640995200) // 2022-01-01T00:00:00Z
+        )
+        
+        let json = try? SelfDescribingJson(
+            schema: "iglu:acme.com/product/jsonschema/1-0-0",
+            encoder: encoder,
+            andEncodable: product
+        )
+        
+        XCTAssertNotNil(json)
+        XCTAssertEqual(json?.schema, "iglu:acme.com/product/jsonschema/1-0-0")
+        XCTAssertEqual(json?.data["name"] as? String, "Test Product")
+        XCTAssertEqual(json?.data["price"] as? Double, 29.99)
+        XCTAssertEqual(json?.data["createdAt"] as? String, "2022-01-01T00:00:00Z")
+    }
+    
+    func testInitWithEncodableArrayThrowsError() {
+        struct SimpleArray: Encodable {
+            var items: [String]
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.unkeyedContainer()
+                for item in items {
+                    try container.encode(item)
+                }
+            }
+        }
+        
+        let arrayData = SimpleArray(items: ["item1", "item2", "item3"])
+        
+        XCTAssertThrowsError(
+            try SelfDescribingJson(
+                schema: "iglu:acme.com/array_test/jsonschema/1-0-0",
+                andEncodable: arrayData
+            )
+        ) { error in
+            XCTAssertTrue(error is PayloadError)
+            if case PayloadError.jsonSerializationToDictionaryFailed = error {
+                // Expected error type
+            } else {
+                XCTFail("Expected PayloadError.jsonSerializationToDictionaryFailed")
+            }
+        }
+    }
+    
+    func testInitWithEncodablePrimitiveThrowsError() {
+        struct PrimitiveWrapper: Encodable {
+            var value: String
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                try container.encode(value)
+            }
+        }
+        
+        let primitiveData = PrimitiveWrapper(value: "just a string")
+        
+        XCTAssertThrowsError(
+            try SelfDescribingJson(
+                schema: "iglu:acme.com/primitive_test/jsonschema/1-0-0",
+                andEncodable: primitiveData
+            )
+        ) { error in
+            XCTAssertTrue(error is PayloadError)
+            if case PayloadError.jsonSerializationToDictionaryFailed = error {
+                // Expected error type
+            } else {
+                XCTFail("Expected PayloadError.jsonSerializationToDictionaryFailed")
+            }
+        }
+    }
+    
+    func testInitWithUncodableDataThrowsEncodingError() {
+        struct BadEncodable: Encodable {
+            let invalidData: Any = { print("This is a closure that cannot be encoded") }
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                // This will throw because closures cannot be encoded
+                try container.encode(String(describing: invalidData), forKey: .invalidData)
+                throw EncodingError.invalidValue(
+                    invalidData,
+                    EncodingError.Context(
+                        codingPath: [],
+                        debugDescription: "Cannot encode closure"
+                    )
+                )
+            }
+            
+            enum CodingKeys: String, CodingKey {
+                case invalidData
+            }
+        }
+        
+        let badData = BadEncodable()
+        
+        XCTAssertThrowsError(
+            try SelfDescribingJson(
+                schema: "iglu:acme.com/bad_data/jsonschema/1-0-0",
+                andEncodable: badData
+            )
+        ) { error in
+            XCTAssertTrue(error is EncodingError)
+        }
+    }
+    
+    func testInitWithEncodableOptionalFields() {
+        struct UserProfile: Encodable {
+            var id: Int
+            var username: String
+            var email: String?
+            var fullName: String?
+            var avatarURL: String?
+            var preferences: [String: String]?
+        }
+        
+        let profile = UserProfile(
+            id: 456,
+            username: "testuser",
+            email: nil, // This should be omitted from JSON
+            fullName: "Test User",
+            avatarURL: nil, // This should be omitted from JSON
+            preferences: ["theme": "dark", "language": "en"]
+        )
+        
+        let json = try? SelfDescribingJson(
+            schema: "iglu:acme.com/user_profile/jsonschema/1-0-0",
+            andEncodable: profile
+        )
+        
+        XCTAssertNotNil(json)
+        XCTAssertEqual(json?.data["id"] as? Int, 456)
+        XCTAssertEqual(json?.data["username"] as? String, "testuser")
+        XCTAssertEqual(json?.data["fullName"] as? String, "Test User")
+        
+        // Optional nil fields should not be present in the dictionary
+        XCTAssertFalse(json?.data.keys.contains("email") ?? true)
+        XCTAssertFalse(json?.data.keys.contains("avatarURL") ?? true)
+    }
 }
