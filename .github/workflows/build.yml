@@ -25,11 +25,11 @@ jobs:
       matrix:
         include:
           - name: "Integration (iOS, Xcode 16.4)"
-            destination: "platform=iOS Simulator,name=iPhone 16,OS=18.5"
+            destination: "platform=iOS Simulator,name=iPhone 16"
             target: IntegrationTests
 
           - name: "Unit (iOS, Xcode 16.4)"
-            destination: "platform=iOS Simulator,name=iPhone 16,OS=18.5"
+            destination: "platform=iOS Simulator,name=iPhone 16"
             target: Tests
 
           - name: "Unit (macOS, Xcode 16.4)"
@@ -37,11 +37,11 @@ jobs:
             target: Tests
 
           - name: "Unit (watchOS, Xcode 16.4)"
-            destination: "platform=watchOS Simulator,name=Apple Watch Series 10 (46mm),OS=11.5"
+            destination: "platform=watchOS Simulator,name=Apple Watch Series 10 (46mm)"
             target: Tests
 
           - name: "Unit (tvOS, Xcode 16.4)"
-            destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation),OS=18.5"
+            destination: "platform=tvOS Simulator,name=Apple TV 4K (3rd generation)"
             target: Tests
 
     steps:
