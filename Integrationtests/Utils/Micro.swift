@@ -89,33 +89,43 @@ class Micro {
     
     class func expectEventContext<T: Codable>(schema: String,
                                               completion: @escaping (T)->()) -> XCTestExpectation {
-        return expectEvent() { (event: WithContextResponse<T>) in
-            if let entity = event.contexts.data.filter({ $0.schema == schema }).map({ $0.data! }).first {
-                completion(entity)
-            } else {
-                XCTFail("Failed to find the context entity in response")
-            }
-        }
+        return expectEvent(match: { (event: WithContextResponse<T>) in
+            return event.contexts.data.filter({ $0.schema == schema }).compactMap({ $0.data }).first
+        }, completion: completion)
     }
-    
+
     private class func expectEvent<T: Codable>(expectation: XCTestExpectation? = nil,
                                                numberOfRetries: Int = 0,
                                                completion: @escaping (T)->()) -> XCTestExpectation {
+        return expectEvent(expectation: expectation,
+                           numberOfRetries: numberOfRetries,
+                           match: { (decoded: T) in decoded },
+                           completion: completion)
+    }
+
+    /// Poll `/micro/good` until some event in the response decodes into `Source` AND the
+    /// provided `match` closure extracts a non-nil `Result` from it. This lets callers
+    /// distinguish "no matching event yet" from "a matching event, but with wrong data",
+    /// without failing the test on the first non-matching event.
+    private class func expectEvent<Source: Codable, Result>(expectation: XCTestExpectation? = nil,
+                                                            numberOfRetries: Int = 0,
+                                                            match: @escaping (Source)->Result?,
+                                                            completion: @escaping (Result)->()) -> XCTestExpectation {
         let expectation = expectation ?? XCTestExpectation(description: "Expected event")
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + retryDelay) {
             let url = URLRequest(url: URL(string: "\(endpoint)/micro/good")!)
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
                     XCTFail("Failed to request Micro: \(error).")
                 } else if let data = data {
-                    if let items = try? JSONDecoder().decode([GoodResponse<T>].self, from: data),
-                       let item = items.first {
-                        completion(item.event)
+                    if let matched = findMatch(in: data, match: match) {
+                        completion(matched)
                         expectation.fulfill()
                     } else if numberOfRetries < maxNumberOfRetries {
                         _ = expectEvent(expectation: expectation,
                                         numberOfRetries: numberOfRetries + 1,
+                                        match: match,
                                         completion: completion)
                     } else {
                         XCTFail("Didn't find the expected event in Micro, actual: \(String(data: data, encoding: .utf8)!)")
@@ -127,6 +137,24 @@ class Micro {
             task.resume()
         }
         return expectation
+    }
+
+    private class func findMatch<Source: Codable, Result>(in data: Data,
+                                                          match: (Source)->Result?) -> Result? {
+        guard let array = try? JSONSerialization.jsonObject(with: data) as? [Any] else {
+            return nil
+        }
+        let decoder = JSONDecoder()
+        for element in array {
+            guard let elementData = try? JSONSerialization.data(withJSONObject: element),
+                  let decoded = try? decoder.decode(GoodResponse<Source>.self, from: elementData) else {
+                continue
+            }
+            if let result = match(decoded.event) {
+                return result
+            }
+        }
+        return nil
     }
 }
 
