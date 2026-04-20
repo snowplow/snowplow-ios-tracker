@@ -26,7 +26,7 @@ import Mocker
 class TestFocalMeterConfiguration: XCTestCase {
     let endpoint = "https://fake-snowplow.io"
     
-#if !os(watchOS) && !os(macOS) // Mocker seems not to currently work on watchOS and macOS
+#if !os(watchOS) && !os(macOS) && !os(tvOS) // Mocker seems not to currently work on watchOS, macOS and tvOS
     
     override class func setUp() {
         Mocker.removeAll()

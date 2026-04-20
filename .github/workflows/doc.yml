@@ -6,13 +6,14 @@ on:
 
 jobs:
   docs:
-    runs-on: macos-latest
+    runs-on: macos-15
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Set up Swift
-        uses: swift-actions/setup-swift@v1
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.4"
 
       - name: Generate documentation
         run: |
@@ -21,10 +22,10 @@ jobs:
       - name: Redirect from the index page
         run: |
           echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url='https://snowplow.github.io/snowplow-ios-tracker/documentation/snowplowtracker/'" /></head><body></body></html>' > docs/index.html
-    
+
       - name: Deploy to GitHub Pages
         if: success()
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./docs
