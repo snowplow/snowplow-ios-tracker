@@ -42,8 +42,15 @@ class TestTrackEventsToMicro: XCTestCase {
     }
 
     override func tearDown() {
+        // Flush anything still buffered, then shut the tracker down so background
+        // timers and SQLite stores stop emitting. Give a brief pause for in-flight
+        // network requests to drain into Micro before the next test's setUp
+        // resets Micro's state — otherwise late arrivals would contaminate the
+        // next test and wedge `Micro.reset()`'s stability check.
+        tracker?.emitter?.flush()
         Snowplow.removeAllTrackers()
         tracker = nil
+        Thread.sleep(forTimeInterval: 1.0)
         super.tearDown()
     }
     
