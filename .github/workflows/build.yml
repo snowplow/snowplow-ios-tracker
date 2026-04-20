@@ -25,11 +25,11 @@ jobs:
       matrix:
         include:
           - name: "Integration (iOS, Xcode 16.4)"
-            destination: "platform=iOS Simulator,name=iPhone 16"
+            destination: "platform=iOS Simulator,name=iPhone 16,OS=18.5"
             target: IntegrationTests
 
           - name: "Unit (iOS, Xcode 16.4)"
-            destination: "platform=iOS Simulator,name=iPhone 16"
+            destination: "platform=iOS Simulator,name=iPhone 16,OS=18.5"
             target: Tests
 
           - name: "Unit (macOS, Xcode 16.4)"
@@ -73,6 +73,13 @@ jobs:
       - uses: maxim-lobanov/setup-xcode@v1
         with:
           xcode-version: "16.4"
+
+      # Xcode 16.4 ships with iOS 18.5, but some macos-15 runner images have
+      # the runtime trimmed. Install it on demand so the iPhone 16 / iOS 18.5
+      # simulator destination is available.
+      - name: Install iOS 18.5 simulator runtime
+        if: matrix.destination != 'platform=macOS' && contains(matrix.destination, 'iOS Simulator')
+        run: xcodebuild -downloadPlatform iOS -buildVersion 18.5 || true
 
       - name: Build & Test
         run: |
