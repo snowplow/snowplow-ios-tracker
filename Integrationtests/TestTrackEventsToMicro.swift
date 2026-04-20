@@ -19,19 +19,39 @@ import AVKit
 
 class TestTrackEventsToMicro: XCTestCase {
     var tracker: TrackerController?
-    
+
     override func setUp() {
         super.setUp()
-        
+
+        // Remove any trackers left over from previous tests so their background
+        // timers and SQLite event stores stop emitting into Micro.
+        Snowplow.removeAllTrackers()
+
+        wait(for: [Micro.reset()], timeout: Micro.timeout)
+
         let trackerConfig = TrackerConfiguration()
             .screenEngagementAutotracking(false)
+            .installAutotracking(false)
+            .lifecycleAutotracking(false)
+            .exceptionAutotracking(false)
             .logLevel(.debug)
 
         tracker = Snowplow.createTracker(namespace: "testMicro-" + UUID().uuidString,
                                          network: NetworkConfiguration(endpoint: Micro.endpoint),
                                          configurations: [trackerConfig])
+    }
 
-        wait(for: [Micro.reset()], timeout: Micro.timeout)
+    override func tearDown() {
+        // Flush anything still buffered, then shut the tracker down so background
+        // timers and SQLite stores stop emitting. Give a brief pause for in-flight
+        // network requests to drain into Micro before the next test's setUp
+        // resets Micro's state — otherwise late arrivals would contaminate the
+        // next test and wedge `Micro.reset()`'s stability check.
+        tracker?.emitter?.flush()
+        Snowplow.removeAllTrackers()
+        tracker = nil
+        Thread.sleep(forTimeInterval: 1.0)
+        super.tearDown()
     }
     
     func testTrackStructuredEvent() {

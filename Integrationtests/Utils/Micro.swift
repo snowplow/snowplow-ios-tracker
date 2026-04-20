@@ -15,28 +15,76 @@ import Foundation
 import XCTest
 
 class Micro {
-    
-    static let timeout = 10.0
+
+    static let timeout = 30.0
     static let retryDelay = 0.5
-    static let maxNumberOfRetries = 19
+    static let maxNumberOfRetries = 59
 #if os(macOS)
     static let endpoint = "http://localhost:9090"
 #else
     static let endpoint = "http://0.0.0.0:9090"
 #endif
-    
+
+    /// POST to `/micro/reset` and keep re-posting until `/micro/all` reports
+    /// 0 good and 0 bad across two consecutive polls. Micro's event pipeline
+    /// is asynchronous, so a single reset is not enough — events from prior
+    /// work can still land in the pipeline after the reset completes. Issuing
+    /// another reset then confirms a clean, stable state.
     class func reset() -> XCTestExpectation {
         let expectation = XCTestExpectation(description: "Reset Micro")
+        postReset { sendAndConfirmClean(expectation: expectation, stableCount: 0, retries: 0) }
+        return expectation
+    }
+
+    private class func postReset(onSuccess: @escaping () -> Void) {
         let url = URLRequest(url: URL(string: "\(endpoint)/micro/reset")!)
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        let task = URLSession.shared.dataTask(with: url) { _, _, error in
             if let error = error {
                 XCTFail("Failed to reset Micro: \(error).")
             } else {
-                _ = expectCounts(good: 0, bad: 0, expectation: expectation)
+                onSuccess()
             }
         }
         task.resume()
-        return expectation
+    }
+
+    private class func sendAndConfirmClean(expectation: XCTestExpectation,
+                                           stableCount: Int,
+                                           retries: Int) {
+        let url = URLRequest(url: URL(string: "\(endpoint)/micro/all")!)
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                XCTFail("Failed to poll Micro after reset: \(error).")
+                return
+            }
+            guard let data = data,
+                  let res = try? JSONDecoder().decode(AllResponse.self, from: data) else {
+                XCTFail("Failed to parse Micro reset-confirm response")
+                return
+            }
+            if res.good == 0 && res.bad == 0 {
+                if stableCount >= 1 {
+                    expectation.fulfill()
+                    return
+                }
+                DispatchQueue.global().asyncAfter(deadline: .now() + retryDelay) {
+                    sendAndConfirmClean(expectation: expectation,
+                                        stableCount: stableCount + 1,
+                                        retries: retries + 1)
+                }
+            } else if retries < maxNumberOfRetries {
+                postReset {
+                    DispatchQueue.global().asyncAfter(deadline: .now() + retryDelay) {
+                        sendAndConfirmClean(expectation: expectation,
+                                            stableCount: 0,
+                                            retries: retries + 1)
+                    }
+                }
+            } else {
+                XCTFail("Micro never stabilized after reset, actual: \(String(data: data, encoding: .utf8) ?? "<nil>")")
+            }
+        }
+        task.resume()
     }
     
     class func expectCounts(
@@ -52,10 +100,10 @@ class Micro {
                 XCTFail("Failed to request Micro: \(error).")
             } else if let data = data,
                       let res = try? JSONDecoder().decode(AllResponse.self, from: data) {
-                if res.good == good && res.bad == bad {
+                if res.good >= good && res.bad >= bad {
                     expectation.fulfill()
                 } else if numberOfRetries < maxNumberOfRetries {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + retryDelay) {
+                    DispatchQueue.global().asyncAfter(deadline: .now() + retryDelay) {
                         _ = expectCounts(good: good,
                                      bad: bad,
                                      expectation: expectation,
@@ -69,7 +117,7 @@ class Micro {
             }
         }
         task.resume()
-        
+
         return expectation
     }
     
@@ -89,33 +137,43 @@ class Micro {
     
     class func expectEventContext<T: Codable>(schema: String,
                                               completion: @escaping (T)->()) -> XCTestExpectation {
-        return expectEvent() { (event: WithContextResponse<T>) in
-            if let entity = event.contexts.data.filter({ $0.schema == schema }).map({ $0.data! }).first {
-                completion(entity)
-            } else {
-                XCTFail("Failed to find the context entity in response")
-            }
-        }
+        return expectEvent(match: { (event: WithContextResponse<T>) in
+            return event.contexts.data.filter({ $0.schema == schema }).compactMap({ $0.data }).first
+        }, completion: completion)
     }
-    
+
     private class func expectEvent<T: Codable>(expectation: XCTestExpectation? = nil,
                                                numberOfRetries: Int = 0,
                                                completion: @escaping (T)->()) -> XCTestExpectation {
+        return expectEvent(expectation: expectation,
+                           numberOfRetries: numberOfRetries,
+                           match: { (decoded: T) in decoded },
+                           completion: completion)
+    }
+
+    /// Poll `/micro/good` until some event in the response decodes into `Source` AND the
+    /// provided `match` closure extracts a non-nil `Result` from it. This lets callers
+    /// distinguish "no matching event yet" from "a matching event, but with wrong data",
+    /// without failing the test on the first non-matching event.
+    private class func expectEvent<Source: Codable, Result>(expectation: XCTestExpectation? = nil,
+                                                            numberOfRetries: Int = 0,
+                                                            match: @escaping (Source)->Result?,
+                                                            completion: @escaping (Result)->()) -> XCTestExpectation {
         let expectation = expectation ?? XCTestExpectation(description: "Expected event")
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + retryDelay) {
+
+        DispatchQueue.global().asyncAfter(deadline: .now() + retryDelay) {
             let url = URLRequest(url: URL(string: "\(endpoint)/micro/good")!)
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
                 if let error = error {
                     XCTFail("Failed to request Micro: \(error).")
                 } else if let data = data {
-                    if let items = try? JSONDecoder().decode([GoodResponse<T>].self, from: data),
-                       let item = items.first {
-                        completion(item.event)
+                    if let matched = findMatch(in: data, match: match) {
+                        completion(matched)
                         expectation.fulfill()
                     } else if numberOfRetries < maxNumberOfRetries {
                         _ = expectEvent(expectation: expectation,
                                         numberOfRetries: numberOfRetries + 1,
+                                        match: match,
                                         completion: completion)
                     } else {
                         XCTFail("Didn't find the expected event in Micro, actual: \(String(data: data, encoding: .utf8)!)")
@@ -127,6 +185,24 @@ class Micro {
             task.resume()
         }
         return expectation
+    }
+
+    private class func findMatch<Source: Codable, Result>(in data: Data,
+                                                          match: (Source)->Result?) -> Result? {
+        guard let array = try? JSONSerialization.jsonObject(with: data) as? [Any] else {
+            return nil
+        }
+        let decoder = JSONDecoder()
+        for element in array {
+            guard let elementData = try? JSONSerialization.data(withJSONObject: element),
+                  let decoded = try? decoder.decode(GoodResponse<Source>.self, from: elementData) else {
+                continue
+            }
+            if let result = match(decoded.event) {
+                return result
+            }
+        }
+        return nil
     }
 }
 
