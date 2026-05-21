@@ -73,6 +73,19 @@ class TestMediaEventAndEntitySerialization: XCTestCase {
         XCTAssertEqual("1080p", entity.data["quality"] as? String)
     }
     
+    func testStripsEmptyStringValuesFromMediaPlayer() {
+        let entity = MediaPlayerEntity(
+            label: "",
+            playerType: "",
+            quality: ""
+        ).entity
+
+        XCTAssertEqual(mediaPlayerSchema, entity.schema)
+        XCTAssertFalse(entity.data.keys.contains("label"))
+        XCTAssertFalse(entity.data.keys.contains("playerType"))
+        XCTAssertFalse(entity.data.keys.contains("quality"))
+    }
+
     func testBuildsMediaSessionEntity() {
         let date = Date()
         let timeTraveler = TimeTraveler()
