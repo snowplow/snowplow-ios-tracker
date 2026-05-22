@@ -98,15 +98,15 @@ public class MediaPlayerEntity: NSObject {
         ]
         if let fullscreen = fullscreen { data["fullscreen"] = fullscreen }
         if let livestream = livestream { data["livestream"] = livestream }
-        if let label = label { data["label"] = label }
+        if let label = label, !label.isEmpty { data["label"] = label }
         if let duration = duration { data["duration"] = duration }
         if let mediaType = mediaType { data["mediaType"] = mediaType.value }
         if let loop = loop { data["loop"] = loop }
         if let muted = muted { data["muted"] = muted }
         if let pictureInPicture = pictureInPicture { data["pictureInPicture"] = pictureInPicture }
-        if let playerType = playerType { data["playerType"] = playerType }
+        if let playerType = playerType, !playerType.isEmpty { data["playerType"] = playerType }
         if let playbackRate = playbackRate { data["playbackRate"] = playbackRate }
-        if let quality = quality { data["quality"] = quality }
+        if let quality = quality, !quality.isEmpty { data["quality"] = quality }
         if let volume = volume { data["volume"] = volume }
         
         return SelfDescribingJson(schema: MediaSchemata.playerSchema, andData: data)

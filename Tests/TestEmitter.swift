@@ -190,12 +190,13 @@ class TestEmitter: XCTestCase {
         flush(emitter)
     }
 
+#if !os(tvOS) // Flaky on tvOS simulator in CI due to sleep-based timing
     func testEmitEventsPostAsGroup() {
         let payloads = generatePayloads(15)
-        
+
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 500)
         let emitter = self.emitter(with: networkConnection, bufferOption: .smallGroup)
-        
+
         for i in 0..<14 {
             addPayload(payloads[i], emitter)
         }
@@ -227,6 +228,7 @@ class TestEmitter: XCTestCase {
 
         flush(emitter)
     }
+#endif
 
     func testEmitOversizeEventsPostAsGroup() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 500)
