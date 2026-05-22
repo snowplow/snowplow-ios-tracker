@@ -1,0 +1,88 @@
+name: Publish release
+
+# Triggered by pushing a version tag (e.g. `6.2.4`) to the repo, which happens
+# after the corresponding Release/X.Y.Z PR has been merged into master.
+#
+# One-time setup:
+#   1. A maintainer registers the publishing identity with CocoaPods trunk
+#      (`pod trunk register support@snowplow.io 'Snowplow Analytics Ltd'`),
+#      confirms via the emailed link, and copies the token from ~/.netrc.
+#   2. The token is added to the repository as the `COCOAPODS_TRUNK_TOKEN`
+#      secret. `GITHUB_TOKEN` (auto-provided) is used to create the release.
+
+on:
+  push:
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    name: Publish ${{ github.ref_name }}
+    runs-on: macos-15
+    env:
+      VERSION: ${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.4"
+
+      - name: Verify podspec version matches tag
+        run: |
+          set -euo pipefail
+          podspec_version="$(grep -E 's\.version[[:space:]]*=' SnowplowTracker.podspec \
+            | head -1 | sed -E 's/.*"([0-9]+\.[0-9]+\.[0-9]+)".*/\1/')"
+          if [[ "$podspec_version" != "$VERSION" ]]; then
+            echo "::error::Tag $VERSION does not match SnowplowTracker.podspec version $podspec_version"
+            exit 1
+          fi
+          file_version="$(cat VERSION)"
+          if [[ "$file_version" != "$VERSION" ]]; then
+            echo "::error::Tag $VERSION does not match VERSION file ($file_version)"
+            exit 1
+          fi
+
+      - name: Lint podspec
+        run: pod lib lint --allow-warnings
+
+      - name: Publish to CocoaPods trunk
+        env:
+          COCOAPODS_TRUNK_TOKEN: ${{ secrets.COCOAPODS_TRUNK_TOKEN }}
+        run: pod trunk push SnowplowTracker.podspec --allow-warnings
+
+      - name: Extract CHANGELOG entry for this version
+        id: changelog
+        run: |
+          set -euo pipefail
+          # Pull the section for this version: from `Version X.Y.Z (...)` up to
+          # (but not including) the next `Version ` header.
+          awk -v ver="$VERSION" '
+            $0 ~ "^Version " ver " " { found=1; next }
+            found && /^Version / { exit }
+            found && /^-+$/ { next }
+            found { print }
+          ' CHANGELOG > release-notes.md
+          if [[ ! -s release-notes.md ]]; then
+            echo "::warning::No CHANGELOG entry found for $VERSION; release notes will be empty"
+          fi
+          echo "=== Release notes ==="
+          cat release-notes.md
+          echo "====================="
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            echo "Release $VERSION already exists; updating notes."
+            gh release edit "$VERSION" --notes-file release-notes.md
+          else
+            gh release create "$VERSION" \
+              --title "$VERSION" \
+              --notes-file release-notes.md
+          fi
