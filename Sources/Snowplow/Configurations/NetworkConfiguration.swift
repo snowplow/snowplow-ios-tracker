@@ -40,6 +40,14 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
         set { _protocol = newValue }
     }
     
+    private var _protocolClasses: [AnyClass]?
+    /// Array of `NSURLProtocol` in order to supply to `DefaultNetworkConnection`.
+    @objc
+    private(set) public var protocolClasses: [AnyClass]? {
+        get { return _protocolClasses ?? sourceConfig?.protocolClasses }
+        set { _protocolClasses = newValue }
+    }
+
     private var _networkConnection: NetworkConnection?
     /// See `NetworkConfiguration(NetworkConnection)`
     @objc
@@ -144,6 +152,13 @@ public class NetworkConfiguration: SerializableConfiguration, ConfigurationProto
     @objc
     public func timeout(_ timeout: TimeInterval) -> Self {
         self.timeout = timeout
+        return self
+    }
+    
+    /// Array of `NSURLProtocol` in order to supply to `DefaultNetworkConnection`.
+    @objc
+    public func protocolClasses(_ protocolClasses: [AnyClass]?) -> Self {
+        self.protocolClasses = protocolClasses
         return self
     }
 
