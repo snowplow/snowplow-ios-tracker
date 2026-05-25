@@ -19,6 +19,15 @@ public typealias PluginAfterTrackClosure = (InspectableEvent) -> Void
 public typealias PluginEntitiesClosure = (InspectableEvent) -> [SelfDescribingJson]
 /// Closure used in plugin callbacks to decide whether to track the given event or not.
 public typealias PluginFilterClosure = (InspectableEvent) -> Bool
+/// Closure used in before track plugin callbacks to add or overwrite payload values on an event before it is sent to the emitter.
+///
+/// The returned dictionary is merged into the event's payload using overwrite/add semantics: existing keys are replaced, new keys are added.
+/// Returning `nil` is a no-op for the event. Key removal is not supported in v1.
+///
+/// Keys must use raw tracker key names as they appear on the event payload (e.g. `url`, `se_ca`), not final collector field names.
+///
+/// In v1, this closure only fires for self-describing events (events inheriting from `SelfDescribingAbstract`).
+public typealias PluginBeforeTrackClosure = (InspectableEvent) -> [String: Any]?
 
 /// Provides a block closure to be called after events are tracked.
 /// Optionally, you can specify the event schemas for which the block should be called.
@@ -58,6 +67,30 @@ public class PluginEntitiesConfiguration: NSObject {
     }
 
     func toTuple() -> (schemas: [String]?, closure: PluginEntitiesClosure)? {
+        return (schemas: schemas, closure: closure)
+    }
+}
+
+/// Provides a block closure to be called before events are tracked to add or overwrite payload values.
+/// Optionally, you can specify the event schemas for which the block should be called.
+///
+/// The closure runs on the tracker's internal queue. A blocking call inside the closure will stall tracking for all events.
+///
+/// Swift-only: this type is not bridged to Objective-C because the closure signature returns a Swift dictionary value.
+public class PluginBeforeTrackConfiguration {
+    var schemas: [String]?
+    var closure: PluginBeforeTrackClosure
+
+    /// Create the before track closure configuration.
+    /// - Parameters:
+    ///    - schemas: Optional list of event schemas to call the block for. If `nil`, the block is called for all events.
+    ///    - closure: Block to call before events are tracked. Return a dictionary of payload values to merge into the event payload, or `nil` for no-op.
+    public init(schemas: [String]? = nil, closure: @escaping PluginBeforeTrackClosure) {
+        self.schemas = schemas
+        self.closure = closure
+    }
+
+    func toTuple() -> (schemas: [String]?, closure: PluginBeforeTrackClosure)? {
         return (schemas: schemas, closure: closure)
     }
 }
@@ -106,11 +139,16 @@ extension PluginIdentifiable {
         if let filterCallable = self as? PluginFilterCallable {
             filterConfiguration = filterCallable.filterConfiguration
         }
+        var beforeTrackConfiguration: PluginBeforeTrackConfiguration?
+        if let beforeTrackCallable = self as? PluginBeforeTrackCallable {
+            beforeTrackConfiguration = beforeTrackCallable.beforeTrackConfiguration
+        }
         return PluginStateMachine(
             identifier: identifier,
             entitiesConfiguration: entitiesConfiguration?.toTuple(),
             afterTrackConfiguration: afterTrackConfiguration?.toTuple(),
-            filterConfiguration: filterConfiguration?.toTuple())
+            filterConfiguration: filterConfiguration?.toTuple(),
+            beforeTrackConfiguration: beforeTrackConfiguration?.toTuple())
     }
 }
 
@@ -135,6 +173,14 @@ public protocol PluginFilterCallable {
     var filterConfiguration: PluginFilterConfiguration? { get }
 }
 
+/// Protocol for a plugin that provides a closure to add or overwrite payload values on an event before it is sent to the emitter.
+///
+/// Swift-only protocol: `PluginBeforeTrackConfiguration` cannot be expressed in Objective-C.
+public protocol PluginBeforeTrackCallable {
+    /// Closure configuration that is called before events are tracked to modify the event payload.
+    var beforeTrackConfiguration: PluginBeforeTrackConfiguration? { get }
+}
+
 /// Protocol for tracker plugin definition.
 /// Specifies configurations for the closures called when and after events are tracked.
 @available(*, deprecated, message: "Use PluginIdentifiable, PluginAfterTrackCallable and PluginEntitiesCallable protocols instead")
@@ -145,7 +191,7 @@ public protocol PluginConfigurationProtocol : PluginIdentifiable, PluginAfterTra
 /// Configuration for a custom tracker plugin.
 /// Enables you to add closures to be called when and after events are tracked in the tracker.
 @objc(SPPluginConfiguration)
-public class PluginConfiguration: NSObject, PluginIdentifiable, PluginAfterTrackCallable, PluginEntitiesCallable, PluginFilterCallable, ConfigurationProtocol {
+public class PluginConfiguration: NSObject, PluginIdentifiable, PluginAfterTrackCallable, PluginEntitiesCallable, PluginFilterCallable, PluginBeforeTrackCallable, ConfigurationProtocol {
     /// Unique identifier of the plugin within the tracker.
     public private(set) var identifier: String
     /// Closure configuration that is called after events are tracked.
@@ -156,6 +202,9 @@ public class PluginConfiguration: NSObject, PluginIdentifiable, PluginAfterTrack
     public private(set) var entitiesConfiguration: PluginEntitiesConfiguration?
     /// Closure configuration that is called to decide whether to track a given event or not.
     public private(set) var filterConfiguration: PluginFilterConfiguration?
+    /// Closure configuration that is called before events are tracked to add or overwrite payload values.
+    /// Read-only, use `beforeTrack(schemas:closure:)` to initialize.
+    public private(set) var beforeTrackConfiguration: PluginBeforeTrackConfiguration?
 
     /// Create a plugin configuration.
     /// - Parameters:
@@ -197,6 +246,29 @@ public class PluginConfiguration: NSObject, PluginIdentifiable, PluginAfterTrack
     ///   - closure: Closure block that returns true if the event should be tracked and false otherwise.
     public func filter(schemas: [String]? = nil, closure: @escaping PluginFilterClosure) -> Self {
         self.filterConfiguration = PluginFilterConfiguration(
+            schemas: schemas,
+            closure: closure
+        )
+        return self
+    }
+
+    /// Add a closure that is called before the event is sent to the emitter to add or overwrite payload values.
+    ///
+    /// The returned dictionary is merged into the event payload using overwrite/add semantics: existing keys are
+    /// replaced, new keys are added. Returning `nil` is a no-op for the event. Key removal is not supported in v1.
+    ///
+    /// Keys must use raw tracker key names as they appear on the event payload, not final collector field names.
+    ///
+    /// In v1, this closure only fires for self-describing events (events inheriting from `SelfDescribingAbstract`).
+    /// The closure runs on the tracker's internal queue, so a blocking call inside it will stall tracking for all events.
+    ///
+    /// Swift-only: this builder is not bridged to Objective-C because the closure returns a Swift dictionary value.
+    ///
+    /// - Parameters:
+    ///   - schemas: Optional list of event schemas to call the closure for. If `nil`, the closure is called for all events.
+    ///   - closure: Closure that returns a dictionary of payload values to merge into the event payload, or `nil` for no-op.
+    public func beforeTrack(schemas: [String]? = nil, closure: @escaping PluginBeforeTrackClosure) -> Self {
+        self.beforeTrackConfiguration = PluginBeforeTrackConfiguration(
             schemas: schemas,
             closure: closure
         )

@@ -16,23 +16,27 @@ import Foundation
 typealias EntitiesConfiguration = (schemas: [String]?, closure: (InspectableEvent) -> ([SelfDescribingJson]))
 typealias AfterTrackConfiguration = (schemas: [String]?, closure: (InspectableEvent) -> ())
 typealias FilterConfiguration = (schemas: [String]?, closure: (InspectableEvent) -> Bool)
+typealias BeforeTrackConfiguration = (schemas: [String]?, closure: (InspectableEvent) -> [String: Any]?)
 
 class PluginStateMachine: StateMachineProtocol {
     var identifier: String
     private var entitiesConfiguration: EntitiesConfiguration?
     private var afterTrackConfiguration: AfterTrackConfiguration?
     private var filterConfiguration: FilterConfiguration?
+    private var beforeTrackConfiguration: BeforeTrackConfiguration?
 
     init(
         identifier: String,
         entitiesConfiguration: EntitiesConfiguration?,
         afterTrackConfiguration: AfterTrackConfiguration?,
-        filterConfiguration: FilterConfiguration?
+        filterConfiguration: FilterConfiguration?,
+        beforeTrackConfiguration: BeforeTrackConfiguration? = nil
     ) {
         self.identifier = identifier
         self.entitiesConfiguration = entitiesConfiguration
         self.afterTrackConfiguration = afterTrackConfiguration
         self.filterConfiguration = filterConfiguration
+        self.beforeTrackConfiguration = beforeTrackConfiguration
     }
 
     var subscribedEventSchemasForEventsBefore: [String] {
@@ -70,10 +74,20 @@ class PluginStateMachine: StateMachineProtocol {
     }
 
     var subscribedEventSchemasForPayloadUpdating: [String] {
+        if let beforeTrackConfiguration = beforeTrackConfiguration {
+            if let schemas = beforeTrackConfiguration.schemas {
+                return schemas
+            } else {
+                return ["*"]
+            }
+        }
         return []
     }
 
     func payloadValues(from event: InspectableEvent, state: State?) -> [String : Any]? {
+        if let beforeTrackConfiguration = beforeTrackConfiguration {
+            return beforeTrackConfiguration.closure(event)
+        }
         return nil
     }
 

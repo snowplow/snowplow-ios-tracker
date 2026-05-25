@@ -35,7 +35,8 @@ class EventSink: ConfigurationProtocol, PluginIdentifiable, PluginFilterCallable
             identifier: identifier,
             entitiesConfiguration: nil,
             afterTrackConfiguration: nil,
-            filterConfiguration: (schemas: nil, closure: filterConfiguration!.closure)
+            filterConfiguration: (schemas: nil, closure: filterConfiguration!.closure),
+            beforeTrackConfiguration: nil
         )
     }
 }

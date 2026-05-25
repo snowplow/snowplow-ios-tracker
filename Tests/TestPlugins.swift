@@ -165,6 +165,116 @@ class TestPlugins: XCTestCase {
         XCTAssertFalse(pluginCalled)
     }
     
+    func testBeforeTrackAddsPayloadValues() {
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { _ in ["added_key": "added_value"] }
+
+        var capturedPayload: [String: Any]?
+        let eventSink = EventSink { event in
+            capturedPayload = event.payload
+        }
+
+        let tracker = createTracker([plugin, eventSink])
+        _ = tracker.track(SelfDescribing(schema: "schema1", payload: ["existing": "value"]))
+
+        waitForEventsToBeTracked()
+
+        XCTAssertEqual("value", capturedPayload?["existing"] as? String)
+        XCTAssertEqual("added_value", capturedPayload?["added_key"] as? String)
+    }
+
+    func testBeforeTrackOverwritesPayloadValues() {
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { _ in ["existing": "overwritten"] }
+
+        var capturedPayload: [String: Any]?
+        let eventSink = EventSink { event in
+            capturedPayload = event.payload
+        }
+
+        let tracker = createTracker([plugin, eventSink])
+        _ = tracker.track(SelfDescribing(schema: "schema1", payload: ["existing": "value"]))
+
+        waitForEventsToBeTracked()
+
+        XCTAssertEqual("overwritten", capturedPayload?["existing"] as? String)
+    }
+
+    func testBeforeTrackOnlyForEventsMatchingSchema() {
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack(schemas: ["schema1"]) { _ in ["modified": true] }
+
+        var event1Payload: [String: Any]?
+        var event2Payload: [String: Any]?
+
+        let eventSink = EventSink { event in
+            if event.schema == "schema1" { event1Payload = event.payload }
+            if event.schema == "schema2" { event2Payload = event.payload }
+        }
+
+        let tracker = createTracker([plugin, eventSink])
+        _ = tracker.track(SelfDescribing(schema: "schema1", payload: [:]))
+        _ = tracker.track(SelfDescribing(schema: "schema2", payload: [:]))
+
+        waitForEventsToBeTracked()
+
+        XCTAssertEqual(true, event1Payload?["modified"] as? Bool)
+        XCTAssertNil(event2Payload?["modified"])
+    }
+
+    func testBeforeTrackReturningNilIsNoOp() {
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { _ in nil }
+
+        var capturedPayload: [String: Any]?
+        let eventSink = EventSink { event in
+            capturedPayload = event.payload
+        }
+
+        let tracker = createTracker([plugin, eventSink])
+        _ = tracker.track(SelfDescribing(schema: "schema1", payload: ["existing": "value"]))
+
+        waitForEventsToBeTracked()
+
+        // Payload is left untouched when the closure returns nil.
+        XCTAssertEqual("value", capturedPayload?["existing"] as? String)
+        XCTAssertEqual(1, capturedPayload?.count)
+    }
+
+    func testBeforeTrackReceivesInspectableEvent() {
+        var receivedSchema: String?
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { event in
+                receivedSchema = event.schema
+                return nil
+            }
+
+        let tracker = createTracker([plugin])
+        _ = tracker.track(SelfDescribing(schema: "schema1", payload: [:]))
+
+        waitForEventsToBeTracked()
+
+        XCTAssertEqual("schema1", receivedSchema)
+    }
+
+    // v1 only fires beforeTrack for self-describing events. This documents that constraint and
+    // guards against accidental enabling for primitive events without a corresponding spec update.
+    func testBeforeTrackDoesNotFireForPrimitiveEventsInV1() {
+        var closureCalled = false
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { _ in
+                closureCalled = true
+                return nil
+            }
+
+        let tracker = createTracker([plugin])
+        _ = tracker.track(Structured(category: "cat", action: "act"))
+
+        waitForEventsToBeTracked()
+
+        XCTAssertFalse(closureCalled)
+    }
+
     func testFiltersEvents() {
         let filterPlugin = PluginConfiguration(identifier: "filter")
             .filter(schemas: ["s1"]) { _ in false }

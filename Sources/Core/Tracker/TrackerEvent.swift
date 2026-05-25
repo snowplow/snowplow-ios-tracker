@@ -67,15 +67,10 @@ class TrackerEvent : InspectableEvent, StateMachineEvent {
     }
     
     func addPayloadValues(_ payload: [String : Any]) -> Bool {
-        var result = true
         for (key, obj) in payload {
-            if self.payload[key] == nil {
-                self.payload[key] = obj
-            } else {
-                result = false
-            }
+            self.payload[key] = obj
         }
-        return result
+        return true
     }
     
     func addContextEntity(_ entity: SelfDescribingJson) {
