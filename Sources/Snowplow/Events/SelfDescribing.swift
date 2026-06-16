@@ -34,15 +34,24 @@ public class SelfDescribing: SelfDescribingAbstract {
     }
     
     /// Creates a self-describing event using data represented as an Encodable struct.
-    /// NOTE: The data should be serializable to JSON using the JSONSerialization class in Foundation. An exception will be thrown if the data is not serializable. To make sure your data is serializable, you can use the `JSONSerialization.isValidJSONObject` function.
+    /// 
+    /// The provided Encodable data is encoded to JSON using the specified JSONEncoder,
+    /// then converted to a dictionary representation suitable for tracking.
+    /// 
     /// - Parameters:
-    ///   - schema: A valid schema URI.
-    ///   - data: Data represented using an Encodable struct.
-    /// - Returns: A SelfDescribing event.
-    public convenience init<T: Encodable>(schema: String, data: T) throws {
-        let data = try JSONEncoder().encode(data)
+    ///   - schema: A valid schema URI that describes the structure of the data.
+    ///   - encoder: The JSONEncoder to use for encoding the data. Defaults to a new JSONEncoder instance.
+    ///   - data: Data represented using an Encodable struct that will be encoded to JSON.
+    /// - Throws: 
+    ///   - `EncodingError` if the data cannot be encoded by the JSONEncoder.
+    ///   - `PayloadError.jsonSerializationToDictionaryFailed` if the encoded JSON cannot be converted to a dictionary.
+    /// - Returns: A SelfDescribing event containing the encoded data.
+    public convenience init<T: Encodable>(schema: String, encoder: JSONEncoder = JSONEncoder(), data: T) throws {
+        let data = try encoder.encode(data)
         let jsonObject = try JSONSerialization.jsonObject(with: data)
-        let dict = jsonObject as! [String: Any]
+        guard let dict = jsonObject as? [String: Any] else {
+            throw PayloadError.jsonSerializationToDictionaryFailed
+        }
         
         self.init(schema: schema, payload: dict)
     }
