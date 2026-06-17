@@ -194,6 +194,82 @@ class TestPlugins: XCTestCase {
         XCTAssertTrue(afterTrackCalled)
     }
     
+    func testBeforeTrackAddsNewPayloadKey() {
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { _ in ["custom_key": "custom_value"] }
+
+        let expect = expectation(description: "afterTrack sees added payload key")
+        let afterPlugin = PluginConfiguration(identifier: "afterPlugin")
+            .afterTrack { event in
+                XCTAssertEqual(event.payload["custom_key"] as? String, "custom_value")
+                expect.fulfill()
+            }
+
+        let tracker = createTracker([plugin, afterPlugin])
+        _ = tracker.track(Structured(category: "cat", action: "act"))
+
+        wait(for: [expect], timeout: 10)
+    }
+
+    func testBeforeTrackOverwritesExistingPayloadKey() {
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { _ in ["se_ca": "overwritten"] }
+
+        let expect = expectation(description: "afterTrack sees overwritten payload key")
+        let afterPlugin = PluginConfiguration(identifier: "afterPlugin")
+            .afterTrack { event in
+                XCTAssertEqual(event.payload["se_ca"] as? String, "overwritten")
+                expect.fulfill()
+            }
+
+        let tracker = createTracker([plugin, afterPlugin])
+        _ = tracker.track(Structured(category: "original", action: "act"))
+
+        wait(for: [expect], timeout: 10)
+    }
+
+    func testBeforeTrackOnlyFiresForMatchingSchema() {
+        var schema1Called = false
+        var schema2Called = false
+
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack(schemas: ["schema1"]) { _ in
+                schema1Called = true
+                return nil
+            }
+
+        let afterPlugin = PluginConfiguration(identifier: "afterPlugin")
+            .afterTrack { event in
+                if event.schema == "schema2" { schema2Called = true }
+            }
+
+        let tracker = createTracker([plugin, afterPlugin])
+        _ = tracker.track(SelfDescribing(schema: "schema1", payload: [:]))
+        _ = tracker.track(SelfDescribing(schema: "schema2", payload: [:]))
+
+        waitForEventsToBeTracked()
+
+        XCTAssertTrue(schema1Called)
+        XCTAssertFalse(schema2Called)
+    }
+
+    func testBeforeTrackReturningNilMakesNoChanges() {
+        let plugin = PluginConfiguration(identifier: "plugin")
+            .beforeTrack { _ in nil }
+
+        let expect = expectation(description: "afterTrack sees original category")
+        let afterPlugin = PluginConfiguration(identifier: "afterPlugin")
+            .afterTrack { event in
+                XCTAssertEqual(event.payload["se_ca"] as? String, "cat")
+                expect.fulfill()
+            }
+
+        let tracker = createTracker([plugin, afterPlugin])
+        _ = tracker.track(Structured(category: "cat", action: "act"))
+
+        wait(for: [expect], timeout: 10)
+    }
+
     private func createTracker(_ configurations: [ConfigurationProtocol]) -> TrackerController {
         let networkConfig = NetworkConfiguration(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200))
         let trackerConfig = TrackerConfiguration()
