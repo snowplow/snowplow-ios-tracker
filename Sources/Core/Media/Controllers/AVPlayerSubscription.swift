@@ -94,6 +94,7 @@ class AVPlayerSubscription {
 
     /// Handles notifications from the notification center subscriptions
     @objc private func handleNotification(_ notification: Notification) {
+        guard notification.object as? AVPlayerItem === player.currentItem else { return }
         InternalQueue.async {
             switch notification.name {
             case .AVPlayerItemPlaybackStalled:
