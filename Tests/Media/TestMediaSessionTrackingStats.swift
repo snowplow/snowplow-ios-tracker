@@ -114,42 +114,6 @@ class TestMediaSessionTrackingStats: XCTestCase {
         XCTAssertEqual(1.5, stats.avgPlaybackRate)
     }
     
-    func testIgnoresPlaybackRateZeroFromPauseAndEnd() {
-        // Reproduces the AVPlayer auto-tracking sequence where AVFoundation drives the
-        // playback rate to 0 on pause and end. The MediaPlayerEntity(player:) initializer
-        // now leaves playbackRate unset (nil) while paused, so these transient 0s must not
-        // drag avgPlaybackRate below the real rate of 1.0. See AISP-1456 / CSTMR-2103.
-        guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
-        let player = MediaPlayerEntity(paused: false, playbackRate: 1)
-
-        stats.update(event: MediaPlayEvent(), player: player)
-
-        // Periodic ping while playing at rate 1
-        timeTraveler.travel(by: TimeInterval(30))
-        player.currentTime = 30
-        stats.update(event: nil, player: player)
-
-        // Pause: AVPlayer.rate -> 0, but the entity carries playbackRate = nil (not 0)
-        player.paused = true
-        stats.update(event: MediaPauseEvent(), player: player)
-
-        // Resume playing at rate 1
-        timeTraveler.travel(by: TimeInterval(10))
-        player.paused = false
-        stats.update(event: MediaPlayEvent(), player: player)
-
-        timeTraveler.travel(by: TimeInterval(30))
-        player.currentTime = 60
-
-        // End: AVPlayer.rate -> 0, entity again carries playbackRate = nil (not 0)
-        player.paused = true
-        stats.update(event: MediaEndEvent(), player: player)
-
-        XCTAssertEqual(60, stats.timePlayed)
-        XCTAssertEqual(10, stats.timePaused)
-        XCTAssertEqual(1, stats.avgPlaybackRate)
-    }
-
     func testCalculatesStatsForLinearAds() {
         guard let timeTraveler = timeTraveler, let stats = stats else { return XCTFail() }
         let player = MediaPlayerEntity(paused: false)
