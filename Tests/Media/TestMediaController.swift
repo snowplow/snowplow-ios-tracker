@@ -12,6 +12,7 @@
 //  language governing permissions and limitations there under.
 
 import XCTest
+import AVKit
 @testable import SnowplowTracker
 
 class TestMediaController: XCTestCase {
@@ -154,6 +155,79 @@ class TestMediaController: XCTestCase {
         XCTAssertEqual(1.5, secondPlayer?["playbackRate"] as? Double)
     }
     
+#if !os(watchOS)
+    func testEntityFromPausedAVPlayerOmitsPlaybackRate() {
+        // A paused/ended AVPlayer reports rate 0. That transient 0 is not a real playback
+        // rate, so the entity must leave playbackRate unset (nil) while marking paused.
+        // See AISP-1456 / CSTMR-2103.
+        let player = AVPlayer() // no item -> rate is 0, i.e. paused
+        let entity = MediaPlayerEntity(player: player)
+
+        XCTAssertTrue(entity.paused ?? false)
+        XCTAssertNil(entity.playbackRate)
+    }
+#endif
+
+    func testPauseEntityOmittingPlaybackRateKeepsTheLastRealRate() {
+        // The AVPlayer auto-tracking initializer leaves playbackRate unset (nil) while
+        // paused, because AVFoundation reports rate 0 on pause/end. The merge must keep the
+        // last real rate rather than overwriting it. See AISP-1456 / CSTMR-2103.
+        let media = mediaController?.startMediaTracking(
+            id: "media1",
+            player: MediaPlayerEntity(playbackRate: 2)
+        )
+
+        // Pause/end entities from the AVPlayer initializer carry paused but no playbackRate
+        media?.track(MediaPauseEvent(), player: MediaPlayerEntity(paused: true))
+        media?.track(MediaEndEvent(), player: MediaPlayerEntity(ended: true, paused: true))
+
+        waitForEventsToBeTracked()
+
+        XCTAssertEqual(2, firstPlayer?["playbackRate"] as? Double)
+        XCTAssertEqual(2, secondPlayer?["playbackRate"] as? Double)
+    }
+
+    func testSessionAvgPlaybackRateNotSkewedByPauseAndEnd() {
+        // End-to-end: a play -> pause -> resume -> end sequence where the pause/end entities
+        // omit playbackRate (as the fixed AVPlayer initializer now does) must leave the
+        // session avgPlaybackRate at the real rate. Pre-fix, the pause/end entities carried
+        // playbackRate 0, which the merge persisted and the stats then folded into the
+        // weighted average, dragging it below 1. avgPlaybackRate is only serialised when it
+        // differs from 1, so its absence here confirms it stayed at 1.
+        let timeTraveler = TimeTraveler()
+        let session = MediaSessionTracking(id: "media1",
+                                           dateGenerator: timeTraveler.generateDate)
+        let media = MediaTrackingImpl(id: "media1",
+                                      tracker: tracker!,
+                                      player: MediaPlayerEntity(paused: false, playbackRate: 1),
+                                      session: session)
+
+        track(MediaPlayEvent(), media: media)
+
+        timeTraveler.travel(by: 30.0)
+        update(player: MediaPlayerEntity(currentTime: 30.0), media: media)
+
+        // Pause: entity omits playbackRate (rate 0 from AVFoundation is not recorded)
+        track(MediaPauseEvent(), player: MediaPlayerEntity(paused: true), media: media)
+
+        timeTraveler.travel(by: 10.0)
+        track(MediaPlayEvent(), player: MediaPlayerEntity(paused: false), media: media)
+
+        timeTraveler.travel(by: 30.0)
+        update(player: MediaPlayerEntity(currentTime: 60.0), media: media)
+
+        // End: entity again omits playbackRate
+        track(MediaEndEvent(), player: MediaPlayerEntity(ended: true, paused: true), media: media)
+
+        waitForEventsToBeTracked()
+
+        let sessionEntity = trackedEvents.last?.mediaPlayerSessionData
+        XCTAssertNotNil(sessionEntity)
+        XCTAssertEqual(60.0, sessionEntity?["timePlayed"] as? Double)
+        // avgPlaybackRate is omitted when equal to 1; a skewed value (pre-fix ~0.x) would appear.
+        XCTAssertNil(sessionEntity?["avgPlaybackRate"])
+    }
+
     func testTrackingVolumeChangeEventUpdatesTheVolume() {
         let media = mediaController?.startMediaTracking(
             id: "media1",
