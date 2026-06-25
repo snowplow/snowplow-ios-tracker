@@ -171,7 +171,11 @@ class TestEmitter: XCTestCase {
             addPayload(payload, emitter)
         }
 
-        wait(for: [callback.expectProcessed(2)], timeout: emitTimeout)
+        // With a single-event buffer, the first GET fails (retryable) and pins the emitter in
+        // its sending state until the stop-sending timeout, so the second event is never sent.
+        // Both events therefore stay queued. Wait for the emitter to go idle with both events
+        // still in the store rather than expecting two processed events (only one is ever sent).
+        wait(for: [waitForEmitter(emitter) { !$0.isSending && $0.dbCount == 2 }], timeout: emitTimeout)
 
         XCTAssertEqual(2, dbCount(emitter))
         for results in networkConnection.previousResults {
