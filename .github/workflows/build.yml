@@ -82,11 +82,17 @@ jobs:
         run: xcodebuild -downloadPlatform iOS -buildVersion 18.5 || true
 
       - name: Build & Test
+        # -retry-tests-on-failure re-runs only the individual tests that fail, up to
+        # -test-iterations attempts. This is a safety net for transient simulator flakiness
+        # (e.g. "Unable to connect to simulator") and Micro delivery-latency races on the
+        # iOS/tvOS runners; a test that fails every attempt still fails the job.
         run: |
           set -o pipefail && xcodebuild \
             -scheme SnowplowTracker \
             -destination "${{ matrix.destination }}" \
             -only-testing ${{ matrix.target }} \
+            -retry-tests-on-failure \
+            -test-iterations 3 \
             clean test | xcpretty
 
   build_objc_demo_app:

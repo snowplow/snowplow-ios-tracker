@@ -17,6 +17,11 @@ import XCTest
 let TEST_SERVER_EMITTER = "www.notarealurl.com"
 
 class TestEmitter: XCTestCase {
+    /// Generous timeout for emitter expectations. Asserts the deterministic condition we are
+    /// waiting for; on a healthy run the wait returns far sooner, so this only bounds genuine
+    /// hangs and tolerates slow CI simulators.
+    private let emitTimeout: TimeInterval = 10
+
     override func setUp() {
         super.setUp()
         Logger.logLevel = .verbose
@@ -102,10 +107,11 @@ class TestEmitter: XCTestCase {
 
     func testEmitSingleGetEventWithSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 200)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectSuccesses(1)], timeout: emitTimeout)
 
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first!.count)
@@ -117,10 +123,11 @@ class TestEmitter: XCTestCase {
 
     func testEmitSingleGetEventWithNoSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectProcessed(1)], timeout: emitTimeout)
 
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first!.count)
@@ -132,13 +139,14 @@ class TestEmitter: XCTestCase {
 
     func testEmitTwoGetEventsWithSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 200)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
 
         for payload in generatePayloads(2) {
             addPayload(payload, emitter)
         }
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectSuccesses(2)], timeout: emitTimeout)
 
         XCTAssertEqual(0, dbCount(emitter))
         XCTAssertEqual(2, networkConnection.previousResults.count)
@@ -156,13 +164,18 @@ class TestEmitter: XCTestCase {
 
     func testEmitTwoGetEventsWithNoSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
 
         for payload in generatePayloads(2) {
             addPayload(payload, emitter)
         }
 
-        Thread.sleep(forTimeInterval: 1)
+        // With a single-event buffer, the first GET fails (retryable) and pins the emitter in
+        // its sending state until the stop-sending timeout, so the second event is never sent.
+        // Both events therefore stay queued. Wait for the emitter to go idle with both events
+        // still in the store rather than expecting two processed events (only one is ever sent).
+        wait(for: [waitForEmitter(emitter) { !$0.isSending && $0.dbCount == 2 }], timeout: emitTimeout)
 
         XCTAssertEqual(2, dbCount(emitter))
         for results in networkConnection.previousResults {
@@ -176,11 +189,12 @@ class TestEmitter: XCTestCase {
 
     func testEmitSinglePostEventWithSuccess() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
 
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectSuccesses(1)], timeout: emitTimeout)
 
         XCTAssertEqual(1, networkConnection.previousResults.count)
         XCTAssertEqual(1, networkConnection.previousResults.first?.count)
@@ -190,26 +204,30 @@ class TestEmitter: XCTestCase {
         flush(emitter)
     }
 
-#if !os(tvOS) // Flaky on tvOS simulator in CI due to sleep-based timing
     func testEmitEventsPostAsGroup() {
         let payloads = generatePayloads(15)
 
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .smallGroup)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .smallGroup, callback: callback)
 
         for i in 0..<14 {
             addPayload(payloads[i], emitter)
         }
 
-        // wait longer than the stop sending timeout
-        Thread.sleep(forTimeInterval: 6)
+        // The first batch of 10 events fails (retryable), so they stay in the DB and the
+        // emitter schedules a stop. Wait for all 14 events to be back in the store and the
+        // emitter to be idle, rather than sleeping past the stop-sending timeout.
+        wait(for: [callback.expectProcessed(10)], timeout: emitTimeout)
+        wait(for: [waitForEmitter(emitter) { !$0.isSending && $0.dbCount == 14 }], timeout: emitTimeout)
 
         XCTAssertEqual(14, dbCount(emitter))
         networkConnection.statusCode = 200
         let prevSendingCount = networkConnection.sendingCount
         addPayload(payloads[14], emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        // All 15 events should now send successfully and drain from the store.
+        wait(for: [callback.expectSuccesses(15)], timeout: emitTimeout)
 
         XCTAssertEqual(0, dbCount(emitter))
         var totEvents = 0
@@ -228,11 +246,11 @@ class TestEmitter: XCTestCase {
 
         flush(emitter)
     }
-#endif
 
     func testEmitOversizeEventsPostAsGroup() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
         emitter.byteLimitPost = 5
 
         let payloads = generatePayloads(15)
@@ -240,14 +258,16 @@ class TestEmitter: XCTestCase {
             addPayload(payloads[i], emitter)
         }
 
-        Thread.sleep(forTimeInterval: 1)
+        // Oversize requests are never retried, so the 14 events are dropped from the store.
+        // Wait for all of them to be processed instead of sleeping for a fixed interval.
+        wait(for: [callback.expectProcessed(14)], timeout: emitTimeout)
 
         XCTAssertEqual(0, dbCount(emitter))
         networkConnection.statusCode = 200
         _ = networkConnection.sendingCount
         addPayload(payloads[14], emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectSuccesses(1)], timeout: emitTimeout)
 
         XCTAssertEqual(0, dbCount(emitter))
 
@@ -256,11 +276,12 @@ class TestEmitter: XCTestCase {
 
     func testRemovesEventsFromQueueOnNoRetryStatus() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 403)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
 
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectProcessed(1)], timeout: emitTimeout)
 
         XCTAssertEqual(0, dbCount(emitter))
         for results in networkConnection.previousResults {
@@ -274,7 +295,8 @@ class TestEmitter: XCTestCase {
 
     func testFollowCustomRetryRules() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
 
         var customRules: [Int : Bool] = [:]
         customRules[403] = true
@@ -283,7 +305,7 @@ class TestEmitter: XCTestCase {
 
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectProcessed(1)], timeout: emitTimeout)
 
         // no events in queue since they were dropped because retrying is disabled for 500
         XCTAssertEqual(0, dbCount(emitter))
@@ -292,22 +314,23 @@ class TestEmitter: XCTestCase {
 
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectProcessed(2)], timeout: emitTimeout)
 
         // event still in queue because retrying is enabled for 403
         XCTAssertEqual(1, dbCount(emitter))
 
         flush(emitter)
     }
-    
+
     func testDoesNotRetryFailedRequestsIfDisabled() {
         let networkConnection = MockNetworkConnection(requestOption: .get, statusCode: 500)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
         emitter.retryFailedRequests = false
 
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectProcessed(1)], timeout: emitTimeout)
 
         // no events in queue since they were dropped because retrying is disabled
         XCTAssertEqual(0, dbCount(emitter))
@@ -316,31 +339,34 @@ class TestEmitter: XCTestCase {
 
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectProcessed(2)], timeout: emitTimeout)
 
         // event still in queue because retrying is enabled
         XCTAssertEqual(1, dbCount(emitter))
 
         flush(emitter)
     }
-    
+
     func testDoesntMakeRequestUnlessBufferSizeIsReached() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .smallGroup)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .smallGroup, callback: callback)
         emitter.retryFailedRequests = false
 
         for payload in generatePayloads(9) {
             addPayload(payload, emitter)
         }
 
-        Thread.sleep(forTimeInterval: 1)
+        // The buffer (smallGroup = 10) is not full, so no request should be made. Confirm the
+        // store still holds all 9 events once the emitter has settled into an idle state.
+        wait(for: [waitForEmitter(emitter) { !$0.isSending && $0.dbCount == 9 }], timeout: emitTimeout)
 
         // all events waiting in queue
         XCTAssertEqual(9, dbCount(emitter))
-        
+
         addPayload(generatePayloads(1).first!, emitter)
 
-        Thread.sleep(forTimeInterval: 1)
+        wait(for: [callback.expectSuccesses(10)], timeout: emitTimeout)
 
         // all events sent
         XCTAssertEqual(0, dbCount(emitter))
@@ -350,37 +376,39 @@ class TestEmitter: XCTestCase {
     
     func testNumberOfRequestsMatchesEmitRangeAndOversize() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single)
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, callback: callback)
         emitter.emitRange = 20
-        
+
         InternalQueue.sync { emitter.pauseEmit() }
         for payload in generatePayloads(20) {
             addPayload(payload, emitter)
         }
         InternalQueue.sync { emitter.resumeEmit() }
-        
-        Thread.sleep(forTimeInterval: 0.5)
-        
+
+        // Counts are cumulative across the whole test, so each phase waits for the running total.
+        wait(for: [callback.expectSuccesses(20)], timeout: emitTimeout)
+
         // made a single request
         XCTAssertEqual(1, networkConnection.sendingCount)
         XCTAssertEqual(1, networkConnection.previousRequests.first?.count ?? 0)
-        
+
         networkConnection.clear()
-        
+
         InternalQueue.sync { emitter.pauseEmit() }
         for payload in generatePayloads(40) {
             addPayload(payload, emitter)
         }
         InternalQueue.sync { emitter.resumeEmit() }
-        
-        Thread.sleep(forTimeInterval: 0.5)
-        
+
+        wait(for: [callback.expectSuccesses(60)], timeout: emitTimeout)
+
         // made two requests one after the other
         XCTAssertEqual(2, networkConnection.sendingCount)
         XCTAssertEqual(1, networkConnection.previousRequests.map { $0.count }.max())
-        
+
         networkConnection.clear()
-        
+
         // test with oversize requests
         emitter.byteLimitPost = 5
         InternalQueue.sync { emitter.pauseEmit() }
@@ -389,25 +417,30 @@ class TestEmitter: XCTestCase {
         }
         InternalQueue.sync { emitter.resumeEmit() }
 
-        Thread.sleep(forTimeInterval: 0.5)
-        
+        wait(for: [callback.expectSuccesses(62)], timeout: emitTimeout)
+
         // made two requests at once
         XCTAssertEqual(1, networkConnection.sendingCount)
         XCTAssertEqual(2, networkConnection.previousRequests.first?.count ?? 0)
 
         flush(emitter)
     }
-    
+
     func testPausesEmitIfFailedToRemoveFromEventStore() {
         let networkConnection = MockNetworkConnection(requestOption: .post, statusCode: 200)
         let mockStore = MockEventStore()
         mockStore.failToRemoveEvents = true
-        let emitter = self.emitter(with: networkConnection, bufferOption: .single, eventStore: mockStore)
-        
+        let callback = EmitterEventProcessedCallback()
+        let emitter = self.emitter(with: networkConnection, bufferOption: .single, eventStore: mockStore, callback: callback)
+
         addPayload(generatePayloads(1).first!, emitter)
-        Thread.sleep(forTimeInterval: 0.5)
+        // The first send succeeds at the network level but the store fails to remove the event,
+        // so the emitter schedules a stop and pauses. Wait for that first success to be reported.
+        wait(for: [callback.expectSuccesses(1)], timeout: emitTimeout)
         addPayload(generatePayloads(1).first!, emitter)
-        Thread.sleep(forTimeInterval: 0.5)
+        // The second event must not trigger another request while the emitter is stopping. Give
+        // the emitter time to settle and confirm it stayed paused at a single request.
+        wait(for: [waitForEmitter(emitter) { $0.isSending && mockStore.count() == 2 }], timeout: emitTimeout)
 
         XCTAssertEqual(1, networkConnection.sendingCount)
         XCTAssertEqual(2, mockStore.count())
@@ -415,12 +448,16 @@ class TestEmitter: XCTestCase {
 
     // MARK: - Emitter builder
 
-    func emitter(with networkConnection: NetworkConnection, bufferOption: BufferOption = .single, eventStore: EventStore = MockEventStore()) -> Emitter {
+    func emitter(with networkConnection: NetworkConnection,
+                 bufferOption: BufferOption = .single,
+                 eventStore: EventStore = MockEventStore(),
+                 callback: RequestCallback? = nil) -> Emitter {
         let emitter = Emitter(networkConnection: networkConnection, namespace: "ns1", eventStore: eventStore) { emitter in
             emitter.bufferOption = bufferOption
             emitter.emitRange = 200
             emitter.byteLimitGet = 20000
             emitter.byteLimitPost = 25000
+            emitter.callback = callback
         }
         return emitter
     }
@@ -453,5 +490,28 @@ class TestEmitter: XCTestCase {
         return InternalQueue.sync {
             emitter.dbCount
         }
+    }
+
+    /// Returns an expectation that fulfills once `condition` holds when evaluated against the
+    /// emitter on the InternalQueue. Used for state that has no completion callback (e.g. the
+    /// emitter going idle, or the buffer not being flushed). The condition is polled on the
+    /// InternalQueue so it observes a consistent snapshot of emitter/event-store state, never
+    /// busy-waiting on the calling thread.
+    private func waitForEmitter(_ emitter: Emitter,
+                                description: String = "Emitter reached expected state",
+                                pollInterval: TimeInterval = 0.05,
+                                until condition: @escaping (Emitter) -> Bool) -> XCTestExpectation {
+        let expectation = XCTestExpectation(description: description)
+        func poll() {
+            InternalQueue.async {
+                if condition(emitter) {
+                    expectation.fulfill()
+                } else {
+                    InternalQueue.asyncAfter(pollInterval) { poll() }
+                }
+            }
+        }
+        poll()
+        return expectation
     }
 }
