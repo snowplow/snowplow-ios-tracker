@@ -1,3 +1,7 @@
+Version 6.2.5 (2026-06-25)
+--------------------------
+Exclude transient AVPlayer rate 0 from playbackRate on pause/end
+
 Version 6.2.4 (2026-05-22)
 ----------------------------
 Strip empty strings from optional media player entity fields
