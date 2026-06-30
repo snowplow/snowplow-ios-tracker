@@ -169,11 +169,16 @@ public class MediaPlayerEntity: NSObject {
     @objc
     public convenience init(player: AVPlayer) {
         let currentTime = player.currentTime()
+        // AVFoundation sets `AVPlayer.rate` to 0 whenever playback pauses or reaches the
+        // end. That transient 0 is not a real playback rate, so we leave `playbackRate`
+        // unset (nil) while paused to preserve the last real rate rather than recording a
+        // 0 that would skew the media session's avgPlaybackRate.
+        let isPaused = player.rate == 0
         self.init(
             currentTime: currentTime.seconds,
             muted: player.isMuted,
-            paused: player.rate == 0,
-            playbackRate: Double(player.rate),
+            paused: isPaused,
+            playbackRate: isPaused ? nil : Double(player.rate),
             volume: Int(player.volume * 100)
         )
         if let currentItem = player.currentItem {
