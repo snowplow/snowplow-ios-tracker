@@ -199,6 +199,38 @@ class TestPlatformContext: XCTestCase {
         let platformDict = context.fetchPlatformDict(userAnonymisation: true)
         XCTAssertEqual("12345678", platformDict[kSPMobileLanguage] as? String)
     }
+
+    func testNegativeStorageValuesAreExcluded() {
+        let retriever = PlatformContextRetriever(
+            availableStorage: { -1 },
+            totalStorage: { -1 }
+        )
+        let context = PlatformContext(
+            platformContextRetriever: retriever,
+            mobileDictUpdateFrequency: 0,
+            networkDictUpdateFrequency: 0,
+            deviceInfoMonitor: MockDeviceInfoMonitor()
+        )
+        let platformDict = context.fetchPlatformDict(userAnonymisation: false)
+        XCTAssertNil(platformDict[kSPMobileAvailableStorage])
+        XCTAssertNil(platformDict[kSPMobileTotalStorage])
+    }
+
+    func testZeroStorageValuesAreIncluded() {
+        let retriever = PlatformContextRetriever(
+            availableStorage: { 0 },
+            totalStorage: { 0 }
+        )
+        let context = PlatformContext(
+            platformContextRetriever: retriever,
+            mobileDictUpdateFrequency: 0,
+            networkDictUpdateFrequency: 0,
+            deviceInfoMonitor: MockDeviceInfoMonitor()
+        )
+        let platformDict = context.fetchPlatformDict(userAnonymisation: false)
+        XCTAssertEqual(platformDict[kSPMobileAvailableStorage] as? Int64, 0)
+        XCTAssertEqual(platformDict[kSPMobileTotalStorage] as? Int64, 0)
+    }
 #endif
 
     func testOnlyAddsRequestedProperties() {

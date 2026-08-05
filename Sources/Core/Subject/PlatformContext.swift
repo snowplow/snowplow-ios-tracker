@@ -136,7 +136,8 @@ class PlatformContext {
             )
         }
         if shouldTrack(.totalStorage) {
-            platformDict[kSPMobileTotalStorage] = platformContextRetriever.totalStorage?()
+            let value = platformContextRetriever.totalStorage?()
+            platformDict[kSPMobileTotalStorage] = value.flatMap { $0 >= 0 ? $0 : nil }
         }
         if shouldTrack(.physicalMemory) {
             platformDict[kSPMobilePhysicalMemory] = (
@@ -178,7 +179,8 @@ class PlatformContext {
             )
         }
         if shouldTrack(.availableStorage) {
-            platformDict[kSPMobileAvailableStorage] = platformContextRetriever.availableStorage?()
+            let value = platformContextRetriever.availableStorage?()
+            platformDict[kSPMobileAvailableStorage] = value.flatMap { $0 >= 0 ? $0 : nil }
         }
         if shouldTrack(.appAvailableMemory) {
             platformDict[kSPMobileAppAvailableMemory] = (
