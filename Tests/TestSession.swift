@@ -19,9 +19,11 @@ class TestSession: XCTestCase {
         super.setUp()
         cleanFile(withNamespace: "tracker")
         UserDefaults.standard.removeObject(forKey: kSPInstallationUserId)
+        AppStateSimulator.reset()
     }
 
     override func tearDown() {
+        AppStateSimulator.reset()
         super.tearDown()
     }
 
@@ -485,6 +487,103 @@ class TestSession: XCTestCase {
         
         XCTAssertNotEqual(firstSession?[kSPSessionId] as! String, secondSession?[kSPSessionId] as! String)
         XCTAssertEqual(firstSession?[kSPSessionId] as! String, secondSession?[kSPSessionPreviousId] as! String)
+    }
+
+    // Background launches
+
+    func testStartsInBackgroundWhenTheAppLaunchesInTheBackground() {
+        AppStateSimulator.simulate(.background)
+
+        let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
+
+        XCTAssertTrue(session.inBackground)
+    }
+
+    /// An app is inactive while it is still launching into the foreground. Treating that as a background
+    /// launch would make every normal launch track an extra Foreground event once the app became active.
+    func testStartsInForegroundWhenTheAppIsStillLaunching() {
+        AppStateSimulator.simulate(.inactive)
+
+        let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
+
+        XCTAssertFalse(session.inBackground)
+    }
+
+    func testStartsInForegroundWhenTheAppStateCantBeRead() {
+        AppStateSimulator.simulate(.unknown)
+
+        let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
+
+        XCTAssertFalse(session.inBackground)
+    }
+
+    /// Without the background seed, `updateInForeground` bails out early and the Foreground event tracked
+    /// when the user opens an app that was launched in the background is lost.
+    func testTracksForegroundEventAfterABackgroundLaunch() {
+        cleanFile(withNamespace: "backgroundLaunch")
+        AppStateSimulator.simulate(.background)
+
+        let eventStore = MockEventStore()
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
+                              namespace: "backgroundLaunch",
+                              eventStore: eventStore)
+        let tracker = Tracker(trackerNamespace: "backgroundLaunch", appId: nil, emitter: emitter) { tracker in
+            tracker.base64Encoded = false
+            tracker.installEvent = false
+            tracker.lifecycleEvents = true
+            tracker.sessionContext = true
+        }
+        let session = tracker.session
+        XCTAssertTrue(session?.inBackground ?? false)
+
+        session?.updateInForeground()
+        InternalQueue.sync {} // drain the event tracked asynchronously by updateInForeground
+
+        XCTAssertFalse(session?.inBackground ?? true)
+        XCTAssertEqual(1, session?.foregroundIndex)
+        let payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        XCTAssertTrue((payload?["ue_pr"] as? String ?? "").contains("application_foreground"))
+    }
+
+    /// The mirror image of the test above: a normal launch must not gain an extra Foreground event when the
+    /// app finishes launching and becomes active.
+    func testDoesNotTrackForegroundEventAfterANormalLaunch() {
+        cleanFile(withNamespace: "normalLaunch")
+        AppStateSimulator.simulate(.inactive)
+
+        let eventStore = MockEventStore()
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
+                              namespace: "normalLaunch",
+                              eventStore: eventStore)
+        let tracker = Tracker(trackerNamespace: "normalLaunch", appId: nil, emitter: emitter) { tracker in
+            tracker.installEvent = false
+            tracker.lifecycleEvents = true
+            tracker.sessionContext = true
+        }
+        let session = tracker.session
+        XCTAssertFalse(session?.inBackground ?? true)
+
+        session?.updateInForeground()
+        InternalQueue.sync {}
+
+        XCTAssertEqual(0, session?.foregroundIndex)
+        XCTAssertEqual(-1, eventStore.lastInsertedRow)
+    }
+
+    /// The background timeout is the one that applies during a background launch. It only differs from the
+    /// foreground timeout for trackers that configure them differently.
+    func testUsesTheBackgroundTimeoutAfterABackgroundLaunch() {
+        AppStateSimulator.simulate(.background)
+
+        let session = Session(foregroundTimeout: 30, backgroundTimeout: 1)
+
+        let firstSession = session.getAndUpdateSessionForEvent("event_1", eventTimestamp: 1654496481346, userAnonymisation: false)
+
+        Thread.sleep(forTimeInterval: 2)
+
+        let secondSession = session.getAndUpdateSessionForEvent("event_2", eventTimestamp: 1654496481347, userAnonymisation: false)
+
+        XCTAssertNotEqual(firstSession?[kSPSessionId] as? String, secondSession?[kSPSessionId] as? String)
     }
 
     // Service methods

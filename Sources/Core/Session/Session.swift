@@ -73,6 +73,10 @@ class Session {
         self.continueSessionOnRestart = continueSessionOnRestart
         self.isNewSession = !continueSessionOnRestart
         self.tracker = tracker
+        // A process launched straight into the background never gets a `didBecomeActive` notification, so
+        // without seeding this the session would consider itself in the foreground for the whole process and
+        // would skip the Foreground event tracked when the user does eventually open the app.
+        self.inBackground = !AppStateProvider.isVisible
         if let namespace = trackerNamespace {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
         }
