@@ -7,6 +7,9 @@ jobs:
     name: Lint Podspec for ${{ matrix.platform }}
     runs-on: macos-15
     strategy:
+      # Without this, the first platform to fail cancels the other three, so a
+      # single-platform failure is indistinguishable from all four being broken.
+      fail-fast: false
       matrix:
         platform: [ios, osx, tvos, watchos]
     steps:
