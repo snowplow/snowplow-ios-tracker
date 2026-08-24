@@ -83,7 +83,9 @@ class AppStateProvider: NSObject {
 
     // MARK: - Private
 
-    private static let observer: AppStateProvider = {
+    /// Not private so that tests can drive the lifecycle transitions on it directly. Subscribes for the
+    /// lifetime of the process: app visibility outlives any individual tracker.
+    static let observer: AppStateProvider = {
         let observer = AppStateProvider()
         observer.subscribeToLifecycleNotifications()
         return observer
@@ -184,15 +186,18 @@ class AppStateProvider: NSObject {
 #endif
     }
 
-    @objc private func didEnterBackground() {
+    // Not private so that tests can drive the transitions directly. Posting the real notifications in a test
+    // would also reach every `Session` still alive in the test process, which would track stray Foreground
+    // and Background events into other test cases' event sinks.
+    @objc func didEnterBackground() {
         AppStateProvider.setIsVisible(false)
     }
 
-    @objc private func willEnterForeground() {
+    @objc func willEnterForeground() {
         AppStateProvider.setIsVisible(true)
     }
 
-    @objc private func didBecomeActive() {
+    @objc func didBecomeActive() {
         AppStateProvider.setIsVisible(true)
     }
 }

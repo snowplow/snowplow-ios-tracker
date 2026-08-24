@@ -57,13 +57,20 @@ class TestAppStateProvider: XCTestCase {
     }
 
 #if os(iOS) || os(tvOS)
+    /// The transitions are driven directly rather than by posting the real notifications: every `Session`
+    /// alive in the test process observes those too, and would track stray Foreground and Background events
+    /// into other test cases' event sinks. Which notification is wired to which handler is therefore not
+    /// covered here — `subscribeToLifecycleNotifications` is verified by inspection.
+
     /// `willResignActive` fires for interruptions that leave the app on screen – Control Center, an incoming
     /// call, a system alert – so it must not mark the app as not visible. Reporting `isVisible: false` there
-    /// would be a false negative on the very field this provider exists to get right.
+    /// would be a false negative on the very field this provider exists to get right. The provider does not
+    /// observe it at all, so the app simply stays visible.
     func testStaysVisibleWhileInterruptedByControlCenterOrACall() {
         simulateAppState(.active)
 
-        NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+        // The state the app is in during such an interruption.
+        simulateAppState(.inactive)
 
         XCTAssertTrue(AppStateProvider.isVisible)
     }
@@ -71,7 +78,7 @@ class TestAppStateProvider: XCTestCase {
     func testIsNotVisibleAfterTheAppEntersTheBackground() {
         simulateAppState(.active)
 
-        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        AppStateProvider.observer.didEnterBackground()
 
         XCTAssertFalse(AppStateProvider.isVisible)
     }
@@ -80,10 +87,10 @@ class TestAppStateProvider: XCTestCase {
     /// earliest point at which the app is back on screen.
     func testIsVisibleAgainWhenTheAppReturnsToTheForeground() {
         simulateAppState(.active)
-        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        AppStateProvider.observer.didEnterBackground()
         XCTAssertFalse(AppStateProvider.isVisible)
 
-        NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
+        AppStateProvider.observer.willEnterForeground()
 
         XCTAssertTrue(AppStateProvider.isVisible)
     }
@@ -94,7 +101,7 @@ class TestAppStateProvider: XCTestCase {
         simulateAppState(.background)
         XCTAssertFalse(AppStateProvider.isVisible)
 
-        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        AppStateProvider.observer.didBecomeActive()
 
         XCTAssertTrue(AppStateProvider.isVisible)
     }
