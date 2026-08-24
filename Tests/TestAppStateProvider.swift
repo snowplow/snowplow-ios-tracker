@@ -12,6 +12,9 @@
 //  language governing permissions and limitations there under.
 
 import XCTest
+#if os(iOS) || os(tvOS)
+import UIKit
+#endif
 @testable import SnowplowTracker
 
 class TestAppStateProvider: XCTestCase {
@@ -52,6 +55,50 @@ class TestAppStateProvider: XCTestCase {
 
         XCTAssertTrue(AppStateProvider.isVisible)
     }
+
+#if os(iOS) || os(tvOS)
+    /// `willResignActive` fires for interruptions that leave the app on screen – Control Center, an incoming
+    /// call, a system alert – so it must not mark the app as not visible. Reporting `isVisible: false` there
+    /// would be a false negative on the very field this provider exists to get right.
+    func testStaysVisibleWhileInterruptedByControlCenterOrACall() {
+        simulateAppState(.active)
+
+        NotificationCenter.default.post(name: UIApplication.willResignActiveNotification, object: nil)
+
+        XCTAssertTrue(AppStateProvider.isVisible)
+    }
+
+    func testIsNotVisibleAfterTheAppEntersTheBackground() {
+        simulateAppState(.active)
+
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+
+        XCTAssertFalse(AppStateProvider.isVisible)
+    }
+
+    /// `willEnterForeground` arrives while the app is still inactive, before `didBecomeActive`, and is the
+    /// earliest point at which the app is back on screen.
+    func testIsVisibleAgainWhenTheAppReturnsToTheForeground() {
+        simulateAppState(.active)
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        XCTAssertFalse(AppStateProvider.isVisible)
+
+        NotificationCenter.default.post(name: UIApplication.willEnterForegroundNotification, object: nil)
+
+        XCTAssertTrue(AppStateProvider.isVisible)
+    }
+
+    /// A process launched into the background and then opened by the user goes straight to `didBecomeActive`
+    /// without a `willEnterForeground`.
+    func testIsVisibleWhenABackgroundLaunchedAppIsOpened() {
+        simulateAppState(.background)
+        XCTAssertFalse(AppStateProvider.isVisible)
+
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+
+        XCTAssertTrue(AppStateProvider.isVisible)
+    }
+#endif
 
     func testReadsTheAppStateFromOutsideTheMainThread() {
         AppStateProvider.appStateGenerator = { .background }

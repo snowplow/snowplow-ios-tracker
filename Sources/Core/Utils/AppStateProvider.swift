@@ -65,11 +65,14 @@ class AppStateProvider: NSObject {
     /// Must be called from outside the ``InternalQueue``: it may hop to the main thread, and the main thread
     /// blocks on that queue in `InternalQueue.sync`.
     static func ensureInitialized() {
-        // Subscribe before reading, so that a transition happening during the read can't be missed. The read
-        // and the cache update below happen together, so a notification arriving in between can only be
-        // applied after the seed, never overwritten by it.
+        // Subscribe before reading, so that a transition happening during the read isn't missed.
         // Instantiating the observer subscribes it; `static let` guarantees that happens only once.
         _ = observer
+
+        // The read and the cache update happen in the same block, and UIKit delivers the lifecycle
+        // notifications on the main thread, so on iOS and tvOS that block and the observer callbacks are
+        // serialised against each other: the seed can't land on top of a newer notification. The lock below
+        // only makes each individual write atomic; it does not by itself order the seed against a callback.
 
         if readsAppStateOnMainThread && !Thread.isMainThread {
             DispatchQueue.main.sync { update(with: appStateGenerator()) }
@@ -109,13 +112,18 @@ class AppStateProvider: NSObject {
     }
 
 #if os(iOS) || os(tvOS)
+    /// Whether the app is an extension, which has no shared `UIApplication` to read a state from.
+    private static let isAppExtension = Bundle.main.bundleURL.pathExtension == "appex"
+
     /// `UIApplication.applicationState` is main-thread only, so reading it off the main thread has to hop.
-    private static let readsAppStateOnMainThread = true
+    /// Extensions never read it at all, so they skip the hop rather than paying for a value that is always
+    /// `.unknown`.
+    private static let readsAppStateOnMainThread = !isAppExtension
 
     private static func currentAppState() -> AppState {
         // `UIApplication.shared` is unavailable to app extensions, so the shared instance and its state are
         // read through the Objective-C runtime, and skipped entirely when running inside an extension.
-        if Bundle.main.bundleURL.pathExtension == "appex" { return .unknown }
+        if isAppExtension { return .unknown }
 
         let sharedApplication = NSSelectorFromString("sharedApplication")
         guard UIApplication.responds(to: sharedApplication),
@@ -147,30 +155,41 @@ class AppStateProvider: NSObject {
 
     private func subscribeToLifecycleNotifications() {
 #if os(iOS) || os(tvOS)
-        // The same notifications that make `Session` track the Foreground and Background events, so that the
-        // seeded value and the tracked lifecycle events can't contradict each other.
+        // Only `didEnterBackground` means the app actually left the screen. `willResignActive` is
+        // deliberately NOT observed here: it also fires for interruptions that leave the app fully visible –
+        // Control Center, an incoming call, a system alert, the app switcher preview – and treating those as
+        // not visible would report `isVisible: false` for an app the user is looking at. That would also
+        // contradict `update(with:)`, which maps the `.inactive` state those interruptions produce to
+        // visible. `Session` keeps observing `willResignActive` for its own Background event, which is a
+        // separate concern from whether the app is on screen.
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(didResignActive),
-            name: UIApplication.willResignActiveNotification,
+            selector: #selector(didEnterBackground),
+            name: UIApplication.didEnterBackgroundNotification,
             object: nil)
+        // `willEnterForeground` is the earliest point the app is back on screen; it arrives while the app is
+        // still inactive, before `didBecomeActive`.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(willEnterForeground),
+            name: UIApplication.willEnterForegroundNotification,
+            object: nil)
+        // A process launched into the background and then opened goes straight to `didBecomeActive` without
+        // a `willEnterForeground`, so this is the one that clears the seeded value in that case.
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(didBecomeActive),
             name: UIApplication.didBecomeActiveNotification,
             object: nil)
-        // `willResignActive` has already been sent by the time an app is inactive, so a tracker created in
-        // that window would otherwise never learn that the app went on to the background.
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(didResignActive),
-            name: UIApplication.didEnterBackgroundNotification,
-            object: nil)
 #endif
     }
 
-    @objc private func didResignActive() {
+    @objc private func didEnterBackground() {
         AppStateProvider.setIsVisible(false)
+    }
+
+    @objc private func willEnterForeground() {
+        AppStateProvider.setIsVisible(true)
     }
 
     @objc private func didBecomeActive() {
