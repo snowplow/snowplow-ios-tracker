@@ -20,10 +20,12 @@ class TestScreenSummaryStateMachine: XCTestCase {
     
     override func setUp() {
         ScreenSummaryState.dateGenerator = timeTraveler.generateTimeInterval
+        AppStateSimulator.reset()
         super.setUp()
     }
 
     override func tearDown() {
+        AppStateSimulator.reset()
         super.tearDown()
     }
     
@@ -127,6 +129,42 @@ class TestScreenSummaryStateMachine: XCTestCase {
         _ = tracker.track(ScreenView(name: "Screen 2"))
         
         wait(for: [expectScreenEnd], timeout: 10)
+    }
+
+    /// Seeding the session as being in the background makes the Foreground event fire when the app is opened,
+    /// which reattributes the time the screen spent in a background-launched process to `background_sec`.
+    /// Before the seed, no Foreground event fired at all and all of that time was credited to `foreground_sec`.
+    func testAttributesTimeBeforeTheFirstForegroundOnABackgroundLaunchToBackgroundSeconds() {
+        simulateAppState(.background)
+
+        let expectForeground = expectation(description: "Foreground event")
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPForegroundSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["foreground_sec"] as? Double, 0.0)
+                XCTAssertEqual((entity?.data as? [String: Any])?["background_sec"] as? Double, 10.0)
+                expectForeground.fulfill()
+            }
+        }
+
+        let namespace = "testBackgroundLaunchScreenSummary"
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 200),
+                              namespace: namespace,
+                              eventStore: MockEventStore())
+        let tracker = Tracker(trackerNamespace: namespace, appId: nil, emitter: emitter) { tracker in
+            tracker.installEvent = false
+            tracker.lifecycleEvents = true
+            tracker.sessionContext = true
+            tracker.screenEngagementAutotracking = true
+        }
+        tracker.addOrReplace(stateMachine: eventSink.toStateMachine())
+
+        InternalQueue.sync { _ = tracker.track(ScreenView(name: "Screen 1")) }
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        tracker.session?.updateInForeground()
+
+        wait(for: [expectForeground], timeout: 10)
     }
 
     private func createTracker(_ configurations: [ConfigurationProtocol]) -> TrackerController {

@@ -43,7 +43,9 @@ class LifecycleStateMachine: StateMachineProtocol {
 
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
         if state == nil {
-            let entity = LifecycleEntity(isVisible: true)
+            // No Foreground or Background event has been tracked yet, which is also the case for a process
+            // launched straight into the background, so fall back to the app state read at tracker creation.
+            let entity = LifecycleEntity(isVisible: AppStateProvider.isVisible)
             entity.index = 0
             return [entity]
         }

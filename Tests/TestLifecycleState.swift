@@ -17,9 +17,11 @@ import XCTest
 class TestLifecycleState: XCTestCase {
     override func setUp() {
         super.setUp()
+        AppStateSimulator.reset()
     }
 
     override func tearDown() {
+        AppStateSimulator.reset()
         super.tearDown()
     }
 
@@ -87,6 +89,88 @@ class TestLifecycleState: XCTestCase {
         XCTAssertTrue(entities!.contains("\"isVisible\":true"))
     }
     
+    /// A process launched straight into the background tracks no Foreground or Background event, so the
+    /// entity has to fall back to the app state instead of assuming the app is visible.
+    func testLifecycleStateMachineOnBackgroundLaunch() {
+        simulateAppState(.background)
+
+        let eventStore = MockEventStore()
+        let tracker = createTracker(namespace: "backgroundLaunch", eventStore: eventStore)
+
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
+        XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":false"))
+
+        // Opening the app afterwards flips the entity back to visible.
+        track(Foreground(index: 1), tracker)
+        XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":true"))
+
+        track(ScreenView(name: "screen1", screenId: UUID()), tracker)
+        XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":true"))
+    }
+
+    /// A normal launch is inactive rather than active until the app becomes active, so an inactive app must
+    /// not be mistaken for a background launch.
+    func testLifecycleStateMachineOnANormalLaunch() {
+        simulateAppState(.inactive)
+
+        let eventStore = MockEventStore()
+        let tracker = createTracker(namespace: "inactiveLaunch", eventStore: eventStore)
+
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
+        XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":true"))
+    }
+
+    /// Platforms without lifecycle notifications, and app extensions, keep the previous behaviour.
+    func testLifecycleStateMachineWhenTheAppStateCantBeRead() {
+        simulateAppState(.unknown)
+
+        let eventStore = MockEventStore()
+        let tracker = createTracker(namespace: "unknownLaunch", eventStore: eventStore)
+
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
+        XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":true"))
+    }
+
+    func testNoLifecycleEntityOnBackgroundLaunchWhenLifecycleEventsDisabled() {
+        simulateAppState(.background)
+
+        let eventStore = MockEventStore()
+        let tracker = createTracker(namespace: "backgroundLaunchDisabled", eventStore: eventStore) { tracker in
+            tracker.lifecycleEvents = false
+        }
+
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
+        XCTAssertFalse(entities(in: eventStore).contains("\"isVisible\""))
+    }
+
+    private func createTracker(namespace: String,
+                               eventStore: MockEventStore,
+                               _ builder: ((Tracker) -> (Void))? = nil) -> Tracker {
+        let emitter = Emitter(
+            networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
+            namespace: namespace,
+            eventStore: eventStore
+        )
+        return Tracker(trackerNamespace: namespace, appId: nil, emitter: emitter) { tracker in
+            tracker.base64Encoded = false
+            tracker.installEvent = false
+            tracker.lifecycleEvents = true
+            builder?(tracker)
+        }
+    }
+
+    /// The entities of the last tracked event, clearing the store so the next assertion can't read them again.
+    private func entities(in eventStore: MockEventStore) -> String {
+        if eventStore.lastInsertedRow == -1 {
+            XCTFail("No event was tracked")
+            return ""
+        }
+        let payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        _ = eventStore.removeAllEvents()
+
+        return payload?["co"] as? String ?? ""
+    }
+
     private func track(_ event: Event, _ tracker: Tracker) {
         InternalQueue.sync {
             _ = tracker.track(event)

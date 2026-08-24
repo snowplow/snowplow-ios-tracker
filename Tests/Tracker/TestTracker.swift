@@ -17,6 +17,12 @@ import XCTest
 let TEST_SERVER_TRACKER = "http://www.notarealurl.com"
 
 class TestTracker: XCTestCase {
+    override func setUp() {
+        super.setUp()
+        // The tracker seeds its session from the app state, which is the state of the test runner here.
+        AppStateSimulator.reset()
+    }
+
     func testTrackerSetup() {
         let emitter = Emitter(namespace: "aNamespace", urlEndpoint: "not-real.com")
 
