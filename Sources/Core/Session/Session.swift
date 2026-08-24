@@ -73,6 +73,10 @@ class Session {
         self.continueSessionOnRestart = continueSessionOnRestart
         self.isNewSession = !continueSessionOnRestart
         self.tracker = tracker
+        // A process launched straight into the background never gets a `didBecomeActive` notification, so
+        // without seeding this the session would consider itself in the foreground for the whole process and
+        // would skip the Foreground event tracked when the user does eventually open the app.
+        self.inBackground = !AppStateProvider.isVisible
         if let namespace = trackerNamespace {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
         }
@@ -100,6 +104,15 @@ class Session {
             self,
             selector: #selector(updateInForeground),
             name: UIApplication.didBecomeActiveNotification,
+            object: nil)
+        // `willResignActive` has already been sent by the time the app is inactive, so a session created in
+        // that window would otherwise never learn that the app went on to the background, and would skip the
+        // Foreground event when the app is reopened. `updateInBackground` is idempotent, so the session that
+        // did see `willResignActive` is unaffected.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateInBackground),
+            name: UIApplication.didEnterBackgroundNotification,
             object: nil)
 #endif
     }

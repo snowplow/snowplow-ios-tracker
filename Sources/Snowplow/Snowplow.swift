@@ -199,7 +199,12 @@ public class Snowplow: NSObject {
     /// - Returns: The tracker instance created.
     @objc
     public class func createTracker(namespace: String, network networkConfiguration: NetworkConfiguration, configurations: [ConfigurationProtocol] = []) -> TrackerController {
-        InternalQueue.sync {
+        // Every way of creating a tracker funnels through here, and this is the last point that still runs on
+        // the caller's thread. Reading the app state needs the main thread, which blocks on the queue below,
+        // so it can't be read from inside the tracker itself.
+        AppStateProvider.ensureInitialized()
+
+        return InternalQueue.sync {
             if let serviceProvider = serviceProviderInstances[namespace] {
                 serviceProvider.reset(configurations: configurations + [networkConfiguration])
                 return TrackerControllerIQWrapper(controller: serviceProvider.trackerController)
