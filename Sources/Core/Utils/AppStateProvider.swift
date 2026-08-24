@@ -65,16 +65,17 @@ class AppStateProvider: NSObject {
     /// Must be called from outside the ``InternalQueue``: it may hop to the main thread, and the main thread
     /// blocks on that queue in `InternalQueue.sync`.
     static func ensureInitialized() {
-        let state: AppState
-        if Thread.isMainThread {
-            state = appStateGenerator()
-        } else {
-            state = DispatchQueue.main.sync { appStateGenerator() }
-        }
-        update(with: state)
-
+        // Subscribe before reading, so that a transition happening during the read can't be missed. The read
+        // and the cache update below happen together, so a notification arriving in between can only be
+        // applied after the seed, never overwritten by it.
         // Instantiating the observer subscribes it; `static let` guarantees that happens only once.
         _ = observer
+
+        if readsAppStateOnMainThread && !Thread.isMainThread {
+            DispatchQueue.main.sync { update(with: appStateGenerator()) }
+        } else {
+            update(with: appStateGenerator())
+        }
     }
 
     // MARK: - Private
@@ -108,6 +109,9 @@ class AppStateProvider: NSObject {
     }
 
 #if os(iOS) || os(tvOS)
+    /// `UIApplication.applicationState` is main-thread only, so reading it off the main thread has to hop.
+    private static let readsAppStateOnMainThread = true
+
     private static func currentAppState() -> AppState {
         // `UIApplication.shared` is unavailable to app extensions, so the shared instance and its state are
         // read through the Objective-C runtime, and skipped entirely when running inside an extension.
@@ -129,6 +133,11 @@ class AppStateProvider: NSObject {
         }
     }
 #else
+    /// The state is never actually read on these platforms, so there is nothing to hop to the main thread
+    /// for. Hopping anyway would deadlock a `createTracker` called off the main thread while the main thread
+    /// waits on that same call.
+    private static let readsAppStateOnMainThread = false
+
     private static func currentAppState() -> AppState {
         // AppKit and WatchKit don't have the lifecycle observers below, so a state read here would go stale
         // as soon as the app changed state. See the `Session` notification observers.

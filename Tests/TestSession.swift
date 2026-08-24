@@ -492,7 +492,7 @@ class TestSession: XCTestCase {
     // Background launches
 
     func testStartsInBackgroundWhenTheAppLaunchesInTheBackground() {
-        AppStateSimulator.simulate(.background)
+        simulateAppState(.background)
 
         let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
 
@@ -502,7 +502,7 @@ class TestSession: XCTestCase {
     /// An app is inactive while it is still launching into the foreground. Treating that as a background
     /// launch would make every normal launch track an extra Foreground event once the app became active.
     func testStartsInForegroundWhenTheAppIsStillLaunching() {
-        AppStateSimulator.simulate(.inactive)
+        simulateAppState(.inactive)
 
         let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
 
@@ -510,18 +510,44 @@ class TestSession: XCTestCase {
     }
 
     func testStartsInForegroundWhenTheAppStateCantBeRead() {
-        AppStateSimulator.simulate(.unknown)
+        simulateAppState(.unknown)
 
         let session = Session(foregroundTimeout: 600, backgroundTimeout: 300)
 
         XCTAssertFalse(session.inBackground)
     }
 
+    /// A background-launched session with lifecycle autotracking disabled stays `inBackground` for the whole
+    /// process, because the handlers that would clear it are gated on `lifecycleEvents`. That keeps the
+    /// background timeout applied and `SessionController.isInBackground` true — correct for a process that
+    /// really is in the background, but it never flips if the app is later opened. Documented rather than
+    /// changed here: clearing it would need the state update to be split from the event tracking, which is a
+    /// wider change than this fix.
+    func testStaysInBackgroundAfterABackgroundLaunchWithLifecycleEventsDisabled() {
+        cleanFile(withNamespace: "backgroundLaunchNoLifecycle")
+        simulateAppState(.background)
+
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
+                              namespace: "backgroundLaunchNoLifecycle")
+        let tracker = Tracker(trackerNamespace: "backgroundLaunchNoLifecycle", appId: nil, emitter: emitter) { tracker in
+            tracker.installEvent = false
+            tracker.lifecycleEvents = false
+            tracker.sessionContext = true
+        }
+        let session = tracker.session
+        XCTAssertTrue(session?.inBackground ?? false)
+
+        session?.updateInForeground()
+        InternalQueue.sync {}
+
+        XCTAssertTrue(session?.inBackground ?? false)
+    }
+
     /// Without the background seed, `updateInForeground` bails out early and the Foreground event tracked
     /// when the user opens an app that was launched in the background is lost.
     func testTracksForegroundEventAfterABackgroundLaunch() {
         cleanFile(withNamespace: "backgroundLaunch")
-        AppStateSimulator.simulate(.background)
+        simulateAppState(.background)
 
         let eventStore = MockEventStore()
         let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
@@ -549,7 +575,7 @@ class TestSession: XCTestCase {
     /// app finishes launching and becomes active.
     func testDoesNotTrackForegroundEventAfterANormalLaunch() {
         cleanFile(withNamespace: "normalLaunch")
-        AppStateSimulator.simulate(.inactive)
+        simulateAppState(.inactive)
 
         let eventStore = MockEventStore()
         let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
@@ -573,7 +599,7 @@ class TestSession: XCTestCase {
     /// The background timeout is the one that applies during a background launch. It only differs from the
     /// foreground timeout for trackers that configure them differently.
     func testUsesTheBackgroundTimeoutAfterABackgroundLaunch() {
-        AppStateSimulator.simulate(.background)
+        simulateAppState(.background)
 
         let session = Session(foregroundTimeout: 30, backgroundTimeout: 1)
 

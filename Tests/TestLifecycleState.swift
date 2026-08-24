@@ -92,7 +92,7 @@ class TestLifecycleState: XCTestCase {
     /// A process launched straight into the background tracks no Foreground or Background event, so the
     /// entity has to fall back to the app state instead of assuming the app is visible.
     func testLifecycleStateMachineOnBackgroundLaunch() {
-        AppStateSimulator.simulate(.background)
+        simulateAppState(.background)
 
         let eventStore = MockEventStore()
         let tracker = createTracker(namespace: "backgroundLaunch", eventStore: eventStore)
@@ -111,7 +111,7 @@ class TestLifecycleState: XCTestCase {
     /// A normal launch is inactive rather than active until the app becomes active, so an inactive app must
     /// not be mistaken for a background launch.
     func testLifecycleStateMachineOnANormalLaunch() {
-        AppStateSimulator.simulate(.inactive)
+        simulateAppState(.inactive)
 
         let eventStore = MockEventStore()
         let tracker = createTracker(namespace: "inactiveLaunch", eventStore: eventStore)
@@ -122,7 +122,7 @@ class TestLifecycleState: XCTestCase {
 
     /// Platforms without lifecycle notifications, and app extensions, keep the previous behaviour.
     func testLifecycleStateMachineWhenTheAppStateCantBeRead() {
-        AppStateSimulator.simulate(.unknown)
+        simulateAppState(.unknown)
 
         let eventStore = MockEventStore()
         let tracker = createTracker(namespace: "unknownLaunch", eventStore: eventStore)
@@ -132,7 +132,7 @@ class TestLifecycleState: XCTestCase {
     }
 
     func testNoLifecycleEntityOnBackgroundLaunchWhenLifecycleEventsDisabled() {
-        AppStateSimulator.simulate(.background)
+        simulateAppState(.background)
 
         let eventStore = MockEventStore()
         let tracker = createTracker(namespace: "backgroundLaunchDisabled", eventStore: eventStore) { tracker in

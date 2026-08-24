@@ -12,12 +12,15 @@
 //  language governing permissions and limitations there under.
 
 import Foundation
+import XCTest
 @testable import SnowplowTracker
 
 /// Overrides the app state that `AppStateProvider` reads.
 ///
-/// `AppStateProvider` caches its value process-wide, so tests that simulate a state must reset it again
-/// afterwards, otherwise the next test sees the state of the previous one.
+/// `AppStateProvider` caches its value process-wide, so a simulated state leaks into whichever test runs
+/// next – including tests that never mention the app state and only create a tracker – unless it is reset.
+/// Prefer ``XCTestCase/simulateAppState(_:)``, which resets automatically even if the test fails part way
+/// through; the static methods here are for the few call sites that have no test case to hang that on.
 class AppStateSimulator {
 
     /// Makes the tracker read the given app state from now on, as if a tracker had just been created.
@@ -30,5 +33,17 @@ class AppStateSimulator {
     static func reset() {
         simulate(.active)
         AppStateProvider.appStateGenerator = AppStateProvider.defaultAppStateGenerator
+    }
+}
+
+extension XCTestCase {
+
+    /// Simulates the given app state for the rest of this test, resetting it when the test ends.
+    ///
+    /// `addTeardownBlock` runs even when the test fails or throws part way through, so the simulated state
+    /// can't outlive the test that asked for it.
+    func simulateAppState(_ state: AppState) {
+        addTeardownBlock { AppStateSimulator.reset() }
+        AppStateSimulator.simulate(state)
     }
 }

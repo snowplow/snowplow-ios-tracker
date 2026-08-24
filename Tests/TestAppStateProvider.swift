@@ -27,13 +27,13 @@ class TestAppStateProvider: XCTestCase {
     }
 
     func testIsVisibleWhenTheAppIsActive() {
-        AppStateSimulator.simulate(.active)
+        simulateAppState(.active)
 
         XCTAssertTrue(AppStateProvider.isVisible)
     }
 
     func testIsNotVisibleWhenTheAppIsInTheBackground() {
-        AppStateSimulator.simulate(.background)
+        simulateAppState(.background)
 
         XCTAssertFalse(AppStateProvider.isVisible)
     }
@@ -41,14 +41,14 @@ class TestAppStateProvider: XCTestCase {
     /// An app that is launching into the foreground is inactive until it becomes active, so only the
     /// background state tells a background launch apart from a normal one.
     func testIsVisibleWhenTheAppIsInactive() {
-        AppStateSimulator.simulate(.inactive)
+        simulateAppState(.inactive)
 
         XCTAssertTrue(AppStateProvider.isVisible)
     }
 
     func testIsVisibleWhenTheAppStateCantBeRead() {
-        AppStateSimulator.simulate(.background)
-        AppStateSimulator.simulate(.unknown)
+        simulateAppState(.background)
+        simulateAppState(.unknown)
 
         XCTAssertTrue(AppStateProvider.isVisible)
     }

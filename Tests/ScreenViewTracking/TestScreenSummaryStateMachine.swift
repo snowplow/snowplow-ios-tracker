@@ -135,7 +135,7 @@ class TestScreenSummaryStateMachine: XCTestCase {
     /// which reattributes the time the screen spent in a background-launched process to `background_sec`.
     /// Before the seed, no Foreground event fired at all and all of that time was credited to `foreground_sec`.
     func testAttributesTimeBeforeTheFirstForegroundOnABackgroundLaunchToBackgroundSeconds() {
-        AppStateSimulator.simulate(.background)
+        simulateAppState(.background)
 
         let expectForeground = expectation(description: "Foreground event")
 

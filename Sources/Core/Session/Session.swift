@@ -105,6 +105,15 @@ class Session {
             selector: #selector(updateInForeground),
             name: UIApplication.didBecomeActiveNotification,
             object: nil)
+        // `willResignActive` has already been sent by the time the app is inactive, so a session created in
+        // that window would otherwise never learn that the app went on to the background, and would skip the
+        // Foreground event when the app is reopened. `updateInBackground` is idempotent, so the session that
+        // did see `willResignActive` is unaffected.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(updateInBackground),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil)
 #endif
     }
 
