@@ -11,6 +11,8 @@
 //  express or implied. See the Apache License Version 2.0 for the specific
 //  language governing permissions and limitations there under.
 
+private var sp_originalViewDidAppearIMP: IMP?
+
 class UIKitScreenViewTracking {
     private static var initialized = false
 
@@ -27,32 +29,13 @@ class UIKitScreenViewTracking {
         let swizzledSelector = #selector(UIViewController.sp_viewDidAppear(_:))
         let forClass = UIViewController.self
 
-        let originalMethod = class_getInstanceMethod(forClass, originalSelector)
-        let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector)
-
-        var didAddMethod = false
-        if let swizzledMethod = swizzledMethod {
-            didAddMethod = class_addMethod(
-                forClass,
-                originalSelector,
-                method_getImplementation(swizzledMethod),
-                method_getTypeEncoding(swizzledMethod))
+        guard let originalMethod = class_getInstanceMethod(forClass, originalSelector),
+              let swizzledMethod = class_getInstanceMethod(forClass, swizzledSelector) else {
+            return
         }
 
-        if didAddMethod {
-            if let originalMethod = originalMethod {
-                class_replaceMethod(
-                    forClass,
-                    swizzledSelector,
-                    method_getImplementation(originalMethod),
-                    method_getTypeEncoding(originalMethod))
-            }
-        } else {
-            if let originalMethod = originalMethod,
-               let swizzledMethod = swizzledMethod {
-                method_exchangeImplementations(originalMethod, swizzledMethod)
-            }
-        }
+        let swizzledIMP = method_getImplementation(swizzledMethod)
+        sp_originalViewDidAppearIMP = method_setImplementation(originalMethod, swizzledIMP)
         #endif
     }
 }
@@ -67,7 +50,12 @@ extension UIViewController {
     // MARK: - Method Swizzling
 
     @objc func sp_viewDidAppear(_ animated: Bool) {
-        sp_viewDidAppear(animated)
+        // Invoke the original function
+        if let originalIMP = sp_originalViewDidAppearIMP {
+            typealias ViewDidAppearFunc = @convention(c) (AnyObject, Selector, Bool) -> Void
+            let originalFunc = unsafeBitCast(originalIMP, to: ViewDidAppearFunc.self)
+            originalFunc(self, #selector(UIViewController.viewDidAppear(_:)), animated)
+        }
 
         let bundleURL = Bundle(for: self.classForCoder).bundleURL
         let mainBundleURL = Bundle.main.bundleURL
