@@ -30,7 +30,10 @@ class TestConfigurationBuilder: XCTestCase {
             
             EmitterConfiguration()
                 .threadPoolSize(33)
-            
+
+            NetworkConfiguration(endpoint: "https://snowplow.io", method: .post)
+                .protocolClasses([])
+
             if let pluginName = pluginName {
                 PluginConfiguration(identifier: pluginName)
                     .afterTrack { event in }

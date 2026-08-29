@@ -214,6 +214,7 @@ class Emitter: EmitterEventProcessing {
          serverAnonymisation: Bool? = nil,
          eventStore: EventStore? = nil,
          timeout: TimeInterval = EmitterDefaults.emitTimeout,
+         protocolClasses: [AnyClass]? = nil,
          builder: ((Emitter) -> (Void))? = nil) {
         self.namespace = namespace
         self.eventStore = eventStore ?? Emitter.defaultEventStore(namespace: namespace)
@@ -222,7 +223,8 @@ class Emitter: EmitterEventProcessing {
             urlString: urlEndpoint,
             httpMethod: method ?? EmitterDefaults.httpMethod,
             customPostPath: customPostPath,
-            timeout: timeout
+            timeout: timeout,
+            protocolClasses: protocolClasses
         )
         defaultNetworkConnection.requestHeaders = requestHeaders
         defaultNetworkConnection.serverAnonymisation = serverAnonymisation ?? EmitterDefaults.serverAnonymisation
