@@ -200,6 +200,237 @@ class TestEvents: XCTestCase {
         XCTAssertEqual("iglu:com.acme_company/demo_ios_event/jsonschema/1-0-0", event?.schema)
         XCTAssertEqual(23, event?.payload["level"] as? Int)
     }
+    
+    // MARK: - SelfDescribing Encodable Serialization Tests
+    
+    func testSelfDescribingWithEncodableAndCustomEncoder() {
+        struct GameEvent: Encodable {
+            var eventType: String
+            var timestamp: Date
+            var playerId: String
+            var metadata: [String: Any]
+            
+            enum CodingKeys: String, CodingKey {
+                case eventType, timestamp, playerId, metadata
+            }
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.container(keyedBy: CodingKeys.self)
+                try container.encode(eventType, forKey: .eventType)
+                try container.encode(timestamp, forKey: .timestamp)
+                try container.encode(playerId, forKey: .playerId)
+                // Convert Any values to encodable types
+                let encodableMetadata = metadata.compactMapValues { value -> String? in
+                    return String(describing: value)
+                }
+                try container.encode(encodableMetadata, forKey: .metadata)
+            }
+        }
+        
+        let customEncoder = JSONEncoder()
+        customEncoder.dateEncodingStrategy = .millisecondsSince1970
+        
+        let gameEvent = GameEvent(
+            eventType: "level_completed",
+            timestamp: Date(timeIntervalSince1970: 1640995200), // 2022-01-01T00:00:00Z
+            playerId: "player_123",
+            metadata: ["level": 5, "score": 1500, "time_taken": 120.5]
+        )
+        
+        let event = try? SelfDescribing(
+            schema: "iglu:com.game/level_completion/jsonschema/1-0-0",
+            encoder: customEncoder,
+            data: gameEvent
+        )
+        
+        XCTAssertNotNil(event)
+        XCTAssertEqual("iglu:com.game/level_completion/jsonschema/1-0-0", event?.schema)
+        XCTAssertEqual("level_completed", event?.payload["eventType"] as? String)
+        XCTAssertEqual("player_123", event?.payload["playerId"] as? String)
+        XCTAssertEqual(1640995200000, event?.payload["timestamp"] as? Double) // milliseconds
+        
+        let metadata = event?.payload["metadata"] as? [String: String]
+        XCTAssertNotNil(metadata)
+        XCTAssertEqual("5", metadata?["level"])
+        XCTAssertEqual("1500", metadata?["score"])
+        XCTAssertEqual("120.5", metadata?["time_taken"])
+    }
+    
+    func testSelfDescribingWithComplexNestedEncodableData() {
+        struct Purchase: Encodable {
+            var orderId: String
+            var customerId: String
+            var items: [PurchaseItem]
+            var paymentInfo: PaymentInfo
+            var discounts: [String]?
+            var totalAmount: Double
+        }
+        
+        struct PurchaseItem: Encodable {
+            var productId: String
+            var name: String
+            var quantity: Int
+            var pricePerUnit: Double
+        }
+        
+        struct PaymentInfo: Encodable {
+            var method: String
+            var cardLast4: String?
+            var transactionId: String
+        }
+        
+        let purchase = Purchase(
+            orderId: "ORD-12345",
+            customerId: "CUST-67890",
+            items: [
+                PurchaseItem(productId: "PROD-001", name: "T-Shirt", quantity: 2, pricePerUnit: 25.99),
+                PurchaseItem(productId: "PROD-002", name: "Jeans", quantity: 1, pricePerUnit: 89.99)
+            ],
+            paymentInfo: PaymentInfo(method: "credit_card", cardLast4: "1234", transactionId: "TXN-ABCD"),
+            discounts: ["SUMMER10", "LOYALTY5"],
+            totalAmount: 131.97
+        )
+        
+        let event = try? SelfDescribing(
+            schema: "iglu:com.ecommerce/purchase/jsonschema/1-0-0",
+            data: purchase
+        )
+        
+        XCTAssertNotNil(event)
+        XCTAssertEqual("iglu:com.ecommerce/purchase/jsonschema/1-0-0", event?.schema)
+        XCTAssertEqual("ORD-12345", event?.payload["orderId"] as? String)
+        XCTAssertEqual("CUST-67890", event?.payload["customerId"] as? String)
+        XCTAssertEqual(131.97, event?.payload["totalAmount"] as? Double)
+        
+        let items = event?.payload["items"] as? [[String: Any]]
+        XCTAssertEqual(2, items?.count)
+        XCTAssertEqual("PROD-001", items?[0]["productId"] as? String)
+        XCTAssertEqual("T-Shirt", items?[0]["name"] as? String)
+        XCTAssertEqual(2, items?[0]["quantity"] as? Int)
+        XCTAssertEqual(25.99, items?[0]["pricePerUnit"] as? Double)
+        
+        let paymentInfo = event?.payload["paymentInfo"] as? [String: Any]
+        XCTAssertNotNil(paymentInfo)
+        XCTAssertEqual("credit_card", paymentInfo?["method"] as? String)
+        XCTAssertEqual("1234", paymentInfo?["cardLast4"] as? String)
+        XCTAssertEqual("TXN-ABCD", paymentInfo?["transactionId"] as? String)
+        
+        let discounts = event?.payload["discounts"] as? [String]
+        XCTAssertEqual(["SUMMER10", "LOYALTY5"], discounts)
+    }
+    
+    func testSelfDescribingWithEncodableArrayThrowsError() {
+        struct ArrayData: Encodable {
+            var values: [String]
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.unkeyedContainer()
+                for value in values {
+                    try container.encode(value)
+                }
+            }
+        }
+        
+        let arrayData = ArrayData(values: ["value1", "value2", "value3"])
+        
+        XCTAssertThrowsError(
+            try SelfDescribing(
+                schema: "iglu:com.test/array_data/jsonschema/1-0-0",
+                data: arrayData
+            )
+        ) { error in
+            XCTAssertTrue(error is PayloadError)
+            if case PayloadError.jsonSerializationToDictionaryFailed = error {
+                // Expected error type
+            } else {
+                XCTFail("Expected PayloadError.jsonSerializationToDictionaryFailed")
+            }
+        }
+    }
+    
+    func testSelfDescribingWithEncodablePrimitiveThrowsError() {
+        struct PrimitiveData: Encodable {
+            var message: String
+            
+            func encode(to encoder: Encoder) throws {
+                var container = encoder.singleValueContainer()
+                try container.encode(message)
+            }
+        }
+        
+        let primitiveData = PrimitiveData(message: "This will encode as a string, not an object")
+        
+        XCTAssertThrowsError(
+            try SelfDescribing(
+                schema: "iglu:com.test/primitive_data/jsonschema/1-0-0",
+                data: primitiveData
+            )
+        ) { error in
+            XCTAssertTrue(error is PayloadError)
+            if case PayloadError.jsonSerializationToDictionaryFailed = error {
+                // Expected error type
+            } else {
+                XCTFail("Expected PayloadError.jsonSerializationToDictionaryFailed")
+            }
+        }
+    }
+    
+    func testSelfDescribingWithInvalidEncodableThrowsEncodingError() {
+        struct FailingEncodable: Encodable {
+            func encode(to encoder: Encoder) throws {
+                throw EncodingError.invalidValue(
+                    self,
+                    EncodingError.Context(
+                        codingPath: [],
+                        debugDescription: "This struct intentionally fails to encode"
+                    )
+                )
+            }
+        }
+        
+        let failingData = FailingEncodable()
+        
+        XCTAssertThrowsError(
+            try SelfDescribing(
+                schema: "iglu:com.test/failing_data/jsonschema/1-0-0",
+                data: failingData
+            )
+        ) { error in
+            XCTAssertTrue(error is EncodingError)
+        }
+    }
+    
+    func testSelfDescribingWithEncodableOptionalFields() {
+        struct EventData: Encodable {
+            var eventId: String
+            var userId: String?
+            var sessionId: String?
+            var customProperties: [String: String]?
+            var timestamp: Double
+        }
+        
+        let eventData = EventData(
+            eventId: "evt_123",
+            userId: "user_456", // Present
+            sessionId: nil, // Should be omitted
+            customProperties: ["source": "mobile", "version": "2.1.0"], // Present
+            timestamp: 1640995200.123
+        )
+        
+        let event = try? SelfDescribing(
+            schema: "iglu:com.analytics/custom_event/jsonschema/1-0-0",
+            data: eventData
+        )
+        
+        XCTAssertNotNil(event)
+        XCTAssertEqual("iglu:com.analytics/custom_event/jsonschema/1-0-0", event?.schema)
+        XCTAssertEqual("evt_123", event?.payload["eventId"] as? String)
+        XCTAssertEqual("user_456", event?.payload["userId"] as? String)
+        XCTAssertEqual(1640995200.123, event?.payload["timestamp"] as? Double)
+        
+        // sessionId should not be present (nil optional)
+        XCTAssertFalse(event?.payload.keys.contains("sessionId") ?? true)
+    }
 
     func testConsentWithdrawn() {
         let event = ConsentWithdrawn()
