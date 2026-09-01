@@ -52,6 +52,15 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
             return state
         }
         else if let state = currentState as? ScreenSummaryState {
+            // Once a screen has been manually ended, its engagement metrics are finalized —
+            // ignore any further updates (Foreground/Background transitions, the automatic
+            // pre-ScreenView ScreenEnd, list/scroll metrics) until a real ScreenView replaces
+            // this state entirely. Without this guard, those events would keep mutating
+            // foreground_sec/background_sec on the ended screen, reintroducing the bug this
+            // feature exists to fix.
+            if state.isEnded {
+                return currentState
+            }
             switch event {
             case is Foreground:
                 state.updateTransitionToForeground()
@@ -65,6 +74,7 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
                 // the user has since natively navigated to.
                 if endScreenView.screenId == nil || endScreenView.screenId?.uuidString == state.screenId {
                     state.updateForScreenEnd()
+                    state.markEnded()
                 }
             case let itemView as ListItemView:
                 state.updateWithListItemView(itemView)
@@ -79,7 +89,13 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
 
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
         guard let state = state as? ScreenSummaryState else { return nil }
-        
+        // Once a screen has been manually ended, stop attaching its (now-frozen) summary to
+        // later events (the EndScreenView event itself still gets it, as the finalized summary
+        // for that screen).
+        if state.isEnded && event.schema != kSPEndScreenViewSchema {
+            return nil
+        }
+
         return [
             SelfDescribingJson(schema: kSPScreenSummarySchema, andData: state.data)
         ]

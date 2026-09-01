@@ -144,6 +144,58 @@ class TestScreenSummaryStateMachine: XCTestCase {
         wait(for: [expectNoEndScreenView], timeout: 2)
     }
 
+    /// Once a screen is manually ended, its engagement metrics must be frozen. Later
+    /// Foreground/Background transitions and the automatic pre-ScreenView ScreenEnd must not
+    /// keep mutating foreground_sec/background_sec on the ended screen's state, or attach a
+    /// screen summary entity computed from it — otherwise this reintroduces the exact
+    /// over-accumulation bug the manual trigger exists to fix.
+    func testEngagementMetricsStopAccumulatingAfterManualEnd() {
+        let expectEndScreenView = expectation(description: "EndScreenView event")
+        let expectNoEntityOnBackground = expectation(description: "No screen summary entity on Background after end")
+        expectNoEntityOnBackground.isInverted = true
+        let expectNoEntityOnForeground = expectation(description: "No screen summary entity on Foreground after end")
+        expectNoEntityOnForeground.isInverted = true
+        let expectNoEntityOnAutomaticScreenEnd = expectation(description: "No screen summary entity on automatic ScreenEnd after manual end")
+        expectNoEntityOnAutomaticScreenEnd.isInverted = true
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPEndScreenViewSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["foreground_sec"] as? Double, 10.0)
+                expectEndScreenView.fulfill()
+            }
+            if event.schema == kSPBackgroundSchema {
+                if event.entities.first(where: { $0.schema == kSPScreenSummarySchema }) != nil {
+                    expectNoEntityOnBackground.fulfill()
+                }
+            }
+            if event.schema == kSPForegroundSchema {
+                if event.entities.first(where: { $0.schema == kSPScreenSummarySchema }) != nil {
+                    expectNoEntityOnForeground.fulfill()
+                }
+            }
+            if event.schema == kSPScreenEndSchema {
+                if event.entities.first(where: { $0.schema == kSPScreenSummarySchema }) != nil {
+                    expectNoEntityOnAutomaticScreenEnd.fulfill()
+                }
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(EndScreenView())
+        InternalQueue.sync { timeTraveler.travel(by: 5) }
+        _ = tracker.track(Background(index: 1))
+        InternalQueue.sync { timeTraveler.travel(by: 20) }
+        _ = tracker.track(Foreground(index: 1))
+        // Triggers the automatic pre-ScreenView ScreenEnd flush against the still-ended state.
+        _ = tracker.track(ScreenView(name: "Screen 2"))
+
+        wait(for: [expectEndScreenView, expectNoEntityOnBackground, expectNoEntityOnForeground, expectNoEntityOnAutomaticScreenEnd], timeout: 10)
+    }
+
     /// The automatic screen_end flush injected before every real ScreenView must stay on its own
     /// schema — it must never surface as the new manual-trigger schema.
     func testEndScreenViewDoesNotFireAsSideEffectOfAutomaticScreenTransition() {

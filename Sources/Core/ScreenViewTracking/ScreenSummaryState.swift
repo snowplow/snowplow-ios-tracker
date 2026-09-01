@@ -19,6 +19,10 @@ class ScreenSummaryState: State {
     
     private var lastUpdateTimestamp: TimeInterval = ScreenSummaryState.dateGenerator()
     var screenId: String?
+    /// Whether the screen view has been manually ended (via `EndScreenView`).
+    /// Once true, further engagement updates (Foreground/Background/automatic ScreenEnd/list
+    /// and scroll metrics) are ignored so the ended screen's summary stops changing.
+    private(set) var isEnded = false
     var foregroundSeconds: TimeInterval = 0
     var backgroundSeconds: TimeInterval = 0
     var lastItemIndex: Int?
@@ -62,9 +66,14 @@ class ScreenSummaryState: State {
     
     func updateForScreenEnd() {
         let currentTimestamp = ScreenSummaryState.dateGenerator()
-        
+
         foregroundSeconds += currentTimestamp - lastUpdateTimestamp
         lastUpdateTimestamp = currentTimestamp
+    }
+
+    /// Marks the screen view as manually ended, e.g. via an `EndScreenView` event.
+    func markEnded() {
+        isEnded = true
     }
     
     func updateWithListItemView(_ event: ListItemView) {
