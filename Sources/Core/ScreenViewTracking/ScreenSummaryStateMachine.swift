@@ -107,7 +107,12 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
 
     func filter(event: InspectableEvent, state: State?) -> Bool? {
         if event.schema == kSPScreenEndSchema {
-            return state != nil
+            // Once a screen has been manually ended, the automatic pre-ScreenView ScreenEnd
+            // flush must not reach the emitter — it would ship a naked screen_end event (no
+            // screen_summary entity, per entities() above) for a screen that already got its
+            // real screen_end via EndScreenView.
+            guard let state = state as? ScreenSummaryState else { return false }
+            return !state.isEnded
         }
         if event.schema == kSPEndScreenViewSchema {
             guard let state = state as? ScreenSummaryState, let screenId = state.screenId else { return false }

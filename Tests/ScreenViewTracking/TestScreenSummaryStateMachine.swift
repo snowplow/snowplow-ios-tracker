@@ -196,6 +196,31 @@ class TestScreenSummaryStateMachine: XCTestCase {
         wait(for: [expectEndScreenView, expectNoEntityOnBackground, expectNoEntityOnForeground, expectNoEntityOnAutomaticScreenEnd], timeout: 10)
     }
 
+    /// Once a screen has been manually ended, the automatic pre-ScreenView ScreenEnd flush must
+    /// be dropped entirely by filter() — not just stripped of its screen_summary entity — since
+    /// a naked screen_end event still reaching the collector would be a newly reachable, previously
+    /// impossible event for downstream consumers to see.
+    func testAutomaticScreenEndEventIsNotTrackedAfterManualEnd() {
+        let expectNoScreenEnd = expectation(description: "Automatic ScreenEnd event should not be tracked after manual end")
+        expectNoScreenEnd.isInverted = true
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                expectNoScreenEnd.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(EndScreenView())
+        // Triggers the automatic pre-ScreenView ScreenEnd flush against the already-ended state.
+        _ = tracker.track(ScreenView(name: "Screen 2"))
+
+        wait(for: [expectNoScreenEnd], timeout: 2)
+    }
+
     /// The automatic screen_end flush injected before every real ScreenView must stay on its own
     /// schema — it must never surface as the new manual-trigger schema.
     func testEndScreenViewDoesNotFireAsSideEffectOfAutomaticScreenTransition() {
