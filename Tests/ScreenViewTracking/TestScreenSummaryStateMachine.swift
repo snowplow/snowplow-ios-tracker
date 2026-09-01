@@ -81,6 +81,93 @@ class TestScreenSummaryStateMachine: XCTestCase {
         wait(for: [expectScreenEnd], timeout: 10)
     }
     
+    func testEndScreenViewClosesOutEngagementDuration() {
+        let expectEndScreenView = expectation(description: "EndScreenView event")
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPEndScreenViewSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["foreground_sec"] as? Double, 10.0)
+                expectEndScreenView.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(EndScreenView())
+
+        wait(for: [expectEndScreenView], timeout: 10)
+    }
+
+    func testEndScreenViewWithMatchingScreenIdClosesOutEngagementDuration() {
+        let expectEndScreenView = expectation(description: "EndScreenView event")
+        let screenId = UUID()
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPEndScreenViewSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["foreground_sec"] as? Double, 10.0)
+                expectEndScreenView.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1", screenId: screenId))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(EndScreenView(screenId: screenId))
+
+        wait(for: [expectEndScreenView], timeout: 10)
+    }
+
+    /// A delayed/stale EndScreenView call referencing a screen the user has already natively
+    /// navigated away from must not be tracked, and must not close out the engagement duration
+    /// of whichever screen is currently active.
+    func testEndScreenViewWithMismatchedScreenIdIsIgnored() {
+        let expectNoEndScreenView = expectation(description: "EndScreenView event should not fire")
+        expectNoEndScreenView.isInverted = true
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPEndScreenViewSchema {
+                expectNoEndScreenView.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(EndScreenView(screenId: UUID()))
+
+        wait(for: [expectNoEndScreenView], timeout: 2)
+    }
+
+    /// The automatic screen_end flush injected before every real ScreenView must stay on its own
+    /// schema — it must never surface as the new manual-trigger schema.
+    func testEndScreenViewDoesNotFireAsSideEffectOfAutomaticScreenTransition() {
+        let expectScreenEnd = expectation(description: "Screen end event")
+        let expectNoEndScreenView = expectation(description: "EndScreenView event should not fire")
+        expectNoEndScreenView.isInverted = true
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                expectScreenEnd.fulfill()
+            }
+            if event.schema == kSPEndScreenViewSchema {
+                expectNoEndScreenView.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        _ = tracker.track(ScreenView(name: "Screen 2"))
+
+        wait(for: [expectScreenEnd, expectNoEndScreenView], timeout: 10)
+    }
+
     func testUpdatesListMetrics() {
         let expectScreenEnd = expectation(description: "Screen end event")
         

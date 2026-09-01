@@ -22,11 +22,11 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
     }
 
     var subscribedEventSchemasForTransitions: [String] {
-        return [kSPScreenViewSchema, kSPScreenEndSchema, kSPForegroundSchema, kSPBackgroundSchema, kSPListItemViewSchema, kSPScrollChangedSchema]
+        return [kSPScreenViewSchema, kSPScreenEndSchema, kSPEndScreenViewSchema, kSPForegroundSchema, kSPBackgroundSchema, kSPListItemViewSchema, kSPScrollChangedSchema]
     }
 
     var subscribedEventSchemasForEntitiesGeneration: [String] {
-        return [kSPScreenEndSchema, kSPForegroundSchema, kSPBackgroundSchema]
+        return [kSPScreenEndSchema, kSPEndScreenViewSchema, kSPForegroundSchema, kSPBackgroundSchema]
     }
 
     var subscribedEventSchemasForPayloadUpdating: [String] {
@@ -38,16 +38,18 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
     }
     
     var subscribedEventSchemasForFiltering: [String] {
-        return [kSPListItemViewSchema, kSPScrollChangedSchema, kSPScreenEndSchema]
+        return [kSPListItemViewSchema, kSPScrollChangedSchema, kSPScreenEndSchema, kSPEndScreenViewSchema]
     }
-    
+
     func eventsBefore(event: Event) -> [Event]? {
         return [ScreenEnd()]
     }
 
     func transition(from event: Event, state currentState: State?) -> State? {
-        if event is ScreenView {
-            return ScreenSummaryState()
+        if let screenView = event as? ScreenView {
+            let state = ScreenSummaryState()
+            state.screenId = screenView.screenId.uuidString
+            return state
         }
         else if let state = currentState as? ScreenSummaryState {
             switch event {
@@ -57,6 +59,13 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
                 state.updateTransitionToBackground()
             case is ScreenEnd:
                 state.updateForScreenEnd()
+            case let endScreenView as EndScreenView:
+                // Ignore a manual end that doesn't match the currently active screen — a
+                // delayed/stale call shouldn't close out the engagement duration of a screen
+                // the user has since natively navigated to.
+                if endScreenView.screenId == nil || endScreenView.screenId?.uuidString == state.screenId {
+                    state.updateForScreenEnd()
+                }
             case let itemView as ListItemView:
                 state.updateWithListItemView(itemView)
             case let scrollChanged as ScrollChanged:
@@ -83,6 +92,13 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
     func filter(event: InspectableEvent, state: State?) -> Bool? {
         if event.schema == kSPScreenEndSchema {
             return state != nil
+        }
+        if event.schema == kSPEndScreenViewSchema {
+            guard let state = state as? ScreenSummaryState, let screenId = state.screenId else { return false }
+            if let suppliedScreenId = event.payload[kSPSvScreenId] as? String, suppliedScreenId != screenId {
+                return false
+            }
+            return true
         }
         // do not track list item view or scroll changed events
         return false

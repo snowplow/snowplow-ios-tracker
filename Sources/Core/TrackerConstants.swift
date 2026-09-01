@@ -72,6 +72,7 @@ let ecommerceRefundSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/refun
 let ecommerceUserSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/user/jsonschema/1-0-0"
 let ecommercePageSchema = "iglu:com.snowplowanalytics.snowplow.ecommerce/page/jsonschema/1-0-0"
 let kSPScreenEndSchema = "iglu:com.snowplowanalytics.mobile/screen_end/jsonschema/1-0-0"
+let kSPEndScreenViewSchema = "iglu:com.snowplowanalytics.mobile/end_screen_view/jsonschema/1-0-0"
 let kSPScreenSummarySchema = "iglu:com.snowplowanalytics.mobile/screen_summary/jsonschema/1-0-0"
 let kSPListItemViewSchema = "iglu:com.snowplowanalytics.mobile/list_item_view/jsonschema/1-0-0"
 let kSPScrollChangedSchema = "iglu:com.snowplowanalytics.mobile/scroll_changed/jsonschema/1-0-0"

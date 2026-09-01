@@ -226,6 +226,18 @@ class TestEvents: XCTestCase {
         XCTAssertEqual("name", event.payload["name"] as? String)
     }
 
+    func testEndScreenView() {
+        let screenId = UUID()
+
+        let event = EndScreenView(screenId: screenId)
+        XCTAssertEqual(kSPEndScreenViewSchema, event.schema)
+        XCTAssertEqual(screenId.uuidString, event.payload["id"] as? String)
+
+        let eventWithoutScreenId = EndScreenView()
+        XCTAssertNil(eventWithoutScreenId.screenId)
+        XCTAssertTrue(eventWithoutScreenId.payload.isEmpty)
+    }
+
     func testTiming() {
         let event = Timing(category: "cat", variable: "var", timing: 5)
         XCTAssertEqual("cat", event.payload["category"] as? String)

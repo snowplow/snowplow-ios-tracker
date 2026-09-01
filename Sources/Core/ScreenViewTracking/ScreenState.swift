@@ -29,6 +29,11 @@ class ScreenState: NSObject, State, NSCopying {
     private(set) var viewControllerClassName: String?
     /// Previous ScreenState
     var previousState: ScreenState?
+    /// Whether the screen view has been manually ended (via `EndScreenView`).
+    /// The screen context entity stops being attached to events once this is true,
+    /// but the state itself is kept around so it can still be linked as the `previousState`
+    /// of the next screen view.
+    private(set) var isEnded = false
 
     /// Creates a new screen state.
     /// - Parameters:
@@ -68,12 +73,19 @@ class ScreenState: NSObject, State, NSCopying {
     }
 
     func copy(with zone: NSZone? = nil) -> Any {
-        return ScreenState(name: name,
-                           type: type,
-                           screenId: screenId,
-                           transitionType: transitionType,
-                           topViewControllerClassName: topViewControllerClassName,
-                           viewControllerClassName: viewControllerClassName)
+        let copy = ScreenState(name: name,
+                                type: type,
+                                screenId: screenId,
+                                transitionType: transitionType,
+                                topViewControllerClassName: topViewControllerClassName,
+                                viewControllerClassName: viewControllerClassName)
+        if isEnded { copy.markEnded() }
+        return copy
+    }
+
+    /// Marks the screen view as manually ended, e.g. via an `EndScreenView` event.
+    func markEnded() {
+        isEnded = true
     }
 
     /// Return if the state is valid.

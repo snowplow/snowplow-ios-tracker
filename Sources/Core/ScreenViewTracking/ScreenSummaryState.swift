@@ -18,6 +18,7 @@ class ScreenSummaryState: State {
     static var dateGenerator: () -> TimeInterval = { Date().timeIntervalSince1970 }
     
     private var lastUpdateTimestamp: TimeInterval = ScreenSummaryState.dateGenerator()
+    var screenId: String?
     var foregroundSeconds: TimeInterval = 0
     var backgroundSeconds: TimeInterval = 0
     var lastItemIndex: Int?

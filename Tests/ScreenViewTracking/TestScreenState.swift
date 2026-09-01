@@ -129,6 +129,79 @@ class TestScreenState: XCTestCase {
         XCTAssertTrue(entities!.contains(uuid2.uuidString))
     }
     
+    func testEndScreenViewClearsContextButKeepsPreviousChain() {
+        let eventStore = MockEventStore()
+        let emitter = Emitter(namespace: "namespace", urlEndpoint: "http://snowplow-fake-url.com", eventStore: eventStore)
+        let tracker = Tracker(trackerNamespace: "namespace", appId: nil, emitter: emitter) { tracker in
+            tracker.base64Encoded = false
+            tracker.screenContext = true
+            tracker.applicationContext = false
+        }
+        emitter.pauseEmit()
+
+        let screenId = UUID()
+        track(ScreenView(name: "screen1", screenId: screenId), tracker)
+        Thread.sleep(forTimeInterval: 0.5)
+        _ = eventStore.removeAllEvents()
+
+        // The end event itself still carries the context of the screen it's ending.
+        track(EndScreenView(screenId: screenId), tracker)
+        Thread.sleep(forTimeInterval: 0.5)
+        var payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        _ = eventStore.removeAllEvents()
+        var entities = payload?.dictionary["co"] as? String
+        XCTAssertNotNil(entities)
+        XCTAssertTrue(entities!.contains(screenId.uuidString))
+
+        // Events tracked after the manual end no longer carry the ended screen's context.
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
+        Thread.sleep(forTimeInterval: 0.5)
+        payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        _ = eventStore.removeAllEvents()
+        entities = payload?.dictionary["co"] as? String
+        XCTAssertNil(entities)
+
+        // The next real screen view still links back to the manually-ended screen via previous_*.
+        let screenId2 = UUID()
+        track(ScreenView(name: "screen2", screenId: screenId2), tracker)
+        Thread.sleep(forTimeInterval: 0.5)
+        payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        _ = eventStore.removeAllEvents()
+        let eventPayload = payload?.dictionary["ue_pr"] as? String
+        XCTAssertNotNil(eventPayload)
+        XCTAssertTrue(eventPayload!.contains(screenId.uuidString))
+        XCTAssertTrue(eventPayload!.contains("screen1"))
+    }
+
+    func testEndScreenViewWithMismatchedScreenIdIsNoOp() {
+        let eventStore = MockEventStore()
+        let emitter = Emitter(namespace: "namespace", urlEndpoint: "http://snowplow-fake-url.com", eventStore: eventStore)
+        let tracker = Tracker(trackerNamespace: "namespace", appId: nil, emitter: emitter) { tracker in
+            tracker.base64Encoded = false
+            tracker.screenContext = true
+            tracker.applicationContext = false
+        }
+        emitter.pauseEmit()
+
+        let screenId = UUID()
+        track(ScreenView(name: "screen1", screenId: screenId), tracker)
+        Thread.sleep(forTimeInterval: 0.5)
+        _ = eventStore.removeAllEvents()
+
+        // A delayed/stale call referencing a screen that's no longer active is ignored.
+        track(EndScreenView(screenId: UUID()), tracker)
+        Thread.sleep(forTimeInterval: 0.5)
+        _ = eventStore.removeAllEvents()
+
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
+        Thread.sleep(forTimeInterval: 0.5)
+        let payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
+        _ = eventStore.removeAllEvents()
+        let entities = payload?.dictionary["co"] as? String
+        XCTAssertNotNil(entities)
+        XCTAssertTrue(entities!.contains(screenId.uuidString))
+    }
+
     private func track(_ event: Event, _ tracker: Tracker) {
         InternalQueue.sync {
             _ = tracker.track(event)

@@ -22,7 +22,7 @@ class ScreenStateMachine: StateMachineProtocol {
     }
     
     var subscribedEventSchemasForTransitions: [String] {
-        return [kSPScreenViewSchema]
+        return [kSPScreenViewSchema, kSPEndScreenViewSchema]
     }
 
     var subscribedEventSchemasForEntitiesGeneration: [String] {
@@ -51,12 +51,28 @@ class ScreenStateMachine: StateMachineProtocol {
             newState.previousState = currentState as? ScreenState
             return newState
         }
+        if let endScreenView = event as? EndScreenView {
+            // Only end the screen that's currently active. Keep the (ended) state around rather
+            // than clearing it entirely so it can still be linked as the previousState of the
+            // next screen view.
+            guard let currentState = currentState as? ScreenState, !currentState.isEnded else { return currentState }
+            if let screenId = endScreenView.screenId, screenId.uuidString != currentState.screenId {
+                return currentState
+            }
+            currentState.markEnded()
+            return currentState
+        }
         return nil
     }
 
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
-        if let state = state as? ScreenState,
-           let entity = screenContext(from: state) {
+        guard let state = state as? ScreenState else { return nil }
+        // Once a screen has been manually ended, stop attaching its context to later events
+        // (the EndScreenView event itself still gets it, as the last event of that screen).
+        if state.isEnded && event.schema != kSPEndScreenViewSchema {
+            return nil
+        }
+        if let entity = screenContext(from: state) {
             return [entity]
         }
         return nil
