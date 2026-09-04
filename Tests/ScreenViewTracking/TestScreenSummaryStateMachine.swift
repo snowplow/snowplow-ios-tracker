@@ -81,6 +81,101 @@ class TestScreenSummaryStateMachine: XCTestCase {
         wait(for: [expectScreenEnd], timeout: 10)
     }
     
+    func testManuallyTrackedScreenEndClosesOutTheScreenSummary() {
+        let expectScreenEnd = expectation(description: "Screen end event")
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["foreground_sec"] as? Double, 10.0)
+                XCTAssertEqual((entity?.data as? [String: Any])?["background_sec"] as? Double, 0.0)
+                expectScreenEnd.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(ScreenEnd())
+
+        wait(for: [expectScreenEnd], timeout: 10)
+    }
+
+    /// A manual screen end must not be double-counted: the automatic flush before the next
+    /// ScreenView should only report the time elapsed since the manual end.
+    func testManualScreenEndFollowedByScreenViewDoesNotDoubleCountEngagement() {
+        let expectFirstEnd = expectation(description: "Manual screen end")
+        let expectSecondEnd = expectation(description: "Automatic screen end")
+        var screenEndCount = 0
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
+                let foreground = (entity?.data as? [String: Any])?["foreground_sec"] as? Double
+                screenEndCount += 1
+                if screenEndCount == 1 {
+                    XCTAssertEqual(foreground, 10.0)
+                    expectFirstEnd.fulfill()
+                } else {
+                    XCTAssertEqual(foreground, 15.0)
+                    expectSecondEnd.fulfill()
+                }
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(ScreenEnd())
+        InternalQueue.sync { timeTraveler.travel(by: 5) }
+        _ = tracker.track(ScreenView(name: "Screen 2"))
+
+        wait(for: [expectFirstEnd, expectSecondEnd], timeout: 10)
+    }
+
+    /// The state machine filters out screen_end when there is no screen to end,
+    /// so a manual call before any screen view must not emit an event.
+    func testManualScreenEndWithoutAScreenViewIsNotTracked() {
+        let expectNoScreenEnd = expectation(description: "No screen end event")
+        expectNoScreenEnd.isInverted = true
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                expectNoScreenEnd.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenEnd())
+
+        wait(for: [expectNoScreenEnd], timeout: 3)
+    }
+
+    /// The screen context entity is deliberately NOT cleared by a screen end –
+    /// only the next ScreenView transitions it. This pins that behaviour.
+    func testManualScreenEndKeepsTheScreenContextEntity() {
+        let expectScreenEnd = expectation(description: "Screen end event")
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                let entity = event.entities.first { $0.schema == kSPScreenContextSchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["name"] as? String, "Screen 1")
+                expectScreenEnd.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        InternalQueue.sync { timeTraveler.travel(by: 10) }
+        _ = tracker.track(ScreenEnd())
+
+        wait(for: [expectScreenEnd], timeout: 10)
+    }
+
     func testUpdatesListMetrics() {
         let expectScreenEnd = expectation(description: "Screen end event")
         
