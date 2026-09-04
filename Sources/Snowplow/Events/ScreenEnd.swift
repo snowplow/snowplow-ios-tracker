@@ -13,7 +13,22 @@
 
 import Foundation
 
-class ScreenEnd: SelfDescribingAbstract {
+/// Event tracked when a screen is no longer visible to the user.
+///
+/// This event is tracked automatically before each `ScreenView` event when screen engagement
+/// tracking is enabled, closing out the engagement summary for the previous screen.
+///
+/// It can also be tracked manually to end the current screen without starting a new one –
+/// for instance when a WebView is presented over a native screen, or when a screen is
+/// dismissed without a subsequent screen view being tracked. Tracking it manually stops the
+/// engagement timer for the current screen and attaches the `screen_summary` entity.
+///
+/// The event is not tracked if there is no current screen to end.
+public class ScreenEnd: SelfDescribingAbstract {
+
+    public override init() {
+        super.init()
+    }
 
     override var schema: String {
         return kSPScreenEndSchema
