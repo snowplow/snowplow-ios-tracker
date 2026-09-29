@@ -13,6 +13,7 @@
 
 import Foundation
 
+/// Callback for the results of sending events to the Collector. It is safe to call back into tracker/controller APIs from these methods.
 @objc(SPRequestCallback)
 public protocol RequestCallback: NSObjectProtocol {
     @objc

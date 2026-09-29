@@ -14,6 +14,7 @@
 import Foundation
 
 /// Block signature for context generators, takes event information and generates a context.
+/// It is safe to call back into tracker/controller APIs from this block.
 /// - Parameter event: informations about the event to process.
 /// - Returns: a user-generated self-describing JSON.
 public typealias GeneratorBlock = (InspectableEvent) -> [SelfDescribingJson]

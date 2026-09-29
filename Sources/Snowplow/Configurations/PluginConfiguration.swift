@@ -169,7 +169,7 @@ public class PluginConfiguration: NSObject, PluginIdentifiable, PluginAfterTrack
     /// Add a closure that generates entities for a given tracked event.
     /// - Parameters:
     ///   - schemas: Optional list of event schemas to call the closure for. If null, the closure is called for all events.
-    ///   - closure: Closure that produces entities, called when events are tracked.
+    ///   - closure: Closure that produces entities, called when events are tracked. It is safe to call back into tracker/controller APIs from this closure.
     public func entities(schemas: [String]? = nil, closure: @escaping PluginEntitiesClosure) -> Self {
         self.entitiesConfiguration = PluginEntitiesConfiguration(
             schemas: schemas,
@@ -182,7 +182,7 @@ public class PluginConfiguration: NSObject, PluginIdentifiable, PluginAfterTrack
     /// The closure is called after the events are added to event queue in Emitter, not necessarily after they are sent to the Collector.
     /// - Parameters:
     ///   - schemas: Optional list of event schemas to call the closure for. If null, the closure is called for all events.
-    ///   - closure: Closure block to call after events are tracked.
+    ///   - closure: Closure block to call after events are tracked. It is safe to call back into tracker/controller APIs from this closure.
     public func afterTrack(schemas: [String]? = nil, closure: @escaping PluginAfterTrackClosure) -> Self {
         self.afterTrackConfiguration = PluginAfterTrackConfiguration(
             schemas: schemas,
@@ -194,7 +194,7 @@ public class PluginConfiguration: NSObject, PluginIdentifiable, PluginAfterTrack
     /// Add a closure that is called to decide whether to track a given event or not.
     /// - Parameters:
     ///   - schemas: Optional list of event schemas to call the closure for. If null, the closure is called for all events.
-    ///   - closure: Closure block that returns true if the event should be tracked and false otherwise.
+    ///   - closure: Closure block that returns true if the event should be tracked and false otherwise. It is safe to call back into tracker/controller APIs from this closure.
     public func filter(schemas: [String]? = nil, closure: @escaping PluginFilterClosure) -> Self {
         self.filterConfiguration = PluginFilterConfiguration(
             schemas: schemas,

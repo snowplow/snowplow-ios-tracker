@@ -15,6 +15,11 @@ import Foundation
 
 class InternalQueue {
     static func sync<T>(_ callback: () -> T) -> T {
+        if DispatchQueue.getSpecific(key: queueKey) != nil {
+            // Reentrant call from a callback already running on the queue – run directly to avoid a self-deadlock.
+            return callback()
+        }
+
         dispatchPrecondition(condition: .notOnQueue(serialQueue))
 
         return serialQueue.sync(execute: callback)
@@ -52,5 +57,11 @@ class InternalQueue {
         dispatchPrecondition(condition: .onQueue(serialQueue))
     }
     
-    private static let serialQueue = DispatchQueue(label: "snowplow")
+    private static let queueKey = DispatchSpecificKey<Void>()
+
+    private static let serialQueue: DispatchQueue = {
+        let queue = DispatchQueue(label: "snowplow")
+        queue.setSpecific(key: queueKey, value: ())
+        return queue
+    }()
 }
