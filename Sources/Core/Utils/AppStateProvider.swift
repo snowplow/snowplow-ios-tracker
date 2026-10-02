@@ -195,6 +195,13 @@ class AppStateProvider: NSObject {
     /// background work, or running in the background for location updates or audio, has a different role.
     /// Returns `false` if the role can't be read, which keeps the background state UIKit reported.
     private static func hasForegroundTaskRole() -> Bool {
+#if os(tvOS)
+        // The task role can't be read on tvOS. It's only needed to rule out a relaunch for background
+        // location updates, the one background launch with an unlimited budget, and tvOS has no background
+        // location. Background audio keeps a running app alive but doesn't launch one, and a running app
+        // already has an attached scene.
+        return true
+#else
         var policy = task_category_policy_data_t(role: TASK_UNSPECIFIED)
         var count = mach_msg_type_number_t(
             MemoryLayout<task_category_policy_data_t>.size / MemoryLayout<integer_t>.size)
@@ -205,6 +212,7 @@ class AppStateProvider: NSObject {
             }
         }
         return result == KERN_SUCCESS && policy.role == TASK_FOREGROUND_APPLICATION
+#endif
     }
 #else
     /// The state is never actually read on these platforms, so there is nothing to hop to the main thread
