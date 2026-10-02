@@ -106,7 +106,8 @@ class TestAppStateProvider: XCTestCase {
     func testSceneBasedAppLaunchedByTheUserIsVisible() {
         let state = AppStateProvider.appState(for: .background,
                                               hasAttachedScene: false,
-                                              backgroundTimeRemaining: .greatestFiniteMagnitude)
+                                              backgroundTimeRemaining: .greatestFiniteMagnitude,
+                                              hasForegroundTaskRole: true)
 
         XCTAssertEqual(state, .inactive)
     }
@@ -114,17 +115,40 @@ class TestAppStateProvider: XCTestCase {
     func testSceneBasedAppLaunchedInTheBackgroundIsNotVisible() {
         let state = AppStateProvider.appState(for: .background,
                                               hasAttachedScene: false,
-                                              backgroundTimeRemaining: 30)
+                                              backgroundTimeRemaining: 30,
+                                              hasForegroundTaskRole: false)
 
         XCTAssertEqual(state, .background)
     }
 
-    /// Right after a running app is moved to the background, its background time budget still reads as
-    /// unlimited, but its scene is already attached.
+    /// A process the system starts in the background for location updates or audio has an unlimited
+    /// background time budget too, but isn't the foreground application.
+    func testSceneBasedAppLaunchedInTheBackgroundWithAnUnlimitedBudgetIsNotVisible() {
+        let state = AppStateProvider.appState(for: .background,
+                                              hasAttachedScene: false,
+                                              backgroundTimeRemaining: .greatestFiniteMagnitude,
+                                              hasForegroundTaskRole: false)
+
+        XCTAssertEqual(state, .background)
+    }
+
+    /// The role alone isn't trusted either: both signals have to agree.
+    func testSceneBasedAppWithALimitedBudgetIsNotVisibleEvenWithAForegroundRole() {
+        let state = AppStateProvider.appState(for: .background,
+                                              hasAttachedScene: false,
+                                              backgroundTimeRemaining: 30,
+                                              hasForegroundTaskRole: true)
+
+        XCTAssertEqual(state, .background)
+    }
+
+    /// Right after a running app is moved to the background, its background time budget and task role still
+    /// read as foreground, but its scene is already attached.
     func testAppMovedToTheBackgroundIsNotVisibleWhileItsBudgetIsStillUnlimited() {
         let state = AppStateProvider.appState(for: .background,
                                               hasAttachedScene: true,
-                                              backgroundTimeRemaining: .greatestFiniteMagnitude)
+                                              backgroundTimeRemaining: .greatestFiniteMagnitude,
+                                              hasForegroundTaskRole: true)
 
         XCTAssertEqual(state, .background)
     }
@@ -133,7 +157,8 @@ class TestAppStateProvider: XCTestCase {
     func testAppWithoutScenesLaunchedInTheBackgroundIsNotVisible() {
         let state = AppStateProvider.appState(for: .background,
                                               hasAttachedScene: true,
-                                              backgroundTimeRemaining: 30)
+                                              backgroundTimeRemaining: 30,
+                                              hasForegroundTaskRole: false)
 
         XCTAssertEqual(state, .background)
     }
@@ -141,11 +166,13 @@ class TestAppStateProvider: XCTestCase {
     func testForegroundStatesAreMappedUnchanged() {
         XCTAssertEqual(AppStateProvider.appState(for: .active,
                                                  hasAttachedScene: true,
-                                                 backgroundTimeRemaining: .greatestFiniteMagnitude),
+                                                 backgroundTimeRemaining: .greatestFiniteMagnitude,
+                                                 hasForegroundTaskRole: true),
                        .active)
         XCTAssertEqual(AppStateProvider.appState(for: .inactive,
                                                  hasAttachedScene: true,
-                                                 backgroundTimeRemaining: .greatestFiniteMagnitude),
+                                                 backgroundTimeRemaining: .greatestFiniteMagnitude,
+                                                 hasForegroundTaskRole: true),
                        .inactive)
     }
 
