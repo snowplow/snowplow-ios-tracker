@@ -97,7 +97,8 @@ class AppStateProvider: NSObject {
             // An app is inactive, not active, while it is still launching into the foreground, so treating an
             // inactive app as not visible here would mark every normal launch as a background one. Only the
             // background state identifies a background launch; this matches how the React Native tracker
-            // derives the same entity.
+            // derives the same entity. A scene-based app that is launching into the foreground is reported as
+            // inactive too, see `appState(for:hasAttachedScene:backgroundTimeRemaining:hasForegroundTaskRole:)`.
             setIsVisible(true)
         case .background:
             setIsVisible(false)
@@ -135,12 +136,83 @@ class AppStateProvider: NSObject {
             return .unknown
         }
 
+        var hasAttachedScene = true
+        if #available(iOS 13.0, tvOS 13.0, *) {
+            let scenes = application.value(forKey: "connectedScenes") as? Set<UIScene> ?? []
+            hasAttachedScene = scenes.contains { $0.activationState != .unattached }
+        }
+        let backgroundTimeRemaining = (application.value(forKey: "backgroundTimeRemaining") as? NSNumber)?
+            .doubleValue ?? 0
+
+        return appState(for: state,
+                        hasAttachedScene: hasAttachedScene,
+                        backgroundTimeRemaining: backgroundTimeRemaining,
+                        hasForegroundTaskRole: hasForegroundTaskRole())
+    }
+
+    /// The system gives a process that runs in the background a limited time budget – about 30 seconds –
+    /// and reports a practically unlimited one while the app is in the foreground. Anything above this is
+    /// therefore not a background budget.
+    static let unlimitedBackgroundTimeThreshold: TimeInterval = 24 * 60 * 60
+
+    /// Maps the state UIKit reports to the app's visibility state.
+    ///
+    /// A scene-based app – every SwiftUI app, and every UIKit app created from the Xcode template since
+    /// iOS 13 – is still in the background state when the user launches it, until its first scene is
+    /// attached: in `application(_:didFinishLaunchingWithOptions:)` and in `scene(_:willConnectTo:options:)`.
+    /// A background launch – a silent push, a background fetch, a location event – reads exactly the same
+    /// there. What tells them apart is how the system classifies the process: the role it assigns to the
+    /// task, and the background time budget it sets for one it started for background work. This is the iOS
+    /// counterpart of the process importance the Android tracker reads in the same situation. An app without
+    /// scenes has its scene attached before it finishes launching, and reports the inactive state for a launch
+    /// into the foreground, so it never reaches that check.
+    ///
+    /// Both signals are required, because neither is conclusive on its own: the budget is also unlimited
+    /// while an app runs in the background for location updates or audio, and both still read as foreground
+    /// for a moment after a running app is moved to the background. They are only consulted before any scene
+    /// is attached, which rules out the latter.
+    static func appState(for state: UIApplication.State,
+                         hasAttachedScene: Bool,
+                         backgroundTimeRemaining: TimeInterval,
+                         hasForegroundTaskRole: Bool) -> AppState {
         switch state {
         case .active: return .active
         case .inactive: return .inactive
-        case .background: return .background
+        case .background:
+            if !hasAttachedScene
+                && hasForegroundTaskRole
+                && backgroundTimeRemaining > unlimitedBackgroundTimeThreshold {
+                // Launching into the foreground: UIKit moves the app to the inactive state as soon as its
+                // scene is attached.
+                return .inactive
+            }
+            return .background
         @unknown default: return .unknown
         }
+    }
+
+    /// Whether the system runs this process as the foreground application. A process launched for
+    /// background work, or running in the background for location updates or audio, has a different role.
+    /// Returns `false` if the role can't be read, which keeps the background state UIKit reported.
+    private static func hasForegroundTaskRole() -> Bool {
+#if os(tvOS)
+        // The task role can't be read on tvOS. It's only needed to rule out a relaunch for background
+        // location updates, the one background launch with an unlimited budget, and tvOS has no background
+        // location. Background audio keeps a running app alive but doesn't launch one, and a running app
+        // already has an attached scene.
+        return true
+#else
+        var policy = task_category_policy_data_t(role: TASK_UNSPECIFIED)
+        var count = mach_msg_type_number_t(
+            MemoryLayout<task_category_policy_data_t>.size / MemoryLayout<integer_t>.size)
+        var getDefault: boolean_t = 0
+        let result = withUnsafeMutablePointer(to: &policy) {
+            $0.withMemoryRebound(to: integer_t.self, capacity: Int(count)) {
+                task_policy_get(mach_task_self_, task_policy_flavor_t(TASK_CATEGORY_POLICY), $0, &count, &getDefault)
+            }
+        }
+        return result == KERN_SUCCESS && policy.role == TASK_FOREGROUND_APPLICATION
+#endif
     }
 #else
     /// The state is never actually read on these platforms, so there is nothing to hop to the main thread
