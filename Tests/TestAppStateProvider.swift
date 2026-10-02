@@ -95,6 +95,60 @@ class TestAppStateProvider: XCTestCase {
         XCTAssertTrue(AppStateProvider.isVisible)
     }
 
+    // MARK: - Mapping the UIKit state
+
+    // The values below are the ones read on a simulator from a scene-based SwiftUI app and an app without
+    // scenes, at the points where a tracker is typically created.
+
+    /// A scene-based app is still in the background state in `didFinishLaunchingWithOptions` and in
+    /// `scene(_:willConnectTo:options:)` when the user launches it. Reading that as a background launch made
+    /// every cold launch track a Foreground event and report `isVisible: false` on its first events.
+    func testSceneBasedAppLaunchedByTheUserIsVisible() {
+        let state = AppStateProvider.appState(for: .background,
+                                              hasAttachedScene: false,
+                                              backgroundTimeRemaining: .greatestFiniteMagnitude)
+
+        XCTAssertEqual(state, .inactive)
+    }
+
+    func testSceneBasedAppLaunchedInTheBackgroundIsNotVisible() {
+        let state = AppStateProvider.appState(for: .background,
+                                              hasAttachedScene: false,
+                                              backgroundTimeRemaining: 30)
+
+        XCTAssertEqual(state, .background)
+    }
+
+    /// Right after a running app is moved to the background, its background time budget still reads as
+    /// unlimited, but its scene is already attached.
+    func testAppMovedToTheBackgroundIsNotVisibleWhileItsBudgetIsStillUnlimited() {
+        let state = AppStateProvider.appState(for: .background,
+                                              hasAttachedScene: true,
+                                              backgroundTimeRemaining: .greatestFiniteMagnitude)
+
+        XCTAssertEqual(state, .background)
+    }
+
+    /// An app without scenes has its scene attached before it finishes launching.
+    func testAppWithoutScenesLaunchedInTheBackgroundIsNotVisible() {
+        let state = AppStateProvider.appState(for: .background,
+                                              hasAttachedScene: true,
+                                              backgroundTimeRemaining: 30)
+
+        XCTAssertEqual(state, .background)
+    }
+
+    func testForegroundStatesAreMappedUnchanged() {
+        XCTAssertEqual(AppStateProvider.appState(for: .active,
+                                                 hasAttachedScene: true,
+                                                 backgroundTimeRemaining: .greatestFiniteMagnitude),
+                       .active)
+        XCTAssertEqual(AppStateProvider.appState(for: .inactive,
+                                                 hasAttachedScene: true,
+                                                 backgroundTimeRemaining: .greatestFiniteMagnitude),
+                       .inactive)
+    }
+
     /// A process launched into the background and then opened by the user goes straight to `didBecomeActive`
     /// without a `willEnterForeground`.
     func testIsVisibleWhenABackgroundLaunchedAppIsOpened() {

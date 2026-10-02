@@ -97,7 +97,8 @@ class AppStateProvider: NSObject {
             // An app is inactive, not active, while it is still launching into the foreground, so treating an
             // inactive app as not visible here would mark every normal launch as a background one. Only the
             // background state identifies a background launch; this matches how the React Native tracker
-            // derives the same entity.
+            // derives the same entity. A scene-based app that is launching into the foreground is reported as
+            // inactive too, see `appState(for:hasAttachedScene:backgroundTimeRemaining:)`.
             setIsVisible(true)
         case .background:
             setIsVisible(false)
@@ -135,10 +136,50 @@ class AppStateProvider: NSObject {
             return .unknown
         }
 
+        var hasAttachedScene = true
+        if #available(iOS 13.0, tvOS 13.0, *) {
+            let scenes = application.value(forKey: "connectedScenes") as? Set<UIScene> ?? []
+            hasAttachedScene = scenes.contains { $0.activationState != .unattached }
+        }
+        let backgroundTimeRemaining = (application.value(forKey: "backgroundTimeRemaining") as? NSNumber)?
+            .doubleValue ?? 0
+
+        return appState(for: state,
+                        hasAttachedScene: hasAttachedScene,
+                        backgroundTimeRemaining: backgroundTimeRemaining)
+    }
+
+    /// The system gives a process that runs in the background a limited time budget – about 30 seconds –
+    /// and reports a practically unlimited one while the app is in the foreground. Anything above this is
+    /// therefore not a background budget.
+    static let unlimitedBackgroundTimeThreshold: TimeInterval = 24 * 60 * 60
+
+    /// Maps the state UIKit reports to the app's visibility state.
+    ///
+    /// A scene-based app – every SwiftUI app, and every UIKit app created from the Xcode template since
+    /// iOS 13 – is still in the background state when the user launches it, until its first scene is
+    /// attached: in `application(_:didFinishLaunchingWithOptions:)` and in `scene(_:willConnectTo:options:)`.
+    /// A background launch – a silent push, a background fetch – reads exactly the same there. What tells
+    /// them apart is the background time budget, which the system only sets for a process it started for
+    /// background work; this is the iOS counterpart of the process importance the Android tracker reads in
+    /// the same situation. An app without scenes has its scene attached before it finishes launching, and
+    /// reports the inactive state for a launch into the foreground, so it never reaches that check.
+    ///
+    /// The budget alone isn't enough: it stays unlimited for a moment after a running app is moved to the
+    /// background, when its scene is already attached. That's why it's only consulted before any scene is.
+    static func appState(for state: UIApplication.State,
+                         hasAttachedScene: Bool,
+                         backgroundTimeRemaining: TimeInterval) -> AppState {
         switch state {
         case .active: return .active
         case .inactive: return .inactive
-        case .background: return .background
+        case .background:
+            if !hasAttachedScene && backgroundTimeRemaining > unlimitedBackgroundTimeThreshold {
+                // Launching into the foreground: UIKit moves the app to the inactive state as soon as its
+                // scene is attached.
+                return .inactive
+            }
+            return .background
         @unknown default: return .unknown
         }
     }
