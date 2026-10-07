@@ -483,6 +483,12 @@ class Tracker: NSObject {
         }
     }
 
+    /// Applies the event to the state machines as if it was tracked, without tracking it or calling any
+    /// tracking callbacks. Only the state machines that transition on the event are affected.
+    func updateState(withUntrackedEvent event: Event) {
+        _ = stateManager.trackerState(forProcessedEvent: event)
+    }
+
     func payload(with event: TrackerEvent) -> Payload? {
         let payload = Payload()
         payload.allowDiagnostic = !event.isService
