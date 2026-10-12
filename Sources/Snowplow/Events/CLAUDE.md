@@ -135,7 +135,7 @@ let event = SelfDescribing(
 // Handled by ScreenStateMachine internally
 
 // ❌ Manual screen end events
-let event = ScreenEnd()  // Internal use only
+let event = ScreenEnd()  // Ends the current screen; also tracked automatically before each ScreenView
 tracker.track(event)
 ```
 

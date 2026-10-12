@@ -23,6 +23,10 @@ import Foundation
 /// dismissed without a subsequent screen view being tracked. Tracking it manually stops the
 /// engagement timer for the current screen and attaches the `screen_summary` entity.
 ///
+/// After the screen ends, the `screen` and `screen_summary` entities are no longer attached to
+/// subsequent events until the next `ScreenView`. The next `ScreenView` still references the
+/// ended screen in its previous screen fields and no further `ScreenEnd` is tracked for it.
+///
 /// The event is not tracked if there is no current screen to end.
 public class ScreenEnd: SelfDescribingAbstract {
 
