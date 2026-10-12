@@ -38,6 +38,8 @@ class Session {
     var foregroundIndex = 0
     /// The background index count
     var backgroundIndex = 0
+    /// Whether a Background event has been tracked in this process, which a Foreground event has to follow
+    private var hasTrackedBackground = false
     /// Callback to be called when the session is updated
     var onSessionStateUpdate: ((_ sessionState: SessionState) -> Void)?
     /// The currently set Foreground Timeout in milliseconds
@@ -73,9 +75,9 @@ class Session {
         self.continueSessionOnRestart = continueSessionOnRestart
         self.isNewSession = !continueSessionOnRestart
         self.tracker = tracker
-        // A process launched straight into the background never gets a `didBecomeActive` notification, so
+        // A process launched straight into the background never gets a `willResignActive` notification, so
         // without seeding this the session would consider itself in the foreground for the whole process and
-        // would skip the Foreground event tracked when the user does eventually open the app.
+        // apply the foreground timeout to the events it tracks there.
         self.inBackground = !AppStateProvider.isVisible
         if let namespace = trackerNamespace {
             dataPersistence = DataPersistence.getFor(namespace: namespace)
@@ -235,6 +237,7 @@ class Session {
                 guard let backgroundIndex = self.incrementBackgroundIndexIfNotInBackground() else { return }
                 _ = self.tracker?.track(Background(index: backgroundIndex))
                 self.inBackground = true
+                self.hasTrackedBackground = true
             }
         }
     }
@@ -242,8 +245,20 @@ class Session {
     @objc func updateInForeground() {
         InternalQueue.async {
             if self.tracker?.lifecycleEvents ?? false {
-                guard let foregroundIndex = self.incrementForegroundIndexIfInBackground() else { return }
-                _ = self.tracker?.track(Foreground(index: foregroundIndex))
+                guard self.inBackground else { return }
+                // A Foreground event only ever follows a Background event. The first time the app comes on
+                // screen in a process – a cold launch, or opening an app the system launched in the background –
+                // is a launch, not a return to the foreground. A scene-based app also reports the background
+                // state while it launches, so this can't be told apart from the app state alone.
+                if self.hasTrackedBackground {
+                    self.foregroundIndex += 1
+                    _ = self.tracker?.track(Foreground(index: self.foregroundIndex))
+                } else {
+                    // Opening an app the system launched in the background still ends the time it spent in
+                    // the background, so the state that measures it – the screen engagement of a screen viewed
+                    // during the background launch – is updated as if a Foreground event was tracked.
+                    self.tracker?.updateState(withUntrackedEvent: Foreground(index: self.foregroundIndex))
+                }
                 self.inBackground = false
             }
         }
@@ -253,11 +268,5 @@ class Session {
         if self.inBackground { return nil }
         self.backgroundIndex += 1
         return self.backgroundIndex
-    }
-  
-    private func incrementForegroundIndexIfInBackground() -> Int? {
-        if !self.inBackground { return nil }
-        self.foregroundIndex += 1
-        return self.foregroundIndex
     }
 }

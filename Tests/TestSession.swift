@@ -543,32 +543,66 @@ class TestSession: XCTestCase {
         XCTAssertTrue(session?.inBackground ?? false)
     }
 
-    /// Without the background seed, `updateInForeground` bails out early and the Foreground event tracked
-    /// when the user opens an app that was launched in the background is lost.
-    func testTracksForegroundEventAfterABackgroundLaunch() {
-        cleanFile(withNamespace: "backgroundLaunch")
+    /// A Foreground event only follows a Background event: opening an app that the system launched in the
+    /// background is its first time on screen in that process, like a cold launch, not a return to it.
+    func testDoesNotTrackForegroundEventWhenABackgroundLaunchedAppIsOpened() {
         simulateAppState(.background)
-
-        let eventStore = MockEventStore()
-        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
-                              namespace: "backgroundLaunch",
-                              eventStore: eventStore)
-        let tracker = Tracker(trackerNamespace: "backgroundLaunch", appId: nil, emitter: emitter) { tracker in
-            tracker.base64Encoded = false
-            tracker.installEvent = false
-            tracker.lifecycleEvents = true
-            tracker.sessionContext = true
-        }
+        let (tracker, eventStore) = createLifecycleTracker(namespace: "backgroundLaunch")
         let session = tracker.session
         XCTAssertTrue(session?.inBackground ?? false)
 
         session?.updateInForeground()
-        InternalQueue.sync {} // drain the event tracked asynchronously by updateInForeground
+        InternalQueue.sync {} // drain the work done asynchronously by updateInForeground
 
         XCTAssertFalse(session?.inBackground ?? true)
+        XCTAssertEqual(0, session?.foregroundIndex)
+        XCTAssertEqual([], lifecycleEvents(in: eventStore))
+    }
+
+    /// A scene-based app – every SwiftUI app, and every UIKit app created from the Xcode template since iOS
+    /// 13 – still reports the background state in `didFinishLaunchingWithOptions` and
+    /// `scene(_:willConnectTo:options:)` when the user launches it. Since 6.2.6 that made every cold launch
+    /// track a Foreground event when the app became active.
+    func testDoesNotTrackForegroundEventWhenASceneBasedAppFinishesLaunching() {
+        simulateAppState(.background) // what a scene-based app reports while it launches
+        let (tracker, eventStore) = createLifecycleTracker(namespace: "sceneBasedLaunch")
+        let session = tracker.session
+
+        session?.updateInForeground() // didBecomeActive at the end of the launch
+        InternalQueue.sync {}
+
+        XCTAssertEqual([], lifecycleEvents(in: eventStore))
+    }
+
+    func testTracksForegroundEventAfterABackgroundEvent() {
+        simulateAppState(.inactive)
+        let (tracker, eventStore) = createLifecycleTracker(namespace: "backgroundThenForeground")
+        let session = tracker.session
+
+        session?.updateInBackground()
+        session?.updateInForeground()
+        InternalQueue.sync {}
+
+        XCTAssertEqual(1, session?.backgroundIndex)
         XCTAssertEqual(1, session?.foregroundIndex)
-        let payload = eventStore.db[Int64(eventStore.lastInsertedRow)]
-        XCTAssertTrue((payload?["ue_pr"] as? String ?? "").contains("application_foreground"))
+        XCTAssertEqual(["application_background", "application_foreground"], lifecycleEvents(in: eventStore))
+    }
+
+    /// After a launch that tracked no Foreground event, the app's later trips to the background and back are
+    /// tracked as usual.
+    func testTracksLaterTransitionsAfterABackgroundLaunchedAppIsOpened() {
+        simulateAppState(.background)
+        let (tracker, eventStore) = createLifecycleTracker(namespace: "backgroundLaunchThenCycle")
+        let session = tracker.session
+
+        session?.updateInForeground()
+        session?.updateInBackground()
+        session?.updateInForeground()
+        InternalQueue.sync {}
+
+        XCTAssertEqual(1, session?.backgroundIndex)
+        XCTAssertEqual(1, session?.foregroundIndex)
+        XCTAssertEqual(["application_background", "application_foreground"], lifecycleEvents(in: eventStore))
     }
 
     /// The mirror image of the test above: a normal launch must not gain an extra Foreground event when the
@@ -616,6 +650,32 @@ class TestSession: XCTestCase {
 
     func cleanFile(withNamespace namespace: String) {
         _ = DataPersistence.remove(withNamespace: namespace)
+    }
+
+    /// A tracker with lifecycle autotracking whose events stay in the returned store, as sending is paused.
+    private func createLifecycleTracker(namespace: String) -> (Tracker, MockEventStore) {
+        cleanFile(withNamespace: namespace)
+        let eventStore = MockEventStore()
+        let emitter = Emitter(networkConnection: MockNetworkConnection(requestOption: .post, statusCode: 500),
+                              namespace: namespace,
+                              eventStore: eventStore)
+        emitter.pauseEmit()
+        let tracker = Tracker(trackerNamespace: namespace, appId: nil, emitter: emitter) { tracker in
+            tracker.base64Encoded = false
+            tracker.installEvent = false
+            tracker.lifecycleEvents = true
+            tracker.sessionContext = true
+        }
+        return (tracker, eventStore)
+    }
+
+    /// The names of the Foreground and Background events in the store, in the order they were tracked.
+    private func lifecycleEvents(in eventStore: MockEventStore) -> [String] {
+        let lifecycleEventNames = ["application_foreground", "application_background"]
+        return eventStore.db.keys.sorted().compactMap { row in
+            let unstructured = eventStore.db[row]?["ue_pr"] as? String ?? ""
+            return lifecycleEventNames.first { unstructured.contains($0) }
+        }
     }
 
     // Migration methods
