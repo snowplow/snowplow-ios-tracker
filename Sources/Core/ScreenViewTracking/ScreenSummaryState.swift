@@ -28,6 +28,8 @@ class ScreenSummaryState: State {
     var maxXOffset: Int?
     var contentHeight: Int?
     var contentWidth: Int?
+    /// Whether the screen was ended using a `ScreenEnd` event
+    private(set) var isEnded = false
     
     var data: [String: Any] {
         var data: [String: Any] = [
@@ -64,6 +66,7 @@ class ScreenSummaryState: State {
         
         foregroundSeconds += currentTimestamp - lastUpdateTimestamp
         lastUpdateTimestamp = currentTimestamp
+        isEnded = true
     }
     
     func updateWithListItemView(_ event: ListItemView) {

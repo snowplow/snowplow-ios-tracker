@@ -22,7 +22,7 @@ class ScreenStateMachine: StateMachineProtocol {
     }
     
     var subscribedEventSchemasForTransitions: [String] {
-        return [kSPScreenViewSchema]
+        return [kSPScreenViewSchema, kSPScreenEndSchema]
     }
 
     var subscribedEventSchemasForEntitiesGeneration: [String] {
@@ -38,7 +38,7 @@ class ScreenStateMachine: StateMachineProtocol {
     }
     
     var subscribedEventSchemasForFiltering: [String] {
-        return []
+        return [kSPScreenEndSchema]
     }
 
     func eventsBefore(event: Event) -> [Event]? {
@@ -51,12 +51,25 @@ class ScreenStateMachine: StateMachineProtocol {
             newState.previousState = currentState as? ScreenState
             return newState
         }
+        if event is ScreenEnd, let state = currentState as? ScreenState {
+            // keep the ended screen so that the next screen view can reference it as previous
+            return state.ended()
+        }
         return nil
     }
 
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
-        if let state = state as? ScreenState,
-           let entity = screenContext(from: state) {
+        guard let state = state as? ScreenState else { return nil }
+        switch state.lifecycle {
+        case .active:
+            break
+        case .ending:
+            // only the screen end event is attributed to the ended screen
+            if event.schema != kSPScreenEndSchema { return nil }
+        case .ended:
+            return nil
+        }
+        if let entity = screenContext(from: state) {
             return [entity]
         }
         return nil
@@ -75,6 +88,10 @@ class ScreenStateMachine: StateMachineProtocol {
     }
 
     func filter(event: InspectableEvent, state: State?) -> Bool? {
+        // only track the screen end event if it ended an active screen
+        if event.schema == kSPScreenEndSchema {
+            return (state as? ScreenState)?.lifecycle == .ending
+        }
         return nil
     }
 
