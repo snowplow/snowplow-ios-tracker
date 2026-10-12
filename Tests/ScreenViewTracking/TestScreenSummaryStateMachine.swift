@@ -102,25 +102,18 @@ class TestScreenSummaryStateMachine: XCTestCase {
         wait(for: [expectScreenEnd], timeout: 10)
     }
 
-    /// A manual screen end must not be double-counted: the automatic flush before the next
-    /// ScreenView should only report the time elapsed since the manual end.
-    func testManualScreenEndFollowedByScreenViewDoesNotDoubleCountEngagement() {
-        let expectFirstEnd = expectation(description: "Manual screen end")
-        let expectSecondEnd = expectation(description: "Automatic screen end")
+    /// A manual screen end closes out the screen, so the next ScreenView must not
+    /// send a second screen_end for the screen that already ended.
+    func testManualScreenEndFollowedByScreenViewDoesNotTrackAnotherScreenEnd() {
+        let expectScreenView = expectation(description: "Second screen view")
         var screenEndCount = 0
 
         let eventSink = EventSink { event in
             if event.schema == kSPScreenEndSchema {
-                let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
-                let foreground = (entity?.data as? [String: Any])?["foreground_sec"] as? Double
                 screenEndCount += 1
-                if screenEndCount == 1 {
-                    XCTAssertEqual(foreground, 10.0)
-                    expectFirstEnd.fulfill()
-                } else {
-                    XCTAssertEqual(foreground, 15.0)
-                    expectSecondEnd.fulfill()
-                }
+            }
+            if event.schema == kSPScreenViewSchema && event.payload["name"] as? String == "Screen 2" {
+                expectScreenView.fulfill()
             }
         }
 
@@ -132,7 +125,82 @@ class TestScreenSummaryStateMachine: XCTestCase {
         InternalQueue.sync { timeTraveler.travel(by: 5) }
         _ = tracker.track(ScreenView(name: "Screen 2"))
 
-        wait(for: [expectFirstEnd, expectSecondEnd], timeout: 10)
+        wait(for: [expectScreenView], timeout: 10)
+        XCTAssertEqual(screenEndCount, 1)
+    }
+
+    func testRepeatedManualScreenEndIsNotTracked() {
+        let expectStructured = expectation(description: "Structured event")
+        var screenEndCount = 0
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenEndSchema {
+                screenEndCount += 1
+            }
+            if event.eventName == kSPEventStructured {
+                expectStructured.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        _ = tracker.track(ScreenEnd())
+        _ = tracker.track(ScreenEnd())
+        _ = tracker.track(Structured(category: "category", action: "action"))
+
+        wait(for: [expectStructured], timeout: 10)
+        XCTAssertEqual(screenEndCount, 1)
+    }
+
+    func testEventsAfterManualScreenEndHaveNoScreenEntities() {
+        let expectStructured = expectation(description: "Structured event")
+        let expectBackground = expectation(description: "Background event")
+
+        let eventSink = EventSink { event in
+            if event.eventName == kSPEventStructured {
+                XCTAssertNil(event.entities.first { $0.schema == kSPScreenContextSchema })
+                expectStructured.fulfill()
+            }
+            if event.schema == kSPBackgroundSchema {
+                XCTAssertNil(event.entities.first { $0.schema == kSPScreenContextSchema })
+                XCTAssertNil(event.entities.first { $0.schema == kSPScreenSummarySchema })
+                expectBackground.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(ScreenView(name: "Screen 1"))
+        _ = tracker.track(ScreenEnd())
+        _ = tracker.track(Structured(category: "category", action: "action"))
+        _ = tracker.track(Background(index: 1))
+
+        wait(for: [expectStructured, expectBackground], timeout: 10)
+    }
+
+    func testScreenViewAfterManualScreenEndReferencesTheEndedScreenAsPrevious() {
+        let expectScreenView = expectation(description: "Second screen view")
+        let firstScreen = ScreenView(name: "Screen 1")
+
+        let eventSink = EventSink { event in
+            if event.schema == kSPScreenViewSchema && event.payload["name"] as? String == "Screen 2" {
+                XCTAssertEqual(event.payload[kSPSvPreviousName] as? String, "Screen 1")
+                XCTAssertEqual(event.payload[kSPSvPreviousScreenId] as? String, firstScreen.screenId.uuidString)
+                let entity = event.entities.first { $0.schema == kSPScreenContextSchema }
+                XCTAssertEqual((entity?.data as? [String: Any])?["name"] as? String, "Screen 2")
+                expectScreenView.fulfill()
+            }
+        }
+
+        let tracker = createTracker([eventSink])
+
+        _ = tracker.track(firstScreen)
+        _ = tracker.track(ScreenEnd())
+        _ = tracker.track(Structured(category: "category", action: "action"))
+        _ = tracker.track(ScreenView(name: "Screen 2"))
+
+        wait(for: [expectScreenView], timeout: 10)
     }
 
     /// The state machine filters out screen_end when there is no screen to end,
@@ -154,8 +222,7 @@ class TestScreenSummaryStateMachine: XCTestCase {
         wait(for: [expectNoScreenEnd], timeout: 3)
     }
 
-    /// The screen context entity is deliberately NOT cleared by a screen end –
-    /// only the next ScreenView transitions it. This pins that behaviour.
+    /// The screen end event itself is still attributed to the screen it ends.
     func testManualScreenEndKeepsTheScreenContextEntity() {
         let expectScreenEnd = expectation(description: "Screen end event")
 
@@ -226,20 +293,21 @@ class TestScreenSummaryStateMachine: XCTestCase {
         wait(for: [expectScreenEnd], timeout: 10)
     }
 
-    /// Seeding the session as being in the background makes the Foreground event fire when the app is opened,
-    /// which reattributes the time the screen spent in a background-launched process to `background_sec`.
-    /// Before the seed, no Foreground event fired at all and all of that time was credited to `foreground_sec`.
-    func testAttributesTimeBeforeTheFirstForegroundOnABackgroundLaunchToBackgroundSeconds() {
+    /// Opening an app that the system launched in the background tracks no Foreground event, but it still
+    /// ends the time spent in the background: the time the screen spent in the background-launched process is
+    /// attributed to `background_sec`, and only the time after the app is opened to `foreground_sec`.
+    func testAttributesTimeBeforeABackgroundLaunchedAppIsOpenedToBackgroundSeconds() {
         simulateAppState(.background)
 
-        let expectForeground = expectation(description: "Foreground event")
+        let expectScreenEnd = expectation(description: "Screen end event")
 
         let eventSink = EventSink { event in
-            if event.schema == kSPForegroundSchema {
+            XCTAssertNotEqual(event.schema, kSPForegroundSchema)
+            if event.schema == kSPScreenEndSchema {
                 let entity = event.entities.first { $0.schema == kSPScreenSummarySchema }
-                XCTAssertEqual((entity?.data as? [String: Any])?["foreground_sec"] as? Double, 0.0)
+                XCTAssertEqual((entity?.data as? [String: Any])?["foreground_sec"] as? Double, 5.0)
                 XCTAssertEqual((entity?.data as? [String: Any])?["background_sec"] as? Double, 10.0)
-                expectForeground.fulfill()
+                expectScreenEnd.fulfill()
             }
         }
 
@@ -258,8 +326,10 @@ class TestScreenSummaryStateMachine: XCTestCase {
         InternalQueue.sync { _ = tracker.track(ScreenView(name: "Screen 1")) }
         InternalQueue.sync { timeTraveler.travel(by: 10) }
         tracker.session?.updateInForeground()
+        InternalQueue.sync { timeTraveler.travel(by: 5) }
+        InternalQueue.sync { _ = tracker.track(ScreenView(name: "Screen 2")) }
 
-        wait(for: [expectForeground], timeout: 10)
+        wait(for: [expectScreenEnd], timeout: 10)
     }
 
     private func createTracker(_ configurations: [ConfigurationProtocol]) -> TrackerController {

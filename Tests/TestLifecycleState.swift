@@ -108,6 +108,28 @@ class TestLifecycleState: XCTestCase {
         XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":true"))
     }
 
+    /// Opening an app that the system launched in the background tracks no Foreground event, but the events
+    /// tracked afterwards still report the app as visible.
+    func testLifecycleStateMachineWhenABackgroundLaunchedAppIsOpened() {
+        simulateAppState(.background)
+
+        let eventStore = MockEventStore()
+        let tracker = createTracker(namespace: "backgroundLaunchOpened", eventStore: eventStore) { tracker in
+            tracker.sessionContext = true
+        }
+
+        track(Timing(category: "category", variable: "variable", timing: 123), tracker)
+        XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":false"))
+
+        let lastRowBeforeOpening = eventStore.lastInsertedRow
+        tracker.session?.updateInForeground()
+        InternalQueue.sync {} // drain the work done asynchronously by updateInForeground
+        XCTAssertEqual(lastRowBeforeOpening, eventStore.lastInsertedRow) // no Foreground event
+
+        track(ScreenView(name: "screen1", screenId: UUID()), tracker)
+        XCTAssertTrue(entities(in: eventStore).contains("\"isVisible\":true"))
+    }
+
     /// A normal launch is inactive rather than active until the app becomes active, so an inactive app must
     /// not be mistaken for a background launch.
     func testLifecycleStateMachineOnANormalLaunch() {

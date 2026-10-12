@@ -13,6 +13,16 @@
 
 import Foundation
 
+/// Lifecycle of the current screen.
+enum ScreenLifecycle {
+    /// The screen is visible, its entity is attached to all events.
+    case active
+    /// The screen was just ended, its entity is attached only to the `ScreenEnd` event that ended it.
+    case ending
+    /// The screen was ended earlier, its entity is no longer attached to events.
+    case ended
+}
+
 /// Forward declaration for SPScreenView
 class ScreenState: NSObject, State, NSCopying {
     /// Screenview name
@@ -29,6 +39,8 @@ class ScreenState: NSObject, State, NSCopying {
     private(set) var viewControllerClassName: String?
     /// Previous ScreenState
     var previousState: ScreenState?
+    /// Whether the screen is still visible or was ended using a `ScreenEnd` event
+    private(set) var lifecycle: ScreenLifecycle = .active
 
     /// Creates a new screen state.
     /// - Parameters:
@@ -74,6 +86,19 @@ class ScreenState: NSObject, State, NSCopying {
                            transitionType: transitionType,
                            topViewControllerClassName: topViewControllerClassName,
                            viewControllerClassName: viewControllerClassName)
+    }
+
+    /// Returns a copy of the state for a screen that was ended by a `ScreenEnd` event.
+    /// The first `ScreenEnd` moves the screen to `.ending`, any later one to `.ended`.
+    func ended() -> ScreenState {
+        let endedState = ScreenState(name: name,
+                                     type: type,
+                                     screenId: screenId,
+                                     transitionType: transitionType,
+                                     topViewControllerClassName: topViewControllerClassName,
+                                     viewControllerClassName: viewControllerClassName)
+        endedState.lifecycle = lifecycle == .active ? .ending : .ended
+        return endedState
     }
 
     /// Return if the state is valid.

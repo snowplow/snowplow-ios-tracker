@@ -50,6 +50,10 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
             return ScreenSummaryState()
         }
         else if let state = currentState as? ScreenSummaryState {
+            if state.isEnded {
+                // the summary was already sent with a screen end event, a repeated screen end is not tracked
+                return event is ScreenEnd ? nil : state
+            }
             switch event {
             case is Foreground:
                 state.updateTransitionToForeground()
@@ -70,6 +74,8 @@ class ScreenSummaryStateMachine: StateMachineProtocol {
 
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
         guard let state = state as? ScreenSummaryState else { return nil }
+        // after the screen ended, the summary is no longer attached to foreground and background events
+        if state.isEnded && event.schema != kSPScreenEndSchema { return nil }
         
         return [
             SelfDescribingJson(schema: kSPScreenSummarySchema, andData: state.data)
