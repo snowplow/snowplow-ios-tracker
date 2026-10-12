@@ -43,7 +43,8 @@ class TestInternalQueue: XCTestCase {
 
     // MARK: - Calling back into Controller APIs from on-queue callbacks
 
-    func testSettingControllerPropertyFromPluginAfterTrackDoesNotCrash() {
+    // afterTrack runs on a global queue, not the internal queue – this covers the off-queue path.
+    func testSettingControllerPropertyFromPluginAfterTrackOffQueue() {
         var tracker: TrackerController!
         let expect = expectation(description: "afterTrack called")
         let plugin = PluginConfiguration(identifier: "plugin")
