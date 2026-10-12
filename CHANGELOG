@@ -1,10 +1,16 @@
+Version 6.3.1 (2026-10-12)
+--------------------------
+Only track a Foreground event after a Background event (#958)
+Stop attaching the ended screen's entities after a manual ScreenEnd (#959)
+Make InternalQueue.sync reentrant to avoid dispatchPrecondition crash (#957)
+
 Version 6.3.0 (2026-09-04)
 --------------------------
-Make ScreenEnd public to allow manually ending a screen [AISP-1670] (#954)
+Make ScreenEnd public to allow manually ending a screen (#954)
 
 Version 6.2.6 (2026-08-24)
 --------------------------
-Derive isVisible from real app state on background launches [AISP-1653] (close #948)
+Derive isVisible from real app state on background launches (close #948)
 Repair the failing build — dead podspec screenshot URL + watchOS demo destination (#950)
 
 Version 6.2.5 (2026-06-25)
