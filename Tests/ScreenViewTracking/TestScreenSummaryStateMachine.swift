@@ -25,6 +25,7 @@ class TestScreenSummaryStateMachine: XCTestCase {
     }
 
     override func tearDown() {
+        Snowplow.removeAllTrackers()
         AppStateSimulator.reset()
         super.tearDown()
     }
@@ -337,7 +338,8 @@ class TestScreenSummaryStateMachine: XCTestCase {
         let trackerConfig = TrackerConfiguration()
         trackerConfig.installAutotracking = false
         trackerConfig.lifecycleAutotracking = false
-        let namespace = "testScreenSummary" + String(describing: Int.random(in: 0..<100))
+        // a unique namespace, reusing one would keep the event sink of an earlier test
+        let namespace = "testScreenSummary" + UUID().uuidString
         return Snowplow.createTracker(namespace: namespace,
                                       network: networkConfig,
                                       configurations: configurations + [trackerConfig])
