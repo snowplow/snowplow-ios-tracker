@@ -31,6 +31,22 @@ import Foundation
 /// // or, from an async context:
 /// let attributes = try await tracker.signals.getServiceAttributes(service: "app_profile")
 /// ```
+///
+/// Receive interventions while the app is in the foreground:
+///
+/// ```swift
+/// tracker.signals.addInterventionHandler(id: "discount_banner") { intervention in
+///     guard intervention.name == "offer_discount" else { return }
+///     showDiscountBanner(intervention.attributes)
+/// }
+///
+/// // a throwing handler reports its error in the intervention_handle_error event
+/// tracker.signals.addInterventionHandler(id: "checkout_nudge") { intervention in
+///     try showNudge(intervention)
+/// }
+///
+/// tracker.signals.removeInterventionHandler(id: "discount_banner")
+/// ```
 @objc(SPSignalsController)
 public protocol SignalsController {
 
@@ -61,9 +77,50 @@ public protocol SignalsController {
         identifier: String?,
         completion: @escaping (_ attributes: [String: Any]?, _ error: SignalsError?) -> Void
     )
+
+    /// Calls the handler with each intervention Signals delivers for this app user and session.
+    ///
+    /// While there is at least one handler, the tracker subscribes to
+    /// `GET {endpoint}/api/v1/interventions?client_session_user_id={userId}&client_session_session_id={sessionId}`
+    /// using the identifiers of the session context entity, and reconnects when they change.
+    /// The subscription starts once an event has been tracked in the session, is closed while the app is in the
+    /// background, and is reopened (with backoff after failures) when it returns to the foreground.
+    /// No subscription is made while user anonymisation is enabled or when session tracking is disabled.
+    ///
+    /// For each intervention, the tracker tracks an `intervention_receive` event, then calls every handler on the
+    /// main queue and tracks an `intervention_handle` event for each, all with an `intervention_instance` entity.
+    ///
+    /// Not supported on watchOS.
+    ///
+    /// - Parameters:
+    ///   - id: Identifier of the handler; adding a handler with the same ID replaces it.
+    ///   - handler: Called on the main queue with each intervention.
+    @objc
+    func addInterventionHandler(id: String, handler: @escaping (_ intervention: SignalsIntervention) -> Void)
+
+    /// Stops calling the handler with the given ID; the subscription is closed when no handlers remain.
+    /// - Parameter id: Identifier of the handler.
+    @objc
+    func removeInterventionHandler(id: String)
+}
+
+/// Registers handlers that may throw; implemented by the tracker's Signals controllers.
+protocol SignalsThrowingHandlerRegistering {
+    func addThrowingInterventionHandler(id: String, handler: @escaping (SignalsIntervention) throws -> Void)
 }
 
 extension SignalsController {
+
+    /// Calls the handler with each intervention Signals delivers for this app user and session.
+    /// When the handler throws, an `intervention_handle_error` event with the error is tracked instead of
+    /// `intervention_handle`. See `addInterventionHandler(id:handler:)`.
+    public func addInterventionHandler(id: String, handler: @escaping (_ intervention: SignalsIntervention) throws -> Void) {
+        if let controller = self as? SignalsThrowingHandlerRegistering {
+            controller.addThrowingInterventionHandler(id: id, handler: handler)
+        } else {
+            addInterventionHandler(id: id) { intervention in try? handler(intervention) }
+        }
+    }
 
     /// Reads the attributes of a public Signals service for the session user (`client_session_user_id`).
     /// See `getServiceAttributes(service:attributeKey:identifier:completion:)`.

@@ -151,6 +151,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         processConfigurations(configurations)
         resetServices()
         let _ = tracker
+        _signalsController?.resumeInterventions()
     }
 
     func shutdown() {
@@ -191,6 +192,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
 
     func stopServices() {
         emitter.pauseTimer()
+        _signalsController?.stopInterventions()
     }
 
     func resetServices() {

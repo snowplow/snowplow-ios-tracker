@@ -13,7 +13,11 @@
 
 import Foundation
 
-class SignalsControllerImpl: Controller, SignalsController {
+class SignalsControllerImpl: Controller, SignalsController, SignalsThrowingHandlerRegistering {
+    static let interventionsPluginIdentifier = "signalsInterventionsPluginInternal"
+
+    /// Created when the first intervention handler is added.
+    private(set) var interventions: InterventionsSubscription?
 
     // MARK: - Service attributes
 
@@ -87,6 +91,74 @@ class SignalsControllerImpl: Controller, SignalsController {
             return .failure(SignalsError(status: statusCode, message: "Unexpected Signals response, missing attributes"))
         }
         return .success(attributes)
+    }
+
+    // MARK: - Interventions
+
+    func addInterventionHandler(id: String, handler: @escaping (SignalsIntervention) -> Void) {
+        addThrowingInterventionHandler(id: id, handler: handler)
+    }
+
+    func addThrowingInterventionHandler(id: String, handler: @escaping (SignalsIntervention) throws -> Void) {
+#if os(watchOS)
+        logError(message: "Signals interventions are not supported on watchOS")
+#else
+        guard let configuration = serviceProvider.signalsConfiguration else {
+            logError(message: "Can't add Signals intervention handler \(id): \(SignalsControllerImpl.notConfiguredError.message)")
+            return
+        }
+        let tracker = serviceProvider.tracker
+        if tracker.userAnonymisation {
+            logError(message: "Signals interventions are not delivered while user anonymisation is enabled")
+        } else if tracker.session == nil {
+            logError(message: "Signals interventions are not delivered: \(SignalsControllerImpl.sessionDisabledError.message)")
+        }
+
+        let interventions = makeInterventionsIfNeeded()
+        interventions.configure(baseUrl: configuration.baseUrl)
+        interventions.updateIdentifiers(userId: tracker.session?.userId,
+                                        sessionId: tracker.session?.sessionId,
+                                        isAnonymised: tracker.userAnonymisation)
+        interventions.addHandler(id: id, handler: handler)
+#endif
+    }
+
+    func removeInterventionHandler(id: String) {
+        interventions?.removeHandler(id: id)
+    }
+
+    /// Closes the interventions stream, e.g. before the tracker is reset or shut down.
+    func stopInterventions() {
+        interventions?.stop()
+    }
+
+    /// Reconnects the interventions stream with the current configuration, after the tracker was reset.
+    func resumeInterventions() {
+        interventions?.configure(baseUrl: serviceProvider.signalsConfiguration?.baseUrl)
+    }
+
+    private func makeInterventionsIfNeeded() -> InterventionsSubscription {
+        if let interventions = interventions { return interventions }
+
+        let serviceProvider = self.serviceProvider
+        let interventions = InterventionsSubscription { [weak serviceProvider] event in
+            InternalQueue.async {
+                _ = serviceProvider?.trackerController.track(event)
+            }
+        }
+        self.interventions = interventions
+
+        // keeps the identifiers current from the session entity of tracked events
+        let plugin = PluginConfiguration(identifier: SignalsControllerImpl.interventionsPluginIdentifier)
+        _ = plugin.afterTrack { [weak interventions] event in
+            guard let session = event.entities.first(where: { $0.schema == kSPSessionContextSchema }) else { return }
+            let userId = session.data[kSPSessionUserId] as? String
+            interventions?.updateIdentifiers(userId: userId,
+                                             sessionId: session.data[kSPSessionId] as? String,
+                                             isAnonymised: userId == kSPSessionAnonymousUserId)
+        }
+        serviceProvider.addPlugin(plugin: plugin)
+        return interventions
     }
 
     // MARK: - Identifiers

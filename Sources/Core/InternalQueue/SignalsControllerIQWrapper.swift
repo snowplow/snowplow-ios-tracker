@@ -13,7 +13,7 @@
 
 import Foundation
 
-class SignalsControllerIQWrapper: SignalsController {
+class SignalsControllerIQWrapper: SignalsController, SignalsThrowingHandlerRegistering {
 
     private let controller: SignalsControllerImpl
 
@@ -33,5 +33,17 @@ class SignalsControllerIQWrapper: SignalsController {
                                             identifier: identifier,
                                             completion: completion)
         }
+    }
+
+    func addInterventionHandler(id: String, handler: @escaping (SignalsIntervention) -> Void) {
+        InternalQueue.sync { controller.addInterventionHandler(id: id, handler: handler) }
+    }
+
+    func addThrowingInterventionHandler(id: String, handler: @escaping (SignalsIntervention) throws -> Void) {
+        InternalQueue.sync { controller.addThrowingInterventionHandler(id: id, handler: handler) }
+    }
+
+    func removeInterventionHandler(id: String) {
+        InternalQueue.sync { controller.removeInterventionHandler(id: id) }
     }
 }
