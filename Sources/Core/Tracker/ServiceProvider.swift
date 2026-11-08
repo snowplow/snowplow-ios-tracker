@@ -117,6 +117,14 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         return ecommerceController
     }
     
+    private var _signalsController: SignalsControllerImpl?
+    var signalsController: SignalsControllerImpl {
+        if let controller = _signalsController { return controller }
+        let signalsController = SignalsControllerImpl(serviceProvider: self)
+        _signalsController = signalsController
+        return signalsController
+    }
+
     private(set) var networkConfiguration = NetworkConfiguration()
     private(set) var trackerConfiguration = TrackerConfiguration()
     private(set) var emitterConfiguration = EmitterConfiguration()
@@ -124,6 +132,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
     private(set) var sessionConfiguration = SessionConfiguration()
     private(set) var gdprConfiguration = GDPRConfiguration()
     private(set) var pluginConfigurations: [PluginIdentifiable] = []
+    private(set) var signalsConfiguration: SignalsConfiguration?
     
     // MARK: - Init
 
@@ -168,6 +177,8 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
                 emitterConfiguration.sourceConfig = configuration
             } else if let configuration = configuration as? GDPRConfiguration {
                 gdprConfiguration.sourceConfig = configuration
+            } else if let configuration = configuration as? SignalsConfiguration {
+                signalsConfiguration = configuration
             } else if let configuration = configuration as? GlobalContextsConfiguration {
                 for plugin in configuration.toPluginConfigurations() {
                     pluginConfigurations.append(plugin)
@@ -195,6 +206,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         _gdprController = nil
         _subjectController = nil
         _networkController = nil
+        _signalsController = nil
     }
 
     func resetSourceConfigurations() {
@@ -205,6 +217,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         subjectConfiguration.sourceConfig = nil
         sessionConfiguration.sourceConfig = nil
         gdprConfiguration.sourceConfig = nil
+        signalsConfiguration = nil
     }
 
     func initializeConfigurations() {
@@ -214,6 +227,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
         subjectConfiguration = SubjectConfiguration()
         sessionConfiguration = SessionConfiguration()
         gdprConfiguration = GDPRConfiguration()
+        signalsConfiguration = nil
     }
 
     // MARK: - Getters
