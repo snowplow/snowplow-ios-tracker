@@ -205,6 +205,11 @@ class TrackerControllerIQWrapper: TrackerController {
         set { InternalQueue.sync { controller.screenContext = newValue } }
     }
 
+    var screenContextFromEvent: Bool {
+        get { return InternalQueue.sync { controller.screenContextFromEvent } }
+        set { InternalQueue.sync { controller.screenContextFromEvent = newValue } }
+    }
+
     var screenViewAutotracking: Bool {
         get { return InternalQueue.sync { controller.screenViewAutotracking } }
         set { InternalQueue.sync { controller.screenViewAutotracking = newValue } }

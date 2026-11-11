@@ -22,6 +22,7 @@ class TrackerDefaults {
     private(set) static var sessionContext = true
     private(set) static var deepLinkContext = true
     private(set) static var screenContext = true
+    private(set) static var screenContextFromEvent = false
     private(set) static var applicationContext = true
     private(set) static var autotrackScreenViews = true
     private(set) static var lifecycleEvents = true

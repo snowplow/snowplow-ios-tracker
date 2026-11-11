@@ -17,6 +17,11 @@ class ScreenStateMachine: StateMachineProtocol {
     static var identifier: String { return "ScreenContext" }
     var identifier: String { return ScreenStateMachine.identifier }
 
+    /// Whether events tracked with their own screen entity keep it instead of getting the current screen entity.
+    var screenContextFromEvent = false
+
+    private static let screenSchemaPrefix = "iglu:com.snowplowanalytics.mobile/screen/jsonschema/1-"
+
     var subscribedEventSchemasForEventsBefore: [String] {
         return []
     }
@@ -60,6 +65,8 @@ class ScreenStateMachine: StateMachineProtocol {
 
     func entities(from event: InspectableEvent, state: State?) -> [SelfDescribingJson]? {
         guard let state = state as? ScreenState else { return nil }
+        // keep the screen entity attached by the caller rather than adding the current screen
+        if screenContextFromEvent && hasScreenEntity(event) { return nil }
         switch state.lifecycle {
         case .active:
             break
@@ -96,6 +103,15 @@ class ScreenStateMachine: StateMachineProtocol {
     }
 
     // Private methods
+
+    /// Whether the event was tracked with its own screen entity, of any 1-x-x version.
+    /// Screen view and screen end events always keep the screen they describe.
+    private func hasScreenEntity(_ event: InspectableEvent) -> Bool {
+        if event.schema == kSPScreenViewSchema || event.schema == kSPScreenEndSchema {
+            return false
+        }
+        return event.entities.contains { $0.schema.hasPrefix(ScreenStateMachine.screenSchemaPrefix) }
+    }
 
     func screenState(from screenView: ScreenView) -> ScreenState {
         return ScreenState(

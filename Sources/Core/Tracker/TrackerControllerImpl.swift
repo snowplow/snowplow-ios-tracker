@@ -287,6 +287,16 @@ class TrackerControllerImpl: Controller, TrackerController {
         }
     }
 
+    var screenContextFromEvent: Bool {
+        get {
+            return tracker.screenContextFromEvent
+        }
+        set {
+            dirtyConfig.screenContextFromEvent = newValue
+            tracker.screenContextFromEvent = newValue
+        }
+    }
+
     var screenViewAutotracking: Bool {
         get {
             return tracker.autotrackScreenViews
