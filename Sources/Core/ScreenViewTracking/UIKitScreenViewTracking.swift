@@ -86,8 +86,8 @@ extension UIViewController {
         
         // Construct userInfo
         var userInfo: [AnyHashable : Any] = [:]
-        userInfo["viewControllerClassName"] = String(describing: self.classForCoder)
-        userInfo["topViewControllerClassName"] = String(describing: top.classForCoder)
+        userInfo["viewControllerClassName"] = "\(self.classForCoder)"
+        userInfo["topViewControllerClassName"] = "\(top.classForCoder)"
         
         // `name` is set to snowplowId class instance variable if it exists (hence no @"id" in userInfo)
         userInfo["name"] = _SP_getName(self) ?? _SP_getName(top) ?? "Unknown"
