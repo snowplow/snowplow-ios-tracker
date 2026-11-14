@@ -300,6 +300,7 @@ class ServiceProvider: NSObject, ServiceProviderProtocol {
             tracker.applicationContext = trackerConfiguration.applicationContext
             tracker.deepLinkContext = trackerConfiguration.deepLinkContext
             tracker.screenContext = trackerConfiguration.screenContext
+            tracker.screenContextFromEvent = trackerConfiguration.screenContextFromEvent
             tracker.screenEngagementAutotracking = trackerConfiguration.screenEngagementAutotracking
             tracker.autotrackScreenViews = trackerConfiguration.screenViewAutotracking
             tracker.lifecycleEvents = trackerConfiguration.lifecycleAutotracking

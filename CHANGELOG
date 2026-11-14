@@ -1,3 +1,8 @@
+Version 6.4.0 (2026-11-14)
+--------------------------
+Add screenContextFromEvent option to keep a caller-supplied screen entity (#964)
+Read view controller class names without conformance lookups (close #965)
+
 Version 6.3.1 (2026-10-12)
 --------------------------
 Only track a Foreground event after a Background event (#958)
