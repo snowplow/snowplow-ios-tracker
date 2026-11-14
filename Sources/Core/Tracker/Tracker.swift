@@ -141,6 +141,9 @@ class Tracker: NSObject {
         }
     }
     
+    /// One instance so that runtime changes to `screenContextFromEvent` reach the registered state machine
+    private let screenStateMachine = ScreenStateMachine()
+
     private var _screenContext = false
     var screenContext: Bool {
         get {
@@ -149,11 +152,16 @@ class Tracker: NSObject {
         set(screenContext) {
             self._screenContext = screenContext
             if screenContext {
-                self.addOrReplace(stateMachine: ScreenStateMachine())
+                self.addOrReplace(stateMachine: screenStateMachine)
             } else {
                 _ = self.stateManager.removeStateMachine(ScreenStateMachine.identifier)
             }
         }
+    }
+
+    var screenContextFromEvent: Bool {
+        get { return screenStateMachine.screenContextFromEvent }
+        set { screenStateMachine.screenContextFromEvent = newValue }
     }
     
     private var _screenEngagementAutotracking = false

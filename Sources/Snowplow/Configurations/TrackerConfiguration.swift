@@ -49,6 +49,14 @@ public protocol TrackerConfigurationProtocol: AnyObject {
     /// Whether the screen context entity is sent with all the tracked events.
     @objc
     var screenContext: Bool { get set }
+    /// Whether events tracked with their own screen entity keep it instead of getting the current screen entity.
+    /// Only applies when screen context is enabled.
+    ///
+    /// Only entities attached to the event are checked, not those added by global contexts or plugins.
+    /// Screen view and screen end events always get the screen they describe.
+    /// Web view events that carry the web tracker's screen entity don't get the native screen entity.
+    @objc
+    var screenContextFromEvent: Bool { get set }
     /// Whether to enable automatic tracking of ScreenView events.
     @objc
     var screenViewAutotracking: Bool { get set }
@@ -187,6 +195,19 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
     public var screenContext: Bool {
         get { return _screenContext ?? sourceConfig?.screenContext ?? TrackerDefaults.screenContext }
         set { _screenContext = newValue }
+    }
+    
+    private var _screenContextFromEvent: Bool?
+    /// Whether events tracked with their own screen entity keep it instead of getting the current screen entity.
+    /// Only applies when screen context is enabled.
+    ///
+    /// Only entities attached to the event are checked, not those added by global contexts or plugins.
+    /// Screen view and screen end events always get the screen they describe.
+    /// Web view events that carry the web tracker's screen entity don't get the native screen entity.
+    @objc
+    public var screenContextFromEvent: Bool {
+        get { return _screenContextFromEvent ?? sourceConfig?.screenContextFromEvent ?? TrackerDefaults.screenContextFromEvent }
+        set { _screenContextFromEvent = newValue }
     }
     
     private var _screenViewAutotracking: Bool?
@@ -354,6 +375,9 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         if let screenContext = dictionary["screenContext"] as? Bool {
             self.screenContext = screenContext
         }
+        if let screenContextFromEvent = dictionary["screenContextFromEvent"] as? Bool {
+            self.screenContextFromEvent = screenContextFromEvent
+        }
         if let screenViewAutotracking = dictionary["screenViewAutotracking"] as? Bool {
             self.screenViewAutotracking = screenViewAutotracking
         }
@@ -466,6 +490,18 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         return self
     }
     
+    /// Whether events tracked with their own screen entity keep it instead of getting the current screen entity.
+    /// Only applies when screen context is enabled.
+    ///
+    /// Only entities attached to the event are checked, not those added by global contexts or plugins.
+    /// Screen view and screen end events always get the screen they describe.
+    /// Web view events that carry the web tracker's screen entity don't get the native screen entity.
+    @objc
+    public func screenContextFromEvent(_ screenContextFromEvent: Bool) -> Self {
+        self.screenContextFromEvent = screenContextFromEvent
+        return self
+    }
+    
     /// Whether to enable automatic tracking of ScreenView events.
     @objc
     public func screenViewAutotracking(_ screenViewAutotracking: Bool) -> Self {
@@ -565,6 +601,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         copy.geoLocationContext = geoLocationContext
         copy.deepLinkContext = deepLinkContext
         copy.screenContext = screenContext
+        copy.screenContextFromEvent = screenContextFromEvent
         copy.screenViewAutotracking = screenViewAutotracking
         copy.screenEngagementAutotracking = screenEngagementAutotracking
         copy.lifecycleAutotracking = lifecycleAutotracking
@@ -594,6 +631,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         coder.encode(geoLocationContext, forKey: "geoLocationContext")
         coder.encode(deepLinkContext, forKey: "deepLinkContext")
         coder.encode(screenContext, forKey: "screenContext")
+        coder.encode(screenContextFromEvent, forKey: "screenContextFromEvent")
         coder.encode(screenViewAutotracking, forKey: "screenViewAutotracking")
         coder.encode(screenEngagementAutotracking, forKey: "screenEngagementAutotracking")
         coder.encode(lifecycleAutotracking, forKey: "lifecycleAutotracking")
@@ -623,6 +661,7 @@ public class TrackerConfiguration: SerializableConfiguration, TrackerConfigurati
         geoLocationContext = coder.decodeBool(forKey: "geoLocationContext")
         deepLinkContext = coder.decodeBool(forKey: "deepLinkContext")
         screenContext = coder.decodeBool(forKey: "screenContext")
+        screenContextFromEvent = coder.decodeBool(forKey: "screenContextFromEvent")
         screenViewAutotracking = coder.decodeBool(forKey: "screenViewAutotracking")
         screenEngagementAutotracking = coder.decodeBool(forKey: "screenEngagementAutotracking")
         lifecycleAutotracking = coder.decodeBool(forKey: "lifecycleAutotracking")
