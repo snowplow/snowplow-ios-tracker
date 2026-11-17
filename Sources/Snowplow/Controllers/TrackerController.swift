@@ -59,6 +59,10 @@ public protocol TrackerController: TrackerConfigurationProtocol {
     /// Ecommerce controller for managing ecommerce entity addition.
     @objc
     var ecommerce: EcommerceController { get }
+    /// Signals controller for reading Signals attributes and receiving interventions.
+    /// Requires a `SignalsConfiguration` passed when creating the tracker.
+    @objc
+    var signals: SignalsController { get }
     /// Track the event.
     /// The tracker will take care to process and send the event assigning `event_id` and `device_timestamp`.
     /// - Parameter event: The event to track.

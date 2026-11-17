@@ -95,6 +95,10 @@ class TrackerControllerIQWrapper: TrackerController {
         return InternalQueue.sync { EcommerceControllerIQWrapper(controller: controller.ecommerce) }
     }
 
+    var signals: SignalsController {
+        return InternalQueue.sync { SignalsControllerIQWrapper(controller: controller.serviceProvider.signalsController) }
+    }
+
     // MARK: - Control methods
 
     func pause() {
