@@ -23,8 +23,8 @@ class SignalsControllerImpl: Controller, SignalsController, SignalsThrowingHandl
 
     func getServiceAttributes(
         service: String,
-        attributeKey: String?,
-        identifier: String?,
+        attributeKey: String,
+        identifier: String,
         completion: @escaping ([String: Any]?, SignalsError?) -> Void
     ) {
         let finish = { (attributes: [String: Any]?, error: SignalsError?) in
@@ -38,19 +38,10 @@ class SignalsControllerImpl: Controller, SignalsController, SignalsThrowingHandl
             finish(nil, SignalsControllerImpl.notConfiguredError)
             return
         }
-        let attributeKey = attributeKey ?? kSPSignalsUserIdAttributeKey
-        let resolvedIdentifier: String
-        switch resolveIdentifier(attributeKey: attributeKey, identifier: identifier) {
-        case .failure(let error):
-            finish(nil, error)
-            return
-        case .success(let value):
-            resolvedIdentifier = value
-        }
         guard let url = SignalsNetworking.serviceUrl(baseUrl: configuration.baseUrl,
                                                      service: service,
                                                      attributeKey: attributeKey,
-                                                     identifier: resolvedIdentifier) else {
+                                                     identifier: identifier) else {
             finish(nil, SignalsError(status: 0, message: "Invalid Signals endpoint: \(configuration.endpoint)"))
             return
         }
@@ -159,37 +150,6 @@ class SignalsControllerImpl: Controller, SignalsController, SignalsThrowingHandl
         }
         serviceProvider.addPlugin(plugin: plugin)
         return interventions
-    }
-
-    // MARK: - Identifiers
-
-    /// Resolves the identifier to read or subscribe with, refusing when the tracker's identifiers are unusable.
-    /// Must be called on the InternalQueue.
-    func resolveIdentifier(attributeKey: String, identifier: String?) -> Result<String, SignalsError> {
-        let tracker = serviceProvider.tracker
-        if tracker.userAnonymisation {
-            return .failure(SignalsError(status: 0, message: "Signals is not available when user anonymisation is enabled"))
-        }
-        if let identifier = identifier {
-            return .success(identifier)
-        }
-        switch attributeKey {
-        case kSPSignalsUserIdAttributeKey:
-            guard let session = tracker.session else {
-                return .failure(SignalsControllerImpl.sessionDisabledError)
-            }
-            return .success(session.userId)
-        case kSPSignalsSessionIdAttributeKey:
-            guard let session = tracker.session else {
-                return .failure(SignalsControllerImpl.sessionDisabledError)
-            }
-            guard let sessionId = session.sessionId else {
-                return .failure(SignalsError(status: 0, message: "No session ID yet; it is created on the first tracked event"))
-            }
-            return .success(sessionId)
-        default:
-            return .failure(SignalsError(status: 0, message: "An identifier is required for attribute key \(attributeKey)"))
-        }
     }
 
     // MARK: - Errors

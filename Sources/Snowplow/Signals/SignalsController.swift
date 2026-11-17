@@ -20,7 +20,11 @@ import Foundation
 /// Read the attributes of a public service for the current app user:
 ///
 /// ```swift
-/// tracker.signals.getServiceAttributes(service: "app_profile") { attributes, error in
+/// tracker.signals.getServiceAttributes(
+///     service: "app_profile",
+///     attributeKey: "client_session_user_id",
+///     identifier: tracker.session?.userId ?? ""
+/// ) { attributes, error in
 ///     if let error = error {
 ///         print("Signals read failed (\(error.status)): \(error.message)")
 ///     } else if let attributes = attributes {
@@ -29,7 +33,11 @@ import Foundation
 /// }
 ///
 /// // or, from an async context:
-/// let attributes = try await tracker.signals.getServiceAttributes(service: "app_profile")
+/// let attributes = try await tracker.signals.getServiceAttributes(
+///     service: "session_profile",
+///     attributeKey: "client_session_session_id",
+///     identifier: tracker.session?.sessionId ?? ""
+/// )
 /// ```
 ///
 /// Receive interventions while the app is in the foreground:
@@ -55,26 +63,21 @@ public protocol SignalsController {
     /// Makes `GET {endpoint}/api/v1/services/{service}?{attributeKey}={identifier}` without credentials or caching.
     /// Only services whose access mode is public can be read without a token.
     ///
-    /// The identifier defaults to the session context entity identifiers of this tracker:
-    /// the session `userId` for `client_session_user_id` (the default attribute key),
-    /// and the session `sessionId` for `client_session_session_id`.
-    /// The session ID is created on the first tracked event, so track an event before reading by session.
-    /// Any other attribute key needs an explicit identifier.
-    ///
-    /// The read is refused with status 0 when user anonymisation is enabled, since events then carry
-    /// an anonymous user ID, and when the session is disabled or no session ID exists yet.
+    /// To read by the identifiers of the session context entity, pass `client_session_user_id` with
+    /// `tracker.session?.userId`, or `client_session_session_id` with `tracker.session?.sessionId`
+    /// (created on the first tracked event).
     ///
     /// - Parameters:
     ///   - service: Name of the public service to read.
-    ///   - attributeKey: Attribute key the attributes are calculated for; defaults to `client_session_user_id`.
-    ///   - identifier: Value of the attribute key; defaults to the session identifiers as described above.
+    ///   - attributeKey: Attribute key the service's attributes are calculated for, e.g. `client_session_user_id`.
+    ///   - identifier: Value of the attribute key to read the attributes for.
     ///   - completion: Called on the main queue with the attributes by name (`NSNull` where there is no value yet),
     ///     or with a `SignalsError`.
     @objc
     func getServiceAttributes(
         service: String,
-        attributeKey: String?,
-        identifier: String?,
+        attributeKey: String,
+        identifier: String,
         completion: @escaping (_ attributes: [String: Any]?, _ error: SignalsError?) -> Void
     )
 
@@ -122,25 +125,16 @@ extension SignalsController {
         }
     }
 
-    /// Reads the attributes of a public Signals service for the session user (`client_session_user_id`).
-    /// See `getServiceAttributes(service:attributeKey:identifier:completion:)`.
-    public func getServiceAttributes(
-        service: String,
-        completion: @escaping (_ attributes: [String: Any]?, _ error: SignalsError?) -> Void
-    ) {
-        getServiceAttributes(service: service, attributeKey: nil, identifier: nil, completion: completion)
-    }
-
 #if swift(>=5.5)
     /// Reads the attributes of a public Signals service for one attribute key.
     /// See `getServiceAttributes(service:attributeKey:identifier:completion:)`.
     /// - Returns: The attributes by name (`NSNull` where there is no value yet).
-    /// - Throws: `SignalsError` when the read is refused or fails.
+    /// - Throws: `SignalsError` when the read fails.
     @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
     public func getServiceAttributes(
         service: String,
-        attributeKey: String? = nil,
-        identifier: String? = nil
+        attributeKey: String,
+        identifier: String
     ) async throws -> [String: Any] {
         return try await withCheckedThrowingContinuation { continuation in
             getServiceAttributes(service: service, attributeKey: attributeKey, identifier: identifier) { attributes, error in

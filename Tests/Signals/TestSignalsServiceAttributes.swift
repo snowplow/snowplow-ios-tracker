@@ -23,7 +23,7 @@ class TestSignalsServiceAttributes: XCTestCase {
         super.tearDown()
     }
 
-    // MARK: - Refusals (no request is made)
+    // MARK: - Configuration
 
     func testFailsWithoutSignalsConfiguration() {
         let tracker = createTracker(signals: nil)
@@ -32,44 +32,6 @@ class TestSignalsServiceAttributes: XCTestCase {
 
         XCTAssertEqual(0, error?.status)
         XCTAssertTrue(error?.message.contains("SignalsConfiguration") ?? false)
-    }
-
-    func testRefusesWhenUserAnonymisationIsEnabled() {
-        let tracker = createTracker()
-        tracker.userAnonymisation = true
-
-        let error = readError(tracker, service: "profile", identifier: "4b4a5e8c-6c4f-4b8a-9a3b-5a1d2c3e4f5a")
-
-        XCTAssertEqual(0, error?.status)
-        XCTAssertTrue(error?.message.contains("anonymisation") ?? false)
-    }
-
-    func testRefusesWhenSessionIsDisabled() {
-        let trackerConfig = TrackerConfiguration().sessionContext(false)
-        let tracker = createTracker(trackerConfig: trackerConfig)
-
-        let error = readError(tracker, service: "profile")
-
-        XCTAssertEqual(0, error?.status)
-        XCTAssertTrue(error?.message.contains("sessionContext") ?? false)
-    }
-
-    func testRefusesSessionIdBeforeTheFirstEvent() {
-        let tracker = createTracker()
-
-        let error = readError(tracker, service: "profile", attributeKey: "client_session_session_id")
-
-        XCTAssertEqual(0, error?.status)
-        XCTAssertTrue(error?.message.contains("first tracked event") ?? false)
-    }
-
-    func testRequiresAnIdentifierForOtherAttributeKeys() {
-        let tracker = createTracker()
-
-        let error = readError(tracker, service: "profile", attributeKey: "user_id")
-
-        XCTAssertEqual(0, error?.status)
-        XCTAssertTrue(error?.message.contains("user_id") ?? false)
     }
 
     // MARK: - URL building and response parsing
@@ -141,7 +103,7 @@ class TestSignalsServiceAttributes: XCTestCase {
         super.tearDown()
     }
 
-    func testReadsAttributesForTheSessionUserId() {
+    func testReadsAttributesWithoutCredentials() {
         let tracker = createTracker()
         var requestUrl: URL?
         var requestHeaders: [String: String]?
@@ -150,32 +112,17 @@ class TestSignalsServiceAttributes: XCTestCase {
             requestHeaders = request.allHTTPHeaderFields
         }
 
-        let (attributes, error) = read(tracker, service: "profile")
+        let userId = tracker.session!.userId!
+
+        let (attributes, error) = read(tracker, service: "profile", attributeKey: "client_session_user_id", identifier: userId)
 
         XCTAssertNil(error)
         XCTAssertEqual(3, attributes?["page_views"] as? Int)
         XCTAssertTrue(attributes?["last_page"] is NSNull)
-        let userId = tracker.session!.userId!
         XCTAssertEqual("/api/v1/services/profile", requestUrl?.path)
         XCTAssertEqual("client_session_user_id=\(userId)", requestUrl?.query)
         XCTAssertNil(requestHeaders?["Cookie"])
         XCTAssertNil(requestHeaders?["Authorization"])
-    }
-
-    func testReadsAttributesForTheSessionIdAfterTheFirstEvent() {
-        let tracker = createTracker()
-        _ = tracker.track(Structured(category: "cat", action: "act"))
-        var requestUrl: URL?
-        mockService("profile", statusCode: 200, body: #"{"attributes": {}}"#) { request in
-            requestUrl = request.url
-        }
-
-        let (attributes, error) = read(tracker, service: "profile", attributeKey: "client_session_session_id")
-
-        XCTAssertNil(error)
-        XCTAssertNotNil(attributes)
-        let sessionId = tracker.session!.sessionId!
-        XCTAssertEqual("client_session_session_id=\(sessionId)", requestUrl?.query)
     }
 
     func testReadsAttributesForAnExplicitIdentifier() {
@@ -206,7 +153,7 @@ class TestSignalsServiceAttributes: XCTestCase {
         let tracker = createTracker()
         mockService("profile", statusCode: 200, body: #"{"attributes": {"page_views": 3}}"#)
 
-        let attributes = try await tracker.signals.getServiceAttributes(service: "profile")
+        let attributes = try await tracker.signals.getServiceAttributes(service: "profile", attributeKey: "user_id", identifier: "u1")
 
         XCTAssertEqual(3, attributes["page_views"] as? Int)
     }
@@ -216,7 +163,7 @@ class TestSignalsServiceAttributes: XCTestCase {
         mockService("profile", statusCode: 400, body: #"{"error": "invalid identifier"}"#)
 
         do {
-            _ = try await tracker.signals.getServiceAttributes(service: "profile")
+            _ = try await tracker.signals.getServiceAttributes(service: "profile", attributeKey: "user_id", identifier: "u1")
             XCTFail("Expected an error")
         } catch let error as SignalsError {
             XCTAssertEqual(400, error.status)
@@ -242,8 +189,8 @@ class TestSignalsServiceAttributes: XCTestCase {
 
     private func read(_ tracker: TrackerController,
                       service: String,
-                      attributeKey: String? = nil,
-                      identifier: String? = nil) -> ([String: Any]?, SignalsError?) {
+                      attributeKey: String = "user_id",
+                      identifier: String = "u1") -> ([String: Any]?, SignalsError?) {
         let done = expectation(description: "Read completed")
         var result: ([String: Any]?, SignalsError?) = (nil, nil)
         tracker.signals.getServiceAttributes(service: service, attributeKey: attributeKey, identifier: identifier) { attributes, error in
@@ -257,8 +204,8 @@ class TestSignalsServiceAttributes: XCTestCase {
 
     private func readError(_ tracker: TrackerController,
                            service: String,
-                           attributeKey: String? = nil,
-                           identifier: String? = nil) -> SignalsError? {
+                           attributeKey: String = "user_id",
+                           identifier: String = "u1") -> SignalsError? {
         let (attributes, error) = read(tracker, service: service, attributeKey: attributeKey, identifier: identifier)
         XCTAssertNil(attributes)
         return error

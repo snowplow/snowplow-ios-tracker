@@ -23,8 +23,8 @@ class SignalsControllerIQWrapper: SignalsController, SignalsThrowingHandlerRegis
 
     func getServiceAttributes(
         service: String,
-        attributeKey: String?,
-        identifier: String?,
+        attributeKey: String,
+        identifier: String,
         completion: @escaping ([String: Any]?, SignalsError?) -> Void
     ) {
         InternalQueue.sync {
