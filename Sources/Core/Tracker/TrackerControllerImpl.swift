@@ -58,6 +58,10 @@ class TrackerControllerImpl: Controller, TrackerController {
         return serviceProvider.ecommerceController
     }
 
+    var signals: SignalsController {
+        return serviceProvider.signalsController
+    }
+
     // MARK: - Control methods
 
     func pause() {

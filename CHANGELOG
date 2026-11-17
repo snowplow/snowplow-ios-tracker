@@ -1,3 +1,7 @@
+Version 6.5.0 (2026-11-17)
+--------------------------
+Add tracker.signals for Signals attributes and interventions (#963)
+
 Version 6.4.0 (2026-11-14)
 --------------------------
 Add screenContextFromEvent option to keep a caller-supplied screen entity (#964)
